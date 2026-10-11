@@ -37,6 +37,7 @@ bool EqualPairedBytes(
     }
 }
 
+// 原函数：0x004011A0。
 std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
     PathBuffer localPath {};
@@ -71,12 +72,14 @@ static_assert(sizeof(Record) == 17);
 static_assert(sizeof(RecordTable) == 0x6A4);
 static_assert(sizeof(PathBuffer) == 0x200);
 
+// 原函数：0x00401170。
 char* BlacklistRecordAt_401170(const std::int32_t index) noexcept
 {
     return reinterpret_cast<char*>(
         gRecords[static_cast<std::size_t>(index)].data());
 }
 
+// 原函数：0x00401030。
 std::int8_t LoadBlacklistFile(const std::int32_t fileId)
 {
     std::memset(gPath.data(), 0, sizeof(gPath));
@@ -136,6 +139,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
     return std::int8_t {1};
 }
 
+// 原函数：0x00401000。
 std::int8_t PersistAndReset_401000(const std::int32_t fileId)
 {
     if (PersistBlacklistFile_4011A0(fileId) == 0) {
@@ -153,6 +157,7 @@ std::int32_t GetBlacklistCount_401190()
     return gCursor;
 }
 
+// 原函数：0x004013D0。
 std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
 {
     const auto* const inputBytes =
@@ -171,6 +176,7 @@ std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
     return 0;
 }
 
+// 原函数：0x00401270。
 std::int8_t AddBlacklistRecord_401270(const char* const name)
 {
     if (gCursor == static_cast<std::int32_t>(kRecordCount)) {
@@ -211,6 +217,7 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
     return 1;
 }
 
+// 原函数：0x004012F0。
 std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
 {
     const auto* const inputBytes =
@@ -259,6 +266,7 @@ std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
     return 1;
 }
 
+// 原函数：0x00401470。
 std::int8_t ClearBlacklistRecords_401470()
 {
     if (gRecords[0][0] == 0 || gCursor == 0) {

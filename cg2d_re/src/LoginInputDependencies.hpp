@@ -11,7 +11,9 @@ char* Sub_5335F0(char* output, std::int32_t selectedSlot);
 
 // 原 sub_533570/sub_5335B0/sub_533640：把三个输入文本写回所选记录。
 void Sub_533570(const char* text, std::int32_t selectedSlot);
+// 原函数：0x005335B0。
 void Sub_5335B0(const char* text, std::int32_t selectedSlot);
+// 原函数：0x00533640。
 void Sub_533640(const char* text, std::int32_t selectedSlot);
 // 原 sub_533730@0x533730：把记录系统持久化到文件；调用方忽略返回值。
 void Sub_533730();
@@ -32,6 +34,7 @@ std::int32_t DecodeSavedBytes(
 
 // 原 sub_5336D0/sub_533860：载入当前记录与删除指定物理槽文件。
 std::int32_t Sub_5336D0();
+// 原函数：0x00533860。
 std::int32_t Sub_533860(std::int32_t physicalSlot);
 
 // 能力 4 切场景专用恢复：严格调用 5204C0/5205E0/520690/520700。

@@ -53,6 +53,7 @@ std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{
 }};
 std::int32_t gHoveredTextPendingIndex = 0;
 
+// 原函数：0x0045D7A0。
 std::int32_t FindClickedTextIndex_45D7A0(
     const std::int32_t* const values,
     const std::int32_t count)
@@ -75,6 +76,7 @@ std::int32_t FindClickedTextIndex_45D7A0(
     return -1;
 }
 
+// 原函数：0x00521A30。
 std::int32_t QueueText_521A30(
     const std::uint32_t headToken,
     const std::uint8_t layer)
@@ -105,6 +107,7 @@ std::int32_t QueueText_521A30(
     return result;
 }
 
+// 原函数：0x00456560。
 std::int32_t DrawText3_456560(
     const std::int16_t x,
     const std::int16_t y,
@@ -116,6 +119,7 @@ std::int32_t DrawText3_456560(
     return DrawText2_456670(x, y, renderMode, 0, color, text, value7);
 }
 
+// 原函数：0x00456670。
 std::int32_t DrawText2_456670(
     const std::int16_t x,
     const std::int16_t y,
@@ -176,6 +180,7 @@ std::int32_t DrawText2_456670(
     return result;
 }
 
+// 原函数：0x00456780。
 std::int32_t DrawText_456780(
     const std::int16_t x,
     const std::int16_t y,

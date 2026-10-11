@@ -161,6 +161,7 @@ std::uint8_t ReadLegacyMouseTrackerFixedByte(const std::size_t byteOffset)
     return static_cast<std::uint8_t>(originalLink >> (linkByte * 8));
 }
 
+// 原函数：0x00506580。
 std::int32_t ResetLegacyMouseTracker_506580()
 {
     Node* const oldPool = gTracker.nativePool;
@@ -231,6 +232,7 @@ std::int32_t ResetLegacyMouseTracker_506580()
     return index;
 }
 
+// 原函数：0x005066D0。
 std::int32_t ResetLegacyMouseTrackerDefaults_5066D0()
 {
     gLegacyMouseTrackerThreshold = kDefaultThreshold;
@@ -238,6 +240,7 @@ std::int32_t ResetLegacyMouseTrackerDefaults_5066D0()
     return ResetLegacyMouseTracker_506580();
 }
 
+// 原函数：0x0050E7B0。
 std::int32_t ConfigureLegacyMouseTracker_50E7B0(
     std::uintptr_t,
     const std::int32_t capacity,
@@ -248,6 +251,7 @@ std::int32_t ConfigureLegacyMouseTracker_50E7B0(
     return ResetLegacyMouseTracker_506580();
 }
 
+// 原函数：0x005067F0。
 std::int32_t TrackLegacyMouseDown_5067F0(
     const std::int32_t x,
     const std::int32_t y,

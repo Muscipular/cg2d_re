@@ -166,6 +166,7 @@ inline constexpr char kDialogErrorCaption[] =
 
 } // namespace
 
+// 原函数：0x00534AB0。
 std::int32_t Sub_534AB0(const std::uintptr_t window, char* output)
 {
     const HWND parent = reinterpret_cast<HWND>(window);

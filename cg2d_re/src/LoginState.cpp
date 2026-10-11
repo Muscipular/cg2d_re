@@ -126,6 +126,7 @@ std::uint32_t Sub_44B5C0(const char* text)
     return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
 }
 
+// 原函数：0x00508360。
 std::int32_t Sub_508360()
 {
     if (network::ReadNetworkRuntimeActive() == 0) {
@@ -324,6 +325,7 @@ static_assert(sizeof(gServerConnectingText) == 256);
 static_assert(sizeof(kServerConnectingText) <= sizeof(gServerConnectingText));
 static_assert(sizeof(gValue9A5348) == 256);
 
+// 原函数：0x0045D980。
 std::int32_t ResetValues_45D980()
 {
     gValue9A6E3C = 0;
@@ -331,6 +333,7 @@ std::int32_t ResetValues_45D980()
     return 0;
 }
 
+// 原函数：0x0045D990。
 std::int32_t UpdateServerConnection()
 {
     std::uint16_t phase = gValue9A6E3C;
@@ -432,6 +435,7 @@ std::int32_t UpdateServerConnection()
     return result;
 }
 
+// 原函数：0x0045E960。
 std::int32_t ProcessState_45E960()
 {
     if (world::gCurrentSceneState == 0) {
@@ -471,11 +475,13 @@ std::int32_t ProcessState_45E960()
     return world::SetCurrentSceneType(2);
 }
 
+// 原函数：0x0045EA50。
 void ResetLoginProgress()
 {
     gLoginProgressPhase = 0;
 }
 
+// 原函数：0x0045EA60。
 std::int32_t UpdateLoginProgress()
 {
     std::uint16_t phase = gLoginProgressPhase;

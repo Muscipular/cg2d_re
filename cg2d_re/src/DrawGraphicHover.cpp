@@ -5,6 +5,7 @@
 
 namespace cg::login::detail {
 
+// 原函数：0x00522180。
 void DrawGraphicHover(
     const std::uint16_t left,
     const std::uint16_t top,

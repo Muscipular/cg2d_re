@@ -28,6 +28,7 @@ static_assert(sizeof(kMissingCredentials) <= sizeof(gLoginModeMessage));
 
 } // namespace
 
+// 原函数：0x0045C5A0。
 void ProcessModeScene_45C5A0()
 {
     std::int32_t inputMode = 2;

@@ -146,6 +146,7 @@ namespace cg::login {
 
 std::uint16_t gCharacterListReplyCode = 0;
 
+// 原函数：0x00508910。
 std::uint32_t StartCharacterListRequest()
 {
     static_cast<void>(Sub_51B3B0(0));
@@ -160,6 +161,7 @@ std::uint32_t StartCharacterListRequest()
     return tick;
 }
 
+// 原函数：0x00508950。
 std::int32_t PollCharacterListRequest()
 {
     if (gRequestStatus == 2) {
@@ -185,6 +187,7 @@ std::int32_t PollCharacterListRequest()
     return -1;
 }
 
+// 原函数：0x005089B0。
 std::int32_t HandleCharacterListResponse_5089B0(
     const std::uintptr_t,
     const std::int32_t result,

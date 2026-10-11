@@ -15,6 +15,7 @@ ExternalKeyboard* ExternalKeyboard::Delete(std::uint32_t flags)
     return object;
 }
 
+// 原函数：0x00535290。
 ExternalKeyboard* DeleteExternalKeyboardVirtual_535290(
     ExternalKeyboard* object, std::uint32_t flags)
 {
@@ -29,12 +30,14 @@ ExternalKeyboardSize* ExternalKeyboard::QuerySize(ExternalKeyboardSize* output)
     return output;
 }
 
+// 原函数：0x00537DC0。
 ExternalKeyboardSize* QueryExternalKeyboardSizeVirtual_537DC0(
     ExternalKeyboard* object, ExternalKeyboardSize* output)
 {
     return object->QuerySize(output);
 }
 
+// 原函数：0x005354C0。
 char* GetExternalKeyboardResult_5354C0(ExternalKeyboard* object)
 {
     // 原 0x5354C0 的结果地址属于同一对象；不复制、不清空，也不转换旧字节串。

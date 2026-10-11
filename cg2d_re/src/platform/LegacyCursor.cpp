@@ -166,6 +166,7 @@ void UpdateNativeCursor()
 
 } // namespace
 
+// 原函数：0x00506DE0。
 std::int32_t RequestCursorState_506DE0(
     const std::int32_t requestedState,
     const std::int32_t force) noexcept
@@ -184,11 +185,13 @@ std::int32_t RequestCursorState_506DE0(
     return requestedState;
 }
 
+// 原函数：0x00506DD0。
 void ResetLegacyMouseTail_506DD0()
 {
     gLegacyMouseState.tailReset = 0;
 }
 
+// 原函数：0x00506E00。
 void UpdateCursor_506E00()
 {
     const std::uint32_t leftDownTick = gLegacyMouseState.leftDownTick;

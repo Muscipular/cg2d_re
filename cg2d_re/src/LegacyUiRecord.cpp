@@ -65,6 +65,7 @@ std::int32_t ReadRecordW32(
     return value;
 }
 
+// 原函数：0x0045F100。
 std::int32_t QueryLegacyUiRecordState_45F100(
     const void* const uiRecord)
 {
@@ -102,6 +103,7 @@ std::int32_t QueryCharacterSelectState(const void* const uiRecord)
 }
 
 
+// 原函数：0x0045EFD0。
 void DrawLegacyUiRecord_45EFD0(
     const void* const uiRecord,
     const std::uint8_t layer,
@@ -1630,6 +1632,7 @@ constexpr char kLegacyLogout586E48[] =
     "\xB5\xC7\xB3\xF6\x81\x4B\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63\xA1\xA3";
 constexpr char kLegacyLogout58A4B0[] = "\xB7\xC5\x97\x89\xB5\xC7\xB3\xF6\xA1\xA3";
 
+// 原函数：0x004FC7F0。
 std::int32_t Sub_4FC7F0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1637,6 +1640,7 @@ std::int32_t Sub_4FC7F0()
     return 0;
 }
 
+// 原函数：0x004FC810。
 std::int32_t Sub_4FC810()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1644,6 +1648,7 @@ std::int32_t Sub_4FC810()
     return 0;
 }
 
+// 原函数：0x004FC830。
 std::int32_t Sub_4FC830()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1651,6 +1656,7 @@ std::int32_t Sub_4FC830()
     return 0;
 }
 
+// 原函数：0x004FC850。
 std::int32_t Sub_4FC850()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1658,6 +1664,7 @@ std::int32_t Sub_4FC850()
     return 0;
 }
 
+// 原函数：0x004FC870。
 std::int32_t Sub_4FC870()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1665,6 +1672,7 @@ std::int32_t Sub_4FC870()
     return 0;
 }
 
+// 原函数：0x004FC890。
 std::int32_t Sub_4FC890()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1672,6 +1680,7 @@ std::int32_t Sub_4FC890()
     return 0;
 }
 
+// 原函数：0x004FC8B0。
 std::int32_t Sub_4FC8B0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1679,6 +1688,7 @@ std::int32_t Sub_4FC8B0()
     return 0;
 }
 
+// 原函数：0x004FC8D0。
 std::int32_t Sub_4FC8D0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1726,6 +1736,7 @@ std::int32_t InitializeLegacyBottomBarPrefix(
     return 0;
 }
 
+// 原函数：0x004ECDF0。
 std::uint32_t Sub_4ECDF0()
 {
     const std::uint32_t now = platform::ReadTickCount32();
@@ -1733,6 +1744,7 @@ std::uint32_t Sub_4ECDF0()
     return now;
 }
 
+// 原函数：0x004ED010。
 std::uint32_t Sub_4ED010()
 {
     const std::uint32_t now = platform::ReadTickCount32();
@@ -1740,6 +1752,7 @@ std::uint32_t Sub_4ED010()
     return now;
 }
 
+// 原函数：0x00501F60。
 std::uint32_t Sub_501F60()
 {
     if (world::detail::gValueD2F788 == 0) {
@@ -2113,11 +2126,13 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyLogPanel553440, 1));
 }
 
+// 原函数：0x00455490。
 std::int32_t Sub_455490()
 {
     return Sub_4554A0();
 }
 
+// 原函数：0x004554A0。
 std::int32_t Sub_4554A0()
 {
     const std::int32_t width = gLegacyUiWidth556C30;
@@ -2126,71 +2141,85 @@ std::int32_t Sub_4554A0()
     return x;
 }
 
+// 原函数：0x004554C0。
 std::int32_t Sub_4554C0()
 {
     return Sub_4554D0();
 }
 
+// 原函数：0x004554D0。
 std::int32_t Sub_4554D0()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[0], -16, 0, 8, 22581);
 }
 
+// 原函数：0x00455540。
 std::int32_t Sub_455540()
 {
     return Sub_455550();
 }
 
+// 原函数：0x00455550。
 std::int32_t Sub_455550()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[1], -16, 0, 38, 22583);
 }
 
+// 原函数：0x004555C0。
 std::int32_t Sub_4555C0()
 {
     return Sub_4555D0();
 }
 
+// 原函数：0x004555D0。
 std::int32_t Sub_4555D0()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[2], -16, 0, 68, 22585);
 }
 
+// 原函数：0x00455640。
 std::int32_t Sub_455640()
 {
     return Sub_455650();
 }
 
+// 原函数：0x00455650。
 std::int32_t Sub_455650()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[3], -16, 0, 98, 22587);
 }
 
+// 原函数：0x004556C0。
 std::int32_t Sub_4556C0()
 {
     return Sub_4556D0();
 }
 
+// 原函数：0x004556D0。
 std::int32_t Sub_4556D0()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[4], -16, 0, 128, 22589);
 }
 
+// 原函数：0x00455740。
 std::int32_t Sub_455740()
 {
     return Sub_455750();
 }
 
+// 原函数：0x00455750。
 std::int32_t Sub_455750()
 {
     return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B460, 76, -13, 158, 238544);
 }
 
+// 原函数：0x004557C0。
 std::int32_t Sub_4557C0()
 {
     return Sub_4557D0();
 }
 
+// 原函数：0x004557D0。
 std::int32_t Sub_4557D0()
 {
     const std::int32_t width = gLegacyUiWidth556C30;
@@ -2210,11 +2239,13 @@ std::int32_t Sub_4557D0()
     return hitY;
 }
 
+// 原函数：0x00455840。
 std::int32_t Sub_455840()
 {
     return Sub_455850();
 }
 
+// 原函数：0x00455850。
 std::int32_t Sub_455850()
 {
     const std::int32_t width = gLegacyUiWidth556C30;
@@ -2253,11 +2284,13 @@ std::int32_t Sub_455850()
     return centerY;
 }
 
+// 原函数：0x00455930。
 std::int32_t Sub_455930()
 {
     return Sub_455940();
 }
 
+// 原函数：0x00455940。
 std::int32_t Sub_455940()
 {
     const std::int32_t width = gLegacyUiWidth556C30;
@@ -2312,6 +2345,7 @@ std::int32_t Sub_455940()
     return centerY;
 }
 
+// 原函数：0x004D3180。
 void Sub_4D3180()
 {
     std::int32_t mask = 1;
@@ -2323,6 +2357,7 @@ void Sub_4D3180()
     }
 }
 
+// 原函数：0x004D31C0。
 std::int32_t Sub_4D31C0()
 {
     std::int32_t mask = 1;
@@ -2335,6 +2370,7 @@ std::int32_t Sub_4D31C0()
     return 0;
 }
 
+// 原函数：0x004D3210。
 std::uintptr_t Sub_4D3210(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyDialogPanelD2D9C8, nullptr, 0);
@@ -2393,6 +2429,7 @@ std::uintptr_t Sub_4D3210(const std::int32_t opened)
     return Sub_503440(&gLegacyDialogPanelD2D9C8, 0);
 }
 
+// 原函数：0x004D3410。
 std::uint32_t Sub_4D3410(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyLineDialogPanelCC4150, nullptr, 0);
@@ -2469,6 +2506,7 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
     return Sub_503440(&gLegacyLineDialogPanelCC4150, 0);
 }
 
+// 原函数：0x004D66E0。
 YobiAction* Sub_4D66E0()
 {
     const std::int32_t y = gLegacySkillChoicePanel581D60.y + 133;
@@ -2479,6 +2517,7 @@ YobiAction* Sub_4D66E0()
     return action;
 }
 
+// 原函数：0x004D6710。
 std::uintptr_t Sub_4D6710(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillChoicePanel581D60.x;
@@ -2559,6 +2598,7 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
     return Sub_503440(&gLegacySkillChoicePanel581D60, 1);
 }
 
+// 原函数：0x004D6A30。
 YobiAction* Sub_4D6A30()
 {
     const std::int32_t y = gLegacySkillLearningPanel581E28.y + 246;
@@ -2569,6 +2609,7 @@ YobiAction* Sub_4D6A30()
     return action;
 }
 
+// 原函数：0x004D6A60。
 std::uintptr_t Sub_4D6A60(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillLearningPanel581E28.x;
@@ -2674,6 +2715,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
     return Sub_503440(&gLegacySkillLearningPanel581E28, 1);
 }
 
+// 原函数：0x004D6E70。
 YobiAction* Sub_4D6E70()
 {
     const std::int32_t y = gLegacySkillForgetPanel581EF0.y + 246;
@@ -2684,6 +2726,7 @@ YobiAction* Sub_4D6E70()
     return action;
 }
 
+// 原函数：0x004D6EA0。
 std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillForgetPanel581EF0.x;
@@ -2809,6 +2852,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
     return Sub_503440(&gLegacySkillForgetPanel581EF0, 1);
 }
 
+// 原函数：0x004EFB70。
 std::uint32_t Sub_4EFB70(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillStatusPanel583C90.x;
@@ -2947,6 +2991,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
     return Sub_503440(&gLegacySkillStatusPanel583C90, 0);
 }
 
+// 原函数：0x004F0460。
 std::uint32_t Sub_4F0460(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillTargetPanel583D58.x;
@@ -3109,6 +3154,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
     return Sub_503440(&gLegacySkillTargetPanel583D58, 0);
 }
 
+// 原函数：0x004E4A50。
 std::uint32_t Sub_4E4A50(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyItemTargetPanel582D40.x;
@@ -3204,6 +3250,7 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
 }
 
 
+// 原函数：0x004F0CD0。
 std::uint32_t Sub_4F0CD0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyTextNoticePanel583EE8.x;
@@ -3236,6 +3283,7 @@ std::uint32_t Sub_4F0CD0(const std::int32_t opened)
     return Sub_503440(&gLegacyTextNoticePanel583EE8, 0);
 }
 
+// 原函数：0x004F0E20。
 std::uint32_t Sub_4F0E20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyTextNoticePanel583FB0.x;
@@ -3268,6 +3316,7 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
     return Sub_503440(&gLegacyTextNoticePanel583FB0, 0);
 }
 
+// 原函数：0x004D8D70。
 YobiAction* Sub_4D8D70()
 {
     const std::int32_t y = gLegacyShopChoicePanel5822D8.y;
@@ -3278,6 +3327,7 @@ YobiAction* Sub_4D8D70()
     return action;
 }
 
+// 原函数：0x004D8DA0。
 std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyShopChoicePanel5822D8.x;
@@ -3396,6 +3446,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
     return Sub_503440(&gLegacyShopChoicePanel5822D8, 1);
 }
 
+// 原函数：0x004D91E0。
 YobiAction* Sub_4D91E0()
 {
     const std::int32_t y = gLegacyBuyPanel5823A0.y + 245;
@@ -3406,6 +3457,7 @@ YobiAction* Sub_4D91E0()
     return action;
 }
 
+// 原函数：0x004D9220。
 std::uintptr_t Sub_4D9220(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBuyPanel5823A0.x;
@@ -3653,6 +3705,7 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
     return static_cast<std::uint32_t>(hovered);
 }
 
+// 原函数：0x004DA400。
 void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t page, const std::int32_t mode)
 {
@@ -3686,6 +3739,7 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
 }
 
+// 原函数：0x004DA580。
 std::uint32_t Sub_4DA580(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBuyConfirmPanel582468.x;
@@ -3783,6 +3837,7 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
     return Sub_503440(&gLegacyBuyConfirmPanel582468, 0);
 }
 
+// 原函数：0x004DAA00。
 YobiAction* Sub_4DAA00()
 {
     const std::int32_t y = gLegacySellPanel582530.y + 245;
@@ -3793,6 +3848,7 @@ YobiAction* Sub_4DAA00()
     return action;
 }
 
+// 原函数：0x004DAA40。
 std::uintptr_t Sub_4DAA40(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySellPanel582530.x;
@@ -4054,6 +4110,7 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004DBD30。
 std::uint32_t Sub_4DBD30(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySellConfirmPanel5825F8.x;
@@ -4167,6 +4224,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
     return Sub_503440(&gLegacySellConfirmPanel5825F8, 0);
 }
 
+// 原函数：0x004DC290。
 std::uint32_t Sub_4DC290(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyHealingPanel5826C0.x;
@@ -4273,6 +4331,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
     return Sub_503440(&gLegacyHealingPanel5826C0, 0);
 }
 
+// 原函数：0x004DC7A0。
 YobiAction* Sub_4DC7A0()
 {
     const std::int32_t y = gLegacyRepairPanel582788.y + 245;
@@ -4284,6 +4343,7 @@ YobiAction* Sub_4DC7A0()
     return action;
 }
 
+// 原函数：0x004DC7E0。
 std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyRepairPanel582788.x;
@@ -4531,6 +4591,7 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004DDA30。
 void Sub_4DDA30(const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t page)
 {
@@ -4553,6 +4614,7 @@ void Sub_4DDA30(const std::int32_t x, const std::int32_t y,
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
 }
 
+// 原函数：0x004DDB20。
 std::uint32_t Sub_4DDB20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyRepairConfirmPanel582850.x;
@@ -4655,6 +4717,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
     return Sub_503440(&gLegacyRepairConfirmPanel582850, 0);
 }
 
+// 原函数：0x004DDF80。
 YobiAction* Sub_4DDF80()
 {
     const std::int32_t y = gLegacyIdentifyPanel582918.y + 245;
@@ -4666,6 +4729,7 @@ YobiAction* Sub_4DDF80()
     return action;
 }
 
+// 原函数：0x004DDFC0。
 std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyIdentifyPanel582918.x;
@@ -4914,6 +4978,7 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004DF210。
 void Sub_4DF210(const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t page)
 {
@@ -4936,6 +5001,7 @@ void Sub_4DF210(const std::int32_t x, const std::int32_t y,
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
 }
 
+// 原函数：0x004DF300。
 std::uint32_t Sub_4DF300(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyIdentifyConfirmPanel5829E0.x;
@@ -5038,6 +5104,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
     return Sub_503440(&gLegacyIdentifyConfirmPanel5829E0, 0);
 }
 
+// 原函数：0x004DF730。
 std::uintptr_t Sub_4DF730(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMessagePanel582AA8.x;
@@ -5221,6 +5288,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
     return Sub_503440(&gLegacyMessagePanel582AA8, 1);
 }
 
+// 原函数：0x004D36B0。
 YobiAction* Sub_4D36B0()
 {
     const std::int32_t y = gLegacyBarterPanel5818B0.y + 245;
@@ -5231,6 +5299,7 @@ YobiAction* Sub_4D36B0()
     return action;
 }
 
+// 原函数：0x004D36F0。
 std::uintptr_t Sub_4D36F0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBarterPanel5818B0.x;
@@ -5495,6 +5564,7 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004D4960。
 void Sub_4D4960(const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t page)
 {
@@ -5517,6 +5587,7 @@ void Sub_4D4960(const std::int32_t x, const std::int32_t y,
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
 }
 
+// 原函数：0x004D4A50。
 std::uint32_t Sub_4D4A50(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBarterConfirmPanel581978.x;
@@ -5613,6 +5684,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
     return Sub_503440(&gLegacyBarterConfirmPanel581978, 0);
 }
 
+// 原函数：0x004D4ED0。
 YobiAction* Sub_4D4ED0()
 {
     const std::int32_t y = gLegacyExchangePanel581A40.y + 133;
@@ -5623,6 +5695,7 @@ YobiAction* Sub_4D4ED0()
     return action;
 }
 
+// 原函数：0x004D4F00。
 std::uintptr_t Sub_4D4F00(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyExchangePanel581A40.x;
@@ -5687,6 +5760,7 @@ std::uintptr_t Sub_4D4F00(const std::int32_t opened)
     return Sub_503440(&gLegacyExchangePanel581A40, 1);
 }
 
+// 原函数：0x004D5220。
 YobiAction* Sub_4D5220()
 {
     const std::int32_t y = gLegacyGiveReceivePanel581B08.y + 133;
@@ -5697,6 +5771,7 @@ YobiAction* Sub_4D5220()
     return action;
 }
 
+// 原函数：0x004D5250。
 std::uintptr_t Sub_4D5250(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGiveReceivePanel581B08.x;
@@ -5760,6 +5835,7 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
     return Sub_503440(&gLegacyGiveReceivePanel581B08, 1);
 }
 
+// 原函数：0x004D5580。
 YobiAction* Sub_4D5580()
 {
     const std::int32_t y = gLegacyGiveReceiveQuantityPanel581BD0.y + 245;
@@ -5770,6 +5846,7 @@ YobiAction* Sub_4D5580()
     return action;
 }
 
+// 原函数：0x004D55C0。
 std::uintptr_t Sub_4D55C0(const std::int32_t opened)
 {
     const std::int32_t y = gLegacyGiveReceiveQuantityPanel581BD0.y;
@@ -6002,6 +6079,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     return Sub_503440(&gLegacyGiveReceiveQuantityPanel581BD0, 1);
 }
 
+// 原函数：0x004D61E0。
 std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
     const char* const name = ui::detail::gShopDetailCC3210.data();
@@ -6101,6 +6179,7 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
     return Sub_503440(&gLegacyGiveConfirmPanel581C98, 0);
 }
 
+// 原函数：0x004E0380。
 std::uintptr_t Sub_4E0380(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyStoragePanel582B70.x;
@@ -6290,6 +6369,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
     return Sub_503440(&gLegacyStoragePanel582B70, 1);
 }
 
+// 原函数：0x004E0270。
 char* Sub_4E0270(const std::int32_t side)
 {
     gLegacyStorageEmptySlotsCF49BC = 0;
@@ -6304,6 +6384,7 @@ char* Sub_4E0270(const std::int32_t side)
     return record;
 }
 
+// 原函数：0x004E0BC0。
 std::int32_t Sub_4E0BC0(const std::int32_t side)
 {
     std::int32_t hovered = -1;
@@ -6325,6 +6406,7 @@ std::int32_t Sub_4E0BC0(const std::int32_t side)
     return hovered;
 }
 
+// 原函数：0x004E0C70。
 void Sub_4E0C70(const std::int32_t side, const std::int32_t item, const std::uint32_t color)
 {
     if (side < 0 || side > 1) {
@@ -6339,6 +6421,7 @@ void Sub_4E0C70(const std::int32_t side, const std::int32_t item, const std::uin
         Low16(x + column + grid[2]), Low16(y + row + grid[3]), 213, color, 0);
 }
 
+// 原函数：0x004E0D10。
 std::int32_t Sub_4E0D10(const std::int32_t side)
 {
     GraphicDescriptor16 descriptor {};
@@ -6403,6 +6486,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
     return 20;
 }
 
+// 原函数：0x004E0FF0。
 std::int32_t Sub_4E0FF0(const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t item, const std::int32_t page)
 {
@@ -6425,6 +6509,7 @@ std::int32_t Sub_4E0FF0(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
 }
 
+// 原函数：0x004E10F0。
 std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t centerX = x + 100;
@@ -6518,6 +6603,7 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
     return DrawGraphic(centerX, centerY, 222, 23310, 0, nullptr);
 }
 
+// 原函数：0x004E18F0。
 std::int32_t Sub_4E18F0(const std::int32_t side)
 {
     if (side < 0 || side > 1) {
@@ -6534,6 +6620,7 @@ std::int32_t Sub_4E18F0(const std::int32_t side)
     return -1;
 }
 
+// 原函数：0x004E1980。
 void Sub_4E1980(const std::int32_t side, const std::int32_t pet, const std::uint32_t color)
 {
     if (side < 0 || side > 1) {
@@ -6545,6 +6632,7 @@ void Sub_4E1980(const std::int32_t side, const std::int32_t pet, const std::uint
     DrawGraphicHover(Low16(x - 3), Low16(y - 2), Low16(x + 146), Low16(y + 16), 213, color, 0);
 }
 
+// 原函数：0x004E19E0。
 void Sub_4E19E0(const std::int32_t side)
 {
     const auto& origin = kLegacyStoragePetRows582C54[side];
@@ -6572,6 +6660,7 @@ void Sub_4E19E0(const std::int32_t side)
     }
 }
 
+// 原函数：0x004E1B10。
 std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t pet)
 {
@@ -6628,6 +6717,7 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
 }
 
+// 原函数：0x004E1EE0。
 std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t pet)
 {
@@ -6654,6 +6744,7 @@ std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
 }
 
+// 原函数：0x004E2030。
 std::uint32_t Sub_4E2030()
 {
     GraphicDescriptor16 descriptor {};
@@ -6897,6 +6988,7 @@ std::uint32_t Sub_4E2030()
     return result;
 }
 
+// 原函数：0x004E28F0。
 std::uint32_t Sub_4E28F0()
 {
     if (gLegacyStoragePetMessageD67CA4 > 0 && gLegacyStoragePetTickD67CA8 != 0) {
@@ -7029,6 +7121,7 @@ std::uint32_t Sub_4E28F0()
     return result;
 }
 
+// 原函数：0x004E2D90。
 std::uint32_t Sub_4E2D90()
 {
     const std::int32_t x = gLegacyStoragePanel582B70.x;
@@ -7186,6 +7279,7 @@ std::uint32_t Sub_4E2D90()
     return result;
 }
 
+// 原函数：0x004E3750。
 std::uint32_t Sub_4E3750()
 {
     const std::int32_t x = gLegacyStoragePanel582B70.x;
@@ -7302,6 +7396,7 @@ std::uint32_t Sub_4E3750()
     return result;
 }
 
+// 原函数：0x004E4460。
 std::uint32_t Sub_4E4460(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyItemUseStatusPanel582C78.x;
@@ -7391,6 +7486,7 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     return Sub_503440(&gLegacyItemUseStatusPanel582C78, 0);
 }
 
+// 原函数：0x004E5E40。
 std::uint32_t Sub_4E5E40(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyTradePanel582F00.x;
@@ -7674,6 +7770,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
     return Sub_503440(&gLegacyTradePanel582F00, 1);
 }
 
+// 原函数：0x004E6CC0。
 std::int32_t Sub_4E6CC0(const std::int32_t side)
 {
     std::int32_t hovered = -1;
@@ -7695,6 +7792,7 @@ std::int32_t Sub_4E6CC0(const std::int32_t side)
     return hovered;
 }
 
+// 原函数：0x004E6D70。
 void Sub_4E6D70(const std::int32_t side, const std::int32_t item, const std::uint32_t color)
 {
     if (side < 0 || side > 1) {
@@ -7709,6 +7807,7 @@ void Sub_4E6D70(const std::int32_t side, const std::int32_t item, const std::uin
         Low16(x + column + grid[2]), Low16(y + row + grid[3]), 213, color, 0);
 }
 
+// 原函数：0x004E6E10。
 std::int32_t Sub_4E6E10(const std::int32_t side)
 {
     GraphicDescriptor16 descriptor {};
@@ -7767,6 +7866,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
     return 4;
 }
 
+// 原函数：0x004E70B0。
 std::int32_t Sub_4E70B0(const std::int32_t side)
 {
     if (side < 0 || side > 1) {
@@ -7783,6 +7883,7 @@ std::int32_t Sub_4E70B0(const std::int32_t side)
     return -1;
 }
 
+// 原函数：0x004E7140。
 void Sub_4E7140(const std::int32_t side, const std::int32_t pet, const std::uint32_t color)
 {
     if (side < 0 || side > 1) {
@@ -7794,6 +7895,7 @@ void Sub_4E7140(const std::int32_t side, const std::int32_t pet, const std::uint
     DrawGraphicHover(Low16(x - 3), Low16(y - 2), Low16(x + 146), Low16(y + 16), 213, color, 0);
 }
 
+// 原函数：0x004E71A0。
 void Sub_4E71A0(const std::int32_t side)
 {
     const auto& origin = kLegacyTradePetRows582EEC[side];
@@ -7816,6 +7918,7 @@ void Sub_4E71A0(const std::int32_t side)
     }
 }
 
+// 原函数：0x004E7290。
 std::int32_t Sub_4E7290(const std::int32_t x, const std::int32_t y,
     const std::int32_t item, const std::int32_t page)
 {
@@ -7838,6 +7941,7 @@ std::int32_t Sub_4E7290(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
 }
 
+// 原函数：0x004E7380。
 std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t pet)
 {
@@ -7894,6 +7998,7 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
 }
 
+// 原函数：0x004E7740。
 std::int32_t Sub_4E7740(const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t pet)
 {
@@ -7919,6 +8024,7 @@ std::int32_t Sub_4E7740(const std::int32_t x, const std::int32_t y,
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
 }
 
+// 原函数：0x004E7870。
 std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t centerX = x + 100;
@@ -8012,6 +8118,7 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
     return DrawGraphic(centerX, centerY, 222, 23310, 0, nullptr);
 }
 
+// 原函数：0x004E7FC0。
 std::int32_t Sub_4E7FC0()
 {
     std::int32_t hovered = Sub_4E6CC0(0);
@@ -8056,6 +8163,7 @@ std::int32_t Sub_4E7FC0()
     return result;
 }
 
+// 原函数：0x004E81B0。
 std::int32_t Sub_4E81B0()
 {
     std::int32_t hovered = Sub_4E70B0(0);
@@ -8091,6 +8199,7 @@ std::int32_t Sub_4E81B0()
     return result;
 }
 
+// 原函数：0x004E82F0。
 std::int32_t Sub_4E82F0()
 {
     const std::int32_t y = gLegacyTradePanel582F00.y;
@@ -8109,6 +8218,7 @@ std::int32_t Sub_4E82F0()
     return DrawGraphic(backgroundX, backgroundY, 212, 23234, 0, nullptr);
 }
 
+// 原函数：0x004E83D0。
 std::int32_t Sub_4E83D0()
 {
     GraphicDescriptor16 descriptor {};
@@ -8248,6 +8358,7 @@ std::int32_t Sub_4E83D0()
     return result;
 }
 
+// 原函数：0x004E8920。
 std::int32_t Sub_4E8920()
 {
     std::int32_t hovered = Sub_4E70B0(1);
@@ -8300,6 +8411,7 @@ std::int32_t Sub_4E8920()
     return result;
 }
 
+// 原函数：0x004E8AD0。
 std::int32_t Sub_4E8AD0()
 {
     const std::int32_t x = gLegacyTradePanel582F00.x;
@@ -8394,12 +8506,14 @@ std::int32_t Sub_4E8AD0()
     return DrawGraphic(backgroundX, backgroundY, 212, 23244, 0, nullptr);
 }
 
+// 原函数：0x004E9280。
 void Sub_4E9280()
 {
     gLegacyEngravingPageC8AA9C = 0;
     gLegacyEngravingTargetCC1A14 = -1;
 }
 
+// 原函数：0x004E92A0。
 std::uint32_t Sub_4E92A0(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyEngravingPanel582FD8, Sub_4E9280, 1);
@@ -8522,12 +8636,14 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004E97C0。
 void Sub_4E97C0()
 {
     gLegacyBurialPageCC4B64 = 0;
     gLegacyBurialSelectedCC4214 = -1;
 }
 
+// 原函数：0x004E97E0。
 std::uint32_t Sub_4E97E0(const std::int32_t opened)
 {
     GraphicDescriptor16 descriptor {};
@@ -8653,12 +8769,14 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004E9C60。
 void Sub_4E9C60()
 {
     gLegacyMailGiftPageCC2E58 = 0;
     gLegacyMailGiftSelectedCC1A2C = -1;
 }
 
+// 原函数：0x004E9C80。
 std::uint32_t Sub_4E9C80(const std::int32_t opened)
 {
     GraphicDescriptor16 descriptor {};
@@ -8777,6 +8895,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004EA130。
 void Sub_4EA130()
 {
     char preserved[400];
@@ -8788,6 +8907,7 @@ void Sub_4EA130()
     input::SetContext_44B330(&input::gInputContextCB03F0);
 }
 
+// 原函数：0x004EA1B0。
 std::uint32_t Sub_4EA1B0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailComposePanel583230.x;
@@ -8900,6 +9020,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
     return Sub_503440(&gLegacyMailComposePanel583230, 1);
 }
 
+// 原函数：0x004EA690。
 std::uint32_t Sub_4EA690(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailPetPanel5832F8.x;
@@ -8975,6 +9096,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
     return Sub_503440(&gLegacyMailPetPanel5832F8, 1);
 }
 
+// 原函数：0x004EC1D0。
 std::uintptr_t Sub_4EC1D0()
 {
     world::detail::Sub_4EC1A0();
@@ -8997,6 +9119,7 @@ std::uintptr_t Sub_4EC1D0()
     return result;
 }
 
+// 原函数：0x004EC240。
 std::uintptr_t Sub_4EC240(const std::int32_t opened)
 {
     const std::int32_t y = gLegacyMailContactPanel5837A8.y;
@@ -9197,6 +9320,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
     return Sub_503440(&gLegacyMailContactPanel5837A8, 1);
 }
 
+// 原函数：0x004EB890。
 std::uint32_t Sub_4EB890(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailDeliveryPanel583550.x;
@@ -9236,6 +9360,7 @@ std::uint32_t Sub_4EB890(const std::int32_t opened)
     return Sub_503440(&gLegacyMailDeliveryPanel583550, 1);
 }
 
+// 原函数：0x004EBAA0。
 std::uint32_t Sub_4EBAA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailDeletePanel583618.x;
@@ -9288,6 +9413,7 @@ std::uint32_t Sub_4EBAA0(const std::int32_t opened)
     return Sub_503440(&gLegacyMailDeletePanel583618, 0);
 }
 
+// 原函数：0x004EAA50。
 std::byte* Sub_4EAA50()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -9306,6 +9432,7 @@ std::byte* Sub_4EAA50()
     return result;
 }
 
+// 原函数：0x004EAAA0。
 std::uint32_t Sub_4EAAA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailReadPanel5833C0.x;
@@ -9425,6 +9552,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     return Sub_503440(&gLegacyMailReadPanel5833C0, 1);
 }
 
+// 原函数：0x004EB120。
 std::int32_t Sub_4EB120()
 {
     char preserved[400];
@@ -9440,6 +9568,7 @@ std::int32_t Sub_4EB120()
     return 0;
 }
 
+// 原函数：0x004EB1C0。
 std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailNormalPanel583488.x;
@@ -9589,6 +9718,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyMailNormalPanel583488, 1));
 }
 
+// 原函数：0x004EBD20。
 std::uint32_t Sub_4EBD20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyMailSortPanel5836E0.x;
@@ -9644,12 +9774,14 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
 }
 
+// 原函数：0x0052D790。
 void Sub_52D790()
 {
     gLegacyGuildGiftPage1050DAC = 0;
     gLegacyGuildGiftSelected1050DA8 = -1;
 }
 
+// 原函数：0x0052D7B0。
 std::uint32_t Sub_52D7B0(const std::int32_t opened)
 {
     GraphicDescriptor16 descriptor {};
@@ -9768,6 +9900,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x0052DC60。
 void Sub_52DC60()
 {
     char preserved[400];
@@ -9779,6 +9912,7 @@ void Sub_52DC60()
     input::SetContext_44B330(&input::gInputContext1050B80);
 }
 
+// 原函数：0x0052DCE0。
 std::uint32_t Sub_52DCE0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
@@ -9890,6 +10024,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildComposePanel58EA18, 1);
 }
 
+// 原函数：0x0052E240。
 std::uint32_t Sub_52E240(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildPetPanel58EAE0.x;
@@ -9965,6 +10100,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildPetPanel58EAE0, 1);
 }
 
+// 原函数：0x0052E600。
 std::byte* Sub_52E600()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -9983,6 +10119,7 @@ std::byte* Sub_52E600()
     return result;
 }
 
+// 原函数：0x0052E650。
 std::uint32_t Sub_52E650(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildReadPanel58EBA8.x;
@@ -10105,6 +10242,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildReadPanel58EBA8, 1);
 }
 
+// 原函数：0x0052ECB0。
 std::int32_t Sub_52ECB0()
 {
     char preserved[400];
@@ -10120,6 +10258,7 @@ std::int32_t Sub_52ECB0()
     return 0;
 }
 
+// 原函数：0x0052ED50。
 std::uintptr_t Sub_52ED50(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
@@ -10271,6 +10410,7 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildNormalPanel58EC70, 1));
 }
 
+// 原函数：0x0052F460。
 std::uint32_t Sub_52F460(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildDeliveryPanel58ED38.x;
@@ -10310,6 +10450,7 @@ std::uint32_t Sub_52F460(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildDeliveryPanel58ED38, 1);
 }
 
+// 原函数：0x0052F670。
 std::uint32_t Sub_52F670(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildDeletePanel58EE00.x;
@@ -10370,6 +10511,7 @@ std::uint32_t Sub_52F670(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildDeletePanel58EE00, 0);
 }
 
+// 原函数：0x0052F910。
 std::uint32_t Sub_52F910(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildSortPanel58EEC8.x;
@@ -10425,6 +10567,7 @@ std::uint32_t Sub_52F910(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildSortPanel58EEC8, 1);
 }
 
+// 原函数：0x0052FCF0。
 std::uintptr_t Sub_52FCF0()
 {
     BuildOrderedRecordIndices_52FCC0();
@@ -10447,6 +10590,7 @@ std::uintptr_t Sub_52FCF0()
     return result;
 }
 
+// 原函数：0x0052FD60。
 std::uintptr_t Sub_52FD60(const std::int32_t opened)
 {
     const std::int32_t y = gLegacyGuildContactPanel58EF90.y;
@@ -10659,6 +10803,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
 }
 
 
+// 原函数：0x00530B70。
 void Sub_530B70()
 {
     if (ReadGuildKey10514A8() == -1) {
@@ -10668,6 +10813,7 @@ void Sub_530B70()
     gLegacyGuildEditAllowed1050F14 = ReadGuildTextIndex10514B0() == 0 ? 1 : 0;
 }
 
+// 原函数：0x00530BA0。
 std::uintptr_t Sub_530BA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildDetailsPanel58F098.x;
@@ -11011,6 +11157,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildDetailsPanel58F098, 1));
 }
 
+// 原函数：0x00532430。
 std::int32_t Sub_532430()
 {
     const std::int32_t rank = ReadGuildTextIndex10514B0();
@@ -11019,6 +11166,7 @@ std::int32_t Sub_532430()
     return allowed;
 }
 
+// 原函数：0x00532450。
 std::uint32_t Sub_532450(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGuildRankPanel58F160.x;
@@ -11172,6 +11320,7 @@ std::uint32_t Sub_532450(const std::int32_t opened)
     return Sub_503440(&gLegacyGuildRankPanel58F160, 1);
 }
 
+// 原函数：0x004ECE00。
 std::uint32_t Sub_4ECE00(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPointResultPanel5838A8.x;
@@ -11226,6 +11375,7 @@ std::uint32_t Sub_4ECE00(const std::int32_t opened)
     return hitId;
 }
 
+// 原函数：0x004ED020。
 std::uint32_t Sub_4ED020(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBattleResultPanel583970.x;
@@ -11355,6 +11505,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
     return hitId;
 }
 
+// 原函数：0x004EDB20。
 std::uintptr_t Sub_4EDB20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGatherResultPanel583A38.x;
@@ -11502,6 +11653,7 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
     return Sub_503440(&gLegacyGatherResultPanel583A38, 1);
 }
 
+// 原函数：0x004EF0F0。
 std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacySkillResultPanel583BC8.x;
@@ -11617,6 +11769,7 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
     return Sub_503440(&gLegacySkillResultPanel583BC8, 1);
 }
 
+// 原函数：0x004F0B40。
 std::uint32_t Sub_4F0B40(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyFpNoticePanel583E20.x;
@@ -11657,6 +11810,7 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
     return Sub_503440(&gLegacyFpNoticePanel583E20, 0);
 }
 
+// 原函数：0x004F0F70。
 std::uintptr_t Sub_4F0F70(const std::int32_t opened)
 {
     const std::int32_t width = gLegacyItemSplitPanel584078.width;
@@ -11782,6 +11936,7 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
     return Sub_503440(&gLegacyItemSplitPanel584078, 1);
 }
 
+// 原函数：0x004F1C40。
 std::uintptr_t Sub_4F1C40(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyItemWorkResultPanel584140.x;
@@ -11888,6 +12043,7 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     return Sub_503440(&gLegacyItemWorkResultPanel584140, 1);
 }
 
+// 原函数：0x004F3ED0。
 std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyCraftResultPanel5843A0.x;
@@ -12002,6 +12158,7 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
     return Sub_503440(&gLegacyCraftResultPanel5843A0, 1);
 }
 
+// 原函数：0x004F2130。
 std::uintptr_t Sub_4F2130(const std::int32_t opened)
 {
     const std::int32_t y = gLegacyItemWorkNamePanel584208.y;
@@ -12075,6 +12232,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
     return Sub_503440(&gLegacyItemWorkNamePanel584208, 1);
 }
 
+// 原函数：0x004F24A0。
 std::int32_t Sub_4F24A0()
 {
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
@@ -12100,6 +12258,7 @@ std::int32_t Sub_4F24A0()
     return audio::Sub_5042D0(panelId);
 }
 
+// 原函数：0x004F25C0。
 void Sub_4F25C0()
 {
     YobiAction* action = gLegacyItemWorkActionD67CEC;
@@ -12119,6 +12278,7 @@ void Sub_4F25C0()
     }
 }
 
+// 原函数：0x004F2650。
 std::int32_t Sub_4F2650()
 {
     const std::int32_t gate = gLegacyItemWorkInitGateD67CE8;
@@ -12144,6 +12304,7 @@ std::int32_t Sub_4F2650()
     return skillId;
 }
 
+// 原函数：0x004F2720。
 std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
 {
     if (world::detail::IsCostGreaterThanPlayerFp(cost)) {
@@ -12205,6 +12366,7 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
     return 0;
 }
 
+// 原函数：0x004F2A30。
 std::uintptr_t Sub_4F2A30(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyItemWorkPanel5842D0.x;
@@ -12528,6 +12690,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004FB940。
 void Sub_4FB940(
     const std::int32_t x, const std::int32_t y, const std::int32_t index, const std::int32_t page)
 {
@@ -12549,6 +12712,7 @@ void Sub_4FB940(
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
 }
 
+// 原函数：0x00504BA0。
 void Sub_504BA0(
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::uint8_t layer,
     const std::int32_t font, const char* const name, const char* const memo,
@@ -12568,6 +12732,7 @@ void Sub_504BA0(
         static_cast<std::int16_t>(y + 5), layer, static_cast<std::int8_t>(font), color, text, 0, 0));
 }
 
+// 原函数：0x004F4470。
 std::int32_t Sub_4F4470()
 {
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
@@ -12647,6 +12812,7 @@ std::int32_t Sub_4F4470()
     return 4;
 }
 
+// 原函数：0x004F4690。
 void Sub_4F4690()
 {
     std::int32_t normalCount = 0;
@@ -12671,6 +12837,7 @@ void Sub_4F4690()
     }
 }
 
+// 原函数：0x004F4720。
 std::int32_t Sub_4F4720()
 {
     std::int32_t count = 0;
@@ -12682,12 +12849,14 @@ std::int32_t Sub_4F4720()
     return count;
 }
 
+// 原函数：0x004F4740。
 std::int32_t Sub_4F4740()
 {
     gLegacyCraftMarksC8AA7C.fill(0);
     return 0;
 }
 
+// 原函数：0x004F4760。
 std::int32_t Sub_4F4760()
 {
     static_cast<void>(Sub_4F4740());
@@ -12699,6 +12868,7 @@ std::int32_t Sub_4F4760()
     return 0;
 }
 
+// 原函数：0x004F4790。
 std::uint32_t Sub_4F4790(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyCraftMaterialsPanel584468.x;
@@ -12918,6 +13088,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004F50D0。
 std::int32_t Sub_4F50D0()
 {
     YobiAction* action = gLegacyCraftExecutionActionD67D08;
@@ -12938,6 +13109,7 @@ std::int32_t Sub_4F50D0()
     return Sub_517880(action, 100, 0, 0);
 }
 
+// 原函数：0x004F5170。
 std::int32_t Sub_4F5170()
 {
     ui::detail::gSelectedSlotsCA0A90.fill(-1);
@@ -12946,6 +13118,7 @@ std::int32_t Sub_4F5170()
     return -1;
 }
 
+// 原函数：0x004F51A0。
 std::int32_t Sub_4F51A0()
 {
     static_cast<void>(Sub_4F5170());
@@ -12955,6 +13128,7 @@ std::int32_t Sub_4F51A0()
     return ui::detail::Sub_4D3020(x, y);
 }
 
+// 原函数：0x004F51D0。
 std::uint32_t Sub_4F51D0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyCraftExecutionPanel584530.x;
@@ -13129,6 +13303,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     return Sub_503440(&gLegacyCraftExecutionPanel584530, 1);
 }
 
+// 原函数：0x00504EE0。
 std::int32_t Sub_504EE0()
 {
     gLegacyGemDragSlotD68AA8 = -1;
@@ -13138,6 +13313,7 @@ std::int32_t Sub_504EE0()
     return 0;
 }
 
+// 原函数：0x00504FA0。
 std::int32_t Sub_504FA0()
 {
     bool foundNormal = false;
@@ -13165,6 +13341,7 @@ std::int32_t Sub_504FA0()
     return foundNormal && foundSpecial ? 4 : 2;
 }
 
+// 原函数：0x00505170。
 std::uint32_t Sub_505170(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGemMaterialsPanel58AA60.x;
@@ -13398,6 +13575,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x00505BC0。
 std::int32_t Sub_505BC0()
 {
     const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -13415,6 +13593,7 @@ std::int32_t Sub_505BC0()
     return Sub_4F5170();
 }
 
+// 原函数：0x005062A0。
 std::int32_t Sub_5062A0()
 {
     YobiAction* action = gLegacyGemActionD68A88;
@@ -13435,6 +13614,7 @@ std::int32_t Sub_5062A0()
     return Sub_517880(action, 100, 0, 0);
 }
 
+// 原函数：0x00505C20。
 std::uint32_t Sub_505C20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyGemExecutionPanel58AB28.x;
@@ -13575,6 +13755,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
     return Sub_503440(&gLegacyGemExecutionPanel58AB28, 1);
 }
 
+// 原函数：0x00519640。
 std::int32_t Sub_519640(const std::int32_t skill)
 {
     std::int32_t count = 0;
@@ -13584,6 +13765,7 @@ std::int32_t Sub_519640(const std::int32_t skill)
     return count == 0 ? 1 : (count - 1) / 8 + 1;
 }
 
+// 原函数：0x004F5A60。
 std::uint32_t Sub_4F5A60(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyCraftRecipePanel5845F8.x;
@@ -13724,6 +13906,7 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
     return Sub_503440(&gLegacyCraftRecipePanel5845F8, 1);
 }
 
+// 原函数：0x004F61C0。
 YobiAction* Sub_4F61C0()
 {
     YobiAction* action = gLegacyAlbumActionD67D14;
@@ -13740,6 +13923,7 @@ YobiAction* Sub_4F61C0()
     return action;
 }
 
+// 原函数：0x004F6220。
 std::uintptr_t Sub_4F6220(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x;
@@ -13904,6 +14088,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
     return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);
 }
 
+// 原函数：0x004F6BF0。
 void Sub_4F6BF0(const std::int32_t x, const std::int32_t y,
     const std::int32_t rating, const std::uint8_t layer)
 {
@@ -13917,6 +14102,7 @@ void Sub_4F6BF0(const std::int32_t x, const std::int32_t y,
     }
 }
 
+// 原函数：0x004F6C60。
 std::uint32_t Sub_4F6C60()
 {
     if (gLegacyAlbumReturningCC40D0 != 0) {
@@ -13928,6 +14114,7 @@ std::uint32_t Sub_4F6C60()
     return 0;
 }
 
+// 原函数：0x004F6CA0。
 std::uint32_t Sub_4F6CA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyAlbumListPanel584788.x;
@@ -14036,6 +14223,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
     return Sub_503440(&gLegacyAlbumListPanel584788, 1);
 }
 
+// 原函数：0x004F7140。
 std::int32_t Sub_4F7140()
 {
     gLegacyPetStateOpenD67D18 = 0;
@@ -14044,6 +14232,7 @@ std::int32_t Sub_4F7140()
 }
 
 // 原旧20完整列表入口；内嵌4F7870本体已接，真实旧表外层路由及运行仍待。
+// 原函数：0x004F7150。
 std::uint32_t Sub_4F7150(const std::int32_t opened)
 {
     const std::int32_t panelY = gLegacyPetListPanel584850.y;
@@ -14353,6 +14542,7 @@ void Sub_4F7870(const std::int32_t x, const std::int32_t y)
     }
 }
 
+// 原函数：0x004F8340。
 YobiAction* Sub_4F8340()
 {
     YobiAction* action = gLegacyPetDetailActionD67AE0;
@@ -14371,6 +14561,7 @@ YobiAction* Sub_4F8340()
     return action;
 }
 
+// 原函数：0x004F83B0。
 std::uintptr_t Sub_4F83B0(const std::int32_t opened)
 {
     using PageCallback = std::int32_t (*)(std::int32_t, std::int32_t);
@@ -14426,6 +14617,7 @@ std::uintptr_t Sub_4F83B0(const std::int32_t opened)
     return Sub_503440(&gLegacyPetDetailPanel584918, 1);
 }
 
+// 原函数：0x004F8550。
 std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
@@ -14538,6 +14730,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+// 原函数：0x004F8E40。
 std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
@@ -14656,6 +14849,7 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+// 原函数：0x004F9B10。
 std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t panelX = gLegacyPetDetailPanel584918.x;
@@ -14833,6 +15027,7 @@ std::int32_t Sub_503E30()
     return Sub_4FD640();
 }
 
+// 原函数：0x00402B30。
 std::int32_t Sub_402B30()
 {
     if (audio::Sub_5043D0(2) != 0) {
@@ -14842,6 +15037,7 @@ std::int32_t Sub_402B30()
     return audio::Sub_504180(98);
 }
 
+// 原函数：0x00503B70。
 std::int32_t Sub_503B70()
 {
     if (audio::Sub_5043D0(2) != 0) {
@@ -14851,12 +15047,14 @@ std::int32_t Sub_503B70()
     return audio::Sub_504180(3);
 }
 
+// 原函数：0x00503BC0。
 std::int32_t Sub_503BC0()
 {
     static_cast<void>(audio::Sub_504460(18));
     return audio::Sub_5042D0(31);
 }
 
+// 原函数：0x00503BE0。
 std::int32_t Sub_503BE0()
 {
     if (audio::Sub_504410(16) != 0) {
@@ -14870,31 +15068,37 @@ std::int32_t Sub_503BE0()
     return audio::Sub_504460(14);
 }
 
+// 原函数：0x00503C30。
 std::int32_t Sub_503C30()
 {
     return audio::Sub_504460(42);
 }
 
+// 原函数：0x00503C40。
 std::int32_t Sub_503C40()
 {
     return audio::Sub_504460(23);
 }
 
+// 原函数：0x00503C50。
 std::int32_t Sub_503C50()
 {
     return audio::Sub_504460(1);
 }
 
+// 原函数：0x00503C60。
 std::int32_t Sub_503C60()
 {
     return audio::Sub_504460(20);
 }
 
+// 原函数：0x00503C70。
 std::int32_t Sub_503C70()
 {
     return audio::Sub_504460(17);
 }
 
+// 原函数：0x004014B0。
 std::uintptr_t Sub_4014B0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBlacklistPanel5531D0.x;
@@ -14997,6 +15201,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
 }
 
+// 原函数：0x004FD690。
 std::int32_t Sub_4FD690()
 {
     gLegacyPresetPanel5850C8.selected = 0;
@@ -15004,6 +15209,7 @@ std::int32_t Sub_4FD690()
     return 0;
 }
 
+// 原函数：0x004FD6A0。
 std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPresetPanel5850C8.x;
@@ -15084,6 +15290,7 @@ std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyPresetPanel5850C8, 1));
 }
 
+// 原函数：0x004FA350。
 std::uint32_t Sub_4FA350(const std::int32_t opened)
 {
     const std::int32_t y = gLegacyEmotePanel584AA8.y;
@@ -15123,6 +15330,7 @@ std::uint32_t Sub_4FA350(const std::int32_t opened)
     return Sub_503440(&gLegacyEmotePanel584AA8, 1);
 }
 
+// 原函数：0x004FA050。
 std::uintptr_t Sub_4FA050(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetRenamePanel5849E0.x;
@@ -15182,6 +15390,7 @@ std::uintptr_t Sub_4FA050(const std::int32_t opened)
     return Sub_503440(&gLegacyPetRenamePanel5849E0, 1);
 }
 
+// 原函数：0x004FAED0。
 std::int32_t Sub_4FAED0()
 {
     const std::int32_t result = ui::detail::Sub_4FB8F0();
@@ -15190,6 +15399,7 @@ std::int32_t Sub_4FAED0()
     return result;
 }
 
+// 原函数：0x004FAEF0。
 std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
 {
     GraphicDescriptor16 descriptor {};
@@ -15452,11 +15662,13 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     return result;
 }
 
+// 原函数：0x004FBB30。
 void Sub_4FBB30()
 {
     gLegacyMoneyAmountD2D618 = 0;
 }
 
+// 原函数：0x004FBB40。
 std::uintptr_t Sub_4FBB40(const std::int32_t opened)
 {
     const std::int32_t width = gLegacyMoneyPanel584DA8.width;
@@ -15876,6 +16088,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
     return Sub_503440(&gLegacySkillDetail585640, 1);
 }
 
+// 原函数：0x00500370。
 std::int32_t Sub_500370(const std::int32_t opened)
 {
     std::uint8_t usedSlots = 0;
@@ -15969,6 +16182,7 @@ std::int32_t Sub_500370(const std::int32_t opened)
     return std::bit_cast<std::int32_t>(Sub_503440(&gLegacySkillList585708, 1));
 }
 
+// 原函数：0x005006F0。
 std::uintptr_t Sub_5006F0(const std::int32_t opened)
 {
     gLegacyProfilePanel5857D0.backgrounds[0] =
@@ -16036,6 +16250,7 @@ std::uintptr_t Sub_5006F0(const std::int32_t opened)
     return static_cast<std::uintptr_t>(result);
 }
 
+// 原函数：0x005008C0。
 std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
 {
     const std::int32_t panelX = gLegacyProfilePanel5857D0.x;
@@ -16188,6 +16403,7 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+// 原函数：0x005014A0。
 std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
 {
     std::array<LegacyPanelButtonRecord, 5> buttons;
@@ -16293,6 +16509,7 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+// 原函数：0x00501FD0。
 std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
 {
     LegacyPanelButtonRecord submit {x + 135, y + 211, x + 201, y + 57, 64, 24, 22981, 22982};
@@ -16472,11 +16689,13 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+// 原函数：0x004FC420。
 std::int32_t Sub_4FC420()
 {
     return Sub_4FC430();
 }
 
+// 原函数：0x004FC430。
 std::int32_t Sub_4FC430()
 {
     const std::int32_t y = gLegacySettingsMenu584E70.y;
@@ -16608,6 +16827,7 @@ std::uint32_t Sub_4FC730(const std::int32_t opened)
     return Sub_503440(&gLegacySettingsMenu584E70, 1);
 }
 
+// 原函数：0x004FC8F0。
 std::uint32_t Sub_4FC8F0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyLogoutPanel584F38.x;
@@ -16667,11 +16887,13 @@ std::uint32_t Sub_4FC8F0(const std::int32_t opened)
     return Sub_503440(&gLegacyLogoutPanel584F38, 1);
 }
 
+// 原函数：0x004FCB90。
 std::int32_t Sub_4FCB90()
 {
     return Sub_4FCBA0();
 }
 
+// 原函数：0x004FCBA0。
 std::int32_t Sub_4FCBA0()
 {
     const std::int32_t x = gLegacyChatSettings585000.x;
@@ -16897,6 +17119,7 @@ std::int32_t Sub_4FCBA0()
     return 0;
 }
 
+// 原函数：0x004FD1A0。
 std::uint32_t Sub_4FD1A0(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyChatSettings585000, nullptr, 1);
@@ -16955,6 +17178,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
     return Sub_503440(&gLegacyChatSettings585000, 1);
 }
 
+// 原函数：0x004FD9F0。
 std::int32_t Sub_4FD9F0()
 {
     return Sub_4FDA00();
@@ -17074,6 +17298,7 @@ std::uint32_t Sub_4FDBD0(const std::int32_t opened)
     return Sub_503440(&gLegacyMusicSettings585190, 1);
 }
 
+// 原函数：0x004FDE10。
 std::int32_t Sub_4FDE10()
 {
     return Sub_4FDE20();
@@ -17240,11 +17465,13 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
     return Sub_503440(&gLegacySoundSettings585258, 1);
 }
 
+// 原函数：0x004FE490。
 std::int32_t Sub_4FE490()
 {
     return Sub_4FE4A0();
 }
 
+// 原函数：0x004FE4A0。
 std::int32_t Sub_4FE4A0()
 {
     const std::int32_t y = gLegacyMouseSettings585320.y;
@@ -17386,6 +17613,7 @@ std::int32_t Sub_4FE4A0()
     return 0;
 }
 
+// 原函数：0x004FE860。
 std::uint32_t Sub_4FE860(const std::int32_t opened)
 {
     const char* const cursorNames[2] {kLegacyMouse58A838, kLegacyMouse58A830};
@@ -17444,11 +17672,13 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     return Sub_503440(&gLegacyMouseSettings585320, 1);
 }
 
+// 原函数：0x004FEB00。
 std::int32_t Sub_4FEB00()
 {
     return Sub_4FEB10();
 }
 
+// 原函数：0x004FEB10。
 std::int32_t Sub_4FEB10()
 {
     const std::int32_t x = gLegacyHotkeyHelp5853E8.x;
@@ -17614,6 +17844,7 @@ std::int32_t Sub_4FEB10()
     return 0;
 }
 
+// 原函数：0x004FEF30。
 std::uint32_t Sub_4FEF30(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyHotkeyHelp5853E8, nullptr, 1);
@@ -17640,11 +17871,13 @@ std::uint32_t Sub_4FEF30(const std::int32_t opened)
     return Sub_503440(&gLegacyHotkeyHelp5853E8, 1);
 }
 
+// 原函数：0x004FF020。
 std::int32_t Sub_4FF020()
 {
     return Sub_4FF030();
 }
 
+// 原函数：0x004FF030。
 std::int32_t Sub_4FF030()
 {
     const std::int32_t x = gLegacyScanlineSettings5854B0.x;
@@ -17701,6 +17934,7 @@ std::int32_t Sub_4FF030()
     return 0;
 }
 
+// 原函数：0x004FF1A0。
 std::uint32_t Sub_4FF1A0(const std::int32_t opened)
 {
     const char* const modeNames[2] {kLegacyScanline58A8F8, kLegacyScanline58A8E8};
@@ -17741,11 +17975,13 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
     return Sub_503440(&gLegacyScanlineSettings5854B0, 1);
 }
 
+// 原函数：0x004FF340。
 std::int32_t Sub_4FF340()
 {
     return Sub_4FF350();
 }
 
+// 原函数：0x004FF350。
 std::int32_t Sub_4FF350()
 {
     const std::int32_t x = gLegacyButtonSettings585578.x;
@@ -17802,6 +18038,7 @@ std::int32_t Sub_4FF350()
     return 0;
 }
 
+// 原函数：0x004FF4C0。
 std::uint32_t Sub_4FF4C0(const std::int32_t opened)
 {
     const char* const modeNames[2] {kLegacyButton58A97C, kLegacyButton58A970};
@@ -17842,11 +18079,13 @@ std::uint32_t Sub_4FF4C0(const std::int32_t opened)
     return Sub_503440(&gLegacyButtonSettings585578, 1);
 }
 
+// 原函数：0x00502930。
 std::int32_t Sub_502930()
 {
     return Sub_502940();
 }
 
+// 原函数：0x00502940。
 std::int32_t Sub_502940()
 {
     const std::int32_t x = gLegacyMapDefaultX57CB24;
@@ -17870,6 +18109,7 @@ std::int32_t Sub_502940()
     return 0;
 }
 
+// 原函数：0x005029B0。
 std::uint32_t Sub_5029B0(const std::int32_t opened)
 {
     const std::int32_t state = Sub_503160(opened, &gLegacyMapPanelD68868, nullptr, 1);
@@ -17918,6 +18158,7 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     return hitId;
 }
 
+// 原函数：0x00502B80。
 std::int32_t Sub_502B80(std::int32_t* const value, const std::int32_t digits)
 {
     if (digits <= 0) {
@@ -17955,11 +18196,13 @@ std::int32_t Sub_502B80(std::int32_t* const value, const std::int32_t digits)
     return 0;
 }
 
+// 原函数：0x00502C30。
 std::int32_t Sub_502C30()
 {
     return Sub_502C40();
 }
 
+// 原函数：0x00502C40。
 std::int32_t Sub_502C40()
 {
     const std::int32_t height = gLegacyBottomHeight5858A4;
@@ -17968,11 +18211,13 @@ std::int32_t Sub_502C40()
     return y;
 }
 
+// 原函数：0x00502C60。
 std::int32_t Sub_502C60()
 {
     return Sub_502C70();
 }
 
+// 原函数：0x00502C70。
 std::int32_t Sub_502C70()
 {
     const std::int32_t height = gLegacyBottomHeight5858A4;
@@ -17980,11 +18225,13 @@ std::int32_t Sub_502C70()
     return height;
 }
 
+// 原函数：0x00502C80。
 std::int32_t Sub_502C80()
 {
     return Sub_502C90();
 }
 
+// 原函数：0x00502C90。
 std::int32_t Sub_502C90()
 {
     const std::int32_t height = gLegacyBottomHeightCA0014;
@@ -17992,11 +18239,13 @@ std::int32_t Sub_502C90()
     return height;
 }
 
+// 原函数：0x00502CA0。
 std::int32_t Sub_502CA0()
 {
     return Sub_502CB0();
 }
 
+// 原函数：0x00502CB0。
 std::int32_t Sub_502CB0()
 {
     const std::int32_t width = gLegacyBottomWidth5858A0;
@@ -18016,76 +18265,91 @@ std::int32_t Sub_502CB0()
     return 0;
 }
 
+// 原函数：0x00502D20。
 std::int32_t Sub_502D20()
 {
     return Sub_502D30();
 }
 
+// 原函数：0x00502D30。
 std::int32_t Sub_502D30()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[1], 80, 22552);
 }
 
+// 原函数：0x00502DA0。
 std::int32_t Sub_502DA0()
 {
     return Sub_502DB0();
 }
 
+// 原函数：0x00502DB0。
 std::int32_t Sub_502DB0()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[2], 160, 22553);
 }
 
+// 原函数：0x00502E20。
 std::int32_t Sub_502E20()
 {
     return Sub_502E30();
 }
 
+// 原函数：0x00502E30。
 std::int32_t Sub_502E30()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[3], 240, 22554);
 }
 
+// 原函数：0x00502EA0。
 std::int32_t Sub_502EA0()
 {
     return Sub_502EB0();
 }
 
+// 原函数：0x00502EB0。
 std::int32_t Sub_502EB0()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[4], 320, 22555);
 }
 
+// 原函数：0x00502F20。
 std::int32_t Sub_502F20()
 {
     return Sub_502F30();
 }
 
+// 原函数：0x00502F30。
 std::int32_t Sub_502F30()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[5], 400, 22556);
 }
 
+// 原函数：0x00502FA0。
 std::int32_t Sub_502FA0()
 {
     return Sub_502FB0();
 }
 
+// 原函数：0x00502FB0。
 std::int32_t Sub_502FB0()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[6], 480, 22557);
 }
 
+// 原函数：0x00503020。
 std::int32_t Sub_503020()
 {
     return Sub_503030();
 }
 
+// 原函数：0x00503030。
 std::int32_t Sub_503030()
 {
     return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[7], 560, 22558);
 }
 
+// 原函数：0x005030A0。
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
@@ -18107,6 +18371,7 @@ std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::i
     return 0;
 }
 
+// 原函数：0x00503120。
 void Sub_503120(LegacyPanelTextButtonRecord* const records, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
@@ -18117,6 +18382,7 @@ void Sub_503120(LegacyPanelTextButtonRecord* const records, const std::int32_t c
     }
 }
 
+// 原函数：0x00503160。
 std::int32_t Sub_503160(
     const std::int32_t opened, LegacyPanelRecord* const panel,
     void (*const initialize)(), const std::int32_t flags)
@@ -18226,6 +18492,7 @@ std::int32_t Sub_503160(
     return 1;
 }
 
+// 原函数：0x00503440。
 std::uint32_t Sub_503440(LegacyPanelRecord* const panel, const std::int32_t flags)
 {
     const std::int32_t hovered = panel->hovered;
@@ -18279,6 +18546,7 @@ std::uint32_t Sub_503440(LegacyPanelRecord* const panel, const std::int32_t flag
     return static_cast<std::uint32_t>(DrawGraphic(x, y, 212, image, 1, &descriptor));
 }
 
+// 原函数：0x00503590。
 std::int32_t Sub_503590(LegacyPanelRecord* const panel)
 {
     const std::int32_t y = panel->y;
@@ -18293,6 +18561,7 @@ std::int32_t Sub_503590(LegacyPanelRecord* const panel)
     return 0;
 }
 
+// 原函数：0x005035E0。
 void Sub_5035E0(
     LegacyPanelButtonRecord* const button, const std::uint8_t layer,
     const std::int32_t hoverMode, const std::uint32_t hoverImage, const std::int32_t style)
@@ -18331,6 +18600,7 @@ void Sub_5035E0(
     }
 }
 
+// 原函数：0x005038B0。
 void Sub_5038B0(
     LegacyPanelButtonRecord* const button, const std::uint8_t layer,
     const std::int32_t hoverMode, const std::uint32_t hoverImage, const std::int32_t selected)
@@ -18362,11 +18632,13 @@ void Sub_5038B0(
     }
 }
 
+// 原函数：0x0045F100。
 std::int32_t Sub_45F100(const void* const uiRecord)
 {
     return QueryLegacyUiRecordState_45F100(uiRecord);
 }
 
+// 原函数：0x0045EFD0。
 void Sub_45EFD0(
     const void* const uiRecord,
     const std::uint8_t layer,
@@ -18388,12 +18660,14 @@ void Sub_45EFD0(
 
 namespace cg::character_select::detail {
 
+// 原函数：0x0045F100。
 std::int32_t Sub_45F100(
     const CharacterSelectUiRecord* const uiRecord)
 {
     return QueryLegacyUiRecordState_45F100(uiRecord);
 }
 
+// 原函数：0x0045EFD0。
 void Sub_45EFD0(
     const CharacterSelectUiRecord* const uiRecord,
     const std::uint8_t layer,

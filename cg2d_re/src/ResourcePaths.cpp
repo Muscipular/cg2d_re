@@ -182,6 +182,7 @@ char* gAnimeInfoPaths[9] {};
 char* gCoordinatePaths[9] {};
 char* gCoordinateInfoPaths[9] {};
 
+// 原函数：0x00456050。
 int BuildResourcePaths()
 {
     for (int slot = 0; slot < 9; ++slot) {
@@ -206,6 +207,7 @@ int BuildResourcePaths()
     return result;
 }
 
+// 原函数：0x0045A130。
 std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
 {
     char fileName[128];

@@ -23,6 +23,7 @@
 namespace cg {
 
 // UTE01：原仅单RET，无读取/写入，真实空操作保持；其它父残值机器ABI待。
+// 原函数：0x00509080。
 void NullSub_509080() noexcept
 {
 }
@@ -120,6 +121,7 @@ InputContext* BorrowLegacyBlacklistContext593858() noexcept
 }
 
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
+// 原函数：0x0045D720。
 InputContext* Sub_45D720(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unused,
@@ -135,6 +137,7 @@ InputContext* Sub_45D720(
 }
 
 // WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
+// 原函数：0x0045D760。
 InputContext* Sub_45D760(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     const std::int32_t color, const std::int32_t renderMode,
@@ -576,6 +579,7 @@ InputContext* Sub_44AA90()
 
 } // namespace detail
 
+// 原函数：0x00404060。
 bool IsRejectedInputText_404060(const char* const legacyText)
 {
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
@@ -626,6 +630,7 @@ bool IsRejectedInputText_404060(const char* const legacyText)
     return platform::StrStr_53BE40(legacyText, "[GP]") != nullptr;
 }
 
+// 原函数：0x00476740。
 std::int32_t Sub_476740(const char* const text)
 {
     const auto length = static_cast<std::int32_t>(std::strlen(text));
@@ -664,6 +669,7 @@ std::int32_t Sub_476740(const char* const text)
     return 0;
 }
 
+// 原函数：0x0045E770。
 std::int32_t Sub_45E770(const char* const text)
 {
     bool trailingByte = false;
@@ -914,6 +920,7 @@ char RemoveLegacyBytes_52D570(
     return 0;
 }
 
+// 原函数：0x0044ADB0。
 void AppendChar_44ADB0(const char character)
 {
     InputContext* context = gCurrentInputData;
@@ -1045,6 +1052,7 @@ void AppendChar_44ADB0(const char character)
     gValue626C0C = 20;
 }
 
+// 原函数：0x0044B340。
 std::int32_t ProcessPresetHotkeys_44B340()
 {
     std::int32_t base = 0;
@@ -1068,16 +1076,19 @@ std::int32_t ProcessPresetHotkeys_44B340()
     return result;
 }
 
+// 原函数：0x0044B330。
 void SetContext_44B330(InputContext* const context)
 {
     gCurrentInputData = context;
 }
 
+// 原函数：0x00503E40。
 std::int32_t IsCurrentContext_503E40(const InputContext* const context)
 {
     return gCurrentInputData == context ? 1 : 0;
 }
 
+// 原函数：0x00503E60。
 std::int32_t IsChatContext_503E60()
 {
     return gCurrentInputData == &gInputContext626AA0 ? 1 : 0;
@@ -1094,6 +1105,7 @@ InputContext* BorrowLegacyPresetContext5F9758(const std::int32_t index) noexcept
     return reinterpret_cast<InputContext*>(chatBytes + static_cast<std::ptrdiff_t>(index - 24) * sizeof(InputContext));
 }
 
+// 原函数：0x00449CF0。
 void InitializeContext_449CF0(
     InputContext* const context,
     const std::int32_t field130,
@@ -1463,6 +1475,7 @@ void Sub_44B050(
 namespace cg::input {
 
 // HBN01：原历史选择/独立游标与现场context清写、字节滚动尾，正确正文保持。
+// 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0()
 {
     using world::detail::gChatHistory621FF8;
@@ -1533,6 +1546,7 @@ void BrowseChatHistory_44A1B0()
 
 namespace cg::input::detail {
 
+// 原函数：0x0044AB60。
 void Sub_44AB60()
 {
     if (platform::gImeComposition[0] != '\0') {

@@ -45,6 +45,7 @@ int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
 }
 
 // 原波纹坐标差 helper；读取顺序和每个 F32 落点均属于调用语义。
+// 原函数：0x005219C0。
 void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 {
     const std::uint32_t previousYBits = gRipplePreviousWorldYBits;
@@ -127,6 +128,7 @@ const std::array<std::int32_t, 64> gRippleSineTable {
     -12, -12, -11, -11, -11, -10, -9, -9, -8, -7, -6, -5, -4, -3, -2, -1,
 };
 
+// 原函数：0x00507090。
 void DrawMatchingGraphicHover_507090(const std::int32_t value4)
 {
     std::int32_t index = 0;
@@ -180,6 +182,7 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
     } while (index < count);
 }
 
+// 原函数：0x00523140。
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const graphic)
 {
     std::int16_t index;
@@ -191,6 +194,7 @@ std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const grap
     return result;
 }
 
+// 原函数：0x005208F0。
 std::uint32_t BackupValues_5208F0()
 {
     const std::uint32_t currentXBits = world::gWorldCurrentXBits;
@@ -200,11 +204,13 @@ std::uint32_t BackupValues_5208F0()
     return currentXBits;
 }
 
+// 原函数：0x00520910。
 void Sub_520910()
 {
     gFloat1020EF0 += 0.25f;
 }
 
+// 原函数：0x00520930。
 void Sub_520930(float* value)
 {
     for (;;) {
@@ -219,6 +225,7 @@ void Sub_520930(float* value)
     }
 }
 
+// 原函数：0x00521AA0。
 std::int32_t QueueMap_521AA0(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer)
 {
@@ -248,6 +255,7 @@ std::int32_t QueueMap_521AA0(
     return result;
 }
 
+// 原函数：0x00522210。
 void Sub_522210(
     const GraphicCacheItem32* const graphic,
     const std::uint32_t imageNoBits)
@@ -274,6 +282,7 @@ void Sub_522210(
     }
 }
 
+// 原函数：0x00520AD0。
 void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 {
     const std::uint8_t mixMode = graphic->descriptor[0x0D];
@@ -302,6 +311,7 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
     }
 }
 
+// 原函数：0x00521870。
 std::int32_t Sub_521870()
 {
     // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。
@@ -381,6 +391,7 @@ std::int32_t Sub_521870()
     return strength;
 }
 
+// 原函数：0x00520790。
 void SortTextures_520790()
 {
     const bool hasSpecialGraphic = gSpecialGraphicPending != 0;

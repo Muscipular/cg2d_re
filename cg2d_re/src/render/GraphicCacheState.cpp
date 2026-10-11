@@ -6,6 +6,7 @@ std::array<std::uint32_t, 6> gGraphicCache4Queue {};
 
 static_assert(sizeof(gGraphicCache4Queue) == 0x18);
 
+// 原函数：0x00456D50。
 std::int32_t ClearTextQueueTail_456D50(const std::int8_t mode)
 {
     gGraphicCache4Queue[mode] = 0;

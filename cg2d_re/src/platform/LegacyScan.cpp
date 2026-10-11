@@ -4,12 +4,14 @@
 
 namespace cg::platform {
 
+// 原函数：0x0053DEF4。
 std::int32_t ScanLegacyInput_53DEF4(
     LegacyFile* const stream, const char* format, std::va_list arguments)
 {
     return std::vfscanf(stream, format, arguments);
 }
 
+// 原函数：0x0053CADC。
 std::int32_t ScanLegacyString_53CADC(const char* const buffer, const char* const format, ...)
 {
     std::va_list arguments;

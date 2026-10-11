@@ -13,6 +13,7 @@ std::int16_t LowInt16(std::int32_t value)
 
 } // namespace
 
+// 原函数：0x00503990。
 std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
 {
     const std::int32_t top = uiRecord->top;
@@ -67,6 +68,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
     return static_cast<std::int32_t>(result);
 }
 
+// 原函数：0x00503A20。
 std::int32_t Sub_503A20(
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,

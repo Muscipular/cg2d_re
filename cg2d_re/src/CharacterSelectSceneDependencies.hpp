@@ -44,6 +44,7 @@ static_assert(sizeof(CharacterModalUiRecord) == 0x20);
 
 // sub_503990@0x503990 与 sub_503A20@0x503A20 的还原入口。
 std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord);
+// 原函数：0x00503A20。
 std::int32_t Sub_503A20(
     const CharacterModalUiRecord* uiRecord,
     std::uint8_t renderMode,
@@ -59,7 +60,9 @@ std::int32_t Sub_520200();
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 using cg::login::Sub_51B110;
 
+// 原函数：0x0045E7B0。
 std::int32_t Sub_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
+// 原函数：0x0045E7D0。
 std::int32_t Sub_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。
 
 // 原4626A0完整本体；WorldUpdate按D01显式传入口gate=1，不使用默认参数。
@@ -74,10 +77,15 @@ void Sub_462870();
 // 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。
 void Sub_462880(std::uint8_t resetSelection);
 
+// 原函数：0x00462930。
 std::int32_t Sub_462930(); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。
+// 原函数：0x00463100。
 std::uint32_t Sub_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
+// 原函数：0x004631D0。
 std::int32_t Sub_4631D0(); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
+// 原函数：0x004642C0。
 std::int32_t Sub_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
+// 原函数：0x00464380。
 std::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
 
 // 原 [0x50E770,0x50E77A)：忽略 socket，取第二个 S32 的低字节写 Puk 版本 W8 并返回。
@@ -125,7 +133,9 @@ std::int32_t Sub_4C5650(
     std::int32_t ones);
 using cg::audio::Sub_52B990;
 
+// 原函数：0x0045F100。
 std::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);
+// 原函数：0x0045EFD0。
 void Sub_45EFD0(
     const CharacterSelectUiRecord* uiRecord,
     std::uint8_t layer,

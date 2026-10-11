@@ -200,6 +200,7 @@ void ConstructIndependentPaletteQueue_522630()
         reinterpret_cast<IndependentPaletteQueue*>(gIndependentPaletteQueueStorage)));
 }
 
+// 原函数：0x00522660。
 void DestroyIndependentPaletteQueue_522660()
 {
     std::destroy_at(&BorrowIndependentPaletteQueue());
@@ -365,18 +366,21 @@ void LoadIndependentPalette32_522CB0(const std::int32_t index)
 
 } // namespace
 
+// 原函数：0x00522620。
 std::int32_t InitializeIndependentPaletteQueue_522620()
 {
     ConstructIndependentPaletteQueue_522630();
     return std::atexit(DestroyIndependentPaletteQueue_522660);
 }
 
+// 原函数：0x00522690。
 std::int32_t InitializePaletteDbfState_522690()
 {
     static_cast<void>(ConstructPaletteDbfState_5226A0());
     return std::atexit(DestroyPaletteDbfState_5226C0);
 }
 
+// 原函数：0x0053AF90。
 std::int32_t DecompressDbf_53AF90(
     const std::uint8_t* const source,
     const std::int32_t sourceLength,
@@ -475,6 +479,7 @@ std::int32_t DecompressDbf_53AF90(
     }
 }
 
+// 原函数：0x00522B30。
 std::int32_t InitializeIndependentPalettes_522B30()
 {
     BorrowIndependentPaletteQueue().clear();
@@ -518,6 +523,7 @@ std::int32_t InitializeIndependentPalettes_522B30()
     return index;
 }
 
+// 原函数：0x00522C50。
 void ReleaseIndependentPalettes_522C50()
 {
     platform::UnlockGlobalMemory(gIndependentPaletteRecords);
@@ -529,6 +535,7 @@ void ReleaseIndependentPalettes_522C50()
     gIndependentPaletteIndex = nullptr;
 }
 
+// 原函数：0x00523140。
 std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)
 {
     if (index <= 0 || index >= gIndependentPaletteCount) {
@@ -560,6 +567,7 @@ void BorrowIndependentPaletteColors32(
     tonedColors = record->tonedColors;
 }
 
+// 原函数：0x0045A900。
 int ReadGraphicDataByIndex(
     std::int32_t index,
     std::uint8_t** destination,
@@ -600,6 +608,7 @@ int ReadGraphicDataByIndex(
         gGraphicReadBuffer, destination, width, height, &length, paletteLength) != nullptr ? 1 : 0;
 }
 
+// 原函数：0x00451D80。
 std::int32_t GetGraphicAutoMapColor_451D80(
     const std::int32_t index, const render::PaletteEntry* const palette)
 {
@@ -650,6 +659,7 @@ std::int32_t GetGraphicAutoMapColor_451D80(
     return render::FindNearestPaletteColor_451E90(color, palette, 256);
 }
 
+// 原函数：0x0045A6C0。
 void CloseGraphicFiles()
 {
     if (gGraphicMapNoIndex != nullptr) {

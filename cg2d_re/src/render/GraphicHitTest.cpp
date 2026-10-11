@@ -207,6 +207,7 @@ void DrawQueuedGraphicHover(const GraphicCacheItem32& graphic, const std::uint8_
 
 } // namespace
 
+// 原函数：0x00507140。
 void Sub_507140()
 {
     using namespace render;

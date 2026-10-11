@@ -94,6 +94,7 @@ std::int32_t gPending9A6E28 = 0;
 
 } // namespace
 
+// 原函数：0x00464E30。
 std::int32_t ProcessCapability4Input_464E30()
 {
     Capability4InputButton32 loginButton = kCapability4LoginButton;
@@ -273,6 +274,7 @@ std::int32_t ProcessCapability4Input_464E30()
     return result;
 }
 
+// 原函数：0x0045CA20。
 std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
 {
     std::int32_t result = 0;

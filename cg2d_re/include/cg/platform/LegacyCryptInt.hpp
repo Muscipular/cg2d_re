@@ -27,8 +27,11 @@ namespace legacy_crypt_int {
 
 // 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
 // 原553004入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
+// 原函数：0x00401C10。
 std::int32_t InitializeLegacyStartupValues_401C10();
+// 原函数：0x00401C20。
 void ConstructStartupValues_401C20();
+// 原函数：0x00401C50。
 void DestroyStartupValues_401C50();
 
 // 原 sub_401C70@[0x401C70,0x401C92)。storage 必须指向可写的 16 字节对象。
@@ -55,6 +58,7 @@ void CopyPayload(LegacyCryptInt* target, const LegacyCryptInt* source);
 void AssignFromInt(LegacyCryptInt* target, std::int32_t value);
 
 // 原 sub_401EC0@[0x401EC0,0x401F45)，读取会修改 readCount，必要时换 mask。
+// 关联原入口：0x00401EA0（跳转共用本函数读取正文）。
 std::int32_t Read_401EC0(LegacyCryptInt* value);
 
 // 原401DE0：单次读取后自增并SetNorVal，返回新值；原未使用的S32参数保留。
@@ -62,7 +66,9 @@ std::int32_t Increment_401DE0(LegacyCryptInt* value, std::int32_t unused);
 
 // 原401E10：单读后S32加法；CQA01按RPLAN.24不专设数学回绕/异常结果。
 std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
+// 原函数：0x00401E20。
 void AddAssign_401E20(LegacyCryptInt* value, std::int32_t amount); // 单次读取后加并SetNorVal。
+// 原函数：0x00401E40。
 void SubtractAssign_401E40(LegacyCryptInt* value, std::int32_t amount); // 单次读取后减并SetNorVal。
 
 // 原401E60：单读后S32差值；异常域同CQA01，编码异或边界保持。
@@ -75,16 +81,25 @@ std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
 
 // 下列比较按有符号int32；整数比较单读，加密双值比较按各自合同独立读取。
+// 原函数：0x00401D00。
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
 // 原 CryptInt::neq@[0x401D20,0x401D40)：先读右对象，再读左对象。
 bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
+// 原函数：0x00401D40。
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);
+// 原函数：0x00401D50。
 bool GreaterCrypt_401D50(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
+// 原函数：0x00401D70。
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
+// 原函数：0x00401D80。
 bool GreaterEqualCrypt_401D80(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
+// 原函数：0x00401DA0。
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
+// 原函数：0x00401DB0。
 bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
+// 原函数：0x00401DC0。
 bool LessCrypt_401DC0(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左独立读取，即使别名。
+// 原函数：0x00401F80。
 bool IntGreaterCrypt_401F80(std::int32_t lhs, LegacyCryptInt* rhs); // 右值单读，保留计数/RNG副作用。
 // 原401FA0：单读右对象，S32 lhs<rhs覆盖返回AL，高24位保留读取值；条件只消费低W8。
 std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs, LegacyCryptInt* rhs);

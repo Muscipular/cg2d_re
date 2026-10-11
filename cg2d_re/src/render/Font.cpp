@@ -163,6 +163,7 @@ std::int32_t ReleaseFont_456530()
     return result;
 }
 
+// 原函数：0x00456D70。
 void RenderTextToSurface_456D70(const std::uint32_t headToken)
 {
     const HDC dc = AcquireCpuBackTextDc();
@@ -220,6 +221,7 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
     ReleaseCpuBackTextDc(dc);
 }
 
+// 原函数：0x0044B2E0。
 std::int32_t Font::measure(
     const char* text,
     std::int32_t fontType,
@@ -265,6 +267,7 @@ std::int32_t Font::measure(
 
 namespace cg::login::detail {
 
+// 原函数：0x0044B260。
 std::int32_t MeasureDefaultText_44B260(const char* text)
 {
     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);

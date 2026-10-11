@@ -269,6 +269,7 @@ std::int32_t SubmitLegacyTextureFan(
     return DrawTextureRectangle(*device, vertices);
 }
 
+// 原函数：0x0044C9A0。
 std::uint32_t FillRect_44C9A0(
     std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
     const std::uint32_t color, const std::uint8_t mixMode)
@@ -302,6 +303,7 @@ std::uint32_t FillRect_44C9A0(
         nullptr, destination, 0.0f, 0.0f, 0.0f, 0.0f, mixMode, color));
 }
 
+// 原函数：0x0044D520。
 std::int32_t RenderTextureToSurface_44D520(
     const std::int32_t x, const std::int32_t y, TextureRectangle rectangle,
     TextureSurface* surface, const std::int32_t imageNo, const std::int16_t paletteIndex,
@@ -397,6 +399,7 @@ std::int32_t RenderTextureToSurface_44D520(
     return BlitTextureToBack(surface, rectangle, destination);
 }
 
+// 原函数：0x0044DA90。
 std::int32_t RenderTexture_44DA90(
     const std::int16_t x, const std::int16_t y, const TextureRectangle* rectangle,
     const float scaleX, const float scaleY, TextureSurface* surface,

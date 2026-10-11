@@ -38,6 +38,7 @@ std::uint32_t gImeSentenceMode = 0;
 void* gImeCandidateList = nullptr;
 std::uint8_t gImeState73EFF0 = 0;
 
+// 原函数：0x00459760。
 int ClearKeyFlags_459760() noexcept
 {
     for (std::size_t index = 0; index < LegacyKeyStateCount; ++index) {
@@ -46,6 +47,7 @@ int ClearKeyFlags_459760() noexcept
     return static_cast<int>(LegacyKeyStateCount);
 }
 
+// 原函数：0x00459780。
 int ResetKeyState_459780() noexcept
 {
     for (std::size_t index = 0; index < LegacyKeyStateCount; ++index) {
@@ -54,16 +56,19 @@ int ResetKeyState_459780() noexcept
     return static_cast<int>(LegacyKeyStateCount);
 }
 
+// 原函数：0x004597B0。
 int ReadKeyPressFlag_4597B0(const std::int32_t key) noexcept
 {
     return static_cast<int>(gKeyStates[key] & 0x10u);
 }
 
+// 原函数：0x004597A0。
 int ReadKeyFlag4_4597A0(const std::int32_t key) noexcept
 {
     return static_cast<int>(gKeyStates[key] & 4u);
 }
 
+// 原函数：0x004597C0。
 int ReadControlKeyPressFlag_4597C0(const std::int32_t key) noexcept
 {
     if ((gKeyStates[17] & 2u) == 0) {

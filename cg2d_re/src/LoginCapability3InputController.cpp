@@ -74,6 +74,7 @@ std::int32_t gPending9A6E9C = 0;
 
 } // namespace
 
+// 原函数：0x0045FA70。
 std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 {
     Capability3InputButton32 primaryButton = kPrimaryButton;

@@ -81,6 +81,7 @@ std::int32_t ReadRecordInt32(
 
 } // namespace
 
+// 原函数：0x00461B30。
 std::int32_t ProcessCharacterSlot_461B30(
     std::uint32_t slot,
     std::int32_t mode)

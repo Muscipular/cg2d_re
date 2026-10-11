@@ -69,11 +69,13 @@ static_assert(sizeof(gValue9A620C) == 12 * 256);
 static_assert(sizeof(gValue9A620C[0]) == 256);
 static_assert(sizeof(kConfirmText) == 5);
 
+// 原函数：0x0045CE00。
 void ResetLoginMessage()
 {
     gMessageState = 0;
 }
 
+// 原函数：0x0045CE10。
 std::int32_t UpdateLoginMessage(const char* text)
 {
     std::array<char, kTextBufferSize> splitText {};

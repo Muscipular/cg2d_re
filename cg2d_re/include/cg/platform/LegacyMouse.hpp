@@ -49,6 +49,7 @@ static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
 extern LegacyMouseState gLegacyMouseState;
 
 // 原CRT 5530F8：同一鼠标十值构造后宿主std::atexit即时登记整体退出，传出真实S32；全应用序待。
+// 原函数：0x00506340。
 std::int32_t InitializeLegacyMouseRuntime_506340();
 
 // 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。

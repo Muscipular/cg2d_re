@@ -22,6 +22,7 @@ static_assert(sizeof(kDeleteAfterLeaving) == 13);
 
 } // namespace
 
+// 原函数：0x00462090。
 std::int32_t ProcessCharacterModal_462090(
     std::int32_t x,
     std::int32_t y)

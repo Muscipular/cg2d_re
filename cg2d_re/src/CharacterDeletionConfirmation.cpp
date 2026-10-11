@@ -30,6 +30,7 @@ static_assert(sizeof(kDeletionQuestion) == 15);
 
 } // namespace
 
+// 原函数：0x0045DEE0。
 std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t x,
     std::int32_t y,
@@ -132,6 +133,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
     return result;
 }
 
+// 原函数：0x0045E090。
 std::int32_t ProcessDefaultConfirmationDialog_45E090(
     std::int32_t x,
     std::int32_t y,
@@ -141,6 +143,7 @@ std::int32_t ProcessDefaultConfirmationDialog_45E090(
     return ProcessConfirmationDialog_45DEE0(x, y, text, color, 0, 0);
 }
 
+// 原函数：0x0045E0C0。
 std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     std::int32_t x,
     std::int32_t y)

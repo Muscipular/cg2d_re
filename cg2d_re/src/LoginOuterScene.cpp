@@ -31,6 +31,7 @@ char gValue9A4BA0[sizeof(kIncorrectAccountOrPassword)] {};
 
 } // namespace
 
+// 原函数：0x0045C2D0。
 void ProcessOuterScene_45C2D0()
 {
     bool processLoginInput = false;

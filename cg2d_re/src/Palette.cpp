@@ -14,6 +14,7 @@
 
 namespace cg::render {
 
+// 原函数：0x00451E90。
 std::int32_t FindNearestPaletteColor_451E90(
     const std::uint32_t color, const PaletteEntry* const palette, const std::int32_t count)
 {
@@ -163,6 +164,7 @@ int RebuildToneMap(
 
 } // namespace
 
+// 原函数：0x00453DE0。
 int CountMaskBits_453DE0(std::uint32_t mask) noexcept
 {
     return std::popcount(mask);
@@ -175,6 +177,7 @@ std::int32_t gPaletteTransitionSteps = 0;
 std::int32_t gPaletteCapability = 0;
 std::int32_t gPaletteChanging = 0;
 
+// 原函数：0x00450470。
 int InitPalette32()
 {
     // 原 0x450479..0x4506DA 写入的 32 项局部颜色，不沿用 cg3a 的固定色表。
@@ -273,6 +276,7 @@ int InitPalette32()
     return 1;
 }
 
+// 原函数：0x00450A80。
 int ReadPalette(std::int32_t index, PaletteEntry* output)
 {
     char path[256];
@@ -320,6 +324,7 @@ std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept
     return steps;
 }
 
+// 原函数：0x00450BB0。
 int UpdatePalette_450BB0()
 {
     const std::int32_t previousVersion = gPaletteFrameVersion;
@@ -495,6 +500,7 @@ int UpdatePalette_450BB0()
     return RebuildToneMap(&ColorChannelMaps::blue, &PaletteTone::red);
 }
 
+// 原函数：0x00451220。
 int RebuildPalette32() noexcept
 {
     for (int i = 0; i < 256; ++i) {

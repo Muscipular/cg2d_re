@@ -51,6 +51,7 @@ std::int32_t ReadRenderMode(const input::InputContext& context) noexcept
 
 } // namespace
 
+// 原函数：0x004568A0。
 void DrawInputText_4568A0(input::InputContext* const context)
 {
     const std::uint32_t initialCountBits =

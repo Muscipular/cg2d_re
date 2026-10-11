@@ -174,6 +174,7 @@ std::int32_t Sub_510AC0(
     std::int32_t item, std::int32_t target);
 
 // NFI01：fIM三整数/普通空格，原time/RNG消费与发送返回保持；原17替换不接现明文格式。
+// 原函数：0x00510B80。
 std::int32_t Sub_510B80(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);
 
@@ -184,10 +185,13 @@ std::int32_t Sub_510810(
     std::int32_t second);
 
 // 原快捷交互请求：两整数独立采容量/格式化/追加，透传真实发送返回。
+// 原函数：0x00510880。
 std::int32_t Sub_510880(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // ik
+// 原函数：0x00510940。
 std::int32_t Sub_510940(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // IMv
+// 原函数：0x005111E0。
 std::int32_t Sub_5111E0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // vcAz
 
@@ -496,10 +500,15 @@ std::int32_t Sub_512BD0(std::uintptr_t socket);
 std::int32_t Sub_512C60(std::uintptr_t socket);
 
 // 原五个无额外参数的请求叶；各自构造命令、追加同一 593850 文本并透传发送返回。
+// 原函数：0x00511CD0。
 std::int32_t Sub_511CD0(std::uintptr_t socket); // as
+// 原函数：0x00511FB0。
 std::int32_t Sub_511FB0(std::uintptr_t socket); // ixH
+// 原函数：0x00512230。
 std::int32_t Sub_512230(std::uintptr_t socket); // suI
+// 原函数：0x00512570。
 std::int32_t Sub_512570(std::uintptr_t socket); // ih
+// 原函数：0x00512CF0。
 std::int32_t Sub_512CF0(std::uintptr_t socket); // lO
 
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
@@ -520,6 +529,7 @@ std::int32_t AppendReceiveQueue_5081E0(
 
 // 原 0x508230/0x508280：先发布剩余长度，再将队列前移。
 std::int32_t ConsumeReceiveQueue_508230(std::int32_t size);
+// 原函数：0x00508280。
 std::int32_t ConsumeSendQueue_508280(std::int32_t size);
 
 // 只读原 W8 0xD9F2C8 活动门禁；状态仍由网络运行期唯一持有。

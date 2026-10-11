@@ -37,6 +37,7 @@ static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
 } // namespace
 
 // WBR01：只清占用槽action/value34，无释放/标死；两个父的三个调用点先YobiClearUp。
+// 原函数：0x00446610。
 void Sub_446610()
 {
     for (auto& record : gWorldObjects) {
@@ -47,11 +48,13 @@ void Sub_446610()
     }
 }
 
+// 原函数：0x004468F0。
 void Sub_4468F0()
 {
     gMapActorDrawKeyCount = 0;
 }
 
+// 原函数：0x00446900。
 std::int32_t Sub_446900(
     const std::int32_t graphicIndex, const std::int32_t mapX,
     const std::int32_t mapY)
@@ -75,6 +78,7 @@ std::int32_t Sub_446900(
 }
 
 // WOL01：完整两段查槽，start/end各持样一次，used W16非零/编号W32命中后发布查找游标。
+// 原函数：0x00444FA0。
 std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 {
     const std::int32_t start = gWorldObjectFindCursor;
@@ -97,6 +101,7 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 }
 
 // WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
+// 原函数：0x004462B0。
 login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
 {
     const std::int32_t index = Sub_444FA0(objectIndex);
@@ -104,6 +109,7 @@ login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
 }
 
 // WOL01：只推进计数/高水位/空槽游标并返回旧槽，不写记录或标占用/分配资源。
+// 原函数：0x00446130。
 std::int32_t Sub_446130()
 {
     if (gWorldObjectUsedCount >= 1000) {
@@ -135,6 +141,7 @@ std::int32_t Sub_446130()
 }
 
 // WOL01：原类型到完整W32旗位的正常映射，无全局发布/资源或RNG消费。
+// 原函数：0x004461E0。
 std::uint32_t Sub_4461E0(const std::int32_t type)
 {
     switch (type) {
@@ -149,6 +156,7 @@ std::uint32_t Sub_4461E0(const std::int32_t type)
 }
 
 // WOL01：已有1920/CAC07五target/71selector补完整正常入口；低W16仅由写入父消费。
+// 原函数：0x00446210。
 std::uint32_t Sub_446210(const std::int32_t type)
 {
     switch (type) {
@@ -168,6 +176,7 @@ std::uint32_t Sub_446210(const std::int32_t type)
 }
 
 // WOP01：无action记录生产，原两坐标三值先持样后发布；保三个独立文本缓冲。
+// 原函数：0x00445A60。
 std::int32_t Sub_445A60(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -242,6 +251,7 @@ std::int32_t Sub_445A60(
 }
 
 // WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
+// 原函数：0x004462E0。
 void Sub_4462E0(const std::int32_t objectIndex)
 {
     if (ReadPlayerObjectIndex_FDA880() == static_cast<std::uint32_t>(objectIndex)) {
@@ -280,6 +290,7 @@ void Sub_4462E0(const std::int32_t objectIndex)
 }
 
 // WLR01：无释放整表重置，只原七字段/名称首BYTE及四计数游标，不合并为有释放清理。
+// 原函数：0x00446470。
 void Sub_446470()
 {
     gWorldObjectUsedCount = 0;
@@ -298,6 +309,7 @@ void Sub_446470()
 }
 
 // WLR01：只清已占用槽，附件/文本先清再fresh主标死；保名称和未占用槽字段。
+// 原函数：0x004464D0。
 void __cdecl Sub_4464D0()
 {
     gWorldObjectUsedCount = 0;
@@ -366,12 +378,14 @@ void DestroyLegacyWorldElementForArray(void* const storage)
 } // namespace
 
 // 原CRT 553014：千项对象构造完成后，真实登记整体退出并透传完整S32。
+// 原函数：0x0043D760。
 std::int32_t InitializeLegacyWorldObjects_43D760()
 {
     ConstructWorldObjects();
     return std::atexit(DestroyWorldObjects);
 }
 
+// 原函数：0x0043D770。
 void ConstructWorldObjects()
 {
     platform::ConstructLegacyArray_53C45E(
@@ -380,6 +394,7 @@ void ConstructWorldObjects()
         ConstructLegacyWorldElementForArray, DestroyLegacyWorldElementForArray);
 }
 
+// 原函数：0x0043D7A0。
 void DestroyWorldObjects()
 {
     platform::DestroyLegacyArray_53C4E0(

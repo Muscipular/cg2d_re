@@ -19,6 +19,7 @@ std::int32_t FilterLegacyArrayUnwindException_5405F5(_EXCEPTION_POINTERS* const 
 
 } // namespace
 
+// 原函数：0x0053C560。
 void UnwindLegacyArray_53C560(
     void* const onePast, const std::uint32_t elementBytes, const std::int32_t elementCount,
     const LegacyArrayElementCallback destructor)
@@ -39,6 +40,7 @@ void UnwindLegacyArray_53C560(
     }
 }
 
+// 原函数：0x0053C45E。
 void ConstructLegacyArray_53C45E(
     void* const storage, const std::uint32_t elementBytes, const std::int32_t elementCount,
     const LegacyArrayElementCallback constructor, const LegacyArrayElementCallback destructor)
@@ -61,6 +63,7 @@ void ConstructLegacyArray_53C45E(
     }
 }
 
+// 原函数：0x0053C4E0。
 void DestroyLegacyArray_53C4E0(
     void* const storage, const std::uint32_t elementBytes, const std::int32_t elementCount,
     const LegacyArrayElementCallback destructor)

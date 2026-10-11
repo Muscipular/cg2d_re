@@ -12,6 +12,7 @@
 
 namespace cg::platform {
 
+// 原函数：0x00534EF0。
 std::int32_t Sub_534EF0(char* const output)
 {
     ULONG size = 0;

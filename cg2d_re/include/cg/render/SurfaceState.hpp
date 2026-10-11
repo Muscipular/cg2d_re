@@ -57,13 +57,16 @@ std::int32_t DrawMapEffects_453580();
 std::int32_t DrawIndexedAutoMap32_44F330(
     std::int32_t x, std::int32_t y, const std::uint8_t* source,
     std::int32_t width, std::int32_t height);
+// 原函数：0x0044FC20。
 std::int32_t DrawColorAutoMap32_44FC20(
     std::int32_t x, std::int32_t y, const std::uint32_t* source,
     std::int32_t width, std::int32_t height);
 // 原色深分派入口；本线仅承接已批准的 32 位路径，源只在本次调用内借用。
+// 原函数：0x0044F5C0。
 std::int32_t DrawIndexedAutoMap_44F5C0(
     std::int32_t x, std::int32_t y, const std::uint8_t* source,
     std::int32_t width, std::int32_t height);
+// 原函数：0x0044FEB0。
 std::int32_t DrawColorAutoMap_44FEB0(
     std::int32_t x, std::int32_t y, const std::uint32_t* source,
     std::int32_t width, std::int32_t height);

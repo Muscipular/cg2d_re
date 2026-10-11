@@ -27,11 +27,13 @@ std::int32_t gCharacterDeletionProgressRows = 0;    // 原 0x9A5950，R/W32。
 
 } // namespace
 
+// 原函数：0x0045DBF0。
 void ResetCharacterDeletionProgress_45DBF0()
 {
     gCharacterDeletionProgressStage = 0;
 }
 
+// 原函数：0x0045DC00。
 std::int32_t UpdateCharacterDeletionProgress_45DC00()
 {
     std::uint16_t stage = gCharacterDeletionProgressStage;

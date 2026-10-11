@@ -23,11 +23,13 @@ std::int32_t gAuthenticationFailureY = 0;      // 原 0x9A57DC，R/W32。
 
 } // namespace
 
+// 原函数：0x0045D7D0。
 void ResetAuthenticationFailure_45D7D0()
 {
     gAuthenticationFailureStage = 0;
 }
 
+// 原函数：0x0045D7E0。
 std::int32_t UpdateAuthenticationFailure_45D7E0()
 {
     std::int32_t result = 0;

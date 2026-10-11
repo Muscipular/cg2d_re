@@ -7,7 +7,9 @@ namespace cg::render {
 // 原 553018/55301C：固定缓存构造后立即登记退出，返回实际宿主 atexit 的 S32。
 // 当前仅本模块启动适配调用；全应用表接入时必须同时移除该适配，禁止双执行。
 // 私有树节点由宿主 STL 承接，退出不替代 44D490 的逐面业务释放。
+// 原函数：0x0044CC20。
 std::int32_t InitializeSurfaceTransformCache629300_44CC20();
+// 原函数：0x0044CD30。
 std::int32_t InitializeSurfaceTransformCache62A630_44CD30();
 
 // 原 Graphic::LoadGraphic@522570：读共享索引图，发布 DX 尺寸并领取节点链。

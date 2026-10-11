@@ -799,6 +799,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 
 namespace cg::platform {
 
+// 原函数：0x005201B0。
 std::int32_t RestoreCurrentSavedState_5201B0()
 {
     if (ReturnOne_4A4210() == 0) {
@@ -815,6 +816,7 @@ std::int32_t RestoreCurrentSavedState_5201B0()
     return 1;
 }
 
+// 原函数：0x00533300。
 std::int32_t InitializeSavedState_533300()
 {
     (void)ResetSavedState_533360();
@@ -1020,6 +1022,7 @@ std::int32_t Sub_520160()
     return Sub_520200();
 }
 
+// 原函数：0x00520200。
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();
@@ -1059,11 +1062,13 @@ const char* ReadSelectedSavedDirectory()
     return gSavedState.paths[physicalSlot].text;
 }
 
+// 原函数：0x005336D0。
 std::int32_t Sub_5336D0()
 {
     return LoadSelectedPhysicalRecord_5336D0();
 }
 
+// 原函数：0x00533860。
 std::int32_t Sub_533860(const std::int32_t physicalSlot)
 {
     return DeleteSavedFiles_533860(physicalSlot);
@@ -1102,6 +1107,7 @@ char* GetCurrentSavedStallDescriptionFF4D28()
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
 std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;
 
+// 原函数：0x00533570。
 void Sub_533570(
     const char* const source,
     const std::int32_t logicalSlot)
@@ -1121,6 +1127,7 @@ void Sub_533570(
     }
 }
 
+// 原函数：0x005335B0。
 void Sub_5335B0(
     const char* const source,
     const std::int32_t logicalSlot)
@@ -1140,6 +1147,7 @@ void Sub_5335B0(
     }
 }
 
+// 原函数：0x00533640。
 void Sub_533640(
     const char* const source,
     const std::int32_t logicalSlot)
@@ -1159,6 +1167,7 @@ void Sub_533640(
     }
 }
 
+// 原函数：0x005335F0。
 char* Sub_5335F0(
     char* const output,
     const std::int32_t logicalSlot)
@@ -1185,6 +1194,7 @@ char* Sub_5335F0(
     return output;
 }
 
+// 原函数：0x00533680。
 char* Sub_533680(
     char* const output,
     const std::int32_t logicalSlot)
@@ -1211,6 +1221,7 @@ char* Sub_533680(
     return output;
 }
 
+// 原函数：0x00533730。
 void Sub_533730()
 {
     SavedPhysicalRecord localRecord;
@@ -1282,6 +1293,7 @@ void Sub_533730()
 
 namespace cg::character_select::detail {
 
+// 原函数：0x00520200。
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

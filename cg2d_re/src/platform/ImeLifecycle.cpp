@@ -58,6 +58,7 @@ void ShutdownIme_459040()
 }
 
 // HWT01：当前线程布局先查询，再返回ImmIsIME完整Win32 BOOL，不转bool或补默认值。
+// 原函数：0x00459090。
 std::int32_t IsImeKeyboardLayout_459090() noexcept
 {
     const HKL keyboardLayout = GetKeyboardLayout(0);
@@ -66,6 +67,7 @@ std::int32_t IsImeKeyboardLayout_459090() noexcept
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x004590A0。
 std::int32_t ResetImeOpenStatus_4590A0() noexcept
 {
     const std::int32_t isIme = IsImeKeyboardLayout_459090();

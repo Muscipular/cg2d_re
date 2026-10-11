@@ -150,6 +150,7 @@ const LegacyTextureState& GetLegacyTextureState()
     return gRenderer->textureState;
 }
 
+// 原函数：0x0044B610。
 std::int32_t HasLegacy3DDevice_44B610()
 {
     return gRenderer->textureInterface != nullptr ? 1 : 0;
@@ -213,6 +214,7 @@ void PublishRendererPixelFormat32_44BB1E() noexcept
     gRendererBlueOffset = 0;
 }
 
+// 原函数：0x0044B630。
 std::int8_t RendererInit_44B630()
 {
     platform::gRendererLost = 0;

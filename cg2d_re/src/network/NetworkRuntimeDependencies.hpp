@@ -6,6 +6,7 @@ namespace cg::network::detail {
 
 // 原 [0x5082D0,0x508310) / [0x508310,0x508350)：NetworkLoop 错误日志叶。
 std::int32_t Sub_5082D0();
+// 原函数：0x00508310。
 std::int32_t Sub_508310();
 
 // 原 [0x50E6C0,0x50E6D8)：忽略 socket 首参，转发后三个 S32 到空间音频生产者。
@@ -90,6 +91,7 @@ std::int32_t Sub_403E50(
 
 // 原403C50完整明文取包父；原W16整包/容量/CRLF/NUL/队列/状态保持，仅旁路401AB0。
 std::int32_t Sub_403C50(void* destination, std::int32_t capacity);
+// 原函数：0x00512E40。
 std::int32_t NetworkDispatch_512E40(
     std::uintptr_t socket, const void* received);
 
@@ -114,6 +116,7 @@ extern char gText9A4EAC[128];
 
 namespace cg::platform {
 
+// 原函数：0x00404600。
 void ParseProtectionTables_404600(const char* input);
 
 } // namespace cg::platform

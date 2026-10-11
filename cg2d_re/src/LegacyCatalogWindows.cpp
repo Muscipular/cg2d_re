@@ -98,6 +98,7 @@ std::uint16_t Low16(const std::int32_t value)
 
 } // namespace
 
+// 原函数：0x004E4EA0。
 std::uint32_t Sub_4E4EA0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyTradeTargetPanel582E08.x;
@@ -187,6 +188,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
     return Sub_503440(&gLegacyTradeTargetPanel582E08, 0);
 }
 
+// 原函数：0x004D7440。
 YobiAction* Sub_4D7440()
 {
     const std::int32_t y = gLegacyPetSkillCatalogPanel581FB8.y;
@@ -198,6 +200,7 @@ YobiAction* Sub_4D7440()
 }
 
 // 原旧58完整消费路径；目录、图号、页数三项定义/生产尚缺，不提前注册页面。
+// 原函数：0x004D7470。
 std::uint32_t Sub_4D7470(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;
@@ -348,6 +351,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
     return Sub_503440(&gLegacyPetSkillCatalogPanel581FB8, 1);
 }
 
+// 原函数：0x004D7BF0。
 YobiAction* Sub_4D7BF0()
 {
     const std::int32_t y = gLegacyPetSkillPetPanel582080.y;
@@ -358,6 +362,7 @@ YobiAction* Sub_4D7BF0()
     return action;
 }
 
+// 原函数：0x004D7C20。
 std::uint32_t Sub_4D7C20(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetSkillPetPanel582080.x;
@@ -488,6 +493,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
     return Sub_503440(&gLegacyPetSkillPetPanel582080, 1);
 }
 
+// 原函数：0x004D8200。
 YobiAction* Sub_4D8200()
 {
     const std::int32_t y = gLegacyPetSkillSlotsPanel582148.y;
@@ -498,6 +504,7 @@ YobiAction* Sub_4D8200()
     return action;
 }
 
+// 原函数：0x004D8230。
 std::uint32_t Sub_4D8230(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetSkillSlotsPanel582148.x;
@@ -637,6 +644,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     return Sub_503440(&gLegacyPetSkillSlotsPanel582148, 1);
 }
 
+// 原函数：0x004D88C0。
 std::uint32_t Sub_4D88C0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetSkillConfirmPanel582210.x;

@@ -8,11 +8,13 @@
 
 namespace cg::platform {
 
+// 原函数：0x004659F0。
 int ParseClientVersion()
 {
     return ScanLegacyString_53CADC("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
 }
 
+// 原函数：0x00465A20。
 std::uint32_t CaptureDesktopColor()
 {
     const std::uint32_t color = GetSysColor(COLOR_BACKGROUND);
@@ -20,6 +22,7 @@ std::uint32_t CaptureDesktopColor()
     return color;
 }
 
+// 原函数：0x00532E70。
 int CreateSaveDirectories()
 {
     char directory[256];

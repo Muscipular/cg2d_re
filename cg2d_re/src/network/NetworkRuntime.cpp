@@ -409,6 +409,7 @@ std::int32_t Sub_403E50(
     return 0;
 }
 
+// 原函数：0x004038A0。
 char Sub_4038A0(
     char* const text,
     const std::int32_t,
@@ -491,6 +492,7 @@ char Sub_4038A0(
     return lastDirection;
 }
 
+// 原函数：0x00403A70。
 void Sub_403A70(
     char* const text, const std::int32_t,
     const char* const key3, const std::int32_t, const char* const key5)
@@ -554,6 +556,7 @@ void Sub_403A70(
     }
 }
 
+// 原函数：0x005173B0。
 void SplitReceivedBuffer_5173B0(char* const buffer)
 {
     const SendProtocolObserver observer = gNetworkRuntimeState.sendObserver58B61C;
@@ -596,6 +599,7 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
     gNetworkRuntimeState.pointerTable58B614[count] = nullptr;
 }
 
+// 原函数：0x005176B0。
 std::int32_t Sub_5176B0(const char* const text)
 {
     const auto* cursor =
@@ -639,6 +643,7 @@ std::int32_t Sub_5176B0(const char* const text)
     return sign * accumulator;
 }
 
+// 原函数：0x00517730。
 std::uint8_t* Sub_517730(
     const std::int32_t value,
     std::uint8_t* const destination,
@@ -715,6 +720,7 @@ std::int32_t Sub_5082D0()
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
 
+// 原函数：0x00508310。
 std::int32_t Sub_508310()
 {
     const std::int32_t error = ::WSAGetLastError();
@@ -821,6 +827,7 @@ std::int32_t Sub_50D700(
 }
 
 // LDT01：外层图号先转换；有记录先生产12字段再检查mode，无记录先检查mode。
+// 原函数：0x0050DD80。
 void Sub_50DD80(
     const std::uintptr_t, const std::int32_t objectIndex,
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -918,6 +925,7 @@ void Sub_50DD80(
         actionMode, 0, objectIndex));
 }
 
+// 原函数：0x0050E6E0。
 void Sub_50E6E0(const std::uintptr_t, const char* const text)
 {
     char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
@@ -941,6 +949,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
     std::strcpy(previous, text);
 }
 
+// 原函数：0x0050E780。
 std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)
 {
     const std::int32_t sceneType = world::gCurrentSceneType;
@@ -954,6 +963,7 @@ std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)
     return state;
 }
 
+// 原函数：0x0050E830。
 std::int32_t Sub_50E830(const std::uintptr_t)
 {
     const std::uint32_t state = world::gValue9A6E0C;
@@ -965,6 +975,7 @@ std::int32_t Sub_50E830(const std::uintptr_t)
 }
 
 // GMR01：原gate位型早退/记录五域重置→活动计数发布→同key邮件删除，原完整S32返回保。
+// 原函数：0x0050F130。
 std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
 {
     const std::uint32_t gate = world::gValue9A6E0C;
@@ -984,6 +995,7 @@ std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
 }
 
 // GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。
+// 原函数：0x0050F190。
 void Sub_50F190(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)
@@ -1015,6 +1027,7 @@ void Sub_50F190(
     world::detail::Sub_44B050(message, 4, 3);
 }
 
+// 原函数：0x00510460。
 void Sub_510460(
     const std::uintptr_t, const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
@@ -1026,6 +1039,7 @@ void Sub_510460(
 }
 
 // IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。
+// 原函数：0x00510490。
 void Sub_510490(const std::uintptr_t, const char* const text)
 {
     auto& record = world::detail::gReplyRecordF7C950;
@@ -1050,6 +1064,7 @@ void Sub_510490(const std::uintptr_t, const char* const text)
 
 namespace {
 
+// 原函数：0x00508800。
 void HandleResponse_508800(
     const std::uintptr_t,
     const std::int32_t value,
@@ -1100,6 +1115,7 @@ void HandleResponse_508800(
         std::strlen(text) + 1U);
 }
 
+// 原函数：0x00517510。
 std::int32_t BuildProtocolCommand_517510(
     char* const buffer,
     const char* const command)
@@ -1111,6 +1127,7 @@ std::int32_t BuildProtocolCommand_517510(
 
 } // namespace
 
+// 原函数：0x004037D0。
 std::int32_t ResetProtocolState_4037D0()
 {
     if (gNetworkRuntimeState.protocolWord0 != 0x1B768BA7U) {
@@ -1147,6 +1164,7 @@ std::int32_t ResetProtocolState_4037D0()
     return 0;
 }
 
+// 原函数：0x00516DA0。
 std::int32_t AllocateProtocolBuffers_516DA0(
     const std::uint32_t bufferLength)
 {
@@ -1280,6 +1298,7 @@ allocationFailure:
     return -1;
 }
 
+// 原函数：0x00517080。
 void CopyProtocolBytes_517080(
     std::uint8_t* const destination,
     const std::uint8_t* const source,
@@ -1298,6 +1317,7 @@ void CopyProtocolBytes_517080(
     destination[index] = 0;
 }
 
+// 原函数：0x00517040。
 void Sub_517040(
     std::uint32_t* const output,
     std::uint8_t* const destination,
@@ -1313,6 +1333,7 @@ void Sub_517040(
         capacity);
 }
 
+// 原函数：0x00517670。
 std::uint8_t* FormatProtocolInteger_517670(const std::int32_t value)
 {
     static_cast<void>(
@@ -1320,6 +1341,7 @@ std::uint8_t* FormatProtocolInteger_517670(const std::int32_t value)
     return gNetworkRuntimeState.integerFormatScratch;
 }
 
+// 原函数：0x00517690。
 std::uint8_t* CopyProtocolBytesAndReturn_517690(
     std::uint8_t* const destination,
     const std::int32_t capacity,
@@ -1329,6 +1351,7 @@ std::uint8_t* CopyProtocolBytesAndReturn_517690(
     return destination;
 }
 
+// 原函数：0x005170D0。
 std::int32_t AppendProtocolText_5170D0(
     char* const destination,
     const char* const source,
@@ -1362,6 +1385,7 @@ std::int32_t AppendProtocolText_5170D0(
     return destinationIndex;
 }
 
+// 原函数：0x00517120。
 std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
 {
     static constexpr std::uint8_t kSpace[] {' ', '\0'};
@@ -1385,6 +1409,7 @@ std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
     return gNetworkRuntimeState.buffer58B5FC;
 }
 
+// 原函数：0x00517160。
 std::uint8_t* FormatProtocolTextToken_517160(const char* const text)
 {
     static constexpr char kSpace[] {' ', '\0'};
@@ -1397,6 +1422,7 @@ std::uint8_t* FormatProtocolTextToken_517160(const char* const text)
     return escaped;
 }
 
+// 原函数：0x00517190。
 std::int32_t ParseProtocolInteger_517190(const char* const text)
 {
     if (text == nullptr) {
@@ -1574,6 +1600,7 @@ std::int32_t ParseDelimitedBase62_52D0D0(
     return Base62Decode_52D050(field.data());
 }
 
+// 原函数：0x005171F0。
 std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
 {
     gNetworkRuntimeState.buffer58B5F8[0] = 0;
@@ -1639,6 +1666,7 @@ std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
     }
 }
 
+// 原函数：0x005172D0。
 std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
 {
     gNetworkRuntimeState.buffer58B5F8[0] = 0;
@@ -1708,6 +1736,7 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
     }
 }
 
+// 原函数：0x005171B0。
 std::uint8_t* Sub_5171B0(const char* const text)
 {
     if (text != nullptr) {
@@ -1723,6 +1752,7 @@ std::uint8_t* Sub_5171B0(const char* const text)
     return gNetworkRuntimeState.buffer58B5F8;
 }
 
+// 原函数：0x00517480。
 std::int32_t SendProtocolBuffer_517480(
     const std::uintptr_t socket,
     char* const buffer)
@@ -1757,6 +1787,7 @@ std::int32_t SendProtocolBuffer_517480(
     return gNetworkRuntimeState.callback(socket, buffer, length);
 }
 
+// 原函数：0x00512CA0。
 std::int32_t Report_512CA0(
     const std::uintptr_t socket,
     const std::int32_t value)
@@ -1774,6 +1805,7 @@ std::int32_t Report_512CA0(
     return SendProtocolBuffer_517480(socket, output.data());
 }
 
+// 原函数：0x00512C10。
 std::int32_t Sub_512C10(
     const std::uintptr_t socket,
     const char* const text)
@@ -2326,6 +2358,7 @@ std::int32_t Sub_510710(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00510AC0。
 std::int32_t Sub_510AC0(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t item, const std::int32_t target)
@@ -2346,6 +2379,7 @@ std::int32_t Sub_510AC0(
 }
 
 // NFI01：fIM三Base62整数按现明文普通空格发送；保原time/seed/rand与共享缓冲时序。
+// 原函数：0x00510B80。
 std::int32_t Sub_510B80(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t direction)
@@ -2480,6 +2514,7 @@ std::int32_t Sub_511190(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00511250。
 std::int32_t Sub_511250(
     const std::uintptr_t socket, const std::int32_t kind, const char* const text)
 {
@@ -3655,6 +3690,7 @@ std::int32_t Sub_5121E0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x005127B0。
 std::int32_t Sub_5127B0(const std::uintptr_t socket, const std::int32_t value)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -3999,6 +4035,7 @@ std::int32_t Sub_512620(
 }
 
 // IMT01：原55条，四S32字段容量先格式/输出重读及S32发送返回，当前原字段/LF明文，正确正文保。
+// 原函数：0x00510CE0。
 std::int32_t Sub_510CE0(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t group, const std::int32_t index)
@@ -4038,6 +4075,7 @@ std::int32_t Sub_510CE0(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00510A00。
 std::int32_t Sub_510A00(
     const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t group)
@@ -4077,6 +4115,7 @@ std::int32_t Sub_510A00(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00516C90。
 std::int32_t Sub_516C90(
     const std::uintptr_t socket, const std::int32_t sourceGroup, const std::int32_t source,
     const std::int32_t targetGroup, const std::int32_t target, const std::int32_t amount)
@@ -4123,6 +4162,7 @@ std::int32_t Sub_516C90(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00516D70。
 std::int32_t SendIuEPacket_516D70(const std::uintptr_t socket)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -4131,6 +4171,7 @@ std::int32_t SendIuEPacket_516D70(const std::uintptr_t socket)
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x005109B0。
 std::int32_t SendBattlePacket_5109B0(
     const std::uintptr_t socket, const char* const text)
 {
@@ -4179,6 +4220,7 @@ std::int32_t Sub_510DA0(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00510EC0。
 std::int32_t Sub_510EC0(
     const std::uintptr_t socket, const std::int32_t source,
     const std::int32_t target, const std::int32_t amount)
@@ -4211,6 +4253,7 @@ std::int32_t Sub_510EC0(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x00510F50。
 std::int32_t Sub_510F50(
     const std::uintptr_t socket, const std::int32_t value)
 {
@@ -4229,6 +4272,7 @@ std::int32_t Sub_510F50(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原函数：0x005108F0。
 std::int32_t Sub_5108F0(
     const std::uintptr_t socket, const std::int32_t value)
 {
@@ -4362,6 +4406,7 @@ bool TryDispatchReply(
 
 // 原509080不读取参数；六个调用形态仍先完成各自的全部解码。
 template <typename... Values>
+// 原函数：0x00509080。
 void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
 {
     cg::NullSub_509080();
@@ -4371,6 +4416,7 @@ void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
 
 namespace detail {
 
+// 原函数：0x00512E40。
 std::int32_t NetworkDispatch_512E40(
     const std::uintptr_t socket, const void* const received)
 {
@@ -4503,6 +4549,7 @@ std::int32_t NetworkDispatch_512E40(
 
 } // namespace detail
 
+// 原函数：0x00516B60。
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,
@@ -4536,6 +4583,7 @@ std::int32_t AllocateNetworkWorkspace_516B60(
     return 0;
 }
 
+// 原函数：0x00508140。
 std::int32_t InitializeNetworkRuntime_508140()
 {
     WSADATA data;
@@ -4560,6 +4608,7 @@ std::int32_t InitializeNetworkRuntime_508140()
     return 1;
 }
 
+// 原函数：0x00507DF0。
 std::uint8_t NetworkLoop_507DF0()
 {
     const std::uint8_t flags = gNetworkRuntimeState.flagsD9F2C0;
@@ -4715,6 +4764,7 @@ std::uint8_t NetworkLoop_507DF0()
     return static_cast<std::uint8_t>(now);
 }
 
+// 原函数：0x005081E0。
 std::int32_t AppendReceiveQueue_5081E0(
     const void* const source,
     const std::uint32_t size)
@@ -4738,6 +4788,7 @@ std::int32_t AppendReceiveQueue_5081E0(
     return 0;
 }
 
+// 原函数：0x00508230。
 std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
 {
     if (login::gRequestPollingEnabled == 0) {
@@ -4756,6 +4807,7 @@ std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
     return 0;
 }
 
+// 原函数：0x00508280。
 std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
 {
     if (login::gRequestPollingEnabled == 0) {
@@ -4804,6 +4856,7 @@ void WriteProtocolModeDA3B22(const std::uint16_t value) noexcept
     gNetworkRuntimeState.protocolModeDA3B22 = value;
 }
 
+// 原函数：0x005081A0。
 void ShutdownNetworkRuntime_5081A0()
 {
     if (gNetworkRuntimeState.active == 0) {

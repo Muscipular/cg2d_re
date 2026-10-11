@@ -33,8 +33,11 @@
 
 namespace cg::login::detail {
 
+// 原函数：0x00520750。
 std::int32_t Sub_520750(std::int32_t selected);
+// 原函数：0x00520200。
 std::int32_t Sub_520200();
+// 原函数：0x0052BE60。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 
 } // namespace cg::login::detail
@@ -441,6 +444,7 @@ std::int32_t gBgmStage1050814 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
+// 原函数：0x0052B9E0。
 SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
 // 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
 void Sub_52B8E0()
@@ -594,6 +598,7 @@ std::int32_t Sub_524230()
     return 1;
 }
 
+// 原函数：0x005241A0。
 std::int32_t InitializeAudio_5241A0()
 {
     if ((platform::gRendererFlags & 0x20u) != 0) {
@@ -621,6 +626,7 @@ std::int32_t InitializeAudio_5241A0()
     return 1;
 }
 
+// 原函数：0x00524060。
 std::int32_t LoadBgmConfig_524060()
 {
     std::FILE* const file = std::fopen("bin\\bgm\\bgm.cf", "r");
@@ -671,6 +677,7 @@ std::int32_t LoadBgmConfig_524060()
     return 1;
 }
 
+// 原函数：0x0052C9C0。
 std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
 {
     const std::int32_t target =
@@ -681,6 +688,7 @@ std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
     return 0;
 }
 
+// 原函数：0x0052C910。
 std::int32_t UpdateBgmRequest_52C910()
 {
     const std::int32_t stage = gBgmStage1050814;
@@ -749,6 +757,7 @@ std::uint8_t& BorrowLegacyPanelDirty57C378(const std::int32_t index) noexcept
     return gSoundRecords57C368[index].dirty;
 }
 
+// 原函数：0x00504460。
 std::int32_t Sub_504460(const std::uint32_t id)
 {
     const std::int32_t index = Sub_5044C0(id);
@@ -937,6 +946,7 @@ std::uint32_t ReadLegacyPanelSelectionCC2370() noexcept
     return gSoundSelectionCC236C[1];
 }
 
+// 原函数：0x0052CCE0。
 std::uint32_t Sub_52CCE0() noexcept
 {
     if (gValue103DE80 == 1) {
@@ -949,6 +959,7 @@ std::uint32_t Sub_52CCE0() noexcept
     return (result & 0xFFFFFF00u) | static_cast<std::uint32_t>(result == 0);
 }
 
+// 原函数：0x0052CD40。
 SpatialAudioRecord* __cdecl Sub_52CD40()
 {
     for (auto& record : gSpatialRecords103D1C0) {
@@ -996,6 +1007,7 @@ std::int32_t __cdecl Sub_52CDE0(
         gSpatialRecords103D1C0.data(), index, &screenX, &screenY);
 }
 
+// 原函数：0x0052C9E0。
 std::int32_t __cdecl Sub_52C9E0(
     const std::int32_t id, const std::int32_t x, const std::int32_t y)
 {
@@ -1342,6 +1354,7 @@ std::int32_t ReadBgmRecordIndex58D4F8() noexcept
     return gRecordIndex;
 }
 
+// 原函数：0x0052B990。
 std::uint32_t Sub_52B990() noexcept
 {
     const std::int32_t index = gRecordIndex;
@@ -1558,6 +1571,7 @@ std::int32_t Sub_458AE0()
 }
 
 namespace shutdown_detail {
+// 原函数：0x00454EE0。
 std::int32_t Sub_454EE0()
 {
     audio::gSdlAudioBackend.StopFixedMusic();
@@ -1570,6 +1584,7 @@ std::int32_t Sub_454EE0()
 
 namespace initialization_detail {
 
+// 原函数：0x00454C30。
 std::int32_t InitializeMusic_454C30(std::uintptr_t)
 {
     if (CheckLegacyDxCapability_458DC0() != 0) { return 1; }

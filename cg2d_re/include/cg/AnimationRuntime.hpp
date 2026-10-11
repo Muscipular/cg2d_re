@@ -61,7 +61,9 @@ extern std::int32_t gAnimateCount9A4A60;
 extern std::int32_t gMaxAnimateCount9A4A4C;
 
 // 原CRT 553060及完整复制叶：9A4A50单次快照写入独立9A4A48，返回同一W32。
+// 原函数：0x0045B370。
 std::uint32_t Sub_45B370();
+// 原函数：0x0045B380。
 std::uint32_t Sub_45B380();
 
 // 原 45B420：qsort 的无符号首 W32 升序比较。
@@ -70,6 +72,7 @@ std::int32_t __cdecl Compare_45B420(const void* left, const void* right);
 // 原 45B390/45B400：包含上界，跨度不足 10 时顺扫。
 std::int32_t __cdecl BinarySearch_45B390(
     std::uint32_t animeNo, std::int32_t min, std::int32_t max);
+// 原函数：0x0045B400。
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
 // 原 [45BB20,45BEE1)：九槽 Info 去重、数据文件发布与主表排序；0 成功，2/3/5 失败。
@@ -85,7 +88,9 @@ void CoordLoadInit_45C040(char* const* dataPaths, char* const* infoPaths);
 std::int32_t AnimeLoadAction_45B760(std::int32_t index);
 
 // 原退出链：先关九个动画文件并清主表活动槽，再按标志处理文件及 P4 活动槽。
+// 原函数：0x0045BEF0。
 std::int32_t AnimeUnload_45BEF0(); // ACL01：九FILE关闭清槽后256主槽清理，真实末返回。
+// 原函数：0x0045BF20。
 std::int32_t Sub_45BF20(); // ACL01：九flag关闭后256P4槽清理，已批FILE引用清空保。
 
 } // namespace cg::resource::animation

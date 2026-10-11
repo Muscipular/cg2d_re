@@ -123,6 +123,7 @@ void SetContext_44B330(InputContext* context);
 
 // 原 503E40/503E60：当前上下文地址比较，返回完整 W32 的 0 或 1。
 std::int32_t IsCurrentContext_503E40(const InputContext* context);
+// 原函数：0x00503E60。
 std::int32_t IsChatContext_503E60();
 // 原44B340：Shift优先于Ctrl，扫描F1..F8并追加最后命中的同源预设文本。
 std::int32_t ProcessPresetHotkeys_44B340();
@@ -154,7 +155,9 @@ InputContext* Sub_45D760(
 
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
+// 原函数：0x0044A160。
 void LoadInitialText_44A160(const char* initialText); // 向当前输入逐字追加，保留原287B上限。
+// 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
@@ -170,11 +173,13 @@ char* EscapeLegacyText_52D1B0(
 char* EscapeLegacyTextAndNotify_52D2D0(
     const char* source, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 // 既有输入上下文调用边界，委派同一原字节入口。
+// 原函数：0x0052D2D0。
 char* EscapeInputText_52D2D0(
     const InputContext* context, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 
 // 原 52D150/52D2F0：原位还原旧字节转义；包装随后调用空叶并透传原指针。
 char* UnescapeLegacyText_52D150(char* text); // UTE01：原位BYTE取样/固定S32长度与计数，同text返回。
+// 原函数：0x0052D2F0。
 char* UnescapeLegacyTextAndNotify_52D2F0(char* text); // UTE01：反转义/原空操作/同text，非新增通知。
 
 // 原503AB0：按旧字节列宽提取指定行，CR/LF分开处理，0x01跳到下个8行边界。

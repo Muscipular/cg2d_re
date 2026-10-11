@@ -394,6 +394,7 @@ const char* RendererPresenterLastError() noexcept
     return gRendererPresenter.LastError();
 }
 
+// 原函数：0x0044C560。
 void Flip_44C560()
 {
     if (!gRendererPresenter.Present(
@@ -403,6 +404,7 @@ void Flip_44C560()
     gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;
 }
 
+// 原函数：0x00453E80。
 std::int32_t SaveScreenshotBitmap_453E80(
     const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const char* path)
 {
@@ -450,6 +452,7 @@ std::int32_t SaveScreenshotBitmap_453E80(
     return 1;
 }
 
+// 原函数：0x00453760。
 void TakeScreenshot_453760()
 {
     POINT origin {0, 0};
@@ -535,6 +538,7 @@ void TakeScreenshot_453760()
     std::free(pixels);
 }
 
+// 原函数：0x00503C80。
 std::uint32_t TakeScreenshotThrottled_503C80()
 {
     const std::uint32_t now = platform::ReadTickCount32();
@@ -547,6 +551,7 @@ std::uint32_t TakeScreenshotThrottled_503C80()
     return completed;
 }
 
+// 原函数：0x0044C3C0。
 void RendererDestroy_44C3C0() noexcept
 {
     if (!SDL_IsMainThread()) {

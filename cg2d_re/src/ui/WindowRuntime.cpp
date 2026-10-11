@@ -973,6 +973,7 @@ static_assert(offsetof(WindowMailGroupSlotsCC1A30, selected) == 0x328);
 static_assert(offsetof(WindowMailGroupSlotsCC1A30, initialize) == 0x648);
 static_assert(sizeof(WindowMailGroupSlotsCC1A30) == 0x64C);
 
+// 原函数：0x004A6D00。
 std::int32_t Sub_4A6D00(
     const WindowRuntimePrefixD2F0B8 first, const WindowRuntimePrefixD2F0B8 second)
 {
@@ -1829,6 +1830,7 @@ std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
 };
 
 // WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
+// 原函数：0x004B0F10。
 std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
 {
     return 0;
@@ -1840,6 +1842,7 @@ std::int32_t Sub_4A4210(const std::int32_t) noexcept
     return 1;
 }
 
+// 原函数：0x004E5DA0。
 void Sub_4E5DA0(
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
 {
@@ -1854,6 +1857,7 @@ void Sub_4E5DA0(
     std::memcpy(right, temporary.data(), temporary.size());
 }
 
+// 原函数：0x004E1840。
 void Sub_4E1840(
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
 {
@@ -1868,6 +1872,7 @@ void Sub_4E1840(
     std::memcpy(right, temporary.data(), temporary.size());
 }
 
+// 原函数：0x004F4630。
 std::int32_t Sub_4F4630(const std::int32_t itemId)
 {
     const std::int8_t pairIndex = std::bit_cast<std::int8_t>(gSkillPairIndexD67AD8);
@@ -1894,6 +1899,7 @@ std::int32_t Sub_4F4630(const std::int32_t itemId)
     return 0;
 }
 
+// 原函数：0x004B0000。
 void Sub_4B0000(const std::int32_t first, const std::int32_t second)
 {
     if (gWindowStates[43].window == nullptr) {
@@ -1913,6 +1919,7 @@ void Sub_4B0000(const std::int32_t first, const std::int32_t second)
     gTradeItemMarksD2D61C[second] = firstMark;
 }
 
+// 原函数：0x0047DC20。
 std::int32_t Sub_47DC20(const std::int32_t index)
 {
     auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
@@ -1950,6 +1957,7 @@ std::int32_t Sub_47DC20(const std::int32_t index)
     return Sub_4A7B00();
 }
 
+// 原函数：0x0047DCD0。
 void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
 {
     if (gWindowStates[11].window == nullptr) {
@@ -2007,6 +2015,7 @@ void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
     }
 }
 
+// 原函数：0x004AD060。
 void Sub_4AD060(const std::int32_t first, const std::int32_t second)
 {
     if (gWindowStates[51].window != nullptr && gSelectedItem57EE0C == first) {
@@ -2014,6 +2023,7 @@ void Sub_4AD060(const std::int32_t first, const std::int32_t second)
     }
 }
 
+// 原函数：0x004797C0。
 void Sub_4797C0(const std::int32_t first, const std::int32_t second)
 {
     if (gValue5F9754 == 0) {
@@ -2030,6 +2040,7 @@ void Sub_4797C0(const std::int32_t first, const std::int32_t second)
     }
 }
 
+// 原函数：0x0048BA60。
 void Sub_48BA60(const std::int32_t first, const std::int32_t second)
 {
     if (first >= 100 || second >= 100) {
@@ -2061,6 +2072,7 @@ void Sub_48BA60(const std::int32_t first, const std::int32_t second)
     hover[second] = firstValue;
 }
 
+// 原函数：0x004FB8F0。
 std::int32_t Sub_4FB8F0()
 {
     gDragItemIndex584DA4 = -1;
@@ -2072,6 +2084,7 @@ std::int32_t Sub_4FB8F0()
     return 0;
 }
 
+// 原函数：0x004FB920。
 std::int32_t Sub_4FB920(const std::int32_t index)
 {
     const std::int32_t previous = gDragItemIndex584DA4;
@@ -2081,6 +2094,7 @@ std::int32_t Sub_4FB920(const std::int32_t index)
     return previous;
 }
 
+// 原函数：0x004E54E0。
 void Sub_4E54E0(const std::int32_t side, const std::int32_t index)
 {
     if (index < 0 || index >= 20) {
@@ -2111,6 +2125,7 @@ void Sub_4E54E0(const std::int32_t side, const std::int32_t index)
     }
 }
 
+// 原函数：0x004E5600。
 void Sub_4E5600(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -2118,6 +2133,7 @@ void Sub_4E5600(const std::int32_t side)
     }
 }
 
+// 原函数：0x004CDE40。
 std::int32_t Sub_4CDE40(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -2160,6 +2176,7 @@ std::int32_t Sub_4CDE40(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CDFA0。
 std::int32_t Sub_4CDFA0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -2228,6 +2245,7 @@ std::int32_t Sub_4CE0F0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004CE1F0。
 std::int32_t Sub_4CE1F0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -2257,6 +2275,7 @@ std::int32_t Sub_4CE1F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CE2B0。
 std::int32_t Sub_4CE2B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -2302,6 +2321,7 @@ std::int32_t Sub_4CE370(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004CE3F0。
 std::int32_t Sub_4CE3F0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -2363,6 +2383,7 @@ std::int32_t Sub_4CE3F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004D27C0。
 std::int32_t Sub_4D27C0(const std::int32_t value)
 {
     const std::int32_t mode = gStallModeD67BDC;
@@ -2389,11 +2410,13 @@ std::int32_t Sub_4D27C0(const std::int32_t value)
     return mode - 1;
 }
 
+// 原函数：0x004CE8A0。
 std::int32_t Sub_4CE8A0()
 {
     return network::Sub_512160(platform::gConnectionSocket);
 }
 
+// 原函数：0x004CED50。
 WindowInstance* Sub_4CED50()
 {
     WindowInstance* const window = gCurrentWindow;
@@ -2401,6 +2424,7 @@ WindowInstance* Sub_4CED50()
     return window;
 }
 
+// 原函数：0x004CFC40。
 WindowElement* Sub_4CFC40()
 {
     gStallPriceD67C40 = 0;
@@ -2414,6 +2438,7 @@ WindowElement* Sub_4CFC40()
     return elements;
 }
 
+// 原函数：0x004CFCA0。
 void Sub_4CFCA0(const std::int32_t petIndex)
 {
     const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
@@ -2437,6 +2462,7 @@ void Sub_4CFCA0(const std::int32_t petIndex)
     gCurrentWindow->elements[1].visible = 1;
 }
 
+// 原函数：0x004CFD70。
 std::int32_t Sub_4CFD70()
 {
     const std::int32_t mode = gStallModeD67BDC;
@@ -2479,6 +2505,7 @@ std::int32_t Sub_4CFD70()
     return mode - 1;
 }
 
+// 原函数：0x004CF940。
 std::int32_t Sub_4CF940(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -2619,6 +2646,7 @@ std::int32_t Sub_4CF940(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CFE70。
 std::int32_t Sub_4CFE70()
 {
     char buffer[12];
@@ -2706,6 +2734,7 @@ std::int32_t Sub_4CFE70()
     return 0;
 }
 
+// 原函数：0x004D0230。
 std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t mode = gStallMessageModeD67C34;
@@ -2746,6 +2775,7 @@ std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
     return state & 1;
 }
 
+// 原函数：0x004D0990。
 std::int32_t Sub_4D0990(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
@@ -2771,6 +2801,7 @@ std::int32_t Sub_4D0990(
     return login::detail::DrawGraphic(shortX + 105, shortY + 8, 230, 243100, 0, &descriptor);
 }
 
+// 原函数：0x004D0A80。
 std::int32_t Sub_4D0A80(
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
@@ -2842,6 +2873,7 @@ std::int32_t Sub_4D0A80(
     return render::DrawGraphic3_520970(shortX, shortY, 230, 244373, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x004D0EB0。
 std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 1) {
@@ -2994,6 +3026,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004D1C00。
 std::int32_t Sub_4D1C00(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
@@ -3023,6 +3056,7 @@ std::int32_t Sub_4D1C00(
     return 0;
 }
 
+// 原函数：0x004D16F0。
 std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 1) {
@@ -3140,6 +3174,7 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004D04A0。
 std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
 {
     if (gValueD67BE0 != 0) {
@@ -3288,6 +3323,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004D1D50。
 std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 0) {
@@ -3375,6 +3411,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
     return (state & 0x21) != 0 ? 1 : 0;
 }
 
+// 原函数：0x004D2260。
 std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
 {
     const bool clicked = (state & 2) != 0;
@@ -3490,6 +3527,7 @@ std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
     return state & 1;
 }
 
+// 原函数：0x004D2840。
 std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -3648,6 +3686,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
     return state & 1;
 }
 
+// 原函数：0x004CD4F0。
 std::int32_t Sub_4CD4F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -3853,6 +3892,7 @@ std::int32_t Sub_4D2170(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004CDB10。
 std::int32_t Sub_4CDB10(const std::int32_t)
 {
     if (gStallOwn58111C != 0) {
@@ -3963,6 +4003,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004CED60。
 void Sub_4CED60(
     const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
@@ -4153,6 +4194,7 @@ void Sub_4CED60(
     static_cast<void>(CreateWindowAnimation_475AA0(68, 1, 0, nullptr));
 }
 
+// 原函数：0x004CF8A0。
 void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const text)
 {
     std::int32_t last = -1;
@@ -4171,6 +4213,7 @@ void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const t
     item->pages = last < 0 ? 0 : last / 8 + 1;
 }
 
+// 原函数：0x004CECB0。
 std::int32_t Sub_4CECB0()
 {
     const std::int32_t mode = gStallModeD67BDC;
@@ -4197,6 +4240,7 @@ std::int32_t Sub_4CECB0()
     return bytes;
 }
 
+// 原函数：0x004CD420。
 std::int32_t Sub_4CD420(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -4221,6 +4265,7 @@ std::int32_t Sub_4CD420(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CDE00。
 void Sub_4CDE00()
 {
     if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
@@ -4229,6 +4274,7 @@ void Sub_4CDE00()
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }
 
+// 原函数：0x004CE700。
 void Sub_4CE700(const std::int32_t result)
 {
     if (result != 0) {
@@ -4274,6 +4320,7 @@ void Sub_4CE700(const std::int32_t result)
     gStallPendingD67C31 = 0;
 }
 
+// 原函数：0x004CE8B0。
 void Sub_4CE8B0(const std::int32_t result)
 {
     if (result != 0) {
@@ -4294,6 +4341,7 @@ void Sub_4CE8B0(const std::int32_t result)
     }
 }
 
+// 原函数：0x004CE930。
 void Sub_4CE930(const std::int32_t result)
 {
     if (result == 0) {
@@ -4374,6 +4422,7 @@ void Sub_4CE930(const std::int32_t result)
     gStallPendingD67C31 = 0;
 }
 
+// 原函数：0x004C9C70。
 void Sub_4C9C70()
 {
     const std::int32_t mode = gProfileCategory1085DA0;
@@ -4396,6 +4445,8 @@ void Sub_4C9C70()
     }
 }
 
+// 原函数：0x004C94B0。
+// 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
 std::int32_t Sub_4C94B0(const std::int32_t value)
 {
     if (value == -1) {
@@ -4412,6 +4463,7 @@ static constexpr char kProfileCategoryHint5884F4[] = "\xD4\x4F\xB6\xA8\xD8\x9C\x
 static constexpr char kProfileCategoryHint588504[] = "\xD4\x4F\xB6\xA8\xD9\x8F\xD9\x49\xB5\xC4\xC4\xBF\xE4\x9B";
 static constexpr char kProfileCategoryHint588514[] = "\xD4\x4F\xB6\xA8\xC3\xE8\xCA\xF6\xB5\xC4\xC4\xBF\xE4\x9B";
 
+// 原函数：0x004C94F0。
 std::int32_t Sub_4C94F0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -4458,6 +4510,7 @@ std::int32_t Sub_4C94F0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004C96F0。
 std::int32_t Sub_4C96F0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -4612,6 +4665,7 @@ std::int32_t Sub_4C9B80(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004C9BE0。
 std::int32_t Sub_4C9BE0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -4629,6 +4683,7 @@ std::int32_t Sub_4C9BE0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004C9F20。
 void Sub_4C9F20()
 {
     constexpr std::array<std::int32_t, 3> counts {32, 32, 15};
@@ -4653,6 +4708,8 @@ void Sub_4C9F20()
     }
 }
 
+// 原函数：0x004C9EE0。
+// 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
 std::int32_t Sub_4C9EE0(const std::int32_t value)
 {
     if (value == -1) {
@@ -4664,6 +4721,7 @@ std::int32_t Sub_4C9EE0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004CA300。
 void Sub_4CA300()
 {
     world::detail::gValue581800 = -1;
@@ -4672,6 +4730,7 @@ void Sub_4CA300()
     static_cast<void>(Sub_4CB9B0(4));
 }
 
+// 原函数：0x004CB430。
 std::int32_t Sub_4CB430(const std::int32_t index)
 {
     if (index - 79 < 32) {
@@ -4683,6 +4742,7 @@ std::int32_t Sub_4CB430(const std::int32_t index)
     return world::detail::ReadCategoryRecord105FA24(2, index - 142).selected10C != 0 ? 1 : 0;
 }
 
+// 原函数：0x004CB4A0。
 std::int32_t Sub_4CB4A0(
     const std::int32_t index, std::int32_t* const group, std::int32_t* const value)
 {
@@ -4699,6 +4759,7 @@ std::int32_t Sub_4CB4A0(
     return 1;
 }
 
+// 原函数：0x004CA1A0。
 std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -4729,6 +4790,7 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004CA500。
 void Sub_4CA500()
 {
     const auto& search = world::detail::ReadProfileSearch105C398();
@@ -4763,6 +4825,7 @@ void Sub_4CA500()
     }
 }
 
+// 原函数：0x004CA450。
 std::uint32_t Sub_4CA450()
 {
     if (input::gCurrentInputData == &input::gInputContextCB0610) {
@@ -4783,6 +4846,8 @@ std::uint32_t Sub_4CA450()
     return bytes;
 }
 
+// 原函数：0x004CA410。
+// 关联原入口：0x004CA438（共享尾已并入本函数正文）。
 std::int32_t Sub_4CA410(const std::int32_t value)
 {
     if (value == -1) {
@@ -4795,6 +4860,7 @@ std::int32_t Sub_4CA410(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004CAB60。
 void Sub_4CAB60()
 {
     world::detail::gValue581800 = -1;
@@ -4802,6 +4868,7 @@ void Sub_4CAB60()
     static_cast<void>(Sub_4CB9B0(4));
 }
 
+// 原函数：0x004CAB90。
 std::int32_t Sub_4CAB90(const std::int32_t, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -4826,6 +4893,7 @@ std::int32_t Sub_4CAB90(const std::int32_t, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CA6F0。
 std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
 {
     if (index < 3 || index > 5) {
@@ -4868,6 +4936,7 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004CA9C0。
 std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t position = index - 48;
@@ -4906,6 +4975,7 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CAFA0。
 std::uint32_t Sub_4CAFA0()
 {
     const world::detail::ProfileRuntimeRecord& profile =
@@ -4954,6 +5024,8 @@ std::uint32_t Sub_4CAFA0()
     return bytes;
 }
 
+// 原函数：0x004CAF60。
+// 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
 std::int32_t Sub_4CAF60(const std::int32_t)
 {
     if (Sub_4D3040(2, 2) != 0) {
@@ -4963,6 +5035,7 @@ std::int32_t Sub_4CAF60(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004CB9B0。
 WindowInstance* Sub_4CB9B0(const std::int32_t index)
 {
     WindowInstance* const window = gWindowStates[59 + index].window;
@@ -4972,12 +5045,14 @@ WindowInstance* Sub_4CB9B0(const std::int32_t index)
     return window;
 }
 
+// 原函数：0x004CB530。
 void Sub_4CB530()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(Sub_4CB9B0(4));
 }
 
+// 原函数：0x004CB2F0。
 std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
 {
     if (index != 0) {
@@ -5010,6 +5085,7 @@ std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CB5D0。
 void Sub_4CB5D0()
 {
     std::strcpy(
@@ -5029,6 +5105,7 @@ void Sub_4CB5D0()
     }
 }
 
+// 原函数：0x004CB550。
 std::int32_t Sub_4CB550(const std::int32_t value)
 {
     if (value == -1) {
@@ -5048,6 +5125,7 @@ std::int32_t Sub_4CB550(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004CB920。
 std::int32_t Sub_4CB920(const std::int32_t, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -5070,6 +5148,7 @@ std::int32_t Sub_4CB920(const std::int32_t, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CB6A0。
 std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
 {
     if (index != 2) {
@@ -5141,6 +5220,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004CB9F0。
 std::uint32_t Sub_4CB9F0()
 {
     const world::detail::ProfileRuntimeRecord& profile =
@@ -5189,12 +5269,14 @@ std::uint32_t Sub_4CB9F0()
     return bytes;
 }
 
+// 原函数：0x004CB9E0。
 std::int32_t Sub_4CB9E0(const std::int32_t)
 {
     static_cast<void>(Sub_4CB9F0());
     return 1;
 }
 
+// 原函数：0x00478330。
 std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -5300,6 +5382,7 @@ std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// 原函数：0x004D3020。
 std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
 {
     gValueCC4D34 = x;
@@ -5307,6 +5390,7 @@ std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
     return x;
 }
 
+// 原函数：0x004D3040。
 std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
 {
     const double playerX = static_cast<double>(
@@ -5339,6 +5423,7 @@ std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
     return distanceY >= static_cast<double>(rangeY * 64) ? 1 : 0;
 }
 
+// 原函数：0x004B0110。
 login::YobiAction* Sub_4B0110()
 {
     gTradeValueD67B80 = 0;
@@ -5347,6 +5432,7 @@ login::YobiAction* Sub_4B0110()
     return action;
 }
 
+// 原函数：0x004B0130。
 void Sub_4B0130(
     WindowInstance* const window, const std::int32_t index,
     const std::int32_t x, const std::int32_t y)
@@ -5360,6 +5446,7 @@ void Sub_4B0130(
     window->elements[index - 2].x = shortX + 252;
 }
 
+// 原函数：0x004B0180。
 void Sub_4B0180(
     WindowInstance* const window, const std::int32_t index, const std::int32_t visible)
 {
@@ -5370,6 +5457,7 @@ void Sub_4B0180(
     }
 }
 
+// 原函数：0x004B01B0。
 void Sub_4B01B0(
     WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
 {
@@ -5377,6 +5465,7 @@ void Sub_4B01B0(
     graphic->color = color;
 }
 
+// 原函数：0x004AFF30。
 std::int32_t Sub_4AFF30(const std::int32_t index, const std::int32_t slot)
 {
     if (std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]) >= 0) {
@@ -5390,6 +5479,7 @@ std::int32_t Sub_4AFF30(const std::int32_t index, const std::int32_t slot)
     return 1;
 }
 
+// 原函数：0x004AFFB0。
 std::int32_t Sub_4AFFB0(const std::int32_t first, const std::int32_t second)
 {
     const std::uint8_t previous = gTradeItemSlotsCF3AE8[first];
@@ -5398,6 +5488,7 @@ std::int32_t Sub_4AFFB0(const std::int32_t first, const std::int32_t second)
     return first;
 }
 
+// 原函数：0x004B0060。
 std::int32_t Sub_4B0060(const std::int32_t index, const std::int32_t slot)
 {
     if (std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]) >= 0) {
@@ -5408,6 +5499,7 @@ std::int32_t Sub_4B0060(const std::int32_t index, const std::int32_t slot)
     return 1;
 }
 
+// 原函数：0x004B00C0。
 std::int32_t Sub_4B00C0(const std::int32_t first, const std::int32_t second)
 {
     const std::uint8_t previous = gTradePetSlotsCC4D28[first];
@@ -5417,6 +5509,7 @@ std::int32_t Sub_4B00C0(const std::int32_t first, const std::int32_t second)
 }
 
 // IDE01：原21条；原signed三区间及S32 1/2/3/0保持，正确正文保，四CALL/全部消费者与运行待。
+// 原函数：0x0048BB30。
 std::int32_t Sub_48BB30(const std::int32_t slot)
 {
     if (slot >= 0 && slot < 8) {
@@ -5428,11 +5521,13 @@ std::int32_t Sub_48BB30(const std::int32_t slot)
     return slot >= 100 && slot < 120 ? 3 : 0;
 }
 
+// 原函数：0x0048BB70。
 std::int32_t Sub_48BB70(const std::int32_t slot)
 {
     return slot >= 0 && slot < 5 ? 1 : 2;
 }
 
+// 原函数：0x0048BC60。
 std::int32_t Sub_48BC60(const std::int32_t slot)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
@@ -5443,6 +5538,7 @@ std::int32_t Sub_48BC60(const std::int32_t slot)
     return -1;
 }
 
+// 原函数：0x0047D490。
 void Sub_47D490()
 {
     gValueD67B00 = 0;
@@ -5609,6 +5705,7 @@ std::int32_t Sub_474170(const std::int32_t, const std::int32_t state)
 }
 
 // IMT01：原88条，source7短路及41/38转义后状态-Y-X/真实返回；旧格式历史及正确正文保，全owner/运行待。
+// 原函数：0x004885A0。
 std::int32_t Sub_4885A0(const std::int32_t amount)
 {
     std::int32_t source = gItemMoveSourceCF46B0;
@@ -5643,6 +5740,7 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
 }
 
 // IMT01：原97条，Ctrl BYTE/反转开关与count/used门槛、直接source先target/拆分target先source；正确正文保。
+// 原函数：0x004886E0。
 void Sub_4886E0(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t source, const std::int32_t target)
@@ -5684,6 +5782,7 @@ void Sub_4886E0(
 }
 
 // IMT01：原70条，target=-1先声/原门槛与低U8模式、同mode两fresh组读取；正确正文保，全互通待。
+// 原函数：0x00488800。
 void Sub_488800(
     const std::int32_t sourceMode, const std::int32_t source,
     const std::int32_t targetMode, const std::int32_t target)
@@ -5714,6 +5813,7 @@ void Sub_488800(
     }
 }
 
+// 原函数：0x0048BB90。
 void Sub_48BB90(
     const std::int32_t, const std::int32_t,
     const std::int32_t source, const std::int32_t target)
@@ -5739,6 +5839,7 @@ void Sub_48BB90(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128));
 }
 
+// 原函数：0x004AFF70。
 std::int32_t Sub_4AFF70(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
@@ -5753,6 +5854,7 @@ std::int32_t Sub_4AFF70(const std::int32_t index)
     return slot;
 }
 
+// 原函数：0x004B0090。
 std::int32_t Sub_4B0090(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
@@ -5764,6 +5866,7 @@ std::int32_t Sub_4B0090(const std::int32_t index)
     return slot;
 }
 
+// 原函数：0x004B0200。
 void Sub_4B0200()
 {
     WindowInstance* const window = gWindowStates[42].window;
@@ -5784,6 +5887,7 @@ void Sub_4B0200()
     gTradeValueD67B80 = 0;
 }
 
+// 原函数：0x004B0290。
 std::int32_t Sub_4B0290(const std::int32_t value)
 {
     if (value == -1) {
@@ -5959,6 +6063,7 @@ std::int32_t Sub_4B0290(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004B08D0。
 std::int32_t Sub_4B08D0(const std::int32_t)
 {
     std::int32_t preview = gTradePreviewCC2E64;
@@ -6006,6 +6111,7 @@ std::int32_t Sub_4B08D0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004AAB70。
 void Sub_4AAB70(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
@@ -6052,6 +6158,7 @@ void Sub_4AAB70(
     drawNumber(pet.value6A4, "%2d", 45, 55);
 }
 
+// 原函数：0x004AB400。
 void Sub_4AB400(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
@@ -6101,11 +6208,13 @@ void Sub_4AB400(
     drawNumber(0x58, "%2d", 45, 55);
 }
 
+// 原函数：0x004EA670。
 std::int32_t Sub_4EA670(const std::int32_t index)
 {
     return world::detail::Sub_52E180(index, 25600) != 0 ? 1 : 0;
 }
 
+// 原函数：0x0048D540。
 std::int32_t Sub_48D540(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer, const std::uint8_t graphicLayer, const std::uint32_t color)
@@ -6183,6 +6292,7 @@ std::int32_t Sub_48D540(
         originX + 150, originY + 24, graphicLayer, 243140, 0, &descriptor);
 }
 
+// 原函数：0x004B0F20。
 std::int32_t Sub_4B0F20(
     const std::int16_t x, const std::int16_t y, const std::int8_t side,
     const std::int32_t index, const std::uint8_t textLayer, const std::uint8_t graphicLayer,
@@ -6381,6 +6491,7 @@ std::int32_t Sub_4B1260(
     return result;
 }
 
+// 原函数：0x0048BF30。
 void Sub_48BF30(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -6461,6 +6572,7 @@ void Sub_48BF30(
     }
 }
 
+// 原函数：0x0048C130。
 std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
 {
     gPetDragModeD2EA1C = mode;
@@ -6468,6 +6580,7 @@ std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
 }
 
 // IDE01：原189条；动作及两点击BYTE/三descriptor持址明确，两fresh分类/取消后绘制保持，完整owner及运行待。
+// 原函数：0x0048BC90。
 void Sub_48BC90(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -6557,12 +6670,14 @@ void Sub_48BC90(
 }
 
 // IDE01：原九条；mode S32先写再真实kind2调用/结果透传，正确正文保，十三父/owner/运行待。
+// 原函数：0x0048BF10。
 std::int32_t Sub_48BF10(const std::int32_t sourceIndex, const std::int32_t mode)
 {
     gItemDragModeCC4C9C = mode;
     return Sub_475DA0(2, sourceIndex, Sub_48BC90);
 }
 
+// 原函数：0x004B1940。
 void Sub_4B1940(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
@@ -6746,6 +6861,7 @@ void Sub_4B1940(
     }
 }
 
+// 原函数：0x004B2060。
 void Sub_4B2060(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
@@ -6877,6 +6993,7 @@ void Sub_4B2060(
     }
 }
 
+// 原函数：0x004B2480。
 std::int32_t Sub_4B2480(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -6892,6 +7009,7 @@ std::int32_t Sub_4B2480(const std::int32_t index, const std::int32_t state)
         10, &gTradeScrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, Sub_4B2500);
 }
 
+// 原函数：0x004B2500。
 void Sub_4B2500(
     const std::int16_t x, const std::int16_t y,
     const std::int32_t mouseX, const std::int32_t mouseY,
@@ -6931,6 +7049,7 @@ void Sub_4B2500(
     *petCount = pets;
 }
 
+// 原函数：0x004B25D0。
 void Sub_4B25D0(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -6969,6 +7088,7 @@ void Sub_4B25D0(
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
+// 原函数：0x004B2E00。
 void Sub_4B2E00(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -7011,16 +7131,19 @@ void Sub_4B2E00(
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
+// 原函数：0x004B2710。
 std::int32_t Sub_4B2710(const std::int32_t index)
 {
     return Sub_475DA0(6, index, Sub_4B25D0);
 }
 
+// 原函数：0x004B2F50。
 std::int32_t Sub_4B2F50(const std::int32_t index)
 {
     return Sub_475DA0(7, index, Sub_4B2E00);
 }
 
+// 原函数：0x004B2730。
 void Sub_4B2730(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
@@ -7198,6 +7321,7 @@ void Sub_4B2730(
     }
 }
 
+// 原函数：0x004B2F70。
 void Sub_4B2F70(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
@@ -7336,6 +7460,7 @@ void Sub_4B2F70(
     }
 }
 
+// 原函数：0x004B3430。
 std::int32_t Sub_4B3430(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -7354,6 +7479,7 @@ std::int32_t Sub_4B3430(const std::int32_t index, const std::int32_t state)
         7, &gTradeScrollCC4C90, -1, 0, 0, 0, amount, &descriptor, Sub_4B34C0);
 }
 
+// 原函数：0x004B34C0。
 void Sub_4B34C0(
     const std::int16_t x, const std::int16_t y,
     const std::int32_t mouseX, const std::int32_t mouseY, const std::int32_t state,
@@ -7385,6 +7511,7 @@ void Sub_4B34C0(
     *amount = gTradeValueD046D0;
 }
 
+// 原函数：0x004B3580。
 std::int32_t Sub_4B3580(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -7403,6 +7530,7 @@ std::int32_t Sub_4B3580(const std::int32_t index, const std::int32_t state)
         13, &gTradeScrollD67430, -1, 0, 0, 0, amount, &descriptor, Sub_4B3610);
 }
 
+// 原函数：0x004B3610。
 void Sub_4B3610(
     const std::int16_t x, const std::int16_t y, const std::int32_t, const std::int32_t,
     const std::int32_t state, std::uint8_t* const tab, const std::int32_t scroll,
@@ -7566,6 +7694,7 @@ void Sub_4B3610(
     *amount = gTradeValueCF4688;
 }
 
+// 原函数：0x004B1900。
 bool Sub_4B1900(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height)
@@ -7731,6 +7860,7 @@ std::uint8_t Sub_474550(
     return 1;
 }
 
+// 原函数：0x004B09E0。
 std::int32_t Sub_4B09E0(const std::int32_t, const std::int32_t state)
 {
     if (gTradeValueD6742C == 2) {
@@ -7774,6 +7904,7 @@ std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004FBA30。
 std::int32_t Sub_4FBA30(
     std::int32_t x, const std::int32_t y, const std::uint8_t renderMode,
     const std::int32_t fontType, std::int8_t color, const char* text,
@@ -7863,6 +7994,7 @@ std::int32_t Sub_48B810(
         0xE6, 0x3BA5D, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x0048B930。
 std::int32_t Sub_48B930(
     const std::int32_t x, const std::int32_t y,
     const char* const title, const std::int8_t titleColor,
@@ -7908,6 +8040,7 @@ std::int32_t Sub_48B930(
         230, 244317, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x0048B450。
 std::int32_t Sub_48B450(
     const std::int32_t side, const std::int32_t index, const std::int32_t page)
 {
@@ -7940,6 +8073,7 @@ std::int32_t Sub_48B450(
 }
 
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
+// 原函数：0x004C61B0。
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
 {
     login::YobiAction* const preview = state->preview;
@@ -7971,12 +8105,14 @@ WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
 }
 
 // SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
+// 原函数：0x004C71B0。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)
 {
     return state->selectedPet70;
 }
 
 // SFD01：低BYTE模式装配非拥有元素/四回调；逐次借当前窗口，非零模式槽19不写，发布次序保持。
+// 原函数：0x004C6EC0。
 void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)
 {
     state->value64 = mode;
@@ -8036,6 +8172,7 @@ void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)
 }
 
 // SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
+// 原函数：0x004C63C0。
 std::int32_t Sub_4C63C0(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
@@ -8053,6 +8190,7 @@ std::int32_t Sub_4C63C0(
 }
 
 // SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
+// 原函数：0x004C6400。
 std::int32_t Sub_4C6400(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
@@ -8070,6 +8208,7 @@ std::int32_t Sub_4C6400(
 }
 
 // SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
+// 原函数：0x004C6440。
 void Sub_4C6440(WindowItemSelectorState* const state)
 {
     if (state->value60 == 2) {
@@ -8081,6 +8220,7 @@ void Sub_4C6440(WindowItemSelectorState* const state)
 }
 
 // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
+// 原函数：0x004C6470。
 void Sub_4C6470(WindowItemSelectorState* const state)
 {
     if (state->value60 == 3) {
@@ -8102,6 +8242,7 @@ void Sub_4C6470(WindowItemSelectorState* const state)
 }
 
 // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
+// 原函数：0x004C6500。
 void Sub_4C6500(WindowItemSelectorState* const state)
 {
     state->elements00[6]->visible = 0;
@@ -8119,6 +8260,7 @@ void Sub_4C6500(WindowItemSelectorState* const state)
 }
 
 // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
+// 原函数：0x004C6550。
 void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
 {
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
@@ -8205,6 +8347,7 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
 }
 
 // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
+// 原函数：0x004C6790。
 void Sub_4C6790(WindowItemSelectorState* const state)
 {
     static constexpr std::int32_t images54F564[] {98133, 98133, 98135, 98134};
@@ -8292,6 +8435,7 @@ void Sub_4C6790(WindowItemSelectorState* const state)
 }
 
 // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
+// 原函数：0x004C6990。
 std::int32_t Sub_4C6990(WindowItemSelectorState* const state)
 {
     const std::int32_t index = Sub_4C71C0(std::bit_cast<std::int8_t>(*state->mode68));
@@ -8300,6 +8444,7 @@ std::int32_t Sub_4C6990(WindowItemSelectorState* const state)
 }
 
 // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
+// 原函数：0x004C69B0。
 void Sub_4C69B0(WindowItemSelectorState* const state)
 {
     if (state->selectedPet70 == -1 || !world::IsValidPetIndex_51C410(state->selectedPet70)) {
@@ -8332,6 +8477,7 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
 }
 
 // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
+// 原函数：0x004C6AC0。
 void Sub_4C6AC0(WindowItemSelectorState* const state, const std::int32_t x)
 {
     state->elements00[1]->x = x;
@@ -8344,6 +8490,7 @@ void Sub_4C6AC0(WindowItemSelectorState* const state, const std::int32_t x)
 }
 
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
+// 原函数：0x004C6B10。
 void Sub_4C6B10(WindowItemSelectorState* const state)
 {
     if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
@@ -8421,6 +8568,7 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
 }
 
 // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
+// 原函数：0x004C6D90。
 std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
 {
     const std::int32_t selected = state->selectedPet70;
@@ -8447,6 +8595,7 @@ std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
 }
 
 // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
+// 原函数：0x004C71C0。
 std::int32_t Sub_4C71C0(const std::int32_t ordinal)
 {
     if (ordinal == -1) {
@@ -8473,6 +8622,7 @@ std::int32_t Sub_4C71C0(const std::int32_t ordinal)
 }
 
 // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
+// 原函数：0x004C7340。
 bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
 {
     *state->mode68 = static_cast<std::uint8_t>(mode);
@@ -8490,6 +8640,7 @@ bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
 }
 
 // SEV01：页签提示/点击/绘制与图号原序；中心坐标显式取样，descriptor地址先图号；bool限原AL消费。
+// 原函数：0x004C7380。
 bool Sub_4C7380(
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
@@ -8566,6 +8717,7 @@ bool Sub_4C7380(
 }
 
 // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
+// 原函数：0x004C78A0。
 bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
@@ -8579,6 +8731,7 @@ bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)
 }
 
 // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
+// 原函数：0x004C7910。
 bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
@@ -8617,6 +8770,7 @@ bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
 }
 
 // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
+// 原函数：0x004C7A10。
 bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
@@ -8639,6 +8793,7 @@ bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)
 }
 
 // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
+// 原函数：0x004C7A90。
 void Sub_4C7A90(WindowItemSelectorState* const state)
 {
     if (state->initialized3E8 == 0) {
@@ -8651,6 +8806,7 @@ void Sub_4C7A90(WindowItemSelectorState* const state)
 }
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
+// 原函数：0x004C7240。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
@@ -8666,6 +8822,7 @@ std::int32_t Sub_4C7240(
 }
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
+// 原函数：0x004C7280。
 std::int32_t Sub_4C7280(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
@@ -8681,6 +8838,7 @@ std::int32_t Sub_4C7280(
 }
 
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
+// 原函数：0x004C72C0。
 bool Sub_4C72C0(
     const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,
     std::int32_t* const count)
@@ -8700,6 +8858,7 @@ bool Sub_4C72C0(
 }
 
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
+// 原函数：0x0048A6C0。
 std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -8744,6 +8903,7 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
 }
 
 // ISP01：对话29选物先占用/发布两个回调与mode2，启动返回丢弃，再透传焦点绑定S32结果。
+// 原函数：0x004888C0。
 std::int32_t Sub_4888C0(const char* const text)
 {
     const std::int32_t selected = platform::Atoi_53C649(text);
@@ -8758,28 +8918,33 @@ std::int32_t Sub_4888C0(const char* const text)
     return Sub_4763B0(14, 0);
 }
 
+// 原函数：0x00488930。
 std::int32_t Sub_488930(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C78A0(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
+// 原函数：0x00488950。
 std::int32_t Sub_488950(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C7910(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
+// 原函数：0x00488970。
 std::int32_t Sub_488970(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(Sub_4C7A10(&gItemSelectorCF3B10, state));
     return 0;
 }
 
+// 原函数：0x00488EA0。
 std::int32_t Sub_488EA0(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C7380(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
 }
 
 // SAP01：原81条；五对used/索引/flags与S8模式保持，成功低AL归一、无效图/声效按原，运行待。
+// 原函数：0x00488EC0。
 std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 19;
@@ -8816,6 +8981,7 @@ std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00488510。
 void Sub_488510()
 {
     WindowInstance* const quantityWindow = gWindowStates[42].window;
@@ -8839,6 +9005,7 @@ void Sub_488510()
     gItemSelectorCF3B10.initialized3E8 = 0;
 }
 
+// 原函数：0x00488990。
 std::int32_t Sub_488990(const std::int32_t value)
 {
     std::int32_t selected;
@@ -8893,6 +9060,7 @@ updateSelector:
     return 1;
 }
 
+// 原函数：0x00488B10。
 std::int32_t Sub_488B10(const std::int32_t)
 {
     static constexpr char selectionText586B14[] =
@@ -8942,6 +9110,7 @@ std::int32_t Sub_488B10(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00488C50。
 std::int32_t Sub_488C50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -9009,18 +9178,21 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00488E60。
 std::int32_t Sub_488E60(const std::int32_t, const std::int32_t)
 {
     platform::FormatLegacyString_53B304(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
+// 原函数：0x00488E80。
 std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
     platform::FormatLegacyString_53B304(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
+// 原函数：0x0049C4D0。
 void Sub_49C4D0()
 {
     for (auto& image : gMessageDialogImagesCC4B70) {
@@ -9035,6 +9207,7 @@ void Sub_49C4D0()
     }
 }
 
+// 原函数：0x0049C510。
 void Sub_49C510(
     const std::uint8_t used, const std::int32_t imageNo, const std::uint8_t direction,
     const std::int16_t x, const std::int16_t y)
@@ -9067,6 +9240,7 @@ void Sub_49C510(
     ++gMessageDialogImageCountD67B30;
 }
 
+// 原函数：0x0049C600。
 login::YobiAction* Sub_49C600(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -9111,6 +9285,7 @@ login::YobiAction* Sub_49C600(
     return login::detail::Sub_475950(x, y, width, height, 37, flags, mode, nullptr);
 }
 
+// 原函数：0x0049C710。
 std::int32_t Sub_49C710(const std::int32_t value)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
@@ -9230,6 +9405,7 @@ std::int32_t Sub_49C710(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0049CAD0。
 std::int32_t Sub_49CAD0(const std::int32_t)
 {
     WindowInstance* window = gCurrentWindow;
@@ -9355,6 +9531,7 @@ std::int32_t Sub_49CAD0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049CDF0。
 void Sub_49CDF0()
 {
     if (gMessageDialog.closeCallbackPending != 0) {
@@ -9382,6 +9559,7 @@ void Sub_49CDF0()
     gMessageDialog.inputTexts = nullptr;
 }
 
+// 原函数：0x0049CE70。
 std::int32_t Sub_49CE70(const std::int32_t index, const std::int32_t state)
 {
     static constexpr std::int32_t images[6][3] {
@@ -9426,6 +9604,7 @@ std::int32_t Sub_49CE70(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049CF70。
 std::int32_t Sub_49CF70(const std::int32_t, const std::int32_t state)
 {
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
@@ -9540,6 +9719,7 @@ std::int32_t Sub_49CF70(const std::int32_t, const std::int32_t state)
     return (gMessageDialog.options & 1u) != 0 ? 1 : consumed;
 }
 
+// 原函数：0x0049DA30。
 std::int32_t Sub_49DA30(
     const std::int32_t button, const std::int32_t row,
     char* const* const texts, const std::uint8_t inputCount)
@@ -9617,6 +9797,7 @@ std::int32_t Sub_49DA30(
 }
 static_assert(std::is_same_v<decltype(&Sub_49DA30), WindowDialogReplyCallback>);
 
+// 原函数：0x0049DDB0。
 void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
 {
     if (text[0] != 'g' || text[1] != ',') {
@@ -9889,6 +10070,7 @@ void Sub_49D2E0(
     }
 }
 
+// 原函数：0x0049D8F0。
 void Sub_49D8F0(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
@@ -9956,6 +10138,7 @@ void Sub_50E130(
     world::detail::Sub_43D860(action);
 }
 
+// 原函数：0x0049DF30。
 login::YobiAction* Sub_49DF30(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -10035,6 +10218,7 @@ login::YobiAction* Sub_49DF30(
         columns, 2, 0, &Sub_49DA30, nullptr, 1, 0);
 }
 
+// 原函数：0x0049E1D0。
 std::int32_t Sub_49E1D0(
     WindowInstance* const window, const std::int32_t button,
     std::int32_t row, const std::int32_t)
@@ -10094,6 +10278,7 @@ std::int32_t Sub_49E1D0(
 }
 static_assert(std::is_same_v<decltype(&Sub_49E1D0), WindowDialogFrameCallback>);
 
+// 原函数：0x0049E400。
 login::YobiAction* Sub_49E400(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -10157,6 +10342,7 @@ login::YobiAction* Sub_49E400(
         16, first, 0, nullptr, columns, 2, 0, &Sub_49DA30, &Sub_49E1D0, 1, 0);
 }
 
+// 原函数：0x0049FCA0。
 login::YobiAction* Sub_49FCA0(
     const char* const title, const std::int32_t imageNo,
     const char* const* const lines, const std::uint8_t lineCount,
@@ -10180,6 +10366,7 @@ login::YobiAction* Sub_49FCA0(
     return CreateWindowAnimation_475AA0(52, 1, 0, nullptr);
 }
 
+// 原函数：0x0049FD20。
 std::int32_t Sub_49FD20(const std::int32_t value)
 {
     if (value == -1) {
@@ -10205,6 +10392,7 @@ std::int32_t Sub_49FD20(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0049FE40。
 std::int32_t Sub_49FE40(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
@@ -10242,6 +10430,7 @@ std::int32_t Sub_49FE40(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049FF70。
 void Sub_49FF70()
 {
     if (gChoiceDialog.closeEnabled != 0 && world::detail::gValue581800 == gChoiceDialog.type) {
@@ -10249,6 +10438,7 @@ void Sub_49FF70()
     }
 }
 
+// 原函数：0x0049FFA0。
 std::int32_t Sub_49FFA0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) == 0) {
@@ -10281,6 +10471,7 @@ std::int32_t Sub_49FFA0(const std::int32_t, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004A00C0。
 std::int32_t Sub_4A00C0(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
@@ -10300,6 +10491,7 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
 }
 static_assert(std::is_same_v<decltype(&Sub_4A00C0), WindowChoiceCallback>);
 
+// 原函数：0x004A0140。
 login::YobiAction* Sub_4A0140(const char* const text)
 {
     gShopImageC9A9A0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10337,6 +10529,7 @@ login::YobiAction* Sub_4A0140(const char* const text)
         gShopHintsD2F738.data(), &Sub_4A00C0);
 }
 
+// 原函数：0x004A0280。
 std::int32_t Sub_4A0280(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
@@ -10347,6 +10540,7 @@ std::int32_t Sub_4A0280(const std::int32_t index)
     return SendChoiceDialogReply(buffer.data());
 }
 
+// 原函数：0x004A0420。
 std::int32_t Sub_4A0420(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
@@ -10357,6 +10551,7 @@ std::int32_t Sub_4A0420(const std::int32_t index)
     return SendChoiceDialogReply(buffer.data());
 }
 
+// 原函数：0x004A05C0。
 std::int32_t Sub_4A05C0(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
@@ -10367,6 +10562,7 @@ std::int32_t Sub_4A05C0(const std::int32_t index)
     return SendChoiceDialogReply(buffer.data());
 }
 
+// 原函数：0x004A0700。
 std::int32_t Sub_4A0700(const std::int32_t index)
 {
     if (index != 0) {
@@ -10381,6 +10577,7 @@ static_assert(std::is_same_v<decltype(&Sub_4A0420), WindowChoiceCallback>);
 static_assert(std::is_same_v<decltype(&Sub_4A05C0), WindowChoiceCallback>);
 static_assert(std::is_same_v<decltype(&Sub_4A0700), WindowChoiceCallback>);
 
+// 原函数：0x004A0300。
 login::YobiAction* Sub_4A0300(const char* const text)
 {
     gChoiceImageCB0AE4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10404,6 +10601,7 @@ login::YobiAction* Sub_4A0300(const char* const text)
         gChoiceHintsCC31FC.data(), &Sub_4A0280);
 }
 
+// 原函数：0x004A04A0。
 login::YobiAction* Sub_4A04A0(const char* const text)
 {
     gChoiceImageCF4A18 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10427,6 +10625,7 @@ login::YobiAction* Sub_4A04A0(const char* const text)
         gChoiceHintsCA0AAC.data(), &Sub_4A0420);
 }
 
+// 原函数：0x004A0640。
 login::YobiAction* Sub_4A0640(const char* const text)
 {
     gChoiceImageCC4890 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10438,6 +10637,7 @@ login::YobiAction* Sub_4A0640(const char* const text)
         kSkillChoices57E6F0.data(), 3, kSkillHints57E6FC.data(), &Sub_4A05C0);
 }
 
+// 原函数：0x004A0790。
 login::YobiAction* Sub_4A0790(const char* const text)
 {
     gChoiceImageC9A99C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10449,6 +10649,7 @@ login::YobiAction* Sub_4A0790(const char* const text)
         kExchangeChoices57E708.data(), 2, kExchangeHints57E714.data(), &Sub_4A0700);
 }
 
+// 原函数：0x004A0850。
 login::YobiAction* Sub_4A0850(const char* const text)
 {
     gChoiceImageD2EA74 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
@@ -10465,34 +10666,40 @@ login::YobiAction* Sub_4A0850(const char* const text)
         gGiveReceiveChoices57E728.data(), 2, kGiveReceiveHints57E730.data(), &Sub_4A05C0);
 }
 
+// 原函数：0x00499930。
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C78A0(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
+// 原函数：0x00499950。
 std::int32_t Sub_499950(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C7910(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
+// 原函数：0x00499970。
 std::int32_t Sub_499970(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(Sub_4C7A10(&gItemSelectorD2F338, state));
     return 0;
 }
 
+// 原函数：0x00499B00。
 std::int32_t Sub_499B00(const std::int32_t, const std::int32_t)
 {
     platform::FormatLegacyString_53B304(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
+// 原函数：0x00499B20。
 std::int32_t Sub_499B20(const std::int32_t, const std::int32_t)
 {
     platform::FormatLegacyString_53B304(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
+// 原函数：0x00499B40。
 std::int32_t Sub_499B40(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(Sub_4C7380(&gItemSelectorD2F338, 0, state));
@@ -10500,6 +10707,7 @@ std::int32_t Sub_499B40(const std::int32_t, const std::int32_t state)
 }
 
 // SAP01：原71条；五对与S8模式保持，成功忽略按钮结果恒0，无效图/声效按原，运行待。
+// 原函数：0x00499B60。
 std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 17;
@@ -10537,6 +10745,7 @@ std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00499990。
 std::int32_t Sub_499990(const std::int32_t value)
 {
     if (value == -1) {
@@ -10549,6 +10758,7 @@ std::int32_t Sub_499990(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004999D0。
 std::int32_t Sub_4999D0(const std::int32_t)
 {
     const std::int32_t hovered = gBattleItemHoverCF49B0;
@@ -10590,6 +10800,7 @@ std::int32_t Sub_4999D0(const std::int32_t)
 }
 
 // BIP01：原1175条；六BYTE/五grid/区域取序明确，原未加8容量索引/技能经验成本和目标发布保持，全生产消费及运行待。
+// 原函数：0x00499C30。
 std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
 {
     static constexpr std::int32_t kBombType = 51;
@@ -11026,12 +11237,14 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049B610。
 std::int32_t Sub_49B610(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C75A0(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
+// 原函数：0x0049AC40。
 std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
 {
     static constexpr char noSpace[] = "\xCE\xEF\xC6\xB7\x99\xDA\xCE\xBB\xB2\xBB\xD7\xE3\xA3\xA1";
@@ -11294,6 +11507,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00488FB0。
 std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -11492,6 +11706,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
 }
 
 // IER01：原584条；装备拖放/使用/显示保持，两物品BYTE及动作BYTE明确，selected先于hover写回；全生产消费/运行待。
+// 原函数：0x00489760。
 std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
 {
     static constexpr const char* playerHints[] {
@@ -11719,6 +11934,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
 }
 
 // SAP01：原391条三根有据；本根完整239条，图形与三种文字坐标按原读取序；格式/GBK与低AL边界保持，运行待。
+// 原函数：0x004C75A0。
 bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t state)
 {
     if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0
@@ -11864,12 +12080,14 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
     return false;
 }
 
+// 原函数：0x00489EE0。
 std::int32_t Sub_489EE0(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C75A0(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。
+// 原函数：0x00489F00。
 std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -12022,6 +12240,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0048B1A0。
 std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
 {
     if (gTooltipSourceD303FC != index) {
@@ -12093,6 +12312,7 @@ std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
     return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
 }
 
+// 原函数：0x0048B560。
 std::int32_t Sub_48B560(
     const std::int32_t index, const std::int32_t page, const std::int32_t showUnavailable)
 {
@@ -12139,6 +12359,7 @@ std::int32_t Sub_48B560(
     return Sub_48B810(x, y, buffer.data(), titleColor, lines, 96, 8, footer, 4);
 }
 
+// 原函数：0x0048B750。
 std::int32_t Sub_48B750(const std::int32_t page)
 {
     if (gTooltipSourceD303FC != 400) {
@@ -12161,6 +12382,7 @@ std::int32_t Sub_48B750(const std::int32_t page)
         96, 8, nullptr, 0);
 }
 
+// 原函数：0x004B4070。
 std::int32_t Sub_4B4070(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t skill)
@@ -12187,6 +12409,7 @@ std::int32_t Sub_4B4070(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
+// 原函数：0x004B4140。
 std::int32_t Sub_4B4140(
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
@@ -12279,6 +12502,7 @@ std::int32_t Sub_4B4140(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x004B45A0。
 std::int32_t Sub_4B45A0(
     const std::int32_t x, const std::int32_t y, const std::int32_t side,
     const std::int32_t index, const std::int32_t skill)
@@ -12308,6 +12532,7 @@ std::int32_t Sub_4B45A0(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
+// 原函数：0x004B4680。
 std::int32_t Sub_4B4680(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t index)
@@ -12394,6 +12619,7 @@ std::int32_t Sub_4B4680(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x004B3B00。
 std::int32_t Sub_4B3B00(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
@@ -12423,6 +12649,7 @@ std::int32_t Sub_4B3B00(
         shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
 }
 
+// 原函数：0x004B3BF0。
 std::int32_t Sub_4B3BF0(
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
@@ -12508,18 +12735,21 @@ std::int32_t Sub_4B3BF0(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
+// 原函数：0x004AFFE0。
 std::int32_t Sub_4AFFE0(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
     return slot < 0 ? -1 : slot;
 }
 
+// 原函数：0x004B00F0。
 std::int32_t Sub_4B00F0(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
     return slot < 0 ? -1 : slot;
 }
 
+// 原函数：0x004B0A50。
 std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -12584,6 +12814,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B0CF0。
 std::int32_t Sub_4B0CF0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -12613,6 +12844,7 @@ std::int32_t Sub_4B0CF0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B0DB0。
 std::int32_t Sub_4B0DB0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -12657,6 +12889,7 @@ std::int32_t Sub_4B0DB0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004E5620。
 login::YobiAction* Sub_4E5620(const char* const name)
 {
     gTradeItemsD460D0.fill('\0');
@@ -12682,12 +12915,14 @@ login::YobiAction* Sub_4E5620(const char* const name)
     return Sub_4B0110();
 }
 
+// 原函数：0x004E4E60。
 void Sub_4E4E60(const std::int32_t index, const char* const name)
 {
     static_cast<void>(network::Sub_511FF0(platform::gConnectionSocket, index));
     static_cast<void>(Sub_4E5620(name));
 }
 
+// 原函数：0x0049E800。
 login::YobiAction* Sub_49E800(
     const char* const text, const WindowListSelectionCallback callback)
 {
@@ -12720,11 +12955,13 @@ login::YobiAction* Sub_49E800(
     return CreateWindowAnimation_475AA0(44, 1, 0, nullptr);
 }
 
+// 原函数：0x004E4E80。
 login::YobiAction* Sub_4E4E80(const char* const text)
 {
     return Sub_49E800(text, &Sub_4E4E60);
 }
 
+// 原函数：0x004E0100。
 void Sub_4E0100(const std::int32_t side, const std::int32_t index)
 {
     if (index < 0 || index >= 20) {
@@ -12758,6 +12995,7 @@ void Sub_4E0100(const std::int32_t side, const std::int32_t index)
     }
 }
 
+// 原函数：0x004E52B0。
 void Sub_4E52B0(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -12820,6 +13058,7 @@ void Sub_4E52B0(const std::int32_t side)
     }
 }
 
+// 原函数：0x004A83A0。
 WindowInstance* Sub_4A83A0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState)
 {
@@ -12831,6 +13070,7 @@ WindowInstance* Sub_4A83A0(
     return window;
 }
 
+// 原函数：0x004AC0C0。
 WindowInstance* Sub_4AC0C0(
     const std::int32_t kind, const std::int32_t value14,
     const std::int32_t userState, const std::int32_t)
@@ -12843,6 +13083,7 @@ WindowInstance* Sub_4AC0C0(
     return window;
 }
 
+// 原函数：0x004AD090。
 void Sub_4AD090()
 {
     if (gWindowLinesD67B70 != nullptr) {
@@ -12855,6 +13096,7 @@ void Sub_4AD090()
     }
 }
 
+// 原函数：0x004AD0F0。
 std::uint32_t Sub_4AD0F0(WindowInstance* const window)
 {
     std::uint32_t result = 0;
@@ -12944,6 +13186,7 @@ void RebuildWindowLines51(char* const text)
 
 } // namespace
 
+// 原函数：0x004AD180。
 login::YobiAction* Sub_4AD180(
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
@@ -12962,6 +13205,7 @@ login::YobiAction* Sub_4AD180(
     return CreateWindowAnimation_475AA0(51, 1, 0, nullptr);
 }
 
+// 原函数：0x004AD470。
 void Sub_4AD470(const char* const text)
 {
     std::array<char, 1024> buffer;
@@ -12983,6 +13227,7 @@ void Sub_4AD470(const char* const text)
     }
 }
 
+// 原函数：0x004AD780。
 void Sub_4AD780()
 {
     Sub_4AD090();
@@ -13007,6 +13252,7 @@ void Sub_4AD780()
     world::detail::gValue581800 = -1;
 }
 
+// 原函数：0x004AD800。
 std::int32_t Sub_4AD800(const std::int32_t value)
 {
     if (value == -1) {
@@ -13062,6 +13308,7 @@ std::int32_t Sub_4AD800(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004AD9F0。
 std::int32_t Sub_4AD9F0(const std::int32_t)
 {
     gCurrentWindow->elements[14].visible = 1;
@@ -13083,6 +13330,7 @@ std::int32_t Sub_4AD9F0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004ADAA0。
 std::int32_t Sub_4ADAA0(const std::int32_t index, const std::int32_t)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -13110,6 +13358,7 @@ std::int32_t Sub_4ADAA0(const std::int32_t index, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004ADBD0。
 std::int32_t Sub_4ADBD0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -13138,6 +13387,7 @@ std::int32_t Sub_4ADBD0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004ADC80。
 std::int32_t Sub_4ADC80(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -13166,6 +13416,7 @@ std::int32_t Sub_4ADC80(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004ADD50。
 std::int32_t Sub_4ADD50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -13192,6 +13443,7 @@ std::int32_t Sub_4ADD50(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004ADE10。
 std::int32_t Sub_4ADE10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -13221,6 +13473,7 @@ std::int32_t Sub_4ADE10(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004ADEF0。
 std::int32_t Sub_4ADEF0(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -13233,6 +13486,7 @@ std::int32_t Sub_4ADEF0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004ADF40。
 std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -13280,6 +13534,7 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004AE170。
 std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -13316,6 +13571,7 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004AE260。
 std::int32_t Sub_4AE260(const std::int32_t index, const std::int32_t state)
 {
     const std::uint32_t imageNo = login::detail::gValueD69768;
@@ -13339,6 +13595,7 @@ std::int32_t Sub_4AE260(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004AE350。
 std::int32_t Sub_4AE350(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -13421,6 +13678,7 @@ std::int32_t Sub_4AE350(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004AE5B0。
 std::int32_t Sub_4AE5B0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0 && gHoverTextD68AE8[0] == '\0') {
@@ -13432,6 +13690,7 @@ std::int32_t Sub_4AE5B0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A83D0。
 void Sub_4A83D0()
 {
     const std::uint32_t kind = gWindowStates[41].value10;
@@ -13458,6 +13717,7 @@ void Sub_4A83D0()
     }
 }
 
+// 原函数：0x004A9020。
 std::int32_t Sub_4A9020(const std::int32_t value)
 {
     if (value == -1) {
@@ -13538,6 +13798,7 @@ std::int32_t Sub_4A9160(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004AC0F0。
 void Sub_4AC0F0()
 {
     if (world::detail::gValue581800 == 34) {
@@ -13552,6 +13813,7 @@ void Sub_4AC0F0()
     }
 }
 
+// 原函数：0x004AC140。
 std::int32_t Sub_4AC140(const std::int32_t)
 {
     if (Sub_4D3040(1, 1) != 0) {
@@ -13582,6 +13844,7 @@ std::int32_t Sub_4AC1B0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A92D0。
 std::int32_t Sub_4A92D0(const std::int32_t, const std::int32_t state)
 {
     const WindowElement* const elements = gCurrentWindow->elements;
@@ -13601,6 +13864,7 @@ std::int32_t Sub_4A92D0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A93E0。
 std::int32_t Sub_4A93E0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -13625,6 +13889,7 @@ std::int32_t Sub_4A93E0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A94A0。
 std::int32_t Sub_4A94A0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -13649,18 +13914,21 @@ std::int32_t Sub_4A94A0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9560。
 std::int32_t Sub_4A9560(const std::int32_t index, const std::int32_t)
 {
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243174;
     return 0;
 }
 
+// 原函数：0x004A9580。
 std::int32_t Sub_4A9580(const std::int32_t index, const std::int32_t)
 {
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243177;
     return 0;
 }
 
+// 原函数：0x004A95A0。
 std::int32_t Sub_4A95A0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -13690,6 +13958,7 @@ std::int32_t Sub_4A95A0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A96D0。
 std::int32_t Sub_4A96D0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -13722,6 +13991,7 @@ std::int32_t Sub_4A96D0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9820。
 std::int32_t Sub_4A9820(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -13755,6 +14025,7 @@ std::int32_t Sub_4A9820(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9990。
 std::int32_t Sub_4A9990(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -13788,6 +14059,7 @@ std::int32_t Sub_4A9990(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9D10。
 std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -14162,6 +14434,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004AA9C0。
 std::int32_t Sub_4AA9C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -14191,6 +14464,7 @@ std::int32_t Sub_4AA9C0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004AAA70。
 std::int32_t Sub_4AAA70(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -14220,6 +14494,7 @@ std::int32_t Sub_4AAA70(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004AAB20。
 std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
 {
     WindowState* const windowState = gCurrentWindowState;
@@ -14233,6 +14508,7 @@ std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AAEC0。
 std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value24);
@@ -14383,6 +14659,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004AB710。
 std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value28);
@@ -14615,6 +14892,7 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9B00。
 std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
 {
     std::array<char, 20> buffer;
@@ -14683,6 +14961,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
     return 0;
 }
 
+// 原函数：0x004AC200。
 std::int32_t Sub_4AC200(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -14705,6 +14984,7 @@ std::int32_t Sub_4AC200(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004A9350。
 std::int32_t Sub_4A9350(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -14726,6 +15006,7 @@ std::int32_t Sub_4A9350(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AC290。
 std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -15201,6 +15482,7 @@ std::int32_t Sub_4A84A0(const char* const text)
     }
 }
 
+// 原函数：0x004E5710。
 std::int32_t Sub_4E5710(const std::int32_t side)
 {
     if (side == 0) {
@@ -15213,6 +15495,7 @@ std::int32_t Sub_4E5710(const std::int32_t side)
     return 0;
 }
 
+// 原函数：0x004E5770。
 void Sub_4E5770(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
@@ -15234,6 +15517,7 @@ void Sub_4E5770(
     WriteTradeValue(record, 0xC30, last < 0 ? std::int32_t{0} : last / 8 + 1);
 }
 
+// 原函数：0x004E5830。
 std::int32_t Sub_4E5830(const char* const text)
 {
     char name[256];
@@ -15274,6 +15558,7 @@ std::int32_t Sub_4E5830(const char* const text)
     return status;
 }
 
+// 原函数：0x004E5A40。
 std::int32_t Sub_4E5A40(const std::int32_t index, const char* const text)
 {
     char* const record = gTradePetsC9C108.data() + index * 0x5FC;
@@ -15311,6 +15596,7 @@ std::int32_t Sub_4E5A40(const std::int32_t index, const char* const text)
     return result;
 }
 
+// 原函数：0x004E5CD0。
 std::int32_t Sub_4E5CD0(const std::int32_t index, const char* const text)
 {
     if (index < 0 || index >= 5) {
@@ -15342,6 +15628,7 @@ std::int32_t Sub_4E5CD0(const std::int32_t index, const char* const text)
     return 10;
 }
 
+// 原函数：0x00503CB0。
 std::int32_t Sub_503CB0()
 {
     const std::int32_t decreased = platform::gValue73ECBC - 1;
@@ -15353,6 +15640,7 @@ std::int32_t Sub_503CB0()
     return decreased;
 }
 
+// 原函数：0x00503CD0。
 std::int32_t Sub_503CD0()
 {
     const auto mode = static_cast<std::int16_t>(platform::gValue5F974C + 1);
@@ -15366,6 +15654,7 @@ std::int32_t Sub_503CD0()
 }
 
 // CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
+// 原函数：0x004C9240。
 std::int32_t Sub_4C9240()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
@@ -15386,6 +15675,7 @@ std::int32_t Sub_4C9240()
     return 0;
 }
 
+// 原函数：0x004C93A0。
 std::int32_t Sub_4C93A0()
 {
     if (gWindowSavedDataD40B30.records[1].x != gWindowPrototype54E2A0.defaultX) {
@@ -15397,6 +15687,7 @@ std::int32_t Sub_4C93A0()
     return gWindowSavedDataD40B30.records[6].x != gWindowPrototype54E330.defaultX ? 1 : 0;
 }
 
+// 原函数：0x004C93E0。
 std::int32_t Sub_4C93E0()
 {
     const std::int32_t fileLength = gWindowSavedLengthCC4238;
@@ -15424,6 +15715,7 @@ std::int32_t Sub_4C93E0()
 }
 
 // CWP01：原两设置BYTE现场读取，完整S32字段/交错发布与返回保持。
+// 原函数：0x004C9170。
 std::int32_t Sub_4C9170()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
@@ -15458,6 +15750,7 @@ std::int32_t Sub_4C9170()
     return 1;
 }
 
+// 原函数：0x004C9060。
 std::int32_t Sub_4C9060()
 {
     static_cast<void>(Sub_4C9240());
@@ -15492,12 +15785,14 @@ std::int32_t Sub_4C9060()
     return 0;
 }
 
+// 原函数：0x004C92B0。
 std::int32_t Sub_4C92B0()
 {
     std::memset(&gWindowSavedDataD40B30, 0, sizeof(gWindowSavedDataD40B30));
     return 0;
 }
 
+// 原函数：0x004C92D0。
 std::uint32_t Sub_4C92D0()
 {
     static_cast<void>(Sub_4C92B0());
@@ -15533,6 +15828,7 @@ std::uint32_t Sub_4C92D0()
     return marker33;
 }
 
+// 原函数：0x004C9130。
 std::int32_t Sub_4C9130()
 {
     platform::LegacyFile* const stream =
@@ -15546,6 +15842,7 @@ std::int32_t Sub_4C9130()
     return 1;
 }
 
+// 原函数：0x00472200。
 void Sub_472200()
 {
     for (WindowState& state : gWindowStates) {
@@ -15553,6 +15850,7 @@ void Sub_472200()
     }
 }
 
+// 原函数：0x00472220。
 void Sub_472220()
 {
     for (WindowState& state : gWindowStates) {
@@ -15562,6 +15860,7 @@ void Sub_472220()
     }
 }
 
+// 原函数：0x004722A0。
 void Sub_4722A0()
 {
     world::gValueD67B08.fill(0);
@@ -15575,17 +15874,20 @@ void Sub_4722A0()
     gMousePhase57C128 = 0;
 }
 
+// 原函数：0x004722E0。
 void Sub_4722E0()
 {
     gFocusedElementDataD45F94 = nullptr;
 }
 
+// 原函数：0x004A53D0。
 WindowInstance* Sub_4A53D0()
 {
     gLoginWindowRuntime.prefixD2F0B8.value26C = 1;
     return OpenWindow_471440(22);
 }
 
+// 原函数：0x004722F0。
 void Sub_4722F0()
 {
     for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
@@ -15628,21 +15930,25 @@ void Sub_4722F0()
     }
 }
 
+// 原函数：0x00479640。
 void Sub_479640()
 {
     gValueD67AF8 = 0;
 }
 
+// 原函数：0x004796C0。
 void Sub_4796C0()
 {
     gValueD67AFC = 0;
 }
 
+// 原函数：0x004796F0。
 void Sub_4796F0()
 {
     gValueD67AFD = 0;
 }
 
+// 原函数：0x00479610。
 void Sub_479610()
 {
     gWindowActionCA0174 = nullptr;
@@ -15653,11 +15959,13 @@ void Sub_479610()
     gValueD67AFE = 0;
 }
 
+// 原函数：0x004C7AD0。
 void Sub_4C7AD0()
 {
     gValueCF4AAC = 0;
 }
 
+// 原函数：0x00475C10。
 void RestoreWindowPositions_475C10()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
@@ -15757,6 +16065,7 @@ constexpr ShortcutEmoteBinding kShortcutEmotes[] {
 
 } // namespace
 
+// 原函数：0x004C7AE0。
 void ProcessWindowShortcuts_4C7AE0()
 {
     const std::int32_t mode = gValueCF4AAC;
@@ -16128,6 +16437,7 @@ void MarkSceneWindows()
 
 } // namespace
 
+// 原函数：0x00470980。
 void Sub_470980()
 {
     ResetWindowReferences();
@@ -16147,6 +16457,7 @@ void Sub_470980()
     }
 }
 
+// 原函数：0x004705D0。
 std::int32_t InitializeWindowSystem_4705D0()
 {
     static_cast<void>(Sub_4A6D80());
@@ -16156,6 +16467,7 @@ std::int32_t InitializeWindowSystem_4705D0()
     return world::detail::Sub_534910();
 }
 
+// 原函数：0x004923D0。
 std::int32_t Sub_4923D0()
 {
     gLoginWindowRuntime.valueCF4A00 = 5;
@@ -16165,6 +16477,7 @@ std::int32_t Sub_4923D0()
 }
 
 // 原末行分支分别返回窗口或元素指针；不截断成原x86整数。
+// 原函数：0x00492C80。
 void* Sub_492C80()
 {
     render::GraphicDescriptor16 descriptor {};
@@ -16230,6 +16543,7 @@ void* Sub_492C80()
     return result;
 }
 
+// 原函数：0x004923F0。
 std::int32_t Sub_4923F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -16239,6 +16553,7 @@ std::int32_t Sub_4923F0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00492430。
 std::int32_t Sub_492430(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -16267,6 +16582,7 @@ std::int32_t Sub_492430(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00492520。
 std::int32_t Sub_492520(const std::int32_t index, const std::int32_t state)
 {
     const auto setImage = [index](const std::int32_t image) {
@@ -16348,6 +16664,7 @@ std::int32_t Sub_492800(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x00492840。
 std::int32_t Sub_492840(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -16371,6 +16688,7 @@ constexpr char kAlbumNextTen586D88[] = "\xBF\xEC\xCB\xD9\xC7\xD0\x93\x51\xD6\xC1
 } // namespace
 
 // 原评级参数是S32，不是反编译的载荷指针；五个caller均不消费混合返回。
+// 原函数：0x004939A0。
 void Sub_4939A0(const std::int32_t rating, const std::int32_t base)
 {
     for (std::int32_t slot = 0; slot < 5; ++slot) {
@@ -16393,6 +16711,7 @@ void Sub_4939A0(const std::int32_t rating, const std::int32_t base)
 }
 
 // 唯一caller492410不消费原混合返回；保留各消费点独立的角色/记录取样。
+// 原函数：0x00492F70。
 void Sub_492F70()
 {
     const auto selectedRecord = []() {
@@ -16530,6 +16849,7 @@ void Sub_492F70()
     }
 }
 
+// 原函数：0x00492410。
 std::int32_t Sub_492410(const std::int32_t value)
 {
     if (value == -1) {
@@ -16539,6 +16859,7 @@ std::int32_t Sub_492410(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00492880。
 std::int32_t Sub_492880(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t delta;
@@ -16645,6 +16966,7 @@ constexpr char kSettingsRenderMode586F90[] = "\xC4\xBF\xC7\xB0\xB5\xC4\xC3\xE8\x
 
 } // namespace
 
+// 原函数：0x00493A70。
 void Sub_493A70(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[24].window;
@@ -16663,6 +16985,7 @@ void Sub_493A70(const std::int32_t offset)
     window->elements[9].visible = visible;
 }
 
+// 原函数：0x00493AF0。
 void Sub_493AF0(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[24].window;
@@ -16682,6 +17005,7 @@ void Sub_493AF0(const std::int32_t offset)
     window->elements[12].visible = visible;
 }
 
+// 原函数：0x00493B70。
 void Sub_493B70(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[24].window;
@@ -16715,6 +17039,7 @@ void Sub_493B70(const std::int32_t offset)
     window->elements[20].visible = 1;
 }
 
+// 原函数：0x00493CB0。
 void Sub_493CB0(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[24].window;
@@ -16739,6 +17064,7 @@ void Sub_493CB0(const std::int32_t offset)
     }
 }
 
+// 原函数：0x00493D60。
 std::int32_t Sub_493D60(const std::int32_t value)
 {
     if (value == -1) {
@@ -16751,6 +17077,8 @@ std::int32_t Sub_493D60(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00493DB0。
+// 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
 std::int32_t Sub_493DB0(const std::int32_t)
 {
     const std::int8_t panel = gSettingsPanelCC4234;
@@ -16772,6 +17100,7 @@ std::int32_t Sub_493DB0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00493E10。
 void Sub_493E10()
 {
     static_cast<void>(login::detail::Sub_520470());
@@ -16784,6 +17113,7 @@ void Sub_493E10()
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }
 
+// 原函数：0x00493EE0。
 std::int32_t Sub_493EE0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16816,6 +17146,7 @@ std::int32_t Sub_493EE0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494000。
 std::int32_t Sub_494000(const std::int32_t index, const std::int32_t state)
 {
     auto* graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16860,6 +17191,7 @@ std::int32_t Sub_494000(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494180。
 std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16905,6 +17237,7 @@ std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494370。
 std::int32_t Sub_494370(const std::int32_t index, const std::int32_t state)
 {
     auto* graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16942,6 +17275,7 @@ std::int32_t Sub_494370(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00493E50。
 std::int32_t Sub_493E50(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -16964,6 +17298,7 @@ std::int32_t Sub_493E50(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004944A0。
 std::int32_t Sub_4944A0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16989,6 +17324,7 @@ std::int32_t Sub_4944A0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494550。
 std::int32_t Sub_494550(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
@@ -17018,6 +17354,7 @@ std::int32_t Sub_494550(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494620。
 std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
@@ -17054,6 +17391,7 @@ std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494720。
 std::int32_t Sub_494720(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17082,6 +17420,7 @@ std::int32_t Sub_494720(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004947F0。
 std::int32_t Sub_4947F0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17115,6 +17454,7 @@ std::int32_t Sub_4947F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004948F0。
 std::int32_t Sub_4948F0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17140,6 +17480,7 @@ std::int32_t Sub_4948F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004949C0。
 std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17176,6 +17517,7 @@ std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494AE0。
 std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17212,6 +17554,7 @@ std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494C10。
 std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17248,6 +17591,7 @@ std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494D30。
 std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17284,6 +17628,7 @@ std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494E60。
 std::int32_t Sub_494E60(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17313,6 +17658,7 @@ std::int32_t Sub_494E60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00494F30。
 std::int32_t Sub_494F30(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17342,6 +17688,7 @@ std::int32_t Sub_494F30(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00495000。
 std::int32_t Sub_495000(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -17547,6 +17894,7 @@ constexpr char kHotkeyPresets587008[] = "\xB5\xC7\xE4\x9B\xB3\xA3\xD3\xC3\xBE\xE
 
 } // namespace
 
+// 原函数：0x00495130。
 std::int32_t Sub_495130(const std::int32_t value)
 {
     if (value == -1) {
@@ -17566,6 +17914,7 @@ std::int32_t Sub_495130(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004951C0。
 std::int32_t Sub_4951C0(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17645,6 +17994,7 @@ std::int32_t Sub_4951C0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004953B0。
 std::int32_t Sub_4953B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -17663,6 +18013,7 @@ std::int32_t Sub_4953B0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00495450。
 std::int32_t Sub_495450(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17694,6 +18045,7 @@ std::int32_t Sub_495450(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00495500。
 std::int32_t Sub_495500(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17728,6 +18080,7 @@ std::int32_t Sub_495500(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004955C0。
 std::int32_t Sub_4955C0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17762,6 +18115,7 @@ std::int32_t Sub_4955C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00495670。
 std::int32_t Sub_495670(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17816,6 +18170,7 @@ std::int32_t Sub_495750(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004957B0。
 std::int32_t Sub_4957B0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17856,6 +18211,7 @@ std::int32_t Sub_4957B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004958D0。
 std::int32_t Sub_4958D0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17896,6 +18252,7 @@ std::int32_t Sub_4958D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004959F0。
 std::int32_t Sub_4959F0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17936,6 +18293,7 @@ std::int32_t Sub_4959F0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00495B10。
 std::int32_t Sub_495B10(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -17975,6 +18333,7 @@ std::int32_t Sub_495B10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00495C20。
 std::int32_t Sub_495C20(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -18007,6 +18366,7 @@ std::int32_t Sub_495C20(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004B5A90。
 void Sub_4B5A90()
 {
     gLoginWindowRuntime.valueD3FAD0 = 0;
@@ -18021,6 +18381,7 @@ void Sub_4B5A90()
     }
 }
 
+// 原函数：0x004B5AD0。
 std::int32_t Sub_4B5AD0(const std::int32_t value)
 {
     if (value == -1) {
@@ -18039,6 +18400,7 @@ std::int32_t Sub_4B5AD0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004B5B50。
 void Sub_4B5B50()
 {
     if (world::detail::gValue581800 == 21) {
@@ -18046,6 +18408,7 @@ void Sub_4B5B50()
     }
 }
 
+// 原函数：0x004B5B70。
 std::int32_t Sub_4B5B70(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 1) != 0 && gWindow50InputPrototype580618.input.context->text[0] != '\0') {
@@ -18065,6 +18428,7 @@ std::int32_t Sub_4B5B70(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004B5C30。
 std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
 {
     std::array<char, 512> buffer;
@@ -18186,6 +18550,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// 原函数：0x004B62A0。
 void Sub_4B62A0()
 {
     std::array<char, 256> buffer;
@@ -18231,6 +18596,7 @@ void Sub_4B62A0()
     }
 }
 
+// 原函数：0x004B6C20。
 std::int32_t Sub_4B6C20()
 {
     WindowInstance* const window = gCurrentWindow;
@@ -18239,6 +18605,7 @@ std::int32_t Sub_4B6C20()
     return audio::PlaySe_52C450(57, 320);
 }
 
+// 原函数：0x004B6970。
 std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)
 {
     gLoginWindowRuntime.valueD3FAD0 = static_cast<std::uint32_t>(flags);
@@ -18300,6 +18667,7 @@ std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)
     return offset;
 }
 
+// 原函数：0x004B6C50。
 void Sub_4B6C50(
     const std::int32_t message, const std::int32_t unused, const std::int32_t sourceIndex)
 {
@@ -18344,11 +18712,13 @@ void Sub_4B6C50(
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
+// 原函数：0x004B6DA0。
 std::int32_t Sub_4B6DA0(const std::int32_t sourceIndex)
 {
     return Sub_475DA0(9, sourceIndex, &Sub_4B6C50);
 }
 
+// 原函数：0x004BC150。
 void Sub_4BC150()
 {
     if (gShopDragFlagD67B90 != 0) {
@@ -18384,6 +18754,7 @@ void Sub_4BC150()
     gShopMessage580848 = -1;
 }
 
+// 原函数：0x004B6DC0。
 void Sub_4B6DC0()
 {
     if (gShopDialogTypeCC3EC8 == world::detail::gValue581800) {
@@ -18397,6 +18768,7 @@ void Sub_4B6DC0()
     }
 }
 
+// 原函数：0x004B6E00。
 login::YobiAction* Sub_4B6E00(const char* const text)
 {
     std::array<char, 768> buffer;
@@ -18447,6 +18819,7 @@ login::YobiAction* Sub_4B6E00(const char* const text)
     return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
 }
 
+// 原函数：0x004B70D0。
 login::YobiAction* Sub_4B70D0(const char* const text)
 {
     std::array<char, 768> buffer;
@@ -18536,6 +18909,7 @@ login::YobiAction* Sub_4B70D0(const char* const text)
     return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
 }
 
+// 原函数：0x004B74E0。
 login::YobiAction* Sub_4B74E0(const char* const text)
 {
     std::array<char, 768> buffer;
@@ -18596,6 +18970,7 @@ login::YobiAction* Sub_4B74E0(const char* const text)
     return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
 }
 
+// 原函数：0x004B77E0。
 login::YobiAction* Sub_4B77E0(const char* const text)
 {
     std::array<char, 768> buffer;
@@ -18741,18 +19116,21 @@ login::YobiAction* CreateShopServiceWindow(
 
 } // namespace
 
+// 原函数：0x004B7AB0。
 login::YobiAction* Sub_4B7AB0(const char* const text)
 {
     return CreateShopServiceWindow(
         text, 4, "\xC4\xE3\xCF\xEB\xE8\x61\xB6\xA8\xCA\xB2\xFC\x4E\xCE\xEF\xC6\xB7\xC4\xD8\xA3\xBF");
 }
 
+// 原函数：0x004B7EE0。
 login::YobiAction* Sub_4B7EE0(const char* const text)
 {
     return CreateShopServiceWindow(
         text, 5, "\xC4\xE3\xCF\xEB\xD0\xDE\xC0\xED\xCA\xB2\xFC\x4E\xCE\xEF\xC6\xB7\xC4\xD8\xA3\xBF");
 }
 
+// 原函数：0x004B8310。
 void Sub_4B8310()
 {
     std::array<char, 100> buffer;
@@ -18823,6 +19201,7 @@ void Sub_4B8310()
     }
 }
 
+// 原函数：0x004B8670。
 void Sub_4B8670()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -18838,6 +19217,7 @@ void Sub_4B8670()
     }
 }
 
+// 原函数：0x004B86C0。
 void Sub_4B86C0()
 {
     std::int32_t total = 0;
@@ -18860,6 +19240,7 @@ void Sub_4B86C0()
         currentTotal <= money ? 0 : 6;
 }
 
+// 原函数：0x004B8730。
 void Sub_4B8730()
 {
     std::int32_t total = 0;
@@ -18880,6 +19261,7 @@ void Sub_4B8730()
     gShopValueC8AF74 = total;
 }
 
+// 原函数：0x004B8780。
 void Sub_4B8780()
 {
     std::array<char, 100> buffer;
@@ -18957,6 +19339,7 @@ void Sub_4B8780()
     }
 }
 
+// 原函数：0x004B8B10。
 void Sub_4B8B10()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -18983,6 +19366,7 @@ void Sub_4B8B10()
     }
 }
 
+// 原函数：0x004B8BE0。
 void Sub_4B8BE0()
 {
     std::int32_t total = 0;
@@ -19003,6 +19387,7 @@ void Sub_4B8BE0()
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
 }
 
+// 原函数：0x004B8C50。
 void Sub_4B8C50()
 {
     std::int32_t total = 0;
@@ -19019,6 +19404,7 @@ void Sub_4B8C50()
     gShopValueC8AF74 = total;
 }
 
+// 原函数：0x004B8C90。
 void Sub_4B8C90()
 {
     std::array<char, 100> buffer;
@@ -19091,6 +19477,7 @@ void Sub_4B8C90()
     }
 }
 
+// 原函数：0x004B8FF0。
 void Sub_4B8FF0()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -19109,6 +19496,7 @@ void Sub_4B8FF0()
     }
 }
 
+// 原函数：0x004B9090。
 void Sub_4B9090()
 {
     std::int32_t total = 0;
@@ -19127,6 +19515,7 @@ void Sub_4B9090()
     platform::FormatLegacyString_53B304(gShopValueTextCF4A28.data(), "%10d", total);
 }
 
+// 原函数：0x004B90E0。
 void Sub_4B90E0()
 {
     std::int32_t total = 0;
@@ -19142,6 +19531,7 @@ void Sub_4B90E0()
     gShopValueC8AF74 = total;
 }
 
+// 原函数：0x004B9110。
 void Sub_4B9110()
 {
     std::int32_t price;
@@ -19162,6 +19552,7 @@ void Sub_4B9110()
     std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[22].data)->text, secondLine);
 }
 
+// 原函数：0x004B9270。
 void Sub_4B9270()
 {
     platform::FormatLegacyString_53B304(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
@@ -19171,6 +19562,7 @@ void Sub_4B9270()
     gShopTotalD2DAFC = price * gShopValueD046C4;
 }
 
+// 原函数：0x004B92C0。
 void Sub_4B92C0()
 {
     const std::int32_t mode = gShopValueCAFEA4;
@@ -19190,6 +19582,7 @@ void Sub_4B92C0()
     gShopValueC8AF74 = total;
 }
 
+// 原函数：0x004B9310。
 std::int32_t Sub_4B9310(const std::int32_t value)
 {
     if (value == -1) {
@@ -19374,6 +19767,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004B9B10。
 void Sub_4B9B10(const std::int32_t selection)
 {
     if (static_cast<std::uint8_t>(selection) != 0) {
@@ -19432,6 +19826,7 @@ void Sub_4B9B10(const std::int32_t selection)
     gCurrentWindow->state |= 0x8000u;
 }
 
+// 原函数：0x004B9F40。
 std::int32_t Sub_4B9F40(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -19703,6 +20098,7 @@ std::int32_t Sub_4B9F40(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BA950。
 std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -19737,6 +20133,7 @@ std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BAA50。
 std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -19861,6 +20258,7 @@ std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BCEE0。
 std::int32_t Sub_4BCEE0(const std::int32_t index, const std::int32_t state)
 {
     auto events = static_cast<std::uint8_t>(state);
@@ -19946,6 +20344,7 @@ std::int32_t Sub_4BCEE0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004BAD10。
 std::int32_t Sub_4BAD10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -19991,6 +20390,7 @@ std::int32_t Sub_4BAD10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BAE10。
 std::int32_t Sub_4BAE10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -20036,6 +20436,7 @@ std::int32_t Sub_4BAE10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BAF10。
 std::int32_t Sub_4BAF10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -20079,6 +20480,7 @@ std::int32_t Sub_4BAF10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BB010。
 std::int32_t Sub_4BB010(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -20159,6 +20561,7 @@ std::int32_t Sub_4BB130(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004BB1D0。
 std::int32_t Sub_4BB1D0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -20391,6 +20794,7 @@ std::int32_t Sub_4BB1D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BB6E0。
 std::int32_t Sub_4BB6E0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -20741,6 +21145,7 @@ std::int32_t Sub_4BB6E0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BBED0。
 std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t item = gShopScrollCC488C + index - 52;
@@ -20796,6 +21201,7 @@ std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BC060。
 std::int32_t Sub_4BC060(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -20830,6 +21236,7 @@ std::int32_t Sub_4BC060(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BC230。
 std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t row = gShopScrollCC488C + index - 52;
@@ -20962,6 +21369,7 @@ std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BC660。
 std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -21211,6 +21619,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BD100。
 std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
@@ -21309,6 +21718,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
     return 1;
 }
 
+// 原函数：0x004BD500。
 void Sub_4BD500()
 {
     if (gWindow54LifecycleD67434 != 2
@@ -21318,6 +21728,7 @@ void Sub_4BD500()
     gWindow54LifecycleD67434 = 0;
 }
 
+// 原函数：0x004BD540。
 login::YobiAction* Sub_4BD540(const char* const text)
 {
     std::array<char, 512> buffer;
@@ -21349,6 +21760,7 @@ login::YobiAction* Sub_4BD540(const char* const text)
     return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
 }
 
+// 原函数：0x004BD680。
 login::YobiAction* Sub_4BD680(const char* const text)
 {
     std::array<char, 512> buffer;
@@ -21448,16 +21860,19 @@ static login::YobiAction* CreateWindow54SkillList(
     return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
 }
 
+// 原函数：0x004BD810。
 login::YobiAction* Sub_4BD810(const char* const text)
 {
     return CreateWindow54SkillList(text, 2);
 }
 
+// 原函数：0x004BDAD0。
 login::YobiAction* Sub_4BDAD0(const char* const text)
 {
     return CreateWindow54SkillList(text, 12);
 }
 
+// 原函数：0x004BDD90。
 void Sub_4BDD90(const char* const text)
 {
     if (gWindowStates[54].window == nullptr) {
@@ -21502,6 +21917,7 @@ void Sub_4BDD90(const char* const text)
     Sub_4BEC20(window);
 }
 
+// 原函数：0x004BDF70。
 void Sub_4BDF70(const char* const text)
 {
     if (gWindowStates[54].window == nullptr) {
@@ -21551,6 +21967,7 @@ void Sub_4BDF70(const char* const text)
     Sub_4BEC20(window);
 }
 
+// 原函数：0x004BE200。
 void Sub_4BE200(const char* const text)
 {
     if (gWindowStates[54].window == nullptr) {
@@ -21598,6 +22015,7 @@ void Sub_4BE200(const char* const text)
     Sub_4BEF30(window);
 }
 
+// 原函数：0x004BE3F0。
 void Sub_4BE3F0(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244384;
@@ -21655,6 +22073,7 @@ void Sub_4BE3F0(WindowInstance* const window)
     }
 }
 
+// 原函数：0x004BE600。
 void Sub_4BE600(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244384;
@@ -21739,6 +22158,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
 }
 
+// 原函数：0x004BE930。
 void Sub_4BE930(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
@@ -21794,6 +22214,7 @@ void Sub_4BE930(WindowInstance* const window)
     Sub_4BF460(window, gWindow54SkillScrollCC31F4);
 }
 
+// 原函数：0x004BEC20。
 void Sub_4BEC20(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
@@ -21866,6 +22287,7 @@ void Sub_4BEC20(WindowInstance* const window)
     Sub_4BF460(window, gWindow54SkillScrollCC31F4);
 }
 
+// 原函数：0x004BEF30。
 void Sub_4BEF30(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
@@ -21916,6 +22338,7 @@ void Sub_4BEF30(WindowInstance* const window)
     Sub_4BF620(window, gWindow54PetScrollCC31DC);
 }
 
+// 原函数：0x004BF160。
 void Sub_4BF160(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
@@ -21948,6 +22371,7 @@ void Sub_4BF160(
     }
 }
 
+// 原函数：0x004BF2E0。
 void Sub_4BF2E0(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
@@ -21979,6 +22403,7 @@ void Sub_4BF2E0(
     }
 }
 
+// 原函数：0x004BF460。
 void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -22017,6 +22442,7 @@ void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
     }
 }
 
+// 原函数：0x004BF620。
 void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
 {
     std::int32_t row = 0;
@@ -22050,6 +22476,7 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
     }
 }
 
+// 原函数：0x004BF7C0。
 std::int32_t Sub_4BF7C0(const std::int32_t value)
 {
     if (value == -1) {
@@ -22094,6 +22521,7 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004BF950。
 std::int32_t Sub_4BF950(const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -22179,6 +22607,7 @@ std::int32_t Sub_4BF950(const std::int32_t unused)
     return 1;
 }
 
+// 原函数：0x004BFBC0。
 std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -22214,6 +22643,7 @@ std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BFCB0。
 std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -22327,6 +22757,7 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004BFF60。
 std::int32_t Sub_4BFF60(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -22404,6 +22835,7 @@ std::int32_t Sub_4BFF60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0160。
 std::int32_t Sub_4C0160(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -22485,6 +22917,7 @@ std::int32_t Sub_4C0160(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0380。
 std::int32_t Sub_4C0380(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -22556,6 +22989,7 @@ std::int32_t Sub_4C0380(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0590。
 std::int32_t Sub_4C0590(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -22651,6 +23085,7 @@ std::int32_t Sub_4C0590(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0800。
 std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -22694,6 +23129,7 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004C1390。
 void Sub_4C1390()
 {
     const std::int32_t type = gWindow69DialogTypeD2D810;
@@ -22702,6 +23138,7 @@ void Sub_4C1390()
     }
 }
 
+// 原函数：0x004C13B0。
 login::YobiAction* Sub_4C13B0(const char* const text)
 {
     gWindow69ValueD67B98 = 0;
@@ -22769,6 +23206,7 @@ login::YobiAction* Sub_4C13B0(const char* const text)
     return CreateWindowAnimation_475AA0(69, 1, 0, nullptr);
 }
 
+// 原函数：0x004C1700。
 void Sub_4C1700()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -22785,6 +23223,7 @@ void Sub_4C1700()
     }
 }
 
+// 原函数：0x004C17B0。
 void Sub_4C17B0()
 {
     std::array<char, 100> buffer;
@@ -22838,6 +23277,7 @@ void Sub_4C17B0()
     }
 }
 
+// 原函数：0x004C1AA0。
 void Sub_4C1AA0()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -22851,6 +23291,7 @@ void Sub_4C1AA0()
     }
 }
 
+// 原函数：0x004C1B00。
 void Sub_4C1B00()
 {
     std::int32_t total = 0;
@@ -22869,6 +23310,7 @@ void Sub_4C1B00()
     number->color = currentTotal <= owned ? 10 : 6;
 }
 
+// 原函数：0x004C1B70。
 void Sub_4C1B70()
 {
     std::int32_t slots = 0;
@@ -22886,6 +23328,7 @@ void Sub_4C1B70()
     gWindow69SlotsCA0AC8 = slots;
 }
 
+// 原函数：0x004C1BC0。
 void Sub_4C1BC0()
 {
     const std::int32_t initialized = gWindow69ValueD67B98;
@@ -22912,6 +23355,7 @@ void Sub_4C1BC0()
     static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
 }
 
+// 原函数：0x004C1C50。
 std::int32_t Sub_4C1C50(const std::int32_t value)
 {
     WindowInstance* const entryWindow = gCurrentWindow;
@@ -22974,6 +23418,7 @@ std::int32_t Sub_4C1C50(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004C1EC0。
 std::int32_t Sub_4C1EC0(const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -23007,6 +23452,7 @@ std::int32_t Sub_4C1EC0(const std::int32_t unused)
     return 1;
 }
 
+// 原函数：0x004C2060。
 void Sub_4C2060(const std::int32_t value)
 {
     if (static_cast<std::uint8_t>(value) != 0) {
@@ -23043,6 +23489,7 @@ void Sub_4C2060(const std::int32_t value)
     gCurrentWindow->state |= 0x8000u;
 }
 
+// 原函数：0x004C21B0。
 std::int32_t Sub_4C21B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23135,6 +23582,7 @@ std::int32_t Sub_4C21B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2460。
 std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23167,6 +23615,7 @@ std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2530。
 std::int32_t Sub_4C2530(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23191,6 +23640,7 @@ std::int32_t Sub_4C2530(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C25B0。
 std::int32_t Sub_4C25B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23216,6 +23666,7 @@ std::int32_t Sub_4C25B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2630。
 std::int32_t Sub_4C2630(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23239,6 +23690,7 @@ std::int32_t Sub_4C2630(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C26B0。
 std::int32_t Sub_4C26B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23269,6 +23721,7 @@ std::int32_t Sub_4C26B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2760。
 std::int32_t Sub_4C2760(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -23282,6 +23735,7 @@ std::int32_t Sub_4C2760(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004C27B0。
 std::int32_t Sub_4C27B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23316,6 +23770,7 @@ std::int32_t Sub_4C27B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C28C0。
 std::int32_t Sub_4C28C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -23359,6 +23814,7 @@ std::int32_t Sub_4C28C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C29E0。
 std::int32_t Sub_4C29E0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gWindow69ScrollD2D604 + index - 56;
@@ -23405,6 +23861,7 @@ std::int32_t Sub_4C29E0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2B20。
 std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -23516,6 +23973,7 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C2FA0。
 std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
@@ -23614,6 +24072,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
     return 1;
 }
 
+// 原函数：0x004C33B0。
 std::int32_t Sub_4C33B0(
     const std::int32_t index, const std::int32_t page, const std::int32_t unused)
 {
@@ -23649,6 +24108,7 @@ std::int32_t Sub_4C33B0(
     return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
 }
 
+// 原函数：0x004C3530。
 void Sub_4C3530()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
@@ -23657,6 +24117,7 @@ void Sub_4C3530()
     }
 }
 
+// 原函数：0x004C3550。
 login::YobiAction* Sub_4C3550(const char* const text)
 {
     gWindow70ValueD67BA4 = 0;
@@ -23718,6 +24179,7 @@ login::YobiAction* Sub_4C3550(const char* const text)
     return CreateWindowAnimation_475AA0(70, 1, 0, nullptr);
 }
 
+// 原函数：0x004C39A0。
 void Sub_4C39A0()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -23734,6 +24196,7 @@ void Sub_4C39A0()
     }
 }
 
+// 原函数：0x004C3A50。
 void Sub_4C3A50()
 {
     std::array<char, 100> buffer;
@@ -23787,6 +24250,7 @@ void Sub_4C3A50()
     }
 }
 
+// 原函数：0x004C3D40。
 void Sub_4C3D40()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -23800,6 +24264,7 @@ void Sub_4C3D40()
     }
 }
 
+// 原函数：0x004C3DA0。
 void Sub_4C3DA0()
 {
     std::int32_t total = 0;
@@ -23818,6 +24283,7 @@ void Sub_4C3DA0()
     number->color = currentTotal <= owned ? 10 : 6;
 }
 
+// 原函数：0x004C3E20。
 void Sub_4C3E20()
 {
     std::int32_t slots = 0;
@@ -23835,6 +24301,7 @@ void Sub_4C3E20()
     gWindow70SlotsCF4E44 = slots;
 }
 
+// 原函数：0x004C3E70。
 void Sub_4C3E70()
 {
     const std::int32_t initialized = gWindow70ValueD67BA4;
@@ -23861,6 +24328,7 @@ void Sub_4C3E70()
     static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
 }
 
+// 原函数：0x004C3F00。
 std::int32_t Sub_4C3F00(const std::int32_t value)
 {
     WindowInstance* const entryWindow = gCurrentWindow;
@@ -23924,6 +24392,7 @@ std::int32_t Sub_4C3F00(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004C4180。
 std::int32_t Sub_4C4180(const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -23957,6 +24426,7 @@ std::int32_t Sub_4C4180(const std::int32_t unused)
     return 1;
 }
 
+// 原函数：0x004C4270。
 void Sub_4C4270(const std::int32_t value)
 {
     if (static_cast<std::uint8_t>(value) != 0) {
@@ -23993,6 +24463,7 @@ void Sub_4C4270(const std::int32_t value)
     gCurrentWindow->state |= 0x8000u;
 }
 
+// 原函数：0x004C43C0。
 std::int32_t Sub_4C43C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24085,6 +24556,7 @@ std::int32_t Sub_4C43C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4680。
 std::int32_t Sub_4C4680(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24098,6 +24570,7 @@ std::int32_t Sub_4C4680(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004C46C0。
 std::int32_t Sub_4C46C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24122,6 +24595,7 @@ std::int32_t Sub_4C46C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4740。
 std::int32_t Sub_4C4740(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24147,6 +24621,7 @@ std::int32_t Sub_4C4740(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C47C0。
 std::int32_t Sub_4C47C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24170,6 +24645,7 @@ std::int32_t Sub_4C47C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4840。
 std::int32_t Sub_4C4840(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24200,6 +24676,7 @@ std::int32_t Sub_4C4840(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C48F0。
 std::int32_t Sub_4C48F0(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -24213,6 +24690,7 @@ std::int32_t Sub_4C48F0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004C4940。
 std::int32_t Sub_4C4940(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24247,6 +24725,7 @@ std::int32_t Sub_4C4940(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4A50。
 std::int32_t Sub_4C4A50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24290,6 +24769,7 @@ std::int32_t Sub_4C4A50(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4B70。
 std::int32_t Sub_4C4B70(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gWindow70ScrollCC4B68 + index - 56;
@@ -24336,6 +24816,7 @@ std::int32_t Sub_4C4B70(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C4CB0。
 std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -24447,6 +24928,7 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C50C0。
 std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
@@ -24545,6 +25027,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
     return 1;
 }
 
+// 原函数：0x004C54D0。
 std::int32_t Sub_4C54D0(
     const std::int32_t index, const std::int32_t page, const std::int32_t unused)
 {
@@ -24580,6 +25063,7 @@ std::int32_t Sub_4C54D0(
     return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
 }
 
+// 原函数：0x004C5790。
 login::YobiAction* Sub_4C5790(
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
@@ -24600,6 +25084,7 @@ login::YobiAction* Sub_4C5790(
     return CreateWindowAnimation_475AA0(56, 1, 0, nullptr);
 }
 
+// 原函数：0x004C5850。
 std::int32_t Sub_4C5850(const std::int32_t value)
 {
     if (value != -1) {
@@ -24671,6 +25156,7 @@ std::int32_t Sub_4C5850(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004C5B70。
 std::int32_t Sub_4C5B70(const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -24688,6 +25174,7 @@ std::int32_t Sub_4C5B70(const std::int32_t unused)
     return 1;
 }
 
+// 原函数：0x004C5C00。
 void Sub_4C5C00()
 {
     if (world::detail::gValue581800 == gWindow56DialogTypeCB1DE0) {
@@ -24696,6 +25183,7 @@ void Sub_4C5C00()
     }
 }
 
+// 原函数：0x004C5C30。
 std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24731,6 +25219,7 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C5D00。
 std::int32_t Sub_4C5D00(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24765,6 +25254,7 @@ std::int32_t Sub_4C5D00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C5DE0。
 std::int32_t Sub_4C5DE0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24798,6 +25288,7 @@ std::int32_t Sub_4C5DE0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C5EB0。
 std::int32_t Sub_4C5EB0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24831,6 +25322,7 @@ std::int32_t Sub_4C5EB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C5F80。
 std::int32_t Sub_4C5F80(
     const std::int32_t button, const std::int32_t row, char* const* const unusedTexts,
     const std::uint8_t unusedInputCount)
@@ -24861,6 +25353,7 @@ std::int32_t Sub_4C5F80(
     return 1;
 }
 
+// 原函数：0x004C6060。
 login::YobiAction* Sub_4C6060(
     const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
     const char* const text)
@@ -24890,6 +25383,7 @@ login::YobiAction* Sub_4C6060(
         count, 16, 0, 0, nullptr, columns, 2, 0, &Sub_4C5F80, nullptr, 1, 0);
 }
 
+// 原函数：0x004C0910。
 std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -24931,6 +25425,7 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0A50。
 std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -25000,6 +25495,7 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0BF0。
 std::int32_t Sub_4C0BF0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -25029,6 +25525,7 @@ std::int32_t Sub_4C0BF0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004C0CB0。
 std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
@@ -25093,6 +25590,7 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004C0EA0。
 std::int32_t Sub_4C0EA0(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
@@ -25110,6 +25608,7 @@ std::int32_t Sub_4C0EA0(const std::int32_t index, const std::int32_t unusedState
     return 0;
 }
 
+// 原函数：0x004C0F20。
 std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
@@ -25212,6 +25711,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
     return 1;
 }
 
+// 原函数：0x004B99D0。
 std::int32_t Sub_4B99D0(const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -25256,6 +25756,7 @@ std::int32_t Sub_4B99D0(const std::int32_t unused)
     return 1;
 }
 
+// 原函数：0x004A5390。
 std::int32_t Sub_4A5390()
 {
     WindowChoiceSlotsCC4CA0& choices = gLoginWindowRuntime.choicesCC4CA0;
@@ -25271,6 +25772,7 @@ std::int32_t Sub_4A5390()
     return -1;
 }
 
+// 原函数：0x0048C150。
 std::int32_t Sub_48C150()
 {
     gLoginWindowRuntime.valueD673D0 = 5;
@@ -25289,6 +25791,7 @@ std::int32_t Sub_48C150()
     return -1;
 }
 
+// 原函数：0x004742B0。
 std::int32_t Sub_4742B0()
 {
     gLoginWindowRuntime.valuesCF4E50[0] = 0;
@@ -25566,6 +26069,7 @@ void SetMailUnreadGraphic(const std::int32_t index)
 
 } // namespace
 
+// 原函数：0x004A0970。
 std::int32_t Sub_4A0970(const std::int32_t value)
 {
     if (value == -1) {
@@ -25580,6 +26084,7 @@ std::int32_t Sub_4A0970(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A09B0。
 std::int32_t Sub_4A09B0(const std::int32_t value)
 {
     static_cast<void>(Sub_4A3820(value));
@@ -25589,6 +26094,7 @@ std::int32_t Sub_4A09B0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A09E0。
 std::int32_t Sub_4A09E0()
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -25823,12 +26329,14 @@ std::int32_t Sub_4A09E0()
     return 3672;
 }
 
+// 原函数：0x004A1690。
 void Sub_4A1690(const std::int32_t mode, const std::int32_t category)
 {
     Sub_4A16B0(mode);
     Sub_4A1780(category);
 }
 
+// 原函数：0x004A16B0。
 void Sub_4A16B0(const std::int32_t mode)
 {
     for (std::int32_t index = 0; index < 21; ++index) {
@@ -25855,6 +26363,7 @@ void Sub_4A16B0(const std::int32_t mode)
     }
 }
 
+// 原函数：0x004A1780。
 void Sub_4A1780(const std::int32_t category)
 {
     if (category == 0) {
@@ -25919,6 +26428,7 @@ void Sub_4A1780(const std::int32_t category)
     }
 }
 
+// 原函数：0x004A1C30。
 std::int32_t Sub_4A1C30(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -25963,6 +26473,7 @@ std::int32_t Sub_4A1C30(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004A1EF0。
 std::int32_t Sub_4A1EF0(const std::int32_t index, const std::int32_t state)
 {
     if (index >= 51 && index <= 53) {
@@ -26055,6 +26566,7 @@ std::int32_t Sub_4A1EF0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A2610。
 std::int32_t Sub_4A2610(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26084,6 +26596,7 @@ std::int32_t Sub_4A2610(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A2870。
 std::int32_t Sub_4A2870(const std::int32_t index, const std::int32_t state)
 {
     if (index < 10 || index > 12) {
@@ -26125,6 +26638,7 @@ std::int32_t Sub_4A2870(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A2BD0。
 std::int32_t Sub_4A2BD0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26145,6 +26659,7 @@ std::int32_t Sub_4A2BD0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A37E0。
 std::int32_t Sub_4A37E0(const std::int32_t index)
 {
     if (gValueD67B38 == 0) {
@@ -26157,6 +26672,7 @@ std::int32_t Sub_4A37E0(const std::int32_t index)
     return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 99];
 }
 
+// 原函数：0x004A40C0。
 std::int32_t Sub_4A40C0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) == 0) {
@@ -26214,6 +26730,7 @@ std::int32_t Sub_4A2530(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A38C0。
 void Sub_4A38C0(const std::int32_t index)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -26231,6 +26748,7 @@ void Sub_4A38C0(const std::int32_t index)
     static_cast<void>(OpenWindow_471440(55));
 }
 
+// 原函数：0x004A2B00。
 std::int32_t Sub_4A2B00(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26265,6 +26783,7 @@ std::int32_t Sub_4A2B00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A3780。
 std::int32_t Sub_4A3780(const std::int32_t index)
 {
     if (gValueD67B38 == 0) {
@@ -26279,6 +26798,7 @@ std::int32_t Sub_4A3780(const std::int32_t index)
     return gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
 }
 
+// 原函数：0x004A39C0。
 std::int32_t Sub_4A39C0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -26387,6 +26907,7 @@ std::int32_t Sub_4A39C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A3C70。
 std::int32_t Sub_4A3C70(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26438,6 +26959,7 @@ std::int32_t Sub_4A3C70(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004A32E0。
 std::int32_t Sub_4A32E0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26475,6 +26997,7 @@ std::int32_t Sub_4A32E0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A33C0。
 login::YobiAction* Sub_4A33C0(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3600);
@@ -26484,6 +27007,7 @@ login::YobiAction* Sub_4A33C0(const std::int32_t index)
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
 
+// 原函数：0x004A3480。
 login::YobiAction* Sub_4A3480(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3660);
@@ -26493,6 +27017,7 @@ login::YobiAction* Sub_4A3480(const std::int32_t index)
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
 
+// 原函数：0x004A3540。
 login::YobiAction* Sub_4A3540(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A36B0);
@@ -26507,6 +27032,7 @@ std::int32_t& BorrowLegacyMailDeleteIndexD2DA8C()
     return gLoginWindowRuntime.mailDeleteIndexD2DA8C;
 }
 
+// 原函数：0x004A3600。
 std::int32_t Sub_4A3600(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
@@ -26522,6 +27048,7 @@ std::int32_t Sub_4A3600(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A3660。
 std::int32_t Sub_4A3660(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
@@ -26534,6 +27061,7 @@ std::int32_t Sub_4A3660(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A36B0。
 std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
@@ -26550,6 +27078,7 @@ std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A3760。
 std::int32_t Sub_4A3760(const std::int32_t, const std::int32_t)
 {
     if (gWindowStates[21].window == nullptr) {
@@ -26558,6 +27087,7 @@ std::int32_t Sub_4A3760(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004AE5F0。
 std::int32_t Sub_4AE5F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -26571,36 +27101,43 @@ std::int32_t Sub_4AE5F0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004AE620。
 std::int32_t Sub_4AE620(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3BE4B, &gWindow47Runtime.actionsCC4254[0], 51, true);
 }
 
+// 原函数：0x004AE690。
 std::int32_t Sub_4AE690(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3BE4E, &gWindow47Runtime.actionsCC4254[1], 55, false);
 }
 
+// 原函数：0x004AE700。
 std::int32_t Sub_4AE700(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3B568, &gWindow47Runtime.actionsCC4254[2], 51, false);
 }
 
+// 原函数：0x004AE770。
 std::int32_t Sub_4AE770(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3BE48, &gWindow47Runtime.actionsCC4254[3], 55, false);
 }
 
+// 原函数：0x004AE7E0。
 std::int32_t Sub_4AE7E0(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3BE54, &gWindow47Runtime.actionsCC4254[4], 51, false);
 }
 
+// 原函数：0x004AE850。
 std::int32_t Sub_4AE850(const std::int32_t index, const std::int32_t state)
 {
     return HandleWindow47Button(index, state, 0x3BE51, &gWindow47Runtime.actionsCC4254[5], 51, false);
 }
 
+// 原函数：0x004AE8C0。
 WindowInstance* Sub_4AE8C0()
 {
     WindowInstance* const window = gWindowStates[47].window;
@@ -26608,6 +27145,7 @@ WindowInstance* Sub_4AE8C0()
     return window;
 }
 
+// 原函数：0x004AE8D0。
 char* Sub_4AE8D0()
 {
     for (std::int32_t index = 0; index < 11; ++index) {
@@ -26629,6 +27167,7 @@ char* Sub_4AE8D0()
     return token;
 }
 
+// 原函数：0x004AE9C0。
 std::int32_t Sub_4AE9C0()
 {
     std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
@@ -26642,6 +27181,7 @@ std::int32_t Sub_4AE9C0()
     return 216;
 }
 
+// 原函数：0x004AEA10。
 std::int32_t Sub_4AEA10(char* const destination, const char* const text)
 {
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(text));
@@ -26656,6 +27196,7 @@ std::int32_t Sub_4AEA10(char* const destination, const char* const text)
     return 0;
 }
 
+// 原函数：0x004A4180。
 std::int32_t Sub_4A4180(const std::int32_t value)
 {
     if (value == -1) {
@@ -26664,6 +27205,7 @@ std::int32_t Sub_4A4180(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A41A0。
 std::int32_t Sub_4A41A0(const std::int32_t)
 {
     static_cast<void>(Sub_4A4540());
@@ -26680,6 +27222,7 @@ std::int32_t Sub_4A41A0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A4220。
 std::int32_t Sub_4A4220(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -26698,6 +27241,7 @@ std::int32_t Sub_4A4220(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A42C0。
 std::int32_t Sub_4A42C0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -26721,6 +27265,7 @@ std::int32_t Sub_4A42C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A4370。
 std::int32_t Sub_4A4370(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26744,6 +27289,7 @@ std::int32_t Sub_4A4370(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A4420。
 std::int32_t Sub_4A4420(const std::int32_t index, const std::int32_t state)
 {
     if (index != 15 && index != 16) {
@@ -26776,6 +27322,7 @@ std::int32_t Sub_4A4420(const std::int32_t index, const std::int32_t state)
     return hover ? 1 : 0;
 }
 
+// 原函数：0x004A4540。
 std::uint32_t Sub_4A4540()
 {
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -26792,6 +27339,7 @@ std::uint32_t Sub_4A4540()
     return length;
 }
 
+// 原函数：0x004A45E0。
 std::int32_t Sub_4A45E0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -26851,6 +27399,7 @@ void FormatMailTimestamp587768(char* const destination)
 
 } // namespace
 
+// 原函数：0x004A4620。
 std::int32_t Sub_4A4620(const std::int32_t value)
 {
     if (value == -1) {
@@ -26863,6 +27412,7 @@ std::int32_t Sub_4A4620(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A4650。
 std::int32_t Sub_4A4650(const std::int32_t)
 {
     static_cast<void>(Sub_4A49B0());
@@ -26870,6 +27420,7 @@ std::int32_t Sub_4A4650(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004A4660。
 std::int32_t Sub_4A4660(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26896,6 +27447,7 @@ std::int32_t Sub_4A4660(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A4710。
 std::int32_t Sub_4A4710(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26922,6 +27474,7 @@ std::int32_t Sub_4A4710(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A47C0。
 std::int32_t Sub_4A47C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -26957,6 +27510,7 @@ std::int32_t Sub_4A47C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A48A0。
 void Sub_4A48A0()
 {
     using namespace world::detail;
@@ -27007,6 +27561,7 @@ void Sub_4A48A0()
     }
 }
 
+// 原函数：0x004A49B0。
 std::uint32_t Sub_4A49B0()
 {
     using namespace world::detail;
@@ -27085,6 +27640,7 @@ std::uint32_t Sub_4A49B0()
     return length;
 }
 
+// 原函数：0x004A4FC0。
 std::int32_t Sub_4A4FC0(const std::int32_t, const std::int32_t state)
 {
     using namespace world::detail;
@@ -27161,6 +27717,7 @@ std::int32_t Sub_4A4FC0(const std::int32_t, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004A53F0。
 std::int32_t Sub_4A53F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -27256,6 +27813,7 @@ std::int32_t Sub_4A53F0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A5650。
 void Sub_4A5650()
 {
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
@@ -27284,6 +27842,7 @@ void Sub_4A5650()
     }
 }
 
+// 原函数：0x004A58E0。
 std::int32_t Sub_4A58E0(const std::int32_t, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -27307,6 +27866,7 @@ std::int32_t Sub_4A58E0(const std::int32_t, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A5970。
 std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
 {
     if (index != 2 && index != 3) {
@@ -27465,6 +28025,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A6160。
 std::uint8_t Sub_4A6160()
 {
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
@@ -27507,6 +28068,7 @@ std::uint8_t Sub_4A6160()
     return Sub_476570(&gMailInputPrototype57E740, x, y, 2);
 }
 
+// 原函数：0x004A56F0。
 std::int32_t Sub_4A56F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -27576,6 +28138,7 @@ std::int32_t Sub_4A56F0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004A6300。
 std::int32_t Sub_4A6300(const std::int32_t index, const std::int32_t state)
 {
     std::uint32_t events = static_cast<std::uint32_t>(state);
@@ -27638,16 +28201,19 @@ std::int32_t Sub_4A6300(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047D4A0。
 std::int32_t Sub_47D4A0()
 {
     return gValueD67B00;
 }
 
+// 原函数：0x004A6D30。
 std::int32_t Sub_4A6D30(const std::int32_t index)
 {
     return world::detail::gPetRuntimeF633F8[index].flags6AA == 3 ? 1 : 0;
 }
 
+// 原函数：0x004A6D50。
 std::int32_t Sub_4A6D50(const std::int32_t index)
 {
     if (Sub_47D4A0() == 0) {
@@ -27656,6 +28222,7 @@ std::int32_t Sub_4A6D50(const std::int32_t index)
     return world::detail::gPetRuntimeF633F8[index].flags6AA == 2 ? 1 : 0;
 }
 
+// 原函数：0x004A6450。
 std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -27775,6 +28342,7 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A6AC0。
 std::uint8_t Sub_4A6AC0()
 {
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
@@ -27827,6 +28395,7 @@ std::uint8_t Sub_4A6AC0()
     return Sub_476570(&gMailInputPrototype57E740, x, y, 2);
 }
 
+// 原函数：0x004B4B00。
 std::int32_t Sub_4B4B00(const std::int32_t value)
 {
     if (value == -1) {
@@ -27846,6 +28415,7 @@ std::int32_t Sub_4B4B00(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004B4B70。
 void Sub_4B4B70()
 {
     WindowInstance* const window = gWindowStates[22].window;
@@ -27854,6 +28424,7 @@ void Sub_4B4B70()
     }
 }
 
+// 原函数：0x004B4B90。
 std::int32_t Sub_4B4B90(const std::int32_t value)
 {
     static_cast<void>(Sub_4B4DF0(value));
@@ -27862,6 +28433,7 @@ std::int32_t Sub_4B4B90(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004B4BB0。
 std::int32_t Sub_4B4BB0(const std::int32_t index, const std::int32_t state)
 {
     if (index != 6 && index != 7) {
@@ -27888,6 +28460,7 @@ std::int32_t Sub_4B4BB0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B4CA0。
 std::int32_t Sub_4B4CA0(const std::int32_t index, const std::int32_t state)
 {
     if (index != 1 && index != 2) {
@@ -27927,6 +28500,7 @@ std::int32_t Sub_4B4CA0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B4DB0。
 std::int32_t Sub_4B4DB0()
 {
     std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -27942,6 +28516,7 @@ std::int32_t Sub_4B4DB0()
     return Sub_4742C0(&gCurrentWindow->elements[4], maximum, position);
 }
 
+// 原函数：0x004B4DF0。
 std::int32_t Sub_4B4DF0(const std::int32_t)
 {
     const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
@@ -27952,6 +28527,7 @@ std::int32_t Sub_4B4DF0(const std::int32_t)
     return position;
 }
 
+// 原函数：0x004B4E20。
 void Sub_4B4E20()
 {
     const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
@@ -27987,6 +28563,7 @@ void Sub_4B4E20()
     }
 }
 
+// 原函数：0x004B5210。
 std::int32_t Sub_4B5210(const std::int32_t index, const std::int32_t state)
 {
     if (index != 8 && index != 9) {
@@ -28030,6 +28607,7 @@ std::int32_t Sub_4B5210(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B53C0。
 std::int32_t Sub_4B53C0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t result = 0;
@@ -28076,6 +28654,7 @@ std::int32_t Sub_4B53C0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B5550。
 std::int32_t Sub_4B5550(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -28104,6 +28683,7 @@ std::int32_t Sub_4B5550(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004B5A40。
 std::int32_t Sub_4B5A40(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -28118,6 +28698,7 @@ std::int32_t Sub_4B5A40(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004B5630。
 void Sub_4B5630()
 {
     gLoginWindowRuntime.mailGroupCC1A30.count = 0;
@@ -28128,6 +28709,7 @@ void Sub_4B5630()
     }
 }
 
+// 原函数：0x004B5660。
 void Sub_4B5660(const std::int32_t mode)
 {
     gLoginWindowRuntime.mailGroupCC1A30.count = 0;
@@ -28168,6 +28750,7 @@ void Sub_4B5660(const std::int32_t mode)
     }
 }
 
+// 原函数：0x004B5760。
 void Sub_4B5760(const std::int32_t category)
 {
     gLoginWindowRuntime.mailGroupSortCategoryCB0600 = category;
@@ -28178,6 +28761,7 @@ void Sub_4B5760(const std::int32_t category)
         category == 0 ? 60u : 200u, Sub_4B57B0);
 }
 
+// 原函数：0x004B57B0。
 std::int32_t Sub_4B57B0(const std::int32_t* const left, const std::int32_t* const right)
 {
     const std::int32_t category = gLoginWindowRuntime.mailGroupSortCategoryCB0600;
@@ -28223,6 +28807,7 @@ std::int32_t Sub_4B57B0(const std::int32_t* const left, const std::int32_t* cons
     return 0;
 }
 
+// 原函数：0x004A2700。
 void Sub_4A2700()
 {
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
@@ -28289,6 +28874,7 @@ void Sub_4A2700()
     Sub_4742C0(&gCurrentWindow->elements[17], maximum, position);
 }
 
+// 原函数：0x004A2C60。
 void Sub_4A2C60()
 {
     for (std::int32_t index = 0; index < 200; ++index) {
@@ -28310,6 +28896,7 @@ void Sub_4A2C60()
     SortMailIndices(gLoginWindowRuntime.mailIndicesC9FCE4.data(), count, Sub_4A2CC0);
 }
 
+// 原函数：0x004A2CC0。
 std::int32_t Sub_4A2CC0(const std::int32_t* const left, const std::int32_t* const right)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -28382,6 +28969,7 @@ std::int32_t Sub_4A2CC0(const std::int32_t* const left, const std::int32_t* cons
     return 0;
 }
 
+// 原函数：0x004A3010。
 std::int32_t Sub_4A3010(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
@@ -28395,6 +28983,7 @@ std::int32_t Sub_4A3010(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3070。
 std::int32_t Sub_4A3070(
     const login::detail::OrderedRecord1051B14* const left,
     const login::detail::OrderedRecord1051B14* const right)
@@ -28408,6 +28997,7 @@ std::int32_t Sub_4A3070(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A30D0。
 std::int32_t Sub_4A30D0(
     const login::detail::OrderedRecord1051B14* const left,
     const login::detail::OrderedRecord1051B14* const right)
@@ -28423,6 +29013,7 @@ std::int32_t Sub_4A30D0(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3100。
 std::int32_t Sub_4A3100(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
@@ -28436,6 +29027,7 @@ std::int32_t Sub_4A3100(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3160。
 std::int32_t Sub_4A3160(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
@@ -28451,6 +29043,7 @@ std::int32_t Sub_4A3160(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3190。
 std::int32_t Sub_4A3190(
     const login::detail::OrderedRecord1051B14* const left,
     const login::detail::OrderedRecord1051B14* const right)
@@ -28466,6 +29059,7 @@ std::int32_t Sub_4A3190(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A31C0。
 std::int32_t Sub_4A31C0(
     const std::int32_t* const leftValue04, const std::int32_t* const rightValue04)
 {
@@ -28474,6 +29068,7 @@ std::int32_t Sub_4A31C0(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A31E0。
 std::int32_t Sub_4A31E0(
     const world::detail::ContactRuntimeRecord* const left,
     const world::detail::ContactRuntimeRecord* const right)
@@ -28491,6 +29086,7 @@ std::int32_t Sub_4A31E0(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3230。
 std::int32_t Sub_4A3230(
     const world::detail::MiniMailContactRecord* const left,
     const world::detail::MiniMailContactRecord* const right)
@@ -28506,6 +29102,7 @@ std::int32_t Sub_4A3230(
     return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
+// 原函数：0x004A3260。
 std::int32_t Sub_4A3260(
     const login::detail::OrderedRecord1051B14* const left,
     const login::detail::OrderedRecord1051B14* const right)
@@ -28603,6 +29200,7 @@ constexpr char kGuildCloseHint5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\x
 
 } // namespace
 
+// 原函数：0x004AEAE0。
 std::int32_t Sub_4AEAE0(const std::int32_t value)
 {
     if (value == -1) {
@@ -28629,6 +29227,7 @@ std::int32_t Sub_4AEAE0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004AEC10。
 std::int32_t Sub_4AEC10(const std::int32_t value)
 {
     Sub_4AFAE0(value);
@@ -28637,6 +29236,7 @@ std::int32_t Sub_4AEC10(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004AF180。
 void Sub_4AF180()
 {
     if (Sub_4A3950() != 0) {
@@ -28659,6 +29259,7 @@ void Sub_4AF180()
     static_cast<void>(Sub_4AF650());
 }
 
+// 原函数：0x004AF250。
 void Sub_4AF250()
 {
     gCurrentWindow->elements[64].visible = 1;
@@ -28740,6 +29341,7 @@ void Sub_4AF250()
     gCurrentWindow->elements[72].visible = changed;
 }
 
+// 原函数：0x004AF650。
 std::int32_t Sub_4AF650()
 {
     const std::int32_t editable = Sub_4A3950();
@@ -28783,6 +29385,7 @@ std::int32_t Sub_4AF650()
     return y;
 }
 
+// 原函数：0x004AFA00。
 void Sub_4AFA00(const std::int32_t index)
 {
     const std::int32_t editing = gGuildEditing57F03C;
@@ -28794,6 +29397,7 @@ void Sub_4AFA00(const std::int32_t index)
     std::strcpy(destination, gGuildInputs57F040[index].input.context->text);
 }
 
+// 原函数：0x004AFED0。
 std::int32_t Sub_4AFED0()
 {
     WindowInstance* const window = gCurrentWindow;
@@ -28807,6 +29411,7 @@ std::int32_t Sub_4AFED0()
     return 0;
 }
 
+// 原函数：0x004AFAE0。
 void Sub_4AFAE0(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -28816,6 +29421,7 @@ void Sub_4AFAE0(const std::int32_t)
     }
 }
 
+// 原函数：0x004AFA60。
 void Sub_4AFA60()
 {
     const std::int32_t page = gGuildPageD67B78;
@@ -28833,6 +29439,7 @@ void Sub_4AFA60()
     static_cast<void>(Sub_4742C0(&window->elements[69], 25, position));
 }
 
+// 原函数：0x004AEC30。
 std::int32_t Sub_4AEC30(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t row = (index - 18) / 5;
@@ -28855,6 +29462,7 @@ std::int32_t Sub_4AEC30(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AED40。
 std::int32_t Sub_4AED40(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -28880,6 +29488,7 @@ std::int32_t Sub_4AED40(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AEE00。
 std::int32_t Sub_4AEE00(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t editable = Sub_4A3950();
@@ -28936,6 +29545,7 @@ std::int32_t Sub_4AEE00(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004AF000。
 std::int32_t Sub_4AF000(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -28957,6 +29567,7 @@ std::int32_t Sub_4AF000(const std::int32_t index, const std::int32_t state)
 }
 
 // WSP01：滚动结果恰1才调用既有焦点页依赖，保留原S32结果。
+// 原函数：0x004AF090。
 std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = Sub_4741A0(index, state);
@@ -28966,6 +29577,7 @@ std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x004AF0C0。
 std::int32_t Sub_4AF0C0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -28980,6 +29592,7 @@ std::int32_t Sub_4AF0C0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AF100。
 std::int32_t Sub_4AF100(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -28996,6 +29609,7 @@ std::int32_t Sub_4AF100(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004AF960。
 std::uint32_t Sub_4AF960()
 {
     if (Sub_4A3950() == 0) {
@@ -29014,6 +29628,7 @@ std::uint32_t Sub_4AF960()
     return length;
 }
 
+// 原函数：0x004AFE20。
 std::int32_t Sub_4AFE20(const std::int32_t index)
 {
     std::int32_t changes = std::strcmp(
@@ -29026,6 +29641,7 @@ std::int32_t Sub_4AFE20(const std::int32_t index)
     return changes > 0 ? 1 : 0;
 }
 
+// 原函数：0x004AFEA0。
 std::int32_t Sub_4AFEA0()
 {
     std::int32_t changes = 0;
@@ -29037,6 +29653,7 @@ std::int32_t Sub_4AFEA0()
     return changes > 0 ? 1 : 0;
 }
 
+// 原函数：0x004AFB10。
 std::int32_t Sub_4AFB10()
 {
     std::int32_t result = std::strcmp(
@@ -29062,6 +29679,7 @@ std::int32_t Sub_4AFB10()
     return Sub_4A7B00();
 }
 
+// 原函数：0x004AFC00。
 std::int32_t Sub_4AFC00()
 {
     std::int32_t result = std::strcmp(
@@ -29087,6 +29705,7 @@ std::int32_t Sub_4AFC00()
     return Sub_4A7B00();
 }
 
+// 原函数：0x004AFCF0。
 std::int32_t Sub_4AFCF0()
 {
     for (std::int32_t index = 0; index < 32; ++index) {
@@ -29119,11 +29738,13 @@ std::int32_t Sub_4AFCF0()
     return Sub_4A7B00();
 }
 
+// 原函数：0x004A3950。
 std::int32_t Sub_4A3950()
 {
     return Sub_4A3960(0x80);
 }
 
+// 原函数：0x004A3960。
 std::int32_t Sub_4A3960(const std::int32_t mask)
 {
     const std::int32_t index = login::detail::ReadGuildTextIndex10514B0();
@@ -29134,6 +29755,7 @@ std::int32_t Sub_4A3960(const std::int32_t mask)
     return (flags & mask) != 0 ? 1 : 0;
 }
 
+// 原函数：0x004A3990。
 std::int32_t Sub_4A3990(const std::int32_t index, const std::int32_t mask)
 {
     if (login::detail::ReadGuildTextIndex10514B0() == -1) {
@@ -29143,6 +29765,7 @@ std::int32_t Sub_4A3990(const std::int32_t index, const std::int32_t mask)
     return (flags & mask) != 0 ? 1 : 0;
 }
 
+// 原函数：0x004A3820。
 std::int32_t Sub_4A3820(const std::int32_t)
 {
     // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
@@ -29177,6 +29800,7 @@ std::int32_t Sub_4A3820(const std::int32_t)
     return count;
 }
 
+// 原函数：0x004A32B0。
 std::int32_t Sub_4A32B0()
 {
     const std::int32_t phase = (gLoginWindowRuntime.mailBlinkPhaseD67B5C + 1) % 16;
@@ -29189,6 +29813,7 @@ std::int32_t Sub_4A32B0()
     return flag;
 }
 
+// 原函数：0x004A0940。
 std::int32_t Sub_4A0940()
 {
     gLoginWindowRuntime.valuesD67B40[0] = 0;
@@ -29201,6 +29826,7 @@ std::int32_t Sub_4A0940()
     return 0;
 }
 
+// 原函数：0x004CC6A0。
 std::int32_t Sub_4CC6A0()
 {
     gLoginWindowRuntime.valueCC31A4 = 5;
@@ -29209,6 +29835,7 @@ std::int32_t Sub_4CC6A0()
     return 0;
 }
 
+// 原函数：0x004CCED0。
 void Sub_4CCED0()
 {
     render::GraphicDescriptor16 descriptor {};
@@ -29258,6 +29885,7 @@ void Sub_4CCED0()
     }
 }
 
+// 原函数：0x004CC6C0。
 std::int32_t Sub_4CC6C0(const std::int32_t value)
 {
     if (value == -1) {
@@ -29267,6 +29895,7 @@ std::int32_t Sub_4CC6C0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004CC6E0。
 std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -29324,6 +29953,7 @@ std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004CC9B0。
 std::int32_t Sub_4CC9B0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -29431,6 +30061,7 @@ std::int32_t Sub_4CCE90(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004CD150。
 login::YobiAction* Sub_4CD150()
 {
     gWindow47Runtime.visibleMaskCC4240 = 3;
@@ -29448,6 +30079,7 @@ login::YobiAction* Sub_4CD150()
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
 
+// 原函数：0x004CD1E0。
 std::int32_t Sub_4CD1E0(const std::int32_t, const std::int32_t)
 {
     const char* const message = blacklist::ClearBlacklistRecords_401470() != 0
@@ -29457,6 +30089,7 @@ std::int32_t Sub_4CD1E0(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004CD220。
 std::int32_t Sub_4CD220(const std::int32_t, const std::int32_t)
 {
     if (gWindowStates[65].window == nullptr) {
@@ -29465,6 +30098,7 @@ std::int32_t Sub_4CD220(const std::int32_t, const std::int32_t)
     return 1;
 }
 
+// 原函数：0x004CBD30。
 void Sub_4CBD30()
 {
     platform::LegacyTm53B8C6* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
@@ -29488,6 +30122,7 @@ void Sub_4CBD30()
         year % 100, month + 1, day);
 }
 
+// 原函数：0x004CC540。
 void Sub_4CC540()
 {
     platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
@@ -29532,6 +30167,7 @@ void Sub_4CC540()
     }
 }
 
+// 原函数：0x004CC340。
 void Sub_4CC340()
 {
     char buffer[1000] {};
@@ -29592,6 +30228,7 @@ void Sub_4CC340()
     }
 }
 
+// 原函数：0x004CBD90。
 std::int32_t Sub_4CBD90(const std::int32_t value)
 {
     if (value == -1) {
@@ -29601,6 +30238,7 @@ std::int32_t Sub_4CBD90(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004CBDB0。
 std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -29717,6 +30355,7 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00470600。
 void InitializeLoginWindows_470600()
 {
     static_cast<void>(Sub_4C9060());
@@ -29741,6 +30380,7 @@ void InitializeLoginWindows_470600()
     gLoginWindowRuntime.valueD67618 = 0;
 }
 
+// 原函数：0x004A6D80。
 std::int32_t Sub_4A6D80()
 {
     platform::gValue554640 = 1;
@@ -29752,6 +30392,7 @@ std::int32_t Sub_4A6D80()
     return 0;
 }
 
+// 原函数：0x004A6DB0。
 std::int32_t Sub_4A6DB0()
 {
     gChatScrollOffsetC9A940 = 0;
@@ -29761,6 +30402,7 @@ std::int32_t Sub_4A6DB0()
     return 0;
 }
 
+// 原函数：0x004A8330。
 WindowInstance* Sub_4A8330()
 {
     WindowInstance* result;
@@ -29786,6 +30428,7 @@ WindowInstance* Sub_4A8330()
     return result;
 }
 
+// 原函数：0x00477490。
 WindowInstance* FindWindowById_477490(const std::int32_t id)
 {
     for (std::size_t index = 0; index < gWindows.size(); ++index) {
@@ -29798,6 +30441,7 @@ WindowInstance* FindWindowById_477490(const std::int32_t id)
 }
 
 // CWC01：持有实际窗口/新count与elements，原浮点比例/低S32位置和正常分支保持。
+// 原函数：0x004A8140。
 void Sub_4A8140()
 {
     WindowInstance* const window = FindWindowById_477490(35);
@@ -29824,6 +30468,7 @@ void Sub_4A8140()
 }
 
 // CWP01：原请求/字体高度各点顺序取样，尺寸环/现场窗口载荷及完整几何保持。
+// 原函数：0x004A7C40。
 void Sub_4A7C40()
 {
     const std::int32_t previousHeight = gChatHeightUnitsC9A938;
@@ -29963,6 +30608,7 @@ void Sub_4A7C40()
 }
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
+// 原函数：0x004A6DD0。
 std::int32_t Sub_4A6DD0(const std::int32_t value)
 {
     if (value == -1) {
@@ -29993,6 +30639,7 @@ std::int32_t Sub_4A6DD0(const std::int32_t value)
 }
 
 // CWC01：原三个hover窗口/元素及scroll→count取样，按钮/SE/发布和返回序保持。
+// 原函数：0x004A6FC0。
 std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
@@ -30211,6 +30858,7 @@ std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
 }
 
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A6EA0。
 std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
@@ -30259,6 +30907,7 @@ std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004A8240。
 std::int32_t Sub_4A8240(const std::int32_t value)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -30279,6 +30928,7 @@ std::int32_t Sub_4A8240(const std::int32_t value)
 }
 
 // CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A82C0。
 std::int32_t Sub_4A82C0(const std::int32_t)
 {
     if (input::gValueC9A96C != 0) {
@@ -30288,6 +30938,7 @@ std::int32_t Sub_4A82C0(const std::int32_t)
 }
 
 // WSP01：原state bit3控制日志位置换算，换算后重读count；仍返回滚动原结果。
+// 原函数：0x004A80F0。
 std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t consumed = Sub_4741A0(index, state);
@@ -30301,6 +30952,7 @@ std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
 }
 
 // CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A81D0。
 std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -30329,6 +30981,7 @@ std::int32_t Sub_4A7700()
     return 0;
 }
 
+// 原函数：0x0044B170。
 std::int32_t Sub_44B170()
 {
     for (auto& record : world::detail::gRecords5FB7F8) {
@@ -30337,26 +30990,31 @@ std::int32_t Sub_44B170()
     return Sub_4A7700();
 }
 
+// 原函数：0x004A7710。
 void Sub_4A7710()
 {
     gChatHeightRequestC9A93C = 1;
 }
 
+// 原函数：0x004A7720。
 void Sub_4A7720()
 {
     gChatHeightRequestC9A93C = -1;
 }
 
+// 原函数：0x004A7730。
 void Sub_4A7730()
 {
     gChatWidthRequestC9A934 = 1;
 }
 
+// 原函数：0x004A7740。
 void Sub_4A7740()
 {
     gChatWidthRequestC9A934 = -1;
 }
 
+// 原函数：0x004A82E0。
 std::int32_t Sub_4A82E0()
 {
     const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
@@ -30372,6 +31030,7 @@ std::int32_t Sub_4A82E0()
 }
 
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
+// 原函数：0x004A7590。
 void Sub_4A7590(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
@@ -30383,6 +31042,7 @@ void Sub_4A7590(input::InputContext* const context)
 }
 
 // CIG01：固定1024宽度及滚动绘制正文保持；见doc/cg2d_input_scroll_draw_spec.md。
+// 原函数：0x004A7640。
 void Sub_4A7640(input::InputContext* const context)
 {
     const std::int32_t font = input::gCurrentInputData->field13C;
@@ -30391,6 +31051,7 @@ void Sub_4A7640(input::InputContext* const context)
 }
 
 // CLD01：原字节分行/逆序绘制与现场尺寸取样；见doc/cg2d_chat_log_line_drawing_spec.md。
+// 原函数：0x004A7750。
 void Sub_4A7750(const std::int32_t x, const std::int32_t y)
 {
     std::int32_t totalHeight = 0;
@@ -30526,6 +31187,7 @@ void Sub_4A7750(const std::int32_t x, const std::int32_t y)
 }
 
 // WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
+// 原函数：0x004771B0。
 void Sub_4771B0(
     const std::int32_t x, const std::int32_t y, const char* const text,
     const std::int8_t style, const std::int8_t color,
@@ -30592,6 +31254,7 @@ void Sub_4771B0(
 }
 
 // WND01：运行步进乘长度后取扣宽，见doc/cg2d_window_number_draw_spec.md。
+// 原函数：0x00477460。
 std::int32_t Sub_477460(const char* const text, const std::int8_t style)
 {
     const auto length = static_cast<std::int32_t>(std::strlen(text));
@@ -30604,12 +31267,14 @@ std::int32_t Sub_477460(const char* const text, const std::int8_t style)
     return width - deduction;
 }
 
+// 原函数：0x0046FBC0。
 std::int32_t Sub_46FBC0(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     return 1;
 }
 
+// 原函数：0x0049E750。
 std::int32_t Sub_49E750(const std::int32_t value)
 {
     if (value == -1) {
@@ -30630,6 +31295,7 @@ std::int32_t Sub_49E750(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0043C950。
 void Sub_43C950()
 {
     using namespace world::detail;
@@ -30640,6 +31306,7 @@ void Sub_43C950()
     }
 }
 
+// 原函数：0x0049BD40。
 std::int32_t Sub_49BD40(const std::int32_t)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
@@ -30660,6 +31327,7 @@ std::int32_t Sub_49BD40(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049BDB0。
 std::int32_t Sub_49BDB0(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
@@ -30832,6 +31500,7 @@ void PrepareCraftMaterialElements(WindowInstance* const window)
 
 } // namespace
 
+// 原函数：0x0047E1B0。
 WindowAnimationData* Sub_47E1B0(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
@@ -30868,6 +31537,7 @@ WindowAnimationData* Sub_47E1B0(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x0047EF00。
 WindowAnimationData* Sub_47EF00(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
@@ -30925,6 +31595,7 @@ WindowAnimationData* Sub_47EF00(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x004801B0。
 WindowAnimationData* Sub_4801B0(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
@@ -30962,6 +31633,7 @@ WindowAnimationData* Sub_4801B0(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x00480600。
 void Sub_480600(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
@@ -30997,6 +31669,7 @@ void Sub_480600(WindowInstance* const window)
     }
 }
 
+// 原函数：0x00480C20。
 WindowAnimationData* Sub_480C20(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
@@ -31029,6 +31702,7 @@ WindowAnimationData* Sub_480C20(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x0047D5F0。
 login::YobiAction* Sub_47D5F0(
     const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)
 {
@@ -31052,6 +31726,7 @@ login::YobiAction* Sub_47D5F0(
     return CreateCraftWindow();
 }
 
+// 原函数：0x0047D780。
 login::YobiAction* Sub_47D780(const std::int32_t skill, const std::int32_t request)
 {
     gCraftRequestValueD30400 = request;
@@ -31071,6 +31746,7 @@ login::YobiAction* Sub_47D780(const std::int32_t skill, const std::int32_t reque
     return CreateCraftWindow();
 }
 
+// 原函数：0x0047D8F0。
 login::YobiAction* Sub_47D8F0(
     const std::int32_t skill, const std::int32_t request, const std::int32_t kind)
 {
@@ -31094,6 +31770,7 @@ login::YobiAction* Sub_47D8F0(
     return CreateCraftWindow();
 }
 
+// 原函数：0x0047DA70。
 login::YobiAction* Sub_47DA70(const std::int32_t skill, const std::int32_t request)
 {
     gCraftRequestValueD30400 = request;
@@ -31114,6 +31791,7 @@ login::YobiAction* Sub_47DA70(const std::int32_t skill, const std::int32_t reque
     return CreateCraftWindow();
 }
 
+// 原函数：0x0047DB50。
 login::YobiAction* Sub_47DB50(const std::int32_t skill, const std::int32_t request)
 {
     gCraftRequestValueD30400 = request;
@@ -31132,6 +31810,7 @@ login::YobiAction* Sub_47DB50(const std::int32_t skill, const std::int32_t reque
     return CreateCraftWindow();
 }
 
+// 原函数：0x0047FAE0。
 WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
@@ -31149,6 +31828,7 @@ WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x0047FD00。
 WindowAnimationData* Sub_47FD00(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
@@ -31166,6 +31846,7 @@ WindowAnimationData* Sub_47FD00(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x0047FF20。
 WindowAnimationData* Sub_47FF20(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
@@ -31182,6 +31863,7 @@ WindowAnimationData* Sub_47FF20(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x00480A00。
 WindowAnimationData* Sub_480A00(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
@@ -31200,6 +31882,7 @@ WindowAnimationData* Sub_480A00(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x00483EB0。
 std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -31514,6 +32197,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047DF50。
 WindowAnimationData* Sub_47DF50(WindowInstance* const window)
 {
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -31578,6 +32262,7 @@ WindowAnimationData* Sub_47DF50(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x004F4430。
 std::int32_t Sub_4F4430(const std::int32_t itemType, const std::int32_t skillId)
 {
     if (skillId >= 601 && skillId <= 605) {
@@ -31586,6 +32271,7 @@ std::int32_t Sub_4F4430(const std::int32_t itemType, const std::int32_t skillId)
     return itemType == 38 || itemType == 25 || itemType == 39 ? 1 : 0;
 }
 
+// 原函数：0x00483E30。
 void Sub_483E30(
     const std::int32_t destination, const std::int32_t source, const std::int32_t material)
 {
@@ -31601,6 +32287,7 @@ void Sub_483E30(
     gItemMarksD67290[source] = 1;
 }
 
+// 原函数：0x004880D0。
 std::int32_t Sub_4880D0(const std::int32_t skillId, const std::int32_t extraLevel)
 {
     for (std::int32_t index = 0; index < 15; ++index) {
@@ -31620,6 +32307,7 @@ std::int32_t Sub_4880D0(const std::int32_t skillId, const std::int32_t extraLeve
     return 0;
 }
 
+// 原函数：0x00488160。
 std::int32_t Sub_488160()
 {
     std::int32_t maximum = 0;
@@ -31633,6 +32321,7 @@ std::int32_t Sub_488160()
     return maximum;
 }
 
+// 原函数：0x00488180。
 std::int32_t Sub_488180()
 {
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -31645,6 +32334,7 @@ std::int32_t Sub_488180()
     return -1;
 }
 
+// 原函数：0x004881D0。
 void Sub_4881D0(const std::int32_t destination, const std::int32_t source)
 {
     std::int32_t flags = 0;
@@ -31737,6 +32427,7 @@ void Sub_4881D0(const std::int32_t destination, const std::int32_t source)
     }
 }
 
+// 原函数：0x0047DE00。
 void Sub_47DE00(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -31774,11 +32465,13 @@ void Sub_47DE00(
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
+// 原函数：0x0047DF30。
 std::int32_t Sub_47DF30(const std::int32_t sourceIndex)
 {
     return Sub_475DA0(10, sourceIndex, Sub_47DE00);
 }
 
+// 原函数：0x00482F70。
 std::int32_t Sub_482F70(const std::int32_t itemType)
 {
     if (itemType >= 7 && itemType <= 14) {
@@ -31790,6 +32483,7 @@ std::int32_t Sub_482F70(const std::int32_t itemType)
     return 0;
 }
 
+// 原函数：0x00482270。
 std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
@@ -32099,6 +32793,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00482FA0。
 std::int32_t Sub_482FA0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
@@ -32146,6 +32841,7 @@ std::int32_t Sub_482FA0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x004830B0。
 std::int32_t Sub_4830B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -32168,6 +32864,7 @@ std::int32_t Sub_4830B0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x00483150。
 std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -32536,6 +33233,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00484FB0。
 std::int32_t Sub_484FB0(const std::int32_t index, const std::int32_t)
 {
     const std::int32_t imageNo = gCraftDisplayImageCB2204;
@@ -32578,6 +33276,7 @@ std::int32_t Sub_485030(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00485160。
 std::int32_t Sub_485160(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -32637,6 +33336,7 @@ std::int32_t DrawCraftInputNotice(
 
 } // namespace
 
+// 原函数：0x00485200。
 std::int32_t Sub_485200(const std::int32_t index, const std::int32_t)
 {
     return DrawCraftInputNotice(index,
@@ -32645,6 +33345,7 @@ std::int32_t Sub_485200(const std::int32_t index, const std::int32_t)
         "\xB2\xBB\xC4\xDC\xD3\xC3\x81\xED\xBF\xCC\xD3\xA1\xA1\xA3");
 }
 
+// 原函数：0x00485350。
 std::int32_t Sub_485350(const std::int32_t index, const std::int32_t)
 {
     return DrawCraftInputNotice(index,
@@ -32652,6 +33353,7 @@ std::int32_t Sub_485350(const std::int32_t index, const std::int32_t)
         "\xBF\xCC\xD3\xA1\xC3\xFB\xB7\x51\xB2\xBB\xC4\xDC\xB0\xFC\xBA\xAC\xBF\xD5\xB0\xD7\xA1\xA3");
 }
 
+// 原函数：0x004847C0。
 std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -32815,6 +33517,7 @@ std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047EC00。
 WindowAnimationData* Sub_47EC00(WindowInstance* const window)
 {
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -32887,6 +33590,7 @@ WindowAnimationData* Sub_47EC00(WindowInstance* const window)
     return result;
 }
 
+// 原函数：0x0047D4B0。
 std::int32_t Sub_47D4B0()
 {
     const std::int32_t crystalLevel = Sub_479860();
@@ -32895,6 +33599,7 @@ std::int32_t Sub_47D4B0()
     return world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
 }
 
+// 原函数：0x0047D4F0。
 std::int32_t Sub_47D4F0()
 {
     if (gSelectedItemD460C0 < 0) {
@@ -32905,6 +33610,7 @@ std::int32_t Sub_47D4F0()
     return world::detail::gPlayerItemsFDA8A4[slot].level == crystalLevel ? 1 : 0;
 }
 
+// 原函数：0x0047D530。
 std::int32_t Sub_47D530()
 {
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -32922,6 +33628,7 @@ std::int32_t Sub_47D530()
     return 0;
 }
 
+// 原函数：0x0047D5B0。
 std::int32_t Sub_47D5B0()
 {
     const std::int32_t slot = gSelectedSlotsCA0A90[0];
@@ -32933,6 +33640,7 @@ std::int32_t Sub_47D5B0()
     return level == crystalLevel ? 1 : 0;
 }
 
+// 原函数：0x004810A0。
 std::int32_t Sub_4810A0(const std::int32_t value)
 {
     const auto initializeMode = [](const std::uint8_t mode) {
@@ -33252,6 +33960,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00481010。
 void Sub_481010()
 {
     WindowInstance* const quantityWindow = gWindowStates[42].window;
@@ -33275,6 +33984,7 @@ void Sub_481010()
     }
 }
 
+// 原函数：0x00482000。
 std::int32_t Sub_482000(const std::int32_t)
 {
     login::YobiAction* const action =
@@ -33322,6 +34032,7 @@ std::int32_t Sub_482000(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0047D170。
 std::int32_t Sub_47D170(
     WindowInstance* const window, const std::int32_t anchor,
     const std::int32_t first, const std::int32_t second,
@@ -33345,6 +34056,7 @@ std::int32_t Sub_47D170(
     return first * 36;
 }
 
+// 原函数：0x0047D220。
 WindowAnimationData* Sub_47D220(
     WindowInstance* const window, const std::int32_t first, const std::int32_t second,
     const std::int32_t flag, const std::int32_t actionId, const std::int32_t direction)
@@ -33363,6 +34075,7 @@ WindowAnimationData* Sub_47D220(
     return data;
 }
 
+// 原函数：0x00484D60。
 std::int32_t Sub_484D60(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -33410,6 +34123,7 @@ std::int32_t Sub_484D60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047E5E0。
 WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
 {
     gValueD67B00 = 0;
@@ -33506,12 +34220,14 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
     return last;
 }
 
+// 原函数：0x0047EBE0。
 WindowAnimationData* Sub_47EBE0()
 {
     WindowInstance* const window = gWindowStates[11].window;
     return window != nullptr ? Sub_47E5E0(window) : nullptr;
 }
 
+// 原函数：0x004F39F0。
 WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const text)
 {
     gCraftResultDetailsD2E92C.clear();
@@ -33578,6 +34294,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
     return Sub_47EBE0();
 }
 
+// 原函数：0x00484E90。
 std::int32_t Sub_484E90(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -33624,6 +34341,7 @@ std::int32_t Sub_484E90(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047F3D0。
 WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
 {
     const std::int32_t entryResult = gItemWorkResultCB05FC;
@@ -33738,12 +34456,14 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
     return last;
 }
 
+// 原函数：0x0047FAC0。
 WindowAnimationData* Sub_47FAC0()
 {
     WindowInstance* const window = gWindowStates[11].window;
     return window != nullptr ? Sub_47F3D0(window) : nullptr;
 }
 
+// 原函数：0x004F1800。
 WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const text)
 {
     gItemWorkDetailsD2DB00.clear();
@@ -33802,11 +34522,13 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
     return Sub_47FAC0();
 }
 
+// 原函数：0x004796D0。
 void Sub_4796D0()
 {
     ++gValueD67AFC;
 }
 
+// 原函数：0x004854A0。
 login::YobiAction* Sub_4854A0(const std::int32_t skill, const std::int32_t level)
 {
     const auto skillByte = static_cast<std::uint8_t>(skill);
@@ -33901,6 +34623,7 @@ void Sub_485690()
     }
 }
 
+// 原函数：0x00485700。
 WindowAnimationData* Sub_485700(WindowInstance* const window)
 {
     const std::uint8_t mode = gWindow12ModeCC3E80;
@@ -33929,6 +34652,7 @@ WindowAnimationData* Sub_485700(WindowInstance* const window)
     return data;
 }
 
+// 原函数：0x00485890。
 WindowAnimationData* Sub_485890(WindowInstance* const window)
 {
     if (gWindow12ModeCC3E80 != 1) {
@@ -33983,6 +34707,7 @@ WindowAnimationData* Sub_485890(WindowInstance* const window)
     return Sub_47D220(window, 1, 3, 0, 10, 5);
 }
 
+// 原函数：0x0047D2E0。
 WindowAnimationData* Sub_47D2E0(
     WindowInstance*, const std::int32_t anchor,
     const std::int32_t first, const std::int32_t second, const std::uint32_t deadline)
@@ -34017,11 +34742,13 @@ WindowAnimationData* Sub_47D2E0(
     return Sub_47D220(gCurrentWindow, first, second, 1, 0, 5);
 }
 
+// 原函数：0x004796E0。
 void Sub_4796E0()
 {
     --gValueD67AFC;
 }
 
+// 原函数：0x00485AF0。
 WindowAnimationData* Sub_485AF0(WindowInstance* const window)
 {
     std::uint8_t mode = gWindow12ModeCC3E80;
@@ -34105,12 +34832,14 @@ WindowAnimationData* Sub_485AF0(WindowInstance* const window)
     return Sub_47D220(window, 1, 3, 0, 10, 5);
 }
 
+// 原函数：0x00486020。
 WindowAnimationData* Sub_486020()
 {
     WindowInstance* const window = gWindowStates[12].window;
     return window != nullptr ? Sub_485AF0(window) : nullptr;
 }
 
+// 原函数：0x004ED6B0。
 WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const text)
 {
     gWindow12ResultD2D820 = result;
@@ -34172,6 +34901,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     return Sub_486020();
 }
 
+// 原函数：0x00486040。
 std::int32_t Sub_486040(const std::int32_t value)
 {
     if (value == -1) {
@@ -34395,6 +35125,7 @@ std::int32_t Sub_486040(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00486CF0。
 std::int32_t Sub_486CF0(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -34433,6 +35164,7 @@ std::int32_t Sub_486CF0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00486E50。
 std::int32_t Sub_486E50(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
@@ -34463,6 +35195,7 @@ std::int32_t Sub_486E50(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00486F20。
 std::int32_t Sub_486F20(const std::int32_t index, const std::int32_t)
 {
     const std::int32_t resultImage = gWindow12ValueCF3FF0;
@@ -34485,6 +35218,7 @@ std::int32_t Sub_486F20(const std::int32_t index, const std::int32_t)
     return 0;
 }
 
+// 原函数：0x0047D280。
 std::int32_t Sub_47D280(
     WindowInstance* const window, const std::int32_t first,
     const std::int32_t second, const std::int32_t imageNo)
@@ -34500,6 +35234,7 @@ std::int32_t Sub_47D280(
     return first * 36;
 }
 
+// 原函数：0x00487F30。
 std::int32_t Sub_487F30(const std::int32_t imageNo, const std::int32_t offset)
 {
     if (imageNo >= 0x18A24 && imageNo <= 0x18A26) {
@@ -34523,6 +35258,7 @@ std::int32_t Sub_487F30(const std::int32_t imageNo, const std::int32_t offset)
     return imageNo;
 }
 
+// 原函数：0x004875E0。
 login::YobiAction* Sub_4875E0()
 {
     Sub_479650();
@@ -34543,6 +35279,7 @@ login::YobiAction* Sub_4875E0()
     return CreateWindowAnimation_475AA0(13, 1, 0, nullptr);
 }
 
+// 原函数：0x00487660。
 void Sub_487660()
 {
     Sub_479660();
@@ -34640,6 +35377,7 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
     return Sub_47D220(window, 1, 3, 1, gWindow13ResultD66E2C != 0 ? 6 : 8, 5);
 }
 
+// 原函数：0x00487AE0。
 std::int32_t Sub_487AE0(const std::int32_t value)
 {
     if (value == -1) {
@@ -34659,6 +35397,7 @@ std::int32_t Sub_487AE0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00487B80。
 std::int32_t Sub_487B80(const std::int32_t)
 {
     login::YobiAction* const action =
@@ -34688,6 +35427,7 @@ std::int32_t Sub_487B80(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00487D60。
 std::int32_t Sub_487D60(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -34723,6 +35463,7 @@ std::int32_t Sub_487D60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00487E80。
 std::int32_t Sub_487E80(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -34746,6 +35487,7 @@ std::int32_t Sub_487E80(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004EEA40。
 login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
 {
     gWindow13ResultD66E2C = result;
@@ -34837,6 +35579,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
     return Sub_4875E0();
 }
 
+// 原函数：0x00479820。
 std::int32_t Sub_479820()
 {
     for (const auto& pair : world::detail::gSkillPairsF63370) {
@@ -34850,6 +35593,7 @@ std::int32_t Sub_479820()
     return 0;
 }
 
+// 原函数：0x00479860。
 std::int32_t Sub_479860()
 {
     const auto& item = world::detail::gPlayerItemsFDA8A4[7];
@@ -34866,6 +35610,7 @@ std::int32_t Sub_479860()
     return 0;
 }
 
+// 原函数：0x00479920。
 std::int32_t Sub_479920()
 {
     const auto& item = world::detail::gPlayerItemsFDA8A4[7];
@@ -34882,12 +35627,14 @@ std::int32_t Sub_479920()
     return -1;
 }
 
+// 原函数：0x004799D0。
 std::int32_t Sub_4799D0()
 {
     const std::int32_t index = world::detail::Sub_43C4B0();
     return index < 0 ? 0 : world::detail::gPetRuntimeF633F8[index].imageNo6A0;
 }
 
+// 原函数：0x00479A00。
 std::int32_t Sub_479A00(const std::int32_t petIndex)
 {
     const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
@@ -34905,6 +35652,7 @@ std::int32_t Sub_479A00(const std::int32_t petIndex)
     return 0;
 }
 
+// 原函数：0x00479A70。
 std::int32_t Sub_479A70(const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
     const std::int32_t level = world::detail::gPetRuntimeF633F8[petIndex].value08;
@@ -34915,6 +35663,7 @@ std::int32_t Sub_479A70(const std::int32_t petIndex, const std::int32_t crystalL
     return level <= range[1] ? 1 : 0;
 }
 
+// 原函数：0x00479AB0。
 std::int32_t Sub_479AB0()
 {
     const std::int32_t index = world::detail::Sub_43C4B0();
@@ -34930,6 +35679,7 @@ std::int32_t Sub_479AB0()
         &world::detail::gPetRuntimeF633F8[index].values0C[2], required) ? 0 : 1;
 }
 
+// 原函数：0x00479B00。
 std::int32_t Sub_479B00()
 {
     if (Sub_479820() == 0) {
@@ -34950,6 +35700,7 @@ std::int32_t Sub_479B00()
     return Sub_479A70(index, level) != 0 ? 1 : 0;
 }
 
+// 原函数：0x00486FE0。
 std::int32_t Sub_486FE0()
 {
     const std::int32_t crystalLevel = Sub_479860();
@@ -34958,6 +35709,7 @@ std::int32_t Sub_486FE0()
     return world::detail::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
 }
 
+// 原函数：0x004872E0。
 std::int32_t Sub_4872E0(const std::int32_t index, const char*)
 {
     if (index == -1) {
@@ -35005,6 +35757,7 @@ std::int32_t Sub_4872E0(const std::int32_t index, const char*)
     return 0;
 }
 
+// 原函数：0x004874B0。
 login::YobiAction* Sub_4874B0()
 {
     const std::int32_t count = gSkillStatusCountC8AA94;
@@ -35037,6 +35790,7 @@ login::YobiAction* Sub_4874B0()
     return Sub_49F760(gSkillStatusViewsCC4BE8.data(), gSkillStatusCountC8AA94, Sub_4872E0);
 }
 
+// 原函数：0x004EF750。
 login::YobiAction* Sub_4EF750(const char* const text)
 {
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -35137,6 +35891,7 @@ login::YobiAction* Sub_4EF750(const char* const text)
     return Sub_4874B0();
 }
 
+// 原函数：0x004EF710。
 std::int32_t Sub_4EF710(const std::int32_t skillId)
 {
     switch (skillId) {
@@ -35194,6 +35949,7 @@ constexpr char kPetSkillSkip5865A8[] = "\xC2\xD4\xDF\x5E\xB4\xCB\xBB\xD8\xBA\xCF
 
 } // namespace
 
+// 原函数：0x0047B6C0。
 void Sub_47B6C0(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t enabled,
@@ -35226,6 +35982,7 @@ void Sub_47B6C0(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
+// 原函数：0x00479700。
 void Sub_479700(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
@@ -35252,11 +36009,13 @@ void Sub_479700(
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
 
+// 原函数：0x004797A0。
 std::int32_t Sub_4797A0(const std::int32_t sourceIndex)
 {
     return Sub_475DA0(4, sourceIndex, Sub_479700);
 }
 
+// 原函数：0x0047B820。
 std::int32_t Sub_47B820(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gSkillWindowScrollD2D648 + index - 17;
@@ -35313,6 +36072,7 @@ std::int32_t Sub_47B820(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00479B80。
 void Sub_479B80(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
@@ -35360,6 +36120,7 @@ void Sub_479B80(WindowInstance* const window, const std::int32_t skillIndex)
     }
 }
 
+// 原函数：0x0047B9B0。
 void Sub_47B9B0(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     std::int32_t technique, const std::int32_t textLayer,
@@ -35417,6 +36178,7 @@ void Sub_47B9B0(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
+// 原函数：0x0047C240。
 void Sub_47C240(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t recipe, const std::int32_t textLayer,
@@ -35447,6 +36209,7 @@ void Sub_47C240(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), imageNo, 0, &descriptor));
 }
 
+// 原函数：0x00479C80。
 void Sub_479C80(WindowInstance* const window, const std::int32_t pairIndex)
 {
     gSkillWindowModeD672AC = 1;
@@ -35498,6 +36261,7 @@ void Sub_47B0E0()
     }
 }
 
+// 原函数：0x00479EA0。
 void Sub_479EA0(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
@@ -35555,6 +36319,7 @@ void Sub_479EA0(WindowInstance* const window, const std::int32_t skillIndex)
     }
 }
 
+// 原函数：0x0047A000。
 void Sub_47A000(
     WindowInstance* const window, const std::int32_t index, const std::uint8_t directSkill)
 {
@@ -35600,6 +36365,7 @@ void Sub_47A000(
     }
 }
 
+// 原函数：0x0047C570。
 std::int32_t Sub_47C570(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gBattleSkillRowsD3FABC[gSkillWindowScrollD2D648 + index - 17];
@@ -35661,6 +36427,7 @@ std::int32_t Sub_47C570(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047C700。
 std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
@@ -35729,6 +36496,7 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004966B0。
 void Sub_4966B0(
     const std::int32_t mode, const std::int16_t x, const std::int16_t y)
 {
@@ -35829,6 +36597,7 @@ void Sub_4966B0(
     gWindowStates[26].userState.value = 1;
 }
 
+// 原函数：0x00496B90。
 std::int32_t Sub_496B90(const std::int32_t value)
 {
     if (value == -1) {
@@ -35899,6 +36668,7 @@ std::int32_t Sub_496B90(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00496D50。
 std::int32_t Sub_496D50(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
@@ -35960,6 +36730,7 @@ std::int32_t Sub_496D50(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00496AE0。
 void Sub_496AE0()
 {
     if (gWindowStates[26].window == nullptr) {
@@ -36001,6 +36772,7 @@ void Sub_496AE0()
     }
 }
 
+// 原函数：0x00496F10。
 void Sub_496F10()
 {
     world::detail::gBattleSelectionModes5ABC7C.fill(0);
@@ -36033,6 +36805,7 @@ void Sub_496F10()
     }
 }
 
+// 原函数：0x004972B0。
 std::int32_t Sub_4972B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36071,6 +36844,7 @@ std::int32_t Sub_4972B0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004973C0。
 std::int32_t Sub_4973C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36108,6 +36882,7 @@ std::int32_t Sub_4973C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00497770。
 std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36161,6 +36936,7 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00497900。
 std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36214,6 +36990,7 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00497A60。
 std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36254,6 +37031,7 @@ std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00497B80。
 std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36292,6 +37070,7 @@ std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
 }
 
 // TUC01：原战斗转生门槛/载荷判空保持；持有 hover，刷新后重取命令状态，发送弃返。
+// 原函数：0x00497C80。
 std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
@@ -36352,6 +37131,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00496FB0。
 std::int32_t Sub_496FB0()
 {
     if (gWindowStates[26].window == nullptr
@@ -36368,6 +37148,7 @@ std::int32_t Sub_496FB0()
     return world::detail::gBattleSelectionModes5ABC7C[2] == 0 ? -1 : 0;
 }
 
+// 原函数：0x004970B0。
 std::int32_t Sub_4970B0()
 {
     if (gWindowStates[26].window == nullptr
@@ -36384,6 +37165,7 @@ std::int32_t Sub_4970B0()
     return world::detail::gBattleSelectionModes5ABC7C[3] == 0 ? -1 : 0;
 }
 
+// 原函数：0x00497100。
 void Sub_497100()
 {
     if (gWindowStates[26].window == nullptr
@@ -36410,6 +37192,7 @@ void Sub_497100()
     gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
 }
 
+// 原函数：0x004971C0。
 std::int32_t Sub_4971C0()
 {
     if (gWindowStates[26].window == nullptr
@@ -36426,6 +37209,7 @@ std::int32_t Sub_4971C0()
     return world::detail::gBattleSelectionModes5ABC7C[4] == 0 ? -1 : 0;
 }
 
+// 原函数：0x00497210。
 void Sub_497210()
 {
     if (gWindowStates[26].window == nullptr
@@ -36450,6 +37234,7 @@ void Sub_497210()
     gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
 }
 
+// 原函数：0x00497000。
 void Sub_497000()
 {
     if (gWindowStates[26].window == nullptr
@@ -36476,6 +37261,7 @@ void Sub_497000()
     gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);
 }
 
+// 原函数：0x004974C0。
 void Sub_4974C0(const std::int32_t skillIndex, const std::int32_t technique)
 {
     world::detail::gBattleSelectedSkill5ABB5C = skillIndex;
@@ -36507,6 +37293,7 @@ void Sub_4974C0(const std::int32_t skillIndex, const std::int32_t technique)
     Sub_496AE0();
 }
 
+// 原函数：0x004975A0。
 std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36570,6 +37357,7 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00497E30。
 void Sub_497E30(const std::int32_t technique)
 {
     if (technique < 0) {
@@ -36621,6 +37409,7 @@ void Sub_497E30(const std::int32_t technique)
     world::detail::gBattlePetCommandPhase553F88 = 2;
 }
 
+// 原函数：0x00497FF0。
 void Sub_497FF0(const std::int32_t technique)
 {
     if (technique < 0) {
@@ -36669,6 +37458,7 @@ void Sub_497FF0(const std::int32_t technique)
     world::detail::gBattlePetCommandPhase553F88 = 2;
 }
 
+// 原函数：0x00498160。
 std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -36718,6 +37508,7 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0043C3E0。
 void Sub_43C3E0()
 {
     if (world::detail::gBattleCommandValue553F80 != 0) {
@@ -36742,6 +37533,7 @@ void Sub_43C3E0()
         "\xB0\xB4\xBB\xAC\xCA\xF3\xD3\xD2\xE6\x49\xBF\xC9\xC8\xA1\xCF\xFB\xA1\xA3");
 }
 
+// 原函数：0x0043C490。
 void Sub_43C490(std::int32_t* const values, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
@@ -36749,6 +37541,7 @@ void Sub_43C490(std::int32_t* const values, const std::int32_t count)
     }
 }
 
+// 原函数：0x00498520。
 void Sub_498520()
 {
     using namespace world::detail;
@@ -37193,6 +37986,7 @@ void Sub_498520()
     }
 }
 
+// 原函数：0x004982C0。
 void Sub_4982C0()
 {
     using namespace world::detail;
@@ -37270,6 +38064,7 @@ void Sub_4982C0()
     }
 }
 
+// 原函数：0x00496570。
 void Sub_496570()
 {
     if (world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
@@ -37284,6 +38079,7 @@ void Sub_496570()
     }
 }
 
+// 原函数：0x004965D0。
 void Sub_4965D0()
 {
     using namespace world::detail;
@@ -37312,6 +38108,7 @@ void Sub_4965D0()
     gBattlePetVitalsCF4B78[gBattleSnapshotPetIndex5ABBFC].maxFp = maxFp;
 }
 
+// 原函数：0x0049B630。
 std::int32_t Sub_49B630(const std::int32_t)
 {
     gCurrentWindow->elements[1].visible = 0;
@@ -37321,6 +38118,7 @@ std::int32_t Sub_49B630(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049BA10。
 std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -37350,6 +38148,7 @@ std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049B670。
 void Sub_49B670(
     const std::int16_t x, const std::int16_t y, const std::int32_t petIndex,
     const std::uint8_t textLayer, const std::int32_t graphicLayer,
@@ -37420,6 +38219,7 @@ void Sub_49B670(
         x, y, static_cast<std::uint8_t>(graphicLayer), 0x3B5C4, 0, 1, 0, descriptor));
 }
 
+// 原函数：0x0049BB00。
 std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -37485,6 +38285,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047A490。
 login::YobiAction* Sub_47A490()
 {
     WindowInstance* const window = gWindowStates[10].window;
@@ -37497,6 +38298,7 @@ login::YobiAction* Sub_47A490()
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
+// 原函数：0x0047A4C0。
 login::YobiAction* Sub_47A4C0(const SkillWindowSelectionCallback callback)
 {
     gSkillWindowModeD672AC = 3;
@@ -37508,6 +38310,7 @@ login::YobiAction* Sub_47A4C0(const SkillWindowSelectionCallback callback)
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
+// 原函数：0x0047A500。
 login::YobiAction* Sub_47A500(
     const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
 {
@@ -37521,6 +38324,7 @@ login::YobiAction* Sub_47A500(
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
+// 原函数：0x0047CB00。
 void Sub_47CB00(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
@@ -37559,6 +38363,7 @@ void Sub_47CB00(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
+// 原函数：0x0047CE70。
 void Sub_47CE70(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
@@ -37595,6 +38400,7 @@ void Sub_47CE70(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
 }
 
+// 原函数：0x0047CC80。
 std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = index - 17;
@@ -37659,6 +38465,7 @@ std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047CFE0。
 std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
 {
     const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
@@ -37718,6 +38525,7 @@ std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047A1A0。
 void Sub_47A1A0(WindowInstance* const window)
 {
     gSkillWindowModeD672AC = 5;
@@ -37764,6 +38572,7 @@ void Sub_47A1A0(WindowInstance* const window)
     }
 }
 
+// 原函数：0x0047A320。
 void Sub_47A320(WindowInstance* const window)
 {
     gSkillWindowModeD672AC = 6;
@@ -37810,6 +38619,7 @@ void Sub_47A320(WindowInstance* const window)
     }
 }
 
+// 原函数：0x0047A540。
 login::YobiAction* Sub_47A540(const WindowValueCallback callback)
 {
     gSkillWindowModeD672AC = 5;
@@ -37821,6 +38631,7 @@ login::YobiAction* Sub_47A540(const WindowValueCallback callback)
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
+// 原函数：0x0047A580。
 login::YobiAction* Sub_47A580(const WindowValueCallback callback)
 {
     gSkillWindowModeD672AC = 6;
@@ -37832,6 +38643,7 @@ login::YobiAction* Sub_47A580(const WindowValueCallback callback)
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
+// 原函数：0x0047B110。
 std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -37877,6 +38689,7 @@ std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047A5C0。
 std::int32_t Sub_47A5C0()
 {
     WindowInstance* const window = gWindowStates[10].window;
@@ -37899,6 +38712,7 @@ std::int32_t Sub_47A5C0()
 }
 
 // TUC01：初始元素→单字节动作标志→图形；持有 hover，Y/X发送后按原序发布转生/占用。
+// 原函数：0x0047B210。
 std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
@@ -37948,6 +38762,7 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047C950。
 std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -38011,6 +38826,7 @@ std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047A620。
 std::int32_t Sub_47A620(const std::int32_t value)
 {
     if (value == -1) {
@@ -38065,6 +38881,7 @@ std::int32_t Sub_47A620(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0047A7A0。
 std::int32_t Sub_47A7A0(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
@@ -38246,6 +39063,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0047B3D0。
 std::int32_t Sub_47B3D0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -38273,6 +39091,7 @@ std::int32_t Sub_47B3D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047B470。
 std::int32_t Sub_47B470(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -38302,6 +39121,7 @@ std::int32_t Sub_47B470(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047B520。
 std::int32_t Sub_47B520(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -38328,6 +39148,7 @@ std::int32_t Sub_47B520(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047B5D0。
 std::int32_t Sub_47B5D0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -38357,6 +39178,7 @@ std::int32_t Sub_47B5D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047B680。
 std::int32_t Sub_47B680(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -38369,6 +39191,7 @@ std::int32_t Sub_47B680(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x00479DA0。
 void Sub_479DA0(WindowInstance* const window, const std::int32_t level)
 {
     if (level >= 0) {
@@ -38399,6 +39222,7 @@ void Sub_479DA0(WindowInstance* const window, const std::int32_t level)
     }
 }
 
+// 原函数：0x0047C3A0。
 std::int32_t Sub_47C3A0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
@@ -38454,6 +39278,7 @@ std::int32_t Sub_47C3A0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0047BC00。
 std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
@@ -38616,6 +39441,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0047A140。
 void Sub_47A140()
 {
     if (gWindowStates[10].window == nullptr || gSkillWindowModeD672AC != 2) {
@@ -38630,11 +39456,13 @@ void Sub_47A140()
     }
 }
 
+// 原函数：0x00479650。
 void Sub_479650()
 {
     ++gValueD67AF8;
 }
 
+// 原函数：0x00479660。
 void Sub_479660()
 {
     const std::int32_t remainingCount = gValueD67AF8 - 1;
@@ -38653,6 +39481,7 @@ void Sub_479660()
     Sub_47A140();
 }
 
+// 原函数：0x00487020。
 std::int32_t Sub_487020(const std::int32_t index, const char* const text)
 {
     if (index == -1) {
@@ -38702,6 +39531,7 @@ std::int32_t Sub_487020(const std::int32_t index, const char* const text)
     return 0;
 }
 
+// 原函数：0x004871B0。
 login::YobiAction* Sub_4871B0()
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -38736,6 +39566,7 @@ login::YobiAction* Sub_4871B0()
         gSkillTargetNameViewsD45F98.data(), gSkillTargetColorsCB1DE4.data(), count, Sub_487020);
 }
 
+// 原函数：0x004F0200。
 void Sub_4F0200(const char* const text)
 {
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -38808,6 +39639,7 @@ void Sub_4F0200(const char* const text)
     }
 }
 
+// 原函数：0x0048AEA0。
 std::int32_t Sub_48AEA0(const std::int32_t index, const char*)
 {
     if (index >= 0) {
@@ -38828,6 +39660,7 @@ std::int32_t Sub_48AEA0(const std::int32_t index, const char*)
     return 1;
 }
 
+// 原函数：0x0048AF00。
 login::YobiAction* Sub_48AF00()
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -38862,6 +39695,7 @@ login::YobiAction* Sub_48AF00()
     return result;
 }
 
+// 原函数：0x004E4860。
 login::YobiAction* Sub_4E4860(const char* const text)
 {
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -38911,6 +39745,7 @@ login::YobiAction* Sub_4E4860(const char* const text)
     return Sub_48AF00();
 }
 
+// 原函数：0x0048B010。
 std::int32_t Sub_48B010(const std::int32_t index, const char*)
 {
     if (index == -3) {
@@ -38937,6 +39772,7 @@ std::int32_t Sub_48B010(const std::int32_t index, const char*)
     return 1;
 }
 
+// 原函数：0x0048B0A0。
 login::YobiAction* Sub_48B0A0()
 {
     const std::int32_t count = gItemUseStatusCountCC4D44;
@@ -38974,6 +39810,7 @@ login::YobiAction* Sub_48B0A0()
     return result;
 }
 
+// 原函数：0x004E4020。
 login::YobiAction* Sub_4E4020(const char* const text)
 {
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -39064,6 +39901,7 @@ login::YobiAction* Sub_4E4020(const char* const text)
     return Sub_48B0A0();
 }
 
+// 原函数：0x0049F000。
 login::YobiAction* Sub_49F000(
     const char* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
@@ -39075,6 +39913,7 @@ login::YobiAction* Sub_49F000(
     return CreateWindowAnimation_475AA0(45, 1, 0, nullptr);
 }
 
+// 原函数：0x0049F040。
 void Sub_49F040()
 {
     const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
@@ -39083,6 +39922,7 @@ void Sub_49F040()
     }
 }
 
+// 原函数：0x0049F060。
 std::int32_t Sub_49F060(const std::int32_t value)
 {
     if (value == -1) {
@@ -39095,6 +39935,7 @@ std::int32_t Sub_49F060(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0049F0A0。
 void Sub_49F0A0(const std::int32_t offset)
 {
     const char* const* names = gTextChoiceNamesD30130;
@@ -39115,6 +39956,7 @@ void Sub_49F0A0(const std::int32_t offset)
     }
 }
 
+// 原函数：0x0049F1A0。
 std::int32_t Sub_49F1A0(const std::int32_t)
 {
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
@@ -39139,6 +39981,7 @@ std::int32_t Sub_49F1A0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049F260。
 std::int32_t Sub_49F260(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39167,6 +40010,7 @@ std::int32_t Sub_49F260(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049F310。
 std::int32_t Sub_49F310(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39194,6 +40038,7 @@ std::int32_t Sub_49F310(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049F3D0。
 std::int32_t Sub_49F3D0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39220,6 +40065,7 @@ std::int32_t Sub_49F3D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049F490。
 std::int32_t Sub_49F490(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39253,6 +40099,7 @@ std::int32_t Sub_49F490(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049F570。
 std::int32_t Sub_49F570(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -39265,6 +40112,7 @@ std::int32_t Sub_49F570(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0049F5C0。
 std::int32_t Sub_49F5C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39295,6 +40143,7 @@ std::int32_t Sub_49F5C0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049F680。
 std::int32_t Sub_49F680(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
@@ -39322,6 +40171,7 @@ std::int32_t Sub_49F680(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0049F760。
 login::YobiAction* Sub_49F760(
     const WindowStatusChoiceRecord* const records, const std::int32_t count,
     const WindowTextChoiceCallback callback)
@@ -39332,6 +40182,7 @@ login::YobiAction* Sub_49F760(
     return CreateWindowAnimation_475AA0(46, 1, 0, nullptr);
 }
 
+// 原函数：0x0049F790。
 void Sub_49F790()
 {
     const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
@@ -39340,6 +40191,7 @@ void Sub_49F790()
     }
 }
 
+// 原函数：0x0049F7B0。
 std::int32_t Sub_49F7B0(const std::int32_t value)
 {
     if (value == -1) {
@@ -39349,6 +40201,7 @@ std::int32_t Sub_49F7B0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0049F7E0。
 void Sub_49F7E0(const std::int32_t offset)
 {
     std::int32_t row = 0;
@@ -39396,6 +40249,7 @@ std::uint32_t gBattleResultCloseTickCB0F78 = 0; // 原窗口30/31共用到期tic
 
 } // namespace
 
+// 原函数：0x004990F0。
 std::int32_t Sub_4990F0(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 1) != 0) {
@@ -39424,6 +40278,7 @@ std::int32_t Sub_4990F0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x004991C0。
 std::int32_t Sub_4991C0(const std::int32_t value)
 {
     if (value == -1) {
@@ -39541,6 +40396,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004996C0。
 std::int32_t Sub_4996C0(const std::int32_t)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -39563,6 +40419,7 @@ std::int32_t Sub_4996C0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00499750。
 std::int32_t Sub_499750(const std::int32_t, const std::int32_t state)
 {
     std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
@@ -39574,6 +40431,7 @@ std::int32_t Sub_499750(const std::int32_t, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00499790。
 std::int32_t Sub_499790(const std::int32_t value)
 {
     if (value == -1) {
@@ -39594,6 +40452,7 @@ std::int32_t Sub_499790(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00499880。
 std::int32_t Sub_499880(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -39613,6 +40472,7 @@ std::int32_t Sub_499880(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x00499830。
 std::int32_t Sub_499830(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
@@ -39628,6 +40488,7 @@ std::int32_t Sub_499830(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0049FA40。
 std::int32_t Sub_49FA40(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39658,6 +40519,7 @@ std::int32_t Sub_49FA40(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049FB00。
 std::int32_t Sub_49FB00(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39689,6 +40551,7 @@ std::int32_t Sub_49FB00(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0049FBC0。
 std::int32_t Sub_49FBC0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gStatusChoiceOffsetD671D4 + index - 16;
@@ -39715,6 +40578,7 @@ std::int32_t Sub_49FBC0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0049E990。
 void Sub_49E990(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
@@ -39723,6 +40587,7 @@ void Sub_49E990(const std::int32_t offset)
     }
 }
 
+// 原函数：0x0049E8F0。
 std::int32_t Sub_49E8F0(const std::int32_t value)
 {
     if (value == -1) {
@@ -39740,6 +40605,7 @@ std::int32_t Sub_49E8F0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0049EAA0。
 std::int32_t Sub_49EAA0(const std::int32_t)
 {
     gCurrentWindow->elements[0].visible = 1;
@@ -39766,6 +40632,7 @@ std::int32_t Sub_49EAA0(const std::int32_t)
 }
 
 // WSP01：先当前/前项高度，再两次整数换算；非正maximum原分支和+8字节载荷保。
+// 原函数：0x00474270。
 std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum)
 {
     if (maximum <= 0) {
@@ -39781,6 +40648,7 @@ std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum
     return (halfStep + delta) * maximum / span;
 }
 
+// 原函数：0x004742C0。
 std::int32_t Sub_4742C0(
     WindowElement* const element, const std::int32_t maximum, const std::int32_t position)
 {
@@ -39803,6 +40671,7 @@ std::int32_t Sub_4742C0(
 }
 
 // WWS01：原余量/像素结果持样和边界/flags取样序；现宿主数学图及原钳制保。
+// 原函数：0x004743B0。
 std::int32_t Sub_4743B0(
     WindowElement* const element, std::int32_t position, std::int32_t maximum,
     const std::int32_t wheel)
@@ -39864,6 +40733,7 @@ std::int32_t Sub_4743B0(
     return position;
 }
 
+// 原函数：0x0049EB50。
 std::int32_t Sub_49EB50(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39892,6 +40762,7 @@ std::int32_t Sub_49EB50(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x0049EC00。
 std::int32_t Sub_49EC00(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39919,6 +40790,7 @@ std::int32_t Sub_49EC00(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x0049ECC0。
 std::int32_t Sub_49ECC0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39945,6 +40817,7 @@ std::int32_t Sub_49ECC0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x0049ED80。
 std::int32_t Sub_49ED80(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -39978,6 +40851,7 @@ std::int32_t Sub_49ED80(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x0049EE60。
 std::int32_t Sub_49EE60(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
@@ -39990,6 +40864,7 @@ std::int32_t Sub_49EE60(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0049EEB0。
 std::int32_t Sub_49EEB0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -40013,6 +40888,7 @@ std::int32_t Sub_49EEB0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
+// 原函数：0x00485110。
 void Sub_485110(
     WindowElement* const element, const std::int32_t state, const std::uint32_t imageNo)
 {
@@ -40030,6 +40906,7 @@ void Sub_485110(
         0xDF, imageNo, 0);
 }
 
+// 原函数：0x0049EF60。
 std::int32_t Sub_49EF60(const std::int32_t index, const std::int32_t state)
 {
     if (index - 14 >= gWindowListCountCF46A8) {
@@ -40052,6 +40929,7 @@ std::int32_t Sub_49EF60(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00472F00。
 std::int32_t Sub_472F00(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
@@ -40066,37 +40944,44 @@ std::int32_t Sub_472F00(
     return y >= 0 && y < height ? 1 : 0;
 }
 
+// 原函数：0x00475D40。
 std::int32_t Sub_475D40()
 {
     return gFocusWindowId57C120;
 }
 
+// 原函数：0x00475D50。
 std::int32_t Sub_475D50()
 {
     return gFocusElementIndex57C124;
 }
 
+// 原函数：0x00475D60。
 std::int32_t Sub_475D60()
 {
     return gMouseValue57C110;
 }
 
+// 原函数：0x00475D70。
 std::int32_t Sub_475D70()
 {
     return gDragX57C11C;
 }
 
+// 原函数：0x00475D80。
 std::int32_t Sub_475D80()
 {
     return gDragY57C11E;
 }
 
+// 原函数：0x00475D90。
 std::int32_t Sub_475D90()
 {
     return gDragSourceIndex57C114;
 }
 
 // DLP01：仅phase0且kind非零启动阶段1，按原焦点/回调/来源写序发布，返S32 0/1。
+// 原函数：0x00475DA0。
 std::int32_t Sub_475DA0(
     const std::int32_t kind, const std::int32_t sourceIndex, const WindowDragCallback callback)
 {
@@ -40115,6 +41000,7 @@ std::int32_t Sub_475DA0(
 }
 
 // DLP01：仅phase0且kind非零启动阶段3，坐标保S16，原焦点与回调写序保持，返S32 0/1。
+// 原函数：0x00476490。
 std::int32_t Sub_476490(
     const std::int32_t kind, const std::int32_t sourceIndex,
     const std::int16_t x, const std::int16_t y, const WindowDragCallback callback)
@@ -40136,6 +41022,7 @@ std::int32_t Sub_476490(
 }
 
 // DLP01：入口phase4/5才可选回调message3，之后按原八槽顺序清理；不重验回调后phase。
+// 原函数：0x00476500。
 void Sub_476500()
 {
     const std::int32_t phase = gMousePhase57C128;
@@ -40157,6 +41044,7 @@ void Sub_476500()
 }
 
 // DLP01：已有kind才绑定两个S32焦点槽，不改变会话阶段，返S32 0/1。
+// 原函数：0x004763B0。
 std::int32_t Sub_4763B0(
     const std::int32_t windowId, const std::int32_t elementIndex)
 {
@@ -40169,6 +41057,7 @@ std::int32_t Sub_4763B0(
 }
 
 // DLP01：只清焦点索引/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
+// 原函数：0x004763E0。
 std::int32_t Sub_4763E0()
 {
     gFocusElementIndex57C124 = -1;
@@ -40180,6 +41069,7 @@ std::int32_t Sub_4763E0()
 }
 
 // WDF01：同一拖动W32样本/四BYTE消费与矩形/焦点原取序；结果为1/2掩码。
+// 原函数：0x00472D20。
 std::int32_t Sub_472D20()
 {
     const std::int32_t initialPhase = gMousePhase57C128;
@@ -40267,6 +41157,7 @@ std::int32_t Sub_472D20()
     return result;
 }
 
+// 原函数：0x00473840。
 std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -40680,6 +41571,7 @@ void ClearEmoteSelection()
 
 } // namespace
 
+// 原函数：0x0046FBA0。
 std::int32_t Sub_46FBA0(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
@@ -40688,6 +41580,7 @@ std::int32_t Sub_46FBA0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0046FBD0。
 std::int32_t Sub_46FBD0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
@@ -40712,6 +41605,7 @@ std::int32_t Sub_46FC10(const std::int32_t, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00495D70。
 std::int32_t Sub_495D70(const std::int32_t value)
 {
     if (value == -1) {
@@ -40777,6 +41671,7 @@ std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
     return 0;
 }
 
+// 原函数：0x00495F00。
 login::YobiAction* Sub_495F00(
     const std::uint32_t flags, const std::uint32_t mode,
     login::YobiAction** const completionSlot)
@@ -40796,6 +41691,7 @@ login::YobiAction* Sub_495F00(
     return login::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
 }
 
+// 原函数：0x00495F50。
 std::int32_t Sub_495F50(const std::int32_t)
 {
     if (Sub_4D3040(1, 1) != 0) {
@@ -40804,6 +41700,7 @@ std::int32_t Sub_495F50(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00495F70。
 std::int32_t Sub_495F70(const std::int32_t index)
 {
     ClearEmoteSelection();
@@ -40815,12 +41712,14 @@ std::int32_t Sub_495F70(const std::int32_t index)
     return Sub_4D3020(x, y);
 }
 
+// 原函数：0x00495FC0。
 std::int32_t Sub_495FC0()
 {
     ClearEmoteSelection();
     return 0;
 }
 
+// 原函数：0x00495FE0。
 std::int32_t Sub_495FE0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -40848,6 +41747,7 @@ std::int32_t Sub_495FE0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x004708A0。
 std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gWindowStates[34].window;
@@ -40867,6 +41767,7 @@ std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00470910。
 std::int32_t Sub_470910(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gWindowStates[33].window;
@@ -40886,6 +41787,7 @@ std::int32_t Sub_470910(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x0046FC60。
 std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -40980,6 +41882,8 @@ std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
     return Sub_470910(7, state);
 }
 
+// 原函数：0x00470A80。
+// 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
 std::int32_t Sub_470A80(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
@@ -40990,6 +41894,7 @@ std::int32_t Sub_470A80(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x00470AB0。
 std::int32_t Sub_470AB0(const std::int32_t)
 {
     Sub_4718F0();
@@ -40997,6 +41902,7 @@ std::int32_t Sub_470AB0(const std::int32_t)
 }
 
 // TUC01：原窗口1完整根；描述符原零初始化、HP/FP/时钟/提示生产保持，四位消费见共用 helper。
+// 原函数：0x00470AC0。
 void Sub_470AC0()
 {
     render::GraphicDescriptor16 descriptor {};
@@ -41058,6 +41964,7 @@ void Sub_470AC0()
 }
 
 // TUC01：原窗口2完整根；直接FP复制/原零描述符保持，仅消费四位倒计时。
+// 原函数：0x004718F0。
 void Sub_4718F0()
 {
     render::GraphicDescriptor16 descriptor {};
@@ -41114,6 +42021,7 @@ std::int32_t Sub_471DD0(const std::int32_t, const std::int32_t state)
     return (state & 1) != 0 ? 1 : 0;
 }
 
+// 原函数：0x00471DF0。
 std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
 {
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
@@ -41162,6 +42070,7 @@ std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
 }
 
 // SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
+// 原函数：0x00473080。
 std::int32_t Sub_473080()
 {
     if (world::detail::ReadPlayerInjury() != 0) {
@@ -41172,6 +42081,7 @@ std::int32_t Sub_473080()
 }
 
 // SHP01：原五S16配对首个编号匹配位置，无则-1。
+// 原函数：0x004731B0。
 std::int32_t Sub_4731B0(const std::int32_t index)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
@@ -41185,6 +42095,7 @@ std::int32_t Sub_4731B0(const std::int32_t index)
 }
 
 // SHP01：原三项提示/关闭开窗；hover持有及姓名/分档/窗口读取序，原业务门槛保持。
+// 原函数：0x004723D0。
 std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -41690,12 +42601,14 @@ void Sub_474FB0()
     }
 }
 
+// 原函数：0x00474540。
 std::int32_t Sub_474540(const std::int32_t)
 {
     Sub_474FB0();
     return 1;
 }
 
+// 原函数：0x00474310。
 void Sub_474310()
 {
     WindowInstance* const window = gWindowStates[7].window;
@@ -41866,12 +42779,14 @@ void Sub_4767E0()
     }
 }
 
+// 原函数：0x00475DF0。
 std::int32_t Sub_475DF0(const std::int32_t)
 {
     Sub_4767E0();
     return 1;
 }
 
+// 原函数：0x00474360。
 void Sub_474360()
 {
     WindowInstance* const window = gWindowStates[8].window;
@@ -41914,6 +42829,7 @@ constexpr char kPetLowLoyalty586CB0[] =
 
 } // namespace
 
+// 原函数：0x0048D4E0。
 std::int32_t Sub_48D4E0()
 {
     std::array<std::int32_t, 5> values;
@@ -41928,6 +42844,7 @@ std::int32_t Sub_48D4E0()
     return SendPetStateValues(values);
 }
 
+// 原函数：0x0048C1E0。
 std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -42150,6 +43067,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+// 原函数：0x0048D460。
 void Sub_48D460()
 {
     gLoginWindowRuntime.valuesCC4CE8[0] = -1;
@@ -42212,6 +43130,7 @@ void RefreshPetListAttributeBar(
 
 } // namespace
 
+// 原函数：0x0048C920。
 void Sub_48C920()
 {
     Sub_48D460();
@@ -42330,6 +43249,8 @@ void Sub_48C920()
     }
 }
 
+// 原函数：0x0048C1B0。
+// 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
 std::int32_t Sub_48C1B0(const std::int32_t value)
 {
     if (value == -1) {
@@ -42349,16 +43270,19 @@ static constexpr char kTitleProfileHint58637C[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\
 static constexpr char kTitleCancelHint5863FC[] = "\xC8\xA1\xCF\xFB\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
 static constexpr char kTitleDeleteHint5863E8[] = "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
 
+// 原函数：0x00492260。
 void Sub_492260()
 {
     world::detail::gValueD67B28 = 0;
 }
 
+// 原函数：0x00492270。
 std::int32_t Sub_492270()
 {
     return world::detail::gValueD67B28 == 1 ? 1 : 0;
 }
 
+// 原函数：0x00492280。
 void Sub_492280()
 {
     WindowInstance* const window = gCurrentWindow;
@@ -42378,6 +43302,7 @@ void Sub_492280()
     }
 }
 
+// 原函数：0x00492350。
 std::int32_t Sub_492350()
 {
     std::int32_t sequence;
@@ -42389,6 +43314,7 @@ std::int32_t Sub_492350()
     return sequence;
 }
 
+// 原函数：0x00492390。
 std::int32_t Sub_492390()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -42402,6 +43328,7 @@ std::int32_t Sub_492390()
 }
 
 // 窗口16完整刷新；复制取样和空宠物显隐差异见window_16.md。
+// 原函数：0x0048F8F0。
 std::uint32_t Sub_48F8F0()
 {
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
@@ -42565,6 +43492,7 @@ std::uint32_t Sub_48F8F0()
 }
 
 // 窗口16主更新，入口-1负责共享详情拖动槽的初始化。
+// 原函数：0x0048D9A0。
 std::int32_t Sub_48D9A0(const std::int32_t value)
 {
     if (value == -1) {
@@ -42605,6 +43533,7 @@ std::int32_t Sub_48D9A0(const std::int32_t value)
 }
 
 // 窗口17完整属性刷新；显示逐项取号，加点判断单独固定宠物，见window_17.md。
+// 原函数：0x00490780。
 std::uint32_t Sub_490780()
 {
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
@@ -42726,6 +43655,7 @@ std::uint32_t Sub_490780()
 }
 
 // 窗口17初始化仅采样名称/序号并发声，不代替窗口16的拖动槽初始化。
+// 原函数：0x0048DAB0。
 std::int32_t Sub_48DAB0(const std::int32_t value)
 {
     if (value == -1) {
@@ -42760,6 +43690,7 @@ std::int32_t Sub_48DAB0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x00491AA0。
 WindowElement* Sub_491AA0()
 {
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
@@ -42849,6 +43780,7 @@ WindowElement* Sub_491AA0()
     return result;
 }
 
+// 原函数：0x004920F0。
 std::int32_t Sub_4920F0()
 {
     if (gLoginWindowRuntime.petTechniqueDragD460CC == 0) {
@@ -42887,6 +43819,7 @@ std::int32_t Sub_4920F0()
     return login::detail::DrawGraphic(graphicX + 105, graphicY + 8, 230, 0x3B5B7, 0, &descriptor);
 }
 
+// 原函数：0x0048DBB0。
 std::int32_t Sub_48DBB0(const std::int32_t value)
 {
     if (value == -1) {
@@ -42921,6 +43854,7 @@ std::int32_t Sub_48DBB0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x0048DCB0。
 std::int32_t Sub_48DCB0(const std::int32_t)
 {
     static_cast<void>(Sub_4920F0());
@@ -42928,6 +43862,7 @@ std::int32_t Sub_48DCB0(const std::int32_t)
     return 1;
 }
 
+// 原函数：0x0048DCC0。
 void Sub_48DCC0()
 {
     WindowInstance* const window = gWindowStates[16].window;
@@ -42939,6 +43874,7 @@ void Sub_48DCC0()
     }
 }
 
+// 原函数：0x0048DD00。
 void Sub_48DD00()
 {
     WindowInstance* const window = gWindowStates[17].window;
@@ -42950,6 +43886,7 @@ void Sub_48DD00()
     }
 }
 
+// 原函数：0x0048DD40。
 void Sub_48DD40()
 {
     WindowInstance* const window = gWindowStates[18].window;
@@ -42972,6 +43909,7 @@ constexpr char kPetAllocateHint5863A4[] = "\xB7\xD6\xC5\xE4\xFC\x63\x94\xB5\xD6\
 
 } // namespace
 
+// 原函数：0x0048ECA0。
 std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -43118,6 +44056,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// 原函数：0x0048DD80。
 std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -43262,6 +44201,7 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// 原函数：0x0048E430。
 std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -43408,6 +44348,7 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
     }
 }
 
+// 原函数：0x0048F380。
 std::int32_t Sub_48F380(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 2) == 0) {
@@ -43429,6 +44370,7 @@ std::int32_t Sub_48F380(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x0048F410。
 std::int32_t Sub_48F410(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t target;
@@ -43472,6 +44414,7 @@ std::int32_t Sub_48F410(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+// 原函数：0x0048F620。
 void Sub_48F620(const std::int32_t mode, const std::int32_t, const std::int32_t source)
 {
     if (mode != 0) {
@@ -43493,6 +44436,7 @@ void Sub_48F620(const std::int32_t mode, const std::int32_t, const std::int32_t 
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
 }
 
+// 原函数：0x0048F690。
 std::int32_t Sub_48F690(const std::int32_t source)
 {
     gLoginWindowRuntime.petTechniqueD2D66C = source;
@@ -43500,6 +44444,7 @@ std::int32_t Sub_48F690(const std::int32_t source)
     return Sub_475DA0(11, source, Sub_48F620);
 }
 
+// 原函数：0x0048F6C0。
 std::int32_t Sub_48F6C0(const std::int32_t index, const std::int32_t state)
 {
     std::uint32_t events = static_cast<std::uint32_t>(state);
@@ -43551,6 +44496,7 @@ std::int32_t Sub_48F6C0(const std::int32_t index, const std::int32_t state)
     return hover ? 1 : 0;
 }
 
+// 原函数：0x00477540。
 std::int32_t Sub_477540(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0) {
@@ -43575,6 +44521,7 @@ std::int32_t Sub_477540(const std::int32_t, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00477600。
 std::int32_t Sub_477600(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -43608,6 +44555,7 @@ std::int32_t Sub_477600(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+// 原函数：0x00477710。
 std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -43956,12 +44904,14 @@ void Sub_478A10()
     gCurrentWindow->elements[29].visible = changed != 0 ? 1 : 0;
 }
 
+// 原函数：0x00478320。
 std::int32_t Sub_478320(const std::int32_t)
 {
     Sub_478A10();
     return 1;
 }
 
+// 原函数：0x004744F0。
 void Sub_4744F0()
 {
     if (gWindowStates[9].window != nullptr) {
@@ -43975,6 +44925,7 @@ void Sub_4744F0()
     }
 }
 
+// 原函数：0x004792D0。
 std::int32_t Sub_4792D0(const std::int32_t index, const std::int32_t state)
 {
     WindowInputPrototype* prototype;
@@ -44098,6 +45049,7 @@ std::int32_t Sub_4774C0(const std::int32_t value)
     return 1;
 }
 
+// 原函数：0x004744A0。
 void Sub_4744A0()
 {
     WindowInstance* const window = gWindowStates[9].window;
@@ -44112,6 +45064,7 @@ void Sub_4744A0()
 }
 
 // WCR01：71槽整理共用原state样本分流；关闭后压紧、等层前插与计数见对应SPEC。
+// 原函数：0x004730A0。
 std::int32_t Sub_4730A0()
 {
     std::int32_t count = 0;
@@ -44160,6 +45113,7 @@ std::int32_t Sub_4730A0()
     return count;
 }
 
+// 原函数：0x00473E40。
 void Sub_473E40()
 {
     std::int32_t phase = gMousePhase57C128;
@@ -44210,6 +45164,7 @@ void Sub_473E40()
     }
 }
 
+// 原函数：0x00473560。
 void Sub_473560(const std::int32_t index)
 {
     WindowInstance* const window = gCurrentWindow;
@@ -44279,6 +45234,7 @@ void Sub_473560(const std::int32_t index)
 }
 
 // WSB01：原载荷字节借用及上下界/差值三个现场取样阶段见滚动回调SPEC。
+// 原函数：0x004741A0。
 std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
 {
     // 窗口49的type1与普通type4共享+0/+8语义，按对象字节访问而不强转异型结构。
@@ -44332,6 +45288,7 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
 }
 
 // WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
+// 原函数：0x00476570。
 std::uint8_t Sub_476570(
     WindowInputPrototype* const prototype, const std::int32_t x,
     const std::int32_t y, const std::uint32_t mode)
@@ -44391,6 +45348,7 @@ std::uint8_t Sub_476570(
     return 1;
 }
 
+// 原函数：0x004740F0。
 void Sub_4740F0(char* const destination)
 {
     std::int32_t count = 0;
@@ -44409,6 +45367,7 @@ void Sub_4740F0(char* const destination)
     std::strcpy(destination, text);
 }
 
+// 原函数：0x004A7B00。
 std::int32_t Sub_4A7B00()
 {
     const std::int32_t mode = gChatWindowModeD66E04;
@@ -44464,6 +45423,7 @@ std::int32_t Sub_4A7B00()
 
 } // namespace detail
 
+// 原函数：0x00473F80。
 std::int32_t UpdateWindows_473F80()
 {
     using namespace detail;
@@ -44536,11 +45496,13 @@ std::int32_t UpdateWindows_473F80()
 }
 
 // HBN01：同一C9A930 W32正常两倍返S32，正确正文保持，不新增数值模型。
+// 原函数：0x004A80E0。
 std::int32_t ReadChatInputByteWidth_4A80E0()
 {
     return detail::gChatWidthUnitsC9A930 * 2;
 }
 
+// 原函数：0x00504120。
 std::int32_t RenderWindows_504120()
 {
     using namespace detail;
@@ -44557,12 +45519,14 @@ std::int32_t RenderWindows_504120()
     return UpdateWindows_473F80();
 }
 
+// 原函数：0x005342E0。
 WindowInstance* Sub_5342E0()
 {
     return OpenWindow_471440(64);
 }
 
 // WPL01：七类载荷创建/owner与动画现场源槽，见doc/cg2d_window_payload_creation_spec.md。
+// 原函数：0x00471440。
 WindowInstance* OpenWindow_471440(const std::int32_t id)
 {
     using namespace detail;
@@ -44732,6 +45696,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
     return window;
 }
 
+// 原函数：0x00475AA0。
 login::YobiAction* CreateWindowAnimation_475AA0(
     const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
     login::YobiAction** const completionSlot)
@@ -44773,6 +45738,7 @@ login::YobiAction* CreateWindowAnimation_475AA0(
     return login::detail::Sub_475950(x, y, width, height, id, flags, mode, completionSlot);
 }
 
+// 原函数：0x0050E110。
 void Sub_50E110(
     const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
@@ -44789,6 +45755,7 @@ void Sub_50E110(
     detail::Sub_50E130(unusedSocket, type, value, request, target, text);
 }
 
+// 原函数：0x0050F990。
 void Sub_50F990(
     const std::uintptr_t, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
@@ -44805,16 +45772,19 @@ void Sub_50F990(
     detail::Sub_49D8F0(type, value, request, target, text);
 }
 
+// 原函数：0x0050E7D0。
 void Sub_50E7D0(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE700(result);
 }
 
+// 原函数：0x0050E7E0。
 void Sub_50E7E0(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE8B0(result);
 }
 
+// 原函数：0x0050E7F0。
 void Sub_50E7F0(
     const std::uintptr_t, const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
@@ -44823,11 +45793,13 @@ void Sub_50E7F0(
     detail::Sub_4CED60(status, target, stallName, description, itemPayload, petPayload);
 }
 
+// 原函数：0x0050E820。
 void Sub_50E820(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE930(result);
 }
 
+// 原函数：0x0050C7F0。
 void Sub_50C7F0(
     const std::uintptr_t, const std::int32_t result,
     const std::int32_t kind, const char* const text)
@@ -44853,6 +45825,7 @@ void Sub_50C7F0(
     }
 }
 
+// 原函数：0x0050E340。
 void Sub_50E340(const std::uintptr_t, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
@@ -44861,6 +45834,7 @@ void Sub_50E340(const std::uintptr_t, const char* const text)
     detail::Sub_4F0200(text);
 }
 
+// 原函数：0x0050E360。
 void Sub_50E360(const std::uintptr_t, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
@@ -44869,6 +45843,7 @@ void Sub_50E360(const std::uintptr_t, const char* const text)
     static_cast<void>(detail::Sub_4EF750(text));
 }
 
+// 原函数：0x0050E380。
 void Sub_50E380(const std::uintptr_t, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
@@ -44877,6 +45852,7 @@ void Sub_50E380(const std::uintptr_t, const char* const text)
     static_cast<void>(detail::Sub_4E4860(text));
 }
 
+// 原函数：0x0050E3A0。
 void Sub_50E3A0(const std::uintptr_t, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
@@ -44885,6 +45861,7 @@ void Sub_50E3A0(const std::uintptr_t, const char* const text)
     static_cast<void>(detail::Sub_4E4020(text));
 }
 
+// 原函数：0x0050E3C0。
 void Sub_50E3C0(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {
@@ -44896,6 +45873,7 @@ void Sub_50E3C0(const std::uintptr_t, const char* const text)
     static_cast<void>(detail::Sub_4E4E80(text));
 }
 
+// 原函数：0x0050E3F0。
 void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)
 {
     if (world::gValue9A6E0C != 0) {
@@ -44912,6 +45890,7 @@ void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)
     static_cast<void>(detail::Sub_4E5620(text));
 }
 
+// 原函数：0x0050E440。
 std::int32_t Sub_50E440(const std::uintptr_t)
 {
     const std::int32_t scene = world::gValue9A6E0C;
@@ -44926,6 +45905,7 @@ std::int32_t Sub_50E440(const std::uintptr_t)
     return gate;
 }
 
+// 原函数：0x0050E470。
 std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)
 {
     const std::int32_t scene = world::gValue9A6E0C;
@@ -44940,6 +45920,7 @@ std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)
     return value;
 }
 
+// 原函数：0x0050E4A0。
 std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)
 {
     const std::int32_t scene = world::gValue9A6E0C;
@@ -44953,6 +45934,7 @@ std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)
     return detail::Sub_4E5830(text);
 }
 
+// 原函数：0x0050E4D0。
 std::int32_t Sub_50E4D0(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
@@ -44967,6 +45949,7 @@ std::int32_t Sub_50E4D0(
     return detail::Sub_4E5A40(index, text);
 }
 
+// 原函数：0x0050E500。
 std::int32_t Sub_50E500(
     const std::uintptr_t, const std::int32_t index, const char* const text)
 {
@@ -44981,6 +45964,7 @@ std::int32_t Sub_50E500(
     return detail::Sub_4E5CD0(index, text);
 }
 
+// 原函数：0x0050E530。
 std::int32_t Sub_50E530(const std::uintptr_t)
 {
     const std::int32_t scene = world::gValue9A6E0C;
@@ -45000,6 +45984,7 @@ std::int32_t Sub_50E530(const std::uintptr_t)
     return previous;
 }
 
+// 原函数：0x0050E570。
 void Sub_50E570(const std::uintptr_t, const std::int32_t value)
 {
     if (world::gValue9A6E0C != 0) {
@@ -45051,6 +46036,7 @@ void ReleaseLegacySecondItemSelectorAtExit_499920()
 } // namespace
 
 // 原CRT 55309C：先本项构造，再真实登记整体无参退出，完整S32透传。
+// 原函数：0x004883F0。
 std::int32_t InitializeLegacyFirstItemSelector_4883F0()
 {
     ConstructLegacyFirstItemSelector_488400();
@@ -45058,6 +46044,7 @@ std::int32_t InitializeLegacyFirstItemSelector_4883F0()
 }
 
 // 原CRT 5530A0：先本项构造，再真实登记整体无参退出，完整S32透传。
+// 原函数：0x004998F0。
 std::int32_t InitializeLegacySecondItemSelector_4998F0()
 {
     ConstructLegacySecondItemSelector_499900();
@@ -45070,6 +46057,7 @@ void InitializeItemSelectors()
     static_cast<void>(InitializeLegacySecondItemSelector_4998F0());
 }
 
+// 原函数：0x004CD240。
 std::int32_t InitializeLegacyStallBrowsePetValues_4CD240()
 {
     ConstructStallBrowsePetValues();
@@ -45092,12 +46080,14 @@ void DestroyStallBrowsePetValues()
         world::detail::DestroyLegacyPetElementForArray);
 }
 
+// 原函数：0x00477160。
 void InitializeLegacyNumberSpacing_477160()
 {
     InitializeNumberSpacing_477170();
 }
 
 // WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
+// 原函数：0x00477170。
 void InitializeNumberSpacing_477170()
 {
     using namespace detail;
@@ -45126,6 +46116,7 @@ std::int32_t ReadDragItemIndex_584DA4() noexcept
     return detail::gDragItemIndex584DA4;
 }
 
+// 原函数：0x004CD3E0。
 WindowInstance* Sub_4CD3E0()
 {
     WindowInstance* const window = detail::gWindowStates[68].window;
@@ -45135,6 +46126,7 @@ WindowInstance* Sub_4CD3E0()
     return window;
 }
 
+// 原函数：0x004CD400。
 WindowInstance* Sub_4CD400()
 {
     WindowInstance* const window = detail::gWindowStates[67].window;
@@ -45155,6 +46147,7 @@ std::int32_t Sub_4AFF00()
 }
 
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
+// 原函数：0x00476410。
 void CancelWindowDrag_476410()
 {
     using namespace detail;
@@ -45177,6 +46170,7 @@ void CancelWindowDrag_476410()
     gMousePhase57C128 = phase == 1 ? 2 : 6;
 }
 
+// 原函数：0x00471270。
 void FreeWindow_471270(WindowInstance* const window)
 {
     using namespace detail;
@@ -45253,6 +46247,7 @@ void FreeWindow_471270(WindowInstance* const window)
 }
 
 // WCR01：发布及bit1写沿同一状态记录地址，清槽由既有472190调用父负责。
+// 原函数：0x00472160。
 void CloseWindow_472160(WindowInstance* const window)
 {
     detail::WindowState* const state = &detail::gWindowStates[window->id];
@@ -45261,6 +46256,7 @@ void CloseWindow_472160(WindowInstance* const window)
     FreeWindow_471270(window);
 }
 
+// 原函数：0x00472190。
 std::int32_t CloseAllWindows_472190()
 {
     using namespace detail;
@@ -45285,6 +46281,7 @@ std::int32_t CloseAllWindows_472190()
     return result;
 }
 
+// 原函数：0x00503E80。
 void ProcessSceneWindows_503E80()
 {
     using namespace detail;
@@ -45352,6 +46349,7 @@ void ProcessSceneWindows_503E80()
     }
 }
 
+// 原函数：0x00472240。
 void CloseWindowsByCategory_472240(const std::uint32_t mask)
 {
     using namespace detail;
@@ -45373,6 +46371,7 @@ void CloseWindowsByCategory_472240(const std::uint32_t mask)
 }
 
 // WDP01：完整元素分发、低W16裁剪与现场取样；见doc/cg2d_window_element_draw_pipeline_spec.md。
+// 原函数：0x004729B0。
 void DrawCurrentWindow_4729B0()
 {
     using namespace detail;

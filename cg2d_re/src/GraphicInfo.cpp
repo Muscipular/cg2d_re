@@ -58,11 +58,13 @@ void ConstructGraphicMapNumbers_4597F0()
         reinterpret_cast<GraphicMapNumbers*>(gGraphicMapNumbersStorage)));
 }
 
+// 原函数：0x00459820。
 void DestroyGraphicMapNumbers_459820()
 {
     std::destroy_at(&BorrowGraphicMapNumbers());
 }
 
+// 原函数：0x00459860。
 GraphicFirstRecords* ConstructGraphicFirstRecords_459860()
 {
     return std::construct_at(
@@ -77,18 +79,21 @@ void DestroyGraphicFirstRecords_459890()
 
 } // namespace
 
+// 原函数：0x004597E0。
 std::int32_t InitializeGraphicMapNumbers_4597E0()
 {
     ConstructGraphicMapNumbers_4597F0();
     return std::atexit(DestroyGraphicMapNumbers_459820);
 }
 
+// 原函数：0x00459850。
 std::int32_t InitializeGraphicFirstRecords_459850()
 {
     static_cast<void>(ConstructGraphicFirstRecords_459860());
     return std::atexit(DestroyGraphicFirstRecords_459890);
 }
 
+// 原函数：0x00459960。
 std::int32_t GraphicInit_459960(
     const char* const* graphicPaths, const char* const* graphicInfoPaths)
 {
@@ -238,6 +243,7 @@ std::int32_t GraphicInit_459960(
     return 0;
 }
 
+// 原函数：0x0045A710。
 std::int32_t GetGraphicXY(std::uint32_t index, std::int16_t* x, std::int16_t* y)
 {
     if (index < static_cast<std::uint32_t>(gMaxGraphicCount)) {
@@ -252,6 +258,7 @@ std::int32_t GetGraphicXY(std::uint32_t index, std::int16_t* x, std::int16_t* y)
     return 0;
 }
 
+// 原函数：0x0045A760。
 std::int32_t GetGraphicWH(std::uint32_t index, std::int16_t* w, std::int16_t* h)
 {
     if (index < static_cast<std::uint32_t>(gMaxGraphicCount)) {
@@ -266,6 +273,7 @@ std::int32_t GetGraphicWH(std::uint32_t index, std::int16_t* w, std::int16_t* h)
     return 0;
 }
 
+// 原函数：0x0045A7B0。
 std::int32_t GetGraphicSxSy(std::uint32_t index, std::uint16_t* sx, std::uint16_t* sy)
 {
     if (index < static_cast<std::uint32_t>(gMaxGraphicCount)) {
@@ -280,6 +288,7 @@ std::int32_t GetGraphicSxSy(std::uint32_t index, std::uint16_t* sx, std::uint16_
     return 0;
 }
 
+// 原函数：0x0045A810。
 std::int32_t GetGraphicFlag1(std::uint32_t index, std::uint16_t* flag)
 {
     if (index < static_cast<std::uint32_t>(gMaxGraphicCount)) {
@@ -292,6 +301,7 @@ std::int32_t GetGraphicFlag1(std::uint32_t index, std::uint16_t* flag)
     return 0;
 }
 
+// 原函数：0x0045A860。
 std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag)
 {
     if (index < static_cast<std::uint32_t>(gMaxGraphicCount)) {
@@ -304,6 +314,7 @@ std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag)
     return 0;
 }
 
+// 原函数：0x0045A8B0。
 std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo)
 {
     *outSeqNo = gGraphicMapNoIndex[index];
@@ -345,6 +356,7 @@ std::int32_t ProbePaletteCapability_45C970()
     return -1;
 }
 
+// 原函数：0x0045A8D0。
 std::int32_t GetGraphicMapNo(std::int32_t index)
 {
     if (index < 0 || index >= gMaxGraphicCount) {

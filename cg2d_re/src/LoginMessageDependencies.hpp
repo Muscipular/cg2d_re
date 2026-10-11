@@ -31,6 +31,7 @@ std::int32_t Sub_5049A0(
 
 using GraphicDescriptor16 = render::GraphicDescriptor16;
 
+// 原函数：0x00521B10。
 std::int32_t DrawGraphic(
     std::int32_t x,
     std::int32_t y,

@@ -66,6 +66,7 @@ std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
     return std::bit_cast<std::int32_t>(bits);
 }
 
+// 原函数：0x0045EF80。
 bool Sub_45EF80()
 {
     const double deadline = cg::platform::gLastRenderDt + kFrameGateIncrement;
@@ -202,6 +203,7 @@ std::int32_t DispatchCapability3FromCurrentState()
 
 namespace cg::world::detail {
 
+// 原函数：0x0045F190。
 std::int32_t Sub_45F190()
 {
     const std::uint32_t state =

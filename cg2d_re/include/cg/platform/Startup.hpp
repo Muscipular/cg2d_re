@@ -43,10 +43,15 @@ extern std::int32_t gVersionMajor;    // 原 0x9A7F58。
 extern std::int32_t gVersionMinor;    // 原 0x9A7F5C。
 extern std::int32_t gVersionPatch;    // 原 0x9A7F60。
 
+// 原函数：0x00465A80。
 int ReadSetupIni();                       // 原 0x465A80。
+// 原函数：0x004659F0。
 int ParseClientVersion();                 // 原 0x4659F0。
+// 原函数：0x00465A20。
 std::uint32_t CaptureDesktopColor();      // 原 0x465A20。
+// 原函数：0x00465A30。
 int SetWindowedDesktopColor();            // 原 0x465A30。
+// 原函数：0x00532E70。
 int CreateSaveDirectories();              // 原 0x532E70；实际运行会改变 CWD/创建目录。
 // 原 GetCurrentDirectoryA 边界：保持窄字节、容量及完整 W32 返回，不改变工作目录。
 std::uint32_t ReadLegacyCurrentDirectory(std::uint32_t capacity, char* destination);
@@ -58,13 +63,19 @@ void UnlockGlobalMemory(void* memory);
 void FreeGlobalMemory(void* memory);
 // 原 OutputDebugStringA 窄字节边界；保留兼容字节，不猜测编码或改写消息。
 void WriteLegacyDebugString(const char* message);
+// 原函数：0x004669F0。
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
+// 原函数：0x00466D50。
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
+// 原函数：0x005201B0。
 int RestoreCurrentSavedState_5201B0();    // 原 0x5201B0；按固定顺序恢复当前保存记录。
 
 // 原入口所用初始化与主循环接口已有本体；完整客户端仍受其他待决依赖及链接验收限制。
+// 原函数：0x00533300。
 int InitializeSavedState_533300();        // 原 0x533300，正常返回 1；入口忽略结果。
+// 原函数：0x00465F00。
 int ParseCommandOptions();                // 原 0x465F00；返回末次 0x507C80 的 0/sscanf 结果，入口忽略。
+// 原函数：0x00457020。
 int MainLoop();                           // 原 0x457020；两个正常出口的 EAX 均为 0。
 
 } // namespace cg::platform

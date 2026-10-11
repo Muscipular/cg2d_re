@@ -20,16 +20,23 @@ extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返
 
 // 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
 std::int32_t LoadBgmConfig_524060();
+// 原函数：0x005241A0。
 std::int32_t InitializeAudio_5241A0(); // 原初始化包装；524230 使用 SDL3 加载音效。
+// 原函数：0x0052B630。
 void Sub_52B630(); // 原退出入口；先处理流式 BGM，再按序释放音效与设备。
+// 原函数：0x0052C9C0。
 std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
+// 原函数：0x0052C910。
 std::int32_t UpdateBgmRequest_52C910(); // 原四阶段跳表，完整透传各分支返回。
+// 原函数：0x0052C3D0。
 std::int32_t Sub_52C3D0(); // 原 [52C3D0,52C449)，沿原门槛和音量表应用实际SDL BGM音量。
 
 // 原 [0x52CCE0,0x52CD25)：标志为 1 时返回 1，否则停止、关闭并只覆写返回低 AL。
 std::uint32_t Sub_52CCE0() noexcept;
 
+// 原函数：0x0052CD40。
 SpatialAudioRecord* __cdecl Sub_52CD40(); // 原 [0x52CD40,0x52CD5C)，重置 50 项并返回一过尾指针。
+// 原函数：0x0052CDE0。
 std::int32_t __cdecl Sub_52CDE0(
     std::int32_t index, std::int32_t sourceX, std::int32_t sourceY); // 原 [0x52CDE0,0x52CE97)。
 // 原 0x52C9E0；50 项请求生产，复用唯一音效定义表。
@@ -39,23 +46,35 @@ std::int32_t __cdecl Sub_52C9E0(
 std::int32_t __cdecl PlaySe_52C450(std::int32_t seNo, std::int32_t screenX);
 // 原 52CB50 消费请求；52C680 更新同一通道并返回 0/-1。
 std::int32_t __cdecl Sub_52CB50();
+// 原函数：0x0052C680。
 std::int32_t __cdecl Sub_52C680(
     std::int32_t requestIndex, std::int32_t isNew);
+// 原函数：0x0052CD60。
 void __cdecl Sub_52CD60(); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。
+// 原函数：0x0052B990。
 std::uint32_t Sub_52B990() noexcept;
+// 原函数：0x0052B940。
 void Sub_52B940(); // 原资源清理入口，普通场景复用既有实现。
 std::int32_t ReadBgmRecordIndex58D4F8() noexcept; // 只读真实当前BGM号，不替代目标1050818。
 
 // 原 57C368 表与 CC236C 三槽的共享音效选择入口。
+// 原函数：0x005044C0。
 std::int32_t __cdecl Sub_5044C0(std::uint32_t id);
+// 原函数：0x00504410。
 std::int32_t __cdecl Sub_504410(std::uint32_t id);
+// 原函数：0x00504180。
 std::int32_t __cdecl Sub_504180(std::uint32_t id);
+// 原函数：0x005042D0。
 std::int32_t __cdecl Sub_5042D0(std::uint32_t id);
+// 原函数：0x00504380。
 std::int32_t __cdecl Sub_504380(std::uint32_t id);
+// 原函数：0x005043D0。
 std::int32_t __cdecl Sub_5043D0(std::int32_t index);
 std::uint32_t ReadLegacyPanelSelectionCC236C() noexcept; // 旧面板直接读取首槽编号，不经类别映射。
 std::uint32_t ReadLegacyPanelSelectionCC2370() noexcept; // 旧选择31关闭时读取同源第二槽。
+// 原函数：0x00504AF0。
 std::int32_t __cdecl Sub_504AF0();
+// 原函数：0x00504460。
 std::int32_t Sub_504460(std::uint32_t id); // 旧面板按同源action槽切换选择，不直接清理对象。
 // 沿用57C368唯一表的非拥有运行期槽，不建立UI平行表；索引来自5044C0。
 login::YobiAction*& BorrowLegacyPanelAction57C374(std::int32_t index) noexcept;

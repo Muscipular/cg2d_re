@@ -189,6 +189,7 @@ void Update()
         return;
     }
 
+// 原函数：0x00404C50。
 sceneSixTail:
     login::detail::YobiUpdateAll_404C50();
     detail::RenderChara_521F20();
@@ -227,6 +228,7 @@ static_assert(sizeof(kReturnToServerSelect) == 21);
 
 } // namespace
 
+// 原函数：0x00455C90。
 std::int32_t Sub_455C90()
 {
     login::detail::GraphicDescriptor16 descriptor {{

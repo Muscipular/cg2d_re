@@ -50,6 +50,7 @@ char gRequestMessage[RequestMessageCapacity] {};
 static_assert(sizeof(gCharacterRecords) == 0x128);
 static_assert(sizeof(gRequestMessage) == RequestMessageCapacity);
 
+// 原函数：0x0051B3B0。
 std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
@@ -59,6 +60,7 @@ std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
     return 0;
 }
 
+// 原函数：0x0051B110。
 std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
@@ -67,6 +69,7 @@ std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
     return gCharacterRecords[selectedIndex][0] != std::byte{0} ? 1 : 0;
 }
 
+// 原函数：0x0051B140。
 std::int32_t CharacterNameExists_51B140(const char* const name)
 {
     for (const CharacterRecordBytes& record : gCharacterRecords) {
@@ -88,11 +91,13 @@ std::int32_t CharacterNameExists_51B140(const char* const name)
     return 0;
 }
 
+// 原函数：0x00510140。
 std::int32_t ReadRequestOutcomeFlag()
 {
     return gRequestOutcomeFlag;
 }
 
+// 原函数：0x00508AF0。
 std::uint32_t StartLoginRequest()
 {
     const std::int16_t selected = gSelectedCharacterIndex;
@@ -117,6 +122,7 @@ std::uint32_t StartLoginRequest()
     return tick;
 }
 
+// 原函数：0x00508B50。
 std::int32_t PollLoginRequest()
 {
     const std::uint8_t pollingEnabled = gRequestPollingEnabled;
@@ -219,6 +225,7 @@ std::int32_t Sub_508C90()
     return -1;
 }
 
+// 原函数：0x00508CF0。
 std::int32_t Sub_508CF0(
     const std::uintptr_t, const char* const result, const char*)
 {

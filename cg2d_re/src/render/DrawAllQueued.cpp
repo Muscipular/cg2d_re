@@ -342,6 +342,7 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
 
 } // namespace
 
+// 原函数：0x00520DD0。
 void DrawAllQueued_520DD0()
 {
     gGraphicPaletteUploadCount = 0;

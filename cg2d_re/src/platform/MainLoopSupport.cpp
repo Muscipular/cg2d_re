@@ -22,6 +22,7 @@
 
 namespace cg::audio {
 
+// 原函数：0x0052CCA0。
 void Sub_52CCA0(); // 原 0x52CCA0；实现在 LegacyAudio.cpp。
 
 } // namespace cg::audio
@@ -193,6 +194,7 @@ std::int32_t CheckDebugger_404880()
     return gIsDebuggerPresent() != FALSE ? 3 : 0;
 }
 
+// 原函数：0x00404940。
 BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 {
     char title[128];
@@ -239,54 +241,64 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
+// 原函数：0x00404120。
 std::int32_t InitializeLegacyProtectionChecksum1_404120()
 {
     ConstructProtectionChecksum1_404130();
     return std::atexit(DestroyProtectionChecksum1_404150);
 }
 
+// 原函数：0x00404130。
 void ConstructProtectionChecksum1_404130()
 {
     legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum1);
 }
 
+// 原函数：0x00404150。
 void DestroyProtectionChecksum1_404150()
 {
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum1);
 }
 
+// 原函数：0x00404160。
 std::int32_t InitializeLegacyProtectionChecksum2_404160()
 {
     ConstructProtectionChecksum2_404170();
     return std::atexit(DestroyProtectionChecksum2_404190);
 }
 
+// 原函数：0x00404170。
 void ConstructProtectionChecksum2_404170()
 {
     legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum2);
 }
 
+// 原函数：0x00404190。
 void DestroyProtectionChecksum2_404190()
 {
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum2);
 }
 
+// 原函数：0x004041A0。
 std::int32_t InitializeLegacyProtectionProcessState_4041A0()
 {
     ConstructProtectionProcessState_4041B0();
     return std::atexit(DestroyProtectionProcessState_4041D0);
 }
 
+// 原函数：0x004041B0。
 void ConstructProtectionProcessState_4041B0()
 {
     legacy_crypt_int::ConstructZero_401C70(&gProtectionProcessState);
 }
 
+// 原函数：0x004041D0。
 void DestroyProtectionProcessState_4041D0()
 {
     legacy_crypt_int::Destroy_401CF0(&gProtectionProcessState);
 }
 
+// 原函数：0x004041E0。
 void InitializeProtection_4041E0(const char* moduleName)
 {
     if (gProtectionModule == nullptr) {
@@ -321,6 +333,7 @@ void InitializeProtection_4041E0(const char* moduleName)
         std::bit_cast<std::int32_t>(processIdBits));
 }
 
+// 原函数：0x004043B0。
 std::uint8_t CheckProtection_4043B0(const char* functionName)
 {
     const std::uint32_t nextCounter =
@@ -531,6 +544,7 @@ void ParseProtectionTables_404600(const char* input)
     UpdateProtectionChecksum(&gProtectionChecksum2, gProtectionBuffer2);
 }
 
+// 原函数：0x004042B0。
 int ReleaseProtection_4042B0()
 {
     const HMODULE module = gProtectionModule;
@@ -540,6 +554,7 @@ int ReleaseProtection_4042B0()
     return static_cast<int>(FreeLibrary(module));
 }
 
+// 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0()
 {
     platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1("systemlog.txt", "w");
@@ -570,6 +585,7 @@ std::uint32_t ReadTickCount32() noexcept
     return static_cast<std::uint32_t>(GetTickCount());
 }
 
+// 原函数：0x00457010。
 void RequestRender_457010() noexcept
 {
     gForceRender = 1;
@@ -586,6 +602,7 @@ std::int32_t CheckLegacyDxCapability_458DC0()
     return code <= 0x500u ? 1 : 0;
 }
 
+// 原函数：0x004048E0。
 std::int32_t CheckWindows_4048E0()
 {
     const std::uint32_t counter = gValue593FD0;
@@ -639,12 +656,14 @@ void KeepAlive_457AB0()
     static_cast<void>(network::Sub_512C60(socket));
 }
 
+// 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 {
     gRandomSeed = seed;
     return seed;
 }
 
+// 原函数：0x0053B4C9。
 int NextRandom_53B4C9()
 {
     const std::uint32_t seed = gRandomSeed * 0x343FDu + 0x269EC3u;
@@ -756,6 +775,7 @@ void Sub_423640()
         sourceBottom));
 }
 
+// 原函数：0x004589D0。
 std::uint64_t ReadSystemSeconds_4589D0()
 {
     SYSTEMTIME systemTime;
@@ -768,6 +788,7 @@ std::uint64_t ReadSystemSeconds_4589D0()
         (static_cast<std::uint64_t>(high) << 32) | low, 10000000u);
 }
 
+// 原函数：0x00458A10。
 int CheckSystemSeconds_458A10(std::int32_t seconds)
 {
     const std::uint32_t now = static_cast<std::uint32_t>(ReadSystemSeconds_4589D0());

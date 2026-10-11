@@ -51,6 +51,7 @@ void WriteColor32(
 PaletteCacheItem* gGraphicDataCacheList = nullptr;
 std::array<PaletteCacheItem, kGraphicPaletteStaticCount> gGraphicDataCacheStatic {};
 
+// 原函数：0x0044E0C0。
 void InitializeGraphicPaletteCache_44E0C0()
 {
     std::unique_ptr<PaletteCacheItem[]> pending(
@@ -66,12 +67,14 @@ void InitializeGraphicPaletteCache_44E0C0()
     }
 }
 
+// 原函数：0x0044E110。
 void ReleaseGraphicPaletteCache_44E110() noexcept
 {
     gOwnedGraphicPaletteCache.reset();
     gGraphicDataCacheList = nullptr;
 }
 
+// 原函数：0x0044E150。
 PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noexcept
 {
     PaletteCacheItem* const pool = gGraphicDataCacheList;
@@ -110,6 +113,7 @@ PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noex
     return &gGraphicDataCacheList[0];
 }
 
+// 原函数：0x0044E290。
 PaletteCacheItem* LoadGraphicPalette32_44E290(
     const std::int32_t imageNo,
     std::uint8_t mode,
@@ -200,6 +204,7 @@ PaletteCacheItem* LoadGraphicPalette32_44E290(
     return item;
 }
 
+// 原函数：0x0044E230。
 void AgeGraphicPaletteCache_44E230() noexcept
 {
     PaletteCacheItem* pool = gGraphicDataCacheList;

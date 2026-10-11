@@ -210,6 +210,7 @@ bool CreateCpuBackSurface() noexcept
     return true;
 }
 
+// 原函数：0x00452840。
 std::int32_t DrawMapEffects32_452840()
 {
     constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
@@ -382,11 +383,13 @@ std::int32_t DrawMapEffects32_452840()
     return 0;
 }
 
+// 原函数：0x00453580。
 std::int32_t DrawMapEffects_453580()
 {
     return DrawMapEffects32_452840();
 }
 
+// 原函数：0x0044F330。
 std::int32_t DrawIndexedAutoMap32_44F330(
     const std::int32_t x, const std::int32_t y, const std::uint8_t* const source,
     const std::int32_t width, const std::int32_t height)
@@ -399,6 +402,7 @@ std::int32_t DrawIndexedAutoMap32_44F330(
         });
 }
 
+// 原函数：0x0044FC20。
 std::int32_t DrawColorAutoMap32_44FC20(
     const std::int32_t x, const std::int32_t y, const std::uint32_t* const source,
     const std::int32_t width, const std::int32_t height)
@@ -408,6 +412,7 @@ std::int32_t DrawColorAutoMap32_44FC20(
         [](const std::uint32_t color) { return color == 0 ? 1u : color; });
 }
 
+// 原函数：0x0044F5C0。
 std::int32_t DrawIndexedAutoMap_44F5C0(
     const std::int32_t x, const std::int32_t y, const std::uint8_t* const source,
     const std::int32_t width, const std::int32_t height)
@@ -415,6 +420,7 @@ std::int32_t DrawIndexedAutoMap_44F5C0(
     return DrawIndexedAutoMap32_44F330(x, y, source, width, height);
 }
 
+// 原函数：0x0044FEB0。
 std::int32_t DrawColorAutoMap_44FEB0(
     const std::int32_t x, const std::int32_t y, const std::uint32_t* const source,
     const std::int32_t width, const std::int32_t height)
@@ -526,6 +532,7 @@ void ReleaseCpuBackTextDc(const HDC dc) noexcept
     }
 }
 
+// 原函数：0x004512C0。
 std::int32_t ClearSurface_4512C0() noexcept
 {
     if (gCpuBackSurface == nullptr) {
@@ -536,6 +543,7 @@ std::int32_t ClearSurface_4512C0() noexcept
     return 0;
 }
 
+// 原函数：0x00451350。
 void Sub_451350(RECT* rect, const std::uint16_t colorIndex, const std::int32_t mode)
 {
     if (rect->left >= GetRendererLogicalWidth() || rect->right < 0
@@ -681,6 +689,7 @@ bool BlitSurfaceRectangleToBack(
         sourceSurface, sourceRect, destination, destinationRect);
 }
 
+// 原函数：0x004535B0。
 std::int32_t BlitSurfaceToBack_4535B0(
     const std::int16_t x, const std::int16_t y,
     std::array<std::int32_t, 4>& rectangle, TextureSurface* const source) noexcept

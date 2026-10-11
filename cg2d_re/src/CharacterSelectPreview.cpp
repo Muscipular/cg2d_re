@@ -98,6 +98,7 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
 
 namespace detail {
 
+// 原函数：0x0051BA10。
 std::int32_t Sub_51BA10(const std::int32_t imageNo)
 {
     if (imageNo >= 30000 && imageNo <= 98000) {
@@ -125,6 +126,7 @@ std::int32_t Sub_51BA10(const std::int32_t imageNo)
     return 0;
 }
 
+// 原函数：0x0051BB80。
 std::int32_t Sub_51BB80(std::int32_t imageNo)
 {
     if (imageNo < 30000 || imageNo > 97999) {
@@ -151,6 +153,7 @@ std::int32_t Sub_51BB80(std::int32_t imageNo)
     return 25 * base + 5 * tens + ones;
 }
 
+// 原函数：0x0051BAC0。
 std::int32_t Sub_51BAC0(const std::int32_t imageNo)
 {
     if (imageNo < 202800 || imageNo > 204199) {
@@ -178,6 +181,7 @@ std::int32_t Sub_51BAC0(const std::int32_t imageNo)
     return result;
 }
 
+// 原函数：0x0051BD00。
 std::int32_t Sub_51BD00(const std::int32_t imageNo)
 {
     if (imageNo >= 200000 && imageNo <= 200399) {
@@ -210,6 +214,7 @@ std::int32_t Sub_51BD00(const std::int32_t imageNo)
     return -1;
 }
 
+// 原函数：0x0051BF00。
 std::int32_t Sub_51BF00(const std::int32_t imageNo)
 {
     if (imageNo >= 240000 && imageNo < 241400) {
@@ -231,6 +236,7 @@ std::int32_t Sub_51BF00(const std::int32_t imageNo)
     return remainder + categories[index];
 }
 
+// 原函数：0x0051BFF0。
 std::int32_t Sub_51BFF0(const std::int32_t imageNo)
 {
     if (imageNo >= 202800 && imageNo <= 204200) {
@@ -251,6 +257,7 @@ std::int32_t Sub_51BFF0(const std::int32_t imageNo)
     return imageNo;
 }
 
+// 原函数：0x0051BC50。
 std::int32_t Sub_51BC50(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
@@ -282,6 +289,7 @@ std::int32_t Sub_51BC50(const std::int32_t imageNo)
 }
 
 // LDT01：版本低8值先取；FF回用Puk版本，再分类/按0、3、6、7门槛选择原图或回退。
+// 原函数：0x0051B740。
 std::int32_t Sub_51B740(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;
@@ -317,6 +325,7 @@ std::int32_t Sub_51B740(const std::int32_t imageNo)
     }
 }
 
+// 原函数：0x0051B7D0。
 std::int32_t Sub_51B7D0(const std::int32_t imageNo)
 {
     if (imageNo >= 100000 && imageNo <= 103102) {
@@ -370,6 +379,7 @@ std::int32_t Sub_51B7D0(const std::int32_t imageNo)
     return 6;
 }
 
+// 原函数：0x0051B910。
 std::int32_t Sub_51B910(const std::int32_t imageNo)
 {
     if (imageNo >= 106000 && imageNo <= 106048) {
@@ -411,6 +421,7 @@ std::int32_t Sub_51B910(const std::int32_t imageNo)
     return 100902;
 }
 
+// 原函数：0x004C56E0。
 std::int32_t* Sub_4C56E0(
     const std::int32_t imageNo,
     std::int32_t* const outBase,
@@ -441,6 +452,7 @@ std::int32_t* Sub_4C56E0(
     return outBase;
 }
 
+// 原函数：0x004C5650。
 std::int32_t Sub_4C5650(
     const std::int32_t base,
     const std::int32_t imageClass,
@@ -463,6 +475,7 @@ std::int32_t Sub_4C5650(
 
 } // namespace detail
 
+// 原函数：0x00460D00。
 void ProcessCharacterPreview_460D00(std::uint32_t slot)
 {
     const std::size_t slotIndex = static_cast<std::size_t>(slot);

@@ -249,6 +249,7 @@ int ParseCommandOptions()
     return ParseIpOptions_507C80(gCommandLine);
 }
 
+// 原函数：0x00507C80。
 int ParseIpOptions_507C80(const char* const commandLine)
 {
     std::memset(

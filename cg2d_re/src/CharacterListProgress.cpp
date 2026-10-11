@@ -34,11 +34,13 @@ static_assert(sizeof(gCharacterListProgressText) == 256);
 
 } // namespace
 
+// 原函数：0x0045DD50。
 void ResetCharacterListProgress_45DD50()
 {
     gCharacterListProgressStage = 0;
 }
 
+// 原函数：0x0045DD60。
 std::int32_t UpdateCharacterListProgress_45DD60()
 {
     std::uint16_t stage = gCharacterListProgressStage;

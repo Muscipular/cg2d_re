@@ -192,6 +192,7 @@ void DrawNormalMapCell(
 
 } // namespace
 
+// 原函数：0x0046CF60。
 void __cdecl Sub_46CF60(const std::int32_t markers)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -323,12 +324,14 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     audio::Sub_52CD60();
 }
 
+// 原函数：0x00469020。
 void Sub_469020()
 {
     Sub_46CF60(1);
 }
 
 // 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
+// 原函数：0x0043CB10。
 void Sub_43CB10()
 {
     platform::gPendingGraphicCount = 0;

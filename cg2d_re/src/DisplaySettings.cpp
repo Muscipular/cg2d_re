@@ -11,6 +11,7 @@
 
 namespace cg::login::detail {
 
+// 原函数：0x004FD4C0。
 std::int32_t Sub_4FD4C0()
 {
     if (platform::gValue55463C < 512) {
@@ -22,6 +23,7 @@ std::int32_t Sub_4FD4C0()
     return 0;
 }
 
+// 原函数：0x004FD510。
 std::int32_t Sub_4FD510()
 {
     if (platform::gValue55463C > 0) {
@@ -33,6 +35,7 @@ std::int32_t Sub_4FD510()
     return 0;
 }
 
+// 原函数：0x004FD550。
 std::int32_t Sub_4FD550()
 {
     std::int32_t& color = input::gInputContext626AA0.field140;
@@ -46,6 +49,7 @@ std::int32_t Sub_4FD550()
     return 0;
 }
 
+// 原函数：0x004FD5A0。
 std::int32_t Sub_4FD5A0()
 {
     if (input::IsChatContext_503E60() == 0) {
@@ -55,6 +59,7 @@ std::int32_t Sub_4FD5A0()
     return 0;
 }
 
+// 原函数：0x004FD5C0。
 std::int32_t Sub_4FD5C0()
 {
     platform::gValue554644 = static_cast<std::int32_t>(
@@ -63,6 +68,7 @@ std::int32_t Sub_4FD5C0()
     return 0;
 }
 
+// 原函数：0x004FD5F0。
 std::int32_t Sub_4FD5F0()
 {
     if (platform::gValue554640 < 5) {
@@ -75,6 +81,7 @@ std::int32_t Sub_4FD5F0()
     return 0;
 }
 
+// 原函数：0x004FD640。
 std::int32_t Sub_4FD640()
 {
     if (platform::gValue554640 > 1) {
@@ -87,6 +94,7 @@ std::int32_t Sub_4FD640()
     return 0;
 }
 
+// 原函数：0x004FE3E0。
 std::int32_t Sub_4FE3E0()
 {
     static_cast<void>(audio::Sub_504180(3u));
@@ -156,6 +164,7 @@ std::int32_t Sub_4FE3B0()
     return 0;
 }
 
+// 原函数：0x004FE3F0。
 std::int32_t Sub_4FE3F0()
 {
     const std::int32_t speed = platform::gValue553438;
@@ -168,6 +177,7 @@ std::int32_t Sub_4FE3F0()
     return 0;
 }
 
+// 原函数：0x004FE440。
 std::int32_t Sub_4FE440()
 {
     const std::int32_t speed = platform::gValue553438;
@@ -180,6 +190,7 @@ std::int32_t Sub_4FE440()
     return 0;
 }
 
+// 原函数：0x004FEAC0。
 std::int32_t Sub_4FEAC0()
 {
     const std::int32_t show = platform::gValueD67AE4 == 0 ? 1 : 0;
@@ -189,6 +200,7 @@ std::int32_t Sub_4FEAC0()
     return 0;
 }
 
+// 原函数：0x004FEFF0。
 std::int32_t Sub_4FEFF0()
 {
     platform::gValueD67AE8 = (platform::gValueD67AE8 - 1u) & 1u;
@@ -196,6 +208,7 @@ std::int32_t Sub_4FEFF0()
     return 0;
 }
 
+// 原函数：0x004FF310。
 std::int32_t Sub_4FF310()
 {
     const std::uint8_t mode = static_cast<std::uint8_t>(platform::gScanlineSyncMode);
@@ -204,6 +217,7 @@ std::int32_t Sub_4FF310()
     return 0;
 }
 
+// 原函数：0x004FF620。
 std::int32_t Sub_4FF620()
 {
     platform::gValueD68858 = platform::gValueD68858 == 0 ? 1u : 0u;

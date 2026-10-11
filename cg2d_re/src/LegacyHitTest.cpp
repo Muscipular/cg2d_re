@@ -8,6 +8,7 @@
 namespace cg::login::detail {
 
 // RHL01：四次CryptInt比较按X上界/X下界/Y上界/Y下界短路，命中可描边并返回S32 1。
+// 原函数：0x005049A0。
 std::int32_t Sub_5049A0(
     const std::int32_t left,
     const std::int32_t top,

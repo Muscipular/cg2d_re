@@ -65,6 +65,7 @@ void StoreLittleEndian32(std::uint32_t value, std::uint8_t* output)
     output[3] = static_cast<std::uint8_t>(value >> 24u);
 }
 
+// 原函数：0x00402B70。
 void Initialize(Md5Context& context)
 {
     context.state = {
@@ -79,6 +80,7 @@ void Initialize(Md5Context& context)
     context.bufferSize = 0;
 }
 
+// 原函数：0x00402D30。
 void Transform(Md5Context& context, const std::uint8_t* block)
 {
     std::array<std::uint32_t, 16> words {};
@@ -123,6 +125,7 @@ void Transform(Md5Context& context, const std::uint8_t* block)
     context.state[3] += d;
 }
 
+// 原函数：0x00402C50。
 void Update(Md5Context& context, const std::uint8_t* data, std::uint32_t size)
 {
     const std::uint32_t previousLow = context.bitCountLow;
@@ -165,6 +168,8 @@ void Update(Md5Context& context, const std::uint8_t* data, std::uint32_t size)
     }
 }
 
+// 原函数：0x00402BC0。
+// 关联原入口：0x00402BA0（四个 W32 的小端序列化循环）。
 void Finalize(Md5Context& context, std::array<std::uint8_t, 16>& digest)
 {
     const std::uint32_t bitCountLow = context.bitCountLow;
@@ -187,6 +192,7 @@ void Finalize(Md5Context& context, std::array<std::uint8_t, 16>& digest)
     }
 }
 
+// 原函数：0x00403660。
 bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
 {
     Md5Context context {};
@@ -227,6 +233,7 @@ bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
     return true;
 }
 
+// 原函数：0x00403750。
 std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
 {
     constexpr char kDigits[] = "0123456789abcdef";
@@ -241,6 +248,7 @@ std::array<char, 33> EncodeLowerHex(const std::array<std::uint8_t, 16>& digest)
 
 } // namespace
 
+// 原函数：0x005202E0。
 char* ComputeExecutableDigest_5202E0(char* output)
 {
     if (output == nullptr) {

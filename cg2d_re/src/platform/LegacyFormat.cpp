@@ -18,12 +18,14 @@ extern "C" std::int32_t Cg2dReadLegacyShopCommandW32(
     return std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(value));
 }
 
+// 原函数：0x0053EB28。
 std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,
     const char* format, std::va_list arguments)
 {
     return std::vfprintf(stream, format, arguments);
 }
 
+// 原函数：0x0053B304。
 std::int32_t FormatLegacyString_53B304(char* const buffer, const char* const format, ...)
 {
     std::va_list arguments;
@@ -33,6 +35,7 @@ std::int32_t FormatLegacyString_53B304(char* const buffer, const char* const for
     return result;
 }
 
+// 原函数：0x0053D21D。
 std::int32_t FormatLegacyBoundedString_53D21D(char* const buffer,
     const std::uint32_t capacity, const char* const format, ...)
 {
@@ -43,6 +46,7 @@ std::int32_t FormatLegacyBoundedString_53D21D(char* const buffer,
     return result;
 }
 
+// 原函数：0x0053BC0F。
 std::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* const format, ...)
 {
     std::va_list arguments;
@@ -52,6 +56,7 @@ std::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* con
     return result;
 }
 
+// 原函数：0x0053CB10。
 std::uint64_t DivideLegacyUnsigned64_53CB10(
     const std::uint64_t dividend, const std::uint64_t divisor)
 {

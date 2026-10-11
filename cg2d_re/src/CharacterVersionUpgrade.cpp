@@ -50,6 +50,7 @@ std::uint32_t UnsignedBits(std::int32_t value)
 
 } // namespace
 
+// 原函数：0x0045E3D0。
 std::int32_t ProcessLegacyVersionScene_45E3D0()
 {
     switch (UnsignedBits(world::gCurrentSceneState)) {
@@ -154,6 +155,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
     return login::detail::DrawGraphic(320, 240, 3, 22030, 0, nullptr);
 }
 
+// 原函数：0x00462330。
 std::int32_t ProcessScene_462330()
 {
     switch (UnsignedBits(world::gCurrentSceneState)) {

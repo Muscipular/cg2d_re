@@ -2,6 +2,7 @@
 
 namespace cg::resource {
 
+// 原函数：0x0052D5C0。
 std::uint8_t* ReadGraphicData(
     std::uint8_t const* source,
     std::uint8_t* const* destination,

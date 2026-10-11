@@ -1056,6 +1056,7 @@ std::int32_t LowSignedByte(const std::int16_t value)
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value)));
 }
 
+// 原函数：0x0049BE00。
 void DrawNineGridImpl_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x16,
@@ -1317,6 +1318,7 @@ void AssignReady(YobiAction* const action)
     platform::legacy_crypt_int::AssignFromInt(&action->readiness, 1);
 }
 
+// 原函数：0x005046D0。
 void UpdateModalAction_5046D0(YobiAction* const action)
 {
     auto* const payload = static_cast<YobiUIData*>(action->payload);
@@ -1415,6 +1417,7 @@ void UpdateModalAction_5046D0(YobiAction* const action)
     AssignReady(action);
 }
 
+// 原函数：0x00404D10。
 void DeleteYobiAction_404D10(YobiAction* const action)
 {
     void* const payload = action->payload;
@@ -1535,6 +1538,7 @@ void ApplyYobiAnimeFrame(
 
 } // namespace
 
+// 原函数：0x0049BE00。
 void DrawNineGrid_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x,
@@ -1552,6 +1556,7 @@ void DrawNineGrid_49BE00(
         borderColor, centerColor, tileWidth, tileHeight);
 }
 
+// 原函数：0x0046DD40。
 void Sub_46DD40()
 {
     for (std::size_t row = 0; row < kYobiRegistryRowCount; ++row) {
@@ -1589,6 +1594,7 @@ void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexc
     action->mapOffsetY = value;
 }
 
+// 原函数：0x00404A40。
 YobiAction* Sub_404A40()
 {
     gYobiActionStart = static_cast<YobiAction*>(
@@ -1617,6 +1623,7 @@ YobiAction* Sub_404A40()
     return result;
 }
 
+// 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
     const std::uint8_t priority,
     const std::uint32_t payloadSize)
@@ -1812,6 +1819,7 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
 
 } // namespace
 
+// 原函数：0x0041EAB0。
 YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
 {
     const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
@@ -1831,6 +1839,7 @@ YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
     return action;
 }
 
+// 原函数：0x0041E5C0。
 void UpdateBattleAfterimage_41E5C0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -1842,6 +1851,7 @@ void UpdateBattleAfterimage_41E5C0(YobiAction* const action)
     }
 }
 
+// 原函数：0x0041E5F0。
 YobiAction* NewBattleAfterimage_41E5F0(YobiAction* const source)
 {
     YobiAction* const action = CloneBattleAction_41EAB0(source);
@@ -1867,6 +1877,7 @@ void ConfigureWindowElementAction(
     slot->displayPriority = 0xDF;
 }
 
+// 原函数：0x004758D0。
 void Sub_4758D0(YobiAction* const action)
 {
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
@@ -1897,6 +1908,7 @@ void Sub_4758D0(YobiAction* const action)
     ++payload->counter;
 }
 
+// 原函数：0x00475950。
 YobiAction* Sub_475950(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -2276,9 +2288,12 @@ YobiAction* NewMapCharaAction()
 }
 
 // 两种观察节点的真实回调，声明供以下生产入口绑定。
+// 原函数：0x0043F520。
 void Sub_43F520(YobiAction* action);
+// 原函数：0x00440070。
 void Sub_440070(YobiAction* action);
 
+// 原函数：0x0043F330。
 YobiAction* Sub_43F330(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
@@ -2341,6 +2356,7 @@ YobiAction* Sub_43F330(
     return action;
 }
 
+// 原函数：0x0043FEB0。
 YobiAction* Sub_43FEB0(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
@@ -2391,6 +2407,7 @@ YobiAction* Sub_43FEB0(
     return action;
 }
 
+// 原函数：0x004408C0。
 void Sub_4408C0(
     YobiAction* const action, const std::int32_t first, const std::int32_t second,
     const std::int32_t third, const std::int32_t fourth, const std::int32_t fifth)
@@ -2404,6 +2421,7 @@ void Sub_4408C0(
     }
 }
 
+// 原函数：0x0043F290。
 YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
@@ -2435,6 +2453,7 @@ YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
     return action;
 }
 
+// 原函数：0x0043FE00。
 YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 {
     const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
@@ -2493,6 +2512,7 @@ void SetObservationChildAction(YobiAction* const action)
     SetObservationChildAction(action, action->imageNo);
 }
 
+// 原函数：0x0043F910。
 void Sub_43F910(YobiAction* const action)
 {
     const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
@@ -2576,6 +2596,7 @@ void Sub_43F910(YobiAction* const action)
     ++action->value1D4;
 }
 
+// 原函数：0x00440440。
 void Sub_440440(YobiAction* const action)
 {
     YobiAction* const parent = action->observationParent10;
@@ -2746,6 +2767,7 @@ void DrawObservationChildren(
     }
 }
 
+// 原函数：0x0043F520。
 void Sub_43F520(YobiAction* const action)
 {
     const float worldY = action->worldY;
@@ -2854,6 +2876,7 @@ void Sub_43F520(YobiAction* const action)
     }
 }
 
+// 原函数：0x00440070。
 void Sub_440070(YobiAction* const action)
 {
     const float worldY = action->worldY;
@@ -2943,6 +2966,7 @@ void Sub_440070(YobiAction* const action)
     ++payload->frame;
 }
 
+// 原函数：0x00440920。
 std::int32_t Sub_440920(
     const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unusedDirection,
@@ -3004,10 +3028,14 @@ std::int32_t Sub_440920(
 }
 
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
+// 原函数：0x004417E0。
 void Sub_4417E0(YobiAction* action);
+// 原函数：0x00447E60。
 void Sub_447E60(YobiAction* action);
+// 原函数：0x00442F70。
 void Sub_442F70(YobiAction* action, std::int32_t primaryIndex);
 
+// 原函数：0x00441DB0。
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
@@ -3061,6 +3089,7 @@ YobiAction* Sub_441DB0(
 }
 
 // LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
+// 原函数：0x00448040。
 YobiAction* Sub_448040(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
@@ -3134,6 +3163,7 @@ YobiAction* Sub_448040(
     return action;
 }
 
+// 原函数：0x004473B0。
 std::int32_t Sub_4473B0(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3186,6 +3216,7 @@ std::int32_t Sub_4473B0(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x004474E0。
 std::int32_t Sub_4474E0(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3645,6 +3676,7 @@ std::int32_t UpdateTransitionTrail(
 
 } // namespace
 
+// 原函数：0x00446D80。
 std::int32_t Sub_446D80(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3707,6 +3739,7 @@ std::int32_t Sub_446D80(YobiAction* const action)
     return 1;
 }
 
+// 原函数：0x00446FA0。
 std::int32_t Sub_446FA0(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3742,6 +3775,7 @@ std::int32_t Sub_446FA0(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x00447070。
 std::int32_t Sub_447070(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3768,6 +3802,7 @@ std::int32_t Sub_447070(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x00447230。
 std::int32_t Sub_447230(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3790,6 +3825,7 @@ std::int32_t Sub_447230(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x00447610。
 std::int32_t Sub_447610(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3821,6 +3857,7 @@ std::int32_t Sub_447610(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x00447820。
 std::int32_t Sub_447820(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3848,16 +3885,19 @@ std::int32_t Sub_447820(YobiAction* const action)
     return 0;
 }
 
+// 原函数：0x00447A20。
 std::int32_t Sub_447A20(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 1);
 }
 
+// 原函数：0x00447C40。
 std::int32_t Sub_447C40(YobiAction* const action)
 {
     return UpdateTransitionTrail(action, 0);
 }
 
+// 原函数：0x00447E60。
 void Sub_447E60(YobiAction* const action)
 {
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -4322,6 +4362,7 @@ void ResetMapFollowerFromPath(
     }
 }
 
+// 原函数：0x00442AB0。
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -4353,6 +4394,7 @@ void Sub_442AB0(
     action->worldY = static_cast<float>(static_cast<double>(targetY) * 64.0F);
 }
 
+// 原函数：0x00441F60。
 void Sub_441F60(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -4375,6 +4417,7 @@ void Sub_441F60(
     action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
 }
 
+// 原函数：0x00441FC0。
 void Sub_441FC0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -4439,6 +4482,7 @@ void Sub_441FC0(
     }
 }
 
+// 原函数：0x00442110。
 double Sub_442110(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY, const std::int32_t speed,
@@ -4483,6 +4527,7 @@ double Sub_442110(
     return static_cast<double>(velocity.rate);
 }
 
+// 原函数：0x004422F0。
 void Sub_4422F0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY, const std::int32_t speed)
@@ -4530,6 +4575,7 @@ void Sub_4422F0(
     }
 }
 
+// 原函数：0x00442460。
 void Sub_442460(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -4871,6 +4917,7 @@ void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const pay
 
 } // namespace
 
+// 原函数：0x0043DD00。
 std::int32_t Sub_43DD00(
     YobiAction* const action, const char* const text, std::int32_t field)
 {
@@ -5042,6 +5089,7 @@ std::int32_t Sub_43DD00(
     return field;
 }
 
+// 原函数：0x0043E490。
 std::int32_t Sub_43E490(YobiAction* const action)
 {
     const float worldY = action->worldY;
@@ -5077,6 +5125,7 @@ std::int32_t Sub_43E490(YobiAction* const action)
     }
 }
 
+// 原函数：0x004417E0。
 void Sub_4417E0(YobiAction* const action)
 {
     auto* payload = static_cast<MapActorPayload*>(action->payload);
@@ -5266,6 +5315,7 @@ void Sub_4417E0(YobiAction* const action)
     Sub_442F70(action, primaryIndex);
 }
 
+// 原函数：0x0043EFC0。
 void Sub_43EFC0(
     YobiAction* const action, const std::int32_t characterAction,
     const std::int32_t restart)
@@ -5325,6 +5375,7 @@ void Sub_43EFC0(
     }
 }
 
+// 原函数：0x004424B0。
 void Sub_4424B0(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -5425,6 +5476,7 @@ void Sub_4424B0(YobiAction* const action)
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
+// 原函数：0x00442730。
 void Sub_442730(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -5494,6 +5546,7 @@ void Sub_442730(YobiAction* const action)
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
+// 原函数：0x004428F0。
 void Sub_4428F0(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -5595,6 +5648,7 @@ void ClearMapActorAttachments(YobiAction* const action)
     }
 }
 
+// 原函数：0x0046DE50。
 YobiAction* Sub_46DE50(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -5659,6 +5713,7 @@ YobiAction* Sub_46DE50(
     return action;
 }
 
+// 原函数：0x0046DD90。
 void Sub_46DD90(YobiAction* const action)
 {
     const float sceneY = action->worldY;
@@ -5685,6 +5740,7 @@ void Sub_46DD90(YobiAction* const action)
         static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
 }
 
+// 原函数：0x0043F180。
 YobiAction* Sub_43F180(YobiAction* const action)
 {
     YobiAction* current = gMapCharaHead;
@@ -5703,6 +5759,7 @@ YobiAction* Sub_43F180(YobiAction* const action)
     }
 }
 
+// 原函数：0x0043F1B0。
 void* Sub_43F1B0(YobiAction* const action)
 {
     YobiAction* current = gMapCharaHead;
@@ -5725,6 +5782,7 @@ void* Sub_43F1B0(YobiAction* const action)
     return nullptr;
 }
 
+// 原函数：0x0043F1F0。
 YobiAction* Sub_43F1F0(const std::uint32_t value)
 {
     YobiAction* current = gMapCharaHead;
@@ -5742,11 +5800,13 @@ YobiAction* Sub_43F1F0(const std::uint32_t value)
     return nullptr;
 }
 
+// 原函数：0x0043F220。
 void Sub_43F220()
 {
     gMapCharaHead = nullptr;
 }
 
+// 原函数：0x0043F230。
 void* Sub_43F230()
 {
     YobiAction* current = gMapCharaHead;
@@ -5768,6 +5828,7 @@ void* Sub_43F230()
     return last;
 }
 
+// 原函数：0x0043FD90。
 std::int32_t* Sub_43FD90(
     const std::int32_t imageNo, const std::int32_t slot,
     const std::int32_t direction, std::int32_t* const x, std::int32_t* const y)
@@ -5807,6 +5868,7 @@ std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
 }
 
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
+// 原函数：0x00518300。
 std::int32_t Sub_518300(
     YobiAction* const action, const std::uint8_t axis, const std::int32_t kind)
 {
@@ -5833,6 +5895,7 @@ std::int32_t Sub_518300(
     return 0;
 }
 
+// 原函数：0x004417A0。
 std::int32_t Sub_4417A0(const std::int32_t imageNo)
 {
     if (imageNo >= 100000 && imageNo <= 100999) {
@@ -5841,6 +5904,7 @@ std::int32_t Sub_4417A0(const std::int32_t imageNo)
     return -88;
 }
 
+// 原函数：0x00444000。
 YobiAction* Sub_444000(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t characterAction,
@@ -5889,6 +5953,7 @@ YobiAction* Sub_444000(
     return action;
 }
 
+// 原函数：0x004412D0。
 void Sub_4412D0(
     YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
     std::int32_t* const characterAction, std::int32_t* const revert)
@@ -5934,6 +5999,7 @@ void Sub_4412D0(
     }
 }
 
+// 原函数：0x00441430。
 void Sub_441430(
     YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
     std::int32_t* const x, std::int32_t* const y, std::uint8_t* const before)
@@ -5974,6 +6040,7 @@ void Sub_441430(
 }
 
 // YGOS01：两借用槽/六kind完整消费，1919由CAC07数据关联补正常父合同，正确绘制正文保持。
+// 原函数：0x00441570。
 void DrawGear_441570(
     YobiAction* const action, const std::int32_t primaryIndex,
     const std::int32_t offsetX, const std::int32_t offsetY,
@@ -6014,6 +6081,7 @@ void DrawGear_441570(
     }
 }
 
+// 原函数：0x00442F70。
 void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 {
     if (action == nullptr) {
@@ -6413,6 +6481,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     }
 }
 
+// 原函数：0x0043DB60。
 std::int32_t ShowHpBar_43DB60(
     YobiAction* const action, const std::int16_t offsetX,
     const std::int16_t offsetY, const std::int32_t color)
@@ -6555,6 +6624,7 @@ void Sub_440C50(YobiAction* const action)
     ++payload->frame;
 }
 
+// 原函数：0x00440B70。
 YobiAction* Sub_440B70()
 {
     YobiAction* const action = NewMapCharaAction();
@@ -6598,6 +6668,7 @@ YobiAction* Sub_440B70()
     return action;
 }
 
+// 原函数：0x00440F50。
 void* Sub_440F50()
 {
     YobiAction* const action =
@@ -6633,6 +6704,7 @@ std::int32_t ReadMapObservationDirection() noexcept
     return gMapDirection5F9740;
 }
 
+// 原函数：0x00440FE0。
 std::int32_t Sub_440FE0()
 {
     static_cast<void>(Sub_440B70());
@@ -6640,6 +6712,7 @@ std::int32_t Sub_440FE0()
     return 0x25;
 }
 
+// 原函数：0x00441130。
 YobiAction* NewYobiGearPet_441130(
     const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -6675,6 +6748,7 @@ YobiAction* NewYobiGearPet_441130(
     return action;
 }
 
+// 原函数：0x004410F0。
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -6690,6 +6764,7 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
     return action;
 }
 
+// 原函数：0x00404C50。
 std::int32_t YobiUpdateAll_404C50()
 {
     YobiAction* current = gYobiActionStart->next;
@@ -6728,6 +6803,7 @@ std::int32_t YobiUpdateAll_404C50()
     return result;
 }
 
+// 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
     if (action != nullptr) {
@@ -6741,6 +6817,7 @@ void MarkDeathUnchecked(YobiAction* const action)
     action->deathFlag = 1;
 }
 
+// 原函数：0x00421750。
 void UpdateBattleText_421750(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleTextPayload*>(action->payload);
@@ -6769,6 +6846,7 @@ void UpdateBattleText_421750(YobiAction* const action)
     }
 }
 
+// 原函数：0x004217F0。
 YobiAction* NewBattleText_4217F0(
     const std::int8_t style, const char* const text,
     const std::int32_t fontType, const std::int32_t duration)
@@ -6833,6 +6911,7 @@ YobiAction* NewBattleText_4217F0(
     return action;
 }
 
+// 原函数：0x00420100。
 void NewBattleSequence_420100(const std::int8_t value, const std::int32_t position)
 {
     const std::int8_t limited = value > 10 ? 10 : value;
@@ -6894,6 +6973,7 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
     }
 }
 
+// 原函数：0x00420590。
 void MoveBattleSequence_420590(YobiAction* const action)
 {
     float angle = static_cast<float>(270.0 - static_cast<double>(action->angle50));
@@ -6910,6 +6990,7 @@ void MoveBattleSequence_420590(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y);
 }
 
+// 原函数：0x00420300。
 void UpdateBattleSequence_420300(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -6999,6 +7080,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     }
 }
 
+// 原函数：0x0041A160。
 void UpdateBattleCompletingEffect_41A160(YobiAction* const action)
 {
     if (PlayFrame_517DA0(action, 1) == 1) {
@@ -7017,6 +7099,7 @@ void UpdateBattleCompletingEffect_41A160(YobiAction* const action)
     action->y = static_cast<std::int32_t>(screenY);
 }
 
+// 原函数：0x0041A1C0。
 void UpdateBattleParentEffect_41A1C0(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -7030,6 +7113,7 @@ void UpdateBattleParentEffect_41A1C0(YobiAction* const action)
     action->y = static_cast<std::int32_t>(screenY);
 }
 
+// 原函数：0x0041A200。
 void UpdateBattleRisingEffect_41A200(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -7053,6 +7137,7 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
     action->y = static_cast<std::int32_t>(screenY);
 }
 
+// 原函数：0x0041A270。
 void UpdateBattleScalingEffect_41A270(YobiAction* const action)
 {
     constexpr float step = std::bit_cast<float>(0x3CA3D70Au);
@@ -7082,6 +7167,7 @@ void UpdateBattleScalingEffect_41A270(YobiAction* const action)
     action->y = static_cast<std::int32_t>(screenY);
 }
 
+// 原函数：0x0041A310。
 void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -7137,6 +7223,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
     }
 }
 
+// 原函数：0x0041A530。
 void UpdateBattleFallingEffect_41A530(YobiAction* const action)
 {
     const double y = static_cast<double>(action->offset44) + 3.0;
@@ -7151,6 +7238,7 @@ void UpdateBattleFallingEffect_41A530(YobiAction* const action)
     action->y = static_cast<std::int32_t>(action->offset44);
 }
 
+// 原函数：0x0041A590。
 void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleRingEmitterPayload*>(action->payload);
@@ -7203,6 +7291,7 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
     }
 }
 
+// 原函数：0x0041A7D0。
 void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
 {
     const std::int32_t oldPhase = action->phase;
@@ -7244,6 +7333,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00420D50。
 YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
 {
     const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
@@ -7277,6 +7367,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     return action;
 }
 
+// 原函数：0x0041A9E0。
 void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -7443,6 +7534,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041AF00。
 void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -7610,6 +7702,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041B440。
 void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -7815,6 +7908,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041BB00。
 void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -8065,6 +8159,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041C3B0。
 void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -8325,6 +8420,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x004219D0。
 void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -8495,6 +8591,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041CD00。
 YobiAction* NewBattleEffect_41CD00(
     YobiAction* const source, const std::int32_t offsetX, const BattleEffectThirdArgument third,
     const std::uint32_t type, const std::int32_t blend, const std::int32_t link)
@@ -9027,6 +9124,7 @@ YobiAction* NewBattleEffect_41CD00(
 }
 
 // BSTL01：共享相位先推进/15和0反向；X外Y内100格，每格fresh相位，返回末结果。
+// 原函数：0x0041E890。
 std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
 {
     if (gBattleTiledEffectReverse59F9F0 == 0) {
@@ -9053,6 +9151,7 @@ std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
     return result;
 }
 
+// 原函数：0x0041E920。
 void UpdateBattleTiledEffect_41E920(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -9086,6 +9185,7 @@ void UpdateBattleTiledEffect_41E920(YobiAction* const action)
     static_cast<void>(Increment_401DE0(count, 0));
 }
 
+// 原函数：0x0041E9D0。
 YobiAction* NewBattleTiledEffect_41E9D0(const std::int32_t type, const std::int32_t lifetime)
 {
     if (lifetime <= 0) {
@@ -9109,6 +9209,7 @@ YobiAction* NewBattleTiledEffect_41E9D0(const std::int32_t type, const std::int3
     return action;
 }
 
+// 原函数：0x00422E50。
 void InitBattleTargetEffect_422E50(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback)
 {
@@ -9170,6 +9271,7 @@ void InitBattleTargetEffect_422E50(
     action->field270 = 0;
 }
 
+// 原函数：0x00423040。
 void InitBattleOffsetEffect_423040(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback)
 {
@@ -9219,6 +9321,7 @@ void InitBattleOffsetEffect_423040(
     action->offset44 = static_cast<float>(y);
 }
 
+// 原函数：0x004231D0。
 void InitBattleCenterEffect_4231D0(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback)
 {
@@ -9268,6 +9371,7 @@ void InitBattleCenterEffect_4231D0(
     action->angle50 = static_cast<float>(static_cast<double>(angleOffset) + action->angle50);
 }
 
+// 原函数：0x00423350。
 void InitBattleLowerEffect_423350(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback)
 {
@@ -9314,6 +9418,7 @@ void InitBattleLowerEffect_423350(
     action->offset44 = static_cast<float>(y);
 }
 
+// 原函数：0x004234B0。
 void InitBattleScreenYEffect_4234B0(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback,
     std::int32_t* const side)
@@ -9368,6 +9473,7 @@ void InitBattleScreenYEffect_4234B0(
     action->offset44 = static_cast<float>(y);
 }
 
+// 原函数：0x00418F10。
 void UpdateBattleArcProjection_418F10(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -9407,6 +9513,7 @@ void UpdateBattleArcProjection_418F10(YobiAction* const action)
     action->field58 = next;
 }
 
+// 原函数：0x00418FF0。
 YobiAction* NewBattleArcProjection_418FF0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     YobiAction* const distanceSource, YobiAction* const target, const std::int32_t imageNo)
@@ -9457,6 +9564,7 @@ YobiAction* NewBattleArcProjection_418FF0(
 }
 
 // BPR01：移动/标死后各自重取非拥有父；标死后仍播放并发布坐标，见doc/cg2d_battle_projection_spec.md。
+// 原函数：0x00418D80。
 void UpdateBattleProjection_418D80(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -9477,6 +9585,7 @@ void UpdateBattleProjection_418D80(YobiAction* const action)
 }
 
 // BPR01：目标先截S32，播放前后分别取图号；三个原caller均不消费创建返回，保持void接口。
+// 原函数：0x00418DF0。
 void NewBattleProjection_418DF0(
     YobiAction* const parent, const float x, const float y,
     const float targetX, const float targetY, const std::int32_t imageNo)
@@ -9523,6 +9632,7 @@ void NewBattleProjection_418DF0(
     action->y = static_cast<std::int32_t>(screenY);
 }
 
+// 原函数：0x00418B70。
 YobiAction* NewBattleSpiracleShot_418B70(
     YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
 {
@@ -9593,6 +9703,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     return action;
 }
 
+// 原函数：0x00419180。
 YobiAction* NewBattleBlastWave_419180(
     YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
 {
@@ -9663,6 +9774,7 @@ YobiAction* NewBattleBlastWave_419180(
     return action;
 }
 
+// 原函数：0x00419390。
 YobiAction* NewBattleRangeHit_419390(
     YobiAction* const parent, const BattleEntryEffectRecord* const effect, const std::int32_t imageNo)
 {
@@ -9739,6 +9851,7 @@ YobiAction* NewBattleRangeHit_419390(
     return action;
 }
 
+// 原函数：0x00419DA0。
 YobiAction* NewBattleArcShot_419DA0(
     YobiAction* const parent, const BattleEntryEffectRecord* const effect,
     const std::int32_t imageNo, const std::int32_t count, const std::int32_t mode)
@@ -9795,6 +9908,7 @@ YobiAction* NewBattleArcShot_419DA0(
 }
 
 // BCPY01：新独立载荷/空返，三次父载荷重取与播放后Y先X发布，不浅克隆。
+// 原函数：0x004205F0。
 YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
@@ -9827,6 +9941,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
 }
 
 // B22C01：效果/坐标取样、几何发布与真实同步callback循环见doc/cg2d_battle_boomerang_creator_spec.md。
+// 原函数：0x004195F0。
 YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -10013,6 +10128,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
 }
 
 // BSEX01：移动/严格终帧标死后仍投影；X转换、Y取样先于X发布。
+// 原函数：0x0041E4D0。
 void UpdateBattleScatterEffect_41E4D0(YobiAction* const action)
 {
     MoveBattleByAngle_405EA0(action);
@@ -10026,6 +10142,7 @@ void UpdateBattleScatterEffect_41E4D0(YobiAction* const action)
 }
 
 // BSEX01：分配空不消耗RNG；三原参数依序，X发布后Y取样/低W16再Y发布。
+// 原函数：0x0041E510。
 YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -10050,6 +10167,7 @@ YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::i
     return action;
 }
 
+// 原函数：0x0041E640。
 void UpdateBattlePositionEffect_41E640(YobiAction* const action)
 {
     if (PlayFrame_517DA0(action, 1) == 1) {
@@ -10061,6 +10179,7 @@ void UpdateBattlePositionEffect_41E640(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y);
 }
 
+// 原函数：0x0041E680。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -10087,6 +10206,7 @@ YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::
     return action;
 }
 
+// 原函数：0x0041E720。
 YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -10112,6 +10232,7 @@ YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const
     return action;
 }
 
+// 原函数：0x0041E7C0。
 YobiAction* NewBattleTrailEffect_41E7C0(
     const float x, const float y, const std::int32_t imageNo,
     const std::int32_t mode, const std::uint8_t priority)
@@ -10143,6 +10264,7 @@ YobiAction* NewBattleTrailEffect_41E7C0(
     return action;
 }
 
+// 原函数：0x00419FA0。
 void UpdateBattleOneShotEffect_419FA0(YobiAction* const action)
 {
     if (PlayFrame_517DA0(action, 1) == 1) {
@@ -10150,6 +10272,7 @@ void UpdateBattleOneShotEffect_419FA0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00419FC0。
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* const parent, const std::int32_t imageNo, const std::int32_t direction)
 {
@@ -10182,6 +10305,7 @@ YobiAction* NewBattleRandomEffect_419FC0(
     return action;
 }
 
+// 原函数：0x0041A0D0。
 YobiAction* NewBattleScreenEffect_41A0D0(
     const std::int32_t x, const std::int32_t y, const std::int32_t imageNo, const std::int32_t direction)
 {
@@ -10206,6 +10330,7 @@ YobiAction* NewBattleScreenEffect_41A0D0(
     return action;
 }
 
+// 原函数：0x0041F110。
 void UpdateBattleNumber_41F110(YobiAction* const action)
 {
     const std::int32_t initialPhase = action->phase;
@@ -10238,6 +10363,7 @@ void UpdateBattleNumber_41F110(YobiAction* const action)
     action->nameY = static_cast<std::int32_t>(projectedNameY);
 }
 
+// 原函数：0x0041F1A0。
 std::int32_t NewBattleNumber_41F1A0(
     const std::int32_t x, const std::int32_t y, const std::int32_t value,
     const std::int32_t style, const std::int32_t fontType, const std::uint32_t flags)
@@ -10314,6 +10440,7 @@ std::int32_t NewBattleNumber_41F1A0(
     return 0;
 }
 
+// 原函数：0x004206C0。
 std::int32_t NewBattleTimeNumber_4206C0(
     const std::int32_t x, const std::int32_t y, const std::int32_t seconds)
 {
@@ -10389,6 +10516,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     return 0;
 }
 
+// 原函数：0x0041F450。
 void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
 {
     const std::int32_t initialPhase = action->phase;
@@ -10415,6 +10543,7 @@ void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
     action->y = static_cast<std::int32_t>(projectedY);
 }
 
+// 原函数：0x0041F4C0。
 YobiAction* NewBattleFloatingIcon_41F4C0(
     YobiAction* const parent, const std::int32_t imageNo,
     const std::int32_t offsetX, const std::int32_t offsetY)
@@ -10446,6 +10575,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
 }
 
 // BRAE01：固定两载荷；首段创建后再取目标S8类型，依次发布三个BYTE。
+// 原函数：0x004208F0。
 void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const target)
 {
     if (source == nullptr || target == nullptr) {
@@ -10472,6 +10602,7 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
 }
 
 // BRAE01：门禁/四W16向量先取齐；八配对依次调用，失败仍置位并占纵位置。
+// 原函数：0x004209C0。
 std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiAction* const target)
 {
     using namespace world::detail;
@@ -10551,6 +10682,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
 }
 
 // BHE01：计数与上限持样保持，标死后仍取Y再发布X，见命中特效SPEC。
+// 原函数：0x0041F570。
 void UpdateBattleHitEffect_41F570(YobiAction* const action)
 {
     const std::int32_t previous = action->deltaX;
@@ -10567,6 +10699,7 @@ void UpdateBattleHitEffect_41F570(YobiAction* const action)
 }
 
 // BHE01：创建字段/播放后YX投影取样见doc/cg2d_battle_hit_effect_lifecycle_spec.md。
+// 原函数：0x0041F5B0。
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     const std::int32_t lifetime, const std::int32_t imageNo)
@@ -10599,6 +10732,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
 }
 
 // BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
+// 原函数：0x0041F660。
 YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
@@ -10651,6 +10785,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
 }
 
 // BAS01：1054/105C共用借父回调，Play后重借父跟随；标死仍投影，Y转换后取屏幕偏移。
+// 原函数：0x0041F800。
 void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
 {
     if (action->battleAttachmentParent10->deathFlag == 1) {
@@ -10671,6 +10806,7 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
 }
 
 // BAS01：105C已有返空，设备后持flags两次发布；播放后fresh父载荷写105C再绑定父。
+// 原函数：0x0041F860。
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::int32_t imageNo)
 {
     if (static_cast<BattleActorPayload*>(parent->payload)->effect105C != nullptr) {
@@ -10708,6 +10844,7 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     return action;
 }
 
+// 原函数：0x00419BE0。
 void UpdateBattleTransitionEffect_419BE0(YobiAction* const action)
 {
     if (action->phase == 0 && PlayFrame_517DA0(action, 1) == 1) {
@@ -10717,6 +10854,7 @@ void UpdateBattleTransitionEffect_419BE0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00419C10。
 YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTransitionEffectPayload));
@@ -10745,6 +10883,7 @@ YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std
     return action;
 }
 
+// 原函数：0x00419CB0。
 void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleFollowOffsetPayload*>(action->payload);
@@ -10761,6 +10900,7 @@ void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* const action)
     static_cast<void>(PlayFrame_517DA0(action, 0));
 }
 
+// 原函数：0x00419CF0。
 YobiAction* NewBattleOffsetFollowEffect_419CF0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     const std::int32_t imageNo)
@@ -10793,6 +10933,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
 }
 
 // BDE01：固定parent严格标死仍执行共同投影尾，不清1064或立即释放。
+// 原函数：0x0041F950。
 void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -10816,6 +10957,7 @@ void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
 }
 
 // BDE01：已有1064/分配空早返；两S16向零除2、播放后发布与投影读齐保持。
+// 原函数：0x0041FA00。
 YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::int32_t imageNo)
 {
     if (static_cast<BattleActorPayload*>(parent->payload)->centeredEffect1064 != nullptr) {
@@ -10855,6 +10997,7 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     return action;
 }
 
+// 原函数：0x0041FB20。
 void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -10893,6 +11036,7 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041FBE0。
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::int32_t mode)
 {
     YobiAction* const existing = static_cast<BattleActorPayload*>(parent->payload)->attachedEffect1058;
@@ -10924,6 +11068,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     return action;
 }
 
+// 原函数：0x0041FCD0。
 void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -10984,6 +11129,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
 
+// 原函数：0x0041FE00。
 YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::int32_t imageNo,
     const std::int32_t mode)
 {
@@ -11038,6 +11184,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
 }
 
 // BFL01：当前场景death严格1标死自身，仍投影；Y转换后再取屏幕Y偏移。
+// 原函数：0x0041FF90。
 void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 {
     if (world::detail::gBattleSceneAction5ABA94->deathFlag == 1) {
@@ -11055,6 +11202,7 @@ void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 }
 
 // BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
+// 原函数：0x0041FFE0。
 YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
 {
     using world::detail::gBattleSceneAction5ABA94;
@@ -11101,6 +11249,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     return action;
 }
 
+// 原函数：0x00421480。
 void UpdateBattleBackgroundFade_421480(YobiAction* const action)
 {
     using world::detail::gBattleBackgroundImage59F9F8;
@@ -11158,6 +11307,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
     }
 }
 
+// 原函数：0x00421570。
 YobiAction* NewBattleBackgroundFade_421570(
     const std::int32_t imageNo, const std::uint8_t step, const std::int32_t publishBackground)
 {
@@ -11190,6 +11340,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     return action;
 }
 
+// 原函数：0x00422370。
 void RestoreBattleStateEffects_422370(YobiAction* const parent)
 {
     auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
@@ -11280,6 +11431,7 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     }
 }
 
+// 原函数：0x00421610。
 YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_t y)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -11307,6 +11459,7 @@ YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_
     return action;
 }
 
+// 原函数：0x004216B0。
 void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
 {
     if ((static_cast<std::uint8_t>(action->phase) & 7u) == 0) {
@@ -11321,6 +11474,7 @@ void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00421700。
 YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -11338,6 +11492,7 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
     return action;
 }
 
+// 原函数：0x00421F90。
 void UpdateBattleAttachment_421F90(YobiAction* const action)
 {
     const std::int32_t position = action->value1D4;
@@ -11514,6 +11669,7 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00422780。
 void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index)
 {
     if (action == nullptr) {
@@ -11621,6 +11777,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     static_cast<void>(PlayFrame_517DA0(action, stopAtEnd));
 }
 
+// 原函数：0x004221F0。
 YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -11651,6 +11808,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     return action;
 }
 
+// 原函数：0x00422A30。
 YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t imageNo)
 {
     if (parent == nullptr) {
@@ -11682,6 +11840,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     return action;
 }
 
+// 原函数：0x00422B00。
 YobiAction* NewBattleAuxGear_422B00(
     YobiAction* const parent, const std::int32_t imageNo, const std::int16_t sortIndex)
 {
@@ -11717,6 +11876,7 @@ YobiAction* NewBattleAuxGear_422B00(
     return action;
 }
 
+// 原函数：0x004222B0。
 std::int32_t SetBattleRider_4222B0(
     YobiAction* const action, const std::int32_t imageNo, const std::int32_t ridingImageNo)
 {
@@ -11748,6 +11908,7 @@ std::int32_t SetBattleRider_4222B0(
     return imageNo;
 }
 
+// 原函数：0x00422BC0。
 void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -11768,6 +11929,7 @@ void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
     }
 }
 
+// 原函数：0x00422C20。
 void SetBattleGear_422C20(
     YobiAction* const action, const std::int32_t imageNo, const std::int32_t index)
 {
@@ -11789,6 +11951,7 @@ void SetBattleGear_422C20(
     }
 }
 
+// 原函数：0x00422C90。
 void SetBattleAuxGear_422C90(
     YobiAction* const action, const std::int32_t imageNo,
     const std::int32_t type, const std::int32_t index)
@@ -11929,6 +12092,7 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
     payload->stateFE0 = payload->stateFE0 | 1u;
 }
 
+// 原函数：0x00404D90。
 std::int32_t SelectIntValue_404D90(
     const std::int32_t* const values, const std::int32_t count, const std::int32_t index)
 {
@@ -11938,6 +12102,7 @@ std::int32_t SelectIntValue_404D90(
     return values[index];
 }
 
+// 原函数：0x004242B0。
 std::int32_t AppendBattleRedirect_4242B0(
     YobiAction* const scene, const std::int32_t source, const std::int32_t target,
     const std::uint32_t flags, const std::int32_t value, const std::int32_t redirect)
@@ -11977,6 +12142,7 @@ std::int32_t AppendBattleRedirect_4242B0(
     return redirect;
 }
 
+// 原函数：0x00424500。
 void AppendBattleSkillTail_424500(
     YobiAction* const scene, const std::int32_t position, const std::uint32_t flags,
     const std::int32_t mode, const std::int32_t target)
@@ -12158,6 +12324,7 @@ void TakeBattleMSkillAttackTargets_424620(
         return;
     firstCaster = gBattleAllEntries59E980[firstSource];
     if (!firstCaster) {
+// 原函数：0x0043B6C0。
 FinishFirstTargetFailure:
         FinishBattleEvent_43B6C0(scene);
         return;
@@ -12213,6 +12380,7 @@ FinishFirstTargetFailure:
         }
         if (skill != 113)
             goto ReadFirstTarget;
+// 原函数：0x004392A0。
 AppendInitialGenericCast:
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 151);
         goto ReadFirstTarget;
@@ -12279,6 +12447,7 @@ ReadFirstTarget:
             goto SelectSkill260MoveTail;
         if (skill == 260) {
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 208);
+// 原函数：0x004392A0。
 AppendSkill260Move206:
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 206);
             goto AppendPrimaryEffect;
@@ -12312,6 +12481,7 @@ SelectSkill260MoveTail:
             static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
         }
+// 原函数：0x004392A0。
 AppendPrimaryEffect:
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 247);
         effectPrimary.position3 = primaryValue;
@@ -12389,6 +12559,7 @@ AppendPrimaryEffect:
             case 87:
                 initialReactionPosition = initialPosition;
                 static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22342;
+// 原函数：0x004392A0。
 AppendInitialReaction:
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialReactionPosition], 68);
 AppendTechniqueEffects:
@@ -12409,6 +12580,7 @@ AppendTechniqueEffects:
                         case 262:
                             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
                             AppendBattleEffectList_4393A0(gBattleAllEntries59E980[(*sourcePosition)], 3, 0, 15);
+// 原函数：0x004392A0。
 AppendTechniqueMainEffect:
                             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 245);
                             effectHighTechnique.position3 = primaryValue;
@@ -12431,6 +12603,7 @@ AppendTechniqueMainEffect:
                         goto AppendMainAuxiliaryEffects;
                 }
                 mainAuxIndex = mainScanIndexDefault;
+// 原函数：0x0043BC10。
 AppendMainAuxiliaryEffects:
                 AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, primaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 14);
@@ -12637,6 +12810,7 @@ AppendMainAuxiliaryEffects:
                 if ((mainFlags & 0x2000) != 0) {
                     criticalPosition = (*sourcePosition);
                     if (gBattleCurrentPosition5ABCA4 == (*sourcePosition)) {
+// 原函数：0x004392A0。
 AppendLocalCriticalCast:
                         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[criticalPosition], 256);
                         currentTarget = targetPosition;
@@ -12702,6 +12876,7 @@ AppendSkill2008ReactionTail:
                         goto AppendSecondaryAuxiliaryEffects;
                 }
                 secondaryAuxIndex = secondaryScanIndex;
+// 原函数：0x0043BC10。
 AppendSecondaryAuxiliaryEffects:
                 AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*currentTarget)], secondaryPosition, secondaryFlags, secondaryGraphic, secondarySecondGraphic, secondaryFirstImages[secondaryAuxIndex]);
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 0);
@@ -12805,6 +12980,7 @@ FindMainNextTarget:
                 }
                 if ((mainFlags & 0x100) != 0) {
                     mainCompletedActor = gBattleAllEntries59E980[(*targetPosition)];
+// 原函数：0x004392A0。
 AppendMainCompleted76:
                     AppendBattleCast_4392A0(scene, mainCompletedActor, 76);
                 }
@@ -13061,6 +13237,7 @@ ReadNextAttackRound:
             goto PrepareInitialTail;
         if (!gBattleAllEntries59E980[nextSource]) {
             failureScene = scene;
+// 原函数：0x0043B6C0。
 FinishMidRoundFailure:
             FinishBattleEvent_43B6C0(failureScene);
 PrepareInitialTail:
@@ -13118,6 +13295,7 @@ FinalizeInitialActor:
 }
 
 
+// 原函数：0x00426FC0。
 void TakeBattleMSkillTargets_426FC0(
     YobiAction* const scene, const std::int32_t skill, const std::int32_t level,
     const std::int32_t technique, const std::int32_t fpUsed, const std::int32_t attackMode,
@@ -13241,6 +13419,7 @@ void TakeBattleMSkillTargets_426FC0(
     }
 }
 
+// 原函数：0x00439070。
 std::int32_t GetBattleMHeader_439070(char* const destination)
 {
     using namespace world::detail;
@@ -13266,6 +13445,7 @@ std::int32_t GetBattleMHeader_439070(char* const destination)
     return 0;
 }
 
+// 原函数：0x00438F70。
 std::int32_t TakeBattleMInteger_438F70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleScenePayload*>(action->payload);
@@ -13297,6 +13477,7 @@ std::int32_t TakeBattleMInteger_438F70(YobiAction* const action)
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x00438FE0。
 void TakeBattleMString_438FE0(YobiAction* const action, char* const destination, const std::int32_t capacity)
 {
     auto* const payload = static_cast<BattleScenePayload*>(action->payload);
@@ -13342,6 +13523,7 @@ void TakeBattleMString_438FE0(YobiAction* const action, char* const destination,
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+// 原函数：0x00439600。
 std::int32_t TakeBattleMPreviewInteger_439600()
 {
     using namespace world::detail;
@@ -13373,6 +13555,7 @@ std::int32_t TakeBattleMPreviewInteger_439600()
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x00439670。
 void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t capacity)
 {
     using namespace world::detail;
@@ -13417,6 +13600,7 @@ void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+// 原函数：0x00439700。
 std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
 {
     using namespace world::detail;
@@ -13442,6 +13626,7 @@ std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
     return 0;
 }
 
+// 原函数：0x0043B940。
 std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* const offset)
 {
     std::uint32_t result = 0;
@@ -13472,6 +13657,7 @@ std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* const offset)
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x0043B9B0。
 std::int32_t FindBattleMTarget_43B9B0(
     YobiAction* const scene, const std::int32_t position, std::int32_t skip)
 {
@@ -13507,6 +13693,7 @@ std::int32_t FindBattleMTarget_43B9B0(
     }
 }
 
+// 原函数：0x0043B8C0。
 void TakeBattleMStringAt_43B8C0(
     std::int32_t* const offset, char* const destination, const std::int32_t capacity)
 {
@@ -13551,6 +13738,7 @@ void TakeBattleMStringAt_43B8C0(
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+// 原函数：0x00439770。
 void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
 {
     using world::detail::gBattleMPreviewOffset5AAA60;
@@ -13600,6 +13788,7 @@ void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
     }
 }
 
+// 原函数：0x0043BF30。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* const action, const std::int32_t mode,
     std::int32_t* const firstImage, std::int32_t* const secondImage,
@@ -13624,6 +13813,7 @@ void TakeBattleMAuxGraphics_43BF30(
     }
 }
 
+// 原函数：0x00439920。
 std::int32_t ScanBattleMAttackParticipants_439920(
     const std::int32_t skill, std::uint8_t* const participants)
 {
@@ -13695,6 +13885,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
     }
 }
 
+// 原函数：0x00439B30。
 void ScanBattleMParticipants_439B30(
     const std::int32_t kind, std::uint8_t* const participants,
     std::int32_t* const source, std::int32_t* const flag)
@@ -14153,6 +14344,7 @@ void ScanBattleMParticipants_439B30(
     *source = position;
 }
 
+// 原函数：0x0043B290。
 std::int32_t CheckBattleMParticipants_43B290(
     std::int32_t* const source, const std::int32_t previousSource,
     std::uint32_t* const mask, std::int32_t* const flag)
@@ -14194,6 +14386,7 @@ std::int32_t CheckBattleMParticipants_43B290(
     return 1;
 }
 
+// 原函数：0x0043B360。
 void DispatchBattleEvents_43B360(YobiAction* const scene)
 {
     using namespace world::detail;
@@ -14323,6 +14516,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     }
 }
 
+// 原函数：0x0043B860。
 std::int32_t PeekBattleMInteger_43B860(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleScenePayload*>(action->payload);
@@ -14351,6 +14545,7 @@ std::int32_t PeekBattleMInteger_43B860(YobiAction* const action)
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x00423960。
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const destination)
 {
     using world::detail::gBattleMText5AAA7C;
@@ -21803,6 +21998,7 @@ void ProcessBattleMSkillHeader(
 
 } // namespace
 
+// 原函数：0x00427470。
 void UpdateBattleEvent_427470(YobiAction* const scene)
 {
     auto* const payload = static_cast<BattleScenePayload*>(scene->payload);
@@ -21893,6 +22089,7 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
     SaveBattleMExecutionState(payload);
 }
 
+// 原函数：0x0043B610。
 YobiAction* NewBattleEvent_43B610(
     const std::int32_t kind, const std::int32_t slot,
     const std::uint32_t participants, const std::int32_t group)
@@ -21924,6 +22121,7 @@ YobiAction* NewBattleEvent_43B610(
     return scene;
 }
 
+// 原函数：0x004383B0。
 YobiAction* NewBattleScene_4383B0()
 {
     YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));
@@ -21939,6 +22137,7 @@ YobiAction* NewBattleScene_4383B0()
     return scene;
 }
 
+// 原函数：0x004383F0。
 void InitializeBattleScene_4383F0()
 {
     using namespace world::detail;
@@ -21954,6 +22153,7 @@ void InitializeBattleScene_4383F0()
     ui::detail::Sub_496570();
 }
 
+// 原函数：0x00438290。
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {
     using namespace world::detail;
@@ -21992,6 +22192,7 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     return action;
 }
 
+// 原函数：0x004239D0。
 void ParseBattleMRide_4239D0(YobiAction* const action)
 {
     using namespace world::detail;
@@ -22273,6 +22474,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00438450。
 std::int32_t TakeBattleCInteger_438450()
 {
     using namespace world::detail;
@@ -22304,6 +22506,7 @@ std::int32_t TakeBattleCInteger_438450()
     return std::bit_cast<std::int32_t>(result);
 }
 
+// 原函数：0x004384C0。
 void TakeBattleCString_4384C0(char* const destination, const std::int32_t capacity)
 {
     using namespace world::detail;
@@ -22345,6 +22548,7 @@ void TakeBattleCString_4384C0(char* const destination, const std::int32_t capaci
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+// 原函数：0x00438550。
 void ParseBattleC_438550()
 {
     using namespace world::detail;
@@ -22694,6 +22898,7 @@ void ParseBattleC_438550()
     }
 }
 
+// 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* const action)
 {
     using namespace world::detail;
@@ -22752,6 +22957,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
     }
 }
 
+// 原函数：0x0043B7F0。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
@@ -22764,6 +22970,7 @@ void AppendBattleQueuedTarget_43B7F0(YobiAction* const action, const std::int32_
 }
 
 // B22H01：原五个S32阈值按序计数、1..15外返回-1；完整分档合同见回旋命中SPEC。
+// 原函数：0x0043BF00。
 std::int32_t GetBattleValueBand_43BF00(const std::int32_t value)
 {
     if (value < 1 || value > 15) {
@@ -22779,6 +22986,7 @@ std::int32_t GetBattleValueBand_43BF00(const std::int32_t value)
     return result < 1 ? -1 : result;
 }
 
+// 原函数：0x004237E0。
 std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
 {
     if (position == 50) {
@@ -22791,6 +22999,7 @@ std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
 }
 
 // BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。
+// 原函数：0x0043BAA0。
 std::int32_t Sub_43BAA0()
 {
     using namespace world::detail;
@@ -22854,6 +23063,7 @@ std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)
         || (skill >= 3002 && skill <= 3016) ? 1 : 0;
 }
 
+// 原函数：0x0043BE00。
 void AddBattleAppendEffect_43BE00(
     const std::int32_t skill, const std::int32_t technique, const std::int32_t position)
 {
@@ -22891,6 +23101,7 @@ void AddBattleAppendEffect_43BE00(
     }
 }
 
+// 原函数：0x0043BEA0。
 std::int32_t FindBattleAppendEffectTechnique_43BEA0(
     const std::int32_t skill, const std::int32_t position)
 {
@@ -22904,6 +23115,7 @@ std::int32_t FindBattleAppendEffectTechnique_43BEA0(
     return -1;
 }
 
+// 原函数：0x0043BED0。
 void ClearBattleAppendEffects_43BED0()
 {
     BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
@@ -22916,6 +23128,7 @@ void ClearBattleAppendEffects_43BED0()
     gBattleAppendEffects5ABA8C = nullptr;
 }
 
+// 原函数：0x004990A0。
 void Sub_4990A0(const std::int32_t index)
 {
     YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
@@ -22928,6 +23141,7 @@ void Sub_4990A0(const std::int32_t index)
     }
 }
 
+// 原函数：0x0043BFF0。
 void Sub_43BFF0()
 {
     using namespace world::detail;
@@ -22943,6 +23157,7 @@ void Sub_43BFF0()
     }
 }
 
+// 原函数：0x0043C040。
 void Sub_43C040()
 {
     for (YobiAction* const action : world::detail::gBattleEntries59E980) {
@@ -22952,6 +23167,7 @@ void Sub_43C040()
     }
 }
 
+// 原函数：0x0043C0A0。
 void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 {
     YobiAction* const action = world::detail::gBattleEntries59E980[index];
@@ -22975,6 +23191,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
         206, hoverImage, 0);
 }
 
+// 原函数：0x0043C120。
 std::int32_t GetSelectedBattleEntry_43C120()
 {
     const std::uint32_t target = world::detail::gBattleTargetFlags5ABC44;
@@ -23038,6 +23255,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
 
 namespace {
 
+// 原函数：0x00405BD0。
 std::int32_t CompareBattleDrawActions_405BD0(
     YobiAction* const* const left, YobiAction* const* const right)
 {
@@ -23065,6 +23283,7 @@ std::int32_t CompareBattleDrawActions_405BD0(
 
 } // namespace
 
+// 原函数：0x00405C30。
 std::int32_t SortBattleActions_405C30()
 {
     YobiAction* const start = gYobiActionStart;
@@ -23096,6 +23315,7 @@ std::int32_t SortBattleActions_405C30()
     return index;
 }
 
+// 原函数：0x00405CB0。
 void Sub_405CB0(YobiAction* const action)
 {
     if (action->angle50 >= 360.0F) {
@@ -23131,6 +23351,7 @@ void Sub_405CB0(YobiAction* const action)
 }
 
 // BSTL01：首角度比较上限、分支前第二角度持样，负分支第三次重取；仅修一圈。
+// 原函数：0x00405E60。
 void NormalizeBattleAngle_405E60(YobiAction* const action)
 {
     const float upperAngle = action->angle50;
@@ -23142,6 +23363,7 @@ void NormalizeBattleAngle_405E60(YobiAction* const action)
     }
 }
 
+// 原函数：0x00405EA0。
 void MoveBattleByAngle_405EA0(YobiAction* const action)
 {
     const double xFactor = world::detail::Sub_46F950(action->angle50);
@@ -23152,6 +23374,7 @@ void MoveBattleByAngle_405EA0(YobiAction* const action)
     action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);
 }
 
+// 原函数：0x00405ED0。
 std::int8_t GetBattleRelativeDirection_405ED0(
     const float sourceX, const float sourceY, const float targetX, const float targetY,
     const float tolerance)
@@ -23194,6 +23417,7 @@ std::int8_t GetBattleRelativeDirection_405ED0(
     return (!(reference >= 0.0F) != !(difference >= 0.0)) ? 1 : -1;
 }
 
+// 原函数：0x00406060。
 double GetBattleAngleDifference_406060(YobiAction* const source, YobiAction* const target)
 {
     if (source == nullptr || target == nullptr) {
@@ -23212,6 +23436,7 @@ double GetBattleAngleDifference_406060(YobiAction* const source, YobiAction* con
     return difference;
 }
 
+// 原函数：0x004060D0。
 void TurnBattleTowardPosition_4060D0(
     YobiAction* const action, const float x, const float y,
     const std::int32_t updateDirection, const float step)
@@ -23243,6 +23468,7 @@ void TurnBattleTowardPosition_4060D0(
     }
 }
 
+// 原函数：0x00406190。
 void TurnBattleToward_406190(
     YobiAction* const action, YobiAction* const target,
     const std::int32_t updateDirection, const float step)
@@ -23278,6 +23504,7 @@ void TurnBattleToward_406190(
 }
 
 // BRCP01：先X后Y求差，Y平方/X平方和先存F32；原零门禁与正常S32转换。
+// 原函数：0x004062A0。
 std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* const action, const float x, const float y)
 {
     if (action == nullptr) {
@@ -23292,6 +23519,7 @@ std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* const action, const 
     return static_cast<std::int32_t>(std::sqrt(static_cast<double>(squared)));
 }
 
+// 原函数：0x00406300。
 std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const second)
 {
     if (first == nullptr || second == nullptr) {
@@ -23307,6 +23535,7 @@ std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const
 }
 
 // BHRC01：唯一22槽按序fresh T*，非空载荷FF8完整S32严格==1才计数。
+// 原函数：0x00406360。
 std::int32_t CountBattleActiveEntries_406360()
 {
     std::int32_t count = 0;
@@ -23318,6 +23547,7 @@ std::int32_t CountBattleActiveEntries_406360()
     return count;
 }
 
+// 原函数：0x004065A0。
 std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
 {
     std::int32_t count = 0;
@@ -23332,6 +23562,7 @@ std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
     return seed;
 }
 
+// 原函数：0x00404DB0。
 void UpdateBattleActor_404DB0(YobiAction* const action)
 {
     const std::int32_t scene = world::gCurrentSceneState;
@@ -24053,6 +24284,7 @@ void UpdateBattleActor_404DB0(YobiAction* const action)
 }
 
 // BIDLE01：完整FDC持样/CL消费、归零后fresh BYTE与上一动作门禁见doc/cg2d_battle_idle_dispatch_spec.md。
+// 原函数：0x00406650。
 void UpdateBattleAction0_406650(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24091,6 +24323,7 @@ void UpdateBattleAction0_406650(YobiAction* const action)
 }
 
 // BIDLE01：保存动作/固定payload后归站立，再读FDC低BYTE门禁，见待机SPEC。
+// 原函数：0x00406720。
 void UpdateBattleAction1_406720(YobiAction* const action)
 {
     const std::int32_t characterAction = action->characterAction;
@@ -24106,6 +24339,7 @@ void UpdateBattleAction1_406720(YobiAction* const action)
 }
 
 // BRCP01：回00/04，先X发布后Y取样/phase0；FDC置1后才播放，不推进队列。
+// 原函数：0x00406760。
 std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24129,6 +24363,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
 }
 
 // BRCP01：转向后重取C9C/position/目标；距离<70推进，否则移动，再播放。
+// 原函数：0x00406C30。
 std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24148,6 +24383,7 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
 }
 
 // BRCP01：转向后重取效果目标；距离<8推进，否则移动，再播放。
+// 原函数：0x00406D70。
 std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24167,6 +24403,7 @@ std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
 }
 
 // BPAW01：FF0先发布增量再按旧值<16分流，推进后清零，再播放。
+// 原函数：0x0040CFA0。
 std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24185,6 +24422,7 @@ std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
 }
 
 // BRCP01：两组FE8/FEC先Y后X取样；抵达先X发布再取Y，随后推进/播放。
+// 原函数：0x00406CD0。
 std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24206,6 +24444,7 @@ std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
 }
 
 // BPAW01：持一次position选转向；严格终帧后fresh低BYTE调速，再推进。
+// 原函数：0x00409410。
 void UpdateBattleAction7_409410(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24228,6 +24467,7 @@ void UpdateBattleAction7_409410(YobiAction* const action)
 }
 
 // BPAW01：FEC/FE8先Y后X转向；严格终帧后fresh低BYTE调速/推进。
+// 原函数：0x004094A0。
 void UpdateBattleAction8_4094A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24245,6 +24485,7 @@ void UpdateBattleAction8_4094A0(YobiAction* const action)
 }
 
 // BPAW01：FC4-2为14走回位距离5，否则两次fresh目标距离70；另一支才移动。
+// 原函数：0x00409510。
 std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24277,6 +24518,7 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
 }
 
 // BPAW01：严格终帧才取上一项11/低BYTE门禁，按本位重查全局方向叶后推进。
+// 原函数：0x00409610。
 void UpdateBattleAction10_409610(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24292,6 +24534,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
 }
 
 // BRCP01：骑乘两低BYTE死亡短路/持W32门禁；推进后phase及末播放动作重取。
+// 原函数：0x004067F0。
 void UpdateBattleAction11_4067F0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24348,6 +24591,7 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
 }
 
 // B12P01：原入口低BYTE、周期特效/计数与特殊直接推进见doc/cg2d_battle_coordinate_action_producer_spec.md。
+// 原函数：0x00406930。
 void UpdateBattleAction12_406930(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24391,6 +24635,7 @@ void UpdateBattleAction12_406930(YobiAction* const action)
 }
 
 // B12P01：原入口低BYTE、播放后移动及到位X发布再读Y，见坐标动作SPEC。
+// 原函数：0x00406A80。
 void UpdateBattleAction13_406A80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -24433,6 +24678,7 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
 }
 
 // B14H01：完整帧命中/四类HP-FP及六复制、十二BYTE和音效取样见doc/cg2d_battle_frame_hit_spec.md。
+// 原函数：0x00409680。
 void UpdateBattleAction14_409680(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -24999,6 +25245,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
 }
 
 // BSP01：严格终帧优先、单次事件与共同清理原循环保持，见射击生产SPEC。
+// 原函数：0x004065E0。
 std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
 {
     std::int32_t result;
@@ -25019,6 +25266,7 @@ std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
 }
 
 // B15P01：两次独立事件门禁、child/X发布和普通音效取样见doc/cg2d_battle_boomerang_cast_producer_spec.md。
+// 原函数：0x00406E10。
 void UpdateBattleAction15_406E10(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25102,6 +25350,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
 }
 
 // BSP01：阶段18单次事件/音效event-X，258与95/3019发布见doc/cg2d_battle_shot_producer_spec.md。
+// 原函数：0x00408170。
 void UpdateBattleAction18_408170(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25143,6 +25392,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
 }
 
 // BSP01：阶段19探测/单次事件/音效event-X，仅95重播，见射击生产SPEC。
+// 原函数：0x004082F0。
 void UpdateBattleAction19_4082F0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25181,6 +25431,7 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
 }
 
 // BTE01：播放/可能推进后一次事件持样，每轮新图/record投射，末声/清事件。
+// 原函数：0x004070E0。
 void UpdateBattleAction70_4070E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -25204,6 +25455,7 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
     }
 }
 
+// 原函数：0x004071C0。
 void UpdateBattleAction249_4071C0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -25655,6 +25907,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
 }
 
 // BPEX01：移动后的坐标超出原矩形才标死；公共尾及最终摘链/释放见doc/cg2d_battle_projectile_exit_spec.md。
+// 原函数：0x004093B0。
 void UpdateBattleAction17_4093B0(YobiAction* const action)
 {
     MoveBattleByAngle_405EA0(action);
@@ -25665,6 +25918,7 @@ void UpdateBattleAction17_4093B0(YobiAction* const action)
 }
 
 // B20H01：低BYTE标志及HP归零的取样/交替发布见doc/cg2d_battle_near_hit_spec.md。
+// 原函数：0x00408410。
 void UpdateBattleAction20_408410(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -25767,6 +26021,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
 }
 
 // B22L01：两次Y-X取样、距离门禁和Move/PlayFrame返回见回旋命中SPEC。
+// 原函数：0x00408750。
 std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -25784,6 +26039,7 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 }
 
 // B22H01：回旋命中独立HP/数显与延迟、低BYTE及取样阶段见doc/cg2d_battle_boomerang_hit_spec.md。
+// 原函数：0x004087C0。
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26037,6 +26293,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 }
 
 // B22L01：固定caster/父载荷、266列表和互斥标死后的移动播放见回旋命中SPEC。
+// 原函数：0x004090F0。
 std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26118,6 +26375,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
 }
 
 // BPAW01：先发布新FF0，严格>20才先归零再推进，不播放。
+// 原函数：0x00409380。
 void UpdateBattleAction24_409380(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26130,6 +26388,7 @@ void UpdateBattleAction24_409380(YobiAction* const action)
 }
 
 // BPAW01：X发布后fresh查目标/Y发布；等待先归零动作再读低BYTE播放门禁。
+// 原函数：0x00406BA0。
 void UpdateBattleAction25_406BA0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26161,6 +26420,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
 }
 
 // BHRC01：完整FE4后低WORD门禁；角度持样加180/发布/单次减360，移动后播放。
+// 原函数：0x0040A9E0。
 void UpdateBattleAction26_40A9E0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -26180,6 +26440,7 @@ void UpdateBattleAction26_40A9E0(YobiAction* const action)
 }
 
 // BHRC01：入口FDC持样与阶段fresh门禁分开；计数先于FF8清零，创建后重取周期。
+// 原函数：0x0040AA70。
 std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26265,6 +26526,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
 }
 
 // BHRC01：音效后fresh计数，14/34/54分段；原减速先发布/负值归零保持。
+// 原函数：0x0040ACF0。
 std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26316,6 +26578,7 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
 }
 
 // BHRC01：低WORD入口；新计数<14后退，>=44才归零/推进，末播放。
+// 原函数：0x0040AE50。
 std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26346,6 +26609,7 @@ std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
 }
 
 // BHRC01：低WORD入口；计数>=14才fresh完整FDC取14/28阈值，末播放。
+// 原函数：0x0040AF30。
 std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26376,6 +26640,7 @@ std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
 }
 
 // BHRC01：持高W32旗/偶数旋转后fresh计数；等待other14，方向后重取低WORD选速度。
+// 原函数：0x0040B020。
 std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26414,6 +26679,7 @@ std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
 }
 
 // BSEX01：动作8/rate100，PlayFrame(1)严格==1才推进，不增计数或移动。
+// 原函数：0x0040B410。
 void UpdateBattleAction32_40B410(YobiAction* const action)
 {
     action->characterAction = 8;
@@ -26424,6 +26690,7 @@ void UpdateBattleAction32_40B410(YobiAction* const action)
 }
 
 // BSEX01：动作9/rate100，PlayFrame(1)严格==1才推进。
+// 原函数：0x0040B450。
 void UpdateBattleAction33_40B450(YobiAction* const action)
 {
     action->characterAction = 9;
@@ -26434,6 +26701,7 @@ void UpdateBattleAction33_40B450(YobiAction* const action)
 }
 
 // BSEX01：音效后fresh BYTE/40次散射；单次半宽/原反射与直到非零播放保持。
+// 原函数：0x0040B5E0。
 std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26525,6 +26793,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
 }
 
 // BSEX01：入口持样BYTE边界/40次散射；晚期每帧尾迹，创建后重取周期。
+// 原函数：0x0040B930。
 std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26582,6 +26851,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
 }
 
 // BSEX01：完整FDC后低BYTE门禁；条件播放后fresh FF0，新值>=30归零再推进。
+// 原函数：0x0040BAD0。
 void UpdateBattleAction36_40BAD0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26597,6 +26867,7 @@ void UpdateBattleAction36_40BAD0(YobiAction* const action)
 }
 
 // BWT01：完整FDC后低BYTE；条件播放后fresh FF0，新值>=60归零/推进。
+// 原函数：0x0040BB20。
 void UpdateBattleAction37_40BB20(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26612,6 +26883,7 @@ void UpdateBattleAction37_40BB20(YobiAction* const action)
 }
 
 // BWT01：完整FDC后低BYTE；条件播放后fresh FF0，新值>=120归零/推进。
+// 原函数：0x0040BB70。
 void UpdateBattleAction38_40BB70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26627,6 +26899,7 @@ void UpdateBattleAction38_40BB70(YobiAction* const action)
 }
 
 // BWT01：原声前X持样/声后重取、间隔36短路、两次方向和连续三播放保持。
+// 原函数：0x0040BBC0。
 std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
 {
     if (action->nameX == 0) {
@@ -26678,6 +26951,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
 }
 
 // BWT01：方向恢复后推进，原无播放/计数或动作发布。
+// 原函数：0x0040BD40。
 void UpdateBattleAction40_40BD40(YobiAction* const action)
 {
     Sub_406260(action);
@@ -26685,6 +26959,7 @@ void UpdateBattleAction40_40BD40(YobiAction* const action)
 }
 
 // BSA01：仅正cost实际扣FP/比较，负值三字段零归，临时销毁后固定payload记-1。
+// 原函数：0x00405B60。
 void ConsumeBattleFpCost_405B60(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -26709,6 +26984,7 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
 }
 
 // BWT01：固定一次目标索引/point，先Y后X，两原22项S32只读表保持。
+// 原函数：0x0040BD60。
 void UpdateBattleAction41_40BD60(YobiAction* const action)
 {
     using world::detail::gBattleGraphicPoints553758;
@@ -26722,6 +26998,7 @@ void UpdateBattleAction41_40BD60(YobiAction* const action)
 }
 
 // BWT01：固定一次全局目标，先F32 Y后X转向本对象，再推进。
+// 原函数：0x0040BDB0。
 void UpdateBattleAction42_40BDB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26733,6 +27010,7 @@ void UpdateBattleAction42_40BDB0(YobiAction* const action)
 }
 
 // BWT01：仅非空other才转向；共同rate100/动作0/PlayFrame(0)返回保持。
+// 原函数：0x0040BE30。
 std::int32_t UpdateBattleAction43_40BE30(YobiAction* const action)
 {
     YobiAction* const other = action->battleOpponent10;
@@ -26745,6 +27023,7 @@ std::int32_t UpdateBattleAction43_40BE30(YobiAction* const action)
 }
 
 // BWT01：由目标朝本对象转向，再推进本对象，不交换两T*。
+// 原函数：0x0040BDF0。
 void UpdateBattleAction44_40BDF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26755,6 +27034,7 @@ void UpdateBattleAction44_40BDF0(YobiAction* const action)
 }
 
 // BDE01：临时零先读齐三字段，再mask/encoded/BYTE count发布、销毁、推进。
+// 原函数：0x0040B130。
 void UpdateBattleAction45_40B130(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -26772,6 +27052,7 @@ void UpdateBattleAction45_40B130(YobiAction* const action)
 }
 
 // BDE01：完整高位/骑乘BYTE短路/低WORD缩放，三附属清理后保不同退出分支。
+// 原函数：0x0040B200。
 void UpdateBattleAction46_40B200(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26849,6 +27130,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
 }
 
 // BDE01：完整W32 FDC置2后推进，不缩窄发布。
+// 原函数：0x0040B3F0。
 void UpdateBattleAction47_40B3F0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26857,6 +27139,7 @@ void UpdateBattleAction47_40B3F0(YobiAction* const action)
 }
 
 // BDE01：两设备路径的旧alpha/调用后fresh alpha及8/4/255门禁保持。
+// 原函数：0x0040B490。
 void UpdateBattleAction48_40B490(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26898,6 +27181,7 @@ void UpdateBattleAction48_40B490(YobiAction* const action)
 }
 
 // BDE01：完整1024严格==2才清零/切51。
+// 原函数：0x0040B5B0。
 void UpdateBattleAction49_40B5B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26908,6 +27192,7 @@ void UpdateBattleAction49_40B5B0(YobiAction* const action)
 }
 
 // BDE01：动作10后严格终帧才推进，不增rate写入。
+// 原函数：0x0040B3C0。
 void UpdateBattleAction50_40B3C0(YobiAction* const action)
 {
     action->characterAction = 10;
@@ -26917,6 +27202,7 @@ void UpdateBattleAction50_40B3C0(YobiAction* const action)
 }
 
 // BDE01：先清对应全局战斗槽，再标死并返回原T*。
+// 原函数：0x0040BE70。
 YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26925,6 +27211,7 @@ YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
 }
 
 // BDE01：先BYTE后固定caster，13/47/51目标及启动位置逐次重取。
+// 原函数：0x0040BE90。
 void UpdateBattleAction52_40BE90(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -26947,6 +27234,7 @@ void UpdateBattleAction52_40BE90(YobiAction* const action)
 }
 
 // BDE01：未舍入缩放与创建后fresh零判定，清理/推进后共同播放返回。
+// 原函数：0x0040BF20。
 std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -26977,6 +27265,7 @@ std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
 }
 
 // BSA01：未舍入放大/type23/创建后精确1，完成时重查设备和fresh flags。
+// 原函数：0x0040BFE0。
 std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27009,6 +27298,7 @@ std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
 }
 
 // BSA01：播放弃返后实际扣FP，再推进，无终帧门禁。
+// 原函数：0x0040C0C0。
 void UpdateBattleAction55_40C0C0(YobiAction* const action)
 {
     static_cast<void>(PlayFrame_517DA0(action, 1));
@@ -27017,6 +27307,7 @@ void UpdateBattleAction55_40C0C0(YobiAction* const action)
 }
 
 // BSA01：动作5严格终帧，按index/remain/event顺序清零后推进。
+// 原函数：0x0040C160。
 void UpdateBattleAction56_40C160(YobiAction* const action)
 {
     action->characterAction = 5;
@@ -27029,6 +27320,7 @@ void UpdateBattleAction56_40C160(YobiAction* const action)
 }
 
 // BSA01：动作13严格终帧，仅清index/remain，保事件。
+// 原函数：0x0040C1A0。
 void UpdateBattleAction57_40C1A0(YobiAction* const action)
 {
     action->characterAction = 13;
@@ -27040,6 +27332,7 @@ void UpdateBattleAction57_40C1A0(YobiAction* const action)
 }
 
 // BSA01：动作14严格终帧，仅清index/remain，保事件。
+// 原函数：0x0040C1E0。
 void UpdateBattleAction58_40C1E0(YobiAction* const action)
 {
     action->characterAction = 14;
@@ -27051,6 +27344,7 @@ void UpdateBattleAction58_40C1E0(YobiAction* const action)
 }
 
 // BSA01：动作15严格终帧，仅清index/remain，保事件。
+// 原函数：0x0040C240。
 void UpdateBattleAction59_40C240(YobiAction* const action)
 {
     action->characterAction = 15;
@@ -27062,6 +27356,7 @@ void UpdateBattleAction59_40C240(YobiAction* const action)
 }
 
 // BSA01：动作15后直接推进，无播放/清帧。
+// 原函数：0x0040C220。
 void UpdateBattleAction60_40C220(YobiAction* const action)
 {
     action->characterAction = 15;
@@ -27069,6 +27364,7 @@ void UpdateBattleAction60_40C220(YobiAction* const action)
 }
 
 // BSA01：动作12严格终帧后推进，不清帧状态。
+// 原函数：0x0040C280。
 void UpdateBattleAction61_40C280(YobiAction* const action)
 {
     action->characterAction = 12;
@@ -27078,6 +27374,7 @@ void UpdateBattleAction61_40C280(YobiAction* const action)
 }
 
 // BSA01：动作18严格终帧后推进，不清帧状态。
+// 原函数：0x0040C2B0。
 void UpdateBattleAction62_40C2B0(YobiAction* const action)
 {
     action->characterAction = 18;
@@ -27087,6 +27384,7 @@ void UpdateBattleAction62_40C2B0(YobiAction* const action)
 }
 
 // BSA01：旧70/新20/fresh50，方向两次独立读，一次wrap后互斥播放返回。
+// 原函数：0x0040C2E0。
 std::int32_t UpdateBattleAction63_40C2E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27118,6 +27416,7 @@ std::int32_t UpdateBattleAction63_40C2E0(YobiAction* const action)
 }
 
 // BTE01：仅动作0后推进，无播放/清帧。
+// 原函数：0x0040CBB0。
 void UpdateBattleAction64_40CBB0(YobiAction* const action)
 {
     action->characterAction = 0;
@@ -27125,6 +27424,7 @@ void UpdateBattleAction64_40CBB0(YobiAction* const action)
 }
 
 // BTE01：旧70/新8/七fresh计数，方向独立读/单圈修正和互斥播放保持。
+// 原函数：0x0040C380。
 std::int32_t UpdateBattleAction65_40C380(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27174,6 +27474,7 @@ std::int32_t UpdateBattleAction65_40C380(YobiAction* const action)
 }
 
 // BTE01：独立1014图号，严格终帧推进后才清事件。
+// 原函数：0x0040C480。
 void UpdateBattleAction66_40C480(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27186,6 +27487,7 @@ void UpdateBattleAction66_40C480(YobiAction* const action)
 }
 
 // BTE01：入口事件先持，逐目标启动/效果推进，哨兵处仍推进一次再播放。
+// 原函数：0x004106B0。
 void UpdateBattleAction67_4106B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27210,6 +27512,7 @@ void UpdateBattleAction67_4106B0(YobiAction* const action)
 }
 
 // BTE01：浮动创建后fresh低BYTE60h门禁，条件播放后总推进。
+// 原函数：0x0040C0E0。
 void UpdateBattleAction68_40C0E0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27221,6 +27524,7 @@ void UpdateBattleAction68_40C0E0(YobiAction* const action)
 }
 
 // BTE01：30帧命中创建后fresh低BYTE60h，条件播放后总推进。
+// 原函数：0x0040C120。
 void UpdateBattleAction69_40C120(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27232,6 +27536,7 @@ void UpdateBattleAction69_40C120(YobiAction* const action)
 }
 
 // BTE01：无播放/事件门禁，逐目标启动且哨兵额外推进，再推进源。
+// 原函数：0x0040C4D0。
 void UpdateBattleAction71_40C4D0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27249,6 +27554,7 @@ void UpdateBattleAction71_40C4D0(YobiAction* const action)
 }
 
 // BTE01：caster当前载荷原00槽递增后推进源，不互换两对象。
+// 原函数：0x0040CAA0。
 void UpdateBattleAction72_40CAA0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27258,6 +27564,7 @@ void UpdateBattleAction72_40CAA0(YobiAction* const action)
 }
 
 // BCLC01：1004置1后推进，无播放/动作或速率发布。
+// 原函数：0x0040CB10。
 void UpdateBattleAction75_40CB10(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27266,6 +27573,7 @@ void UpdateBattleAction75_40CB10(YobiAction* const action)
 }
 
 // BCLC01：1004清零后推进，无播放/动作或速率发布。
+// 原函数：0x0040CB30。
 void UpdateBattleAction76_40CB30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27274,6 +27582,7 @@ void UpdateBattleAction76_40CB30(YobiAction* const action)
 }
 
 // BCLC01：设备查询后fresh完整flags仅置对应位，再推进。
+// 原函数：0x0040CB50。
 void UpdateBattleAction77_40CB50(YobiAction* const action)
 {
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
@@ -27282,6 +27591,7 @@ void UpdateBattleAction77_40CB50(YobiAction* const action)
 }
 
 // BCLC01：设备查询后fresh完整flags仅清对应位，再推进。
+// 原函数：0x0040CB80。
 void UpdateBattleAction78_40CB80(YobiAction* const action)
 {
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
@@ -27290,6 +27600,7 @@ void UpdateBattleAction78_40CB80(YobiAction* const action)
 }
 
 // BCLC01：1064/106C/三辅助逐槽标死清理，两完整标志先读齐再FDC/FE0发布。
+// 原函数：0x0040CBD0。
 void UpdateBattleAction79_40CBD0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27319,6 +27630,7 @@ void UpdateBattleAction79_40CBD0(YobiAction* const action)
 }
 
 // BCLC01：持X后读取独立1018音效，WAV播放后推进。
+// 原函数：0x0040CC80。
 void UpdateBattleAction80_40CC80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27329,6 +27641,7 @@ void UpdateBattleAction80_40CC80(YobiAction* const action)
 }
 
 // BCLC01：持X后读取独立101C音效，WAV播放后推进。
+// 原函数：0x0040CCB0。
 void UpdateBattleAction81_40CCB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27339,6 +27652,7 @@ void UpdateBattleAction81_40CCB0(YobiAction* const action)
 }
 
 // BCLC01：持X后读取独立1020音效，WAV播放后推进。
+// 原函数：0x0040CCE0。
 void UpdateBattleAction82_40CCE0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27349,6 +27663,7 @@ void UpdateBattleAction82_40CCE0(YobiAction* const action)
 }
 
 // BCLC01：未舍入阈值/正常F32发布，推进后fresh payload/FDC置位，末播放返回。
+// 原函数：0x0040CD10。
 std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 {
     const double step = std::bit_cast<float>(0x3BA3D70Au);
@@ -27365,6 +27680,7 @@ std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 }
 
 // BRAF01：未舍入缩小/推进后新payload清位，尾BYTE播放门禁仍从入口payload取。
+// 原函数：0x0040CD70。
 void UpdateBattleAction84_40CD70(YobiAction* const action)
 {
     const double step = std::bit_cast<float>(0x3C23D70Au);
@@ -27385,6 +27701,7 @@ void UpdateBattleAction84_40CD70(YobiAction* const action)
 }
 
 // BRAF01：未舍入放大/独立方向，2002原名称-三列表选图，入口payload尾BYTE门禁。
+// 原函数：0x0040CDE0。
 void UpdateBattleAction85_40CDE0(YobiAction* const action)
 {
     using world::detail::gBattleNamedEffects5ABCE0;
@@ -27426,6 +27743,7 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
 }
 
 // BRAF01：固定视觉target与动态HP/phase目标、两BYTE及临时index/encoded查找前持样。
+// 原函数：0x0040C520。
 void UpdateBattleAction86_40C520(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -27499,6 +27817,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
 }
 
 // BRAF01：十位置逐次阵营，父gate/image/Y/X/创建后声RNG序与270门禁保持。
+// 原函数：0x0040C780。
 std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
 {
     using world::detail::gBattleGraphicPoints553758;
@@ -27539,6 +27858,7 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
 }
 
 // BRAF01：同源振幅6/启用1后推进，无播放。
+// 原函数：0x0040C8D0。
 void UpdateBattleAction88_40C8D0(YobiAction* const action)
 {
     gYobiScreenOffsetMaximumAmplitude = 6;
@@ -27547,6 +27867,7 @@ void UpdateBattleAction88_40C8D0(YobiAction* const action)
 }
 
 // BRAF01：仅同源启用0后推进，不清振幅。
+// 原函数：0x0040C8F0。
 void UpdateBattleAction89_40C8F0(YobiAction* const action)
 {
     gYobiScreenOffsetRising = 0;
@@ -27554,6 +27875,7 @@ void UpdateBattleAction89_40C8F0(YobiAction* const action)
 }
 
 // BRAF01：转向后事件/目标重取，FD0设4当帧减1，原四边界及额外推进保持。
+// 原函数：0x0040C910。
 void UpdateBattleAction90_40C910(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27603,6 +27925,7 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
 }
 
 // BRAF01：完整对象flags置2、先推进后PlayFrame(0)返回。
+// 原函数：0x0040CF30。
 std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 {
     action->flags |= 2u;
@@ -27611,6 +27934,7 @@ std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 }
 
 // BRAF01：完整对象flags清2、先推进后PlayFrame(0)返回。
+// 原函数：0x0040CF50。
 std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
 {
     action->flags &= ~2u;
@@ -27619,6 +27943,7 @@ std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
 }
 
 // BSTL01：先Count<=1再alive清零与推进，入口payload固定。
+// 原函数：0x0040CF70。
 void UpdateBattleAction93_40CF70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27630,6 +27955,7 @@ void UpdateBattleAction93_40CF70(YobiAction* const action)
 }
 
 // BSTL01：X发布后fresh Y/angle/目标，单圈归一化后50步进及重取转向。
+// 原函数：0x0040D010。
 void UpdateBattleAction94_40D010(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27650,6 +27976,7 @@ void UpdateBattleAction94_40D010(YobiAction* const action)
 }
 
 // BSTL01：旧FF0的16门禁；推进后入口载荷清零，临时index/encoded先查目标。
+// 原函数：0x0040D0B0。
 void UpdateBattleAction95_40D0B0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -27680,6 +28007,7 @@ void UpdateBattleAction95_40D0B0(YobiAction* const action)
 }
 
 // BSTL01：当前动态目标hidden=0后仅推进source。
+// 原函数：0x0040D170。
 void UpdateBattleAction96_40D170(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27689,6 +28017,7 @@ void UpdateBattleAction96_40D170(YobiAction* const action)
 }
 
 // BSTL01：当前动态目标hidden=1后仅推进source。
+// 原函数：0x0040D1A0。
 void UpdateBattleAction97_40D1A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27698,6 +28027,7 @@ void UpdateBattleAction97_40D1A0(YobiAction* const action)
 }
 
 // BSTL01：入口事件与终帧独立选图，附属门禁后两次skill及共享铺格生产。
+// 原函数：0x0040D1D0。
 void UpdateBattleAction98_40D1D0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27749,6 +28079,7 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
 }
 
 // BCPY01：rate25/推进后清帧索引和剩余帧，返回0而不清事件/播放。
+// 原函数：0x0040D390。
 std::int32_t UpdateBattleAction99_40D390(YobiAction* const action)
 {
     action->framePlayingRate = 25;
@@ -27759,6 +28090,7 @@ std::int32_t UpdateBattleAction99_40D390(YobiAction* const action)
 }
 
 // BCPY01：position-frameIndex-目标取样，S8序列/fresh共享游标与保存BYTE分档。
+// 原函数：0x0040D3C0。
 void UpdateBattleAction100_40D3C0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -27812,6 +28144,7 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
 }
 
 // BCPY01：三次独立位置判断/中心汇聚，抵达先推进再角色动作9/清FF0。
+// 原函数：0x0040D580。
 std::int32_t UpdateBattleAction101_40D580(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -27851,6 +28184,7 @@ std::int32_t UpdateBattleAction101_40D580(YobiAction* const action)
 }
 
 // BCPY01：旧8门禁/固定视觉与动态HP，两样本BYTE及临时零复制原读序。
+// 原函数：0x0040D6C0。
 void UpdateBattleAction102_40D6C0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -27998,6 +28332,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
 }
 
 // BIE01：先读全局玩家位，成功分支重取；按原CryptInt前两W32显示并保额外效果推进。
+// 原函数：0x0040DC90。
 void UpdateBattleAction104_40DC90(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -28046,6 +28381,7 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
 }
 
 // BIE01：游标先源位置，两次门禁独立；旧计数>=120后推进源/入口目标，末播放返回。
+// 原函数：0x0040DE40。
 std::int32_t UpdateBattleAction105_40DE40(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28088,6 +28424,7 @@ std::int32_t UpdateBattleAction105_40DE40(YobiAction* const action)
 }
 
 // BIE01：完整动作106仅角色动作13→Advance，无播放/速率/帧清零。
+// 原函数：0x0040DF50。
 void UpdateBattleAction106_40DF50(YobiAction* const action)
 {
     action->characterAction = 13;
@@ -28095,12 +28432,14 @@ void UpdateBattleAction106_40DF50(YobiAction* const action)
 }
 
 // BIE01：完整动作107调用MarkDeath并返回真实T*；物理释放沿scheduler。
+// 原函数：0x0040DF70。
 YobiAction* UpdateBattleAction107_40DF70(YobiAction* const action)
 {
     return MarkDeath(action);
 }
 
 // BIE01：入口事件持样/逐效果do，13 BYTE与临时HP复制读序；免疫只按完整flags。
+// 原函数：0x0040DF80。
 void UpdateBattleAction108_40DF80(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28250,6 +28589,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
 }
 
 // BKE01：旧FF0/1038蓄力及两侧HP零逐项复制；五BYTE与真实事件循环/旧FD0收尾。
+// 原函数：0x0040E560。
 void UpdateBattleAction110_40E560(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28381,6 +28721,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
 }
 
 // BKE01：两次fresh BYTE FDC/40次散射，原角度与四边界后仍Move/Play S32。
+// 原函数：0x0040E970。
 std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28432,6 +28773,7 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
 }
 
 // BKE01：worldY先载荷；两轴各自先借用父再数值，旧294/FF0及末fresh父标死保持。
+// 原函数：0x0040EFE0。
 void UpdateBattleAction113_40EFE0(YobiAction* const action)
 {
     const float baseY = action->worldY;
@@ -28465,6 +28807,7 @@ void UpdateBattleAction113_40EFE0(YobiAction* const action)
 }
 
 // BCVI01：位置缓存按已证PE静态零初值；临时HP复制index/encoded先目标/逐项发布。
+// 原函数：0x0040F0A0。
 void UpdateBattleAction114_40F0A0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28649,6 +28992,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
 }
 
 // BFW01：固定载荷/完整flags的CH门禁，工厂后重取目标隐藏；全路径phase162。
+// 原函数：0x0040FB80。
 void UpdateBattleAction115_40FB80(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28664,6 +29008,7 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
     action->phase = 162;
 }
 
+// 原函数：0x0040FC10。
 void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28714,6 +29059,7 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 }
 
 // BFW01：完整FDC持样/条件播放，后取phase选7/8/9末参0，全路径推进。
+// 原函数：0x0040FF90。
 void UpdateBattleActions127To129_40FF90(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28731,6 +29077,7 @@ void UpdateBattleActions127To129_40FF90(YobiAction* const action)
 }
 
 // BFW01：完整FDC持样/条件播放，后取1024创建type20，全路径phase162。
+// 原函数：0x0040FF40。
 void UpdateBattleAction138_40FF40(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28744,6 +29091,7 @@ void UpdateBattleAction138_40FF40(YobiAction* const action)
 }
 
 // BFW01：事件/完成两次独立特效指针持样，98单次属性；405不同取样/四临时复制原序。
+// 原函数：0x00410000。
 void UpdateBattleAction139_410000(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -28956,6 +29304,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
 }
 
 // BFL01：入口技能持样，特效末参0或先推进61–63目标，最后推进源。
+// 原函数：0x00410730。
 void UpdateBattleAction140_410730(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28970,6 +29319,7 @@ void UpdateBattleAction140_410730(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00410E90。
 void UpdateBattleAction141_410E90(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29009,6 +29359,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
 }
 
 // BFL01：无空门禁标死1054，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
+// 原函数：0x00410F70。
 void UpdateBattleAction142_410F70(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29020,6 +29371,7 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00410FC0。
 void UpdateBattleAction143_410FC0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29078,6 +29430,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
 }
 
 // BFL01：无空门禁标死1068，fresh完整FDC取样后先清槽再发布掩码值，播放/推进。
+// 原函数：0x00411240。
 void UpdateBattleAction144_411240(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29090,6 +29443,7 @@ void UpdateBattleAction144_411240(YobiAction* const action)
 }
 
 // BFL01：一次技能选择四图，创建返回弃置；其它技能亦共同推进，无播放。
+// 原函数：0x00411290。
 void UpdateBattleAction145_411290(YobiAction* const action)
 {
     const std::int32_t skill = static_cast<BattleActorPayload*>(action->payload)->castSkill103C;
@@ -29108,6 +29462,7 @@ void UpdateBattleAction145_411290(YobiAction* const action)
 }
 
 // BAS01：完整FDC的AH800开关；创建失败仍置位，标死后fresh取旗位、先清105C再发布。
+// 原函数：0x00411320。
 void UpdateBattleAction147_411320(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29124,6 +29479,7 @@ void UpdateBattleAction147_411320(YobiAction* const action)
 }
 
 // BAS01：完整FDC持样/AL60播放门禁，后取1024创建type33，全路径phase162。
+// 原函数：0x0040FEF0。
 void UpdateBattleAction148_40FEF0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29136,6 +29492,7 @@ void UpdateBattleAction148_40FEF0(YobiAction* const action)
     action->phase = 162;
 }
 
+// 原函数：0x0040F790。
 void UpdateBattleAction154_40F790(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29151,6 +29508,7 @@ void UpdateBattleAction154_40F790(YobiAction* const action)
     }
 }
 
+// 原函数：0x0040F800。
 void UpdateBattleAction155_40F800(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29259,6 +29617,7 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
     }
 }
 
+// 原函数：0x0040FB30。
 void UpdateBattleAction156_40FB30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29390,18 +29749,21 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
 
 } // namespace
 
+// 原函数：0x004107C0。
 void UpdateBattleAction159_4107C0(YobiAction* const action)
 {
     ApplyBattleResourceChange_4107C0_410B00(action);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00410B00。
 void UpdateBattleAction160_410B00(YobiAction* const action)
 {
     ApplyBattleResourceChange_4107C0_410B00(action);
     action->phase = 37;
 }
 
+// 原函数：0x00410E30。
 void UpdateBattleAction162_410E30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29416,6 +29778,7 @@ void UpdateBattleAction162_410E30(YobiAction* const action)
     }
 }
 
+// 原函数：0x00406630。
 void UpdateBattleAction236_406630(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29424,6 +29787,7 @@ void UpdateBattleAction236_406630(YobiAction* const action)
     UpdateBattleAction0_406650(action);
 }
 
+// 原函数：0x00406260。
 void Sub_406260(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -29436,6 +29800,7 @@ void Sub_406260(YobiAction* const action)
     Sub_405CB0(action);
 }
 
+// 原函数：0x004390E0。
 void InitBattleCastList_4390E0(const std::int32_t index)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -29467,6 +29832,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     }
 }
 
+// 原函数：0x004391E0。
 void ResetBattleCastList_4391E0(const std::int32_t index)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -29488,6 +29854,7 @@ void ResetBattleCastList_4391E0(const std::int32_t index)
     payload->queuedTargetCount13A8 = 0;
 }
 
+// 原函数：0x004392A0。
 void AppendBattleCast_4392A0(
     YobiAction* const caster, YobiAction* const actor, const std::int32_t state)
 {
@@ -29503,6 +29870,7 @@ void AppendBattleCast_4392A0(
     payload->busyFD8 = 1;
 }
 
+// 原函数：0x004392F0。
 void AppendBattleCastAt_4392F0(
     YobiAction* const caster, YobiAction* const actor,
     const std::int32_t state, const std::int32_t index)
@@ -29519,6 +29887,7 @@ void AppendBattleCastAt_4392F0(
     payload->busyFD8 = 1;
 }
 
+// 原函数：0x00439340。
 void AdvanceBattleCastState_439340(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -29536,6 +29905,7 @@ void AdvanceBattleCastState_439340(YobiAction* const action)
     }
 }
 
+// 原函数：0x004393A0。
 void AppendBattleEffectList_4393A0(
     YobiAction* const action, const std::int32_t position,
     const std::uint32_t flags, const std::int32_t position3)
@@ -29551,6 +29921,7 @@ void AppendBattleEffectList_4393A0(
     ++payload->effectCountCA0;
 }
 
+// 原函数：0x00439400。
 void AppendBattleEffect_439400(YobiAction* const action, const BattleEntryEffectRecord effect)
 {
     if (action == nullptr) {
@@ -29565,6 +29936,7 @@ void AppendBattleEffect_439400(YobiAction* const action, const BattleEntryEffect
     ++payload->effectCountCA0;
 }
 
+// 原函数：0x0043BC10。
 void AppendBattleAuxEffects_43BC10(
     YobiAction* const action, const std::int32_t position, const std::uint32_t flags,
     const std::int32_t value3, const std::int32_t value4, const std::int32_t value5)
@@ -29584,6 +29956,7 @@ void AppendBattleAuxEffects_43BC10(
     AppendBattleEffect_439400(action, original);
 }
 
+// 原函数：0x004113A0。
 void UpdateBattleAction163_4113A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29791,6 +30164,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00411A50。
 void UpdateBattleAction164_411A50(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29863,6 +30237,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     payload->valueFD4 = 1;
 }
 
+// 原函数：0x00411D30。
 std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -29949,6 +30324,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// 原函数：0x00411CB0。
 void UpdateBattleAction166_411CB0(YobiAction* const action)
 {
     const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
@@ -29965,24 +30341,28 @@ void UpdateBattleAction166_411CB0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00411FA0。
 void UpdateBattleAction167_411FA0(YobiAction* const action)
 {
     SetYobiActionField308(action, 8);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00411FC0。
 void UpdateBattleAction168_411FC0(YobiAction* const action)
 {
     SetYobiActionField308(action, 0);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00411FE0。
 void UpdateBattleAction169_411FE0(YobiAction* const action)
 {
     SetYobiActionField309(action, 255);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00420F10。
 void SyncBattleAttachmentAlpha_420F10(
     YobiAction* const action, const std::int32_t alpha, const std::int8_t delta,
     const std::uint32_t addMask, const std::uint32_t removeMask)
@@ -30020,12 +30400,14 @@ void SyncBattleAttachmentAlpha_420F10(
     }
 }
 
+// 原函数：0x00412000。
 void UpdateBattleAction170_412000(YobiAction* const action)
 {
     SetYobiActionField309(action, 0);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412020。
 void UpdateBattleAction171_412020(YobiAction* const action)
 {
     action->flags &= ~2u;
@@ -30049,6 +30431,7 @@ void UpdateBattleAction171_412020(YobiAction* const action)
     }
 }
 
+// 原函数：0x004120F0。
 void UpdateBattleActions172_173_4120F0(YobiAction* const action)
 {
     const std::int32_t step = action->phase == 173 ? 2 : 3;
@@ -30073,6 +30456,7 @@ void UpdateBattleActions172_173_4120F0(YobiAction* const action)
     }
 }
 
+// 原函数：0x004121D0。
 void UpdateBattleAction174_4121D0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -30084,6 +30468,7 @@ void UpdateBattleAction174_4121D0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412210。
 void UpdateBattleAction175_412210(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30095,6 +30480,7 @@ void UpdateBattleAction175_412210(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412260。
 void UpdateBattleAction176_412260(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30106,6 +30492,7 @@ void UpdateBattleAction176_412260(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412290。
 void UpdateBattleAction177_412290(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -30114,12 +30501,14 @@ void UpdateBattleAction177_412290(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x004122C0。
 void UpdateBattleAction178_4122C0(YobiAction* const action)
 {
     AdvanceBattleCastState_439340(action);
     action->phase = 0;
 }
 
+// 原函数：0x004122E0。
 void UpdateBattleAction179_4122E0(YobiAction* const action)
 {
     action->characterAction = 6;
@@ -30128,6 +30517,7 @@ void UpdateBattleAction179_4122E0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00412310。
 void UpdateBattleActions180_203_412310(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -30169,6 +30559,7 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
     action->phase = 204;
 }
 
+// 原函数：0x004124E0。
 void UpdateBattleAction204_4124E0(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -30270,6 +30661,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
     }
 }
 
+// 原函数：0x004127B0。
 void UpdateBattleAction205_4127B0(YobiAction* const action)
 {
     action->characterAction = 16;
@@ -30280,6 +30672,7 @@ void UpdateBattleAction205_4127B0(YobiAction* const action)
     }
 }
 
+// 原函数：0x004127F0。
 void UpdateBattleAction206_4127F0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -30289,6 +30682,7 @@ void UpdateBattleAction206_4127F0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412830。
 void UpdateBattleAction207_412830(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30300,6 +30694,7 @@ void UpdateBattleAction207_412830(YobiAction* const action)
 }
 
 // BCPY01：每效果独立复制载荷/七动作队列，四效果值按4-flags-3-position读齐。
+// 原函数：0x0040DBE0。
 void UpdateBattleAction103_40DBE0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30325,6 +30720,7 @@ void UpdateBattleAction103_40DBE0(YobiAction* const action)
 }
 
 // BKE01：独立复制体25/110/107及四值4-flags-3-position读取，设备后完整flags与双推进保持。
+// 原函数：0x0040E4B0。
 void UpdateBattleAction109_40E4B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30351,6 +30747,7 @@ void UpdateBattleAction109_40E4B0(YobiAction* const action)
 }
 
 // BKE01：双复制体/第三列表选图、一次事件/三Y-X及运动读序、两Append不同四值顺序。
+// 原函数：0x0040EB00。
 void UpdateBattleAction112_40EB00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -30483,6 +30880,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     }
 }
 
+// 原函数：0x00417B80。
 void UpdateBattleAction241_417B80(YobiAction* const action)
 {
     const std::int32_t event = action->frameEvent;
@@ -30523,6 +30921,7 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
     static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
 }
 
+// 原函数：0x00417CC0。
 void UpdateBattleAction242_417CC0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -30618,6 +31017,7 @@ void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPaylo
 
 } // namespace
 
+// 原函数：0x00414050。
 void UpdateBattleAction224_414050(YobiAction* const action)
 {
     using platform::legacy_crypt_int::CopyPayload;
@@ -30990,6 +31390,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     }
 }
 
+// 原函数：0x004154C0。
 void UpdateBattleAction226_4154C0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -31082,6 +31483,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00415940。
 void UpdateBattleAction227_415940(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -31231,6 +31633,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     }
 }
 
+// 原函数：0x004150F0。
 void UpdateBattleAction225_4150F0(YobiAction* const action)
 {
     using platform::legacy_crypt_int::CopyPayload;
@@ -31349,6 +31752,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00416000。
 std::int32_t UpdateBattleAction228_416000(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31357,6 +31761,7 @@ std::int32_t UpdateBattleAction228_416000(YobiAction* const action)
     return UpdateBattleAction229_416020(action);
 }
 
+// 原函数：0x00416020。
 std::int32_t UpdateBattleAction229_416020(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31372,6 +31777,7 @@ std::int32_t UpdateBattleAction229_416020(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// 原函数：0x004160A0。
 void UpdateBattleAction230_4160A0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31393,6 +31799,7 @@ void UpdateBattleAction230_4160A0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00416150。
 std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
 {
     const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3EE66666u);
@@ -31423,6 +31830,7 @@ std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
     return previous;
 }
 
+// 原函数：0x00416220。
 std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -31599,6 +32007,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// 原函数：0x00416860。
 std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31677,6 +32086,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// 原函数：0x00416AB0。
 std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31760,6 +32170,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
     return result;
 }
 
+// 原函数：0x0043B830。
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -31771,6 +32182,7 @@ std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* const action)
     return payload->queuedTargets1084[next] == -1 ? 1 : 0;
 }
 
+// 原函数：0x00439470。
 std::int32_t AdvanceBattleEffect_439470(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -31782,6 +32194,7 @@ std::int32_t AdvanceBattleEffect_439470(YobiAction* const action)
     return payload->effects1C[next].position == -1 ? 1 : 0;
 }
 
+// 原函数：0x0043BC90。
 std::int32_t TakeBattleAuxEffects_43BC90(
     YobiAction* const action, std::int32_t* const position, std::int32_t* const value3,
     std::int32_t* const value4, std::int32_t* const value5)
@@ -31797,6 +32210,7 @@ std::int32_t TakeBattleAuxEffects_43BC90(
     return AdvanceBattleEffect_439470(action);
 }
 
+// 原函数：0x00406390。
 void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -31840,6 +32254,7 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
     }
 }
 
+// 原函数：0x00416DB0。
 void ApplyBattleCastEffects_416DB0(YobiAction* const action)
 {
     const std::int32_t position = static_cast<const BattleActorPayload*>(action->payload)->battlePosition18;
@@ -31847,6 +32262,7 @@ void ApplyBattleCastEffects_416DB0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00412870。
 void SetBattleAction208Target_412870(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -31865,6 +32281,7 @@ void SetBattleAction208Target_412870(YobiAction* const action)
     action->phase = 6;
 }
 
+// 原函数：0x00412900。
 std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32082,6 +32499,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
     return PlayFrame_517DA0(action, 1);
 }
 
+// 原函数：0x00412F70。
 YobiAction* UpdateBattleAction210_412F70(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32104,6 +32522,7 @@ YobiAction* UpdateBattleAction210_412F70(YobiAction* const action)
     return NewBattlePositionEffect_41E680(action, imageNo);
 }
 
+// 原函数：0x00413070。
 void ApplyBattleSceneEffects_413070(YobiAction* const action)
 {
     using world::detail::gBattleSceneEffectC8A768;
@@ -32145,6 +32564,7 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00413110。
 void UpdateBattleAction212_413110(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32170,6 +32590,7 @@ void UpdateBattleAction212_413110(YobiAction* const action)
     }
 }
 
+// 原函数：0x004131B0。
 std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32215,6 +32636,7 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
     return next;
 }
 
+// 原函数：0x004132B0。
 void UpdateBattleAction214_4132B0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32255,6 +32677,7 @@ void UpdateBattleAction214_4132B0(YobiAction* const action)
     SetYobiActionField30F(action, alpha < 4 ? 0 : static_cast<std::uint8_t>(alpha - 4));
 }
 
+// 原函数：0x004133D0。
 void UpdateBattleAction215_4133D0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32264,6 +32687,7 @@ void UpdateBattleAction215_4133D0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00413400。
 void UpdateBattleAction216_413400(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32319,6 +32743,7 @@ void UpdateBattleAction216_413400(YobiAction* const action)
     }
 }
 
+// 原函数：0x00413550。
 void UpdateBattleAction218_413550(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32450,6 +32875,7 @@ bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const 
 
 } // namespace
 
+// 原函数：0x00413750。
 void UpdateBattleAction219_413750(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32474,6 +32900,7 @@ void UpdateBattleAction219_413750(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00413980。
 void UpdateBattleAction220_413980(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -32482,6 +32909,7 @@ void UpdateBattleAction220_413980(YobiAction* const action)
     }
 }
 
+// 原函数：0x00413B40。
 void UpdateBattleAction221_413B40(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32588,6 +33016,7 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
     static_cast<void>(AdvanceBattleEffect_439470(action));
 }
 
+// 原函数：0x00413E90。
 std::int32_t UpdateBattleAction222_413E90(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32625,6 +33054,7 @@ std::int32_t UpdateBattleAction222_413E90(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// 原函数：0x00413FE0。
 void UpdateBattleAction223_413FE0(YobiAction* const action)
 {
     using namespace world::detail;
@@ -32646,6 +33076,7 @@ void UpdateBattleAction223_413FE0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00416DD0。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -32832,6 +33263,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// 原函数：0x00417410。
 void UpdateBattleActions238_239_417410(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -33030,6 +33462,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
     }
 }
 
+// 原函数：0x00417AC0。
 void UpdateBattleAction240_417AC0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -33057,6 +33490,7 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00417D80。
 void UpdateBattleAction243_417D80(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -33256,6 +33690,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
     }
 }
 
+// 原函数：0x00418550。
 void UpdateBattleAction244_418550(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -33265,6 +33700,7 @@ void UpdateBattleAction244_418550(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00418580。
 void UpdateBattleAction245_418580(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -33276,6 +33712,7 @@ void UpdateBattleAction245_418580(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x004185C0。
 void UpdateBattleAction246_4185C0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -33285,6 +33722,7 @@ void UpdateBattleAction246_4185C0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x004185F0。
 void UpdateBattleAction247_4185F0(YobiAction* const action)
 {
     const float x = action->offset40;
@@ -33294,6 +33732,7 @@ void UpdateBattleAction247_4185F0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00418620。
 std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -33314,6 +33753,7 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
     return PlayFrame_517DA0(action, 0);
 }
 
+// 原函数：0x0040B180。
 void UpdateBattleAction251_40B180(YobiAction* const action)
 {
     using namespace platform::legacy_crypt_int;
@@ -33337,6 +33777,7 @@ void UpdateBattleAction251_40B180(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x0040FE50。
 void UpdateBattleAction253_40FE50(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -33349,6 +33790,7 @@ void UpdateBattleAction253_40FE50(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x0040FEB0。
 void UpdateBattleAction254_40FEB0(YobiAction* const action)
 {
     YobiAction* const effect = action->battleCastEffect10;
@@ -33361,6 +33803,7 @@ void UpdateBattleAction254_40FEB0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x004186B0。
 void UpdateBattleAction255_4186B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
@@ -33519,12 +33962,14 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
     }
 }
 
+// 原函数：0x00418B50。
 void UpdateBattleAction256_418B50(YobiAction* const)
 {
     world::detail::gValue5ABB1C = 0;
     world::detail::gValue5ABB20 = 1;
 }
 
+// 原函数：0x0040CAC0。
 void AdvanceBattleLinkedCast_40CAC0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
@@ -33534,12 +33979,14 @@ void AdvanceBattleLinkedCast_40CAC0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x0040CAF0。
 void AdvanceBattleEffectAndCast_40CAF0(YobiAction* const action)
 {
     AdvanceBattleEffect_439470(action);
     AdvanceBattleCastState_439340(action);
 }
 
+// 原函数：0x00439380。
 void MoveBattleCastState_439380(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -33549,6 +33996,7 @@ void MoveBattleCastState_439380(YobiAction* const action)
     action->phase = payload->castListCA4[payload->castPlayIndexFC4];
 }
 
+// 原函数：0x004394A0。
 std::int32_t CheckBattleTurnReady_4394A0(
     YobiAction* const parent, const std::int32_t enable)
 {
@@ -33604,6 +34052,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
     return 1;
 }
 
+// 原函数：0x0043C910。
 std::int32_t Sub_43C910()
 {
     bool pending = false;
@@ -33618,6 +34067,7 @@ std::int32_t Sub_43C910()
     return pending ? 0 : 1;
 }
 
+// 原函数：0x0043C9A0。
 void Sub_43C9A0()
 {
     using namespace world::detail;
@@ -33651,6 +34101,7 @@ void Sub_43C9A0()
     }
 }
 
+// 原函数：0x0043CA50。
 std::int32_t Sub_43CA50()
 {
     std::int32_t count = 0;
@@ -33664,6 +34115,7 @@ std::int32_t Sub_43CA50()
     return count;
 }
 
+// 原函数：0x0043CA80。
 void Sub_43CA80()
 {
     using namespace world::detail;
@@ -33691,6 +34143,7 @@ void Sub_43CA80()
     }
 }
 
+// 原函数：0x0043C560。
 std::int32_t CheckBattleCommand_43C560(
     const std::int32_t position, const std::uint32_t flags)
 {
@@ -33798,6 +34251,7 @@ std::int32_t CheckBattleCommand_43C560(
     return 1;
 }
 
+// 原函数：0x0043C060。
 void FlushBattleEntries_43C060()
 {
     auto& entries = world::detail::gBattleEntries59E980;
@@ -33823,6 +34277,7 @@ YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* const action) noe
     return payload != nullptr ? &payload->rider13C8 : nullptr;
 }
 
+// 原函数：0x00404D30。
 void YobiClearUp_404D30()
 {
     YobiAction* current = gYobiActionStart->next;
@@ -33833,6 +34288,7 @@ void YobiClearUp_404D30()
     }
 }
 
+// 原函数：0x00404D60。
 void Sub_404D60()
 {
     YobiClearUp_404D30();
@@ -33841,6 +34297,7 @@ void Sub_404D60()
     std::free(gYobiActionEnd);
 }
 
+// 原函数：0x00448370。
 YobiAction* Sub_448370(void (*callback)(YobiAction*))
 {
     // 原 0x448370/0x448379/0x448380：先读首槽、缓存尾槽，再读 start->next。
@@ -34299,6 +34756,7 @@ YobiAction* Sub_449BC0()
     return action;
 }
 
+// 原函数：0x00449700。
 void Sub_449700(
     const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
@@ -34699,6 +35157,7 @@ std::int32_t Sub_49C5E0(
         / divisor;
 }
 
+// 原函数：0x005044E0。
 YobiAction* Sub_5044E0(
     const std::int32_t x,
     const std::int32_t y,
@@ -34844,6 +35303,7 @@ std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
     return platform::legacy_crypt_int::Read_401EC0(&action->maxHp);
 }
 
+// 原函数：0x00517880。
 std::int32_t Sub_517880(
     YobiAction* const action,
     const std::int32_t rate,
@@ -34959,6 +35419,7 @@ std::int32_t Sub_517880(
     return 0;
 }
 
+// 原函数：0x00517DA0。
 std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopAtEnd)
 {
     if (action == nullptr || action->hidden == 1) {
@@ -35111,6 +35572,7 @@ std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
     return action->flags;
 }
 
+// 原函数：0x00507140。
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 {
     constexpr char kFull58AD04[] =
@@ -35399,6 +35861,7 @@ const render::GraphicDescriptor16* BorrowYobiActionDrawMode(
     return &action->drawMode;
 }
 
+// 原函数：0x0045E6E0。
 std::int32_t Sub_45E6E0(YobiAction* const action)
 {
     // 原55B2C0，每项依次为动作、持续次数、基图号偏移。
@@ -35625,6 +36088,7 @@ void WriteGatherActionMode294(YobiAction* const action, const std::int32_t mode)
     std::memcpy(action->bytes290.data() + 4, &mode, sizeof(mode));
 }
 
+// 原函数：0x004D3110。
 YobiAction* Sub_4D3110(
     const std::int32_t image, const std::int32_t x, const std::int32_t y,
     const std::int32_t displayPriority)
@@ -35644,6 +36108,7 @@ YobiAction* Sub_4D3110(
     return action;
 }
 
+// 原函数：0x004EE9E0。
 std::int32_t Sub_4EE9E0()
 {
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
@@ -35662,6 +36127,7 @@ std::int32_t Sub_4EE9E0()
     }
 }
 
+// 原函数：0x004EE130。
 std::int32_t Sub_4EE130()
 {
     const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -35721,6 +36187,7 @@ std::int32_t Sub_4EE130()
     return kind;
 }
 
+// 原函数：0x004EE670。
 std::int32_t Sub_4EE670()
 {
     const std::int32_t kind = gLegacyGatherKindCF3F10;
@@ -35800,6 +36267,7 @@ std::int32_t Sub_4EE670()
 
 } // namespace
 
+// 原函数：0x00504C50。
 std::int32_t Sub_504C50(const std::int32_t currentImage, const std::int32_t requestedImage)
 {
     if (currentImage == requestedImage) {
@@ -35837,6 +36305,7 @@ std::int32_t Sub_504C50(const std::int32_t currentImage, const std::int32_t requ
     return currentImage;
 }
 
+// 原函数：0x004D6640。
 YobiAction* Sub_4D6640(const std::int32_t image, const std::int32_t x, const std::int32_t y)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -35854,6 +36323,7 @@ YobiAction* Sub_4D6640(const std::int32_t image, const std::int32_t x, const std
     return action;
 }
 
+// 原函数：0x004F9FF0。
 YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,
     const std::int32_t y, const std::uint8_t displayPriority)
 {
@@ -35872,6 +36342,7 @@ YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,
     return action;
 }
 
+// 原函数：0x004EBF70。
 YobiAction* Sub_4EBF70(const std::int32_t image, const std::int32_t x,
     const std::int32_t y, const std::uint8_t displayPriority)
 {
@@ -35890,6 +36361,7 @@ YobiAction* Sub_4EBF70(const std::int32_t image, const std::int32_t x,
     return action;
 }
 
+// 原函数：0x004EBFD0。
 std::int32_t Sub_4EBFD0(YobiAction* const action)
 {
     const std::int32_t state = action->characterAction;
@@ -35898,6 +36370,7 @@ std::int32_t Sub_4EBFD0(YobiAction* const action)
     return Sub_517880(action, 100, loop ? 0 : 1, 0);
 }
 
+// 原函数：0x004D6690。
 std::int32_t Sub_4D6690(YobiAction* const action)
 {
     const std::int32_t state = action->characterAction;
@@ -35950,6 +36423,7 @@ YobiAction* Sub_4FAAA0(
     return action;
 }
 
+// 原函数：0x004FACE0。
 std::int32_t Sub_4FACE0(YobiAction* const action)
 {
     const std::int32_t image = world::detail::ReadPlayerImageNo();
@@ -35990,6 +36464,7 @@ std::int32_t Sub_4FACE0(YobiAction* const action)
     return Sub_517880(action, 100, stopAtEnd, 0);
 }
 
+// 原函数：0x004EF5F0。
 void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
 {
     if (action == nullptr) {
@@ -36010,6 +36485,7 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
     }
 }
 
+// 原函数：0x004EE380。
 std::uintptr_t Sub_4EE380(const std::int32_t opened)
 {
     const char* const texts[] {
@@ -36156,6 +36632,7 @@ void AllocateActorChatText(
 
 } // namespace
 
+// 原函数：0x0050AEF0。
 void Sub_50AEF0(const std::uintptr_t, const char* const payload)
 {
     char text[2048];
@@ -36209,6 +36686,7 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
     }
 }
 
+// 原函数：0x0043D860。
 void Sub_43D860(login::YobiAction* const action)
 {
     login::YobiAction* const player = ReadPlayerAction();
@@ -36242,6 +36720,7 @@ void Sub_43D860(login::YobiAction* const action)
     }
 }
 
+// 原函数：0x00442DC0。
 void Sub_442DC0(
     login::YobiAction* const action, const std::int32_t duration,
     const char* const text, const std::int32_t color,
@@ -36265,6 +36744,7 @@ void Sub_442DC0(
     AllocateActorChatText(payload, action->nameC4.data(), text, color, font, length);
 }
 
+// 原函数：0x0051A6A0。
 void Sub_51A6A0(
     const std::int32_t duration, const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
@@ -36285,6 +36765,7 @@ void Sub_51A6A0(
     AllocateActorChatText(payload, ReadPlayerAction()->nameC4.data(), text, color, font, length);
 }
 
+// 原函数：0x00442C00。
 void Sub_442C00(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36298,6 +36779,7 @@ void Sub_442C00(login::YobiAction* const action)
     }
 }
 
+// 原函数：0x00442CA0。
 void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
@@ -36309,6 +36791,7 @@ void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
     record.value10C = value;
 }
 
+// 原函数：0x00442CD0。
 std::uint16_t* Sub_442CD0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36320,6 +36803,7 @@ std::uint16_t* Sub_442CD0(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x00442D00。
 void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
@@ -36331,6 +36815,7 @@ void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
     record.value10C = value;
 }
 
+// 原函数：0x00442D30。
 std::uint16_t* Sub_442D30(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36342,6 +36827,7 @@ std::uint16_t* Sub_442D30(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x00442D60。
 void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
@@ -36353,6 +36839,7 @@ void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
     record.value10C = value;
 }
 
+// 原函数：0x00442D90。
 std::uint16_t* Sub_442D90(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36364,6 +36851,7 @@ std::uint16_t* Sub_442D90(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043D970。
 std::uint16_t* Sub_43D970(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36375,6 +36863,7 @@ std::uint16_t* Sub_43D970(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043D9A0。
 std::uint16_t* Sub_43D9A0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36386,6 +36875,7 @@ std::uint16_t* Sub_43D9A0(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043D9D0。
 void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
 {
     if (action == nullptr) {
@@ -36400,6 +36890,7 @@ void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
     record.value124 = value;
 }
 
+// 原函数：0x0043DA10。
 void Sub_43DA10(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36411,6 +36902,7 @@ void Sub_43DA10(login::YobiAction* const action)
     record.value124 = 0;
 }
 
+// 原函数：0x0043DA40。
 std::uint16_t* Sub_43DA40(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36422,6 +36914,7 @@ std::uint16_t* Sub_43DA40(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043DA70。
 std::uint16_t* Sub_43DA70(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36433,6 +36926,7 @@ std::uint16_t* Sub_43DA70(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043DAA0。
 std::uint16_t* Sub_43DAA0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36444,6 +36938,7 @@ std::uint16_t* Sub_43DAA0(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043DAD0。
 std::uint16_t* Sub_43DAD0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36455,6 +36950,7 @@ std::uint16_t* Sub_43DAD0(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043DB00。
 std::uint16_t* Sub_43DB00(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36466,6 +36962,7 @@ std::uint16_t* Sub_43DB00(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x0043DB30。
 std::uint16_t* Sub_43DB30(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36477,6 +36974,7 @@ std::uint16_t* Sub_43DB30(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x00444410。
 void Sub_444410(
     login::YobiAction* const action, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction, const std::int32_t characterAction,
@@ -36752,6 +37250,7 @@ void Sub_444410(
     }
 }
 
+// 原函数：0x00449C90。
 std::uint16_t Sub_449C90(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36767,6 +37266,7 @@ std::uint16_t Sub_449C90(login::YobiAction* const action)
     return sampledFlags;
 }
 
+// 原函数：0x00449CC0。
 void Sub_449CC0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36779,6 +37279,7 @@ void Sub_449CC0(login::YobiAction* const action)
     }
 }
 
+// 原函数：0x00442C40。
 std::uint16_t* Sub_442C40(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36790,6 +37291,7 @@ std::uint16_t* Sub_442C40(login::YobiAction* const action)
     return &flags;
 }
 
+// 原函数：0x00442C70。
 void Sub_442C70(login::YobiAction* const action)
 {
     if (Sub_440B50() != 0) {
@@ -36802,6 +37304,7 @@ void Sub_442C70(login::YobiAction* const action)
     gWorldObjects[payload->index].flags42 &= 0xFDFFu;
 }
 
+// 原函数：0x00442BD0。
 void Sub_442BD0(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -36814,12 +37317,14 @@ void Sub_442BD0(login::YobiAction* const action)
 }
 
 // YGOS01：完整S32动画图号区间判定；仅445350方向门禁调用，不新增公头接口。
+// 原函数：0x005183B0。
 std::int32_t Sub_5183B0(const std::int32_t imageNo)
 {
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
 }
 
 // WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
+// 原函数：0x004467D0。
 void Sub_4467D0(const std::int32_t objectIndex)
 {
     if (objectIndex < 0) {
@@ -36860,6 +37365,7 @@ void Sub_4467D0(const std::int32_t objectIndex)
 }
 
 // WBR01：批量补建空action；未知类别仍保创建，仅跳过名字/flags尾，原主体保持。
+// 原函数：0x00446640。
 void Sub_446640()
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
@@ -36907,6 +37413,7 @@ void Sub_446640()
 }
 
 // MOP01：完整对象生产/更新；两坐标三值先取、四256B文本槽原复用关系沿SPEC，原失败/字段宽度保持。
+// 原函数：0x00445350。
 void Sub_445350(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -37067,6 +37574,7 @@ void Sub_445350(
 }
 
 // WOP01：类别2记录更新；两坐标mask/encoded/count先取齐，保创建失败与fresh action序。
+// 原函数：0x00445D20。
 void Sub_445D20(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -37135,6 +37643,7 @@ void Sub_445D20(
 }
 
 // WOP01：类别4记录更新；两坐标encoded/mask/count先取齐，不补类别2专用字段。
+// 原函数：0x00445F40。
 void Sub_445F40(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
@@ -37199,6 +37708,7 @@ void Sub_445F40(
 }
 
 // WGQ01：X→fresh Y→类别/必需flags120，返对象编号或-1；保比较读取/RNG与动态上界。
+// 原函数：0x00445030。
 std::int32_t Sub_445030(
     const std::int32_t x, const std::int32_t y,
     const std::uint16_t category, const std::uint16_t flags)
@@ -37227,6 +37737,7 @@ std::int32_t Sub_445030(
 }
 
 // WGQ01：X→fresh Y→类别，返完整0/1，无额外flags门禁；原主体保持。
+// 原函数：0x004450D0。
 std::int32_t Sub_4450D0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
@@ -37253,6 +37764,7 @@ std::int32_t Sub_4450D0(
 }
 
 // WGQ01：X→fresh Y→类别，返对象编号或-1，无标志门禁；保动态上界。
+// 原函数：0x00445160。
 std::int32_t Sub_445160(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category)
 {
@@ -37279,6 +37791,7 @@ std::int32_t Sub_445160(
 }
 
 // WGQ01：包含掩码0分别跳过相应W16字段，原X/fresh Y/类别后再检查，返完整0/1。
+// 原函数：0x004451F0。
 std::int32_t Sub_4451F0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)
@@ -37308,6 +37821,7 @@ std::int32_t Sub_4451F0(
 }
 
 // WGQ01：排除掩码0仍沿原W16字段读取，42失败不取120，返完整0/1；主体保持。
+// 原函数：0x004452A0。
 std::int32_t Sub_4452A0(
     const std::int32_t x, const std::int32_t y, const std::uint16_t category,
     const std::uint16_t excluded42, const std::uint16_t excluded120)
@@ -37336,6 +37850,7 @@ std::int32_t Sub_4452A0(
     return 0;
 }
 
+// 原函数：0x0046B4B0。
 void Sub_46B4B0(const std::int32_t direction)
 {
     if (direction < 0 || direction > 7) {
@@ -37370,6 +37885,7 @@ void Sub_46B4B0(const std::int32_t direction)
     gValueC8223C = platform::ReadTickCount32();
 }
 
+// 原函数：0x0046A190。
 std::uint32_t Sub_46A190()
 {
     for (std::size_t position = 0; position < 5; ++position) {
@@ -37470,6 +37986,7 @@ std::uint32_t Sub_46A190()
     return worldXBits;
 }
 
+// 原函数：0x0046B1B0。
 void MovePlayerOneStep_46B1B0(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
@@ -37533,6 +38050,7 @@ void MovePlayerOneStep_46B1B0(
     Sub_519EE0();
 }
 
+// 原函数：0x0046A5F0。
 void Sub_46A5F0()
 {
     if (gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
@@ -37581,6 +38099,7 @@ void Sub_46A5F0()
     }
 }
 
+// 原函数：0x0051A640。
 login::YobiAction* Sub_51A640()
 {
     login::YobiAction* const action = ReadPlayerAction();
@@ -37590,6 +38109,7 @@ login::YobiAction* Sub_51A640()
     return action;
 }
 
+// 原函数：0x0051A660。
 login::YobiAction* Sub_51A660()
 {
     login::YobiAction* const action = ReadPlayerAction();
@@ -37599,12 +38119,14 @@ login::YobiAction* Sub_51A660()
     return action;
 }
 
+// 原函数：0x0051A680。
 std::int32_t Sub_51A680()
 {
     login::YobiAction* const action = ReadPlayerAction();
     return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->field272);
 }
 
+// 原函数：0x00519EE0。
 void Sub_519EE0()
 {
     if (ReadPlayerAction() == nullptr) {
@@ -37639,6 +38161,7 @@ void Sub_519EE0()
     platform::legacy_crypt_int::CopyPayload(&action->mapY210, &gPlayerSnapshotY);
 }
 
+// 原函数：0x00521F20。
 void RenderChara_521F20()
 {
     using login::detail::gYobiActionStart;

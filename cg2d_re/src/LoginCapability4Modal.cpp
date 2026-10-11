@@ -70,11 +70,13 @@ std::int16_t Low16(const std::int32_t value)
 
 namespace cg::login::detail {
 
+// 原函数：0x00464440。
 void ResetCapability4Modal_464440()
 {
     gCapability4ModalInitialized = 0;
 }
 
+// 原函数：0x00464450。
 std::int32_t UpdateCapability4Modal_464450(const char* const text)
 {
     char splitText[kCapability4ModalTextCapacity] {};

@@ -194,6 +194,7 @@ SurfaceTransformCache* ConstructSurfaceTransformCache629300_44CC30()
         reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms629300));
 }
 
+// 原函数：0x0044CD40。
 SurfaceTransformCache* ConstructSurfaceTransformCache62A630_44CD40()
 {
     return std::construct_at(
@@ -206,6 +207,7 @@ void DestroySurfaceTransformCache629300_44CC60()
     std::destroy_at(&BorrowSurfaceTransformCache629300());
 }
 
+// 原函数：0x0044CD70。
 void DestroySurfaceTransformCache62A630_44CD70()
 {
     std::destroy_at(&BorrowSurfaceTransformCache62A630());
@@ -213,12 +215,14 @@ void DestroySurfaceTransformCache62A630_44CD70()
 
 } // namespace
 
+// 原函数：0x0044CC20。
 std::int32_t InitializeSurfaceTransformCache629300_44CC20()
 {
     static_cast<void>(ConstructSurfaceTransformCache629300_44CC30());
     return std::atexit(DestroySurfaceTransformCache629300_44CC60);
 }
 
+// 原函数：0x0044CD30。
 std::int32_t InitializeSurfaceTransformCache62A630_44CD30()
 {
     static_cast<void>(ConstructSurfaceTransformCache62A630_44CD40());
@@ -234,6 +238,7 @@ std::int32_t gTextureFallbackCount = 0;
 std::int32_t gTextureSizeW = 0;
 std::int32_t gTextureSizeH = 0;
 
+// 原函数：0x0044C6D0。
 TextureSurface* CreateTextureSurface_44C6D0(
     const std::int16_t requestedWidth, const std::int16_t requestedHeight,
     const std::uint32_t colorKey, std::uint32_t /*unusedMemoryCaps*/)
@@ -272,6 +277,7 @@ TextureSurface* CreateTextureSurface_44C6D0(
         std::bit_cast<std::int32_t>(width), std::bit_cast<std::int32_t>(height), colorKey);
 }
 
+// 原函数：0x0044C8B0。
 TextureSurface* CreatePlainTextureSurface_44C8B0(
     const std::int16_t width, const std::int16_t height,
     const std::uint32_t colorKey, std::uint32_t /*unusedMemoryCaps*/)
@@ -311,6 +317,7 @@ void TextureSurfaceBinding::Bind(TextureSurface* const surface) noexcept
     surface_ = retained;
 }
 
+// 原函数：0x00523310。
 void ResetTextureNodes_523310() noexcept
 {
     const std::int32_t count = gTextureNodeCount;
@@ -326,6 +333,7 @@ void ResetTextureNodes_523310() noexcept
     }
 }
 
+// 原函数：0x00523350。
 std::int32_t InvalidateGraphicRefs_523350() noexcept
 {
     const std::int32_t count = resource::gMaxGraphicCount;
@@ -353,6 +361,7 @@ std::int32_t InvalidateGraphicRefs_523350() noexcept
     return static_cast<std::int32_t>(legacyOffset);
 }
 
+// 原函数：0x00522570。
 std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
 {
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount) {
@@ -423,6 +432,7 @@ std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept
     return static_cast<std::int16_t>(entries[image].height);
 }
 
+// 原函数：0x005222D0。
 void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*/)
 {
     std::int32_t scan = gTextureScanIndex;
@@ -520,6 +530,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     }
 }
 
+// 原函数：0x00520B10。
 std::int32_t LoadGraphicTexture_520B10(
     const GraphicCacheItem32* const graphic, TextureNode* const texture)
 {
@@ -669,6 +680,7 @@ std::int32_t LoadGraphicTexture_520B10(
     return 1;
 }
 
+// 原函数：0x005231A0。
 std::int32_t BuildSurfaceCache_5231A0()
 {
     gTextureNodeCount = 0;
@@ -723,6 +735,7 @@ std::int32_t BuildSurfaceCache_5231A0()
     return 1;
 }
 
+// 原函数：0x00451310。
 void FillTextureBlack_451310(TextureSurface* const surface) noexcept
 {
     const std::size_t pixelCount =
@@ -759,6 +772,7 @@ std::int32_t BlitTextureToBack(
     return copied ? 0 : failure;
 }
 
+// 原函数：0x00450400。
 void LoadTextureFromBuffer32_450400(
     TextureSurface* const surface, const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
@@ -811,6 +825,7 @@ void ReleaseTextureNodeSurfaces_44C408() noexcept
     }
 }
 
+// 原函数：0x0044CD80。
 TextureSurface* TransformTextureSurface_44CD80(
     TextureSurface* const source, const std::int32_t imageNo, const std::int16_t paletteIndex,
     const std::uint8_t flipX, const std::uint8_t flipY,
@@ -871,6 +886,7 @@ TextureSurface* TransformTextureSurface_44CD80(
     return publishedCache[publishedKey];
 }
 
+// 原函数：0x0044D490。
 void ClearSurfaceTransformCache_44D490()
 {
     auto& cache = world::gCurrentSceneType == 10

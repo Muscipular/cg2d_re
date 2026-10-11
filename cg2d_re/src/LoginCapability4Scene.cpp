@@ -65,6 +65,7 @@ std::int32_t ProcessCapability4CommonTail()
 
 namespace cg::world::detail {
 
+// 原函数：0x00464840。
 std::int32_t Sub_464840()
 {
     const std::int32_t sampledState = world::gCurrentSceneState;

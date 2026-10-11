@@ -70,11 +70,13 @@ constexpr char kAnimeSizeErrorCaption[] =
 
 } // namespace
 
+// 原函数：0x0045B370。
 std::uint32_t Sub_45B370()
 {
     return Sub_45B380();
 }
 
+// 原函数：0x0045B380。
 std::uint32_t Sub_45B380()
 {
     const std::uint32_t value = gValue9A4A50;
@@ -82,6 +84,7 @@ std::uint32_t Sub_45B380()
     return value;
 }
 
+// 原函数：0x0045BB20。
 std::int32_t AnimeInit_45BB20(
     char* const* const dataPaths, char* const* const infoPaths)
 {
@@ -186,6 +189,7 @@ std::int32_t AnimeInit_45BB20(
     return 0;
 }
 
+// 原函数：0x0045B420。
 std::int32_t __cdecl Compare_45B420(
     const void* const left, const void* const right)
 {
@@ -197,6 +201,7 @@ std::int32_t __cdecl Compare_45B420(
     return a->animeNo > b->animeNo ? 1 : 0;
 }
 
+// 原函数：0x0045B390。
 std::int32_t __cdecl BinarySearch_45B390(
     const std::uint32_t animeNo, std::int32_t min, std::int32_t max)
 {
@@ -227,6 +232,7 @@ std::int32_t __cdecl BinarySearch_45B390(
     return -1;
 }
 
+// 原函数：0x0045B400。
 std::int32_t __cdecl GetIndex_45B400(const std::uint32_t animeNo)
 {
     const std::int32_t result =
@@ -234,6 +240,7 @@ std::int32_t __cdecl GetIndex_45B400(const std::uint32_t animeNo)
     return result < 0 ? -1 : result;
 }
 
+// 原函数：0x0045B760。
 std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
 {
     const auto fileIndex = static_cast<std::uint16_t>(gAnimateRecords9A4A58[index].fileIndex);
@@ -336,6 +343,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     return 1;
 }
 
+// 原函数：0x0045C150。
 std::int32_t CoordInit_45C150(const std::int32_t index)
 {
     const auto fileIndex = static_cast<std::uint16_t>(gAnimateRecords9A4A58[index].fileIndex);
@@ -375,6 +383,7 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     return 1;
 }
 
+// 原函数：0x0045C040。
 void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoPaths)
 {
     detail::gCoordinateFiles9A2988.fill(nullptr);
@@ -394,6 +403,7 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
     }
 }
 
+// 原函数：0x0045BF60。
 std::int32_t CoordLoad_45BF60(
     platform::LegacyFile** const outputFile, const char* const dataPath, const char* const infoPath)
 {

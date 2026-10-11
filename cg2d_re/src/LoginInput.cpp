@@ -126,6 +126,7 @@ char* ReadStoredInputValue(
 
 } // namespace
 
+// 原函数：0x005203B0。
 char* WriteInputValueFF494F_5203B0(char* const source)
 {
     return WriteStoredInputValue(
@@ -133,6 +134,7 @@ char* WriteInputValueFF494F_5203B0(char* const source)
         detail::GetCurrentSavedInputValueFF494F());
 }
 
+// 原函数：0x005203E0。
 char* ReadInputValueFF494F_5203E0(char* const output)
 {
     if (output == nullptr) {
@@ -143,6 +145,7 @@ char* ReadInputValueFF494F_5203E0(char* const output)
         detail::GetCurrentSavedInputValueFF494F());
 }
 
+// 原函数：0x00520410。
 char* WriteInputValueFF4982_520410(char* const source)
 {
     return WriteStoredInputValue(
@@ -150,6 +153,7 @@ char* WriteInputValueFF4982_520410(char* const source)
         detail::GetCurrentSavedInputValueFF4982());
 }
 
+// 原函数：0x00520440。
 char* ReadInputValueFF4982_520440(char* const output)
 {
     if (output == nullptr) {
@@ -160,6 +164,7 @@ char* ReadInputValueFF4982_520440(char* const output)
         detail::GetCurrentSavedInputValueFF4982());
 }
 
+// 原函数：0x005036F0。
 std::int32_t QueryLoginControlState_5036F0(
     const LoginSceneControl32* const control)
 {
@@ -213,6 +218,7 @@ std::int32_t QueryLoginControlState_5036F0(
     return static_cast<std::int32_t>(result);
 }
 
+// 原函数：0x00503780。
 void DrawLoginControl_503780(
     const LoginSceneControl32* const control,
     const std::uint8_t layer,
@@ -311,6 +317,7 @@ void DrawLoginControl_503780(
         step);
 }
 
+// 原函数：0x0045C7C0。
 void InitializeInputContexts_45C7C0()
 {
     char firstInitialText[256] {};
@@ -407,6 +414,7 @@ void InitializeInputContexts_45C7C0()
     input::SetContext_44B330(initialContext);
 }
 
+// 原函数：0x0045F970。
 void InitializeCapabilityInput_45F970()
 {
     char firstInitialText[256] {};
@@ -460,6 +468,7 @@ void InitializeCapabilityInput_45F970()
     gValue9A6200 = 255;
 }
 
+// 原函数：0x00465320。
 void InitializeCapability4Input_465320()
 {
     char initialText[256] {};
@@ -520,6 +529,7 @@ void InitializeCapability4Input_465320()
     gValue9A6200 = 255;
 }
 
+// 原函数：0x00465740。
 void SaveAndSwitchCapability4InputSlot_465740(
     const std::int32_t newSlot)
 {
@@ -540,6 +550,7 @@ void SaveAndSwitchCapability4InputSlot_465740(
     InitializeCapability4Input_465320();
 }
 
+// 原函数：0x00465430。
 std::int32_t ProcessCapability4SavedSlotSelector_465430()
 {
     std::int32_t visibleCount =

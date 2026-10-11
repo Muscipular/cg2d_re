@@ -27,6 +27,7 @@ namespace cg::login {
 
 std::uint16_t gCharacterDeletionReplyCode = 0;
 
+// 原函数：0x00508F70。
 std::uint32_t StartCharacterDeletionRequest()
 {
     const std::int16_t selected = gSelectedCharacterIndex;
@@ -47,6 +48,7 @@ std::uint32_t StartCharacterDeletionRequest()
     return tick;
 }
 
+// 原函数：0x00508FC0。
 std::int32_t PollCharacterDeletionRequest()
 {
     if (gRequestStatus == 2) {
@@ -69,6 +71,7 @@ std::int32_t PollCharacterDeletionRequest()
     return -1;
 }
 
+// 原函数：0x00509020。
 void HandleCharacterDeletionResponse_509020(
     const std::uintptr_t,
     const char* const result,

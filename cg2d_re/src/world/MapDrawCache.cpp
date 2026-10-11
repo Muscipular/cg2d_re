@@ -145,6 +145,7 @@ std::int32_t CompareMapObject_46C300(
 }
 
 // MC01-C8：原F64深度主键；同深度统一批次优先，再按sourceIndex，同键返回0。
+// 原函数：0x0046C440。
 std::int32_t CompareMapPrimary_46C440(
     const MapDrawRecord* const first, const MapDrawRecord* const second)
 {
@@ -168,6 +169,7 @@ std::int32_t CompareMapPrimary_46C440(
 }
 
 // MC01-C8：原数组/数量接std::sort，比较交换和等价项排列采用标准库。
+// 原函数：0x0046C420。
 void SortMapPrimary_46C420()
 {
     const std::uint32_t count = gValue9FB934;
@@ -342,6 +344,7 @@ void QueueMapDrawRecord(
 
 } // namespace
 
+// 原函数：0x0046BD60。
 std::int32_t Sub_46BD60(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const std::int32_t mode,
@@ -366,6 +369,7 @@ std::int32_t Sub_46BD60(
     return count;
 }
 
+// 原函数：0x0046BE50。
 void Sub_46BE50(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
@@ -399,6 +403,7 @@ void Sub_46BE50(
     countSlot = static_cast<std::uint32_t>(count + 1);
 }
 
+// 原函数：0x0046DFF0。
 void Sub_46DFF0(
     const std::int32_t imageNo, const std::uint32_t worldXBits, const std::uint32_t worldYBits,
     const std::int16_t x, const std::int16_t y, const render::GraphicDescriptor16* const descriptor)
@@ -431,6 +436,7 @@ void Sub_46DFF0(
     }
 }
 
+// 原函数：0x0046C060。
 void DrawGearNormal_46C060(
     const std::int32_t primaryIndex, const std::int32_t before,
     const std::int32_t imageNo, const std::int16_t x, const std::int16_t y,
@@ -472,12 +478,14 @@ void DrawGearNormal_46C060(
     gValue9A7F78 = static_cast<std::uint32_t>(count + 1);
 }
 
+// 原函数：0x0046C2F0。
 void Sub_46C2F0()
 {
     SortMapPrimary_46C420();
     MergeMapDrawCache_46C4D0();
 }
 
+// 原函数：0x0046C1C0。
 std::int32_t Sub_46C1C0()
 {
     std::int32_t count = gMapDrawMergedCount9EE914;

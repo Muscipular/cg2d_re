@@ -32,6 +32,7 @@ namespace cg::login {
 
 std::uint16_t gCharacterCreationReplyCode = 0;
 
+// 原函数：0x00508E00。
 std::uint32_t StartCharacterCreationRequest()
 {
     const std::int32_t element3 = character_select::state::gValueDE0B04;
@@ -58,6 +59,7 @@ std::uint32_t StartCharacterCreationRequest()
     return tick;
 }
 
+// 原函数：0x00508E90。
 std::int32_t PollCharacterCreationRequest()
 {
     if (gRequestStatus == 2) {
@@ -78,6 +80,7 @@ std::int32_t PollCharacterCreationRequest()
     return -1;
 }
 
+// 原函数：0x00508EE0。
 void HandleCharacterCreationResponse_508EE0(
     const std::uintptr_t,
     const char* const result,

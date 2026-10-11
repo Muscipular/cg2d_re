@@ -33,8 +33,10 @@ namespace cg::platform {
 namespace initialization_detail {
 
 // 原加载入口，完整本体位于 LoadingScreen.cpp。
+// 原函数：0x00457B10。
 std::int32_t InitLoading_457B10();
 // 原直接目标的SDL音乐提供者，实现在LegacyAudio.cpp；保留本父调用顺序。
+// 原函数：0x00454C30。
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 
 } // namespace initialization_detail
@@ -102,6 +104,7 @@ void AdvanceLoadingFadeFrame()
 
 namespace initialization_detail {
 
+// 原函数：0x00458390。
 std::int32_t FadeInLoading_458390()
 {
     const std::int32_t capability = resource::ProbePaletteCapability_45C970();
@@ -147,6 +150,7 @@ std::int32_t FadeInLoading_458390()
     }
 }
 
+// 原函数：0x004585F0。
 std::int32_t FadeOutLoading_4585F0()
 {
     gLastRenderDt = static_cast<double>(ReadTickCount32());
@@ -178,6 +182,7 @@ std::int32_t FadeOutLoading_4585F0()
 
 } // namespace initialization_detail
 
+// 原函数：0x004576B0。
 int InitializeClient_4576B0()
 {
     static_cast<void>(ResetSystemLog_44B5A0());

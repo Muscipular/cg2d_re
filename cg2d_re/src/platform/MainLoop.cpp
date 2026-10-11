@@ -18,6 +18,7 @@
 
 namespace cg::platform {
 
+// 原函数：0x00458A40。
 void ShowModeChange_458A40()
 {
     static constexpr char kModeChangeText[] {

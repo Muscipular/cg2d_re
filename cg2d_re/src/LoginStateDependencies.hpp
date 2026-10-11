@@ -9,7 +9,9 @@
 namespace cg::login::detail {
 
 // sub_45D990@0x45D990 的直接目标。
+// 原函数：0x0044B2A0。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);
+// 原函数：0x0044B260。
 std::int32_t MeasureDefaultText_44B260(const char* text); // 非空入口快照字体0双宽/单宽，无字节预算。
 
 // NLD01／原507D90：508360直接查询唯一服务器表，失败-1不写输出，成功复制地址／写U16端口。
@@ -17,7 +19,9 @@ std::int32_t GetServerAddressInfo_507D90(
     std::int32_t serverIndex,
     char* serverAddress,
     std::uint16_t* port);
+// 原函数：0x0044B5C0。
 std::uint32_t Sub_44B5C0(const char* text);
+// 原函数：0x00508360。
 std::int32_t Sub_508360();
 inline std::int32_t DrawText(
     const std::int16_t x,

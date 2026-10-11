@@ -38,6 +38,7 @@ std::int32_t Sub_4705F0()
 
 static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 
+// 原函数：0x00457A40。
 int ShutdownClient_457A40()
 {
     shutdown_detail::Sub_4705F0();

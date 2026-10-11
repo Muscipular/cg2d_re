@@ -197,6 +197,7 @@ std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 
 } // namespace
 
+// 原函数：0x0050E770。
 std::uint8_t Sub_50E770(std::uintptr_t, const std::int32_t pukVersion)
 {
     const std::uint8_t version = static_cast<std::uint8_t>(pukVersion);
@@ -204,6 +205,7 @@ std::uint8_t Sub_50E770(std::uintptr_t, const std::int32_t pukVersion)
     return version;
 }
 
+// 原函数：0x0045E7B0。
 std::int32_t Sub_45E7B0()
 {
     const std::int32_t selected = login::gSelectedCharacterIndex;
@@ -212,6 +214,7 @@ std::int32_t Sub_45E7B0()
     return world::detail::Sub_534770();
 }
 
+// 原函数：0x0045E7D0。
 std::int32_t Sub_45E7D0()
 {
     char text[sizeof(kCreationProgress55C9C0)];
@@ -268,6 +271,7 @@ std::int32_t Sub_45E7D0()
     return 0;
 }
 
+// 原函数：0x004626A0。
 void ProcessCreationScene_4626A0(const std::int32_t entryGate)
 {
     std::int32_t sceneState = world::gCurrentSceneState;
@@ -387,12 +391,14 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
     }
 }
 
+// 原函数：0x00462870。
 void Sub_462870()
 {
     login::detail::YobiClearUp_404D30();
     ++world::gCurrentSceneState;
 }
 
+// 原函数：0x00462880。
 void Sub_462880(const std::uint8_t resetSelection)
 {
     if (resetSelection != 0) {
@@ -425,6 +431,7 @@ void Sub_462880(const std::uint8_t resetSelection)
     input::SetContext_44B330(nullptr);
 }
 
+// 原函数：0x00462930。
 std::int32_t Sub_462930()
 {
     std::uint8_t selected = state::gValue9A4CFC;
@@ -659,6 +666,7 @@ std::int32_t Sub_462930()
     return result;
 }
 
+// 原函数：0x00463100。
 std::uint32_t Sub_463100()
 {
     login::YobiAction* const first = state::gCreateActions[0];
@@ -693,6 +701,7 @@ std::uint32_t Sub_463100()
     return version;
 }
 
+// 原函数：0x004631D0。
 std::int32_t Sub_4631D0()
 {
     auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A5FD4);
@@ -1107,6 +1116,7 @@ std::int32_t Sub_4631D0()
     return result;
 }
 
+// 原函数：0x004642C0。
 std::int32_t Sub_4642C0()
 {
     const std::int32_t valueF633F0 = state::gValueF633F0;
@@ -1143,6 +1153,7 @@ std::int32_t Sub_4642C0()
     return value9A4B80;
 }
 
+// 原函数：0x00464380。
 std::uint8_t Sub_464380()
 {
     auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A5FD4);
@@ -1181,6 +1192,7 @@ std::uint8_t Sub_464380()
     return value9A5954;
 }
 
+// 原函数：0x00464290。
 std::int32_t Sub_464290(const std::int32_t* const rectangle)
 {
     const std::int32_t top = rectangle[1];
@@ -1462,6 +1474,7 @@ void UpdateCharacterGraphic(
 
 } // namespace
 
+// 原函数：0x00460FF0。
 std::int32_t ProcessScene_460FF0()
 {
     std::int32_t interactive = 1;

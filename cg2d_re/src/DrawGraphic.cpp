@@ -46,6 +46,7 @@ std::int16_t SubtractSigned16Wrapping(
 
 } // namespace
 
+// 原函数：0x00520970。
 std::int32_t DrawGraphic3_520970(
     const std::int32_t x,
     const std::int32_t y,
@@ -124,6 +125,7 @@ std::int32_t DrawGraphic3_520970(
     return result;
 }
 
+// 原函数：0x0045F090。
 std::int32_t Sub_45F090(
     const std::int32_t x,
     const std::int32_t y,
@@ -160,6 +162,7 @@ std::int32_t Sub_45F090(
         itemX, itemY, itemLayer, itemImageNo, itemValue4, 1, 0, descriptorAddress);
 }
 
+// 原函数：0x00521C80。
 std::int32_t Sub_521C80(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
     const std::int32_t imageNo, const std::int32_t value4,
@@ -211,6 +214,7 @@ std::int32_t Sub_521C80(
     return result;
 }
 
+// 原函数：0x00521DD0。
 std::int32_t DrawGraphic2_521DD0(
     const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
     const std::int32_t graphicIndex, const std::int32_t value4,
@@ -267,6 +271,7 @@ std::int32_t DrawGraphic2_521DD0(
 } // namespace cg::render
 
 namespace cg::login::detail {
+// 原函数：0x00521B10。
 std::int32_t DrawGraphic(
     const std::int32_t x,
     const std::int32_t y,

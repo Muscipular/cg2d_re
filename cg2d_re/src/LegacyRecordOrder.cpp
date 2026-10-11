@@ -143,6 +143,7 @@ const char* BorrowGuildRankText1051518(const std::int32_t index) noexcept
     return gGuildTextRecords1051514[index].text04.data();
 }
 
+// 原函数：0x0050E850。
 void Sub_50E850(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {
@@ -212,6 +213,7 @@ void Sub_50E850(const std::uintptr_t, const char* const text)
     }
 }
 
+// 原函数：0x0050EB40。
 void Sub_50EB40(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {
@@ -245,6 +247,7 @@ void Sub_50EB40(const std::uintptr_t, const char* const text)
     } while (remaining != 0);
 }
 
+// 原函数：0x0050F280。
 void Sub_50F280(const std::uintptr_t, const std::int32_t key)
 {
     if (gGuildHeader10514A8.key00 != key) {
@@ -256,12 +259,14 @@ void Sub_50F280(const std::uintptr_t, const std::int32_t key)
     static_cast<void>(ui::Sub_4AFF00());
 }
 
+// 原函数：0x00532D80。
 std::int32_t Sub_532D80()
 {
     ResetGuildRuntimeFields();
     return ui::Sub_4AFF00();
 }
 
+// 原函数：0x0052FB60。
 int CompareOrderedRecords_52FB60(const void* const left, const void* const right)
 {
     const auto leftIndex = *static_cast<const std::uint32_t*>(left);
@@ -295,6 +300,7 @@ int CompareOrderedRecords_52FB60(const void* const left, const void* const right
     return (current.value0C > other.value0C) - (current.value0C < other.value0C);
 }
 
+// 原函数：0x0052FCC0。
 void BuildOrderedRecordIndices_52FCC0()
 {
     std::uint32_t* const indices = platform::BgmRuntimeOrderWords();
@@ -306,6 +312,7 @@ void BuildOrderedRecordIndices_52FCC0()
 }
 
 // GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。
+// 原函数：0x0050EF50。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
 {
     std::int32_t count = 0;
@@ -317,6 +324,7 @@ std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
     return count;
 }
 
+// 原函数：0x0050EF20。
 OrderedRecord1051B14* ResetOrderedRecord_50EF20(
     OrderedRecord1051B14* const record) noexcept
 {
@@ -334,6 +342,7 @@ OrderedRecord1051B14* ResetOrderedRecord_50EF20(
     return record;
 }
 
+// 原函数：0x0050EF70。
 std::int32_t ParseOrderedRecord_50EF70(
     const std::int32_t index, const char* const text)
 {
@@ -376,6 +385,7 @@ std::int32_t ParseOrderedRecord_50EF70(
     return 1;
 }
 
+// 原函数：0x0050EEB0。
 std::uintptr_t UpdateOrderedRecords_50EEB0(
     std::uintptr_t, std::uint32_t, const char* const text)
 {
@@ -406,6 +416,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
         + offsetof(OrderedRecord1051B14, value0C);
 }
 
+// 原函数：0x0050EC50。
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     std::uintptr_t, const char* const text)
 {
@@ -466,6 +477,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(
 }
 
 // GML01：原200排序项W16==1首匹配，计数/返回S32，无则-1。
+// 原函数：0x005195C0。
 std::int32_t FindActiveOrderedRecordIndex_5195C0(
     const std::int32_t key) noexcept
 {

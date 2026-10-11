@@ -11,7 +11,8 @@ struct ExternalKeyboard final {
     ExternalKeyboard(
         std::uintptr_t instance, std::uintptr_t window, const char* initialText);
 
-    // 原 sub_535310：真实清理仍未实现；原 EH 仅清理不捕获，允许异常继续传播。
+    // 原 sub_535310：已排除屏幕键盘范围的历史清理声明，不列当前客户端开发债务。
+    // 原 EH 仅清理不捕获，允许异常继续传播；本声明保留原异常规格。
     ~ExternalKeyboard() noexcept(false);
 
     // 原虚表首项 sub_535290：先析构，flags 低字节 bit 0 决定释放，返回原对象指针。

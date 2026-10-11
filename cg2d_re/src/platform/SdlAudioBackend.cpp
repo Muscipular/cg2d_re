@@ -626,6 +626,7 @@ void SdlAudioBackend::Close() noexcept
     impl_.reset();
 }
 
+// 关联原入口：0x00454FE0／0x00455100，固定WAV预载承接旧音色库装载／下载职责。
 bool SdlAudioBackend::InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept
 {
     if (impl_ == nullptr) { return false; }
@@ -733,6 +734,7 @@ void SdlAudioBackend::ReleaseFixedMusicPlayback() noexcept
     }
 }
 
+// 关联原入口：0x00455260，旧装载器释放职责归并到固定WAV清理。
 void SdlAudioBackend::ShutdownFixedMusic() noexcept
 {
     if (impl_ == nullptr) { return; }

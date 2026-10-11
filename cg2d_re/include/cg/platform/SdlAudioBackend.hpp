@@ -28,6 +28,7 @@ public:
     [[nodiscard]] bool IsOpen() const noexcept;
 
     // 原固定音乐预转换的内置WAV，独立于普通BGM与64音效通道；初始化复制并独占PCM。
+    // 关联原入口：0x00454FE0／0x00455100，固定WAV预载承接旧音色库装载／下载职责。
     [[nodiscard]] bool InitializeFixedMusic(std::span<const std::uint8_t> wav) noexcept;
     [[nodiscard]] bool HasFixedMusic() const noexcept;
     [[nodiscard]] bool PrepareFixedMusic() noexcept;
@@ -38,6 +39,7 @@ public:
     [[nodiscard]] bool SetFixedMusicReverb(std::int32_t decay, std::int32_t mix) noexcept; // 原455030两个S32。
     void StopFixedMusic() noexcept;
     void ReleaseFixedMusicPlayback() noexcept;
+    // 关联原入口：0x00455260，旧装载器释放职责归并到固定WAV清理。
     void ShutdownFixedMusic() noexcept;
 
     // path 是现代 SDL 文件边界的 UTF-8 路径；旧原字节路径须由调用者另行转换。

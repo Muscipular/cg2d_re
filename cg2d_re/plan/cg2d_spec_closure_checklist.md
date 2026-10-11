@@ -192,3 +192,7 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 ## 2026-10-12 NWR01进展：接回活动明文发送的窗口报告状态
 
 按全量表三叶的明确接线缺项完成[NWR01](../doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state)：QueuePlaintextProtocolBytes在轮询／容量门禁通过后，保持首标记优先及报告S32>0／登录状态1／截止W32按S32<0的清零，正文复制／队列长度发布、原PGXE字段与LF保持。没有新增旧包装、协议字节或owner，旧W16帧仍只作历史对照。三叶当前提供者及表内行号同步，NETWORK登记三内联合并成员和两限定I／S；U10／V03仍open，其余任务／closure／完整门禁保持，真实报告状态及互通运行待授权。
+
+## 2026-10-12 AWR01进展：核定旧音色库入口的当前WAV承接
+
+仅按全量表三项待确认核[454FE0／455100／455260](../doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012)：原Collection取乐器／Port下载、音色集合装载遍历、Loader释放职责及三唯一调用有据；当前内置固定WAV的真实资源解码／PCM流预载／清理承接，不新增旧包装或COM影子owner，不恢复MIDI／DLS或离线工具。三行已明确当前应用调用与SDL提供者，声明／定义只补四行关联注释，功能正文保持；一限定S，三旧语义及adapted来源同步，AUDIO原43成员／分母不变。P11／P16／V05只追加引用仍open，WAV质量、原音源对照及全部资源／设备／声音／失败／正常寿命／运行门禁保持，不能以职责关联算音频通过。

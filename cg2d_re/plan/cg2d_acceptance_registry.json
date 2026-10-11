@@ -6573,7 +6573,8 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ],
       "blockers": [
         "CAC16按用户再次确认停止后续MIDI/DLS工具开发；一次转换及CAC13–15只保留历史限定证据，现WAV和客户端未因此更新，不将CC/RPN/DLS模拟列后续开发债务。当前WAV质量/适用原音源结果、实际调用/设置/资源/设备/效果/声音/循环/通知/失败/正常寿命及成员枚举仍待，不提升完整门禁或扩大原身份排除。",
@@ -6642,7 +6643,8 @@
         "doc/cg2d_network_compatibility_spec.md#dispatch-callback-width-source-state",
         "doc/cg2d_dispatch_callback_width_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#dispatch-callback-width-debug-build",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ]
     },
     {
@@ -69154,6 +69156,41 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-AWR01-AUDIO-S-20261012",
+      "feature_id": "FUNC-AUDIO",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00054FE0",
+        "F:00055100",
+        "F:00055260"
+      ],
+      "baseline_reference": "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012",
+      "implementation_reference": "[#] 核定三项音色库入口的固定WAV承接",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
+        "src/LegacyAudio.cpp#InitializeMusic_454C30",
+        "src/LegacyAudio.cpp#Sub_454EE0",
+        "src/platform/SdlAudioBackend.cpp#InitializeFixedMusic",
+        "src/platform/SdlAudioBackend.cpp#ShutdownFixedMusic",
+        "include/cg/platform/SdlAudioBackend.hpp",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "全量表三项待确认。原31／99／8条共138条450B、三唯一调用及Collection／Port方法和GUID已核：音色集合／单patch下载／Loader释放仅旧库职责；初始化父Source=0且不消费455100返回码。",
+      "expected": "沿用户WAV-only范围以当前实际资源解码／PCM预载／清理承接，不新增或恢复MIDI／DLS／Source API／离线工具。三原身份与分母保留，库内接口和声音／业务运行验收分开。",
+      "actual": "全量表三项核为有承接，给出实际应用调用与SDL提供者；仅四行声明／定义关联注释，功能正文可逆恢复原文；三个既有语义／adapted关系同步当前来源，原离线合同保历史。没有新软件I／运行通过。",
+      "differences": [
+        {
+          "description": "固定WAV已预渲染并内置，客户端不装载／枚举／下载音色集合，不持有原COM Loader；原音源声音质量及完整失败／寿命仍未验。",
+          "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -72959,7 +72996,8 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
         "doc/cg2d_offline_dls_key_group_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
-        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009"
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ]
     },
     {
@@ -73052,7 +73090,8 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-dls-key-group-source-state-20261009",
         "doc/cg2d_offline_dls_key_group_evidence.json",
         "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-development-scope-20261009",
-        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009"
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-only-scope-source-state-20261009",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ]
     },
     {
@@ -73158,7 +73197,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_display_settings.md#audio-settings-route-status-20261010",
         "doc/cg2d_audio_settings_route_status_evidence.json",
-        "doc/ui_windows/shared_legacy_panels.md"
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ]
     },
     {
@@ -87656,8 +87696,10 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
-      ]
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
+      ],
+      "boundary": "AWR01当前固定WAV资源／SDL PCM预载／清理承接三旧音色库职责；原身份／分母保持。原音色库接口／HRESULT及Source路径机制不恢复，旧工具只保历史；不关闭WAV质量／资源／设备／声音／正常寿命／ABI或运行门禁。实施状态以全量表为准。"
     },
     {
       "inventory_id": "F:0012B9E0",
@@ -87677,8 +87719,10 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
-      ]
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
+      ],
+      "boundary": "AWR01当前固定WAV资源／SDL PCM预载／清理承接三旧音色库职责；原身份／分母保持。原音色库接口／HRESULT及Source路径机制不恢复，旧工具只保历史；不关闭WAV质量／资源／设备／声音／正常寿命／ABI或运行门禁。实施状态以全量表为准。"
     },
     {
       "inventory_id": "F:00055260",
@@ -87686,8 +87730,10 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
-        "doc/cg2d_offline_bank_lifetime_evidence.json"
-      ]
+        "doc/cg2d_offline_bank_lifetime_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
+      ],
+      "boundary": "AWR01当前固定WAV资源／SDL PCM预载／清理承接三旧音色库职责；原身份／分母保持。原音色库接口／HRESULT及Source路径机制不恢复，旧工具只保历史；不关闭WAV质量／资源／设备／声音／正常寿命／ABI或运行门禁。实施状态以全量表为准。"
     },
     {
       "inventory_id": "F:0012C9E0",

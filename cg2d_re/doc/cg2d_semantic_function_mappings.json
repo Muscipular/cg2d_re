@@ -193497,26 +193497,42 @@
     {
       "original_entry": "0x454FE0",
       "inventory_id": "F:00054FE0",
-      "status": "CAB12三原音色/loader职责按用户WAV方案具名适配到实际离线bank/样本区域与清理；两寿命写点已修，限定静态通过，完整音频/全部DLS声音/失败未验",
+      "status": "AWR01已核当前固定WAV预载／清理实际承接；实施状态以全量表为准，原库内机制与声音／运行验收分开",
       "sources": [
         {
           "path": "src/tools/LegacyMidiSynth.cpp",
           "symbols": [
             "LegacyMidiSynth::Impl::LoadDls",
             "LegacyMidiSynth::Impl::Apply"
-          ]
+          ],
+          "relationship": "CAB12历史离线转换来源；未进入当前客户端，后续开发已停止，不作为当前运行期提供者"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::InitializeFixedMusic"
+          ],
+          "relationship": "当前固定WAV真实解码／PCM流预载，替代音色集合／下载机制；非原COM算法或波形等价声明"
+        },
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "InitializeMusic_454C30"
+          ],
+          "relationship": "当前应用入口取得内置WAV并调用真实SDL预载；原455100唯一调用传Source=0且不消费返回码"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
         "doc/cg2d_offline_bank_lifetime_evidence.json",
-        "doc/cg2d_fixed_music_wav_evidence.json"
+        "doc/cg2d_fixed_music_wav_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ],
       "original_end_exclusive": "0x45502F",
       "instruction_count": 31,
       "original_byte_count": 79,
-      "boundary": "离线解析并复制波形、持有真实instrument/region与patch键；音符消费实际区域/样本。没有运行时COM下载对象，不宣原HRESULT/失败残留或全部DLS声音等价。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。",
+      "boundary": "历史CAB12边界：离线解析并复制波形、持有真实instrument/region与patch键；音符消费实际区域/样本。没有运行时COM下载对象，不宣原HRESULT/失败残留或全部DLS声音等价。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。 当前AWR01：按CAB02／CAC16的WAV-only范围，三旧Collection／乐器下载／Loader库职责由客户端实际固定WAV预载／清理承接。原138条450B、三唯一调用及SDK Collection／Port方法和GUID已核；原音频身份／分母保持，不新增运行时MIDI／DLS／Source API或恢复离线开发，不将宿主库职责关联当作声音质量、原HRESULT／失败残留、全资源／设备／正常寿命或运行通过。",
       "offline_bank_lifetime_contract": {
         "step": "CAB12",
         "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
@@ -193533,37 +193549,48 @@
     {
       "original_entry": "0x455100",
       "inventory_id": "F:00055100",
-      "status": "CAB12三原音色/loader职责按用户WAV方案具名适配到实际离线bank/样本区域与清理；两寿命写点已修，限定静态通过，完整音频/全部DLS声音/失败未验",
+      "status": "AWR01已核当前固定WAV预载／清理实际承接；实施状态以全量表为准，原库内机制与声音／运行验收分开",
       "sources": [
         {
           "path": "src/tools/LegacyMidiSynth.cpp",
           "symbols": [
             "LegacyMidiSynth::LoadBank"
-          ]
+          ],
+          "relationship": "CAB12历史离线转换来源；未进入当前客户端，后续开发已停止，不作为当前运行期提供者"
         },
         {
           "path": "src/tools/MidiToWav.cpp",
           "symbols": [
             "wmain"
-          ]
+          ],
+          "relationship": "CAB12历史离线转换来源；未进入当前客户端，后续开发已停止，不作为当前运行期提供者"
         },
         {
           "path": "src/LegacyAudio.cpp",
           "symbols": [
             "InitializeMusic_454C30"
-          ]
+          ],
+          "relationship": "当前应用入口取得内置WAV并调用真实SDL预载；原455100唯一调用传Source=0且不消费返回码"
+        },
+        {
+          "path": "src/platform/SdlAudioBackend.cpp",
+          "symbols": [
+            "SdlAudioBackend::InitializeFixedMusic"
+          ],
+          "relationship": "当前固定WAV真实解码／PCM流预载，替代音色集合／下载机制；非原COM算法或波形等价声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
         "doc/cg2d_offline_bank_lifetime_evidence.json",
-        "doc/cg2d_fixed_music_wav_evidence.json"
+        "doc/cg2d_fixed_music_wav_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ],
       "original_end_exclusive": "0x455259",
       "instruction_count": 99,
       "original_byte_count": 345,
-      "boundary": "真实离线文件/样本池/instrument/region持有与已执行CAB02转换、客户端内置WAV载入；本步补Clear先于读取，使失败不保留旧bank。原Source非空宽字符描述/动态音色不是新增客户端API。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。",
+      "boundary": "历史CAB12边界：真实离线文件/样本池/instrument/region持有与已执行CAB02转换、客户端内置WAV载入；本步补Clear先于读取，使失败不保留旧bank。原Source非空宽字符描述/动态音色不是新增客户端API。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。 当前AWR01：按CAB02／CAC16的WAV-only范围，三旧Collection／乐器下载／Loader库职责由客户端实际固定WAV预载／清理承接。原138条450B、三唯一调用及SDK Collection／Port方法和GUID已核；原音频身份／分母保持，不新增运行时MIDI／DLS／Source API或恢复离线开发，不将宿主库职责关联当作声音质量、原HRESULT／失败残留、全资源／设备／正常寿命或运行通过。",
       "offline_bank_lifetime_contract": {
         "step": "CAB12",
         "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
@@ -193580,44 +193607,49 @@
     {
       "original_entry": "0x455260",
       "inventory_id": "F:00055260",
-      "status": "CAB12三原音色/loader职责按用户WAV方案具名适配到实际离线bank/样本区域与清理；两寿命写点已修，限定静态通过，完整音频/全部DLS声音/失败未验",
+      "status": "AWR01已核当前固定WAV预载／清理实际承接；实施状态以全量表为准，原库内机制与声音／运行验收分开",
       "sources": [
         {
           "path": "src/tools/LegacyMidiSynth.cpp",
           "symbols": [
             "LegacyMidiSynth::Clear",
             "LegacyMidiSynth::~LegacyMidiSynth"
-          ]
+          ],
+          "relationship": "CAB12历史离线转换来源；未进入当前客户端，后续开发已停止，不作为当前运行期提供者"
         },
         {
           "path": "src/tools/MidiToWav.cpp",
           "symbols": [
             "wmain"
-          ]
+          ],
+          "relationship": "CAB12历史离线转换来源；未进入当前客户端，后续开发已停止，不作为当前运行期提供者"
         },
         {
           "path": "src/platform/SdlAudioBackend.cpp",
           "symbols": [
             "SdlAudioBackend::ShutdownFixedMusic"
-          ]
+          ],
+          "relationship": "当前固定SDL流／混响／PCM样本真实清理，归并原Loader释放职责；不创建COM影子对象"
         },
         {
           "path": "src/LegacyAudio.cpp",
           "symbols": [
             "shutdown_detail::Sub_454EE0"
-          ]
+          ],
+          "relationship": "当前应用音乐关闭入口实际调用停止及固定WAV清理"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",
         "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-source-state",
         "doc/cg2d_offline_bank_lifetime_evidence.json",
-        "doc/cg2d_fixed_music_wav_evidence.json"
+        "doc/cg2d_fixed_music_wav_evidence.json",
+        "doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012"
       ],
       "original_end_exclusive": "0x45527A",
       "instruction_count": 8,
       "original_byte_count": 26,
-      "boundary": "离线最后PCM生产后显式Clear，提前退出析构释放同一owner；客户端实际固定流/效果/样本清理沿既定WAV合同，不创建或模拟原loader。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。",
+      "boundary": "历史CAB12边界：离线最后PCM生产后显式Clear，提前退出析构释放同一owner；客户端实际固定流/效果/样本清理沿既定WAV合同，不创建或模拟原loader。 原三根138条450B、默认GUID实读及454EE0真实清理父有据；不恢复运行时MIDI、Source API或COM下载，不推定原默认波形等价。全部状态/通知/设备/失败残留/正常寿命与原生ABI独立验收。 当前AWR01：按CAB02／CAC16的WAV-only范围，三旧Collection／乐器下载／Loader库职责由客户端实际固定WAV预载／清理承接。原138条450B、三唯一调用及SDK Collection／Port方法和GUID已核；原音频身份／分母保持，不新增运行时MIDI／DLS／Source API或恢复离线开发，不将宿主库职责关联当作声音质量、原HRESULT／失败残留、全资源／设备／正常寿命或运行通过。",
       "offline_bank_lifetime_contract": {
         "step": "CAB12",
         "decision_ref": "doc/cg2d_client_link_sdl_audio_spec.md#offline-bank-lifetime-decision",

@@ -1,5 +1,7 @@
 # R1：原函数与现有公共实现的显式映射
 
+> 2026-10-12 AWR01：全量表三项待确认的454FE0／455100／455260已核为当前固定WAV预载／清理承接，见[具体原职责与提供者](cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012)。旧Collection／乐器下载／Loader机制不进入客户端，离线来源只保历史，不恢复开发；三原身份与分母、WAV质量及完整资源／设备／声音／寿命／运行门禁保持。
+
 > 2026-10-12 NWR01：4589A0／4589B0／4589C0的当前提供者已接到活动明文发送，见[实际接线](cg2d_network_compatibility_spec.md#window-report-plaintext-source-state)。保原首标记优先及报告S32正值／登录状态1／截止W32按S32负值的清零时点，原命令字段LF保持；旧帧不接当前链，不把初始零当运行清零。后续实施状态只以[全量表](../plan/cg2d_ida_function_implementation_table.md)为准，本页及机器记录用于语义／历史／独立验收关联，完整门禁仍未闭。
 
 > 2026-10-11当前排序：[MC01-C8](cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state)按用户“std::sort/qsort＋COMP”完成剩余七组/八调用；同键/双空槽归一化，地图同深度批次规则及库排列差异具名保留。十个原调用域均已由标准库提供，旧私有排序退休，C6/C7的等待文字只属此前状态；完整业务/SDK和运行未验。

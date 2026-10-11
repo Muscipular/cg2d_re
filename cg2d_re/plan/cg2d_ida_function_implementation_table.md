@@ -6,14 +6,14 @@
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2911 |
-| 有承接 | 615 |
+| 有承接 | 618 |
 | 部分实现 | 5 |
 | 未实现 | 0 |
-| 待确认 | 35 |
+| 待确认 | 32 |
 | 已排除 | 113 |
 | 不适用 | 1 |
 
-静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3948 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
+静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3951 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
 
 所有 3680 行均已标记。待确认表示当前对应关系或具体承接证据不足，既不猜为未实现，也不算已有实现；未实现数为零只表示本轮尚未确认缺正文入口，不表示不存在开发缺口。部分实现行已明确当前源码的数据定义／生产缺项。
 
@@ -745,10 +745,10 @@
 | 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:142 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/LegacyAudio.cpp:1588 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/LegacyAudio.cpp:1575 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 725 | 0x00454FE0 | `sub_454FE0` | 待确认 | `src/platform/SdlAudioBackend.cpp:629 — InitializeFixedMusic` | 原 DirectMusic 装载器／DLS 银行专用入口；本线 WAV-only，历史离线工具不进入客户端；逐入口范围及固定 WAV 承接关系尚待确认 |
+| 725 | 0x00454FE0 | `sub_454FE0` | 有承接 | `src/LegacyAudio.cpp:1599 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:630 — InitializeFixedMusic` | 原单patch GetInstrument／DownloadInstrument／临时Release；固定WAV实际资源解码／PCM流预载承接，原音色下载机制退休；保原身份，不恢复MIDI／DLS或宣称库内HRESULT等价，声音／寿命未验 |
 | 726 | 0x00455030 | `sub_455030` | 有正文 | `src/LegacyAudio.cpp:1486 — SetFixedMusicReverb_455030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 727 | 0x00455100 | `sub_455100` | 待确认 | `src/platform/SdlAudioBackend.cpp:629 — InitializeFixedMusic` | 原 DirectMusic 装载器／DLS 银行专用入口；本线 WAV-only，历史离线工具不进入客户端；逐入口范围及固定 WAV 承接关系尚待确认 |
-| 728 | 0x00455260 | `sub_455260` | 待确认 | `src/platform/SdlAudioBackend.cpp:736 — ShutdownFixedMusic` | 原 DirectMusic 装载器／DLS 银行专用入口；本线 WAV-only，历史离线工具不进入客户端；逐入口范围及固定 WAV 承接关系尚待确认 |
+| 727 | 0x00455100 | `sub_455100` | 有承接 | `src/LegacyAudio.cpp:1599 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:630 — InitializeFixedMusic` | 原Collection装载／枚举／逐patch下载，唯一初始化父传Source=0且不消费返回码；当前固定WAV实际预载承接，客户端不读音色库；保原身份，WAV质量及资源／设备／寿命未验 |
+| 728 | 0x00455260 | `sub_455260` | 有承接 | `src/LegacyAudio.cpp:1578 — ShutdownFixedMusic；src/platform/SdlAudioBackend.cpp:738 — ShutdownFixedMusic` | 原Loader非零Release并清槽，唯一音乐关闭父；当前停止并释放固定SDL流／混响／PCM样本承接，旧COM loader机制退休；保原身份，不新增影子owner，正常寿命／运行未验 |
 | 729 | 0x00455280 | `World::PlayFixedBGM` | 有正文 | `src/LegacyAudio.cpp:1528 — PlayFixedMusic_455280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 730 | 0x004553B0 | `World::PlaySegment` | 有正文 | `src/LegacyAudio.cpp:1518 — PlayFixedMusicSegment_4553B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 731 | 0x00455400 | `sub_455400` | 有正文 | `src/LegacyAudio.cpp:1492 — ApplyFixedMusicVolume_455400` | 实际非占位正文已定位；完整业务／接线／运行未验 |

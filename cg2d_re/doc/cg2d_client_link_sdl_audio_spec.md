@@ -375,3 +375,19 @@ CAB19空间音频生产者使用的46CE30已由[真实连续x87体](cg2d_project
 
 <a id="wav-only-scope-source-state-20261009"></a>
 本步只有当前范围/规则/任务/登记的纠偏，零客户端/工具源码变更、零新软件I/W/S/R通过；软件证据保持1316，184叶整项验收0、60任务关闭11和六closure保持。固定引用cg2d-re-wav-only-scope-20261009。没有构建/测试/运行/算法/转换/产物/摘要、资源重生成或部署，整体目标仍active。
+
+<a id="wav-bank-entry-providers-20261012"></a>
+
+## AWR01：三项旧音色库入口的 WAV 承接（2026-10-12）
+
+仅处理全量函数表的454FE0／455100／455260待确认关系，不恢复MIDI／DLS运行或离线开发。当前已打开cg2d.exe只读核三入口及唯一调用点：31／99／8条指令，共138条450B。本机Windows SDK 10.0.26100.0的dmusicc.h提供Collection与Port的真实方法顺序、CLSID_DirectMusicCollection和IID_IDirectMusicCollection，与原0x54F764／0x54F754的GUID值一致，不凭自动名称给COM调用猜职责。
+
+| 原入口与已证职责 | 当前实际提供者及范围 |
+|---|---|
+| 454FE0：Collection的+0C GetInstrument取patch乐器，失败返1；Port的+18 DownloadInstrument失败返2；成功Release临时乐器并返0。唯一45520B来自455100遍历 | 固定WAV已持有预渲染可播数据；InitializeMusic_454C30取内置资源，SdlAudioBackend::InitializeFixedMusic真实解码／准备PCM流，代替客户端音色下载需求；不宣称单次WAV装载等于旧乐器／COM算法 |
+| 455100：释放旧Collection并清槽，选择对象或路径描述，Loader的+0C取得Collection，+10按索引枚举并逐patch调用454FE0，正常释放并清槽。唯一454EBE传Source=0，返回后直接继续混响配置，不消费此返回码 | 同一固定WAV资源及实际SDL装载路径承接预载；按CAB02／CAC16不再创建或枚举音色集合，也不恢复未被应用父消费的库内1／2返回码与HRESULT机制 |
+| 455260：Loader槽非零才Release并清槽；唯一454EE1来自原音乐关闭父 | 当前Sub_454EE0调用StopFixedMusic／ShutdownFixedMusic；SDL流销毁、混响关闭及FreeSample释放固定PCM，原装载器对象机制已由WAV适配退休，不另建COM影子owner |
+
+上述均标“有承接”，保留三原函数身份及分母，不列范围排除，不给通用PCM辅助函数伪称唯一原入口。初始化／清理声明与定义仅补关联地址说明，功能正文保持；全量表的提供者、具体边界及汇总同步。既有初始化失败处理、音量／混响／播放／停止／重复、普通BGM与64音效通道未改。
+
+这一关系核定不等于WAV质量、原音源结果、真实资源／设备／声音／正常寿命或完整音频验收通过；P11／P16／V05及FUNC-AUDIO完整门禁仍open。只登记限定来源／适配静态关系，不新增运行证据、不重新生成WAV、不构建／测试／运行／转换／查产物／摘要或引依赖。

@@ -196,3 +196,7 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 ## 2026-10-12 AWR01进展：核定旧音色库入口的当前WAV承接
 
 仅按全量表三项待确认核[454FE0／455100／455260](../doc/cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012)：原Collection取乐器／Port下载、音色集合装载遍历、Loader释放职责及三唯一调用有据；当前内置固定WAV的真实资源解码／PCM流预载／清理承接，不新增旧包装或COM影子owner，不恢复MIDI／DLS或离线工具。三行已明确当前应用调用与SDL提供者，声明／定义只补四行关联注释，功能正文保持；一限定S，三旧语义及adapted来源同步，AUDIO原43成员／分母不变。P11／P16／V05只追加引用仍open，WAV质量、原音源对照及全部资源／设备／声音／失败／正常寿命／运行门禁保持，不能以职责关联算音频通过。
+
+## 2026-10-12 MCT01进展：核定五项私有日历公共服务边界
+
+按全量表五项待确认核[MCT01](../doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012)：13处入引用均落在旧localtime／本地日期转时间戳链内，实际::_localtime32／::_mktime32整体提供相应时区／DST／日历转换；不把GMT叶伪称直接::_gmtime32调用或新建独立UTC接口，不复刻私有算法／全局／机器ABI。五行有承接及具体提供者已明确，五原ID／既有host和CRT553成员保持，新增五个语义职责关系和一限定S。C06／U10／V03只补引用仍open，源码／头／构建配置和全部完整门禁不变，业务日期／失败／借用寿命及SDK／运行仍待。

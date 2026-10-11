@@ -1,5 +1,7 @@
 # R1：原函数与现有公共实现的显式映射
 
+> 2026-10-12 MCT01：全量表五项私有日历关系已核，由现有::_localtime32／::_mktime32公共服务整体承接，见[原引用与实际边界](cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012)。不新增旧时区／DST／GMT包装，不宣称新DLL保留原五叶划分；业务定宽字段／借用对象和完整日期／失败／寿命／运行门禁保持，源码未改。
+
 > 2026-10-12 AWR01：全量表三项待确认的454FE0／455100／455260已核为当前固定WAV预载／清理承接，见[具体原职责与提供者](cg2d_client_link_sdl_audio_spec.md#wav-bank-entry-providers-20261012)。旧Collection／乐器下载／Loader机制不进入客户端，离线来源只保历史，不恢复开发；三原身份与分母、WAV质量及完整资源／设备／声音／寿命／运行门禁保持。
 
 > 2026-10-12 NWR01：4589A0／4589B0／4589C0的当前提供者已接到活动明文发送，见[实际接线](cg2d_network_compatibility_spec.md#window-report-plaintext-source-state)。保原首标记优先及报告S32正值／登录状态1／截止W32按S32负值的清零时点，原命令字段LF保持；旧帧不接当前链，不把初始零当运行清零。后续实施状态只以[全量表](../plan/cg2d_ida_function_implementation_table.md)为准，本页及机器记录用于语义／历史／独立验收关联，完整门禁仍未闭。

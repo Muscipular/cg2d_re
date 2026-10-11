@@ -6,14 +6,14 @@
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2911 |
-| 有承接 | 618 |
+| 有承接 | 623 |
 | 部分实现 | 5 |
 | 未实现 | 0 |
-| 待确认 | 32 |
+| 待确认 | 27 |
 | 已排除 | 113 |
 | 不适用 | 1 |
 
-静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3951 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
+静态验证：3680 行的入口与当前 IDA 地址集合、当前名称逐项一致；序号连续、入口唯一有序、状态合法，3950 处当前源码提供者引用的路径、行号和符号／操作已核可读；UTF-8 无 BOM／LF。此验证不替代行为差异、接线或运行验收。
 
 所有 3680 行均已标记。待确认表示当前对应关系或具体承接证据不足，既不猜为未实现，也不算已有实现；未实现数为零只表示本轮尚未确认缺正文入口，不表示不存在开发缺口。部分实现行已明确当前源码的数据定义／生产缺项。
 
@@ -3317,11 +3317,11 @@
 | 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3296 | 0x00540AB2 | `sub_540AB2` | 待确认 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3297 | 0x00540B08 | `___tzset` | 待确认 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区／UTC 日历库入口已核身份；当前本机日历服务调用已定位，但这些私有叶的具体承接范围尚待证 |
-| 3298 | 0x00540B1D | `__tzset` | 待确认 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区／UTC 日历库入口已核身份；当前本机日历服务调用已定位，但这些私有叶的具体承接范围尚待证 |
-| 3299 | 0x00540D7B | `__isindst` | 待确认 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区／UTC 日历库入口已核身份；当前本机日历服务调用已定位，但这些私有叶的具体承接范围尚待证 |
-| 3300 | 0x00540F27 | `_cvtdate` | 待确认 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区／UTC 日历库入口已核身份；当前本机日历服务调用已定位，但这些私有叶的具体承接范围尚待证 |
-| 3301 | 0x00541067 | `_gmtime` | 待确认 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区／UTC 日历库入口已核身份；当前本机日历服务调用已定位，但这些私有叶的具体承接范围尚待证 |
+| 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区初始化包装仅由53B8C6／541160调用并转540B1D；实际::_localtime32／::_mktime32整体承接，不保原私有函数划分；MSVC库内策略沿获批边界，业务／寿命／运行未验 |
+| 3298 | 0x00540B1D | `__tzset` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区刷新仅由540B08调用，原getenv／Win32时区及转换职责归同两实际MSVC日历服务；不模拟旧TZ缓存／私有全局或声称当前DLL逐叶调用，业务／运行未验 |
+| 3299 | 0x00540D7B | `__isindst` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原夏令时判断仅在旧localtime／本地转时间戳链内消费，四次转540F27；由实际::_localtime32／::_mktime32整体承接，旧私有算法退休，完整日期／失败／运行未验 |
+| 3300 | 0x00540F27 | `_cvtdate` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原夏令时转换仅由540D7B内四处调用；同两MSVC公共日历服务整体承接，不复刻旧辅助边界／存储，不宣原体或机器ABI等价，业务／运行未验 |
+| 3301 | 0x00541067 | `_gmtime` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)` | 原UTC分解仅在旧localtime内三处调用；当前实际::_localtime32整体承接该日历转换链，不宣称直接调用::_gmtime32或新增UTC接口，九S32借用字段及完整寿命／运行未验 |
 | 3302 | 0x00541160 | `___loctotime_t` | 有承接 | `src/platform/LegacyTime.cpp:159 — ConvertLocalTime_541160` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3303 | 0x00541222 | `__commit` | 有承接 | `src/platform/LegacyLowIo.cpp:9 — OpenLegacyDescriptor_53D435` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3304 | 0x00541279 | `__write` | 有承接 | `src/platform/LegacyLowIo.cpp:9 — OpenLegacyDescriptor_53D435` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

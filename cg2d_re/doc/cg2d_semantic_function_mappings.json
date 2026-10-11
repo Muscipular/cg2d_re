@@ -243369,6 +243369,187 @@
         "full_original_normal_body_read": true,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x540B08",
+      "inventory_id": "F:00140B08",
+      "status": "MCT01已核实际MSVC公共日历服务整体承接；实施状态以全量表为准，完整业务／运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "LocalTime_53B8C6",
+            "ConvertLocalTime_541160"
+          ],
+          "relationship": "真实公共包装委托现有MSVC日历服务，不把SDK内部划分冒充旧私有叶一对一实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+      ],
+      "original_end_exclusive": "0x540B1D",
+      "instruction_count": 5,
+      "original_byte_count": 21,
+      "original_call_sites": [
+        "0x53B8D9",
+        "0x54119F"
+      ],
+      "current_provider": {
+        "role": "原时区初始化包装，公历转换两父转入540B1D",
+        "services": [
+          "_localtime32",
+          "_mktime32"
+        ],
+        "boundary": "公共转换服务整体替代；不声称当前DLL保留旧五叶划分／内部调用名称或原机器ABI"
+      },
+      "boundary": "原时区初始化包装，公历转换两父转入540B1D。当前实际公共服务承接相应时区／DST／日历转换职责，原S32秒值／日期字段及九S32借用对象沿既有包装保持。本步仅原身份／调用引用和服务关系；旧TZ缓存／私有算法／全局由获批MSVC替代，不补独立UTC或影子存储，不外推业务日期／失败／全owner借用寿命／SDK机器ABI或运行通过。",
+      "verification_level": "只读原入口边界、全部入引用及CALL摘要；核当前公共服务调用。未重导／逐指令复刻私有算法，未改源码／构建配置，不构建／测试／运行／查产物／摘要。"
+    },
+    {
+      "original_entry": "0x540B1D",
+      "inventory_id": "F:00140B1D",
+      "status": "MCT01已核实际MSVC公共日历服务整体承接；实施状态以全量表为准，完整业务／运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "LocalTime_53B8C6",
+            "ConvertLocalTime_541160"
+          ],
+          "relationship": "真实公共包装委托现有MSVC日历服务，不把SDK内部划分冒充旧私有叶一对一实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+      ],
+      "original_end_exclusive": "0x540D7B",
+      "instruction_count": 196,
+      "original_byte_count": 606,
+      "original_call_sites": [
+        "0x540B11"
+      ],
+      "current_provider": {
+        "role": "原时区刷新及TZ／Win32时区服务，唯一540B08转入",
+        "services": [
+          "_localtime32",
+          "_mktime32"
+        ],
+        "boundary": "公共转换服务整体替代；不声称当前DLL保留旧五叶划分／内部调用名称或原机器ABI"
+      },
+      "boundary": "原时区刷新及TZ／Win32时区服务，唯一540B08转入。当前实际公共服务承接相应时区／DST／日历转换职责，原S32秒值／日期字段及九S32借用对象沿既有包装保持。本步仅原身份／调用引用和服务关系；旧TZ缓存／私有算法／全局由获批MSVC替代，不补独立UTC或影子存储，不外推业务日期／失败／全owner借用寿命／SDK机器ABI或运行通过。",
+      "verification_level": "只读原入口边界、全部入引用及CALL摘要；核当前公共服务调用。未重导／逐指令复刻私有算法，未改源码／构建配置，不构建／测试／运行／查产物／摘要。"
+    },
+    {
+      "original_entry": "0x540D7B",
+      "inventory_id": "F:00140D7B",
+      "status": "MCT01已核实际MSVC公共日历服务整体承接；实施状态以全量表为准，完整业务／运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "LocalTime_53B8C6",
+            "ConvertLocalTime_541160"
+          ],
+          "relationship": "真实公共包装委托现有MSVC日历服务，不把SDK内部划分冒充旧私有叶一对一实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+      ],
+      "original_end_exclusive": "0x540F27",
+      "instruction_count": 149,
+      "original_byte_count": 428,
+      "original_call_sites": [
+        "0x53B911",
+        "0x53B948",
+        "0x541205"
+      ],
+      "current_provider": {
+        "role": "原夏令时判断，仅旧localtime／本地转时间戳消费",
+        "services": [
+          "_localtime32",
+          "_mktime32"
+        ],
+        "boundary": "公共转换服务整体替代；不声称当前DLL保留旧五叶划分／内部调用名称或原机器ABI"
+      },
+      "boundary": "原夏令时判断，仅旧localtime／本地转时间戳消费。当前实际公共服务承接相应时区／DST／日历转换职责，原S32秒值／日期字段及九S32借用对象沿既有包装保持。本步仅原身份／调用引用和服务关系；旧TZ缓存／私有算法／全局由获批MSVC替代，不补独立UTC或影子存储，不外推业务日期／失败／全owner借用寿命／SDK机器ABI或运行通过。",
+      "verification_level": "只读原入口边界、全部入引用及CALL摘要；核当前公共服务调用。未重导／逐指令复刻私有算法，未改源码／构建配置，不构建／测试／运行／查产物／摘要。"
+    },
+    {
+      "original_entry": "0x540F27",
+      "inventory_id": "F:00140F27",
+      "status": "MCT01已核实际MSVC公共日历服务整体承接；实施状态以全量表为准，完整业务／运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "LocalTime_53B8C6",
+            "ConvertLocalTime_541160"
+          ],
+          "relationship": "真实公共包装委托现有MSVC日历服务，不把SDK内部划分冒充旧私有叶一对一实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+      ],
+      "original_end_exclusive": "0x541067",
+      "instruction_count": 101,
+      "original_byte_count": 320,
+      "original_call_sites": [
+        "0x540E14",
+        "0x540E63",
+        "0x540E92",
+        "0x540EA7"
+      ],
+      "current_provider": {
+        "role": "原夏令时转换辅助，仅540D7B内四处消费",
+        "services": [
+          "_localtime32",
+          "_mktime32"
+        ],
+        "boundary": "公共转换服务整体替代；不声称当前DLL保留旧五叶划分／内部调用名称或原机器ABI"
+      },
+      "boundary": "原夏令时转换辅助，仅540D7B内四处消费。当前实际公共服务承接相应时区／DST／日历转换职责，原S32秒值／日期字段及九S32借用对象沿既有包装保持。本步仅原身份／调用引用和服务关系；旧TZ缓存／私有算法／全局由获批MSVC替代，不补独立UTC或影子存储，不外推业务日期／失败／全owner借用寿命／SDK机器ABI或运行通过。",
+      "verification_level": "只读原入口边界、全部入引用及CALL摘要；核当前公共服务调用。未重导／逐指令复刻私有算法，未改源码／构建配置，不构建／测试／运行／查产物／摘要。"
+    },
+    {
+      "original_entry": "0x541067",
+      "inventory_id": "F:00141067",
+      "status": "MCT01已核实际MSVC公共日历服务整体承接；实施状态以全量表为准，完整业务／运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "LocalTime_53B8C6"
+          ],
+          "relationship": "真实公共包装委托现有MSVC日历服务，不把SDK内部划分冒充旧私有叶一对一实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+      ],
+      "original_end_exclusive": "0x541160",
+      "instruction_count": 94,
+      "original_byte_count": 249,
+      "original_call_sites": [
+        "0x53B8FB",
+        "0x53B92B",
+        "0x53B940"
+      ],
+      "current_provider": {
+        "role": "原UTC分解，仅旧localtime内三处消费",
+        "services": [
+          "_localtime32"
+        ],
+        "boundary": "公共转换服务整体替代；不声称当前DLL保留旧五叶划分／内部调用名称或原机器ABI"
+      },
+      "boundary": "原UTC分解，仅旧localtime内三处消费。当前实际公共服务承接相应时区／DST／日历转换职责，原S32秒值／日期字段及九S32借用对象沿既有包装保持。本步仅原身份／调用引用和服务关系；旧TZ缓存／私有算法／全局由获批MSVC替代，不补独立UTC或影子存储，不外推业务日期／失败／全owner借用寿命／SDK机器ABI或运行通过。",
+      "verification_level": "只读原入口边界、全部入引用及CALL摘要；核当前公共服务调用。未重导／逐指令复刻私有算法，未改源码／构建配置，不构建／测试／运行／查产物／摘要。"
     }
   ]
 }

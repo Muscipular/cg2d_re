@@ -1210,7 +1210,8 @@
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
       "historical_cpp_blockers_before_mc01c1": {
         "git_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
@@ -69191,6 +69192,40 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MCT01-CRT-S-20261012",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00140B08",
+        "F:00140B1D",
+        "F:00140D7B",
+        "F:00140F27",
+        "F:00141067"
+      ],
+      "baseline_reference": "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+      "implementation_reference": "[#] 核定五项私有日历入口的MSVC服务边界",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyTime.cpp#LocalTime_53B8C6",
+        "src/platform/LegacyTime.cpp#ConvertLocalTime_541160",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "全量表五项具体承接范围待确认。原五入口边界545条／1624B元数据和13处入引用、CALL摘要确认仅旧localtime／本地转时间戳私有时区／DST／日历链；实际::_localtime32／::_mktime32提供者存在。",
+      "expected": "按用户CRT直接MSVC，以公共日历服务整体替代原私有职责；保原身份及定宽业务／借用边界，不补同名叶、时区影子存储或独立UTC接口，不声称SDK内部逐叶对应。",
+      "actual": "五行明确当前真实服务与范围、核为有承接，新增五项语义职责关系；既有host和CRT553成员保。源码／头／构建配置全文保持，只有来源关系的限定静态证据，非完整CRT或全部调用方S通过。",
+      "differences": [
+        {
+          "description": "库内时区／夏令时策略、TLS／参数校验及私有算法采用当前MSVC，不复制原私有函数划分／全局／机器ABI；业务日期／失败／借用寿命及运行仍待。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -69804,7 +69839,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
-        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
       "task_id": "C06",
       "state": "open"
@@ -70230,7 +70266,8 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
-        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ]
     },
     {
@@ -70496,7 +70533,8 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
-        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ]
     },
     {
@@ -88520,9 +88558,10 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。 MCT01按当前全量表核相应localtime／本地转时间戳调用链和真实::_localtime32／::_mktime32整体服务；GMT只属旧localtime内部，不声称当前直接gmtime32调用或五叶原划分。业务日期／失败／借用寿命及SDK／运行未验。"
     },
     {
       "inventory_id": "F:0014AC0A",
@@ -88575,9 +88614,10 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。 MCT01按当前全量表核相应localtime／本地转时间戳调用链和真实::_localtime32／::_mktime32整体服务；GMT只属旧localtime内部，不声称当前直接gmtime32调用或五叶原划分。业务日期／失败／借用寿命及SDK／运行未验。"
     },
     {
       "inventory_id": "F:00141620",
@@ -88608,9 +88648,10 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。 MCT01按当前全量表核相应localtime／本地转时间戳调用链和真实::_localtime32／::_mktime32整体服务；GMT只属旧localtime内部，不声称当前直接gmtime32调用或五叶原划分。业务日期／失败／借用寿命及SDK／运行未验。"
     },
     {
       "inventory_id": "F:0013DD2F",
@@ -88836,9 +88877,10 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。 MCT01按当前全量表核相应localtime／本地转时间戳调用链和真实::_localtime32／::_mktime32整体服务；GMT只属旧localtime内部，不声称当前直接gmtime32调用或五叶原划分。业务日期／失败／借用寿命及SDK／运行未验。"
     },
     {
       "inventory_id": "F:0013D26E",
@@ -88880,9 +88922,10 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。 MCT01按当前全量表核相应localtime／本地转时间戳调用链和真实::_localtime32／::_mktime32整体服务；GMT只属旧localtime内部，不声称当前直接gmtime32调用或五叶原划分。业务日期／失败／借用寿命及SDK／运行未验。"
     },
     {
       "inventory_id": "F:0013C680",

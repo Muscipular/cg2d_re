@@ -136164,7 +136164,7 @@
           "0x404C42"
         ]
       ],
-      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验",
+      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136202,10 +136202,11 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_evidence.json"
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ],
       "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YAS01载荷返回先判空结果再发布/同指针清零，descriptor五W16零/一W32 FFFFFFFF/两W8零按原序；start→end→两next，action.next/prev发布后复读point.prev再接前驱next。U8 priority/U32 payloadSize、原calloc/free域/两失败消息和释放、同值FIFO/缓存stop及到stop未链接返回保持，不新增FF输入限制/失败回退/异常保护或回绕及故障模拟/称等价。完整113调用点实参/载荷类型和全部callee/对象资源生产/所有链别名与未插链对象和owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/完整画面运行未验。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YAS01追加当前完整118条354B/113type17call/86已知父+1未归属调用点及四具名源片段全文精确重放，载荷同快照/原失败、描述符原宽度显式发布和首尾/前驱读序有限静态；不验所有父实参/载荷/SDK及owner寿命或运行",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YAS01追加当前完整118条354B/113type17call/86已知父+1未归属调用点及四具名源片段全文精确重放，载荷同快照/原失败、描述符原宽度显式发布和首尾/前驱读序有限静态；不验所有父实参/载荷/SDK及owner寿命或运行；BPST01-A四数组15B/13 sizeof分配点和一浅复制关联限定静态，本组外正文保持，未编译或运行",
       "native_signature": "YobiAction* NewYobiAction_404AE0(\n    const std::uint8_t priority,\n    const std::uint32_t payloadSize)",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
@@ -136798,6 +136799,15 @@
         "unassigned_call_sites": [
           "0x4faaa5"
         ]
+      },
+      "payload_opaque_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "decision_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision",
+        "role": "通用分配/按请求清零正文保持；战斗同族sizeof请求随四段字节承载扩大。",
+        "source_storage_implemented": true,
+        "field_semantics_verified": false,
+        "all_writers_and_aliases_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -137323,7 +137333,7 @@
           "0x41EB07"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验；BCS01克隆入口/载荷和浅复制正确正文保持，完整战斗/owner寿命运行未验",
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验；BCS01克隆入口/载荷和浅复制正确正文保持，完整战斗/owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -137361,10 +137371,11 @@
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
-        "doc/cg2d_battle_copy_sampling_evidence.json"
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ],
       "boundary": "入口快照源载荷；New失败原直接空返回，成功快照新prev/next/payload、成员复制、按next/prev/payload恢复并浅复制载荷；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；BCS01Clone原入口source.payload快照、分配失败空返和新prev/next/payload快照、调用成员复制后next→prev→payload恢复与原生BattleActorPayload sizeof浅复制保持；本体未改，不深复制/重绑定内指针或省原失败门禁。 全部父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；不新增异常保护/钳制或故障/回绕模拟。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行；BPST01-A四数组15B/13 sizeof分配点和一浅复制关联限定静态，本组外正文保持，未编译或运行",
       "native_signature": "YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
@@ -137426,6 +137437,15 @@
         ],
         "source_body_changed": false,
         "full_runtime_verified": false
+      },
+      "payload_opaque_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "decision_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision",
+        "role": "结构新增四段用途未定15B，既有sizeof整块浅复制自动包含，内部T*不回绑。",
+        "source_storage_implemented": true,
+        "field_semantics_verified": false,
+        "all_writers_and_aliases_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -150053,7 +150073,7 @@
     {
       "original_entry": "0x438290",
       "inventory_id": "F:00038290",
-      "status": "BCS01三根五片段中本根取样实修/原身份纳管；完整战斗/owner寿命运行未验",
+      "status": "BCS01三根五片段中本根取样实修/原身份纳管；完整战斗/owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验",
       "original_end_exclusive": "0x4383a1",
       "instruction_count": 71,
       "sources": [
@@ -150077,9 +150097,10 @@
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
-        "doc/cg2d_battle_copy_sampling_evidence.json"
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ],
-      "verification_level": "；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
+      "verification_level": "；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行；BPST01-A四数组15B/13 sizeof分配点和一浅复制关联限定静态，本组外正文保持，未编译或运行",
       "boundary": "原lowU8(position)*10+2优先级/原生载荷分配失败空返回，flags取样/callback写后先OR60054再image/flags pub；首pointIndex读取后才payload捕获供首X F32，其余五索引读、其它默认字段/PlayFrame后X截断/Y取样/Xpub/Y截断pub与实际返回保持。 仅本组局部静态，完整所有父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；网络原格式明文和音频暂停保持，不添保护/故障回绕模拟。",
       "battle_copy_sampling": {
         "spec_id": "BCS01",
@@ -150147,6 +150168,15 @@
         ],
         "source_body_changed": true,
         "full_runtime_verified": false
+      },
+      "payload_opaque_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "decision_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision",
+        "role": "战斗载荷仍按sizeof分配，四段原字节经通用清零承接；原业务字段生产保持。",
+        "source_storage_implemented": true,
+        "field_semantics_verified": false,
+        "all_writers_and_aliases_verified": false,
+        "runtime_verified": false
       }
     },
     {

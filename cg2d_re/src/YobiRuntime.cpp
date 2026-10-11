@@ -355,7 +355,7 @@ constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthExitImages4118BF {{
 }};
 constexpr std::array<std::int32_t, 4> kRebirthExitSounds411901 {426, 428, 430, 432};
 
-// 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
+// 战斗专用原生载荷；保留四段用途未定字节，后缀仅标原位置；完整字段/生产仍待证。
 struct BattleActorPayload {
     std::int32_t x00; // 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
     std::int32_t y04;
@@ -382,6 +382,7 @@ struct BattleActorPayload {
     std::int32_t valueFF0;
     std::int32_t attackModeFF4; // 426FC0写入原完整攻击模式。
     std::int32_t aliveFF8;
+    std::array<std::byte, 4> bytesFFC; // 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
     std::int32_t flashCounter1000; // 404DB0残影节拍；438290沿通用分配零化，不额外写入。
     std::int32_t flash1004; // 416DD0的bit100门禁，仅首次写1并播放音效。
     std::int32_t fpUsed1008;
@@ -401,6 +402,7 @@ struct BattleActorPayload {
     std::int32_t castLevel1040; // 与1044的技术索引独立。
     std::int32_t castSkillLevel1044;
     std::int32_t value1048; // 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
+    std::array<std::byte, 4> bytes104C; // 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
     std::int32_t value1050; // 424F64保存技能94的M整数；409680用于减益图号偏移。
     YobiAction* effect1054; // 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
@@ -412,6 +414,7 @@ struct BattleActorPayload {
     YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
     std::array<YobiAction*, 3> rebirthAuxiliaryEffects1074; // 原1074/1078/107C三槽，非拥有；79按原顺序清理。
     std::int8_t rebirthEffectType1080; // 4113A0按低U8加1发布/退出清零，4208F0按S8选图；其他生产仍缺。
+    std::array<std::byte, 3> bytes1081; // 原1081..1083：用途未定字节，不以原生隐式对齐代替承载。
     std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
     std::int32_t value13A4;
     std::int32_t queuedTargetCount13A8;
@@ -423,6 +426,7 @@ struct BattleActorPayload {
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
     std::int32_t debuffState13CC; // 41F660分配前写2，失败不回滚。
     std::int32_t debuffType13D0; // 41F660六图号对应类型1至6。
+    std::array<std::byte, 4> bytes13D4; // 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
     std::int32_t value13D8; // 427470状态/技能链生产；41FE00按完整W32与3比较。
     std::int32_t value13DC; // 427470状态/技能链生产141/143状态图号选择值。
     std::int32_t value13E0; // 427470技能链生产索引；143的13DC==7按S32查54D4C0。
@@ -1818,7 +1822,7 @@ YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
     action->next = next;
     action->prev = previous;
     action->payload = payload;
-    // 原0x13E8B载荷在新端按原生结构浅复制，不回绑其中的T*。
+    // 原0x13E8B载荷按原生结构浅复制，含四段用途未定字节；不回绑其中的T*。
     std::memcpy(payload, sourcePayload, sizeof(BattleActorPayload));
     return action;
 }

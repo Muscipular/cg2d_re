@@ -4857,7 +4857,8 @@
         "doc/cg2d_selector_button_event_spec.md",
         "doc/cg2d_quantity_window_creation_spec.md",
         "doc/cg2d_player_attribute_money_reply_spec.md",
-        "doc/cg2d_storage_opening_actions_spec.md"
+        "doc/cg2d_storage_opening_actions_spec.md",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -5391,7 +5392,8 @@
         "doc/cg2d_timer_ui_consumption_spec.md",
         "doc/cg2d_battle_equipment_interaction_spec.md",
         "doc/cg2d_battle_item_interaction_spec.md",
-        "doc/cg2d_item_drag_entry_callback_spec.md"
+        "doc/cg2d_item_drag_entry_callback_spec.md",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68029,6 +68031,70 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-PAYLOAD-OPAQUE-STORAGE-YOBI-S-20261011",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0001EAB0",
+        "F:00038290"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#payload-structure-fields",
+      "implementation_reference": "[#] 补齐战斗载荷用途未定字节存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "src/YobiRuntime.cpp#BattleActorPayload",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#CloneBattleAction_41EAB0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290"
+      ],
+      "observation": "四段4/4/3/4B原字节以用途未定数组承载，原生sizeof请求/通用清零和浅复制沿现有链自动包含。",
+      "expected": "仅补四段字节存储，不猜业务或地址类型；保已有成员、13个sizeof分配表达式、一浅复制表达式及所有函数正文，不增加默认值、owner或路由。字段语义/全部写者别名与完整寿命/SDK运行继续待证。",
+      "actual": "四数组15B/相邻顺序、13分配＋一浅复制关联及本组外源码保持静态通过；未编译、测试、运行，不宣称原x86长度与原生sizeof相等或完整字段等价。",
+      "differences": [
+        {
+          "description": "新增已证原字节区的原生存储，sizeof请求/浅复制范围随结构扩充；当前不解释用途或地址属性。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-PAYLOAD-OPAQUE-STORAGE-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0001EAB0",
+        "F:00038290"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#payload-structure-fields",
+      "implementation_reference": "[#] 补齐战斗载荷用途未定字节存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
+        "src/YobiRuntime.cpp#BattleActorPayload",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#CloneBattleAction_41EAB0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290"
+      ],
+      "observation": "四段4/4/3/4B原字节以用途未定数组承载，原生sizeof请求/通用清零和浅复制沿现有链自动包含。",
+      "expected": "仅补四段字节存储，不猜业务或地址类型；保已有成员、13个sizeof分配表达式、一浅复制表达式及所有函数正文，不增加默认值、owner或路由。字段语义/全部写者别名与完整寿命/SDK运行继续待证。",
+      "actual": "四数组15B/相邻顺序、13分配＋一浅复制关联及本组外源码保持静态通过；未编译、测试、运行，不宣称原x86长度与原生sizeof相等或完整字段等价。",
+      "differences": [
+        {
+          "description": "新增已证原字节区的原生存储，sizeof请求/浅复制范围随结构扩充；当前不解释用途或地址属性。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -69880,7 +69946,8 @@
         "doc/cg2d_msvc_crt_numeric_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -69993,7 +70060,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -70850,7 +70918,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -71315,7 +71384,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -71602,7 +71672,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -72476,7 +72547,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -77494,7 +77566,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_evidence.json"
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -77554,7 +77627,8 @@
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
-        "doc/cg2d_battle_copy_sampling_evidence.json"
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {
@@ -77602,7 +77676,8 @@
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
-        "doc/cg2d_battle_copy_sampling_evidence.json"
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state"
       ]
     },
     {

@@ -1870,10 +1870,21 @@ std::int32_t Sub_4F4630(const std::int32_t itemId)
     const std::int16_t skillIndex = std::bit_cast<std::int16_t>(
         world::detail::gSkillPairsF63370[pairIndex].index);
     const std::int32_t recipeIndex = gRecipeIndex5846BC;
-    const auto& recipe = world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[recipeIndex];
-    for (const world::detail::SkillRecipeItem& item : recipe.items6C) {
-        if (item.itemId == itemId) {
-            return item.count;
+    // 原4F4660按整条技能记录取址；配方为-1时材料从+820开始，保留跨字段读取。
+    const auto* const skill = reinterpret_cast<const std::byte*>(&world::detail::gSkillsF1BAFC[skillIndex]);
+    const std::ptrdiff_t itemsOffset =
+        static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, recipes8E8))
+        + static_cast<std::ptrdiff_t>(recipeIndex)
+            * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillRecipeRecord))
+        + static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRecipeRecord, items6C));
+    for (std::int32_t index = 0; index < 5; ++index) {
+        const auto* const item = skill + itemsOffset + index * sizeof(world::detail::SkillRecipeItem);
+        std::int32_t requiredItemId;
+        std::memcpy(&requiredItemId, item, sizeof(requiredItemId));
+        if (requiredItemId == itemId) {
+            std::int32_t count;
+            std::memcpy(&count, item + offsetof(world::detail::SkillRecipeItem, count), sizeof(count));
+            return count;
         }
     }
     return 0;

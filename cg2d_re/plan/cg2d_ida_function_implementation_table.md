@@ -6,10 +6,10 @@
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2911 |
-| 有承接 | 637 |
+| 有承接 | 647 |
 | 部分实现 | 5 |
 | 未实现 | 0 |
-| 待确认 | 13 |
+| 待确认 | 3 |
 | 已排除 | 113 |
 | 不适用 | 1 |
 
@@ -3174,8 +3174,8 @@
 | 3151 | 0x0053B399 | `__onexit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyCryptInt.cpp:33 — InitializeLegacyStartupValues_401C10；src/platform/MainLoopSupport.cpp:245 — InitializeLegacyProtectionChecksum1_404120` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3153 | 0x0053B418 | `___onexitinit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3154 | 0x0053B447 | `sub_53B447` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口确为单 RET，并有启动槽数据引用；当前无独立 CPP 定义，具体启动承接关系待证 |
+| 3154 | 0x0053B447 | `sub_53B447` | 有承接 | `CMakeLists.txt:166 — 宿主CRT启动；src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyFormat.cpp:22 — std::vfprintf；src/platform/LegacyScan.cpp:8 — std::vfscanf` | 原53C8CD在C／C++初始化前从58F864间接调用；旧六回调／CPU探测／x87默认精度随MC01-C2退休，当前MSVC整体启动／格式／扫描服务；不新增旧回调槽或声明硬件状态等价 |
+| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口为单RET；仅58F868／58F86C两数据槽引用，本轮两槽无已建消费xref，不能称已证启动表；具体原职责／当前承接仍待证，不猜不可达／不适用或造空回调 |
 | 3156 | 0x0053B45F | `__cfltcvt_init_7` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3157 | 0x0053B498 | `__ftol` | 有承接 | `src/Palette.cpp:138 — TruncatedLowByte；src/render/LegacyTextureDrawing.cpp:132 — TruncateTextureCoordinate` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:660 — SeedRandom_53B4BF` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3261,7 +3261,7 @@
 | 3238 | 0x0053DDB5 | `start` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3239 | 0x0053DEAB | `__amsg_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3240 | 0x0053DED0 | `_fast_error_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `—` | 原入口单RET且当前无已建入引用；无依据对应格式输出，移除该候选；具体原职责／当前关系仍待证，不猜原不可达／不适用或造空回调 |
 | 3242 | 0x0053DEF4 | `__input` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3243 | 0x0053E919 | `__hextodec` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3244 | 0x0053E950 | `_fgetc_0` | 有承接 | `src/platform/LegacyStdio.cpp:26 — ReadLegacyStreamByte_53C8B3` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3294,7 +3294,7 @@
 | 3271 | 0x0053FDD5 | `__forcdecpt` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3272 | 0x0053FE2F | `__cropzeros` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3273 | 0x0053FE7D | `__positive` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3274 | 0x0053FE95 | `__fassign` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3274 | 0x0053FE95 | `__fassign` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原输入扫描的浮点赋值回调，登记58FB58并由53E324调用，实际std::vfscanf／std::vsscanf承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
 | 3275 | 0x0053FED3 | `__cftoe` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3276 | 0x0053FFD7 | `__cftof` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3277 | 0x005400B5 | `__cftog` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3316,7 +3316,7 @@
 | 3293 | 0x005409E7 | `?AdjustPointer@@YAPAXPAXABUPMD@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3294 | 0x00540A10 | `__CallSettingFrame@12` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3295 | 0x00540A5C | `sub_540A5C` | 有承接 | `src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3296 | 0x00540AB2 | `sub_540AB2` | 待确认 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3296 | 0x00540AB2 | `sub_540AB2` | 有承接 | `src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C；CMakeLists.txt:166 — 宿主VCRuntime` | 原八处引用均在C++ handler／展开链；读58FB74=540A5C、SEH保护后交终止；当前VCRuntime／实际std::terminate承接，不把标准流构造当本叶直接实现 |
 | 3297 | 0x00540B08 | `___tzset` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区初始化包装仅由53B8C6／541160调用并转540B1D；实际::_localtime32／::_mktime32整体承接，不保原私有函数划分；MSVC库内策略沿获批边界，业务／寿命／运行未验 |
 | 3298 | 0x00540B1D | `__tzset` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原时区刷新仅由540B08调用，原getenv／Win32时区及转换职责归同两实际MSVC日历服务；不模拟旧TZ缓存／私有全局或声称当前DLL逐叶调用，业务／运行未验 |
 | 3299 | 0x00540D7B | `__isindst` | 有承接 | `src/platform/LegacyTime.cpp:178 — ::_localtime32(&timestamp)；src/platform/LegacyTime.cpp:171 — ::_mktime32(&calendar)` | 原夏令时判断仅在旧localtime／本地转时间戳链内消费，四次转540F27；由实际::_localtime32／::_mktime32整体承接，旧私有算法退休，完整日期／失败／运行未验 |
@@ -3387,7 +3387,7 @@
 | 3364 | 0x005440E0 | `_parse_cmdline` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3365 | 0x00544294 | `___crtGetEnvironmentStringsA` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3366 | 0x005443C6 | `__FF_MSGBANNER` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3367 | 0x005443FF | `sub_5443FF` | 待确认 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3367 | 0x005443FF | `sub_5443FF` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — std::terminate；CMakeLists.txt:166 — 宿主CRT启动／终止诊断` | 原五处引用来自旧致命错误／消息banner／abort，按错误码输出CRT弹窗或标准错误；当前MSVC库内诊断整体承接，旧R600x／钩子／缓存沿MC01-C3退休 |
 | 3368 | 0x00544552 | `_mbtowc` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3369 | 0x00544620 | `__allshl` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3370 | 0x0054463F | `_ungetc` | 有承接 | `src/platform/LegacyStdio.cpp:95 — UnreadLegacyStreamByte_54463F` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3407,11 +3407,11 @@
 | 3384 | 0x00544B05 | `__FillZeroMan` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3385 | 0x00544B11 | `__IsZeroMan` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3386 | 0x00544B2C | `__ShrMan` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3387 | 0x00544BB9 | `__ld12cvt` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3388 | 0x00544D25 | `sub_544D25` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3389 | 0x00544D3B | `sub_544D3B` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3390 | 0x00544D51 | `sub_544D51` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3391 | 0x00544D7E | `sub_544D7E` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3387 | 0x00544BB9 | `__ld12cvt` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原544D25／544D3B两输入转换叶的参数表转换支撑，实际std::vfscanf／std::vsscanf整体承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
+| 3388 | 0x00544D25 | `sub_544D25` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原12B中间值按5921C0的六W32表转换为双W32目标，由实际浮点输入扫描服务整体承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
+| 3389 | 0x00544D3B | `sub_544D3B` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原12B中间值按5921D8的六W32表转换为单W32目标，由实际浮点输入扫描服务整体承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
+| 3390 | 0x00544D51 | `sub_544D51` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原strgtold12→544D25链，仅53FE95双W32赋值分支使用，由实际浮点输入扫描服务整体承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
+| 3391 | 0x00544D7E | `sub_544D7E` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf` | 原strgtold12→544D3B链，仅53FE95单W32赋值分支使用，由实际浮点输入扫描服务整体承接；原53E324经58FB58调用53FE95，保业务目标宽度／消费，旧96位私有算法及中间布局沿MSVC批准边界退休，不记原ABI／运行通过 |
 | 3392 | 0x00544DB0 | `_strcpy` | 有承接 | `src/platform/LegacyTime.cpp:101 — StrCpy_544DB0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3393 | 0x00544DC0 | `_strcat` | 有承接 | `src/platform/LegacyTime.cpp:107 — StrCat_544DC0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3394 | 0x00544EA0 | `__fptostr` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3419,8 +3419,8 @@
 | 3396 | 0x00544F7B | `___dtold` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3397 | 0x00545031 | `__fptrap` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3398 | 0x0054503A | `?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3399 | 0x00545080 | `sub_545080` | 待确认 | `src/platform/ClientEntry.cpp:242 — WinMain` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
-| 3400 | 0x00545091 | `sub_545091` | 待确认 | `src/platform/ClientEntry.cpp:242 — WinMain` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3399 | 0x00545080 | `sub_545080` | 有承接 | `CMakeLists.txt:166 — 宿主MSVC exe启动；src/platform/ClientEntry.cpp:242 — WinMain业务边界` | 原55317C C初始化槽安装54503A并保存旧filter；当前MSVC exe pre_cpp初始化持有默认C++异常filter，不再次安装旧入口；完整业务／运行未验 |
+| 3400 | 0x00545091 | `sub_545091` | 有承接 | `CMakeLists.txt:166 — 宿主MSVC生命周期；src/platform/ClientEntry.cpp:242 — WinMain业务边界` | 原553198终止槽恢复保存filter；当前宿主拥有完整filter寿命，旧手工保存／恢复沿MC01-C3退休；既有WinMain报告临时层不冒充本叶 |
 | 3401 | 0x0054509E | `?_ValidateRead@@YAHPBXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3402 | 0x005450BA | `?_ValidateWrite@@YAHPAXI@Z` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3403 | 0x005450D6 | `?_ValidateExecute@@YAHP6GHXZ@Z` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3469,7 +3469,7 @@
 | 3446 | 0x005473E8 | `__raise_exc` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3447 | 0x0054769B | `__handle_exc` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3448 | 0x005478B2 | `__set_errno` | 有承接 | `src/platform/LegacyTime.cpp:18 — LegacyErrno_1085FE0；include/cg/platform/LegacyTime.hpp:11 — LegacyErrno_1085FE0` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3449 | 0x005478D8 | `sub_5478D8` | 待确认 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 当前库使用候选已定位；原入口的精确库身份／承接职责尚待证，不以候选调用方正文判已实现 |
+| 3449 | 0x005478D8 | `sub_5478D8` | 有承接 | `src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor的std::pow；CMakeLists.txt:166 — 宿主默认数学错误服务` | 原唯一5461A4在87except传错误记录，零返回后更新errno；当前实际标准数学服务及宿主默认_matherr承接，不保旧记录／硬件状态或新增零返回包装 |
 | 3450 | 0x005478DB | `__statfp` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3451 | 0x005478E9 | `__clrfp` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3452 | 0x005478F8 | `__ctrlfp` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

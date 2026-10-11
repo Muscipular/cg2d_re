@@ -33432,7 +33432,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "original_direct_reference_count": 5,
       "function_chunks": [
@@ -33470,25 +33471,28 @@
           "symbols": [
             "WinMain"
           ],
-          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
         },
         {
           "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
             "TerminateLegacyRuntime_540A5C"
           ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
       "boundary": "用户CRT直接MSVC：旧onexit表/normal-quick-callable调度与标志、信号/消息/窗口API缓存/旧钩子/四OS槽及手工filter/console清理退休。SDK在应用静态初始化前安装自己的异常filter并拥有最终退出/stdio/信号；两致命分配入口真实_Exit(255)不显示旧R600x/MessageBox、不跑普通atexit，原9/9/8/28参数及失败分支保持；实际数组二次异常真实std::terminate。全部业务回调/相对序/参数/RNG不变，原字段/分支/表与完整映射保历史，不称消息、旧机器ABI或库内生命周期等价。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
-      "verification_level": "完整src/include导出/数据消费者、三真实MSVC入口、SDK已安装启动/filter/终止声明与限定精确差异；没有当前机器或启动退出运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "current_provider": {
         "kind": "msvc_ucrt_vcruntime_private_lifecycle",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "old_private_tables_hooks_or_filter_used": false,
         "source_body_of_original_private_function_implemented": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原CRT致命错误／abort的库内消息输出，由实际MSVC启动／终止诊断服务整体承接",
+        "locations": "src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — std::terminate；CMakeLists.txt:166 — 宿主CRT启动／终止诊断",
+        "service_relation_reference": "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       },
       "historical_current_field_names": [
         "append_call_connections",
@@ -50411,7 +50415,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -50432,20 +50437,27 @@
       ],
       "sources": [
         {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
+        },
+        {
           "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
             "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "FormatLegacyString_53B304"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
+          "relationship": "当前真实MSVC格式服务；原浮点callback登记随宿主整体承接"
         },
         {
-          "path": "src/platform/MapEffectMath.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "Cg2dMapEffectDivisor"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -50457,9 +50469,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原cinit前浮点格式／扫描回调、FDIV探测及默认精度初始化，由实际MSVC exe启动和格式／扫描服务整体承接",
+        "locations": "CMakeLists.txt:166 — 宿主CRT启动；src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyFormat.cpp:22 — std::vfprintf；src/platform/LegacyScan.cpp:8 — std::vfscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [
         "asm_cpp_migration",
         "crt_float_initializer_incoming_references",
@@ -55186,7 +55201,8 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -55196,29 +55212,35 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "NarrowStandardStreamsStaticInitializer",
-            "WideStandardStreamsStaticInitializer",
-            "gSdkNarrowLateInit553134",
-            "SdkClassicLocaleStaticInitializer"
+            "TerminateLegacyRuntime_540A5C"
           ],
-          "relationship": "当前MSVC完整标准流/locale的真实使用边界；string/缓冲/异常/展开属宿主库内部职责，非旧入口直接实现或当前业务调用。"
+          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
         }
       ],
       "status": "MC01-C1旧私有C++对象/算法/数据组已退休，MSVC完整对象及compiler/VCRuntime承接库职责；实际业务/SDK/运行未验",
       "boundary": "用户批准CRT直接MSVC；当前库对象的布局/共享/分配/消息/locale/codecvt/校验/异常展开采用真实宿主合同。组外无旧对象消费者，不新增自定义throw/catch/payload或同名假体；现标准流tie/unitbuf/log借用和无sentry刷新、真实Init/经典locale及全部业务初始化/退出登记保持。原身份/指令/字段与全部旧映射由前态引用保历史，不称原体等价，不外推未知原调用、业务或SDK运行。",
-      "verification_level": "完整当前src/include的库导出类型/函数/数据/方法表与NCE命名空间零组外消费、仅一旧头引用及退役控制器展开适配；SDK类型/实际标准流现源与限定文本差异静态。未构建、链接、测试或运行。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "current_provider": {
         "kind": "msvc_stl_vcruntime",
-        "path": "src/platform/LegacyMouse.cpp",
+        "path": "src/platform/LegacyRuntimeError.cpp",
         "component": "已安装MSVC STL 14.50.35717 / VCRuntime",
-        "responsibility": "真实std标准流/ios_base/locale/string及库内部异常支撑；原私有入口不再定义或调用",
+        "responsibility": "原C++异常handler／展开链的受保护终止职责，由实际VCRuntime及std::terminate整体承接",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "old_private_objects_consumed": false,
         "old_sdk_metadata_compatible": false,
         "source_body_of_original_private_function_implemented": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "locations": "src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C；CMakeLists.txt:166 — 宿主VCRuntime",
+        "service_relation_reference": "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       },
       "historical_current_field_names": [
         "inconsistency_handler_binding",
@@ -55452,7 +55474,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -55466,18 +55489,21 @@
           "symbols": [
             "WinMain"
           ],
-          "relationship": "原私有CRT角色或X片段仅关联MSVC入口/库职责，不造F/当前尾体/同名调用"
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
       "boundary": "用户CRT直接MSVC：旧onexit表/normal-quick-callable调度与标志、信号/消息/窗口API缓存/旧钩子/四OS槽及手工filter/console清理退休。SDK在应用静态初始化前安装自己的异常filter并拥有最终退出/stdio/信号；两致命分配入口真实_Exit(255)不显示旧R600x/MessageBox、不跑普通atexit，原9/9/8/28参数及失败分支保持；实际数组二次异常真实std::terminate。全部业务回调/相对序/参数/RNG不变，原字段/分支/表与完整映射保历史，不称消息、旧机器ABI或库内生命周期等价。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
-      "verification_level": "完整src/include导出/数据消费者、三真实MSVC入口、SDK已安装启动/filter/终止声明与限定精确差异；没有当前机器或启动退出运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "current_provider": {
         "kind": "msvc_ucrt_vcruntime_private_lifecycle",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "old_private_tables_hooks_or_filter_used": false,
         "source_body_of_original_private_function_implemented": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原C初始化槽安装C++异常filter，由实际MSVC exe启动持有默认过滤器",
+        "locations": "CMakeLists.txt:166 — 宿主MSVC exe启动；src/platform/ClientEntry.cpp:242 — WinMain业务边界",
+        "service_relation_reference": "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       },
       "historical_current_field_names": [
         "crt_c_initializer_incoming_bindings",
@@ -55534,7 +55560,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -55548,18 +55575,21 @@
           "symbols": [
             "WinMain"
           ],
-          "relationship": "原私有CRT角色或X片段仅关联MSVC入口/库职责，不造F/当前尾体/同名调用"
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
       "boundary": "用户CRT直接MSVC：旧onexit表/normal-quick-callable调度与标志、信号/消息/窗口API缓存/旧钩子/四OS槽及手工filter/console清理退休。SDK在应用静态初始化前安装自己的异常filter并拥有最终退出/stdio/信号；两致命分配入口真实_Exit(255)不显示旧R600x/MessageBox、不跑普通atexit，原9/9/8/28参数及失败分支保持；实际数组二次异常真实std::terminate。全部业务回调/相对序/参数/RNG不变，原字段/分支/表与完整映射保历史，不称消息、旧机器ABI或库内生命周期等价。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
-      "verification_level": "完整src/include导出/数据消费者、三真实MSVC入口、SDK已安装启动/filter/终止声明与限定精确差异；没有当前机器或启动退出运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "current_provider": {
         "kind": "msvc_ucrt_vcruntime_private_lifecycle",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "old_private_tables_hooks_or_filter_used": false,
         "source_body_of_original_private_function_implemented": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原终止槽恢复保存的旧filter；当前整体filter寿命交MSVC，不保旧保存槽或再次登记退出",
+        "locations": "CMakeLists.txt:166 — 宿主MSVC生命周期；src/platform/ClientEntry.cpp:242 — WinMain业务边界",
+        "service_relation_reference": "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       },
       "historical_current_field_names": [],
       "previous_mapping_before_mc01c3": {
@@ -68588,7 +68618,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -68608,20 +68639,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -68633,9 +68656,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原544D25／544D3B两输入转换叶的参数表转换支撑，实际std::vfscanf／std::vsscanf整体承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [],
       "previous_mapping_before_mc01c2": {
         "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
@@ -68659,7 +68685,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -68675,20 +68702,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -68700,9 +68719,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原12B中间值按5921C0的六W32表转换为双W32目标，由实际浮点输入扫描服务整体承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [
         "format_parameter_evidence"
       ],
@@ -68728,7 +68750,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -68744,20 +68767,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -68769,9 +68784,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原12B中间值按5921D8的六W32表转换为单W32目标，由实际浮点输入扫描服务整体承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [
         "format_parameter_evidence"
       ],
@@ -68945,7 +68963,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -68961,20 +68980,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -68986,9 +68997,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原strgtold12→544D25链，仅53FE95双W32赋值分支使用，由实际浮点输入扫描服务整体承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [],
       "previous_mapping_before_mc01c2": {
         "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
@@ -69012,7 +69026,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -69028,20 +69043,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -69053,9 +69060,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原strgtold12→544D3B链，仅53FE95单W32赋值分支使用，由实际浮点输入扫描服务整体承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [],
       "previous_mapping_before_mc01c2": {
         "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
@@ -69153,7 +69163,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "function_chunks": [
         {
@@ -69170,20 +69181,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.cpp",
+          "path": "src/platform/LegacyScan.cpp",
           "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
+            "ScanLegacyInput_53DEF4",
+            "ScanLegacyString_53CADC"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
-        {
-          "path": "src/platform/MapEffectMath.cpp",
-          "symbols": [
-            "Cg2dMapEffectDivisor"
-          ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::vfscanf／std::vsscanf整体承接原浮点输入扫描链，旧私有96位中间值／参数表／分叶不复刻"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -69195,9 +69198,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原输入扫描的浮点赋值回调，登记58FB58并由53E324调用，实际std::vfscanf／std::vsscanf承接",
+        "locations": "src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4的std::vfscanf；src/platform/LegacyScan.cpp:15 — ScanLegacyString_53CADC的std::vsscanf",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [],
       "previous_mapping_before_mc01c2": {
         "git_snapshot": "cg2d-re-msvc-crt-numeric-history-20261010",
@@ -189876,24 +189882,16 @@
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "sources": [
-        {
-          "path": "src/platform/LegacyFormat.cpp",
-          "symbols": [
-            "FormatLegacyOutput_53EB28",
-            "FormatLegacyString_53B304",
-            "FormatLegacyBoundedString_53D21D"
-          ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。"
-        },
         {
           "path": "src/platform/MapEffectMath.cpp",
           "symbols": [
             "Cg2dMapEffectDivisor"
           ],
-          "relationship": "当前已证业务std::pow使用边界；一般数学/控制状态库内职责由MSVC承接，不称旧片段直接源码。"
+          "relationship": "实际std::pow公共数学服务持有错误处理；不使用旧记录或自行安装_matherr"
         }
       ],
       "status": "MC01-C2旧浮点格式/数值/环境私有组退休，当前MSVC数学/格式与compiler承接；实际业务/SDK/运行未验",
@@ -189905,9 +189903,12 @@
         "old_private_gate_or_error_records_consumed": false,
         "source_body_of_original_private_function_implemented": false,
         "hardware_state_or_old_machine_abi_equivalent": false,
-        "runtime_verified": false
+        "runtime_verified": false,
+        "responsibility": "原87except借用错误记录回调返回零，由实际MSVC标准数学库的默认错误服务承接",
+        "locations": "src/platform/MapEffectMath.cpp:88 — Cg2dMapEffectDivisor的std::pow；CMakeLists.txt:166 — 宿主默认数学错误服务",
+        "service_relation_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       },
-      "verification_level": "完整当前src/include查真实库导出/数据消费者，两读取桥移回实际模块，其余无现调用；现标准数学/格式及SDK声明与限定源码差异，不是机器或结果运行证明。",
+      "verification_level": "MCF01／MCL01本轮只读原入口／指令摘要／实际入引用、参数表／槽及本机MSVC源码与现调用；明确当前整体服务关系，未重验全部业务或声称私有算法／机器ABI等价。源码／配置未变，不构建／测试／运行／查产物／摘要。",
       "historical_current_field_names": [
         "math_error_hardware_leaves"
       ],

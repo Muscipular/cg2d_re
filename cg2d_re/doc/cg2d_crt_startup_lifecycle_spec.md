@@ -1,5 +1,22 @@
 # CRT 启动与生命周期迁移子 SPEC
 
+<a id="private-lifecycle-service-relations-20261012"></a>
+
+## MCL01：异常终止、运行库诊断与默认过滤器的实际服务关系
+
+2026-10-12，只从全量表四项待确认关系选取入口，核当前IDA调用／槽内容与现宿主服务，不重建旧CRT设施。
+
+| 原入口 | 原事实与当前承接 |
+|---|---|
+| 540AB2 | 29条86B；八处引用均在旧C++找handler／展开／catch对象链。540ADB读58FB74，其实际值为540A5C，非零调用，受SEH保护并最终跳同一终止入口。当前VCRuntime持有异常机制，实际TerminateLegacyRuntime_540A5C调用std::terminate；不把标准流初始化对象当本叶的直接提供者。宿主unexpected.cpp的默认handler及末尾同样交terminate，旧全局／SEH机器结构不复造 |
+| 5443FF | 100条339B；五引用来自53DEAB、53DED0、5443C6两点及abort。544408取错误码，按592128起8B表项找诊断，原选择Runtime Library弹窗或标准错误WriteFile。当前宿主CRT启动及std::terminate整体持有库内诊断／终止；MC01-C3已批准不保旧R600x文字、弹窗、缓存和钩子，不新增旧消息输出层 |
+| 545080 | 四条17B，原55317C的C初始化槽；SetUnhandledExceptionFilter(54503A)并保存旧过滤器。54503A识别原C++异常码／参数后交540A5C，否则调用原过滤器或返回0。当前CMake默认MSVC exe入口承担库内默认过滤器；本机exe_common.inl:220及utility_desktop.cpp:99可定位实际安装与C++异常terminate，不再次安装旧入口 |
+| 545091 | 三条13B，原553198的终止槽；用前述保存值恢复旧过滤器。当前默认filter的整个寿命交宿主CRT，原手工保存／恢复槽随MC01-C3退休，不宣称宿主退出还原同一旧槽。已有ClientMinidumpReport只在WinMain活动期安装报告并恢复取得的前置filter，保持原有源码；不把它冒充本叶或另加一次退出回调 |
+
+四行改为有承接，明确宿主CRT配置、唯一WinMain和实际std::terminate边界，原ID及业务构析／std::atexit相对序不变。宿主内部异常策略、诊断和filter生命周期沿已批准MSVC合同，不外推当前机器ABI／全应用失败及运行通过。源码／头／配置保持，不新增同名包装或重复owner；相关启动／异常任务和全部完整门禁保持。
+
+同轮两个原单RET入口53B45E／53DEF3仍待确认：前者只在58F868／58F86C两数据槽见引用，本轮两槽没有已建消费xref，不能将它们称为已证启动表；后者无已建入引用。具体原职责／当前关系不足，移除无依据的格式候选，不猜原不可达或不适用，也不造空回调占位。506530成员异常清理及目录／名单生产缺项继续保留。验证只限只读原指令／引用和本机库源码／本线服务定位，不构建／测试／运行／查产物／摘要或引依赖。
+
 > 2026-10-10当前多字节/参数准备边界：[MC01-C5](cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)已退休无现业务调用的旧ctype/多字节/NLS/转换表与私有argv/环境、双BYTE桥、重复前置及专用致命入口；Input两项ASCII非零分类直接MSVC。应用命令四正文/发布槽、真实WinMain尾、数组terminate与所有业务/字段/字节/owner保持；未更改字体/GBK、协议/资源/存档编码或开全局locale。下文旧库表/状态/handler/9/9/8分支和其实施前态只作固定历史，不要求复刻，也不判原未知alias/邮件重叠已闭。全体实际CRT提供者与业务边界继续审计，全部适用SDK/正常结果/运行门禁保持，未编译/运行。
 
 > 2026-10-10当前堆边界：[MC01-C4](cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)已将通用数量/零长度/容量/校验与new-mode策略直接交MSVC，三公开calloc/realloc/_msize适配移既有LegacyMemory；旧模式/handler四槽、环境/OS/链接器选择、重复heap初始化及失败28/唯一Fast入口退休。下文旧HMU01预处理/handler/借用查询及更早私有池要求只保历史，不再追加开发债务；当前Malloc/Free与业务U32参数/owner、真实命令失败9/9/8及数组/全部业务构析保持。实际多字节继续迁移，完整业务/未知alias/SDK容量、初始化退出和运行仍待，未编译/运行。

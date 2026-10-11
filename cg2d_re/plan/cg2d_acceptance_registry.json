@@ -492,7 +492,9 @@
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-baseline",
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
-        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -69304,6 +69306,84 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MCF01-CRT-S-20261012",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0013B447",
+        "F:00144D25",
+        "F:00144D3B",
+        "F:00144D51",
+        "F:00144D7E",
+        "F:001478D8",
+        "F:0013FE95",
+        "F:00144BB9"
+      ],
+      "baseline_reference": "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+      "implementation_reference": "[#] 核定浮点扫描与异常启动入口的MSVC承接",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/ClientEntry.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "原浮点初始化／扫描转换／默认错误叶和异常终止／运行库诊断／filter的真实调用、参数表、槽与本机MSVC及当前提供者有据；两单RET身份关系仍不足保留待确认。",
+      "expected": "仅明确获批整体MSVC服务与原职责关系；不凭地址或旧host标签，不造空包装或重复初始化／filter；保原ID、业务字段／消费／owner与全部完整门禁。",
+      "actual": "十待确认转有承接；两直接扫描支撑提供者修正，源码／头／配置不变。已有语义及host成员只补关系，两个限定S不代完整业务／失败／SDK／运行通过。",
+      "differences": [
+        {
+          "description": "旧浮点CPU探测／回调槽／96位转换／硬件控制及库内handler／诊断／filter划分采用已批准MSVC合同；不新增私有包装或声明原机器ABI等价。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-MCL01-CRT-S-20261012",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00140AB2",
+        "F:001443FF",
+        "F:00145080",
+        "F:00145091"
+      ],
+      "baseline_reference": "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+      "implementation_reference": "[#] 核定浮点扫描与异常启动入口的MSVC承接",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/ClientEntry.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "原浮点初始化／扫描转换／默认错误叶和异常终止／运行库诊断／filter的真实调用、参数表、槽与本机MSVC及当前提供者有据；两单RET身份关系仍不足保留待确认。",
+      "expected": "仅明确获批整体MSVC服务与原职责关系；不凭地址或旧host标签，不造空包装或重复初始化／filter；保原ID、业务字段／消费／owner与全部完整门禁。",
+      "actual": "十待确认转有承接；两直接扫描支撑提供者修正，源码／头／配置不变。已有语义及host成员只补关系，两个限定S不代完整业务／失败／SDK／运行通过。",
+      "differences": [
+        {
+          "description": "旧浮点CPU探测／回调槽／96位转换／硬件控制及库内handler／诊断／filter划分采用已批准MSVC合同；不新增私有包装或声明原机器ABI等价。",
+          "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -69409,7 +69489,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -69451,7 +69532,8 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -69509,7 +69591,8 @@
         "doc/cg2d_msvc_crt_heap_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -69819,7 +69902,8 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -69924,7 +70008,8 @@
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
         "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
         "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
-        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "task_id": "C06",
       "state": "open"
@@ -70130,7 +70215,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -70353,7 +70439,9 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
-        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012"
+        "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -70622,7 +70710,9 @@
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
         "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
         "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
-        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -73887,7 +73977,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ]
     },
     {
@@ -76296,7 +76387,8 @@
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "previous_disposition_before_mc01c3": {
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
@@ -76314,7 +76406,8 @@
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "previous_disposition_before_mc01c3": {
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
@@ -86559,7 +86652,8 @@
         "doc/cg2d_math_error_hardware_leaves_spec.md#math-hardware-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。",
       "previous_disposition_before_mc01c2": {
@@ -90221,7 +90315,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "boundary": "MC01-C1旧私有C++库职责交MSVC完整对象/compiler/VCRuntime，七应用标准流配置/刷新入口保实际适配；原F身份与历史证据保持，不造旧对象/空同名体，不称原体或完整业务/SDK运行等价。"
     },
@@ -91442,7 +91537,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91783,7 +91879,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91794,7 +91891,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91805,7 +91903,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91838,7 +91937,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91849,7 +91949,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -91871,7 +91972,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
       ],
       "boundary": "MC01-C2旧浮点文本/数值/环境与无消费者U64私有帮助体交MSVC真实服务/compiler；八实际业务数学/控制关联保adapted，原身份不变，不造旧gate/数据/空体。业务数学源/两低宽读取及真实计时除法保持，完整SDK/业务/运行未验。"
     },
@@ -92003,7 +92105,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
       ],
       "boundary": "MC01-C3 private退出/诊断/信号/filter层交MSVC；三实际快速致命退出/数组终止保薄适配，四数组正文和全部业务callback/登记保持。接受_Exit诊断差异、库自身handler/stdio/异常生命周期，不称原体或完整SDK/业务运行等价。"
     },

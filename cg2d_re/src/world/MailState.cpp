@@ -38,7 +38,7 @@ static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
 namespace {
 
-// 文件与运行记录共用这些原字节区；布局与未接消费者见场景证据 §25–26、57。
+// 文件、网络回复与窗口40共用这些原字节区；UI经BorrowMailMessageF7CA08/BorrowGuildMailMessageDE0B30借用，存储归本模块持有。
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
 

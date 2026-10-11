@@ -3175,7 +3175,7 @@
 | 3152 | 0x0053B406 | `_atexit` | 有承接 | `src/platform/LegacyCryptInt.cpp:33 — InitializeLegacyStartupValues_401C10；src/platform/MainLoopSupport.cpp:245 — InitializeLegacyProtectionChecksum1_404120` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3153 | 0x0053B418 | `___onexitinit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyRuntimeError.cpp:9 — TerminateLegacyRuntime_540A5C` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3154 | 0x0053B447 | `sub_53B447` | 有承接 | `CMakeLists.txt:166 — 宿主CRT启动；src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyFormat.cpp:22 — std::vfprintf；src/platform/LegacyScan.cpp:8 — std::vfscanf` | 原53C8CD在C／C++初始化前从58F864间接调用；旧六回调／CPU探测／x87默认精度随MC01-C2退休，当前MSVC整体启动／格式／扫描服务；不新增旧回调槽或声明硬件状态等价 |
-| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口为单RET；仅58F868／58F86C两数据槽引用，本轮两槽无已建消费xref，不能称已证启动表；具体原职责／当前承接仍待证，不猜不可达／不适用或造空回调 |
+| 3155 | 0x0053B45E | `nullsub_6` | 待确认 | `—` | 原入口为单RET；仅58F868／58F86C两数据槽引用，本轮两槽无已建消费xref，不能称已证启动表；具体原职责／当前承接仍待证，不猜不可达／不适用或造空回调；已加载各段的本入口W32地址字面量只命中上述两槽，未找到新增引用，不外推动态目标不存在 |
 | 3156 | 0x0053B45F | `__cfltcvt_init_7` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3157 | 0x0053B498 | `__ftol` | 有承接 | `src/Palette.cpp:138 — TruncatedLowByte；src/render/LegacyTextureDrawing.cpp:132 — TruncateTextureCoordinate` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3158 | 0x0053B4BF | `sub_53B4BF` | 有正文 | `src/platform/MainLoopSupport.cpp:660 — SeedRandom_53B4BF` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3261,7 +3261,7 @@
 | 3238 | 0x0053DDB5 | `start` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3239 | 0x0053DEAB | `__amsg_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3240 | 0x0053DED0 | `_fast_error_exit` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `—` | 原入口单RET且当前无已建入引用；无依据对应格式输出，移除该候选；具体原职责／当前关系仍待证，不猜原不可达／不适用或造空回调 |
+| 3241 | 0x0053DEF3 | `nullsub_7` | 待确认 | `—` | 原入口单RET且当前无已建入引用；无依据对应格式输出，移除该候选；具体原职责／当前关系仍待证，不猜原不可达／不适用或造空回调；已加载各段的本入口W32地址字面量无命中，仍不外推动态目标不存在 |
 | 3242 | 0x0053DEF4 | `__input` | 有承接 | `src/platform/LegacyScan.cpp:8 — ScanLegacyInput_53DEF4` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3243 | 0x0053E919 | `__hextodec` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3244 | 0x0053E950 | `_fgetc_0` | 有承接 | `src/platform/LegacyStdio.cpp:26 — ReadLegacyStreamByte_53C8B3` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

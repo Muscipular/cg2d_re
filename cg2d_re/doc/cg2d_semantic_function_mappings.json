@@ -241775,6 +241775,236 @@
         "all_aliases_and_address_properties_verified": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x401C70",
+      "inventory_id": "F:00001C70",
+      "original_end_exclusive": "0x401C92",
+      "original_entry_chunk_end": "0x401C92",
+      "instruction_count": 12,
+      "function_chunks": [
+        {
+          "start": "0x401C70",
+          "end_exclusive": "0x401C92"
+        }
+      ],
+      "status": "CLCI01已有基础数值提供者的独立源码合同/原身份已纳管；完整虚调用、所有消费/owner与SDK运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "cg::platform::legacy_crypt_int::ConstructZero_401C70"
+          ],
+          "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "cg::platform::LegacyCryptInt",
+            "ConstructZero_401C70"
+          ],
+          "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+      ],
+      "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，以零值编码后返回原生对象地址；保留三字节不写。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
+      "native_signature": "LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage)",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "ConstructZero_401C70",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401CA0",
+      "inventory_id": "F:00001CA0",
+      "original_end_exclusive": "0x401CBE",
+      "original_entry_chunk_end": "0x401CBE",
+      "instruction_count": 11,
+      "function_chunks": [
+        {
+          "start": "0x401CA0",
+          "end_exclusive": "0x401CBE"
+        }
+      ],
+      "status": "CLCI01已有基础数值提供者的独立源码合同/原身份已纳管；完整虚调用、所有消费/owner与SDK运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "cg::platform::legacy_crypt_int::DestroyAndFree_401CA0"
+          ],
+          "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "cg::platform::LegacyCryptInt",
+            "DestroyAndFree_401CA0"
+          ],
+          "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+      ],
+      "boundary": "先恢复令牌，flags bit0置位才同域std::free；两路返回原地址，释放后不恢复对象或所有权。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
+      "native_signature": "LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags)",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "DestroyAndFree_401CA0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401CC0",
+      "inventory_id": "F:00001CC0",
+      "original_end_exclusive": "0x401CE7",
+      "original_entry_chunk_end": "0x401CE7",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x401CC0",
+          "end_exclusive": "0x401CE7"
+        }
+      ],
+      "status": "CLCI01已有基础数值提供者的独立源码合同/原身份已纳管；完整虚调用、所有消费/owner与SDK运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "cg::platform::legacy_crypt_int::ConstructFromInt_401CC0"
+          ],
+          "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "cg::platform::LegacyCryptInt",
+            "ConstructFromInt_401CC0"
+          ],
+          "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+      ],
+      "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，用传入S32位模式编码后返回同一原生对象地址。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
+      "native_signature": "LegacyCryptInt* ConstructFromInt_401CC0(LegacyCryptInt* storage, std::int32_t value)",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "ConstructFromInt_401CC0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401CF0",
+      "inventory_id": "F:00001CF0",
+      "original_end_exclusive": "0x401CF7",
+      "original_entry_chunk_end": "0x401CF7",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x401CF0",
+          "end_exclusive": "0x401CF7"
+        }
+      ],
+      "status": "CLCI01已有基础数值提供者的独立源码合同/原身份已纳管；完整虚调用、所有消费/owner与SDK运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "cg::platform::legacy_crypt_int::Destroy_401CF0"
+          ],
+          "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "cg::platform::LegacyCryptInt",
+            "Destroy_401CF0"
+          ],
+          "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+      ],
+      "boundary": "仅恢复首W32令牌；不清编码/mask/count/保留区，不释放对象。当前void接口的全部原EAX消费仍待证。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
+      "native_signature": "void Destroy_401CF0(LegacyCryptInt* value)",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "Destroy_401CF0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x401F50",
+      "inventory_id": "F:00001F50",
+      "original_end_exclusive": "0x401F5F",
+      "original_entry_chunk_end": "0x401F5F",
+      "instruction_count": 5,
+      "function_chunks": [
+        {
+          "start": "0x401F50",
+          "end_exclusive": "0x401F5F"
+        }
+      ],
+      "status": "CLCI01已有基础数值提供者的独立源码合同/原身份已纳管；完整虚调用、所有消费/owner与SDK运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "cg::platform::legacy_crypt_int::SetNorVal_401F50"
+          ],
+          "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "cg::platform::LegacyCryptInt",
+            "SetNorVal_401F50"
+          ],
+          "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+      ],
+      "boundary": "读当前mask与输入S32位模式异或后只写encoded；不增加读取计数或RNG。当前void接口不承诺全部原EAX残留消费者。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
+      "native_signature": "void SetNorVal_401F50(LegacyCryptInt* target, std::int32_t value)",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "SetNorVal_401F50",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     }
   ]
 }

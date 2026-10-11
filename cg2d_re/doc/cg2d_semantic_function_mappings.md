@@ -4279,3 +4279,9 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 ## 2026-10-11 ACL01：既有开发小步收尾
 
 [当前合同](cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state)纳管十个清理/索引根，新增六语义和八处置；原四语义/两处置仅追加本步依据。总语义2347、F处置1814，仅限定静态，不代表完整功能验收。后续先补缺失，暂停差异核对。
+
+## CLCI01 基础数值构造／释放身份（2026-10-11）
+
+[先行合同](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline)、[原生表示边界](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision)及[当前状态](cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state)补五个既有提供者：401C70/401CA0/401CC0/401CF0/401F50。当前IDA五完整根43条125B、六实际CALL目标；构造各单次共享RNG、W32编码/mask与W8 count、三字节保留区不写、删除仅bit0与同域free及原地址结果有证。
+
+五语义/五adapted F处置新增，源/公头正文保持，未新增函数或功能；未将未核定的完整功能成员强行分配，不新增局部门禁通过。当前显式T*接口、W32令牌和两个void接口不代表原机器thiscall/虚表或所有EAX消费者已验；完整caller/alias/owner和SDK/运行仍待，R01/R04保持open。整体门禁、暂跳过项和执行限制保持，不以新增关联数表示实现完成率。

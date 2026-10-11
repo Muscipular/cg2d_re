@@ -70032,7 +70032,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
       ]
     },
     {
@@ -71055,7 +71056,8 @@
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
       ]
     },
     {
@@ -95953,6 +95955,56 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/ui_windows/shared_battle.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00001C70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001CA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001CC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001CF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001F50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
       ]
     }
   ],

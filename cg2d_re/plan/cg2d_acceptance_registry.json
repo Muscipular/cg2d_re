@@ -5402,7 +5402,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68330,6 +68331,62 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA03-BATTLE-I-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000072E0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+      "implementation_reference": "[#] 修正战斗投射命中的字节读取",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+        "src/YobiRuntime.cpp#UpdateBattleAction16_4072E0"
+      ],
+      "observation": "40731D/407AD8/407D79/407FED/408083均直接TEST BYTE效果flags；当前五处原为U32读取再掩码。原入口/索引/目标判空有真实指令，不移除。",
+      "expected": "只恢复这五个内存低字节读取，数值/图标调用后的fresh索引和尾amount短路保持；原W32读后寄存器AL/AH/CL/CH测试仍保W32，不统一窄化。",
+      "actual": "使用现有unsigned char对象字节别名直接读取flags低字节，恰五处源表达式调整；没有新增函数/helper/保护/默认值/RNG/音效调用或修改载荷/索引/数值宽度。完整其它body及声明/分派/提供者保持。",
+      "differences": [
+        {
+          "description": "五处原W8内存读取由完整W32后掩码改为直接低字节读取；仅明确源码读取宽度/时点，不宣生成机器读取、数值/运行故障或完整函数验收。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA03-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000072E0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+      "implementation_reference": "[#] 修正战斗投射命中的字节读取",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
+        "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
+        "src/YobiRuntime.cpp#UpdateBattleAction16_4072E0"
+      ],
+      "observation": "40731D/407AD8/407D79/407FED/408083均直接TEST BYTE效果flags；当前五处原为U32读取再掩码。原入口/索引/目标判空有真实指令，不移除。",
+      "expected": "只恢复这五个内存低字节读取，数值/图标调用后的fresh索引和尾amount短路保持；原W32读后寄存器AL/AH/CL/CH测试仍保W32，不统一窄化。",
+      "actual": "使用现有unsigned char对象字节别名直接读取flags低字节，恰五处源表达式调整；没有新增函数/helper/保护/默认值/RNG/音效调用或修改载荷/索引/数值宽度。完整其它body及声明/分派/提供者保持。",
+      "differences": [
+        {
+          "description": "五处原W8内存读取由完整W32后掩码改为直接低字节读取；仅明确源码读取宽度/时点，不宣生成机器读取、数值/运行故障或完整函数验收。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -70143,7 +70200,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ]
     },
     {
@@ -71169,7 +71227,8 @@
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ]
     },
     {
@@ -71639,7 +71698,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ]
     },
     {
@@ -71931,7 +71991,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ]
     },
     {
@@ -72810,7 +72871,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ]
     },
     {
@@ -91389,9 +91451,10 @@
         "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-decision",
         "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-acceptance",
         "doc/cg2d_battle_projectile_hit_spec.md#battle-projectile-hit-source-state",
-        "doc/cg2d_battle_projectile_hit_evidence.json"
+        "doc/cg2d_battle_projectile_hit_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte"
       ],
-      "boundary": "BPHIT01原action/payload空及首索引0..199检查、bit20000000/距离70与普通20两命中、图/随机六原点到两源码表达式、状态分类/HP/CryptInt/附属清理/延迟双播放和phase17正常合同保。非拥有action/payload/effect1054只拓宽指针；本体和callee/分发/声明签名全保持，仅三注释；24callee全部consumer/owner/SDK/数值机器ABI及画面声音运行未验。 RPLAN.24不专项异常/回绕/故障等价，全部完整门禁保持。"
+      "boundary": "BPHIT01原action/payload空及首索引0..199检查、bit20000000/距离70与普通20两命中、图/随机六原点到两源码表达式、状态分类/HP/CryptInt/附属清理/延迟双播放和phase17正常合同保。非拥有action/payload/effect1054只拓宽指针；本体和callee/分发/声明签名全保持，仅三注释；24callee全部consumer/owner/SDK/数值机器ABI及画面声音运行未验。 RPLAN.24不专项异常/回绕/故障等价，全部完整门禁保持。 BMSA03补充：前述仅注释/本体保持是BPHIT01当时态，本轮按五条直接TEST BYTE恢复五个低字节读取；其它正文/原保护和全部完整门禁保持，不扩大为机器访问或完整业务通过。"
     },
     {
       "inventory_id": "F:00018B70",

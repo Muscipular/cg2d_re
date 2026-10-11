@@ -160,3 +160,5 @@ R01/R04仅新增本合同引用；原虚调用/全部消费、owner与SDK/运行
 R01/R04/U08/U09/V03/V04仍开放；尚缺各主体/全部传递消费者的完整字段、正常失败、资源、owner/alias以及当前版本同输入回放。完整枚举/六closure/总SPEC§10及不构建、不测试、不运行、不查产物、不计算摘要的限制保持，不把两项限定S或本表数量当完整验收。
 
 BMSA02继续核创建失败/父借用/退场，已将43BAA0消息种类kind从size_t恢复32位及同型25项比较，见[修正与失败传播](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter)。只修这个有原指令依据的宽度差异；普通特效空返回后的162等待、既有1200恢复及异常访问顺序保持，不擅补成功或保护。全部技能效果、资源和owner/alias寿命及运行仍待，不据两限定I/S关闭完整门禁。
+
+BMSA03已恢复动作16的五个原直接BYTE效果flags测试，见[逐点合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte)。只改五读取表达式，保数显后的fresh索引、amount短路、原入口/目标保护和其它完整W32快照；旧BPHIT01结论明确修正遗漏。全部传递消费者、资源/owner及运行仍待，五任务/六closure和完整门禁保持。

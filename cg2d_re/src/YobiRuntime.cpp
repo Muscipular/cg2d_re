@@ -25251,7 +25251,8 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
     if (initialIndex < 0 || initialIndex >= 200) {
         return;
     }
-    if ((payload->effects1C[initialIndex].flags & 8u) == 0) {
+    if ((*reinterpret_cast<const unsigned char*>(
+            &payload->effects1C[initialIndex].flags) & 8u) == 0) {
         TurnBattleToward_406190(action, gBattleAllEntries59E980[payload->effects1C[initialIndex].position], 0, 0.0F);
     }
     const std::int32_t earlyIndex = payload->effectRunningC9C;
@@ -25444,7 +25445,8 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     CopyPayload(&copyTarget->readiness, &temporary);
                     Destroy_401CF0(&temporary);
                 }
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
                     gYobiUpdateGateMode = 1;
                     targetPayload->aliveFF8 = 1;
@@ -25512,7 +25514,8 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                     static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, numberFlags));
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                    if ((*reinterpret_cast<const unsigned char*>(
+                            &payload->effects1C[payload->effectRunningC9C].flags) & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -25590,7 +25593,8 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                     static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 6, 2, numberFlags));
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                    if ((*reinterpret_cast<const unsigned char*>(
+                            &payload->effects1C[payload->effectRunningC9C].flags) & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -25608,7 +25612,9 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         }
     finishProjectileHit:
         const std::int32_t finishIndex = payload->effectRunningC9C;
-        if ((payload->effects1C[finishIndex].flags & 8u) == 0 && payload->effects1C[finishIndex].position3 != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(
+                &payload->effects1C[finishIndex].flags) & 8u) == 0
+            && payload->effects1C[finishIndex].position3 != 0) {
             const std::int32_t duration = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
             const std::int32_t skill = payload->castSkill103C;
             payload->valueFD0 = duration;

@@ -2,6 +2,8 @@
 
 2026-10-10；沿真实动作分发→投射命中→回调/标死/退场。现完整本体已存在，本步核完整原根、补独立身份及注释关联，不改业务算法或注册新路由。
 
+2026-10-11逐项验收补充：[BMSA03](cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte)发现40731D/407AD8/407D79/407FED/408083五条直接BYTE测试，旧源码先读完整W32再掩码；现明确恢复五个低字节读取，保fresh游标/数值显示之后取样及全部其它分支。下文“本体/字段宽度保持、只改注释”指当时有界结果，由本节修正这五处遗漏；完整owner、资源、生成机器访问和运行仍待。
+
 <a id="battle-projectile-hit-baseline"></a>
 ## 原基线与实际调用
 

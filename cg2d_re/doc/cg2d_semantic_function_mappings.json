@@ -102570,9 +102570,10 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ],
-      "boundary": "256B未清char buffer；玩家items[hovered+8]名称/memo及W16 flags原取样，两互斥提示共一原call。mode0/2/3与mode1/4/5两数量原点分别承接各自相同文本表达式，count为S32且>0才格式，used/map/选择bitmask/可用遮罩及先图形后数量保持；scanSlot未清局部复用、页轮换、拖拽/右键/消息/帧/绘制/返回保持。",
+      "boundary": "256B未清char buffer；玩家items[hovered+8]名称/memo及W16 flags原取样，两互斥提示共一原call。mode0/2/3与mode1/4/5两数量原点分别承接各自相同文本表达式，count为S32且>0才格式，used/map/选择bitmask/可用遮罩及先图形后数量保持；scanSlot未清局部复用、页轮换、拖拽/右键/消息/帧/绘制/返回保持。 2026-10-11原4BCE19允许字节读取：正常映射20恢复既有浏览首条物品description[30][72]，其余商品+C3C与零判断/绘制序保持；仅局部源码修复，未编译或运行。",
       "original_incoming": [],
       "original_data_references": [
         {
@@ -102663,7 +102664,7 @@
           "relationship": "mode1/4/5另一个循环，map/used/选择及可用遮罩保持；与前一数量表达式同文但原点独立"
         }
       ],
-      "verification_level": "原647条统计，仅78格式邻窗读取，余569和已过正文/核心不重验；原点/callee/共享分支与循环分组/原字节/宽度/借用源/缓冲/消费者次序及整份源4callee限定静态核对；入向仅一data xref，普通call0，不推断实际复合回调槽；未构建或执行",
+      "verification_level": "原647条统计，仅78格式邻窗读取，余569和已过正文/核心不重验；原点/callee/共享分支与循环分组/原字节/宽度/借用源/缓冲/消费者次序及整份源4callee限定静态核对；入向仅一data xref，普通call0，不推断实际复合回调槽；未构建或执行 2026-10-11转储/PDB实际this与下标0x1031C、原4B7E31/3A/44哨兵生产和4BCE07/19读取已确认；整CPP仅允许字节来源片段变化，反向替换恢复原文；不代完整父/资源寿命或运行。",
       "latest_shop_inventory_scan": {
         "step": "CAB31",
         "decision_reference": "doc/ui_windows/window_53.md#shop-inventory-scan-decision",

@@ -4360,7 +4360,8 @@
         "doc/cg2d_storage_preview_dispatch_spec.md",
         "doc/cg2d_tooltip_description_render_spec.md",
         "doc/cg2d_storage_reply_dispatch_spec.md",
-        "doc/cg2d_storage_opening_actions_spec.md"
+        "doc/cg2d_storage_opening_actions_spec.md",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ],
       "original_inventory_ids": [
         "F:0004B170",
@@ -8040,7 +8041,8 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/window_53.md",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-baseline",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -68671,6 +68673,52 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-SHOP-DRAW-SENTINEL-FUNC-UIRUNTIME-I-20261011",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000BC660"
+      ],
+      "baseline_reference": "doc/cg2d_shop_inventory_draw_assert_20261011.md：转储实际参数及原4B7E31/3A/44、4BCD66/4BCE07/19",
+      "implementation_reference": "[#] 修复商店背包绘制哨兵读取来源",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
+        "doc/ui_windows/window_53.md#evidence-108",
+        "src/ui/WindowRuntime.cpp#Sub_4BC660"
+      ],
+      "observation": "仅背包绘制分支正常映射20的允许字节读取来源；转储模式4/映射20/实际array this和下标66332有据，原读取D052FC属于既有浏览首条物品+BB8。",
+      "expected": "映射20消费既有浏览首条物品description[30][72]；其余映射读商品+C3C，负映射/used门槛、fresh取样及23040标记/玩家图标/数量和返回保持。",
+      "actual": "新增惰性条件表达式只选择一条W8来源，整CPP反向替换恢复原文；没有新增容量/owner/默认值或保护。限定源级I/S，未编译、测试、部署或运行，完整商店/生命周期与机器ABI仍未验。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-SHOP-DRAW-SENTINEL-FUNC-UIRUNTIME-S-20261011",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000BC660"
+      ],
+      "baseline_reference": "doc/cg2d_shop_inventory_draw_assert_20261011.md：转储实际参数及原4B7E31/3A/44、4BCD66/4BCE07/19",
+      "implementation_reference": "[#] 修复商店背包绘制哨兵读取来源",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
+        "doc/ui_windows/window_53.md#evidence-108",
+        "src/ui/WindowRuntime.cpp#Sub_4BC660"
+      ],
+      "observation": "仅背包绘制分支正常映射20的允许字节读取来源；转储模式4/映射20/实际array this和下标66332有据，原读取D052FC属于既有浏览首条物品+BB8。",
+      "expected": "映射20消费既有浏览首条物品description[30][72]；其余映射读商品+C3C，负映射/used门槛、fresh取样及23040标记/玩家图标/数量和返回保持。",
+      "actual": "新增惰性条件表达式只选择一条W8来源，整CPP反向替换恢复原文；没有新增容量/owner/默认值或保护。限定源级I/S，未编译、测试、部署或运行，完整商店/生命周期与机器ABI仍未验。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -71986,7 +72034,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ]
     },
     {
@@ -72363,7 +72412,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
         "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
         "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
-        "doc/cg2d_window_close_front_release_spec.md#evidence-archive-20261011"
+        "doc/cg2d_window_close_front_release_spec.md#evidence-archive-20261011",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ]
     },
     {
@@ -87498,9 +87548,10 @@
         "doc/ui_windows/window_53.md#shop-inventory-scan-decision",
         "doc/ui_windows/window_53.md#shop-inventory-scan-source-state",
         "doc/cg2d_shop_inventory_scan_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#shop-inventory-scan-debug-build",
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
       ],
-      "boundary": "仅已证扫描/后续复用临时下标的源码承接局部；x64原生当前窗口/元素地址与原业务W32/S8/U8继续。完整原体/全部父-callee/正常owner-alias寿命/现代回调/画面声音/IP2及机器ABI未验，不把局部F处置当功能完成。"
+      "boundary": "仅已证扫描/后续复用临时下标的源码承接局部；x64原生当前窗口/元素地址与原业务W32/S8/U8继续。完整原体/全部父-callee/正常owner-alias寿命/现代回调/画面声音/IP2及机器ABI未验，不把局部F处置当功能完成。 本次再恢复4BCE19正常映射20的既有浏览字节同源读取，未改映射生产/加入门槛或绘制顺序，未运行复现。"
     },
     {
       "inventory_id": "F:00001000",

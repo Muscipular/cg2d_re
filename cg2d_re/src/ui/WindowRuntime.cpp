@@ -21187,7 +21187,11 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
                     223, 256, 0);
             }
             const std::int32_t mappedItem = gShopInventoryMapD2DAB8[position];
-            if (gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C] == 0) {
+            // 原4BCE19：映射20读取D052FC，即浏览首条物品+BB8。
+            const char allowed = mappedItem == 20
+                ? gStallBrowseD046D8.items[0].description[30][72]
+                : gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C];
+            if (allowed == 0) {
                 static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
             }
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));

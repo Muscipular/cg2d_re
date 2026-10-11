@@ -4859,7 +4859,8 @@
         "doc/cg2d_player_attribute_money_reply_spec.md",
         "doc/cg2d_storage_opening_actions_spec.md",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -4977,7 +4978,8 @@
         "F:000ACE80",
         "F:000ABE60",
         "F:000ACDF0",
-        "F:00019C10"
+        "F:00019C10",
+        "F:000217F0"
       ],
       "closure_task_ids": [
         "U09",
@@ -5396,7 +5398,8 @@
         "doc/cg2d_battle_item_interaction_spec.md",
         "doc/cg2d_item_drag_entry_callback_spec.md",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -5829,7 +5832,8 @@
         "F:00099C30",
         "F:0008BF10",
         "F:0008BC90",
-        "F:00019C10"
+        "F:00019C10",
+        "F:000217F0"
       ],
       "closure_task_ids": [
         "P01",
@@ -68159,6 +68163,66 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-TEXT-PAYLOAD-STORAGE-YOBI-S-20261011",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000217F0"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
+      "implementation_reference": "[#] 补齐文字载荷尾部显式存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md",
+        "src/YobiRuntime.cpp#BattleTextPayload",
+        "src/YobiRuntime.cpp#NewBattleText_4217F0"
+      ],
+      "observation": "原4217FB请求18H即24B；两个原地址/三个S32之后尾4B未显式承载，现以bytes14保留。",
+      "expected": "仅补尾4B和原生尺寸声明、澄清原请求注释；保持面板/行表拥有策略、文本字节/NUL、计时及实际释放，不猜字段或地址用途，不新增默认值/owner/状态。",
+      "actual": "源码精确重放及唯一sizeof请求/通用清零关联静态通过；未编译求值断言、测试或运行，不宣称请求必然扩大或新增文字功能。",
+      "differences": [
+        {
+          "description": "原文字载荷尾4B改为显式字节存储；原生对齐可能原已承载该长度，完整用途/地址属性仍待证。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-TEXT-PAYLOAD-STORAGE-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000217F0"
+      ],
+      "baseline_reference": "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
+      "implementation_reference": "[#] 补齐文字载荷尾部显式存储",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md",
+        "src/YobiRuntime.cpp#BattleTextPayload",
+        "src/YobiRuntime.cpp#NewBattleText_4217F0"
+      ],
+      "observation": "原4217FB请求18H即24B；两个原地址/三个S32之后尾4B未显式承载，现以bytes14保留。",
+      "expected": "仅补尾4B和原生尺寸声明、澄清原请求注释；保持面板/行表拥有策略、文本字节/NUL、计时及实际释放，不猜字段或地址用途，不新增默认值/owner/状态。",
+      "actual": "源码精确重放及唯一sizeof请求/通用清零关联静态通过；未编译求值断言、测试或运行，不宣称请求必然扩大或新增文字功能。",
+      "differences": [
+        {
+          "description": "原文字载荷尾4B改为显式字节存储；原生对齐可能原已承载该长度，完整用途/地址属性仍待证。",
+          "decision_ref": "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -69967,7 +70031,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -70013,7 +70078,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -70128,7 +70194,8 @@
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -70987,7 +71054,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -71454,7 +71522,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -71743,7 +71812,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -72619,7 +72689,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -77639,7 +77710,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_evidence.json",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ]
     },
     {
@@ -95870,6 +95942,16 @@
       "evidence_refs": [
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-decision",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/ui_windows/shared_battle.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000217F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-decision",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/ui_windows/shared_battle.md"
       ]
     }

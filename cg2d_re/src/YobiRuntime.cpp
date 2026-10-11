@@ -290,14 +290,16 @@ constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
-// 原4217F0的18B文本载荷；行表/行字节由421750释放，面板仅持有非拥有引用。
+// 原4217F0的18H（24B）文本载荷；末4B用途未定，行表/行字节由421750释放。
 struct BattleTextPayload {
     YobiAction* panel00;
     char** lines04;
     std::int32_t lineCount08;
     std::int32_t fontType0C;
     std::int32_t remaining10;
+    std::array<std::byte, 4> bytes14; // 原+14..+17H：仅显式保留存储，不猜新状态或地址类型。
 };
+static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) + 16);
 
 // 原41DA04分配的132B数值载荷，41A590逐槽生成；不与战斗角色载荷混用。
 struct BattleRingEmitterPayload {

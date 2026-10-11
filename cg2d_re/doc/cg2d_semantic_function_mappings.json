@@ -99406,7 +99406,7 @@
     {
       "original_entry": "0x4217F0",
       "inventory_id": "F:000217F0",
-      "status": "已有战斗文字生产父正文，三LF查找依赖已接；完整动作/战斗/绘制与运行未验",
+      "status": "已有战斗文字生产父正文，三LF查找依赖已接；完整动作/战斗/绘制与运行未验；BPST01-C文字尾4B显式承载已落码，完整用途/别名及运行未验",
       "original_role": "战斗文字分行/动作生产",
       "original_end_exclusive": "0x4219C6",
       "instruction_count": 169,
@@ -99468,10 +99468,19 @@
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ],
-      "verification_level": "原169统计/44查找邻读取、三真实call/低W8 LF push与计数首查/回边/生产源、唯一43758A/427470入向及现真实符号静态核对；整份YobiRuntime只三个标识符，余125条/全部事件上游/动作布局和生命周期不重验，未构建或执行",
-      "boundary": "本步只接真实查找：原text计数首查、newline+1回边和current逐行生产同一LF 0AH。原行数初始化/每命中+1/计数后+1、原生行指针数组和逐行calloc/长度/最长行/复制/末NUL/current推进、动作payload/回调/布局/返回与现音效正文逐字保持，不新增保护/默认/私有状态或转码，不恢复暂停音频；新记录不转记完整父/动作失败等价/CRT或跨板块运行验收。"
+      "verification_level": "原169统计/44查找邻读取、三真实call/低W8 LF push与计数首查/回边/生产源、唯一43758A/427470入向及现真实符号静态核对；整份YobiRuntime只三个标识符，余125条/全部事件上游/动作布局和生命周期不重验，未构建或执行；BPST01-C原24B请求/末S32邻窗，尺寸说明/一数组/一断言及唯一sizeof请求静态关联；其余源保持，未编译求值断言或运行",
+      "boundary": "本步只接真实查找：原text计数首查、newline+1回边和current逐行生产同一LF 0AH。原行数初始化/每命中+1/计数后+1、原生行指针数组和逐行calloc/长度/最长行/复制/末NUL/current推进、动作payload/回调/布局/返回与现音效正文逐字保持，不新增保护/默认/私有状态或转码，不恢复暂停音频；新记录不转记完整父/动作失败等价/CRT或跨板块运行验收。",
+      "text_payload_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "role": "既有文字创建器显式保留原+14..+17H尾4B，原生对齐可能原已包含其长度；不宣称请求必然扩大。",
+        "storage_implemented": true,
+        "tail_semantics_verified": false,
+        "all_aliases_and_address_properties_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4D0EB0",
@@ -136164,7 +136173,7 @@
           "0x404C42"
         ]
       ],
-      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验；BPST01-B过渡尾8B的sizeof消费者已承接，完整用途/别名及运行未验",
+      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验；BPST01-A四段用途未定字节承载已落码，字段语义/别名及运行未验；BPST01-B过渡尾8B的sizeof消费者已承接，完整用途/别名及运行未验；BPST01-C文字尾4B显式承载已落码，完整用途/别名及运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136204,7 +136213,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_evidence.json",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
       ],
       "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YAS01载荷返回先判空结果再发布/同指针清零，descriptor五W16零/一W32 FFFFFFFF/两W8零按原序；start→end→两next，action.next/prev发布后复读point.prev再接前驱next。U8 priority/U32 payloadSize、原calloc/free域/两失败消息和释放、同值FIFO/缓存stop及到stop未链接返回保持，不新增FF输入限制/失败回退/异常保护或回绕及故障模拟/称等价。完整113调用点实参/载荷类型和全部callee/对象资源生产/所有链别名与未插链对象和owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/完整画面运行未验。",
       "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YAS01追加当前完整118条354B/113type17call/86已知父+1未归属调用点及四具名源片段全文精确重放，载荷同快照/原失败、描述符原宽度显式发布和首尾/前驱读序有限静态；不验所有父实参/载荷/SDK及owner寿命或运行；BPST01-A四数组15B/13 sizeof分配点和一浅复制关联限定静态，本组外正文保持，未编译或运行",
@@ -136815,6 +136825,14 @@
         "role": "通用请求/清零正文保持，419C10的原生sizeof请求包含用途未定尾8B。",
         "storage_consumer_connected": true,
         "tail_semantics_verified": false,
+        "runtime_verified": false
+      },
+      "text_payload_storage": {
+        "spec_ref": "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "role": "通用请求/清零正文保持，文字同族sizeof请求承接显式尾4B。",
+        "storage_implemented": true,
+        "tail_semantics_verified": false,
+        "all_aliases_and_address_properties_verified": false,
         "runtime_verified": false
       }
     },

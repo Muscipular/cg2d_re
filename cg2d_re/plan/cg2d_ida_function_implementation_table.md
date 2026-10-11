@@ -2153,12 +2153,12 @@
 | 2130 | 0x004D6E70 | `sub_4D6E70` | 有正文 | `src/LegacyUiRecord.cpp:2719 — Sub_4D6E70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2131 | 0x004D6EA0 | `sub_4D6EA0` | 有正文 | `src/LegacyUiRecord.cpp:2730 — Sub_4D6EA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2132 | 0x004D7440 | `sub_4D7440` | 有正文 | `src/LegacyCatalogWindows.cpp:192 — Sub_4D7440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2133 | 0x004D7470 | `sub_4D7470` | 部分实现 | `src/LegacyCatalogWindows.cpp:204 — Sub_4D7470` | 正文已有；CA0478 数组仅有 extern 声明，当前未见定义／生产；C8AF84 页数仅初值与读取，容量和原生产待证；不以数组初值代运行期数据 |
+| 2133 | 0x004D7470 | `sub_4D7470` | 部分实现 | `src/LegacyCatalogWindows.cpp:204 — Sub_4D7470` | 正文已有；CA0478 数组仅有 extern 声明，当前未见定义／生产；C8AF84 页数仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在 |
 | 2134 | 0x004D7BF0 | `sub_4D7BF0` | 有正文 | `src/LegacyCatalogWindows.cpp:355 — Sub_4D7BF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2135 | 0x004D7C20 | `sub_4D7C20` | 部分实现 | `src/LegacyCatalogWindows.cpp:366 — Sub_4D7C20` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据 |
+| 2135 | 0x004D7C20 | `sub_4D7C20` | 部分实现 | `src/LegacyCatalogWindows.cpp:366 — Sub_4D7C20` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在 |
 | 2136 | 0x004D8200 | `sub_4D8200` | 有正文 | `src/LegacyCatalogWindows.cpp:497 — Sub_4D8200` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2137 | 0x004D8230 | `sub_4D8230` | 部分实现 | `src/LegacyCatalogWindows.cpp:508 — Sub_4D8230` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据 |
-| 2138 | 0x004D88C0 | `sub_4D88C0` | 部分实现 | `src/LegacyCatalogWindows.cpp:648 — Sub_4D88C0` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据 |
+| 2137 | 0x004D8230 | `sub_4D8230` | 部分实现 | `src/LegacyCatalogWindows.cpp:508 — Sub_4D8230` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在 |
+| 2138 | 0x004D88C0 | `sub_4D88C0` | 部分实现 | `src/LegacyCatalogWindows.cpp:648 — Sub_4D88C0` | 正文已有；消费 CA0478 目录，但当前数组仅有 extern 声明，未见定义／生产；旧目录容量与生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在 |
 | 2139 | 0x004D8D70 | `sub_4D8D70` | 有正文 | `src/LegacyUiRecord.cpp:3320 — Sub_4D8D70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2140 | 0x004D8DA0 | `sub_4D8DA0` | 有正文 | `src/LegacyUiRecord.cpp:3331 — Sub_4D8DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2141 | 0x004D91E0 | `sub_4D91E0` | 有正文 | `src/LegacyUiRecord.cpp:3450 — Sub_4D91E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2203,7 +2203,7 @@
 | 2180 | 0x004E4A50 | `sub_4E4A50` | 有正文 | `src/LegacyUiRecord.cpp:3158 — Sub_4E4A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2181 | 0x004E4E60 | `sub_4E4E60` | 有正文 | `src/ui/WindowRuntime.cpp:12919 — Sub_4E4E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2182 | 0x004E4E80 | `sub_4E4E80` | 有正文 | `src/ui/WindowRuntime.cpp:12959 — Sub_4E4E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2183 | 0x004E4EA0 | `sub_4E4EA0` | 部分实现 | `src/LegacyCatalogWindows.cpp:102 — Sub_4E4EA0` | 正文已有；CB1D1C 名单仅 extern，当前未见定义／生产；数量 D30134 与页数 CF46D0 仅初值与读取，容量和原生产待证；不以数组初值代运行期数据 |
+| 2183 | 0x004E4EA0 | `sub_4E4EA0` | 部分实现 | `src/LegacyCatalogWindows.cpp:102 — Sub_4E4EA0` | 正文已有；CB1D1C 名单仅 extern，当前未见定义／生产；数量 D30134 与页数 CF46D0 仅初值与读取，容量和原生产待证；不以数组初值代运行期数据；本轮原IDA限定检索仅见首条已证记录及相关计数／图号的读取、取地址引用，未定位生产者；不外推间接写入不存在 |
 | 2184 | 0x004E52B0 | `sub_4E52B0` | 有正文 | `src/ui/WindowRuntime.cpp:12999 — Sub_4E52B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2185 | 0x004E54E0 | `sub_4E54E0` | 有正文 | `src/ui/WindowRuntime.cpp:2098 — Sub_4E54E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2186 | 0x004E5600 | `sub_4E5600` | 有正文 | `src/ui/WindowRuntime.cpp:2129 — Sub_4E5600` | 实际非占位正文已定位；完整业务／接线／运行未验 |

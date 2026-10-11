@@ -174,3 +174,5 @@ BMSA07恢复RID的423B37/4241AA/4241F2三个原BYTE标志读取，见[预读与�
 BMSA08补RID[数值/属性/坐标阶段表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup)：八临时完整取样/发布、四旧rider交替读写、U16属性、两种列表复位序及首位置/scene scale对应，原差异不改成一致。源码无本步改动，零新I，仅一限定S；未推进CryptInt算法或把片段当完整595条/所有资源与owner/ABI/运行通过，任务/门禁/六closure保持。
 
 BMSA09补RID[回退、空槽与创建接线](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow)：三类拒绝恢复入口游标，原角色空槽先Finish再fresh递增子状态，成功在全部追加后发布预读游标并继续扫描；工厂空返回与RID原无判空、双对象停更／载体先挂后写保持。已有224/226/227及回收合同不重复计数；源码保持、零新I，一限定S。实际资源／创建失败、全部owner／别名、SDK生成ABI和运行仍待，任务／门禁／六closure保持。
+
+BMSA10补技能98状态分支的[119／141跨链消费表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-status-consumption)：等级选择type4过渡图并经1024的1→2完成回写／162等待，mode另供141的受条件约束六附属图；value13D8==3优先分支、1054已有返空和先写旗位／后分配失败不回滚保持。复用既有原证，当前源码无本步修改，只七既有消费者一限定S／八记录关系引用，父812仍无新处置或成员，已知回调41F800仅新增候选关联；资源实际可用、全部owner／别名及ABI／运行未验，全任务／门禁保持。

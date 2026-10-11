@@ -170,3 +170,5 @@ BMSA05完成ITM七个既有消费者的限定完成链对照，见[资源与等�
 BMSA06补SKL控制/附加记录及RID公共尾的[实际字段合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid)：245将position解释为类型、position3为寿命；Aux第三次推进停在复制的主记录继续数值处理，三字段写入器不补第四字段。公开头只补五注释，RID kind按原EDI恢复32位/同型25项比较两行；已有811不重建身份，仅补适配处置/BATTLE成员和限定I/S。其余源码/接口及全部数据、RID本体/所有模式/callee、失败、资源/alias-owner、SDK机器ABI和运行仍待，五任务/六closure与完整门禁保持。
 
 BMSA07恢复RID的423B37/4241AA/4241F2三个原BYTE标志读取，见[预读与移交合同](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer)。S32/W32字段/第二预读寄存器测试、20/19计数差异及原角色创建失败/载体发布/226延后恢复保持；只三读取和三注释，已有811与处置补当前引用，零新身份/成员。完整595条RID、阶段226/所有资源/alias-owner和机器ABI/运行仍待，全部任务/门禁/六closure保持。
+
+BMSA08补RID[数值/属性/坐标阶段表](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup)：八临时完整取样/发布、四旧rider交替读写、U16属性、两种列表复位序及首位置/scene scale对应，原差异不改成一致。源码无本步改动，零新I，仅一限定S；未推进CryptInt算法或把片段当完整595条/所有资源与owner/ABI/运行通过，任务/门禁/六closure保持。

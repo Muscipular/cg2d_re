@@ -678,3 +678,29 @@ state2 的 37 编号沿 BMN01，当前列表仍为 19..31、61..63、83、400..4
 按工程委托先记方案，再仅本RID三处unsigned char读取与私有载体三注释；其它整个CPP/头/提供者、原宽度索引、所有RNG/音效/动画/数值构造和失败/生命周期分支保持。不推进CryptInt算法或改变其共享实现。
 
 已有F:000239D0/语义811只补当前依据与限定边界，限定I仅三读取、限定S为三读取及所述移交窗口，零新身份/成员/处置；原595条统计、阶段226及全部父-callee、资源/容量/alias-owner、生成机器ABI与运行仍未完整验收。所有完整门禁/任务/六closure和总SPEC§10保持开放。
+
+<a id="battle-m-skill-item-acceptance-rid-value-setup"></a>
+## BMSA08：RID数值、属性及坐标设置逐项静态验收
+
+2026-10-11，继续RID的角色设置与旧骑手数据移交。仅对照调用端八个临时发布、四个已存值复制、属性及坐标片段；不改或重新验CryptInt算法。595条2260B是原库存/811已有根统计，本节不把片段对照计成整个RID/所有callee通过。
+
+| 原构造点 | 当前目标 | 原样本及发布顺序 | 结论 |
+|---|---|---|---|
+| 423BEF | firstActor.readiness | W8 count→W32 encoded→W32 mask全部取齐，再按同序发布 | 对应，保持 |
+| 423C38 | firstActor.maxHp | 同上 | 对应，保持 |
+| 423C7E | firstActor.barValue1B0 | 同上 | 对应，保持 |
+| 423CB8 | firstActor.barMaximum1C0 | W32 encoded→W32 mask→W8 count全部取齐，再按同序发布 | 与其余七处不同；对应，保持 |
+| 423F50 | secondActor.readiness | W8 count→W32 encoded→W32 mask全部取齐，再按同序发布 | 对应，保持 |
+| 423F8A | secondActor.maxHp | 同上 | 对应，保持 |
+| 423FC4 | secondActor.barValue1B0 | 同上 | 对应，保持 |
+| 424004 | secondActor.barMaximum1C0 | 同上 | 对应，保持 |
+
+每个位置原Take整数→构造→三个样本→三个发布→析构独立执行；现代码没有共用构造、提前析构、合并RNG或修改目标其它字段。这里读取/发布的W8/W32及次序来自相邻原指令，不将它们改成通用交替读写。
+
+旧rider的四次已存值复制在423E3D/423E63/423E89/423EAF开始，每次先重新取existingPayload.rider13C8，再依encoded读/写→mask读/写→count字节读/写。现四处CopyPayload与共享函数五行赋值对应，不提前收齐三样本；与上表临时值发布的阶段不同。只三个载荷字段，目标token/reserved保持；不改共享帮助体，也不推进其数值算法。
+
+两角色原423CEA/424042先发布W32 flagsFDC，随后stateFE0=0、四U16属性按[3]/[2]/[1]/[0]清零；再独立用1000000/2000000/4000000/8000000门禁按[0]至[3]置1，现类型和顺序对应。第一门禁原MOV W32后测寄存器，后三个原TEST DWORD；不机械套用前节BYTE修复或一次快照替代原fresh读取。
+
+列表复位也分别保持：首角色FC4=0→FC8=-1→CA4[0]=0→CA4[1]=-1，次角色FC4=0→CA4[0]=0→FC8=-1→CA4[1]=-1。两个坐标组均从first位置取X/Y、发布offset40/44与x/y；原423DD7/423DDA及424137/42413A置1的是scene的scale，不改成角色scale；身份各自写first/second。旧rider的X先取rider、固定共享槽、取源frameX/offset40后发布；Y重新读槽对象、重新读rider，再取源offset44发布。现对应，不合并对象查表/投影或新增位置/空指针守卫。
+
+本节所查数值/字段/坐标和其它整个YobiRuntime.cpp逐字保持，零源码改动/新I；已有811、F:000239D0和BATTLE只追加一个限定S与当前依据。完整RID、全部真实输入及创建失败、角色附属/载体/阶段226的所有分支、容量/alias-owner、SDK生成ABI、画面声音和运行仍待；全任务/六closure与总SPEC§10保持开放。

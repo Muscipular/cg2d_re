@@ -5407,7 +5407,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68621,6 +68622,29 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA08-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
+      "implementation_reference": "[#] 记录RID数值属性与坐标设置验收",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload"
+      ],
+      "observation": "原RID八构造后完整取样/发布中，首barMaximum是encoded-mask-count，其它七处count-encoded-mask；四旧rider已存值复制是独立重取rider并encoded/mask/count逐读逐写。两U16属性组、不同列表复位序、首位置坐标/scene scale及旧rider两次槽取样原窗口有据。",
+      "expected": "逐点保三样本阶段和字节/字宽、独立构造析构/原RNG，不将临时发布与已存值复制统一；两角色的列表复位及坐标身份/scene scale不修成一致，不缓存原fresh目标或新增guard。",
+      "actual": "当前八组局部样本/发布及四处CopyPayload与共享五行赋值对应，属性/列表/坐标片段源级字段和顺序对应；完整YobiRuntime.cpp逐字未改，零新I/身份/成员/处置，不重建CryptInt算法。只所述片段S，不代完整RID595条/创建失败/全部callee与资源/alias-owner/SDK机器ABI或运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -96451,7 +96475,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
         "doc/cg2d_semantic_function_mappings.json#/records/811",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup"
       ],
       "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。"
     }

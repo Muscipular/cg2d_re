@@ -653,3 +653,28 @@ state2 的 37 编号沿 BMN01，当前列表仍为 19..31、61..63、83、400..4
 ### 登记与验收边界
 
 已有F:000239D0及语义811不重复建身份；补其当前适配处置/BATTLE已知成员，限定I只覆盖kind两行，限定S覆盖该扫描和上述六既有根的记录生产/消费关系。仅字段注释不是新实现；所有正式完整门禁、枚举与R01/R04/U08/U09/V04仍开放。完整RID、SKL各模式及全部callee/正常失败/数据生产、容量、alias-owner、SDK/生成机器ABI、时钟RNG和画面声音运行未完成，不以本表或五根统计关闭总SPEC§10。
+
+<a id="battle-m-skill-item-acceptance-rid-byte-transfer"></a>
+## BMSA07：RID三处标志字节与角色移交
+
+2026-10-11，继续4239D0已纳管的RID公共尾。原根范围4239D0–4242A4、595条2260B沿库存/811；本次枚举全部代码块的BYTE/WORD内存操作，45个窄访问中有如下三个标志读取。其它临时/角色readCount为W8，fields288四属性为W16，字符串复制沿已批准MSVC边界；不把枚举窄访问当作595条所有分支/依赖完整通过。
+
+| 原指令 | 原字段/取样阶段 | 当前差异与方案 |
+|---|---|---|
+| 423B37 MOV CL BYTE [var_BC] | 第一段预读的完整W32返回此前在423AE8保存；全部第二段预读结束之后，只读该样本低字节测bit2。 | 第一样本仍保S32，仅此时从其地址读取unsigned char后测bit2；不将TakeInt3返回整体截为U8。 |
+| 4241AA TEST BYTE [firstPayload+FDC],2 | 载体字段发布、原动作226与效果记录追加之后，决定首角色value54=4/5及11/40/46或7/11/10列表。 | 从firstPayload flagsFDC地址读低字节，仍在追加完成后取样。 |
+| 4241F2 MOV AL [secondPayload+FDC] | 首角色三个动作追加之后，读取次角色flags低字节，再4241FB测AL bit2。 | 从secondPayload flagsFDC地址读低字节，不缓存首角色分流前的次标志。 |
+
+423B32第二预读返回以完整EAX接收，423B43只TEST AL；这里不是另一次内存BYTE读取，现S32样本掩码正确保持。两预读计数仍是20、实际消费19整数：第一姓名后1+2+6共九个预读整数、第二姓名后七个；同原预读字段顺序及成功后发布previewOffset，不修原差异或引新拒绝/回退。三处仅源级读取宽度恢复，不声明编译指令、运行故障或字段类型改动。
+
+### 新旧角色与载体的有限移交证据
+
+- 保留原existing指针/载荷后分别438290构造两个新角色，原构造可空返回而本RID调用端继续取payload；不补原没有的分配守卫。首/次角色的名称、数值构造、属性、列表及坐标设置保持；次角色坐标仍取first位置，身份另写second，scene的scaleX/Y置1不能改到新角色。
+- 首角色的数据复制给旧existingPayload.rider13C8后，角色两次坐标分别沿原共享槽/旧rider读取。首、次新对象均phase0、flags置2、callback清空；RID显式赋值不立即替换共享角色槽。
+- 原42414D/42414F请求kind2/24B载体；42416C先发布existingPayload.effect1060，再424179/42417B/42417E发布两个新角色指针与gear图号，RID不写原+08 flags。现BattleRideCarrierPayload只拓宽两个非拥有T*，保两个W32字段及原尾8B；sizeof承接原24B载体的x64模型，不另造owner或队列。
+- 原旧角色追加226，并写效果{first,0,first,second}。4154C0实际阶段226先取该记录position3/position4；rider.field58==0时4154FD显式发布second槽，再恢复callback/phase/flags/位置，415545清carrier.second04。其余首角色恢复、rider/carrier标死及最终回收沿已有[附属恢复合同](cg2d_battle_attachment_recovery_spec.md)，本次邻窗不重复记完整阶段226/所有owner已通过。
+- carrier的first00/second04注释补RID的424179/42417B写入来源；flags08补“RID不写”边界。只补三条关联注释，不改结构、指针/数值类型、字节尾、角色创建或移交行为。
+
+按工程委托先记方案，再仅本RID三处unsigned char读取与私有载体三注释；其它整个CPP/头/提供者、原宽度索引、所有RNG/音效/动画/数值构造和失败/生命周期分支保持。不推进CryptInt算法或改变其共享实现。
+
+已有F:000239D0/语义811只补当前依据与限定边界，限定I仅三读取、限定S为三读取及所述移交窗口，零新身份/成员/处置；原595条统计、阶段226及全部父-callee、资源/容量/alias-owner、生成机器ABI与运行仍未完整验收。所有完整门禁/任务/六closure和总SPEC§10保持开放。

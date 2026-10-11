@@ -5406,7 +5406,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-zero-copy",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68562,6 +68563,64 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA07-BATTLE-I-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+      "implementation_reference": "[#] 修正RID标志字节读取并补角色移交关联",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/YobiRuntime.cpp#BattleRideCarrierPayload",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline"
+      ],
+      "observation": "RID全代码块枚举45个BYTE/WORD内存访问，三标志为423B37预读首快照BYTE、4241AA first FDC TEST BYTE、4241F2 second FDC MOV AL；当前三处均原S32/W32后掩码。423B32完整第二返回/423B43 TEST AL区别明确，原预读20/实际19以及载体24B/三字段发布/226延后恢复邻窗有据。",
+      "expected": "只这三个时点使用unsigned char对象字节别名取值，第一预读仍完整S32保存，第二寄存器位测试保；两个角色分别在226/效果和首角色动作追加之后fresh读取。构造/分配失败原访问顺序、角色坐标/名单/原回退/成功预读游标发布及所有其它业务保持。",
+      "actual": "整CPP仅三读取表达式与载体三关联注释，三字段写入源及226第二槽恢复/清槽关系说明补齐；类型/结构/布局/接口、所有其它body/RNG/音效/动画/数值及kind32保持。I只三个读取，注释不计新I；S只是三读取/预读与载体邻窗，不记595条或完整阶段226、父-callee/owner/资源/ABI/运行通过。",
+      "differences": [
+        {
+          "description": "423B37/4241AA/4241F2三处完整字段掩码改为原BYTE内存读取；原S32/W32字段及完整返回之后寄存器测试不窄化，正常旧位值相同，不声明生成指令或运行故障。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA07-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000239D0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+      "implementation_reference": "[#] 修正RID标志字节读取并补角色移交关联",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/YobiRuntime.cpp#BattleRideCarrierPayload",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline"
+      ],
+      "observation": "RID全代码块枚举45个BYTE/WORD内存访问，三标志为423B37预读首快照BYTE、4241AA first FDC TEST BYTE、4241F2 second FDC MOV AL；当前三处均原S32/W32后掩码。423B32完整第二返回/423B43 TEST AL区别明确，原预读20/实际19以及载体24B/三字段发布/226延后恢复邻窗有据。",
+      "expected": "只这三个时点使用unsigned char对象字节别名取值，第一预读仍完整S32保存，第二寄存器位测试保；两个角色分别在226/效果和首角色动作追加之后fresh读取。构造/分配失败原访问顺序、角色坐标/名单/原回退/成功预读游标发布及所有其它业务保持。",
+      "actual": "整CPP仅三读取表达式与载体三关联注释，三字段写入源及226第二槽恢复/清槽关系说明补齐；类型/结构/布局/接口、所有其它body/RNG/音效/动画/数值及kind32保持。I只三个读取，注释不计新I；S只是三读取/预读与载体邻窗，不记595条或完整阶段226、父-callee/owner/资源/ABI/运行通过。",
+      "differences": [
+        {
+          "description": "423B37/4241AA/4241F2三处完整字段掩码改为原BYTE内存读取；原S32/W32字段及完整返回之后寄存器测试不窄化，正常旧位值相同，不声明生成指令或运行故障。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -96391,9 +96450,10 @@
       "evidence_refs": [
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
         "doc/cg2d_semantic_function_mappings.json#/records/811",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer"
       ],
-      "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。"
+      "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。"
     }
   ],
   "auxiliary_dispositions": [

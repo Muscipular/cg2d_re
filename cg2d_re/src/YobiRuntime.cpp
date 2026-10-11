@@ -322,9 +322,9 @@ constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
 
 // 4239D0/427470骑乘拆分原18h载荷；指针原生拓宽，末8B仅保留原分配范围，不解释业务。
 struct BattleRideCarrierPayload {
-    YobiAction* first00; // 42958F写入首个438290结果，非拥有引用。
-    YobiAction* second04; // 429923写入第二个438290结果，非拥有引用。
-    std::uint32_t flags08; // 42912D写M整数，414820恢复FDC。
+    YobiAction* first00; // 42958F/424179写首个438290结果，非拥有引用，226恢复角色槽。
+    YobiAction* second04; // 429923/42417B写第二个438290结果，非拥有引用，226恢复后清槽。
+    std::uint32_t flags08; // 42912D写M整数、414820恢复FDC；4239D0/RID不写此字段。
     std::int32_t gearImage0C; // 428FEC/42933E写51B740结果，恢复时严格>0才建主装备。
     std::array<std::byte, 8> bytes10;
 };
@@ -22026,7 +22026,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
         }
         const std::int32_t secondPreviewFlags = TakeBattleMIntegerAt_43B940(&previewOffset);
-        if ((firstPreviewFlags & 2) == 0 && (secondPreviewFlags & 2) == 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&firstPreviewFlags) & 2u) == 0
+            && (secondPreviewFlags & 2) == 0) {
             scene->packetOffset64 = initialOffset;
             return;
         }
@@ -22242,7 +22243,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         carrier->gearImage0C = gearImage;
         AppendBattleCast_4392A0(action, *originalSlot, 226);
         AppendBattleEffect_439400(*originalSlot, {first, 0u, first, second});
-        if ((firstPayload->flagsFDC & 2u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&firstPayload->flagsFDC) & 2u) != 0) {
             firstActor->value54 = 4.0F;
             AppendBattleCast_4392A0(action, firstActor, 11);
             AppendBattleCast_4392A0(action, firstActor, 40);
@@ -22253,7 +22254,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             AppendBattleCast_4392A0(action, firstActor, 11);
             AppendBattleCast_4392A0(action, firstActor, 10);
         }
-        if ((secondPayload->flagsFDC & 2u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & 2u) != 0) {
             secondActor->value54 = 4.0F;
             AppendBattleCast_4392A0(action, secondActor, 11);
             AppendBattleCast_4392A0(action, secondActor, 40);

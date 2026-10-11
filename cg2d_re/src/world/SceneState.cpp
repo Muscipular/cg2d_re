@@ -3596,13 +3596,15 @@ void Sub_519950(const std::int32_t index)
 std::int32_t Sub_518660(
     const SkillPairRecord* const left, const SkillPairRecord* const right)
 {
-    if (right->used == 0) {
-        return -1;
+    const bool leftUsed = left->used != 0;
+    const bool rightUsed = right->used != 0;
+    if (leftUsed != rightUsed) {
+        return leftUsed ? -1 : 1;
     }
-    if (left->used == 0) {
-        return 1;
+    if (!leftUsed) {
+        return 0;
     }
-    return left->sequence <= right->sequence ? -1 : 1;
+    return (left->sequence > right->sequence) - (left->sequence < right->sequence);
 }
 
 void Sub_518600(
@@ -3616,80 +3618,14 @@ void Sub_518600(
         ++source;
     }
 
-    // 原53C112/53C266的8B记录路径；比较器不返回0，不能换现代排序。
     const auto sortCount = static_cast<std::uint32_t>(count);
     if (sortCount < 2) {
         return;
     }
-    SkillPairRecord* first = destination;
-    SkillPairRecord* last = first + sortCount - 1;
-    std::array<SkillPairRecord*, 30> firstStack;
-    std::array<SkillPairRecord*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                SkillPairRecord* maximum = first;
-                for (SkillPairRecord* item = first + 1; item <= last; ++item) {
-                    if (Sub_518660(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                if (maximum != last) {
-                    std::swap(*maximum, *last);
-                }
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            SkillPairRecord* left = first;
-            SkillPairRecord* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && Sub_518660(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && Sub_518660(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (first != right) {
-                std::swap(*first, *right);
-            }
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    std::sort(destination, destination + sortCount,
+        [](const SkillPairRecord& left, const SkillPairRecord& right) {
+            return Sub_518660(&left, &right) < 0;
+        });
 }
 
 std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4 = gPlayerRuntime.items;
@@ -4401,99 +4337,31 @@ void Sub_5198A0(
     }
 }
 
-// 原5198D0固定28B记录，保留53C112/53C266的比较和交换次序。
+// MC01-C8：原28B完整称号记录接std::qsort，同键与双无效项等价。
 void Sub_5198D0(TitleRecord* const records, const std::uint32_t count)
 {
     if (count < 2) {
         return;
     }
-    TitleRecord* first = records;
-    TitleRecord* last = first + count - 1;
-    std::array<TitleRecord*, 30> firstStack;
-    std::array<TitleRecord*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                TitleRecord* maximum = first;
-                for (TitleRecord* item = first + 1; item <= last; ++item) {
-                    if (Sub_5198F0(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                if (maximum != last) {
-                    std::swap(*maximum, *last);
-                }
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            TitleRecord* left = first;
-            TitleRecord* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && Sub_5198F0(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && Sub_5198F0(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (first != right) {
-                std::swap(*first, *right);
-            }
-            // 原按字节比较(right-first)-1 >= last-left，整项距离等价为严格大于。
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    std::qsort(records, count, sizeof(TitleRecord), &Sub_5198F0);
 }
 
-// 原 [0x5198F0,0x51991D)：右值为负优先，非负时左负数次之，相等仍返回 -1。
+// MC01-C8：非负id升序在前，负id组等价，同键返回0。
 std::int32_t Sub_5198F0(const void* const left, const void* const right)
 {
     std::int32_t rightValue;
     std::memcpy(&rightValue, right, sizeof(rightValue));
-    if (rightValue < 0) {
-        return -1;
-    }
-
     std::int32_t leftValue;
     std::memcpy(&leftValue, left, sizeof(leftValue));
-    if (leftValue < 0) {
-        return 1;
+    const bool leftUsed = leftValue >= 0;
+    const bool rightUsed = rightValue >= 0;
+    if (leftUsed != rightUsed) {
+        return leftUsed ? -1 : 1;
     }
-    return leftValue <= rightValue ? -1 : 1;
+    if (!leftUsed) {
+        return 0;
+    }
+    return (leftValue > rightValue) - (leftValue < rightValue);
 }
 
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。

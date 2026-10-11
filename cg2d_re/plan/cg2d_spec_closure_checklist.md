@@ -42,7 +42,7 @@
 
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
-| C01 / CRT 总策略 | 开放；A/B/C1–C5及C6无消费多BYTE回退已交MSVC，C7两个一致排序也已MSVC，真实数组/业务保持 | 排序七组/八调用非一致比较关系与直接MSVC冲突，两具体方案待用户选择；全体业务/owner/SDK及运行未验 | [MC01-C6](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010)；[排序待决](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010)；[MC01-C7](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010) |
+| C01 / CRT 总策略 | 开放；A/B/C1–C5及C6回退已交MSVC，C7两域及C8剩余七组/八调用均已标准排序；当前COMP按具名规则归一化 | 验全部业务列表/同键与类别差异、owner/SDK和运行；排序不再等待选项，不复造旧算法 | [MC01-C8](../doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state)；[MC01-C6](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010) |
 | C02 / C++90 初始化表 | 开放；CAB07原表72有序源投影＋15 SDK提供＝87；另1空槽/2键盘排除 | 两音频初始化已接，完整入口/完整消费者/alias/SDK运行仍待；null1/键盘排除2另列 | [SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；[BRS01](../doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state) ；[MC01-C1](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010) ；[MC01-C2](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010) ；[MC01-C3](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)；[MC01-C4](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)；[MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010) |
 | C03 / 四Init与登记 | 开放；MC01-C1旧Init/私有流与登记对象组退休，现真实MSVC标准流/晚段Init/经典locale保持 | 旧私有容量/registry不再追加开发债务；全部业务消费者/owner、初始化清理顺序及SDK退出运行待 | [MC01-C1](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010) ；[MC01-C3](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010) |
 | C04 / 构析与入口迁移 | 开放；真实MSVC入口持有堆/多字节/argv环境和私有退出，重复前置退休；数组与业务构析/登记保持 | 全体业务/owner/成员EH/硬件SEH、跨TU首次使用及完整正常快速退出/SDK运行待 | [MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010) |
@@ -53,7 +53,7 @@
 | C09 / 图形双树 | 开放；双树、逐节点面及调色板清理有局部接线和顺序修正 | 完整应用入口及逐surface/快速退出清理和SDK运行仍待 | [双树源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure) ；[MC01-C1](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010) |
 | C10 / FILE与描述符迁移 | 开放；MC01-B全部现文件/描述符/流格式/状态/位置/ctime与关闭已直接MSVC，旧表和私有核/初始化退休 | 当前源尚未编译/运行；核全部业务输入/文件结果、owner/alias、SDK成功失败与普通快速退出；C++旧库组已沿C05退休 | [MC01-B](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009) ；[MC01-C1](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010) ；[MC01-C2](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010) ；[MC01-C3](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010)；[MC01-C4](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)；[MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)；[MC01-C6](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010) |
 | C11 / 应用分配域 | 开放；MC01-C4通用堆直接MSVC，现公共/裸字节malloc/free配对保持，stdio表与六旧C++私有域退休 | 全部实际业务producer/owner配对、未知alias与SDK容量/失败/清理运行待；不混分配域 | [MC01-C4](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010)；[MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010) |
-| C12 / 字符串与格式剩余 | 开放；A/B格式扫描及C1/C2/C5私有字符串/数值/ctype/NLS转换已交MSVC；Input真实两ASCII分类保持 | 排序比较合同待选择；原格式/P07未生产参数仍核；全体业务字节/结果、owner/SDK与运行待，旧库表不追加开发债务 | [MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010)；[MC01-C6](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010)；[MC01-C7](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010) |
+| C12 / 字符串与格式剩余 | 开放；A/B格式扫描及C1/C2/C5转换已交MSVC，C8全部排序与COMP替换已落码；Input真实两ASCII分类保持 | 原格式/P07未生产参数仍核；全体业务字节/结果、排序具名差异、owner/SDK与运行待，旧库表不追加开发债务 | [MC01-C8](../doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state)；[MC01-C5](../doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010) |
 
 ## 4. U01–U11：世界、UI与战斗
 
@@ -113,7 +113,7 @@
 ## 9. 后续推进与维护
 
 1. 按真实功能/数据/依赖链推进源码与接线；优先处理有证据且可实施的缺口，不能以取样检查或登记数量替代功能开发。
-2. U01/U02容量/写者、P07模式/第二命令、U04旧外层等事实不足时停止受影响项；C5旧非空codecvt/转换私有核已交MSVC，不再作为开发债务，C6排序比较合同等待选择；不猜容量/路由，不造默认值。动态取证/运行等待对应授权。
+2. U01/U02容量/写者、P07模式/第二命令、U04旧外层等事实不足时继续有界IDA静态追踪；不猜容量/路由、不造默认值。C5旧库及C8全部排序已交标准库，不再列为等待选择或旧算法开发债务。动态取证/运行仍等对应授权。
 3. 每步先记录局部SPEC/边界，实施后集中静态核对，并同步唯一进度、对应任务及必要登记；精确提交，排除用户改动。
 4. R01–R05随开发维护；V01–V06及全部B/I/W/S/R门禁保持。静态汇总器通过仅证明台账结构与派生文本一致。
 

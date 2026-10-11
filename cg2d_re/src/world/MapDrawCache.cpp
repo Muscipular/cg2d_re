@@ -144,7 +144,7 @@ std::int32_t CompareMapObject_46C300(
     return objectY > primaryY ? 1 : 0;
 }
 
-// 原 46C440：差值保持 F64，比较器从不返回 0，不改成严格弱序。
+// MC01-C8：原F64深度主键；同深度统一批次优先，再按sourceIndex，同键返回0。
 std::int32_t CompareMapPrimary_46C440(
     const MapDrawRecord* const first, const MapDrawRecord* const second)
 {
@@ -152,111 +152,32 @@ std::int32_t CompareMapPrimary_46C440(
         - std::bit_cast<float>(first->worldYBits);
     const double secondDepth = static_cast<double>(std::bit_cast<float>(second->worldXBits))
         - std::bit_cast<float>(second->worldYBits);
-    if (!(firstDepth >= secondDepth)) {
+    if (firstDepth < secondDepth) {
         return -1;
     }
     if (firstDepth > secondDepth) {
         return 1;
     }
-    const float firstX = std::bit_cast<float>(first->worldXBits);
-    const float secondX = std::bit_cast<float>(second->worldXBits);
-    if (firstX == secondX || std::isunordered(firstX, secondX)) {
-        const float firstY = std::bit_cast<float>(first->worldYBits);
-        const float secondY = std::bit_cast<float>(second->worldYBits);
-        if (firstY == secondY || std::isunordered(firstY, secondY)) {
-            if (second->batchType != 0) {
-                return 1;
-            }
-            if (first->batchType != 0) {
-                return -1;
-            }
-            const std::int32_t firstIndex = first->sourceIndex;
-            const std::int32_t secondIndex = second->sourceIndex;
-            return firstIndex > secondIndex ? 1 : -1;
-        }
+    const bool firstBatch = first->batchType != 0;
+    const bool secondBatch = second->batchType != 0;
+    if (firstBatch != secondBatch) {
+        return firstBatch ? -1 : 1;
     }
-    const std::int32_t firstIndex = first->sourceIndex;
-    const std::int32_t secondIndex = second->sourceIndex;
-    return firstIndex > secondIndex ? 1 : -1;
+    return (first->sourceIndex > second->sourceIndex)
+        - (first->sourceIndex < second->sourceIndex);
 }
 
-// 原 46C420 调用的 53C112/53C266 算法，仅承接本表；不交给另一 CRT 改变比较次序。
+// MC01-C8：原数组/数量接std::sort，比较交换和等价项排列采用标准库。
 void SortMapPrimary_46C420()
 {
     const std::uint32_t count = gValue9FB934;
     if (count < 2) {
         return;
     }
-    MapDrawRecord* first = gMapDrawPrimary9EE918.data();
-    MapDrawRecord* last = first + count - 1;
-    std::array<MapDrawRecord*, 30> firstStack;
-    std::array<MapDrawRecord*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                MapDrawRecord* maximum = first;
-                for (MapDrawRecord* item = first + 1; item <= last; ++item) {
-                    if (CompareMapPrimary_46C440(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                if (maximum != last) {
-                    std::swap(*maximum, *last);
-                }
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            MapDrawRecord* left = first;
-            MapDrawRecord* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && CompareMapPrimary_46C440(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && CompareMapPrimary_46C440(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (first != right) {
-                std::swap(*first, *right);
-            }
-            // 原比较 (right-first 的字节数)-1 >= (last-left 的字节数)。
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    std::sort(gMapDrawPrimary9EE918.begin(), gMapDrawPrimary9EE918.begin() + count,
+        [](const MapDrawRecord& left, const MapDrawRecord& right) {
+            return CompareMapPrimary_46C440(&left, &right) < 0;
+        });
 }
 
 // 原 46C4D0：计数在各复制段的发布时点不同，不合并成统一 append。

@@ -48,7 +48,7 @@ const char* BorrowGuildSecondText10514E5() noexcept; // 窗口48借用同一公�
 const char* BorrowGuildAuxText1057BF4(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
 const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
 
-// 原 52FB60：qsort 的两个 W32 索引参数；相等时仍返回 -1。
+// MC01-C8：qsort的两个W32索引参数；有效项在前，同键/双空槽返回0。
 int CompareOrderedRecords_52FB60(const void* left, const void* right);
 // 原 52FCC0：原位填 0..199 后用上述比较器重排共享运行表。
 void BuildOrderedRecordIndices_52FCC0();

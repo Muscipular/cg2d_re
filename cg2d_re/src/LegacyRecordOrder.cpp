@@ -8,7 +8,6 @@
 #include "cg/world/SceneState.hpp"
 
 #include "world/MailState.hpp"
-#include "LegacySort.hpp"
 
 #include <bit>
 #include <cstdlib>
@@ -268,35 +267,32 @@ int CompareOrderedRecords_52FB60(const void* const left, const void* const right
     const auto leftIndex = *static_cast<const std::uint32_t*>(left);
     const auto rightIndex = *static_cast<const std::uint32_t*>(right);
     const OrderedRecord1051B14& other = gOrderedRecords1051B14[rightIndex];
-    if (other.value08 == 0) {
-        return -1;
-    }
     const OrderedRecord1051B14& current = gOrderedRecords1051B14[leftIndex];
-    if (current.value08 == 0) {
-        return 1;
+    const bool currentUsed = current.value08 != 0;
+    const bool otherUsed = other.value08 != 0;
+    if (currentUsed != otherUsed) {
+        return currentUsed ? -1 : 1;
+    }
+    if (!currentUsed) {
+        return 0;
     }
 
     if (gOrderMode1057C78 == 0) {
-        return current.value04 > other.value04 ? 1 : -1;
+        return (current.value04 > other.value04) - (current.value04 < other.value04);
     }
     if (gOrderMode1057C78 == 1) {
         const int textOrder = std::strcmp(current.text18, other.text18);
-        if (textOrder > 0) {
-            return 1;
+        if (textOrder != 0) {
+            return textOrder < 0 ? -1 : 1;
         }
-        return textOrder == 0 && current.value0C > other.value0C ? 1 : -1;
-    }
-    if (current.value0A == 0) {
-        if (other.value0A > 0) {
-            return 1;
+    } else {
+        const bool currentState = current.value0A != 0;
+        const bool otherState = other.value0A != 0;
+        if (currentState != otherState) {
+            return currentState ? -1 : 1;
         }
-        return other.value0A == 0 && current.value0C > other.value0C ? 1 : -1;
     }
-    if (current.value0A > 0 && other.value0A > 0
-        && current.value0C > other.value0C) {
-        return 1;
-    }
-    return -1;
+    return (current.value0C > other.value0C) - (current.value0C < other.value0C);
 }
 
 void BuildOrderedRecordIndices_52FCC0()
@@ -305,9 +301,8 @@ void BuildOrderedRecordIndices_52FCC0()
     for (std::uint32_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
         indices[index] = index;
     }
-    cg::detail::SortLegacyRecords_53C112(
-        indices, static_cast<std::uint32_t>(gOrderedRecords1051B14.size()),
-        &CompareOrderedRecords_52FB60);
+    std::qsort(indices, gOrderedRecords1051B14.size(),
+        sizeof(*indices), &CompareOrderedRecords_52FB60);
 }
 
 // GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。

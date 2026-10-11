@@ -1841,7 +1841,7 @@ void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。
 void Sub_4A2C60(); // 填200项C9FCE4后按类别依原CRT次序排序60/200/20项。
-std::int32_t Sub_4A2CC0(const std::int32_t* left, const std::int32_t* right); // 原索引比较，先查右侧used。
+std::int32_t Sub_4A2CC0(const std::int32_t* left, const std::int32_t* right); // MC01-C8标准索引比较，有效性对称，同键返回0。
 std::int32_t Sub_4A3010(
     const world::detail::ContactRuntimeRecord* left,
     const world::detail::ContactRuntimeRecord* right); // 普通姓名原字节比较。

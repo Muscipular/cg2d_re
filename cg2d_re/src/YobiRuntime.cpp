@@ -34,6 +34,7 @@
 #include "cg/world/SceneState.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 
+#include <algorithm>
 #include <array>
 #include <bit>
 #include <cmath>
@@ -23046,92 +23047,7 @@ std::int32_t CompareBattleDrawActions_405BD0(
     }
     const auto firstOrder = std::bit_cast<std::int16_t>(first->field270);
     const auto secondOrder = std::bit_cast<std::int16_t>(second->field270);
-    return firstOrder < secondOrder ? -1 : 1;
-}
-
-// 原53C266的T*特化；比较器相等仍返1，不能换成通用严格弱序排序。
-void ShortSortBattleDrawActions_53C266(YobiAction** const low, YobiAction** high)
-{
-    while (high > low) {
-        YobiAction** maximum = low;
-        for (YobiAction** current = low + 1; current <= high; ++current) {
-            if (CompareBattleDrawActions_405BD0(current, maximum) > 0) {
-                maximum = current;
-            }
-        }
-        if (maximum != high) {
-            std::swap(*maximum, *high);
-        }
-        --high;
-    }
-}
-
-// 仅特化405C30的原CRT调用；分区边界/栈顺序见shared_battle.md#battle-draw-order。
-void SortBattleDrawPointers_53C112(YobiAction** const base, const std::uint32_t count)
-{
-    if (count < 2) {
-        return;
-    }
-    std::array<YobiAction**, 30> lowStack;
-    std::array<YobiAction**, 30> highStack;
-    std::int32_t depth = 0;
-    YobiAction** low = base;
-    YobiAction** high = base + count - 1;
-    for (;;) {
-        const auto length = static_cast<std::uint32_t>(high - low + 1);
-        if (length <= 8) {
-            ShortSortBattleDrawActions_53C266(low, high);
-        } else {
-            std::swap(*(low + length / 2), *low);
-            YobiAction** left = low;
-            YobiAction** right = high + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= high && CompareBattleDrawActions_405BD0(left, low) <= 0);
-                do {
-                    --right;
-                } while (right > low && CompareBattleDrawActions_405BD0(right, low) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (low != right) {
-                std::swap(*low, *right);
-            }
-            // 原按4B槽差减1后比较；整槽化必须用严格>，不能改变等长分区的选择。
-            if (right - low > high - left) {
-                if (low + 1 < right) {
-                    lowStack[depth] = low;
-                    highStack[depth] = right - 1;
-                    ++depth;
-                }
-                if (left < high) {
-                    low = left;
-                    continue;
-                }
-            } else {
-                if (left < high) {
-                    lowStack[depth] = left;
-                    highStack[depth] = high;
-                    ++depth;
-                }
-                if (low + 1 < right) {
-                    high = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (depth == 0) {
-            return;
-        }
-        --depth;
-        low = lowStack[depth];
-        high = highStack[depth];
-    }
+    return (firstOrder > secondOrder) - (firstOrder < secondOrder);
 }
 
 } // namespace
@@ -23151,7 +23067,10 @@ std::int32_t SortBattleActions_405C30()
         }
         current = current->next;
     }
-    SortBattleDrawPointers_53C112(gDrawYobiList59E57C.data(), count);
+    std::sort(gDrawYobiList59E57C.begin(), gDrawYobiList59E57C.begin() + count,
+        [](YobiAction* const left, YobiAction* const right) {
+            return CompareBattleDrawActions_405BD0(&left, &right) < 0;
+        });
     std::int32_t index = 0;
     if (gDrawYobiCount59E578 > 0) {
         do {

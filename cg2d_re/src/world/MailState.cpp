@@ -171,32 +171,29 @@ std::int32_t CompareContactIndices_4EC030(
     const std::int32_t* const left, const std::int32_t* const right)
 {
     const ContactRuntimeRecord& other = gContactsF19FB0[*right];
-    if (other.used == 0) {
-        return -1;
-    }
     const ContactRuntimeRecord& current = gContactsF19FB0[*left];
-    if (current.used == 0) {
-        return 1;
+    const bool currentUsed = current.used != 0;
+    const bool otherUsed = other.used != 0;
+    if (currentUsed != otherUsed) {
+        return currentUsed ? -1 : 1;
+    }
+    if (!currentUsed) {
+        return 0;
     }
     const std::uint32_t mode = platform::gValueD67CD0;
-    if (mode == 0) {
-        return current.value04 > other.value04 ? 1 : -1;
-    }
     if (mode == 1) {
         const int order = std::strcmp(current.name10.data(), other.name10.data());
-        if (order > 0) {
-            return 1;
+        if (order != 0) {
+            return order < 0 ? -1 : 1;
         }
-        return order == 0 && current.value04 > other.value04 ? 1 : -1;
-    }
-    if (current.value02 == 0) {
-        if (other.value02 > 0) {
-            return 1;
+    } else if (mode != 0) {
+        const bool currentState = current.value02 != 0;
+        const bool otherState = other.value02 != 0;
+        if (currentState != otherState) {
+            return currentState ? -1 : 1;
         }
-        return other.value02 == 0 && current.value04 > other.value04 ? 1 : -1;
     }
-    return current.value02 > 0 && other.value02 > 0
-        && current.value04 > other.value04 ? 1 : -1;
+    return (current.value04 > other.value04) - (current.value04 < other.value04);
 }
 
 } // namespace
@@ -293,76 +290,10 @@ void Sub_4EC1A0()
     for (std::int32_t index = 0; index < 60; ++index) {
         gContactIndicesFDA608[index] = index;
     }
-    // 沿已证53C112/53C266的4B路径，保持非对称比较器的比较/交换次序。
-    std::int32_t* first = gContactIndicesFDA608.data();
-    std::int32_t* last = first + 59;
-    std::array<std::int32_t*, 30> firstStack;
-    std::array<std::int32_t*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                std::int32_t* maximum = first;
-                for (std::int32_t* item = first + 1; item <= last; ++item) {
-                    if (CompareContactIndices_4EC030(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                if (maximum != last) {
-                    std::swap(*maximum, *last);
-                }
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            std::int32_t* left = first;
-            std::int32_t* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && CompareContactIndices_4EC030(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && CompareContactIndices_4EC030(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (first != right) {
-                std::swap(*first, *right);
-            }
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    std::sort(gContactIndicesFDA608.begin(), gContactIndicesFDA608.end(),
+        [](const std::int32_t left, const std::int32_t right) {
+            return CompareContactIndices_4EC030(&left, &right) < 0;
+        });
 }
 
 void Sub_50D740(const std::uintptr_t, const char* const payload)

@@ -1,5 +1,7 @@
 # R1：原函数与现有公共实现的显式映射
 
+> 2026-10-11当前排序：[MC01-C8](cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state)按用户“std::sort/qsort＋COMP”完成剩余七组/八调用；同键/双空槽归一化，地图同深度批次规则及库排列差异具名保留。十个原调用域均已由标准库提供，旧私有排序退休，C6/C7的等待文字只属此前状态；完整业务/SDK和运行未验。
+
 > 2026-10-10当前一致排序域：[MC01-C7](cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010)已将动画45BB20与渲染520790两一致比较域接到std::qsort，保原数量/完整原生记录/比较器与发布位置；库内部算法/比较交换次序/同键排列采用MSVC，旧两域分区/交换要求只保固定历史。七组/八调用的非一致业务关系仍按C6待用户选择，未修改；全部业务/原未知alias/owner、SDK/正常查询和像素运行仍待，未编译/运行。
 
 > 2026-10-10当前残留边界：[MC01-C6](cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010)已退休无当前消费的549147多BYTE回退/公共声明，实际单BYTE服务与业务保持；旧算法只保固定历史。原十qsort域仍有旧实现，七组/八调用的非一致业务比较器与直接MSVC冲突，见[待决两方案](cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010)，尚未批准或替换。当前库职责关联不代原体等价、完整owner/SDK与运行，未编译/运行。

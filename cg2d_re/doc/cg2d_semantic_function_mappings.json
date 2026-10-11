@@ -51625,7 +51625,7 @@
     {
       "original_entry": "0x53C2B4",
       "inventory_id": "F:0013C2B4",
-      "status": "九组排序特化的同址免交换已落实；新增三组按完整对象字节交换，父链未运行验收",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "original_end_exclusive": "0x53C2E0",
       "instruction_count": 23,
       "original_direct_reference_count": 4,
@@ -51633,42 +51633,54 @@
         {
           "path": "src/world/MapDrawCache.cpp",
           "symbols": [
-            "SortMapPrimary_46C420"
-          ]
+            "SortMapPrimary_46C420",
+            "CompareMapPrimary_46C440"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "Sub_518600",
-            "Sub_5198D0"
-          ]
+            "Sub_518660",
+            "Sub_5198D0",
+            "Sub_5198F0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
           "path": "src/world/MailState.cpp",
           "symbols": [
-            "Sub_4EC1A0"
-          ]
+            "Sub_4EC1A0",
+            "CompareContactIndices_4EC030"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "SortMailIndicesLegacy"
-          ]
+            "Sub_4A2C60",
+            "Sub_4A2CC0",
+            "Sub_4B5760",
+            "Sub_4B57B0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "SortBattleDrawPointers_53C112",
-            "ShortSortBattleDrawActions_53C266"
-          ]
+            "SortBattleActions_405C30",
+            "CompareBattleDrawActions_405BD0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
-          "path": "src/LegacySort.hpp",
+          "path": "src/LegacyRecordOrder.cpp",
           "symbols": [
-            "SwapLegacyRecord_53C2B4",
-            "SortLegacyRecords_53C112"
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
           ],
-          "relationship": "MC01-C7当前只供52FCC0公会索引保原分区/完整字节交换；动画/渲染已MSVC；其余六特化/七调用仍保"
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         }
       ],
       "evidence_documents": [
@@ -51679,9 +51691,10 @@
         "doc/ui_windows/window_49.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
-      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。原六组十八个可能同址点已有门禁；新增三组使用内部模板按sizeof(T)完整字节、先读右后读左交换，原生指针和未消费字节一起移动。九算法覆盖原十个qsort调用点的算法位置，不将任意重叠区间、完整父链或运行验收计为通过。；MC01-C7两一致域改std::qsort，原交换身份/23条/原四引用保持；现七算法/八调用旧交换适配未迁，非whole host或全排序已实现。",
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
       "previous_mapping_before_mc01c7": {
         "git_snapshot": "cg2d-re-msvc-crt-sort-consistent-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
@@ -51695,6 +51708,26 @@
         "pending_other_business_comparators_modified": false,
         "runtime_verified": false,
         "full_feature_accepted": false
+      },
+      "historical_status_before_mc01c8": "九组排序特化的同址免交换已落实；新增三组按完整对象字节交换，父链未运行验收",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
+      },
+      "previous_mapping_before_mc01c8": {
+        "git_commit_subject": "[#] 补充旧目录与名单生产定位边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "inventory_id": "F:0013C2B4"
+      },
+      "current_provider": {
+        "kind": "host_standard_sort",
+        "service": "std::sort/std::qsort",
+        "migrated_original_call_domains": 10,
+        "remaining_original_call_domains": 0,
+        "private_sort_implementation_retired": true,
+        "runtime_verified": false
       }
     },
     {
@@ -147200,7 +147233,7 @@
     {
       "original_entry": "0x46C440",
       "inventory_id": "F:0006C440",
-      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "original_role": "主项排序比较回调",
       "original_end_exclusive": "0x46C4C8",
       "instruction_count": 53,
@@ -147229,10 +147262,18 @@
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_map_record_identity_evidence.json"
+        "doc/cg2d_map_record_identity_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
-      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收",
+      "historical_status_before_mc01c8": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x45b390",
@@ -177396,7 +177437,7 @@
         }
       ],
       "instruction_count": 8,
-      "status": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "sources": [
         {
           "path": "src/world/MapDrawCache.cpp",
@@ -177411,7 +177452,8 @@
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
-        "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+        "doc/cg2d_map_draw_merge_word_sampling_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "boundary": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。",
       "verification_level": "BUM01四地图缓存根324条980B/七页四块完整基线，一既有合并根六片段加一个私有复制helper恢复前44B十一W32逐读写及before/after原生非拥有地址，原六段计数pub/所有正常状态与正确提交封装/排序保持；两父窗口/四尾28B用途归档；局部静态，未编译测试运行，完整正常寿命/数值/机器ABI/像素及门禁继续",
@@ -177464,6 +177506,13 @@
         "full_general_CRT_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "historical_status_before_mc01c8": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
       }
     },
     {
@@ -197459,7 +197508,7 @@
       "original_entry": "0x4a2cc0",
       "inventory_id": "F:000A2CC0",
       "original_role": "CAC18仅原分派数据/当前源定义关联：Sub_4A2CC0",
-      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -197474,7 +197523,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
       "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
@@ -197488,6 +197538,13 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 28064
+      },
+      "historical_status_before_mc01c8": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
       }
     },
     {
@@ -197754,7 +197811,7 @@
       "original_entry": "0x4b57b0",
       "inventory_id": "F:000B57B0",
       "original_role": "CAC18仅原分派数据/当前源定义关联：Sub_4B57B0",
-      "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -197769,7 +197826,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-annotation",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-sixth-batch-source-state",
-        "doc/cg2d_unassigned_range_sixth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "boundary": "原F来自既有库存及实际取表父；完整X数据用途与源码定义关联分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
       "verification_level": "仅本批完整X/实际CMP-JA-清零-BYTE-JMP邻窗、全部W32目标code/owner及当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
@@ -197783,6 +197841,13 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 27927
+      },
+      "historical_status_before_mc01c8": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
       }
     },
     {
@@ -200838,30 +200903,59 @@
           "0x53C266"
         ]
       ],
-      "status": "MC01-C7原_qsort身份纳管；两一致调用MSVC、八未迁调用保旧适配，混合adapted，未编译/运行",
+      "status": "MC01-C8当前标准排序/归一化COMP已落源码；限定静态，完整业务/SDK/运行未验",
       "sources": [
         {
-          "path": "src/AnimationRuntime.cpp",
+          "path": "src/world/MapDrawCache.cpp",
           "symbols": [
-            "AnimeInit_45BB20",
-            "Compare_45B420"
+            "SortMapPrimary_46C420",
+            "CompareMapPrimary_46C440"
           ],
-          "relationship": "两已迁域之一，实际std::qsort调用；不是原私有qsort本体重建"
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
-          "path": "src/render/GraphicPendingQueue.cpp",
+          "path": "src/world/SceneState.cpp",
           "symbols": [
-            "SortTextures_520790",
-            "CompareGraphicCache3_5222A0"
+            "Sub_518600",
+            "Sub_518660",
+            "Sub_5198D0",
+            "Sub_5198F0"
           ],
-          "relationship": "两已迁域之一，实际std::qsort；4B原索引记录与比较器保持"
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         },
         {
-          "path": "src/LegacySort.hpp",
+          "path": "src/world/MailState.cpp",
           "symbols": [
-            "SortLegacyRecords_53C112"
+            "Sub_4EC1A0",
+            "CompareContactIndices_4EC030"
           ],
-          "relationship": "未迁公会域当前仍保持原算法/非一致比较；不称本步已交MSVC"
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A2C60",
+            "Sub_4A2CC0",
+            "Sub_4B5760",
+            "Sub_4B57B0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SortBattleActions_405C30",
+            "CompareBattleDrawActions_405BD0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
         }
       ],
       "evidence_documents": [
@@ -200871,9 +200965,10 @@
         "doc/cg2d_ida_inventory.json",
         "doc/cg2d_semantic_function_mappings.md#剩余三处宿主qsort替换-spec2026-10-02",
         "doc/cg2d_msvc_crt_residual_evidence.json",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
-      "boundary": "原完整_qsort身份/区间来自库存，十directcaller来自已有原证合同；不猜原指令数，不以库名/标记单独批准业务迁移。MC01-C7只对两个已证一致比较域采用实际MSVC完整对象字节排序，八未迁域/业务比较器待C6选择；当前仅混合adapted职责/两接线，不称whole host、原私有本体/机器ABI或完整业务运行等价。",
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
       "original_direct_reference_count": 10,
       "original_direct_caller_entries": [
         "0x405C30",
@@ -200895,13 +200990,11 @@
         "flags": 21588
       },
       "current_provider": {
-        "kind": "mixed_qsort_migration",
-        "service": "std::qsort",
-        "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
-        "migrated_direct_call_domains": 2,
-        "remaining_direct_call_domains": 8,
-        "whole_function_host_migration_complete": false,
-        "original_private_body_reimplemented_by_this_step": false,
+        "kind": "host_standard_sort",
+        "service": "std::sort/std::qsort",
+        "migrated_original_call_domains": 10,
+        "remaining_original_call_domains": 0,
+        "private_sort_implementation_retired": true,
         "runtime_verified": false
       },
       "current_qsort_connections": [
@@ -200924,9 +201017,77 @@
           "current_target": "std::qsort",
           "comparator": "CompareGraphicCache3_5222A0",
           "width_expression": "sizeof(GraphicCache3)"
+        },
+        {
+          "original_parent_entry": "0x46C420",
+          "source": "src/world/MapDrawCache.cpp",
+          "symbol": "SortMapPrimary_46C420",
+          "current_target": "std::sort",
+          "comparator": "CompareMapPrimary_46C440"
+        },
+        {
+          "original_parent_entry": "0x518600",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518600",
+          "current_target": "std::sort",
+          "comparator": "Sub_518660"
+        },
+        {
+          "original_parent_entry": "0x5198D0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5198D0",
+          "current_target": "std::qsort",
+          "comparator": "Sub_5198F0"
+        },
+        {
+          "original_parent_entry": "0x4EC1A0",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_4EC1A0",
+          "current_target": "std::sort",
+          "comparator": "CompareContactIndices_4EC030"
+        },
+        {
+          "original_parent_entry": "0x4A2C60",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A2C60",
+          "current_target": "std::sort",
+          "comparator": "Sub_4A2CC0"
+        },
+        {
+          "original_parent_entry": "0x4B5760",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B5760",
+          "current_target": "std::sort",
+          "comparator": "Sub_4B57B0"
+        },
+        {
+          "original_parent_entry": "0x405C30",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "SortBattleActions_405C30",
+          "current_target": "std::sort",
+          "comparator": "CompareBattleDrawActions_405BD0"
+        },
+        {
+          "original_parent_entry": "0x52FCC0",
+          "source": "src/LegacyRecordOrder.cpp",
+          "symbol": "BuildOrderedRecordIndices_52FCC0",
+          "current_target": "std::qsort",
+          "comparator": "CompareOrderedRecords_52FB60"
         }
       ],
-      "verification_level": "仅已有原身份/十caller合同、两实际SDK调用/比较器/布局与其余业务源静态；未编译/运行，不计八未迁域通过"
+      "verification_level": "仅已有原身份/十caller合同、两实际SDK调用/比较器/布局与其余业务源静态；未编译/运行，不计八未迁域通过",
+      "historical_status_before_mc01c8": "MC01-C7原_qsort身份纳管；两一致调用MSVC、八未迁调用保旧适配，混合adapted，未编译/运行",
+      "mc01c8_sort_state": {
+        "decision_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "source_state_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+        "runtime_verified": false
+      },
+      "previous_mapping_before_mc01c8": {
+        "git_commit_subject": "[#] 补充旧目录与名单生产定位边界",
+        "path": "doc/cg2d_semantic_function_mappings.json",
+        "inventory_id": "F:0013C112"
+      }
     },
     {
       "inventory_id": "F:00004D90",
@@ -241430,6 +241591,89 @@
           "parent_entry": "0x45BB20"
         }
       ]
+    },
+    {
+      "original_entry": "0x53C266",
+      "inventory_id": "F:0013C266",
+      "original_end_exclusive": "0x53C2B4",
+      "status": "MC01-C8原shortsort职责交标准库，旧私有实现退休；限定静态，SDK/运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "SortMapPrimary_46C420",
+            "CompareMapPrimary_46C440"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_518600",
+            "Sub_518660",
+            "Sub_5198D0",
+            "Sub_5198F0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_4EC1A0",
+            "CompareContactIndices_4EC030"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A2C60",
+            "Sub_4A2CC0",
+            "Sub_4B5760",
+            "Sub_4B57B0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SortBattleActions_405C30",
+            "CompareBattleDrawActions_405BD0"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        },
+        {
+          "path": "src/LegacyRecordOrder.cpp",
+          "symbols": [
+            "BuildOrderedRecordIndices_52FCC0",
+            "CompareOrderedRecords_52FB60"
+          ],
+          "relationship": "MC01-C8标准排序及归一化COMP，保现数组/数量与调用位置；不是旧CRT算法复刻"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_ida_inventory.json"
+      ],
+      "original_inventory_metadata": {
+        "chunks": [
+          [
+            5489254,
+            5489332
+          ]
+        ],
+        "entry_chunk_end": 5489332,
+        "flags": 21596,
+        "id": "F:0013C266",
+        "ida_library_flag": true,
+        "ida_thunk_flag": false,
+        "name": "_shortsort",
+        "rva": 1294950,
+        "va": 5489254
+      },
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+      "verification_level": "只验证本组标准排序接线及私有实现退休，不复刻库内shortsort/原机器ABI，也不声称全业务验收"
     }
   ]
 }

@@ -482,7 +482,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1009,7 +1010,9 @@
         "F:0013C9DD",
         "F:0013BDEF",
         "F:0013BE17",
-        "F:0013C112"
+        "F:0013C112",
+        "F:0013C266",
+        "F:0013C2B4"
       ],
       "closure_task_ids": [
         "C01",
@@ -1100,7 +1103,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1114,7 +1118,7 @@
         "MC01-C4旧堆模式/handler/借用句柄及重复初始化/失败28退休，三公开calloc/realloc/_msize直接MSVC；原业务U32参数、现malloc/free与owner保持。库数量/零/容量/失败差异获批，C5多字节私有层已退休，全体实际CRT提供者/业务边界继续审计；完整业务/owner/SDK和正常快速退出运行仍待。；MC01-C5已覆盖上述私有多字节/argv环境开发条件；全体实际业务/SDK与运行门禁保持。",
         "MC01-C5旧ctype/多字节/NLS转换/locale表与无现调用的私有argv/环境组退休，Input两ASCII非零分类直接MSVC；原WinMain命令尾与应用ParseCommandOptions/IP正文/字段保持。旧失败9/9/8及专用入口只历史，数组terminate/全部业务保持；库内差异获批。仍核全体实际CRT提供者/业务边界，全部owner/未知alias/SDK与正常快速退出运行待。",
         "MC01-C6无消费549147多BYTE回退已退休；实际单BYTE服务/业务保持。十原qsort调用仍保旧算法，其中七组/八调用的非一致业务比较关系与直接MSVC有冲突，两具体方案已给用户选择；未批准/未实施排序替换。实际owner/SDK/运行及全CRT/整体门禁仍未验。",
-        "MC01-C7动画/渲染两一致比较域实际std::qsort已接，完整原生记录/参数/比较器及业务发布/保留项不变；库算法/比较交换次序和同键顺序按MSVC，只限定源码。八非一致调用继续待C6，全部业务正常结果/owner/SDK/像素与运行未验。"
+        "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1170,7 +1174,8 @@
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state",
         "doc/cg2d_nls_type_general_spec.md#nls-type-general-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-eighth-batch-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "historical_cpp_blockers_before_mc01c1": {
         "git_snapshot": "cg2d-re-msvc-crt-cpp-history-20261010",
@@ -13788,7 +13793,7 @@
         "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
         "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
         "include/cg/render/GraphicPendingQueue.hpp",
-        "src/LegacySort.hpp",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#retired-sort-history",
         "src/platform/MainLoopState.cpp",
         "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
         "src/render/GraphicHitTest.cpp#Sub_507140"
@@ -13800,7 +13805,10 @@
       "gate": "I",
       "observation": "仅两排序/比较器根适用原正常/容量钳制路径",
       "expected": "首槽沿原钳制后AX、layer后取索引/记录后取递增、最终S16数量和一次层号/同层索引取样落实；原容量门禁保留",
-      "actual": "排序实际修正、额外负数拒绝撤销；未写字段/真实原算法保持，异常域不记安全/故障等价"
+      "actual": "排序实际修正、额外负数拒绝撤销；未写字段/真实原算法保持，异常域不记安全/故障等价",
+      "historical_artifact_paths_before_mc01c8": [
+        "src/LegacySort.hpp"
+      ]
     },
     {
       "feature_id": "FUNC-RENDER",
@@ -13818,7 +13826,7 @@
         "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
         "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
         "include/cg/render/GraphicPendingQueue.hpp",
-        "src/LegacySort.hpp",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#retired-sort-history",
         "src/platform/MainLoopState.cpp",
         "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
         "src/render/GraphicHitTest.cpp#Sub_507140"
@@ -13830,7 +13838,10 @@
       "gate": "W",
       "observation": "仅原13调用点/新12词法公共复用、唯一队列及现有消费/清标志接线",
       "expected": "原调用点/公共复用及共享owner保持，实际保留项消费/命中再次排序存在",
-      "actual": "13逻辑点由12词法调用承接，原count/flag未装载ff不当初值；完整父/消费/间接alias及寿命未验"
+      "actual": "13逻辑点由12词法调用承接，原count/flag未装载ff不当初值；完整父/消费/间接alias及寿命未验",
+      "historical_artifact_paths_before_mc01c8": [
+        "src/LegacySort.hpp"
+      ]
     },
     {
       "feature_id": "FUNC-RENDER",
@@ -13848,7 +13859,7 @@
         "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
         "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
         "include/cg/render/GraphicPendingQueue.hpp",
-        "src/LegacySort.hpp",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#retired-sort-history",
         "src/platform/MainLoopState.cpp",
         "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
         "src/render/GraphicHitTest.cpp#Sub_507140"
@@ -13860,7 +13871,10 @@
       "gate": "S",
       "observation": "仅两完整103条/13局部窗口与三限定源码补丁",
       "expected": "旧AX误读撤销，完整原指令/原真实53C112目标和比较器地址引用可追，限定源/旧台账外部保持",
-      "actual": "103原指令及104局部窗口已存，两根新映射/限定处置；机器ABI/画面和运行未验"
+      "actual": "103原指令及104局部窗口已存，两根新映射/限定处置；机器ABI/画面和运行未验",
+      "historical_artifact_paths_before_mc01c8": [
+        "src/LegacySort.hpp"
+      ]
     },
     {
       "id": "E-GRAPHIC-LOAD-I-20261005",
@@ -59397,7 +59411,7 @@
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "src/AnimationRuntime.cpp",
         "src/render/GraphicPendingQueue.cpp",
-        "src/LegacySort.hpp",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#retired-sort-history",
         "include/cg/AnimationRuntime.hpp",
         "include/cg/render/GraphicPendingQueue.hpp"
       ],
@@ -59411,7 +59425,10 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifact_paths_before_mc01c8": [
+        "src/LegacySort.hpp"
+      ]
     },
     {
       "id": "E-MSVC-CRT-SORT-CONSISTENT-FUNC-CRT-S-20261010",
@@ -59427,7 +59444,7 @@
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "src/AnimationRuntime.cpp",
         "src/render/GraphicPendingQueue.cpp",
-        "src/LegacySort.hpp",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#retired-sort-history",
         "include/cg/AnimationRuntime.hpp",
         "include/cg/render/GraphicPendingQueue.hpp"
       ],
@@ -59441,7 +59458,10 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifact_paths_before_mc01c8": [
+        "src/LegacySort.hpp"
+      ]
     },
     {
       "id": "E-BATTLE-SCALAR-DEPENDENCIES-FUNC-UIRUNTIME-S-20261010",
@@ -67966,6 +67986,49 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-MSVC-STANDARD-SORT-CRT-S-20261011",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0013C112",
+        "F:0013C266",
+        "F:0013C2B4"
+      ],
+      "baseline_reference": "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+      "implementation_reference": "[#] 用标准排序与比较器替换剩余CRT排序",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "src/world/MapDrawCache.cpp",
+        "src/world/SceneState.cpp",
+        "src/world/MailState.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/YobiRuntime.cpp",
+        "src/LegacyRecordOrder.cpp"
+      ],
+      "observation": "用户授权后完成八域的std::sort/qsort＋COMP，九源/六CPP本组外正文保持，旧私有排序源无消费者。",
+      "expected": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+      "actual": "十八顶层/次级比较器按具名规则归一化，旧分区/shortsort/swap退休；只限定静态，未编译/执行排序或运行客户端。",
+      "differences": [
+        {
+          "description": "库算法/比较交换次序与同键排列采用MSVC",
+          "decision_ref": "doc/cg2d_msvc_crt_sort_replacement_spec.md"
+        },
+        {
+          "description": "地图同深度统一批次类别优先",
+          "decision_ref": "doc/cg2d_msvc_crt_sort_replacement_spec.md"
+        },
+        {
+          "description": "状态模式非零分类统一，双空槽与同键等价",
+          "decision_ref": "doc/cg2d_msvc_crt_sort_replacement_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -68442,7 +68505,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -68656,7 +68720,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -69770,7 +69835,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -69926,7 +69992,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -70782,7 +70849,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -71246,7 +71314,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -71549,7 +71618,8 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-map-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -72101,7 +72171,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -72404,7 +72475,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-baseline",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -72443,7 +72515,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-pending-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ]
     },
     {
@@ -90930,14 +91003,16 @@
     },
     {
       "inventory_id": "F:0013C112",
-      "disposition": "adapted",
+      "disposition": "host",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
-        "doc/cg2d_msvc_crt_sort_consistent_evidence.json"
+        "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
       ],
-      "boundary": "MC01-C7原_qsort独立身份及两一致调用已接MSVC；八未迁域仍旧算法/业务比较器待C6，仅混合adapted，不whole host/原体等价/完整SDK或业务结果。"
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。",
+      "historical_disposition_before_mc01c8": "adapted"
     },
     {
       "inventory_id": "F:00004D90",
@@ -95620,6 +95695,26 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state"
       ],
       "boundary": "ACL01两清理按原低W16动作数、同帧/动作表/尾指针快照free及条件重取清槽；九FILE卸载一次取样，BF20额外清宿主FILE沿MC01-B。两256槽扫描保真实末次返回；索引链保四次链接发布、取最旧槽清理结果与计数字节发布。主/P4未知生产、全部owner/借用失效及完整父和SDK/运行未验；不加保护、默认、回滚或异常模型。"
+    },
+    {
+      "inventory_id": "F:0013C266",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+      ],
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。"
+    },
+    {
+      "inventory_id": "F:0013C2B4",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md",
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+      ],
+      "boundary": "MC01-C8用户授权std::sort/qsort＋COMP替代剩余七组/八调用；同键0/有效项在前，保既有主键与字段方向。地图同深度统一非零批次优先再索引、联系人/公会非零状态优先，具名接受这些关系、库比较交换次序及等价项排列变化。六CPP本组外正文保持，旧私有分区/小段排序/交换提供者退休，库内排序与移动交已安装MSVC。未编译/测试/运行，完整业务和SDK/owner/画面门禁未关闭。"
     }
   ],
   "auxiliary_dispositions": [

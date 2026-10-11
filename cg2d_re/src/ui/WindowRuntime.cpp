@@ -39,6 +39,7 @@
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <algorithm>
 #include <bit>
 #include <cstdio>
 #include <cstdlib>
@@ -26774,79 +26775,15 @@ constexpr char kNormalMailHint5877A4[] = "\xBC\xC4\xCB\xCD\xD2\xBB\xB0\xE3\xE0\x
 constexpr char kSwitchMailPetHint58778C[] =
     "\x93\x51\xC1\xED\xD2\xBB\xEB\x62\x8C\x99\xCE\xEF\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
 
-// 原53C112/53C266四字节排序路径；21/49均有非严格比较器，不能换成std::sort。
-void SortMailIndicesLegacy(
-    std::int32_t* first, const std::uint32_t count,
+// MC01-C8：两邮件索引域共用std::sort；三向COMP<0表示在前，同键等价。
+void SortMailIndices(
+    std::int32_t* const first, const std::uint32_t count,
     std::int32_t (*compare)(const std::int32_t*, const std::int32_t*))
 {
-    std::int32_t* last = first + count - 1;
-    std::array<std::int32_t*, 30> firstStack;
-    std::array<std::int32_t*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                std::int32_t* maximum = first;
-                for (std::int32_t* item = first + 1; item <= last; ++item) {
-                    if (compare(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                if (maximum != last) {
-                    std::swap(*maximum, *last);
-                }
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            std::int32_t* left = first;
-            std::int32_t* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && compare(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && compare(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                if (left != right) {
-                    std::swap(*left, *right);
-                }
-            }
-            if (first != right) {
-                std::swap(*first, *right);
-            }
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    std::sort(first, first + count,
+        [compare](const std::int32_t left, const std::int32_t right) {
+            return compare(&left, &right) < 0;
+        });
 }
 
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
@@ -28195,7 +28132,7 @@ void Sub_4B5760(const std::int32_t category)
     for (std::int32_t index = 0; index < 200; ++index) {
         gLoginWindowRuntime.mailGroupOrderCC2E6C[index] = index;
     }
-    SortMailIndicesLegacy(gLoginWindowRuntime.mailGroupOrderCC2E6C.data(),
+    SortMailIndices(gLoginWindowRuntime.mailGroupOrderCC2E6C.data(),
         category == 0 ? 60u : 200u, Sub_4B57B0);
 }
 
@@ -28203,23 +28140,18 @@ std::int32_t Sub_4B57B0(const std::int32_t* const left, const std::int32_t* cons
 {
     const std::int32_t category = gLoginWindowRuntime.mailGroupSortCategoryCB0600;
     const std::int32_t rightIndex = *right;
-    std::int32_t leftIndex;
-    if (category == 0) {
-        if (world::detail::gContactsF19FB0[rightIndex].used == 0) {
-            return -1;
-        }
-        leftIndex = *left;
-        if (world::detail::gContactsF19FB0[leftIndex].used == 0) {
-            return 1;
-        }
-    } else {
-        if (login::detail::gOrderedRecords1051B14[rightIndex].value08 == 0) {
-            return -1;
-        }
-        leftIndex = *left;
-        if (login::detail::gOrderedRecords1051B14[leftIndex].value08 == 0) {
-            return 1;
-        }
+    const std::int32_t leftIndex = *left;
+    const bool leftUsed = category == 0
+        ? world::detail::gContactsF19FB0[leftIndex].used != 0
+        : login::detail::gOrderedRecords1051B14[leftIndex].value08 != 0;
+    const bool rightUsed = category == 0
+        ? world::detail::gContactsF19FB0[rightIndex].used != 0
+        : login::detail::gOrderedRecords1051B14[rightIndex].value08 != 0;
+    if (leftUsed != rightUsed) {
+        return leftUsed ? -1 : 1;
+    }
+    if (!leftUsed) {
+        return 0;
     }
     const std::uint32_t mode = platform::gValueD67CD0;
     if (mode > 4) {
@@ -28333,38 +28265,38 @@ void Sub_4A2C60()
         count = 20;
         break;
     }
-    SortMailIndicesLegacy(gLoginWindowRuntime.mailIndicesC9FCE4.data(), count, Sub_4A2CC0);
+    SortMailIndices(gLoginWindowRuntime.mailIndicesC9FCE4.data(), count, Sub_4A2CC0);
 }
 
 std::int32_t Sub_4A2CC0(const std::int32_t* const left, const std::int32_t* const right)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    if (category == 0) {
-        if (world::detail::gContactsF19FB0[*right].used == 0) {
-            return -1;
+    if (category == 0 || category == 1 || category == 2) {
+        bool leftUsed;
+        bool rightUsed;
+        if (category == 0) {
+            rightUsed = world::detail::gContactsF19FB0[*right].used != 0;
+            leftUsed = world::detail::gContactsF19FB0[*left].used != 0;
+        } else if (category == 1) {
+            rightUsed = login::detail::gOrderedRecords1051B14[*right].value08 != 0;
+            leftUsed = login::detail::gOrderedRecords1051B14[*left].value08 != 0;
+        } else {
+            rightUsed = world::detail::ReadMiniMailContact1075A90(*right).used != 0;
+            leftUsed = world::detail::ReadMiniMailContact1075A90(*left).used != 0;
         }
-        if (world::detail::gContactsF19FB0[*left].used == 0) {
-            return 1;
+        if (leftUsed != rightUsed) {
+            return leftUsed ? -1 : 1;
         }
-    } else if (category == 1) {
-        if (login::detail::gOrderedRecords1051B14[*right].value08 == 0) {
-            return -1;
+        if (!leftUsed) {
+            return 0;
         }
-        if (login::detail::gOrderedRecords1051B14[*left].value08 == 0) {
-            return 1;
+        if (category == 2) {
+            const std::int32_t rightIndex = *right;
+            const std::int32_t leftIndex = *left;
+            const auto* const other = &world::detail::ReadMiniMailContact1075A90(rightIndex);
+            const auto* const current = &world::detail::ReadMiniMailContact1075A90(leftIndex);
+            return Sub_4A3230(current, other);
         }
-    } else if (category == 2) {
-        if (world::detail::ReadMiniMailContact1075A90(*right).used == 0) {
-            return -1;
-        }
-        if (world::detail::ReadMiniMailContact1075A90(*left).used == 0) {
-            return 1;
-        }
-        const std::int32_t rightIndex = *right;
-        const std::int32_t leftIndex = *left;
-        const auto* const other = &world::detail::ReadMiniMailContact1075A90(rightIndex);
-        const auto* const current = &world::detail::ReadMiniMailContact1075A90(leftIndex);
-        return Sub_4A3230(current, other);
     }
 
     const std::uint32_t mode = platform::gValueD67CD0;
@@ -28418,7 +28350,7 @@ std::int32_t Sub_4A3010(
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3070(
@@ -28431,7 +28363,7 @@ std::int32_t Sub_4A3070(
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A30D0(
@@ -28440,13 +28372,13 @@ std::int32_t Sub_4A30D0(
 {
     const std::int32_t leftValue = left->value00;
     const std::int32_t rightValue = right->value00;
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3100(
@@ -28459,7 +28391,7 @@ std::int32_t Sub_4A3100(
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3160(
@@ -28468,13 +28400,13 @@ std::int32_t Sub_4A3160(
 {
     const std::int32_t leftValue = left->value08;
     const std::int32_t rightValue = right->value08;
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3190(
@@ -28483,13 +28415,13 @@ std::int32_t Sub_4A3190(
 {
     const std::int32_t leftValue = left->value10;
     const std::int32_t rightValue = right->value10;
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A31C0(
@@ -28497,7 +28429,7 @@ std::int32_t Sub_4A31C0(
 {
     const std::int32_t leftSequence = *leftValue04;
     const std::int32_t rightSequence = *rightValue04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A31E0(
@@ -28508,13 +28440,13 @@ std::int32_t Sub_4A31E0(
     const std::int32_t leftValue = leftShort == 0 ? 0x7FFFFFFF : leftShort;
     const std::int16_t rightShort = right->value02;
     const std::int32_t rightValue = rightShort == 0 ? 0x7FFFFFFF : rightShort;
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3230(
@@ -28523,13 +28455,13 @@ std::int32_t Sub_4A3230(
 {
     const std::int32_t leftValue = std::bit_cast<std::int16_t>(left->sequence02);
     const std::int32_t rightValue = std::bit_cast<std::int16_t>(right->sequence02);
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->key04;
     const std::int32_t rightSequence = right->key04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 std::int32_t Sub_4A3260(
@@ -28540,13 +28472,13 @@ std::int32_t Sub_4A3260(
     const std::int32_t leftValue = leftShort == 0 ? 0x7FFFFFFF : leftShort;
     const std::int16_t rightShort = right->value0A;
     const std::int32_t rightValue = rightShort == 0 ? 0x7FFFFFFF : rightShort;
-    const std::int32_t order = leftValue - rightValue;
+    const std::int32_t order = (leftValue > rightValue) - (leftValue < rightValue);
     if (order != 0) {
         return order;
     }
     const std::int32_t leftSequence = left->value04;
     const std::int32_t rightSequence = right->value04;
-    return leftSequence <= rightSequence ? -1 : 1;
+    return (leftSequence > rightSequence) - (leftSequence < rightSequence);
 }
 
 namespace {

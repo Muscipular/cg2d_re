@@ -7,6 +7,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -180,8 +181,8 @@ std::int32_t GraphicInit_459960(
             }
             continue;
         }
-        // 原459CCE/459F1D只检查flags低U8的EOF位，短读仍消费同一记录。
-        while ((static_cast<std::uint8_t>(gGraphicInfoFile->flags) & 0x10u) == 0) {
+        // 原459CCE/459F1D只检查EOF；宿主用feof读取，短读仍消费同一记录。
+        while (std::feof(gGraphicInfoFile) == 0) {
             platform::ReadLegacyStream_53BCCD(&record, 0x28, 1, gGraphicInfoFile);
             const std::uint32_t sequenceNo = record.seqNo;
             GraphicInfo* recordTable = gGraphicInfo;

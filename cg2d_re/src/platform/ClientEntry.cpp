@@ -7,10 +7,122 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include <dbghelp.h>
+#include <cstdio>
 #include <cstring>
+#include <cwchar>
 #include <string>
 
 namespace {
+
+constexpr std::size_t kMinidumpPathCapacity = 32768;
+wchar_t gMinidumpDirectory[kMinidumpPathCapacity] {};
+volatile LONG gMinidumpWriting = 0;
+volatile LONG gMinidumpSequence = 0;
+LPTOP_LEVEL_EXCEPTION_FILTER gPreviousExceptionFilter = nullptr;
+
+// 请求在调用线程等待期间保持有效；异常现场属于原异常线程，不属于写入线程。
+struct MinidumpRequest {
+    DWORD threadId;
+    EXCEPTION_POINTERS* exceptionPointers;
+    const wchar_t* reason;
+};
+
+DWORD WINAPI WriteClientMinidumpFile(void* const parameter)
+{
+    const auto& request = *static_cast<const MinidumpRequest*>(parameter);
+    if (gMinidumpDirectory[0] == L'\0') {
+        OutputDebugStringW(L"无法确定 minidump 输出目录。\n");
+        return 1;
+    }
+
+    SYSTEMTIME time;
+    GetLocalTime(&time);
+    wchar_t path[kMinidumpPathCapacity];
+    const int length = std::swprintf(path, kMinidumpPathCapacity,
+        L"%lscg2d_%ls_%04u%02u%02u_%02u%02u%02u_%03u_%lu_%lu_%ld.dmp",
+        gMinidumpDirectory, request.reason,
+        static_cast<unsigned int>(time.wYear), static_cast<unsigned int>(time.wMonth),
+        static_cast<unsigned int>(time.wDay), static_cast<unsigned int>(time.wHour),
+        static_cast<unsigned int>(time.wMinute), static_cast<unsigned int>(time.wSecond),
+        static_cast<unsigned int>(time.wMilliseconds), GetCurrentProcessId(),
+        request.threadId, InterlockedIncrement(&gMinidumpSequence));
+    if (length < 0 || static_cast<std::size_t>(length) >= kMinidumpPathCapacity) {
+        OutputDebugStringW(L"minidump 文件路径过长。\n");
+        return 1;
+    }
+
+    HANDLE file = CreateFileW(path, GENERIC_WRITE, FILE_SHARE_READ,
+        nullptr, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file == INVALID_HANDLE_VALUE) {
+        OutputDebugStringW(L"无法创建 minidump 文件。\n");
+        return 1;
+    }
+
+    MINIDUMP_EXCEPTION_INFORMATION exception {};
+    exception.ThreadId = request.threadId;
+    exception.ExceptionPointers = request.exceptionPointers;
+    exception.ClientPointers = FALSE;
+    const auto type = static_cast<MINIDUMP_TYPE>(MiniDumpWithDataSegs
+        | MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithThreadInfo);
+    const BOOL written = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(),
+        file, type, request.exceptionPointers != nullptr ? &exception : nullptr,
+        nullptr, nullptr);
+    static_cast<void>(CloseHandle(file));
+    OutputDebugStringW(written ? L"minidump 已写入：" : L"minidump 写入失败：");
+    OutputDebugStringW(path);
+    OutputDebugStringW(L"\n");
+    return written ? 0 : 1;
+}
+
+// DbgHelp不支持并发调用；用独立线程写入，保留当前断言/异常线程的栈。
+void WriteClientMinidump(const wchar_t* const reason, EXCEPTION_POINTERS* const exception)
+{
+    const DWORD previousError = GetLastError();
+    if (InterlockedCompareExchange(&gMinidumpWriting, 1, 0) != 0) {
+        return;
+    }
+    MinidumpRequest request {GetCurrentThreadId(), exception, reason};
+    HANDLE thread = CreateThread(nullptr, 0, WriteClientMinidumpFile, &request, 0, nullptr);
+    if (thread != nullptr) {
+        static_cast<void>(WaitForSingleObject(thread, INFINITE));
+        static_cast<void>(CloseHandle(thread));
+    } else {
+        static_cast<void>(WriteClientMinidumpFile(&request));
+    }
+    InterlockedExchange(&gMinidumpWriting, 0);
+    SetLastError(previousError);
+}
+
+LONG WINAPI RecordUnhandledClientException(EXCEPTION_POINTERS* const exception)
+{
+    WriteClientMinidump(L"crash", exception);
+    return gPreviousExceptionFilter != nullptr
+        ? gPreviousExceptionFilter(exception) : EXCEPTION_CONTINUE_SEARCH;
+}
+
+// 在真实WinMain活动期登记；退出恢复原过滤器，转储不吞掉原异常。
+class ClientMinidumpReport final {
+public:
+    ClientMinidumpReport()
+    {
+        const DWORD length = GetModuleFileNameW(nullptr, gMinidumpDirectory,
+            static_cast<DWORD>(kMinidumpPathCapacity));
+        wchar_t* const separator = length != 0 && length < kMinidumpPathCapacity
+            ? std::wcsrchr(gMinidumpDirectory, L'\\') : nullptr;
+        if (separator != nullptr) {
+            separator[1] = L'\0';
+        } else {
+            gMinidumpDirectory[0] = L'\0';
+        }
+        gPreviousExceptionFilter = SetUnhandledExceptionFilter(RecordUnhandledClientException);
+    }
+
+    ~ClientMinidumpReport()
+    {
+        static_cast<void>(SetUnhandledExceptionFilter(gPreviousExceptionFilter));
+    }
+};
 
 // 原0x67/十一CUR由同一资源实例提供；原EXE只映射为数据，不作为代码装载。
 // module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。
@@ -51,11 +163,10 @@ HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 
 #ifdef _DEBUG
 #include <crtdbg.h>
-#include <cstdio>
 
 namespace {
 
-// Debug断言发生时只记录地址；不用业务容器/旧格式器，避免在越界报告中再次触发它们。
+// Debug断言记录地址并写minidump；不用业务容器/旧格式器。
 int __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)
 {
     if (reportType != _CRT_ASSERT) {
@@ -94,6 +205,7 @@ int __cdecl RecordDebugAssertionStack(const int reportType, char*, int*)
         }
         static_cast<void>(CloseHandle(file));
     }
+    WriteClientMinidump(L"assert", nullptr);
     SetLastError(previousError);
     return 0; // 让CRT继续原断言弹窗/终止，不吞断言或改变returnValue。
 }
@@ -131,6 +243,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 {
     using namespace cg::platform;
 
+    const ClientMinidumpReport minidumpReport;
 #ifdef _DEBUG
     const DebugAssertionReport assertionReport;
 #endif

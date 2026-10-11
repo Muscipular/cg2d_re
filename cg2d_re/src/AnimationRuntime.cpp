@@ -9,6 +9,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
 
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
@@ -414,7 +415,7 @@ std::int32_t CoordLoad_45BF60(
 
     std::uint32_t record[2];
     std::uint16_t count;
-    while ((static_cast<std::uint8_t>(infoFile->flags) & 0x10u) == 0) {
+    while (std::feof(infoFile) == 0) {
         platform::ReadLegacyStream_53BCCD(record, 4, 2, infoFile);
         platform::ReadLegacyStream_53BCCD(&count, 2, 1, infoFile);
         const std::int32_t index = GetIndex_45B400(record[0] - 100000u);

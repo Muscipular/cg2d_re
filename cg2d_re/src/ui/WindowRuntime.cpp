@@ -41,6 +41,7 @@
 
 #include <algorithm>
 #include <bit>
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -38153,7 +38154,15 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
             const std::int32_t hover = gSkillWindowHoverD2F744;
-            drawDescription(world::detail::gSkillsF1BAFC[skill].recipes8E8[hover].description.data(), line, 28);
+            // 原47ABC0无悬停门禁；hover=-1读取技能记录+7E5，保留跨字段别名。
+            const std::ptrdiff_t descriptionOffset =
+                static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, recipes8E8))
+                + static_cast<std::ptrdiff_t>(hover)
+                    * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillRecipeRecord))
+                + static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRecipeRecord, description));
+            const char* const description = reinterpret_cast<const char*>(&world::detail::gSkillsF1BAFC[skill])
+                + descriptionOffset;
+            drawDescription(description, line, 28);
         }
         break;
     }

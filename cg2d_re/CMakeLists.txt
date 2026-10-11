@@ -176,7 +176,7 @@ set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_client PRIVATE
     "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
 target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render)
+target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render dbghelp)
 # 保留实际归档成员和入口的链接证据；不以源码未引用推断原端可达性。
 target_link_options(cg2d_re_client PRIVATE "/MAP:$<TARGET_FILE_DIR:cg2d_re_client>/cg2d_re_client.map")
 

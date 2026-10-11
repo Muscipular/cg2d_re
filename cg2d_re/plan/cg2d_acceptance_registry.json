@@ -5401,7 +5401,8 @@
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -68273,6 +68274,62 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA02-BATTLE-I-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0003BAA0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+      "implementation_reference": "[#] 修正战斗退场消息种类索引宽度",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "src/YobiRuntime.cpp#Sub_43BAA0"
+      ],
+      "observation": "43BAC7清EDI、43BAE5增EDI、43BAF0/43BAF5按14/20比较，原为32位非地址索引；现size_t为64位。",
+      "expected": "只恢复索引32位承载及固定25项同型比较；保持未匹配/非CHT与BST继续扫描，取包/字段/聊天/计时/声音/返回及全部其它正文。",
+      "actual": "Sub_43BAA0仅kind声明和size比较两行恢复std::int32_t；初次补丁命中同文的ParseBattleMRide，已立即撤回本线程误改并按独有GetBattleMHeader上下文修正，最终该函数及所有其它源码正文保持。必要静态不代生成机器访问宽度、完整业务/资源/借用/owner或运行。",
+      "differences": [
+        {
+          "description": "消息种类索引由x64 size_t恢复为32位；正常0..25用S32承载，原寄存器事实只证明W32，不把符号性推断扩为新业务。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-BMSA02-BATTLE-S-20261011",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0003BAA0"
+      ],
+      "baseline_reference": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+      "implementation_reference": "[#] 修正战斗退场消息种类索引宽度",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
+        "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
+        "src/YobiRuntime.cpp#Sub_43BAA0"
+      ],
+      "observation": "43BAC7清EDI、43BAE5增EDI、43BAF0/43BAF5按14/20比较，原为32位非地址索引；现size_t为64位。",
+      "expected": "只恢复索引32位承载及固定25项同型比较；保持未匹配/非CHT与BST继续扫描，取包/字段/聊天/计时/声音/返回及全部其它正文。",
+      "actual": "Sub_43BAA0仅kind声明和size比较两行恢复std::int32_t；初次补丁命中同文的ParseBattleMRide，已立即撤回本线程误改并按独有GetBattleMHeader上下文修正，最终该函数及所有其它源码正文保持。必要静态不代生成机器访问宽度、完整业务/资源/借用/owner或运行。",
+      "differences": [
+        {
+          "description": "消息种类索引由x64 size_t恢复为32位；正常0..25用S32承载，原寄存器事实只证明W32，不把符号性推断扩为新业务。",
+          "decision_ref": "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -70085,7 +70142,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ]
     },
     {
@@ -71110,7 +71168,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ]
     },
     {
@@ -71579,7 +71638,8 @@
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ]
     },
     {
@@ -71870,7 +71930,8 @@
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ]
     },
     {
@@ -72748,7 +72809,8 @@
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ]
     },
     {
@@ -91471,7 +91533,8 @@
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-decision",
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-acceptance",
         "doc/cg2d_battle_exit_message_scan_spec.md#battle-exit-message-source-state",
-        "doc/cg2d_battle_exit_message_scan_evidence.json"
+        "doc/cg2d_battle_exit_message_scan_evidence.json",
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter"
       ],
       "boundary": "BEMS01完整107条363B/两页纳管：固定入口payload、各次取整数/字符串fresh场景对象、25头只14/20消费；CHT四整数/256B文本和74-320音效/聊天，BST当前位置匹配才正常扣timer/原负值置零。现正文/签名及所有依赖保，仅两注释；旧816局部记录完整前态沿命名前态/证据保，全部数据/场景borrow-owner/SDK与声音画面运行仍未验。 RPLAN.24/MC01和完整门禁保持。"
     },

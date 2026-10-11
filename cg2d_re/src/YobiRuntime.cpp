@@ -22796,8 +22796,8 @@ std::int32_t Sub_43BAA0()
         if (GetBattleMHeader_439070(header.data()) == 1) {
             return 1;
         }
-        std::size_t kind = 0;
-        while (kind < kBattleMHeaders553E94.size()
+        std::int32_t kind = 0;
+        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
             && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }

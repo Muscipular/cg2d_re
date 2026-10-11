@@ -2,6 +2,8 @@
 
 2026-10-10；衔接[BMF01场景结束](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state)与[BAEL01追加链](cg2d_battle_append_effect_lifecycle_spec.md#battle-append-effect-source-state)。将既有816号局部头查找记录扩至完整原根/现源合同，正文正确保持、零新实现I。
 
+2026-10-11逐项验收补充：[BMSA02](cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter)确认消息种类索引原以W32 EDI计数，当前size_t扩为64位；已恢复32位承载及同型固定25项比较。上文“正文正确保持”是当时的有界结论，此处明确修正该遗漏；原CHT/BST字段、取样、继续扫描和返回合同保持，完整owner/资源/运行未关闭。
+
 <a id="battle-exit-message-baseline"></a>
 ## 完整原基线
 

@@ -526,6 +526,10 @@ struct BattlePetVitals {
 static_assert(sizeof(BattlePetVitals) == 0x10);
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {};
 
+// 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
+std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
+static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
+
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
 const char* const* gTextChoiceNamesD30130 = nullptr;
 const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr;
@@ -19741,7 +19745,18 @@ std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
         if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
             // 原可用性预扫没有实际加入时的映射范围门禁。
             const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
-            if (gShopItemsCF4FE0[item * 0xC58 + 0xC3C] != 0) {
+            std::uint8_t allowed;
+            if (item == -1) {
+                // 原4BAA95读取CF4FC4，与表情选择首字节同源。
+                allowed = gEmoteSelectionCF4FC4[0];
+            } else if (item == 20) {
+                // 原D052FC为浏览首条物品+BB8，对应description[30][72]。
+                allowed = static_cast<std::uint8_t>(
+                    gStallBrowseD046D8.items[0].description[30][72]);
+            } else {
+                allowed = static_cast<std::uint8_t>(gShopItemsCF4FE0[item * 0xC58 + 0xC3C]);
+            }
+            if (allowed != 0) {
                 available = true;
                 break;
             }
@@ -40648,9 +40663,6 @@ constexpr const char* kEmoteHints5871B0[18] {
 constexpr std::int32_t kEmoteButtonActions[18] {
     0, 2, 4, 6, 8, 10, 12, 14, 16, 1, 3, 5, 7, 9, 11, 13, 15, 17,
 };
-std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
-static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
-
 void ClearEmoteSelection()
 {
     const std::uint32_t zero32 = 0;

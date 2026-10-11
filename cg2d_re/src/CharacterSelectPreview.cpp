@@ -281,6 +281,7 @@ std::int32_t Sub_51BC50(const std::int32_t imageNo)
     }
 }
 
+// LDT01：版本低8值先取；FF回用Puk版本，再分类/按0、3、6、7门槛选择原图或回退。
 std::int32_t Sub_51B740(const std::int32_t imageNo)
 {
     std::int32_t version = state::gGraphicVersionOverride58B6A0;

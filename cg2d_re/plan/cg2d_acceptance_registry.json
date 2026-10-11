@@ -2092,7 +2092,10 @@
         "doc/cg2d_player_attribute_money_reply_spec.md",
         "doc/cg2d_storage_group_data_reply_spec.md",
         "doc/cg2d_storage_reply_dispatch_spec.md",
-        "doc/cg2d_map_reply_palette_spec.md"
+        "doc/cg2d_map_reply_palette_spec.md",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ],
       "original_inventory_ids": [
         "F:000038A0",
@@ -2200,7 +2203,9 @@
         "F:00109BA0",
         "F:000A84A0",
         "F:0009D2E0",
-        "F:00109550"
+        "F:00109550",
+        "F:00048040",
+        "F:0011B740"
       ],
       "closure_task_ids": [
         "P09",
@@ -3101,7 +3106,10 @@
         "doc/cg2d_chat_window_geometry_production_spec.md",
         "doc/cg2d_chat_log_line_drawing_spec.md",
         "doc/cg2d_map_reply_palette_spec.md",
-        "doc/cg2d_palette_capability_selection_spec.md"
+        "doc/cg2d_palette_capability_selection_spec.md",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -3296,7 +3304,9 @@
         "F:00109550",
         "F:0011D6F0",
         "F:0005C970",
-        "F:00050B70"
+        "F:00050B70",
+        "F:00048040",
+        "F:0011B740"
       ],
       "closure_task_ids": [
         "U11",
@@ -4891,7 +4901,10 @@
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -5010,7 +5023,8 @@
         "F:000ABE60",
         "F:000ACDF0",
         "F:00019C10",
-        "F:000217F0"
+        "F:000217F0",
+        "F:00048040"
       ],
       "closure_task_ids": [
         "U09",
@@ -68873,6 +68887,114 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-LDT01-NETWORK-S-20261011",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:0010DD80",
+        "F:00048040",
+        "F:0011B740"
+      ],
+      "baseline_reference": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+      "implementation_reference": "[#] 补齐lDuJ回复依赖与过渡坐标创建",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "src/network/NetworkRuntime.cpp#Sub_50DD80",
+        "src/YobiRuntime.cpp#Sub_448040",
+        "src/CharacterSelectPreview.cpp#Sub_51B740",
+        "doc/cg2d_world_object_record_producers_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md",
+        "doc/cg2d_text_unescape_sampling_spec.md"
+      ],
+      "observation": "台账50DD80仅CAC19表项关联，448040/51B740无语义/处置。三正常原根474条1524B及两四项W32表/唯一父返回覆盖有据；四临时复制原同槽复用/先取齐再发布，现lambda交替读写。",
+      "expected": "保双门禁、外层图号先转换、withRecord两模式/12字段及mode检查时点，field8 W32暂存/已有U16callee边界。四次构造复制析构同槽复用/样本完整后同序发布，保native载荷/失败/投影/tick。版本低8值和三返回分支保持，不称原机器读宽度等价。",
+      "actual": "一个既有lambda取样/复用修正及六源关联注释；回复/图号主体保持。一旧语义追加两新语义，三adapted；NETWORK补两、MAP两、YOBI一成员，各域本项限定S零I。全部任务/完整门禁保持，原体或callee/owner/ABI/互通运行不按条数外推。",
+      "differences": [
+        {
+          "description": "现void回复接口依原唯一父覆盖EAX的消费边界；51B740按既有U8存储承接原低8值，不保原W32机器读宽度",
+          "decision_ref": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-LDT01-MAP-S-20261011",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00048040",
+        "F:0011B740"
+      ],
+      "baseline_reference": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+      "implementation_reference": "[#] 补齐lDuJ回复依赖与过渡坐标创建",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "src/network/NetworkRuntime.cpp#Sub_50DD80",
+        "src/YobiRuntime.cpp#Sub_448040",
+        "src/CharacterSelectPreview.cpp#Sub_51B740",
+        "doc/cg2d_world_object_record_producers_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md",
+        "doc/cg2d_text_unescape_sampling_spec.md"
+      ],
+      "observation": "台账50DD80仅CAC19表项关联，448040/51B740无语义/处置。三正常原根474条1524B及两四项W32表/唯一父返回覆盖有据；四临时复制原同槽复用/先取齐再发布，现lambda交替读写。",
+      "expected": "保双门禁、外层图号先转换、withRecord两模式/12字段及mode检查时点，field8 W32暂存/已有U16callee边界。四次构造复制析构同槽复用/样本完整后同序发布，保native载荷/失败/投影/tick。版本低8值和三返回分支保持，不称原机器读宽度等价。",
+      "actual": "一个既有lambda取样/复用修正及六源关联注释；回复/图号主体保持。一旧语义追加两新语义，三adapted；NETWORK补两、MAP两、YOBI一成员，各域本项限定S零I。全部任务/完整门禁保持，原体或callee/owner/ABI/互通运行不按条数外推。",
+      "differences": [
+        {
+          "description": "现void回复接口依原唯一父覆盖EAX的消费边界；51B740按既有U8存储承接原低8值，不保原W32机器读宽度",
+          "decision_ref": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-LDT01-YOBI-S-20261011",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:00048040"
+      ],
+      "baseline_reference": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+      "implementation_reference": "[#] 补齐lDuJ回复依赖与过渡坐标创建",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "src/network/NetworkRuntime.cpp#Sub_50DD80",
+        "src/YobiRuntime.cpp#Sub_448040",
+        "src/CharacterSelectPreview.cpp#Sub_51B740",
+        "doc/cg2d_world_object_record_producers_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md",
+        "doc/cg2d_text_unescape_sampling_spec.md"
+      ],
+      "observation": "台账50DD80仅CAC19表项关联，448040/51B740无语义/处置。三正常原根474条1524B及两四项W32表/唯一父返回覆盖有据；四临时复制原同槽复用/先取齐再发布，现lambda交替读写。",
+      "expected": "保双门禁、外层图号先转换、withRecord两模式/12字段及mode检查时点，field8 W32暂存/已有U16callee边界。四次构造复制析构同槽复用/样本完整后同序发布，保native载荷/失败/投影/tick。版本低8值和三返回分支保持，不称原机器读宽度等价。",
+      "actual": "一个既有lambda取样/复用修正及六源关联注释；回复/图号主体保持。一旧语义追加两新语义，三adapted；NETWORK补两、MAP两、YOBI一成员，各域本项限定S零I。全部任务/完整门禁保持，原体或callee/owner/ABI/互通运行不按条数外推。",
+      "differences": [
+        {
+          "description": "现void回复接口依原唯一父覆盖EAX的消费边界；51B740按既有U8存储承接原低8值，不保原W32机器读宽度",
+          "decision_ref": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-11"
     }
   ],
   "task_acceptance": [
@@ -69350,7 +69472,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -69903,7 +70026,8 @@
         "doc/cg2d_storage_reply_dispatch_spec.md#storage-reply-source-state",
         "doc/cg2d_storage_reply_dispatch_spec.md#evidence-archive-20261011",
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
-        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011"
+        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -70164,7 +70288,8 @@
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-acceptance",
         "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-source-state",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -70690,7 +70815,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
-        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -71719,7 +71845,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
-        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
+        "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -72192,7 +72319,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
-        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -72486,7 +72614,8 @@
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-source-state",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-exit-counter",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-projectile-byte",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-control-rid",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ]
     },
     {
@@ -97011,6 +97140,39 @@
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state"
       ],
       "boundary": "MC01-C9：用户CRT直接MSVC裁决覆盖旧x86栈/FS/FuncInfo及私有异常辅助库职责；26原身份的历史事实/未全验范围沿前态Git版本保留。当前由MSVC编译器/VCRuntime及Windows边界承接，无旧入口定义/调用或新同名空体，不复制旧对象/现场；C3数组构析/展开/5405F5真实业务消费保持。不称原函数体或机器ABI等价，实际成员EH/硬件SEH、SDK/所有owner及运行仍未验。"
+    },
+    {
+      "inventory_id": "F:0010DD80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+      ],
+      "boundary": "LDT01仅三个正常根的源级合同及本次局部补丁；原库存身份保持，不把根条数/引用数计为所有callee或软件通过。现CPP/原native指针模型承接，完整后续模式/数据资源/正常失败传播/alias-owner/生成机器ABI及运行未验；协议LF明文/GBK/MSVC/WAV-only和RPLAN.24保持。 50DD80保void副作用，唯一原父覆盖EAX。"
+    },
+    {
+      "inventory_id": "F:00048040",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+      ],
+      "boundary": "LDT01仅三个正常根的源级合同及本次局部补丁；原库存身份保持，不把根条数/引用数计为所有callee或软件通过。现CPP/原native指针模型承接，完整后续模式/数据资源/正常失败传播/alias-owner/生成机器ABI及运行未验；协议LF明文/GBK/MSVC/WAV-only和RPLAN.24保持。 448040保既有native载荷模型/空返回，四组临时复制先取齐后发布。"
+    },
+    {
+      "inventory_id": "F:0011B740",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+      ],
+      "boundary": "LDT01仅三个正常根的源级合同及本次局部补丁；原库存身份保持，不把根条数/引用数计为所有callee或软件通过。现CPP/原native指针模型承接，完整后续模式/数据资源/正常失败传播/alias-owner/生成机器ABI及运行未验；协议LF明文/GBK/MSVC/WAV-only和RPLAN.24保持。 51B740保版本低8值合同，不称原W32机器读取宽度等价。"
     }
   ],
   "auxiliary_dispositions": [

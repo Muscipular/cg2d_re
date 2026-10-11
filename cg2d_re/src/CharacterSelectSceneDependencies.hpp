@@ -104,6 +104,7 @@ std::int32_t Sub_51BC50(std::int32_t imageNo);
 // 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。
 std::int32_t Sub_51B7D0(std::int32_t imageNo);
 // 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。
+// LDT01：以当前版本低8值选择图号；原图/分类3减5000/既有51B910回退。
 std::int32_t Sub_51B740(std::int32_t imageNo);
 // 原 [0x51B910,0x51BA08)：图号映射至 100900/100901/100902/110598 或 -1。
 std::int32_t Sub_51B910(std::int32_t imageNo);

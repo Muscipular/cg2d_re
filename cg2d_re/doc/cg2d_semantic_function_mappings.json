@@ -200375,7 +200375,7 @@
       "original_entry": "0x50dd80",
       "inventory_id": "F:0010DD80",
       "original_role": "CAC19仅原分派数据/当前源定义关联：Sub_50DD80",
-      "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
+      "status": "LDT01：lDuJ完整正常回复生产/双模式分派与当前void消费边界已纳管；正文保持，完整callee/owner/ABI/互通运行未验",
       "sources": [
         {
           "path": "src/network/NetworkRuntime.cpp",
@@ -200390,9 +200390,12 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-code",
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state",
-        "doc/cg2d_unassigned_range_seventh_batch_evidence.json"
+        "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
       ],
-      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。",
+      "boundary": "原F来自既有库存与实际取表父；全X数据用途及源定义关联独立，不据本批通过完整签名/字段/分支/callee、生产/间接alias/正常owner寿命、SDK/机器ABI或运行。；LDT01补完整285条正常本体的门禁/两模式/12字段/失败/调用消费合同；CAC19仅表项关联仍是历史限定，不混计32B表区间。外层/正文图号和编号独立，field8原栈/压参W32，仅445A60 U16边界截宽；当前void依唯一原父弃返回。源码正文保持，所有callee/后续模式、数据资源/alias-owner/机器ABI与运行仍待。",
       "verification_level": "本批完整X、实际CMP-JA-清零-BYTE-JMP与原W32目标代码/owner及现唯一定义有限静态；全部客户端源码保持，不构建/测试/运行/摘要。",
       "range_seventh_batch_data": {
         "step": "CAC19",
@@ -200404,6 +200407,38 @@
         "full_original_body_recaptured": false,
         "runtime_verified": false,
         "current_definition_line": 823
+      },
+      "original_end_exclusive": "0x50E0E7",
+      "instruction_count": 285,
+      "native_provider": {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "cg::network::detail::Sub_50DD80",
+        "parameters": "未读uintptr_t socket；七个非地址S32；借用const char*正文",
+        "return": "void副作用；唯一原父513C49覆盖EAX，完整机器ABI另验",
+        "source_body_implemented": true,
+        "source_body_changed_in_ldt01": false,
+        "runtime_verified": false
+      },
+      "map_transition_reply": {
+        "step": "LDT01",
+        "spec": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "full_original_normal_body_read": true,
+        "original_code_bytes": 871,
+        "original_call_count": 33,
+        "original_jump_count": 10,
+        "original_return_count": 6,
+        "original_direct_inbound_call": "0x513C41",
+        "original_inbound_parent": "0x512E40",
+        "field_count": 12,
+        "text_extract_count": 10,
+        "text_capacity": 2047,
+        "local_text_buffer_size": 2048,
+        "with_record_mode_check_after_production": true,
+        "field8_stack_storage_is_s32_not_decompiler_s16": true,
+        "two_switch_tables_ref": "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
+        "source_body_changed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -243008,6 +243043,127 @@
         "source": "src/platform/LegacyCryptInt.cpp",
         "symbol": "SetNorVal_401F50",
         "source_body_implemented": true,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x448040",
+      "inventory_id": "F:00048040",
+      "original_end_exclusive": "0x44823F",
+      "original_role": "lDuJ专用地图过渡动作创建器",
+      "status": "LDT01：完整正常创建本体已纳管，四临时坐标复用/先取齐后发布已修；后续模式/owner/ABI运行未验",
+      "instruction_count": 133,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "cg::login::detail::Sub_448040"
+          ],
+          "relationship": "LDT01既有创建器一个lambda补同临时槽复用/三个样本先取齐后同序发布，其余分配、四构造析构、投影/tick/variant初始化/返回保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_448040"
+          ],
+          "relationship": "原S32/S16及native非拥有YobiAction*签名保持，仅合同关联注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+      ],
+      "native_provider": {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "cg::login::detail::Sub_448040",
+        "parameters": "四S32（图号/坐标/方向）、两S16、S32对象编号",
+        "return": "非拥有YobiAction*；创建失败空值",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "boundary": "LDT01仅三个正常根的源级合同及本次局部补丁；原库存身份保持，不把根条数/引用数计为所有callee或软件通过。现CPP/原native指针模型承接，完整后续模式/数据资源/正常失败传播/alias-owner/生成机器ABI及运行未验；协议LF明文/GBK/MSVC/WAV-only和RPLAN.24保持。",
+      "verification_level": "原完整133条511B/六调用同一回复父；本次仅四临时发布/复用与全本体正常源级对照，SDK/ABI及运行未验",
+      "map_transition_creator": {
+        "step": "LDT01",
+        "spec": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "original_code_bytes": 511,
+        "original_call_count": 14,
+        "original_jump_count": 1,
+        "original_return_count": 2,
+        "original_payload_bytes": 272,
+        "current_native_payload_type": "MapTransitionPayload",
+        "temporary_coordinate_count": 4,
+        "temporary_slot_reused": true,
+        "sample_order": [
+          "W8 count",
+          "W32 encoded",
+          "W32 mask"
+        ],
+        "publication_order": [
+          "W8 count",
+          "W32 encoded",
+          "W32 mask"
+        ],
+        "source_lambda_changed": true,
+        "shared_crypt_algorithm_changed": false,
+        "payload_layout_changed": false,
+        "full_original_normal_body_read": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x51B740",
+      "inventory_id": "F:0011B740",
+      "original_end_exclusive": "0x51B7CE",
+      "original_role": "按当前低8版本值选择原图号或既有转换回退",
+      "status": "LDT01：完整正常图号转换选择已纳管，正确正文保持；全部调用/实际资源和机器ABI运行未验",
+      "instruction_count": 56,
+      "sources": [
+        {
+          "path": "src/CharacterSelectPreview.cpp",
+          "symbols": [
+            "cg::character_select::detail::Sub_51B740"
+          ],
+          "relationship": "既有U8版本owner承接原低8值；先版本、FF回用Puk，再分类和0/3/6/7门槛；三类返回/两个真实提供者保持，仅合同注释"
+        },
+        {
+          "path": "src/CharacterSelectSceneDependencies.hpp",
+          "symbols": [
+            "Sub_51B740"
+          ],
+          "relationship": "现有S32图号和S32返回声明保持，仅合同注释"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+      ],
+      "native_provider": {
+        "path": "src/CharacterSelectPreview.cpp",
+        "symbol": "cg::character_select::detail::Sub_51B740",
+        "parameters": "S32 imageNo",
+        "return": "S32原图号/减5000/51B910结果",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "boundary": "LDT01仅三个正常根的源级合同及本次局部补丁；原库存身份保持，不把根条数/引用数计为所有callee或软件通过。现CPP/原native指针模型承接，完整后续模式/数据资源/正常失败传播/alias-owner/生成机器ABI及运行未验；协议LF明文/GBK/MSVC/WAV-only和RPLAN.24保持。 原51B740为W32加载58B6A0后取低8，现U8值读取不宣称原W32机器访问宽度同一；全部71调用及分类/回退/原资源集仍独立待验。",
+      "verification_level": "原完整56条142B/两直接CALL/13跳两RET；现低8版本和分类选择正常源级对照，正文保持，不扩为全部71父通过",
+      "map_transition_image": {
+        "step": "LDT01",
+        "spec": "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "original_code_bytes": 142,
+        "original_call_count": 2,
+        "original_jump_count": 13,
+        "original_return_count": 2,
+        "original_inbound_call_count": 71,
+        "version_low_byte_contract_preserved": true,
+        "original_w32_machine_read_equivalence_claimed": false,
+        "source_body_changed": false,
+        "full_original_normal_body_read": true,
+        "all_parents_verified": false,
         "runtime_verified": false
       }
     }

@@ -524,3 +524,7 @@ MIC与GP/黑名单/2048B非NUL快照/S32长度/对象气泡和其他正文保持
 ## 2026-10-11 PTR01：TeD地图回复生产合同
 
 [PTR01](cg2d_map_reply_palette_spec.md#map-reply-palette-source-state)补齐509550回复生产与51D6F0调色板消费，两完整原根102条325B/三页、7E8五目标/七跳三RET。恢复地图名整词→状态→尾字节发布及atoi持值判负，两组两处四注释；原提取失败读序/负值覆盖和消费者正确body保持。两新F两adapted，NETWORK106/MAP191/RENDER118，三限定S零I八open；资源/全provider/owner/SDK与运行未闭。
+
+## 2026-10-11 LDT01：lDuJ及两个未纳管依赖
+
+[LDT01](cg2d_map_transition_reply_spec.md#map-transition-reply-source-state)从台账无处置项推进50DD80及仅历史定位的448040/51B740，三正常原根474条1524B/49CALL/24跳10RET及两四项W32表有据。外层图号先转换、12字段生产/有记录先445A60再mode分派、field8实际W32暂存与唯一父弃返回保持；创建器一个lambda补同临时槽四次复用及count/encoded/mask先取齐后同序发布，原四构造析构/数值/投影/tick/失败与图号转换主体保持。三adapted/两新语义、NETWORK108/MAP195/YOBI118，各限定S零I；全部callee/447E60后续、数据资源/alias-owner/机器ABI和互通画面运行仍待，不重导已纳管提供者或扩大完整验收。

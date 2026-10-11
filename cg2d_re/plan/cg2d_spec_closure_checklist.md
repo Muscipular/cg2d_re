@@ -180,3 +180,5 @@ BMSA10补技能98状态分支的[119／141跨链消费表](../doc/cg2d_battle_m_
 BMSA11补[动画返回及等待／终结传播](../doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-frame-result)：PlayFrame缺索引／缺动作也返回1，装载失败为-1；41A160／205严格1才终结，162严格1024==2才推进。细化BMSA10完成含义、保原分支与返回，不将终结记为资源实际播放；实现保持，公头仅一注释，四旧根一限定S。用户已给出实际游戏目录，配置／启动参数及索引记录待核；资源内容、全部owner／别名及ABI／运行仍待，任务／门禁保持。
 
 MC01-C9按用户先补未处理IDA函数的最新顺序，纳管[26个剩余CRT异常辅助入口](../doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state)。旧栈/FS/FuncInfo及库内展开交已批MSVC/compiler/VCRuntime，不重导原体或补空包装；C3真实数组/成员业务构析及5405F5消费保持。26既有语义/26host/26CRT成员、一限定S零I，现CPP与构建配置保持，无新源码功能或任务关闭；C06及全部SDK/传播/owner/运行门禁保持。资源验收先暂停，启动参数不作为本批前置条件。
+
+LDT01依台账处理[lDuJ及未纳管创建/图号依赖](../doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state)：三完整正常原根474条1524B/两W32表、12字段/两mode分流和唯一父覆盖返回有据。一个既有lambda恢复四次临时同槽复用/三样本全取齐再发布，其余回复/图号算法/载荷与接口保持；一旧语义追加两新、三adapted，NETWORK补两/MAP两/YOBI一，各限定S无I。未把初译正文存在当全部还原完成；完整callee/后续模式/资源/alias-owner、SDK生成ABI及实际收发/画面运行继续未闭，全部任务/六closure和总SPEC§10保持。

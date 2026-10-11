@@ -3060,6 +3060,7 @@ YobiAction* Sub_441DB0(
     return action;
 }
 
+// LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
 YobiAction* Sub_448040(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
@@ -3076,13 +3077,16 @@ YobiAction* Sub_448040(
     action->characterAction = 0;
     action->displayPriority = 10;
     action->flags = 0x200034u;
-    const auto assignCoordinate = [](
+    platform::LegacyCryptInt temporary;
+    const auto assignCoordinate = [&temporary](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
-        target.readCount = temporary.readCount;
-        target.encoded = temporary.encoded;
-        target.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        target.readCount = readCount;
+        target.encoded = encoded;
+        target.mask = mask;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     };
     assignCoordinate(action->mapX200, mapX);

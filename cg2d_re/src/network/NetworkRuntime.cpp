@@ -820,6 +820,7 @@ std::int32_t Sub_50D700(
     return second;
 }
 
+// LDT01：外层图号先转换；有记录先生产12字段再检查mode，无记录先检查mode。
 void Sub_50DD80(
     const std::uintptr_t, const std::int32_t objectIndex,
     const std::int32_t imageNo, const std::int32_t mapX,

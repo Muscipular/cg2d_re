@@ -106,7 +106,7 @@ struct NetworkRuntimeState {
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
-    std::uint32_t valueD9F2D0; // 原 0xD9F2D0，仅保留地址身份的 W32。
+    std::uint32_t valueD9F2D0; // 原 0xD9F2D0，首标记优先状态；当前明文无置1生产者。
     // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes;
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
@@ -150,6 +150,7 @@ struct ProtocolOutputAccess {
 };
 
 // 现有cgmsv明文合同：原命令/字段和LF原样入唯一发送队列，不包密文帧。
+// 关联原入口：0x004589A0／0x004589B0／0x004589C0，内联承接窗口报告采样与清零。
 std::int32_t QueuePlaintextProtocolBytes(
     const std::uintptr_t,
     const void* const data,
@@ -165,6 +166,14 @@ std::int32_t QueuePlaintextProtocolBytes(
     const std::int32_t nextLength = sendLength + static_cast<std::int32_t>(size);
     if (nextLength > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
+    }
+
+    if (gNetworkRuntimeState.valueD9F2D0 == 1) {
+        gNetworkRuntimeState.valueD9F2D0 = 0;
+    } else if (platform::gWindowReportValue > 0
+        && login::ReadRequestOutcomeFlag() == 1
+        && std::bit_cast<std::int32_t>(platform::gWindowReportDeadline) < 0) {
+        platform::gWindowReportValue = 0;
     }
 
     std::memcpy(send + sendLength, data, size);
@@ -204,7 +213,7 @@ std::int32_t ReceivePlaintextProtocolLine(
 
 namespace detail {
 
-// 原[403C50,403E4D)：原W16帧取包；仅401AB0位置沿D04改为直接明文。
+// 原[403C50,403E4D)旧W16帧取包，仅保留历史对照；当前明文收发不调用此函数。
 std::int32_t Sub_403C50(
     void* const destination,
     const std::int32_t capacity)
@@ -289,7 +298,7 @@ std::int32_t Sub_403C50(
 }
 
 // 原[403E50,40405A)：原首标记/状态尾/帧与发送窗口；socket未读取。
-// 实施合同见doc/cg2d_network_plaintext_frame_spec.md，仅401960位置旁路明文。
+// 历史帧合同见doc/cg2d_network_plaintext_frame_spec.md；当前明文收发不调用此函数。
 std::int32_t Sub_403E50(
     const std::uintptr_t,
     const void* const data,

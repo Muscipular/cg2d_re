@@ -2221,7 +2221,10 @@
         "F:00048040",
         "F:0011B740",
         "F:00107D90",
-        "F:00112800"
+        "F:00112800",
+        "F:000589A0",
+        "F:000589B0",
+        "F:000589C0"
       ],
       "closure_task_ids": [
         "P09",
@@ -2273,7 +2276,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring"
       ],
       "blockers": [
         "CAB27三回调入口宽度已修：未读socket只拓宽uintptr_t，Puk S32入口只消费低W8。原51条135B/唯一直接入向、源差集与当前Debug有据，三宽度警告0/其它97警告；IP2/完整网络/正常寿命/机器ABI未验，成员72枚举false。",
@@ -2384,7 +2388,8 @@
         "doc/cg2d_storage_reply_dispatch_spec.md#storage-reply-baseline",
         "doc/cg2d_storage_reply_dispatch_spec.md#evidence-archive-20261011",
         "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-baseline",
-        "doc/cg2d_map_reply_palette_spec.md#evidence-archive-20261011"
+        "doc/cg2d_map_reply_palette_spec.md#evidence-archive-20261011",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ]
     },
     {
@@ -69081,6 +69086,74 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-11"
+    },
+    {
+      "id": "E-NWR01-NETWORK-I-20261012",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000589A0",
+        "F:000589B0",
+        "F:000589C0"
+      ],
+      "baseline_reference": "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
+      "implementation_reference": "[#] 接回明文发送的窗口报告清零",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
+        "src/network/NetworkRuntime.cpp#QueuePlaintextProtocolBytes",
+        "src/platform/MainLoop.cpp#MainLoop",
+        "src/platform/MainLoopState.cpp",
+        "src/platform/MainLoopWindowEnumeration.cpp#EnumerateWindowsCallback_458840",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "全量表明确三叶只由无当前调用的旧帧正文承接；活动明文发送没有窗口报告采样／清零。原三叶各两指令共23B、父403E99..403EEE限定分支及共享状态引用已核。",
+      "expected": "轮询／容量失败不改状态；门禁通过后先D9F2D0严格1清零并跳过报告，再按报告S32>0、登录状态严格1、截止W32位型S32<0清唯一报告槽；正文复制／长度发布及原命令字段LF保持。",
+      "actual": "活动QueuePlaintextProtocolBytes补回原优先条件及共享槽清零；逆向去除限定补丁和注释可恢复原整源，三叶映射及全量表提供者更新。仅此组源级实施／静态证据，非完整NETWORK I／S或W／运行通过。",
+      "differences": [
+        {
+          "description": "沿已批准当前服务端原命令字段LF明文合同，不写旧13／FC／随机首字节或W16头／状态尾；退休随机首字节的RNG不恢复，当前接收不制造D9F2D0置1。",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-NWR01-NETWORK-S-20261012",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "coverage_inventory_ids": [
+        "F:000589A0",
+        "F:000589B0",
+        "F:000589C0"
+      ],
+      "baseline_reference": "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
+      "implementation_reference": "[#] 接回明文发送的窗口报告清零",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state",
+        "src/network/NetworkRuntime.cpp#QueuePlaintextProtocolBytes",
+        "src/platform/MainLoop.cpp#MainLoop",
+        "src/platform/MainLoopState.cpp",
+        "src/platform/MainLoopWindowEnumeration.cpp#EnumerateWindowsCallback_458840",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "全量表明确三叶只由无当前调用的旧帧正文承接；活动明文发送没有窗口报告采样／清零。原三叶各两指令共23B、父403E99..403EEE限定分支及共享状态引用已核。",
+      "expected": "轮询／容量失败不改状态；门禁通过后先D9F2D0严格1清零并跳过报告，再按报告S32>0、登录状态严格1、截止W32位型S32<0清唯一报告槽；正文复制／长度发布及原命令字段LF保持。",
+      "actual": "活动QueuePlaintextProtocolBytes补回原优先条件及共享槽清零；逆向去除限定补丁和注释可恢复原整源，三叶映射及全量表提供者更新。仅此组源级实施／静态证据，非完整NETWORK I／S或W／运行通过。",
+      "differences": [
+        {
+          "description": "沿已批准当前服务端原命令字段LF明文合同，不写旧13／FC／随机首字节或W16头／状态尾；退休随机首字节的RNG不恢复，当前接收不制造D9F2D0置1。",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md#local-server-plaintext-contract"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-12"
     }
   ],
   "task_acceptance": [
@@ -70119,7 +70192,8 @@
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
-        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ]
     },
     {
@@ -70384,7 +70458,8 @@
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
-        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ]
     },
     {
@@ -97302,6 +97377,33 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
       ],
       "boundary": "NLD01仅两个已存在正常根的独立纳管及账号／口令名称更正；封包字节、参数位置、字段宽度和读取／发布／调用／返回保持，零新函数／接口／owner。完整508360／512E40、全部callee／父、正常失败传播和全alias-owner寿命、SDK机器ABI及明文互通／运行仍待；总SPEC及完整门禁／任务保持，不构建测试运行产物摘要或引依赖。"
+    },
+    {
+      "inventory_id": "F:000589A0",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
+      ],
+      "boundary": "三报告读取／清零叶内联于活动QueuePlaintextProtocolBytes，共用既有S32报告值／U32截止owner；只完成NWR01限定接线，不声称原包装机器ABI、403E50整根、全owner或运行通过。实施状态只以全量表为准。"
+    },
+    {
+      "inventory_id": "F:000589B0",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
+      ],
+      "boundary": "三报告读取／清零叶内联于活动QueuePlaintextProtocolBytes，共用既有S32报告值／U32截止owner；只完成NWR01限定接线，不声称原包装机器ABI、403E50整根、全owner或运行通过。实施状态只以全量表为准。"
+    },
+    {
+      "inventory_id": "F:000589C0",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
+      ],
+      "boundary": "三报告读取／清零叶内联于活动QueuePlaintextProtocolBytes，共用既有S32报告值／U32截止owner；只完成NWR01限定接线，不声称原包装机器ABI、403E50整根、全owner或运行通过。实施状态只以全量表为准。"
     }
   ],
   "auxiliary_dispositions": [

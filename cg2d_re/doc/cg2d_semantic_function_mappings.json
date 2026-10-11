@@ -31896,7 +31896,7 @@
     {
       "original_entry": "0x4589A0",
       "inventory_id": "F:000589A0",
-      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "status": "当前活动明文发送中内联承接；实施状态以全量函数表为准，完整功能／运行未验",
       "original_end_exclusive": "0x4589A6",
       "instruction_count": 2,
       "sources": [
@@ -31913,19 +31913,27 @@
             "gWindowReportValue"
           ],
           "relationship": "原S32/U32状态的既有公开声明"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "QueuePlaintextProtocolBytes"
+          ],
+          "relationship": "当前实际发送callback；三叶按原条件／顺序内联采样及清零，共用既有owner；旧W16正文不进入当前链"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_network_exclusion_wiring_spec.md",
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ],
-      "boundary": "原唯一403EB3调用读取73ECF4完整W32，父发送随后按S32>0判定；对应现有S32 owner。父403E50仍因真实帧格式待决，不把已有状态声明当getter调用已经接入。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+      "boundary": "原4589A0读取W32[73ECF4]，父403EB3按S32>0判定；当前活动QueuePlaintextProtocolBytes在轮询／容量门禁和首标记优先分支之后内联读同一S32 owner，不新增getter／影子状态。 NWR01只补这组副作用接线，当前原命令／字段／LF及获批传输差异保持，不声称旧403E50整根、SDK机器ABI或完整互通／运行通过。"
     },
     {
       "original_entry": "0x4589B0",
       "inventory_id": "F:000589B0",
-      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "status": "当前活动明文发送中内联承接；实施状态以全量函数表为准，完整功能／运行未验",
       "original_end_exclusive": "0x4589BB",
       "instruction_count": 2,
       "sources": [
@@ -31942,19 +31950,27 @@
             "gWindowReportValue"
           ],
           "relationship": "原S32/U32状态的既有公开声明"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "QueuePlaintextProtocolBytes"
+          ],
+          "relationship": "当前实际发送callback；三叶按原条件／顺序内联采样及清零，共用既有owner；旧W16正文不进入当前链"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_network_exclusion_wiring_spec.md",
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ],
-      "boundary": "原唯一403ED4调用把73ECF4写0；无规定EAX，caller不消费返回。共享槽已存在，但发送期间这一清零动作尚未接入；不能将其初始零或其他操作冒充原运行时清零。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+      "boundary": "原4589B0把W32[73ECF4]写0，不规定EAX且父403ED4不消费返回；当前活动QueuePlaintextProtocolBytes按报告S32>0／登录状态1／截止W32按S32<0清同一槽，位于正文复制／发送长度发布前，门禁失败不清。 NWR01只补这组副作用接线，当前原命令／字段／LF及获批传输差异保持，不声称旧403E50整根、SDK机器ABI或完整互通／运行通过。"
     },
     {
       "original_entry": "0x4589C0",
       "inventory_id": "F:000589C0",
-      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "status": "当前活动明文发送中内联承接；实施状态以全量函数表为准，完整功能／运行未验",
       "original_end_exclusive": "0x4589C6",
       "instruction_count": 2,
       "sources": [
@@ -31971,14 +31987,22 @@
             "gWindowReportDeadline"
           ],
           "relationship": "原S32/U32状态的既有公开声明"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "QueuePlaintextProtocolBytes"
+          ],
+          "relationship": "当前实际发送callback；三叶按原条件／顺序内联采样及清零，共用既有owner；旧W16正文不进入当前链"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_network_exclusion_wiring_spec.md",
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state"
       ],
-      "boundary": "原唯一403EC6读取73ED08完整W32；owner保持U32，父发送把其位型按S32<0判定。不得混同double枚举截止73ED00或扩宽字段；父403E50及读取时点仍待接线。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+      "boundary": "原4589C0读取W32[73ED08]，父403EC6按S32<0判定；当前活动QueuePlaintextProtocolBytes从同一U32 owner取完整位型并bit_cast到S32判负，不混同double枚举截止73ED00或只判0xFFFFFFFF。 NWR01只补这组副作用接线，当前原命令／字段／LF及获批传输差异保持，不声称旧403E50整根、SDK机器ABI或完整互通／运行通过。"
     },
     {
       "original_entry": "0x44ADB0",

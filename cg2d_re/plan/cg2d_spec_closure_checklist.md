@@ -188,3 +188,7 @@ LDT01依台账处理[lDuJ及未纳管创建/图号依赖](../doc/cg2d_map_transi
 [NLD01](../doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state)补507D90／512800独立语义和adapted处置，NETWORK／LOGIN各两成员与一个限定S。两个正确既有根91条270B有据，仅纠正JFVf账号／口令参数、局部／父副本和来源注释，封包位置／字节／原容量／四轮取样／失败返回全保；不新增I或把初译正文算本轮新增函数。
 
 R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360已有局部合同和真实依赖，本轮不发布完整父处置；512E40完整根、地址表全生产消费、全部callee及owner／alias／机器ABI／实际明文互通运行仍待，总SPEC全部门禁保持。
+
+## 2026-10-12 NWR01进展：接回活动明文发送的窗口报告状态
+
+按全量表三叶的明确接线缺项完成[NWR01](../doc/cg2d_network_compatibility_spec.md#window-report-plaintext-source-state)：QueuePlaintextProtocolBytes在轮询／容量门禁通过后，保持首标记优先及报告S32>0／登录状态1／截止W32按S32<0的清零，正文复制／队列长度发布、原PGXE字段与LF保持。没有新增旧包装、协议字节或owner，旧W16帧仍只作历史对照。三叶当前提供者及表内行号同步，NETWORK登记三内联合并成员和两限定I／S；U10／V03仍open，其余任务／closure／完整门禁保持，真实报告状态及互通运行待授权。

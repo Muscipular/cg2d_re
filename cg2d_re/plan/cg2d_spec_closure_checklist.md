@@ -59,8 +59,8 @@
 
 | 编号 / 范围 | 任务状态与已有成果 | 下一步及关闭边界 | 主证据 |
 |---|---|---|---|
-| U01 / 宠物技能目录 | 开放；旧58–61页面/标量已有；目录生产采集器已准备但未执行 | CA0478数组定义/容量/生产、图号/页数运行时生产；先获本项原端动态许可，捕写者后追完整循环/owner | [旧58–61](../doc/ui_windows/legacy_pet_skill_catalog.md)；[生产取证SPEC](../doc/cg2d_pet_catalog_production_spec.md) |
-| U02 / 交易名单 | 开放；旧51消费/页号/标量已有；名单生产采集器已准备但未执行 | CB1D1C的17B名单容量/定义/生产及数量/页数写者 | [TTP01](../doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state)；[旧51](../doc/ui_windows/legacy_trade_target_list.md) |
+| U01 / 宠物技能目录 | 开放；旧58–61页面/标量已有；2026-10-12用户明确只读静态分析，动态方案不执行 | CA0478数组定义/容量/生产、图号/页数生产及原路由仍待静态事实；本轮缺证缓行，没有新事实不重复追查或请求动态许可，不猜容量/owner | [旧58–61](../doc/ui_windows/legacy_pet_skill_catalog.md)；[生产取证SPEC](../doc/cg2d_pet_catalog_production_spec.md) |
+| U02 / 交易名单 | 开放；旧51消费/页号/标量已有；2026-10-12用户明确只读静态分析，动态方案不执行 | CB1D1C的17B名单容量/定义/生产、数量/页数写者及原路由仍待静态事实；本轮缺证缓行，不补空表或重复请求动态许可 | [TTP01](../doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state)；[旧51](../doc/ui_windows/legacy_trade_target_list.md) |
 | U03 / version payload | 已关闭（局部源码合同）；BRT01已落实const char[1]零前缀owner、两次只读外传和首BYTE零分支 | 本源码合同已收口；完整角色/互通/生命周期仍按V03等验收。1B为正常读取足迹对应新端容量，原未使用预留尾部不伪称已知 | [创建](../doc/cg2d_character_select_scene.md#version-zero-prefix-current)；[声明](../src/CharacterSelectSceneDependencies.hpp) |
 | U04 / 旧表与键表真实分派 | 开放；现代及大量旧页面/键入口已有；CAC10资料切页两轴取样已修，CAC19补22段代码与原型/旧表来源；WCL01共享关闭/前置/返回叶三完整根，实际回收链复用，三限定S零I | 57C368外层间接路由、键表真实分派及输入焦点；原表/现定义来源不代新端真实调用 | [BVL01](../doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)；[BVM01](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state) ；[CAC10](../doc/ui_windows/shared_profile.md#profile-page-coordinate-source-state-20261009)；[CAC19](../doc/cg2d_unassigned_range_classification_spec.md#range-seventh-batch-source-state)；[WCL01](../doc/cg2d_window_close_front_release_spec.md#window-close-source-state) |
 | U05 / 商店/修理/鉴定 | 开放；旧62完整父、63–71页面和单W32命令读取已有；模式/生产仍待 | 独立商品/图号/页数/初页与C9A94C实际生产；未写第二命令/旧路由及完整回复/寿命 | [旧62](../doc/ui_windows/legacy_shop_choice.md)；[SCP01](../doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state) |

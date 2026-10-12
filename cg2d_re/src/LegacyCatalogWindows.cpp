@@ -302,8 +302,8 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         if (gLegacyPetSkillCatalogCA0478[index].used == 0) {
             continue;
         }
-        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].text0C.data(), 0);
-        const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].name.data(), 0);
+        const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));
         const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
@@ -326,7 +326,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             Low16(top + 105), 214, color, 0);
         for (std::int32_t row = 0; row < 2; ++row) {
             const char* const text = gLegacyPetSkillCatalogCA0478[
-                hovered + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data() + 25 + 29 * row;
+                hovered + 8 * gLegacyPetSkillCatalogPageD45F74].description[row].data();
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 70),
                 static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 359 + 32 * row),
                 2, 0, 0, text, 0, 0));
@@ -433,10 +433,10 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 288 - titleWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));
     const char* const measuredName = gLegacyPetSkillCatalogCA0478[
-        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     const std::int32_t skillWidth = TextMeasure(measuredName, 0);
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
-        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 96 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, skillName, 0, 0));
     char buffer[64];
@@ -568,10 +568,10 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 288 - titleWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));
     const char* const measuredName = gLegacyPetSkillCatalogCA0478[
-        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     const std::int32_t skillWidth = TextMeasure(measuredName, 0);
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
-        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 96 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, skillName, 0, 0));
     char buffer[64];
@@ -688,7 +688,7 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
     }
     char buffer[256];
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
-        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillTitle588344, skillName);
     const std::int32_t skillWidth = TextMeasure(buffer, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - skillWidth / 2),

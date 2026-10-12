@@ -44,12 +44,17 @@ struct LegacyPetSkillCatalogRecord {
     std::array<std::byte, 2> reserved02;
     std::int32_t value04; // +04：原S32显示值。
     std::int32_t price08; // +08：原S32费用。
-    std::array<char, 84> text0C; // +0C名称、+25H/+42H说明，不限定字符串长度。
+    std::array<char, 25> name; // +0C：名称起点；不额外截断或补字符串终止符。
+    std::array<std::array<char, 29>, 2> description; // +25H/+42H：两行说明起点。
+    std::byte reserved5F; // +5FH：用途未证，保留原字节。
 };
 static_assert(sizeof(LegacyPetSkillCatalogRecord) == 96);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, value04) == 4);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, price08) == 8);
-static_assert(offsetof(LegacyPetSkillCatalogRecord, text0C) == 12);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, name) == 0x0C);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, description) == 0x25);
+static_assert(sizeof(decltype(LegacyPetSkillCatalogRecord::description)::value_type) == 29);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, reserved5F) == 0x5F);
 
 // CA0478数组容量/定义/生产仍待；图号/页数已有真实PE填零初值存储，运行时生产仍待。
 extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];

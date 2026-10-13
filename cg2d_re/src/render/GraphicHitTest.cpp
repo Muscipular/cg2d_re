@@ -43,19 +43,19 @@ constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考�
 bool HitQueuedText(const TextPendingRecord& text, std::int32_t& width)
 {
     width = login::detail::TextMeasure(text.text, text.fontType);
-    if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
+    if (!(BorrowLegacyMouseStateStorage()->mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
         return false;
     }
-    if (!(static_cast<std::int32_t>(text.x - 2) <= gLegacyMouseState.mouseX)) {
+    if (!(static_cast<std::int32_t>(text.x - 2) <= BorrowLegacyMouseStateStorage()->mouseX)) {
         return false;
     }
     const std::uint8_t fontType = text.fontType;
     const std::int32_t y = text.y;
     const std::int32_t height = gFontMetrics[fontType].doubleHeight;
-    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height + 2))) {
+    if (!(BorrowLegacyMouseStateStorage()->mouseY <= static_cast<std::int32_t>(y + height + 2))) {
         return false;
     }
-    return (static_cast<std::int32_t>(text.y - 2) <= gLegacyMouseState.mouseY);
+    return (static_cast<std::int32_t>(text.y - 2) <= BorrowLegacyMouseStateStorage()->mouseY);
 }
 
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
@@ -67,20 +67,20 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
         const DxGraphicEntry* const base = gGraphicDxCache103CFA4;
         const std::int32_t width = std::bit_cast<std::int16_t>(base[imageNo].width);
         const std::int32_t x = graphic.x;
-        if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(x + width))) {
+        if (!(BorrowLegacyMouseStateStorage()->mouseX <= static_cast<std::int32_t>(x + width))) {
             return false;
         }
-        if (!(static_cast<std::int32_t>(graphic.x) <= gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(graphic.x) <= BorrowLegacyMouseStateStorage()->mouseX)) {
             return false;
         }
         const std::int32_t heightImage = graphic.imageNo;
         const DxGraphicEntry* const heightBase = gGraphicDxCache103CFA4;
         const std::int32_t y = graphic.y;
         const std::int32_t height = std::bit_cast<std::int16_t>(heightBase[heightImage].height);
-        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height))) {
+        if (!(BorrowLegacyMouseStateStorage()->mouseY <= static_cast<std::int32_t>(y + height))) {
             return false;
         }
-        return (static_cast<std::int32_t>(graphic.y) <= gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(graphic.y) <= BorrowLegacyMouseStateStorage()->mouseY);
     }
 
     const std::int32_t scene = world::gCurrentSceneType;
@@ -91,19 +91,19 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
         if (ReadLegacyMouseX() > centerX + 16) {
             return false;
         }
-        if (!(static_cast<std::int32_t>(centerX - 16) <= gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(centerX - 16) <= BorrowLegacyMouseStateStorage()->mouseX)) {
             return false;
         }
         const login::YobiAction* const upperAction = graphic.reference.action;
         const std::int32_t upperY = graphic.y;
         const std::int32_t upperOffset = ReadYobiGraphicOffsetY(upperAction);
-        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
+        if (!(BorrowLegacyMouseStateStorage()->mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
             return false;
         }
         const login::YobiAction* const lowerAction = graphic.reference.action;
         const std::int32_t lowerY = graphic.y;
         const std::int32_t lowerOffset = ReadYobiGraphicOffsetY(lowerAction);
-        return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= BorrowLegacyMouseStateStorage()->mouseY);
     }
 
     const std::int32_t imageNo = graphic.imageNo;
@@ -125,14 +125,14 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
     const DxGraphicEntry* const upperBase = gGraphicDxCache103CFA4;
     const std::int32_t upperHeight = std::bit_cast<std::int16_t>(upperBase[upperImage].height);
     const std::int32_t upperY = graphic.y;
-    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
+    if (!(BorrowLegacyMouseStateStorage()->mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
         return false;
     }
     const std::int32_t lowerImage = graphic.imageNo;
     const DxGraphicEntry* const lowerBase = gGraphicDxCache103CFA4;
     const std::int32_t lowerHeight = std::bit_cast<std::int16_t>(lowerBase[lowerImage].height);
     const std::int32_t lowerY = graphic.y;
-    if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= gLegacyMouseState.mouseY)) {
+    if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= BorrowLegacyMouseStateStorage()->mouseY)) {
         return false;
     }
     return (ReadYobiActionFlags(graphic.reference.action) & 0x02000000u) == 0;
@@ -258,7 +258,7 @@ void Sub_507140()
             const std::int32_t inputGate = world::detail::gValueD460C8;
             gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
-            *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
+            *reinterpret_cast<std::uint8_t*>(&BorrowLegacyMouseStateStorage()->valueD68DB4) = 0xD4;
             if (inputGateIsZero && gValue58589C != 0) {
                 gHoverObjectValueD68AC8 = 0;
             }
@@ -300,13 +300,13 @@ void Sub_507140()
             }
             const std::uint8_t finalLayer =
                 gLegacyPendingStorage.cache3[static_cast<std::size_t>(orderIndex)].layer;
-            *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = finalLayer;
+            *reinterpret_cast<std::uint8_t*>(&BorrowLegacyMouseStateStorage()->valueD68DB4) = finalLayer;
             return;
         }
         --remaining;
         --orderIndex;
     }
-    *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 5;
+    *reinterpret_cast<std::uint8_t*>(&BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
     gHoveredGraphicPendingIndex = -1;
     gHoverObjectValueD68AC8 = 0;
 }

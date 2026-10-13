@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 
 namespace cg::login {
 struct YobiAction;
@@ -14,6 +15,10 @@ namespace cg::world::detail {
 
 // 原0x13C记录的增量映射；未消费区不计最终指针/字段映射，见World对象SPEC。
 struct WorldObjectRecord {
+    // 原0x0043D7C0：成员正序构造及失败前缀清理由C++承接。
+    WorldObjectRecord() = default;
+    // 原0x0043D810：成员自动逆序析构。
+    ~WorldObjectRecord() = default;
     std::uint16_t used; // 原成员偏移：+0x00。
     std::uint16_t category; // 原成员偏移：+0x02。
     std::int32_t objectIndex; // 原成员偏移：+0x04。
@@ -52,7 +57,7 @@ struct WorldObjectRecord {
 };
 
 inline constexpr std::size_t kWorldObjectCapacity = 1000;
-extern std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects; // 原全局：0x005AC4C0。
+std::optional<std::array<WorldObjectRecord, kWorldObjectCapacity>>& BorrowWorldObjectsStorage(); // 原全局：0x005AC4C0。
 extern std::int32_t gWorldObjectFindCursor; // 原5AC498。
 extern std::int32_t gWorldObjectFreeCursor; // 原5AC49C。
 extern std::int32_t gWorldObjectUsedCount; // 原5AC4B4。

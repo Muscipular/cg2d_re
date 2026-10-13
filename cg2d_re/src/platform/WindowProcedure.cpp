@@ -249,12 +249,12 @@ LRESULT CALLBACK WindowProcedure(
         return DefWindowProcA(window, message, wParam, lParam);
 
     case WM_NCMOUSEMOVE: {
-        const std::uint32_t oldSuppression = gLegacyMouseState.drawingSuppression;
-        gLegacyMouseState.heldButtons = 0;
-        gLegacyMouseState.edgeButtons = 0;
+        const std::uint32_t oldSuppression = BorrowLegacyMouseStateStorage()->drawingSuppression;
+        BorrowLegacyMouseStateStorage()->heldButtons = 0;
+        BorrowLegacyMouseStateStorage()->edgeButtons = 0;
         if (oldSuppression == 0u) {
             ShowCursor(TRUE);
-            gLegacyMouseState.drawingSuppression = 1;
+            BorrowLegacyMouseStateStorage()->drawingSuppression = 1;
         }
         return 0;
     }
@@ -335,9 +335,9 @@ LRESULT CALLBACK WindowProcedure(
     case WM_MOUSEMOVE: {
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
         ResetLegacyMousePosition_506890(coordinates.x, coordinates.y);
-        if (gLegacyMouseState.drawingSuppression == 1u) {
+        if (BorrowLegacyMouseStateStorage()->drawingSuppression == 1u) {
             ShowCursor(FALSE);
-            gLegacyMouseState.drawingSuppression = 0;
+            BorrowLegacyMouseStateStorage()->drawingSuppression = 0;
         }
         RebuildRendererIfGraphicDirty();
         return 0;

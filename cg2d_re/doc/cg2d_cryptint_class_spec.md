@@ -1,6 +1,6 @@
 # LegacyCryptInt class 与整数运算符 SPEC（LCI01）
 
-日期：2026-10-14。状态：用户已确认；接口与CryptInt启动拥有者已实现；LCI02按用户后续指令合并命名空间，当前只做静态核对。
+日期：2026-10-14。状态：用户后续构造／析构／operator方向已落实LCI06原生生命周期；仅静态核对，未编译或运行。LCI01至LCI05保留阶段历史，当前以LCI06为准。
 
 ## 目标与源码基线
 
@@ -14,11 +14,11 @@
 本次仅核当前源码及已有合同，不增加原端事实或宣称运行已验收。
 
 当前布局固定16字节；读取更新W8计数，达到原门槛时刷新mask并消费共享RNG。
-整数赋值通过临时构造、复制载荷、显式销毁消费一次RNG；`SetNorVal`只改encoded。
+整数赋值通过临时构造、复制载荷、原生析构消费一次RNG；`SetNorVal`只改encoded。
 鼠标、世界对象、场景状态和Yobi有显式构销、不同字段发布顺序及原始字节搬移。
 `YobiRuntime.hpp`另有struct前置声明，需要同步改为class。
 
-## 已确认实施方案
+## LCI01已确认实施方案（阶段历史，生命周期由LCI06覆盖）
 
 1. 改为 `class LegacyCryptInt`，保留五个原字段及public访问、16字节大小和全部偏移。
    本步封装数值操作；字段私有化需要同时迁移已有原始载荷消费者，另行确认范围。
@@ -89,21 +89,21 @@ LegacyCryptInt已改为class；整数构造／赋值、单一隐式int32及显�
 加减复合赋值、前后自增以及九个同类算术／比较运算符已落实。
 整数两侧的普通运算由有副作用的单次int32转换接C++内建运算，较窄整数无需重复重载；
 uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异常模拟或保护。
-默认构造／析构／同类拷贝仍平凡，五字段与偏移保持；新增对应类型属性静态断言。
-三个保护对象的仅token聚合初值改为constinit字面lambda，保持原零载荷且不提前取RNG。
+默认／整数构造和析构按LCI06实现；同类拷贝复制原字段而不读取／取RNG，五字段与偏移保持。
+原始16B载荷单独以RawPayload承接；延后值通过std::optional在原中央位置构造。
 
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-24个相关CRT包装由不可拷贝的启动拥有者类构造／析构替代；每个类沿原真实全局存储调用
-原构造和逆序清理正文，无第二份载荷。各组原始载荷仍保持16字节和原有显式操作。
+24个相关CRT包装由不可拷贝启动拥有者接管，LCI06同步将世界千项表拥有者改为原生构造／析构。
+各组仅有同一实际存储，optional为空时不构造值；原位置emplace、原位置reset，16B值布局保持。
 全部拥有者实例仍位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
-五个原初始化汇总桥已随直接拥有者实例退休；构造前缀／数组异常清理正文保持。
+五个原初始化汇总桥已退休；LCI06将成员／数组完成前缀清理由C++与STL承接，原地址保留。
 
 | 原入口 | 原生启动拥有者 | 构造 / 清理正文 |
 |---|---|---|
-| 0x00401C10 | `cg::platform::LegacyCryptInt::StartupValues` | `ConstructStartupValues_401C20` / `DestroyStartupValues_401C50` |
+| 0x00401C10 | `cg::platform::LegacyCryptInt::StartupValues` | `StartupValues::StartupValues` / `StartupValues::~StartupValues` |
 | 0x00404120 | `cg::platform::ProtectionChecksum1Startup` | `ConstructProtectionChecksum1_404130` / `DestroyProtectionChecksum1_404150` |
 | 0x00404160 | `cg::platform::ProtectionChecksum2Startup` | `ConstructProtectionChecksum2_404170` / `DestroyProtectionChecksum2_404190` |
 | 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
@@ -128,7 +128,7 @@ uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异
 | 0x005183D0 | `cg::world::PlayerRuntimeValuesStartup` | `ConstructLegacyPlayerRuntime_5183E0` / `ReleaseLegacyPlayerRuntimeAtExit_518400` |
 | 0x00518520 | `cg::world::PetRuntimeValuesStartup` | `ConstructPetRuntimeValues` / `DestroyPetRuntimeValues` |
 
-## 本步静态核对结果
+## LCI01阶段静态核对结果（历史）
 
 24组构造／析构各唯一接线、中央声明顺序和禁拷贝声明核对通过；48个原构造／清理正文
 及CryptInt后端33个函数正文与改动前逐字保持。五字段声明／偏移断言仍在，新增类型属性断言供后续编译验证。
@@ -181,7 +181,7 @@ IntLessCryptRaw_401FA0保留完整U32高24位返回合同，作为特殊成员�
 原地址注释迁移到实际operator／转换承接处，不删除原身份；低层载荷复制／显式构销与特殊原返回保留独立合同。
 
 <a id="cryptint-native-lifecycle-proposal"></a>
-## 原生析构与分配释放方案（LCI05，范围待确认）
+## 原生析构与分配释放方案（LCI05历史提案，已由LCI06覆盖）
 
 用户指出DestroyAndFree_401CA0应采用析构函数。原401CF0只恢复token；401CA0先执行401CF0、再按flags bit0决定free。
 方案为将401CF0正文放入~LegacyCryptInt，401CA0的释放责任由delete／operator delete承接，仍配对CRT malloc／free，
@@ -195,4 +195,43 @@ IntLessCryptRaw_401FA0保留完整U32高24位返回合同，作为特殊成员�
 
 普通比较178处、自增／算术／赋值185处消费者已使用operator，20个同义命名成员声明与正文退休。
 前置自增、复合赋值、整数赋值和同类运算直接复用原正文；标量运算使用单次int32转换，保留旧S32参数转换。
-原源码／头文件中的十六进制地址全部保留到实际接口／承接注释；401CA0／401CF0当前仍按LCI05范围确认前的显式生命周期实现。
+该阶段保留原地址注释；其后的401CA0／401CF0迁移及当前生命周期沿LCI06。
+
+<a id="cryptint-native-lifecycle-decision"></a>
+## 原生构造／析构统一裁决（LCI06）
+
+用户继续明确ConstructZero应为构造函数；结合此前析构与operator指令，本轮统一落实原生数值对象生命周期，
+覆盖LCI01平凡默认构造／析构及LCI05范围待确认的阶段限制，不再只改名字或保留同义数值构销成员。
+
+1. 原0x00401C70正文进入默认构造；原0x00401CC0进入整数构造，默认构造委托整数0构造、每次仅消费一次共享RNG。
+   原0x00401CF0正文进入析构；原0x00401CA0的释放责任由operator delete配对CRT free，原flags分支由销毁或delete的调用形式承接。
+   类使用配套operator new分配，原16字节／五字段偏移与非虚类型保持；原ABI返回／flags不作为新增接口，地址注释保留。
+2. 新构析不再平凡，不能保留旧平凡断言作为已通过证据。原原始字节边界用嵌套RawPayload表达同一16字节，
+   其构造／恢复只复制原字段、不消费RNG；只用于已有零填充Yobi内存与原始载荷，不代替普通零值构造。
+3. 需要延后构造的全局值、数组和可复用临时量采用标准std::optional承载，原初始化位置emplace、原清理位置reset；
+   全局承载为函数内静态optional：首次中央构造时先登记空容器，拥有者随后登记，退出先由拥有者reset、后销毁空容器；避免跨翻译单元析构登记顺序造成提前清理。
+   空承载不构造CryptInt、不取RNG，访问函数只借同一存储、不懒构造业务值。玩家物品成员别名同步改为运行时引用访问，消除构造前的全局引用绑定。
+   普通聚合／数组原生成员构析保持正序构造、逆序清理；移除原逐成员重复构销与数组签名适配，不扩大其他CRT范围。
+4. Yobi动态calloc只提供存储；失败分支沿原源码，成功后以RawPayload成员初始化开始对象寿命、不新增十次RNG，
+   释放前结束原生对象寿命。两静态预览在原两组位置独立原生构造十成员，不在翻译单元加载时预构造。
+5. 原全对象清零与载荷搬移按实际数据范围处理，保字段发布序、计数／mask／RNG和非CryptInt字段；
+   不把有值重构改为普通operator=以免改变token或发布序。源码消费者同步指向同一个承载中的活动对象。
+6. 同步函数实现表、当前语义／验收登记与唯一进度，原地址与历史资料保持。
+   只做必要静态核对与文本汇总；不构建、测试、运行、查产物或计算摘要，不引外部依赖或委派。
+
+## LCI06当前源码与静态结果
+
+默认／有值构造、析构和CRT分配释放已进入LegacyCryptInt；四个同义显式构销成员及首项两汇总成员已退休。
+165个可复用临时承载在原214个有值构造位置emplace、原销毁位置reset；实参沿原S32转换，不改为整数赋值。
+原24个启动组与世界千项表仍在同一中央顺序管理；成员和数组原生正构逆析，初始2118次RNG消费按原组数量对应，未执行数值样例。
+鼠标／主玩家／主宠物／浏览宠物的原整块清零改为普通字段零字节和CryptInt::RestoreRaw，保留token为零的原状态，不新增构造RNG。
+浏览宠物左移由原生记录复制承接，显式同类复制包含全部字段、不读取或取RNG；非业务填充字节不作为新ABI合同。
+
+Yobi的三次零填充分配在原分配／失败位置接std::construct_at(RawFields)，四处释放分支先std::destroy_at再free。
+两个预览独立optional在原调用位置各构造十成员；已核Sub_4C61B0只有两个固定启动调用。
+preview非拥有指针改为对象完成构造后发布，flags|2仍在其他选择器字段写入前持样；这项绑定时点变化由原生对象寿命承接。
+普通动态节点的十CryptInt由RawPayload初始化，不新增十次RNG；分配失败消息、payload释放和其余业务发布顺序保持。
+
+必要静态核对覆盖旧构销引用归零、214个临时有值构造数量／次序、成员及中央序列、五字段／偏移、
+原地址与周边注释、源码括号配对、编码及差异；布局断言等待后续明确恢复编译后验证。
+函数表、当前语义记录和登记引用同步；历史字段／验证门禁保留。文本汇总与-Check仅核台账，不代替编译、链接或运行。

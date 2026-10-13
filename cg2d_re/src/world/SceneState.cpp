@@ -7,7 +7,6 @@
 #include "../LoginRequestDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
-#include "../platform/LegacyRuntimeExit.hpp"
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyRecordOrder.hpp"
@@ -46,6 +45,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <new>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -180,7 +180,12 @@ std::byte* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
 }
 
 // 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
-platform::LegacyCryptInt gRippleGate {};
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowRippleGateStorage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+}
 
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
 login::YobiAction* gWindow39Action62B5B8 = nullptr;
@@ -251,6 +256,11 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9D
 
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
+    // 原0x005184A0：成员正序构造及失败前缀清理由C++承接。
+    PlayerRuntimeSlots() = default;
+    // 原0x00518410：成员自动逆序析构。
+    ~PlayerRuntimeSlots() = default;
+    void ClearRaw() noexcept; // 原主数据整块清零，不消费六次构造RNG。
     std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
     std::int32_t level; // 原 FDA704。
     std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
@@ -301,7 +311,27 @@ struct PlayerRuntimeSlots {
 static_assert(offsetof(PlayerRuntimeSlots, flags18C)
     == offsetof(PlayerRuntimeSlots, flags18A) + sizeof(std::uint16_t));
 
-PlayerRuntimeSlots gPlayerRuntime {};
+void PlayerRuntimeSlots::ClearRaw() noexcept
+{
+    auto* const bytes = reinterpret_cast<std::byte*>(this);
+    std::memset(bytes, 0, offsetof(PlayerRuntimeSlots, hp));
+    const platform::LegacyCryptInt::RawPayload zero{};
+    hp.RestoreRaw(zero);
+    maxHp.RestoreRaw(zero);
+    fp.RestoreRaw(zero);
+    maxFp.RestoreRaw(zero);
+    value58.RestoreRaw(zero);
+    value68.RestoreRaw(zero);
+    constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
+    std::memset(bytes + tail, 0, sizeof(PlayerRuntimeSlots) - tail);
+}
+
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<PlayerRuntimeSlots>& BorrowPlayerRuntimeStorage()
+{
+    static std::optional<PlayerRuntimeSlots> storage;
+    return storage;
+}
 
 // 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
 struct SkillRuntimeSlots {
@@ -566,13 +596,13 @@ const char* ReadText9DAD30() noexcept
 
 std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept
 {
-    return gPlayerRuntime.objectIndex;
+    return BorrowPlayerRuntimeStorage()->objectIndex;
 }
 
 // 原函数：0x0051BEF0。
 void Sub_51BEF0() noexcept
 {
-    gPlayerRuntime.flags18C &= 0xFF7FFFFFu;
+    BorrowPlayerRuntimeStorage()->flags18C &= 0xFF7FFFFFu;
 }
 
 std::uint32_t gWorldProjectionSourceA = 0; // 原全局：0x009EE908。
@@ -598,7 +628,7 @@ namespace {
 PlayerRuntimeSlots* ConstructLegacyPlayerRuntime_5183E0()
 {
     ConstructPlayerRuntimeValues();
-    return &gPlayerRuntime;
+    return &(*BorrowPlayerRuntimeStorage());
 }
 
 // 原518400固定FDA700→518410；同一六成员逆序，其他玩家字段不动。
@@ -635,22 +665,14 @@ PetRuntimeValuesStartup::~PetRuntimeValuesStartup()
 
 void ConstructPlayerRuntimeValues()
 {
-    gPlayerRuntime.hp.ConstructZero_401C70();
-    gPlayerRuntime.maxHp.ConstructZero_401C70();
-    gPlayerRuntime.fp.ConstructZero_401C70();
-    gPlayerRuntime.maxFp.ConstructZero_401C70();
-    gPlayerRuntime.value58.ConstructZero_401C70();
-    gPlayerRuntime.value68.ConstructZero_401C70();
+    // 原0x005184A0：六成员沿声明顺序各构造一次。
+    BorrowPlayerRuntimeStorage().emplace();
 }
 
 void DestroyPlayerRuntimeValues()
 {
-    gPlayerRuntime.value68.Destroy_401CF0();
-    gPlayerRuntime.value58.Destroy_401CF0();
-    gPlayerRuntime.maxFp.Destroy_401CF0();
-    gPlayerRuntime.fp.Destroy_401CF0();
-    gPlayerRuntime.maxHp.Destroy_401CF0();
-    gPlayerRuntime.hp.Destroy_401CF0();
+    // 原0x00518410：六成员由同一聚合逆序析构。
+    BorrowPlayerRuntimeStorage().reset();
 }
 
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
@@ -659,76 +681,18 @@ bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
     return index >= 0 && index < 5;
 }
 
-namespace {
-
-// 原4CD360六成员构造；只清理已成功成员的逆序前缀，不处理当前失败成员。
-detail::PetRuntimeRecord* ConstructLegacyPetElement_4CD360(detail::PetRuntimeRecord* const record)
-{
-    std::uint32_t completed = 0;
-    try {
-        for (platform::LegacyCryptInt& value : record->values0C) {
-            value.ConstructZero_401C70();
-            ++completed;
-        }
-    } catch (...) {
-        while (completed != 0) {
-            --completed;
-            record->values0C[completed].Destroy_401CF0();
-        }
-        throw;
-    }
-    return record;
-}
-
-// 原4CD2D0先递减成员位置再析构；失败继续更低成员，不重试或清其他宠物字段。
-void DestroyLegacyPetElement_4CD2D0(detail::PetRuntimeRecord* const record)
-{
-    std::uint32_t remaining = 6;
-    try {
-        while (remaining != 0) {
-            --remaining;
-            record->values0C[remaining].Destroy_401CF0();
-        }
-    } catch (...) {
-        while (remaining != 0) {
-            --remaining;
-            record->values0C[remaining].Destroy_401CF0();
-        }
-        throw;
-    }
-}
-
-} // namespace
-
-namespace detail {
-
-// 主宠物与浏览宠物只共享元素算法，storage始终是调用方本次提供的实际记录。
-void ConstructLegacyPetElementForArray(void* const storage)
-{
-    static_cast<void>(ConstructLegacyPetElement_4CD360(static_cast<PetRuntimeRecord*>(storage)));
-}
-
-void DestroyLegacyPetElementForArray(void* const storage)
-{
-    DestroyLegacyPetElement_4CD2D0(static_cast<PetRuntimeRecord*>(storage));
-}
-
-} // namespace detail
-
 // 原函数：0x00518530。
 void ConstructPetRuntimeValues()
 {
-    platform::ConstructLegacyArray_53C45E(
-        detail::gPetRuntimeF633F8.data(), static_cast<std::uint32_t>(sizeof(detail::PetRuntimeRecord)),
-        5, detail::ConstructLegacyPetElementForArray, detail::DestroyLegacyPetElementForArray);
+    // 原0x004CD360：五元素及各六成员的构造由std::array/C++承接。
+    detail::BorrowPetRuntimeF633F8Storage().emplace();
 }
 
 // 原函数：0x00518560。
 void DestroyPetRuntimeValues()
 {
-    platform::DestroyLegacyArray_53C4E0(
-        detail::gPetRuntimeF633F8.data(), static_cast<std::uint32_t>(sizeof(detail::PetRuntimeRecord)),
-        5, detail::DestroyLegacyPetElementForArray);
+    // 原0x004CD2D0：同一数组自动逆序结束元素及成员寿命。
+    detail::BorrowPetRuntimeF633F8Storage().reset();
 }
 
 // 原函数：0x00456FD0；LCI01启动拥有者替代CRT构造／退出登记。
@@ -746,13 +710,13 @@ SceneTransitionValueStartup::~SceneTransitionValueStartup()
 // 原函数：0x00456FE0。
 void ConstructSceneTransitionValue()
 {
-    detail::gValue73ECD0.ConstructZero_401C70();
+    detail::BorrowValue73ECD0Storage().emplace();
 }
 
 // 原函数：0x00457000。
 void DestroySceneTransitionValue()
 {
-    detail::gValue73ECD0.Destroy_401CF0();
+    detail::BorrowValue73ECD0Storage().reset();
 }
 
 namespace {
@@ -760,163 +724,163 @@ namespace {
 // 原467BA0：按9EE8A8→9EE8C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerCoordinates_467BA0()
 {
-    detail::gPlayerX.ConstructZero_401C70();
-    return detail::gPlayerY.ConstructZero_401C70();
+    detail::BorrowPlayerXStorage().emplace();
+    return &detail::BorrowPlayerYStorage().emplace();
 }
 
 // 原467BD0无参退出：按9EE8C0→9EE8A8析构，只复用原叶动作。
 void DestroyLegacyPlayerCoordinates_467BD0()
 {
-    detail::gPlayerY.Destroy_401CF0();
-    detail::gPlayerX.Destroy_401CF0();
+    detail::BorrowPlayerYStorage().reset();
+    detail::BorrowPlayerXStorage().reset();
 }
 
 // 原467C00：按C751C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotX_467C00()
 {
-    return detail::gPlayerSnapshotX.ConstructZero_401C70();
+    return &detail::BorrowPlayerSnapshotXStorage().emplace();
 }
 
 // 原467C20无参退出：按C751C0析构，只复用原叶动作。
 void DestroyLegacyPlayerSnapshotX_467C20()
 {
-    detail::gPlayerSnapshotX.Destroy_401CF0();
+    detail::BorrowPlayerSnapshotXStorage().reset();
 }
 
 // 原467C40：按C751B0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotY_467C40()
 {
-    return detail::gPlayerSnapshotY.ConstructZero_401C70();
+    return &detail::BorrowPlayerSnapshotYStorage().emplace();
 }
 
 // 原467C60无参退出：按C751B0析构，只复用原叶动作。
 void DestroyLegacyPlayerSnapshotY_467C60()
 {
-    detail::gPlayerSnapshotY.Destroy_401CF0();
+    detail::BorrowPlayerSnapshotYStorage().reset();
 }
 
 // 原467C80：按9EE8D0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinateState_467C80()
 {
-    return detail::gValue9EE8D0.ConstructZero_401C70();
+    return &detail::BorrowValue9EE8D0Storage().emplace();
 }
 
 // 原467CA0无参退出：按9EE8D0析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinateState_467CA0()
 {
-    detail::gValue9EE8D0.Destroy_401CF0();
+    detail::BorrowValue9EE8D0Storage().reset();
 }
 
 // 原467CC0：按9EE8E0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinateState_467CC0()
 {
-    return detail::gValue9EE8E0.ConstructZero_401C70();
+    return &detail::BorrowValue9EE8E0Storage().emplace();
 }
 
 // 原467CE0无参退出：按9EE8E0析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinateState_467CE0()
 {
-    detail::gValue9EE8E0.Destroy_401CF0();
+    detail::BorrowValue9EE8E0Storage().reset();
 }
 
 // 原467D00：按C27FF8→C27FE8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinatePair_467D00()
 {
-    detail::gValueC27FF8.ConstructZero_401C70();
-    return detail::gValueC27FE8.ConstructZero_401C70();
+    detail::BorrowValueC27FF8Storage().emplace();
+    return &detail::BorrowValueC27FE8Storage().emplace();
 }
 
 // 原467D30无参退出：按C27FE8→C27FF8析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinatePair_467D30()
 {
-    detail::gValueC27FE8.Destroy_401CF0();
-    detail::gValueC27FF8.Destroy_401CF0();
+    detail::BorrowValueC27FE8Storage().reset();
+    detail::BorrowValueC27FF8Storage().reset();
 }
 
 // 原467D60：按9A7F88→9A7F98构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveTargets_467D60()
 {
-    detail::gValue9A7F88.ConstructZero_401C70();
-    return detail::gValue9A7F98.ConstructZero_401C70();
+    detail::BorrowValue9A7F88Storage().emplace();
+    return &detail::BorrowValue9A7F98Storage().emplace();
 }
 
 // 原467D90无参退出：按9A7F98→9A7F88析构，只复用原叶动作。
 void DestroyLegacyWorldMoveTargets_467D90()
 {
-    detail::gValue9A7F98.Destroy_401CF0();
-    detail::gValue9A7F88.Destroy_401CF0();
+    detail::BorrowValue9A7F98Storage().reset();
+    detail::BorrowValue9A7F88Storage().reset();
 }
 
 // 原467DC0：按C821E8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467DC0()
 {
-    return detail::gValueC821E8.ConstructZero_401C70();
+    return &detail::BorrowValueC821E8Storage().emplace();
 }
 
 // 原467DE0无参退出：按C821E8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467DE0()
 {
-    detail::gValueC821E8.Destroy_401CF0();
+    detail::BorrowValueC821E8Storage().reset();
 }
 
 // 原467E00：按9E03C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E00()
 {
-    return detail::gValue9E03C0.ConstructZero_401C70();
+    return &detail::BorrowValue9E03C0Storage().emplace();
 }
 
 // 原467E20无参退出：按9E03C0析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467E20()
 {
-    detail::gValue9E03C0.Destroy_401CF0();
+    detail::BorrowValue9E03C0Storage().reset();
 }
 
 // 原467E40：按9FB918构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E40()
 {
-    return detail::gValue9FB918.ConstructZero_401C70();
+    return &detail::BorrowValue9FB918Storage().emplace();
 }
 
 // 原467E60无参退出：按9FB918析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467E60()
 {
-    detail::gValue9FB918.Destroy_401CF0();
+    detail::BorrowValue9FB918Storage().reset();
 }
 
 // 原467E80：按AF0FE8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E80()
 {
-    return detail::gValueAF0FE8.ConstructZero_401C70();
+    return &detail::BorrowValueAF0FE8Storage().emplace();
 }
 
 // 原467EA0无参退出：按AF0FE8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467EA0()
 {
-    detail::gValueAF0FE8.Destroy_401CF0();
+    detail::BorrowValueAF0FE8Storage().reset();
 }
 
 // 原467EC0：按C821D8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467EC0()
 {
-    return detail::gValueC821D8.ConstructZero_401C70();
+    return &detail::BorrowValueC821D8Storage().emplace();
 }
 
 // 原467EE0无参退出：按C821D8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467EE0()
 {
-    detail::gValueC821D8.Destroy_401CF0();
+    detail::BorrowValueC821D8Storage().reset();
 }
 
 // 原467F00：按9A7FA8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyRippleGate_467F00()
 {
-    return gRippleGate.ConstructZero_401C70();
+    return &BorrowRippleGateStorage().emplace();
 }
 
 // 原467F20无参退出：按9A7FA8析构，只复用原叶动作。
 void DestroyLegacyRippleGate_467F20()
 {
-    gRippleGate.Destroy_401CF0();
+    BorrowRippleGateStorage().reset();
 }
 
 } // namespace
@@ -1079,7 +1043,7 @@ RippleGateStartup::~RippleGateStartup()
 
 std::int32_t ReadRippleGateOnce()
 {
-    return gRippleGate.Read_401EC0();
+    return BorrowRippleGateStorage()->Read_401EC0();
 }
 
 // 原函数：0x00448240。
@@ -1212,7 +1176,12 @@ std::uint32_t InitializeAlbum_518C20()
 
 namespace detail {
 
-platform::LegacyCryptInt gValue73ECD0 {}; // 原全局：0x0073ECD0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue73ECD0Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x0073ECD0。
 
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758; // 原全局：0x00C8A758。
 std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C; // 原全局：0x00C8A75C。
@@ -2489,7 +2458,7 @@ std::int32_t Sub_440FF0()
 // 原函数：0x00476680。
 void Sub_476680()
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     if (action == nullptr) {
         return;
     }
@@ -2549,7 +2518,7 @@ void Sub_50A3E0(
     if (mask == 0) {
         if (slot.flags != 0) {
             const std::uint32_t objectIndex = slot.objectIndex;
-            if (objectIndex != gPlayerRuntime.objectIndex) {
+            if (objectIndex != BorrowPlayerRuntimeStorage()->objectIndex) {
                 login::YobiAction* const action =
                     FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
                 if (action != nullptr) {
@@ -2619,7 +2588,7 @@ void Sub_50A3E0(
             slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
     }
     const std::uint32_t objectIndex = slot.objectIndex;
-    if (objectIndex != gPlayerRuntime.objectIndex) {
+    if (objectIndex != BorrowPlayerRuntimeStorage()->objectIndex) {
         login::YobiAction* const action =
             FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
@@ -2632,7 +2601,7 @@ void Sub_50A3E0(
             slot.action = nullptr;
         }
     } else {
-        slot.action = gPlayerRuntime.action;
+        slot.action = BorrowPlayerRuntimeStorage()->action;
         Sub_51A5E0();
         if (index == 0) {
             Sub_51A5A0();
@@ -2698,42 +2667,42 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t attachmentImage = platform::Atoi_53C649(field);
 
             login::YobiAction* object;
-            if (static_cast<std::uint32_t>(objectIndex) == gPlayerRuntime.objectIndex) {
+            if (static_cast<std::uint32_t>(objectIndex) == BorrowPlayerRuntimeStorage()->objectIndex) {
                 const std::int32_t mappedImage =
                     character_select::detail::Sub_51B740(imageNo);
-                if (gPlayerRuntime.direction < 0) {
-                    gPlayerRuntime.direction = direction;
+                if (BorrowPlayerRuntimeStorage()->direction < 0) {
+                    BorrowPlayerRuntimeStorage()->direction = direction;
                 }
-                if (gPlayerRuntime.action == nullptr) {
+                if (BorrowPlayerRuntimeStorage()->action == nullptr) {
                     Sub_519CD0(mappedImage, x, y, direction);
                     Sub_51A4B0();
                 } else {
-                    Sub_519E50(mappedImage, gPlayerRuntime.direction);
+                    Sub_519E50(mappedImage, BorrowPlayerRuntimeStorage()->direction);
                 }
-                object = gPlayerRuntime.action;
+                object = BorrowPlayerRuntimeStorage()->action;
                 login::detail::UpdateMapActorMode(
-                    gPlayerRuntime.action, mode, attachmentImage);
+                    BorrowPlayerRuntimeStorage()->action, mode, attachmentImage);
                 if (mode == 2) {
-                    if ((gPlayerRuntime.flags18A & 0x200u) == 0) {
-                        gPlayerRuntime.flags18A |= 0x100u;
+                    if ((BorrowPlayerRuntimeStorage()->flags18A & 0x200u) == 0) {
+                        BorrowPlayerRuntimeStorage()->flags18A |= 0x100u;
                     }
-                } else if (static_cast<std::uint8_t>(gPlayerRuntime.flags18C) == 0) {
-                    gPlayerRuntime.flags18A &= 0xFEFFu;
+                } else if (static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->flags18C) == 0) {
+                    BorrowPlayerRuntimeStorage()->flags18A &= 0xFEFFu;
                 }
                 gValue9A4B94 &= 0xFDu;
                 static_cast<void>(Sub_468200());
                 Sub_51A090(name, titles, level, value40, flag1, flag2);
-                if ((gPlayerRuntime.flags18A & 0x100u) != 0
+                if ((BorrowPlayerRuntimeStorage()->flags18A & 0x100u) != 0
                     && gPetMapCharaSlots[0].flags != 0) {
-                    gPetMapCharaSlots[0].level08 = gPlayerRuntime.level;
+                    gPetMapCharaSlots[0].level08 = BorrowPlayerRuntimeStorage()->level;
                     std::strcpy(
-                        gPetMapCharaSlots[0].name18.data(), gPlayerRuntime.name.data());
+                        gPetMapCharaSlots[0].name18.data(), BorrowPlayerRuntimeStorage()->name.data());
                 }
                 for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
                     auto& slot = gPetMapCharaSlots[i];
                     if (slot.flags != 0
                         && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-                        slot.action = gPlayerRuntime.action;
+                        slot.action = BorrowPlayerRuntimeStorage()->action;
                         Sub_51A5E0();
                         if (i == 0) {
                             Sub_51A5A0();
@@ -2864,8 +2833,8 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         const std::int32_t option2 = network::ParseDelimitedInteger_52CFA0(row, '|', 7);
         const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
         const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
-        if (gPlayerRuntime.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-            login::YobiAction* const player = gPlayerRuntime.action;
+        if (BorrowPlayerRuntimeStorage()->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+            login::YobiAction* const player = BorrowPlayerRuntimeStorage()->action;
             if (player != nullptr && login::detail::GetYobiActionField2A8(player) != 0) {
                 Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
             }
@@ -2896,14 +2865,14 @@ namespace {
 std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
     // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
-    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&gPlayerRuntime.options194);
+    const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->options194);
     if ((options & mask) != 0) {
-        gPlayerRuntime.options194 &= static_cast<std::uint16_t>(~mask);
+        BorrowPlayerRuntimeStorage()->options194 &= static_cast<std::uint16_t>(~mask);
     } else {
-        gPlayerRuntime.options194 |= mask;
+        BorrowPlayerRuntimeStorage()->options194 |= mask;
     }
     // 原473060取样后先读socket再保留低W16；原高W16被丢弃，不借新端下一字段冒充。
-    const std::uint32_t sampledOptions = gPlayerRuntime.options194;
+    const std::uint32_t sampledOptions = BorrowPlayerRuntimeStorage()->options194;
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
     return network::Sub_511A00(socket, value);
@@ -2919,7 +2888,7 @@ std::int32_t Sub_472F40()
 
 std::uint8_t ReadPlayerOptions194LowByte() noexcept
 {
-    return *reinterpret_cast<const unsigned char*>(&gPlayerRuntime.options194);
+    return *reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->options194);
 }
 
 // 原函数：0x00472F70。
@@ -2961,7 +2930,7 @@ std::uint32_t Sub_50BFA0(
         return gate;
     }
     const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
-    gPlayerRuntime.options194 = static_cast<std::uint16_t>(options);
+    BorrowPlayerRuntimeStorage()->options194 = static_cast<std::uint16_t>(options);
     return options;
 }
 
@@ -2970,7 +2939,7 @@ std::uint16_t Sub_50BFC0(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {
     const auto low = static_cast<std::uint16_t>(value);
-    gPlayerRuntime.value1A0 = low;
+    BorrowPlayerRuntimeStorage()->value1A0 = low;
     return low;
 }
 
@@ -2979,7 +2948,7 @@ std::int32_t Sub_50CF70(
     const std::uintptr_t /*socket*/, const std::int32_t index,
     const std::int32_t value)
 {
-    gPetRuntimeF633F8[index].lvFlag6C = value;
+    (*BorrowPetRuntimeF633F8Storage())[index].lvFlag6C = value;
     return index;
 }
 
@@ -2994,10 +2963,10 @@ std::uint32_t Sub_50C7A0(
     }
     const std::int32_t duration = seconds < 0 ? 0 : seconds;
     const std::int32_t firstScale = duration * 5;
-    gPlayerRuntime.timerMode10 = mode;
-    gPlayerRuntime.timerRemaining0C = firstScale * 5 * 5 * 8;
+    BorrowPlayerRuntimeStorage()->timerMode10 = mode;
+    BorrowPlayerRuntimeStorage()->timerRemaining0C = firstScale * 5 * 5 * 8;
     const std::uint32_t tick = platform::ReadTickCount32();
-    gPlayerRuntime.timerTick14 = tick;
+    BorrowPlayerRuntimeStorage()->timerTick14 = tick;
     input::gValue626C14 = 0;
     return tick;
 }
@@ -3128,15 +3097,15 @@ std::int32_t Sub_50C940(
     platform::FormatLegacyString_53B304(packet, "P|%s", escaped);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
 
 void MarkPlayerChatActive() noexcept
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
     flagBytes[1] |= 0x20u;
 }
 
@@ -3234,8 +3203,8 @@ void Sub_50CAE0(
     if (objectIndex < 0) {
         return;
     }
-    if (gPlayerRuntime.action != nullptr
-        && gPlayerRuntime.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+    if (BorrowPlayerRuntimeStorage()->action != nullptr
+        && BorrowPlayerRuntimeStorage()->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
         Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
     } else {
         login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
@@ -3261,9 +3230,9 @@ void Sub_50D000(
         gValueFF0D36 = 0;
         static_cast<void>(Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(gPlayerRuntime.direction));
-        const std::int32_t y = gPlayerSnapshotY.Read_401EC0();
-        const std::int32_t x = gPlayerSnapshotX.Read_401EC0();
+            static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->direction));
+        const std::int32_t y = BorrowPlayerSnapshotYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerSnapshotXStorage()->Read_401EC0();
         static_cast<void>(
             network::Sub_512720(platform::gConnectionSocket, x, y, direction));
     }
@@ -3286,43 +3255,43 @@ std::int32_t Sub_509650(
         if ((flags & mask) != 0) {
             const std::int32_t parsed =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            platform::LegacyCryptInt temporary;
-            temporary.ConstructFromInt_401CC0(parsed);
-            const std::uint32_t maskValue = temporary.mask;
-            const std::uint32_t encodedValue = temporary.encoded;
-            const std::uint8_t readCountValue = temporary.readCount;
+            std::optional<platform::LegacyCryptInt> temporary;
+            temporary.emplace(static_cast<std::int32_t>(parsed));
+            const std::uint32_t maskValue = temporary->mask;
+            const std::uint32_t encodedValue = temporary->encoded;
+            const std::uint8_t readCountValue = temporary->readCount;
             target->mask = maskValue;
             target->encoded = encodedValue;
             target->readCount = readCountValue;
-            temporary.Destroy_401CF0();
+            temporary.reset();
             ++field;
         }
     };
-    parseCrypt(&gPlayerRuntime.hp, 0x3u);
-    parseCrypt(&gPlayerRuntime.maxHp, 0x5u);
-    parseCrypt(&gPlayerRuntime.fp, 0x9u);
-    parseCrypt(&gPlayerRuntime.maxFp, 0x11u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->hp, 0x3u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->maxHp, 0x5u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->fp, 0x9u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->maxFp, 0x11u);
 
     std::uint32_t bit = 0x20u;
     for (std::int32_t index = 0; index < 8; ++index) {
         if ((flags & (bit | 1u)) != 0) {
-            gPlayerRuntime.values78[index] =
+            BorrowPlayerRuntimeStorage()->values78[index] =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
             ++field;
         }
         bit <<= 1;
     }
-    parseCrypt(&gPlayerRuntime.value58, 0x2001u);
-    parseCrypt(&gPlayerRuntime.value68, 0x4001u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->value58, 0x2001u);
+    parseCrypt(&BorrowPlayerRuntimeStorage()->value68, 0x4001u);
 
     const std::array<std::int32_t*, 12> targets {{
-        &gPlayerRuntime.level,
-        &gPlayerRuntime.values78[8], &gPlayerRuntime.values78[9],
-        &gPlayerRuntime.values78[10], &gPlayerRuntime.values78[11],
-        &gPlayerRuntime.values78[12], &gPlayerRuntime.values78[13],
-        &gPlayerRuntime.valueB8,
-        &gPlayerRuntime.valuesE4[0], &gPlayerRuntime.valuesE4[1],
-        &gPlayerRuntime.valuesE4[2], &gPlayerRuntime.valuesE4[3],
+        &BorrowPlayerRuntimeStorage()->level,
+        &BorrowPlayerRuntimeStorage()->values78[8], &BorrowPlayerRuntimeStorage()->values78[9],
+        &BorrowPlayerRuntimeStorage()->values78[10], &BorrowPlayerRuntimeStorage()->values78[11],
+        &BorrowPlayerRuntimeStorage()->values78[12], &BorrowPlayerRuntimeStorage()->values78[13],
+        &BorrowPlayerRuntimeStorage()->valueB8,
+        &BorrowPlayerRuntimeStorage()->valuesE4[0], &BorrowPlayerRuntimeStorage()->valuesE4[1],
+        &BorrowPlayerRuntimeStorage()->valuesE4[2], &BorrowPlayerRuntimeStorage()->valuesE4[3],
     }};
     bit = 0x8000u;
     for (std::int32_t* const target : targets) {
@@ -3334,12 +3303,12 @@ std::int32_t Sub_509650(
     }
     const std::uint32_t tailGate = flags & 0x8000001u;
     if (tailGate != 0) {
-        gPlayerRuntime.valueFC =
+        BorrowPlayerRuntimeStorage()->valueFC =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         ++field;
     }
     if ((flags & 0x10000001u) != 0) {
-        gPlayerRuntime.titleIndex100 =
+        BorrowPlayerRuntimeStorage()->titleIndex100 =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         ++field;
     }
@@ -3348,7 +3317,7 @@ std::int32_t Sub_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 16) {
-            std::strcpy(gPlayerRuntime.name.data(), name);
+            std::strcpy(BorrowPlayerRuntimeStorage()->name.data(), name);
         }
         ++field;
     }
@@ -3357,14 +3326,14 @@ std::int32_t Sub_509650(
         network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
         input::UnescapeLegacyTextAndNotify_52D2F0(title);
         if (std::strlen(title) <= 16) {
-            std::strcpy(gPlayerRuntime.ownTitle.data(), title);
+            std::strcpy(BorrowPlayerRuntimeStorage()->ownTitle.data(), title);
         }
         ++field;
     }
     if (tailGate != 0) {
         const std::int32_t result =
             network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        gPlayerRuntime.value15BCC = result;
+        BorrowPlayerRuntimeStorage()->value15BCC = result;
         return result;
     }
     return 0;
@@ -3380,12 +3349,12 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
     std::int32_t field = 2;
     const std::array<std::int32_t*, 12> firstTargets {{
-        &gPlayerRuntime.valuesD4[0], &gPlayerRuntime.valuesD4[1],
-        &gPlayerRuntime.valuesD4[2], &gPlayerRuntime.valuesD4[3],
-        &gPlayerRuntime.valuesBC[0], &gPlayerRuntime.valuesBC[1],
-        &gPlayerRuntime.valuesBC[2], &gPlayerRuntime.valuesBC[3],
-        &gPlayerRuntime.valuesBC[4], &gPlayerRuntime.valuesBC[5],
-        &gPlayerRuntime.value104, &gPlayerRuntime.valueF4,
+        &BorrowPlayerRuntimeStorage()->valuesD4[0], &BorrowPlayerRuntimeStorage()->valuesD4[1],
+        &BorrowPlayerRuntimeStorage()->valuesD4[2], &BorrowPlayerRuntimeStorage()->valuesD4[3],
+        &BorrowPlayerRuntimeStorage()->valuesBC[0], &BorrowPlayerRuntimeStorage()->valuesBC[1],
+        &BorrowPlayerRuntimeStorage()->valuesBC[2], &BorrowPlayerRuntimeStorage()->valuesBC[3],
+        &BorrowPlayerRuntimeStorage()->valuesBC[4], &BorrowPlayerRuntimeStorage()->valuesBC[5],
+        &BorrowPlayerRuntimeStorage()->value104, &BorrowPlayerRuntimeStorage()->valueF4,
     }};
     std::uint32_t bit = 2;
     for (std::int32_t* const target : firstTargets) {
@@ -3396,13 +3365,13 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
         bit <<= 1;
     }
     if ((flags & 0x2001u) != 0) {
-        gPlayerRuntime.value00 = static_cast<std::uint16_t>(
+        BorrowPlayerRuntimeStorage()->value00 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(payload, '|', field));
         ++field;
     }
     const std::array<std::int32_t*, 4> middleTargets {{
-        &gPlayerRuntime.valueF8, &gPlayerRuntime.value08,
-        &gPlayerRuntime.value17C, &gPlayerRuntime.value16C,
+        &BorrowPlayerRuntimeStorage()->valueF8, &BorrowPlayerRuntimeStorage()->value08,
+        &BorrowPlayerRuntimeStorage()->value17C, &BorrowPlayerRuntimeStorage()->value16C,
     }};
     bit = 0x4000u;
     for (std::int32_t* const target : middleTargets) {
@@ -3414,21 +3383,21 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
     }
     if ((flags & 0x40001u) != 0) {
         std::int32_t speed = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        gPlayerRuntime.walkSpeed = speed;
+        BorrowPlayerRuntimeStorage()->walkSpeed = speed;
         if (speed <= 0) {
             speed = 100;
-            gPlayerRuntime.walkSpeed = speed;
+            BorrowPlayerRuntimeStorage()->walkSpeed = speed;
         }
-        login::YobiAction* const action = gPlayerRuntime.action;
+        login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
         if (action != nullptr) {
             login::detail::SetYobiWalkSpeed(action, speed);
         }
         ++field;
     }
     const std::array<std::int32_t*, 5> lastTargets {{
-        &gPlayerRuntime.valuesB0[0], &gPlayerRuntime.valuesB0[1],
-        &gPlayerRuntime.values15BD0[0], &gPlayerRuntime.values15BD0[1],
-        &gPlayerRuntime.values15BD0[2],
+        &BorrowPlayerRuntimeStorage()->valuesB0[0], &BorrowPlayerRuntimeStorage()->valuesB0[1],
+        &BorrowPlayerRuntimeStorage()->values15BD0[0], &BorrowPlayerRuntimeStorage()->values15BD0[1],
+        &BorrowPlayerRuntimeStorage()->values15BD0[2],
     }};
     bit = 0x80000u;
     for (std::int32_t* const target : lastTargets) {
@@ -3502,7 +3471,7 @@ std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
 // 原函数：0x00505040。
 std::int32_t Sub_505040(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -3519,7 +3488,7 @@ std::int32_t Sub_505040(const std::int32_t slot)
 // 原函数：0x005050B0。
 std::int32_t Sub_5050B0(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -3535,7 +3504,7 @@ std::int32_t Sub_5050B0(const std::int32_t slot)
 // 原函数：0x00505110。
 std::int32_t Sub_505110(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -3750,7 +3719,10 @@ void Sub_518600(
         });
 }
 
-std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4 = gPlayerRuntime.items; // 原全局：0x00FDA8A4。
+std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4()
+{
+    return BorrowPlayerRuntimeStorage()->items;
+} // 原全局：0x00FDA8A4。
 
 namespace {
 
@@ -3760,7 +3732,7 @@ void ApplyPlayerItemFields(
     const char* const payload, const char* const name,
     char* const memo, char* const description)
 {
-    PlayerItemRecord& record = gPlayerItemsFDA8A4[index];
+    PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
     record.used = 1;
     if (std::strlen(name) <= 28) {
         std::strcpy(record.name.data(), name);
@@ -3823,7 +3795,7 @@ void Sub_50BF20(const std::uintptr_t, const char* const payload)
 // 原函数：0x005196B0。
 void Sub_5196B0(const std::int32_t index, const char* const text)
 {
-    PlayerItemRecord& record = gPlayerItemsFDA8A4[index];
+    PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char* const row = record.description[line].data();
@@ -3862,8 +3834,8 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
         network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            gPlayerItemsFDA8A4[index].used = 0;
-            gPlayerItemsFDA8A4[index].name[0] = '\0';
+            BorrowPlayerItemsFDA8A4()[index].used = 0;
+            BorrowPlayerItemsFDA8A4()[index].name[0] = '\0';
         } else {
             ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
         }
@@ -3890,7 +3862,7 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
     while (status != 1) {
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            gPlayerItemsFDA8A4[index].used = 0;
+            BorrowPlayerItemsFDA8A4()[index].used = 0;
         } else {
             ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
         }
@@ -3911,8 +3883,8 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     if (first < 0 || second < 0) {
         return;
     }
-    PlayerItemRecord* const left = &gPlayerItemsFDA8A4[first];
-    PlayerItemRecord* const right = &gPlayerItemsFDA8A4[second];
+    PlayerItemRecord* const left = &BorrowPlayerItemsFDA8A4()[first];
+    PlayerItemRecord* const right = &BorrowPlayerItemsFDA8A4()[second];
     PlayerItemRecord temporary;
     std::memcpy(&temporary, left, sizeof(temporary));
     std::memmove(left, right, sizeof(temporary));
@@ -3933,8 +3905,8 @@ std::int32_t Sub_51B5F0(const std::int32_t itemId)
     if (itemId <= 0) {
         return count;
     }
-    for (const PlayerItemRecord* item = gPlayerItemsFDA8A4.data() + 8;
-         item != gPlayerItemsFDA8A4.data() + gPlayerItemsFDA8A4.size(); ++item) {
+    for (const PlayerItemRecord* item = BorrowPlayerItemsFDA8A4().data() + 8;
+         item != BorrowPlayerItemsFDA8A4().data() + BorrowPlayerItemsFDA8A4().size(); ++item) {
         if (item != nullptr && item->used != 0 && item->itemId == itemId) {
             count += item->count;
         }
@@ -3970,23 +3942,23 @@ void Sub_51B630(
         if (firstIndex >= 28) {
             return;
         }
-        firstBase = gPlayerItemsFDA8A4.data();
+        firstBase = BorrowPlayerItemsFDA8A4().data();
     } else if (firstGroup >= 1 && firstGroup <= 5) {
         if (firstIndex >= 6) {
             return;
         }
-        firstBase = gPetRuntimeF633F8[firstGroup - 1].items6E4.data();
+        firstBase = (*BorrowPetRuntimeF633F8Storage())[firstGroup - 1].items6E4.data();
     }
     if (secondGroup == 0) {
         if (secondIndex >= 28) {
             return;
         }
-        secondBase = gPlayerItemsFDA8A4.data();
+        secondBase = BorrowPlayerItemsFDA8A4().data();
     } else if (secondGroup >= 1 && secondGroup <= 5) {
         if (secondIndex >= 6) {
             return;
         }
-        secondBase = gPetRuntimeF633F8[secondGroup - 1].items6E4.data();
+        secondBase = (*BorrowPetRuntimeF633F8Storage())[secondGroup - 1].items6E4.data();
     }
     if (firstBase == nullptr || secondBase == nullptr) {
         return;
@@ -4000,7 +3972,23 @@ void Sub_51B630(
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
-std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {}; // 原全局：0x00F633F8。
+void PetRuntimeRecord::ClearRaw() noexcept
+{
+    auto* const bytes = reinterpret_cast<std::byte*>(this);
+    std::memset(bytes, 0, offsetof(PetRuntimeRecord, values0C));
+    for (platform::LegacyCryptInt& value : values0C) {
+        value.RestoreRaw(platform::LegacyCryptInt::RawPayload{});
+    }
+    constexpr std::size_t tail = offsetof(PetRuntimeRecord, lvFlag6C);
+    std::memset(bytes + tail, 0, sizeof(PetRuntimeRecord) - tail);
+}
+
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<std::array<PetRuntimeRecord, 5>>& BorrowPetRuntimeF633F8Storage()
+{
+    static std::optional<std::array<PetRuntimeRecord, 5>> storage;
+    return storage;
+} // 原全局：0x00F633F8。
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
 std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
 std::uint32_t gValueD67B28 = 0; // 原全局：0x00D67B28。
@@ -4014,7 +4002,7 @@ std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId
     if (index < 0 || index >= 5) {
         return 0;
     }
-    const PetRuntimeRecord& pet = gPetRuntimeF633F8[index];
+    const PetRuntimeRecord& pet = (*BorrowPetRuntimeF633F8Storage())[index];
     if (pet.used == 0) {
         return 0;
     }
@@ -4045,7 +4033,7 @@ std::int32_t Sub_52E1D0(const std::int32_t index)
 void Sub_519770(
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {
-    PlayerItemRecord& record = gPetRuntimeF633F8[petIndex].items6E4[itemIndex];
+    PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[itemIndex];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char* const row = record.description[line].data();
@@ -4079,7 +4067,7 @@ void Sub_510150(
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        PlayerItemRecord& record = gPetRuntimeF633F8[petIndex].items6E4[index];
+        PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[index];
         if (std::strlen(name) == 0) {
             record.used = 0;
             record.name[0] = '\0';
@@ -4133,10 +4121,10 @@ void Sub_50A6B0(
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
     std::int32_t field = 2;
     if (flags == 0) {
-        std::memset(&record, 0, sizeof(record));
+        record.ClearRaw();
     } else {
         record.used = 1;
         if ((flags & 0x3u) != 0) {
@@ -4155,12 +4143,12 @@ void Sub_50A6B0(
             if ((flags & (bit | 1u)) != 0) {
                 const std::int32_t parsed =
                     network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-                platform::LegacyCryptInt temporary;
-                temporary.ConstructFromInt_401CC0(parsed);
-                value.mask = temporary.mask;
-                value.encoded = temporary.encoded;
-                value.readCount = temporary.readCount;
-                temporary.Destroy_401CF0();
+                std::optional<platform::LegacyCryptInt> temporary;
+                temporary.emplace(static_cast<std::int32_t>(parsed));
+                value.mask = temporary->mask;
+                value.encoded = temporary->encoded;
+                value.readCount = temporary->readCount;
+                temporary.reset();
                 ++field;
             }
             bit <<= 1;
@@ -4223,7 +4211,7 @@ void Sub_50A6B0(
         }
     }
     Sub_519920();
-    Sub_518580(gPetRuntimeF633F8.data(), gPetPairsDE0B08.data(), 5);
+    Sub_518580(BorrowPetRuntimeF633F8Storage()->data(), gPetPairsDE0B08.data(), 5);
     Sub_492250();
     record.updated510C = 1;
 }
@@ -4237,7 +4225,7 @@ void Sub_50AC20(
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
     if (flags == 0) {
         record.used = 0;
         record.name6AC[0] = '\0';
@@ -4265,7 +4253,7 @@ void Sub_50AC20(
         }
     }
     Sub_519920();
-    Sub_518580(gPetRuntimeF633F8.data(), gPetPairsDE0B08.data(), 5);
+    Sub_518580(BorrowPetRuntimeF633F8Storage()->data(), gPetPairsDE0B08.data(), 5);
     Sub_492250();
 }
 
@@ -4276,7 +4264,7 @@ void Sub_50B0D0(
     if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
-    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    PetRuntimeRecord& record = (*BorrowPetRuntimeF633F8Storage())[index];
     if (record.used == 0) {
         return;
     }
@@ -4344,7 +4332,7 @@ void Sub_5185C0(
 std::int32_t Sub_43C4B0()
 {
     for (std::int32_t index = 0; index < 5; ++index) {
-        const PetRuntimeRecord& pet = gPetRuntimeF633F8[index];
+        const PetRuntimeRecord& pet = (*BorrowPetRuntimeF633F8Storage())[index];
         if (pet.used == 1 && pet.flags6AA == 2) {
             return index;
         }
@@ -4379,7 +4367,7 @@ std::int32_t Sub_519920()
 {
     std::int32_t count = 0;
     gPetCountDE0B00 = 0;
-    for (const PetRuntimeRecord& record : gPetRuntimeF633F8) {
+    for (const PetRuntimeRecord& record : (*BorrowPetRuntimeF633F8Storage())) {
         if (record.used != 0) {
             ++count;
         }
@@ -4709,21 +4697,96 @@ std::int16_t gMapXEnd = 0; // 原全局：0x009DEF62。
 std::int16_t gMapYEnd = 0; // 原全局：0x009DEF5E。
 std::int16_t gMapSpanX = 0; // 原全局：0x009A86E0。
 std::int16_t gMapSpanY = 0; // 原全局：0x009ED43C。
-platform::LegacyCryptInt gPlayerX {}; // 原全局：0x009EE8A8。
-platform::LegacyCryptInt gPlayerY {}; // 原全局：0x009EE8C0。
-platform::LegacyCryptInt gPlayerSnapshotX {}; // 原全局：0x00C751C0。
-platform::LegacyCryptInt gPlayerSnapshotY {}; // 原全局：0x00C751B0。
-platform::LegacyCryptInt gValue9EE8D0 {}; // 原全局：0x009EE8D0。
-platform::LegacyCryptInt gValue9EE8E0 {}; // 原全局：0x009EE8E0。
-platform::LegacyCryptInt gValueC27FF8 {}; // 原全局：0x00C27FF8。
-platform::LegacyCryptInt gValueC27FE8 {}; // 原全局：0x00C27FE8。
-platform::LegacyCryptInt gValue9A7F88 {}; // 原全局：0x009A7F88。
-platform::LegacyCryptInt gValue9A7F98 {}; // 原全局：0x009A7F98。
-platform::LegacyCryptInt gValueC821E8 {}; // 原全局：0x00C821E8。
-platform::LegacyCryptInt gValue9E03C0 {}; // 原全局：0x009E03C0。
-platform::LegacyCryptInt gValue9FB918 {}; // 原全局：0x009FB918。
-platform::LegacyCryptInt gValueAF0FE8 {}; // 原全局：0x00AF0FE8。
-platform::LegacyCryptInt gValueC821D8 {}; // 原全局：0x00C821D8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerXStorage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009EE8A8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerYStorage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009EE8C0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotXStorage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C751C0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotYStorage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C751B0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9EE8D0Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009EE8D0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9EE8E0Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009EE8E0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValueC27FF8Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C27FF8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValueC27FE8Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C27FE8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9A7F88Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009A7F88。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9A7F98Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009A7F98。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValueC821E8Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C821E8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9E03C0Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009E03C0。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValue9FB918Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x009FB918。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValueAF0FE8Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00AF0FE8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<platform::LegacyCryptInt>& BorrowValueC821D8Storage()
+{
+    static std::optional<platform::LegacyCryptInt> storage;
+    return storage;
+} // 原全局：0x00C821D8。
 std::uint32_t gValueAF10C0 = 0; // 原全局：0x00AF10C0。
 std::uint32_t gValue9EE8F8 = 0; // 原全局：0x009EE8F8。
 std::uint32_t gValue9EE8FC = 0; // 原全局：0x009EE8FC。
@@ -4995,30 +5058,30 @@ std::int32_t Sub_469870(const std::int32_t direction)
     if (gMapSpanX < 51 || gMapSpanY < 51) {
         return 0;
     }
-    if ((gPlayerX > 11)) {
+    if (((*BorrowPlayerXStorage()) > 11)) {
         static_cast<void>(
-            (gPlayerX - 11));
+            ((*BorrowPlayerXStorage()) - 11));
     }
-    if ((gPlayerY > 11)) {
+    if (((*BorrowPlayerYStorage()) > 11)) {
         static_cast<void>(
-            (gPlayerY - 11));
+            ((*BorrowPlayerYStorage()) - 11));
     }
-    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValue9FB930)) - gPlayerX) > 11) {
+    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValue9FB930)) - (*BorrowPlayerXStorage())) > 11) {
         static_cast<void>(
-            (gPlayerX + 11));
+            ((*BorrowPlayerXStorage()) + 11));
     }
-    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValueC821D4)) - gPlayerY) > 11) {
+    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValueC821D4)) - (*BorrowPlayerYStorage())) > 11) {
         static_cast<void>(
-            (gPlayerY + 11));
+            ((*BorrowPlayerYStorage()) + 11));
     }
 
     gValue9DAD56 = 0;
     std::int32_t found = 0;
     if (direction == 6 || direction == 7 || direction == 5) {
         const std::int32_t x =
-            (gPlayerX - 11);
+            ((*BorrowPlayerXStorage()) - 11);
         std::int32_t y =
-            (gPlayerY - 11);
+            ((*BorrowPlayerYStorage()) - 11);
         const std::int32_t span = gMapSpanX;
         for (std::int32_t step = 0; step < 23; ++step, ++y) {
             if (x >= 0 && x < std::bit_cast<std::int32_t>(gValue9FB930)
@@ -5045,9 +5108,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 0 || direction == 7 || direction == 1) {
         std::int32_t x =
-            (gPlayerX - 11);
+            ((*BorrowPlayerXStorage()) - 11);
         const std::int32_t y =
-            (gPlayerY - 11);
+            ((*BorrowPlayerYStorage()) - 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++x) {
@@ -5078,9 +5141,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 2 || direction == 1 || direction == 3) {
         const std::int32_t x =
-            (gPlayerX + 11);
+            ((*BorrowPlayerXStorage()) + 11);
         std::int32_t y =
-            (gPlayerY - 11);
+            ((*BorrowPlayerYStorage()) - 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++y) {
@@ -5111,9 +5174,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 4 || direction == 3 || direction == 5) {
         std::int32_t x =
-            (gPlayerX - 11);
+            ((*BorrowPlayerXStorage()) - 11);
         const std::int32_t y =
-            (gPlayerY + 11);
+            ((*BorrowPlayerYStorage()) + 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++x) {
@@ -5166,8 +5229,8 @@ std::uint32_t Sub_46AF30()
 
     gValue9EE8B8 = 1;
     gValue9EE8A4 = static_cast<std::uint16_t>(direction);
-    gValue9A7F7C = gPlayerX.Read_401EC0();
-    gValue9A7F80 = gPlayerY.Read_401EC0();
+    gValue9A7F7C = BorrowPlayerXStorage()->Read_401EC0();
+    gValue9A7F80 = BorrowPlayerYStorage()->Read_401EC0();
     const std::uint32_t tick = platform::ReadTickCount32();
     gValueAF10C8 = tick;
     return tick;
@@ -5455,8 +5518,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
 {
     if (gValue9DAD68 == 1) {
         gValue55DA88 = 1;
-        const std::int32_t playerY = gPlayerY.Read_401EC0();
-        const std::int32_t playerX = gPlayerX.Read_401EC0();
+        const std::int32_t playerY = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         const std::int32_t index = gAutoMapWindowIndex55DA90;
         gValue55DA88 = 0;
@@ -5465,8 +5528,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
         return render::DrawColorAutoMap_44FEB0(x, y, gAutoMapColorWindow9CF6EC, width, height);
     }
     if (gValue55DA88 != 0) {
-        const std::int32_t playerY = gPlayerY.Read_401EC0();
-        const std::int32_t playerX = gPlayerX.Read_401EC0();
+        const std::int32_t playerY = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         gValue55DA88 = 0;
     }
@@ -5550,16 +5613,16 @@ std::uint16_t __cdecl Sub_468200()
 {
     gMapXStart = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            (gPlayerX + -30)));
+            ((*BorrowPlayerXStorage()) + -30)));
     gMapYStart = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            (gPlayerY + -20)));
+            ((*BorrowPlayerYStorage()) + -20)));
     gMapXEnd = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            (gPlayerX + 21)));
+            ((*BorrowPlayerXStorage()) + 21)));
     gMapYEnd = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            (gPlayerY + 31)));
+            ((*BorrowPlayerYStorage()) + 31)));
 
     Sub_468290(&gMapXStart, &gMapYStart, &gMapXEnd, &gMapYEnd);
     const std::uint16_t xEnd = static_cast<std::uint16_t>(gMapXEnd);
@@ -5576,16 +5639,16 @@ std::uint16_t __cdecl Sub_468200()
 // 原 [0x46CEC0,0x46CED6)：Y 的读取先于 X 的带参读取。
 std::int32_t __cdecl Sub_46CEC0()
 {
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    return (gPlayerX + static_cast<std::int32_t>(y));
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    return ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(y));
 }
 
 // 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
 std::int32_t __cdecl Sub_46CEE0()
 {
-    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t result =
-        (gPlayerX + static_cast<std::int32_t>(y));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(y));
     gValueAF10C0 = std::bit_cast<std::uint32_t>(result);
     return result;
 }
@@ -5595,87 +5658,87 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 {
     static_cast<void>(Sub_46CEC0());
 
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xTemporaryEncoded = temporary.encoded;
-    const std::uint32_t xTemporaryMask = temporary.mask;
-    const std::uint8_t xTemporaryReadCount = temporary.readCount;
-    gPlayerX.encoded = xTemporaryEncoded;
-    gPlayerX.mask = xTemporaryMask;
-    gPlayerX.readCount = xTemporaryReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xTemporaryEncoded = temporary->encoded;
+    const std::uint32_t xTemporaryMask = temporary->mask;
+    const std::uint8_t xTemporaryReadCount = temporary->readCount;
+    BorrowPlayerXStorage()->encoded = xTemporaryEncoded;
+    BorrowPlayerXStorage()->mask = xTemporaryMask;
+    BorrowPlayerXStorage()->readCount = xTemporaryReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yTemporaryReadCount = temporary.readCount;
-    const std::uint32_t yTemporaryEncoded = temporary.encoded;
-    const std::uint32_t yTemporaryMask = temporary.mask;
-    gPlayerY.readCount = yTemporaryReadCount;
-    gPlayerY.encoded = yTemporaryEncoded;
-    gPlayerY.mask = yTemporaryMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yTemporaryReadCount = temporary->readCount;
+    const std::uint32_t yTemporaryEncoded = temporary->encoded;
+    const std::uint32_t yTemporaryMask = temporary->mask;
+    BorrowPlayerYStorage()->readCount = yTemporaryReadCount;
+    BorrowPlayerYStorage()->encoded = yTemporaryEncoded;
+    BorrowPlayerYStorage()->mask = yTemporaryMask;
+    temporary.reset();
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
-        static_cast<double>(gPlayerX.Read_401EC0());
+        static_cast<double>(BorrowPlayerXStorage()->Read_401EC0());
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
-        static_cast<double>(gPlayerY.Read_401EC0());
-    const std::uint8_t snapshotXCount = gPlayerX.readCount;
-    const std::uint32_t snapshotXEncoded = gPlayerX.encoded;
+        static_cast<double>(BorrowPlayerYStorage()->Read_401EC0());
+    const std::uint8_t snapshotXCount = BorrowPlayerXStorage()->readCount;
+    const std::uint32_t snapshotXEncoded = BorrowPlayerXStorage()->encoded;
     const double scaledY = currentY * 64.0;
-    const std::uint32_t snapshotXMask = gPlayerX.mask;
-    gPlayerSnapshotX.readCount = snapshotXCount;
-    const std::uint8_t snapshotYCount = gPlayerY.readCount;
-    gPlayerSnapshotX.encoded = snapshotXEncoded;
-    const std::uint32_t snapshotYEncoded = gPlayerY.encoded;
-    gPlayerSnapshotX.mask = snapshotXMask;
-    const std::uint32_t snapshotYMask = gPlayerY.mask;
-    gPlayerSnapshotY.readCount = snapshotYCount;
+    const std::uint32_t snapshotXMask = BorrowPlayerXStorage()->mask;
+    BorrowPlayerSnapshotXStorage()->readCount = snapshotXCount;
+    const std::uint8_t snapshotYCount = BorrowPlayerYStorage()->readCount;
+    BorrowPlayerSnapshotXStorage()->encoded = snapshotXEncoded;
+    const std::uint32_t snapshotYEncoded = BorrowPlayerYStorage()->encoded;
+    BorrowPlayerSnapshotXStorage()->mask = snapshotXMask;
+    const std::uint32_t snapshotYMask = BorrowPlayerYStorage()->mask;
+    BorrowPlayerSnapshotYStorage()->readCount = snapshotYCount;
     gWorldCurrentYBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(scaledY));
-    gPlayerSnapshotY.encoded = snapshotYEncoded;
-    gPlayerSnapshotY.mask = snapshotYMask;
+    BorrowPlayerSnapshotYStorage()->encoded = snapshotYEncoded;
+    BorrowPlayerSnapshotYStorage()->mask = snapshotYMask;
 
     gValue9EE8FC = 0;
     gValue9EE900 = 0;
     gValue9DAD78 = 0x3F800000u;
 
-    temporary.ConstructFromInt_401CC0(-1);
-    const std::uint8_t reset8D0ReadCount = temporary.readCount;
-    const std::uint32_t reset8D0Encoded = temporary.encoded;
-    const std::uint32_t reset8D0Mask = temporary.mask;
-    gValue9EE8D0.readCount = reset8D0ReadCount;
-    gValue9EE8D0.encoded = reset8D0Encoded;
-    gValue9EE8D0.mask = reset8D0Mask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(-1));
+    const std::uint8_t reset8D0ReadCount = temporary->readCount;
+    const std::uint32_t reset8D0Encoded = temporary->encoded;
+    const std::uint32_t reset8D0Mask = temporary->mask;
+    BorrowValue9EE8D0Storage()->readCount = reset8D0ReadCount;
+    BorrowValue9EE8D0Storage()->encoded = reset8D0Encoded;
+    BorrowValue9EE8D0Storage()->mask = reset8D0Mask;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(-1);
-    const std::uint8_t reset8E0ReadCount = temporary.readCount;
-    const std::uint32_t reset8E0Encoded = temporary.encoded;
-    const std::uint32_t reset8E0Mask = temporary.mask;
-    gValue9EE8E0.readCount = reset8E0ReadCount;
-    gValue9EE8E0.encoded = reset8E0Encoded;
-    gValue9EE8E0.mask = reset8E0Mask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(-1));
+    const std::uint8_t reset8E0ReadCount = temporary->readCount;
+    const std::uint32_t reset8E0Encoded = temporary->encoded;
+    const std::uint32_t reset8E0Mask = temporary->mask;
+    BorrowValue9EE8E0Storage()->readCount = reset8E0ReadCount;
+    BorrowValue9EE8E0Storage()->encoded = reset8E0Encoded;
+    BorrowValue9EE8E0Storage()->mask = reset8E0Mask;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(-1);
-    const std::uint32_t resetC27FF8Encoded = temporary.encoded;
-    const std::uint32_t resetC27FF8Mask = temporary.mask;
-    const std::uint8_t resetC27FF8ReadCount = temporary.readCount;
-    gValueC27FF8.encoded = resetC27FF8Encoded;
-    gValueC27FF8.mask = resetC27FF8Mask;
-    gValueC27FF8.readCount = resetC27FF8ReadCount;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(-1));
+    const std::uint32_t resetC27FF8Encoded = temporary->encoded;
+    const std::uint32_t resetC27FF8Mask = temporary->mask;
+    const std::uint8_t resetC27FF8ReadCount = temporary->readCount;
+    BorrowValueC27FF8Storage()->encoded = resetC27FF8Encoded;
+    BorrowValueC27FF8Storage()->mask = resetC27FF8Mask;
+    BorrowValueC27FF8Storage()->readCount = resetC27FF8ReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(-1);
-    const std::uint8_t resetC27FE8ReadCount = temporary.readCount;
-    const std::uint32_t resetC27FE8Encoded = temporary.encoded;
-    const std::uint32_t resetC27FE8Mask = temporary.mask;
-    gValueC27FE8.readCount = resetC27FE8ReadCount;
-    gValueC27FE8.encoded = resetC27FE8Encoded;
-    gValueC27FE8.mask = resetC27FE8Mask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(-1));
+    const std::uint8_t resetC27FE8ReadCount = temporary->readCount;
+    const std::uint32_t resetC27FE8Encoded = temporary->encoded;
+    const std::uint32_t resetC27FE8Mask = temporary->mask;
+    BorrowValueC27FE8Storage()->readCount = resetC27FE8ReadCount;
+    BorrowValueC27FE8Storage()->encoded = resetC27FE8Encoded;
+    BorrowValueC27FE8Storage()->mask = resetC27FE8Mask;
+    temporary.reset();
 
     const std::uint32_t xBits = gWorldCurrentXBits;
     const std::uint32_t finalYBits = gWorldCurrentYBits;
@@ -5690,43 +5753,43 @@ std::int32_t* Sub_467F30()
     Sub_4682E0(0, 0, 0, 0, 0, 0, 0, 0);
     static_cast<void>(Sub_468330(0, 0));
 
-    platform::LegacyCryptInt first;
-    first.ConstructFromInt_401CC0(0);
-    const std::uint32_t firstMask = first.mask;
-    const std::uint32_t firstEncoded = first.encoded;
-    const std::uint8_t firstReadCount = first.readCount;
-    gValue9EE8D0.mask = firstMask;
-    gValue9EE8D0.encoded = firstEncoded;
-    gValue9EE8D0.readCount = firstReadCount;
+    std::optional<platform::LegacyCryptInt> first;
+    first.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t firstMask = first->mask;
+    const std::uint32_t firstEncoded = first->encoded;
+    const std::uint8_t firstReadCount = first->readCount;
+    BorrowValue9EE8D0Storage()->mask = firstMask;
+    BorrowValue9EE8D0Storage()->encoded = firstEncoded;
+    BorrowValue9EE8D0Storage()->readCount = firstReadCount;
 
-    platform::LegacyCryptInt second;
-    second.ConstructFromInt_401CC0(0);
-    const std::uint32_t secondMask = second.mask;
-    const std::uint32_t secondEncoded = second.encoded;
-    const std::uint8_t secondReadCount = second.readCount;
-    gValue9EE8E0.mask = secondMask;
-    gValue9EE8E0.encoded = secondEncoded;
-    gValue9EE8E0.readCount = secondReadCount;
-    second.Destroy_401CF0();
-    first.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> second;
+    second.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t secondMask = second->mask;
+    const std::uint32_t secondEncoded = second->encoded;
+    const std::uint8_t secondReadCount = second->readCount;
+    BorrowValue9EE8E0Storage()->mask = secondMask;
+    BorrowValue9EE8E0Storage()->encoded = secondEncoded;
+    BorrowValue9EE8E0Storage()->readCount = secondReadCount;
+    second.reset();
+    first.reset();
 
-    second.ConstructFromInt_401CC0(0);
-    const std::uint32_t thirdMask = second.mask;
-    const std::uint32_t thirdEncoded = second.encoded;
-    const std::uint8_t thirdReadCount = second.readCount;
-    gValueC27FF8.mask = thirdMask;
-    gValueC27FF8.encoded = thirdEncoded;
-    gValueC27FF8.readCount = thirdReadCount;
+    second.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t thirdMask = second->mask;
+    const std::uint32_t thirdEncoded = second->encoded;
+    const std::uint8_t thirdReadCount = second->readCount;
+    BorrowValueC27FF8Storage()->mask = thirdMask;
+    BorrowValueC27FF8Storage()->encoded = thirdEncoded;
+    BorrowValueC27FF8Storage()->readCount = thirdReadCount;
 
-    first.ConstructFromInt_401CC0(0);
-    const std::uint32_t fourthMask = first.mask;
-    const std::uint32_t fourthEncoded = first.encoded;
-    const std::uint8_t fourthReadCount = first.readCount;
-    gValueC27FE8.mask = fourthMask;
-    gValueC27FE8.encoded = fourthEncoded;
-    gValueC27FE8.readCount = fourthReadCount;
-    first.Destroy_401CF0();
-    second.Destroy_401CF0();
+    first.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t fourthMask = first->mask;
+    const std::uint32_t fourthEncoded = first->encoded;
+    const std::uint8_t fourthReadCount = first->readCount;
+    BorrowValueC27FE8Storage()->mask = fourthMask;
+    BorrowValueC27FE8Storage()->encoded = fourthEncoded;
+    BorrowValueC27FE8Storage()->readCount = fourthReadCount;
+    first.reset();
+    second.reset();
 
     gValue9A4B94 = 3;
     static_cast<void>(Sub_468200());
@@ -5736,42 +5799,42 @@ std::int32_t* Sub_467F30()
     gValue9EE8B8 = 0;
     gValueC8A79C = 0;
 
-    first.ConstructFromInt_401CC0(0);
-    const std::uint32_t fifthEncoded = first.encoded;
-    const std::uint32_t fifthMask = first.mask;
-    gValueC821E8.encoded = fifthEncoded;
-    gValueC821E8.mask = fifthMask;
-    gValueC821E8.readCount = first.readCount;
-    first.Destroy_401CF0();
+    first.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t fifthEncoded = first->encoded;
+    const std::uint32_t fifthMask = first->mask;
+    BorrowValueC821E8Storage()->encoded = fifthEncoded;
+    BorrowValueC821E8Storage()->mask = fifthMask;
+    BorrowValueC821E8Storage()->readCount = first->readCount;
+    first.reset();
 
-    first.ConstructFromInt_401CC0(0);
-    const std::uint32_t sixthMask = first.mask;
-    const std::uint32_t sixthEncoded = first.encoded;
-    const std::uint8_t sixthReadCount = first.readCount;
-    gValue9E03C0.mask = sixthMask;
-    gValue9E03C0.encoded = sixthEncoded;
-    gValue9E03C0.readCount = sixthReadCount;
-    first.Destroy_401CF0();
+    first.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t sixthMask = first->mask;
+    const std::uint32_t sixthEncoded = first->encoded;
+    const std::uint8_t sixthReadCount = first->readCount;
+    BorrowValue9E03C0Storage()->mask = sixthMask;
+    BorrowValue9E03C0Storage()->encoded = sixthEncoded;
+    BorrowValue9E03C0Storage()->readCount = sixthReadCount;
+    first.reset();
 
-    first.ConstructFromInt_401CC0(0);
-    const std::uint32_t seventhMask = first.mask;
-    const std::uint32_t seventhEncoded = first.encoded;
-    const std::uint8_t seventhReadCount = first.readCount;
-    gValueC821D8.mask = seventhMask;
-    gValueC821D8.encoded = seventhEncoded;
-    gValueC821D8.readCount = seventhReadCount;
-    first.Destroy_401CF0();
+    first.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t seventhMask = first->mask;
+    const std::uint32_t seventhEncoded = first->encoded;
+    const std::uint8_t seventhReadCount = first->readCount;
+    BorrowValueC821D8Storage()->mask = seventhMask;
+    BorrowValueC821D8Storage()->encoded = seventhEncoded;
+    BorrowValueC821D8Storage()->readCount = seventhReadCount;
+    first.reset();
 
     // 原末次改用独立var_1C，保留第三临时对象。
-    platform::LegacyCryptInt ripple;
-    ripple.ConstructFromInt_401CC0(0);
-    const std::uint32_t eighthMask = ripple.mask;
-    const std::uint32_t eighthEncoded = ripple.encoded;
-    const std::uint8_t eighthReadCount = ripple.readCount;
-    gRippleGate.mask = eighthMask;
-    gRippleGate.encoded = eighthEncoded;
-    gRippleGate.readCount = eighthReadCount;
-    ripple.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> ripple;
+    ripple.emplace(static_cast<std::int32_t>(0));
+    const std::uint32_t eighthMask = ripple->mask;
+    const std::uint32_t eighthEncoded = ripple->encoded;
+    const std::uint8_t eighthReadCount = ripple->readCount;
+    BorrowRippleGateStorage()->mask = eighthMask;
+    BorrowRippleGateStorage()->encoded = eighthEncoded;
+    BorrowRippleGateStorage()->readCount = eighthReadCount;
+    ripple.reset();
 
     gValue9A86D8 = 0;
     gValue9FB92E = 0;
@@ -5798,9 +5861,9 @@ std::int32_t* Sub_467F30()
 std::int32_t __cdecl Sub_4681B0()
 {
     const std::int32_t y =
-        gPlayerSnapshotY.Read_401EC0();
+        BorrowPlayerSnapshotYStorage()->Read_401EC0();
     const std::int32_t x =
-        gPlayerSnapshotX.Read_401EC0();
+        BorrowPlayerSnapshotXStorage()->Read_401EC0();
     static_cast<void>(Sub_468330(x, y));
     static_cast<void>(Sub_468200());
     gValueC82200 = 0;
@@ -5942,26 +6005,26 @@ std::int32_t __cdecl Sub_469290(
 // 原 [0x4691D0,0x469239)：两个 -1 临时对象各自构造、复制、析构。
 void __cdecl Sub_4691D0()
 {
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(-1);
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(-1));
     // 原第一组先读齐两个 W32 和 BYTE 计数，再依原序发布。
-    const std::uint32_t firstMask = temporary.mask;
-    const std::uint32_t firstEncoded = temporary.encoded;
-    const std::uint8_t firstReadCount = temporary.readCount;
-    gValue9EE8D0.mask = firstMask;
-    gValue9EE8D0.encoded = firstEncoded;
-    gValue9EE8D0.readCount = firstReadCount;
-    temporary.Destroy_401CF0();
+    const std::uint32_t firstMask = temporary->mask;
+    const std::uint32_t firstEncoded = temporary->encoded;
+    const std::uint8_t firstReadCount = temporary->readCount;
+    BorrowValue9EE8D0Storage()->mask = firstMask;
+    BorrowValue9EE8D0Storage()->encoded = firstEncoded;
+    BorrowValue9EE8D0Storage()->readCount = firstReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(-1);
+    temporary.emplace(static_cast<std::int32_t>(-1));
     // 原第二组先读齐两个 W32 和 BYTE 计数，再依原序发布。
-    const std::uint32_t secondMask = temporary.mask;
-    const std::uint32_t secondEncoded = temporary.encoded;
-    const std::uint8_t secondReadCount = temporary.readCount;
-    gValue9EE8E0.mask = secondMask;
-    gValue9EE8E0.encoded = secondEncoded;
-    gValue9EE8E0.readCount = secondReadCount;
-    temporary.Destroy_401CF0();
+    const std::uint32_t secondMask = temporary->mask;
+    const std::uint32_t secondEncoded = temporary->encoded;
+    const std::uint8_t secondReadCount = temporary->readCount;
+    BorrowValue9EE8E0Storage()->mask = secondMask;
+    BorrowValue9EE8E0Storage()->encoded = secondEncoded;
+    BorrowValue9EE8E0Storage()->readCount = secondReadCount;
+    temporary.reset();
 }
 
 // 原函数：0x005093C0。
@@ -5979,25 +6042,25 @@ void Sub_5093C0(
 void Sub_50D080(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
 {
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(first);
-    gValue9FB918.encoded = temporary.encoded;
-    gValue9FB918.mask = temporary.mask;
-    gValue9FB918.readCount = temporary.readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(first));
+    BorrowValue9FB918Storage()->encoded = temporary->encoded;
+    BorrowValue9FB918Storage()->mask = temporary->mask;
+    BorrowValue9FB918Storage()->readCount = temporary->readCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(second);
-    gValueAF0FE8.readCount = temporary.readCount;
-    gValueAF0FE8.encoded = temporary.encoded;
-    gValueAF0FE8.mask = temporary.mask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(second));
+    BorrowValueAF0FE8Storage()->readCount = temporary->readCount;
+    BorrowValueAF0FE8Storage()->encoded = temporary->encoded;
+    BorrowValueAF0FE8Storage()->mask = temporary->mask;
+    temporary.reset();
 
-    const std::uint32_t encoded = gValue9FB918.encoded;
-    const std::uint32_t mask = gValue9FB918.mask;
-    const std::uint8_t readCount = gValue9FB918.readCount;
-    gValueC821E8.encoded = encoded;
-    gValueC821E8.mask = mask;
-    gValueC821E8.readCount = readCount;
+    const std::uint32_t encoded = BorrowValue9FB918Storage()->encoded;
+    const std::uint32_t mask = BorrowValue9FB918Storage()->mask;
+    const std::uint8_t readCount = BorrowValue9FB918Storage()->readCount;
+    BorrowValueC821E8Storage()->encoded = encoded;
+    BorrowValueC821E8Storage()->mask = mask;
+    BorrowValueC821E8Storage()->readCount = readCount;
 }
 
 // 原函数：0x00455C60。
@@ -6052,31 +6115,31 @@ void Sub_50D120(
         Sub_455FC0();
         Sub_455C60();
 
-        const std::uint32_t mask = gValue9FB918.mask;
-        const std::uint32_t encoded = gValue9FB918.encoded;
-        const std::uint8_t readCount = gValue9FB918.readCount;
-        gValueC821E8.mask = mask;
-        gValueC821E8.encoded = encoded;
-        gValueC821E8.readCount = readCount;
+        const std::uint32_t mask = BorrowValue9FB918Storage()->mask;
+        const std::uint32_t encoded = BorrowValue9FB918Storage()->encoded;
+        const std::uint8_t readCount = BorrowValue9FB918Storage()->readCount;
+        BorrowValueC821E8Storage()->mask = mask;
+        BorrowValueC821E8Storage()->encoded = encoded;
+        BorrowValueC821E8Storage()->readCount = readCount;
 
-        platform::LegacyCryptInt temporary;
-        temporary.ConstructFromInt_401CC0(0);
-        const std::uint32_t zeroMask = temporary.mask;
-        const std::uint32_t zeroEncoded = temporary.encoded;
-        const std::uint8_t zeroReadCount = temporary.readCount;
-        gValueC821D8.mask = zeroMask;
-        gValueC821D8.encoded = zeroEncoded;
-        gValueC821D8.readCount = zeroReadCount;
-        temporary.Destroy_401CF0();
+        std::optional<platform::LegacyCryptInt> temporary;
+        temporary.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t zeroMask = temporary->mask;
+        const std::uint32_t zeroEncoded = temporary->encoded;
+        const std::uint8_t zeroReadCount = temporary->readCount;
+        BorrowValueC821D8Storage()->mask = zeroMask;
+        BorrowValueC821D8Storage()->encoded = zeroEncoded;
+        BorrowValueC821D8Storage()->readCount = zeroReadCount;
+        temporary.reset();
 
-        temporary.ConstructFromInt_401CC0(1);
-        const std::uint32_t enabledMask = temporary.mask;
-        const std::uint32_t enabledEncoded = temporary.encoded;
-        const std::uint8_t enabledReadCount = temporary.readCount;
-        gRippleGate.mask = enabledMask;
-        gRippleGate.encoded = enabledEncoded;
-        gRippleGate.readCount = enabledReadCount;
-        temporary.Destroy_401CF0();
+        temporary.emplace(static_cast<std::int32_t>(1));
+        const std::uint32_t enabledMask = temporary->mask;
+        const std::uint32_t enabledEncoded = temporary->encoded;
+        const std::uint8_t enabledReadCount = temporary->readCount;
+        BorrowRippleGateStorage()->mask = enabledMask;
+        BorrowRippleGateStorage()->encoded = enabledEncoded;
+        BorrowRippleGateStorage()->readCount = enabledReadCount;
+        temporary.reset();
 
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
@@ -6085,14 +6148,14 @@ void Sub_50D120(
         login::detail::YobiClearUp_404D30();
         Sub_446610();
 
-        temporary.ConstructFromInt_401CC0(0);
-        const std::uint32_t disabledMask = temporary.mask;
-        const std::uint32_t disabledEncoded = temporary.encoded;
-        const std::uint8_t disabledReadCount = temporary.readCount;
-        gRippleGate.mask = disabledMask;
-        gRippleGate.encoded = disabledEncoded;
-        gRippleGate.readCount = disabledReadCount;
-        temporary.Destroy_401CF0();
+        temporary.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t disabledMask = temporary->mask;
+        const std::uint32_t disabledEncoded = temporary->encoded;
+        const std::uint8_t disabledReadCount = temporary->readCount;
+        BorrowRippleGateStorage()->mask = disabledMask;
+        BorrowRippleGateStorage()->encoded = disabledEncoded;
+        BorrowRippleGateStorage()->readCount = disabledReadCount;
+        temporary.reset();
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -6135,15 +6198,15 @@ void Sub_50D120(
         gBattleFirstTurnPending5ABC6C = 1;
         return;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(0);
-    const std::uint8_t exitReadCount = temporary.readCount;
-    const std::uint32_t exitEncoded = temporary.encoded;
-    const std::uint32_t exitMask = temporary.mask;
-    gValueC821D8.readCount = exitReadCount;
-    gValueC821D8.encoded = exitEncoded;
-    gValueC821D8.mask = exitMask;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(0));
+    const std::uint8_t exitReadCount = temporary->readCount;
+    const std::uint32_t exitEncoded = temporary->encoded;
+    const std::uint32_t exitMask = temporary->mask;
+    BorrowValueC821D8Storage()->readCount = exitReadCount;
+    BorrowValueC821D8Storage()->encoded = exitEncoded;
+    BorrowValueC821D8Storage()->mask = exitMask;
+    temporary.reset();
     gValueFF03D8 = 0;
     gValueF7CA04 = 0;
 }
@@ -6456,10 +6519,10 @@ std::int32_t __cdecl Sub_509100(
 
     if (currentMapId == mapId
         && gMapFloor == floor
-        && (gPlayerX - 10) <= xStart
-        && xEnd <= (gPlayerX + 10)
-        && (gPlayerY - 10) <= yStart
-        && yEnd <= (gPlayerY + 10)) {
+        && ((*BorrowPlayerXStorage()) - 10) <= xStart
+        && xEnd <= ((*BorrowPlayerXStorage()) + 10)
+        && ((*BorrowPlayerYStorage()) - 10) <= yStart
+        && yEnd <= ((*BorrowPlayerYStorage()) + 10)) {
         gValue9EE910 = 1;
     }
 
@@ -6510,20 +6573,20 @@ std::int32_t __cdecl Sub_5093F0(
     static_cast<void>(Sub_468330(a6, a7));
     Sub_4464D0();
 
-    const std::uint32_t mask = gValue9FB918.mask;
-    const std::uint32_t encoded = gValue9FB918.encoded;
-    const std::uint8_t readCount = gValue9FB918.readCount;
-    gValueC821E8.mask = mask;
+    const std::uint32_t mask = BorrowValue9FB918Storage()->mask;
+    const std::uint32_t encoded = BorrowValue9FB918Storage()->encoded;
+    const std::uint8_t readCount = BorrowValue9FB918Storage()->readCount;
+    BorrowValueC821E8Storage()->mask = mask;
     gValue9EE8B8 = 0;
-    gValueC821E8.encoded = encoded;
-    gValueC821E8.readCount = readCount;
+    BorrowValueC821E8Storage()->encoded = encoded;
+    BorrowValueC821E8Storage()->readCount = readCount;
 
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(0);
-    gValue9E03C0.mask = temporary.mask;
-    gValue9E03C0.encoded = temporary.encoded;
-    gValue9E03C0.readCount = temporary.readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(0));
+    BorrowValue9E03C0Storage()->mask = temporary->mask;
+    BorrowValue9E03C0Storage()->encoded = temporary->encoded;
+    BorrowValue9E03C0Storage()->readCount = temporary->readCount;
+    temporary.reset();
     static_cast<void>(Sub_4681B0());
 
     if (a11 > 0) {
@@ -6998,30 +7061,30 @@ void DrawNormalScene_51C7D0()
         gValue62B5B0 = 0;
         Sub_455FC0();
         Sub_455C60();
-        const std::uint32_t mask = gValue9FB918.mask;
-        const std::uint32_t encoded = gValue9FB918.encoded;
-        const std::uint8_t readCount = gValue9FB918.readCount;
-        gValueC821E8.mask = mask;
-        gValueC821E8.encoded = encoded;
-        gValueC821E8.readCount = readCount;
-        platform::LegacyCryptInt zero;
-        zero.ConstructFromInt_401CC0(0);
-        const std::uint32_t zeroMask = zero.mask;
-        const std::uint32_t zeroEncoded = zero.encoded;
-        const std::uint8_t zeroReadCount = zero.readCount;
-        gValueC821D8.mask = zeroMask;
-        gValueC821D8.encoded = zeroEncoded;
-        gValueC821D8.readCount = zeroReadCount;
-        zero.Destroy_401CF0();
-        platform::LegacyCryptInt one;
-        one.ConstructFromInt_401CC0(1);
-        const std::uint32_t oneMask = one.mask;
-        const std::uint32_t oneEncoded = one.encoded;
-        const std::uint8_t oneReadCount = one.readCount;
-        gRippleGate.mask = oneMask;
-        gRippleGate.encoded = oneEncoded;
-        gRippleGate.readCount = oneReadCount;
-        one.Destroy_401CF0();
+        const std::uint32_t mask = BorrowValue9FB918Storage()->mask;
+        const std::uint32_t encoded = BorrowValue9FB918Storage()->encoded;
+        const std::uint8_t readCount = BorrowValue9FB918Storage()->readCount;
+        BorrowValueC821E8Storage()->mask = mask;
+        BorrowValueC821E8Storage()->encoded = encoded;
+        BorrowValueC821E8Storage()->readCount = readCount;
+        std::optional<platform::LegacyCryptInt> zero;
+        zero.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t zeroMask = zero->mask;
+        const std::uint32_t zeroEncoded = zero->encoded;
+        const std::uint8_t zeroReadCount = zero->readCount;
+        BorrowValueC821D8Storage()->mask = zeroMask;
+        BorrowValueC821D8Storage()->encoded = zeroEncoded;
+        BorrowValueC821D8Storage()->readCount = zeroReadCount;
+        zero.reset();
+        std::optional<platform::LegacyCryptInt> one;
+        one.emplace(static_cast<std::int32_t>(1));
+        const std::uint32_t oneMask = one->mask;
+        const std::uint32_t oneEncoded = one->encoded;
+        const std::uint8_t oneReadCount = one->readCount;
+        BorrowRippleGateStorage()->mask = oneMask;
+        BorrowRippleGateStorage()->encoded = oneEncoded;
+        BorrowRippleGateStorage()->readCount = oneReadCount;
+        one.reset();
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
@@ -7125,26 +7188,26 @@ void __cdecl Sub_458F40()
 {
     const std::int32_t scene = gCurrentSceneType;
     if (scene == 9) {
-        if (gPlayerRuntime.action == nullptr) {
+        if (BorrowPlayerRuntimeStorage()->action == nullptr) {
             return;
         }
     } else if (scene != 10) {
         return;
     }
     const std::uint32_t tick = platform::ReadTickCount32();
-    if (gPlayerRuntime.timerMode10 != 0) {
-        const std::uint32_t previousTick = gPlayerRuntime.timerTick14;
-        const std::int32_t remaining = gPlayerRuntime.timerRemaining0C;
+    if (BorrowPlayerRuntimeStorage()->timerMode10 != 0) {
+        const std::uint32_t previousTick = BorrowPlayerRuntimeStorage()->timerTick14;
+        const std::int32_t remaining = BorrowPlayerRuntimeStorage()->timerRemaining0C;
         const std::int32_t delta =
             std::bit_cast<std::int32_t>(previousTick - tick);
         const std::int32_t updated = remaining + delta;
-        gPlayerRuntime.timerRemaining0C = updated;
+        BorrowPlayerRuntimeStorage()->timerRemaining0C = updated;
         if (updated < 0) {
-            gPlayerRuntime.timerRemaining0C = 0;
-            gPlayerRuntime.timerMode10 = 0;
+            BorrowPlayerRuntimeStorage()->timerRemaining0C = 0;
+            BorrowPlayerRuntimeStorage()->timerMode10 = 0;
         }
     }
-    gPlayerRuntime.timerTick14 = tick;
+    BorrowPlayerRuntimeStorage()->timerTick14 = tick;
 }
 
 // GTP01：原 [0x458F00,0x458F3A)；持有时段/模式、原过渡 3600，末尾总推进倒计时。
@@ -7164,7 +7227,7 @@ void __cdecl Sub_458F00()
 // GTP01：原 [0x519EB0,0x519EBA)；只写玩家唯一 W32 对象号，完整 S32 原样返回。
 std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
 {
-    gPlayerRuntime.objectIndex = std::bit_cast<std::uint32_t>(value);
+    BorrowPlayerRuntimeStorage()->objectIndex = std::bit_cast<std::uint32_t>(value);
     return value;
 }
 
@@ -7505,15 +7568,15 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         YobiClearUp_404D30();
         Sub_446610();
-        platform::LegacyCryptInt zero;
-        zero.ConstructFromInt_401CC0(0);
-        const std::uint32_t zeroMask = zero.mask;
-        const std::uint32_t zeroEncoded = zero.encoded;
-        const std::uint8_t zeroReadCount = zero.readCount;
-        gRippleGate.mask = zeroMask;
-        gRippleGate.encoded = zeroEncoded;
-        gRippleGate.readCount = zeroReadCount;
-        zero.Destroy_401CF0();
+        std::optional<platform::LegacyCryptInt> zero;
+        zero.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t zeroMask = zero->mask;
+        const std::uint32_t zeroEncoded = zero->encoded;
+        const std::uint8_t zeroReadCount = zero->readCount;
+        BorrowRippleGateStorage()->mask = zeroMask;
+        BorrowRippleGateStorage()->encoded = zeroEncoded;
+        BorrowRippleGateStorage()->readCount = zeroReadCount;
+        zero.reset();
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -7539,24 +7602,24 @@ void DrawBattleScene_43CBB0()
         clearBattleEffects();
         YobiClearUp_404D30();
         Sub_446610();
-        platform::LegacyCryptInt rippleZero;
-        rippleZero.ConstructFromInt_401CC0(0);
-        const std::uint32_t rippleZeroMask = rippleZero.mask;
-        const std::uint32_t rippleZeroEncoded = rippleZero.encoded;
-        const std::uint8_t rippleZeroReadCount = rippleZero.readCount;
-        gRippleGate.mask = rippleZeroMask;
-        gRippleGate.encoded = rippleZeroEncoded;
-        gRippleGate.readCount = rippleZeroReadCount;
-        rippleZero.Destroy_401CF0();
-        platform::LegacyCryptInt transitionZero;
-        transitionZero.ConstructFromInt_401CC0(0);
-        const std::uint32_t transitionZeroMask = transitionZero.mask;
-        const std::uint32_t transitionZeroEncoded = transitionZero.encoded;
-        const std::uint8_t transitionZeroReadCount = transitionZero.readCount;
-        gValue73ECD0.mask = transitionZeroMask;
-        gValue73ECD0.encoded = transitionZeroEncoded;
-        gValue73ECD0.readCount = transitionZeroReadCount;
-        transitionZero.Destroy_401CF0();
+        std::optional<platform::LegacyCryptInt> rippleZero;
+        rippleZero.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t rippleZeroMask = rippleZero->mask;
+        const std::uint32_t rippleZeroEncoded = rippleZero->encoded;
+        const std::uint8_t rippleZeroReadCount = rippleZero->readCount;
+        BorrowRippleGateStorage()->mask = rippleZeroMask;
+        BorrowRippleGateStorage()->encoded = rippleZeroEncoded;
+        BorrowRippleGateStorage()->readCount = rippleZeroReadCount;
+        rippleZero.reset();
+        std::optional<platform::LegacyCryptInt> transitionZero;
+        transitionZero.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t transitionZeroMask = transitionZero->mask;
+        const std::uint32_t transitionZeroEncoded = transitionZero->encoded;
+        const std::uint8_t transitionZeroReadCount = transitionZero->readCount;
+        BorrowValue73ECD0Storage()->mask = transitionZeroMask;
+        BorrowValue73ECD0Storage()->encoded = transitionZeroEncoded;
+        BorrowValue73ECD0Storage()->readCount = transitionZeroReadCount;
+        transitionZero.reset();
         static_cast<void>(SetPendingSceneType(7));
         return;
     }
@@ -7605,7 +7668,7 @@ void DrawBattleScene_43CBB0()
             constexpr std::size_t wordBytes = sizeof(kBattleExitHint554194) & ~std::size_t{3};
             std::memcpy(ui::detail::gHoverTextD68AE8.data(), kBattleExitHint554194, wordBytes);
             const auto clicked = *reinterpret_cast<const unsigned char*>(
-                &platform::gLegacyMouseState.edgeButtons);
+                &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;
             std::memcpy(ui::detail::gHoverTextD68AE8.data() + wordBytes,
                 kBattleExitHint554194 + wordBytes, sizeof(kBattleExitHint554194) & 3U);
@@ -7934,8 +7997,8 @@ std::int32_t __cdecl Sub_46A9E0()
 // PDH01：原 [0x46AA00,0x46AB56)；X/Y 字段取样后先 Y 更新，两整数差再落 F32，保早退 Y/pending 序。
 std::int32_t __cdecl Sub_46AA00()
 {
-    std::int32_t x = gPlayerX.Read_401EC0();
-    std::int32_t y = gPlayerY.Read_401EC0();
+    std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
     if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
         return y;
     }
@@ -8067,8 +8130,8 @@ std::uint16_t Sub_46AC10()
         }
     }
     gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     return static_cast<std::uint16_t>(
         Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
@@ -8103,8 +8166,8 @@ void* __cdecl Sub_46ADA0()
     gValueC82220 = 1;
     gValue9DAD54 = sequenceLow;
 
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gValueC8221C;
@@ -8168,17 +8231,19 @@ std::int32_t __cdecl Sub_46AC90()
 {
     static_cast<void>(Sub_4681B0());
 
-    platform::LegacyCryptInt temporary {};
-    temporary.ConstructFromInt_401CC0(1);
-    gValueC821D8.mask = temporary.mask;
-    gValueC821D8.encoded = temporary.encoded;
-    gValueC821D8.readCount = temporary.readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(1));
+    // 原temporary{}保留三字节零初值；整数构造沿原不写reserved。
+    temporary->reserved[0] = temporary->reserved[1] = temporary->reserved[2] = 0;
+    BorrowValueC821D8Storage()->mask = temporary->mask;
+    BorrowValueC821D8Storage()->encoded = temporary->encoded;
+    BorrowValueC821D8Storage()->readCount = temporary->readCount;
+    temporary.reset();
 
     gValueC82220 = 1;
     gValueB65A7C = 0;
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     return network::Sub_510810(platform::gConnectionSocket, x, y);
 }
 
@@ -8196,8 +8261,8 @@ std::int32_t __cdecl Sub_46AEA0()
     gValueC82220 = 1;
     gValue9FB92C = sequenceLow;
 
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     const std::uint32_t sequence = gValueC8221C;
     static_cast<void>(network::Sub_510630(
         platform::gConnectionSocket,
@@ -8450,11 +8515,11 @@ std::int32_t __cdecl Sub_46B5C0(
 std::int32_t Sub_46B6F0()
 {
     const std::int32_t targetX =
-        gValue9A7F88.Read_401EC0();
+        BorrowValue9A7F88Storage()->Read_401EC0();
     const std::int32_t targetY =
-        gValue9A7F98.Read_401EC0();
-    std::int32_t x = gPlayerX.Read_401EC0();
-    std::int32_t y = gPlayerY.Read_401EC0();
+        BorrowValue9A7F98Storage()->Read_401EC0();
+    std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
     const std::array<std::int32_t, 3> offsets {0, 1, -1};
     std::int32_t accumulatedX = 0;
     std::int32_t accumulatedY = 0;
@@ -8691,7 +8756,7 @@ std::int32_t Sub_4410E0()
 std::uint32_t ReadPlayerFlags18A() noexcept
 {
     // 原FDA88A一次跨字段W32读取，flags18A与flags18C低W16相邻。
-    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime);
+    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&(*BorrowPlayerRuntimeStorage()));
     std::uint32_t flags;
     std::memcpy(&flags, bytes + offsetof(PlayerRuntimeSlots, flags18A), sizeof(flags));
     return flags;
@@ -8699,17 +8764,17 @@ std::uint32_t ReadPlayerFlags18A() noexcept
 
 std::int32_t ReadPlayerWalkSpeed() noexcept
 {
-    return gPlayerRuntime.walkSpeed;
+    return BorrowPlayerRuntimeStorage()->walkSpeed;
 }
 
 std::int32_t ReadPlayerValueFC() noexcept
 {
-    return gPlayerRuntime.valueFC;
+    return BorrowPlayerRuntimeStorage()->valueFC;
 }
 
 std::int32_t ReadPlayerValue16C() noexcept
 {
-    return gPlayerRuntime.value16C;
+    return BorrowPlayerRuntimeStorage()->value16C;
 }
 
 // 原函数：0x00405B40。
@@ -8727,7 +8792,7 @@ std::int32_t Sub_518C60()
 {
     std::int32_t count = 0;
     for (std::int32_t slot = 8; slot < 28; ++slot) {
-        if (gPlayerItemsFDA8A4[slot].used == 0) {
+        if (BorrowPlayerItemsFDA8A4()[slot].used == 0) {
             ++count;
         }
     }
@@ -8736,17 +8801,17 @@ std::int32_t Sub_518C60()
 
 std::int32_t ReadPlayerValue15BCC() noexcept
 {
-    return gPlayerRuntime.value15BCC;
+    return BorrowPlayerRuntimeStorage()->value15BCC;
 }
 
 std::int32_t ReadPlayerLevel() noexcept
 {
-    return gPlayerRuntime.level;
+    return BorrowPlayerRuntimeStorage()->level;
 }
 
 std::int32_t ReadPlayerValue08() noexcept
 {
-    return gPlayerRuntime.value08;
+    return BorrowPlayerRuntimeStorage()->value08;
 }
 
 const char* BorrowPlayerJobName() noexcept
@@ -8756,27 +8821,27 @@ const char* BorrowPlayerJobName() noexcept
 
 std::int32_t ReadPlayerTimerRemaining0C() noexcept
 {
-    return gPlayerRuntime.timerRemaining0C;
+    return BorrowPlayerRuntimeStorage()->timerRemaining0C;
 }
 
 std::int32_t ReadPlayerTimerMode10() noexcept
 {
-    return gPlayerRuntime.timerMode10;
+    return BorrowPlayerRuntimeStorage()->timerMode10;
 }
 
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 {
-    const std::int32_t remaining = gPlayerRuntime.timerRemaining0C - 1000 * seconds;
+    const std::int32_t remaining = BorrowPlayerRuntimeStorage()->timerRemaining0C - 1000 * seconds;
     const bool negative = remaining < 0;
-    gPlayerRuntime.timerRemaining0C = remaining;
+    BorrowPlayerRuntimeStorage()->timerRemaining0C = remaining;
     if (negative) {
-        gPlayerRuntime.timerRemaining0C = 0;
+        BorrowPlayerRuntimeStorage()->timerRemaining0C = 0;
     }
 }
 
 std::int32_t ReadPlayerInjury() noexcept
 {
-    return gPlayerRuntime.valueF4;
+    return BorrowPlayerRuntimeStorage()->valueF4;
 }
 
 // SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
@@ -8788,7 +8853,7 @@ std::int32_t Sub_504B10()
     }
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeF633F8[index].lvFlag6C != 0) {
+        if ((*BorrowPetRuntimeF633F8Storage())[index].lvFlag6C != 0) {
             return position;
         }
     }
@@ -8801,7 +8866,7 @@ std::int32_t Sub_504B60()
 {
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeF633F8[index].values70[25] != 0) {
+        if ((*BorrowPetRuntimeF633F8Storage())[index].values70[25] != 0) {
             return index;
         }
     }
@@ -8810,152 +8875,152 @@ std::int32_t Sub_504B60()
 
 std::int32_t ReadPlayerAttribute(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.valuesE4[index];
+    return BorrowPlayerRuntimeStorage()->valuesE4[index];
 }
 
 std::int32_t ReadPlayerValue78(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.values78[index];
+    return BorrowPlayerRuntimeStorage()->values78[index];
 }
 
 std::int32_t ReadPlayerValueB0(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.valuesB0[index];
+    return BorrowPlayerRuntimeStorage()->valuesB0[index];
 }
 
 std::int32_t ReadPlayerValueBC(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.valuesBC[index];
+    return BorrowPlayerRuntimeStorage()->valuesBC[index];
 }
 
 std::int32_t ReadPlayerValueD4(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.valuesD4[index];
+    return BorrowPlayerRuntimeStorage()->valuesD4[index];
 }
 
 std::int32_t ReadPlayerTitleIndex() noexcept
 {
-    return gPlayerRuntime.titleIndex100;
+    return BorrowPlayerRuntimeStorage()->titleIndex100;
 }
 
 std::int16_t ReadPlayerTribe() noexcept
 {
-    return std::bit_cast<std::int16_t>(gPlayerRuntime.value00);
+    return std::bit_cast<std::int16_t>(BorrowPlayerRuntimeStorage()->value00);
 }
 
 std::int32_t ReadPlayerExperienceOnce()
 {
-    return gPlayerRuntime.value58.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->value58.Read_401EC0();
 }
 
 std::int32_t ReadPlayerNextExperienceOnce()
 {
-    return gPlayerRuntime.value68.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->value68.Read_401EC0();
 }
 
 bool IsPlayerNextExperienceEqual(const std::int32_t expected)
 {
-    return (gPlayerRuntime.value68 == static_cast<std::int32_t>(expected));
+    return (BorrowPlayerRuntimeStorage()->value68 == static_cast<std::int32_t>(expected));
 }
 
 std::int32_t ReadPlayerDuelPoint() noexcept
 {
-    return gPlayerRuntime.value104;
+    return BorrowPlayerRuntimeStorage()->value104;
 }
 
 std::uint16_t ReadPlayerValue1A0() noexcept
 {
-    return gPlayerRuntime.value1A0;
+    return BorrowPlayerRuntimeStorage()->value1A0;
 }
 
 std::int32_t ReadPlayerPenalty() noexcept
 {
-    return gPlayerRuntime.valueF8;
+    return BorrowPlayerRuntimeStorage()->valueF8;
 }
 
 std::int32_t ReadPlayerHpOnce()
 {
-    return gPlayerRuntime.hp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->hp.Read_401EC0();
 }
 
 std::int32_t ReadPlayerMaxHpOnce()
 {
-    return gPlayerRuntime.maxHp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->maxHp.Read_401EC0();
 }
 
 std::int32_t ReadPlayerFpOnce()
 {
-    return gPlayerRuntime.fp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->fp.Read_401EC0();
 }
 
 platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
 {
-    return gPlayerRuntime.fp;
+    return BorrowPlayerRuntimeStorage()->fp;
 }
 
 std::int32_t ReadPlayerMaxFpOnce()
 {
-    return gPlayerRuntime.maxFp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->maxFp.Read_401EC0();
 }
 
 bool IsPlayerFpLessThan(const std::int32_t cost)
 {
-    return (gPlayerRuntime.fp < static_cast<std::int32_t>(cost));
+    return (BorrowPlayerRuntimeStorage()->fp < static_cast<std::int32_t>(cost));
 }
 
 bool IsCostGreaterThanPlayerFp(const std::int32_t cost)
 {
-    return (static_cast<std::int32_t>(cost) > gPlayerRuntime.fp);
+    return (static_cast<std::int32_t>(cost) > BorrowPlayerRuntimeStorage()->fp);
 }
 
 bool IsPlayerFpGreaterEqual(const std::int32_t cost)
 {
-    return (gPlayerRuntime.fp >= static_cast<std::int32_t>(cost));
+    return (BorrowPlayerRuntimeStorage()->fp >= static_cast<std::int32_t>(cost));
 }
 
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
 {
-    return gPlayerRuntime.values15BD0[index];
+    return BorrowPlayerRuntimeStorage()->values15BD0[index];
 }
 
 std::uint8_t ReadPlayerActionFlagsByte() noexcept
 {
-    return reinterpret_cast<const unsigned char*>(&gPlayerRuntime.flags18C)[2];
+    return reinterpret_cast<const unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
 }
 
 std::uint16_t ReadPlayerActionFlags() noexcept
 {
-    return static_cast<std::uint16_t>(gPlayerRuntime.flags18C >> 16);
+    return static_cast<std::uint16_t>(BorrowPlayerRuntimeStorage()->flags18C >> 16);
 }
 
 std::int32_t ReadPlayerActionValue190() noexcept
 {
-    return gPlayerRuntime.value190;
+    return BorrowPlayerRuntimeStorage()->value190;
 }
 
 void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
 {
-    gPlayerRuntime.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
+    BorrowPlayerRuntimeStorage()->flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
 }
 
 void SetPlayerActionFlags(const std::uint16_t mask) noexcept
 {
-    gPlayerRuntime.flags18C |= static_cast<std::uint32_t>(mask) << 16;
+    BorrowPlayerRuntimeStorage()->flags18C |= static_cast<std::uint32_t>(mask) << 16;
 }
 
 char* BorrowPlayerStallName() noexcept
 {
-    return gPlayerRuntime.text15BB8.data();
+    return BorrowPlayerRuntimeStorage()->text15BB8.data();
 }
 
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
 {
-    hp->CopyPayload(&gPlayerRuntime.hp);
-    maxHp->CopyPayload(&gPlayerRuntime.maxHp);
-    fp->CopyPayload(&gPlayerRuntime.fp);
-    maxFp->CopyPayload(&gPlayerRuntime.maxFp);
+    hp->CopyPayload(&BorrowPlayerRuntimeStorage()->hp);
+    maxHp->CopyPayload(&BorrowPlayerRuntimeStorage()->maxHp);
+    fp->CopyPayload(&BorrowPlayerRuntimeStorage()->fp);
+    maxFp->CopyPayload(&BorrowPlayerRuntimeStorage()->maxFp);
 }
 
 const char* BorrowTitleText(const std::int32_t index) noexcept
@@ -8970,12 +9035,12 @@ const char* BorrowTitleText(const std::int32_t index) noexcept
 const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
 {
     switch (mode) {
-    case 1: return gPlayerRuntime.name.data();
-    case 2: return gPlayerRuntime.ownTitle.data();
-    case 3: return BorrowTitleText(gPlayerRuntime.titleIndex100);
-    case 4: return gPlayerRuntime.text12A.data();
-    case 5: return gPlayerRuntime.text14B.data();
-    case 6: return gPlayerRuntime.text15BB8.data();
+    case 1: return BorrowPlayerRuntimeStorage()->name.data();
+    case 2: return BorrowPlayerRuntimeStorage()->ownTitle.data();
+    case 3: return BorrowTitleText(BorrowPlayerRuntimeStorage()->titleIndex100);
+    case 4: return BorrowPlayerRuntimeStorage()->text12A.data();
+    case 5: return BorrowPlayerRuntimeStorage()->text14B.data();
+    case 6: return BorrowPlayerRuntimeStorage()->text15BB8.data();
     default: return nullptr;
     }
 }
@@ -8984,12 +9049,12 @@ std::uint32_t gActorBarsEnabled5AC490 = 0; // 原全局：0x005AC490。
 
 std::int32_t ReadPlayerImageNo() noexcept
 {
-    return gPlayerRuntime.imageNo;
+    return BorrowPlayerRuntimeStorage()->imageNo;
 }
 
 std::int32_t ReadPlayerValue17C() noexcept
 {
-    return gPlayerRuntime.value17C;
+    return BorrowPlayerRuntimeStorage()->value17C;
 }
 
 std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
@@ -9047,9 +9112,9 @@ void ResetMapFollowersFromPath(login::YobiAction* const leader)
     for (std::int32_t i = 1; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
-            const bool isPlayer = slot.objectIndex == gPlayerRuntime.objectIndex;
+            const bool isPlayer = slot.objectIndex == BorrowPlayerRuntimeStorage()->objectIndex;
             login::detail::ResetMapFollowerFromPath(
-                leader, i, slot.action, isPlayer, &gPlayerRuntime.direction);
+                leader, i, slot.action, isPlayer, &BorrowPlayerRuntimeStorage()->direction);
         }
     }
 }
@@ -9103,7 +9168,7 @@ login::YobiAction* Sub_51B080()
 {
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
-            if (slot.objectIndex == gPlayerRuntime.objectIndex) {
+            if (slot.objectIndex == BorrowPlayerRuntimeStorage()->objectIndex) {
                 login::YobiAction* const action = slot.action;
                 if (action != nullptr) {
                     login::detail::ClearMapActorPathCount(action);
@@ -9173,9 +9238,9 @@ void Sub_46A940()
 std::uint8_t Sub_46F680()
 {
     const float mouseY = static_cast<float>(
-        platform::gLegacyMouseState.mouseY.Read_401EC0());
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
     const float mouseX = static_cast<float>(
-        platform::gLegacyMouseState.mouseX.Read_401EC0());
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -9201,9 +9266,9 @@ std::uint8_t Sub_46F680()
     gValueC8A7A8 = 0;
     gValueC8A7AC = 0;
 
-    if ((platform::gLegacyMouseState.mouseY < 456)
+    if ((platform::BorrowLegacyMouseStateStorage()->mouseY < 456)
         && ((*reinterpret_cast<const unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) < 212
+                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
                 && ui::ReadDragItemIndex_584DA4() < 0)
             || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
         && gValueC8A79C == 0) {
@@ -9218,10 +9283,10 @@ std::uint8_t Sub_46F680()
         static_cast<void>(
             login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
-    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < 456);
+    const bool mouseBelowLimit = (platform::BorrowLegacyMouseStateStorage()->mouseY < 456);
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) < 212
+                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
                 && ui::ReadDragItemIndex_584DA4() < 0)
             || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
         gValueC8A778 = 0;
@@ -9230,14 +9295,14 @@ std::uint8_t Sub_46F680()
     }
 
     const auto leftClick = *reinterpret_cast<const unsigned char*>(
-        &platform::gLegacyMouseState.edgeButtons);
+        &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
     if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
         gValueC8A7A0 = 1;
         gValueC8A778 = 0;
         gValueC8A794 = platform::ReadTickCount32();
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::gLegacyMouseState.heldButtons) & 1u) != 0
+            &platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1u) != 0
         && gValueC8A774 == 0) {
         const std::uint32_t baseline = gValueC8A794;
         gValueC8A7A4 = 1;
@@ -9250,12 +9315,12 @@ std::uint8_t Sub_46F680()
         gValueC8A794 = 0;
     }
     const auto rightClick = *reinterpret_cast<const unsigned char*>(
-        &platform::gLegacyMouseState.edgeButtons);
+        &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
     if ((rightClick & 2u) != 0 && gValueC8A7A8 == 0) {
         gValueC8A7A8 = 1;
     }
     if ((*reinterpret_cast<const unsigned char*>(
-            &platform::gLegacyMouseState.heldButtons) & 2u) != 0
+            &platform::BorrowLegacyMouseStateStorage()->heldButtons) & 2u) != 0
         && gValueC8A7A8 == 0) {
         gValueC8A7AC = 1;
     }
@@ -9278,7 +9343,7 @@ std::int32_t Sub_455A90()
 // 原函数：0x00470050。
 void Sub_470050()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -9286,21 +9351,21 @@ void Sub_470050()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
+        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
     const std::int32_t target = Sub_4450D0(targetX, targetY, 8);
     const std::uint16_t follow = gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
+        || !((*BorrowValueC821D8Storage()) == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.Read_401EC0();
-        const std::int32_t x = gPlayerX.Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9310,7 +9375,7 @@ void Sub_470050()
 // 原函数：0x00470150。
 void Sub_470150()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -9320,22 +9385,22 @@ void Sub_470150()
     std::int32_t target = 0;
     if (Sub_455A90() == 1) {
         const std::int32_t targetY =
-            (gPlayerY + static_cast<std::int32_t>(deltaY));
+            ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
-            (gPlayerX + static_cast<std::int32_t>(deltaX));
+            ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
         target = Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
     }
     const std::uint16_t follow = gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
+        || !((*BorrowValueC821D8Storage()) == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.Read_401EC0();
-        const std::int32_t x = gPlayerX.Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9347,7 +9412,7 @@ void Sub_470270()
 {
     const bool joinTeam = gValueFF0D36 == 0;
     if (joinTeam) {
-        const std::int32_t direction = gPlayerRuntime.direction;
+        const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
         if (direction < 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
@@ -9355,16 +9420,16 @@ void Sub_470270()
         const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
         const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
         const std::int32_t targetY =
-            (gPlayerY + static_cast<std::int32_t>(deltaY));
+            ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
-            (gPlayerX + static_cast<std::int32_t>(deltaX));
+            ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
         if (Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
         }
     }
     if (gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
+        || !((*BorrowValueC821D8Storage()) == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9374,8 +9439,8 @@ void Sub_470270()
             return;
         }
         const std::int32_t mode = joinTeam ? 1 : 0;
-        const std::int32_t y = gPlayerY.Read_401EC0();
-        const std::int32_t x = gPlayerX.Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9385,7 +9450,7 @@ void Sub_470270()
 // 原函数：0x004703C0。
 void Sub_4703C0()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -9393,19 +9458,19 @@ void Sub_4703C0()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
+        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
     if (Sub_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
+        || !((*BorrowValueC821D8Storage()) == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.Read_401EC0();
-        const std::int32_t x = gPlayerX.Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9415,7 +9480,7 @@ void Sub_4703C0()
 // 原函数：0x004704A0。
 void Sub_4704A0()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -9423,14 +9488,14 @@ void Sub_4704A0()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t firstY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
+        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
     const std::int32_t firstX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
     const std::int32_t first = Sub_4450D0(firstX, firstY, 8);
     const std::int32_t secondY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
+        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY * 2));
     const std::int32_t secondX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
     if (gValueFF0D36 != 1 && first != 1 && second != 1) {
         Sub_44B050(kTradeNoTarget556CC4, 4, 0);
@@ -9438,7 +9503,7 @@ void Sub_4704A0()
         return;
     }
     if (gValue9A86D8 == 0 && gValue9FB92E == 0
-        && (gValueC821D8 == 0)) {
+        && ((*BorrowValueC821D8Storage()) == 0)) {
         const std::uint32_t now = platform::ReadTickCount32();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
             static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
@@ -9451,7 +9516,7 @@ void Sub_4704A0()
 // 原函数：0x00470670。
 void Sub_470670()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
@@ -9459,12 +9524,12 @@ void Sub_470670()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        (gPlayerY + static_cast<std::int32_t>(deltaY));
+        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        (gPlayerX + static_cast<std::int32_t>(deltaX));
+        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
     if (Sub_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !(gValueC821D8 == 0)) {
+        || !((*BorrowValueC821D8Storage()) == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9476,8 +9541,8 @@ void Sub_470670()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = gPlayerY.Read_401EC0();
-        const std::int32_t x = gPlayerX.Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9487,13 +9552,13 @@ void Sub_470670()
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 {
-    login::YobiAction* const initialAction = gPlayerRuntime.action;
+    login::YobiAction* const initialAction = BorrowPlayerRuntimeStorage()->action;
     if (initialAction == nullptr || gCurrentSceneType == 10
         || gValue9A86D8 != 0 || gValue9FB92E != 0) {
         return reinterpret_cast<std::uintptr_t>(initialAction);
     }
     // 原401D00仅改AL，保留读取值高24位；只能读取一次，避免额外计数/RNG。
-    const std::int32_t comparisonValue = gValueC821D8.Read_401EC0();
+    const std::int32_t comparisonValue = BorrowValueC821D8Storage()->Read_401EC0();
     const std::uint32_t comparisonResult = (std::bit_cast<std::uint32_t>(comparisonValue) & 0xFFFFFF00u)
         | static_cast<std::uint32_t>(comparisonValue == 0);
     if (comparisonValue != 0 || index < 0) {
@@ -9503,7 +9568,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     if (gEmoteRequestTickD67D20 + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
     if (!useLimitedActions) {
         const std::int32_t image = login::detail::GetYobiActionField2A8(action);
@@ -9522,8 +9587,8 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         selected = 1;
     }
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
@@ -9548,8 +9613,8 @@ std::uint32_t Sub_51B3E0()
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signX =
-        (gPlayerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
-    result = (gPlayerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
+        ((*BorrowPlayerXStorage()) - static_cast<std::int32_t>(gPlayerMoveTargetX));
+    result = ((*BorrowPlayerXStorage()) - static_cast<std::int32_t>(gPlayerMoveTargetX));
     if (signX < 0) {
         result = -result;
     }
@@ -9557,8 +9622,8 @@ std::uint32_t Sub_51B3E0()
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signY =
-        (gPlayerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
-    result = (gPlayerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
+        ((*BorrowPlayerYStorage()) - static_cast<std::int32_t>(gPlayerMoveTargetY));
+    result = ((*BorrowPlayerYStorage()) - static_cast<std::int32_t>(gPlayerMoveTargetY));
     if (signY < 0) {
         result = -result;
     }
@@ -9572,11 +9637,11 @@ std::uint32_t Sub_51B3E0()
         return 0;
     }
     const std::int32_t deltaX =
-        (static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX);
+        (static_cast<std::int32_t>(gPlayerMoveTargetX) - (*BorrowPlayerXStorage()));
     const std::int32_t secondTargetY = gPlayerMoveTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
-        (static_cast<std::int32_t>(secondTargetY) - gPlayerY);
+        (static_cast<std::int32_t>(secondTargetY) - (*BorrowPlayerYStorage()));
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
@@ -9584,8 +9649,8 @@ std::uint32_t Sub_51B3E0()
     if (gValueFF0D38 + 500u >= now) {
         return now;
     }
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint32_t sentAt = platform::ReadTickCount32();
     gValueFF0D38 = sentAt;
@@ -9595,7 +9660,7 @@ std::uint32_t Sub_51B3E0()
 // 原函数：0x0046B370。
 void Sub_46B370()
 {
-    if (gPlayerRuntime.action == nullptr) {
+    if (BorrowPlayerRuntimeStorage()->action == nullptr) {
         return;
     }
     const float movementX = std::bit_cast<float>(gValue9EE8FC);
@@ -9607,16 +9672,16 @@ void Sub_46B370()
         || gValue62B5AA != 0 || gValueC82220 != 0) {
         return;
     }
-    if ((gPlayerX == static_cast<std::int32_t>(gPlayerMoveTargetX))
-        && (gPlayerY == static_cast<std::int32_t>(gPlayerMoveTargetY))) {
+    if (((*BorrowPlayerXStorage()) == static_cast<std::int32_t>(gPlayerMoveTargetX))
+        && ((*BorrowPlayerYStorage()) == static_cast<std::int32_t>(gPlayerMoveTargetY))) {
         return;
     }
     const std::int32_t deltaX =
-        (static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX);
+        (static_cast<std::int32_t>(gPlayerMoveTargetX) - (*BorrowPlayerXStorage()));
     const std::int32_t targetY = gPlayerMoveTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
-        (static_cast<std::int32_t>(targetY) - gPlayerY);
+        (static_cast<std::int32_t>(targetY) - (*BorrowPlayerYStorage()));
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
@@ -9629,8 +9694,8 @@ void Sub_46B370()
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount32();
 }
@@ -9639,7 +9704,7 @@ void Sub_46B370()
 std::uint8_t Sub_469C90()
 {
     const bool pendingIsZero =
-        (gValueC821D8 == 0);
+        ((*BorrowValueC821D8Storage()) == 0);
     if (pendingIsZero && gValue9A86D8 == 0 && gValue9FB92E == 0) {
         gValueC82220 = 0;
     }
@@ -9673,7 +9738,7 @@ std::uint8_t Sub_469C90()
         }
         if (forceContinuousMove || gValueC8A79C == 1) {
             const auto click = *reinterpret_cast<const unsigned char*>(
-                &platform::gLegacyMouseState.edgeButtons);
+                &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
             if ((click & 1u) != 0) {
                 gValueC8A79C = 0;
             } else {
@@ -9682,33 +9747,33 @@ std::uint8_t Sub_469C90()
                     const std::uint32_t sampledTick = platform::ReadTickCount32();
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     gValue55DDAC = sampledTick;
-                    platform::LegacyCryptInt temporary;
-                    temporary.ConstructFromInt_401CC0(targetX);
-                    const std::uint32_t maskX = temporary.mask;
-                    const std::uint32_t encodedX = temporary.encoded;
-                    const std::uint8_t readCountX = temporary.readCount;
-                    gValue9A7F88.mask = maskX;
-                    gValue9A7F88.encoded = encodedX;
-                    gValue9A7F88.readCount = readCountX;
-                    temporary.Destroy_401CF0();
-                    temporary.ConstructFromInt_401CC0(gPlayerMoveTargetY);
-                    const std::uint32_t encodedY = temporary.encoded;
-                    const std::uint32_t maskY = temporary.mask;
-                    const std::uint8_t readCountY = temporary.readCount;
-                    gValue9A7F98.encoded = encodedY;
-                    gValue9A7F98.mask = maskY;
-                    gValue9A7F98.readCount = readCountY;
-                    temporary.Destroy_401CF0();
+                    std::optional<platform::LegacyCryptInt> temporary;
+                    temporary.emplace(static_cast<std::int32_t>(targetX));
+                    const std::uint32_t maskX = temporary->mask;
+                    const std::uint32_t encodedX = temporary->encoded;
+                    const std::uint8_t readCountX = temporary->readCount;
+                    BorrowValue9A7F88Storage()->mask = maskX;
+                    BorrowValue9A7F88Storage()->encoded = encodedX;
+                    BorrowValue9A7F88Storage()->readCount = readCountX;
+                    temporary.reset();
+                    temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetY));
+                    const std::uint32_t encodedY = temporary->encoded;
+                    const std::uint32_t maskY = temporary->mask;
+                    const std::uint8_t readCountY = temporary->readCount;
+                    BorrowValue9A7F98Storage()->encoded = encodedY;
+                    BorrowValue9A7F98Storage()->mask = maskY;
+                    BorrowValue9A7F98Storage()->readCount = readCountY;
+                    temporary.reset();
                     gValueC821FC = 1;
                 }
-                if ((static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX) != 0
-                    || (static_cast<std::int32_t>(gPlayerMoveTargetY) - gPlayerY) != 0) {
+                if ((static_cast<std::int32_t>(gPlayerMoveTargetX) - (*BorrowPlayerXStorage())) != 0
+                    || (static_cast<std::int32_t>(gPlayerMoveTargetY) - (*BorrowPlayerYStorage())) != 0) {
                     const std::int32_t deltaY =
-                        (static_cast<std::int32_t>(gPlayerMoveTargetY) - gPlayerY);
+                        (static_cast<std::int32_t>(gPlayerMoveTargetY) - (*BorrowPlayerYStorage()));
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     const float differenceY = static_cast<float>(deltaY);
                     const std::int32_t deltaX =
-                        (static_cast<std::int32_t>(targetX) - gPlayerX);
+                        (static_cast<std::int32_t>(targetX) - (*BorrowPlayerXStorage()));
                     const float differenceX = static_cast<float>(deltaX);
                     const std::int32_t direction = static_cast<std::int32_t>(
                         Sub_46CDF0(differenceX, differenceY));
@@ -9720,23 +9785,23 @@ std::uint8_t Sub_469C90()
             if (gValue55DDAC + 250u <= now) {
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
                 gValue55DDAC = platform::ReadTickCount32();
-                platform::LegacyCryptInt temporary;
-                temporary.ConstructFromInt_401CC0(gPlayerMoveTargetX);
-                const std::uint32_t encodedX = temporary.encoded;
-                const std::uint32_t maskX = temporary.mask;
-                const std::uint8_t readCountX = temporary.readCount;
-                gValue9A7F88.encoded = encodedX;
-                gValue9A7F88.mask = maskX;
-                gValue9A7F88.readCount = readCountX;
-                temporary.Destroy_401CF0();
-                temporary.ConstructFromInt_401CC0(gPlayerMoveTargetY);
-                const std::uint8_t readCountY = temporary.readCount;
-                const std::uint32_t encodedY = temporary.encoded;
-                const std::uint32_t maskY = temporary.mask;
-                gValue9A7F98.readCount = readCountY;
-                gValue9A7F98.encoded = encodedY;
-                gValue9A7F98.mask = maskY;
-                temporary.Destroy_401CF0();
+                std::optional<platform::LegacyCryptInt> temporary;
+                temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetX));
+                const std::uint32_t encodedX = temporary->encoded;
+                const std::uint32_t maskX = temporary->mask;
+                const std::uint8_t readCountX = temporary->readCount;
+                BorrowValue9A7F88Storage()->encoded = encodedX;
+                BorrowValue9A7F88Storage()->mask = maskX;
+                BorrowValue9A7F88Storage()->readCount = readCountX;
+                temporary.reset();
+                temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetY));
+                const std::uint8_t readCountY = temporary->readCount;
+                const std::uint32_t encodedY = temporary->encoded;
+                const std::uint32_t maskY = temporary->mask;
+                BorrowValue9A7F98Storage()->readCount = readCountY;
+                BorrowValue9A7F98Storage()->encoded = encodedY;
+                BorrowValue9A7F98Storage()->mask = maskY;
+                temporary.reset();
                 gValueC821FC = 1;
             }
         }
@@ -9756,19 +9821,19 @@ std::uint16_t Sub_469FC0()
     if (stopped != 0) {
         return static_cast<std::uint16_t>(stopped);
     }
-    if ((gValueC821D8 == 0)
+    if (((*BorrowValueC821D8Storage()) == 0)
         && gValue9A86D8 == 0 && gValue9FB92E == 0) {
         const std::int32_t pending = Sub_46AB60();
         if (pending != 0) {
             return static_cast<std::uint16_t>(pending);
         }
         const double targetX = static_cast<double>(
-            gPlayerSnapshotX.Read_401EC0()) * 64.0F;
+            BorrowPlayerSnapshotXStorage()->Read_401EC0()) * 64.0F;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
             const double targetY = static_cast<double>(
-                gPlayerSnapshotY.Read_401EC0()) * 64.0F;
+                BorrowPlayerSnapshotYStorage()->Read_401EC0()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -9809,21 +9874,21 @@ std::uint16_t Sub_469FC0()
                     const std::int16_t direction =
                         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
                     Sub_46BCF0();
-                    const std::int32_t speed = gPlayerRuntime.walkSpeed;
+                    const std::int32_t speed = BorrowPlayerRuntimeStorage()->walkSpeed;
                     const std::int16_t deltaY =
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
                     // 原401E00忽略实参高W16；复用单次读取的加法与S16扩展。
                     const std::int32_t nextY =
-                        (gPlayerY + static_cast<std::int32_t>(deltaY));
+                        ((*BorrowPlayerYStorage()) + static_cast<std::int32_t>(deltaY));
                     const std::int16_t deltaX =
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
                     const std::int32_t nextX =
-                        (gPlayerX + static_cast<std::int32_t>(deltaX));
+                        ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
                     MovePlayerOneStep_46B1B0(nextX, nextY, speed);
                     const std::int32_t y =
-                        gPlayerY.Read_401EC0();
+                        BorrowPlayerYStorage()->Read_401EC0();
                     const std::int32_t x =
-                        gPlayerX.Read_401EC0();
+                        BorrowPlayerXStorage()->Read_401EC0();
                     Sub_46A5A0(x, y);
                 }
             }
@@ -9849,31 +9914,31 @@ std::uint16_t Sub_469FC0()
 void Sub_46A410(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t encodedX = temporary.encoded;
-    const std::uint32_t maskX = temporary.mask;
-    const std::uint8_t readCountX = temporary.readCount;
-    gPlayerSnapshotX.encoded = encodedX;
-    gPlayerSnapshotX.mask = maskX;
-    gPlayerSnapshotX.readCount = readCountX;
-    temporary.Destroy_401CF0();
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t readCountY = temporary.readCount;
-    const std::uint32_t encodedY = temporary.encoded;
-    const std::uint32_t maskY = temporary.mask;
-    gPlayerSnapshotY.readCount = readCountY;
-    gPlayerSnapshotY.encoded = encodedY;
-    gPlayerSnapshotY.mask = maskY;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t encodedX = temporary->encoded;
+    const std::uint32_t maskX = temporary->mask;
+    const std::uint8_t readCountX = temporary->readCount;
+    BorrowPlayerSnapshotXStorage()->encoded = encodedX;
+    BorrowPlayerSnapshotXStorage()->mask = maskX;
+    BorrowPlayerSnapshotXStorage()->readCount = readCountX;
+    temporary.reset();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t readCountY = temporary->readCount;
+    const std::uint32_t encodedY = temporary->encoded;
+    const std::uint32_t maskY = temporary->mask;
+    BorrowPlayerSnapshotYStorage()->readCount = readCountY;
+    BorrowPlayerSnapshotYStorage()->encoded = encodedY;
+    BorrowPlayerSnapshotYStorage()->mask = maskY;
+    temporary.reset();
 
     const std::int32_t pixelX =
-        (gPlayerSnapshotX * 64);
+        ((*BorrowPlayerSnapshotXStorage()) * 64);
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        (gPlayerSnapshotY * 64);
+        ((*BorrowPlayerSnapshotYStorage()) * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
         static_cast<double>(differenceX),
@@ -9881,7 +9946,7 @@ void Sub_46A410(
     };
     platform::detail::MapMoveDirection direction;
     platform::detail::Cg2dMapMoveDirection(&difference, &direction);
-    if (gPlayerRuntime.action != nullptr) {
+    if (BorrowPlayerRuntimeStorage()->action != nullptr) {
         const double rate = static_cast<double>(speed);
         const float percent = std::bit_cast<float>(0x3C23D70Au);
         gValue9EE8FC = std::bit_cast<std::uint32_t>(
@@ -9926,9 +9991,9 @@ void Sub_46A700()
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        gPlayerSnapshotX.Read_401EC0()) * 64.0F);
+        BorrowPlayerSnapshotXStorage()->Read_401EC0()) * 64.0F);
     const double scaledTargetY = static_cast<double>(
-        gPlayerSnapshotY.Read_401EC0()) * 64.0F;
+        BorrowPlayerSnapshotYStorage()->Read_401EC0()) * 64.0F;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -9960,41 +10025,41 @@ void Sub_46A700()
         gValue9EE8FC = 0;
         gValue9EE900 = 0;
         gValueC8222E = 1;
-        platform::LegacyCryptInt temporary;
+        std::optional<platform::LegacyCryptInt> temporary;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
-        temporary.ConstructFromInt_401CC0(x);
-        const std::uint32_t maskX = temporary.mask;
-        const std::uint32_t encodedX = temporary.encoded;
-        const std::uint8_t readCountX = temporary.readCount;
-        gPlayerX.mask = maskX;
-        gPlayerX.encoded = encodedX;
-        gPlayerX.readCount = readCountX;
-        temporary.Destroy_401CF0();
+        temporary.emplace(static_cast<std::int32_t>(x));
+        const std::uint32_t maskX = temporary->mask;
+        const std::uint32_t encodedX = temporary->encoded;
+        const std::uint8_t readCountX = temporary->readCount;
+        BorrowPlayerXStorage()->mask = maskX;
+        BorrowPlayerXStorage()->encoded = encodedX;
+        BorrowPlayerXStorage()->readCount = readCountX;
+        temporary.reset();
 
         const std::uint32_t currentYBits = gWorldCurrentYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
-        temporary.ConstructFromInt_401CC0(y);
-        const std::uint32_t maskY = temporary.mask;
-        const std::uint32_t encodedY = temporary.encoded;
-        const std::uint8_t readCountY = temporary.readCount;
-        gPlayerY.mask = maskY;
-        gPlayerY.encoded = encodedY;
-        gPlayerY.readCount = readCountY;
-        temporary.Destroy_401CF0();
+        temporary.emplace(static_cast<std::int32_t>(y));
+        const std::uint32_t maskY = temporary->mask;
+        const std::uint32_t encodedY = temporary->encoded;
+        const std::uint8_t readCountY = temporary->readCount;
+        BorrowPlayerYStorage()->mask = maskY;
+        BorrowPlayerYStorage()->encoded = encodedY;
+        BorrowPlayerYStorage()->readCount = readCountY;
+        temporary.reset();
 
-        const std::int32_t count = gPlayerRuntime.value174;
+        const std::int32_t count = BorrowPlayerRuntimeStorage()->value174;
         if (count > 0) {
             const std::int32_t remaining = count - 1;
-            gPlayerRuntime.value174 = remaining;
+            BorrowPlayerRuntimeStorage()->value174 = remaining;
             if (remaining <= 0) {
-                login::YobiAction* const action = gPlayerRuntime.action;
+                login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
                 if (action != nullptr) {
                     login::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
-                        gPlayerSnapshotY.Read_401EC0();
+                        BorrowPlayerSnapshotYStorage()->Read_401EC0();
                     const std::int32_t snapshotX =
-                        gPlayerSnapshotX.Read_401EC0();
+                        BorrowPlayerSnapshotXStorage()->Read_401EC0();
                     static_cast<void>(network::Sub_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
@@ -10003,7 +10068,7 @@ void Sub_46A700()
     }
     Sub_51A060(1);
     static_cast<void>(Sub_51A640());
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     if (action != nullptr) {
         gMapCharaSceneSlots.value55DE98 =
             login::detail::ReadYobiDirectionLow16(action);
@@ -10015,42 +10080,42 @@ void Sub_46A700()
 // 原函数：0x00519A80。
 void Sub_519A80()
 {
-    const std::int32_t direction = gPlayerRuntime.direction;
-    const std::int32_t y = gPlayerY.Read_401EC0();
-    const std::int32_t x = gPlayerX.Read_401EC0();
-    Sub_519CD0(gPlayerRuntime.imageNo, x, y, direction);
-    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18A);
+    const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
+    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    Sub_519CD0(BorrowPlayerRuntimeStorage()->imageNo, x, y, direction);
+    const auto flags = static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
 
     char escaped[256];
     char titles[256];
     input::EscapeLegacyTextAndNotify_52D2D0(
-        gPlayerRuntime.ownTitle.data(), escaped, 256);
+        BorrowPlayerRuntimeStorage()->ownTitle.data(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
     input::EscapeLegacyTextAndNotify_52D2D0(
-        gPlayerRuntime.text12A.data(), escaped, 256);
+        BorrowPlayerRuntimeStorage()->text12A.data(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
     input::EscapeLegacyTextAndNotify_52D2D0(
-        gPlayerRuntime.text14B.data(), escaped, 256);
+        BorrowPlayerRuntimeStorage()->text14B.data(), escaped, 256);
     std::strcat(titles, escaped);
     const std::int32_t value188 =
-        std::bit_cast<std::int16_t>(gPlayerRuntime.value188);
-    const std::int32_t level = gPlayerRuntime.level;
+        std::bit_cast<std::int16_t>(BorrowPlayerRuntimeStorage()->value188);
+    const std::int32_t level = BorrowPlayerRuntimeStorage()->level;
     Sub_51A090(
-        gPlayerRuntime.name.data(), titles, level, value188, flag40, flag80);
+        BorrowPlayerRuntimeStorage()->name.data(), titles, level, value188, flag40, flag80);
 
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     if (action != nullptr) {
-        login::detail::CopyYobiPlayerHp(action, &gPlayerRuntime.hp);
+        login::detail::CopyYobiPlayerHp(action, &BorrowPlayerRuntimeStorage()->hp);
         login::detail::CopyYobiPlayerMaxHp(
-            gPlayerRuntime.action, &gPlayerRuntime.maxHp);
-        const std::uint32_t objectIndex = gPlayerRuntime.objectIndex;
+            BorrowPlayerRuntimeStorage()->action, &BorrowPlayerRuntimeStorage()->maxHp);
+        const std::uint32_t objectIndex = BorrowPlayerRuntimeStorage()->objectIndex;
         for (auto& slot : gPetMapCharaSlots) {
             if (slot.flags != 0 && slot.objectIndex == objectIndex) {
-                slot.action = gPlayerRuntime.action;
+                slot.action = BorrowPlayerRuntimeStorage()->action;
                 break;
             }
         }
@@ -10071,7 +10136,7 @@ login::YobiAction* Sub_51A090(
     const auto nameLength = static_cast<std::int32_t>(std::strlen(name));
     if (nameLength <= 16) {
         // 519A80 的源就是本槽；原 rep movs 允许同源复制。
-        std::memmove(gPlayerRuntime.name.data(), name, std::strlen(name) + 1);
+        std::memmove(BorrowPlayerRuntimeStorage()->name.data(), name, std::strlen(name) + 1);
     }
 
     char first[256];
@@ -10081,30 +10146,30 @@ login::YobiAction* Sub_51A090(
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
-        std::strcpy(gPlayerRuntime.ownTitle.data(), first);
+        std::strcpy(BorrowPlayerRuntimeStorage()->ownTitle.data(), first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
-        std::strcpy(gPlayerRuntime.text12A.data(), second);
+        std::strcpy(BorrowPlayerRuntimeStorage()->text12A.data(), second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
-        std::strcpy(gPlayerRuntime.text14B.data(), third);
+        std::strcpy(BorrowPlayerRuntimeStorage()->text14B.data(), third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
-        std::strcpy(gPlayerRuntime.text15BB8.data(), fourth);
+        std::strcpy(BorrowPlayerRuntimeStorage()->text15BB8.data(), fourth);
     }
-    gPlayerRuntime.level = level;
-    gPlayerRuntime.value188 = static_cast<std::uint16_t>(value188);
+    BorrowPlayerRuntimeStorage()->level = level;
+    BorrowPlayerRuntimeStorage()->value188 = static_cast<std::uint16_t>(value188);
     if (flag40 != 0) {
-        gPlayerRuntime.flags18A |= 0x40u;
+        BorrowPlayerRuntimeStorage()->flags18A |= 0x40u;
     }
     if (flag80 != 0) {
-        gPlayerRuntime.flags18A |= 0x80u;
+        BorrowPlayerRuntimeStorage()->flags18A |= 0x80u;
     }
     return login::detail::PublishPlayerActionIdentity(
         name, titles, nameLength, level, value188);
@@ -10112,15 +10177,15 @@ login::YobiAction* Sub_51A090(
 
 login::YobiAction* ReadPlayerAction() noexcept
 {
-    return gPlayerRuntime.action;
+    return BorrowPlayerRuntimeStorage()->action;
 }
 
 // 原函数：0x0051A4B0。
 void Sub_51A4B0()
 {
     login::detail::CopyInitialPlayerActionIdentity(
-        gPlayerRuntime.name.data(), gPlayerRuntime.ownTitle.data(),
-        &gPlayerRuntime.level, &gPlayerRuntime.hp, &gPlayerRuntime.maxHp);
+        BorrowPlayerRuntimeStorage()->name.data(), BorrowPlayerRuntimeStorage()->ownTitle.data(),
+        &BorrowPlayerRuntimeStorage()->level, &BorrowPlayerRuntimeStorage()->hp, &BorrowPlayerRuntimeStorage()->maxHp);
 }
 
 // 原函数：0x00519CD0。
@@ -10128,9 +10193,9 @@ void Sub_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
-    login::YobiAction* const oldAction = gPlayerRuntime.action;
-    gPlayerRuntime.imageNo = imageNo;
-    gPlayerRuntime.direction = direction;
+    login::YobiAction* const oldAction = BorrowPlayerRuntimeStorage()->action;
+    BorrowPlayerRuntimeStorage()->imageNo = imageNo;
+    BorrowPlayerRuntimeStorage()->direction = direction;
     if (oldAction != nullptr) {
         Sub_519E50(imageNo, direction);
         static_cast<void>(Sub_519EC0(x, y));
@@ -10140,30 +10205,30 @@ void Sub_519CD0(
 
     login::YobiAction* const action =
         login::detail::Sub_441DB0(imageNo, x, y, direction);
-    gPlayerRuntime.action = action;
+    BorrowPlayerRuntimeStorage()->action = action;
     if (action != nullptr) {
         login::detail::SetYobiPlayerFlag(action);
-        login::YobiAction* const current = gPlayerRuntime.action;
-        login::detail::SetYobiWalkSpeed(current, gPlayerRuntime.walkSpeed);
+        login::YobiAction* const current = BorrowPlayerRuntimeStorage()->action;
+        login::detail::SetYobiWalkSpeed(current, BorrowPlayerRuntimeStorage()->walkSpeed);
     }
 }
 
 // 原函数：0x00519E50。
 void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
-    gPlayerRuntime.imageNo = imageNo;
-    gPlayerRuntime.direction = direction;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    BorrowPlayerRuntimeStorage()->imageNo = imageNo;
+    BorrowPlayerRuntimeStorage()->direction = direction;
     if (action == nullptr) {
         return;
     }
     login::detail::SetYobiActionField2A8(action, imageNo);
-    login::detail::SetYobiActionField2B8(gPlayerRuntime.action, direction);
-    login::YobiAction* const current = gPlayerRuntime.action;
+    login::detail::SetYobiActionField2B8(BorrowPlayerRuntimeStorage()->action, direction);
+    login::YobiAction* const current = BorrowPlayerRuntimeStorage()->action;
     if (login::detail::ReadMapActorAttachment44(current) != nullptr) {
         const std::int32_t mapped =
             Sub_51C0D0(login::detail::GetYobiActionField2A8(current));
-        login::detail::SetYobiActionField2A8(gPlayerRuntime.action, mapped);
+        login::detail::SetYobiActionField2A8(BorrowPlayerRuntimeStorage()->action, mapped);
     }
 }
 
@@ -10176,8 +10241,8 @@ std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
 // 原函数：0x0051A040。
 std::int32_t Sub_51A040(const std::int32_t direction)
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
-    gPlayerRuntime.direction = direction;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    BorrowPlayerRuntimeStorage()->direction = direction;
     if (action != nullptr) {
         login::detail::SetYobiActionField2B8(action, direction);
     }
@@ -10187,7 +10252,7 @@ std::int32_t Sub_51A040(const std::int32_t direction)
 // 原函数：0x0051A060。
 void Sub_51A060(const std::int32_t characterAction)
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     if (action != nullptr) {
         login::detail::Sub_43EFC0(
             action, characterAction, characterAction == 1 ? 0 : 1);
@@ -10206,8 +10271,8 @@ void Sub_51A840(
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
-        login::YobiAction* const action = gPlayerRuntime.action;
-        gPlayerRuntime.walkSpeed = speed;
+        login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+        BorrowPlayerRuntimeStorage()->walkSpeed = speed;
         login::detail::SetYobiWalkSpeed(action, speed);
         Sub_51A060(1);
         return;
@@ -10291,7 +10356,7 @@ void Sub_51A840(
         return;
     case 60:
         login::detail::ApplyPlayerAppearanceReply(
-            option1, option2, option3, option4, &gPlayerRuntime.imageNo);
+            option1, option2, option3, option4, &BorrowPlayerRuntimeStorage()->imageNo);
         return;
     case 63:
         static_cast<void>(Sub_51BDD0(option1));
@@ -10302,16 +10367,16 @@ void Sub_51A840(
         static_cast<void>(Sub_51A040(direction));
         return;
     case 70:
-        login::detail::ApplyPlayerRideReply(option1, option2, &gPlayerRuntime.value174);
+        login::detail::ApplyPlayerRideReply(option1, option2, &BorrowPlayerRuntimeStorage()->value174);
         return;
     case 80:
         login::detail::ApplyPlayerPhase3Reply(option1);
         return;
     case 200:
         if (option1 != 0) {
-            reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[3] |= 0x10u;
+            reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[3] |= 0x10u;
         } else {
-            auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+            auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
             std::uint16_t actionFlags;
             std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
             actionFlags &= 0xEFFFu;
@@ -10372,11 +10437,11 @@ std::int32_t Sub_51C0D0(const std::int32_t imageNo)
 // 原函数：0x00519D50。
 std::int8_t Sub_519D50()
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
     if (action != nullptr) {
         login::detail::ClearMapActorAttachments(action);
-        login::detail::MarkDeath(gPlayerRuntime.action);
-        gPlayerRuntime.action = nullptr;
+        login::detail::MarkDeath(BorrowPlayerRuntimeStorage()->action);
+        BorrowPlayerRuntimeStorage()->action = nullptr;
     }
     Sub_51A5B0();
     if (Sub_51BEC0() == 0) {
@@ -10388,58 +10453,58 @@ std::int8_t Sub_519D50()
 // 原函数：0x0051A5A0。
 void Sub_51A5A0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
     flagBytes[1] |= 1u;
-    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 1u;
+    *reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) = 1u;
 }
 
 // 原函数：0x0051A5E0。
 void Sub_51A5E0()
 {
-    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A);
     flagBytes[1] |= 2u;
 }
 
 // 原函数：0x0051A5F0。
 void Sub_51A5F0()
 {
-    gPlayerRuntime.flags18A &= 0xFDFFu;
+    BorrowPlayerRuntimeStorage()->flags18A &= 0xFDFFu;
 }
 
 // 原函数：0x0051A600。
 void Sub_51A600()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x40u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A)[1] |= 0x40u;
 }
 
 // 原函数：0x0051A610。
 void Sub_51A610()
 {
-    gPlayerRuntime.flags18A &= 0xBFFFu;
+    BorrowPlayerRuntimeStorage()->flags18A &= 0xBFFFu;
 }
 
 // 原函数：0x0051A620。
 void Sub_51A620()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18A)[1] |= 0x80u;
 }
 
 // 原函数：0x0051A630。
 void Sub_51A630()
 {
-    gPlayerRuntime.flags18A &= 0x7FFFu;
+    BorrowPlayerRuntimeStorage()->flags18A &= 0x7FFFu;
 }
 
 // 原函数：0x0051BDB0。
 void Sub_51BDB0()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 1u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 1u;
 }
 
 // 原函数：0x0051BDC0。
 void Sub_51BDC0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFEu;
@@ -10449,19 +10514,19 @@ void Sub_51BDC0()
 // 原函数：0x0051BE10。
 void Sub_51BE10()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x24u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x24u;
 }
 
 // 原函数：0x0051BE20。
 void Sub_51BE20()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 8u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 8u;
 }
 
 // 原函数：0x0051BE30。
 void Sub_51BE30()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFF7u;
@@ -10471,22 +10536,22 @@ void Sub_51BE30()
 // 原函数：0x0051BE40。
 void Sub_51BE40()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x50u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x50u;
 }
 
 // 原函数：0x0051BEE0。
 void Sub_51BEE0()
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x80u;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 0x80u;
 }
 
 // 原函数：0x0051A5B0。
 login::YobiAction* Sub_51A5B0()
 {
-    login::YobiAction* const action = gPlayerRuntime.action;
-    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 0;
+    login::YobiAction* const action = BorrowPlayerRuntimeStorage()->action;
+    *reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) = 0;
     if (action == nullptr || login::detail::GetYobiActionField2E4(action) != 2) {
-        gPlayerRuntime.flags18A &= 0xFEFFu;
+        BorrowPlayerRuntimeStorage()->flags18A &= 0xFEFFu;
     }
     return action;
 }
@@ -10494,28 +10559,28 @@ login::YobiAction* Sub_51A5B0()
 // 原函数：0x0051BDD0。
 std::int32_t Sub_51BDD0(const std::int32_t value)
 {
-    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 2u;
-    gPlayerRuntime.value190 = value;
+    reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C)[2] |= 2u;
+    BorrowPlayerRuntimeStorage()->value190 = value;
     return value;
 }
 
 // 原函数：0x0051BDF0。
 void Sub_51BDF0()
 {
-    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
     std::uint16_t actionFlags;
     std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
     actionFlags &= 0xFFFDu;
     std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
-    gPlayerRuntime.value190 = 0;
+    BorrowPlayerRuntimeStorage()->value190 = 0;
 }
 
 // 原函数：0x0051BEC0。
 std::int32_t Sub_51BEC0()
 {
     const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime.flags18C)[2];
-    const std::int32_t value = gPlayerRuntime.value190;
+        reinterpret_cast<const std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
+    const std::int32_t value = BorrowPlayerRuntimeStorage()->value190;
     return (flags & 2u) != 0 ? value : 0;
 }
 
@@ -10523,8 +10588,8 @@ std::int32_t Sub_51BEC0()
 std::int8_t Sub_51BE50(const std::int32_t requested)
 {
     const std::uint8_t flags =
-        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime.flags18C)[2];
-    if ((flags & 2u) != 0 && gPlayerRuntime.value190 == requested) {
+        reinterpret_cast<const std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C)[2];
+    if ((flags & 2u) != 0 && BorrowPlayerRuntimeStorage()->value190 == requested) {
         return std::bit_cast<std::int8_t>(flags);
     }
 
@@ -10532,12 +10597,12 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const std::int32_t y = gPlayerSnapshotY.Read_401EC0();
-    const std::int32_t x = gPlayerSnapshotX.Read_401EC0();
+    const std::int32_t y = BorrowPlayerSnapshotYStorage()->Read_401EC0();
+    const std::int32_t x = BorrowPlayerSnapshotXStorage()->Read_401EC0();
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
-    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntime.flags18C) + 2;
+    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&BorrowPlayerRuntimeStorage()->flags18C) + 2;
     actionBytes[0] |= 2u;
     if (value == 0) {
         std::uint16_t actionFlags;
@@ -10545,7 +10610,7 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
         actionFlags &= 0xFFFDu;
         std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
     }
-    gPlayerRuntime.value190 = value;
+    BorrowPlayerRuntimeStorage()->value190 = value;
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
 }
 
@@ -10555,14 +10620,16 @@ std::int32_t gValueFDA6F8 = 0;
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void Sub_5199A0()
 {
-    static_assert(sizeof(gPetRuntimeF633F8) == 0x19550);
+    static_assert(sizeof((*BorrowPetRuntimeF633F8Storage())) == 0x19550);
     static_assert(sizeof(gSkillRuntimeSlots) == 0x4790C);
     static_assert(sizeof(gContactsF19FB0) == 0x1B30);
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
     // 含原生非拥有指针的两块按类型置空，其余沿原无指针整块清零。
-    gPlayerRuntime = {};
-    std::memset(gPetRuntimeF633F8.data(), 0, sizeof(gPetRuntimeF633F8));
+    BorrowPlayerRuntimeStorage()->ClearRaw();
+    for (PetRuntimeRecord& record : *BorrowPetRuntimeF633F8Storage()) {
+        record.ClearRaw();
+    }
     gPetMapCharaSlots.fill({});
     std::memset(&gSkillRuntimeSlots, 0, sizeof(gSkillRuntimeSlots));
     std::memset(gContactsF19FB0.data(), 0, sizeof(gContactsF19FB0));
@@ -10584,15 +10651,15 @@ void Sub_5199A0()
 
     const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t value = gValueFDA6F8;
-    gPlayerRuntime.value17C = selectedGraphic;
-    gPlayerRuntime.value104 = value;
+    BorrowPlayerRuntimeStorage()->value17C = selectedGraphic;
+    BorrowPlayerRuntimeStorage()->value104 = value;
     for (TitleRecord& title : gTitlesFF0508) {
         title.id = -1;
     }
     for (std::int32_t index = 0; index < 15; ++index) {
         Sub_519950(index);
     }
-    gPlayerRuntime.direction = -1;
+    BorrowPlayerRuntimeStorage()->direction = -1;
 }
 
 // 原函数：0x00455AC0。
@@ -11050,22 +11117,22 @@ std::int32_t Sub_51D790(
     gTransitionVelocityFF48F8 = 0.0f;
 
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
-    const std::uint8_t readCount = temporary.readCount;
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint32_t mask = temporary.mask;
-    gValue73ECD0.readCount = readCount;
-    gValue73ECD0.encoded = encoded;
-    gValue73ECD0.mask = mask;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
+    const std::uint8_t readCount = temporary->readCount;
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint32_t mask = temporary->mask;
+    BorrowValue73ECD0Storage()->readCount = readCount;
+    BorrowValue73ECD0Storage()->encoded = encoded;
+    BorrowValue73ECD0Storage()->mask = mask;
+    temporary.reset();
     return 1;
 }
 
@@ -11498,23 +11565,23 @@ std::int32_t Sub_51E0D0(
         return 0;
     }
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         gReverseTransitionPhase58B6D4 = -1;
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint32_t mask = temporary.mask;
-    const std::uint8_t readCount = temporary.readCount;
-    gValue73ECD0.encoded = encoded;
-    gValue73ECD0.mask = mask;
-    gValue73ECD0.readCount = readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint32_t mask = temporary->mask;
+    const std::uint8_t readCount = temporary->readCount;
+    BorrowValue73ECD0Storage()->encoded = encoded;
+    BorrowValue73ECD0Storage()->mask = mask;
+    BorrowValue73ECD0Storage()->readCount = readCount;
+    temporary.reset();
     gReverseTransitionPhase58B6D4 = -1;
     return 1;
 }
@@ -11663,23 +11730,23 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
         return 0;
     }
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         gQuadrantTransitionPhase58B6D8 = -1;
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
-    const std::uint32_t mask = temporary.mask;
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint8_t readCount = temporary.readCount;
-    gValue73ECD0.mask = mask;
-    gValue73ECD0.encoded = encoded;
-    gValue73ECD0.readCount = readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
+    const std::uint32_t mask = temporary->mask;
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint8_t readCount = temporary->readCount;
+    BorrowValue73ECD0Storage()->mask = mask;
+    BorrowValue73ECD0Storage()->encoded = encoded;
+    BorrowValue73ECD0Storage()->readCount = readCount;
+    temporary.reset();
     gQuadrantTransitionPhase58B6D8 = -1;
     return 1;
 }
@@ -11847,23 +11914,23 @@ std::int32_t Sub_51EF80(
         return 0;
     }
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         gTileTransitionPhase58B6DC = -1;
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
-    const std::uint8_t readCount = temporary.readCount;
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint32_t mask = temporary.mask;
-    gValue73ECD0.readCount = readCount;
-    gValue73ECD0.encoded = encoded;
-    gValue73ECD0.mask = mask;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
+    const std::uint8_t readCount = temporary->readCount;
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint32_t mask = temporary->mask;
+    BorrowValue73ECD0Storage()->readCount = readCount;
+    BorrowValue73ECD0Storage()->encoded = encoded;
+    BorrowValue73ECD0Storage()->mask = mask;
+    temporary.reset();
     gTileTransitionPhase58B6DC = -1;
     return 1;
 }
@@ -11917,23 +11984,23 @@ std::int32_t Sub_51F610(const std::int32_t value)
     }
 
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         gImageTransitionInitializedFF4910 = 0;
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
-    const std::uint32_t mask = temporary.mask;
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint8_t readCount = temporary.readCount;
-    gValue73ECD0.mask = mask;
-    gValue73ECD0.encoded = encoded;
-    gValue73ECD0.readCount = readCount;
-    temporary.Destroy_401CF0();
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
+    const std::uint32_t mask = temporary->mask;
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint8_t readCount = temporary->readCount;
+    BorrowValue73ECD0Storage()->mask = mask;
+    BorrowValue73ECD0Storage()->encoded = encoded;
+    BorrowValue73ECD0Storage()->readCount = readCount;
+    temporary.reset();
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }
@@ -11991,32 +12058,32 @@ std::int32_t ProcessScanlineTransition(
     }
 
     std::int32_t nextState;
-    if ((gValue73ECD0 == 2)) {
+    if (((*BorrowValue73ECD0Storage()) == 2)) {
         nextState = 3;
-    } else if ((gValue73ECD0 == 3)) {
+    } else if (((*BorrowValue73ECD0Storage()) == 3)) {
         nextState = 4;
     } else {
         gImageTransitionInitializedFF4910 = 0;
         return 1;
     }
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(nextState);
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(nextState));
     if (direction < 0) {
-        const std::uint32_t mask = temporary.mask;
-        const std::uint32_t encoded = temporary.encoded;
-        const std::uint8_t readCount = temporary.readCount;
-        gValue73ECD0.mask = mask;
-        gValue73ECD0.encoded = encoded;
-        gValue73ECD0.readCount = readCount;
+        const std::uint32_t mask = temporary->mask;
+        const std::uint32_t encoded = temporary->encoded;
+        const std::uint8_t readCount = temporary->readCount;
+        BorrowValue73ECD0Storage()->mask = mask;
+        BorrowValue73ECD0Storage()->encoded = encoded;
+        BorrowValue73ECD0Storage()->readCount = readCount;
     } else {
-        const std::uint32_t encoded = temporary.encoded;
-        const std::uint32_t mask = temporary.mask;
-        const std::uint8_t readCount = temporary.readCount;
-        gValue73ECD0.encoded = encoded;
-        gValue73ECD0.mask = mask;
-        gValue73ECD0.readCount = readCount;
+        const std::uint32_t encoded = temporary->encoded;
+        const std::uint32_t mask = temporary->mask;
+        const std::uint8_t readCount = temporary->readCount;
+        BorrowValue73ECD0Storage()->encoded = encoded;
+        BorrowValue73ECD0Storage()->mask = mask;
+        BorrowValue73ECD0Storage()->readCount = readCount;
     }
-    temporary.Destroy_401CF0();
+    temporary.reset();
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }

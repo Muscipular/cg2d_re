@@ -446,7 +446,7 @@ std::int32_t Sub_462930()
     std::int8_t variantMinus = 0;
     std::int8_t variantPlus = 0;
     const auto hover = []() -> std::int8_t {
-        return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
+        return (CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1) != 0 ? 1 : 2;
     };
 
     for (std::int32_t index = 0; index < 14; ++index) {
@@ -465,7 +465,7 @@ std::int32_t Sub_462930()
         const std::int32_t left = position[0];
         const std::int32_t width = kCreationSelectSize54DFE0[0];
         if (login::detail::Sub_5049A0(left, top, left + width, top + height, -1) != 0
-            && (CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            && (CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             state::gValue9A4CFC = static_cast<std::uint8_t>(index);
             state::gValue9A5B00 = 0;
             break;
@@ -474,14 +474,14 @@ std::int32_t Sub_462930()
     }
     if (Sub_464290(kCreationSelectButtons54DFE8[0].values.data()) != 0) {
         confirmState = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(53, 320);
             result = 1;
         }
     }
     if (Sub_464290(kCreationSelectButtons54DFE8[1].values.data()) != 0) {
         cancelState = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(54, 320);
             result = 2;
         }
@@ -489,7 +489,7 @@ std::int32_t Sub_462930()
     if (state::gPukVersion >= 5) {
         if (Sub_464290(kCreationVersionHit54E020[0].data()) != 0) {
             versionPlus = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 const std::uint8_t puk = state::gPukVersion;
                 const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
                 const std::int32_t limit = puk >= 8 ? 2 : 1;
@@ -502,7 +502,7 @@ std::int32_t Sub_462930()
         }
         if (Sub_464290(kCreationVersionHit54E020[1].data()) != 0) {
             versionMinus = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 if (CreationSignedByte(state::gValue9A57E0) > 0) {
                     --state::gValue9A57E0;
                 } else {
@@ -513,7 +513,7 @@ std::int32_t Sub_462930()
     }
     if (Sub_464290(kCreationVariantButtons54E084[0].values.data()) != 0) {
         variantMinus = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 - 1);
             state::gValue9A5B00 = next;
             if (CreationSignedByte(next) < 0) {
@@ -523,7 +523,7 @@ std::int32_t Sub_462930()
     }
     if (Sub_464290(kCreationVariantButtons54E084[1].values.data()) != 0) {
         variantPlus = hover();
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 + 1);
             state::gValue9A5B00 = next;
             if (CreationSignedByte(next) > 3) {
@@ -536,7 +536,7 @@ std::int32_t Sub_462930()
         || Sub_464290(kCreationPreviewHit54E064[1].data()) != 0) {
         login::YobiAction* first;
         login::YobiAction* second;
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             first = state::gCreateActions[0];
             if (first != nullptr) {
                 login::detail::SetYobiActionField2B8(
@@ -562,7 +562,7 @@ std::int32_t Sub_462930()
             second = state::gCreateActions[1];
             first = state::gCreateActions[0];
         }
-        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 2) != 0) {
+        if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2) != 0) {
             if (first != nullptr) {
                 login::detail::SetYobiActionField2B8(
                     first, login::detail::GetYobiActionField2B8(first) + 1);
@@ -732,7 +732,7 @@ std::int32_t Sub_4631D0()
     const bool showVersionControls = maxVersion != state::gValue9A57E0;
 
     const auto hover = []() -> std::int8_t {
-        return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
+        return (CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1) != 0 ? 1 : 2;
     };
     const auto hitRow = [](const std::size_t record, const std::int32_t top) {
         const auto& values = kCreationUi54E0BC[record].values;
@@ -744,7 +744,7 @@ std::int32_t Sub_4631D0()
         for (std::size_t index = 0; index < 4; ++index) {
             if (Sub_464290(kCreationUi54E0BC[index].values.data()) != 0) {
                 arrows[index] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     auto& value = index < 2 ? state::gValue9A5668 : state::gValue9A4B80;
                     if ((index & 1) == 0) {
                         const auto next = static_cast<std::uint8_t>(value - 1);
@@ -766,7 +766,7 @@ std::int32_t Sub_4631D0()
         if (showVersionControls) {
             if (Sub_464290(kCreationUi54E0BC[4].values.data()) != 0) {
                 arrows[4] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = state::gValue9A4B88;
                     const std::uint8_t version = state::gValue9A57E0;
                     const auto next = static_cast<std::uint8_t>(value - 1);
@@ -779,7 +779,7 @@ std::int32_t Sub_4631D0()
             }
             if (Sub_464290(kCreationUi54E0BC[5].values.data()) != 0) {
                 arrows[5] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = state::gValue9A4B88;
                     const std::uint8_t version = state::gValue9A57E0;
                     const auto next = static_cast<std::uint8_t>(value + 1);
@@ -807,7 +807,7 @@ std::int32_t Sub_4631D0()
                 + 14 * static_cast<std::int32_t>(row);
             if (CreationSignedByte(*attributes[row]) > 0 && hitRow(6, top) != 0) {
                 attributeMinus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = *attributes[row];
                     if (CreationSignedByte(value) > 0) {
                         const std::uint8_t left = state::gValue9A4D04;
@@ -823,7 +823,7 @@ std::int32_t Sub_4631D0()
             if (CreationSignedByte(state::gValue9A4D04) > 0
                 && CreationSignedByte(*attributes[row]) < attributeLimit && hitRow(7, top) != 0) {
                 attributePlus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     bool changed = false;
                     if (CreationSignedByte(state::gValue9A4D04) > 0) {
                         const std::uint8_t value = *attributes[row];
@@ -854,7 +854,7 @@ std::int32_t Sub_4631D0()
                 + 14 * static_cast<std::int32_t>(row);
             if (CreationSignedByte(elements[row]) > 0 && hitRow(8, top) != 0) {
                 elementMinus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = elements[row];
                     if (CreationSignedByte(value) > 0) {
                         const std::uint8_t left = state::gValue9A50C8;
@@ -869,7 +869,7 @@ std::int32_t Sub_4631D0()
             }
             if (CreationSignedByte(elements[row]) < 10 && hitRow(9, top) != 0) {
                 elementPlus[row] = hover();
-                if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
+                if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::size_t opposite = row < 2 ? row + 2 : row - 2;
                     if (elements[opposite] == 0) {
                         if (CreationSignedByte(state::gValue9A50C8) > 0) {
@@ -900,7 +900,7 @@ std::int32_t Sub_4631D0()
 
         if (Sub_464290(kCreationUi54E0BC[10].values.data()) != 0) {
             confirmState = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 const std::int32_t cursor = state::gCreationInput9A51E8.caretByteOffset;
                 if (cursor <= 0) {
                     state::gValue9A5AFC = 100;
@@ -929,7 +929,7 @@ std::int32_t Sub_4631D0()
         }
         if (Sub_464290(kCreationUi54E0BC[11].values.data()) != 0) {
             cancelState = hover();
-            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 audio::PlaySe_52C450(54, 320);
                 result = 2;
             }

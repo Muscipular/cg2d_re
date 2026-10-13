@@ -565,13 +565,13 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
         if (static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseX.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseX.IntLessCryptRaw_401FA0(
                     geometry.x)) != 0
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(geometry.x, geometry.width)))
+            && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(AddW32(geometry.x, geometry.width)))
             && static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseY.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseY.IntLessCryptRaw_401FA0(
                     geometry.y)) != 0
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(geometry.y, geometry.height)))) {
+            && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(AddW32(geometry.y, geometry.height)))) {
             const std::uint8_t click =
                 static_cast<std::uint8_t>(detail::gValueD68D9C);
             hoveredSlot = slotIndex;

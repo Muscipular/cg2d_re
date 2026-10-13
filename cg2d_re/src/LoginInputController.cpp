@@ -184,15 +184,15 @@ std::int32_t ProcessCapability4Input_464E30()
 
     if (platform::gMonitorKeyboard == 0) {
         if (static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseX.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseX.IntLessCryptRaw_401FA0(
                     static_cast<std::int32_t>(gInputContext9A5678X))) != 0
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
+            && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678X),
                     372)))
             && static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseY.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseY.IntLessCryptRaw_401FA0(
                     static_cast<std::int32_t>(gInputContext9A5678Y))) != 0
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
+            && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678Y),
                     26)))
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)
@@ -202,15 +202,15 @@ std::int32_t ProcessCapability4Input_464E30()
             gValue9A6E20 = 1;
         }
         if (static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseX.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseX.IntLessCryptRaw_401FA0(
                     static_cast<std::int32_t>(gInputContext9A5960X))) != 0
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
+            && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960X),
                     372)))
             && static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.mouseY.IntLessCryptRaw_401FA0(
+                platform::BorrowLegacyMouseStateStorage()->mouseY.IntLessCryptRaw_401FA0(
                     static_cast<std::int32_t>(gInputContext9A5960Y))) != 0
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
+            && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960Y),
                     26)))
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)

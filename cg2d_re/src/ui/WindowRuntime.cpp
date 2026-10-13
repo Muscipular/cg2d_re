@@ -9,7 +9,6 @@
 #include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyLowio.hpp"
 #include "../platform/LegacyStdio.hpp"
-#include "../platform/LegacyRuntimeExit.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
@@ -47,6 +46,7 @@
 #include <cstring>
 #include <fcntl.h>
 #include <io.h>
+#include <optional>
 #include <string>
 #include <sys/stat.h>
 #include <type_traits>
@@ -780,7 +780,7 @@ struct StallBrowseData {
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
 static_assert(std::is_standard_layout_v<StallBrowseData>);
-static_assert(std::is_trivially_copyable_v<StallBrowseData>);
+static_assert(!std::is_trivially_destructible_v<StallBrowseData>);
 static_assert(offsetof(StallBrowseData, sellerName00) == 0);
 static_assert(offsetof(StallBrowseData, stallName11) == 0x11);
 static_assert(offsetof(StallBrowseData, description22) == 0x22);
@@ -796,7 +796,12 @@ static_assert(offsetof(StallBrowseData, pets) == 0xF83C);
 static_assert(offsetof(StallBrowseData, petValuesD2D464) == 0x28D8C);
 static_assert(offsetof(StallBrowseData, petValuesD2D478) == 0x28DA0);
 static_assert(sizeof(StallBrowseData) == 0x28DB4);
-StallBrowseData gStallBrowseD046D8 {}; // 原全局：0x00D046D8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<StallBrowseData>& BorrowStallBrowseD046D8Storage()
+{
+    static std::optional<StallBrowseData> storage;
+    return storage;
+} // 原全局：0x00D046D8。
 std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
 std::int32_t gStallItemCountD67BCC = 0; // 原全局：0x00D67BCC。
 std::int32_t gStallPetPageD67BD0 = 0; // 原全局：0x00D67BD0。
@@ -1296,9 +1301,9 @@ std::int32_t SendChoiceDialogReply(char* const buffer)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, buffer + 16);
 }
 
@@ -1469,14 +1474,14 @@ std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00D67AC4�
 // 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
 std::int32_t AppendMouseButtonEvents(std::int32_t events)
 {
-    const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    const auto edge = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
     if ((edge & 1u) != 0) {
         events |= 0x02;
     }
     if ((edge & 2u) != 0) {
         events |= 0x04;
     }
-    const auto held = static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons);
+    const auto held = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->heldButtons);
     if ((held & 1u) != 0) {
         events |= 0x08;
     }
@@ -1489,7 +1494,7 @@ std::int32_t AppendMouseButtonEvents(std::int32_t events)
     if ((edge & 0x20u) != 0) {
         events |= 0x200;
     }
-    const auto pulse = static_cast<std::uint8_t>(platform::gLegacyMouseState.pulseButtons);
+    const auto pulse = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->pulseButtons);
     if ((pulse & 1u) != 0) {
         events |= 0x400;
     }
@@ -1987,15 +1992,15 @@ void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected == first) {
         gSelectedItemD460C0 = second;
-        const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[second].imageNo;
+        const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[second].imageNo;
         // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
-        const std::int32_t itemId = world::detail::gPlayerItemsFDA8A4[second + 8].itemId;
+        const std::int32_t itemId = world::detail::BorrowPlayerItemsFDA8A4()[second + 8].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = Sub_4F4630(itemId);
     } else if (selected == second) {
         gSelectedItemD460C0 = first;
-        const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[first].imageNo;
-        const std::int32_t itemId = world::detail::gPlayerItemsFDA8A4[first].itemId;
+        const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[first].imageNo;
+        const std::int32_t itemId = world::detail::BorrowPlayerItemsFDA8A4()[first].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = Sub_4F4630(itemId);
     }
@@ -2052,8 +2057,8 @@ void Sub_48BA60(const std::int32_t first, const std::int32_t second)
     } else if (selected == second) {
         gSelectedItemCB1DF4 = first;
     }
-    if (world::detail::gPlayerItemsFDA8A4[first].imageNo == 0x67C9
-        || world::detail::gPlayerItemsFDA8A4[second].imageNo == 0x67C9) {
+    if (world::detail::BorrowPlayerItemsFDA8A4()[first].imageNo == 0x67C9
+        || world::detail::BorrowPlayerItemsFDA8A4()[second].imageNo == 0x67C9) {
         const std::int32_t previous = gSelectedItemCB0A44;
         if (previous == first) {
             gSelectedItemCB0A44 = second;
@@ -2102,7 +2107,7 @@ void Sub_4E54E0(const std::int32_t side, const std::int32_t index)
     }
     char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
     std::memset(record, 0, 0xC4C);
-    const world::detail::PlayerItemRecord& source = world::detail::gPlayerItemsFDA8A4[index + 8];
+    const world::detail::PlayerItemRecord& source = world::detail::BorrowPlayerItemsFDA8A4()[index + 8];
     if (source.used == 0) {
         return;
     }
@@ -2229,13 +2234,13 @@ std::int32_t Sub_4CE0F0(const std::int32_t, const std::int32_t state)
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             const std::int32_t maximum = gStallPetCountD67BD4 - 3;
             const std::int32_t page = gStallPetPageD67BD0;
             gStallPetPageD67BD0 = Sub_4743B0(
                 gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
         } else {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             const std::int32_t maximum = gStallItemCountD67BCC - 10;
             const std::int32_t page = gStallItemPageD67BC8;
             gStallItemPageD67BC8 = Sub_4743B0(
@@ -2311,7 +2316,7 @@ std::int32_t Sub_4CE370(const std::int32_t, const std::int32_t state)
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gStallPetCandidatePageD67BD8;
             gStallPetCandidatePageD67BD8 =
@@ -2441,7 +2446,7 @@ WindowElement* Sub_4CFC40()
 // 原函数：0x004CFCA0。
 void Sub_4CFCA0(const std::int32_t petIndex)
 {
-    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
@@ -2781,7 +2786,7 @@ std::int32_t Sub_4D0990(
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = gStallBrowseD046D8.pets[petIndex];
+    const auto& pet = BorrowStallBrowseD046D8Storage()->pets[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2811,7 +2816,7 @@ std::int32_t Sub_4D0A80(
     if (shortIndex < 0 || shortIndex > 5) {
         return byteIndex;
     }
-    const auto& pet = gStallBrowseD046D8.pets[shortIndex];
+    const auto& pet = BorrowStallBrowseD046D8Storage()->pets[shortIndex];
     if (pet.used == 0) {
         return shortIndex;
     }
@@ -2886,8 +2891,8 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     world::detail::PetRuntimeRecord* const pet = own
-        ? &world::detail::gPetRuntimeF633F8[gStallPetOffersCC3E98[position].slot]
-        : &gStallBrowseD046D8.pets[position];
+        ? &(*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetOffersCC3E98[position].slot]
+        : &BorrowStallBrowseD046D8Storage()->pets[position];
     if (pet->used == 0) {
         return 0;
     }
@@ -2990,8 +2995,8 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         platform::FormatLegacyString_53B304(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
         price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
     } else {
-        platform::FormatLegacyString_53B304(buffer, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row]);
-        price = gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row];
+        platform::FormatLegacyString_53B304(buffer, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
+        price = BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row];
     }
     std::int8_t priceColor = 0;
     if (price >= 10000) {
@@ -3031,7 +3036,7 @@ std::int32_t Sub_4D1C00(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
 {
-    const std::int32_t segments = world::detail::gPetRuntimeF633F8[petIndex].values70[21 + attribute] / 10;
+    const std::int32_t segments = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].values70[21 + attribute] / 10;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
@@ -3063,7 +3068,7 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
-    const auto* const initialPet = &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row];
+    const auto* const initialPet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row];
     if (initialPet->used == 0) {
         if ((state & 2) != 0) {
             gStallPetSelection581128 = -1;
@@ -3079,18 +3084,18 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
     };
     platform::FormatLegacyString_53B304(buffer, "%s", initialPet->name6AC.data());
     drawText(298, 132);
-    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[1].Read_401EC0();
-    const std::int32_t hp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[0].Read_401EC0();
+    const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[1].Read_401EC0();
+    const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[0].Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[3].Read_401EC0();
-    const std::int32_t fp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[2].Read_401EC0();
+    const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[3].Read_401EC0();
+    const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[2].Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value04);
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
         platform::FormatLegacyString_53B304(buffer, "%s", gTribeNames57CB54[tribe]);
     } else {
@@ -3193,7 +3198,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     world::detail::PlayerItemRecord* item;
     if (own) {
         const std::int32_t slot = gStallItemOffersD671D8[position].slot;
-        item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
         if (item->used == 0) {
             return 0;
         }
@@ -3201,7 +3206,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
             gStallHover581120 = slot + 8;
         }
     } else {
-        item = &gStallBrowseD046D8.items[position];
+        item = &BorrowStallBrowseD046D8Storage()->items[position];
         if (item->used == 0) {
             return 0;
         }
@@ -3276,7 +3281,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     if (gStallOwn58111C != 0) {
         price = gStallItemOffersD671D8[gStallItemPageD67BC8 + row].value;
     } else {
-        price = gStallBrowseD046D8.itemValuesD13E74[gStallItemPageD67BC8 + row];
+        price = BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
     platform::FormatLegacyString_53B304(buffer, "%d", price);
     std::int8_t priceColor = 0;
@@ -3328,7 +3333,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
     std::int32_t hovered = -1;
     char buffer[20];
     for (std::int32_t slot = 0; slot < 20; ++slot) {
-        auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
         if (item->used == 0) {
             continue;
         }
@@ -3584,7 +3589,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
     char buffer[20];
     char details[32];
     if (gStallModeD67BDC == 0) {
-        auto* const item = gStallBrowseD046D8.items.data() + (gStallItemSelection581124 - 20);
+        auto* const item = BorrowStallBrowseD046D8Storage()->items.data() + (gStallItemSelection581124 - 20);
         if (login::detail::Sub_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
             if ((state & 1) != 0) {
                 gStallHover581120 = gStallItemSelection581124 + 180;
@@ -3616,7 +3621,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, buffer, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        platform::FormatLegacyString_53B304(buffer, "%d", gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124 - 20]);
+        platform::FormatLegacyString_53B304(buffer, "%d", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
         Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
@@ -3638,7 +3643,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<void>(render::DrawGraphic3_520970(
                 x + 257, y + 9, 227, 243000, 0, 1, 0, &descriptor));
         }
-        auto* const pet = gStallBrowseD046D8.pets.data() + (gStallPetSelection581128 - 5);
+        auto* const pet = BorrowStallBrowseD046D8Storage()->pets.data() + (gStallPetSelection581128 - 5);
         const auto drawPetText = [&](const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
@@ -3675,7 +3680,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
         drawPetText(232, 114);
         platform::FormatLegacyString_53B304(details, "%3d", pet->lvFlag6C);
         drawPetText(89, 132);
-        platform::FormatLegacyString_53B304(details, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128 - 5]);
+        platform::FormatLegacyString_53B304(details, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128 - 5]);
         Sub_4771B0(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
@@ -3816,12 +3821,12 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             gStallPetCandidatePageD67BD8 = Sub_474270(elements + 37, 1);
         }
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
-            gStallBrowseD046D8.sellerName00.data());
+            BorrowStallBrowseD046D8Storage()->sellerName00.data());
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text,
-            gStallBrowseD046D8.stallName11.data());
+            BorrowStallBrowseD046D8Storage()->stallName11.data());
         for (std::int32_t line = 0; line < 3; ++line) {
             static_cast<void>(input::ExtractLegacyLine_503AB0(
-                lineText, 32, gStallBrowseD046D8.description22.data(), line, 28));
+                lineText, 32, BorrowStallBrowseD046D8Storage()->description22.data(), line, 28));
             WindowInstance* const window = gCurrentWindow;
             WindowElement* const current = window->elements;
             const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -3923,7 +3928,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
         for (std::int32_t index = itemCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallItemOffersD671D8.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::detail::gPlayerItemsFDA8A4[slot + 8].used == 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].used == 0) {
                 --itemCount;
                 gStallItemUsedCC31AC[slot] = 0;
                 gStallItemCountD67BCC = itemCount;
@@ -3942,7 +3947,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
         for (std::int32_t index = petCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::detail::gPetRuntimeF633F8[slot].used == 0) {
+            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used == 0) {
                 --petCount;
                 gStallPetUsedCF400C[slot] = 0;
                 gStallPetCountD67BD4 = petCount;
@@ -3960,17 +3965,17 @@ std::int32_t Sub_4CDB10(const std::int32_t)
     } else {
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = gStallBrowseD046D8.imageNo60;
+            const std::int32_t value = BorrowStallBrowseD046D8Storage()->imageNo60;
             login::detail::SetYobiActionField2A8(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = gStallBrowseD046D8.action64;
+            const std::int32_t value = BorrowStallBrowseD046D8Storage()->action64;
             login::detail::SetYobiActionField2B0(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = gStallBrowseD046D8.direction68;
+            const std::int32_t value = BorrowStallBrowseD046D8Storage()->direction68;
             login::detail::SetYobiActionField2B8(data->action, value);
         }
         if (gStallModeD67BDC != 1) {
@@ -3978,7 +3983,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
             if (hover >= 0 && hover < 200) {
                 static_cast<void>(Sub_48B1A0(hover, gStallDescriptionPageD67C3C));
             } else if (hover >= 200) {
-                const auto& item = gStallBrowseD046D8.items[hover - 200];
+                const auto& item = BorrowStallBrowseD046D8Storage()->items[hover - 200];
                 const std::uint16_t flags = item.flags;
                 const char* const title = item.name.data();
                 const std::int8_t color = (flags & 0x100u) != 0
@@ -4034,14 +4039,21 @@ void Sub_4CED60(
         return;
     }
 
-    std::memset(&gStallBrowseD046D8, 0, sizeof(gStallBrowseD046D8));
-    platform::StrNCpy_53BEC0(gStallBrowseD046D8.sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
-    gStallBrowseD046D8.target5C = target;
-    gStallBrowseD046D8.imageNo60 = login::detail::GetYobiActionField2A8(action);
-    gStallBrowseD046D8.action64 = login::detail::GetYobiActionField2B0(action);
-    gStallBrowseD046D8.direction68 = login::detail::GetYobiActionField2B8(action);
-    platform::StrNCpy_53BEC0(gStallBrowseD046D8.stallName11.data(), stallName, 16);
-    platform::StrNCpy_53BEC0(gStallBrowseD046D8.description22.data(), description, 56);
+    auto& browse = *BorrowStallBrowseD046D8Storage();
+    auto* const bytes = reinterpret_cast<std::byte*>(&browse);
+    std::memset(bytes, 0, offsetof(StallBrowseData, pets));
+    for (world::detail::PetRuntimeRecord& pet : browse.pets) {
+        pet.ClearRaw();
+    }
+    constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
+    std::memset(bytes + tail, 0, sizeof(browse) - tail);
+    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
+    BorrowStallBrowseD046D8Storage()->target5C = target;
+    BorrowStallBrowseD046D8Storage()->imageNo60 = login::detail::GetYobiActionField2A8(action);
+    BorrowStallBrowseD046D8Storage()->action64 = login::detail::GetYobiActionField2B0(action);
+    BorrowStallBrowseD046D8Storage()->direction68 = login::detail::GetYobiActionField2B8(action);
+    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->stallName11.data(), stallName, 16);
+    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->description22.data(), description, 56);
 
     char itemName[256];
     char itemDescription[768];
@@ -4049,12 +4061,12 @@ void Sub_4CED60(
     const std::int32_t itemCount = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', 1);
     std::int32_t itemField = 4;
     for (std::int32_t index = 0; index < itemCount; ++index, itemField += 15) {
-        auto& item = gStallBrowseD046D8.items[gStallItemCountD67BCC];
+        auto& item = BorrowStallBrowseD046D8Storage()->items[gStallItemCountD67BCC];
         ++gStallItemCountD67BCC;
         std::memset(&item, 0, sizeof(item));
-        gStallBrowseD046D8.itemValuesD13E74[index] =
+        BorrowStallBrowseD046D8Storage()->itemValuesD13E74[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 2);
-        gStallBrowseD046D8.itemValuesD13EC4[index] =
+        BorrowStallBrowseD046D8Storage()->itemValuesD13EC4[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 1);
         network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField, 255, itemName);
         input::UnescapeLegacyTextAndNotify_52D2F0(itemName);
@@ -4097,11 +4109,11 @@ void Sub_4CED60(
     const std::int32_t petCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', 1);
     std::int32_t field = 2;
     for (std::int32_t index = 0; index < petCount; ++index) {
-        auto& pet = gStallBrowseD046D8.pets[gStallPetCountD67BD4];
+        auto& pet = BorrowStallBrowseD046D8Storage()->pets[gStallPetCountD67BD4];
         ++gStallPetCountD67BD4;
-        gStallBrowseD046D8.petValuesD2D464[index] =
+        BorrowStallBrowseD046D8Storage()->petValuesD2D464[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        gStallBrowseD046D8.petValuesD2D478[index] =
+        BorrowStallBrowseD046D8Storage()->petValuesD2D478[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         ++field; // 原每条相对字段4不解析。
         pet.used = 1;
@@ -4215,9 +4227,9 @@ std::int32_t Sub_4CECB0()
     const std::int32_t mode = gStallModeD67BDC;
     std::int32_t value;
     if (mode == 0) {
-        value = gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124];
+        value = BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124];
     } else if (mode == 1) {
-        value = gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128];
+        value = BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128];
     } else {
         return mode - 1;
     }
@@ -4348,14 +4360,13 @@ void Sub_4CE930(const std::int32_t result)
             gStallPetCountD67BD4 = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                std::memmove(gStallBrowseD046D8.pets.data() + index,
-                    gStallBrowseD046D8.pets.data() + index + 1,
-                    remaining * sizeof(world::detail::PetRuntimeRecord));
-                std::memmove(gStallBrowseD046D8.petValuesD2D464.data() + index,
-                    gStallBrowseD046D8.petValuesD2D464.data() + index + 1,
+                auto* const pets = BorrowStallBrowseD046D8Storage()->pets.data();
+                std::move(pets + index + 1, pets + index + 1 + remaining, pets + index);
+                std::memmove(BorrowStallBrowseD046D8Storage()->petValuesD2D464.data() + index,
+                    BorrowStallBrowseD046D8Storage()->petValuesD2D464.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(gStallBrowseD046D8.petValuesD2D478.data() + index,
-                    gStallBrowseD046D8.petValuesD2D478.data() + index + 1,
+                std::memmove(BorrowStallBrowseD046D8Storage()->petValuesD2D478.data() + index,
+                    BorrowStallBrowseD046D8Storage()->petValuesD2D478.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
             const std::int32_t page = gStallPetPageD67BD0;
@@ -4369,14 +4380,14 @@ void Sub_4CE930(const std::int32_t result)
             gStallItemCountD67BCC = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                std::memmove(gStallBrowseD046D8.items.data() + index,
-                    gStallBrowseD046D8.items.data() + index + 1,
+                std::memmove(BorrowStallBrowseD046D8Storage()->items.data() + index,
+                    BorrowStallBrowseD046D8Storage()->items.data() + index + 1,
                     remaining * sizeof(world::detail::PlayerItemRecord));
-                std::memmove(gStallBrowseD046D8.itemValuesD13E74.data() + index,
-                    gStallBrowseD046D8.itemValuesD13E74.data() + index + 1,
+                std::memmove(BorrowStallBrowseD046D8Storage()->itemValuesD13E74.data() + index,
+                    BorrowStallBrowseD046D8Storage()->itemValuesD13E74.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(gStallBrowseD046D8.itemValuesD13EC4.data() + index,
-                    gStallBrowseD046D8.itemValuesD13EC4.data() + index + 1,
+                std::memmove(BorrowStallBrowseD046D8Storage()->itemValuesD13EC4.data() + index,
+                    BorrowStallBrowseD046D8Storage()->itemValuesD13EC4.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
             const std::int32_t page = gStallItemPageD67BC8;
@@ -4667,7 +4678,7 @@ std::int32_t Sub_4C9BE0(const std::int32_t, const std::int32_t state)
     if ((state & 0x21) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
@@ -4777,8 +4788,8 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
         input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffers[1].data()));
         std::strcpy(gProfileSearchKeyword1075988.data(), input::LegacyText593850());
@@ -4925,8 +4936,8 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, commands[position], buffers[2].data()));
     return 1;
@@ -4956,8 +4967,8 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
         input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;
@@ -5183,8 +5194,8 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
@@ -5390,13 +5401,13 @@ std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
 std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
 {
     const double playerX = static_cast<double>(
-        world::detail::gPlayerX.Read_401EC0()) * 64.0;
+        world::detail::BorrowPlayerXStorage()->Read_401EC0()) * 64.0;
     if (playerX != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
         return 0;
     }
     const double playerY = static_cast<double>(
-        world::detail::gPlayerY.Read_401EC0()) * 64.0;
+        world::detail::BorrowPlayerYStorage()->Read_401EC0()) * 64.0;
     if (playerY != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
         return 0;
@@ -5729,8 +5740,8 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
 }
@@ -5750,14 +5761,14 @@ void Sub_4886E0(
     }
     std::int32_t count;
     if (source < 100) {
-        count = world::detail::gPlayerItemsFDA8A4[source].count;
+        count = world::detail::BorrowPlayerItemsFDA8A4()[source].count;
     } else {
         std::memcpy(
             &count, gItemDetailStorageCC4D58.data() + (source - 100) * 0xC44 + 8, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
-        used = std::bit_cast<std::int16_t>(world::detail::gPlayerItemsFDA8A4[target].used);
+        used = std::bit_cast<std::int16_t>(world::detail::BorrowPlayerItemsFDA8A4()[target].used);
     } else {
         std::memcpy(
             &used, gItemDetailStorageCC4D58.data() + (target - 100) * 0xC44, sizeof(used));
@@ -5829,8 +5840,8 @@ void Sub_48BB90(
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128));
 }
@@ -5938,9 +5949,9 @@ std::int32_t Sub_4B0290(const std::int32_t value)
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
         platform::FormatLegacyString_53B304(ownName->text, "%-16s", playerName);
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(Sub_4D3020(x, y));
     }
     if (Sub_4D3040(1, 1) != 0) {
@@ -6091,7 +6102,7 @@ std::int32_t Sub_4B08D0(const std::int32_t)
                 gTradePreviewCC2E64 = preview;
             }
             if (preview >= 0) {
-                const bool left = (platform::gLegacyMouseState.mouseX < 320);
+                const bool left = (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
                 if (ownPet != 0) {
@@ -6111,7 +6122,7 @@ void Sub_4AAB70(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeF633F8[index];
+    world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     if (pet.used == 0) {
         return;
     }
@@ -6219,7 +6230,7 @@ std::int32_t Sub_48D540(
     descriptor.bytes[13] = 4;
     const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
-    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeF633F8[index];
+    world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -6362,7 +6373,7 @@ std::int32_t Sub_4B1260(
     const std::int16_t y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementY + windowY));
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t scrollPosition = *scrollValue;
         WindowElement* const wheelElement = &elements[scrollElement];
         *scrollValue = Sub_4743B0(wheelElement, scrollPosition, 2, wheel);
@@ -6433,9 +6444,9 @@ std::int32_t Sub_4B1260(
             numericElement == -1 ? nullptr : &window->elements[numericElement].state;
         const std::int32_t scrollSnapshot = *scrollValue;
         const std::int32_t mouseY =
-            platform::gLegacyMouseState.mouseY.Read_401EC0();
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
         const std::int32_t mouseX =
-            platform::gLegacyMouseState.mouseX.Read_401EC0();
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
         callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
                  &itemCount, &petCount, &amount, &displayAmount, descriptor);
     }
@@ -6499,7 +6510,7 @@ void Sub_48BF30(
     }
     const std::int32_t kind = Sub_48BB70(sourceIndex);
     if (kind == 1) {
-        if (world::detail::gPetRuntimeF633F8[sourceIndex].used == 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[sourceIndex].used == 0) {
             static_cast<void>(Sub_4763E0());
         }
     } else if (kind == 2) {
@@ -6510,26 +6521,26 @@ void Sub_48BF30(
         }
     }
     const std::int32_t clickMode = gPetDragModeD2EA1C;
-    const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    const auto clicked = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
     if (clickMode == 0) {
         if ((clicked & 2u) != 0) {
             static_cast<void>(Sub_4763E0());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseX.Read_401EC0()));
+                platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseY.Read_401EC0()));
+                platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
             static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
         }
     } else {
         if ((clicked & 1u) != 0) {
             static_cast<void>(Sub_4763E0());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseX.Read_401EC0()));
+                platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::gLegacyMouseState.mouseY.Read_401EC0()));
+                platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
             static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             CancelWindowDrag_476410();
         }
     }
@@ -6539,30 +6550,30 @@ void Sub_48BF30(
         const std::int32_t drawKind = Sub_48BB70(sourceIndex);
         if (drawKind == 1) {
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseY - 35)));
+                (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseX - 120)));
+                (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
             Sub_4AAB70(x, y, sourceIndex, 5);
         } else if (drawKind == 2) {
             const std::int32_t slot = sourceIndex - 100;
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseY - 35)));
+                (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                (platform::gLegacyMouseState.mouseX - 120)));
+                (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
             Sub_4AB400(x, y, slot, 5);
         } else {
             return;
         }
         const std::int32_t y =
-            platform::gLegacyMouseState.mouseY.Read_401EC0();
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
         const std::int32_t x =
-            platform::gLegacyMouseState.mouseX.Read_401EC0();
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
         static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && Sub_48BB70(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
         static_cast<void>(Sub_48D540(x, y, sourceIndex, 5, 230, color));
     }
 }
@@ -6591,9 +6602,9 @@ void Sub_48BC90(
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
                 ? Sub_4C71B0(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_510CE0(
                 platform::gConnectionSocket, x, y, group, sourceIndex));
         }
@@ -6603,16 +6614,16 @@ void Sub_48BC90(
     if (kind == 1) {
         const world::detail::PlayerItemRecord* item;
         if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
-            item = &world::detail::gPetRuntimeF633F8[
+            item = &(*world::detail::BorrowPetRuntimeF633F8Storage())[
                 Sub_4C71B0(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
-            item = &world::detail::gPlayerItemsFDA8A4[sourceIndex];
+            item = &world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex];
         }
         if (item->used == 0) {
             static_cast<void>(Sub_4763E0());
         }
     } else if (kind == 2) {
-        if (world::detail::gPlayerItemsFDA8A4[sourceIndex].used == 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].used == 0) {
             static_cast<void>(Sub_4763E0());
         }
     } else if (kind == 3) {
@@ -6623,15 +6634,15 @@ void Sub_48BC90(
             static_cast<void>(Sub_4763E0());
         }
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(2, sourceIndex, x, y, Sub_48BC90));
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -6642,14 +6653,14 @@ void Sub_48BC90(
         const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
         drawDescriptor = &descriptor;
         if (mode > 0) {
-            imageNo = world::detail::gPetRuntimeF633F8[
+            imageNo = (*world::detail::BorrowPetRuntimeF633F8Storage())[
                 Sub_4C71B0(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
         } else {
-            imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
+            imageNo = world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].imageNo;
         }
     } else if (drawKind == 2) {
         drawDescriptor = &descriptor;
-        imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
+        imageNo = world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].imageNo;
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
@@ -6658,9 +6669,9 @@ void Sub_48BC90(
         return;
     }
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
@@ -6728,8 +6739,8 @@ void Sub_4B1940(
             }
         }
         if (hovered >= 0 && gTradePhaseCAFEC4 == 0
-            && world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
-            if ((world::detail::gPlayerItemsFDA8A4[hovered].flags & 1u) == 0) {
+            && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
+            if ((world::detail::BorrowPlayerItemsFDA8A4()[hovered].flags & 1u) == 0) {
                 std::strcpy(gHoverTextD68AE8.data(),
                     "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xBD\xBB\xD2\xD7\xA1\xA3");
             } else if (gTradeItemMarksD2D61C[hovered] == 0) {
@@ -6745,10 +6756,10 @@ void Sub_4B1940(
         }
         gTradeHoverSlotCB0A4C = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
         && (Sub_475D40() == 43 || Sub_475D40() == 0)) {
-        if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0
-            && (world::detail::gPlayerItemsFDA8A4[hovered].flags & 1u) != 0
+        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0
+            && (world::detail::BorrowPlayerItemsFDA8A4()[hovered].flags & 1u) != 0
             && gTradeItemMarksD2D61C[hovered] == 0) {
             std::int32_t target = 0;
             while (target < 20 && Sub_4AFFE0(target) >= 0) {
@@ -6768,13 +6779,13 @@ void Sub_4B1940(
     }
     if ((events & 1u) != 0 && hovered >= 0) {
         if (gTradePhaseCAFEC4 == 0 && (events & 2u) != 0
-            && world::detail::gPlayerItemsFDA8A4[hovered].used != 0
+            && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0
             && gTradeItemMarksD2D61C[hovered] == 0) {
             static_cast<void>(Sub_48BF10(hovered, 1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((events & 4u) != 0 && world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
-            const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered].pages;
+        if ((events & 4u) != 0 && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
+            const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered].pages;
             gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
             if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
                 gTradeTooltipPageCB10D4 = 0;
@@ -6800,7 +6811,7 @@ void Sub_4B1940(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[hovered];
+        const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item.used != 0) {
             const std::size_t memoLength = std::strlen(item.memo.data());
             gTradePreviewCC2E64 = hovered;
@@ -6821,7 +6832,7 @@ void Sub_4B1940(
     dimmed.bytes[11] >>= 1;
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = position + 8;
-        const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+        const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
         if (item.used == 0) {
             continue;
         }
@@ -6913,9 +6924,9 @@ void Sub_4B2060(
             std::strcpy(gHoverTextD68AE8.data(),
                 "\xD3\xC3\xBB\xAC\xCA\xF3\xCD\xCF\xB7\xC5\xB7\xBD\xCA\xBD\xA3\xAC"
                 "\xB5\xC7\xE4\x9B\xB4\xCB\xB9\x50\x8C\x99\xCE\xEF\xBD\xBB\xD2\xD7\xA1\xA3");
-            if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+            if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
                 && (Sub_475D40() == 43 || Sub_475D40() == 0)) {
-                if (world::detail::gPetRuntimeF633F8[petIndex].used != 0
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0
                     && gTradePetMarksCF3AFC[petIndex] == 0) {
                     std::int32_t target = 0;
                     while (target < 5 && Sub_4B00F0(target) >= 0) {
@@ -6936,7 +6947,7 @@ void Sub_4B2060(
         }
     }
     if ((events & 1u) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
-        && (events & 2u) != 0 && world::detail::gPetRuntimeF633F8[petIndex].used != 0
+        && (events & 2u) != 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0
         && gTradePetMarksCF3AFC[petIndex] == 0) {
         static_cast<void>(Sub_48C130(petIndex, 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -6962,7 +6973,7 @@ void Sub_4B2060(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, login::detail::gValueD69768, 0);
-            if (world::detail::gPetRuntimeF633F8[petIndex].used != 0) {
+            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0) {
                 gTradePreviewCC2E64 = petIndex + 300;
             }
         }
@@ -7059,27 +7070,27 @@ void Sub_4B25D0(
         return;
     }
     if (Sub_4AFFE0(sourceIndex) < 0
-        || world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(sourceIndex)].used == 0) {
+        || world::detail::BorrowPlayerItemsFDA8A4()[Sub_4AFFE0(sourceIndex)].used == 0) {
         static_cast<void>(Sub_4763E0());
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(6, sourceIndex, x, y, Sub_4B25D0));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
-        world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(sourceIndex)].imageNo;
+        world::detail::BorrowPlayerItemsFDA8A4()[Sub_4AFFE0(sourceIndex)].imageNo;
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -7098,31 +7109,31 @@ void Sub_4B2E00(
         return;
     }
     if (Sub_4B00F0(sourceIndex) < 0
-        || world::detail::gPetRuntimeF633F8[Sub_4B00F0(sourceIndex)].used == 0) {
+        || (*world::detail::BorrowPetRuntimeF633F8Storage())[Sub_4B00F0(sourceIndex)].used == 0) {
         static_cast<void>(Sub_4763E0());
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(7, sourceIndex, x, y, Sub_4B2E00));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t slot = Sub_4B00F0(sourceIndex);
     const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::gLegacyMouseState.mouseY - 35)));
+        (platform::BorrowLegacyMouseStateStorage()->mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        (platform::gLegacyMouseState.mouseX - 120)));
+        (platform::BorrowLegacyMouseStateStorage()->mouseX - 120)));
     Sub_4AAB70(petX, petY, slot, 5);
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
@@ -7159,7 +7170,7 @@ void Sub_4B2730(
                 while (target < 20 && Sub_4AFFE0(target) >= 0) {
                     ++target;
                 }
-                if (target < 20 && (world::detail::gPlayerItemsFDA8A4[source].flags & 1u) != 0) {
+                if (target < 20 && (world::detail::BorrowPlayerItemsFDA8A4()[source].flags & 1u) != 0) {
                     static_cast<void>(Sub_4AFF70(target));
                     static_cast<void>(Sub_4AFF30(target, source));
                     *tab = 0;
@@ -7188,7 +7199,7 @@ void Sub_4B2730(
             }
             if (kind == 2) {
                 if (Sub_48BB30(source) == 2
-                    && (world::detail::gPlayerItemsFDA8A4[source].flags & 1u) != 0) {
+                    && (world::detail::BorrowPlayerItemsFDA8A4()[source].flags & 1u) != 0) {
                     static_cast<void>(Sub_4AFF70(target));
                     static_cast<void>(Sub_4AFF30(target, source));
                 }
@@ -7223,7 +7234,7 @@ void Sub_4B2730(
         }
         gTradeHoverSlotC8AA78 = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
         && (phase != 0 || ((Sub_475D40() == 43 || Sub_475D40() == 0)
                            && Sub_4AFF70(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -7237,7 +7248,7 @@ void Sub_4B2730(
             gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
             const std::int32_t slot = Sub_4AFFE0(hovered);
             if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4)
-                >= world::detail::gPlayerItemsFDA8A4[slot].pages) {
+                >= world::detail::BorrowPlayerItemsFDA8A4()[slot].pages) {
                 gTradeTooltipPageCB10D4 = 0;
             }
         }
@@ -7245,7 +7256,7 @@ void Sub_4B2730(
     if (Sub_475D60() == 6 && Sub_475D40() == 43 && Sub_475D50() == 8) {
         const std::int32_t source = Sub_475D90();
         if (Sub_4AFFE0(source) >= 0
-            && world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(source)].used != 0) {
+            && world::detail::BorrowPlayerItemsFDA8A4()[Sub_4AFFE0(source)].used != 0) {
             const std::int32_t left = x + 50 * (source % 5) + 13;
             const std::int32_t top = y + 52 * (source / 5) + 26;
             login::detail::DrawGraphicHover(
@@ -7264,7 +7275,7 @@ void Sub_4B2730(
             223, login::detail::gValueD69768, 0);
         const std::int32_t slot = Sub_4AFFE0(hovered);
         if (slot >= 0) {
-            const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+            const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
             if (item.used != 0) {
                 gTradePreviewCC2E64 = slot;
                 if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
@@ -7280,8 +7291,8 @@ void Sub_4B2730(
     }
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = Sub_4AFFE0(position);
-        if (slot >= 0 && world::detail::gPlayerItemsFDA8A4[slot].used != 0
-            && (world::detail::gPlayerItemsFDA8A4[slot].flags & 1u) == 0) {
+        if (slot >= 0 && world::detail::BorrowPlayerItemsFDA8A4()[slot].used != 0
+            && (world::detail::BorrowPlayerItemsFDA8A4()[slot].flags & 1u) == 0) {
             static_cast<void>(Sub_4AFF70(position));
         }
     }
@@ -7293,7 +7304,7 @@ void Sub_4B2730(
         if (slot < 0) {
             continue;
         }
-        const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+        const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
         if (item.used == 0) {
             continue;
         }
@@ -7400,7 +7411,7 @@ void Sub_4B2F70(
             "\xD3\xC3\xBB\xAC\xCA\xF3\xCD\xCF\xB7\xC5\xB7\xBD\xCA\xBD\xA3\xAC"
             "\xC8\xA1\xCF\xFB\xB4\xCB\xB9\x50\x8C\x99\xCE\xEF\xBD\xBB\xD2\xD7\xA1\xA3");
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0
         && (phase != 0 || ((Sub_475D40() == 43 || Sub_475D40() == 0)
                            && Sub_4B0090(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -7413,7 +7424,7 @@ void Sub_4B2F70(
     if (Sub_475D60() == 7 && Sub_475D40() == 43 && Sub_475D50() == 8) {
         const std::int32_t source = Sub_475D90();
         if (Sub_4B00F0(source) >= 0
-            && world::detail::gPetRuntimeF633F8[Sub_4B00F0(source)].used != 0) {
+            && (*world::detail::BorrowPetRuntimeF633F8Storage())[Sub_4B00F0(source)].used != 0) {
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
@@ -7433,7 +7444,7 @@ void Sub_4B2F70(
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, login::detail::gValueD69768, 0);
             const std::int32_t slot = Sub_4B00F0(hovered);
-            if (slot >= 0 && world::detail::gPetRuntimeF633F8[slot].used != 0) {
+            if (slot >= 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used != 0) {
                 gTradePreviewCC2E64 = slot + 300;
             }
         }
@@ -7442,7 +7453,7 @@ void Sub_4B2F70(
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         const std::int32_t slot = Sub_4B00F0(scroll + row);
-        if (slot >= 0 && world::detail::gPetRuntimeF633F8[slot].used != 0) {
+        if (slot >= 0 && (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].used != 0) {
             Sub_4AAB70(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
@@ -7695,12 +7706,12 @@ bool Sub_4B1900(
     const std::int32_t width, const std::int32_t height)
 {
     const std::int32_t relativeX =
-        (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(x));
+        (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(x));
     if (relativeX < 0 || relativeX >= width) {
         return false;
     }
     const std::int32_t relativeY =
-        (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(y));
+        (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(y));
     return relativeY >= 0 && relativeY < height;
 }
 
@@ -7723,10 +7734,10 @@ std::uint8_t Sub_474550(
     // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
     const auto hit = [](const std::int32_t left, const std::int32_t top,
                        const std::int32_t right, const std::int32_t bottom) {
-        return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
-            && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
+        return (static_cast<std::int32_t>(left) <= platform::BorrowLegacyMouseStateStorage()->mouseX)
+            && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(right))
+            && (static_cast<std::int32_t>(top) <= platform::BorrowLegacyMouseStateStorage()->mouseY)
+            && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(bottom));
     };
     std::int32_t selected = -1;
     for (std::int32_t row = 0; row < 3; ++row) {
@@ -8038,14 +8049,14 @@ std::int32_t Sub_48B450(
     const std::int32_t key = index + 200;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int32_t sideOffset =
@@ -8065,10 +8076,11 @@ std::int32_t Sub_48B450(
 
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // 原函数：0x004C61B0。
-WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
+WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state, const std::int32_t previewIndex)
 {
-    login::YobiAction* const preview = state->preview;
-    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(preview);
+    std::uint32_t flags;
+    login::YobiAction* const preview = login::detail::ConstructWindowSelectorPreview(previewIndex, flags);
+    state->preview = preview;
     state->initialized3E8 = 0;
     state->value64 = 0;
     state->step6C = 21;
@@ -8222,7 +8234,7 @@ void Sub_4C6470(WindowItemSelectorState* const state)
     state->elements00[16]->visible = 1;
     const std::int32_t itemSlots =
         state->value3ED != 0 && world::IsValidPetIndex_51C410(state->selectedPet70)
-        ? world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0] : 0;
+        ? (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0] : 0;
     for (std::int32_t position = itemSlots; position < 6; ++position) {
         state->elements00[9 + position]->visible = 1;
     }
@@ -8257,7 +8269,7 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(Sub_4C6990(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeF633F8[state->selectedPet70].used == 0) {
+            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
             static_cast<void>(Sub_4C7340(state, 0));
         }
     }
@@ -8280,7 +8292,7 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
             static_cast<WindowGraphicData*>(state->elements00[1]->data)->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
-                     position < world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0];
+                     position < (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0];
                      ++position) {
                     state->elements00[9 + position]->visible = 1;
                 }
@@ -8347,7 +8359,7 @@ void Sub_4C6790(WindowItemSelectorState* const state)
     if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(Sub_4C6990(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeF633F8[state->selectedPet70].used == 0) {
+            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
             static_cast<void>(Sub_4C7340(state, 0));
         }
     }
@@ -8380,7 +8392,7 @@ void Sub_4C6790(WindowItemSelectorState* const state)
     case 3: {
         static_cast<void>(Sub_4C6990(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::detail::gPetRuntimeF633F8[state->selectedPet70].used == 0) {
+            || (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].used == 0) {
             *state->mode68 = 0;
         }
         if (*state->mode68 == 0) {
@@ -8442,7 +8454,7 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
         return;
     }
     const std::int32_t selected = state->selectedPet70;
-    auto* const pet = &world::detail::gPetRuntimeF633F8[selected];
+    auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
     if (selected == state->previousPet74 && pet->updated510C == 0) {
         return;
     }
@@ -8509,14 +8521,14 @@ void Sub_4C6B10(WindowItemSelectorState* const state)
     world::detail::PlayerItemRecord* item;
     if (mode == 0) {
         slot = state->hoverIndex3F8;
-        item = &world::detail::gPlayerItemsFDA8A4[slot];
+        item = &world::detail::BorrowPlayerItemsFDA8A4()[slot];
     } else {
         if (mode < 0 || state->selectedPet70 < 0) {
             return;
         }
         slot = state->hoverIndex3F8;
         const std::int32_t pet = Sub_4C71B0(&gItemSelectorCF3B10);
-        item = &world::detail::gPetRuntimeF633F8[pet].items6E4[slot];
+        item = &(*world::detail::BorrowPetRuntimeF633F8Storage())[pet].items6E4[slot];
     }
     if (item->used != 0) {
         const auto* const occupancy =
@@ -8567,7 +8579,7 @@ std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
         return selected;
     }
     login::YobiAction* const preview = state->preview;
-    const std::int32_t imageNo = world::detail::gPetRuntimeF633F8[selected].imageNo6A0;
+    const std::int32_t imageNo = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].imageNo6A0;
     login::detail::SetYobiActionField2A8(preview, imageNo);
     const std::int32_t result = login::detail::Sub_517880(preview, 100, 0, 0);
     const std::int32_t graphicIndex = login::detail::GetYobiActionField20(preview);
@@ -8601,7 +8613,7 @@ std::int32_t Sub_4C71C0(const std::int32_t ordinal)
         const auto& pair = world::detail::gPetPairsDE0B08[position];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-            const std::uint16_t flags = world::detail::gPetRuntimeF633F8[index].flags6AA;
+            const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[index].flags6AA;
             if (flags == 2 || flags == 1) {
                 ++matched;
             }
@@ -8745,13 +8757,13 @@ bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
             }
             const std::int32_t selected = state->selectedPet70;
             std::int32_t position = 0;
-            std::int32_t itemSlots = world::detail::gPetRuntimeF633F8[selected].values6D8[0];
+            std::int32_t itemSlots = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].values6D8[0];
             while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
                 state->elements00[9 + position]->visible = visible;
                 const std::int32_t nextSelected = state->selectedPet70;
                 ++position;
-                itemSlots = world::detail::gPetRuntimeF633F8[nextSelected].values6D8[0];
+                itemSlots = (*world::detail::BorrowPetRuntimeF633F8Storage())[nextSelected].values6D8[0];
             }
         }
         consumed = true;
@@ -8836,13 +8848,13 @@ bool Sub_4C72C0(
 {
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     if (mode == 0) {
-        *items = world::detail::gPlayerItemsFDA8A4.data();
+        *items = world::detail::BorrowPlayerItemsFDA8A4().data();
         *count = 8;
         return true;
     }
     if (mode > 0 && world::IsValidPetIndex_51C410(state->selectedPet70)) {
-        *items = world::detail::gPetRuntimeF633F8[state->selectedPet70].items6E4.data();
-        *count = world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0];
+        *items = (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].items6E4.data();
+        *count = (*world::detail::BorrowPetRuntimeF633F8Storage())[state->selectedPet70].values6D8[0];
         return true;
     }
     return false;
@@ -8947,7 +8959,7 @@ std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::detail::gPetRuntimeF633F8[pet].flags6AA;
+        const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].flags6AA;
         if (flags == 1 || flags == 2) {
             --remaining;
             if (remaining < 0) {
@@ -9014,7 +9026,7 @@ std::int32_t Sub_488990(const std::int32_t value)
         selected = gSelectedItemCB0A44;
     }
     if (gItemSelectionModeCC40D4 == 1) {
-        if (world::detail::gPlayerItemsFDA8A4[selected].imageNo == 26569) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[selected].imageNo == 26569) {
             goto updateSelector;
         }
         WindowInstance* const window = gCurrentWindow;
@@ -9076,11 +9088,11 @@ std::int32_t Sub_488B10(const std::int32_t)
     } else if (mode == 1 || mode == 2) {
         const char* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
-        const std::int32_t y = (platform::gLegacyMouseState.mouseY + static_cast<std::int32_t>(top ? 60 : -174));
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
+        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY + static_cast<std::int32_t>(top ? 60 : -174));
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
-        const std::int32_t x = (platform::gLegacyMouseState.mouseX + static_cast<std::int32_t>(left ? 60 : -257));
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
+        const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(Sub_48B930(
             x, y, input::LegacyText593850(), 0, text, 31, 4, nullptr, 0));
     }
@@ -9123,8 +9135,8 @@ void Sub_488CF0(const std::int32_t amount)
 {
     if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::detail::Sub_440B50() == 0) {
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
     }
 }
@@ -9759,9 +9771,9 @@ std::int32_t Sub_49DA30(
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, button, reply));
         world::detail::gValue581800 = -1;
@@ -9774,9 +9786,9 @@ std::int32_t Sub_49DA30(
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, rowReply));
         world::detail::gValue581800 = -1;
@@ -9883,9 +9895,9 @@ void Sub_49D2E0(
             world::detail::gDialogRequestCC21E0 = request;
             world::detail::gDialogTargetD2DE6C = target;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(Sub_4D3020(x, y));
             static_cast<void>(Sub_4B6970(value, text));
             static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
@@ -9939,9 +9951,9 @@ void Sub_49D2E0(
     world::detail::gDialogRequestCC21E0 = request;
     world::detail::gDialogTargetD2DE6C = target;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     switch (type) {
     case 0:
@@ -10085,8 +10097,8 @@ void Sub_49D8F0(
     gDialogValueCF4E5C = value;
     world::detail::gDialogRequestCC21E0 = request;
     world::detail::gDialogTargetD2DE6C = target;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     switch (type) {
     case 38:
@@ -10447,7 +10459,7 @@ std::int32_t Sub_49FFA0(const std::int32_t, const std::int32_t state)
             static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
             static_cast<std::uint16_t>(y + 14), 223, login::detail::gValueD69768, 0);
         std::strcpy(gHoverTextD68AE8.data(), gChoiceDialog.hints[index]);
-        if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {
                 static_cast<void>(callback(index));
@@ -10472,9 +10484,9 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 16);
 }
@@ -10708,7 +10720,7 @@ std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::detail::gPetRuntimeF633F8[pet].flags6AA;
+        const std::uint16_t flags = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].flags6AA;
         if (flags == 2 || flags == 1) {
             --remaining;
             if (remaining < 0) {
@@ -10756,10 +10768,10 @@ std::int32_t Sub_4999D0(const std::int32_t)
     } else {
         const std::int32_t kind = Sub_475D60();
         if (kind == 2) {
-            if (Sub_475D40() == 27 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            if (Sub_475D40() == 27 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
                 static_cast<void>(Sub_4763E0());
             }
-        } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        } else if (kind == 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             gCurrentWindow->state |= 0x8000u;
         }
     }
@@ -10851,7 +10863,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
     std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
     descriptor.bytes[13] = 4;
     dimmed.bytes[13] = 4;
-    auto& items = world::detail::gPlayerItemsFDA8A4;
+    auto& items = world::detail::BorrowPlayerItemsFDA8A4();
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
@@ -11000,7 +11012,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         gBattleItemPageCB01E0 = 0;
     }
     gBattleBackpackHover57E430 = hovered;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 27 || Sub_475D40() == 0) {
             const auto& item = items[hovered + 8];
             bool useItem = false;
@@ -11102,7 +11114,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             const auto& item = items[hovered + 8];
             if (item.used != 0) {
                 const std::int32_t pages = item.pages;
@@ -11258,7 +11270,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
         const std::int32_t pet = Sub_4C71B0(&gItemSelectorD2F338);
-        const std::int32_t slots = world::detail::gPetRuntimeF633F8[pet].values6D8[0];
+        const std::int32_t slots = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
             const std::int32_t left = Sub_4C7240(&gItemSelectorD2F338, index, position, -24);
@@ -11305,19 +11317,19 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
     std::array<char, 256> buffer;
     if ((events & 0x40u) != 0) {
         const std::int32_t source = Sub_475D90();
-        if (source >= count && world::detail::gPlayerItemsFDA8A4[source].used == 1) {
-            const std::int32_t type = world::detail::gPlayerItemsFDA8A4[source].itemType;
+        if (source >= count && world::detail::BorrowPlayerItemsFDA8A4()[source].used == 1) {
+            const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
-                std::int32_t occupiedHands = world::detail::gPlayerItemsFDA8A4[2].used == 1;
-                if (world::detail::gPlayerItemsFDA8A4[3].used == 1) {
+                std::int32_t occupiedHands = world::detail::BorrowPlayerItemsFDA8A4()[2].used == 1;
+                if (world::detail::BorrowPlayerItemsFDA8A4()[3].used == 1) {
                     ++occupiedHands;
                 }
                 if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
                     && (*reinterpret_cast<const unsigned char*>(
-                        &world::detail::gPlayerItemsFDA8A4[source].battleUseFlag) & 8u) != 0) {
+                        &world::detail::BorrowPlayerItemsFDA8A4()[source].battleUseFlag) & 8u) != 0) {
                     world::detail::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
-                } else if (world::detail::gPlayerItemsFDA8A4[source].hasDescription == 0) {
+                } else if (world::detail::BorrowPlayerItemsFDA8A4()[source].hasDescription == 0) {
                     world::detail::Sub_44B050(unidentified, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -11375,7 +11387,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
         }
         std::strcpy(gHoverTextD68AE8.data(), hint);
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0 && hovered >= 0 && item->used != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0 && hovered >= 0 && item->used != 0) {
         if (Sub_475D40() == 14 || Sub_475D40() == 0) {
             if (hovered == 2 || hovered == 3) {
                 std::int32_t weapons = 0;
@@ -11412,7 +11424,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (item->used != 0) {
                 ++gBattleItemPageCB01E0;
                 if (gBattleItemPageCB01E0 >= item->pages) {
@@ -11558,7 +11570,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         }
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() >= 100
-        && (world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if ((events & 2u) != 0) {
@@ -11569,9 +11581,9 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
     }
     gInventoryHover57DA2C = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 14 || Sub_475D40() == 0) {
-            const auto& item = world::detail::gPlayerItemsFDA8A4[hovered + 8];
+            const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
                 if (item.imageNo == 26569) {
                     WindowInstance* const window = gCurrentWindow;
@@ -11591,9 +11603,9 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
                         const std::int32_t group = mode > 0
                             ? Sub_4C71B0(&gItemSelectorCF3B10) + 1 : 0;
                         const std::int32_t y =
-                            world::detail::gPlayerY.Read_401EC0();
+                            world::detail::BorrowPlayerYStorage()->Read_401EC0();
                         const std::int32_t x =
-                            world::detail::gPlayerX.Read_401EC0();
+                            world::detail::BorrowPlayerXStorage()->Read_401EC0();
                         static_cast<void>(network::Sub_510A00(
                             platform::gConnectionSocket, x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -11608,16 +11620,16 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 static_cast<void>(Sub_48BF10(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
-                const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
                 gWindowStates[14].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -11650,7 +11662,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        const auto& item = world::detail::gPlayerItemsFDA8A4[hovered + 8];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item.used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
@@ -11665,7 +11677,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -11807,7 +11819,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
     gEquipmentHover57DA68 = hovered;
     if (selectedItem < 0 && hovered >= 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 14 || Sub_475D40() == 0) {
             if (item->used != 0 && (*reinterpret_cast<const unsigned char*>(&item->canUseInField) & 1u) != 0) {
                 if (item->imageNo == 26569) {
@@ -11832,9 +11844,9 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
                                 platform::gConnectionSocket, group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
-                                world::detail::gPlayerY.Read_401EC0();
+                                world::detail::BorrowPlayerYStorage()->Read_401EC0();
                             const std::int32_t x =
-                                world::detail::gPlayerX.Read_401EC0();
+                                world::detail::BorrowPlayerXStorage()->Read_401EC0();
                             static_cast<void>(network::Sub_510A00(
                                 platform::gConnectionSocket, x, y, hovered, 0));
                         }
@@ -11856,7 +11868,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (item->used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
                 ++page;
@@ -12093,7 +12105,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     if ((events & 0x20u) != 0 && Sub_475D60() == 1 && Sub_475D40() == 14) {
         events |= 1u;
-        if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
             events |= 2u;
         }
     }
@@ -12109,7 +12121,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
         if (mode == 1 || mode == 2) {
             for (std::int32_t position = 0; position < 20; ++position) {
-                const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+                const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
                 if (item.used == 0 || occupancy[position + 8] != 0) {
                     continue;
                 }
@@ -12149,7 +12161,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
     std::array<char, 256> buffer;
     std::array<char, 16> escaped;
     if (hovered >= 0 && (events & 2u) != 0) {
-        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
@@ -12161,9 +12173,9 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
                 const std::int32_t y =
-                    world::detail::gPlayerY.Read_401EC0();
+                    world::detail::BorrowPlayerYStorage()->Read_401EC0();
                 const std::int32_t x =
-                    world::detail::gPlayerX.Read_401EC0();
+                    world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
                 leaveSelection();
@@ -12171,14 +12183,14 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         consumed = 1;
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
         leaveSelection();
     }
-    const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[gSelectedItemCB0A44].imageNo;
+    const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemCB0A44].imageNo;
     const std::int32_t mouseY =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t mouseX =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(mouseX, mouseY, 230, imageNo, 0, &descriptor));
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
@@ -12197,7 +12209,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         return consumed;
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -12234,14 +12246,14 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
 {
     if (gTooltipSourceD303FC != index) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
@@ -12251,9 +12263,9 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
     if (petEquipment) {
         const std::int32_t petIndex = Sub_4C71B0(&gItemSelectorCF3B10);
         const std::int32_t itemIndex = gTooltipSourceD303FC;
-        record = &world::detail::gPetRuntimeF633F8[petIndex].items6E4[itemIndex];
+        record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[itemIndex];
     } else {
-        record = &world::detail::gPlayerItemsFDA8A4[index];
+        record = &world::detail::BorrowPlayerItemsFDA8A4()[index];
     }
     const std::uint16_t flags = record->flags;
     const char* const title = (flags & 0x100u) != 0
@@ -12278,14 +12290,14 @@ std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
     const std::int32_t key = index + 100;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -12308,14 +12320,14 @@ std::int32_t Sub_48B560(
     std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -12353,14 +12365,14 @@ std::int32_t Sub_48B750(const std::int32_t page)
 {
     if (gTooltipSourceD303FC != 400) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
@@ -12614,7 +12626,7 @@ std::int32_t Sub_4B3B00(
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -12645,7 +12657,7 @@ std::int32_t Sub_4B3BF0(
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
-    const auto& pet = world::detail::gPetRuntimeF633F8[shortIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[shortIndex];
     if (pet.used == 0) {
         return 0;
     }
@@ -12937,9 +12949,9 @@ login::YobiAction* Sub_49E800(
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     return CreateWindowAnimation_475AA0(44, 1, 0, nullptr);
 }
@@ -12956,7 +12968,7 @@ void Sub_4E0100(const std::int32_t side, const std::int32_t index)
     if (index < 0 || index >= 20) {
         return;
     }
-    const world::detail::PlayerItemRecord& source = world::detail::gPlayerItemsFDA8A4[index + 8];
+    const world::detail::PlayerItemRecord& source = world::detail::BorrowPlayerItemsFDA8A4()[index + 8];
     const bool used = source.used != 0;
     char* const record = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + index * 0xC44;
     std::memset(record, 0, 0xC44);
@@ -12988,7 +13000,7 @@ void Sub_4E0100(const std::int32_t side, const std::int32_t index)
 void Sub_4E52B0(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 5; ++index) {
-        world::detail::PetRuntimeRecord& source = world::detail::gPetRuntimeF633F8[index];
+        world::detail::PetRuntimeRecord& source = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         if (source.used == 0) {
             continue;
         }
@@ -13232,9 +13244,9 @@ void Sub_4AD780()
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, "C"));
     }
@@ -13291,7 +13303,7 @@ std::int32_t Sub_4AD800(const std::int32_t value)
         gCurrentWindow->elements[22].visible = 1;
     }
     if (gSelectedItem57EE0C >= 0
-        && world::detail::gPlayerItemsFDA8A4[gSelectedItem57EE0C].itemType == 53) {
+        && world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItem57EE0C].itemType == 53) {
         gCurrentWindow->elements[22].visible = 1;
     }
     return 1;
@@ -13329,7 +13341,7 @@ std::int32_t Sub_4ADAA0(const std::int32_t index, const std::int32_t)
     std::int32_t imageNo = 243048;
     if (login::detail::Sub_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
             gCurrentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13467,7 +13479,7 @@ std::int32_t Sub_4ADEF0(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t position = gWindowLineScrollCF46B8;
         gWindowLineScrollCF46B8 =
             Sub_4743B0(&gCurrentWindow->elements[index - 5], position, count - 9, wheel);
@@ -13502,9 +13514,9 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 256));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13539,9 +13551,9 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffer.data()));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13607,7 +13619,7 @@ std::int32_t Sub_4AE350(const std::int32_t index, const std::int32_t state)
         const std::int32_t source = Sub_475D90();
         if (source >= 8) {
             if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0
-                || world::detail::gPlayerItemsFDA8A4[source].itemType == 53) {
+                || world::detail::BorrowPlayerItemsFDA8A4()[source].itemType == 53) {
                 const unsigned char previous = occupancy[gSelectedItem57EE0C];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {
                     occupancy[gSelectedItem57EE0C] = static_cast<unsigned char>(previous - 1);
@@ -13652,7 +13664,7 @@ std::int32_t Sub_4AE350(const std::int32_t index, const std::int32_t state)
         selected = gSelectedItem57EE0C;
     }
     if (selected >= 0) {
-        const auto& item = world::detail::gPlayerItemsFDA8A4[selected];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[selected];
         if (item.used != 0) {
             static_cast<void>(login::detail::DrawGraphic(
                 x + 24, y + 24, 223, item.imageNo, 0, &descriptor));
@@ -13692,9 +13704,9 @@ void Sub_4A83D0()
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data()));
     WindowInstance* const numberWindow = gWindowStates[42].window;
@@ -13762,7 +13774,7 @@ std::int32_t Sub_4A9160(const std::int32_t)
     if (preview >= 0) {
         if (preview >= 200) {
             gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
-            const bool left = (platform::gLegacyMouseState.mouseX < 320);
+            const bool left = (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
             const std::int32_t x = left ? 413 : 0;
             const std::int32_t index =
                 std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
@@ -14104,8 +14116,8 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
     }
     if ((events & 1u) != 0 && hovered >= 0
-        && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
-        if ((world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+        if ((world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
             std::strcpy(gHoverTextD68AE8.data(),
                 "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xB4\xE6\xB7\xC5\xA1\xA3");
         } else {
@@ -14115,15 +14127,15 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() >= 100
-        && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
-        && (world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
+        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gBankOwnHover57EDCC != hovered) {
         gWindowStates[41].value20 = 0;
     }
     gBankOwnHover57EDCC = hovered;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 41 || Sub_475D40() == 0) {
             static_cast<void>(Sub_4763E0());
             std::int32_t target = 0;
@@ -14134,7 +14146,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
                     break;
                 }
             }
-            if (target >= 20 || world::detail::gPlayerItemsFDA8A4[hovered + 8].used == 0) {
+            if (target >= 20 || world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 Sub_4886E0(41, index, hovered + 8, target + 100);
@@ -14143,16 +14155,16 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 static_cast<void>(Sub_48BF10(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);
-                const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
                 gWindowStates[41].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -14184,7 +14196,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (Sub_475D60() == 2 && Sub_475D90() >= 100) {
                 ++gStorageValueCC4218;
@@ -14197,7 +14209,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::array<char, 12> buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -14259,7 +14271,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
             }
             if (source != position + 100
                 && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) == 0)) {
+                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) == 0)) {
                 Sub_4886E0(41, index, source, position + 100);
             }
             break;
@@ -14286,7 +14298,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     if (Sub_475D60() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = Sub_475D90();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) != 0) {
+                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -14303,11 +14315,11 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         gWindowStates[41].value20 = 0;
     }
     gBankExternalHover57EDD0 = hovered;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 41 || Sub_475D40() == 0) {
             static_cast<void>(Sub_4763E0());
             std::int32_t target = 0;
-            while (target < 20 && world::detail::gPlayerItemsFDA8A4[target + 8].used != 0) {
+            while (target < 20 && world::detail::BorrowPlayerItemsFDA8A4()[target + 8].used != 0) {
                 ++target;
             }
             if (target >= 20) {
@@ -14334,7 +14346,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
@@ -14488,7 +14500,7 @@ std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
         *scroll = static_cast<std::uint32_t>(
             Sub_4743B0(&gCurrentWindow->elements[index - 3], current, 2, wheel));
@@ -14548,7 +14560,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
         if (source != petIndex) {
             bool allowed = true;
             if (gWindowStates[41].value10 == 1 && petIndex < 5 && source >= 100) {
-                const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
                 for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -14569,7 +14581,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
         Sub_476500();
     }
     const bool hover = (events & 1u) != 0;
-    if (hover && world::detail::gPetRuntimeF633F8[petIndex].used != 0) {
+    if (hover && (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used != 0) {
         const std::int32_t level = world::detail::ReadPlayerLevel();
         const std::int32_t amount = world::detail::ReadPlayerValueFC();
         if (amount >= level) {
@@ -14578,10 +14590,10 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
                 "\xB4\xE6\xB7\xC5\x8C\x99\xCE\xEF\xA1\xA3");
         }
     }
-    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::uint16_t used = pet.used;
     if (used != 0 && (events & 0x21u) != 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 41 || Sub_475D40() == 0) {
             static_cast<void>(Sub_4763E0());
             std::int32_t target = 0;
@@ -14664,7 +14676,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
         if (source != petIndex + 100) {
             bool allowed = true;
             if (gWindowStates[41].value10 == 1 && source < 5) {
-                const auto& sourcePet = world::detail::gPetRuntimeF633F8[source];
+                const auto& sourcePet = (*world::detail::BorrowPetRuntimeF633F8Storage())[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
                 const bool hasWeight = weight > 0;
@@ -14699,14 +14711,14 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
     std::uint16_t used;
     std::memcpy(&used, record, sizeof(used));
     if (used != 0 && (events & 0x21u) != 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 41 || Sub_475D40() == 0) {
             static_cast<void>(Sub_4763E0());
             std::int32_t position = 0;
             for (; position < 5; ++position) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
                     world::detail::gPetPairsDE0B08[position].index);
-                if (world::detail::gPetRuntimeF633F8[target].used == 0) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[target].used == 0) {
                     break;
                 }
             }
@@ -14719,9 +14731,9 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
                     std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
                 const std::int32_t y =
-                    world::detail::gPlayerY.Read_401EC0();
+                    world::detail::BorrowPlayerYStorage()->Read_401EC0();
                 const std::int32_t x =
-                    world::detail::gPlayerX.Read_401EC0();
+                    world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 256));
             }
@@ -14853,9 +14865,9 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
                 std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 128));
             window = gCurrentWindow;
@@ -14886,7 +14898,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
     std::array<char, 20> buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
-        if (world::detail::gPlayerItemsFDA8A4[index].used != 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[index].used != 0) {
             ++count;
         }
     }
@@ -14897,7 +14909,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
     Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        if (world::detail::gPetRuntimeF633F8[index].used != 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].used != 0) {
             ++count;
         }
     }
@@ -15054,7 +15066,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
             "\xCA\xF3\xCD\xCF\xB7\xC5\xB5\xBD\xEF\x95\xC1\xCF\xCF\xE4\xA1\xA3");
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() >= 100
-        && (world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gStorageOwnHover57EE04 != hovered) {
@@ -15063,16 +15075,16 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
     gStorageOwnHover57EE04 = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 static_cast<void>(Sub_48BF10(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);
-                const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
                 gWindowStates[38].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -15104,7 +15116,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             gWindowStates[38].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
@@ -15115,7 +15127,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::array<char, 12> buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -15182,9 +15194,9 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
             }
             if (source != position + 100
                 && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) == 0)) {
+                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) == 0)) {
                 // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
-                const std::int32_t itemType = world::detail::gPlayerItemsFDA8A4[source].itemType;
+                const std::int32_t itemType = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
                 if (itemType != 38 && itemType != 52) {
                     Sub_4886E0(38, index, source, position + 100);
                 }
@@ -15213,7 +15225,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     if (Sub_475D60() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = Sub_475D90();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::gPlayerItemsFDA8A4[source].flags) & 0x60u) != 0) {
+                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -15232,7 +15244,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
@@ -16656,7 +16668,7 @@ std::int32_t Sub_492800(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_492840(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         gLoginWindowRuntime.valueC8A95C = Sub_4743B0(window->elements + 2, scroll, 950, wheel);
@@ -17358,12 +17370,12 @@ std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
         if (world::gCurrentSceneType == 10) {
             world::gCurrentSceneState = 9;
         } else {
-            platform::LegacyCryptInt temporary;
-            temporary.ConstructFromInt_401CC0(0);
-            world::detail::gValue73ECD0.encoded = temporary.encoded;
-            world::detail::gValue73ECD0.mask = temporary.mask;
-            world::detail::gValue73ECD0.readCount = temporary.readCount;
-            temporary.Destroy_401CF0();
+            std::optional<platform::LegacyCryptInt> temporary;
+            temporary.emplace(static_cast<std::int32_t>(0));
+            world::detail::BorrowValue73ECD0Storage()->encoded = temporary->encoded;
+            world::detail::BorrowValue73ECD0Storage()->mask = temporary->mask;
+            world::detail::BorrowValue73ECD0Storage()->readCount = temporary->readCount;
+            temporary.reset();
             static_cast<void>(world::SetPendingSceneType(7));
         }
         static_cast<void>(audio::PlaySe_52C450(60, 320));
@@ -17428,8 +17440,8 @@ std::int32_t Sub_4947F0(const std::int32_t index, const std::int32_t state)
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B8E3;
         }
-        const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
-        const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
+        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY + 16);
+        const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX + 16);
         static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     } else {
         graphic->imageNo = 0x3B8E4;
@@ -18145,7 +18157,7 @@ std::int32_t Sub_495750(const std::int32_t index, const std::int32_t state)
 {
     WindowState* const windowState = gCurrentWindowState;
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t mode = gValueCF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
@@ -18460,9 +18472,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(Sub_4B6C20());
@@ -18487,9 +18499,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escaped));
             gWindow50InputPrototype580618.input.context->text[0] = '\0';
@@ -18518,9 +18530,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             escaped[0] = '\0';
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(Sub_4B6C20());
@@ -18676,15 +18688,15 @@ void Sub_4B6C50(
     if (gShopItemsCF4FE0[item * 0xC58] == 0) {
         static_cast<void>(Sub_4763E0());
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0()));
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(9, sourceIndex, x, y, &Sub_4B6C50));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -18692,9 +18704,9 @@ void Sub_4B6C50(
     std::int32_t imageNo;
     std::memcpy(&imageNo, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC20, sizeof(imageNo));
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -19073,7 +19085,7 @@ login::YobiAction* CreateShopServiceWindow(
                 }
             }
         }
-        const std::uint16_t used = world::detail::gPlayerItemsFDA8A4[slot + 8].used;
+        const std::uint16_t used = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].used;
         gShopInventoryMapD2DAB8[slot] = -1;
         if (used != 0) {
             gShopInventoryMapD2DAB8[slot] = 20;
@@ -19560,7 +19572,7 @@ void Sub_4B92C0()
     std::int32_t itemId;
     std::memcpy(&itemId, gShopDetailCC3210.data() + 0xC28, sizeof(itemId));
     std::int32_t total = 0;
-    for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerItemsFDA8A4) {
+    for (const world::detail::PlayerItemRecord& record : world::detail::BorrowPlayerItemsFDA8A4()) {
         if (record.used != 0 && record.itemId == itemId) {
             total += record.count;
         }
@@ -19725,7 +19737,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         const std::int32_t itemId = gValueD2D608;
         gShopAvailableCF4A24 = 0;
         std::int32_t total = 0;
-        for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerItemsFDA8A4) {
+        for (const world::detail::PlayerItemRecord& record : world::detail::BorrowPlayerItemsFDA8A4()) {
             if (record.used != 0 && record.itemId == itemId) {
                 total += record.count;
             }
@@ -19804,9 +19816,9 @@ void Sub_4B9B10(const std::int32_t selection)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
@@ -20100,9 +20112,9 @@ std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
         gCurrentWindow->state |= 0x8000u;
@@ -20135,7 +20147,7 @@ std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
             } else if (item == 20) {
                 // 原D052FC为浏览首条物品+BB8，对应description[30][72]。
                 allowed = static_cast<std::uint8_t>(
-                    gStallBrowseD046D8.items[0].description[30][72]);
+                    BorrowStallBrowseD046D8Storage()->items[0].description[30][72]);
             } else {
                 allowed = static_cast<std::uint8_t>(gShopItemsCF4FE0[item * 0xC58 + 0xC3C]);
             }
@@ -20521,7 +20533,7 @@ std::int32_t Sub_4BB130(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t position = gShopScrollCC488C;
         gShopScrollCC488C =
             Sub_4743B0(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
@@ -20587,7 +20599,7 @@ std::int32_t Sub_4BB1D0(const std::int32_t index, const std::int32_t state)
             remaining -= price;
             std::int32_t released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -20624,7 +20636,7 @@ std::int32_t Sub_4BB1D0(const std::int32_t index, const std::int32_t state)
             remaining -= cost;
             released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -20847,7 +20859,7 @@ std::int32_t Sub_4BB6E0(const std::int32_t index, const std::int32_t state)
             std::int32_t released = 0;
             std::int32_t slot = 8;
             for (; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -20881,7 +20893,7 @@ std::int32_t Sub_4BB6E0(const std::int32_t index, const std::int32_t state)
             std::int32_t accumulated = 0;
             std::int32_t deficit = -available;
             for (; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                 if (item.used != 0 && item.itemId == gValueD2D608) {
                     const std::int32_t count = item.count;
                     std::memcpy(&price, record + 0xC24, sizeof(price));
@@ -21259,7 +21271,7 @@ std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
             std::strcpy(gHoverTextD68AE8.data(), kShopHints57E6C4[2]);
         }
     }
-    if ((events & 0x21u) != 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if ((events & 0x21u) != 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         static_cast<void>(Sub_4763E0());
         const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
         gShopSelectedSlotsCB03DC[row] = static_cast<char>(-1);
@@ -21409,8 +21421,8 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
         gShopTooltipPageD67B8C = 0;
     }
     gShopInventoryHover58084C = hovered;
-    const auto& items = world::detail::gPlayerItemsFDA8A4;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
             if (Sub_475D40() == 53 || Sub_475D40() == 0) {
                 const std::int32_t item = gShopInventoryMapD2DAB8[hovered];
@@ -21583,7 +21595,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             const std::int32_t mappedItem = gShopInventoryMapD2DAB8[position];
             // 原4BCE19：映射20读取D052FC，即浏览首条物品+BB8。
             const char allowed = mappedItem == 20
-                ? gStallBrowseD046D8.items[0].description[30][72]
+                ? BorrowStallBrowseD046D8Storage()->items[0].description[30][72]
                 : gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C];
             if (allowed == 0) {
                 static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
@@ -21619,7 +21631,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
     if (acceptHover) {
         acceptImage = 245325;
         const std::size_t length = std::strlen(gConfirmationAcceptHintCC3FCC.data()) + 1;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data(), gConfirmationAcceptHintCC3FCC.data(), length);
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -21638,7 +21650,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
         const std::size_t length = std::strlen(gConfirmationCancelHintD45D70.data()) + 1;
         const std::size_t prefix = length & ~std::size_t{3};
         std::memcpy(gHoverTextD68AE8.data(), gConfirmationCancelHintD45D70.data(), prefix);
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data() + prefix,
             gConfirmationCancelHintD45D70.data() + prefix, length - prefix);
         if ((buttons & 1u) != 0) {
@@ -22176,7 +22188,7 @@ void Sub_4BE930(WindowInstance* const window)
         window->elements[row + 59].visible = 1;
         static_cast<WindowTextData*>(window->elements[row + 34].data)->text[0] = '\0';
         static_cast<WindowTextData*>(window->elements[row + 44].data)->text[0] = '\0';
-        const world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeF633F8[petIndex];
+        const world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
         const bool used = pet.used != 0;
         gWindow54ValueTextsCB035C[row * 11] = '\0';
         gWindow54ValueTextsC8B318[row * 11] = '\0';
@@ -22224,7 +22236,7 @@ void Sub_4BEC20(WindowInstance* const window)
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t pet = 0; pet < index; ++pet) {
-                if (world::detail::gPetRuntimeF633F8[pet].used == 0) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].used == 0) {
                     ++empty;
                 }
             }
@@ -22609,9 +22621,9 @@ std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22662,9 +22674,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22678,9 +22690,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22697,9 +22709,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const char* const text = input::LegacyText593850();
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
             world::detail::gValue581800 = -2;
@@ -23079,7 +23091,7 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
         case 0:
         case 1: {
             const std::int32_t count = gWindow54ValueCB01E4;
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             const std::int32_t position = gWindow54PetScrollCC31DC;
             gWindow54PetScrollCC31DC =
                 Sub_4743B0(gCurrentWindow->elements + index - 5, position, count - 10, wheel);
@@ -23090,7 +23102,7 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
         case 4:
         case 12:
         case 13: {
-            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
             if (index <= 17) {
                 const std::int32_t count = gWindow54ValueCB01E4;
                 const std::int32_t position = gWindow54PetScrollCC31DC;
@@ -23467,9 +23479,9 @@ void Sub_4C2060(const std::int32_t value)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
     gCurrentWindow->state |= 0x8000u;
@@ -23582,9 +23594,9 @@ std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
         gCurrentWindow->state |= 0x8000u;
@@ -23712,7 +23724,7 @@ std::int32_t Sub_4C2760(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t position = gWindow69ScrollD2D604;
         WindowInstance* const window = gCurrentWindow;
         gWindow69ScrollD2D604 =
@@ -23877,8 +23889,8 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         gWindow69TooltipPageD67B94 = 0;
         gWindow69InventoryHover58085C = hovered;
     }
-    const auto& items = world::detail::gPlayerItemsFDA8A4;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & 1u) != 0 && hovered >= 0 && (events & 4u) != 0) {
         if (items[hovered + 8].used != 0) {
@@ -23973,7 +23985,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
     if (acceptHover) {
         acceptImage = 245325;
         const std::size_t length = std::strlen(gWindow69ConfirmAcceptD2E81C.data()) + 1;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data(), gWindow69ConfirmAcceptD2E81C.data(), length);
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -23992,7 +24004,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
         const std::size_t length = std::strlen(gWindow69ConfirmCancelCB076C.data()) + 1;
         const std::size_t prefix = length & ~std::size_t{3};
         std::memcpy(gHoverTextD68AE8.data(), gWindow69ConfirmCancelCB076C.data(), prefix);
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data() + prefix,
             gWindow69ConfirmCancelCB076C.data() + prefix, length - prefix);
         if ((buttons & 1u) != 0) {
@@ -24066,14 +24078,14 @@ std::int32_t Sub_4C33B0(
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -24441,9 +24453,9 @@ void Sub_4C4270(const std::int32_t value)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 1, escaped.data()));
     gCurrentWindow->state |= 0x8000u;
@@ -24667,7 +24679,7 @@ std::int32_t Sub_4C48F0(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t position = gWindow70ScrollCC4B68;
         WindowInstance* const window = gCurrentWindow;
         gWindow70ScrollCC4B68 =
@@ -24832,8 +24844,8 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         gWindow70TooltipPageD67BA0 = 0;
         gWindow70InventoryHover58086C = hovered;
     }
-    const auto& items = world::detail::gPlayerItemsFDA8A4;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & 1u) != 0 && hovered >= 0 && (events & 4u) != 0) {
         if (items[hovered + 8].used != 0) {
@@ -24928,7 +24940,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
     if (acceptHover) {
         acceptImage = 245325;
         const std::size_t length = std::strlen(gWindow70ConfirmAcceptD2DD6C.data()) + 1;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data(), gWindow70ConfirmAcceptD2DD6C.data(), length);
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -24947,7 +24959,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
         const std::size_t length = std::strlen(gWindow70ConfirmCancelCC48BC.data()) + 1;
         const std::size_t prefix = length & ~std::size_t{3};
         std::memcpy(gHoverTextD68AE8.data(), gWindow70ConfirmCancelCC48BC.data(), prefix);
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data() + prefix,
             gWindow70ConfirmCancelCC48BC.data() + prefix, length - prefix);
         if ((buttons & 1u) != 0) {
@@ -25021,14 +25033,14 @@ std::int32_t Sub_4C54D0(
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         const bool left =
-            (platform::gLegacyMouseState.mouseX < 320);
+            (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            (platform::gLegacyMouseState.mouseY < 240);
+            (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -25187,9 +25199,9 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 1, buffer.data()));
         gCurrentWindow->state |= 0x8000u;
@@ -25328,9 +25340,9 @@ std::int32_t Sub_4C5F80(
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped.data()));
     world::detail::gValue581800 = -1;
@@ -25392,9 +25404,9 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
         gCurrentWindow->state |= 0x8000u;
@@ -25462,9 +25474,9 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            world::detail::gPlayerY.Read_401EC0();
+            world::detail::BorrowPlayerYStorage()->Read_401EC0();
         const std::int32_t x =
-            world::detail::gPlayerX.Read_401EC0();
+            world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
         world::detail::gValue581800 = -2;
@@ -25548,7 +25560,7 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
         return 1;
     }
     std::int32_t petCount = 0;
-    for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeF633F8) {
+    for (const world::detail::PetRuntimeRecord& pet : (*world::detail::BorrowPetRuntimeF633F8Storage())) {
         if (pet.used != 0) {
             ++petCount;
         }
@@ -25566,9 +25578,9 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
     world::detail::gValue581800 = -2;
@@ -25608,7 +25620,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
     if (acceptHover) {
         acceptImage = 245325;
         const std::size_t length = std::strlen(gConfirmationAcceptHintCC3FCC.data()) + 1;
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data(), gConfirmationAcceptHintCC3FCC.data(), length);
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
@@ -25617,9 +25629,9 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                world::detail::gPlayerY.Read_401EC0();
+                world::detail::BorrowPlayerYStorage()->Read_401EC0();
             const std::int32_t x =
-                world::detail::gPlayerX.Read_401EC0();
+                world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText.data()));
             gCurrentWindow->state &= ~2u;
@@ -25634,7 +25646,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         const std::size_t length = std::strlen(gConfirmationCancelHintD45D70.data()) + 1;
         const std::size_t prefix = length & ~std::size_t{3};
         std::memcpy(gHoverTextD68AE8.data(), gConfirmationCancelHintD45D70.data(), prefix);
-        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        const auto buttons = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
         std::memcpy(gHoverTextD68AE8.data() + prefix,
             gConfirmationCancelHintD45D70.data() + prefix, length - prefix);
         if ((buttons & 1u) != 0) {
@@ -26684,7 +26696,7 @@ std::int32_t Sub_4A40C0(const std::int32_t, const std::int32_t state)
         break;
     }
     const std::int32_t mode = gValueD67B38;
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     const std::int32_t result = Sub_4743B0(
         &gCurrentWindow->elements[17], position, count - (mode == 0 ? 3 : 9), wheel);
@@ -27329,7 +27341,7 @@ std::uint32_t Sub_4A4540()
 std::int32_t Sub_4A45E0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t position = gLoginWindowRuntime.mailRankScrollCA0474;
@@ -27762,7 +27774,7 @@ std::int32_t Sub_4A53F0(const std::int32_t value)
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         const auto petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-        if (world::detail::gPetRuntimeF633F8[petIndex].used == 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].used == 0) {
             continue;
         }
         const std::int32_t available = world::detail::Sub_52E1D0(petIndex);
@@ -28065,7 +28077,7 @@ std::int32_t Sub_4A56F0(const std::int32_t value)
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
             const auto pet = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-            if (world::detail::gPetRuntimeF633F8[pet].used != 0
+            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].used != 0
                 && world::detail::Sub_52E1D0(pet) == 1) {
                 ++gLoginWindowRuntime.choicesCC4CA0.value00;
             }
@@ -28092,7 +28104,7 @@ std::int32_t Sub_4A56F0(const std::int32_t value)
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         const auto pet = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
-        if (world::detail::gPetRuntimeF633F8[pet].used == 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].used == 0) {
             continue;
         }
         const std::int32_t available = world::detail::Sub_52E1D0(pet);
@@ -28113,7 +28125,7 @@ std::int32_t Sub_4A56F0(const std::int32_t value)
     }
     const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
-    if (world::detail::gPetRuntimeF633F8[pet].used == 0) {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].used == 0) {
         gCurrentWindow->state |= 0x8000u;
     }
     static_cast<void>(Sub_4A6AC0());
@@ -28135,7 +28147,7 @@ std::int32_t Sub_4A6300(const std::int32_t index, const std::int32_t state)
     }
     if ((events & 0x40u) != 0) {
         const std::int32_t source = Sub_475D90();
-        if (source >= 8 && (static_cast<std::uint8_t>(world::detail::gPlayerItemsFDA8A4[source].flags) & 1u) != 0) {
+        if (source >= 8 && (static_cast<std::uint8_t>(world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
             const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
             if (previous != -1) {
@@ -28196,7 +28208,7 @@ std::int32_t Sub_47D4A0()
 // 原函数：0x004A6D30。
 std::int32_t Sub_4A6D30(const std::int32_t index)
 {
-    return world::detail::gPetRuntimeF633F8[index].flags6AA == 3 ? 1 : 0;
+    return (*world::detail::BorrowPetRuntimeF633F8Storage())[index].flags6AA == 3 ? 1 : 0;
 }
 
 // 原函数：0x004A6D50。
@@ -28205,7 +28217,7 @@ std::int32_t Sub_4A6D50(const std::int32_t index)
     if (Sub_47D4A0() == 0) {
         return 0;
     }
-    return world::detail::gPetRuntimeF633F8[index].flags6AA == 2 ? 1 : 0;
+    return (*world::detail::BorrowPetRuntimeF633F8Storage())[index].flags6AA == 2 ? 1 : 0;
 }
 
 // 原函数：0x004A6450。
@@ -28341,7 +28353,7 @@ std::uint8_t Sub_4A6AC0()
     }
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
-    const auto& pet = world::detail::gPetRuntimeF633F8[namePet];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[namePet];
     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     std::strcpy(nameData->text, name);
@@ -28359,13 +28371,13 @@ std::uint8_t Sub_4A6AC0()
     gCurrentWindow->elements[4].visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t image = world::detail::gPlayerItemsFDA8A4[imageSlot].imageNo;
+        const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[imageSlot].imageNo;
         const WindowInstance* const graphicWindow = gCurrentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(login::detail::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t count = world::detail::gPlayerItemsFDA8A4[countSlot].count;
+        const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[countSlot].count;
         if (count > 0) {
             char buffer[64];
             platform::FormatLegacyString_53B304(buffer, "%3d", count);
@@ -28674,7 +28686,7 @@ std::int32_t Sub_4B5A40(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t maximum = count - 7;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -29567,7 +29579,7 @@ std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_4AF0C0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gGuildPageD67B78;
@@ -30947,13 +30959,13 @@ std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)
     }
     const std::int32_t count = world::detail::gCountC9A944;
     if (count == 0) {
-        if (platform::gLegacyMouseState.tailReset != 0) {
+        if (platform::BorrowLegacyMouseStateStorage()->tailReset != 0) {
             WindowElement* const elements = window->elements;
             elements[8].y = elements[14].y - 14;
         }
         return 0;
     }
-    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
     const std::int32_t position = count - gChatScrollOffsetC9A940;
     const std::int32_t next = Sub_4743B0(&window->elements[9], position, count, wheel);
     gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - next;
@@ -31574,7 +31586,7 @@ WindowAnimationData* Sub_47EF00(WindowInstance* const window)
     SetCraftWorkingAction(window);
     const std::int32_t random = platform::NextRandom_53B4C9() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[selected].level;
+    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = FinishCraftWait(window, duration);
     gSelectionModeD2D650 = 4;
@@ -31612,7 +31624,7 @@ WindowAnimationData* Sub_4801B0(WindowInstance* const window)
     SetCraftWorkingAction(window);
     const std::int32_t random = platform::NextRandom_53B4C9() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[selected].level;
+    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = FinishCraftWait(window, duration);
     gSelectionModeD2D650 = 13;
@@ -31697,8 +31709,8 @@ login::YobiAction* Sub_47D5F0(
     gCraftRecipeIndexD2D638 = recipe;
     gSelectionModeD2D650 = 0;
     gCraftRecipeIdD2E440 = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31718,8 +31730,8 @@ login::YobiAction* Sub_47D780(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31742,8 +31754,8 @@ login::YobiAction* Sub_47D8F0(
     if (kind == 1) {
         gSelectionModeD2D650 = 15;
     }
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31762,8 +31774,8 @@ login::YobiAction* Sub_47DA70(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31783,8 +31795,8 @@ login::YobiAction* Sub_47DB50(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31892,7 +31904,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
                     if (source < 8 || source >= 100) {
                         return;
                     }
-                    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+                    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
                     if (item->hasDescription == 0) {
                         return;
                     }
@@ -31910,7 +31922,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
                                     const std::int32_t currentId =
                                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                     const std::int32_t type =
-                                        world::detail::gPlayerItemsFDA8A4[selected + 8].itemType;
+                                        world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
                                     if (Sub_4F4430(type, currentId) != 0) {
                                         return;
                                     }
@@ -31978,7 +31990,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
                         static_cast<void>(Sub_47DC20(destination));
                     }
-                    const std::int32_t type = world::detail::gPlayerItemsFDA8A4[source].itemType;
+                    const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
@@ -32007,7 +32019,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
                     }
                     WriteTradeValue(gMaterialOccupancyCC4894.data(), 0, std::int32_t{1});
                     gSelectedSlotsCA0A90[destination] = source - 8;
-                    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+                    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
                     const std::int32_t itemId = item->itemId;
                     gSelectionImagesCF3FF4[destination] = item->imageNo;
                     gSelectionCountsD66E0C[destination] = Sub_4F4630(itemId);
@@ -32054,7 +32066,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
             if (slot < 0) {
                 continue;
             }
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
             std::int32_t count = item->count;
             if (count == 0) {
                 count = 1;
@@ -32093,7 +32105,7 @@ std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
                 continue;
             }
             const std::int32_t selected = gSelectedSlotsCA0A90[position];
-            const std::int32_t type = world::detail::gPlayerItemsFDA8A4[selected + 8].itemType;
+            const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
             const bool special = mode == 6
                 ? type == 38 || type == 25 || type == 39 : type == 80;
             if (special) {
@@ -32263,7 +32275,7 @@ void Sub_483E30(
 {
     static_cast<void>(Sub_47DC20(destination));
     gSelectedSlotsCA0A90[destination] = source - 8;
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
     const std::int32_t itemId = item->itemId;
     gSelectionImagesCF3FF4[destination] = item->imageNo;
     gSelectionCountsD66E0C[destination] = Sub_4F4630(itemId);
@@ -32314,7 +32326,7 @@ std::int32_t Sub_488180()
         const std::int32_t material = gMaterialIndicesCA0458[index];
         if (material == 0 || material == 1 || material == 2) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
-            return world::detail::gPlayerItemsFDA8A4[slot + 8].itemId;
+            return world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemId;
         }
     }
     return -1;
@@ -32326,7 +32338,7 @@ void Sub_4881D0(const std::int32_t destination, const std::int32_t source)
     std::int32_t flags = 0;
     std::int32_t material = 5;
     const std::int32_t maximum = Sub_488160();
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
     if (item->hasDescription == 0) {
         return;
     }
@@ -32395,7 +32407,7 @@ void Sub_4881D0(const std::int32_t destination, const std::int32_t source)
         if ((flags & 4) != 0) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             const std::int32_t sourceLevel = item->level;
-            if (world::detail::gPlayerItemsFDA8A4[slot + 8].level != sourceLevel) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].level != sourceLevel) {
                 static_cast<void>(Sub_47DC20(index));
             }
         }
@@ -32430,24 +32442,24 @@ void Sub_47DE00(
     if (sourceIndex >= 6 && gSelectedImageCC3ED8 < 0) {
         CancelWindowDrag_476410();
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(10, sourceIndex, x, y, Sub_47DE00));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
         sourceIndex < 6 ? gSelectionImagesCF3FF4[sourceIndex] : gSelectedImageCC3ED8;
     const std::int32_t y =
-        platform::gLegacyMouseState.mouseY.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::gLegacyMouseState.mouseX.Read_401EC0();
+        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -32509,15 +32521,15 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             enabled = !world::detail::IsPlayerFpLessThan(10);
         } else {
             enabled = !world::detail::IsPlayerFpLessThan(
-                world::detail::gPlayerItemsFDA8A4[selected].level * 10);
-            const std::int32_t level = world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].level;
+                world::detail::BorrowPlayerItemsFDA8A4()[selected].level * 10);
+            const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level;
             platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text,
                 kCraftMagicCost58678C, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
         if (skillId == 220) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
@@ -32525,7 +32537,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 enabled = false;
             }
         } else if (skillId == 219 || skillId == 2033) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
             if (item->hasDescription != 0) {
                 enabled = false;
             } else {
@@ -32536,7 +32548,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
             if (item->hasDescription == 0) {
                 enabled = false;
             } else if (Sub_482F70(item->itemType) == 2) {
@@ -32546,21 +32558,21 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                     enabled = false;
                 }
             } else if (Sub_482F70(
-                           world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].itemType) == 1) {
+                           world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 1) {
                 const std::int32_t currentId =
                     world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
             } else if (Sub_482F70(
-                           world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].itemType) == 0) {
+                           world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 0) {
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                 const std::uint8_t crystal = gValue5F9754;
                 const std::int32_t level = world::detail::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = gSelectedItemD460C0;
-                if (world::detail::gPlayerItemsFDA8A4[slot].level > level + (crystal != 0 ? 1 : 0)) {
+                if (world::detail::BorrowPlayerItemsFDA8A4()[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
                 }
             }
@@ -32613,7 +32625,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 insufficient = world::detail::IsPlayerFpLessThan(10);
             } else {
                 insufficient = world::detail::IsPlayerFpLessThan(
-                    world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].level * 10);
+                    world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level * 10);
             }
             break;
         case 6:
@@ -32655,7 +32667,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             };
             bool send = false;
             std::int32_t notice = -1;
-            const auto flags = world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].flags;
+            const auto flags = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
                 if (input::Sub_45E770(input::gInputContextD2DE70.text) == 1) {
                     notice = 0;
@@ -32912,21 +32924,21 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
             "\xB7\xBD\xCA\xBD\xA3\xAC\x81\xED\xDF\x78\x93\xF1\xCE\xEF\xC6\xB7\xA1\xA3");
     }
     if ((events & 0x20u) != 0 && Sub_475D90() >= 100
-        && (world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gCraftBackpackHover57DA24 != hovered) {
         gMaterialHintPageCF4FD8 = 0;
     }
     gCraftBackpackHover57DA24 = hovered;
-    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
+        && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
         if (Sub_475D40() == 11 || Sub_475D40() == 0) {
             const std::uint8_t mode = gSelectionModeD2D650;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
                 static_cast<void>(Sub_4763E0());
                 const auto selectItem = [&] {
-                    auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+                    auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
                     const auto fail = [] {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     };
@@ -32984,7 +32996,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
                                         const std::int32_t currentId =
                                             world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                         const std::int32_t type =
-                                            world::detail::gPlayerItemsFDA8A4[selected + 8].itemType;
+                                            world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
                                         if (Sub_4F4430(type, currentId) != 0) {
                                             fail();
                                             return;
@@ -33144,16 +33156,16 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 static_cast<void>(Sub_48BF10(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
+            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
                 const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
-                const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 gMaterialHintPageCF4FD8 = page;
                 if (page >= pages) {
                     gMaterialHintPageCF4FD8 = 0;
@@ -33183,7 +33195,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
-        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             gMaterialHoveredItemD67424 = hovered + 8;
         }
     }
@@ -33192,7 +33204,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     char countText[12];
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[position + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item->used == 0) {
             continue;
         }
@@ -33299,7 +33311,7 @@ std::int32_t DrawCraftInputNotice(
     std::int32_t imageNo = 0x3B568;
     if (login::detail::Sub_5049A0(287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
             gCurrentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -33359,7 +33371,7 @@ std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(Sub_47DC20(6));
             }
             gSelectedItemD460C0 = source;
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
             const std::int32_t itemId = item->itemId;
             gSelectedImageCC3ED8 = item->imageNo;
             gSelectedCountCC483C = Sub_4F4630(itemId);
@@ -33383,7 +33395,7 @@ std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
     if (selected >= 0) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[selected];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[selected];
         if (skillId == 220) {
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -33414,19 +33426,19 @@ std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (Sub_482F70(
-                               world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].itemType) == 1) {
+                               world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 1) {
                     const std::int32_t currentId =
                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (Sub_482F70(
-                               world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].itemType) == 0) {
+                               world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 0) {
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                     const std::uint8_t crystal = gValue5F9754;
                     const std::int32_t skillLevel = world::detail::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = gSelectedItemD460C0;
-                    rejected = world::detail::gPlayerItemsFDA8A4[slot].level
+                    rejected = world::detail::BorrowPlayerItemsFDA8A4()[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
                 }
             }
@@ -33593,7 +33605,7 @@ std::int32_t Sub_47D4F0()
     }
     const std::int32_t crystalLevel = Sub_479860();
     const std::int32_t slot = gSelectedItemD460C0;
-    return world::detail::gPlayerItemsFDA8A4[slot].level == crystalLevel ? 1 : 0;
+    return world::detail::BorrowPlayerItemsFDA8A4()[slot].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D530。
@@ -33604,11 +33616,11 @@ std::int32_t Sub_47D530()
         if (slot < 0) {
             continue;
         }
-        const std::int32_t type = world::detail::gPlayerItemsFDA8A4[slot + 8].itemType;
+        const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemType;
         if (type == 38 || type == 25 || type == 39 || type == 80) {
             const std::int32_t crystalLevel = Sub_479860();
             const std::int32_t selected = gSelectedSlotsCA0A90[index];
-            return world::detail::gPlayerItemsFDA8A4[selected + 8].level == crystalLevel ? 1 : 0;
+            return world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].level == crystalLevel ? 1 : 0;
         }
     }
     return 0;
@@ -33621,7 +33633,7 @@ std::int32_t Sub_47D5B0()
     if (slot < 0) {
         return 0;
     }
-    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[slot + 8].level;
+    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].level;
     const std::int32_t crystalLevel = Sub_479860();
     return level == crystalLevel ? 1 : 0;
 }
@@ -33843,7 +33855,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                 if (slot < 0) {
                     continue;
                 }
-                const std::int32_t type = world::detail::gPlayerItemsFDA8A4[slot + 8].itemType;
+                const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemType;
                 if (type == 38 || type == 25 || type == 39 || type == 80) {
                     specialSlot = slot + 8;
                 } else {
@@ -33853,7 +33865,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             platform::FormatLegacyString_53B304(buffer, "%d|%d", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
-            const char* const name = world::detail::gPlayerItemsFDA8A4[ordinarySlot].name.data();
+            const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name.data();
             const std::size_t length = std::strlen(name) + 1;
             const std::uint8_t currentMode = gSelectionModeD2D650;
             std::memcpy(gCraftNameCF46D4.data(), name, length);
@@ -33877,7 +33889,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
-            std::strcpy(gCraftNameCF46D4.data(), world::detail::gPlayerItemsFDA8A4[selected].name.data());
+            std::strcpy(gCraftNameCF46D4.data(), world::detail::BorrowPlayerItemsFDA8A4()[selected].name.data());
             hideControls = true;
         } else if (mode == 13 && expired()) {
             const char initial = input::LegacyText593850()[0];
@@ -33893,7 +33905,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
                         std::strcpy(gCraftNameCF46D4.data(),
-                            world::detail::gPlayerItemsFDA8A4[selected + 8].name.data());
+                            world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].name.data());
                     }
                 }
             }
@@ -34336,7 +34348,7 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
     if (entryResult != 0 && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
         static_cast<void>(Sub_47DC20(6));
     }
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[selected];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[selected];
     std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, item->name.data());
     const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const char* message = nullptr;
@@ -34544,8 +34556,8 @@ login::YobiAction* Sub_4854A0(const std::int32_t skill, const std::int32_t level
         default:
             break;
     }
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     gSkillExtraDelayCF46C4 = 2000;
     Sub_479650();
@@ -35133,8 +35145,8 @@ std::int32_t Sub_486CF0(const std::int32_t index, const std::int32_t state)
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(Sub_4D3020(x, y));
         static_cast<void>(Sub_485890(gCurrentWindow));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -35582,7 +35594,7 @@ std::int32_t Sub_479820()
 // 原函数：0x00479860。
 std::int32_t Sub_479860()
 {
-    const auto& item = world::detail::gPlayerItemsFDA8A4[7];
+    const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[7];
     if (item.used == 0) {
         return 0;
     }
@@ -35599,7 +35611,7 @@ std::int32_t Sub_479860()
 // 原函数：0x00479920。
 std::int32_t Sub_479920()
 {
-    const auto& item = world::detail::gPlayerItemsFDA8A4[7];
+    const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[7];
     if (item.used == 0) {
         return 0;
     }
@@ -35617,13 +35629,13 @@ std::int32_t Sub_479920()
 std::int32_t Sub_4799D0()
 {
     const std::int32_t index = world::detail::Sub_43C4B0();
-    return index < 0 ? 0 : world::detail::gPetRuntimeF633F8[index].imageNo6A0;
+    return index < 0 ? 0 : (*world::detail::BorrowPetRuntimeF633F8Storage())[index].imageNo6A0;
 }
 
 // 原函数：0x00479A00。
 std::int32_t Sub_479A00(const std::int32_t petIndex)
 {
-    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::int32_t count = pet.value6A4;
     for (std::int32_t index = 0; index < count; ++index) {
         const auto slot = std::bit_cast<std::int16_t>(pet.techniquePairs650[index].index);
@@ -35641,7 +35653,7 @@ std::int32_t Sub_479A00(const std::int32_t petIndex)
 // 原函数：0x00479A70。
 std::int32_t Sub_479A70(const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
-    const std::int32_t level = world::detail::gPetRuntimeF633F8[petIndex].value08;
+    const std::int32_t level = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].value08;
     const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
     if (level < range[0]) {
         return 0;
@@ -35661,7 +35673,7 @@ std::int32_t Sub_479AB0()
         return 0;
     }
     const std::int32_t required = kPetCrystalFp54F340[level - 1];
-    return (world::detail::gPetRuntimeF633F8[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
+    return ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
 }
 
 // 原函数：0x00479B00。
@@ -35679,7 +35691,7 @@ std::int32_t Sub_479B00()
         return 0;
     }
     const std::int32_t attribute = Sub_479920();
-    if (world::detail::gPetRuntimeF633F8[index].values70[21 + attribute] < 50) {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].values70[21 + attribute] < 50) {
         return 0;
     }
     return Sub_479A70(index, level) != 0 ? 1 : 0;
@@ -35778,8 +35790,8 @@ login::YobiAction* Sub_4874B0()
 // 原函数：0x004EF750。
 login::YobiAction* Sub_4EF750(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t selected = gSkillSelectedTargetCC4B1C;
     const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
@@ -35808,7 +35820,7 @@ login::YobiAction* Sub_4EF750(const char* const text)
         }
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::detail::gPetRuntimeF633F8[slot];
+            auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
@@ -35974,22 +35986,22 @@ void Sub_479700(
     if (message != 0) {
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(4, sourceIndex, x, y, Sub_479700));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
         CancelWindowDrag_476410();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t y =
-        (platform::gLegacyMouseState.mouseY - 8);
+        (platform::BorrowLegacyMouseStateStorage()->mouseY - 8);
     const std::int32_t x =
-        (platform::gLegacyMouseState.mouseX - 103);
+        (platform::BorrowLegacyMouseStateStorage()->mouseX - 103);
     Sub_47B6C0(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
@@ -36665,7 +36677,7 @@ std::int32_t Sub_496D50(const std::int32_t)
         } else {
             const std::int32_t pet = world::detail::Sub_43C4B0();
             const std::int32_t technique = world::detail::gValue553F84;
-            name = world::detail::gPetRuntimeF633F8[pet].techniquesD8[technique].name.data();
+            name = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[technique].name.data();
         }
         std::strcpy(static_cast<WindowTextData*>(gWindowStates[26].window->elements[12].data)->text, name);
     }
@@ -36901,7 +36913,7 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
+        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
         gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
         gBattleItemTargetFlagCC4D40 = 0;
         login::detail::FlushBattleEntries_43C060();
@@ -36954,7 +36966,7 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
         WindowInstance* const window = gWindowStates[28].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
@@ -37313,7 +37325,7 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
-        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+        &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
         if (gBattleSkillTargetPendingD303F8 != 0) {
             gBattleSkillWindowActionCC1A10 = Sub_47A500(
                 world::detail::gBattleSelectedSkill5ABB5C, &Sub_4974C0);
@@ -37365,7 +37377,7 @@ void Sub_497E30(const std::int32_t technique)
     const std::int32_t targetPet = world::detail::Sub_43C4B0();
     const std::int32_t targetTechnique = world::detail::gValue553F84;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
-        std::bit_cast<std::int16_t>(world::detail::gPetRuntimeF633F8[targetPet]
+        std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[targetPet]
             .techniquesD8[targetTechnique].target)));
     const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
         world::detail::gBattleCurrentPosition5ABCA4);
@@ -37373,7 +37385,7 @@ void Sub_497E30(const std::int32_t technique)
         const std::int32_t idPet = world::detail::Sub_43C4B0();
         const std::int32_t idTechnique = world::detail::gValue553F84;
         const std::int32_t targetIndex =
-            world::detail::gPetRuntimeF633F8[idPet].techniquesD8[idTechnique].techniqueId >= 200600
+            (*world::detail::BorrowPetRuntimeF633F8Storage())[idPet].techniquesD8[idTechnique].techniqueId >= 200600
             ? world::detail::GetBattlePetPosition_405B40(world::detail::gBattleCurrentPosition5ABCA4)
             : world::detail::Sub_43C4B0();
         const std::int32_t currentTechnique = world::detail::gValue553F84;
@@ -37419,7 +37431,7 @@ void Sub_497FF0(const std::int32_t technique)
     const auto targetPet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     world::detail::gValue553F84 = technique;
     const auto target = static_cast<std::uint32_t>(static_cast<std::int32_t>(
-        std::bit_cast<std::int16_t>(world::detail::gPetRuntimeF633F8[targetPet]
+        std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[targetPet]
             .techniquesD8[technique].target)));
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     if (login::detail::CheckBattleCommand_43C560(position, target) == 0) {
@@ -37465,7 +37477,7 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
     }
     if (pendingAction == nullptr
         && ((entryState & 2) != 0
-            || (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0)) {
+            || (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0)) {
         if (window != nullptr) {
             window->state |= 0x8000u;
         } else {
@@ -37573,14 +37585,14 @@ void Sub_498520()
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
-                    const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[technique].fp;
+                    const std::int32_t cost = (*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[technique].fp;
                     open = login::detail::IsCostGreaterThanYobiActionFp(cost, player);
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                     const std::int32_t currentTechnique = gValue553F84;
                     const auto target =
-                        std::bit_cast<std::int16_t>(gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].target);
+                        std::bit_cast<std::int16_t>((*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].target);
                     const std::int32_t currentPosition = gBattleCurrentPosition5ABCA4;
                     open = login::detail::CheckBattleCommand_43C560(
                         currentPosition, static_cast<std::uint32_t>(target)) == 0;
@@ -37680,14 +37692,14 @@ void Sub_498520()
         break;
     }
     case 1: {
-        if (gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
+        if (gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
             gBattleSelectionModes5ABC7C[0] = 0;
             login::detail::FlushBattleEntries_43C060();
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if (gBattleValueCB054C != 0) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 1u) != 0) {
                 bool send = true;
                 switch (gBattleSelectionMode5ABC70) {
                 case 0:
@@ -37793,14 +37805,14 @@ void Sub_498520()
             login::YobiAction* const action = gBattleEntries59E980[position];
             const std::int32_t pet = Sub_43C4B0();
             const std::int32_t currentTechnique = gValue553F84;
-            const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].fp;
+            const std::int32_t cost = (*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].fp;
             open = login::detail::IsCostGreaterThanYobiActionFp(cost, action);
         }
         if (!open) {
             const std::int32_t pet = Sub_43C4B0();
             const std::int32_t currentTechnique = gValue553F84;
             const auto target =
-                std::bit_cast<std::int16_t>(gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].target);
+                std::bit_cast<std::int16_t>((*BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[currentTechnique].target);
             const std::int32_t position = GetBattlePetPosition_405B40(gBattleCurrentPosition5ABCA4);
             open = login::detail::CheckBattleCommand_43C560(position, static_cast<std::uint32_t>(target)) == 0;
         }
@@ -37818,7 +37830,7 @@ void Sub_498520()
     case 4: {
         if (gBattlePetCommandPhase553F88 == 3) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 1u) != 0) {
                 const std::int32_t technique = gValue553F84;
                 platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
                     static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
@@ -37837,7 +37849,7 @@ void Sub_498520()
         std::int32_t imageNo = 0;
         switch (phase) {
         case 0: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
                 if (pet < 0) {
@@ -37849,7 +37861,7 @@ void Sub_498520()
             const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
                 std::strcpy(gHoverTextD68AE8.data(),
                     "\xB4\xF2\xE9\x5F\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3");
                 if ((clicks & 1u) != 0) {
@@ -37867,7 +37879,7 @@ void Sub_498520()
                 constexpr char hint[] = "\xEA\x50\xE9\x5D\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
                 std::memcpy(gHoverTextD68AE8.data(), hint, 12);
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
                 std::memcpy(gHoverTextD68AE8.data() + 12, hint + 12, 3);
                 if ((clicks & 1u) != 0) {
                     WindowInstance* const window = gWindowStates[10].window;
@@ -37884,7 +37896,7 @@ void Sub_498520()
         }
         case 2:
         case 3: {
-            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 2u) != 0) {
                 login::detail::FlushBattleEntries_43C060();
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
@@ -37899,7 +37911,7 @@ void Sub_498520()
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
-                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
                 std::strcpy(gHoverTextD68AE8.data(),
                     "\xB7\xB5\xBB\xD8\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3");
                 if ((clicks & 1u) != 0) {
@@ -37913,7 +37925,7 @@ void Sub_498520()
                 const std::int32_t namePet = Sub_43C4B0();
                 const std::int32_t nameTechnique = gValue553F84;
                 platform::FormatLegacyString_53B304(buffer.data(), "%-16s",
-                    gPetRuntimeF633F8[namePet].techniquesD8[nameTechnique].name.data());
+                    (*BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[nameTechnique].name.data());
                 const std::int32_t nameY = gBattleCommandY553F7C;
                 const std::int32_t nameX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(
@@ -37922,7 +37934,7 @@ void Sub_498520()
                     2, 0, 0, buffer.data(), 0));
                 const std::int32_t costPet = Sub_43C4B0();
                 const std::int32_t costTechnique = gValue553F84;
-                platform::FormatLegacyString_53B304(buffer.data(), "%4d", gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp);
+                platform::FormatLegacyString_53B304(buffer.data(), "%4d", (*BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp);
                 const std::int32_t costY = gBattleCommandY553F7C;
                 const std::int32_t costX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(
@@ -38056,7 +38068,7 @@ void Sub_496570()
         return;
     }
     for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
-        auto& pet = world::detail::gPetRuntimeF633F8[index];
+        auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         gBattlePetVitalsCF4B78[index].hp = pet.values0C[0].Read_401EC0();
         gBattlePetVitalsCF4B78[index].maxHp = pet.values0C[1].Read_401EC0();
         gBattlePetVitalsCF4B78[index].fp = pet.values0C[2].Read_401EC0();
@@ -38141,7 +38153,7 @@ void Sub_49B670(
 {
     std::int32_t battleImage = 0x3B58D;
     std::int32_t readyImage = 0x3B58A;
-    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -38223,7 +38235,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
     std::int32_t visible = -1;
     for (const auto& pair : world::detail::gPetPairsDE0B08) {
         const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
-        const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
         if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
             ++visible;
         }
@@ -38236,7 +38248,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     std::int32_t consumed = 0;
-    const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
     if (pet.used == 1) {
         std::uint16_t flags = pet.flags6AA;
         if (flags == 1 || flags == 2) {
@@ -38318,11 +38330,11 @@ void Sub_47CB00(
     const std::int32_t petIndex = world::detail::Sub_43C4B0();
     const std::int32_t pairPetIndex = world::detail::Sub_43C4B0();
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeF633F8[pairPetIndex].techniquePairs650[pairIndex].index);
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
-    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -38358,9 +38370,9 @@ void Sub_47CE70(
     render::GraphicDescriptor16 descriptor {};
     descriptor.bytes[13] = 4;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeF633F8[petIndex].techniquePairs650[pairIndex].index);
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquePairs650[pairIndex].index);
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -38391,9 +38403,9 @@ std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
     const std::int32_t pairIndex = index - 17;
     std::int32_t pairPet = world::detail::Sub_43C4B0();
     auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeF633F8[pairPet].techniquePairs650[pairIndex].index);
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPet].techniquePairs650[pairIndex].index);
     const std::int32_t namePet = world::detail::Sub_43C4B0();
-    if (world::detail::gPetRuntimeF633F8[namePet].techniquesD8[technique].name[0] == '\0') {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[technique].name[0] == '\0') {
         return 0;
     }
     std::int32_t consumed = 0;
@@ -38402,17 +38414,17 @@ std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
         pairPet = world::detail::Sub_43C4B0();
         technique = std::bit_cast<std::int16_t>(
-            world::detail::gPetRuntimeF633F8[pairPet].techniquePairs650[pairIndex].index);
+            (*world::detail::BorrowPetRuntimeF633F8Storage())[pairPet].techniquePairs650[pairIndex].index);
         const std::int32_t costPet = world::detail::Sub_43C4B0();
         const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t cost = world::detail::gPetRuntimeF633F8[costPet].techniquesD8[technique].fp;
+        const std::int32_t cost = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
         if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
                 const std::int32_t pet = world::detail::Sub_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::detail::gPetRuntimeF633F8[pet].techniquePairs650[pairIndex].index);
+                    (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquePairs650[pairIndex].index);
                 gPetSkillSelectionCallbackCC4D14(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -38456,8 +38468,8 @@ std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
     const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::detail::gPetRuntimeF633F8[petIndex].techniquePairs650[pairIndex].index);
-    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquePairs650[pairIndex].index);
+    const auto* const record = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return 0;
     }
@@ -38472,7 +38484,7 @@ std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::detail::gPetRuntimeF633F8[pet].techniquePairs650[pairIndex].index);
+                    (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquePairs650[pairIndex].index);
                 callback(selected);
             }
             gCurrentWindow->state |= 0x8000u;
@@ -38527,7 +38539,7 @@ void Sub_47A1A0(WindowInstance* const window)
     if (petIndex < 0) {
         return;
     }
-    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const char* name = pet->name6BD.data();
     if (name[0] == '\0') {
         name = pet->name6AC.data();
@@ -38580,7 +38592,7 @@ void Sub_47A320(WindowInstance* const window)
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
     const char* const name = login::detail::BorrowYobiNameC4(displayAction);
     std::strcpy(textData->text, name);
-    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     std::int32_t index = 0;
     std::int32_t count = pet->value6A4;
     while (index < count) {
@@ -38724,8 +38736,8 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
@@ -38763,7 +38775,7 @@ std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
     } else {
         petIndex = state;
     }
-    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     std::int32_t count = 0;
     std::int32_t unavailable = 0;
     std::int32_t row = 0;
@@ -39036,7 +39048,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
                     hover = gSkillWindowHoverD2F744;
                     pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
                 }
-                drawDescription(world::detail::gPetRuntimeF633F8[pet].techniquesD8[hover].description.data(), line, 26);
+                drawDescription((*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[hover].description.data(), line, 26);
             }
         }
         break;
@@ -39167,7 +39179,7 @@ std::int32_t Sub_47B5D0(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_47B680(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t maximum = gSkillWindowMaximumCA000C;
         const std::int32_t position = gSkillWindowScrollD2D648;
         gSkillWindowScrollD2D648 =
@@ -39455,8 +39467,8 @@ void Sub_479660()
     if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
@@ -39554,8 +39566,8 @@ login::YobiAction* Sub_4871B0()
 // 原函数：0x004F0200。
 void Sub_4F0200(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t kind = Sub_4EF710(world::detail::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;
@@ -39683,8 +39695,8 @@ login::YobiAction* Sub_48AF00()
 // 原函数：0x004E4860。
 login::YobiAction* Sub_4E4860(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
     const char* const ownName = world::detail::BorrowPlayerDisplayText(1);
@@ -39740,8 +39752,8 @@ std::int32_t Sub_48B010(const std::int32_t index, const char*)
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
@@ -39798,8 +39810,8 @@ login::YobiAction* Sub_48B0A0()
 // 原函数：0x004E4020。
 login::YobiAction* Sub_4E4020(const char* const text)
 {
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
@@ -39826,7 +39838,7 @@ login::YobiAction* Sub_4E4020(const char* const text)
         gItemUseStatusCountCC4D44 = count;
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::detail::gPetRuntimeF633F8[slot];
+            auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
@@ -40089,7 +40101,7 @@ std::int32_t Sub_49F570(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
         gTextChoiceOffsetD2D9C0 =
             Sub_4743B0(gCurrentWindow->elements + index - 5, offset, count - 5, wheel);
@@ -40290,12 +40302,12 @@ std::int32_t Sub_4991C0(const std::int32_t value)
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
-                const std::int32_t health = Sub_519680(world::detail::gPetRuntimeF633F8[slot].values70[25]);
+                const std::int32_t health = Sub_519680((*world::detail::BorrowPetRuntimeF633F8Storage())[slot].values70[25]);
                 WindowInstance* const window = gCurrentWindow;
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
-                const auto& pet = world::detail::gPetRuntimeF633F8[nameSlot];
+                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
             std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text, name);
@@ -40305,7 +40317,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
                 ? world::detail::IsPlayerNextExperienceEqual(-1)
-                : (world::detail::gPetRuntimeF633F8[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
+                : ((*world::detail::BorrowPetRuntimeF633F8Storage())[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text, "  ---  ");
             } else {
@@ -40840,7 +40852,7 @@ std::int32_t Sub_49EE60(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
         gWindowListOffsetCC3EF4 =
             Sub_4743B0(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
@@ -40918,11 +40930,11 @@ std::int32_t Sub_472F00(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
-    const std::int32_t x = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(left));
+    const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(left));
     if (x < 0 || x >= width) {
         return 0;
     }
-    const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(top));
+    const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(top));
     return y >= 0 && y < height ? 1 : 0;
 }
 
@@ -41061,24 +41073,24 @@ std::int32_t Sub_472D20()
         const std::uint32_t state = window->state;
         if ((state & 2u) == 0) {
             if ((state & 0x800u) != 0) {
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1u) != 0) {
                     std::int32_t* const x = &window->x;
-                    const std::int32_t deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
+                    const std::int32_t deltaX = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
                     window = gCurrentWindow;
                     std::int32_t* const y = &window->y;
-                    const std::int32_t deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->dragMouseY20));
+                    const std::int32_t deltaY = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(window->dragMouseY20));
                     *y += deltaY;
-                    const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
+                    const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
                     gCurrentWindow->dragMouseX1C = mouseX;
-                    const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
+                    const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
                     gCurrentWindow->dragMouseY20 = mouseY;
                 } else {
                     window->state = state & ~std::uint32_t{0x800};
                 }
                 result = 2;
                 window = gCurrentWindow;
-            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
                 std::int32_t count = window->secondaryCount;
                 for (std::int32_t index = 0; index < count; ++index) {
                     const WindowDragRect& rect = window->dragRects40[index];
@@ -41093,9 +41105,9 @@ std::int32_t Sub_472D20()
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
                         if (Sub_472F00(left, top, width, height) != 0) {
-                            const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
+                            const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
                             gCurrentWindow->dragMouseX1C = mouseX;
-                            const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
+                            const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
                             gCurrentWindow->dragMouseY20 = mouseY;
                             gCurrentWindow->state |= 0x800u;
                             result |= 2;
@@ -41124,7 +41136,7 @@ std::int32_t Sub_472D20()
             const std::int32_t x = window->x;
             if (Sub_472F00(x, y, width, height) != 0) {
                 result |= 1;
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1u) != 0) {
                     gCurrentWindow->state |= 0x2000u;
                 }
             }
@@ -41629,7 +41641,7 @@ std::int32_t Sub_495E60(const std::int32_t index, const std::int32_t)
         return 0;
     }
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     platform::FormatLegacyString_53B304(data->text, "%3d", x);
     return 0;
 }
@@ -41642,7 +41654,7 @@ std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
         return 0;
     }
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     platform::FormatLegacyString_53B304(data->text, "%3d", y);
     return 0;
 }
@@ -41682,9 +41694,9 @@ std::int32_t Sub_495F70(const std::int32_t index)
     ClearEmoteSelection();
     gEmoteSelectionCF4FC4[index] = 1;
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     return Sub_4D3020(x, y);
 }
 
@@ -42085,7 +42097,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
                         std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[candidate].index);
-                    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
                     platform::FormatLegacyString_53B304(buffer, kStatusPetPoints586314, name, points);
@@ -42179,7 +42191,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
             } else if (target == -1) {
                 std::strcpy(gHoverTextD68AE8.data(), kStatusHealthy556D68);
             } else {
-                const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
                 const char* format;
@@ -42810,7 +42822,7 @@ std::int32_t Sub_48D4E0()
 {
     std::array<std::int32_t, 5> values;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const std::int32_t follow = world::detail::gPetRuntimeF633F8[slot].follow6D4;
+        const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot].follow6D4;
         const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[slot];
         values[slot] = state;
         if (follow != 0) {
@@ -42851,7 +42863,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         }
         if ((events & 2u) != 0) {
             const std::int16_t selected = petIndex(row);
-            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             if (pet.used != 0) {
                 WindowInstance* const detailsWindow = gWindowStates[16].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
@@ -42877,7 +42889,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         } else if ((events & 1u) != 0 && (events & 4u) != 0) {
             const std::int16_t selected = petIndex(row);
-            if (world::detail::gPetRuntimeF633F8[selected].used != 0) {
+            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used != 0) {
                 static_cast<void>(Sub_48C130(selected, 0));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -42903,7 +42915,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 1) != 0) {
             setImage(0x3B588);
-            const std::int32_t follow = world::detail::gPetRuntimeF633F8[petIndex(row)].follow6D4;
+            const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(row)].follow6D4;
             std::strcpy(gHoverTextD68AE8.data(),
                 follow != 0 ? kPetFollowingHint586CF0 : kPetFollowHint586CD8);
             consumed = 1;
@@ -42912,21 +42924,21 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
-        if (world::detail::gPetRuntimeF633F8[selected].follow6D4 != 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].follow6D4 != 0) {
             static_cast<void>(SendPetStateValues(states));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }
         std::int32_t followCount = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
-            if (world::detail::gPetRuntimeF633F8[petIndex(position)].follow6D4 != 0) {
+            if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].follow6D4 != 0) {
                 ++followCount;
             }
         }
         if (followCount > 0) {
             return consumed;
         }
-        if (world::detail::gPetRuntimeF633F8[selected].values70[10] < 60) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].values70[10] < 60) {
             world::detail::Sub_44B050(kPetLowLoyalty586CB0, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
@@ -43053,7 +43065,7 @@ void Sub_48D460()
     gLoginWindowRuntime.valuesCC4CE8[1] = -1;
     gLoginWindowRuntime.countCC4CFC = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const auto& pet = world::detail::gPetRuntimeF633F8[slot];
+        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[slot];
         const std::int32_t state = std::bit_cast<std::int16_t>(pet.flags6AA);
         gLoginWindowRuntime.valuesCC1A18[slot] = state;
         if (state == 2) {
@@ -43084,7 +43096,7 @@ void RefreshPetListAttributeBar(
     }
     const std::int16_t petIndex = std::bit_cast<std::int16_t>(pair->index);
     const std::int32_t segments =
-        world::detail::gPetRuntimeF633F8[petIndex].values70[21 + attribute] / 10;
+        (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].values70[21 + attribute] / 10;
     const auto show = [](const std::int32_t element, const std::int32_t image) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
         gCurrentWindow->elements[element].visible = 1;
@@ -43128,7 +43140,7 @@ void Sub_48C920()
         const std::int16_t initialIndex = petIndex();
         WindowInstance* const initialWindow = gCurrentWindow;
         const std::int32_t textBase = 1 + row * 5;
-        if (world::detail::gPetRuntimeF633F8[initialIndex].used == 0) {
+        if ((*world::detail::BorrowPetRuntimeF633F8Storage())[initialIndex].used == 0) {
             initialWindow->elements[textBase].visible = 0;
             for (std::int32_t column = 1; column < 5; ++column) {
                 gCurrentWindow->elements[textBase + column].visible = 0;
@@ -43156,11 +43168,11 @@ void Sub_48C920()
             gCurrentWindow->elements[226 + row].visible = 1;
         }
         const std::int16_t loyaltyIndex = petIndex();
-        const bool canSelect = world::detail::gPetRuntimeF633F8[loyaltyIndex].values70[10] == 100
+        const bool canSelect = (*world::detail::BorrowPetRuntimeF633F8Storage())[loyaltyIndex].values70[10] == 100
             || gLoginWindowRuntime.valuesCC1A18[loyaltyIndex] == 3;
         gCurrentWindow->elements[241 + row].visible = canSelect ? 1 : 0;
 
-        const auto& namePet = world::detail::gPetRuntimeF633F8[petIndex()];
+        const auto& namePet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()];
         const char* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         WindowElement* const nameElements = gCurrentWindow->elements;
@@ -43173,21 +43185,21 @@ void Sub_48C920()
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
         static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
             colorState == 3 ? std::byte{7} : std::byte{0};
-        platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[petIndex()].value08);
+        platform::FormatLegacyString_53B304(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
         copyNumber(textBase + 1);
-        const std::int32_t maxHp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[1].Read_401EC0();
-        const std::int32_t hp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[0].Read_401EC0();
+        const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[1].Read_401EC0();
+        const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[0].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
         copyNumber(textBase + 2);
-        const std::int32_t maxFp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[3].Read_401EC0();
-        const std::int32_t fp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[2].Read_401EC0();
+        const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[3].Read_401EC0();
+        const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[2].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
         WindowInstance* const tribeWindow = gCurrentWindow;
         const std::int16_t tribe =
-            std::bit_cast<std::int16_t>(world::detail::gPetRuntimeF633F8[tribeIndex].value04);
+            std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[tribeIndex].value04);
         WindowElement* const tribeElements = tribeWindow->elements;
         const char* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[textBase + 4].data);
@@ -43203,7 +43215,7 @@ void Sub_48C920()
         if (Sub_4EA670(petIndex()) == 1) {
             const std::int16_t followIndex = petIndex();
             WindowInstance* const followWindow = gCurrentWindow;
-            const std::int32_t follow = world::detail::gPetRuntimeF633F8[followIndex].follow6D4;
+            const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[followIndex].follow6D4;
             static_cast<WindowGraphicData*>(followWindow->elements[226 + row].data)->imageNo =
                 follow != 0 ? 0x3B586 : 0x3B587;
         } else {
@@ -43265,7 +43277,7 @@ void Sub_492280()
     if (data->text != nullptr) {
         const auto selected = std::bit_cast<std::int16_t>(
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-        const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
         const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
         std::strcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), name);
         auto* const destination = static_cast<WindowTextData*>(window->elements[element].data);
@@ -43280,7 +43292,7 @@ std::int32_t Sub_492350()
     std::int32_t sequence;
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
-        sequence = world::detail::gPetRuntimeF633F8[index].value6D0;
+        sequence = (*world::detail::BorrowPetRuntimeF633F8Storage())[index].value6D0;
         gLoginWindowRuntime.petSequencesCAFEB0[row] = sequence;
     }
     return sequence;
@@ -43292,7 +43304,7 @@ std::int32_t Sub_492390()
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         const std::int32_t previous = gLoginWindowRuntime.petSequencesCAFEB0[row];
-        if (previous != world::detail::gPetRuntimeF633F8[index].value6D0) {
+        if (previous != (*world::detail::BorrowPetRuntimeF633F8Storage())[index].value6D0) {
             return 1;
         }
     }
@@ -43306,7 +43318,7 @@ std::uint32_t Sub_48F8F0()
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-        return world::detail::gPetRuntimeF633F8[index];
+        return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
     // 原复制段在测长前固定elements或data；二者取样阶段不能合并。
     const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
@@ -43493,7 +43505,7 @@ std::int32_t Sub_48D9A0(const std::int32_t value)
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-    if (world::detail::gPetRuntimeF633F8[selected].used == 0) {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used == 0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -43508,7 +43520,7 @@ std::uint32_t Sub_490780()
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-        return world::detail::gPetRuntimeF633F8[index];
+        return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
     const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
         WindowElement* const elements = gCurrentWindow->elements;
@@ -43651,7 +43663,7 @@ std::int32_t Sub_48DAB0(const std::int32_t value)
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-    if (world::detail::gPetRuntimeF633F8[selected].used == 0) {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used == 0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -43665,7 +43677,7 @@ WindowElement* Sub_491AA0()
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-        return world::detail::gPetRuntimeF633F8[index];
+        return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
     const auto& initialPet = selectedPet();
     char buffer[256];
@@ -43755,8 +43767,8 @@ std::int32_t Sub_4920F0()
     if (gLoginWindowRuntime.petTechniqueDragD460CC == 0) {
         return 0;
     }
-    const std::int32_t x = (platform::gLegacyMouseState.mouseX - 105);
-    const std::int32_t y = (platform::gLegacyMouseState.mouseY - 8);
+    const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX - 105);
+    const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - 8);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
@@ -43769,12 +43781,12 @@ std::int32_t Sub_4920F0()
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 5)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
-        5, 12, 0, world::detail::gPetRuntimeF633F8[namePet].techniquesD8[nameTechnique].name.data(),
+        5, 12, 0, (*world::detail::BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[nameTechnique].name.data(),
         0, 0));
     const auto costPet = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const std::int32_t costTechnique = gLoginWindowRuntime.petTechniqueD2D66C;
-    const std::int32_t fp = world::detail::gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp;
+    const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp;
     char buffer[12];
     platform::FormatLegacyString_53B304(buffer, "%3d", fp);
     static_cast<void>(render::DrawText_456780(
@@ -43813,7 +43825,7 @@ std::int32_t Sub_48DBB0(const std::int32_t value)
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-    if (world::detail::gPetRuntimeF633F8[selected].used == 0) {
+    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].used == 0) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -43908,7 +43920,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
             Sub_4A7B00();
             if (buffer[0] == '\0') {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const char* const name = world::detail::gPetRuntimeF633F8[selected].name6AC.data();
+                const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), name, std::strlen(name) + 1);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
                 const std::size_t length = std::strlen(name) + 1;
@@ -43933,13 +43945,13 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                if (world::detail::gPetRuntimeF633F8[selected].flags6AA == 2) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].flags6AA == 2) {
                     Sub_47D490();
                 }
             }
@@ -43974,7 +43986,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
                             position = 0;
                         }
                     }
-                    if (world::detail::gPetRuntimeF633F8[petIndex(position)].used != 0) {
+                    if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].used != 0) {
                         break;
                     }
                 }
@@ -43986,7 +43998,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
                     gLoginWindowRuntime.selectedPetCC3E5C = position;
                     selected = petIndex(position);
                 }
-                const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+                const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
                 const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 const std::size_t length = std::strlen(name) + 1;
                 const std::size_t whole = length & ~std::size_t{3};
@@ -44055,7 +44067,7 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
             Sub_4A7B00();
             if (buffer[0] == '\0') {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const char* const name = world::detail::gPetRuntimeF633F8[selected].name6AC.data();
+                const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), name, std::strlen(name) + 1);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
                 const std::size_t length = std::strlen(name) + 1;
@@ -44080,13 +44092,13 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                if (world::detail::gPetRuntimeF633F8[selected].flags6AA == 2) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].flags6AA == 2) {
                     Sub_47D490();
                 }
             }
@@ -44119,13 +44131,13 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
                         position = 0;
                     }
                 }
-                if (world::detail::gPetRuntimeF633F8[petIndex(position)].used != 0) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].used != 0) {
                     break;
                 }
             }
             const std::int16_t selected = petIndex(position);
             gLoginWindowRuntime.selectedPetCC3E5C = position;
-            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             const std::size_t length = std::strlen(name) + 1;
             const std::size_t whole = length & ~std::size_t{3};
@@ -44200,7 +44212,7 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
             Sub_4A7B00();
             if (buffer[0] == '\0') {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const char* const name = world::detail::gPetRuntimeF633F8[selected].name6AC.data();
+                const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), name, std::strlen(name) + 1);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
                 const std::size_t length = std::strlen(name) + 1;
@@ -44225,13 +44237,13 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                if (world::detail::gPetRuntimeF633F8[selected].flags6AA == 2) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[selected].flags6AA == 2) {
                     Sub_47D490();
                 }
             }
@@ -44264,13 +44276,13 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
                         position = 0;
                     }
                 }
-                if (world::detail::gPetRuntimeF633F8[petIndex(position)].used != 0) {
+                if ((*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(position)].used != 0) {
                     break;
                 }
             }
             const std::int16_t selected = petIndex(position);
             gLoginWindowRuntime.selectedPetCC3E5C = position;
-            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             const std::size_t length = std::strlen(name) + 1;
             const std::size_t whole = length & ~std::size_t{3};
@@ -44392,12 +44404,12 @@ void Sub_48F620(const std::int32_t mode, const std::int32_t, const std::int32_t 
         }
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseX.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::gLegacyMouseState.mouseY.Read_401EC0());
+            platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(11, source, x, y, Sub_48F620));
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -44432,7 +44444,7 @@ std::int32_t Sub_48F6C0(const std::int32_t index, const std::int32_t state)
         for (std::int32_t line = 0; line < 4; ++line) {
             const auto selected = std::bit_cast<std::int16_t>(
                 world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
-            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
             const char* const description = pet.techniquesD8[technique].description.data();
             if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 26) != 0) {
@@ -44449,7 +44461,7 @@ std::int32_t Sub_48F6C0(const std::int32_t index, const std::int32_t state)
         gLoginWindowRuntime.petTechniqueValueD2F784 = index - 37;
         gLoginWindowRuntime.petTechniqueD2D66C = source;
         const auto selected = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
-        const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+        const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
         const auto targetTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
         const auto sourceTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[source].index);
         const std::uintptr_t socket = platform::gConnectionSocket;
@@ -44711,7 +44723,7 @@ std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_4782A0(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
-        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t page = gTitlePageCF4E54;
         gTitlePageCF4E54 = Sub_4743B0(window->elements + 2, page, 58, wheel);
@@ -45088,7 +45100,7 @@ void Sub_473E40()
         const WindowDragCallback callback = gDragCallback57C118;
         if (callback == nullptr) {
             gWindowHasFocusCA0AB4 = 1;
-            *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+            *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
             return;
         }
         const std::int32_t events = AppendMouseButtonEvents(0);
@@ -45102,7 +45114,7 @@ void Sub_473E40()
     case 3:
         gMousePhase57C128 = 4;
         gWindowHasFocusCA0AB4 = 1;
-        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
         return;
     case 4: {
         const WindowDragCallback callback = gDragCallback57C118;
@@ -45124,7 +45136,7 @@ void Sub_473E40()
         return;
     case 1:
         gWindowHasFocusCA0AB4 = 1;
-        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        *reinterpret_cast<unsigned char*>(&platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 5;
         break;
     default:
         break;
@@ -45143,7 +45155,7 @@ void Sub_473560(const std::int32_t index)
     std::int32_t events = 0;
     std::int32_t phase = gMousePhase57C128;
     if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
-        if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
+        if (static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 0xD4u) {
             if (Sub_472F00(left, top, width, height) != 0) {
                 phase = gMousePhase57C128;
                 if (phase == 1 || phase == 4) {
@@ -45164,9 +45176,9 @@ void Sub_473560(const std::int32_t index)
             WindowElement* const currentElement = &currentWindow->elements[index];
             if (currentElement->type == 4) {
                 auto* const data = static_cast<WindowMouseData*>(currentElement->data);
-                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
+                data->deltaX = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
                 WindowInstance* const yWindow = gCurrentWindow;
-                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
+                data->deltaY = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
             }
         }
         phase = gMousePhase57C128;
@@ -45183,7 +45195,7 @@ void Sub_473560(const std::int32_t index)
     if (element->visible == 1 && element->mouseCallback(index, events) != 0) {
         phase = gMousePhase57C128;
         auto* const eventByte = reinterpret_cast<unsigned char*>(
-            &platform::gLegacyMouseState.valueD68DB4);
+            &platform::BorrowLegacyMouseStateStorage()->valueD68DB4);
         *eventByte = 0xD4;
         gWindowHasFocusCA0AB4 = 1;
         if (phase == 4) {
@@ -45217,7 +45229,7 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
     if ((std::to_integer<std::uint8_t>(data[0]) & 2u) != 0) {
         WindowInstance* const window = gCurrentWindow;
         WindowElement* const previous = &window->elements[index - 1];
-        const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->y));
+        const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY - static_cast<std::int32_t>(window->y));
         previous->y = y - (previous->height >> 1);
     }
     WindowElement* element = &gCurrentWindow->elements[index];
@@ -45423,7 +45435,7 @@ std::int32_t UpdateWindows_473F80()
             if (hasFocus) {
                 const std::int32_t phase = gMousePhase57C128;
                 *reinterpret_cast<unsigned char*>(
-                    &platform::gLegacyMouseState.valueD68DB4) = 212;
+                    &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 212;
                 const bool releaseDrag = phase == 4;
                 gWindowHasFocusCA0AB4 = 1;
                 if (releaseDrag) {
@@ -45449,10 +45461,10 @@ std::int32_t UpdateWindows_473F80()
     const std::int32_t phase = gMousePhase57C128;
     gCurrentWindowIdD67A1C = 0;
     if (phase == 1
-        && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
+        && static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212u) {
         world::detail::gValueC8A780 = 1;
         *reinterpret_cast<unsigned char*>(
-            &platform::gLegacyMouseState.valueD68DB4) = 212;
+            &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) = 212;
     }
     return 1;
 }
@@ -45469,8 +45481,8 @@ std::int32_t RenderWindows_504120()
 {
     using namespace detail;
     if (gValue5F9754 != 0 && world::detail::ReadPlayerTimerRemaining0C() <= 0) {
-        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
@@ -45972,27 +45984,25 @@ namespace {
 // 原488400固定CF3B10；原内嵌+78预览沿已有唯一静态对象绑定。
 detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()
 {
-    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);
-    return detail::Sub_4C61B0(&detail::gItemSelectorCF3B10);
+    return detail::Sub_4C61B0(&detail::gItemSelectorCF3B10, 0);
 }
 
 // 原488420尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
 void ReleaseLegacyFirstItemSelectorAtExit_488420()
 {
-    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(0));
+    login::detail::DestroyWindowSelectorPreview(0);
 }
 
 // 原499900固定D2F338；原内嵌+78预览沿已有唯一静态对象绑定。
 detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()
 {
-    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);
-    return detail::Sub_4C61B0(&detail::gItemSelectorD2F338);
+    return detail::Sub_4C61B0(&detail::gItemSelectorD2F338, 1);
 }
 
 // 原499920尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
 void ReleaseLegacySecondItemSelectorAtExit_499920()
 {
-    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(1));
+    login::detail::DestroyWindowSelectorPreview(1);
 }
 
 } // namespace
@@ -46035,18 +46045,14 @@ StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup()
 
 void ConstructStallBrowsePetValues()
 {
-    platform::ConstructLegacyArray_53C45E(
-        detail::gStallBrowseD046D8.pets.data(),
-        static_cast<std::uint32_t>(sizeof(world::detail::PetRuntimeRecord)), 5,
-        world::detail::ConstructLegacyPetElementForArray, world::detail::DestroyLegacyPetElementForArray);
+    // 原0x004CD360：独立浏览区的五项、每项六成员依次构造。
+    detail::BorrowStallBrowseD046D8Storage().emplace();
 }
 
 void DestroyStallBrowsePetValues()
 {
-    platform::DestroyLegacyArray_53C4E0(
-        detail::gStallBrowseD046D8.pets.data(),
-        static_cast<std::uint32_t>(sizeof(world::detail::PetRuntimeRecord)), 5,
-        world::detail::DestroyLegacyPetElementForArray);
+    // 原0x004CD2D0：同一浏览区原生逆序析构，不借用玩家宠物。
+    detail::BorrowStallBrowseD046D8Storage().reset();
 }
 
 // 原函数：0x00477160。
@@ -46241,9 +46247,9 @@ std::int32_t CloseAllWindows_472190()
         return 0;
     }
     const std::int32_t y =
-        world::detail::gPlayerY.Read_401EC0();
+        world::detail::BorrowPlayerYStorage()->Read_401EC0();
     const std::int32_t x =
-        world::detail::gPlayerX.Read_401EC0();
+        world::detail::BorrowPlayerXStorage()->Read_401EC0();
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;

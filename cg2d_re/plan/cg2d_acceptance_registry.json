@@ -139,7 +139,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -308,7 +309,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_loading_screen.md#auto-skip-intro-20261013"
+        "doc/cg2d_loading_screen.md#auto-skip-intro-20261013",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -374,6 +376,18 @@
         "path": "plan/cg2d_acceptance_registry.json",
         "feature_id": "FUNC-STARTUP",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010"
+      },
+      "cryptint_native_lifecycle_lci06": {
+        "recorded_on": "2026-10-14",
+        "source_implemented": true,
+        "local_storage_count": 165,
+        "local_integer_construction_sites": 214,
+        "raw_payload_bytes": 16,
+        "delayed_storage": "std::optional，函数内空容器先登记、中央拥有者后登记；原位置emplace／reset，成员与数组原生构析。",
+        "raw_heap_lifetime": "普通Yobi以RawFields构造原零载荷且不取RNG；原释放分支destroy_at后free，两预览各十默认成员按原组序构造。",
+        "verification": "仅源码／字段与地址／台账静态核对；未构建、测试、运行、查产物或计算摘要。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -504,7 +518,8 @@
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-decision",
         "doc/cg2d_msvc_exception_runtime_spec.md#exception-runtime-source-state",
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
-        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012"
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "original_inventory_ids": [
         "F:00001C10",
@@ -1155,7 +1170,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state"
+        "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1257,6 +1273,18 @@
         "path": "plan/cg2d_acceptance_registry.json",
         "feature_id": "FUNC-CRT",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010"
+      },
+      "cryptint_native_lifecycle_lci06": {
+        "recorded_on": "2026-10-14",
+        "source_implemented": true,
+        "local_storage_count": 165,
+        "local_integer_construction_sites": 214,
+        "raw_payload_bytes": 16,
+        "delayed_storage": "std::optional，函数内空容器先登记、中央拥有者后登记；原位置emplace／reset，成员与数组原生构析。",
+        "raw_heap_lifetime": "普通Yobi以RawFields构造原零载荷且不取RNG；原释放分支destroy_at后free，两预览各十默认成员按原组序构造。",
+        "verification": "仅源码／字段与地址／台账静态核对；未构建、测试、运行、查产物或计算摘要。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -69614,7 +69642,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -69674,7 +69703,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -70091,7 +70121,8 @@
         "doc/cg2d_msvc_crt_scalar_spec.md#calendar-private-service-relations-20261012",
         "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
         "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
-        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012"
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "task_id": "C06",
       "state": "open"
@@ -71491,7 +71522,8 @@
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
         "doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012",
-        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012"
+        "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74555,7 +74587,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74563,7 +74596,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74571,7 +74605,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74588,7 +74623,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74596,7 +74632,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74613,7 +74650,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74621,7 +74659,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74638,7 +74677,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74646,7 +74686,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -74654,7 +74695,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -76459,7 +76501,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -76467,7 +76510,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -78962,7 +79006,8 @@
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-acceptance",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
         "doc/cg2d_actor_chat_consumer_sampling_evidence.json",
-        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009"
+        "doc/cg2d_yobi_runtime.md#title-none-alias-20261009",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -79010,7 +79055,8 @@
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -79034,7 +79080,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+        "doc/cg2d_yobi_sentinel_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -79058,7 +79105,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+        "doc/cg2d_yobi_sentinel_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -79073,7 +79121,8 @@
         "doc/cg2d_yobi_allocation_sampling_evidence.json",
         "doc/cg2d_payload_structure_spec.md#payload-opaque-storage-source-state",
         "doc/cg2d_payload_structure_spec.md#transition-payload-storage-source-state",
-        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state"
+        "doc/cg2d_payload_structure_spec.md#text-payload-storage-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -82633,7 +82682,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
       "latest_window_draw_width": {
@@ -82655,7 +82705,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
       "latest_window_draw_width": {
@@ -82725,7 +82776,8 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
+        "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "498520完整命令状态0..5、选择模式0..4与phase0..3鼠标分发；主游标20槽/目标提示/骑宠与普通初始化、H/S/I/W原格式256B/fresh socket、状态计数/关闭/三阶段提示/名称费用/图尾/倒计时门禁；13实际W8观察、两个cost-first既有桥及held skipPlayer谓词先发布恢复，原W32共享存储/寄存器AL测试、S16 target/坐标和原重读/弃创建返回保持。 三完整原根988条3638B/14页、92物理CALL（91直接/24callee+1 GetTickCount IAT）、137普通jump/三个W32switch/四RET。两体18处恢复15实际W8内存观察（主13/计时2）、两cost-first既有桥及一个held W32 flags谓词先于count发布；普通值与FP单Read/RNG不变。主命令state0..5/模式0..4/phase0..3、20槽/三提示复制阶段/target后H-S-I-W原256B和socket取样/弃返、名称费用W32坐标→低S16、图尾/不同计数-command-lastPet与Close保持。完整正确目标提示体不改；倒计时tick/deadline/active/原W|FF-N-N发送门禁/重读/finish/MarkDeath清槽/末十秒声与两S8数字/16B显示格式保。62B X含2B同寄存器MOV对齐及三W32表60B，仅用途mapped，R7 265/3061余2796。899/922旧业务与原字段/历史全文保，当前status/source关系和完整子基线同步，1559一新正常F/三equivalent/BATTLE242枚举open；语义1560/有效1553、关联1671/3680（45.41%）、分类690/E794。纠正此前498520 keyboard泛称为命令状态/鼠标分发，不增加键盘事实；已证本根完整正常源，43CBB0上游/全数据生产/全部窗口-owner寿命/SDK/机器ABI/画面运行/R8未验，无F/有效区间各7/差队列172/43待归属及完整门禁保，音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保。"
     },
@@ -85459,7 +85511,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseState_506870，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
     },
@@ -88305,7 +88358,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "CAB30仅十已有父17源码点的20窄消费：两priceColor局部S8且原0/1/4/5常量/比较保持；三文字点六坐标显式S16；十二图形点graphicLayer显式U8。图层生产/父参数仍S32，公共接口/队列/布局/owner、原值来源/取样/数值/图号/描述符/格式器/音效/调用和返回保持，无新保护/补零/钳制/异常模拟/工具。19相关原调用邻窗332条955B及四消费者局部有据，非19变化点或完整原父/上位寄存器/机器ABI、正常寿命/画面/运行；旧99路由未闭。"
     },
@@ -89723,7 +89777,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
     },
@@ -92151,7 +92206,8 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "MC01-C3 private退出/诊断/信号/filter层交MSVC；三实际快速致命退出/数组终止保薄适配，四数组正文和全部业务callback/登记保持。接受_Exit诊断差异、库自身handler/stdio/异常生命周期，不称原体或完整SDK/业务运行等价。"
     },
@@ -96449,7 +96505,8 @@
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
-        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011"
+        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。"
     },
@@ -97388,7 +97445,8 @@
       "evidence_refs": [
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
-        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -97398,7 +97456,8 @@
       "evidence_refs": [
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
-        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -97408,7 +97467,8 @@
       "evidence_refs": [
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
-        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -97418,7 +97478,8 @@
       "evidence_refs": [
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
-        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state"
+        "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ]
     },
     {
@@ -97818,7 +97879,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
     },
@@ -97827,7 +97889,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
     }

@@ -10,10 +10,29 @@ namespace cg::platform {
 // 不是新端可解引用的虚表指针。
 class LegacyCryptInt {
 public:
-    // 默认构造、析构和同类拷贝保持平凡；原始载荷仍可按既有布局搬移。
-    LegacyCryptInt() = default;
+    // 原0x00401C70：默认构造零值，只消费一次RNG。
+    LegacyCryptInt();
+    // 原0x00401CF0：结束对象寿命，只恢复原token。
+    ~LegacyCryptInt();
+
+    // 原字节载荷无读取副作用；用于calloc零填充与既有原始快照。
+    struct RawPayload {
+        std::uint32_t legacyVftToken;
+        std::uint32_t encoded;
+        std::uint32_t mask;
+        std::uint8_t readCount;
+        std::uint8_t reserved[3];
+    };
+    explicit LegacyCryptInt(const RawPayload& raw) noexcept; // 不消费RNG。
+    void RestoreRaw(const RawPayload& raw) noexcept; // 恢复全部16B字段，不改变寿命。
+
+    // 原0x00401CA0的释放分支由delete表达式承接；分配／释放统一CRT。
+    static void* operator new(std::size_t size);
+    static void operator delete(void* storage) noexcept;
     explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
     explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
+    LegacyCryptInt(const LegacyCryptInt&) = default; // 同类原始字段复制，不读取或取RNG。
+    LegacyCryptInt& operator=(const LegacyCryptInt&) = default;
 
     LegacyCryptInt& operator=(std::int32_t value); // 原整数临时构造／载荷赋值。
     LegacyCryptInt& operator=(std::uint32_t value); // 保留目标token与reserved。
@@ -48,19 +67,6 @@ public:
     friend bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
 
-    // 原地址成员保留显式生命周期和特殊返回合同；operator直接复用这些正文。
-    // 原 sub_401C70@[0x401C70,0x401C92)。本对象须为可写的16字节存储。
-    LegacyCryptInt* ConstructZero_401C70();
-
-    // 原 CryptInt_Init@[0x401CC0,0x401CE7)。
-    LegacyCryptInt* ConstructFromInt_401CC0(std::int32_t value);
-
-    // 原 CryptInt_delete@[0x401CF0,0x401CF7)，只恢复 legacyVftToken。
-    void Destroy_401CF0();
-
-    // 原401CA0：先析构，flags bit0置位才free；返回原指针，不表示释放后仍可访问。
-    LegacyCryptInt* DestroyAndFree_401CA0(std::uint32_t flags);
-
     // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
     void SetNorVal_401F50(std::int32_t value);
 
@@ -83,11 +89,6 @@ public:
     std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
 
 private:
-    // 启动拥有者沿同一全局存储成组构造／逆序销毁。
-    // 原函数：0x00401C20。
-    static void ConstructStartupValues_401C20();
-    // 原函数：0x00401C50。
-    static void DestroyStartupValues_401C50();
     // 明文转原W32位模式，供encoded异或与原返回高位使用。
     static std::uint32_t ToBits(std::int32_t value);
     // 解码后的W32位模式恢复为有符号明文。
@@ -97,9 +98,9 @@ private:
 };
 static_assert(sizeof(LegacyCryptInt) == 16);
 static_assert(std::is_standard_layout_v<LegacyCryptInt>);
-static_assert(std::is_trivially_copyable_v<LegacyCryptInt>);
-static_assert(std::is_trivially_default_constructible_v<LegacyCryptInt>);
-static_assert(std::is_trivially_destructible_v<LegacyCryptInt>);
+static_assert(!std::is_trivially_destructible_v<LegacyCryptInt>);
+static_assert(sizeof(LegacyCryptInt::RawPayload) == 16);
+static_assert(std::is_trivially_copyable_v<LegacyCryptInt::RawPayload>);
 static_assert(offsetof(LegacyCryptInt, legacyVftToken) == 0x00);
 static_assert(offsetof(LegacyCryptInt, encoded) == 0x04);
 static_assert(offsetof(LegacyCryptInt, mask) == 0x08);

@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <optional>
 #include <span>
 #include <type_traits>
 
@@ -133,7 +134,7 @@ extern std::uint32_t gValue626BFC; // 原全局：0x00626BFC。
 extern char gLogFileName554648[16]; // 原全局：0x00554648。
 
 // 原73ECD0，508CF0与多个场景/UI共享；显式CRT生命周期，禁止创建登录副本。
-extern platform::LegacyCryptInt gValue73ECD0;
+std::optional<platform::LegacyCryptInt>& BorrowValue73ECD0Storage();
 
 // 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
 extern std::uint16_t gValueC8222E;
@@ -164,21 +165,21 @@ extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
 extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
 extern std::int16_t gMapSpanX; // 原全局：0x009A86E0。
 extern std::int16_t gMapSpanY; // 原全局：0x009ED43C。
-extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
-extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
-extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取。
-extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取。
-extern platform::LegacyCryptInt gValue9EE8D0; // 原全局：0x009EE8D0。
-extern platform::LegacyCryptInt gValue9EE8E0; // 原全局：0x009EE8E0。
-extern platform::LegacyCryptInt gValueC27FF8; // 原全局：0x00C27FF8。
-extern platform::LegacyCryptInt gValueC27FE8; // 原全局：0x00C27FE8。
-extern platform::LegacyCryptInt gValue9A7F88; // 原全局：0x009A7F88。 原玩家移动目标 X。
-extern platform::LegacyCryptInt gValue9A7F98; // 原全局：0x009A7F98。 原玩家移动目标 Y。
-extern platform::LegacyCryptInt gValueC821E8; // 原全局：0x00C821E8。
-extern platform::LegacyCryptInt gValue9E03C0; // 原全局：0x009E03C0。
-extern platform::LegacyCryptInt gValue9FB918; // 原全局：0x009FB918。
-extern platform::LegacyCryptInt gValueAF0FE8; // 原全局：0x00AF0FE8。
-extern platform::LegacyCryptInt gValueC821D8; // 原全局：0x00C821D8。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerXStorage(); // 原 9EE8A8；468200 等共享。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerYStorage(); // 原 9EE8C0；468200 等共享。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotXStorage(); // 原 C751C0；4681B0 读取。
+std::optional<platform::LegacyCryptInt>& BorrowPlayerSnapshotYStorage(); // 原 C751B0；4681B0 读取。
+std::optional<platform::LegacyCryptInt>& BorrowValue9EE8D0Storage(); // 原全局：0x009EE8D0。
+std::optional<platform::LegacyCryptInt>& BorrowValue9EE8E0Storage(); // 原全局：0x009EE8E0。
+std::optional<platform::LegacyCryptInt>& BorrowValueC27FF8Storage(); // 原全局：0x00C27FF8。
+std::optional<platform::LegacyCryptInt>& BorrowValueC27FE8Storage(); // 原全局：0x00C27FE8。
+std::optional<platform::LegacyCryptInt>& BorrowValue9A7F88Storage(); // 原全局：0x009A7F88。 原玩家移动目标 X。
+std::optional<platform::LegacyCryptInt>& BorrowValue9A7F98Storage(); // 原全局：0x009A7F98。 原玩家移动目标 Y。
+std::optional<platform::LegacyCryptInt>& BorrowValueC821E8Storage(); // 原全局：0x00C821E8。
+std::optional<platform::LegacyCryptInt>& BorrowValue9E03C0Storage(); // 原全局：0x009E03C0。
+std::optional<platform::LegacyCryptInt>& BorrowValue9FB918Storage(); // 原全局：0x009FB918。
+std::optional<platform::LegacyCryptInt>& BorrowValueAF0FE8Storage(); // 原全局：0x00AF0FE8。
+std::optional<platform::LegacyCryptInt>& BorrowValueC821D8Storage(); // 原全局：0x00C821D8。
 extern std::uint32_t gValueAF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
 extern std::uint32_t gValue9EE8F8; // 原全局：0x009EE8F8。 原 509460 写入、50C8D0 读取的独立 W32。
 extern std::uint32_t gValue9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
@@ -607,7 +608,7 @@ static_assert(offsetof(PlayerItemRecord, hasDescription) == 0xC54);
 static_assert(offsetof(PlayerItemRecord, bytesC56) == 0xC56);
 static_assert(sizeof(PlayerItemRecord) == 0xC5C);
 
-extern std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4; // 原全局：0x00FDA8A4。 别名唯一PlayerRuntimeSlots成员。
+std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4(); // 原全局：0x00FDA8A4。 别名唯一PlayerRuntimeSlots成员。
 // 原函数：0x0050BFD0。
 void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
 // 原函数：0x0050C260。
@@ -652,6 +653,13 @@ static_assert(sizeof(PetTechniqueRecord) == 0x8C);
 
 // 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
 struct PetRuntimeRecord {
+    // 原0x004CD360：成员正序构造及失败前缀清理由C++承接。
+    PetRuntimeRecord() = default;
+    // 原0x004CD2D0：成员自动逆序析构。
+    ~PetRuntimeRecord() = default;
+    PetRuntimeRecord(const PetRuntimeRecord&) = default;
+    PetRuntimeRecord& operator=(const PetRuntimeRecord&) = default;
+    void ClearRaw() noexcept; // 原零字节回复／场景清理，不构造整数或消费RNG。
     std::uint16_t used; // 原+0占用。
     std::uint16_t value02; // 原成员偏移：+0x02。 主回复掩码200001。
     std::uint16_t value04; // 原成员偏移：+0x04。 主回复掩码5。
@@ -678,7 +686,7 @@ struct PetRuntimeRecord {
 };
 
 static_assert(std::is_standard_layout_v<PetRuntimeRecord>);
-static_assert(std::is_trivially_copyable_v<PetRuntimeRecord>);
+static_assert(!std::is_trivially_destructible_v<PetRuntimeRecord>);
 static_assert(offsetof(PetRuntimeRecord, used) == 0);
 static_assert(offsetof(PetRuntimeRecord, value02) == 2);
 static_assert(offsetof(PetRuntimeRecord, value04) == 4);
@@ -734,11 +742,7 @@ static_assert(offsetof(PetPairRecord, used) == 0);
 static_assert(offsetof(PetPairRecord, index) == 2);
 static_assert(offsetof(PetPairRecord, value) == 4);
 static_assert(sizeof(PetPairRecord) == 8);
-// 原4CD360/4CD2D0的显式数组回调适配；借用本次storage，不使用固定全局或建立owner。
-void ConstructLegacyPetElementForArray(void* storage);
-void DestroyLegacyPetElementForArray(void* storage);
-
-extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8; // 原全局：0x00F633F8。
+std::optional<std::array<PetRuntimeRecord, 5>>& BorrowPetRuntimeF633F8Storage(); // 原全局：0x00F633F8。
 extern std::array<PetPairRecord, 5> gPetPairsDE0B08; // 原全局：0x00DE0B08。
 extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。
 // 原函数：0x0052E1D0。

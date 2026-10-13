@@ -257,8 +257,8 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
             static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
@@ -409,8 +409,8 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         const std::uint32_t panelId = gLegacyPetSkillPetPanel582080.id;
@@ -420,8 +420,8 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
     } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 2, input::LegacyText593850()));
@@ -555,8 +555,8 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 2, input::LegacyText593850()));
@@ -675,8 +675,8 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         platform::FormatLegacyString_53B304(requestText, "%d", gLegacyPetSkillSlotCF4B64);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
             socket, playerX, playerY, request, target, 0, requestText));

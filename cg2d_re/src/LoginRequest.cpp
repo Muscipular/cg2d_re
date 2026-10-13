@@ -11,6 +11,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
+#include <optional>
 
 namespace {
 
@@ -254,16 +255,16 @@ std::int32_t Sub_508CF0(
 
     gRequestStatus = 2;
     gReplyCodeDA3B2E = 2;
-    platform::LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(0);
+    std::optional<platform::LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(0));
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
-    const std::uint32_t mask = temporary.mask;
-    const std::uint32_t encoded = temporary.encoded;
-    const std::uint8_t readCount = temporary.readCount;
-    world::detail::gValue73ECD0.mask = mask;
-    world::detail::gValue73ECD0.encoded = encoded;
-    world::detail::gValue73ECD0.readCount = readCount;
-    temporary.Destroy_401CF0();
+    const std::uint32_t mask = temporary->mask;
+    const std::uint32_t encoded = temporary->encoded;
+    const std::uint8_t readCount = temporary->readCount;
+    world::detail::BorrowValue73ECD0Storage()->mask = mask;
+    world::detail::BorrowValue73ECD0Storage()->encoded = encoded;
+    world::detail::BorrowValue73ECD0Storage()->readCount = readCount;
+    temporary.reset();
     static_cast<void>(world::SetPendingSceneType(7));
     return audio::PlaySe_52C450(60, 320);
 }

@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <type_traits>
 
 namespace cg::platform {
@@ -11,6 +12,10 @@ namespace cg::platform {
 // 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态。末尾 0xD68DC4 由 Startup.hpp
 // 中的既有唯一存储承接，不属于本结构。
 struct LegacyMouseState {
+    // 原0x00506460、0x00506530：成员正序构造及失败前缀清理由C++承接。
+    LegacyMouseState() = default;
+    // 原0x00506380：成员自动逆序析构。
+    ~LegacyMouseState() = default;
     LegacyCryptInt mouseX; // 原成员偏移：+0x00。
     LegacyCryptInt mouseY; // 原成员偏移：+0x10。
     LegacyCryptInt buttonCoordinates[8]; // 原成员偏移：+0x20。
@@ -28,7 +33,7 @@ struct LegacyMouseState {
 };
 
 static_assert(std::is_standard_layout_v<LegacyMouseState>);
-static_assert(std::is_trivially_copyable_v<LegacyMouseState>);
+static_assert(!std::is_trivially_destructible_v<LegacyMouseState>);
 static_assert(sizeof(LegacyMouseState) == 0xCC);
 static_assert(offsetof(LegacyMouseState, mouseX) == 0x00);
 static_assert(offsetof(LegacyMouseState, mouseY) == 0x10);
@@ -46,7 +51,7 @@ static_assert(offsetof(LegacyMouseState, valueD68DB8) == 0xC0);
 static_assert(offsetof(LegacyMouseState, drawingSuppression) == 0xC4);
 static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
 
-extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8。
+std::optional<LegacyMouseState>& BorrowLegacyMouseStateStorage(); // 原全局：0x00D68CF8。
 
 // 对应原CRT 5530F8；鼠标拥有者接管同一十值构析，原构造前缀清理保持。
 // 原函数：0x00506340。

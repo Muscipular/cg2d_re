@@ -59,7 +59,7 @@ std::int32_t FindClickedTextIndex_45D7A0(
     const std::int32_t count)
 {
     const std::uint8_t edgeButtons = static_cast<std::uint8_t>(
-        platform::gLegacyMouseState.edgeButtons);
+        platform::BorrowLegacyMouseStateStorage()->edgeButtons);
     if ((edgeButtons & 1U) == 0U) {
         return -1;
     }

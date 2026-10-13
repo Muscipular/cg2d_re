@@ -67,10 +67,9 @@ void ConfigureWindowElementAction(
 // 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
 void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
 // 原CF3B88/D2F3B0的两个静态内嵌预览；不分配、不进入通用Yobi链。
-YobiAction* BorrowWindowSelectorPreview(std::int32_t index) noexcept; // SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。
-std::uint32_t ConstructWindowSelectorPreview(YobiAction* action); // SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
+YobiAction* ConstructWindowSelectorPreview(std::int32_t index, std::uint32_t& flags); // 固定预览原位置原生构造，返回真实对象及flags|2快照。
 void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags); // SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
-void DestroyWindowSelectorPreview(YobiAction* action); // SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。
+void DestroyWindowSelectorPreview(std::int32_t index); // 同一固定预览原生逆序析构，不清UI槽。
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
 YobiAction* Sub_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,

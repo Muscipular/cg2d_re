@@ -35,6 +35,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <optional>
 #include <string>
 
 namespace {
@@ -1797,7 +1798,7 @@ std::uint8_t ReadNegativeSelectionAvailability(
         return static_cast<std::uint8_t>(ui::detail::gHoverTitleD68BF4[84]);
     case 5:
         return reinterpret_cast<const std::uint8_t*>(
-            &platform::gLegacyMouseState.mouseY.legacyVftToken)[1];
+            &platform::BorrowLegacyMouseStateStorage()->mouseY.legacyVftToken)[1];
     case 6:
         return reinterpret_cast<const std::uint8_t*>(
             &platform::gValueD68DC8)[2];
@@ -2405,8 +2406,8 @@ std::uintptr_t Sub_4D3210(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, buffer, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer));
         static_cast<void>(audio::Sub_5042D0(gLegacyDialogPanelD2D9C8.id));
@@ -2472,8 +2473,8 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyLineDialogPanelCC4150.id));
@@ -2559,8 +2560,8 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         }
@@ -2649,8 +2650,8 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));
@@ -2786,8 +2787,8 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
             static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));
@@ -2879,8 +2880,8 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         if (flag == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         const std::uint32_t result = std::bit_cast<std::uint32_t>(
             network::Sub_511DD0(socket, playerX, playerY, 62));
@@ -3020,8 +3021,8 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
         if (flag == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         const std::uint32_t result = std::bit_cast<std::uint32_t>(
             network::Sub_511DD0(socket, playerX, playerY, 62));
@@ -3386,8 +3387,8 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
-                const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 const auto socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_512620(socket, playerX, playerY,
                     request, target, 0, escaped));
@@ -3545,8 +3546,8 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyPanel5823A0.id));
@@ -3787,8 +3788,8 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyConfirmPanel582468.id));
@@ -3932,8 +3933,8 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacySellPanel582530.id));
@@ -4159,8 +4160,8 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacySellConfirmPanel5825F8.id));
@@ -4263,8 +4264,8 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
@@ -4663,8 +4664,8 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyRepairConfirmPanel582850.id));
@@ -5050,8 +5051,8 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyConfirmPanel5829E0.id));
@@ -5159,8 +5160,8 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
     const auto sendReply = [](const std::int32_t mode, const char* const text) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, mode, text));
     };
@@ -5352,7 +5353,7 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
     const std::int32_t itemId = ui::detail::gValueD2D608;
     std::int32_t available = 0;
     ui::detail::gShopAvailableCF4A24 = 0;
-    for (const auto& item : world::detail::gPlayerItemsFDA8A4) {
+    for (const auto& item : world::detail::BorrowPlayerItemsFDA8A4()) {
         if (item.used != 0 && item.itemId == itemId) {
             available += item.count;
         }
@@ -5389,8 +5390,8 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterPanel5818B0.id));
@@ -5434,7 +5435,7 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
                 const std::int32_t material = ui::detail::gValueD2D608;
                 std::int32_t released = 0;
                 for (std::int32_t slot = 8; slot < 28; ++slot) {
-                    const auto& inventory = world::detail::gPlayerItemsFDA8A4[slot];
+                    const auto& inventory = world::detail::BorrowPlayerItemsFDA8A4()[slot];
                     if (inventory.used != 0 && inventory.itemId == material) {
                         remaining -= inventory.count;
                         if (remaining < 0) {
@@ -5635,8 +5636,8 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
@@ -5733,8 +5734,8 @@ std::uintptr_t Sub_4D4F00(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, escaped));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -5810,8 +5811,8 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
                 request, target, 0, escaped));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -5895,7 +5896,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         available = value(0xC24);
     } else {
         const std::int32_t itemId = value(0xC28);
-        for (const auto& item : world::detail::gPlayerItemsFDA8A4) {
+        for (const auto& item : world::detail::BorrowPlayerItemsFDA8A4()) {
             if (item.used != 0 && item.itemId == itemId) {
                 available += item.count;
             }
@@ -6138,8 +6139,8 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, description, 256));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const std::uintptr_t socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, description));
     } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
@@ -6266,8 +6267,8 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 127));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
@@ -6526,7 +6527,7 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
     }
     input::SetContext_44B330(nullptr);
     const std::int32_t count =
-        world::detail::gPlayerItemsFDA8A4[gLegacyStorageSplitSourceD3FACC + 8].count;
+        world::detail::BorrowPlayerItemsFDA8A4()[gLegacyStorageSplitSourceD3FACC + 8].count;
     bool close = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0) {
         const std::int32_t amount = gLegacyStorageSplitAmountCB2220;
@@ -6579,7 +6580,7 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
     }
     char buffer[256];
     platform::FormatLegacyString_53B304(buffer, "%7d",
-        world::detail::gPlayerItemsFDA8A4[gLegacyStorageSplitSourceD3FACC + 8].count);
+        world::detail::BorrowPlayerItemsFDA8A4()[gLegacyStorageSplitSourceD3FACC + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
     platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyStorageSplitAmountCB2220);
@@ -6885,8 +6886,8 @@ std::uint32_t Sub_4E2030()
     }
     const std::int32_t image = gLegacyStorageDragImageCB09D4;
     if (image != 0) {
-        const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 230, image, 0, nullptr));
     }
     if (left >= 0) {
@@ -7426,8 +7427,8 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
         const std::int32_t item = gLegacyLastUsedItemCB01EC;
         const std::int32_t target = ui::detail::ReadLegacyItemUseStatus(hovered).target;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, playerX, playerY, item, target));
         static_cast<void>(audio::Sub_504180(14));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -8041,7 +8042,7 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
     }
     input::SetContext_44B330(nullptr);
     const std::int32_t count =
-        world::detail::gPlayerItemsFDA8A4[gLegacyTradeSplitSourceD45F90 + 8].count;
+        world::detail::BorrowPlayerItemsFDA8A4()[gLegacyTradeSplitSourceD45F90 + 8].count;
     bool close = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0) {
         const std::int32_t amount = gLegacyTradeSplitAmountD2D490;
@@ -8094,7 +8095,7 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
     }
     char buffer[256];
     platform::FormatLegacyString_53B304(buffer, "%7d",
-        world::detail::gPlayerItemsFDA8A4[gLegacyTradeSplitSourceD45F90 + 8].count);
+        world::detail::BorrowPlayerItemsFDA8A4()[gLegacyTradeSplitSourceD45F90 + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
     platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyTradeSplitAmountD2D490);
@@ -8131,7 +8132,7 @@ std::int32_t Sub_4E7FC0()
     if (hovered >= 0) {
         if ((static_cast<std::uint8_t>(gValueD68D9C) & 2) != 0) {
             ++gLegacyTradeRemoteItemPageD67CC0;
-            if (gLegacyTradeRemoteItemPageD67CC0 >= world::detail::gPlayerItemsFDA8A4[hovered + 8].pages) {
+            if (gLegacyTradeRemoteItemPageD67CC0 >= world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages) {
                 gLegacyTradeRemoteItemPageD67CC0 = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -8314,14 +8315,14 @@ std::int32_t Sub_4E83D0()
         drawDrag = false;
     } else if (hovered >= 0 && (mouse & 2) != 0) {
         ++gLegacyTradeDetailPageD67CC8;
-        if (gLegacyTradeDetailPageD67CC8 >= world::detail::gPlayerItemsFDA8A4[hovered + 8].pages) {
+        if (gLegacyTradeDetailPageD67CC8 >= world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages) {
             gLegacyTradeDetailPageD67CC8 = 0;
         }
     }
     // 原分支分别跳往拖图尾/公共尾，不能统一在清槽后重新判定。
     if (drawDrag && ui::detail::gTradeValueD66E08 != 0) {
-        gLegacyTradeMouseXCF3FEC = platform::gLegacyMouseState.mouseX.Read_401EC0();
-        const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
+        gLegacyTradeMouseXCF3FEC = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
         const std::int32_t image = ui::detail::gTradeValueD66E08;
         gLegacyTradeMouseYCF3FE8 = mouseY;
         const std::int32_t mouseX = gLegacyTradeMouseXCF3FEC;
@@ -8531,7 +8532,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
             const std::int32_t left = gLegacyEngravingPanel582FD8.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
                 hovered = 8 + row * 5 + column;
-                if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+                if (world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
                     usedHovered = hovered;
                 }
                 break;
@@ -8548,7 +8549,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
         const std::int32_t target = gLegacyEngravingTargetCC1A14;
         bool rejected = (target >= 0 && target == usedHovered) || usedHovered == gLegacySpecialUseItemC8A96C;
         if (!rejected) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
             if (item->itemType == 47) {
                 rejected = true;
             } else {
@@ -8568,7 +8569,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyEngravingPanel582FD8.y + 60 + 53 * row;
@@ -8612,7 +8613,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
             212, 251, 0);
     }
     // 原4E9621无悬停非负门禁；异常索引按RPLAN.24，不引入替代物品。
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
     char* const hint = ui::detail::gHoverTextD68AE8.data();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
@@ -8669,7 +8670,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
             const std::int32_t left = gLegacyBurialPanel5830A0.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
                 hovered = 8 + row * 5 + column;
-                if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+                if (world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
                     usedHovered = hovered;
                 }
                 break;
@@ -8686,7 +8687,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
         const std::int32_t selected = gLegacyBurialSelectedCC4214;
         bool rejected = (selected >= 0 && selected == usedHovered) || usedHovered == gLegacyBurialExcludedCC48AC;
         if (!rejected) {
-            const std::uint8_t flags = static_cast<std::uint8_t>(world::detail::gPlayerItemsFDA8A4[hovered].flags);
+            const std::uint8_t flags = static_cast<std::uint8_t>(world::detail::BorrowPlayerItemsFDA8A4()[hovered].flags);
             rejected = (flags & 0x60u) != 0;
         }
         if (rejected) {
@@ -8700,7 +8701,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyBurialPanel5830A0.y + 60 + 53 * row;
@@ -8737,8 +8738,8 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(80));
@@ -8753,7 +8754,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
             212, 251, 0);
     }
     // 原4E9B93无悬停非负门禁；异常索引按RPLAN.24，不补记录或保护。
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
     const char* hint;
     if (item->used != 0) {
         const std::uint8_t flags = static_cast<std::uint8_t>(item->flags);
@@ -8801,7 +8802,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
             const std::int32_t left = gLegacyMailGiftPanel583168.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
                 hovered = 8 + row * 5 + column;
-                const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+                const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
                 if (item->used != 0 && (static_cast<std::uint8_t>(item->flags) & 1u) != 0) {
                     giftHovered = hovered;
                 }
@@ -8832,7 +8833,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyMailGiftPanel583168.y + 60 + 53 * row;
@@ -8871,7 +8872,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
             212, 251, 0);
     }
     // 原4E9FD8直接访问同源Items[hovered]，按RPLAN.24不补记录或保护。
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
     char* const hint = ui::detail::gHoverTextD68AE8.data();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
@@ -8981,11 +8982,11 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
     const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyMailComposePanel583230.y + 120;
-        const std::int32_t image = world::detail::gPlayerItemsFDA8A4[gift].imageNo;
+        const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[gift].imageNo;
         const std::int32_t giftX = gLegacyMailComposePanel583230.x + 216;
         static_cast<void>(DrawGraphic(giftX, giftY, 212, image, 0, &descriptor));
         std::int32_t nameGift = gLegacyMailGiftSelectedCC1A2C;
-        const std::int32_t count = world::detail::gPlayerItemsFDA8A4[nameGift].count;
+        const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
             char buffer[128];
             platform::FormatLegacyString_53B304(buffer, "%3d", count);
@@ -8995,9 +8996,9 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
                 static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
             nameGift = gLegacyMailGiftSelectedCC1A2C;
         }
-        const std::int32_t width = TextMeasure(world::detail::gPlayerItemsFDA8A4[nameGift].name.data(), 0);
+        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data(), 0);
         const std::int32_t textGift = gLegacyMailGiftSelectedCC1A2C;
-        const char* const name = world::detail::gPlayerItemsFDA8A4[textGift].name.data();
+        const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyMailComposePanel583230.y + 152;
         const std::int32_t nameX = gLegacyMailComposePanel583230.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
@@ -9039,7 +9040,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         const std::int32_t top = gLegacyMailPetPanel5832F8.y + 41 + 28 * row;
         const std::int32_t left = gLegacyMailPetPanel5832F8.x + 12;
         if (Sub_5049A0(left, top, left + 249, top + 20, -1) != 0
-            && world::detail::gPetRuntimeF633F8[index].used != 0 && available != 0) {
+            && (*world::detail::BorrowPetRuntimeF633F8Storage())[index].used != 0 && available != 0) {
             hovered = row;
         }
     }
@@ -9061,7 +9062,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
-        const auto* const pet = &world::detail::gPetRuntimeF633F8[index];
+        const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         if (pet->used == 0) {
             continue;
         }
@@ -9806,7 +9807,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
             const std::int32_t left = gLegacyGuildGiftPanel58E950.x + 8 + 52 * column;
             if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
                 hovered = 8 + row * 5 + column;
-                const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+                const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
                 if (item->used != 0 && (static_cast<std::uint8_t>(item->flags) & 1u) != 0) {
                     giftHovered = hovered;
                 }
@@ -9837,7 +9838,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyGuildGiftPanel58E950.y + 60 + 53 * row;
@@ -9876,7 +9877,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
             212, 251, 0);
     }
     // 原52DB08直接访问Items[hovered]，按RPLAN.24不补记录或新增非负门禁。
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
     char* const hint = ui::detail::gHoverTextD68AE8.data();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
@@ -9985,11 +9986,11 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
     const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyGuildComposePanel58EA18.y + 120;
-        const std::int32_t image = world::detail::gPlayerItemsFDA8A4[gift].imageNo;
+        const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[gift].imageNo;
         const std::int32_t giftX = gLegacyGuildComposePanel58EA18.x + 216;
         static_cast<void>(DrawGraphic(giftX, giftY, 212, image, 0, &descriptor));
         std::int32_t nameGift = gLegacyGuildGiftSelected1050DA8;
-        const std::int32_t count = world::detail::gPlayerItemsFDA8A4[nameGift].count;
+        const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
             char buffer[128];
             platform::FormatLegacyString_53B304(buffer, "%3d", count);
@@ -9999,9 +10000,9 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
                 static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
             nameGift = gLegacyGuildGiftSelected1050DA8;
         }
-        const std::int32_t width = TextMeasure(world::detail::gPlayerItemsFDA8A4[nameGift].name.data(), 0);
+        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data(), 0);
         const std::int32_t textGift = gLegacyGuildGiftSelected1050DA8;
-        const char* const name = world::detail::gPlayerItemsFDA8A4[textGift].name.data();
+        const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyGuildComposePanel58EA18.y + 152;
         const std::int32_t nameX = gLegacyGuildComposePanel58EA18.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
@@ -10043,7 +10044,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         const std::int32_t top = gLegacyGuildPetPanel58EAE0.y + 41 + 28 * row;
         const std::int32_t left = gLegacyGuildPetPanel58EAE0.x + 12;
         if (Sub_5049A0(left, top, left + 249, top + 20, -1) != 0
-            && world::detail::gPetRuntimeF633F8[index].used != 0 && available != 0) {
+            && (*world::detail::BorrowPetRuntimeF633F8Storage())[index].used != 0 && available != 0) {
             hovered = row;
         }
     }
@@ -10065,7 +10066,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
-        const auto* const pet = &world::detail::gPetRuntimeF633F8[index];
+        const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         if (pet->used == 0) {
             continue;
         }
@@ -11435,7 +11436,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             name = world::detail::BorrowPlayerDisplayText(1);
             injury = world::detail::ReadPlayerInjury();
         } else {
-            const world::detail::PetRuntimeRecord* const pet = &world::detail::gPetRuntimeF633F8[subject];
+            const world::detail::PetRuntimeRecord* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[subject];
             const bool hasUserName = pet->name6BD[0] != '\0';
             injury = pet->values70[25];
             name = hasUserName ? pet->name6BD.data() : pet->name6AC.data();
@@ -11449,7 +11450,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         }
         const std::int16_t currentSubject = std::bit_cast<std::int16_t>(result->value00);
         const std::int32_t level = currentSubject == -2
-            ? world::detail::ReadPlayerLevel() : world::detail::gPetRuntimeF633F8[currentSubject].value08;
+            ? world::detail::ReadPlayerLevel() : (*world::detail::BorrowPetRuntimeF633F8Storage())[currentSubject].value08;
         if (level >= 130) {
             drawAt(kLegacyResultLimit5897D4, 267, row * 24 + 59, 1);
         } else {
@@ -11532,8 +11533,8 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -11668,8 +11669,8 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
         const bool notify = pending ? world::detail::ReadPlayerTimerRemaining0C() <= 0
                                     : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -11785,8 +11786,8 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         if (ui::detail::gValue5F9754 == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const std::int32_t result = network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62);
         ui::detail::gValue5F9754 = 0;
         return static_cast<std::uint32_t>(result);
@@ -11841,7 +11842,7 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         return 0;
     }
     input::SetContext_44B330(nullptr);
-    const std::int32_t count = world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count;
+    const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[gLegacySplitSourceCC3E60].count;
     if ((QueryPanelButtonState(&confirm) & 1) != 0) {
         const std::int32_t amount = gLegacySplitAmountC8A948;
         if (amount != 0) {
@@ -11884,7 +11885,7 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count);
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::BorrowPlayerItemsFDA8A4()[gLegacySplitSourceCC3E60].count);
     const std::int32_t countY = gLegacyItemSplitPanel584078.y + 46;
     const std::int32_t countX = gLegacyItemSplitPanel584078.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -11957,8 +11958,8 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -12065,8 +12066,8 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -12193,7 +12194,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
     char trimmed[32];
     bool submit = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0
-        && (world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
+        && (world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
         if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->text) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
@@ -12250,11 +12251,11 @@ std::int32_t Sub_4F24A0()
         platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(), source, 64);
     } else {
         platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
-            world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].name.data(), 64);
+            world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].name.data(), 64);
     }
     const std::int32_t selected = gLegacyItemWorkSelection584394;
     const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
-    gLegacyItemWorkImageCC320C = world::detail::gPlayerItemsFDA8A4[selected + 8].imageNo;
+    gLegacyItemWorkImageCC320C = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].imageNo;
     return audio::Sub_5042D0(panelId);
 }
 
@@ -12285,8 +12286,8 @@ std::int32_t Sub_4F2650()
     if (gate != 0) {
         return gate;
     }
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(ui::detail::Sub_4D3020(x, y));
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     gLegacyItemWorkSelection584394 = -1;
@@ -12313,7 +12314,7 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
     }
     const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
     if (skillId == 219 || skillId == 2033) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         if (item->hasDescription != 0) {
             gLegacyItemWorkPhaseCC4220 = 4;
             return 1;
@@ -12323,7 +12324,7 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
             return 1;
         }
     } else if (skillId == 217 || skillId == 2031 || skillId == 218 || skillId == 2032) {
-        const auto* item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        const auto* item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         if (item->hasDescription == 0) {
             gLegacyItemWorkPhaseCC4220 = 5;
             return 1;
@@ -12333,18 +12334,18 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
             gLegacyItemWorkPhaseCC4220 = 10;
             return 1;
         }
-        item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         if (ui::detail::Sub_482F70(item->itemType) == 0) {
             gLegacyItemWorkPhaseCC4220 = 11;
             return 1;
         }
-        item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         if (item->level > world::detail::gSkillsF1BAFC[skill].level) {
             gLegacyItemWorkPhaseCC4220 = 13;
             return 1;
         }
     } else if (skillId == 220) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         const std::uint16_t flags = item->flags;
         if ((flags & 0x200u) != 0 && (flags & 0x400u) == 0) {
             gLegacyItemWorkPhaseCC4220 = 14;
@@ -12394,8 +12395,8 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -12434,7 +12435,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     const std::int32_t selected = gLegacyItemWorkSelection584394;
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-    std::int32_t cost = world::detail::gPlayerItemsFDA8A4[selected + 8].level * 10;
+    std::int32_t cost = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].level * 10;
     if (ui::detail::ReadLegacyItemWorkSkillD67CF0() == 220) {
         cost = 10;
     }
@@ -12460,10 +12461,10 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             const std::int32_t resultItem = gLegacyItemWorkSelection584394;
             gLegacySkillPendingD67C48 = 1;
             platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
-                world::detail::gPlayerItemsFDA8A4[resultItem + 8].name.data(), 64);
+                world::detail::BorrowPlayerItemsFDA8A4()[resultItem + 8].name.data(), 64);
             const std::int32_t imageItem = gLegacyItemWorkSelection584394;
             const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
-            gLegacyItemWorkImageCC320C = world::detail::gPlayerItemsFDA8A4[imageItem + 8].imageNo;
+            gLegacyItemWorkImageCC320C = world::detail::BorrowPlayerItemsFDA8A4()[imageItem + 8].imageNo;
             static_cast<void>(audio::Sub_5042D0(panelId));
         }
     } else if ((QueryPanelButtonState(&buttons[gLegacyItemWorkButtonKindD67CF4]) & 1) != 0) {
@@ -12488,7 +12489,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
                 gLegacyItemWorkTickD2E12C = platform::ReadTickCount32();
                 const std::int32_t random = platform::NextRandom_53B4C9() % 6;
                 const std::int32_t level =
-                    world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].level;
+                    world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].level;
                 const auto duration = static_cast<std::uint32_t>(1000 * (random + 3 * level + 5));
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 gLegacyItemWorkDurationCC3EDC = duration;
@@ -12498,7 +12499,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(78, 320));
         }
     } else if (hovered >= 0) {
-        const std::uint16_t used = world::detail::gPlayerItemsFDA8A4[hovered + 8].used;
+        const std::uint16_t used = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used;
         const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
         if (used != 0 && (clicks & 0x10u) != 0) {
             if (gLegacyItemWorkSelection584394 >= 0 && gLegacyItemWorkSelection584394 == hovered) {
@@ -12518,7 +12519,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t index = row * 5 + column;
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[index + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[index + 8];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyItemWorkPanel5842D0.y;
@@ -12605,7 +12606,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
         std::strcat(ui::detail::gHoverTextD68AE8.data(), name ? "[kok]" : "[han]");
     };
     if (hovered >= 0) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item->used != 0) {
             const std::int32_t page = gLegacyItemWorkPageD67CF8;
             const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 244;
@@ -12636,7 +12637,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
                 hint = gLegacyItemWorkSelection584394 >= 0 ? kItemWorkText589DF4 : kItemWorkText589DE0;
             }
         } else if (hovered >= 0) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item->used != 0 && (hintPhase < 7 || hintPhase > 9)) {
                 const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
                 if (skillId == 220) {
@@ -12697,7 +12698,7 @@ void Sub_4FB940(
     if (index < 0 || index >= 28) {
         return;
     }
-    const auto* const item = &world::detail::gPlayerItemsFDA8A4[index];
+    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[index];
     if (item->used == 0) {
         return;
     }
@@ -12742,8 +12743,8 @@ std::int32_t Sub_4F4470()
         if (gLegacyCraftMarksC8AA7C[first] != 0) {
             for (std::int32_t second = 0; second < 20; ++second) {
                 if (first != second && gLegacyCraftMarksC8AA7C[second] != 0
-                    && world::detail::gPlayerItemsFDA8A4[first + 8].itemId
-                        == world::detail::gPlayerItemsFDA8A4[second + 8].itemId) {
+                    && world::detail::BorrowPlayerItemsFDA8A4()[first + 8].itemId
+                        == world::detail::BorrowPlayerItemsFDA8A4()[second + 8].itemId) {
                     return 2;
                 }
             }
@@ -12753,7 +12754,7 @@ std::int32_t Sub_4F4470()
         bool foundSpecial = false;
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             if (gLegacyCraftMarksC8AA7C[slot] != 0
-                && ui::detail::Sub_4F4430(world::detail::gPlayerItemsFDA8A4[slot + 8].itemType, skillId) != 0) {
+                && ui::detail::Sub_4F4430(world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemType, skillId) != 0) {
                 if (foundSpecial) {
                     return 2;
                 }
@@ -12766,7 +12767,7 @@ std::int32_t Sub_4F4470()
         if (gLegacyCraftMarksC8AA7C[slot] == 0) {
             continue;
         }
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
         if (skillId != 215 && skillId != 216) {
             const std::int32_t special = ui::detail::Sub_4F4430(item->itemType, skillId);
             recipe = ui::detail::gRecipeIndex5846BC;
@@ -12795,7 +12796,7 @@ std::int32_t Sub_4F4470()
         if (itemId >= 0) {
             bool found = false;
             for (std::int32_t slot = 0; slot < 20; ++slot) {
-                const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+                const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
                 const std::int32_t storedCount = item->count;
                 const std::int32_t count = storedCount == 0 ? 1 : storedCount;
                 if (gLegacyCraftMarksC8AA7C[slot] != 0 && item->itemId == itemId
@@ -12818,7 +12819,7 @@ void Sub_4F4690()
     std::int32_t normalCount = 0;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         if (gLegacyCraftMarksC8AA7C[slot] != 0) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
             const bool special = ui::detail::Sub_4F4430(item->itemType, 0) != 0;
             const std::int32_t itemId = item->itemId;
             const std::int32_t image = item->imageNo;
@@ -12912,16 +12913,16 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
         gLegacyCraftDragImageCC3E7C = 0;
         drawDragged = false;
     } else if (hovered >= 0 && (clicks & 2u) != 0
-               && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+               && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
         const std::int32_t page = gLegacyCraftMaterialPageD67D04;
-        const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+        const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
         gLegacyCraftMaterialPageD67D04 = page + 1;
         if (gLegacyCraftMaterialPageD67D04 >= pages) {
             gLegacyCraftMaterialPageD67D04 = 0;
         }
     } else if (gLegacyCraftPhaseD67D00 < 4) {
         if ((clicks & 0x10u) != 0 && hovered >= 0
-            && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             if (gLegacyCraftMarksC8AA7C[hovered] != 0) {
                 gLegacyCraftMarksC8AA7C[hovered] = 0;
                 static_cast<void>(audio::PlaySe_52C450(54, 320));
@@ -12958,9 +12959,9 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
                 gLegacyCraftDragSlotD2F330 = -1;
                 gLegacyCraftDragImageCC3E7C = 0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-            } else if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
+            } else if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
                        && source < 0 && (dragClicks & 1u) != 0) {
-                const std::int32_t image = world::detail::gPlayerItemsFDA8A4[hovered + 8].imageNo;
+                const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].imageNo;
                 gLegacyCraftDragSlotD2F330 = hovered;
                 gLegacyCraftDragImageCC3E7C = image;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -12969,15 +12970,15 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
     }
     if (drawDragged && gLegacyCraftDragSlotD2F330 >= 0) {
         const std::int32_t image = gLegacyCraftDragImageCC3E7C;
-        const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, &descriptor));
     }
     char buffer[256];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t slot = row * 5 + column;
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
             if (item->used != 0) {
                 const std::int32_t image = item->imageNo;
                 const std::int32_t top = gLegacyCraftMaterialsPanel584468.y;
@@ -13014,7 +13015,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
             }
         }
     }
-    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+    if (hovered >= 0 && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
         const std::int32_t page = gLegacyCraftMaterialPageD67D04;
         const std::int32_t height = gLegacyCraftMaterialsPanel584468.height;
         const std::int32_t top = gLegacyCraftMaterialsPanel584468.y;
@@ -13065,7 +13066,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
         return false;
     };
     if (hovered >= 0 && phase == 4) {
-        static_cast<void>(writeTaggedHint(&world::detail::gPlayerItemsFDA8A4[hovered + 8]));
+        static_cast<void>(writeTaggedHint(&world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8]));
     }
     if (Sub_503590(&gLegacyCraftMaterialsPanel584468) != 0) {
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
@@ -13076,7 +13077,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
             std::strcpy(ui::detail::gHoverTextD68AE8.data(),
                 markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010);
         } else if (hovered >= 0) {
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item->used != 0 && hintPhase < 4 && !writeTaggedHint(item)) {
                 std::strcpy(ui::detail::gHoverTextD68AE8.data(),
                     gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC);
@@ -13123,8 +13124,8 @@ std::int32_t Sub_4F51A0()
 {
     static_cast<void>(Sub_4F5170());
     gLegacyCraftPhaseD67D00 = 0;
-    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     return ui::detail::Sub_4D3020(x, y);
 }
 
@@ -13155,8 +13156,8 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -13322,7 +13323,7 @@ std::int32_t Sub_504FA0()
         if (ui::detail::gItemMarksD68A90[slot] == 0) {
             continue;
         }
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
         const std::int32_t type = item->itemType;
         if ((type == 38 || type == 25 || type == 39) && item->hasDescription != 0) {
             if (foundSpecial) {
@@ -13388,16 +13389,16 @@ std::uint32_t Sub_505170(const std::int32_t opened)
         gLegacyGemDragImageD68AA4 = 0;
         skipDrag = true;
     } else if (hovered >= 0 && (clicks & 2u) != 0
-               && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+               && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
         const std::int32_t page = gLegacyGemMaterialPageD68AAC;
-        const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+        const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
         gLegacyGemMaterialPageD68AAC = page + 1;
         if (gLegacyGemMaterialPageD68AAC >= pages) {
             gLegacyGemMaterialPageD68AAC = 0;
         }
     } else if (gLegacyGemPhaseD68A8C < 4) {
         if ((clicks & 0x10u) != 0 && hovered >= 0
-            && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             if (world::detail::Sub_505040(hovered + 8) != 0
                 && world::detail::Sub_5050B0(hovered + 8) != 0) {
                 if (ui::detail::gItemMarksD68A90[hovered] != 0) {
@@ -13427,7 +13428,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
                 std::int32_t normalCount = 0;
                 for (std::int32_t slot = 0; slot < 20; ++slot) {
                     if (ui::detail::gItemMarksD68A90[slot] != 0) {
-                        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+                        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
                         const std::int32_t type = item->itemType;
                         const bool special = type == 38 || type == 25 || type == 39;
                         const std::int32_t image = item->imageNo;
@@ -13460,9 +13461,9 @@ std::uint32_t Sub_505170(const std::int32_t opened)
                 gLegacyGemDragSlotD68AA8 = -1;
                 gLegacyGemDragImageD68AA4 = 0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-            } else if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
+            } else if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
                        && source < 0 && (dragClicks & 1u) != 0) {
-                const std::int32_t image = world::detail::gPlayerItemsFDA8A4[hovered + 8].imageNo;
+                const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].imageNo;
                 gLegacyGemDragSlotD68AA8 = hovered;
                 gLegacyGemDragImageD68AA4 = image;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13471,15 +13472,15 @@ std::uint32_t Sub_505170(const std::int32_t opened)
     }
     if (!skipDrag && gLegacyGemDragSlotD68AA8 >= 0) {
         const std::int32_t image = gLegacyGemDragImageD68AA4;
-        const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, nullptr));
     }
     char buffer[256];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t slot = row * 5 + column;
-            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
             if (item->used != 0) {
                 const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 60 + 53 * row;
                 const std::int32_t image = item->imageNo;
@@ -13515,7 +13516,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
             }
         }
     }
-    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+    if (hovered >= 0 && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
         const std::int32_t page = gLegacyGemMaterialPageD68AAC;
         const std::int32_t height = gLegacyGemMaterialsPanel58AA60.height;
         const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y;
@@ -13552,7 +13553,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0 && gLegacyGemPhaseD68A8C <= 4) {
         std::strcpy(hint, markedCount > 0 ? kLegacyGemRegister58AC3C : kLegacyGemNone58AC28);
     } else if (hovered >= 0) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item->used != 0) {
             const std::uint16_t flags = item->flags;
             if ((flags & 0x100u) != 0) {
@@ -13578,8 +13579,8 @@ std::uint32_t Sub_505170(const std::int32_t opened)
 // 原函数：0x00505BC0。
 std::int32_t Sub_505BC0()
 {
-    const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-    const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
     YobiAction* action = gLegacyGemActionD68A88;
     if (action == nullptr) {
@@ -13680,7 +13681,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
                     }
                     NullSub_509080();
                     const std::int32_t source = ui::detail::gSelectedSlotsCA0A90[0];
-                    ui::detail::WriteLegacyCraftNameCF46D4(world::detail::gPlayerItemsFDA8A4[source + 8].name.data());
+                    ui::detail::WriteLegacyCraftNameCF46D4(world::detail::BorrowPlayerItemsFDA8A4()[source + 8].name.data());
                     const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511EF0(socket, skill, level, -1, buffer));
@@ -13786,8 +13787,8 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
         if (notify == 0) {
             return (selected & 0xFFFFFF00u) | notify;
         }
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         const std::int32_t result = network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62);
         ui::detail::gValue5F9754 = 0;
         return static_cast<std::uint32_t>(result);
@@ -14284,8 +14285,8 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
             gLegacyPetSelectionD67ADC = nameHovered;
         } else if ((clicks & 2) != 0) {
             const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[nameHovered].index);
-            const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             const std::uintptr_t socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_510E30(socket, x, y, index));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -14302,7 +14303,7 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
             continue;
         }
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
-        auto& pet = world::detail::gPetRuntimeF633F8[index];
+        auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
         const std::int32_t width = TextMeasure(name, 0);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
@@ -14388,7 +14389,7 @@ void Sub_4F7870(const std::int32_t x, const std::int32_t y)
         gLegacyPetBattleCountD45F8C = 0;
         gLegacyPetStandbyCountCC4D18 = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
-            const auto& pet = world::detail::gPetRuntimeF633F8[index];
+            const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
             gLegacyPetStateValuesCF4E38[index] = pet.used != 0
                 ? std::bit_cast<std::int16_t>(pet.flags6AA) : 0;
             const std::int16_t state = gLegacyPetStateValuesCF4E38[index];
@@ -14551,7 +14552,7 @@ YobiAction* Sub_4F8340()
         const std::int32_t position = gLegacyPetSelectionD67ADC;
         const std::int32_t x = gLegacyPetDetailPanel584918.x + 202;
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
-        const std::int32_t image = world::detail::gPetRuntimeF633F8[index].imageNo6A0;
+        const std::int32_t image = (*world::detail::BorrowPetRuntimeF633F8Storage())[index].imageNo6A0;
         action = Sub_4F9FF0(image, x, y, 221);
         gLegacyPetDetailActionD67AE0 = action;
         if (action != nullptr) {
@@ -14601,7 +14602,7 @@ std::uintptr_t Sub_4F83B0(const std::int32_t opened)
     }
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
-    const auto& pet = world::detail::gPetRuntimeF633F8[index];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     const char* name = pet.name6BD.data();
     if (std::strlen(name) == 0) {
         name = pet.name6AC.data();
@@ -14646,7 +14647,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     }
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
-    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     YobiAction* action = gLegacyPetDetailActionD67AE0;
     if (action != nullptr) {
         SetYobiActionFlag2(action, false);
@@ -14745,7 +14746,7 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
     LegacyPanelButtonRecord next {panelX + 229, panelY + 395, panelX + 215, panelY + 385, 28, 20, 22834, 22835};
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
-    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     std::array<std::int32_t, 6> points;
     for (std::int32_t field = 0; field < 5; ++field) {
         points[field] = pet.values70[field];
@@ -14859,7 +14860,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     LegacyPanelButtonRecord next {panelX + 229, panelY + 393, panelX + 215, panelY + 383, 28, 20, 22834, 22835};
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
-    const auto& pet = world::detail::gPetRuntimeF633F8[index];
+    const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     std::int32_t slots = pet.value6A4;
     if (slots < 1 || slots > 10) {
         slots = 0;
@@ -15352,7 +15353,7 @@ std::uintptr_t Sub_4FA050(const std::int32_t opened)
     }
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
-    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     char buffer[256];
     if (gLegacyPetRenameInputD67D1C == nullptr) {
         const std::int32_t top = gLegacyPetRenamePanel5849E0.y;
@@ -15434,8 +15435,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     bool createPreview = initialAction == nullptr;
     if (rebirthMode != 0) {
         if (world::detail::ReadPlayerValue08() == 0 || world::detail::ReadPlayerTimerRemaining0C() <= 0) {
-            const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             YobiAction* const current = gLegacyInventoryActionD67D2C;
             ui::detail::gValue5F9754 = 0;
@@ -15480,7 +15481,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     }
     const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
     if (hovered >= 0 && (clicks & 0x10u) != 0) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item->used != 0 && (item->canUseInField & 1u) != 0) {
             if (item->imageNo == 26569) {
                 gLegacyInventoryValueC8B388 = 0;
@@ -15489,8 +15490,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
                 gLegacySpecialUseRowD2D614 = (hovered - 8) / 5;
                 static_cast<void>(audio::Sub_504180(79));
             } else {
-                const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                 static_cast<void>(network::Sub_510A00(platform::gConnectionSocket, playerX, playerY, hovered, 0));
                 static_cast<void>(audio::PlaySe_52C450(77, 320));
                 static_cast<void>(ui::detail::Sub_4FB8F0());
@@ -15504,7 +15505,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
         const std::int32_t source = ui::detail::gDragItemIndex584DA4;
         if (source < 0) {
             if (hovered >= 0) {
-                const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+                const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
                 if (item->used != 0) {
                     if ((clicks & 1u) != 0) {
                         ui::detail::gDragImageNoD67D24 = item->imageNo;
@@ -15531,8 +15532,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
                         const std::uint8_t control = platform::gKeyStates[17];
                         const std::uint8_t splitKey = moveMode != 0 ? control : static_cast<std::uint8_t>(~control);
                         if (source >= 8 && hovered >= 8
-                            && world::detail::gPlayerItemsFDA8A4[source].count > 0
-                            && world::detail::gPlayerItemsFDA8A4[hovered].used == 0
+                            && world::detail::BorrowPlayerItemsFDA8A4()[source].count > 0
+                            && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used == 0
                             && (splitKey & 2u) != 0) {
                             gLegacySplitSourceCC3E60 = source;
                             gLegacySplitTargetCC21DC = hovered;
@@ -15546,18 +15547,18 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
                             static_cast<void>(audio::PlaySe_52C450(51, 320));
                         }
                     }
-                } else if (mode == 2 && world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
-                    const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                    const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                } else if (mode == 2 && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
+                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                     static_cast<void>(network::Sub_510A00(platform::gConnectionSocket, playerX, playerY, source, hovered));
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
                 resetDrag = true;
-            } else if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u
+            } else if (static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212u
                        && (clicks & 1u) != 0) {
                 if (ui::detail::gDraggingCA0B28 == 1) {
-                    const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-                    const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                     static_cast<void>(network::Sub_510CE0(platform::gConnectionSocket, playerX, playerY, 0, source));
                 }
                 resetDrag = true;
@@ -15570,8 +15571,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
         }
     }
     if (ui::detail::gDragImageNoD67D24 != 0) {
-        ui::detail::gItemDragXCC4880 = platform::gLegacyMouseState.mouseX.Read_401EC0();
-        const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
+        ui::detail::gItemDragXCC4880 = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
         const std::int32_t image = ui::detail::gDragImageNoD67D24;
         ui::detail::gItemDragYCC4884 = mouseY;
         if (image != 0) {
@@ -15581,7 +15582,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     }
     char buffer[256];
     for (std::int32_t slot = 27; slot >= 0; --slot) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot];
         const auto& position = kLegacyInventoryPositions584CC4[slot];
         if (item->used != 0) {
             if (slot < 7 && (item->flags & 0x80u) == 0) {
@@ -15633,7 +15634,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     } else if (ui::detail::gDraggingCA0B28 == 2) {
         hint = kLegacyInventoryTarget58A394;
     } else if (hovered >= 0) {
-        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item->used != 0 && std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
             platform::FormatLegacyString_53B304(buffer, "%s[kok]", item->name.data());
             hint = buffer;
@@ -15703,8 +15704,8 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
     input::SetContext_44B330(nullptr);
     if (gLegacyMoneyAmountD2D618 != 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
         const std::int32_t amount = gLegacyMoneyAmountD2D618;
-        const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
-        const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, playerX, playerY, amount));
         gLegacyMoneyAmountD2D618 = 0;
     } else if ((QueryPanelButtonState(&back) & 1) != 0) {
@@ -15850,8 +15851,8 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
                 const std::uint8_t active = ui::detail::gValue5F9754;
                 result = (result & 0xFFFFFF00u) | active;
                 if (active != 0) {
-                    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-                    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+                    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+                    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     result = static_cast<std::uint32_t>(network::Sub_511DD0(socket, x, y, 62));
                     ui::detail::gValue5F9754 = 0;
@@ -15959,8 +15960,8 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
             && world::detail::ReadPlayerValue08() != 0
             && world::detail::ReadPlayerTimerRemaining0C() > 0) {
             const bool active = ui::detail::gValue5F9754 != 0;
-            const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
-            const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
+            const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+            const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
             const std::uintptr_t socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_511DD0(socket, x, y, active ? 62 : 61));
             ui::detail::gValue5F9754 = active ? 0 : 1;
@@ -16846,15 +16847,15 @@ std::uint32_t Sub_4FC8F0(const std::int32_t opened)
         return static_cast<std::uint32_t>(state);
     }
     if ((character_select::detail::Sub_503990(&server) & 1) != 0) {
-        platform::LegacyCryptInt temporary;
-        temporary.ConstructFromInt_401CC0(0);
-        const std::uint32_t encoded = temporary.encoded;
-        const std::uint32_t mask = temporary.mask;
-        const std::uint8_t readCount = temporary.readCount;
-        world::detail::gValue73ECD0.encoded = encoded;
-        world::detail::gValue73ECD0.mask = mask;
-        world::detail::gValue73ECD0.readCount = readCount;
-        temporary.Destroy_401CF0();
+        std::optional<platform::LegacyCryptInt> temporary;
+        temporary.emplace(static_cast<std::int32_t>(0));
+        const std::uint32_t encoded = temporary->encoded;
+        const std::uint32_t mask = temporary->mask;
+        const std::uint8_t readCount = temporary->readCount;
+        world::detail::BorrowValue73ECD0Storage()->encoded = encoded;
+        world::detail::BorrowValue73ECD0Storage()->mask = mask;
+        world::detail::BorrowValue73ECD0Storage()->readCount = readCount;
+        temporary.reset();
         static_cast<void>(world::SetPendingSceneType(7));
         static_cast<void>(PlaySe(60, 320, 240));
     } else if ((character_select::detail::Sub_503990(&town) & 1) != 0) {
@@ -18122,13 +18123,13 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX - nameWidth / 2 + 124),
         static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
     char buffer[256];
-    const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
+    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
     const std::int32_t eastX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
         static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
-    const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, kLegacyMapSouth58AA4C, playerY);
     const std::int32_t southY = gLegacyMapPanelD68868.y;
     const std::int32_t southX = gLegacyMapPanelD68868.x;

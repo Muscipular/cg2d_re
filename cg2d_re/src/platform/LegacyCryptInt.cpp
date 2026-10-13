@@ -2,15 +2,21 @@
 
 #include "MainLoopDependencies.hpp"
 
+#include <array>
 #include <bit>
 #include <cstdlib>
+#include <new>
+#include <optional>
 
 namespace cg::platform {
 namespace {
 
-// 原CRT首项的两个独立对象；不与后续保护状态共享。
-LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
-LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
+// 原CRT首项的两个独立对象：0x005939C8、0x005939D8；不与后续保护状态共享。
+std::array<std::optional<LegacyCryptInt>, 2>& BorrowStartupValuesStorage()
+{
+    static std::array<std::optional<LegacyCryptInt>, 2> storage;
+    return storage;
+}
 
 } // namespace
 
@@ -29,56 +35,69 @@ std::uint32_t LegacyCryptInt::NextMask()
     return ToBits(static_cast<std::int32_t>(NextRandom_53B4C9()));
 }
 
-// 原函数：0x00401C10；LCI01启动拥有者替代CRT构造／退出登记。
+// 原0x00401C10、0x00401C20；按5939C8→5939D8构造，中央启动顺序保持。
 LegacyCryptInt::StartupValues::StartupValues()
 {
-    ConstructStartupValues_401C20();
+    BorrowStartupValuesStorage()[0].emplace();
+    BorrowStartupValuesStorage()[1].emplace();
 }
 
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+// 原0x00401C50：原组逆序销毁，退出登记由MSVC承接。
 LegacyCryptInt::StartupValues::~StartupValues()
 {
-    DestroyStartupValues_401C50();
+    BorrowStartupValuesStorage()[1].reset();
+    BorrowStartupValuesStorage()[0].reset();
 }
 
-// 原函数：0x00401C20。
-void LegacyCryptInt::ConstructStartupValues_401C20()
+// 原0x00401C70 sub_401C70@[0x401C70,0x401C92)：零值默认构造复用有值构造，RNG一次。
+LegacyCryptInt::LegacyCryptInt()
+    : LegacyCryptInt(std::int32_t{0})
 {
-    gStartupValue5939C8.ConstructZero_401C70();
-    gStartupValue5939D8.ConstructZero_401C70();
 }
 
-// 原函数：0x00401C50。
-void LegacyCryptInt::DestroyStartupValues_401C50()
+// 原0x00401CC0 CryptInt_Init@[0x401CC0,0x401CE7)。reserved沿原构造不写。
+LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
 {
-    gStartupValue5939D8.Destroy_401CF0();
-    gStartupValue5939C8.Destroy_401CF0();
-}
-
-// 原函数：0x00401C70。
-LegacyCryptInt* LegacyCryptInt::ConstructZero_401C70()
-{
-    this->legacyVftToken = kLegacyCryptIntVftToken;
-    this->mask = NextMask();
-    this->readCount = 0;
-    SetNorVal_401F50(0);
-    return this;
-}
-
-// 原函数：0x00401CC0。
-LegacyCryptInt* LegacyCryptInt::ConstructFromInt_401CC0(std::int32_t value)
-{
-    this->legacyVftToken = kLegacyCryptIntVftToken;
-    this->mask = NextMask();
-    this->readCount = 0;
+    legacyVftToken = kLegacyCryptIntVftToken;
+    mask = NextMask();
+    readCount = 0;
     SetNorVal_401F50(value);
-    return this;
 }
 
-// 原函数：0x00401CF0。
-void LegacyCryptInt::Destroy_401CF0()
+// 原0x00401CF0 CryptInt_delete@[0x401CF0,0x401CF7)：析构只恢复原token。
+LegacyCryptInt::~LegacyCryptInt()
 {
-    this->legacyVftToken = kLegacyCryptIntVftToken;
+    legacyVftToken = kLegacyCryptIntVftToken;
+}
+
+LegacyCryptInt::LegacyCryptInt(const RawPayload& raw) noexcept
+{
+    RestoreRaw(raw);
+}
+
+void LegacyCryptInt::RestoreRaw(const RawPayload& raw) noexcept
+{
+    legacyVftToken = raw.legacyVftToken;
+    encoded = raw.encoded;
+    mask = raw.mask;
+    readCount = raw.readCount;
+    for (std::size_t index = 0; index < 3; ++index) {
+        reserved[index] = raw.reserved[index];
+    }
+}
+
+void* LegacyCryptInt::operator new(const std::size_t size)
+{
+    if (void* storage = std::malloc(size)) {
+        return storage;
+    }
+    throw std::bad_alloc();
+}
+
+// 原0x00401CA0：delete先析构再free；栈／成员由原生析构结束寿命。
+void LegacyCryptInt::operator delete(void* const storage) noexcept
+{
+    std::free(storage);
 }
 
 // 原函数：0x00401F50。
@@ -121,22 +140,6 @@ std::uint32_t LegacyCryptInt::IntLessCryptRaw_401FA0(const std::int32_t lhs)
         | static_cast<std::uint32_t>(lhs < right);
 }
 
-// 原函数：0x00401CA0。
-LegacyCryptInt* LegacyCryptInt::DestroyAndFree_401CA0(std::uint32_t flags)
-{
-    Destroy_401CF0();
-    if ((flags & 1u) != 0) {
-        std::free(this);
-    }
-    return this;
-}
-
-// 原函数：0x00401CC0；整数构造沿既有有值构造正文。
-LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
-{
-    ConstructFromInt_401CC0(value);
-}
-
 LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
     : LegacyCryptInt(std::bit_cast<std::int32_t>(value))
 {
@@ -146,7 +149,6 @@ LegacyCryptInt& LegacyCryptInt::operator=(const std::int32_t value)
 {
     LegacyCryptInt temporary(value);
     CopyPayload(&temporary);
-    temporary.Destroy_401CF0();
     return *this;
 }
 

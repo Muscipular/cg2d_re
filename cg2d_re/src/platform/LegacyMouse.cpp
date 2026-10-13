@@ -18,11 +18,17 @@
 #include <cstring>
 #include <iostream>
 #include <locale>
+#include <optional>
 #include <type_traits>
 
 namespace cg::platform {
 
-LegacyMouseState gLegacyMouseState {}; // 原全局：0x00D68CF8。
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+std::optional<LegacyMouseState>& BorrowLegacyMouseStateStorage()
+{
+    static std::optional<LegacyMouseState> storage;
+    return storage;
+} // 原全局：0x00D68CF8。
 std::uint32_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
 std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
@@ -44,10 +50,15 @@ const cg::platform::ProtectionProcessStateStartup gProtectionProcessStateStartup
 struct WorldObjectsStaticInitializer final {
     WorldObjectsStaticInitializer()
     {
-        static_cast<void>(cg::world::InitializeLegacyWorldObjects_43D760());
+        // 原0x0043D760：原生拥有者接管构造及退出登记。
+        cg::world::ConstructWorldObjects();
+    }
+
+    ~WorldObjectsStaticInitializer()
+    {
+        cg::world::DestroyWorldObjects();
     }
 };
-static_assert(std::is_trivially_destructible_v<WorldObjectsStaticInitializer>);
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
@@ -435,41 +446,15 @@ namespace {
 // 原506350固定D68CF8→506460；仅十个CryptInt按原序构造，不动鼠标其他字段。
 LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
 {
-    struct MouseConstructionPrefix final {
-        LegacyCryptInt* values[10] {
-            &gLegacyMouseState.mouseX, &gLegacyMouseState.mouseY,
-            &gLegacyMouseState.buttonCoordinates[0], &gLegacyMouseState.buttonCoordinates[1],
-            &gLegacyMouseState.buttonCoordinates[2], &gLegacyMouseState.buttonCoordinates[3],
-            &gLegacyMouseState.buttonCoordinates[4], &gLegacyMouseState.buttonCoordinates[5],
-            &gLegacyMouseState.buttonCoordinates[6], &gLegacyMouseState.buttonCoordinates[7],
-        };
-        std::size_t completed = 0;
-
-        // 关联原入口：0x00506530；已完成成员逆序清理，见MUP01。
-        ~MouseConstructionPrefix()
-        {
-            while (completed != 0) {
-                values[--completed]->Destroy_401CF0();
-            }
-        }
-    } constructed;
-
-    for (LegacyCryptInt* value : constructed.values) {
-        value->ConstructZero_401C70();
-        ++constructed.completed;
-    }
-    constructed.completed = 0;
-    return &gLegacyMouseState.mouseX;
+    // 原0x00506460、0x00506530：十成员正序构造及异常时的已完成前缀清理由C++承接。
+    return &BorrowLegacyMouseStateStorage().emplace().mouseX;
 }
 
 // 原506370固定D68CF8→506380；整体退出按八坐标/Y/X逆序，只原析构动作。
 void ReleaseLegacyMouseRuntimeAtExit_506370()
 {
-    for (std::size_t index = 8; index != 0; --index) {
-        gLegacyMouseState.buttonCoordinates[index - 1].Destroy_401CF0();
-    }
-    gLegacyMouseState.mouseY.Destroy_401CF0();
-    gLegacyMouseState.mouseX.Destroy_401CF0();
+    // 原0x00506380：八坐标、Y、X由成员析构自动逆序清理。
+    BorrowLegacyMouseStateStorage().reset();
 }
 
 } // namespace
@@ -489,33 +474,42 @@ MouseRuntimeStartup::~MouseRuntimeStartup()
 // 原函数：0x00506870。
 std::int32_t ResetLegacyMouseState_506870()
 {
-    std::memset(&gLegacyMouseState, 0, sizeof(gLegacyMouseState));
+    auto& state = *BorrowLegacyMouseStateStorage();
+    const LegacyCryptInt::RawPayload zero{};
+    state.mouseX.RestoreRaw(zero);
+    state.mouseY.RestoreRaw(zero);
+    for (LegacyCryptInt& value : state.buttonCoordinates) {
+        value.RestoreRaw(zero);
+    }
+    // 原整块零字节：普通字段直接清零，不重构十成员或消费RNG。
+    constexpr std::size_t tail = offsetof(LegacyMouseState, heldButtons);
+    std::memset(reinterpret_cast<std::byte*>(&state) + tail, 0, sizeof(state) - tail);
     gValueD68DC4 = 0;
-    gLegacyMouseState.valueD68DB8 = -1;
+    state.valueD68DB8 = -1;
     return 0;
 }
 
 // 原函数：0x00506890。
 void ResetLegacyMousePosition_506890(const std::int32_t x, const std::int32_t y)
 {
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.mouseX.encoded = xEncoded;
-    gLegacyMouseState.mouseX.mask = xMask;
-    gLegacyMouseState.mouseX.readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->mouseX.encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->mouseX.mask = xMask;
+    BorrowLegacyMouseStateStorage()->mouseX.readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yReadCount = temporary.readCount;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint32_t yMask = temporary.mask;
-    gLegacyMouseState.mouseY.readCount = yReadCount;
-    gLegacyMouseState.mouseY.encoded = yEncoded;
-    gLegacyMouseState.mouseY.mask = yMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yReadCount = temporary->readCount;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint32_t yMask = temporary->mask;
+    BorrowLegacyMouseStateStorage()->mouseY.readCount = yReadCount;
+    BorrowLegacyMouseStateStorage()->mouseY.encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->mouseY.mask = yMask;
+    temporary.reset();
 }
 
 // 原函数：0x00506900。
@@ -523,35 +517,35 @@ std::int32_t UpdateLegacyMouseLeftDown_506900(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 1u;
-    gLegacyMouseState.heldButtons = heldButtons | 1u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 1u;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 1u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 1u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[0].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint32_t yMask = temporary.mask;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint8_t yReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[1].mask = yMask;
-    gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint32_t yMask = temporary->mask;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint8_t yReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].mask = yMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].readCount = yReadCount;
+    temporary.reset();
 
     const std::uint32_t tick = ReadTickCount32();
-    gLegacyMouseState.leftDownTick = tick;
-    gLegacyMouseState.leftElapsed = 0;
+    BorrowLegacyMouseStateStorage()->leftDownTick = tick;
+    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
 
     const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 0);
     if (result < gLegacyMouseTrackerThreshold) {
@@ -566,34 +560,34 @@ std::int32_t UpdateLegacyMouseLeftUp_5069E0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons & ~1u;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 4u;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons & ~1u;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 4u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~1u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[2].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[2].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[2].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[2].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[2].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[2].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yReadCount = temporary.readCount;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint32_t yMask = temporary.mask;
-    gLegacyMouseState.buttonCoordinates[3].readCount = yReadCount;
-    gLegacyMouseState.buttonCoordinates[3].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[3].mask = yMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yReadCount = temporary->readCount;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint32_t yMask = temporary->mask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[3].readCount = yReadCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[3].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[3].mask = yMask;
+    temporary.reset();
 
-    gLegacyMouseState.leftDownTick = 0;
-    gLegacyMouseState.leftElapsed = 0;
+    BorrowLegacyMouseStateStorage()->leftDownTick = 0;
+    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
     return 0;
 }
 
@@ -602,35 +596,35 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 1u;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 1u;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 0x11u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 1u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[0].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[0].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yReadCount = temporary.readCount;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint32_t yMask = temporary.mask;
-    gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;
-    gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[1].mask = yMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yReadCount = temporary->readCount;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint32_t yMask = temporary->mask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].readCount = yReadCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[1].mask = yMask;
+    temporary.reset();
 
     const std::uint32_t tick = ReadTickCount32();
-    gLegacyMouseState.leftDownTick = tick;
-    gLegacyMouseState.leftElapsed = 0;
+    BorrowLegacyMouseStateStorage()->leftDownTick = tick;
+    BorrowLegacyMouseStateStorage()->leftElapsed = 0;
     return tick;
 }
 
@@ -639,35 +633,35 @@ std::int32_t UpdateLegacyMouseRightDown_506B50(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 2u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
-    gLegacyMouseState.edgeButtons = edgeButtons | 2u;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 2u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 2u;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 2u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[4].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint32_t yMask = temporary.mask;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint8_t yReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[5].mask = yMask;
-    gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint32_t yMask = temporary->mask;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint8_t yReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].mask = yMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].readCount = yReadCount;
+    temporary.reset();
 
     const std::uint32_t tick = ReadTickCount32();
-    gLegacyMouseState.rightDownTick = tick;
-    gLegacyMouseState.rightElapsed = 0;
+    BorrowLegacyMouseStateStorage()->rightDownTick = tick;
+    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
 
     const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 1);
     if (result < gLegacyMouseTrackerThreshold) {
@@ -682,34 +676,34 @@ std::int32_t UpdateLegacyMouseRightUp_506C40(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons & ~2u;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 8u;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons & ~2u;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 8u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons & ~2u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[6].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[6].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[6].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[6].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[6].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[6].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yReadCount = temporary.readCount;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint32_t yMask = temporary.mask;
-    gLegacyMouseState.buttonCoordinates[7].readCount = yReadCount;
-    gLegacyMouseState.buttonCoordinates[7].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[7].mask = yMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yReadCount = temporary->readCount;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint32_t yMask = temporary->mask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[7].readCount = yReadCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[7].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[7].mask = yMask;
+    temporary.reset();
 
-    gLegacyMouseState.rightDownTick = 0;
-    gLegacyMouseState.rightElapsed = 0;
+    BorrowLegacyMouseStateStorage()->rightDownTick = 0;
+    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
     return 0;
 }
 
@@ -718,42 +712,42 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 2u;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
+    const std::uint32_t heldButtons = BorrowLegacyMouseStateStorage()->heldButtons;
+    const std::uint32_t edgeButtons = BorrowLegacyMouseStateStorage()->edgeButtons;
+    BorrowLegacyMouseStateStorage()->heldButtons = heldButtons | 2u;
+    const std::uint32_t pulseButtons = BorrowLegacyMouseStateStorage()->pulseButtons;
+    BorrowLegacyMouseStateStorage()->edgeButtons = edgeButtons | 0x22u;
+    BorrowLegacyMouseStateStorage()->pulseButtons = pulseButtons | 2u;
 
-    LegacyCryptInt temporary;
-    temporary.ConstructFromInt_401CC0(x);
-    const std::uint32_t xEncoded = temporary.encoded;
-    const std::uint32_t xMask = temporary.mask;
-    const std::uint8_t xReadCount = temporary.readCount;
-    gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;
-    gLegacyMouseState.buttonCoordinates[4].mask = xMask;
-    gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;
-    temporary.Destroy_401CF0();
+    std::optional<LegacyCryptInt> temporary;
+    temporary.emplace(static_cast<std::int32_t>(x));
+    const std::uint32_t xEncoded = temporary->encoded;
+    const std::uint32_t xMask = temporary->mask;
+    const std::uint8_t xReadCount = temporary->readCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].encoded = xEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].mask = xMask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[4].readCount = xReadCount;
+    temporary.reset();
 
-    temporary.ConstructFromInt_401CC0(y);
-    const std::uint8_t yReadCount = temporary.readCount;
-    const std::uint32_t yEncoded = temporary.encoded;
-    const std::uint32_t yMask = temporary.mask;
-    gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;
-    gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;
-    gLegacyMouseState.buttonCoordinates[5].mask = yMask;
-    temporary.Destroy_401CF0();
+    temporary.emplace(static_cast<std::int32_t>(y));
+    const std::uint8_t yReadCount = temporary->readCount;
+    const std::uint32_t yEncoded = temporary->encoded;
+    const std::uint32_t yMask = temporary->mask;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].readCount = yReadCount;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].encoded = yEncoded;
+    BorrowLegacyMouseStateStorage()->buttonCoordinates[5].mask = yMask;
+    temporary.reset();
 
     const std::uint32_t tick = ReadTickCount32();
-    gLegacyMouseState.rightDownTick = tick;
-    gLegacyMouseState.rightElapsed = 0;
+    BorrowLegacyMouseStateStorage()->rightDownTick = tick;
+    BorrowLegacyMouseStateStorage()->rightElapsed = 0;
     return tick;
 }
 
 // 原函数：0x00506DB0。
 std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 {
-    gLegacyMouseState.tailReset += static_cast<std::uint32_t>(delta);
+    BorrowLegacyMouseStateStorage()->tailReset += static_cast<std::uint32_t>(delta);
     return delta;
 }
 
@@ -761,18 +755,18 @@ std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 
 namespace cg::login::detail {
 
-std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons; // 原全局：0x00D68D98。
-std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons; // 原全局：0x00D68D9C。
-std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons; // 原全局：0x00D68DA0。
+std::uint32_t& gValueD68D98 = platform::BorrowLegacyMouseStateStorage()->heldButtons; // 原全局：0x00D68D98。
+std::uint32_t& gValueD68D9C = platform::BorrowLegacyMouseStateStorage()->edgeButtons; // 原全局：0x00D68D9C。
+std::uint32_t& gValueD68DA0 = platform::BorrowLegacyMouseStateStorage()->pulseButtons; // 原全局：0x00D68DA0。
 
 std::int32_t ReadLegacyMouseX()
 {
-    return platform::gLegacyMouseState.mouseX.Read_401EC0();
+    return platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
 }
 
 std::int32_t ReadLegacyMouseY()
 {
-    return platform::gLegacyMouseState.mouseY.Read_401EC0();
+    return platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
 }
 
 } // namespace cg::login::detail

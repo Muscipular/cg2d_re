@@ -1,6 +1,6 @@
 # LegacyCryptInt class 与整数运算符 SPEC（LCI01）
 
-日期：2026-10-14。状态：用户后续构造／析构／operator方向已落实LCI06原生生命周期；仅静态核对，未编译或运行。LCI01至LCI05保留阶段历史，当前以LCI06为准。
+日期：2026-10-14。状态：构造／析构／operator按LCI06落实；首项两值按LCI07改为定义处直接初始化。仅静态核对，未编译或运行；LCI01至LCI06保留阶段历史，首项两值当前以LCI07为准。
 
 ## 目标与源码基线
 
@@ -90,20 +90,20 @@ LegacyCryptInt已改为class；整数构造／赋值、单一隐式int32及显�
 整数两侧的普通运算由有副作用的单次int32转换接C++内建运算，较窄整数无需重复重载；
 uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异常模拟或保护。
 默认／整数构造和析构按LCI06实现；同类拷贝复制原字段而不读取／取RNG，五字段与偏移保持。
-原始16B载荷单独以RawPayload承接；延后值通过std::optional在原中央位置构造。
+原始16B载荷单独以RawPayload承接；首项两值在原中央位置直接定义初始化，其余延后值通过std::optional在原位置构造。
 
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-24个相关CRT包装由不可拷贝启动拥有者接管，LCI06同步将世界千项表拥有者改为原生构造／析构。
-各组仅有同一实际存储，optional为空时不构造值；原位置emplace、原位置reset，16B值布局保持。
-全部拥有者实例仍位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
+原24个相关CRT包装中，首项按LCI07由两个LegacyCryptInt全局定义承接，另23组沿不可拷贝启动拥有者；世界千项表沿LCI06原生构造／析构。
+首项两值直接默认构造、退出逆序析构；其余组同一optional为空时不构造值，原位置emplace／reset，16B值布局保持。
+两定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
 五个原初始化汇总桥已退休；LCI06将成员／数组完成前缀清理由C++与STL承接，原地址保留。
 
-| 原入口 | 原生启动拥有者 | 构造 / 清理正文 |
+| 原入口 | 当前原生承接 | 构造 / 清理正文 |
 |---|---|---|
-| 0x00401C10 | `cg::platform::LegacyCryptInt::StartupValues` | `StartupValues::StartupValues` / `StartupValues::~StartupValues` |
+| 0x00401C10 | `gStartupValue5939C8` / `gStartupValue5939D8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；编译器生成有序初始化及逆序退出 |
 | 0x00404120 | `cg::platform::ProtectionChecksum1Startup` | `ConstructProtectionChecksum1_404130` / `DestroyProtectionChecksum1_404150` |
 | 0x00404160 | `cg::platform::ProtectionChecksum2Startup` | `ConstructProtectionChecksum2_404170` / `DestroyProtectionChecksum2_404190` |
 | 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
@@ -219,7 +219,7 @@ IntLessCryptRaw_401FA0保留完整U32高24位返回合同，作为特殊成员�
 6. 同步函数实现表、当前语义／验收登记与唯一进度，原地址与历史资料保持。
    只做必要静态核对与文本汇总；不构建、测试、运行、查产物或计算摘要，不引外部依赖或委派。
 
-## LCI06当前源码与静态结果
+## LCI06阶段源码与静态结果（首项两值由LCI07覆盖）
 
 默认／有值构造、析构和CRT分配释放已进入LegacyCryptInt；四个同义显式构销成员及首项两汇总成员已退休。
 165个可复用临时承载在原214个有值构造位置emplace、原销毁位置reset；实参沿原S32转换，不改为整数赋值。
@@ -235,3 +235,23 @@ preview非拥有指针改为对象完成构造后发布，flags|2仍在其他选
 必要静态核对覆盖旧构销引用归零、214个临时有值构造数量／次序、成员及中央序列、五字段／偏移、
 原地址与周边注释、源码括号配对、编码及差异；布局断言等待后续明确恢复编译后验证。
 函数表、当前语义记录和登记引用同步；历史字段／验证门禁保留。文本汇总与-Check仅核台账，不代替编译、链接或运行。
+
+<a id="cryptint-direct-global-definition"></a>
+## 首项两值直接定义初始化（LCI07）
+
+用户指出gStartupValue5939C8适合直接在定义处初始化，本步收敛同组5939C8／5939D8两值。
+把两项LegacyCryptInt定义放在LegacyMouse.cpp原gStartupValues的中央位置，先5939C8、后5939D8，后续保护值／世界表顺序保持；
+默认构造各取一次共享RNG，退出由MSVC全局对象析构按相反声明序承接。共享种子gRandomSeed=1仍为常量初始化。
+若把有副作用的定义留在LegacyCryptInt.cpp，就会依赖跨翻译单元的动态初始化顺序；本步将定义统一留在既有有序中央翻译单元。
+
+移除本组optional存储、BorrowStartupValuesStorage及LegacyCryptInt::StartupValues包装，不复制第二份载荷，不扩其他23组或可复用临时量。
+原0x00401C10／0x00401C20／0x00401C50及两原全局地址注释移到实际定义旁，原入口仍以MSVC生成的全局构造／析构承接记录。
+覆盖LCI06对这两值延后承载的阶段实现；其余原生类、16B布局、读取、RNG和全部门禁保持。
+同步当前函数表／语义与验收引用、唯一进度，仅静态核对及文本汇总，不构建／测试／运行／查产物／计算摘要，不引依赖或委派。
+
+### LCI07源码与静态结果
+
+两直接定义位于LegacyMouse.cpp原中央位置，默认构造各消费一次RNG，退出按5939D8→5939C8析构；后续声明／正文保持。
+本组optional／BorrowStartupValuesStorage／StartupValues已退休，原地址注释无丢失，数值构造后的核心正文保持。
+三原入口仍有承接，504处受影响源码行号同步；五条语义、五条处置、两功能域及C02／C04两开放任务引用更新。
+3680入口身份／状态、既有历史和编译／运行门禁保持；UTF-8无BOM／LF、Git差异及文本汇总器／-Check通过。仅静态核对，不构建、测试或运行。

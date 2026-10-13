@@ -34,9 +34,10 @@ std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
 namespace {
 
-// 原CRT553004..553010：四个原生启动拥有者保持五对象构造／逆序退出与RNG序。
-// 原函数：0x00401C10；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::LegacyCryptInt::StartupValues gStartupValues;
+// 原CRT553004..553010：两值直接构造后接三个保护拥有者，保持五次RNG序。
+// 原0x00401C10、0x00401C20：5939C8→5939D8；原0x00401C50退出反序，由MSVC承接。
+LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
+LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
 
 // 原函数：0x00404120；同一中央位置构造，MSVC按完成逆序析构。
 const cg::platform::ProtectionChecksum1Startup gProtectionChecksum1Startup;

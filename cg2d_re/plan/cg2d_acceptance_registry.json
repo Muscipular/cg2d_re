@@ -310,7 +310,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_loading_screen.md#auto-skip-intro-20261013",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -386,6 +387,18 @@
         "delayed_storage": "std::optional，函数内空容器先登记、中央拥有者后登记；原位置emplace／reset，成员与数组原生构析。",
         "raw_heap_lifetime": "普通Yobi以RawFields构造原零载荷且不取RNG；原释放分支destroy_at后free，两预览各十默认成员按原组序构造。",
         "verification": "仅源码／字段与地址／台账静态核对；未构建、测试、运行、查产物或计算摘要。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "cryptint_direct_globals_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "variables": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "default_rng_calls": 2,
+        "removed": "本组optional／StartupValues；其他延后承载保持LCI06。",
+        "static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -1171,7 +1184,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
         "doc/cg2d_msvc_crt_sort_replacement_spec.md#standard-sort-source-state",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1283,6 +1297,18 @@
         "delayed_storage": "std::optional，函数内空容器先登记、中央拥有者后登记；原位置emplace／reset，成员与数组原生构析。",
         "raw_heap_lifetime": "普通Yobi以RawFields构造原零载荷且不取RNG；原释放分支destroy_at后free，两预览各十默认成员按原组序构造。",
         "verification": "仅源码／字段与地址／台账静态核对；未构建、测试、运行、查产物或计算摘要。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "cryptint_direct_globals_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "variables": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "default_rng_calls": 2,
+        "removed": "本组optional／StartupValues；其他延后承载保持LCI06。",
+        "static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -69643,7 +69669,8 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ]
     },
     {
@@ -69704,7 +69731,8 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ]
     },
     {
@@ -74588,7 +74616,8 @@
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ]
     },
     {
@@ -74597,7 +74626,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ]
     },
     {
@@ -74606,7 +74636,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ]
     },
     {
@@ -89778,7 +89809,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
     },
@@ -92207,7 +92239,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "boundary": "MC01-C3 private退出/诊断/信号/filter层交MSVC；三实际快速致命退出/数组终止保薄适配，四数组正文和全部业务callback/登记保持。接受_Exit诊断差异、库自身handler/stdio/异常生命周期，不称原体或完整SDK/业务运行等价。"
     },

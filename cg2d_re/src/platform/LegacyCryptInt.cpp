@@ -2,23 +2,11 @@
 
 #include "MainLoopDependencies.hpp"
 
-#include <array>
 #include <bit>
 #include <cstdlib>
 #include <new>
-#include <optional>
 
 namespace cg::platform {
-namespace {
-
-// 原CRT首项的两个独立对象：0x005939C8、0x005939D8；不与后续保护状态共享。
-std::array<std::optional<LegacyCryptInt>, 2>& BorrowStartupValuesStorage()
-{
-    static std::array<std::optional<LegacyCryptInt>, 2> storage;
-    return storage;
-}
-
-} // namespace
 
 std::uint32_t LegacyCryptInt::ToBits(std::int32_t value)
 {
@@ -33,20 +21,6 @@ std::int32_t LegacyCryptInt::FromBits(std::uint32_t value)
 std::uint32_t LegacyCryptInt::NextMask()
 {
     return ToBits(static_cast<std::int32_t>(NextRandom_53B4C9()));
-}
-
-// 原0x00401C10、0x00401C20；按5939C8→5939D8构造，中央启动顺序保持。
-LegacyCryptInt::StartupValues::StartupValues()
-{
-    BorrowStartupValuesStorage()[0].emplace();
-    BorrowStartupValuesStorage()[1].emplace();
-}
-
-// 原0x00401C50：原组逆序销毁，退出登记由MSVC承接。
-LegacyCryptInt::StartupValues::~StartupValues()
-{
-    BorrowStartupValuesStorage()[1].reset();
-    BorrowStartupValuesStorage()[0].reset();
 }
 
 // 原0x00401C70 sub_401C70@[0x401C70,0x401C92)：零值默认构造复用有值构造，RNG一次。

@@ -9723,23 +9723,18 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "gStartupValues"
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI07：原中央位置的两个直接定义按声明序默认构造，MSVC按逆序析构，不再保留StartupValues或optional。"
         },
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::StartupValues::StartupValues LegacyCryptInt::StartupValues::~LegacyCryptInt::StartupValues LegacyCryptInt::StartupValues::StartupValues LegacyCryptInt::StartupValues::~StartupValues"
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "include/cg/platform/LegacyCryptInt.hpp",
-          "symbols": [
-            "LegacyCryptInt::StartupValues"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "原401C70默认构造每值一次RNG，原401CF0析构只恢复token；全局生命周期由MSVC承接。"
         }
       ],
       "evidence_documents": [
@@ -9755,7 +9750,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
@@ -9769,7 +9765,7 @@
           "end_exclusive": "0x401c4c"
         }
       ],
-      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
+      "verification_level": "LCI07两个定义及其中央声明／RNG／逆序退出关系静态核对；原地址／历史取证保留，未构建、测试、运行、查产物或计算摘要。",
       "startup_crypt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x401C10",
@@ -9852,12 +9848,12 @@
         "original_slot": "0x553004",
         "original_target": "0x401C10",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StartupValues",
-        "current_initializer_variable": "gStartupValues",
-        "direct_call_symbol": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
+        "current_initializer_type": "LegacyCryptInt直接全局定义",
+        "current_initializer_variable": "gStartupValue5939C8 / gStartupValue5939D8",
+        "direct_call_symbol": "LegacyCryptInt::LegacyCryptInt()（编译器生成的全局初始化）",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
-        "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
         "binding_only": true,
         "original_body_reviewed_in_this_group": false,
@@ -9882,17 +9878,6 @@
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
       },
-      "lci01_current_native_lifecycle": {
-        "runtime_verified": false,
-        "destructor": "cg::platform::LegacyCryptInt::StartupValues::~StartupValues",
-        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "constructor": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
-        "startup_variable": "gStartupValues",
-        "build_verified": false,
-        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
-        "startup_source": "src/platform/LegacyMouse.cpp",
-        "static_source_checked": true
-      },
       "historical_native_sources_before_lci06": [
         {
           "path": "src/platform/LegacyMouse.cpp",
@@ -9916,17 +9901,98 @@
           "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
-      "native_lifecycle_lci06": {
-        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "source_implemented": true,
-        "raw_payload_bytes": 16,
-        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
-        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
-        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+      "historical_current_startup_binding_before_lci07": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "gStartupValues"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues::StartupValues LegacyCryptInt::StartupValues::~LegacyCryptInt::StartupValues LegacyCryptInt::StartupValues::StartupValues LegacyCryptInt::StartupValues::~StartupValues"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "include/cg/platform/LegacyCryptInt.hpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "active_initializer_order_binding": {
+          "original_table": "0x553000",
+          "original_slot": "0x553004",
+          "original_target": "0x401C10",
+          "current_source": "src/platform/LegacyMouse.cpp",
+          "current_initializer_type": "StartupValues",
+          "current_initializer_variable": "gStartupValues",
+          "direct_call_symbol": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
+          "expanded_leaf_symbol": null,
+          "current_scope": "active_application",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+          "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
+          "binding_only": true,
+          "original_body_reviewed_in_this_group": false,
+          "full_application_order_connected": false,
+          "runtime_verified": false
+        },
+        "lci01_current_native_lifecycle": {
+          "runtime_verified": false,
+          "destructor": "cg::platform::LegacyCryptInt::StartupValues::~StartupValues",
+          "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+          "constructor": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
+          "startup_variable": "gStartupValues",
+          "build_verified": false,
+          "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+          "startup_source": "src/platform/LegacyMouse.cpp",
+          "static_source_checked": true
+        },
+        "native_lifecycle_lci06": {
+          "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+          "source_implemented": true,
+          "raw_payload_bytes": 16,
+          "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+          "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+          "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+          "build_verified": false,
+          "runtime_verified": false,
+          "cryptint_default_construction_rng_calls": 1,
+          "cryptint_raw_construction_rng_calls": 0
+        }
+      },
+      "direct_global_lifecycle_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "definitions": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "construction_order": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "destruction_order": [
+          "gStartupValue5939D8",
+          "gStartupValue5939C8"
+        ],
+        "type": "cg::platform::LegacyCryptInt",
+        "original_objects": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "native_object_bytes": 16,
+        "definition_initialization": "同一中央翻译单元定义处默认构造，后续三个保护拥有者及世界表顺序保持。",
+        "rng_calls_per_object": 1,
+        "rng_calls_for_this_group": 2,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
         "build_verified": false,
-        "runtime_verified": false,
-        "cryptint_default_construction_rng_calls": 1,
-        "cryptint_raw_construction_rng_calls": 0
+        "runtime_verified": false
       }
     },
     {
@@ -26685,7 +26751,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "original_direct_reference_count": 62,
       "inbound_evidence": [
@@ -26940,83 +27007,12 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyCryptInt.cpp",
-          "symbols": [
-            "InitializeLegacyStartupValues_401C10"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbols": [
-            "InitializeLegacyProtectionChecksum1_404120",
-            "InitializeLegacyProtectionChecksum2_404160",
-            "InitializeLegacyProtectionProcessState_4041A0"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacySceneTransitionValue_456FD0"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "InitializeLegacyStallBrowsePetValues_4CD240"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyPlayerCoordinates_467B90",
-            "InitializeLegacyPlayerSnapshotX_467BF0",
-            "InitializeLegacyPlayerSnapshotY_467C30",
-            "InitializeLegacyWorldCoordinateState_467C70",
-            "InitializeLegacyWorldCoordinateState_467CB0",
-            "InitializeLegacyWorldCoordinatePair_467CF0",
-            "InitializeLegacyWorldMoveTargets_467D50",
-            "InitializeLegacyWorldMoveState_467DB0",
-            "InitializeLegacyWorldMoveState_467DF0",
-            "InitializeLegacyWorldMoveState_467E30",
-            "InitializeLegacyWorldMoveState_467E70",
-            "InitializeLegacyWorldMoveState_467EB0",
-            "InitializeLegacyRippleGate_467EF0"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "InitializeLegacyFirstItemSelector_4883F0",
-            "InitializeLegacySecondItemSelector_4998F0"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "InitializeLegacyMouseRuntime_506340"
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyPlayerRuntime_5183D0",
-            "InitializeLegacyPetRuntime_518520"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/world/WorldObjectState.cpp",
-          "symbols": [
-            "WorldObjectsStaticInitializer::WorldObjectsStaticInitializer"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI07两个值由MSVC全局对象寿命登记和退出；当前CPP不再有本组手写atexit或StartupValues包装调用。其他已退休消费者沿既有历史字段保存，本步不扩大CRT范围。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -27153,6 +27149,129 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "historical_current_startup_binding_before_lci07": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "InitializeLegacyStartupValues_401C10"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/platform/MainLoopSupport.cpp",
+            "symbols": [
+              "InitializeLegacyProtectionChecksum1_404120",
+              "InitializeLegacyProtectionChecksum2_404160",
+              "InitializeLegacyProtectionProcessState_4041A0"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "InitializeLegacySceneTransitionValue_456FD0"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeLegacyStallBrowsePetValues_4CD240"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "InitializeLegacyPlayerCoordinates_467B90",
+              "InitializeLegacyPlayerSnapshotX_467BF0",
+              "InitializeLegacyPlayerSnapshotY_467C30",
+              "InitializeLegacyWorldCoordinateState_467C70",
+              "InitializeLegacyWorldCoordinateState_467CB0",
+              "InitializeLegacyWorldCoordinatePair_467CF0",
+              "InitializeLegacyWorldMoveTargets_467D50",
+              "InitializeLegacyWorldMoveState_467DB0",
+              "InitializeLegacyWorldMoveState_467DF0",
+              "InitializeLegacyWorldMoveState_467E30",
+              "InitializeLegacyWorldMoveState_467E70",
+              "InitializeLegacyWorldMoveState_467EB0",
+              "InitializeLegacyRippleGate_467EF0"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "InitializeLegacyFirstItemSelector_4883F0",
+              "InitializeLegacySecondItemSelector_4998F0"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "InitializeLegacyMouseRuntime_506340"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbols": [
+              "InitializeLegacyPlayerRuntime_5183D0",
+              "InitializeLegacyPetRuntime_518520"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/world/WorldObjectState.cpp",
+            "symbols": [
+              "WorldObjectsStaticInitializer::WorldObjectsStaticInitializer"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "native_lifecycle_lci06": {
+          "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+          "source_implemented": true,
+          "raw_payload_bytes": 16,
+          "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+          "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+          "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+          "build_verified": false,
+          "runtime_verified": false,
+          "cryptint_default_construction_rng_calls": 1,
+          "cryptint_raw_construction_rng_calls": 0
+        }
+      },
+      "direct_global_lifecycle_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "definitions": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "construction_order": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "destruction_order": [
+          "gStartupValue5939D8",
+          "gStartupValue5939C8"
+        ],
+        "type": "cg::platform::LegacyCryptInt",
+        "original_objects": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "native_object_bytes": 16,
+        "definition_initialization": "同一中央翻译单元定义处默认构造，后续三个保护拥有者及世界表顺序保持。",
+        "rng_calls_per_object": 1,
+        "rng_calls_for_this_group": 2,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -29092,7 +29211,8 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
       "verification_level": "当前源/消费者/类型/关闭/SDK声明限定静态核对；原证据保持，未编译/运行",
@@ -29504,14 +29624,22 @@
         {
           "reference_site": "0x553004",
           "target_entry": "0x401C10",
-          "target_symbol": "cg::platform::LegacyCryptInt::InitializeLegacyStartupValues_401C10",
-          "source": "src/platform/LegacyCryptInt.cpp",
-          "source_body_implemented": true,
+          "source": "src/platform/LegacyMouse.cpp",
+          "current_symbols": [
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
+          ],
+          "source_body_implemented": false,
+          "direct_global_definitions_implemented": true,
           "native_table_defined": false,
-          "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
-          "host_exit_registration": "std::atexit",
+          "host_exit_registration": "MSVC全局对象生命周期",
           "module_adapter_source": "src/platform/LegacyMouse.cpp",
-          "module_adapter_symbol": "gStartupProtectionValuesStartup"
+          "module_adapter_symbols": [
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
+          ],
+          "relationship": "LCI07两全局值在原中央位置按声明正序默认构造／逆序析构，随后三个保护拥有者保持；不建立原机器CRT表，完整SDK／运行未验。",
+          "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
         },
         {
           "reference_site": "0x553008",
@@ -31074,6 +31202,116 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "historical_current_startup_binding_before_lci07": {
+        "sources": [
+          {
+            "path": "src/platform/ClientEntry.cpp",
+            "symbols": [
+              "WinMain"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "src/platform/LegacyMouse.cpp",
+            "symbols": [
+              "gSurfaceTransformCacheStartup",
+              "gGraphicInfoContainersStartup",
+              "gIndependentPaletteContainersStartup"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "native_lifecycle_lci06": {
+          "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+          "source_implemented": true,
+          "raw_payload_bytes": 16,
+          "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+          "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+          "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+          "build_verified": false,
+          "runtime_verified": false,
+          "cryptint_default_construction_rng_calls": 1,
+          "cryptint_raw_construction_rng_calls": 0
+        },
+        "startup_crypt_cpp_initialization_bindings": [
+          {
+            "reference_site": "0x553004",
+            "target_entry": "0x401C10",
+            "target_symbol": "cg::platform::LegacyCryptInt::InitializeLegacyStartupValues_401C10",
+            "source": "src/platform/LegacyCryptInt.cpp",
+            "source_body_implemented": true,
+            "native_table_defined": false,
+            "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+            "host_exit_registration": "std::atexit",
+            "module_adapter_source": "src/platform/LegacyMouse.cpp",
+            "module_adapter_symbol": "gStartupProtectionValuesStartup"
+          },
+          {
+            "reference_site": "0x553008",
+            "target_entry": "0x404120",
+            "target_symbol": "cg::platform::InitializeLegacyProtectionChecksum1_404120",
+            "source": "src/platform/MainLoopSupport.cpp",
+            "source_body_implemented": true,
+            "native_table_defined": false,
+            "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+            "host_exit_registration": "std::atexit",
+            "module_adapter_source": "src/platform/LegacyMouse.cpp",
+            "module_adapter_symbol": "gStartupProtectionValuesStartup"
+          },
+          {
+            "reference_site": "0x55300C",
+            "target_entry": "0x404160",
+            "target_symbol": "cg::platform::InitializeLegacyProtectionChecksum2_404160",
+            "source": "src/platform/MainLoopSupport.cpp",
+            "source_body_implemented": true,
+            "native_table_defined": false,
+            "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+            "host_exit_registration": "std::atexit",
+            "module_adapter_source": "src/platform/LegacyMouse.cpp",
+            "module_adapter_symbol": "gStartupProtectionValuesStartup"
+          },
+          {
+            "reference_site": "0x553010",
+            "target_entry": "0x4041A0",
+            "target_symbol": "cg::platform::InitializeLegacyProtectionProcessState_4041A0",
+            "source": "src/platform/MainLoopSupport.cpp",
+            "source_body_implemented": true,
+            "native_table_defined": false,
+            "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+            "host_exit_registration": "std::atexit",
+            "module_adapter_source": "src/platform/LegacyMouse.cpp",
+            "module_adapter_symbol": "gStartupProtectionValuesStartup"
+          }
+        ]
+      },
+      "direct_global_lifecycle_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "definitions": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "construction_order": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "destruction_order": [
+          "gStartupValue5939D8",
+          "gStartupValue5939C8"
+        ],
+        "type": "cg::platform::LegacyCryptInt",
+        "original_objects": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "native_object_bytes": 16,
+        "definition_initialization": "同一中央翻译单元定义处默认构造，后续三个保护拥有者及世界表顺序保持。",
+        "rng_calls_per_object": 1,
+        "rng_calls_for_this_group": 2,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -141445,20 +141683,20 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyCryptInt.cpp",
+          "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "LegacyCryptInt::StartupValues::StartupValues",
-            "BorrowStartupValuesStorage()[0]",
-            "BorrowStartupValuesStorage()[1]"
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI07：原中央位置的两个直接定义按声明序默认构造，MSVC按逆序析构，不再保留StartupValues或optional。"
         },
         {
-          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::StartupValues::StartupValues"
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "原401C70默认构造每值一次RNG，原401CF0析构只恢复token；全局生命周期由MSVC承接。"
         }
       ],
       "evidence_documents": [
@@ -141466,48 +141704,29 @@
         "doc/cg2d_startup_protection_lifecycle_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
-      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "verification_level": "LCI07两个定义及其中央声明／RNG／逆序退出关系静态核对；原地址／历史取证保留，未构建、测试、运行、查产物或计算摘要。",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
       "native_storage": {
         "type": "LegacyCryptInt",
-        "source": "src/platform/LegacyCryptInt.cpp",
+        "source": "src/platform/LegacyMouse.cpp",
         "original_object_addresses": [
           "0x5939C8",
           "0x5939D8"
         ],
         "source_symbols": [
-          "BorrowStartupValuesStorage()[0]",
-          "BorrowStartupValuesStorage()[1]"
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
         ],
         "original_object_bytes": 16,
         "native_object_bytes": 16,
-        "storage_changed": false,
-        "owns_other_objects": false
+        "storage_changed": true,
+        "owns_other_objects": false,
+        "same_original_object_identity": true
       },
-      "internal_call_connections": [
-        {
-          "parent_entry": "0x401C20",
-          "call_site": "0x401C25",
-          "target_entry": "0x401C70",
-          "target_symbol": "LegacyCryptInt::LegacyCryptInt()",
-          "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "LegacyCryptInt::StartupValues::StartupValues",
-          "arguments": "&BorrowStartupValuesStorage()[0]；原固定0x5939C8",
-          "relationship": "固定owner正序真实构造，不增加RNG调用"
-        },
-        {
-          "parent_entry": "0x401C20",
-          "call_site": "0x401C2F",
-          "target_entry": "0x401C70",
-          "target_symbol": "LegacyCryptInt::LegacyCryptInt()",
-          "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "LegacyCryptInt::StartupValues::StartupValues",
-          "arguments": "&BorrowStartupValuesStorage()[1]；原固定0x5939D8",
-          "relationship": "固定owner正序真实构造，不增加RNG调用"
-        }
-      ],
+      "internal_call_connections": [],
       "startup_protection_lifecycle_contract": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
@@ -141558,17 +141777,103 @@
           "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
         }
       ],
-      "native_lifecycle_lci06": {
-        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "source_implemented": true,
-        "raw_payload_bytes": 16,
-        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
-        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
-        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+      "historical_current_startup_binding_before_lci07": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues::StartupValues",
+              "BorrowStartupValuesStorage()[0]",
+              "BorrowStartupValuesStorage()[1]"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "include/cg/platform/LegacyCryptInt.hpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues::StartupValues"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "native_storage": {
+          "type": "LegacyCryptInt",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "original_object_addresses": [
+            "0x5939C8",
+            "0x5939D8"
+          ],
+          "source_symbols": [
+            "BorrowStartupValuesStorage()[0]",
+            "BorrowStartupValuesStorage()[1]"
+          ],
+          "original_object_bytes": 16,
+          "native_object_bytes": 16,
+          "storage_changed": false,
+          "owns_other_objects": false
+        },
+        "internal_call_connections": [
+          {
+            "parent_entry": "0x401C20",
+            "call_site": "0x401C25",
+            "target_entry": "0x401C70",
+            "target_symbol": "LegacyCryptInt::LegacyCryptInt()",
+            "source": "src/platform/LegacyCryptInt.cpp",
+            "symbol": "LegacyCryptInt::StartupValues::StartupValues",
+            "arguments": "&BorrowStartupValuesStorage()[0]；原固定0x5939C8",
+            "relationship": "固定owner正序真实构造，不增加RNG调用"
+          },
+          {
+            "parent_entry": "0x401C20",
+            "call_site": "0x401C2F",
+            "target_entry": "0x401C70",
+            "target_symbol": "LegacyCryptInt::LegacyCryptInt()",
+            "source": "src/platform/LegacyCryptInt.cpp",
+            "symbol": "LegacyCryptInt::StartupValues::StartupValues",
+            "arguments": "&BorrowStartupValuesStorage()[1]；原固定0x5939D8",
+            "relationship": "固定owner正序真实构造，不增加RNG调用"
+          }
+        ],
+        "native_lifecycle_lci06": {
+          "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+          "source_implemented": true,
+          "raw_payload_bytes": 16,
+          "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+          "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+          "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+          "build_verified": false,
+          "runtime_verified": false,
+          "cryptint_default_construction_rng_calls": 1,
+          "cryptint_raw_construction_rng_calls": 0
+        }
+      },
+      "direct_global_lifecycle_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "definitions": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "construction_order": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "destruction_order": [
+          "gStartupValue5939D8",
+          "gStartupValue5939C8"
+        ],
+        "type": "cg::platform::LegacyCryptInt",
+        "original_objects": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "native_object_bytes": 16,
+        "definition_initialization": "同一中央翻译单元定义处默认构造，后续三个保护拥有者及世界表顺序保持。",
+        "rng_calls_per_object": 1,
+        "rng_calls_for_this_group": 2,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
         "build_verified": false,
-        "runtime_verified": false,
-        "cryptint_default_construction_rng_calls": 1,
-        "cryptint_raw_construction_rng_calls": 0
+        "runtime_verified": false
       }
     },
     {
@@ -141594,20 +141899,20 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyCryptInt.cpp",
+          "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "LegacyCryptInt::StartupValues::~StartupValues",
-            "BorrowStartupValuesStorage()[0]",
-            "BorrowStartupValuesStorage()[1]"
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI07：原中央位置的两个直接定义按声明序默认构造，MSVC按逆序析构，不再保留StartupValues或optional。"
         },
         {
-          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::StartupValues::~StartupValues"
+            "LegacyCryptInt::LegacyCryptInt()",
+            "LegacyCryptInt::~LegacyCryptInt"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "原401C70默认构造每值一次RNG，原401CF0析构只恢复token；全局生命周期由MSVC承接。"
         }
       ],
       "evidence_documents": [
@@ -141615,48 +141920,29 @@
         "doc/cg2d_startup_protection_lifecycle_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition"
       ],
-      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "verification_level": "LCI07两个定义及其中央声明／RNG／逆序退出关系静态核对；原地址／历史取证保留，未构建、测试、运行、查产物或计算摘要。",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
       "native_storage": {
         "type": "LegacyCryptInt",
-        "source": "src/platform/LegacyCryptInt.cpp",
+        "source": "src/platform/LegacyMouse.cpp",
         "original_object_addresses": [
           "0x5939C8",
           "0x5939D8"
         ],
         "source_symbols": [
-          "BorrowStartupValuesStorage()[0]",
-          "BorrowStartupValuesStorage()[1]"
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
         ],
         "original_object_bytes": 16,
         "native_object_bytes": 16,
-        "storage_changed": false,
-        "owns_other_objects": false
+        "storage_changed": true,
+        "owns_other_objects": false,
+        "same_original_object_identity": true
       },
-      "internal_call_connections": [
-        {
-          "parent_entry": "0x401C50",
-          "call_site": "0x401C55",
-          "target_entry": "0x401CF0",
-          "target_symbol": "LegacyCryptInt::~LegacyCryptInt",
-          "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "LegacyCryptInt::StartupValues::~StartupValues",
-          "arguments": "&BorrowStartupValuesStorage()[1]；原固定0x5939D8",
-          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
-        },
-        {
-          "parent_entry": "0x401C50",
-          "call_site": "0x401C5F",
-          "target_entry": "0x401CF0",
-          "target_symbol": "LegacyCryptInt::~LegacyCryptInt",
-          "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "LegacyCryptInt::StartupValues::~StartupValues",
-          "arguments": "&BorrowStartupValuesStorage()[0]；原固定0x5939C8",
-          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
-        }
-      ],
+      "internal_call_connections": [],
       "startup_protection_lifecycle_contract": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
@@ -141707,17 +141993,103 @@
           "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
         }
       ],
-      "native_lifecycle_lci06": {
-        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "source_implemented": true,
-        "raw_payload_bytes": 16,
-        "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
-        "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
-        "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+      "historical_current_startup_binding_before_lci07": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues::~StartupValues",
+              "BorrowStartupValuesStorage()[0]",
+              "BorrowStartupValuesStorage()[1]"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "include/cg/platform/LegacyCryptInt.hpp",
+            "symbols": [
+              "LegacyCryptInt::StartupValues::~StartupValues"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "native_storage": {
+          "type": "LegacyCryptInt",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "original_object_addresses": [
+            "0x5939C8",
+            "0x5939D8"
+          ],
+          "source_symbols": [
+            "BorrowStartupValuesStorage()[0]",
+            "BorrowStartupValuesStorage()[1]"
+          ],
+          "original_object_bytes": 16,
+          "native_object_bytes": 16,
+          "storage_changed": false,
+          "owns_other_objects": false
+        },
+        "internal_call_connections": [
+          {
+            "parent_entry": "0x401C50",
+            "call_site": "0x401C55",
+            "target_entry": "0x401CF0",
+            "target_symbol": "LegacyCryptInt::~LegacyCryptInt",
+            "source": "src/platform/LegacyCryptInt.cpp",
+            "symbol": "LegacyCryptInt::StartupValues::~StartupValues",
+            "arguments": "&BorrowStartupValuesStorage()[1]；原固定0x5939D8",
+            "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+          },
+          {
+            "parent_entry": "0x401C50",
+            "call_site": "0x401C5F",
+            "target_entry": "0x401CF0",
+            "target_symbol": "LegacyCryptInt::~LegacyCryptInt",
+            "source": "src/platform/LegacyCryptInt.cpp",
+            "symbol": "LegacyCryptInt::StartupValues::~StartupValues",
+            "arguments": "&BorrowStartupValuesStorage()[0]；原固定0x5939C8",
+            "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+          }
+        ],
+        "native_lifecycle_lci06": {
+          "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+          "source_implemented": true,
+          "raw_payload_bytes": 16,
+          "delayed_storage": "同一函数内静态std::optional，只在中央原位置emplace；原清理位置reset，空容器后退场，不重复析构。",
+          "ownership": "成员／数组按原声明序构造，原生逆序销毁；旧手工循环／签名适配退休，其他CRT helper正文无新增消费者。",
+          "abi": "原构造this返回／flags／退出登记结果保留为历史事实，当前采用C++原生接口；机器ABI／SEH／完整退出与运行不宣称等价。",
+          "build_verified": false,
+          "runtime_verified": false,
+          "cryptint_default_construction_rng_calls": 1,
+          "cryptint_raw_construction_rng_calls": 0
+        }
+      },
+      "direct_global_lifecycle_lci07": {
+        "source": "src/platform/LegacyMouse.cpp",
+        "definitions": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "construction_order": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "destruction_order": [
+          "gStartupValue5939D8",
+          "gStartupValue5939C8"
+        ],
+        "type": "cg::platform::LegacyCryptInt",
+        "original_objects": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "native_object_bytes": 16,
+        "definition_initialization": "同一中央翻译单元定义处默认构造，后续三个保护拥有者及世界表顺序保持。",
+        "rng_calls_per_object": 1,
+        "rng_calls_for_this_group": 2,
+        "wrapper_and_optional_removed": true,
+        "static_source_checked": true,
         "build_verified": false,
-        "runtime_verified": false,
-        "cryptint_default_construction_rng_calls": 1,
-        "cryptint_raw_construction_rng_calls": 0
+        "runtime_verified": false
       }
     },
     {

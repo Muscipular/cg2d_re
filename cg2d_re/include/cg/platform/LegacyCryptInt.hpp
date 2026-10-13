@@ -79,9 +79,6 @@ public:
     // 原0x00401FA0：右对象单读，S32 lhs<rhs覆盖AL，高24位保留读取值。
     std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs);
 
-    // 首项启动组的拥有者；类型本身不增加CryptInt载荷。
-    class StartupValues;
-
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
@@ -108,17 +105,5 @@ static_assert(offsetof(LegacyCryptInt, readCount) == 0x0C);
 static_assert(offsetof(LegacyCryptInt, reserved) == 0x0D);
 
 inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
-
-// 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
-// 对应原553004；本类构造／析构沿同一存储，退出登记由MSVC承接。
-// 原函数：0x00401C10。
-class LegacyCryptInt::StartupValues final {
-public:
-    // 原函数：0x00401C10；只接管同组原始载荷的启动寿命。
-    StartupValues();
-    ~StartupValues();
-    StartupValues(const StartupValues&) = delete;
-    StartupValues& operator=(const StartupValues&) = delete;
-};
 
 } // namespace cg::platform

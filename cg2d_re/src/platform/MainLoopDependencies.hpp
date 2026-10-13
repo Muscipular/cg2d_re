@@ -33,24 +33,48 @@ using cg::network::NetworkLoop_507DF0;
 // 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。
 
-// 原CRT 553008/55300C/553010；各自独立登记退出，复用保护逻辑的唯一状态。
-// 原553008入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
+// 原CRT 553008/55300C/553010；三个拥有者独立构析，复用保护逻辑的唯一状态。
+// 对应原553008；本类构造／析构沿同一存储，退出登记由MSVC承接。
 // 原函数：0x00404120。
-std::int32_t InitializeLegacyProtectionChecksum1_404120();
+class ProtectionChecksum1Startup final {
+public:
+    // 原函数：0x00404120；只接管同组原始载荷的启动寿命。
+    ProtectionChecksum1Startup();
+    ~ProtectionChecksum1Startup();
+    ProtectionChecksum1Startup(const ProtectionChecksum1Startup&) = delete;
+    ProtectionChecksum1Startup& operator=(const ProtectionChecksum1Startup&) = delete;
+};
+
 // 原函数：0x00404130。
 void ConstructProtectionChecksum1_404130(); // 原594070。
 // 原函数：0x00404150。
 void DestroyProtectionChecksum1_404150();
-// 原55300C入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
+// 对应原55300C；本类构造／析构沿同一存储，退出登记由MSVC承接。
 // 原函数：0x00404160。
-std::int32_t InitializeLegacyProtectionChecksum2_404160();
+class ProtectionChecksum2Startup final {
+public:
+    // 原函数：0x00404160；只接管同组原始载荷的启动寿命。
+    ProtectionChecksum2Startup();
+    ~ProtectionChecksum2Startup();
+    ProtectionChecksum2Startup(const ProtectionChecksum2Startup&) = delete;
+    ProtectionChecksum2Startup& operator=(const ProtectionChecksum2Startup&) = delete;
+};
+
 // 原函数：0x00404170。
 void ConstructProtectionChecksum2_404170(); // 原594080。
 // 原函数：0x00404190。
 void DestroyProtectionChecksum2_404190();
-// 原553010入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
+// 对应原553010；本类构造／析构沿同一存储，退出登记由MSVC承接。
 // 原函数：0x004041A0。
-std::int32_t InitializeLegacyProtectionProcessState_4041A0();
+class ProtectionProcessStateStartup final {
+public:
+    // 原函数：0x004041A0；只接管同组原始载荷的启动寿命。
+    ProtectionProcessStateStartup();
+    ~ProtectionProcessStateStartup();
+    ProtectionProcessStateStartup(const ProtectionProcessStateStartup&) = delete;
+    ProtectionProcessStateStartup& operator=(const ProtectionProcessStateStartup&) = delete;
+};
+
 // 原函数：0x004041B0。
 void ConstructProtectionProcessState_4041B0(); // 原59E548。
 // 原函数：0x004041D0。

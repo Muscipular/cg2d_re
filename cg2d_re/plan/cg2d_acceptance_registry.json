@@ -99,6 +99,8 @@
       "domain": "STARTUP",
       "scope": "included",
       "baseline_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_client_shutdown.md",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
@@ -278,6 +280,7 @@
       ],
       "acceptance_focus": "初始化/退出顺序、唯一构析与失败清理",
       "decision_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
@@ -380,6 +383,8 @@
       "domain": "CRT",
       "scope": "included",
       "baseline_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_crt_runtime_boundary_spec.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_memory_contract.md",
@@ -1068,6 +1073,7 @@
       "dependencies": [],
       "acceptance_focus": "分配域配对、文件/格式可见结果、异常映射和正常失败",
       "decision_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
@@ -74544,6 +74550,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
@@ -74568,6 +74575,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
@@ -74592,6 +74600,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
@@ -74616,6 +74625,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
@@ -74648,6 +74658,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74656,6 +74667,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74664,6 +74676,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74672,6 +74685,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74680,6 +74694,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74688,6 +74703,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74696,6 +74712,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74704,6 +74721,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74712,6 +74730,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74720,6 +74739,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74728,6 +74748,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74736,6 +74757,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74744,6 +74766,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74752,6 +74775,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74760,6 +74784,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74768,6 +74793,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
@@ -74784,6 +74810,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     },
@@ -74792,6 +74819,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     },
@@ -74800,6 +74828,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     },
@@ -74808,6 +74837,7 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ]

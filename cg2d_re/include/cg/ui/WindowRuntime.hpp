@@ -56,16 +56,37 @@ void InitializeLegacyNumberSpacing_477160();
 // WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x00477170。
 void InitializeNumberSpacing_477170(); // 477160尾跳的四种数字图片步进业务初始化。
-// 原CRT 55309C/5530A0：每项构造后独立登记退出；登记失败仍继续，不释放静态预览。
-// 原CRT 55309C/5530A0两独立选择器入口，各自构造后宿主即时登记固定内嵌预览退出，传出真实S32。
+// 原CRT 55309C/5530A0：两个拥有者独立构析，不释放静态预览。
+// 各组退出仍清理固定内嵌预览，原登记失败／异常规则沿LCI01由MSVC承接。
 // 原函数：0x004883F0。
-std::int32_t InitializeLegacyFirstItemSelector_4883F0(); // 原CF3B10及其内嵌预览。
+class FirstItemSelectorStartup final {
+public:
+    // 原函数：0x004883F0；只接管同组原始载荷的启动寿命。
+    FirstItemSelectorStartup();
+    ~FirstItemSelectorStartup();
+    FirstItemSelectorStartup(const FirstItemSelectorStartup&) = delete;
+    FirstItemSelectorStartup& operator=(const FirstItemSelectorStartup&) = delete;
+};
+
 // 原函数：0x004998F0。
-std::int32_t InitializeLegacySecondItemSelector_4998F0(); // 原D2F338及其内嵌预览。
-void InitializeItemSelectors();
-// 原CRT 5530A4入口先构造后宿主std::atexit即时登记同一退出，传出真实S32；全应用序待。
+class SecondItemSelectorStartup final {
+public:
+    // 原函数：0x004998F0；只接管同组原始载荷的启动寿命。
+    SecondItemSelectorStartup();
+    ~SecondItemSelectorStartup();
+    SecondItemSelectorStartup(const SecondItemSelectorStartup&) = delete;
+    SecondItemSelectorStartup& operator=(const SecondItemSelectorStartup&) = delete;
+};
+// 对应原CRT 5530A4；浏览宠物拥有者接管同组构析。
 // 原函数：0x004CD240。
-std::int32_t InitializeLegacyStallBrowsePetValues_4CD240();
+class StallBrowsePetValuesStartup final {
+public:
+    // 原函数：0x004CD240；只接管同组原始载荷的启动寿命。
+    StallBrowsePetValuesStartup();
+    ~StallBrowsePetValuesStartup();
+    StallBrowsePetValuesStartup(const StallBrowsePetValuesStartup&) = delete;
+    StallBrowsePetValuesStartup& operator=(const StallBrowsePetValuesStartup&) = delete;
+};
 void ConstructStallBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
 void DestroyStallBrowsePetValues(); // 原4CD270退出链，记录与成员都逆序，不释放浏览区。
 // WDP01：完整分发与字段取样合同，见doc/cg2d_window_element_draw_pipeline_spec.md。

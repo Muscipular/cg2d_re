@@ -28,20 +28,18 @@ std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
 namespace {
 
-// 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。
-// 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。
-struct StartupProtectionValuesStartup final {
-    StartupProtectionValuesStartup()
-    {
-        static_cast<void>(legacy_crypt_int::InitializeLegacyStartupValues_401C10());
-        static_cast<void>(InitializeLegacyProtectionChecksum1_404120());
-        static_cast<void>(InitializeLegacyProtectionChecksum2_404160());
-        static_cast<void>(InitializeLegacyProtectionProcessState_4041A0());
-    }
-};
-static_assert(std::is_trivially_destructible_v<StartupProtectionValuesStartup>);
+// 原CRT553004..553010：四个原生启动拥有者保持五对象构造／逆序退出与RNG序。
+// 原函数：0x00401C10；同一中央位置构造，MSVC按完成逆序析构。
+const cg::platform::legacy_crypt_int::StartupValues gStartupValues;
 
-const StartupProtectionValuesStartup gStartupProtectionValuesStartup;
+// 原函数：0x00404120；同一中央位置构造，MSVC按完成逆序析构。
+const cg::platform::ProtectionChecksum1Startup gProtectionChecksum1Startup;
+
+// 原函数：0x00404160；同一中央位置构造，MSVC按完成逆序析构。
+const cg::platform::ProtectionChecksum2Startup gProtectionChecksum2Startup;
+
+// 原函数：0x004041A0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::platform::ProtectionProcessStateStartup gProtectionProcessStateStartup;
 
 struct WorldObjectsStaticInitializer final {
     WorldObjectsStaticInitializer()
@@ -190,15 +188,8 @@ struct LegacyUi455490StaticInitializer {
 const LegacyUi455490StaticInitializer gLegacyUi455490StaticInitializer;
 
 // 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
-struct SceneTransitionValueStaticInitializer final {
-    SceneTransitionValueStaticInitializer()
-    {
-        static_cast<void>(cg::world::InitializeLegacySceneTransitionValue_456FD0());
-    }
-};
-static_assert(std::is_trivially_destructible_v<SceneTransitionValueStaticInitializer>);
-
-const SceneTransitionValueStaticInitializer gSceneTransitionValueStaticInitializer;
+// 原函数：0x00456FD0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::SceneTransitionValueStartup gSceneTransitionValueStartup;
 
 // AIS01原553058/55305C：场景值后、动画共享值前；各项仍即时登记。
 struct GraphicInfoContainersStartup final {
@@ -223,41 +214,44 @@ struct AnimationSharedValueStaticInitializer {
 
 const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
 
-struct PlayerCoordinatesStaticInitializer {
-    PlayerCoordinatesStaticInitializer()
-    {
-        cg::world::InitializePlayerCoordinates();
-    }
-};
+// 原函数：0x00467B90；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::PlayerCoordinatesStartup gPlayerCoordinatesStartup;
 
-const PlayerCoordinatesStaticInitializer gPlayerCoordinatesStaticInitializer;
+// 原函数：0x00467BF0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::PlayerSnapshotXStartup gPlayerSnapshotXStartup;
 
-struct WorldCoordinateStatesStaticInitializer {
-    WorldCoordinateStatesStaticInitializer()
-    {
-        cg::world::InitializeWorldCoordinateStates();
-    }
-};
+// 原函数：0x00467C30；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::PlayerSnapshotYStartup gPlayerSnapshotYStartup;
 
-const WorldCoordinateStatesStaticInitializer gWorldCoordinateStatesStaticInitializer;
+// 原函数：0x00467C70；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldCoordinateState9EE8D0Startup gWorldCoordinateState9EE8D0Startup;
 
-struct WorldMoveStatesStaticInitializer {
-    WorldMoveStatesStaticInitializer()
-    {
-        cg::world::InitializeWorldMoveStates();
-    }
-};
+// 原函数：0x00467CB0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldCoordinateState9EE8E0Startup gWorldCoordinateState9EE8E0Startup;
 
-const WorldMoveStatesStaticInitializer gWorldMoveStatesStaticInitializer;
+// 原函数：0x00467CF0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldCoordinatePairStartup gWorldCoordinatePairStartup;
 
-struct RippleGateStaticInitializer {
-    RippleGateStaticInitializer()
-    {
-        cg::world::InitializeRippleGate();
-    }
-};
+// 原函数：0x00467D50；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveTargetsStartup gWorldMoveTargetsStartup;
 
-const RippleGateStaticInitializer gRippleGateStaticInitializer;
+// 原函数：0x00467DB0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveStateC821E8Startup gWorldMoveStateC821E8Startup;
+
+// 原函数：0x00467DF0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveState9E03C0Startup gWorldMoveState9E03C0Startup;
+
+// 原函数：0x00467E30；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveState9FB918Startup gWorldMoveState9FB918Startup;
+
+// 原函数：0x00467E70；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveStateAF0FE8Startup gWorldMoveStateAF0FE8Startup;
+
+// 原函数：0x00467EB0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::WorldMoveStateC821D8Startup gWorldMoveStateC821D8Startup;
+
+// 原函数：0x00467EF0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::RippleGateStartup gRippleGateStartup;
 
 // 原CRT 553098紧接553094 Ripple；不增加RNG调用或析构步骤。
 struct WindowNumberSpacingStaticInitializer {
@@ -269,26 +263,16 @@ struct WindowNumberSpacingStaticInitializer {
 
 const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInitializer;
 
-// 原55309C/5530A0相邻，两对象各十CryptInt；每项构造后独立登记退出。
-struct ItemSelectorsStaticInitializer {
-    ItemSelectorsStaticInitializer()
-    {
-        cg::ui::InitializeItemSelectors();
-    }
-};
+// 原55309C/5530A0相邻，两对象各十CryptInt；各自构造／析构。
+// 原函数：0x004883F0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::ui::FirstItemSelectorStartup gFirstItemSelectorStartup;
 
-const ItemSelectorsStaticInitializer gItemSelectorsStaticInitializer;
+// 原函数：0x004998F0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::ui::SecondItemSelectorStartup gSecondItemSelectorStartup;
 
-// 原CRT 5530A4；成功构造后才登记析构，浏览区不与玩家宠物共享。
-struct StallBrowsePetsStaticInitializer final {
-    StallBrowsePetsStaticInitializer()
-    {
-        static_cast<void>(cg::ui::InitializeLegacyStallBrowsePetValues_4CD240());
-    }
-};
-static_assert(std::is_trivially_destructible_v<StallBrowsePetsStaticInitializer>);
-
-const StallBrowsePetsStaticInitializer gStallBrowsePetsStaticInitializer;
+// 原CRT 5530A4；浏览宠物拥有者接管构析，不与玩家宠物共享。
+// 原函数：0x004CD240；同一中央位置构造，MSVC按完成逆序析构。
+const cg::ui::StallBrowsePetValuesStartup gStallBrowsePetValuesStartup;
 
 // 原CRT 5530A8；文字记录持有真实回调，不引入额外析构或RNG消费。
 struct LegacySettingsMenuStaticInitializer {
@@ -390,36 +374,15 @@ struct LegacyBottomBarStaticInitializer {
 
 const LegacyBottomBarStaticInitializer gLegacyBottomBarStaticInitializer;
 
-struct LegacyMouseStaticInitializer final {
-    LegacyMouseStaticInitializer()
-    {
-        static_cast<void>(cg::platform::InitializeLegacyMouseRuntime_506340());
-    }
-};
-static_assert(std::is_trivially_destructible_v<LegacyMouseStaticInitializer>);
-
-const LegacyMouseStaticInitializer gLegacyMouseStaticInitializer;
+// 原函数：0x00506340；同一中央位置构造，MSVC按完成逆序析构。
+const cg::platform::MouseRuntimeStartup gMouseRuntimeStartup;
 
 // 原CRT表5530FC/553100紧接鼠标5530F8，退出按声明逆序。
-struct PlayerRuntimeValuesStaticInitializer final {
-    PlayerRuntimeValuesStaticInitializer()
-    {
-        static_cast<void>(cg::world::InitializeLegacyPlayerRuntime_5183D0());
-    }
-};
-static_assert(std::is_trivially_destructible_v<PlayerRuntimeValuesStaticInitializer>);
+// 原函数：0x005183D0；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::PlayerRuntimeValuesStartup gPlayerRuntimeValuesStartup;
 
-const PlayerRuntimeValuesStaticInitializer gPlayerRuntimeValuesStaticInitializer;
-
-struct PetRuntimeValuesStaticInitializer final {
-    PetRuntimeValuesStaticInitializer()
-    {
-        static_cast<void>(cg::world::InitializeLegacyPetRuntime_518520());
-    }
-};
-static_assert(std::is_trivially_destructible_v<PetRuntimeValuesStaticInitializer>);
-
-const PetRuntimeValuesStaticInitializer gPetRuntimeValuesStaticInitializer;
+// 原函数：0x00518520；同一中央位置构造，MSVC按完成逆序析构。
+const cg::world::PetRuntimeValuesStartup gPetRuntimeValuesStartup;
 
 // AIS01原553104/553108：主/宠物后，旧键盘排除项前，不混入待接标准流。
 struct IndependentPaletteContainersStartup final {
@@ -511,12 +474,16 @@ void ReleaseLegacyMouseRuntimeAtExit_506370()
 
 } // namespace
 
-// 原CRT 5530F8：构造后原整体退出登记，完整S32透传。
-// 原函数：0x00506340。
-std::int32_t InitializeLegacyMouseRuntime_506340()
+// 原函数：0x00506340；LCI01启动拥有者替代CRT构造／退出登记。
+MouseRuntimeStartup::MouseRuntimeStartup()
 {
     ConstructLegacyMouseRuntime_506350();
-    return std::atexit(ReleaseLegacyMouseRuntimeAtExit_506370);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+MouseRuntimeStartup::~MouseRuntimeStartup()
+{
+    ReleaseLegacyMouseRuntimeAtExit_506370();
 }
 
 // 原函数：0x00506870。

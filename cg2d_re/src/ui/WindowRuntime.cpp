@@ -46035,33 +46035,40 @@ void ReleaseLegacySecondItemSelectorAtExit_499920()
 
 } // namespace
 
-// 原CRT 55309C：先本项构造，再真实登记整体无参退出，完整S32透传。
-// 原函数：0x004883F0。
-std::int32_t InitializeLegacyFirstItemSelector_4883F0()
+// 原函数：0x004883F0；LCI01启动拥有者替代CRT构造／退出登记。
+FirstItemSelectorStartup::FirstItemSelectorStartup()
 {
     ConstructLegacyFirstItemSelector_488400();
-    return std::atexit(ReleaseLegacyFirstItemSelectorAtExit_488420);
 }
 
-// 原CRT 5530A0：先本项构造，再真实登记整体无参退出，完整S32透传。
-// 原函数：0x004998F0。
-std::int32_t InitializeLegacySecondItemSelector_4998F0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+FirstItemSelectorStartup::~FirstItemSelectorStartup()
+{
+    ReleaseLegacyFirstItemSelectorAtExit_488420();
+}
+
+// 原函数：0x004998F0；LCI01启动拥有者替代CRT构造／退出登记。
+SecondItemSelectorStartup::SecondItemSelectorStartup()
 {
     ConstructLegacySecondItemSelector_499900();
-    return std::atexit(ReleaseLegacySecondItemSelectorAtExit_499920);
 }
 
-void InitializeItemSelectors()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+SecondItemSelectorStartup::~SecondItemSelectorStartup()
 {
-    static_cast<void>(InitializeLegacyFirstItemSelector_4883F0());
-    static_cast<void>(InitializeLegacySecondItemSelector_4998F0());
+    ReleaseLegacySecondItemSelectorAtExit_499920();
 }
 
-// 原函数：0x004CD240。
-std::int32_t InitializeLegacyStallBrowsePetValues_4CD240()
+// 原函数：0x004CD240；LCI01启动拥有者替代CRT构造／退出登记。
+StallBrowsePetValuesStartup::StallBrowsePetValuesStartup()
 {
     ConstructStallBrowsePetValues();
-    return std::atexit(DestroyStallBrowsePetValues);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup()
+{
+    DestroyStallBrowsePetValues();
 }
 
 void ConstructStallBrowsePetValues()

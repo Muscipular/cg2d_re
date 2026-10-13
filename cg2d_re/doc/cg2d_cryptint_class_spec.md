@@ -1,6 +1,6 @@
 # LegacyCryptInt class 与整数运算符 SPEC（LCI01）
 
-日期：2026-10-14。状态：方案待用户确认，尚未改动源码。
+日期：2026-10-14。状态：用户已确认；接口与CryptInt启动拥有者已实现，当前只做静态核对。
 
 ## 目标与源码基线
 
@@ -18,7 +18,7 @@
 鼠标、世界对象、场景状态和Yobi有显式构销、不同字段发布顺序及原始字节搬移。
 `YobiRuntime.hpp`另有struct前置声明，需要同步改为class。
 
-## 建议实施方案
+## 已确认实施方案
 
 1. 改为 `class LegacyCryptInt`，保留五个原字段及public访问、16字节大小和全部偏移。
    本步封装数值操作；字段私有化需要同时迁移已有原始载荷消费者，另行确认范围。
@@ -65,21 +65,75 @@
 替换时按每组真实存储和消费者成组迁移；保留同一对象身份，移除重复构造／退出登记。
 `std::atexit`登记返回及库内失败／异常清理行为改由MSVC对象生命周期承接，需要在实施记录具名，
 不能宣称原登记失败语义或机器ABI完全等价。原函数表保留入口身份并更新实际承接关系。
-本次建议范围为CryptInt相关启动拥有者；其他类型的CRT初始化包装是否一并迁移仍待用户明确范围。
+本次范围为CryptInt相关启动拥有者；其他类型的CRT初始化保持原有实现。
 
-## 取舍与待确认项
+## 已确认取舍
 
 建议保留原始载荷的显式生命周期，避免现有构造和全局初始化额外消费RNG。
 若要求完整自动构造析构／私有字段，则必须成组迁移相关owner、原始存储与退出接线，
 属于更大范围重构，不能只改类型声明。
 
-请确认是否采用上述方案，尤其是原始载荷兼容方式、启动拥有者类替换范围、运算符范围和uint32无符号语义。
-如果uint32应先按位模式转为int32再作有符号比较，应改第8项后再实施。
+用户以“ok”确认本方案：原始载荷保持平凡默认生命周期，启动拥有者使用原生构造／析构；uint32采用上述无符号混合语义。
 
 ## 验证与交付
 
-确认前只交付本SPEC与本线进度；不实施接口，也不升级函数表或验收登记状态。
-确认后核对大小／偏移、标准布局、平凡默认构造／析构／拷贝属性、
+核对大小／偏移、标准布局、平凡默认构造／析构／拷贝属性、
 重载选择、读取次数、同类读取顺序及整数赋值／复合赋值的RNG合同。
 按现行限制只做必要源码静态检查和Git差异检查；不构建、测试、运行或计算摘要。
 静态核对不代替编译、链接及运行验收；每个可验证小步精确提交，排除既有外部改动。
+
+<a id="cryptint-class-source-state"></a>
+## 当前接口实现
+
+LegacyCryptInt已改为class；整数构造／赋值、单一隐式int32及显式uint32转换、
+加减复合赋值、前后自增以及九个同类算术／比较运算符已落实。
+整数两侧的普通运算由有副作用的单次int32转换接C++内建运算，较窄整数无需重复重载；
+uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异常模拟或保护。
+默认构造／析构／同类拷贝仍平凡，五字段与偏移保持；新增对应类型属性静态断言。
+三个保护对象的仅token聚合初值改为constinit字面lambda，保持原零载荷且不提前取RNG。
+
+<a id="cryptint-startup-source-state"></a>
+## 当前启动生命周期实现
+
+24个相关CRT包装由不可拷贝的启动拥有者类构造／析构替代；每个类沿原真实全局存储调用
+原构造和逆序清理正文，无第二份载荷。各组原始载荷仍保持16字节和原有显式操作。
+全部拥有者实例仍位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
+退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
+五个原初始化汇总桥已随直接拥有者实例退休；构造前缀／数组异常清理正文保持。
+
+| 原入口 | 原生启动拥有者 | 构造 / 清理正文 |
+|---|---|---|
+| 0x00401C10 | `cg::platform::legacy_crypt_int::StartupValues` | `ConstructStartupValues_401C20` / `DestroyStartupValues_401C50` |
+| 0x00404120 | `cg::platform::ProtectionChecksum1Startup` | `ConstructProtectionChecksum1_404130` / `DestroyProtectionChecksum1_404150` |
+| 0x00404160 | `cg::platform::ProtectionChecksum2Startup` | `ConstructProtectionChecksum2_404170` / `DestroyProtectionChecksum2_404190` |
+| 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
+| 0x00456FD0 | `cg::world::SceneTransitionValueStartup` | `ConstructSceneTransitionValue` / `DestroySceneTransitionValue` |
+| 0x00467B90 | `cg::world::PlayerCoordinatesStartup` | `ConstructLegacyPlayerCoordinates_467BA0` / `DestroyLegacyPlayerCoordinates_467BD0` |
+| 0x00467BF0 | `cg::world::PlayerSnapshotXStartup` | `ConstructLegacyPlayerSnapshotX_467C00` / `DestroyLegacyPlayerSnapshotX_467C20` |
+| 0x00467C30 | `cg::world::PlayerSnapshotYStartup` | `ConstructLegacyPlayerSnapshotY_467C40` / `DestroyLegacyPlayerSnapshotY_467C60` |
+| 0x00467C70 | `cg::world::WorldCoordinateState9EE8D0Startup` | `ConstructLegacyWorldCoordinateState_467C80` / `DestroyLegacyWorldCoordinateState_467CA0` |
+| 0x00467CB0 | `cg::world::WorldCoordinateState9EE8E0Startup` | `ConstructLegacyWorldCoordinateState_467CC0` / `DestroyLegacyWorldCoordinateState_467CE0` |
+| 0x00467CF0 | `cg::world::WorldCoordinatePairStartup` | `ConstructLegacyWorldCoordinatePair_467D00` / `DestroyLegacyWorldCoordinatePair_467D30` |
+| 0x00467D50 | `cg::world::WorldMoveTargetsStartup` | `ConstructLegacyWorldMoveTargets_467D60` / `DestroyLegacyWorldMoveTargets_467D90` |
+| 0x00467DB0 | `cg::world::WorldMoveStateC821E8Startup` | `ConstructLegacyWorldMoveState_467DC0` / `DestroyLegacyWorldMoveState_467DE0` |
+| 0x00467DF0 | `cg::world::WorldMoveState9E03C0Startup` | `ConstructLegacyWorldMoveState_467E00` / `DestroyLegacyWorldMoveState_467E20` |
+| 0x00467E30 | `cg::world::WorldMoveState9FB918Startup` | `ConstructLegacyWorldMoveState_467E40` / `DestroyLegacyWorldMoveState_467E60` |
+| 0x00467E70 | `cg::world::WorldMoveStateAF0FE8Startup` | `ConstructLegacyWorldMoveState_467E80` / `DestroyLegacyWorldMoveState_467EA0` |
+| 0x00467EB0 | `cg::world::WorldMoveStateC821D8Startup` | `ConstructLegacyWorldMoveState_467EC0` / `DestroyLegacyWorldMoveState_467EE0` |
+| 0x00467EF0 | `cg::world::RippleGateStartup` | `ConstructLegacyRippleGate_467F00` / `DestroyLegacyRippleGate_467F20` |
+| 0x004883F0 | `cg::ui::FirstItemSelectorStartup` | `ConstructLegacyFirstItemSelector_488400` / `ReleaseLegacyFirstItemSelectorAtExit_488420` |
+| 0x004998F0 | `cg::ui::SecondItemSelectorStartup` | `ConstructLegacySecondItemSelector_499900` / `ReleaseLegacySecondItemSelectorAtExit_499920` |
+| 0x004CD240 | `cg::ui::StallBrowsePetValuesStartup` | `ConstructStallBrowsePetValues` / `DestroyStallBrowsePetValues` |
+| 0x00506340 | `cg::platform::MouseRuntimeStartup` | `ConstructLegacyMouseRuntime_506350` / `ReleaseLegacyMouseRuntimeAtExit_506370` |
+| 0x005183D0 | `cg::world::PlayerRuntimeValuesStartup` | `ConstructLegacyPlayerRuntime_5183E0` / `ReleaseLegacyPlayerRuntimeAtExit_518400` |
+| 0x00518520 | `cg::world::PetRuntimeValuesStartup` | `ConstructPetRuntimeValues` / `DestroyPetRuntimeValues` |
+
+## 本步静态核对结果
+
+24组构造／析构各唯一接线、中央声明顺序和禁拷贝声明核对通过；48个原构造／清理正文
+及CryptInt后端33个函数正文与改动前逐字保持。五字段声明／偏移断言仍在，新增类型属性断言供后续编译验证。
+函数表保留3680个唯一原入口，24个包装更新为原生类承接，其余状态保持；当前源码定位同步。
+相关语义记录与处置引用同步，旧CRT登记及生命周期资料明确保留为LCI01前态；当前原生寿命另记，
+所有新增当前项的build_verified／runtime_verified均false，四项任务仍开放。
+JSON／UTF-8无BOM／LF和Git差异核对、文本汇总器及其-Check完成；只说明源码／台账结构，
+不替代编译、链接、数值／正常退出和实际运行验收。未构建、测试、运行、检查产物或计算摘要。

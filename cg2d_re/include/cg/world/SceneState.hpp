@@ -48,62 +48,177 @@ extern volatile std::uint32_t gWorldCurrentYBits;          // 原 0x9DAD50，F32
 extern volatile std::uint32_t gWorldProjectionReferenceXBits; // 原 0xC751A8，F32。
 extern volatile std::uint32_t gWorldProjectionReferenceYBits; // 原 0xC751A4，F32。
 
-// 原 0x9A7FA8 CryptInt 的唯一私有存储由 SceneState.cpp 持有。
-void InitializeRippleGate(); // 原553094：构造后独立登记退出，登记失败不重试。
 std::int32_t ReadRippleGateOnce();
 
 // 原456FE0/457000，73ECD0场景共享CryptInt；CRT排在World表后、玩家坐标前。
-// 原CRT 553054入口先构造后宿主std::atexit即时登记同一退出，传出真实S32；全应用序待。
+// 对应原CRT 553054；同组构析由拥有者接管，实际全应用退出仍待运行验收。
 // 原函数：0x00456FD0。
-std::int32_t InitializeLegacySceneTransitionValue_456FD0();
+class SceneTransitionValueStartup final {
+public:
+    // 原函数：0x00456FD0；只接管同组原始载荷的启动寿命。
+    SceneTransitionValueStartup();
+    ~SceneTransitionValueStartup();
+    SceneTransitionValueStartup(const SceneTransitionValueStartup&) = delete;
+    SceneTransitionValueStartup& operator=(const SceneTransitionValueStartup&) = delete;
+};
+
 // 原函数：0x00456FE0。
 void ConstructSceneTransitionValue();
 // 原函数：0x00457000。
 void DestroySceneTransitionValue();
 
-// 原CRT 553064..553094的十三个独立入口；构造/退出沿同一状态，宿主std::atexit即时登记结果完整S32传出；全应用序待。
+// 原CRT 553064..553094的十三组坐标／门禁；各自拥有者保原构造及逆序清理。
 // 原函数：0x00467B90。
-std::int32_t InitializeLegacyPlayerCoordinates_467B90(); // 553064：9EE8A8→9EE8C0构造。
+class PlayerCoordinatesStartup final {
+public:
+    // 原函数：0x00467B90；只接管同组原始载荷的启动寿命。
+    PlayerCoordinatesStartup();
+    ~PlayerCoordinatesStartup();
+    PlayerCoordinatesStartup(const PlayerCoordinatesStartup&) = delete;
+    PlayerCoordinatesStartup& operator=(const PlayerCoordinatesStartup&) = delete;
+};
+
 // 原函数：0x00467BF0。
-std::int32_t InitializeLegacyPlayerSnapshotX_467BF0(); // 553068：C751C0构造。
+class PlayerSnapshotXStartup final {
+public:
+    // 原函数：0x00467BF0；只接管同组原始载荷的启动寿命。
+    PlayerSnapshotXStartup();
+    ~PlayerSnapshotXStartup();
+    PlayerSnapshotXStartup(const PlayerSnapshotXStartup&) = delete;
+    PlayerSnapshotXStartup& operator=(const PlayerSnapshotXStartup&) = delete;
+};
+
 // 原函数：0x00467C30。
-std::int32_t InitializeLegacyPlayerSnapshotY_467C30(); // 55306C：C751B0构造。
+class PlayerSnapshotYStartup final {
+public:
+    // 原函数：0x00467C30；只接管同组原始载荷的启动寿命。
+    PlayerSnapshotYStartup();
+    ~PlayerSnapshotYStartup();
+    PlayerSnapshotYStartup(const PlayerSnapshotYStartup&) = delete;
+    PlayerSnapshotYStartup& operator=(const PlayerSnapshotYStartup&) = delete;
+};
+
 // 原函数：0x00467C70。
-std::int32_t InitializeLegacyWorldCoordinateState_467C70(); // 553070：9EE8D0构造。
+class WorldCoordinateState9EE8D0Startup final {
+public:
+    // 原函数：0x00467C70；只接管同组原始载荷的启动寿命。
+    WorldCoordinateState9EE8D0Startup();
+    ~WorldCoordinateState9EE8D0Startup();
+    WorldCoordinateState9EE8D0Startup(const WorldCoordinateState9EE8D0Startup&) = delete;
+    WorldCoordinateState9EE8D0Startup& operator=(const WorldCoordinateState9EE8D0Startup&) = delete;
+};
+
 // 原函数：0x00467CB0。
-std::int32_t InitializeLegacyWorldCoordinateState_467CB0(); // 553074：9EE8E0构造。
+class WorldCoordinateState9EE8E0Startup final {
+public:
+    // 原函数：0x00467CB0；只接管同组原始载荷的启动寿命。
+    WorldCoordinateState9EE8E0Startup();
+    ~WorldCoordinateState9EE8E0Startup();
+    WorldCoordinateState9EE8E0Startup(const WorldCoordinateState9EE8E0Startup&) = delete;
+    WorldCoordinateState9EE8E0Startup& operator=(const WorldCoordinateState9EE8E0Startup&) = delete;
+};
+
 // 原函数：0x00467CF0。
-std::int32_t InitializeLegacyWorldCoordinatePair_467CF0(); // 553078：C27FF8→C27FE8构造。
+class WorldCoordinatePairStartup final {
+public:
+    // 原函数：0x00467CF0；只接管同组原始载荷的启动寿命。
+    WorldCoordinatePairStartup();
+    ~WorldCoordinatePairStartup();
+    WorldCoordinatePairStartup(const WorldCoordinatePairStartup&) = delete;
+    WorldCoordinatePairStartup& operator=(const WorldCoordinatePairStartup&) = delete;
+};
+
 // 原函数：0x00467D50。
-std::int32_t InitializeLegacyWorldMoveTargets_467D50(); // 55307C：9A7F88→9A7F98构造。
+class WorldMoveTargetsStartup final {
+public:
+    // 原函数：0x00467D50；只接管同组原始载荷的启动寿命。
+    WorldMoveTargetsStartup();
+    ~WorldMoveTargetsStartup();
+    WorldMoveTargetsStartup(const WorldMoveTargetsStartup&) = delete;
+    WorldMoveTargetsStartup& operator=(const WorldMoveTargetsStartup&) = delete;
+};
+
 // 原函数：0x00467DB0。
-std::int32_t InitializeLegacyWorldMoveState_467DB0(); // 553080：C821E8构造。
+class WorldMoveStateC821E8Startup final {
+public:
+    // 原函数：0x00467DB0；只接管同组原始载荷的启动寿命。
+    WorldMoveStateC821E8Startup();
+    ~WorldMoveStateC821E8Startup();
+    WorldMoveStateC821E8Startup(const WorldMoveStateC821E8Startup&) = delete;
+    WorldMoveStateC821E8Startup& operator=(const WorldMoveStateC821E8Startup&) = delete;
+};
+
 // 原函数：0x00467DF0。
-std::int32_t InitializeLegacyWorldMoveState_467DF0(); // 553084：9E03C0构造。
+class WorldMoveState9E03C0Startup final {
+public:
+    // 原函数：0x00467DF0；只接管同组原始载荷的启动寿命。
+    WorldMoveState9E03C0Startup();
+    ~WorldMoveState9E03C0Startup();
+    WorldMoveState9E03C0Startup(const WorldMoveState9E03C0Startup&) = delete;
+    WorldMoveState9E03C0Startup& operator=(const WorldMoveState9E03C0Startup&) = delete;
+};
+
 // 原函数：0x00467E30。
-std::int32_t InitializeLegacyWorldMoveState_467E30(); // 553088：9FB918构造。
+class WorldMoveState9FB918Startup final {
+public:
+    // 原函数：0x00467E30；只接管同组原始载荷的启动寿命。
+    WorldMoveState9FB918Startup();
+    ~WorldMoveState9FB918Startup();
+    WorldMoveState9FB918Startup(const WorldMoveState9FB918Startup&) = delete;
+    WorldMoveState9FB918Startup& operator=(const WorldMoveState9FB918Startup&) = delete;
+};
+
 // 原函数：0x00467E70。
-std::int32_t InitializeLegacyWorldMoveState_467E70(); // 55308C：AF0FE8构造。
+class WorldMoveStateAF0FE8Startup final {
+public:
+    // 原函数：0x00467E70；只接管同组原始载荷的启动寿命。
+    WorldMoveStateAF0FE8Startup();
+    ~WorldMoveStateAF0FE8Startup();
+    WorldMoveStateAF0FE8Startup(const WorldMoveStateAF0FE8Startup&) = delete;
+    WorldMoveStateAF0FE8Startup& operator=(const WorldMoveStateAF0FE8Startup&) = delete;
+};
+
 // 原函数：0x00467EB0。
-std::int32_t InitializeLegacyWorldMoveState_467EB0(); // 553090：C821D8构造。
+class WorldMoveStateC821D8Startup final {
+public:
+    // 原函数：0x00467EB0；只接管同组原始载荷的启动寿命。
+    WorldMoveStateC821D8Startup();
+    ~WorldMoveStateC821D8Startup();
+    WorldMoveStateC821D8Startup(const WorldMoveStateC821D8Startup&) = delete;
+    WorldMoveStateC821D8Startup& operator=(const WorldMoveStateC821D8Startup&) = delete;
+};
+
 // 原函数：0x00467EF0。
-std::int32_t InitializeLegacyRippleGate_467EF0(); // 553094：9A7FA8构造。
-
-// 原553064：先构造X/Y，再登记按Y/X逆序析构的一个退出回调。
-void InitializePlayerCoordinates();
-
-// 原553068..553078：六对象按五个表项逐项构造并登记退出，不合并登记。
-void InitializeWorldCoordinateStates();
-
-// 原55307C..553090：七对象按六个表项逐项构造并登记退出，不合并登记。
-void InitializeWorldMoveStates();
+class RippleGateStartup final {
+public:
+    // 原函数：0x00467EF0；只接管同组原始载荷的启动寿命。
+    RippleGateStartup();
+    ~RippleGateStartup();
+    RippleGateStartup(const RippleGateStartup&) = delete;
+    RippleGateStartup& operator=(const RippleGateStartup&) = delete;
+};
 
 // 原5184A0/518410，玩家六组CryptInt；排在鼠标构造之后。
-// 原CRT 5530FC/553100：玩家六值、主宠物五条六值，各整体真实登记/完整S32。
+// 对应原CRT 5530FC/553100：玩家六值、主宠物五条六值，两个拥有者独立构析。
 // 原函数：0x005183D0。
-std::int32_t InitializeLegacyPlayerRuntime_5183D0();
+class PlayerRuntimeValuesStartup final {
+public:
+    // 原函数：0x005183D0；只接管同组原始载荷的启动寿命。
+    PlayerRuntimeValuesStartup();
+    ~PlayerRuntimeValuesStartup();
+    PlayerRuntimeValuesStartup(const PlayerRuntimeValuesStartup&) = delete;
+    PlayerRuntimeValuesStartup& operator=(const PlayerRuntimeValuesStartup&) = delete;
+};
+
 // 原函数：0x00518520。
-std::int32_t InitializeLegacyPetRuntime_518520();
+class PetRuntimeValuesStartup final {
+public:
+    // 原函数：0x00518520；只接管同组原始载荷的启动寿命。
+    PetRuntimeValuesStartup();
+    ~PetRuntimeValuesStartup();
+    PetRuntimeValuesStartup(const PetRuntimeValuesStartup&) = delete;
+    PetRuntimeValuesStartup& operator=(const PetRuntimeValuesStartup&) = delete;
+};
 void ConstructPlayerRuntimeValues();
 void DestroyPlayerRuntimeValues();
 // 原518530/518560，五条宠物各六组CryptInt；排在玩家构造之后。

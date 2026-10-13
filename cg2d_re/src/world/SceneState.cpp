@@ -609,20 +609,28 @@ void ReleaseLegacyPlayerRuntimeAtExit_518400()
 
 } // namespace
 
-// 原CRT 5530FC：构造后原整体退出登记，完整S32透传。
-// 原函数：0x005183D0。
-std::int32_t InitializeLegacyPlayerRuntime_5183D0()
+// 原函数：0x005183D0；LCI01启动拥有者替代CRT构造／退出登记。
+PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup()
 {
     ConstructLegacyPlayerRuntime_5183E0();
-    return std::atexit(ReleaseLegacyPlayerRuntimeAtExit_518400);
 }
 
-// 原CRT 553100：构造后原整体退出登记，完整S32透传。
-// 原函数：0x00518520。
-std::int32_t InitializeLegacyPetRuntime_518520()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+PlayerRuntimeValuesStartup::~PlayerRuntimeValuesStartup()
+{
+    ReleaseLegacyPlayerRuntimeAtExit_518400();
+}
+
+// 原函数：0x00518520；LCI01启动拥有者替代CRT构造／退出登记。
+PetRuntimeValuesStartup::PetRuntimeValuesStartup()
 {
     ConstructPetRuntimeValues();
-    return std::atexit(DestroyPetRuntimeValues);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+PetRuntimeValuesStartup::~PetRuntimeValuesStartup()
+{
+    DestroyPetRuntimeValues();
 }
 
 void ConstructPlayerRuntimeValues()
@@ -723,11 +731,16 @@ void DestroyPetRuntimeValues()
         5, detail::DestroyLegacyPetElementForArray);
 }
 
-// 原函数：0x00456FD0。
-std::int32_t InitializeLegacySceneTransitionValue_456FD0()
+// 原函数：0x00456FD0；LCI01启动拥有者替代CRT构造／退出登记。
+SceneTransitionValueStartup::SceneTransitionValueStartup()
 {
     ConstructSceneTransitionValue();
-    return std::atexit(DestroySceneTransitionValue);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+SceneTransitionValueStartup::~SceneTransitionValueStartup()
+{
+    DestroySceneTransitionValue();
 }
 
 // 原函数：0x00456FE0。
@@ -908,141 +921,160 @@ void DestroyLegacyRippleGate_467F20()
 
 } // namespace
 
-// 原CRT 553064：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467B90。
-std::int32_t InitializeLegacyPlayerCoordinates_467B90()
+// 原函数：0x00467B90；LCI01启动拥有者替代CRT构造／退出登记。
+PlayerCoordinatesStartup::PlayerCoordinatesStartup()
 {
     ConstructLegacyPlayerCoordinates_467BA0();
-    return std::atexit(DestroyLegacyPlayerCoordinates_467BD0);
 }
 
-// 原CRT 553068：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467BF0。
-std::int32_t InitializeLegacyPlayerSnapshotX_467BF0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+PlayerCoordinatesStartup::~PlayerCoordinatesStartup()
+{
+    DestroyLegacyPlayerCoordinates_467BD0();
+}
+
+// 原函数：0x00467BF0；LCI01启动拥有者替代CRT构造／退出登记。
+PlayerSnapshotXStartup::PlayerSnapshotXStartup()
 {
     ConstructLegacyPlayerSnapshotX_467C00();
-    return std::atexit(DestroyLegacyPlayerSnapshotX_467C20);
 }
 
-// 原CRT 55306C：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467C30。
-std::int32_t InitializeLegacyPlayerSnapshotY_467C30()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+PlayerSnapshotXStartup::~PlayerSnapshotXStartup()
+{
+    DestroyLegacyPlayerSnapshotX_467C20();
+}
+
+// 原函数：0x00467C30；LCI01启动拥有者替代CRT构造／退出登记。
+PlayerSnapshotYStartup::PlayerSnapshotYStartup()
 {
     ConstructLegacyPlayerSnapshotY_467C40();
-    return std::atexit(DestroyLegacyPlayerSnapshotY_467C60);
 }
 
-// 原CRT 553070：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467C70。
-std::int32_t InitializeLegacyWorldCoordinateState_467C70()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+PlayerSnapshotYStartup::~PlayerSnapshotYStartup()
+{
+    DestroyLegacyPlayerSnapshotY_467C60();
+}
+
+// 原函数：0x00467C70；LCI01启动拥有者替代CRT构造／退出登记。
+WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup()
 {
     ConstructLegacyWorldCoordinateState_467C80();
-    return std::atexit(DestroyLegacyWorldCoordinateState_467CA0);
 }
 
-// 原CRT 553074：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467CB0。
-std::int32_t InitializeLegacyWorldCoordinateState_467CB0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldCoordinateState9EE8D0Startup::~WorldCoordinateState9EE8D0Startup()
+{
+    DestroyLegacyWorldCoordinateState_467CA0();
+}
+
+// 原函数：0x00467CB0；LCI01启动拥有者替代CRT构造／退出登记。
+WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup()
 {
     ConstructLegacyWorldCoordinateState_467CC0();
-    return std::atexit(DestroyLegacyWorldCoordinateState_467CE0);
 }
 
-// 原CRT 553078：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467CF0。
-std::int32_t InitializeLegacyWorldCoordinatePair_467CF0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldCoordinateState9EE8E0Startup::~WorldCoordinateState9EE8E0Startup()
+{
+    DestroyLegacyWorldCoordinateState_467CE0();
+}
+
+// 原函数：0x00467CF0；LCI01启动拥有者替代CRT构造／退出登记。
+WorldCoordinatePairStartup::WorldCoordinatePairStartup()
 {
     ConstructLegacyWorldCoordinatePair_467D00();
-    return std::atexit(DestroyLegacyWorldCoordinatePair_467D30);
 }
 
-// 原CRT 55307C：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467D50。
-std::int32_t InitializeLegacyWorldMoveTargets_467D50()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldCoordinatePairStartup::~WorldCoordinatePairStartup()
+{
+    DestroyLegacyWorldCoordinatePair_467D30();
+}
+
+// 原函数：0x00467D50；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveTargetsStartup::WorldMoveTargetsStartup()
 {
     ConstructLegacyWorldMoveTargets_467D60();
-    return std::atexit(DestroyLegacyWorldMoveTargets_467D90);
 }
 
-// 原CRT 553080：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467DB0。
-std::int32_t InitializeLegacyWorldMoveState_467DB0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveTargetsStartup::~WorldMoveTargetsStartup()
+{
+    DestroyLegacyWorldMoveTargets_467D90();
+}
+
+// 原函数：0x00467DB0；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup()
 {
     ConstructLegacyWorldMoveState_467DC0();
-    return std::atexit(DestroyLegacyWorldMoveState_467DE0);
 }
 
-// 原CRT 553084：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467DF0。
-std::int32_t InitializeLegacyWorldMoveState_467DF0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveStateC821E8Startup::~WorldMoveStateC821E8Startup()
+{
+    DestroyLegacyWorldMoveState_467DE0();
+}
+
+// 原函数：0x00467DF0；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup()
 {
     ConstructLegacyWorldMoveState_467E00();
-    return std::atexit(DestroyLegacyWorldMoveState_467E20);
 }
 
-// 原CRT 553088：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467E30。
-std::int32_t InitializeLegacyWorldMoveState_467E30()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveState9E03C0Startup::~WorldMoveState9E03C0Startup()
+{
+    DestroyLegacyWorldMoveState_467E20();
+}
+
+// 原函数：0x00467E30；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveState9FB918Startup::WorldMoveState9FB918Startup()
 {
     ConstructLegacyWorldMoveState_467E40();
-    return std::atexit(DestroyLegacyWorldMoveState_467E60);
 }
 
-// 原CRT 55308C：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467E70。
-std::int32_t InitializeLegacyWorldMoveState_467E70()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveState9FB918Startup::~WorldMoveState9FB918Startup()
+{
+    DestroyLegacyWorldMoveState_467E60();
+}
+
+// 原函数：0x00467E70；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup()
 {
     ConstructLegacyWorldMoveState_467E80();
-    return std::atexit(DestroyLegacyWorldMoveState_467EA0);
 }
 
-// 原CRT 553090：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467EB0。
-std::int32_t InitializeLegacyWorldMoveState_467EB0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveStateAF0FE8Startup::~WorldMoveStateAF0FE8Startup()
+{
+    DestroyLegacyWorldMoveState_467EA0();
+}
+
+// 原函数：0x00467EB0；LCI01启动拥有者替代CRT构造／退出登记。
+WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup()
 {
     ConstructLegacyWorldMoveState_467EC0();
-    return std::atexit(DestroyLegacyWorldMoveState_467EE0);
 }
 
-// 原CRT 553094：本项构造完成后立即真实登记退出，透传完整S32。
-// 原函数：0x00467EF0。
-std::int32_t InitializeLegacyRippleGate_467EF0()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+WorldMoveStateC821D8Startup::~WorldMoveStateC821D8Startup()
+{
+    DestroyLegacyWorldMoveState_467EE0();
+}
+
+// 原函数：0x00467EF0；LCI01启动拥有者替代CRT构造／退出登记。
+RippleGateStartup::RippleGateStartup()
 {
     ConstructLegacyRippleGate_467F00();
-    return std::atexit(DestroyLegacyRippleGate_467F20);
 }
 
-// 原553064/467B90：两对象构造完才登记467BD0，保留atexit失败后继续的路径。
-void InitializePlayerCoordinates()
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+RippleGateStartup::~RippleGateStartup()
 {
-    static_cast<void>(InitializeLegacyPlayerCoordinates_467B90());
-}
-
-// 原553068..553078：每一原表项完成即登记其退出，不能延迟到六对象全部完成。
-void InitializeWorldCoordinateStates()
-{
-    static_cast<void>(InitializeLegacyPlayerSnapshotX_467BF0());
-    static_cast<void>(InitializeLegacyPlayerSnapshotY_467C30());
-    static_cast<void>(InitializeLegacyWorldCoordinateState_467C70());
-    static_cast<void>(InitializeLegacyWorldCoordinateState_467CB0());
-    static_cast<void>(InitializeLegacyWorldCoordinatePair_467CF0());
-}
-
-// 原55307C..553090：首项构造目标X/Y，其余五项各构造一个对象并独立登记。
-void InitializeWorldMoveStates()
-{
-    static_cast<void>(InitializeLegacyWorldMoveTargets_467D50());
-    static_cast<void>(InitializeLegacyWorldMoveState_467DB0());
-    static_cast<void>(InitializeLegacyWorldMoveState_467DF0());
-    static_cast<void>(InitializeLegacyWorldMoveState_467E30());
-    static_cast<void>(InitializeLegacyWorldMoveState_467E70());
-    static_cast<void>(InitializeLegacyWorldMoveState_467EB0());
-}
-
-// 原553094/467EF0：最后构造Ripple门禁并登记467F20。
-void InitializeRippleGate()
-{
-    static_cast<void>(InitializeLegacyRippleGate_467EF0());
+    DestroyLegacyRippleGate_467F20();
 }
 
 std::int32_t ReadRippleGateOnce()

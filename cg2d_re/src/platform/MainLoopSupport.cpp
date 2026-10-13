@@ -53,9 +53,21 @@ HMODULE gProtectionModule = nullptr;
 using IsDebuggerPresentFunction = BOOL (WINAPI*)();
 IsDebuggerPresentFunction gIsDebuggerPresent = nullptr;
 
-LegacyCryptInt gProtectionProcessState{kLegacyCryptIntVftToken};
-LegacyCryptInt gProtectionChecksum1{kLegacyCryptIntVftToken};
-LegacyCryptInt gProtectionChecksum2{kLegacyCryptIntVftToken};
+constinit LegacyCryptInt gProtectionProcessState = [] {
+    LegacyCryptInt value{};
+    value.legacyVftToken = kLegacyCryptIntVftToken;
+    return value;
+}();
+constinit LegacyCryptInt gProtectionChecksum1 = [] {
+    LegacyCryptInt value{};
+    value.legacyVftToken = kLegacyCryptIntVftToken;
+    return value;
+}();
+constinit LegacyCryptInt gProtectionChecksum2 = [] {
+    LegacyCryptInt value{};
+    value.legacyVftToken = kLegacyCryptIntVftToken;
+    return value;
+}();
 std::uint8_t gProtectionBuffer1[0x5000]{};
 std::uint8_t gProtectionBuffer2[0x5000]{};
 
@@ -241,11 +253,16 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
-// 原函数：0x00404120。
-std::int32_t InitializeLegacyProtectionChecksum1_404120()
+// 原函数：0x00404120；LCI01启动拥有者替代CRT构造／退出登记。
+ProtectionChecksum1Startup::ProtectionChecksum1Startup()
 {
     ConstructProtectionChecksum1_404130();
-    return std::atexit(DestroyProtectionChecksum1_404150);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+ProtectionChecksum1Startup::~ProtectionChecksum1Startup()
+{
+    DestroyProtectionChecksum1_404150();
 }
 
 // 原函数：0x00404130。
@@ -260,11 +277,16 @@ void DestroyProtectionChecksum1_404150()
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum1);
 }
 
-// 原函数：0x00404160。
-std::int32_t InitializeLegacyProtectionChecksum2_404160()
+// 原函数：0x00404160；LCI01启动拥有者替代CRT构造／退出登记。
+ProtectionChecksum2Startup::ProtectionChecksum2Startup()
 {
     ConstructProtectionChecksum2_404170();
-    return std::atexit(DestroyProtectionChecksum2_404190);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+ProtectionChecksum2Startup::~ProtectionChecksum2Startup()
+{
+    DestroyProtectionChecksum2_404190();
 }
 
 // 原函数：0x00404170。
@@ -279,11 +301,16 @@ void DestroyProtectionChecksum2_404190()
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum2);
 }
 
-// 原函数：0x004041A0。
-std::int32_t InitializeLegacyProtectionProcessState_4041A0()
+// 原函数：0x004041A0；LCI01启动拥有者替代CRT构造／退出登记。
+ProtectionProcessStateStartup::ProtectionProcessStateStartup()
 {
     ConstructProtectionProcessState_4041B0();
-    return std::atexit(DestroyProtectionProcessState_4041D0);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+ProtectionProcessStateStartup::~ProtectionProcessStateStartup()
+{
+    DestroyProtectionProcessState_4041D0();
 }
 
 // 原函数：0x004041B0。

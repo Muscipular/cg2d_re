@@ -29,11 +29,16 @@ std::uint32_t NextMask()
 
 } // namespace
 
-// 原函数：0x00401C10。
-std::int32_t InitializeLegacyStartupValues_401C10()
+// 原函数：0x00401C10；LCI01启动拥有者替代CRT构造／退出登记。
+StartupValues::StartupValues()
 {
     ConstructStartupValues_401C20();
-    return std::atexit(DestroyStartupValues_401C50);
+}
+
+// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
+StartupValues::~StartupValues()
+{
+    DestroyStartupValues_401C50();
 }
 
 // 原函数：0x00401C20。
@@ -265,3 +270,134 @@ LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags
 }
 
 } // namespace cg::platform::legacy_crypt_int
+
+namespace cg::platform {
+
+// 原函数：0x00401CC0；整数构造沿既有有值构造正文。
+LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
+{
+    legacy_crypt_int::ConstructFromInt_401CC0(this, value);
+}
+
+LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
+    : LegacyCryptInt(std::bit_cast<std::int32_t>(value))
+{
+}
+
+LegacyCryptInt& LegacyCryptInt::operator=(const std::int32_t value)
+{
+    legacy_crypt_int::AssignFromInt(this, value);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator=(const std::uint32_t value)
+{
+    return *this = std::bit_cast<std::int32_t>(value);
+}
+
+// 原函数：0x00401EA0、0x00401EC0；两种转换各执行一次有副作用的读取。
+LegacyCryptInt::operator std::int32_t()
+{
+    return legacy_crypt_int::Read_401EC0(this);
+}
+
+LegacyCryptInt::operator std::uint32_t()
+{
+    return static_cast<std::uint32_t>(legacy_crypt_int::Read_401EC0(this));
+}
+
+// 原函数：0x00401E20。
+LegacyCryptInt& LegacyCryptInt::operator+=(const std::int32_t amount)
+{
+    legacy_crypt_int::AddAssign_401E20(this, amount);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator+=(const std::uint32_t amount)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) + amount;
+    legacy_crypt_int::SetNorVal_401F50(this, std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+// 原函数：0x00401E40。
+LegacyCryptInt& LegacyCryptInt::operator-=(const std::int32_t amount)
+{
+    legacy_crypt_int::SubtractAssign_401E40(this, amount);
+    return *this;
+}
+
+LegacyCryptInt& LegacyCryptInt::operator-=(const std::uint32_t amount)
+{
+    const std::uint32_t result = static_cast<std::uint32_t>(*this) - amount;
+    legacy_crypt_int::SetNorVal_401F50(this, std::bit_cast<std::int32_t>(result));
+    return *this;
+}
+
+// 原函数：0x00401DE0；前置返回引用，原整数返回仍由旧入口保留。
+LegacyCryptInt& LegacyCryptInt::operator++()
+{
+    legacy_crypt_int::Increment_401DE0(this, 0);
+    return *this;
+}
+
+std::int32_t LegacyCryptInt::operator++(int)
+{
+    const std::int32_t previous = legacy_crypt_int::Read_401EC0(this);
+    legacy_crypt_int::SetNorVal_401F50(this, previous + 1);
+    return previous;
+}
+
+std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = legacy_crypt_int::Read_401EC0(&rhs);
+    return legacy_crypt_int::Add_401E10(&lhs, right);
+}
+
+// 原函数：0x00401E70。
+std::int32_t operator-(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return legacy_crypt_int::Difference_401E70(&lhs, &rhs);
+}
+
+std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    const std::int32_t right = legacy_crypt_int::Read_401EC0(&rhs);
+    return legacy_crypt_int::Multiply_401E90(&lhs, right);
+}
+
+// 原函数：0x00401D20；相等与不等使用同一右→左读取顺序。
+bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return !legacy_crypt_int::NotEqual_401D20(&lhs, &rhs);
+}
+
+bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return legacy_crypt_int::NotEqual_401D20(&lhs, &rhs);
+}
+
+// 原函数：0x00401D50。
+bool operator>(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return legacy_crypt_int::GreaterCrypt_401D50(&lhs, &rhs);
+}
+
+// 原函数：0x00401D80。
+bool operator>=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return legacy_crypt_int::GreaterEqualCrypt_401D80(&lhs, &rhs);
+}
+
+// 原函数：0x00401DC0。
+bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return legacy_crypt_int::LessCrypt_401DC0(&lhs, &rhs);
+}
+
+bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
+{
+    return !legacy_crypt_int::GreaterCrypt_401D50(&lhs, &rhs);
+}
+
+} // namespace cg::platform

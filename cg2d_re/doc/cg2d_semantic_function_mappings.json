@@ -2974,38 +2974,32 @@
     {
       "original_entry": "0x467B90",
       "inventory_id": "F:00067B90",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "PlayerCoordinatesStaticInitializer"
+            "gPlayerCoordinatesStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializePlayerCoordinates"
+            "PlayerCoordinatesStartup::PlayerCoordinatesStartup PlayerCoordinatesStartup::~PlayerCoordinatesStartup ConstructLegacyPlayerCoordinates_467BA0 DestroyLegacyPlayerCoordinates_467BD0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyPlayerCoordinates_467B90"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyPlayerCoordinates_467B90"
+            "PlayerCoordinatesStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -3023,7 +3017,7 @@
         "0x9EE8C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553064先调用0x467BA0，再登记0x467BD0；InitializePlayerCoordinates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553064先调用0x467BA0，再登记0x467BD0；InitializePlayerCoordinates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467b90",
@@ -3035,7 +3029,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467B90",
           "call_site": "0x467B90",
@@ -3062,7 +3056,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467B90",
           "reference_site": "0x467BC0",
@@ -3082,7 +3076,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -3123,10 +3117,10 @@
         "original_slot": "0x553064",
         "original_target": "0x467B90",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "PlayerCoordinatesStaticInitializer",
-        "current_initializer_variable": "gPlayerCoordinatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializePlayerCoordinates",
-        "expanded_leaf_symbol": "InitializeLegacyPlayerCoordinates_467B90",
+        "current_initializer_type": "PlayerCoordinatesStartup",
+        "current_initializer_variable": "gPlayerCoordinatesStartup",
+        "direct_call_symbol": "cg::world::PlayerCoordinatesStartup::PlayerCoordinatesStartup",
+        "expanded_leaf_symbol": "PlayerCoordinatesStartup::PlayerCoordinatesStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -3145,13 +3139,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 8,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::PlayerCoordinatesStartup::~PlayerCoordinatesStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::PlayerCoordinatesStartup::PlayerCoordinatesStartup",
+        "startup_variable": "gPlayerCoordinatesStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -3319,38 +3324,32 @@
     {
       "original_entry": "0x467BF0",
       "inventory_id": "F:00067BF0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldCoordinateStatesStaticInitializer"
+            "gPlayerSnapshotXStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldCoordinateStates"
+            "PlayerSnapshotXStartup::PlayerSnapshotXStartup PlayerSnapshotXStartup::~PlayerSnapshotXStartup ConstructLegacyPlayerSnapshotX_467C00 DestroyLegacyPlayerSnapshotX_467C20"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyPlayerSnapshotX_467BF0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyPlayerSnapshotX_467BF0"
+            "PlayerSnapshotXStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -3367,7 +3366,7 @@
         "0xC751C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467bf0",
@@ -3379,7 +3378,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467BF0",
           "call_site": "0x467BF0",
@@ -3406,7 +3405,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467BF0",
           "reference_site": "0x467C10",
@@ -3426,7 +3425,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -3467,10 +3466,10 @@
         "original_slot": "0x553068",
         "original_target": "0x467BF0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
-        "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
-        "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotX_467BF0",
+        "current_initializer_type": "PlayerSnapshotXStartup",
+        "current_initializer_variable": "gPlayerSnapshotXStartup",
+        "direct_call_symbol": "cg::world::PlayerSnapshotXStartup::PlayerSnapshotXStartup",
+        "expanded_leaf_symbol": "PlayerSnapshotXStartup::PlayerSnapshotXStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -3489,13 +3488,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 11,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::PlayerSnapshotXStartup::~PlayerSnapshotXStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::PlayerSnapshotXStartup::PlayerSnapshotXStartup",
+        "startup_variable": "gPlayerSnapshotXStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -3635,38 +3645,32 @@
     {
       "original_entry": "0x467C30",
       "inventory_id": "F:00067C30",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldCoordinateStatesStaticInitializer"
+            "gPlayerSnapshotYStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldCoordinateStates"
+            "PlayerSnapshotYStartup::PlayerSnapshotYStartup PlayerSnapshotYStartup::~PlayerSnapshotYStartup ConstructLegacyPlayerSnapshotY_467C40 DestroyLegacyPlayerSnapshotY_467C60"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyPlayerSnapshotY_467C30"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyPlayerSnapshotY_467C30"
+            "PlayerSnapshotYStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -3683,7 +3687,7 @@
         "0xC751B0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467c30",
@@ -3695,7 +3699,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467C30",
           "call_site": "0x467C30",
@@ -3722,7 +3726,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467C30",
           "reference_site": "0x467C50",
@@ -3742,7 +3746,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -3783,10 +3787,10 @@
         "original_slot": "0x55306c",
         "original_target": "0x467C30",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
-        "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
-        "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotY_467C30",
+        "current_initializer_type": "PlayerSnapshotYStartup",
+        "current_initializer_variable": "gPlayerSnapshotYStartup",
+        "direct_call_symbol": "cg::world::PlayerSnapshotYStartup::PlayerSnapshotYStartup",
+        "expanded_leaf_symbol": "PlayerSnapshotYStartup::PlayerSnapshotYStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -3805,13 +3809,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 14,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::PlayerSnapshotYStartup::~PlayerSnapshotYStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::PlayerSnapshotYStartup::PlayerSnapshotYStartup",
+        "startup_variable": "gPlayerSnapshotYStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -3951,38 +3966,32 @@
     {
       "original_entry": "0x467C70",
       "inventory_id": "F:00067C70",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldCoordinateStatesStaticInitializer"
+            "gWorldCoordinateState9EE8D0Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldCoordinateStates"
+            "WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup WorldCoordinateState9EE8D0Startup::~WorldCoordinateState9EE8D0Startup ConstructLegacyWorldCoordinateState_467C80 DestroyLegacyWorldCoordinateState_467CA0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldCoordinateState_467C70"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldCoordinateState_467C70"
+            "WorldCoordinateState9EE8D0Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -3999,7 +4008,7 @@
         "0x9EE8D0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553070先调用0x467C80，再登记0x467CA0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553070先调用0x467C80，再登记0x467CA0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467c70",
@@ -4011,7 +4020,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467C70",
           "call_site": "0x467C70",
@@ -4038,7 +4047,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467C70",
           "reference_site": "0x467C90",
@@ -4058,7 +4067,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -4099,10 +4108,10 @@
         "original_slot": "0x553070",
         "original_target": "0x467C70",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
-        "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467C70",
+        "current_initializer_type": "WorldCoordinateState9EE8D0Startup",
+        "current_initializer_variable": "gWorldCoordinateState9EE8D0Startup",
+        "direct_call_symbol": "cg::world::WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup",
+        "expanded_leaf_symbol": "WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -4121,13 +4130,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 17,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldCoordinateState9EE8D0Startup::~WorldCoordinateState9EE8D0Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldCoordinateState9EE8D0Startup::WorldCoordinateState9EE8D0Startup",
+        "startup_variable": "gWorldCoordinateState9EE8D0Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -4267,38 +4287,32 @@
     {
       "original_entry": "0x467CB0",
       "inventory_id": "F:00067CB0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldCoordinateStatesStaticInitializer"
+            "gWorldCoordinateState9EE8E0Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldCoordinateStates"
+            "WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup WorldCoordinateState9EE8E0Startup::~WorldCoordinateState9EE8E0Startup ConstructLegacyWorldCoordinateState_467CC0 DestroyLegacyWorldCoordinateState_467CE0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldCoordinateState_467CB0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldCoordinateState_467CB0"
+            "WorldCoordinateState9EE8E0Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -4315,7 +4329,7 @@
         "0x9EE8E0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553074先调用0x467CC0，再登记0x467CE0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553074先调用0x467CC0，再登记0x467CE0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467cb0",
@@ -4327,7 +4341,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467CB0",
           "call_site": "0x467CB0",
@@ -4354,7 +4368,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467CB0",
           "reference_site": "0x467CD0",
@@ -4374,7 +4388,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -4415,10 +4429,10 @@
         "original_slot": "0x553074",
         "original_target": "0x467CB0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
-        "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467CB0",
+        "current_initializer_type": "WorldCoordinateState9EE8E0Startup",
+        "current_initializer_variable": "gWorldCoordinateState9EE8E0Startup",
+        "direct_call_symbol": "cg::world::WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup",
+        "expanded_leaf_symbol": "WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -4437,13 +4451,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 20,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldCoordinateState9EE8E0Startup::~WorldCoordinateState9EE8E0Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldCoordinateState9EE8E0Startup::WorldCoordinateState9EE8E0Startup",
+        "startup_variable": "gWorldCoordinateState9EE8E0Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -4583,38 +4608,32 @@
     {
       "original_entry": "0x467CF0",
       "inventory_id": "F:00067CF0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldCoordinateStatesStaticInitializer"
+            "gWorldCoordinatePairStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldCoordinateStates"
+            "WorldCoordinatePairStartup::WorldCoordinatePairStartup WorldCoordinatePairStartup::~WorldCoordinatePairStartup ConstructLegacyWorldCoordinatePair_467D00 DestroyLegacyWorldCoordinatePair_467D30"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldCoordinatePair_467CF0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldCoordinatePair_467CF0"
+            "WorldCoordinatePairStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -4632,7 +4651,7 @@
         "0xC27FE8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553078先调用0x467D00，再登记0x467D30；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553078先调用0x467D00，再登记0x467D30；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467cf0",
@@ -4644,7 +4663,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467CF0",
           "call_site": "0x467CF0",
@@ -4671,7 +4690,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467CF0",
           "reference_site": "0x467D20",
@@ -4691,7 +4710,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -4732,10 +4751,10 @@
         "original_slot": "0x553078",
         "original_target": "0x467CF0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
-        "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldCoordinatePair_467CF0",
+        "current_initializer_type": "WorldCoordinatePairStartup",
+        "current_initializer_variable": "gWorldCoordinatePairStartup",
+        "direct_call_symbol": "cg::world::WorldCoordinatePairStartup::WorldCoordinatePairStartup",
+        "expanded_leaf_symbol": "WorldCoordinatePairStartup::WorldCoordinatePairStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -4754,13 +4773,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 23,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldCoordinatePairStartup::~WorldCoordinatePairStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldCoordinatePairStartup::WorldCoordinatePairStartup",
+        "startup_variable": "gWorldCoordinatePairStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -4928,38 +4958,32 @@
     {
       "original_entry": "0x467D50",
       "inventory_id": "F:00067D50",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveTargetsStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveTargetsStartup::WorldMoveTargetsStartup WorldMoveTargetsStartup::~WorldMoveTargetsStartup ConstructLegacyWorldMoveTargets_467D60 DestroyLegacyWorldMoveTargets_467D90"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveTargets_467D50"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveTargets_467D50"
+            "WorldMoveTargetsStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -4977,7 +5001,7 @@
         "0x9A7F98"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55307C先调用0x467D60，再登记0x467D90；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x55307C先调用0x467D60，再登记0x467D90；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467d50",
@@ -4989,7 +5013,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467D50",
           "call_site": "0x467D50",
@@ -5016,7 +5040,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467D50",
           "reference_site": "0x467D80",
@@ -5036,7 +5060,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -5077,10 +5101,10 @@
         "original_slot": "0x55307c",
         "original_target": "0x467D50",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveTargets_467D50",
+        "current_initializer_type": "WorldMoveTargetsStartup",
+        "current_initializer_variable": "gWorldMoveTargetsStartup",
+        "direct_call_symbol": "cg::world::WorldMoveTargetsStartup::WorldMoveTargetsStartup",
+        "expanded_leaf_symbol": "WorldMoveTargetsStartup::WorldMoveTargetsStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -5099,13 +5123,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 26,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveTargetsStartup::~WorldMoveTargetsStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveTargetsStartup::WorldMoveTargetsStartup",
+        "startup_variable": "gWorldMoveTargetsStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -5273,38 +5308,32 @@
     {
       "original_entry": "0x467DB0",
       "inventory_id": "F:00067DB0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveStateC821E8Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup WorldMoveStateC821E8Startup::~WorldMoveStateC821E8Startup ConstructLegacyWorldMoveState_467DC0 DestroyLegacyWorldMoveState_467DE0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveState_467DB0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveState_467DB0"
+            "WorldMoveStateC821E8Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -5321,7 +5350,7 @@
         "0xC821E8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553080先调用0x467DC0，再登记0x467DE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553080先调用0x467DC0，再登记0x467DE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467db0",
@@ -5333,7 +5362,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467DB0",
           "call_site": "0x467DB0",
@@ -5360,7 +5389,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467DB0",
           "reference_site": "0x467DD0",
@@ -5380,7 +5409,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -5421,10 +5450,10 @@
         "original_slot": "0x553080",
         "original_target": "0x467DB0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DB0",
+        "current_initializer_type": "WorldMoveStateC821E8Startup",
+        "current_initializer_variable": "gWorldMoveStateC821E8Startup",
+        "direct_call_symbol": "cg::world::WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup",
+        "expanded_leaf_symbol": "WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -5443,13 +5472,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 29,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveStateC821E8Startup::~WorldMoveStateC821E8Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveStateC821E8Startup::WorldMoveStateC821E8Startup",
+        "startup_variable": "gWorldMoveStateC821E8Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -5589,38 +5629,32 @@
     {
       "original_entry": "0x467DF0",
       "inventory_id": "F:00067DF0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveState9E03C0Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup WorldMoveState9E03C0Startup::~WorldMoveState9E03C0Startup ConstructLegacyWorldMoveState_467E00 DestroyLegacyWorldMoveState_467E20"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveState_467DF0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveState_467DF0"
+            "WorldMoveState9E03C0Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -5637,7 +5671,7 @@
         "0x9E03C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553084先调用0x467E00，再登记0x467E20；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553084先调用0x467E00，再登记0x467E20；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467df0",
@@ -5649,7 +5683,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467DF0",
           "call_site": "0x467DF0",
@@ -5676,7 +5710,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467DF0",
           "reference_site": "0x467E10",
@@ -5696,7 +5730,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -5737,10 +5771,10 @@
         "original_slot": "0x553084",
         "original_target": "0x467DF0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DF0",
+        "current_initializer_type": "WorldMoveState9E03C0Startup",
+        "current_initializer_variable": "gWorldMoveState9E03C0Startup",
+        "direct_call_symbol": "cg::world::WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup",
+        "expanded_leaf_symbol": "WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -5759,13 +5793,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 32,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveState9E03C0Startup::~WorldMoveState9E03C0Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveState9E03C0Startup::WorldMoveState9E03C0Startup",
+        "startup_variable": "gWorldMoveState9E03C0Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -5905,38 +5950,32 @@
     {
       "original_entry": "0x467E30",
       "inventory_id": "F:00067E30",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveState9FB918Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveState9FB918Startup::WorldMoveState9FB918Startup WorldMoveState9FB918Startup::~WorldMoveState9FB918Startup ConstructLegacyWorldMoveState_467E40 DestroyLegacyWorldMoveState_467E60"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveState_467E30"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveState_467E30"
+            "WorldMoveState9FB918Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -5953,7 +5992,7 @@
         "0x9FB918"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553088先调用0x467E40，再登记0x467E60；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553088先调用0x467E40，再登记0x467E60；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467e30",
@@ -5965,7 +6004,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467E30",
           "call_site": "0x467E30",
@@ -5992,7 +6031,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467E30",
           "reference_site": "0x467E50",
@@ -6012,7 +6051,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -6053,10 +6092,10 @@
         "original_slot": "0x553088",
         "original_target": "0x467E30",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E30",
+        "current_initializer_type": "WorldMoveState9FB918Startup",
+        "current_initializer_variable": "gWorldMoveState9FB918Startup",
+        "direct_call_symbol": "cg::world::WorldMoveState9FB918Startup::WorldMoveState9FB918Startup",
+        "expanded_leaf_symbol": "WorldMoveState9FB918Startup::WorldMoveState9FB918Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -6075,13 +6114,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 35,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveState9FB918Startup::~WorldMoveState9FB918Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveState9FB918Startup::WorldMoveState9FB918Startup",
+        "startup_variable": "gWorldMoveState9FB918Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -6221,38 +6271,32 @@
     {
       "original_entry": "0x467E70",
       "inventory_id": "F:00067E70",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveStateAF0FE8Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup WorldMoveStateAF0FE8Startup::~WorldMoveStateAF0FE8Startup ConstructLegacyWorldMoveState_467E80 DestroyLegacyWorldMoveState_467EA0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveState_467E70"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveState_467E70"
+            "WorldMoveStateAF0FE8Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -6269,7 +6313,7 @@
         "0xAF0FE8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55308C先调用0x467E80，再登记0x467EA0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x55308C先调用0x467E80，再登记0x467EA0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467e70",
@@ -6281,7 +6325,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467E70",
           "call_site": "0x467E70",
@@ -6308,7 +6352,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467E70",
           "reference_site": "0x467E90",
@@ -6328,7 +6372,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -6369,10 +6413,10 @@
         "original_slot": "0x55308c",
         "original_target": "0x467E70",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E70",
+        "current_initializer_type": "WorldMoveStateAF0FE8Startup",
+        "current_initializer_variable": "gWorldMoveStateAF0FE8Startup",
+        "direct_call_symbol": "cg::world::WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup",
+        "expanded_leaf_symbol": "WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -6391,13 +6435,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 38,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveStateAF0FE8Startup::~WorldMoveStateAF0FE8Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveStateAF0FE8Startup::WorldMoveStateAF0FE8Startup",
+        "startup_variable": "gWorldMoveStateAF0FE8Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -6537,38 +6592,32 @@
     {
       "original_entry": "0x467EB0",
       "inventory_id": "F:00067EB0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "WorldMoveStatesStaticInitializer"
+            "gWorldMoveStateC821D8Startup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeWorldMoveStates"
+            "WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup WorldMoveStateC821D8Startup::~WorldMoveStateC821D8Startup ConstructLegacyWorldMoveState_467EC0 DestroyLegacyWorldMoveState_467EE0"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyWorldMoveState_467EB0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyWorldMoveState_467EB0"
+            "WorldMoveStateC821D8Startup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -6585,7 +6634,7 @@
         "0xC821D8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553090先调用0x467EC0，再登记0x467EE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553090先调用0x467EC0，再登记0x467EE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467eb0",
@@ -6597,7 +6646,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467EB0",
           "call_site": "0x467EB0",
@@ -6624,7 +6673,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467EB0",
           "reference_site": "0x467ED0",
@@ -6644,7 +6693,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -6685,10 +6734,10 @@
         "original_slot": "0x553090",
         "original_target": "0x467EB0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "WorldMoveStatesStaticInitializer",
-        "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
-        "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467EB0",
+        "current_initializer_type": "WorldMoveStateC821D8Startup",
+        "current_initializer_variable": "gWorldMoveStateC821D8Startup",
+        "direct_call_symbol": "cg::world::WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup",
+        "expanded_leaf_symbol": "WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -6707,13 +6756,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 41,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::WorldMoveStateC821D8Startup::~WorldMoveStateC821D8Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::WorldMoveStateC821D8Startup::WorldMoveStateC821D8Startup",
+        "startup_variable": "gWorldMoveStateC821D8Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -6853,38 +6913,32 @@
     {
       "original_entry": "0x467EF0",
       "inventory_id": "F:00067EF0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "RippleGateStaticInitializer"
+            "gRippleGateStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeRippleGate"
+            "RippleGateStartup::RippleGateStartup RippleGateStartup::~RippleGateStartup ConstructLegacyRippleGate_467F00 DestroyLegacyRippleGate_467F20"
           ],
-          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacyRippleGate_467EF0"
-          ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyRippleGate_467EF0"
+            "RippleGateStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -6901,7 +6955,7 @@
         "0x9A7FA8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553094先调用0x467F00，再登记0x467F20；InitializeRippleGate在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原0x553094先调用0x467F00，再登记0x467F20；InitializeRippleGate在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x467ef0",
@@ -6913,7 +6967,7 @@
         }
       ],
       "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "world_state_crt_internal_call_connections": [
+      "world_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x467EF0",
           "call_site": "0x467EF0",
@@ -6940,7 +6994,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "world_state_crt_callback_references": [
+      "world_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x467EF0",
           "reference_site": "0x467F10",
@@ -6960,7 +7014,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -7001,10 +7055,10 @@
         "original_slot": "0x553094",
         "original_target": "0x467EF0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "RippleGateStaticInitializer",
-        "current_initializer_variable": "gRippleGateStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeRippleGate",
-        "expanded_leaf_symbol": "InitializeLegacyRippleGate_467EF0",
+        "current_initializer_type": "RippleGateStartup",
+        "current_initializer_variable": "gRippleGateStartup",
+        "direct_call_symbol": "cg::world::RippleGateStartup::RippleGateStartup",
+        "expanded_leaf_symbol": "RippleGateStartup::RippleGateStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -7023,13 +7077,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 44,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::RippleGateStartup::~RippleGateStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::RippleGateStartup::RippleGateStartup",
+        "startup_variable": "gRippleGateStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -8636,40 +8701,33 @@
     {
       "original_entry": "0x401C10",
       "inventory_id": "F:00001C10",
-      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "CRT553004启动双CryptInt登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StartupProtectionValuesStartup",
-            "gStartupProtectionValuesStartup"
+            "gStartupValues"
           ],
-          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "ConstructStartupValues_401C20",
-            "DestroyStartupValues_401C50"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyCryptInt.cpp",
-          "symbols": [
-            "InitializeLegacyStartupValues_401C10"
+            "StartupValues::StartupValues StartupValues::~StartupValues ConstructStartupValues_401C20 DestroyStartupValues_401C50"
           ],
-          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "InitializeLegacyStartupValues_401C10"
+            "StartupValues"
           ],
-          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -8680,7 +8738,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -8693,7 +8751,7 @@
         }
       ],
       "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
-      "startup_crypt_internal_call_connections": [
+      "startup_crypt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x401C10",
           "call_site": "0x401C10",
@@ -8718,7 +8776,7 @@
           "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
-      "startup_crypt_callback_references": [
+      "startup_crypt_callback_references_before_lci01": [
         {
           "parent_entry": "0x401C10",
           "reference_site": "0x401C40",
@@ -8738,7 +8796,7 @@
           "kind": 1
         }
       ],
-      "startup_protection_lifecycle_contract": {
+      "startup_protection_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_type": "StartupProtectionValuesStartup",
@@ -8775,9 +8833,9 @@
         "original_slot": "0x553004",
         "original_target": "0x401C10",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StartupProtectionValuesStartup",
-        "current_initializer_variable": "gStartupProtectionValuesStartup",
-        "direct_call_symbol": "legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+        "current_initializer_type": "StartupValues",
+        "current_initializer_variable": "gStartupValues",
+        "direct_call_symbol": "cg::platform::legacy_crypt_int::StartupValues::StartupValues",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -8797,52 +8855,56 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 87,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::platform::legacy_crypt_int::StartupValues::~StartupValues",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::platform::legacy_crypt_int::StartupValues::StartupValues",
+        "startup_variable": "gStartupValues",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
       "original_entry": "0x404120",
       "inventory_id": "F:00004120",
-      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "CRT553008第一保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StartupProtectionValuesStartup",
-            "gStartupProtectionValuesStartup"
+            "gProtectionChecksum1Startup"
           ],
-          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbols": [
-            "ConstructProtectionChecksum1_404130",
-            "DestroyProtectionChecksum1_404150"
-          ]
-        },
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbols": [
-            "InitializeLegacyProtectionChecksum1_404120"
+            "ProtectionChecksum1Startup::ProtectionChecksum1Startup ProtectionChecksum1Startup::~ProtectionChecksum1Startup ConstructProtectionChecksum1_404130 DestroyProtectionChecksum1_404150"
           ],
-          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
-            "InitializeLegacyProtectionChecksum1_404120"
+            "ProtectionChecksum1Startup"
           ],
-          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -8853,7 +8915,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -8866,7 +8928,7 @@
         }
       ],
       "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
-      "startup_crypt_internal_call_connections": [
+      "startup_crypt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x404120",
           "call_site": "0x404120",
@@ -8891,7 +8953,7 @@
           "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
-      "startup_crypt_callback_references": [
+      "startup_crypt_callback_references_before_lci01": [
         {
           "parent_entry": "0x404120",
           "reference_site": "0x404140",
@@ -8911,7 +8973,7 @@
           "kind": 1
         }
       ],
-      "startup_protection_lifecycle_contract": {
+      "startup_protection_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_type": "StartupProtectionValuesStartup",
@@ -8948,9 +9010,9 @@
         "original_slot": "0x553008",
         "original_target": "0x404120",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StartupProtectionValuesStartup",
-        "current_initializer_variable": "gStartupProtectionValuesStartup",
-        "direct_call_symbol": "InitializeLegacyProtectionChecksum1_404120",
+        "current_initializer_type": "ProtectionChecksum1Startup",
+        "current_initializer_variable": "gProtectionChecksum1Startup",
+        "direct_call_symbol": "cg::platform::ProtectionChecksum1Startup::ProtectionChecksum1Startup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -8970,52 +9032,56 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 88,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::platform::ProtectionChecksum1Startup::~ProtectionChecksum1Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::platform::ProtectionChecksum1Startup::ProtectionChecksum1Startup",
+        "startup_variable": "gProtectionChecksum1Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
       "original_entry": "0x404160",
       "inventory_id": "F:00004160",
-      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "CRT55300C第二保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StartupProtectionValuesStartup",
-            "gStartupProtectionValuesStartup"
+            "gProtectionChecksum2Startup"
           ],
-          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbols": [
-            "ConstructProtectionChecksum2_404170",
-            "DestroyProtectionChecksum2_404190"
-          ]
-        },
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbols": [
-            "InitializeLegacyProtectionChecksum2_404160"
+            "ProtectionChecksum2Startup::ProtectionChecksum2Startup ProtectionChecksum2Startup::~ProtectionChecksum2Startup ConstructProtectionChecksum2_404170 DestroyProtectionChecksum2_404190"
           ],
-          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
-            "InitializeLegacyProtectionChecksum2_404160"
+            "ProtectionChecksum2Startup"
           ],
-          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -9026,7 +9092,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -9039,7 +9105,7 @@
         }
       ],
       "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
-      "startup_crypt_internal_call_connections": [
+      "startup_crypt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x404160",
           "call_site": "0x404160",
@@ -9064,7 +9130,7 @@
           "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
-      "startup_crypt_callback_references": [
+      "startup_crypt_callback_references_before_lci01": [
         {
           "parent_entry": "0x404160",
           "reference_site": "0x404180",
@@ -9084,7 +9150,7 @@
           "kind": 1
         }
       ],
-      "startup_protection_lifecycle_contract": {
+      "startup_protection_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_type": "StartupProtectionValuesStartup",
@@ -9121,9 +9187,9 @@
         "original_slot": "0x55300c",
         "original_target": "0x404160",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StartupProtectionValuesStartup",
-        "current_initializer_variable": "gStartupProtectionValuesStartup",
-        "direct_call_symbol": "InitializeLegacyProtectionChecksum2_404160",
+        "current_initializer_type": "ProtectionChecksum2Startup",
+        "current_initializer_variable": "gProtectionChecksum2Startup",
+        "direct_call_symbol": "cg::platform::ProtectionChecksum2Startup::ProtectionChecksum2Startup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -9143,52 +9209,56 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 89,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::platform::ProtectionChecksum2Startup::~ProtectionChecksum2Startup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::platform::ProtectionChecksum2Startup::ProtectionChecksum2Startup",
+        "startup_variable": "gProtectionChecksum2Startup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
       "original_entry": "0x4041A0",
       "inventory_id": "F:000041A0",
-      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "CRT553010进程保护状态登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StartupProtectionValuesStartup",
-            "gStartupProtectionValuesStartup"
+            "gProtectionProcessStateStartup"
           ],
-          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbols": [
-            "ConstructProtectionProcessState_4041B0",
-            "DestroyProtectionProcessState_4041D0"
-          ]
-        },
-        {
-          "path": "src/platform/MainLoopSupport.cpp",
-          "symbols": [
-            "InitializeLegacyProtectionProcessState_4041A0"
+            "ProtectionProcessStateStartup::ProtectionProcessStateStartup ProtectionProcessStateStartup::~ProtectionProcessStateStartup ConstructProtectionProcessState_4041B0 DestroyProtectionProcessState_4041D0"
           ],
-          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
-            "InitializeLegacyProtectionProcessState_4041A0"
+            "ProtectionProcessStateStartup"
           ],
-          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -9199,7 +9269,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -9212,7 +9282,7 @@
         }
       ],
       "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
-      "startup_crypt_internal_call_connections": [
+      "startup_crypt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x4041A0",
           "call_site": "0x4041A0",
@@ -9237,7 +9307,7 @@
           "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
-      "startup_crypt_callback_references": [
+      "startup_crypt_callback_references_before_lci01": [
         {
           "parent_entry": "0x4041A0",
           "reference_site": "0x4041C0",
@@ -9257,7 +9327,7 @@
           "kind": 1
         }
       ],
-      "startup_protection_lifecycle_contract": {
+      "startup_protection_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_type": "StartupProtectionValuesStartup",
@@ -9294,9 +9364,9 @@
         "original_slot": "0x553010",
         "original_target": "0x4041A0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StartupProtectionValuesStartup",
-        "current_initializer_variable": "gStartupProtectionValuesStartup",
-        "direct_call_symbol": "InitializeLegacyProtectionProcessState_4041A0",
+        "current_initializer_type": "ProtectionProcessStateStartup",
+        "current_initializer_variable": "gProtectionProcessStateStartup",
+        "direct_call_symbol": "cg::platform::ProtectionProcessStateStartup::ProtectionProcessStateStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -9316,13 +9386,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 90,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::platform::ProtectionProcessStateStartup::~ProtectionProcessStateStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::platform::ProtectionProcessStateStartup::ProtectionProcessStateStartup",
+        "startup_variable": "gProtectionProcessStateStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -10323,32 +10404,33 @@
     {
       "original_entry": "0x506340",
       "inventory_id": "F:00106340",
-      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "鼠标CRT启动入口",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "LegacyMouseStaticInitializer"
+            "gMouseRuntimeStartup"
           ],
-          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "InitializeLegacyMouseRuntime_506340"
+            "MouseRuntimeStartup::MouseRuntimeStartup MouseRuntimeStartup::~MouseRuntimeStartup ConstructLegacyMouseRuntime_506350 ReleaseLegacyMouseRuntimeAtExit_506370"
           ],
-          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/platform/LegacyMouse.hpp",
           "symbols": [
-            "InitializeLegacyMouseRuntime_506340"
+            "MouseRuntimeStartup"
           ],
-          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
@@ -10361,7 +10443,7 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
       ],
-      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -10370,7 +10452,7 @@
         }
       ],
       "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
-      "runtime_state_crt_internal_call_connections": [
+      "runtime_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x506340",
           "call_site": "0x506340",
@@ -10399,7 +10481,7 @@
           "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
-      "runtime_state_crt_callback_references": [
+      "runtime_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x506340",
           "reference_site": "0x506360",
@@ -10419,7 +10501,7 @@
           "original_shared_end_exclusive": "0x50636C",
           "original_instruction_owner": "0x506350",
           "source": "src/platform/LegacyMouse.cpp",
-          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "symbol": "MouseRuntimeStartup::MouseRuntimeStartup",
           "instructions": [
             [
               "0x506360",
@@ -10461,7 +10543,7 @@
           "kind": 1
         }
       ],
-      "ui_input_lifecycle_contract": {
+      "ui_input_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -10505,9 +10587,9 @@
         "original_slot": "0x5530f8",
         "original_target": "0x506340",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "LegacyMouseStaticInitializer",
-        "current_initializer_variable": "gLegacyMouseStaticInitializer",
-        "direct_call_symbol": "cg::platform::InitializeLegacyMouseRuntime_506340",
+        "current_initializer_type": "MouseRuntimeStartup",
+        "current_initializer_variable": "gMouseRuntimeStartup",
+        "direct_call_symbol": "cg::platform::MouseRuntimeStartup::MouseRuntimeStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -10527,13 +10609,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 105,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::platform::MouseRuntimeStartup::~MouseRuntimeStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::platform::MouseRuntimeStartup::MouseRuntimeStartup",
+        "startup_variable": "gMouseRuntimeStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -10694,32 +10787,33 @@
     {
       "original_entry": "0x5183D0",
       "inventory_id": "F:001183D0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "玩家CRT启动入口",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "PlayerRuntimeValuesStaticInitializer"
+            "gPlayerRuntimeValuesStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeLegacyPlayerRuntime_5183D0"
+            "PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup PlayerRuntimeValuesStartup::~PlayerRuntimeValuesStartup ConstructLegacyPlayerRuntime_5183E0 ReleaseLegacyPlayerRuntimeAtExit_518400"
           ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyPlayerRuntime_5183D0"
+            "PlayerRuntimeValuesStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
@@ -10731,7 +10825,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -10740,7 +10834,7 @@
         }
       ],
       "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "runtime_state_crt_internal_call_connections": [
+      "runtime_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x5183D0",
           "call_site": "0x5183D0",
@@ -10769,7 +10863,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "runtime_state_crt_callback_references": [
+      "runtime_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x5183D0",
           "reference_site": "0x5183F0",
@@ -10789,7 +10883,7 @@
           "original_shared_end_exclusive": "0x5183FC",
           "original_instruction_owner": "0x5183E0",
           "source": "src/world/SceneState.cpp",
-          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "symbol": "PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup",
           "instructions": [
             [
               "0x5183f0",
@@ -10832,7 +10926,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -10873,9 +10967,9 @@
         "original_slot": "0x5530fc",
         "original_target": "0x5183D0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "PlayerRuntimeValuesStaticInitializer",
-        "current_initializer_variable": "gPlayerRuntimeValuesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeLegacyPlayerRuntime_5183D0",
+        "current_initializer_type": "PlayerRuntimeValuesStartup",
+        "current_initializer_variable": "gPlayerRuntimeValuesStartup",
+        "direct_call_symbol": "cg::world::PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -10895,13 +10989,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 108,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::PlayerRuntimeValuesStartup::~PlayerRuntimeValuesStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::PlayerRuntimeValuesStartup::PlayerRuntimeValuesStartup",
+        "startup_variable": "gPlayerRuntimeValuesStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -11027,32 +11132,33 @@
     {
       "original_entry": "0x518520",
       "inventory_id": "F:00118520",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "五宠物CRT启动与退出登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "PetRuntimeValuesStaticInitializer"
+            "gPetRuntimeValuesStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "InitializeLegacyPetRuntime_518520"
+            "PetRuntimeValuesStartup::PetRuntimeValuesStartup PetRuntimeValuesStartup::~PetRuntimeValuesStartup ConstructPetRuntimeValues DestroyPetRuntimeValues"
           ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacyPetRuntime_518520"
+            "PetRuntimeValuesStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
@@ -11064,7 +11170,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -11077,7 +11183,7 @@
         }
       ],
       "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
-      "runtime_state_crt_internal_call_connections": [
+      "runtime_state_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x518520",
           "call_site": "0x518520",
@@ -11104,7 +11210,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "runtime_state_crt_callback_references": [
+      "runtime_state_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x518520",
           "reference_site": "0x518550",
@@ -11124,7 +11230,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -11165,9 +11271,9 @@
         "original_slot": "0x553100",
         "original_target": "0x518520",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "PetRuntimeValuesStaticInitializer",
-        "current_initializer_variable": "gPetRuntimeValuesStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeLegacyPetRuntime_518520",
+        "current_initializer_type": "PetRuntimeValuesStartup",
+        "current_initializer_variable": "gPetRuntimeValuesStartup",
+        "direct_call_symbol": "cg::world::PetRuntimeValuesStartup::PetRuntimeValuesStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -11187,13 +11293,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 110,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::PetRuntimeValuesStartup::~PetRuntimeValuesStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::PetRuntimeValuesStartup::PetRuntimeValuesStartup",
+        "startup_variable": "gPetRuntimeValuesStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -11377,39 +11494,33 @@
     {
       "original_entry": "0x4883F0",
       "inventory_id": "F:000883F0",
-      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "首个物品选择器CRT及独立退出登记",
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "InitializeItemSelectors"
-          ],
-          "relationship": "选择器公开void包装仅按原两项序转调真实Init，取消重复构造和退出时可改preview槽lambda"
-        },
-        {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "ItemSelectorsStaticInitializer"
+            "gFirstItemSelectorStartup"
           ],
-          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "InitializeLegacyFirstItemSelector_4883F0"
+            "FirstItemSelectorStartup::FirstItemSelectorStartup FirstItemSelectorStartup::~FirstItemSelectorStartup ConstructLegacyFirstItemSelector_488400 ReleaseLegacyFirstItemSelectorAtExit_488420"
           ],
-          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "InitializeLegacyFirstItemSelector_4883F0"
+            "FirstItemSelectorStartup"
           ],
-          "relationship": "独立真实入口声明；构造/退出前缀只本源内部使用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -11420,7 +11531,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原55309C调用488400构造CF3B10后在488410登记488420；InitializeItemSelectors先完成第一对象构造、立即登记，忽略登记失败后继续第二项。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原55309C调用488400构造CF3B10后在488410登记488420；InitializeItemSelectors先完成第一对象构造、立即登记，忽略登记失败后继续第二项。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -11433,7 +11544,7 @@
         }
       ],
       "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
-      "item_selector_crt_internal_call_connections": [
+      "item_selector_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x4883F0",
           "call_site": "0x4883F0",
@@ -11460,7 +11571,7 @@
           "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
-      "item_selector_crt_callback_references": [
+      "item_selector_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x4883F0",
           "reference_site": "0x488410",
@@ -11479,7 +11590,7 @@
           "kind": 1
         }
       ],
-      "ui_input_lifecycle_contract": {
+      "ui_input_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -11523,10 +11634,10 @@
         "original_slot": "0x55309c",
         "original_target": "0x4883F0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "ItemSelectorsStaticInitializer",
-        "current_initializer_variable": "gItemSelectorsStaticInitializer",
-        "direct_call_symbol": "cg::ui::InitializeItemSelectors",
-        "expanded_leaf_symbol": "InitializeLegacyFirstItemSelector_4883F0",
+        "current_initializer_type": "FirstItemSelectorStartup",
+        "current_initializer_variable": "gFirstItemSelectorStartup",
+        "direct_call_symbol": "cg::ui::FirstItemSelectorStartup::FirstItemSelectorStartup",
+        "expanded_leaf_symbol": "FirstItemSelectorStartup::FirstItemSelectorStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -11545,13 +11656,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 113,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::ui::FirstItemSelectorStartup::~FirstItemSelectorStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::ui::FirstItemSelectorStartup::FirstItemSelectorStartup",
+        "startup_variable": "gFirstItemSelectorStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -11707,39 +11829,33 @@
     {
       "original_entry": "0x4998F0",
       "inventory_id": "F:000998F0",
-      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "第二物品选择器CRT及独立退出登记",
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "InitializeItemSelectors"
-          ],
-          "relationship": "选择器公开void包装仅按原两项序转调真实Init，取消重复构造和退出时可改preview槽lambda"
-        },
-        {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "ItemSelectorsStaticInitializer"
+            "gSecondItemSelectorStartup"
           ],
-          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "InitializeLegacySecondItemSelector_4998F0"
+            "SecondItemSelectorStartup::SecondItemSelectorStartup SecondItemSelectorStartup::~SecondItemSelectorStartup ConstructLegacySecondItemSelector_499900 ReleaseLegacySecondItemSelectorAtExit_499920"
           ],
-          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "InitializeLegacySecondItemSelector_4998F0"
+            "SecondItemSelectorStartup"
           ],
-          "relationship": "独立真实入口声明；构造/退出前缀只本源内部使用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -11750,7 +11866,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "原5530A0调用499900构造D2F338后在499910登记499920；InitializeItemSelectors在第一项登记后构造第二项并独立登记，明确忽略返回，不补重试。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。原5530A0调用499900构造D2F338后在499910登记499920；InitializeItemSelectors在第一项登记后构造第二项并独立登记，明确忽略返回，不补重试。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -11763,7 +11879,7 @@
         }
       ],
       "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
-      "item_selector_crt_internal_call_connections": [
+      "item_selector_crt_internal_call_connections_before_lci01": [
         {
           "parent_entry": "0x4998F0",
           "call_site": "0x4998F0",
@@ -11790,7 +11906,7 @@
           "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
-      "item_selector_crt_callback_references": [
+      "item_selector_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x4998F0",
           "reference_site": "0x499910",
@@ -11809,7 +11925,7 @@
           "kind": 1
         }
       ],
-      "ui_input_lifecycle_contract": {
+      "ui_input_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -11853,10 +11969,10 @@
         "original_slot": "0x5530a0",
         "original_target": "0x4998F0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "ItemSelectorsStaticInitializer",
-        "current_initializer_variable": "gItemSelectorsStaticInitializer",
-        "direct_call_symbol": "cg::ui::InitializeItemSelectors",
-        "expanded_leaf_symbol": "InitializeLegacySecondItemSelector_4998F0",
+        "current_initializer_type": "SecondItemSelectorStartup",
+        "current_initializer_variable": "gSecondItemSelectorStartup",
+        "direct_call_symbol": "cg::ui::SecondItemSelectorStartup::SecondItemSelectorStartup",
+        "expanded_leaf_symbol": "SecondItemSelectorStartup::SecondItemSelectorStartup",
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "fixed_version": "cg2d-re-active-initializer-order-source-20261005",
@@ -11875,13 +11991,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 115,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::ui::SecondItemSelectorStartup::~SecondItemSelectorStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::ui::SecondItemSelectorStartup::SecondItemSelectorStartup",
+        "startup_variable": "gSecondItemSelectorStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -19315,7 +19442,7 @@
     {
       "original_entry": "0x4CD240",
       "inventory_id": "F:000CD240",
-      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_role": "浏览宠物CRT包装",
       "original_end_exclusive": "0x4cd24a",
       "instruction_count": 2,
@@ -19323,33 +19450,27 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StallBrowsePetsStaticInitializer"
+            "gStallBrowsePetValuesStartup"
           ],
-          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues",
-            "DestroyStallBrowsePetValues"
-          ]
-        },
-        {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "InitializeLegacyStallBrowsePetValues_4CD240"
+            "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup ConstructStallBrowsePetValues DestroyStallBrowsePetValues"
           ],
-          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "InitializeLegacyStallBrowsePetValues_4CD240"
+            "StallBrowsePetValuesStartup"
           ],
-          "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/ui_windows/window_68.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -19360,7 +19481,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "function_chunks": [
         {
           "start": "0x4cd240",
@@ -19375,7 +19496,7 @@
           "target_entry": "0x4CD250",
           "target_symbol": "ConstructStallBrowsePetValues",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "symbol": "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
           "transfer": "call",
           "relationship": "原真实构造call，沿已过同一对象/构析本体"
         },
@@ -19385,7 +19506,7 @@
           "target_entry": "0x53B406",
           "target_symbol": "std::atexit",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "symbol": "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
           "transfer": "call",
           "arguments": "DestroyStallBrowsePetValues 无参callback",
           "original_instruction_owner": "0x4CD250",
@@ -19396,7 +19517,7 @@
           "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
-      "scene_crypt_crt_callback_references": [
+      "scene_crypt_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x4CD240",
           "reference_site": "0x4CD260",
@@ -19416,7 +19537,7 @@
           "original_shared_end_exclusive": "0x4CD26C",
           "original_instruction_owner": "0x4CD250",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "symbol": "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
           "relationship": "原入口仅2条，尾跳4CD250所属登记块4CD260..26C四条；源码同路径接53B406/4CD270，块不计新原函数或入口chunks"
         }
       ],
@@ -19462,7 +19583,7 @@
           "kind": 1
         }
       ],
-      "ui_input_lifecycle_contract": {
+      "ui_input_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -19506,9 +19627,9 @@
         "original_slot": "0x5530a4",
         "original_target": "0x4CD240",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "StallBrowsePetsStaticInitializer",
-        "current_initializer_variable": "gStallBrowsePetsStaticInitializer",
-        "direct_call_symbol": "cg::ui::InitializeLegacyStallBrowsePetValues_4CD240",
+        "current_initializer_type": "StallBrowsePetValuesStartup",
+        "current_initializer_variable": "gStallBrowsePetValuesStartup",
+        "direct_call_symbol": "cg::ui::StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -19528,13 +19649,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 237,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::ui::StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::ui::StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
+        "startup_variable": "gStallBrowsePetValuesStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {
@@ -19683,40 +19815,34 @@
     {
       "original_entry": "0x456FD0",
       "inventory_id": "F:00056FD0",
-      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "status": "LCI01已批准以原生启动拥有者构造／析构承接，原载荷与构造清理／中央位置保持；仅静态核对，编译及运行未验",
       "original_end_exclusive": "0x456fda",
       "instruction_count": 6,
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "SceneTransitionValueStaticInitializer"
+            "gSceneTransitionValueStartup"
           ],
-          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
+          "relationship": "同一中央初始化位置的独立拥有者；退出登记由MSVC承接，原相对序保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
-            "ConstructSceneTransitionValue",
-            "DestroySceneTransitionValue"
-          ]
-        },
-        {
-          "path": "src/world/SceneState.cpp",
-          "symbols": [
-            "InitializeLegacySceneTransitionValue_456FD0"
+            "SceneTransitionValueStartup::SceneTransitionValueStartup SceneTransitionValueStartup::~SceneTransitionValueStartup ConstructSceneTransitionValue DestroySceneTransitionValue"
           ],
-          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
+          "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
-            "InitializeLegacySceneTransitionValue_456FD0"
+            "SceneTransitionValueStartup"
           ],
-          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
+          "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_login_request.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
@@ -19727,7 +19853,7 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json"
       ],
-      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
+      "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "original_chunks": [
         [
           "0x456FD0",
@@ -19756,7 +19882,7 @@
           "target_entry": "0x456FE0",
           "target_symbol": "ConstructSceneTransitionValue",
           "source": "src/world/SceneState.cpp",
-          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "symbol": "SceneTransitionValueStartup::SceneTransitionValueStartup",
           "transfer": "call",
           "relationship": "原真实构造call，沿已过同一对象/构析本体"
         },
@@ -19766,7 +19892,7 @@
           "target_entry": "0x53B406",
           "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
-          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "symbol": "SceneTransitionValueStartup::SceneTransitionValueStartup",
           "transfer": "call",
           "arguments": "DestroySceneTransitionValue 无参callback",
           "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
@@ -19775,7 +19901,7 @@
           "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
-      "scene_crypt_crt_callback_references": [
+      "scene_crypt_crt_callback_references_before_lci01": [
         {
           "parent_entry": "0x456FD0",
           "reference_site": "0x456FF0",
@@ -19794,7 +19920,7 @@
           "kind": 1
         }
       ],
-      "world_state_lifecycle_contract": {
+      "world_state_lifecycle_contract_before_lci01": {
         "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
         "module_source": "src/platform/LegacyMouse.cpp",
         "module_types": [
@@ -19835,9 +19961,9 @@
         "original_slot": "0x553054",
         "original_target": "0x456FD0",
         "current_source": "src/platform/LegacyMouse.cpp",
-        "current_initializer_type": "SceneTransitionValueStaticInitializer",
-        "current_initializer_variable": "gSceneTransitionValueStaticInitializer",
-        "direct_call_symbol": "cg::world::InitializeLegacySceneTransitionValue_456FD0",
+        "current_initializer_type": "SceneTransitionValueStartup",
+        "current_initializer_variable": "gSceneTransitionValueStartup",
+        "direct_call_symbol": "cg::world::SceneTransitionValueStartup::SceneTransitionValueStartup",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -19857,13 +19983,24 @@
         "git_snapshot": "cg2d-re-msvc-crt-exit-history-20261010",
         "path": "doc/cg2d_semantic_function_mappings.json",
         "record_index": 245,
-        "boundary": "完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
+        "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。完整原数据/原机器调用/旧提供者/所有先前历史链按固定标签和原索引可读，不重复复制。"
       },
       "msvc_exit_group": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "lci01_current_native_lifecycle": {
+        "runtime_verified": false,
+        "destructor": "cg::world::SceneTransitionValueStartup::~SceneTransitionValueStartup",
+        "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
+        "constructor": "cg::world::SceneTransitionValueStartup::SceneTransitionValueStartup",
+        "startup_variable": "gSceneTransitionValueStartup",
+        "build_verified": false,
+        "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
+        "startup_source": "src/platform/LegacyMouse.cpp",
+        "static_source_checked": true
       }
     },
     {

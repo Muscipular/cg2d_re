@@ -2,12 +2,43 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 namespace cg::platform {
 
 // 原 x86 CryptInt 的固定内存布局。legacyVftToken 保存原 32 位地址位模式，
 // 不是新端可解引用的虚表指针。
-struct LegacyCryptInt {
+class LegacyCryptInt {
+public:
+    // 默认构造、析构和同类拷贝保持平凡；原始载荷仍可按既有布局搬移。
+    LegacyCryptInt() = default;
+    explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
+    explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
+
+    LegacyCryptInt& operator=(std::int32_t value); // 原AssignFromInt载荷赋值。
+    LegacyCryptInt& operator=(std::uint32_t value); // 保留目标token与reserved。
+
+    // 每次转换单读并消费原计数／刷新；标量两侧算术、比较沿C++整数提升。
+    operator std::int32_t();
+    explicit operator std::uint32_t();
+    LegacyCryptInt& operator+=(std::int32_t amount); // 原401E20，单读后SetNorVal。
+    LegacyCryptInt& operator+=(std::uint32_t amount); // 无符号W32加后写回位模式。
+    LegacyCryptInt& operator-=(std::int32_t amount); // 原401E40，单读后SetNorVal。
+    LegacyCryptInt& operator-=(std::uint32_t amount); // 无符号W32减后写回位模式。
+    LegacyCryptInt& operator++(); // 原401DE0：返回本对象。
+    std::int32_t operator++(int); // 单读递增，返回递增前明文。
+
+    // 同类双值运算先右后左各读一次，即使两引用指向同一对象。
+    friend std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator-(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator>(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator>=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    friend bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
@@ -15,6 +46,10 @@ struct LegacyCryptInt {
     std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
 };
 static_assert(sizeof(LegacyCryptInt) == 16);
+static_assert(std::is_standard_layout_v<LegacyCryptInt>);
+static_assert(std::is_trivially_copyable_v<LegacyCryptInt>);
+static_assert(std::is_trivially_default_constructible_v<LegacyCryptInt>);
+static_assert(std::is_trivially_destructible_v<LegacyCryptInt>);
 static_assert(offsetof(LegacyCryptInt, legacyVftToken) == 0x00);
 static_assert(offsetof(LegacyCryptInt, encoded) == 0x04);
 static_assert(offsetof(LegacyCryptInt, mask) == 0x08);
@@ -26,9 +61,17 @@ inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
 namespace legacy_crypt_int {
 
 // 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
-// 原553004入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
+// 对应原553004；本类构造／析构沿同一存储，退出登记由MSVC承接。
 // 原函数：0x00401C10。
-std::int32_t InitializeLegacyStartupValues_401C10();
+class StartupValues final {
+public:
+    // 原函数：0x00401C10；只接管同组原始载荷的启动寿命。
+    StartupValues();
+    ~StartupValues();
+    StartupValues(const StartupValues&) = delete;
+    StartupValues& operator=(const StartupValues&) = delete;
+};
+
 // 原函数：0x00401C20。
 void ConstructStartupValues_401C20();
 // 原函数：0x00401C50。

@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace cg::platform {
-struct LegacyCryptInt;
+class LegacyCryptInt;
 }
 
 namespace cg::render {

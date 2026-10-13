@@ -1,0 +1,12 @@
+renderer=direct3d11 vsync=0 SDL=3004008
+显示模式：2560x1440 refresh_hz=59.950
+交换链：effect=0 buffers=2 flags=0x0
+统计：frames=15314 seconds=5.000202 fps=3062.676 present_avg_ms=0.287 foreground=70.8%
+统计：frames=22946 seconds=5.000011 fps=4589.190 present_avg_ms=0.214 foreground=100.0%
+统计：frames=27017 seconds=5.000011 fps=5403.388 present_avg_ms=0.182 foreground=100.0%
+统计：frames=27514 seconds=5.000000 fps=5502.800 present_avg_ms=0.179 foreground=100.0%
+统计：frames=26720 seconds=5.000170 fps=5343.818 present_avg_ms=0.184 foreground=100.0%
+统计：frames=26678 seconds=5.000202 fps=5335.385 present_avg_ms=0.184 foreground=100.0%
+统计：frames=25730 seconds=5.000008 fps=5145.992 present_avg_ms=0.191 foreground=100.0%
+统计：frames=25311 seconds=5.000137 fps=5062.061 present_avg_ms=0.194 foreground=71.0%
+统计：frames=26184 seconds=5.000120 fps=5236.675 present_avg_ms=0.188 foreground=0.0%

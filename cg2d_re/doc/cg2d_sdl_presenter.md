@@ -1,5 +1,30 @@
 # SDL3 最终帧提交适配器
 
+## 2026-10-13 帧率修复验证方案
+
+用户要求解决默认启动约30 FPS，已具备同版软件后端约60、D3D11约30的对照。先在现有SDL D3D11后端验证队列上限：SDL 3.4.8创建设备时将 `IDXGIDevice1::SetMaximumFrameLatency` 设为1；通过SDL公开renderer属性借用实际设备，在本边界查询DXGI接口并把上限设为2，再释放本次查询引用。仅影响最终提交队列，游戏的16.67ms截止／追赶／CPU绘制保持；不修改驱动设置或依赖。临时日志记录实际renderer、VSync和前后队列值。实测若不能恢复60，撤掉该候选，不把猜测写成修复结论。
+
+该小范围提交策略由本线既有工程委托裁决，验证限用户本次提供的登录场景；保留已授权1ms请求和自动跳片头。完整全屏／战斗及整体渲染验收不外推。
+
+<a id="present-driver-fps-fix-20261013"></a>
+
+### 后端候选与用户最终要求：保留 Direct3D 11
+
+队列候选实测 `direct3d11 / vsync=0 / queue=1→2 / S_OK`，仍29.98 FPS，故撤销全部DXGI查询、队列修改与临时客户端日志。用户追加要求对比官方脚手架，使用本机相同SDL 3.4.8运行官方 `renderer/01-clear` 回调骨架，只加限时统计；官方自建窗口／事件分发／单次Present也测得29.97 FPS，提交平均33.36ms。当前客户端经SDL的 `direct3d` 后端测得59.95 FPS，证明无需重写游戏主循环即可避开本机D3D11呈现限制。
+
+曾据上述对照试作 `direct3d,software` 默认候选，实测60.05 FPS且用户确认画面正常。用户随后明确“我要dx11的”，该候选立即撤回；源码和游戏目录程序恢复D3D11自动选择路径。该对照只证明另一提交路径可避开等待，不作为最终修复，也不批准更换默认图形API。
+
+后续官方骨架已同步记录原生 `GetForegroundWindow` 与交换链参数；客户端 `gWindowActiveState==2` 只能证明其内部状态，不能替代系统前台证据。DX11兼容路径的完成结果见下节。官方对照详见[帧率报告](profiling/20261013_fps/分析结果.md)，所有场景及完整渲染验收不外推。
+
+### DX11 兼容呈现实施 SPEC
+
+官方对照已证：DX11透明缓冲窗口选择DISCARD／flags=0，在真实前台100%时连续多段提交平均0.18–0.21ms；原不透明窗口的flip链为33.3ms。该对照同时改变窗口合成与交换链策略，不能进一步断言某个驱动开关是唯一根因。
+
+按既有工程委托采用SDL公开接口的最小兼容实现：客户端创建入口明确传`direct3d11`；包装现有Win32窗口前，仅该driver设置`SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN=true`，让本机SDL 3.4.8选取已验证的DX11 DISCARD路径。这里允许缓冲含Alpha，但实际仍使用XRGB8888无Alpha输入、NONE混合、每帧Alpha=255全屏清除，输出保持不透明。保留SDL负责纹理／提交／设备丢失与重建，不替换DLL、不访问私有布局、不增加DXGI直调或系统配置。新增属性失败沿既有RAII及错误返回处理；不退回D3D9。
+
+取舍：使用传统窗口合成路径，放弃该窗口的flip／tearing能力；不是从根本修复未知驱动或合成器行为。该选择绑定本项目SDL 3.4.8实现，升级需重验。验收先覆盖当前640×480窗口登录，确认系统前台、实际DX11、完成帧率约60、画面不透明／输入正常；全屏和其它场景仍单独待验，不降低原整体验收。
+实施结果：仅`SdlPresenter.cpp`新增7行创建属性及一处driver参数修改，Release增量编译／链接通过，游戏目录直接更新。以部署进程与同版MAP只读计数：系统前台23.061秒完成1384帧，60.015 FPS；全30.019秒为59.529 FPS（含切换区间），加载D3D11模块。用户确认“约60 FPS，画面和输入正常”。本次窗口登录FPS问题按该兼容实现通过，完整渲染／全屏／其他场景未外推验收。
+
 > 当前增量：`DrawAllQueued_520DD0` 完整 13 类批次、场景 Begin/End、
 > 图文/地图/效果及缓存尾已接真实实现，见末节“DrawAllQueued 完整实施 SPEC”。
 > 本文按实施顺序保留旧阶段记录，早期“仅声明/未接线”不覆盖这一增量。
@@ -18,7 +43,7 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 - 公开类型为 `cg::render::SdlPresenter`，接口只使用标准 C++ 类型，不暴露 SDL 或 Win32 类型。
 - `Create(nativeWindow, width, height, driver)` 的窗口引用是未截断的外部既有 Win32 窗口；调用者保证它有效、属于当前进程的主线程，并一直存活到呈现器销毁。
 - `width/height` 是固定的最终帧尺寸，必须为正且一行字节数能放入 SDL 的 `int pitch`。不在这里调整原生窗口尺寸。
-- `driver` 没有默认参数，非空字符串原样传给 `SDL_CreateRenderer`；空字符串报错，只有显式 `nullptr` 表示交由 SDL 自行选择。适配器不指定 `direct3d11`，不构造驱动候选列表，不自行重试或回退；SDL 自身对传入字符串和运行环境的处理仍由 SDL 决定。
+- `driver` 没有默认参数，非空字符串原样传给 `SDL_CreateRenderer`；空字符串报错，只有显式 `nullptr` 表示交由 SDL 自行选择。客户端入口按2026-10-13用户要求明确传入 `direct3d11`；该driver使用本文顶部的兼容呈现属性，不构造候选列表，不自行重试或回退。
 - 仅接受 SDL 的 Windows VIDEO 后端，不修改全局 hint 或强制切换 VIDEO 后端。这不是 renderer 驱动选择策略。
 - 使用 `SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER` 包装窗口，并检查 `SDL_WINDOW_EXTERNAL` 标记。本类仅拥有 SDL wrapper、renderer、texture，不拥有外部原生窗口，不调用 Win32 `DestroyWindow`。
 - 每个实例无论 VIDEO 是否已被其他模块初始化，都调用一次 `SDL_InitSubSystem(SDL_INIT_VIDEO)`；仅成功后记录自己持有的引用。最终只配对一次 `SDL_QuitSubSystem(SDL_INIT_VIDEO)`，不调用全局 `SDL_Quit`，不释放其他模块的引用。

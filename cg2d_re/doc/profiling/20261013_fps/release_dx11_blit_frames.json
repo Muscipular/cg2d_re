@@ -1,0 +1,13 @@
+{
+  "pid": 70596,
+  "map_timestamp": "6ace4236",
+  "seconds": 30.018767200002912,
+  "completed_frames": 1787,
+  "fps": 59.52942664480327,
+  "active_states": [
+    2
+  ],
+  "foreground_seconds": 23.06099590001395,
+  "foreground_frames": 1384,
+  "foreground_fps": 60.01475417630003
+}

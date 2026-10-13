@@ -672,9 +672,9 @@
 | 644 | 0x0044B600 | `sub_44B600` | 有承接 | `src/ui/WindowRuntime.cpp:2942 — std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)` | 原 W8 读取；当前 Sub_493CB0 直接读状态；完整业务／运行未验 |
 | 645 | 0x0044B610 | `hasIDirect3D7` | 有正文 | `src/render/RendererResources.cpp:154 — HasLegacy3DDevice_44B610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 646 | 0x0044B630 | `Renderer::Init` | 有正文 | `src/render/RendererResources.cpp:218 — RendererInit_44B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:555 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:398 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:615 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 647 | 0x0044C3C0 | `Renderer::Destroy` | 有正文 | `src/render/SdlPresenter.cpp:562 — RendererDestroy_44C3C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 648 | 0x0044C560 | `Renderer::Flip` | 有正文 | `src/render/SdlPresenter.cpp:405 — Flip_44C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 649 | 0x0044C6B0 | `Renderer::TestCooperativeLevel` | 有正文 | `src/render/SdlPresenter.cpp:622 — TestCooperativeLevel_44C6B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 650 | 0x0044C6D0 | `Renderer::MakeSurface` | 有正文 | `src/render/GraphicDxCache.cpp:242 — CreateTextureSurface_44C6D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 651 | 0x0044C8B0 | `Renderer::CreateSurrface` | 有正文 | `src/render/GraphicDxCache.cpp:281 — CreatePlainTextureSurface_44C8B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 652 | 0x0044C9A0 | `Renderer::FillRect` | 有正文 | `src/render/LegacyTextureDrawing.cpp:273 — FillRect_44C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -723,8 +723,8 @@
 | 695 | 0x00452CF0 | `sub_452CF0` | 已排除 | `无当前实现；原入口保留` | 用户已具名排除该入口；不计实现或验收 |
 | 696 | 0x00453580 | `sub_453580` | 有正文 | `src/render/SurfaceState.cpp:387 — DrawMapEffects_453580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 697 | 0x004535B0 | `sub_4535B0` | 有正文 | `src/render/SurfaceState.cpp:693 — BlitSurfaceToBack_4535B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:574 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:456 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 698 | 0x004536D0 | `Renderer::IsLost` | 有正文 | `src/render/SdlPresenter.cpp:581 — IsLost_4536D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 699 | 0x00453760 | `takeScreenshot` | 有正文 | `src/render/SdlPresenter.cpp:463 — TakeScreenshot_453760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 700 | 0x00453DE0 | `sub_453DE0` | 有正文 | `src/Palette.cpp:168 — CountMaskBits_453DE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 701 | 0x00453E00 | `sub_453E00` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 702 | 0x00453E10 | `unknown_libname_10` | 有承接 | `src/platform/LegacyMouse.cpp:80 — NarrowStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
@@ -732,7 +732,7 @@
 | 704 | 0x00453E40 | `sub_453E40` | 有承接 | `src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 705 | 0x00453E50 | `unknown_libname_12` | 有承接 | `src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
 | 706 | 0x00453E70 | `unknown_libname_13` | 有承接 | `src/platform/LegacyMouse.cpp:101 — WideStandardStreamsStaticInitializer` | 原流 Init／退出职责由实际 MSVC 标准流及本线配置、pubsync 退出顺序承接；无旧私有包装；完整退出／运行未验 |
-| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:408 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 707 | 0x00453E80 | `sub_453E80` | 有正文 | `src/render/SdlPresenter.cpp:415 — SaveScreenshotBitmap_453E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 708 | 0x00453FB0 | `sub_453FB0` | 有承接 | `src/render/GraphicDxCache.cpp:168 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 709 | 0x00454050 | `sub_454050` | 有承接 | `src/render/GraphicDxCache.cpp:168 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 710 | 0x00454420 | `sub_454420` | 有承接 | `src/render/GraphicDxCache.cpp:168 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
@@ -2437,7 +2437,7 @@
 | 2409 | 0x00503C50 | `sub_503C50` | 有正文 | `src/LegacyUiRecord.cpp:15084 — Sub_503C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2410 | 0x00503C60 | `sub_503C60` | 有正文 | `src/LegacyUiRecord.cpp:15090 — Sub_503C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2411 | 0x00503C70 | `sub_503C70` | 有正文 | `src/LegacyUiRecord.cpp:15096 — Sub_503C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:542 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2412 | 0x00503C80 | `sub_503C80` | 有正文 | `src/render/SdlPresenter.cpp:549 — TakeScreenshotThrottled_503C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2413 | 0x00503CB0 | `sub_503CB0` | 有正文 | `src/ui/WindowRuntime.cpp:15632 — Sub_503CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2414 | 0x00503CD0 | `sub_503CD0` | 有正文 | `src/ui/WindowRuntime.cpp:15644 — Sub_503CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:1086 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3037,7 +3037,7 @@
 | 3009 | 0x005347F0 | `sub_5347F0` | 有正文 | `src/world/MailState.cpp:1362 — Sub_5347F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3010 | 0x005348A0 | `sub_5348A0` | 有正文 | `src/world/MailState.cpp:1282 — Sub_5348A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 3011 | 0x00534910 | `sub_534910` | 有正文 | `src/world/MailState.cpp:1299 — Sub_534910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:376 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
+| 3012 | 0x00534980 | `DirectDrawCreateEx` | 有承接 | `src/render/SdlPresenter.cpp:383 — CreateRendererPresenter` | 原 DirectDrawCreateEx import 跳板；当前渲染创建由实际 SDL presenter 承接；完整上层／运行未验 |
 | 3013 | 0x00534986 | `ImmGetConversionStatus` | 有承接 | `src/platform/ImeLifecycle.cpp:37 — ImmGetConversionStatus` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3014 | 0x0053498C | `ImmAssociateContext` | 有承接 | `src/platform/ImeLifecycle.cpp:31 — ImmAssociateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3015 | 0x00534992 | `ImmCreateContext` | 有承接 | `src/platform/ImeLifecycle.cpp:28 — ImmCreateContext` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |

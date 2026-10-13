@@ -199,6 +199,13 @@ bool SdlPresenter::Create(
             reinterpret_cast<void*>(nativeWindow))) {
         return FailSdl("SDL_SetPointerProperty(WIN32_HWND)");
     }
+    // SDL 3.4.8 的 DX11 透明缓冲使用 DISCARD，避开本机 flip 前台约 30 FPS。
+    // XRGB8888、NONE 混合及 Alpha=255 清屏仍保证最终画面不透明，见呈现 SPEC。
+    if (driver != nullptr && std::strcmp(driver, "direct3d11") == 0
+        && !SDL_SetBooleanProperty(pending->windowProperties,
+            SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN, true)) {
+        return FailSdl("SDL_SetBooleanProperty(TRANSPARENT)");
+    }
     pending->window = SDL_CreateWindowWithProperties(pending->windowProperties);
     if (pending->window == nullptr) {
         return FailSdl("SDL_CreateWindowWithProperties");
@@ -376,7 +383,7 @@ bool SdlPresenter::FailSdl(const char* operation) noexcept
 bool CreateRendererPresenter() noexcept
 {
     return gRendererPresenter.Create(
-        platform::gLegacyWindow, kCpuSurfaceWidth, kCpuSurfaceHeight, nullptr);
+        platform::gLegacyWindow, kCpuSurfaceWidth, kCpuSurfaceHeight, "direct3d11");
 }
 
 bool SetRendererPresenterFullscreen(const bool fullscreen) noexcept

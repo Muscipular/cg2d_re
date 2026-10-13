@@ -1,0 +1,2 @@
+renderer=direct3d11 vsync=0 SDL=3004008
+统计：frames=300 seconds=10.010129 fps=29.970 present_avg_ms=33.355

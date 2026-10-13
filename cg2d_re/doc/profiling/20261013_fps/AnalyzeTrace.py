@@ -102,7 +102,7 @@ for kind,folded in ([('wall',wall_folded)] if args.wall_only else [('cpu',cpu_fo
             node['count']+=count
     def depth(n): return 1+max((depth(c) for c in n['children'].values()),default=0)
     width=1500; row_height=21; height=depth(tree)*row_height+110
-    title_prefix={'release_timer1':'Release 1ms 对照','release_software':'Release 软件后端','release_auto_repeat':'Release 自动后端回测'}.get(args.prefix,'Release')
+    title_prefix={'release_timer1':'Release 1ms 对照','release_software':'Release 软件后端','release_auto_repeat':'Release 自动后端回测','release_fixed':'Release D3D9 候选（已撤回）'}.get(args.prefix,'Release')
     total=tree['count']; title=title_prefix+' 主线程 '+('CPU 火焰图（运行样本）' if kind=='cpu' else '等待与运行火焰图（周期栈样本）')
     detail = '本图为 12 秒周期采样。' if args.wall_only else 'CPU 图范围为采集第 40–60 秒；等待图为后续 12 秒周期采样。'
     svg=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">', '<rect width="100%" height="100%" fill="#fafafa"/>', '<style>text{font-family:Consolas,"Microsoft YaHei",sans-serif}g:hover rect{stroke:#222;stroke-width:1.5}</style>',f'<text x="16" y="29" font-size="21">{title}</text>',f'<text x="16" y="53" font-size="13">样本数：{total}；宽度表示样本占比。悬停查看完整调用与数量。{detail}</text>']

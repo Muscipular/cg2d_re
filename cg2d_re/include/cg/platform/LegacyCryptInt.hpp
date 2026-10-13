@@ -8,11 +8,11 @@ namespace cg::platform {
 // 原 x86 CryptInt 的固定内存布局。legacyVftToken 保存原 32 位地址位模式，
 // 不是新端可解引用的虚表指针。
 struct LegacyCryptInt {
-    std::uint32_t legacyVftToken;
-    std::uint32_t encoded;
-    std::uint32_t mask;
-    std::uint8_t readCount;
-    std::uint8_t reserved[3];
+    std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
+    std::uint32_t encoded; // 原成员偏移：+0x04。
+    std::uint32_t mask; // 原成员偏移：+0x08。
+    std::uint8_t readCount; // 原成员偏移：+0x0C。
+    std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
 };
 static_assert(sizeof(LegacyCryptInt) == 16);
 static_assert(offsetof(LegacyCryptInt, legacyVftToken) == 0x00);

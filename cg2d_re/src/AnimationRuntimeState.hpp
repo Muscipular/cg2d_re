@@ -35,7 +35,7 @@ static_assert(offsetof(ActionEntry, frames) == 0x18);
 
 // 原45B650只读取子项+18帧引用；P4前24B与帧载荷未证，不借用主表动作字段。
 struct CacheActionEntry {
-    std::array<std::uint8_t, 0x18> prefix;
+    std::array<std::uint8_t, 0x18> prefix; // 原成员偏移：+0x00。
     void* frames;                  // 原+18只free/清空，未知载荷保留类型擦除。
 };
 static_assert(std::is_standard_layout_v<CacheActionEntry>);
@@ -45,11 +45,11 @@ static_assert(offsetof(CacheActionEntry, frames) == 0x18);
 
 // 原 45B760 生产的 12B 帧；磁盘帧只有前 10B，末两字节不由装载写入。
 struct FrameEntry {
-    std::uint32_t graphicIndex;
-    std::int16_t x;
-    std::int16_t y;
-    std::uint16_t flag;
-    std::array<std::uint8_t, 2> unwrittenTail;
+    std::uint32_t graphicIndex; // 原成员偏移：+0x00。
+    std::int16_t x; // 原成员偏移：+0x04。
+    std::int16_t y; // 原成员偏移：+0x06。
+    std::uint16_t flag; // 原成员偏移：+0x08。
+    std::array<std::uint8_t, 2> unwrittenTail; // 原成员偏移：+0x0A。
 };
 static_assert(sizeof(FrameEntry) == 0x0C);
 static_assert(offsetof(FrameEntry, flag) == 0x08);
@@ -57,9 +57,9 @@ static_assert(offsetof(FrameEntry, unwrittenTail) == 0x0A);
 
 // 原 CoordInit 的无指针 8B 记录；只给 graphicIndex 加当前来源文件的基址。
 struct CoordinateEntry {
-    std::uint32_t graphicIndex;
-    std::int16_t x;
-    std::int16_t y;
+    std::uint32_t graphicIndex; // 原成员偏移：+0x00。
+    std::int16_t x; // 原成员偏移：+0x04。
+    std::int16_t y; // 原成员偏移：+0x06。
 };
 static_assert(sizeof(CoordinateEntry) == 8);
 static_assert(offsetof(CoordinateEntry, x) == 4);
@@ -67,10 +67,10 @@ static_assert(offsetof(CoordinateEntry, y) == 6);
 
 // 原 9A29F8 的 0x10 字节槽，+8/+C 为双向链引用。
 struct MainSlot {
-    std::int32_t index;
-    std::uint32_t value04;
-    MainSlot* next;
-    MainSlot* previous;
+    std::int32_t index; // 原成员偏移：+0x00。
+    std::uint32_t value04; // 原成员偏移：+0x04。
+    MainSlot* next; // 原成员偏移：+0x08。
+    MainSlot* previous; // 原成员偏移：+0x0C。
 };
 static_assert(sizeof(MainSlot) == 0x18);
 static_assert(offsetof(MainSlot, next) == 0x08);
@@ -78,20 +78,20 @@ static_assert(offsetof(MainSlot, previous) == 0x10);
 
 // 原 9A3A48 的独立 0x10 字节槽；当前仅使用首 W32。
 struct CacheSlot {
-    std::int32_t index;
-    std::array<std::uint8_t, 0x0C> remaining;
+    std::int32_t index; // 原成员偏移：+0x00。
+    std::array<std::uint8_t, 0x0C> remaining; // 原成员偏移：+0x04。
 };
 static_assert(sizeof(CacheSlot) == 0x10);
 
-extern std::array<std::uint32_t, 9> gFileCloseFlags9A29D0;
-extern std::array<MainSlot, 256> gMainSlots9A29F8;
-extern MainSlot gLeftSentinel9A3A00;
-extern MainSlot gRightSentinel9A3A10;
-extern std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20;
-extern std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988;
-extern std::array<CacheSlot, 256> gCacheSlots9A3A48;
-extern std::uint32_t gActiveCount9A4A68;
-extern std::uint32_t gActiveBytes9A4A6C;
+extern std::array<std::uint32_t, 9> gFileCloseFlags9A29D0; // 原全局：0x009A29D0。
+extern std::array<MainSlot, 256> gMainSlots9A29F8; // 原全局：0x009A29F8。
+extern MainSlot gLeftSentinel9A3A00; // 原全局：0x009A3A00。
+extern MainSlot gRightSentinel9A3A10; // 原全局：0x009A3A10。
+extern std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20; // 原全局：0x009A3A20。
+extern std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988; // 原全局：0x009A2988。
+extern std::array<CacheSlot, 256> gCacheSlots9A3A48; // 原全局：0x009A3A48。
+extern std::uint32_t gActiveCount9A4A68; // 原全局：0x009A4A68。
+extern std::uint32_t gActiveBytes9A4A6C; // 原全局：0x009A4A6C。
 // 原 9A4A54：AnimeInit 错误路径交给 free 的独立槽；载荷类型未证，释放后不清。
 extern void* gCleanupAllocation9A4A54;
 

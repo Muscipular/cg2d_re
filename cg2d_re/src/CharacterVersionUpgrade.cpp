@@ -16,7 +16,7 @@ namespace cg::character_select {
 // BRT01：原未装载零前缀，两发送路径只读首NUL；1B为已证正常读足迹。
 // 原未使用预留尾部不猜容量，完整合同见版本正文SPEC。
 namespace detail {
-const char gVersionPayload9A5C10[1] {};
+const char gVersionPayload9A5C10[1] {}; // 原全局：0x009A5C10。
 } // namespace detail
 
 namespace {

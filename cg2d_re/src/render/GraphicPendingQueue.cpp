@@ -108,20 +108,20 @@ std::uint16_t AppendReservedGraphic(
 
 } // namespace
 
-LegacyPendingStorage gLegacyPendingStorage {};
-std::int32_t gHoveredGraphicPendingIndex = 0;
-std::uint8_t gSpecialGraphicPending = 0;
-std::int32_t gGraphicDirty = 0;
-std::uint32_t gRenderQueueMode103CF10 = 0;
-std::int32_t gGraphicPaletteUploadCount = 0;
+LegacyPendingStorage gLegacyPendingStorage {}; // 原全局：0x00FF4E30。
+std::int32_t gHoveredGraphicPendingIndex = 0; // 原全局：0x00D6976C。
+std::uint8_t gSpecialGraphicPending = 0; // 原全局：0x01020EDC。
+std::int32_t gGraphicDirty = 0; // 原全局：0x01020EE8。
+std::uint32_t gRenderQueueMode103CF10 = 0; // 原全局：0x0103CF10。
+std::int32_t gGraphicPaletteUploadCount = 0; // 原全局：0x01020ECC。
 volatile std::uint32_t gRippleIntegerPhaseBits = 0; // 原 0x1020EEC。
-float gFloat1020EF0 = 0.0f;
+float gFloat1020EF0 = 0.0f; // 原全局：0x01020EF0。
 volatile std::uint32_t gRipplePreviousWorldXBits = 0; // 原 0x1020EF4。
 volatile std::uint32_t gRipplePreviousWorldYBits = 0; // 原 0x1020EF8。
 volatile std::uint32_t gRippleStrengthBits = 0; // 原 0x1020EFC。
 volatile std::int32_t gRippleMapFloorCache = 0; // 原 0x1020F00。
 
-const std::array<std::int32_t, 64> gRippleSineTable {
+const std::array<std::int32_t, 64> gRippleSineTable { // 原全局：0x0058B6E0。
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 11, 12,
     12, 12, 11, 11, 11, 10, 9, 9, 8, 7, 6, 5, 4, 3, 2, 1,
     0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -10, -11, -11, -11, -12,
@@ -423,7 +423,7 @@ void SortTextures_520790()
 
 namespace cg::platform {
 
-char (&gTextFF4E30)[0x88] = render::gLegacyPendingStorage.prefix;
+char (&gTextFF4E30)[0x88] = render::gLegacyPendingStorage.prefix; // 原全局：0x00FF4E30。
 
 } // namespace cg::platform
 

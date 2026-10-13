@@ -45,39 +45,39 @@ namespace {
 SdlPresenter gRendererPresenter;
 
 // 原截图专用槽，仅在 453760/503C80 发布，不复用渲染源掩码或其他计时器。
-std::uint32_t gScreenshotRedMask62A64C = 0;
-std::uint32_t gScreenshotGreenMask62A650 = 0;
-std::uint32_t gScreenshotBlueMask62A654 = 0;
-std::uint32_t gScreenshotTickD68A78 = 0;
+std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
+std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
+std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
+std::uint32_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
-constexpr char kScreenshotWriteFailure556598[] =
+constexpr char kScreenshotWriteFailure556598[] = // 原常量参考：0x00556598。
     "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
     "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x37\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotSuccess5565BC[] =
+constexpr char kScreenshotSuccess5565BC[] = // 原常量参考：0x005565BC。
     "\x89\xE6\x3F\x82\xF0\x95\xDB\x91\xB6\x82\xB5\x82\xDC\x82\xB5\x82"
     "\xBD\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotDibFailure5565D4[] =
+constexpr char kScreenshotDibFailure5565D4[] = // 原常量参考：0x005565D4。
     "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
     "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x34\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotBlitFailure5565F8[] =
+constexpr char kScreenshotBlitFailure5565F8[] = // 原常量参考：0x005565F8。
     "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
     "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x33\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotBitmapFailure55661C[] =
+constexpr char kScreenshotBitmapFailure55661C[] = // 原常量参考：0x0055661C。
     "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
     "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x32\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotDcFailure556640[] =
+constexpr char kScreenshotDcFailure556640[] = // 原常量参考：0x00556640。
     "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
     "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x31\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotLimit5566F4[] =
+constexpr char kScreenshotLimit5566F4[] = // 原常量参考：0x005566F4。
     "\xBD\xF1\xCC\xEC\xD2\xD1\xBD\x9B\xB2\xBB\xC4\xDC\xB4\xE6\xC8\xA1"
     "\xB8\xFC\xB6\xE0\xB5\xC4\xAE\x8B\xC3\xE6\xC1\xCB\xA1\xA3";
-constexpr char kScreenshotPath556714[] = "screenshot\\CG%02d%02d%02d_%03d.bmp";
-constexpr char kScreenshotDirectory556738[] = "screenshot";
-constexpr char kScreenshotReadMode554908[] = "r";
+constexpr char kScreenshotPath556714[] = "screenshot\\CG%02d%02d%02d_%03d.bmp"; // 原常量参考：0x00556714。
+constexpr char kScreenshotDirectory556738[] = "screenshot"; // 原常量参考：0x00556738。
+constexpr char kScreenshotReadMode554908[] = "r"; // 原常量参考：0x00554908。
 
 } // namespace
 
-std::uint32_t gFrameParity628FC8 = 0;
+std::uint32_t gFrameParity628FC8 = 0; // 原全局：0x00628FC8。
 
 struct SdlPresenter::Impl {
     // 只记录本次 SDL_InitSubSystem 成功获得的 VIDEO 引用。

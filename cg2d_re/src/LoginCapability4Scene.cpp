@@ -30,11 +30,11 @@ constexpr char kCapability4DeleteSucceeded[] = "\x8E\xA4\xCC\x96\xD3\x9B\xE4\x9B
 static_assert(sizeof(kCapability4DeleteSucceeded) == 21);
 
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
-std::int32_t gValue9A4F2C = 0;
-std::int32_t gValue9A4D00 = 0;
-std::int32_t gValue9A4B7C = 0;
-std::int32_t gValue9A509C = 0;
-char gValue9A4A78[256] {};
+std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
+std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
+std::int32_t gValue9A4B7C = 0; // 原全局：0x009A4B7C。
+std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
+char gValue9A4A78[256] {}; // 原全局：0x009A4A78。
 
 static_assert(
     sizeof(kCapability4CredentialsPrompt) <= sizeof(gValue9A4A78));

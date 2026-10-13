@@ -7,16 +7,16 @@ namespace cg::render {
 
 // 原 PALETTEENTRY 的四字节存储，flags 是调色板标志，不是透明度。
 struct PaletteEntry {
-    std::uint8_t red;
-    std::uint8_t green;
-    std::uint8_t blue;
-    std::uint8_t flags;
+    std::uint8_t red; // 原成员偏移：+0x00。
+    std::uint8_t green; // 原成员偏移：+0x01。
+    std::uint8_t blue; // 原成员偏移：+0x02。
+    std::uint8_t flags; // 原成员偏移：+0x03。
 };
 
 // 原 0x554B78：45 个物理记录；选择函数仅允许正常非负索引 0..38。
 struct PaletteFile {
-    std::int16_t threshold;
-    char path[128];
+    std::int16_t threshold; // 原成员偏移：+0x00。
+    char path[128]; // 原成员偏移：+0x02。
 };
 
 static_assert(sizeof(PaletteEntry) == 4);
@@ -25,33 +25,33 @@ static_assert(offsetof(PaletteEntry, flags) == 3);
 static_assert(sizeof(PaletteFile) == 130);
 static_assert(offsetof(PaletteFile, path) == 2);
 
-extern PaletteFile gPaletteFiles[45];
+extern PaletteFile gPaletteFiles[45]; // 原全局：0x00554B78。
 extern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。
 extern PaletteEntry gPaletteBackup[256]; // 原 0x629F2C，首次文件读取后的副本。
 extern std::uint32_t gPaletteAutoMap[256]; // 原 0x628BC0，0x00RRGGBB 查色表。
 
 // 原 5562E8/5562EC/5562F0 依次为蓝、绿、红通道指针；x64 仅扩大实际指针。
 struct ColorChannelMaps {
-    std::uint8_t* blue;
-    std::uint8_t* green;
-    std::uint8_t* red;
+    std::uint8_t* blue; // 原全局：0x005562E8。
+    std::uint8_t* green; // 原全局：0x005562EC。
+    std::uint8_t* red; // 原全局：0x005562F0。
 };
 static_assert(sizeof(ColorChannelMaps) == 3 * sizeof(std::uint8_t*));
 static_assert(offsetof(ColorChannelMaps, blue) == 0);
 static_assert(offsetof(ColorChannelMaps, green) == sizeof(std::uint8_t*));
 static_assert(offsetof(ColorChannelMaps, red) == 2 * sizeof(std::uint8_t*));
-extern ColorChannelMaps gColorChannelMaps;
+extern ColorChannelMaps gColorChannelMaps; // 原全局：0x005562E8。
 
 // 原 0x5562E0 的 RGB 色调，第四字节静态为零；tColor@0x5562E4 可指向别处。
 struct PaletteTone {
-    std::uint8_t red;
-    std::uint8_t green;
-    std::uint8_t blue;
-    std::uint8_t reserved;
+    std::uint8_t red; // 原成员偏移：+0x00。
+    std::uint8_t green; // 原成员偏移：+0x01。
+    std::uint8_t blue; // 原成员偏移：+0x02。
+    std::uint8_t reserved; // 原成员偏移：+0x03。
 };
 static_assert(sizeof(PaletteTone) == 4);
-extern PaletteTone gPaletteTone;
-extern PaletteTone* gPaletteTonePointer;
+extern PaletteTone gPaletteTone; // 原全局：0x005562E0。
+extern PaletteTone* gPaletteTonePointer; // 原全局：0x005562E4。
 extern std::uint8_t gPaletteToneTargets[45][3]; // 原 0x556254：每项 R/G/B，步长 3。
 
 extern std::int32_t gPaletteInitialized;     // 原 0x628FD8。

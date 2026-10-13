@@ -15,49 +15,49 @@
 
 namespace cg::resource::animation::detail {
 
-std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {};
-std::array<MainSlot, 256> gMainSlots9A29F8 {};
-MainSlot gLeftSentinel9A3A00 {};
-MainSlot gRightSentinel9A3A10 {};
-std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20 {};
-std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988 {};
-std::array<CacheSlot, 256> gCacheSlots9A3A48 {};
-std::uint32_t gActiveCount9A4A68 = 0;
-std::uint32_t gActiveBytes9A4A6C = 0;
-void* gCleanupAllocation9A4A54 = nullptr;
+std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {}; // 原全局：0x009A29D0。
+std::array<MainSlot, 256> gMainSlots9A29F8 {}; // 原全局：0x009A29F8。
+MainSlot gLeftSentinel9A3A00 {}; // 原全局：0x009A3A00。
+MainSlot gRightSentinel9A3A10 {}; // 原全局：0x009A3A10。
+std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20 {}; // 原全局：0x009A3A20。
+std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988 {}; // 原全局：0x009A2988。
+std::array<CacheSlot, 256> gCacheSlots9A3A48 {}; // 原全局：0x009A3A48。
+std::uint32_t gActiveCount9A4A68 = 0; // 原全局：0x009A4A68。
+std::uint32_t gActiveBytes9A4A6C = 0; // 原全局：0x009A4A6C。
+void* gCleanupAllocation9A4A54 = nullptr; // 原全局：0x009A4A54。
 
 } // namespace cg::resource::animation::detail
 
 namespace cg::resource::animation {
 
-AnimateRecord* gAnimateRecords9A4A58 = nullptr;
-AnimeCacheRecord* gAnimateCache9A4A5C = nullptr;
-std::int32_t gAnimateCount9A4A60 = 0;
-std::int32_t gMaxAnimateCount9A4A4C = 0;
+AnimateRecord* gAnimateRecords9A4A58 = nullptr; // 原全局：0x009A4A58。
+AnimeCacheRecord* gAnimateCache9A4A5C = nullptr; // 原全局：0x009A4A5C。
+std::int32_t gAnimateCount9A4A60 = 0; // 原全局：0x009A4A60。
+std::int32_t gMaxAnimateCount9A4A4C = 0; // 原全局：0x009A4A4C。
 
 namespace {
 
 // 原45B380独立W32复制目标，不是9A3A48缓存数组的一过尾记录。
-std::uint32_t gValue9A4A48 = 0;
+std::uint32_t gValue9A4A48 = 0; // 原全局：0x009A4A48。
 
 // 原 AnimeInit 的磁盘读取槽与 10000 项局部配对表；均无指针，不随 x64 扩宽。
 struct AnimeInfoDiskRecord {
-    std::uint32_t animeNo;
-    std::uint32_t offset;
-    std::uint16_t count;
-    std::uint16_t flag;
+    std::uint32_t animeNo; // 原成员偏移：+0x00。
+    std::uint32_t offset; // 原成员偏移：+0x04。
+    std::uint16_t count; // 原成员偏移：+0x08。
+    std::uint16_t flag; // 原成员偏移：+0x0A。
 };
 static_assert(sizeof(AnimeInfoDiskRecord) == 0x0C);
 static_assert(offsetof(AnimeInfoDiskRecord, count) == 0x08);
 static_assert(offsetof(AnimeInfoDiskRecord, flag) == 0x0A);
 
 struct AnimeInfoPair {
-    std::uint32_t animeNo;
-    std::uint32_t offset;
-    std::uint16_t count;
-    std::uint16_t flag;
-    std::int16_t fileIndex;
-    std::uint16_t remaining;
+    std::uint32_t animeNo; // 原成员偏移：+0x00。
+    std::uint32_t offset; // 原成员偏移：+0x04。
+    std::uint16_t count; // 原成员偏移：+0x08。
+    std::uint16_t flag; // 原成员偏移：+0x0A。
+    std::int16_t fileIndex; // 原成员偏移：+0x0C。
+    std::uint16_t remaining; // 原成员偏移：+0x0E。
 };
 static_assert(sizeof(AnimeInfoPair) == 0x10);
 static_assert(offsetof(AnimeInfoPair, count) == 0x08);

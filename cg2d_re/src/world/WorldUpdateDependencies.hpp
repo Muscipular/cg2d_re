@@ -77,10 +77,10 @@ const std::byte* BorrowSelectedAlbumRecords();
 const char* ClearAlbumNewFlagAndBorrowName(std::int16_t selected, std::int32_t index);
 
 // 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
-extern std::uint32_t gValue9FB934;
-extern std::uint32_t gValue9FB928;
-extern std::uint32_t gValue9A86C0;
-extern std::uint32_t gValue9A7F78;
+extern std::uint32_t gValue9FB934; // 原全局：0x009FB934。
+extern std::uint32_t gValue9FB928; // 原全局：0x009FB928。
+extern std::uint32_t gValue9A86C0; // 原全局：0x009A86C0。
+extern std::uint32_t gValue9A7F78; // 原全局：0x009A7F78。
 
 // 原 46BD60/46BE50/46DFF0：世界坐标为 F32 原位型，描述符同步借用。
 std::int32_t Sub_46BD60(
@@ -107,11 +107,11 @@ std::int32_t Sub_46C1C0();
 
 // 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
 struct Record5FB7F8 {
-    char text[0x124];
-    std::int32_t color;
-    std::int32_t state;
-    std::int32_t field12C;
-    std::int32_t fontType;
+    char text[0x124]; // 原成员偏移：+0x00。
+    std::int32_t color; // 原成员偏移：+0x124。
+    std::int32_t state; // 原成员偏移：+0x128。
+    std::int32_t field12C; // 原成员偏移：+0x12C。
+    std::int32_t fontType; // 原成员偏移：+0x130。
 };
 
 static_assert(offsetof(Record5FB7F8, text) == 0x000);
@@ -121,16 +121,16 @@ static_assert(offsetof(Record5FB7F8, field12C) == 0x12C);
 static_assert(offsetof(Record5FB7F8, fontType) == 0x130);
 static_assert(sizeof(Record5FB7F8) == 0x134);
 
-extern Record5FB7F8 gRecords5FB7F8[512];
-extern volatile std::int32_t gWriteIndex626C08;
-extern char gLogPath62699C[260];
-extern platform::LegacyFile* volatile gLogStream626C1C;
-extern volatile std::int32_t gCountC9A944;
-extern volatile std::uint32_t gValue626C10;
-extern input::InputContext gInputContext626840;
-extern std::uint32_t gValue626C18;
-extern std::uint32_t gValue626BFC;
-extern char gLogFileName554648[16];
+extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
+extern volatile std::int32_t gWriteIndex626C08; // 原全局：0x00626C08。
+extern char gLogPath62699C[260]; // 原全局：0x0062699C。
+extern platform::LegacyFile* volatile gLogStream626C1C; // 原全局：0x00626C1C。
+extern volatile std::int32_t gCountC9A944; // 原全局：0x00C9A944。
+extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
+extern input::InputContext gInputContext626840; // 原全局：0x00626840。
+extern std::uint32_t gValue626C18; // 原全局：0x00626C18。
+extern std::uint32_t gValue626BFC; // 原全局：0x00626BFC。
+extern char gLogFileName554648[16]; // 原全局：0x00554648。
 
 // 原73ECD0，508CF0与多个场景/UI共享；显式CRT生命周期，禁止创建登录副本。
 extern platform::LegacyCryptInt gValue73ECD0;
@@ -139,60 +139,60 @@ extern platform::LegacyCryptInt gValue73ECD0;
 extern std::uint16_t gValueC8222E;
 
 // 原 0xC82230/0xC82234/0xC82236；46A9E0 清零，后续 46AA00/46AB60 共用。
-extern std::uint32_t gValueC82230;
-extern std::int16_t gValueC82234;
-extern std::int16_t gValueC82236;
+extern std::uint32_t gValueC82230; // 原全局：0x00C82230。
+extern std::int16_t gValueC82234; // 原全局：0x00C82234。
+extern std::int16_t gValueC82236; // 原全局：0x00C82236。
 
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 按序清零的独立 W32 槽。
-extern std::uint32_t gValueC3500C;
-extern std::uint32_t gValueC75010;
-extern std::uint32_t gValue9EE8A0;
-extern std::uint32_t gValue9ED438;
-extern std::uint32_t gValue9ED440; // 原 46AA00 写、46AEA0 读取的独立 W32。
+extern std::uint32_t gValueC3500C; // 原全局：0x00C3500C。
+extern std::uint32_t gValueC75010; // 原全局：0x00C75010。
+extern std::uint32_t gValue9EE8A0; // 原全局：0x009EE8A0。
+extern std::uint32_t gValue9ED438; // 原全局：0x009ED438。
+extern std::uint32_t gValue9ED440; // 原全局：0x009ED440。 原 46AA00 写、46AEA0 读取的独立 W32。
 
 // 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 顺序写入。
-extern std::uint32_t gValueC35008;
-extern std::uint32_t gValue9DAD2C;
-extern std::uint32_t gValue9FB930;
-extern std::uint32_t gValueC821D4;
-extern std::uint32_t gValue9A86DC;
+extern std::uint32_t gValueC35008; // 原全局：0x00C35008。
+extern std::uint32_t gValue9DAD2C; // 原全局：0x009DAD2C。
+extern std::uint32_t gValue9FB930; // 原全局：0x009FB930。
+extern std::uint32_t gValueC821D4; // 原全局：0x00C821D4。
+extern std::uint32_t gValue9A86DC; // 原全局：0x009A86DC。
 
 // 原 9DEF64/9DEF60/9DEF62/9DEF5E 与 9A86E0/9ED43C；地图窗口的六个 S16 槽。
-extern std::int16_t gMapXStart;
-extern std::int16_t gMapYStart;
-extern std::int16_t gMapXEnd;
-extern std::int16_t gMapYEnd;
-extern std::int16_t gMapSpanX;
-extern std::int16_t gMapSpanY;
+extern std::int16_t gMapXStart; // 原全局：0x009DEF64。
+extern std::int16_t gMapYStart; // 原全局：0x009DEF60。
+extern std::int16_t gMapXEnd; // 原全局：0x009DEF62。
+extern std::int16_t gMapYEnd; // 原全局：0x009DEF5E。
+extern std::int16_t gMapSpanX; // 原全局：0x009A86E0。
+extern std::int16_t gMapSpanY; // 原全局：0x009ED43C。
 extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
 extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
 extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取。
 extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取。
-extern platform::LegacyCryptInt gValue9EE8D0;
-extern platform::LegacyCryptInt gValue9EE8E0;
-extern platform::LegacyCryptInt gValueC27FF8;
-extern platform::LegacyCryptInt gValueC27FE8;
-extern platform::LegacyCryptInt gValue9A7F88; // 原玩家移动目标 X。
-extern platform::LegacyCryptInt gValue9A7F98; // 原玩家移动目标 Y。
-extern platform::LegacyCryptInt gValueC821E8;
-extern platform::LegacyCryptInt gValue9E03C0;
-extern platform::LegacyCryptInt gValue9FB918;
-extern platform::LegacyCryptInt gValueAF0FE8;
-extern platform::LegacyCryptInt gValueC821D8;
-extern std::uint32_t gValueAF10C0; // 原 46CEE0 写入的完整 W32。
-extern std::uint32_t gValue9EE8F8; // 原 509460 写入、50C8D0 读取的独立 W32。
-extern std::uint32_t gValue9EE8FC; // 原 F32 位槽，移动链共享。
-extern std::uint32_t gValue9EE900; // 原 F32 位槽，移动链共享。
-extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
+extern platform::LegacyCryptInt gValue9EE8D0; // 原全局：0x009EE8D0。
+extern platform::LegacyCryptInt gValue9EE8E0; // 原全局：0x009EE8E0。
+extern platform::LegacyCryptInt gValueC27FF8; // 原全局：0x00C27FF8。
+extern platform::LegacyCryptInt gValueC27FE8; // 原全局：0x00C27FE8。
+extern platform::LegacyCryptInt gValue9A7F88; // 原全局：0x009A7F88。 原玩家移动目标 X。
+extern platform::LegacyCryptInt gValue9A7F98; // 原全局：0x009A7F98。 原玩家移动目标 Y。
+extern platform::LegacyCryptInt gValueC821E8; // 原全局：0x00C821E8。
+extern platform::LegacyCryptInt gValue9E03C0; // 原全局：0x009E03C0。
+extern platform::LegacyCryptInt gValue9FB918; // 原全局：0x009FB918。
+extern platform::LegacyCryptInt gValueAF0FE8; // 原全局：0x00AF0FE8。
+extern platform::LegacyCryptInt gValueC821D8; // 原全局：0x00C821D8。
+extern std::uint32_t gValueAF10C0; // 原全局：0x00AF10C0。 原 46CEE0 写入的完整 W32。
+extern std::uint32_t gValue9EE8F8; // 原全局：0x009EE8F8。 原 509460 写入、50C8D0 读取的独立 W32。
+extern std::uint32_t gValue9EE8FC; // 原全局：0x009EE8FC。 原 F32 位槽，移动链共享。
+extern std::uint32_t gValue9EE900; // 原全局：0x009EE900。 原 F32 位槽，移动链共享。
+extern std::uint32_t gValue9DAD78; // 原全局：0x009DAD78。 原 F32 位槽，移动/绘制链共享。
 
 // 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
 std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
 std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
 
 // 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
-extern std::uint8_t gValue9A4B94;
-extern std::uint16_t gValueC82200;
-extern std::uint16_t gValueC82202;
+extern std::uint8_t gValue9A4B94; // 原全局：0x009A4B94。
+extern std::uint16_t gValueC82200; // 原全局：0x00C82200。
+extern std::uint16_t gValueC82202; // 原全局：0x00C82202。
 // 原 9A86D4 起始的方向 W16；已证调用链最多访问前两项。
 extern std::array<std::uint16_t, 2> gPendingDirections9A86D4;
 // 原 AF0FF8/C75014/C750DC；三组 100 项 W16 路径队列共用 C82200 数量。
@@ -200,49 +200,49 @@ inline constexpr std::size_t kMovePathCapacity = 100;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathX;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
-extern std::uint32_t gValueC821FC;
-extern std::uint32_t gValue9EE8B8;
-extern std::uint16_t gValue9EE8A4; // 46AF30 发布方向，46CF60 按 S16 重用探测。
-extern std::uint16_t gValueC8A79C;
-extern std::uint16_t gValue9A86D8;
-extern std::uint16_t gValue9FB92E;
-extern std::uint16_t gValueB65A7C;
-extern std::uint16_t gValueC82220;
-extern std::uint32_t gValueC82238; // 46B370目标格转向时间，与C8223C独立。
-extern std::uint32_t gValueC8223C; // 原转向发送时间U32，非地址。
-extern std::uint32_t gValueC8A774; // 原左键目标事件门禁。
-extern std::uint32_t gValueC8A778;
-extern std::uint32_t gValueC8A77C; // UI与目标格输入共用的W32许可槽。
-extern std::uint32_t gValueC8A780; // UI与目标格绘制共用的另一W32许可槽。
+extern std::uint32_t gValueC821FC; // 原全局：0x00C821FC。
+extern std::uint32_t gValue9EE8B8; // 原全局：0x009EE8B8。
+extern std::uint16_t gValue9EE8A4; // 原全局：0x009EE8A4。 46AF30 发布方向，46CF60 按 S16 重用探测。
+extern std::uint16_t gValueC8A79C; // 原全局：0x00C8A79C。
+extern std::uint16_t gValue9A86D8; // 原全局：0x009A86D8。
+extern std::uint16_t gValue9FB92E; // 原全局：0x009FB92E。
+extern std::uint16_t gValueB65A7C; // 原全局：0x00B65A7C。
+extern std::uint16_t gValueC82220; // 原全局：0x00C82220。
+extern std::uint32_t gValueC82238; // 原全局：0x00C82238。 46B370目标格转向时间，与C8223C独立。
+extern std::uint32_t gValueC8223C; // 原全局：0x00C8223C。 原转向发送时间U32，非地址。
+extern std::uint32_t gValueC8A774; // 原全局：0x00C8A774。 原左键目标事件门禁。
+extern std::uint32_t gValueC8A778; // 原全局：0x00C8A778。
+extern std::uint32_t gValueC8A77C; // 原全局：0x00C8A77C。 UI与目标格输入共用的W32许可槽。
+extern std::uint32_t gValueC8A780; // 原全局：0x00C8A780。 UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
 extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
-extern std::int32_t gValueC8A78C; // 原鼠标世界像素X。
-extern std::int32_t gValueC8A790; // 原鼠标世界像素Y。
-extern std::uint32_t gValueC8A794;
-extern std::uint32_t gValueC8A7A0; // 原46F680目标格左键单次事件。
-extern std::uint32_t gValueC8A7A4; // 原目标格左键持续事件。
-extern std::uint32_t gValueC8A7A8; // 原目标对象交互事件，非鼠标edge位槽。
-extern std::uint32_t gValueC8A7AC; // 原右键持续事件，单次事件优先。
-extern std::uint32_t gValue55DDAC; // 原点击目标时间，映像初值FFFFFFFF。
-extern std::uint32_t gValueC82208; // 原地图请求 W32；50CF90、509090、509100 等共享。
-extern std::uint32_t gValueC8220C;
-extern std::uint32_t gValueC82210;
-extern std::uint32_t gValueC82214;
-extern std::uint32_t gValueC82218;
-extern std::int32_t gValueFF0D4C; // 原地图回复数值 W32，51D6F0 消费。
-extern std::int32_t gValue73ED44; // 原当前调色板选择标志 W32，458F00 读取。
-extern std::int32_t gValue73ED48; // 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
+extern std::int32_t gValueC8A78C; // 原全局：0x00C8A78C。 原鼠标世界像素X。
+extern std::int32_t gValueC8A790; // 原全局：0x00C8A790。 原鼠标世界像素Y。
+extern std::uint32_t gValueC8A794; // 原全局：0x00C8A794。
+extern std::uint32_t gValueC8A7A0; // 原全局：0x00C8A7A0。 原46F680目标格左键单次事件。
+extern std::uint32_t gValueC8A7A4; // 原全局：0x00C8A7A4。 原目标格左键持续事件。
+extern std::uint32_t gValueC8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
+extern std::uint32_t gValueC8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
+extern std::uint32_t gValue55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
+extern std::uint32_t gValueC82208; // 原全局：0x00C82208。 原地图请求 W32；50CF90、509090、509100 等共享。
+extern std::uint32_t gValueC8220C; // 原全局：0x00C8220C。
+extern std::uint32_t gValueC82210; // 原全局：0x00C82210。
+extern std::uint32_t gValueC82214; // 原全局：0x00C82214。
+extern std::uint32_t gValueC82218; // 原全局：0x00C82218。
+extern std::int32_t gValueFF0D4C; // 原全局：0x00FF0D4C。 原地图回复数值 W32，51D6F0 消费。
+extern std::int32_t gValue73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
+extern std::int32_t gValue73ED48; // 原全局：0x0073ED48。 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
 extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
-extern std::uint32_t& gBattleSceneEffectC8A768; // 413070按两W16写入，别名既有场景效果owner。
-extern std::uint32_t& gBattleSceneEffectC8A76C; // 同源W32，不能拆成独立高/低槽。
-extern std::uint32_t gValueC82224;
-extern std::uint32_t gValueC8221C; // 原 46ADA0/46AEA0 共用的 W32 请求序号。
-extern std::uint16_t gValue9DAD54;
-extern std::uint16_t gValue9FB92C;
-extern std::uint16_t gValue55D9FC;
-extern std::uint16_t gValueC821D0;
-extern std::uint16_t gValue9EE910;
+extern std::uint32_t& gBattleSceneEffectC8A768; // 原全局：0x00C8A768。 413070按两W16写入，别名既有场景效果owner。
+extern std::uint32_t& gBattleSceneEffectC8A76C; // 原全局：0x00C8A76C。 同源W32，不能拆成独立高/低槽。
+extern std::uint32_t gValueC82224; // 原全局：0x00C82224。
+extern std::uint32_t gValueC8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
+extern std::uint16_t gValue9DAD54; // 原全局：0x009DAD54。
+extern std::uint16_t gValue9FB92C; // 原全局：0x009FB92C。
+extern std::uint16_t gValue55D9FC; // 原全局：0x0055D9FC。
+extern std::uint16_t gValueC821D0; // 原全局：0x00C821D0。
+extern std::uint16_t gValue9EE910; // 原全局：0x009EE910。
 
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
@@ -285,75 +285,75 @@ std::int32_t __cdecl Sub_468C40(
     std::uint16_t* hit); // 原 [0x468C40,0x468F25)，真实三平面文件装载依赖。
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
-extern std::uint32_t gValue9DAD5C;
-extern std::uint32_t gValue9DAD68;
-extern std::int32_t gValue9DAD58;
-extern std::int32_t gValue9DAD60;
-extern std::int32_t gValue9DAD64;
+extern std::uint32_t gValue9DAD5C; // 原全局：0x009DAD5C。
+extern std::uint32_t gValue9DAD68; // 原全局：0x009DAD68。
+extern std::int32_t gValue9DAD58; // 原全局：0x009DAD58。
+extern std::int32_t gValue9DAD60; // 原全局：0x009DAD60。
+extern std::int32_t gValue9DAD64; // 原全局：0x009DAD64。
 
 // 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
 extern std::int32_t gValue581800;
-extern std::int32_t gDialogRequestCC21E0; // 原对话a3，49D2E0/49D8F0生产，发送共用。
-extern std::int32_t gDialogTargetD2DE6C; // 原对话a4，不是窗口51的独立参数槽。
+extern std::int32_t gDialogRequestCC21E0; // 原全局：0x00CC21E0。 原对话a3，49D2E0/49D8F0生产，发送共用。
+extern std::int32_t gDialogTargetD2DE6C; // 原全局：0x00D2DE6C。 原对话a4，不是窗口51的独立参数槽。
 
 // 原 455BD0 的 23 个独立共享槽；W16/W32 类型仅承载原位模式。
-extern std::uint16_t gValue556C14;
-extern std::uint16_t gValue62B34E;
-extern std::uint16_t gValue62B34C;
-extern std::uint16_t gValue62B318;
-extern std::uint32_t gValue62B328;
-extern std::uint16_t gValue62B3B0;
-extern std::uint16_t gValue556C34;
-extern std::uint16_t gValue62B5AA;
-extern std::uint16_t gValue62B5A8;
-extern std::uint32_t gValue62B5B0;
-extern std::uint32_t gValue62B308;
-extern std::uint32_t gValue62B398; // 原455FC0发布，目标格门禁共用。
-extern std::uint32_t gValue62B358;
-extern std::uint32_t gValue62B384;
-extern std::uint32_t gValue62B310;
-extern std::uint32_t gValue62B364;
-extern std::uint32_t gValue62B338;
-extern std::uint32_t gValue62B36C;
-extern std::uint32_t gValue62B2F8;
-extern std::uint32_t gValue62B324;
-extern std::uint32_t gValue62B30C;
-extern std::uint32_t gValue62B388;
-extern std::uint32_t gValue62B3A0;
-extern std::uint32_t gValue62B38C;
+extern std::uint16_t gValue556C14; // 原全局：0x00556C14。
+extern std::uint16_t gValue62B34E; // 原全局：0x0062B34E。
+extern std::uint16_t gValue62B34C; // 原全局：0x0062B34C。
+extern std::uint16_t gValue62B318; // 原全局：0x0062B318。
+extern std::uint32_t gValue62B328; // 原全局：0x0062B328。
+extern std::uint16_t gValue62B3B0; // 原全局：0x0062B3B0。
+extern std::uint16_t gValue556C34; // 原全局：0x00556C34。
+extern std::uint16_t gValue62B5AA; // 原全局：0x0062B5AA。
+extern std::uint16_t gValue62B5A8; // 原全局：0x0062B5A8。
+extern std::uint32_t gValue62B5B0; // 原全局：0x0062B5B0。
+extern std::uint32_t gValue62B308; // 原全局：0x0062B308。
+extern std::uint32_t gValue62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
+extern std::uint32_t gValue62B358; // 原全局：0x0062B358。
+extern std::uint32_t gValue62B384; // 原全局：0x0062B384。
+extern std::uint32_t gValue62B310; // 原全局：0x0062B310。
+extern std::uint32_t gValue62B364; // 原全局：0x0062B364。
+extern std::uint32_t gValue62B338; // 原全局：0x0062B338。
+extern std::uint32_t gValue62B36C; // 原全局：0x0062B36C。
+extern std::uint32_t gValue62B2F8; // 原全局：0x0062B2F8。
+extern std::uint32_t gValue62B324; // 原全局：0x0062B324。
+extern std::uint32_t gValue62B30C; // 原全局：0x0062B30C。
+extern std::uint32_t gValue62B388; // 原全局：0x0062B388。
+extern std::uint32_t gValue62B3A0; // 原全局：0x0062B3A0。
+extern std::uint32_t gValue62B38C; // 原全局：0x0062B38C。
 
 // 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。
-extern std::int32_t gValueD2F788;
-extern std::uint16_t gValueFF0C10;
+extern std::int32_t gValueD2F788; // 原全局：0x00D2F788。
+extern std::uint16_t gValueFF0C10; // 原全局：0x00FF0C10。
 
 // 原 0xCAFEA0：504100 重置的独立 W32 槽。
 extern std::uint32_t gValueCAFEA0;
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84：43C8F0 顺序重置的独立 S32 槽。
-extern std::int32_t gValue5ABB70;
-extern std::int32_t gValue5ABB6C;
-extern std::int32_t gValue553F90;
-extern std::int32_t gValue553F84;
+extern std::int32_t gValue5ABB70; // 原全局：0x005ABB70。
+extern std::int32_t gValue5ABB6C; // 原全局：0x005ABB6C。
+extern std::int32_t gValue553F90; // 原全局：0x00553F90。
+extern std::int32_t gValue553F84; // 原全局：0x00553F84。
 
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
-    std::int32_t value00; // 图号；46CF60 的 tile 直接使用，静态 obj 先查 mapNo。
-    std::int16_t value04; // obj 动画标志；0 静态，1 Yobi，其余跳过。
-    std::int16_t value06; // 裁剪 X。
-    std::int16_t value08; // 裁剪 Y。
-    std::int16_t value0A; // 宽。
-    std::int16_t value0C; // 高。
-    std::int16_t value0E; // 绘制偏移 X。
-    std::int16_t value10; // 绘制偏移 Y。
-    std::uint8_t reserved12[2];
+    std::int32_t value00; // 原成员偏移：+0x00。 图号；46CF60 的 tile 直接使用，静态 obj 先查 mapNo。
+    std::int16_t value04; // 原成员偏移：+0x04。 obj 动画标志；0 静态，1 Yobi，其余跳过。
+    std::int16_t value06; // 原成员偏移：+0x06。 裁剪 X。
+    std::int16_t value08; // 原成员偏移：+0x08。 裁剪 Y。
+    std::int16_t value0A; // 原成员偏移：+0x0A。 宽。
+    std::int16_t value0C; // 原成员偏移：+0x0C。 高。
+    std::int16_t value0E; // 原成员偏移：+0x0E。 绘制偏移 X。
+    std::int16_t value10; // 原成员偏移：+0x10。 绘制偏移 Y。
+    std::uint8_t reserved12[2]; // 原成员偏移：+0x12。
 };
 
 // 原 [0x9FB948,0xAEFB94)：十二字节头与 50,000 项定长记录的唯一共享数据。
 struct CutData9FB948 {
-    std::uint8_t unknown00[6];
-    std::int16_t count06;
-    std::int16_t count08;
-    std::int16_t count0A;
+    std::uint8_t unknown00[6]; // 原成员偏移：+0x00。
+    std::int16_t count06; // 原成员偏移：+0x06。
+    std::int16_t count08; // 原成员偏移：+0x08。
+    std::int16_t count0A; // 原成员偏移：+0x0A。
     CutRecord9FB954 records[50000];
 };
 
@@ -375,7 +375,7 @@ static_assert(offsetof(CutData9FB948, count0A) == 0x0A);
 static_assert(offsetof(CutData9FB948, records) == 0x0C);
 static_assert(sizeof(CutData9FB948) == 1000012);
 
-extern CutData9FB948 gCutData9FB948;
+extern CutData9FB948 gCutData9FB948; // 原全局：0x009FB948。
 
 // 原 [0xAF10D8,0xB65A7B)；.aut 每项三个原始字节，供地图颜色消费者共享。
 struct AutRecordAF10D8 {
@@ -389,10 +389,10 @@ static_assert(offsetof(AutRecordAF10D8, value01) == 1);
 static_assert(offsetof(AutRecordAF10D8, value02) == 2);
 static_assert(sizeof(AutRecordAF10D8) == 3);
 
-extern AutRecordAF10D8 gAutDataAF10D8[159201];
+extern AutRecordAF10D8 gAutDataAF10D8[159201]; // 原全局：0x00AF10D8。
 
 // 原 [0xC35010, 0xC75010)；46CF20 顺序填值，C75010 尾槽另存。
-extern std::int32_t gValuesC35010[65536];
+extern std::int32_t gValuesC35010[65536]; // 原全局：0x00C35010。
 
 // 原函数：0x004682E0。
 void __cdecl Sub_4682E0(
@@ -432,16 +432,16 @@ const char* BorrowPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段
 
 // 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
 struct SkillTechniqueRecord {
-    std::array<char, 25> name;
-    std::array<char, 97> description;
-    std::array<std::byte, 2> bytes7A;
-    std::int32_t value7C;
-    std::int32_t value80;
-    std::int32_t value84;
-    std::uint8_t used88;
-    std::array<std::byte, 3> bytes89;
-    std::int32_t value8C;
-    std::int32_t value90;
+    std::array<char, 25> name; // 原成员偏移：+0x00。
+    std::array<char, 97> description; // 原成员偏移：+0x19。
+    std::array<std::byte, 2> bytes7A; // 原成员偏移：+0x7A。
+    std::int32_t value7C; // 原成员偏移：+0x7C。
+    std::int32_t value80; // 原成员偏移：+0x80。
+    std::int32_t value84; // 原成员偏移：+0x84。
+    std::uint8_t used88; // 原成员偏移：+0x88。
+    std::array<std::byte, 3> bytes89; // 原成员偏移：+0x89。
+    std::int32_t value8C; // 原成员偏移：+0x8C。
+    std::int32_t value90; // 原成员偏移：+0x90。
 };
 
 static_assert(std::is_standard_layout_v<SkillTechniqueRecord>);
@@ -461,45 +461,45 @@ static_assert(sizeof(SkillTechniqueRecord) == 0x94);
 // 原技能配方材料0x28字节，50C580生产、519950只清itemId、4F4630查count。
 struct SkillRecipeItem {
     std::int32_t itemId;
-    std::int32_t count;
-    std::array<char, 29> name;
-    std::array<std::byte, 3> bytes25;
+    std::int32_t count; // 原成员偏移：+0x04。
+    std::array<char, 29> name; // 原成员偏移：+0x08。
+    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
 };
 
 struct SkillRecipeRecord {
     std::int32_t itemId;
-    std::int32_t value04;
-    std::int32_t level;
-    std::int32_t value0C;
-    std::int32_t value10;
-    std::array<char, 29> name;
-    std::array<char, 57> description;
-    std::array<std::byte, 2> bytes6A;
-    std::array<SkillRecipeItem, 5> items6C;
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t level; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+    std::array<char, 29> name; // 原成员偏移：+0x14。
+    std::array<char, 57> description; // 原成员偏移：+0x31。
+    std::array<std::byte, 2> bytes6A; // 原成员偏移：+0x6A。
+    std::array<SkillRecipeItem, 5> items6C; // 原成员偏移：+0x6C。
 };
 
 // 原F1BAFC起的技能记录；未消费字段不计最终业务映射。
 struct SkillRuntimeRecord {
     std::array<char, 25> name;
-    std::array<std::uint8_t, 2> requiredSlots19; // 回复写低U8；4740F0读S16，窗口54读低S8。
-    std::byte byte1B;
-    std::int32_t level;
-    std::int32_t maxLevel;
-    std::int32_t experience;
-    std::int32_t nextExperience;
-    std::int32_t canRebirth;
-    std::int32_t skillId;
-    std::int32_t fpReduce;
-    std::int32_t sequence;
-    std::array<SkillTechniqueRecord, 15> techniques3C;
-    std::array<SkillRecipeRecord, 56> recipes8E8;
+    std::array<std::uint8_t, 2> requiredSlots19; // 原成员偏移：+0x19。 回复写低U8；4740F0读S16，窗口54读低S8。
+    std::byte byte1B; // 原成员偏移：+0x1B。
+    std::int32_t level; // 原成员偏移：+0x1C。
+    std::int32_t maxLevel; // 原成员偏移：+0x20。
+    std::int32_t experience; // 原成员偏移：+0x24。
+    std::int32_t nextExperience; // 原成员偏移：+0x28。
+    std::int32_t canRebirth; // 原成员偏移：+0x2C。
+    std::int32_t skillId; // 原成员偏移：+0x30。
+    std::int32_t fpReduce; // 原成员偏移：+0x34。
+    std::int32_t sequence; // 原成员偏移：+0x38。
+    std::array<SkillTechniqueRecord, 15> techniques3C; // 原成员偏移：+0x3C。
+    std::array<SkillRecipeRecord, 56> recipes8E8; // 原成员偏移：+0x8E8。
     std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
 };
 
 struct SkillPairRecord {
-    std::uint16_t used;
-    std::uint16_t index; // 原技能/宠物技术表下标，UI按S16消费，不是地址。
-    std::int32_t sequence;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::uint16_t index; // 原成员偏移：+0x02。 原技能/宠物技术表下标，UI按S16消费，不是地址。
+    std::int32_t sequence; // 原成员偏移：+0x04。
 };
 
 static_assert(sizeof(SkillRecipeItem) == 0x28);
@@ -536,11 +536,11 @@ static_assert(offsetof(SkillPairRecord, index) == 2);
 static_assert(offsetof(SkillPairRecord, sequence) == 4);
 static_assert(sizeof(SkillPairRecord) == 8);
 
-extern std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC; // 同一第四清零块成员别名。
-extern std::array<SkillPairRecord, 15>& gSkillPairsF63370;
+extern std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC; // 原全局：0x00F1BAFC。 同一第四清零块成员别名。
+extern std::array<SkillPairRecord, 15>& gSkillPairsF63370; // 原全局：0x00F63370。
 // 原479FBE按S8索引读取U16；-1别名为末条技能记录+4C44。
 std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
-extern std::uint16_t gValueDA3B20; // 原技能拖放门禁，509EB0尾部清零。
+extern std::uint16_t gValueDA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
 // 原函数：0x00504F10。
 std::int32_t Sub_504F10(std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
 // 原函数：0x00505040。
@@ -567,23 +567,23 @@ std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* righ
 
 // 原FDA8A4起的28条玩家物品，已证原字节文本与W16/S32字段；未消费尾部不冻结。
 struct PlayerItemRecord {
-    std::uint16_t used;
-    std::array<char, 29> name;
-    std::array<char, 17> memo;
-    std::array<std::array<char, 96>, 32> description;
-    std::int32_t pages;
-    std::int32_t color;
-    std::int32_t imageNo;
-    std::int32_t level;
-    std::int32_t itemId;
-    std::int32_t count;
-    std::int32_t itemType;
-    std::uint16_t canUseInField;
-    std::uint16_t battleUseFlag;
-    std::uint16_t target;
-    std::uint16_t flags;
-    std::uint16_t hasDescription;
-    std::array<std::byte, 6> bytesC56;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::array<char, 29> name; // 原成员偏移：+0x02。
+    std::array<char, 17> memo; // 原成员偏移：+0x1F。
+    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x30。
+    std::int32_t pages; // 原成员偏移：+0xC30。
+    std::int32_t color; // 原成员偏移：+0xC34。
+    std::int32_t imageNo; // 原成员偏移：+0xC38。
+    std::int32_t level; // 原成员偏移：+0xC3C。
+    std::int32_t itemId; // 原成员偏移：+0xC40。
+    std::int32_t count; // 原成员偏移：+0xC44。
+    std::int32_t itemType; // 原成员偏移：+0xC48。
+    std::uint16_t canUseInField; // 原成员偏移：+0xC4C。
+    std::uint16_t battleUseFlag; // 原成员偏移：+0xC4E。
+    std::uint16_t target; // 原成员偏移：+0xC50。
+    std::uint16_t flags; // 原成员偏移：+0xC52。
+    std::uint16_t hasDescription; // 原成员偏移：+0xC54。
+    std::array<std::byte, 6> bytesC56; // 原成员偏移：+0xC56。
 };
 
 static_assert(std::is_standard_layout_v<PlayerItemRecord>);
@@ -607,7 +607,7 @@ static_assert(offsetof(PlayerItemRecord, hasDescription) == 0xC54);
 static_assert(offsetof(PlayerItemRecord, bytesC56) == 0xC56);
 static_assert(sizeof(PlayerItemRecord) == 0xC5C);
 
-extern std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4; // 别名唯一PlayerRuntimeSlots成员。
+extern std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4; // 原全局：0x00FDA8A4。 别名唯一PlayerRuntimeSlots成员。
 // 原函数：0x0050BFD0。
 void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
 // 原函数：0x0050C260。
@@ -628,14 +628,14 @@ void Sub_5196B0(std::int32_t index, const char* text); // 32行描述与最多4�
 
 // 原宠物+D8的8C技能值记录，50B0D0生产，4E52B0按索引对复制到交易区。
 struct PetTechniqueRecord {
-    std::uint16_t used;
-    std::uint16_t field;
-    std::uint16_t target;
-    std::array<char, 25> name;
-    std::array<char, 97> description;
-    std::int32_t techniqueId;
-    std::int32_t fp;
-    std::int32_t sequence;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::uint16_t field; // 原成员偏移：+0x02。
+    std::uint16_t target; // 原成员偏移：+0x04。
+    std::array<char, 25> name; // 原成员偏移：+0x06。
+    std::array<char, 97> description; // 原成员偏移：+0x1F。
+    std::int32_t techniqueId; // 原成员偏移：+0x80。
+    std::int32_t fp; // 原成员偏移：+0x84。
+    std::int32_t sequence; // 原成员偏移：+0x88。
 };
 
 static_assert(std::is_standard_layout_v<PetTechniqueRecord>);
@@ -653,28 +653,28 @@ static_assert(sizeof(PetTechniqueRecord) == 0x8C);
 // 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
 struct PetRuntimeRecord {
     std::uint16_t used; // 原+0占用。
-    std::uint16_t value02; // 主回复掩码200001。
-    std::uint16_t value04; // 主回复掩码5。
-    std::array<std::byte, 2> bytes06;
-    std::int32_t value08; // 主回复掩码201。
+    std::uint16_t value02; // 原成员偏移：+0x02。 主回复掩码200001。
+    std::uint16_t value04; // 原成员偏移：+0x04。 主回复掩码5。
+    std::array<std::byte, 2> bytes06; // 原成员偏移：+0x06。
+    std::int32_t value08; // 原成员偏移：+0x08。 主回复掩码201。
     std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
-    std::int32_t lvFlag6C; // 原F63464；50CF70写入完整W32。
+    std::int32_t lvFlag6C; // 原成员偏移：+0x6C。 原F63464；50CF70写入完整W32。
     std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
-    std::array<PetTechniqueRecord, 10> techniquesD8;
-    std::array<SkillPairRecord, 10> techniquePairs650; // 5185C0只生成索引，不排序。
-    std::int32_t imageNo6A0;
-    std::int32_t value6A4;
-    std::array<std::byte, 2> bytes6A8;
-    std::uint16_t flags6AA; // 不含跟随bit0x10的状态。
-    std::array<char, 17> name6AC;
-    std::array<char, 17> name6BD;
-    std::array<std::byte, 2> bytes6CE;
-    std::int32_t value6D0; // 518580复制到索引对。
-    std::int32_t follow6D4;
-    std::array<std::int32_t, 3> values6D8;
-    std::array<PlayerItemRecord, 6> items6E4; // 原51B630复用的六条C5C物品。
-    std::uint8_t updated510C; // 仅50A6B0尾部置1。
-    std::array<std::byte, 3> bytes510D;
+    std::array<PetTechniqueRecord, 10> techniquesD8; // 原成员偏移：+0xD8。
+    std::array<SkillPairRecord, 10> techniquePairs650; // 原成员偏移：+0x650。 5185C0只生成索引，不排序。
+    std::int32_t imageNo6A0; // 原成员偏移：+0x6A0。
+    std::int32_t value6A4; // 原成员偏移：+0x6A4。
+    std::array<std::byte, 2> bytes6A8; // 原成员偏移：+0x6A8。
+    std::uint16_t flags6AA; // 原成员偏移：+0x6AA。 不含跟随bit0x10的状态。
+    std::array<char, 17> name6AC; // 原成员偏移：+0x6AC。
+    std::array<char, 17> name6BD; // 原成员偏移：+0x6BD。
+    std::array<std::byte, 2> bytes6CE; // 原成员偏移：+0x6CE。
+    std::int32_t value6D0; // 原成员偏移：+0x6D0。 518580复制到索引对。
+    std::int32_t follow6D4; // 原成员偏移：+0x6D4。
+    std::array<std::int32_t, 3> values6D8; // 原成员偏移：+0x6D8。
+    std::array<PlayerItemRecord, 6> items6E4; // 原成员偏移：+0x6E4。 原51B630复用的六条C5C物品。
+    std::uint8_t updated510C; // 原成员偏移：+0x510C。 仅50A6B0尾部置1。
+    std::array<std::byte, 3> bytes510D; // 原成员偏移：+0x510D。
 };
 
 static_assert(std::is_standard_layout_v<PetRuntimeRecord>);
@@ -702,13 +702,13 @@ static_assert(sizeof(PetRuntimeRecord) == 0x5110);
 
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {
-    std::int32_t used;
-    std::array<char, 32> text04;
-    std::uint8_t hasText24; // 第2文本不等于单空格；空串同样为1。
-    std::array<char, 32> text25;
-    std::array<std::byte, 3> bytes45;
-    std::int32_t value48;
-    std::array<std::int32_t, 24> values4C;
+    std::int32_t used; // 原成员偏移：+0x00。
+    std::array<char, 32> text04; // 原成员偏移：+0x04。
+    std::uint8_t hasText24; // 原成员偏移：+0x24。 第2文本不等于单空格；空串同样为1。
+    std::array<char, 32> text25; // 原成员偏移：+0x25。
+    std::array<std::byte, 3> bytes45; // 原成员偏移：+0x45。
+    std::int32_t value48; // 原成员偏移：+0x48。
+    std::array<std::int32_t, 24> values4C; // 原成员偏移：+0x4C。
 };
 
 static_assert(std::is_standard_layout_v<ReplyRecordF7C950>);
@@ -721,13 +721,13 @@ static_assert(offsetof(ReplyRecordF7C950, bytes45) == 0x45);
 static_assert(offsetof(ReplyRecordF7C950, value48) == 0x48);
 static_assert(offsetof(ReplyRecordF7C950, values4C) == 0x4C);
 static_assert(sizeof(ReplyRecordF7C950) == 0xAC);
-extern ReplyRecordF7C950 gReplyRecordF7C950;
+extern ReplyRecordF7C950 gReplyRecordF7C950; // 原全局：0x00F7C950。
 
 // 原DE0B08，每项8B；索引是数值，不是地址。
 struct PetPairRecord {
-    std::uint16_t used;
-    std::uint16_t index;
-    std::int32_t value;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::uint16_t index; // 原成员偏移：+0x02。
+    std::int32_t value; // 原成员偏移：+0x04。
 };
 
 static_assert(offsetof(PetPairRecord, used) == 0);
@@ -738,15 +738,15 @@ static_assert(sizeof(PetPairRecord) == 8);
 void ConstructLegacyPetElementForArray(void* storage);
 void DestroyLegacyPetElementForArray(void* storage);
 
-extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8;
-extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
-extern std::int32_t gPetCountDE0B00;
+extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8; // 原全局：0x00F633F8。
+extern std::array<PetPairRecord, 5> gPetPairsDE0B08; // 原全局：0x00DE0B08。
+extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。
 // 原函数：0x0052E1D0。
 std::int32_t Sub_52E1D0(std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
 // 原函数：0x0052E180。
 std::int32_t Sub_52E180(
     std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
-extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
+extern std::uint32_t gValueD67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
 void Sub_510150(
@@ -791,8 +791,8 @@ static_assert(offsetof(TitleRecord, id) == 0);
 static_assert(offsetof(TitleRecord, value) == 4);
 static_assert(offsetof(TitleRecord, text) == 8);
 static_assert(sizeof(TitleRecord) == 0x1C);
-extern std::array<TitleRecord, 64> gTitlesFF0508;
-extern std::array<TitleRecord, 64> gSortedTitlesDE03F8;
+extern std::array<TitleRecord, 64> gTitlesFF0508; // 原全局：0x00FF0508。
+extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F8。
 
 // 原函数：0x0050A300。
 void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
@@ -922,7 +922,7 @@ std::int32_t __cdecl Sub_50C870(
     std::int32_t adjustment); // GTP01：PudO 校时，持有 category，两 time/旧 adjustment 与最后 S32 返回保。
 // 原函数：0x00469030。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
-extern std::uint32_t gValue55DA88; // 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
+extern std::uint32_t gValue55DA88; // 原全局：0x0055DA88。 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
 // 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
 std::int32_t Sub_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
@@ -981,7 +981,7 @@ std::uint32_t __cdecl Sub_46BD20(
 std::int32_t __cdecl Sub_50C8D0(
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
-extern std::int32_t gValueFDA6F8; // 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
+extern std::int32_t gValueFDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 // 原函数：0x005199A0。
 void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 // 原函数：0x00444FA0。
@@ -1120,9 +1120,9 @@ void Sub_50D120(
 void Sub_50D3C0(std::uintptr_t socket, const char* text); // C/P/A/第二字节U/M完整分派。
 // 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
 struct BattleResultRecord {
-    std::uint16_t value00;
-    std::uint16_t value02;
-    std::int32_t value04;
+    std::uint16_t value00; // 原成员偏移：+0x00。
+    std::uint16_t value02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
 };
 static_assert(offsetof(BattleResultRecord, value00) == 0);
 static_assert(offsetof(BattleResultRecord, value02) == 2);
@@ -1131,9 +1131,9 @@ static_assert(sizeof(BattleResultRecord) == 8);
 
 // 原FF0C8C十五条技能结果；+2两字节不由50D500写入，末条止FF0D04。
 struct BattleSkillResultRecord {
-    std::int16_t value00;
-    std::array<std::byte, 2> bytes02;
-    std::int32_t value04;
+    std::int16_t value00; // 原成员偏移：+0x00。
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
 };
 static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
 static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
@@ -1147,8 +1147,8 @@ const std::array<std::array<char, 29>, 3>& BorrowBattleResultNames() noexcept;
 const std::array<std::int32_t, 3>& BorrowBattleResultGraphics() noexcept;
 // 原函数：0x0050D500。
 void Sub_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
-extern std::int32_t gValueFF0D04; // 既有DP回复变化值，窗口31直接读取。
-extern std::int32_t gValueFF0D08; // 既有DP回复总量，与变化值分别采样。
+extern std::int32_t gValueFF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
+extern std::int32_t gValueFF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 // 原函数：0x004ED670。
 std::int32_t Sub_4ED670(); // 四角色/宠物与十五技能结果字段恰1检查，完整扫描不提前返回。
 // 原函数：0x00504A50。
@@ -1397,12 +1397,12 @@ login::YobiAction* Sub_51A090(
     const char* name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 519A80 公共尾清理；后续协议/场景必须复用这些独立 W16 槽。
-extern std::uint16_t gValueFF0D30;
-extern std::uint16_t gValueFF0D32;
-extern std::uint16_t gValueF7CA04;
-extern std::uint16_t gValueFF03D8;
-extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，不默认启用。
-extern std::uint32_t gValueFF0D38; // 原51B3E0邻格请求的独立时间槽。
+extern std::uint16_t gValueFF0D30; // 原全局：0x00FF0D30。
+extern std::uint16_t gValueFF0D32; // 原全局：0x00FF0D32。
+extern std::uint16_t gValueF7CA04; // 原全局：0x00F7CA04。
+extern std::uint16_t gValueFF03D8; // 原全局：0x00FF03D8。
+extern std::uint16_t gValueFF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
+extern std::uint32_t gValueFF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。
 std::uint32_t Sub_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 // 原函数：0x00469C90。
@@ -1442,7 +1442,7 @@ void CopyPlayerBarValues(
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
 const char* BorrowTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
 const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
-extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后续设置UI共享。
+extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
 std::int32_t ReadPlayerValue17C() noexcept; // 原FDA87C，窗口56外观分解读取，与FDA878独立。
@@ -1563,85 +1563,85 @@ std::uint32_t Sub_51D750();              // 原 0x51D750；完整 EAX 写入/返
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;
-extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 4209C0门禁；43CBB0按称号value生产0/5。
-extern std::int32_t gBattleType5ABFC8; // 50D120写完整S32类型。
-extern std::uint32_t gBattleModeFlag5ABFCC; // 仅类型2写1。
-extern std::uint32_t gValue5ABB1C;
-extern std::uint32_t gValue5ABB20; // 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
-extern std::uint32_t gValue5ABB28;
-extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 50D3C0的A消息严格1时消费。
-extern std::int32_t gBattleCWriteIndex5AAA6C;
-extern std::int32_t gBattleCReadIndex5AAA44;
-extern std::int32_t gBattleMWriteIndex5A3A1C;
-extern std::int32_t gBattleMReadIndex5AAA68;
-extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 四槽，每槽1000H；50D120只清各首字节。
-extern std::array<char, 0x4000> gBattleMQueue59FA18;
-extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
-extern std::int32_t gBattleCOffset5ABA80; // 438550先写2；438450/4384C0消费，与C队列索引独立。
-extern std::uint32_t gBattleFieldFlags5ABB58; // 438550发布完整W32，43CBB0随后检查bit20。
-extern std::array<char, 0x1000> gBattleMText5AAA7C;
-extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
-extern std::int32_t gBattleMPreviewOffset5AAA60; // 439600/439700预扫描游标，由43B290复制头游标。
-extern std::uint32_t gBattleActiveEventMask5AAA74; // 32事件槽位图，43B6C0清当前位。
-extern std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C; // 非拥有事件引用；4383F0清表，43B610按当前eventSlot发布。
-extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C;
-extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 调度累计、43B290逐槽冲突判定。
-extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 仅映射439B30已消费位置，40F2B1同源读取。
+extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
+extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
+extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
+extern std::uint32_t gValue5ABB1C; // 原全局：0x005ABB1C。
+extern std::uint32_t gValue5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
+extern std::uint32_t gValue5ABB28; // 原全局：0x005ABB28。
+extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 原全局：0x005ABC6C。 50D3C0的A消息严格1时消费。
+extern std::int32_t gBattleCWriteIndex5AAA6C; // 原全局：0x005AAA6C。
+extern std::int32_t gBattleCReadIndex5AAA44; // 原全局：0x005AAA44。
+extern std::int32_t gBattleMWriteIndex5A3A1C; // 原全局：0x005A3A1C。
+extern std::int32_t gBattleMReadIndex5AAA68; // 原全局：0x005AAA68。
+extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 原全局：0x005A4A3C。 四槽，每槽1000H；50D120只清各首字节。
+extern std::array<char, 0x4000> gBattleMQueue59FA18; // 原全局：0x0059FA18。
+extern std::array<char, 0x1000> gBattleCText5A3A20; // 原全局：0x005A3A20。 场景从C队列复制的活动原字节文本。
+extern std::int32_t gBattleCOffset5ABA80; // 原全局：0x005ABA80。 438550先写2；438450/4384C0消费，与C队列索引独立。
+extern std::uint32_t gBattleFieldFlags5ABB58; // 原全局：0x005ABB58。 438550发布完整W32，43CBB0随后检查bit20。
+extern std::array<char, 0x1000> gBattleMText5AAA7C; // 原全局：0x005AAA7C。
+extern std::int32_t gBattleMScanOffset5A8A3C; // 原全局：0x005A8A3C。 M头扫描S32游标，非队列索引或对象载荷64游标。
+extern std::int32_t gBattleMPreviewOffset5AAA60; // 原全局：0x005AAA60。 439600/439700预扫描游标，由43B290复制头游标。
+extern std::uint32_t gBattleActiveEventMask5AAA74; // 原全局：0x005AAA74。 32事件槽位图，43B6C0清当前位。
+extern std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C; // 原全局：0x005ABA9C。 非拥有事件引用；4383F0清表，43B610按当前eventSlot发布。
+extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
+extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 原全局：0x005AAA48。 调度累计、43B290逐槽冲突判定。
+extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 原全局：0x005A8A40。 仅映射439B30已消费位置，40F2B1同源读取。
 struct BattleNamedEffectRecord {
     std::array<char, 32> name; // 原编码名称，首字节0表示空槽。
     std::int32_t value; // 原+20，439B30按名称更新。
 };
-extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0;
-extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
-extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 含20/21特殊槽的唯一非拥有对象表。
-extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 常规路径仅遍历前20槽。
-extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC;
-extern const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 两组原S32坐标。
-extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同于P回复的5ABCA8。
-extern std::uint32_t gBattlePosition5ABCA8;
-extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。
-extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九个W32，含94/98/9C。
-extern std::int32_t gBattleSelectedSkill5ABB5C; // 4974C0写技能槽，4975A0/498520重取。
-extern std::int32_t gBattleSelectedTechnique5ABC78; // 4974C0写技术槽，不是UI列表索引。
-extern std::int32_t gBattleCommandState5ABC3C; // 技能/宠物命令完成状态，498520消费。
-extern std::uint8_t gBattleRebirthDisabled5ABC40; // 497C80先读的独立U8门禁，498520后续写。
-extern std::int32_t gBattleSkillActionCount5ABBF4;
-extern std::int32_t gBattlePetActionCount5ABBBC;
-extern std::int32_t gBattleCountdownActive5ABCB8; // 43C4E0置1，4982C0到期清零。
-extern std::uint32_t gBattleCommandDeadline5ABBF8; // 原32位tick截止值，不是地址。
-extern std::int32_t gBattleCountdownSecond5ABB80; // 低于十秒时的独立提示秒数。
-extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 4965D0每次解码后重取，非553F90。
-extern std::int32_t gBattleCommandX553F78; // 映像490，43C4E0覆盖493。
-extern std::int32_t gBattleCommandY553F7C; // 映像-104，43C4E0覆盖-106。
-extern std::int32_t gBattleCommandValue553F80; // 映像及初始化17，43C3E0读取。
-extern std::int32_t gBattlePetSkillGraphicIndex553F8C; // 原绘制返回索引，初值-1，不是对象地址。
-extern std::array<std::int32_t, 9> gBattleResetValues5ABB84; // 43C490只写-2的独立九槽，非选择标志。
-extern login::YobiAction* gBattleEntryNoticeAction5ABFB8; // 43C950返回的非拥有窗口动画，49BD40及场景清槽。
+extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0; // 原全局：0x005ABCE0。
+extern login::YobiAction* gBattleSceneAction5ABA94; // 原全局：0x005ABA94。 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
+extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。
+extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
+extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC; // 原全局：0x005536FC。
+extern const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 原全局：0x00553758。 两组原S32坐标。
+extern std::int32_t gBattleCurrentPosition5ABCA4; // 原全局：0x005ABCA4。 实际gMyPostion；不同于P回复的5ABCA8。
+extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
+extern std::int32_t gBattlePlayerActionState5ABC74; // 原全局：0x005ABC74。 UI发布动作完成状态，非5ABB74回合数。
+extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 原全局：0x005ABC7C。 496F10清九个W32，含94/98/9C。
+extern std::int32_t gBattleSelectedSkill5ABB5C; // 原全局：0x005ABB5C。 4974C0写技能槽，4975A0/498520重取。
+extern std::int32_t gBattleSelectedTechnique5ABC78; // 原全局：0x005ABC78。 4974C0写技术槽，不是UI列表索引。
+extern std::int32_t gBattleCommandState5ABC3C; // 原全局：0x005ABC3C。 技能/宠物命令完成状态，498520消费。
+extern std::uint8_t gBattleRebirthDisabled5ABC40; // 原全局：0x005ABC40。 497C80先读的独立U8门禁，498520后续写。
+extern std::int32_t gBattleSkillActionCount5ABBF4; // 原全局：0x005ABBF4。
+extern std::int32_t gBattlePetActionCount5ABBBC; // 原全局：0x005ABBBC。
+extern std::int32_t gBattleCountdownActive5ABCB8; // 原全局：0x005ABCB8。 43C4E0置1，4982C0到期清零。
+extern std::uint32_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
+extern std::int32_t gBattleCountdownSecond5ABB80; // 原全局：0x005ABB80。 低于十秒时的独立提示秒数。
+extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 原全局：0x005ABBFC。 4965D0每次解码后重取，非553F90。
+extern std::int32_t gBattleCommandX553F78; // 原全局：0x00553F78。 映像490，43C4E0覆盖493。
+extern std::int32_t gBattleCommandY553F7C; // 原全局：0x00553F7C。 映像-104，43C4E0覆盖-106。
+extern std::int32_t gBattleCommandValue553F80; // 原全局：0x00553F80。 映像及初始化17，43C3E0读取。
+extern std::int32_t gBattlePetSkillGraphicIndex553F8C; // 原全局：0x00553F8C。 原绘制返回索引，初值-1，不是对象地址。
+extern std::array<std::int32_t, 9> gBattleResetValues5ABB84; // 原全局：0x005ABB84。 43C490只写-2的独立九槽，非选择标志。
+extern login::YobiAction* gBattleEntryNoticeAction5ABFB8; // 原全局：0x005ABFB8。 43C950返回的非拥有窗口动画，49BD40及场景清槽。
 // 原函数：0x0043C4E0。
 void Sub_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
-extern std::int32_t gBattleSelectionMode5ABC70; // 与九个选择槽分别存储。
-extern std::int32_t gBattleSkillUsed5ABC68; // 497000/4975A0读取完整W32。
-extern std::int32_t gBattlePetCommandPhase553F88; // 原.data初值1，宠物命令写0/2。
-extern std::int32_t gBattleValue5ABCC0; // 两个技能开启入口清零，不猜未消费语义。
-extern login::YobiAction* gBattleCommandAction5ABC00; // 原非拥有对象引用，MarkDeath后清槽。
-extern std::uint32_t gBattleTargetFlags5ABC44; // 43C560先发布完整目标位模式，43C120后续消费。
-extern std::int32_t gBattleSelectedItem5ABC48; // 499C30发布真实物品槽，498520后续消费。
-extern std::int32_t gBattleItemTargetPending5ABCC4; // 499C30请求选目标，497100/497770处理。
-extern std::int32_t gBattleBombLevelD67B2C; // 仅炸弹hover发布，41D4FE动画读取。
+extern std::int32_t gBattleSelectionMode5ABC70; // 原全局：0x005ABC70。 与九个选择槽分别存储。
+extern std::int32_t gBattleSkillUsed5ABC68; // 原全局：0x005ABC68。 497000/4975A0读取完整W32。
+extern std::int32_t gBattlePetCommandPhase553F88; // 原全局：0x00553F88。 原.data初值1，宠物命令写0/2。
+extern std::int32_t gBattleValue5ABCC0; // 原全局：0x005ABCC0。 两个技能开启入口清零，不猜未消费语义。
+extern login::YobiAction* gBattleCommandAction5ABC00; // 原全局：0x005ABC00。 原非拥有对象引用，MarkDeath后清槽。
+extern std::uint32_t gBattleTargetFlags5ABC44; // 原全局：0x005ABC44。 43C560先发布完整目标位模式，43C120后续消费。
+extern std::int32_t gBattleSelectedItem5ABC48; // 原全局：0x005ABC48。 499C30发布真实物品槽，498520后续消费。
+extern std::int32_t gBattleItemTargetPending5ABCC4; // 原全局：0x005ABCC4。 499C30请求选目标，497100/497770处理。
+extern std::int32_t gBattleBombLevelD67B2C; // 原全局：0x00D67B2C。 仅炸弹hover发布，41D4FE动画读取。
 // 原函数：0x00405B40。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 // 原函数：0x00518C60。
 std::int32_t Sub_518C60(); // BEI01：玩家slot8..27逐used W16统计空槽，S32返回；十九调用点仅来源/本父两消费有据，全owner/运行待。
-extern std::uint32_t gBattlePlayerFlags5ABCAC;
-extern std::uint32_t gBattleSkillFlags5ABC04;
-extern std::uint32_t gBattlePetSkillFlags5ABB78;
-extern std::uint32_t gBattleRebirthLevel5ABB7C;
-extern std::uint32_t gBattleRidePet5ABC38;
-extern std::uint32_t gBattleEndBits5ABBC0;
-extern std::uint32_t gBattleTurn5ABB74;
-extern std::uint32_t gBattleTurnSnapshot5ABC08;
-extern std::uint32_t gValue5ABCB0;
-extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
+extern std::uint32_t gBattlePlayerFlags5ABCAC; // 原全局：0x005ABCAC。
+extern std::uint32_t gBattleSkillFlags5ABC04; // 原全局：0x005ABC04。
+extern std::uint32_t gBattlePetSkillFlags5ABB78; // 原全局：0x005ABB78。
+extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
+extern std::uint32_t gBattleRidePet5ABC38; // 原全局：0x005ABC38。
+extern std::uint32_t gBattleEndBits5ABBC0; // 原全局：0x005ABBC0。
+extern std::uint32_t gBattleTurn5ABB74; // 原全局：0x005ABB74。
+extern std::uint32_t gBattleTurnSnapshot5ABC08; // 原全局：0x005ABC08。
+extern std::uint32_t gValue5ABCB0; // 原全局：0x005ABCB0。
+extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。

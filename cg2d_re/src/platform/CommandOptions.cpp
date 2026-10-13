@@ -15,27 +15,27 @@
 
 namespace cg::platform {
 
-char gNewestText[128] = "/update/newestV2.txt";
-char gMapPath[128] = "map";
-std::int32_t gDeviceBitsPerPixel = 8;
-std::uint16_t gScanlineSyncMode = 1;
-std::int32_t gNoDelay = 1;
-std::uint32_t gRendererFlags = 0;
-std::int32_t gEnableSound = 1;
-std::int32_t gEnableMusic = 1;
-std::int32_t gUseStereo = 1;
-std::int32_t gEffectVolume = 15;
-std::int32_t gMusicVolume = 15;
+char gNewestText[128] = "/update/newestV2.txt"; // 原全局：0x0058ADA8。
+char gMapPath[128] = "map"; // 原全局：0x0055DA00。
+std::int32_t gDeviceBitsPerPixel = 8; // 原全局：0x00554B70。
+std::uint16_t gScanlineSyncMode = 1; // 原全局：0x00554B74。
+std::int32_t gNoDelay = 1; // 原全局：0x0055CE68。
+std::uint32_t gRendererFlags = 0; // 原全局：0x009A6EC0。
+std::int32_t gEnableSound = 1; // 原全局：0x0058D3B8。
+std::int32_t gEnableMusic = 1; // 原全局：0x0058D3BC。
+std::int32_t gUseStereo = 1; // 原全局：0x0058D3C4。
+std::int32_t gEffectVolume = 15; // 原全局：0x0058D3C8。
+std::int32_t gMusicVolume = 15; // 原全局：0x0058D3CC。
 // 原连续零填充区：前缀、未命名间隔和 W32 运行表不得拆为独立存储。
 struct BgmSelectionStorage final {
-    std::uint8_t prefix[16];
-    std::uint8_t gap[8];
-    std::uint32_t runtimeWords[200];
+    std::uint8_t prefix[16]; // 原全局：0x01050840。
+    std::uint8_t gap[8]; // 原全局：0x01050850。
+    std::uint32_t runtimeWords[200]; // 原全局：0x01050858。
 };
 static_assert(offsetof(BgmSelectionStorage, runtimeWords) == 0x18);
 static_assert(sizeof(BgmSelectionStorage) == 0x338);
-static BgmSelectionStorage gBgmSelection1050840 {};
-std::uint8_t (&gBgmFrequencySelectionPrefix)[16] = gBgmSelection1050840.prefix;
+static BgmSelectionStorage gBgmSelection1050840 {}; // 原全局：0x01050840。
+std::uint8_t (&gBgmFrequencySelectionPrefix)[16] = gBgmSelection1050840.prefix; // 原全局：0x01050840。
 
 std::int8_t ReadBgmFrequencySelectionByte(const std::uint8_t id) noexcept
 {
@@ -49,9 +49,9 @@ std::uint32_t* BgmRuntimeOrderWords() noexcept
     return gBgmSelection1050840.runtimeWords;
 }
 
-std::int32_t gValueFF0D40 = 0;
-std::int32_t gRendererModeStorage = 0;
-std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0];
+std::int32_t gValueFF0D40 = 0; // 原全局：0x00FF0D40。
+std::int32_t gRendererModeStorage = 0; // 原全局：0x0062A640。
+std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0]; // 原全局：0x0062A640。
 
 static_assert(sizeof(int) == 4);
 static_assert(std::endian::native == std::endian::little);

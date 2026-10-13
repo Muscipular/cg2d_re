@@ -24,28 +24,28 @@
 namespace {
 
 struct SavedPath final {
-    char text[0x100];
+    char text[0x100]; // 原成员偏移：+0x00。
 };
 
 struct SavedRecordPart final {
-    std::int32_t value0;
-    char text[316];
-    std::uint8_t tailBytes[4];
+    std::int32_t value0; // 原成员偏移：+0x00。
+    char text[316]; // 原成员偏移：+0x04。
+    std::uint8_t tailBytes[4]; // 原成员偏移：+0x140。
 };
 
 struct SavedPhysicalRecord final {
-    SavedRecordPart parts[4];
+    SavedRecordPart parts[4]; // 原成员偏移：+0x00。
 };
 
 struct SavedStateStorage final {
-    SavedPath paths[10];
-    SavedPhysicalRecord records[10];
-    std::int32_t active[10];
-    std::int32_t mappingCount;
-    std::int32_t visibleCount;
-    std::int32_t newPhysical;
-    std::int32_t logicalToPhysical[10];
-    std::int32_t selected;
+    SavedPath paths[10]; // 原成员偏移：+0x00。
+    SavedPhysicalRecord records[10]; // 原成员偏移：+0xA00。
+    std::int32_t active[10]; // 原成员偏移：+0x3CA0。
+    std::int32_t mappingCount; // 原成员偏移：+0x3CC8。
+    std::int32_t visibleCount; // 原成员偏移：+0x3CCC。
+    std::int32_t newPhysical; // 原成员偏移：+0x3CD0。
+    std::int32_t logicalToPhysical[10]; // 原成员偏移：+0x3CD4。
+    std::int32_t selected; // 原成员偏移：+0x3CFC。
 };
 
 static_assert(std::is_standard_layout_v<SavedPath>);
@@ -78,10 +78,10 @@ static_assert(offsetof(SavedStateStorage, logicalToPhysical) == 0x3CD4);
 static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
-SavedStateStorage gSavedState {};
+SavedStateStorage gSavedState {}; // 原全局：0x01058698。
 
 // 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
-SavedPhysicalRecord gCurrentSavedRecord {};
+SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
 [[maybe_unused]] void EncodeLegacyBytes_52D310(
@@ -1104,8 +1104,8 @@ char* GetCurrentSavedStallDescriptionFF4D28()
     return reinterpret_cast<char*>(&gCurrentSavedRecord) + 0x410;
 }
 
-std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
-std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;
+std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected; // 原全局：0x0105C394。
+std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount; // 原全局：0x0105C364。
 
 // 原函数：0x00533570。
 void Sub_533570(

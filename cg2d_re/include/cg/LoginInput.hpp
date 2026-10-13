@@ -9,14 +9,14 @@ namespace cg::login {
 
 // 原登录控件固定 8×W32 布局。
 struct LoginSceneControl32 {
-    std::int32_t drawX;
-    std::int32_t drawY;
-    std::int32_t left;
-    std::int32_t top;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t normalImageNo;
-    std::int32_t activeImageNo;
+    std::int32_t drawX; // 原成员偏移：+0x00。
+    std::int32_t drawY; // 原成员偏移：+0x04。
+    std::int32_t left; // 原成员偏移：+0x08。
+    std::int32_t top; // 原成员偏移：+0x0C。
+    std::int32_t width; // 原成员偏移：+0x10。
+    std::int32_t height; // 原成员偏移：+0x14。
+    std::int32_t normalImageNo; // 原成员偏移：+0x18。
+    std::int32_t activeImageNo; // 原成员偏移：+0x1C。
 };
 
 static_assert(offsetof(LoginSceneControl32, drawX) == 0x00);
@@ -30,11 +30,11 @@ static_assert(offsetof(LoginSceneControl32, activeImageNo) == 0x1C);
 static_assert(sizeof(LoginSceneControl32) == 0x20);
 
 // 原 stru_9A4D20@[0x9A4D20,0x9A4E7C)，完整 0x15C 字节；PE 虚拟零填充。
-extern input::InputContext gInputContext9A4D20;
+extern input::InputContext gInputContext9A4D20; // 原全局：0x009A4D20。
 
 // 两个上下文会被多个场景函数共享，只按原地址区分，不固定账号或密码语义。
-extern input::InputContext gInputContext9A5960;
-extern input::InputContext gInputContext9A5678;
+extern input::InputContext gInputContext9A5960; // 原全局：0x009A5960。
+extern input::InputContext gInputContext9A5678; // 原全局：0x009A5678。
 
 extern std::int16_t gInputContext9A5960X; // 原 0x9A4B8C，映像零填充。
 extern std::int16_t gInputContext9A5960Y; // 原 0x9A4B8A，映像零填充。

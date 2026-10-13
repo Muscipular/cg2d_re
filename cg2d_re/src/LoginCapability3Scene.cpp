@@ -28,13 +28,13 @@ constexpr char kCredentialsPrompt[] = "\xD5\x88\xD4\x4F\xB6\xA8\x49\x44\xA1\xA2\
 static_assert(sizeof(kCredentialsPrompt) == 21);
 
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
-std::int32_t gPhaseValue9A5550 = 0;
-std::int32_t gAlpha9A4D08 = 0;
-std::int32_t gAlpha9A4CA0 = 0;
-std::int32_t gAlpha9A5E70 = 0;
-cg::login::YobiAction* gLeftAction9A50C0 = nullptr;
-cg::login::YobiAction* gRightAction9A50C4 = nullptr;
-char gMessage9A50E8[256] {};
+std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
+std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。
+std::int32_t gAlpha9A4CA0 = 0; // 原全局：0x009A4CA0。
+std::int32_t gAlpha9A5E70 = 0; // 原全局：0x009A5E70。
+cg::login::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
+cg::login::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
+char gMessage9A50E8[256] {}; // 原全局：0x009A50E8。
 
 static_assert(sizeof(kCredentialsPrompt) <= sizeof(gMessage9A50E8));
 

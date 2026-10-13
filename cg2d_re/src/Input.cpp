@@ -32,44 +32,44 @@ void NullSub_509080() noexcept
 
 namespace cg::input {
 
-InputContext gInputContext626AA0 {};
-InputContext gInputContexts5F9758[24] {};
-InputContext gInputContextD66CA8 {};
-InputContext gInputContextCB03F0 {};
-InputContext gInputContextCC46E0 {};
-InputContext gInputContextCC2080 {};
-InputContext gInputContextD2D828 {};
-InputContext gInputContextCA0180 {};
-InputContext gInputContextCB0610 {};
-InputContext gInputContextCB0028 {};
-InputContext gInputContextCC2378 {};
-InputContext gInputContextCF4E60 {};
-InputContext gInputContextD2DE70 {};
-InputContext gInputContextD2DFD0 {};
-InputContext gInputContextD2DC10 {};
-InputContext gInputContextD2D4A0 {};
-InputContext gInputContextD64CB0 {};
-InputContext gInputContextD2D670 {};
-InputContext gInputContextCAFEC8 {};
-InputContext gInputContextC8B1B8 {};
-InputContext gInputContextCC21E8 {};
-InputContext gInputContextCB0878 {};
-InputContext gInputContextCA0018 {};
-InputContext gInputContextCC49C0 {};
-InputContext gInputContextCA02E0 {};
-InputContext gInputContextD2E130 {};
-InputContext gInputContextD2E2E0 {};
-InputContext gInputContextCB01F8 {};
-InputContext gInputContextCF47E0 {};
-InputContext gInputContext1050B80 {};
-InputContext gInputContext1051348 {};
-InputContext gInputContexts1050F18[3] {};
-InputContext* gCurrentInputData = nullptr;
-std::int32_t gValueC9A96C = 0;
-std::int32_t gValue626C0C = 0;
-std::int32_t gValue626C14 = 0;
-std::int32_t gValue626C20 = 0;
-std::int32_t gValue626C28 = 0;
+InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
+InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
+InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
+InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
+InputContext gInputContextCC46E0 {}; // 原全局：0x00CC46E0。
+InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
+InputContext gInputContextD2D828 {}; // 原全局：0x00D2D828。
+InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
+InputContext gInputContextCB0610 {}; // 原全局：0x00CB0610。
+InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
+InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
+InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
+InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
+InputContext gInputContextD2DFD0 {}; // 原全局：0x00D2DFD0。
+InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
+InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
+InputContext gInputContextD64CB0 {}; // 原全局：0x00D64CB0。
+InputContext gInputContextD2D670 {}; // 原全局：0x00D2D670。
+InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
+InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
+InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
+InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
+InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
+InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
+InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
+InputContext gInputContextD2E130 {}; // 原全局：0x00D2E130。
+InputContext gInputContextD2E2E0 {}; // 原全局：0x00D2E2E0。
+InputContext gInputContextCB01F8 {}; // 原全局：0x00CB01F8。
+InputContext gInputContextCF47E0 {}; // 原全局：0x00CF47E0。
+InputContext gInputContext1050B80 {}; // 原全局：0x01050B80。
+InputContext gInputContext1051348 {}; // 原全局：0x01051348。
+InputContext gInputContexts1050F18[3] {}; // 原全局：0x01050F18。
+InputContext* gCurrentInputData = nullptr; // 原全局：0x00626C04。
+std::int32_t gValueC9A96C = 0; // 原全局：0x00C9A96C。
+std::int32_t gValue626C0C = 0; // 原全局：0x00626C0C。
+std::int32_t gValue626C14 = 0; // 原全局：0x00626C14。
+std::int32_t gValue626C20 = 0; // 原全局：0x00626C20。
+std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
 
 static_assert(sizeof(gInputContexts5F9758) == 0x20A0);
 
@@ -80,22 +80,22 @@ struct LegacyInput593850 {
     InputContext context;
 };
 
-LegacyInput593850 gLegacyInput593850 {};
+LegacyInput593850 gLegacyInput593850 {}; // 原全局：0x00593850。
 static_assert(offsetof(LegacyInput593850, context) == 8);
 static_assert(sizeof(LegacyInput593850) == 0x164);
 
-constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
+constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
 
-constexpr char kBlacklistSelfText554938[] =
+constexpr char kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
     "\xC4\xFA\xA1\xAD\xC8\xE7\xB4\xCB\x85\x92\x90\xBA\xD7\xD4"
     "\xBC\xBA\xB5\xC4\xC2\x95\xD2\xF4\x86\xE1\xA3\xBF";
-constexpr char kBlacklistExistingFormat554928[] =
+constexpr char kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
     "%s\xD2\xD1\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
-constexpr char kBlacklistAddedFormat5532C4[] =
+constexpr char kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
     "\xD2\xD1\x8C\xA2%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
-constexpr char kBlacklistFailedFormat5532B0[] =
+constexpr char kBlacklistFailedFormat5532B0[] = // 原常量参考：0x005532B0。
     "%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
 static_assert(sizeof(kBlacklistSelfText554938) == 27);
 static_assert(sizeof(kBlacklistExistingFormat554928) == 15);
@@ -1146,25 +1146,25 @@ void InitializeContext_449CF0(
 
 namespace cg::world::detail {
 
-Record5FB7F8 gRecords5FB7F8[512] {};
-volatile std::int32_t gWriteIndex626C08 = 0;
-char gLogPath62699C[260] {};
-platform::LegacyFile* volatile gLogStream626C1C = nullptr;
-volatile std::int32_t gCountC9A944 = 0;
-volatile std::uint32_t gValue626C10 = 0;
-input::InputContext gInputContext626840 {};
-std::uint32_t gValue626C18 = 0;
-std::uint32_t gValue626BFC = 0;
-char gLogFileName554648[16] = "chat_000000.txt";
+Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
+volatile std::int32_t gWriteIndex626C08 = 0; // 原全局：0x00626C08。
+char gLogPath62699C[260] {}; // 原全局：0x0062699C。
+platform::LegacyFile* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
+volatile std::int32_t gCountC9A944 = 0; // 原全局：0x00C9A944。
+volatile std::uint32_t gValue626C10 = 0; // 原全局：0x00626C10。
+input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
+std::uint32_t gValue626C18 = 0; // 原全局：0x00626C18。
+std::uint32_t gValue626BFC = 0; // 原全局：0x00626BFC。
+char gLogFileName554648[16] = "chat_000000.txt"; // 原全局：0x00554648。
 
 // 原 [0x621FF8,0x62683C)：64 项记录与尾槽一次传输，游标不在文件块内。
 struct ChatHistory621FF8 {
     char records[64][0x121];
-    std::uint32_t tail626838;
+    std::uint32_t tail626838; // 原全局：0x00626838。
 };
 
-ChatHistory621FF8 gChatHistory621FF8 {};
-std::int32_t gCursor62683C = 0;
+ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
+std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
 
 static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
 static_assert(sizeof(gInputContext626840) == 0x15C);
@@ -1178,17 +1178,17 @@ static_assert(sizeof(ChatHistory621FF8) == 0x4844);
 
 namespace {
 
-constexpr char kLogDirectory_554658[] = "Log";
-constexpr char kFileFormat_55351C[] = "chat_%02d%02d%02d.txt";
-constexpr char kPathFormat_553514[] = "%s\\%s";
-constexpr char kReadMode_554908[] = "r";
-constexpr char kAppendMode_554904[] = "a";
-constexpr char kChatHistoryName554910[] = "chathis.dat";
+constexpr char kLogDirectory_554658[] = "Log"; // 原常量参考：0x00554658。
+constexpr char kFileFormat_55351C[] = "chat_%02d%02d%02d.txt"; // 原常量参考：0x0055351C。
+constexpr char kPathFormat_553514[] = "%s\\%s"; // 原常量参考：0x00553514。
+constexpr char kReadMode_554908[] = "r"; // 原常量参考：0x00554908。
+constexpr char kAppendMode_554904[] = "a"; // 原常量参考：0x00554904。
+constexpr char kChatHistoryName554910[] = "chathis.dat"; // 原常量参考：0x00554910。
 constexpr char kChatHistoryReadMode[] = "rb";
 constexpr char kChatHistoryWriteMode[] = "wb";
 constexpr char kChatHistoryUpdateMode[] = "r+b";
 
-constexpr auto kFirstSeparator_5548CC = [] {
+constexpr auto kFirstSeparator_5548CC = [] { // 原常量参考：0x005548CC。
     std::array<char, 56> text {};
     for (std::size_t i = 0; i < 8; ++i) {
         text[i] = ' ';
@@ -1203,11 +1203,11 @@ constexpr auto kFirstSeparator_5548CC = [] {
     return text;
 }();
 
-constexpr char kDateTitle_55488C[] =
+constexpr char kDateTitle_55488C[] = // 原常量参考：0x0055488C。
     "        >>  \xC4\xA7 \xC1\xA6 \x8C\x9A \xD8\x90 \xC3\xB0 "
     "\xEB\x55 \xD5\xDF \xC8\xD5 \xD5\x49 [ %02d/%02d/%02d ]  <<\n";
 
-constexpr auto kBeforeSession_554848 = [] {
+constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
     std::array<char, 65> text {};
     text[0] = '\n';
     text[1] = ' ';
@@ -1219,10 +1219,10 @@ constexpr auto kBeforeSession_554848 = [] {
     return text;
 }();
 
-constexpr char kSessionTime_554820[] =
+constexpr char kSessionTime_554820[] = // 原常量参考：0x00554820。
     " \xA1\xF6 %02d/%02d/%02d %02d:%02d:%02d \xBC\x6F\xE4\x9B\n";
 
-constexpr auto kAfterSession_5547DC = [] {
+constexpr auto kAfterSession_5547DC = [] { // 原常量参考：0x005547DC。
     std::array<char, 65> text {};
     text[0] = ' ';
     text[1] = ' ';

@@ -8,14 +8,14 @@ namespace cg::login::detail {
 
 // 原 [1051B14,1057BF4)：解析、计数及排序共用的 200 条 0x7C 字节运行记录。
 struct OrderedRecord1051B14 final {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::uint16_t value08;
-    std::int16_t value0A;
-    std::int32_t value0C;
-    std::int32_t value10;
-    std::int32_t value14;
-    char text18[100];
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::uint16_t value08; // 原成员偏移：+0x08。
+    std::int16_t value0A; // 原成员偏移：+0x0A。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+    std::int32_t value14; // 原成员偏移：+0x14。
+    char text18[100]; // 原成员偏移：+0x18。
 };
 static_assert(offsetof(OrderedRecord1051B14, value04) == 0x04);
 static_assert(offsetof(OrderedRecord1051B14, value08) == 0x08);
@@ -26,9 +26,9 @@ static_assert(offsetof(OrderedRecord1051B14, value14) == 0x14);
 static_assert(offsetof(OrderedRecord1051B14, text18) == 0x18);
 static_assert(sizeof(OrderedRecord1051B14) == 0x7C);
 
-extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14;
-extern std::uint32_t gOrderMode1057C78; // 52F910 写入，52FB60 每次比较时读取。
-extern std::int32_t gOrderedRecordCount1051510; // 50EEB0 写计数，532D80 清零。
+extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14; // 原全局：0x01051B14。
+extern std::uint32_t gOrderMode1057C78; // 原全局：0x01057C78。 52F910 写入，52FB60 每次比较时读取。
+extern std::int32_t gOrderedRecordCount1051510; // 原全局：0x01051510。 50EEB0 写计数，532D80 清零。
 
 // 公会资料与同源文本表；socket未用，不复制成员/邮件/窗口owner。
 // 原函数：0x0050E850。

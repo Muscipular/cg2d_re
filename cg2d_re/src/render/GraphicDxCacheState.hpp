@@ -103,9 +103,9 @@ static_assert(offsetof(DxGraphicEntry, value0C) == 0x18);
 extern DxGraphicEntry* gGraphicDxCache103CFA4;
 
 // 原 [1020F08,103CF08) 的节点池与 103CF24/103CF20 两个独立 W32 槽。
-extern std::array<TextureNode, kTextureNodeCapacity> gTextureNodes;
-extern std::int32_t gTextureNodeCount;
-extern std::int32_t gTextureScanIndex;
+extern std::array<TextureNode, kTextureNodeCapacity> gTextureNodes; // 原全局：0x01020F08。
+extern std::int32_t gTextureNodeCount; // 原全局：0x0103CF24。
+extern std::int32_t gTextureScanIndex; // 原全局：0x0103CF20。
 extern std::int32_t gTexturePreferredCount; // 原 103CF9C。
 extern std::int32_t gTextureFallbackCount;  // 原 103CF98。
 extern std::int32_t gTextureSizeW;          // 原 103CF2C，BuildSurfaceCache 取低 S16。

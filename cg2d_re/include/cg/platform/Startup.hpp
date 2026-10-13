@@ -25,7 +25,7 @@ extern std::int32_t gWindowActiveState; // 原 0x55CE70，初值 2。
 extern std::int32_t gStartX;           // 原 0x9A7F50。
 extern std::int32_t gStartY;           // 原 0x9A7F54。
 extern std::uint32_t gDesktopColor;    // 原 0x9A6F40。
-extern std::uint32_t gValueD67AE4;     // 原 bShow；0 走表驱动光标，非零走原生光标分支。
+extern std::uint32_t gValueD67AE4;     // 原全局：0x00D67AE4。 原 bShow；0 走表驱动光标，非零走原生光标分支。
 extern std::int32_t gValue73ECBC;      // 原 0x73ECBC，W32，virtual-zero 初值。
 extern std::uint32_t gValueD67AE8;     // 原 0xD67AE8，W32，virtual-zero 初值。
 extern std::int16_t gValue5F974C;      // 原 0x5F974C，W16，virtual-zero 初值。
@@ -34,11 +34,11 @@ extern std::uint32_t gValueD67CD0;     // 原 0xD67CD0，W32；保存记录 +0x3
 extern std::int32_t gValue553438;
 // 原 0x55463C/40/44：显示、聊天与存档恢复共用的三个独立 W32 槽。
 extern std::int32_t gValue55463C;
-extern std::int32_t gValue554640;
-extern std::int32_t gValue554644;
+extern std::int32_t gValue554640; // 原全局：0x00554640。
+extern std::int32_t gValue554644; // 原全局：0x00554644。
 extern std::uint32_t gValueD68858;     // 原 0xD68858，W32，virtual-zero 初值。
-extern std::uint32_t gValueD68DC4;     // 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
-extern std::uint32_t gValue9A6F44;     // 原 CursorUpdate 尾部保存的本帧已消费光标状态。
+extern std::uint32_t gValueD68DC4;     // 原全局：0x00D68DC4。 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
+extern std::uint32_t gValue9A6F44;     // 原全局：0x009A6F44。 原 CursorUpdate 尾部保存的本帧已消费光标状态。
 extern std::int32_t gVersionMajor;    // 原 0x9A7F58。
 extern std::int32_t gVersionMinor;    // 原 0x9A7F5C。
 extern std::int32_t gVersionPatch;    // 原 0x9A7F60。

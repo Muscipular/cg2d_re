@@ -9,22 +9,22 @@ namespace cg::world::detail {
 
 // 原三项108H资料及828H资料记录；只共享布局，持久/当前/查看/回复区各有唯一存储。
 struct ProfileEntry {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<char, 0x100> text08;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::array<char, 0x100> text08; // 原成员偏移：+0x08。
 };
 
 struct ProfileRuntimeRecord {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<char, 0x100> text08;
-    std::int32_t value108;
-    std::int32_t value10C;
-    std::array<char, 0x100> text110;
-    std::array<char, 0x100> text210;
-    std::array<char, 0x100> text310;
-    std::array<ProfileEntry, 3> entries410;
-    std::array<char, 0x100> text728;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::array<char, 0x100> text08; // 原成员偏移：+0x08。
+    std::int32_t value108; // 原成员偏移：+0x108。
+    std::int32_t value10C; // 原成员偏移：+0x10C。
+    std::array<char, 0x100> text110; // 原成员偏移：+0x110。
+    std::array<char, 0x100> text210; // 原成员偏移：+0x210。
+    std::array<char, 0x100> text310; // 原成员偏移：+0x310。
+    std::array<ProfileEntry, 3> entries410; // 原成员偏移：+0x410。
+    std::array<char, 0x100> text728; // 原成员偏移：+0x728。
 };
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
@@ -34,22 +34,22 @@ const ProfileRuntimeRecord& ReadSelectedProfile1074938(); // 每次按当前S16�
 // 原函数：0x00533B00。
 std::int32_t Sub_533B00(); // 固定一次角色，三数值/三文本/正文按原顺序短路比较。
 std::int32_t ReadCategoryValue105FA20(); // 窗口62/63借用category回复费用，不复制owner。
-extern std::int32_t gMiniMailSelectionD673E4; // 同一发信目标，4C9490及窗口63共同更新。
+extern std::int32_t gMiniMailSelectionD673E4; // 原全局：0x00D673E4。 同一发信目标，4C9490及窗口63共同更新。
 std::int32_t& SelectedProfileValue04(); // 每次按当前S16角色借用持久资料公开标志，不缓存跨发送身份。
 
 // 原4CA330生产的20条20CH搜索记录，窗口61只读借用。
 struct ProfileSearchRecord {
-    std::int32_t used;
-    std::array<char, 0x100> text04;
-    std::int32_t value104;
-    std::int32_t value108;
-    std::array<char, 0x100> text10C;
+    std::int32_t used; // 原成员偏移：+0x00。
+    std::array<char, 0x100> text04; // 原成员偏移：+0x04。
+    std::int32_t value104; // 原成员偏移：+0x104。
+    std::int32_t value108; // 原成员偏移：+0x108。
+    std::array<char, 0x100> text10C; // 原成员偏移：+0x10C。
 };
 
 struct ProfileSearchRuntimeSlots {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<ProfileSearchRecord, 20> records;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::array<ProfileSearchRecord, 20> records; // 原成员偏移：+0x08。
 };
 
 const ProfileSearchRuntimeSlots& ReadProfileSearch105C398(); // 同源结果及两头字段，不复制快照。
@@ -57,13 +57,13 @@ const char* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 
 
 // 原category.dat三组各100条；窗口60只读借用，存储仍归MailState。
 struct CategoryRecord {
-    std::uint8_t used;
-    std::array<std::byte, 3> bytes01;
-    std::int32_t value04;
-    std::int32_t value08;
-    std::array<char, 0x100> text0C;
-    std::uint8_t selected10C; // 4C9E40写选择位，与used独立。
-    std::array<std::byte, 3> bytes10D;
+    std::uint8_t used; // 原成员偏移：+0x00。
+    std::array<std::byte, 3> bytes01; // 原成员偏移：+0x01。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::array<char, 0x100> text0C; // 原成员偏移：+0x0C。
+    std::uint8_t selected10C; // 原成员偏移：+0x10C。 4C9E40写选择位，与used独立。
+    std::array<std::byte, 3> bytes10D; // 原成员偏移：+0x10D。
 };
 
 const CategoryRecord& ReadCategoryRecord105FA24(std::int32_t group, std::int32_t index);
@@ -72,15 +72,15 @@ std::int32_t ReadCategoryCount105FA1C(); // 类别2的count0C，与前两类独�
 
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {
-    std::uint16_t used;
-    std::int16_t value02; // 排序按S16比较，回复保留低W16位型。
-    std::int32_t value04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::array<char, 17> name10;
-    std::array<char, 17> text21;
-    std::array<char, 33> text32;
-    std::array<char, 33> text53;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::int16_t value02; // 原成员偏移：+0x02。 排序按S16比较，回复保留低W16位型。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::array<char, 17> name10; // 原成员偏移：+0x10。
+    std::array<char, 17> text21; // 原成员偏移：+0x21。
+    std::array<char, 33> text32; // 原成员偏移：+0x32。
+    std::array<char, 33> text53; // 原成员偏移：+0x53。
 };
 
 static_assert(std::is_standard_layout_v<ContactRuntimeRecord>);
@@ -96,38 +96,38 @@ static_assert(offsetof(ContactRuntimeRecord, text32) == 0x32);
 static_assert(offsetof(ContactRuntimeRecord, text53) == 0x53);
 static_assert(sizeof(ContactRuntimeRecord) == 0x74);
 
-extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0;
+extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0; // 原全局：0x00F19FB0。
 // 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
 struct MiniMailContactRecord {
-    std::uint16_t used;
-    std::uint16_t sequence02;
-    std::int32_t key04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::array<char, 17> name10;
-    std::array<char, 17> text21;
-    std::array<char, 33> text32;
-    std::array<std::byte, 0x21> bytes53;
+    std::uint16_t used; // 原成员偏移：+0x00。
+    std::uint16_t sequence02; // 原成员偏移：+0x02。
+    std::int32_t key04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::array<char, 17> name10; // 原成员偏移：+0x10。
+    std::array<char, 17> text21; // 原成员偏移：+0x21。
+    std::array<char, 33> text32; // 原成员偏移：+0x32。
+    std::array<std::byte, 0x21> bytes53; // 原成员偏移：+0x53。
 };
 
 const MiniMailContactRecord& ReadMiniMailContact1075A90(std::int32_t index); // 窗口21借用，存储仍归MailState。
 // 窗口40借用原140H消息字节；不复制状态，也不在原字节区构造结构体对象。
 struct MailMessageView {
-    std::byte* unread00;
-    const std::byte* kind01;
-    const char* text02;
-    const char* text14;
+    std::byte* unread00; // 所指原成员偏移：+0x00。
+    const std::byte* kind01; // 所指原成员偏移：+0x01。
+    const char* text02; // 所指原成员偏移：+0x02。
+    const char* text14; // 所指原成员偏移：+0x14。
 };
 
 MailMessageView BorrowMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
 MailMessageView BorrowGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
 MailMessageView BorrowMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
-extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 数值索引，不是地址。
-extern std::uint16_t gValue62B354; // 518DA0写未读类别0/1/2/3。
-extern std::uint32_t gValueCB1384; // 同源邮件页号，518C80清零。
-extern std::uint32_t gValueCB0354; // 无未读时恢复的邮件页号。
-extern std::int32_t gValueCF4FC0; // 收信比较的原S32编号槽，回复与后续UI共享。
-extern std::int32_t gValueD046D4; // 原邮件窗口消息位置，回复只在<9时递增。
+extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 原全局：0x00FDA608。 数值索引，不是地址。
+extern std::uint16_t gValue62B354; // 原全局：0x0062B354。 518DA0写未读类别0/1/2/3。
+extern std::uint32_t gValueCB1384; // 原全局：0x00CB1384。 同源邮件页号，518C80清零。
+extern std::uint32_t gValueCB0354; // 原全局：0x00CB0354。 无未读时恢复的邮件页号。
+extern std::int32_t gValueCF4FC0; // 原全局：0x00CF4FC0。 收信比较的原S32编号槽，回复与后续UI共享。
+extern std::int32_t gValueD046D4; // 原全局：0x00D046D4。 原邮件窗口消息位置，回复只在<9时递增。
 // 原函数：0x004EC1A0。
 void Sub_4EC1A0(); // 原序生成/排序60个索引，比较器相等仍为-1。
 // 原函数：0x0050D740。

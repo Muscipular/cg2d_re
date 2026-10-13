@@ -11,14 +11,14 @@ namespace {
 
 // 原 5590E0 字体名按用户要求统一改为 GBK「宋体」；四个族指针共用此名。
 constexpr char kFaceName5590E0[] = "\xCB\xCE\xCC\xE5";
-std::array<const char*, 4> gFaceFamilies558F08 {
+std::array<const char*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
     kFaceName5590E0, kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
 };
 
 // 原 gFontList 每项 +00 是 GDI 句柄；与 0x14 字节度量分开承载。
-std::array<HFONT, kFontTypeCount> gFontHandles558F68 {};
+std::array<HFONT, kFontTypeCount> gFontHandles558F68 {}; // 原全局：0x00558F68。
 // 原 [5590B8,5590DF) 三字节色表；按字节组装 COLORREF，不按反编译字段名换色。
-std::uint8_t gTextColors5590B8[13][3] {
+std::uint8_t gTextColors5590B8[13][3] { // 原全局：0x005590B8。
     {0xFF, 0xFF, 0xFF},
     {0x00, 0xFF, 0xFF},
     {0xFF, 0x00, 0xFF},
@@ -34,10 +34,10 @@ std::uint8_t gTextColors5590B8[13][3] {
     {0x66, 0x54, 0x25}
 };
 static_assert(sizeof(gTextColors5590B8) == 39);
-std::array<std::int32_t, 8> gDerived558F30 {};
-std::array<std::int32_t, 8> gDerived5545AC {};
+std::array<std::int32_t, 8> gDerived558F30 {}; // 原全局：0x00558F30。
+std::array<std::int32_t, 8> gDerived5545AC {}; // 原全局：0x005545AC。
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。
-std::array<std::int32_t, 9> gDerived554618 {{0x39}};
+std::array<std::int32_t, 9> gDerived554618 {{0x39}}; // 原全局：0x00554618。
 
 static_assert(sizeof(kFaceName5590E0) == 5);
 static_assert(sizeof(gDerived558F30) == 0x20);
@@ -72,7 +72,7 @@ void TextOutRecord(
 
 } // namespace
 
-std::array<FontMetrics, kFontTypeCount> gFontMetrics {{
+std::array<FontMetrics, kFontTypeCount> gFontMetrics {{ // 原全局：0x00558F68。
     {9, 17, 17, 17, 0, 0, 0, 0},
     {8, 15, 15, 15, 0, 0, 0, 0},
     {11, 21, 21, 21, 0, 0, 0, 0},
@@ -322,6 +322,6 @@ std::int32_t TextMeasure(const char* text, std::int32_t fontType)
     return totalWidth;
 }
 
-std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight;
+std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight; // 原全局：0x00558F78。
 
 } // namespace cg::login::detail

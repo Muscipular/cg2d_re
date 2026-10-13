@@ -53,75 +53,75 @@ namespace cg::world {
 namespace {
 
 // 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
-std::array<std::int32_t, 100> gRotationTableC8A7B0 {};
-std::int32_t gRotationCursorC8A940 = 0;
-std::uint32_t gValue62B348 = 0;
-std::int32_t gValueFF0D44 = 0; // 原普通场景与结果窗口分派共用的写入槽。
-std::int32_t gValueFF0D50 = 0; // 原普通场景初始化标志，11分支只认恰1。
-std::int32_t gValueFF0D54 = 0; // 原普通场景等待帧数，门槛按S32比较。
-std::int32_t gValueFF0D68 = 0; // 原普通场景BGM恢复号，不是当前播放号owner。
-std::uint32_t gLogoutTransition9A6E94 = 0; // 原45EBB0/45EEE0共享过渡阶段。
-std::array<char, 0x108> gLogoutText9A5B08 {}; // 原264B消息区，排他尾9A5C10独立。
-login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
-std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原场景循环游标，回调之后重读，非对象地址。
-constexpr char kBattleStartHint5541CC[] = "\xB5\xC8\xB4\xFD\x91\xF0\xF4\x59\xE9\x5F\xCA\xBC\xA1\xA3";
-constexpr char kBattleTurnHint5541BC[] = "\xB5\xC8\xB4\xFD\xBB\xD8\xBA\xCF\xBD\x59\xCA\xF8\xA1\xA3";
-constexpr char kBattleInputHint5541A0[] = "\xB5\xC8\xB4\xFD\xC6\xE4\xCB\xFB\xCD\xE6\xBC\xD2\xB5\xC4\xDD\x94\xC8\xEB\xD6\xB8\xC1\xEE\xA1\xA3";
-constexpr char kBattleExitHint554194[] = "\xBD\x59\xCA\xF8\xD3\x5E\x91\xF0\xA1\xA3";
-constexpr char kBattleExitRequest554190[] = "U";
-constexpr char kBattleExitText554184[] = "\xD3\x5E\x91\xF0\xBD\x59\xCA\xF8";
+std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
+std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
+std::uint32_t gValue62B348 = 0; // 原全局：0x0062B348。
+std::int32_t gValueFF0D44 = 0; // 原全局：0x00FF0D44。 原普通场景与结果窗口分派共用的写入槽。
+std::int32_t gValueFF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
+std::int32_t gValueFF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
+std::int32_t gValueFF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
+std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
+std::array<char, 0x108> gLogoutText9A5B08 {}; // 原全局：0x009A5B08。 原264B消息区，排他尾9A5C10独立。
+login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
+std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
+constexpr char kBattleStartHint5541CC[] = "\xB5\xC8\xB4\xFD\x91\xF0\xF4\x59\xE9\x5F\xCA\xBC\xA1\xA3"; // 原常量参考：0x005541CC。
+constexpr char kBattleTurnHint5541BC[] = "\xB5\xC8\xB4\xFD\xBB\xD8\xBA\xCF\xBD\x59\xCA\xF8\xA1\xA3"; // 原常量参考：0x005541BC。
+constexpr char kBattleInputHint5541A0[] = "\xB5\xC8\xB4\xFD\xC6\xE4\xCB\xFB\xCD\xE6\xBC\xD2\xB5\xC4\xDD\x94\xC8\xEB\xD6\xB8\xC1\xEE\xA1\xA3"; // 原常量参考：0x005541A0。
+constexpr char kBattleExitHint554194[] = "\xBD\x59\xCA\xF8\xD3\x5E\x91\xF0\xA1\xA3"; // 原常量参考：0x00554194。
+constexpr char kBattleExitRequest554190[] = "U"; // 原常量参考：0x00554190。
+constexpr char kBattleExitText554184[] = "\xD3\x5E\x91\xF0\xBD\x59\xCA\xF8"; // 原常量参考：0x00554184。
 
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
-    std::array<float, 481> speedFF0FA8 {};
-    std::array<float, 481> xFF172C {};
-    std::array<float, 481> yFF1EB0 {};
+    std::array<float, 481> speedFF0FA8 {}; // 原全局：0x00FF0FA8。
+    std::array<float, 481> xFF172C {}; // 原全局：0x00FF172C。
+    std::array<float, 481> yFF1EB0 {}; // 原全局：0x00FF1EB0。
 };
 static_assert(offsetof(TransitionLines, xFF172C) == 0xFF172C - 0xFF0FA8);
 static_assert(offsetof(TransitionLines, yFF1EB0) == 0xFF1EB0 - 0xFF0FA8);
 static_assert(sizeof(TransitionLines) == 0xFF2634 - 0xFF0FA8);
 TransitionLines gTransitionLines {};
-float gTransitionXFF48E8 = 0.0f;
-float gTransitionAlternateXFF48EC = 0.0f;
-float gTransitionYFF48F0 = 0.0f;
-float gTransitionAlternateYFF48F4 = 0.0f;
-float gTransitionVelocityFF48F8 = 0.0f;
-float gTransitionActiveLinesFF48FC = 0.0f;
-std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原加载区初值FFFFFFFF。
-std::int32_t gReverseTransitionActiveLinesFF276C = 0;
-float gReverseTransitionVelocityFF47C4 = 0.0f;
-float gReverseTransitionXFF4900 = 0.0f;
-float gReverseTransitionAlternateXFF4904 = 0.0f;
-float gReverseTransitionYFF4908 = 0.0f;
-float gReverseTransitionAlternateYFF490C = 0.0f;
-std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原加载区初值FFFFFFFF。
-std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {};
-std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {};
+float gTransitionXFF48E8 = 0.0f; // 原全局：0x00FF48E8。
+float gTransitionAlternateXFF48EC = 0.0f; // 原全局：0x00FF48EC。
+float gTransitionYFF48F0 = 0.0f; // 原全局：0x00FF48F0。
+float gTransitionAlternateYFF48F4 = 0.0f; // 原全局：0x00FF48F4。
+float gTransitionVelocityFF48F8 = 0.0f; // 原全局：0x00FF48F8。
+float gTransitionActiveLinesFF48FC = 0.0f; // 原全局：0x00FF48FC。
+std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原全局：0x0058B6D4。 原加载区初值FFFFFFFF。
+std::int32_t gReverseTransitionActiveLinesFF276C = 0; // 原全局：0x00FF276C。
+float gReverseTransitionVelocityFF47C4 = 0.0f; // 原全局：0x00FF47C4。
+float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
+float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
+float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
+float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
+std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原全局：0x0058B6D8。 原加载区初值FFFFFFFF。
+std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {}; // 原全局：0x00FF275C。
+std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {}; // 原全局：0x00FF47D0。
 static_assert(sizeof(gQuadrantTransitionXFF275C) == 16);
 static_assert(sizeof(gQuadrantTransitionYFF47D0) == 16);
 // 原51EF80的64画块同源状态；阶段加载初值-1，其余为未加载区零初值。
 // 状态1/2的含义随显隐/下落模式变化，源坐标与运动坐标不可合并。
-std::int32_t gTileTransitionPhase58B6DC = -1;
-std::int32_t gTileTransitionCompletedFF46C0 = 0;
-std::int32_t gTileTransitionStartedFF28BC = 0;
-std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {};
-std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {};
-std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {};
-std::array<std::int32_t, 64> gTileTransitionYFF0D7C {};
-std::array<std::int32_t, 64> gTileTransitionXFF265C {};
-std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {};
+std::int32_t gTileTransitionPhase58B6DC = -1; // 原全局：0x0058B6DC。
+std::int32_t gTileTransitionCompletedFF46C0 = 0; // 原全局：0x00FF46C0。
+std::int32_t gTileTransitionStartedFF28BC = 0; // 原全局：0x00FF28BC。
+std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {}; // 原全局：0x00FF27B8。
+std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {}; // 原全局：0x00FF46C4。
+std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {}; // 原全局：0x00FF47E4。
+std::array<std::int32_t, 64> gTileTransitionYFF0D7C {}; // 原全局：0x00FF0D7C。
+std::array<std::int32_t, 64> gTileTransitionXFF265C {}; // 原全局：0x00FF265C。
+std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {}; // 原全局：0x00FF0E7C。
 
 // 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
-std::uint32_t gImageTransitionInitializedFF4910 = 0;
-std::int32_t gImageTransitionScaleFF0D78 = 0;
-std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原51FC90独立比例，不属于源X数组。
+std::uint32_t gImageTransitionInitializedFF4910 = 0; // 原全局：0x00FF4910。
+std::int32_t gImageTransitionScaleFF0D78 = 0; // 原全局：0x00FF0D78。
+std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原全局：0x00FF0F7C。 原51FC90独立比例，不属于源X数组。
 struct GridTransitionOffset {
     std::int32_t x;
     std::int32_t y;
 };
 static_assert(sizeof(GridTransitionOffset) == 8);
 static_assert(offsetof(GridTransitionOffset, y) == 4);
-std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {};
+std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {}; // 原全局：0x00FF28C0。
 static_assert(sizeof(gGridTransitionOffsetsFF28C0) == 0xFF46C0 - 0xFF28C0);
 
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
@@ -149,9 +149,9 @@ std::int32_t TruncateTransitionCoordinate(const double value)
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
 
-constexpr char kLogoutTimeout55CA18[] = "\xCC\x8E\xC0\xED\xB5\xC7\xB3\xF6\xD3\xE2\x95\x72\xA1\xA3";
-constexpr char kLogoutFailure55CA08[] = "\xB5\xC7\xB3\xF6\xCC\x8E\xC0\xED\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kLogoutMaintenance55CA28[] =
+constexpr char kLogoutTimeout55CA18[] = "\xCC\x8E\xC0\xED\xB5\xC7\xB3\xF6\xD3\xE2\x95\x72\xA1\xA3"; // 原常量参考：0x0055CA18。
+constexpr char kLogoutFailure55CA08[] = "\xB5\xC7\xB3\xF6\xCC\x8E\xC0\xED\xCA\xA7\x94\xA1\xA1\xA3"; // 原常量参考：0x0055CA08。
+constexpr char kLogoutMaintenance55CA28[] = // 原常量参考：0x0055CA28。
     "\xCF\xE0\xAE\x94\xB1\xA7\xC7\xB8\xA3\xAC\x9E\xE9\xC1\xCB\xBE\x53"
     "\xB3\xD6\xC1\xBC\xBA\xC3\xB5\xC4\xDF\x5B\x91\xF2\xAD\x68\xBE\xB3\x0A"
     "\xC4\xBF\xC7\xB0\xCB\xC5\xB7\xFE\xC6\xF7\x95\xBA\x95\x72\xDF\x4D"
@@ -165,7 +165,7 @@ static_assert(sizeof(gLogoutText9A5B08) == 0x108);
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
-std::array<char, 100> gMoveDirectionText9E03D0 {};
+std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
 static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
 
 // 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久字节区；见场景证据 §58。
@@ -187,12 +187,12 @@ login::YobiAction* gWindow39Action62B5B8 = nullptr;
 
 using detail::BattleResultRecord;
 using detail::BattleSkillResultRecord;
-std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {};
-std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {};
+std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
+std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
 
 // 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
-std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {};
-std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {};
+std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
+std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
 static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
 static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
 static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
@@ -220,9 +220,9 @@ constexpr std::array<std::int32_t, 14> kWatchBattleMapFloors556C48 {
     1401, 33221, 43131, 59553, 59972, 59973, 59974,
     59975, 59976, 59977, 59978, 59979, 59980, 59981,
 };
-constexpr char kTradeNoTarget556CC4[] =
+constexpr char kTradeNoTarget556CC4[] = // 原常量参考：0x00556CC4。
     "\x9B\x5D\xD3\xD0\xBF\xC9\xBD\xBB\xD2\xD7\xB5\xC4\x8C\xA6\xCF\xF3\xA3\xA1";
-constexpr char kGuildInviteDenied5862AC[] =
+constexpr char kGuildInviteDenied5862AC[] = // 原常量参考：0x005862AC。
     "\xC4\xFA\x9B\x5D\xD3\xD0\xBC\xD2\xD7\xE5\xE0\xA1\xA3\xAC\xCB\xF9"
     "\xD2\xD4\xB2\xBB\xC4\xDC\xD1\xFB\xD5\x88\x8C\xA6\xB7\xBD\xC4\xF3"
     "\x2E\x2E\x2E\x5E\x5E\x22";
@@ -230,13 +230,13 @@ static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
 static_assert(sizeof(kTradeNoTarget556CC4) == 19);
 static_assert(sizeof(kGuildInviteDenied5862AC) == 39);
 
-constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C {
+constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
     11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 {
+constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
     11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
 };
-std::uint32_t gEmoteRequestTickD67D20 = 0;
+std::uint32_t gEmoteRequestTickD67D20 = 0; // 原全局：0x00D67D20。
 
 struct DirectionDelta {
     std::int16_t x;
@@ -244,58 +244,58 @@ struct DirectionDelta {
 };
 
 // 原 .data [0x55D9DC,0x55D9FC)：八组可写的方向 W16 分量。
-std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
+std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{ // 原全局：0x0055D9DC。
     {0, -1}, {1, -1}, {1, 0}, {1, 1},
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
-    std::uint16_t value00; // 原FDA700；509BA0仅写低W16。
+    std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
     std::int32_t level; // 原 FDA704。
-    std::int32_t value08; // 原FDA708。
-    std::int32_t timerRemaining0C; // 原FDA70C；458F40按帧扣减的S32。
-    std::int32_t timerMode10; // 原FDA710；保留完整模式，非零才扣减。
-    std::uint32_t timerTick14; // 原FDA714；50C7A0与458F40同源。
+    std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
+    std::int32_t timerRemaining0C; // 原成员偏移：+0x0C。 原FDA70C；458F40按帧扣减的S32。
+    std::int32_t timerMode10; // 原成员偏移：+0x10。 原FDA710；保留完整模式，非零才扣减。
+    std::uint32_t timerTick14; // 原成员偏移：+0x14。 原FDA714；50C7A0与458F40同源。
     platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
     platform::LegacyCryptInt maxHp; // 原 FDA728。
     platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
     platform::LegacyCryptInt maxFp; // 原 FDA748。
-    platform::LegacyCryptInt value58; // 原 FDA758；5184A0第五构造对象。
-    platform::LegacyCryptInt value68; // 原 FDA768；5184A0第六构造对象。
-    std::array<std::int32_t, 14> values78; // 原FDA778..FDA7AC，509650两段数值。
-    std::array<std::int32_t, 2> valuesB0; // 原FDA7B0/FDA7B4，509BA0尾部两值。
-    std::int32_t valueB8; // 原FDA7B8。
-    std::array<std::int32_t, 6> valuesBC; // 原FDA7BC..FDA7D0。
-    std::array<std::int32_t, 4> valuesD4; // 原FDA7D4..FDA7E0。
-    std::array<std::int32_t, 4> valuesE4; // 原FDA7E4..FDA7F0。
-    std::int32_t valueF4; // 原FDA7F4。
-    std::int32_t valueF8; // 原FDA7F8。
-    std::int32_t valueFC; // 原FDA7FC；与末尾15BCC共用回复门禁。
-    std::int32_t titleIndex100; // 原FDA800，直接索引FF0508原表。
-    std::int32_t value104; // 原FDA804。
+    platform::LegacyCryptInt value58; // 原成员偏移：+0x58。 原 FDA758；5184A0第五构造对象。
+    platform::LegacyCryptInt value68; // 原成员偏移：+0x68。 原 FDA768；5184A0第六构造对象。
+    std::array<std::int32_t, 14> values78; // 原成员偏移：+0x78。 原FDA778..FDA7AC，509650两段数值。
+    std::array<std::int32_t, 2> valuesB0; // 原成员偏移：+0xB0。 原FDA7B0/FDA7B4，509BA0尾部两值。
+    std::int32_t valueB8; // 原成员偏移：+0xB8。 原FDA7B8。
+    std::array<std::int32_t, 6> valuesBC; // 原成员偏移：+0xBC。 原FDA7BC..FDA7D0。
+    std::array<std::int32_t, 4> valuesD4; // 原成员偏移：+0xD4。 原FDA7D4..FDA7E0。
+    std::array<std::int32_t, 4> valuesE4; // 原成员偏移：+0xE4。 原FDA7E4..FDA7F0。
+    std::int32_t valueF4; // 原成员偏移：+0xF4。 原FDA7F4。
+    std::int32_t valueF8; // 原成员偏移：+0xF8。 原FDA7F8。
+    std::int32_t valueFC; // 原成员偏移：+0xFC。 原FDA7FC；与末尾15BCC共用回复门禁。
+    std::int32_t titleIndex100; // 原成员偏移：+0x100。 原FDA800，直接索引FF0508原表。
+    std::int32_t value104; // 原成员偏移：+0x104。 原FDA804。
     std::array<char, 17> name; // 原 FDA808；旧编码字节。
     std::array<char, 17> ownTitle; // 原 FDA819。
-    std::array<char, 33> text12A; // 原 FDA82A。
-    std::array<char, 33> text14B; // 原 FDA84B。
-    std::int32_t value16C; // 原FDA86C。
+    std::array<char, 33> text12A; // 原成员偏移：+0x12A。 原 FDA82A。
+    std::array<char, 33> text14B; // 原成员偏移：+0x14B。 原 FDA84B。
+    std::int32_t value16C; // 原成员偏移：+0x16C。 原FDA86C。
     std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
-    std::int32_t value174; // 原 FDA874；46A700仅在到达时按S32递减。
+    std::int32_t value174; // 原成员偏移：+0x174。 原 FDA874；46A700仅在到达时按S32递减。
     std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
-    std::int32_t value17C; // 原FDA87C，不与imageNo合并。
+    std::int32_t value17C; // 原成员偏移：+0x17C。 原FDA87C，不与imageNo合并。
     std::uint32_t objectIndex;
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
-    std::uint16_t value188; // 原 FDA888；519A80 符号扩展读取。
-    std::uint16_t flags18A; // 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
-    std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
-    std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
-    std::uint16_t options194; // 原FDA894低W16；选项切换/回复与聊天门禁共用。
-    std::uint16_t value1A0; // 原FDA8A0；50BFC0写入低W16。
+    std::uint16_t value188; // 原成员偏移：+0x188。 原 FDA888；519A80 符号扩展读取。
+    std::uint16_t flags18A; // 原成员偏移：+0x18A。 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
+    std::uint32_t flags18C; // 原成员偏移：+0x18C。 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
+    std::int32_t value190; // 原成员偏移：+0x190。 原 FDA890；51BDD0/51BE50 写入的完整动作值。
+    std::uint16_t options194; // 原成员偏移：+0x194。 原FDA894低W16；选项切换/回复与聊天门禁共用。
+    std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
     std::array<detail::PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
     login::YobiAction* action;
-    std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
-    std::int32_t value15BCC; // 原FF02CC；509650尾字段。
-    std::array<std::int32_t, 3> values15BD0; // 原FF02D0/FF02D4/FF02D8。
+    std::array<char, 17> text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
+    std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
+    std::array<std::int32_t, 3> values15BD0; // 原成员偏移：+0x15BD0。 原FF02D0/FF02D4/FF02D8。
 };
 
 static_assert(offsetof(PlayerRuntimeSlots, flags18C)
@@ -308,7 +308,7 @@ struct SkillRuntimeSlots {
     std::array<char, 0x1C> jobName;
     std::array<detail::SkillRuntimeRecord, 15> skills;
     std::array<detail::SkillPairRecord, 15> pairs;
-    std::uint32_t valueF633E8; // 509E30只写低U8，保留其余字节。
+    std::uint32_t valueF633E8; // 原全局：0x00F633E8。 509E30只写低U8，保留其余字节。
 };
 
 static_assert(std::is_standard_layout_v<SkillRuntimeSlots>);
@@ -320,13 +320,13 @@ static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == 0x47908);
 static_assert(sizeof(SkillRuntimeSlots) == 0x4790C);
 SkillRuntimeSlots gSkillRuntimeSlots {};
 
-std::uint32_t gChatPreviousTickDA3B3C = 0;
-std::uint32_t gChatCurrentTickDA3B40 = 0;
-std::uint8_t gChatDisabledDA3B4C = 0;
-std::int32_t gChatGateDA3B54 = 0; // 50CAE0写入，50C940读取同一接收门禁。
-constexpr char kChatDisabledText58AFEC[] =
+std::uint32_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
+std::uint32_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
+std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
+std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
+constexpr char kChatDisabledText58AFEC[] = // 原常量参考：0x0058AFEC。
     "\xC4\xBF\xC7\xB0\xBD\xFB\xD1\xD4\xD6\xD0";
-constexpr char kChatRepeatedText58B000[] =
+constexpr char kChatRepeatedText58B000[] = // 原常量参考：0x0058B000。
     "\xD6\xD8\xD1\x7D\xB0\x6C\xD1\xD4\xA3\xAC"
     "\xBD\xFB\xD1\xD4\xC8\xFD\xB7\xD6\xE7\x8A";
 static_assert(sizeof(kChatDisabledText58AFEC) == 11);
@@ -335,14 +335,14 @@ static_assert(sizeof(kChatRepeatedText58B000) == 21);
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
     std::uint16_t flags;
-    std::array<std::byte, 2> bytes02;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
     std::uint32_t objectIndex;
-    std::int32_t level08; // 50B380玩家分支同步第0槽。
-    std::int32_t value0C; // 50A3E0按掩码0x11写。
-    std::int32_t value10; // 50A3E0按掩码0x09写，在value0C之前消费。
-    std::int32_t value14; // 50A3E0按掩码0x21写。
+    std::int32_t level08; // 原成员偏移：+0x08。 50B380玩家分支同步第0槽。
+    std::int32_t value0C; // 原成员偏移：+0x0C。 50A3E0按掩码0x11写。
+    std::int32_t value10; // 原成员偏移：+0x10。 50A3E0按掩码0x09写，在value0C之前消费。
+    std::int32_t value14; // 原成员偏移：+0x14。 50A3E0按掩码0x21写。
     std::array<char, 17> name18; // 原+18，旧编码名称。
-    std::array<std::byte, 3> bytes29;
+    std::array<std::byte, 3> bytes29; // 原成员偏移：+0x29。
     login::YobiAction* action; // 原 +2C，非拥有。
 };
 
@@ -362,36 +362,36 @@ static_assert(sizeof(gPetFollowOrder) == 10);
 
 // 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
 struct MapCharaSceneSlots {
-    std::uint16_t valueC8A73C;
-    std::uint16_t valueC8A73E;
-    std::uint16_t valueC8A740;
-    std::uint16_t valueC8A742;
-    std::uint32_t valueC8A744;
-    std::uint16_t valueC8A748;
-    std::uint16_t value55DE98 {0xFFFF};
-    std::uint16_t valueC8A74A;
-    std::uint16_t valueC8A74C;
-    std::uint16_t valueC8A74E;
-    std::uint16_t valueC8A750;
-    std::uint16_t valueC8A752;
-    std::uint16_t valueC8A754;
-    std::uint16_t valueC8A756;
-    std::uint32_t valueC8A758;
-    std::uint32_t valueC8A75C;
-    std::int16_t valueC8A760;
-    std::int16_t valueC8A762;
-    login::YobiAction* actionC8A764;
-    std::uint32_t valueC8A768 {}; // 原PE未初始化区装载清零；413070仅覆写命中半字。
-    std::uint32_t valueC8A76C {};
-    float value55DE9C {5.0F};
-    std::int16_t value55DEA0 {315};
-    std::int16_t value55DEA2 {-1};
+    std::uint16_t valueC8A73C; // 原全局：0x00C8A73C。
+    std::uint16_t valueC8A73E; // 原全局：0x00C8A73E。
+    std::uint16_t valueC8A740; // 原全局：0x00C8A740。
+    std::uint16_t valueC8A742; // 原全局：0x00C8A742。
+    std::uint32_t valueC8A744; // 原全局：0x00C8A744。
+    std::uint16_t valueC8A748; // 原全局：0x00C8A748。
+    std::uint16_t value55DE98 {0xFFFF}; // 原全局：0x0055DE98。
+    std::uint16_t valueC8A74A; // 原全局：0x00C8A74A。
+    std::uint16_t valueC8A74C; // 原全局：0x00C8A74C。
+    std::uint16_t valueC8A74E; // 原全局：0x00C8A74E。
+    std::uint16_t valueC8A750; // 原全局：0x00C8A750。
+    std::uint16_t valueC8A752; // 原全局：0x00C8A752。
+    std::uint16_t valueC8A754; // 原全局：0x00C8A754。
+    std::uint16_t valueC8A756; // 原全局：0x00C8A756。
+    std::uint32_t valueC8A758; // 原全局：0x00C8A758。
+    std::uint32_t valueC8A75C; // 原全局：0x00C8A75C。
+    std::int16_t valueC8A760; // 原全局：0x00C8A760。
+    std::int16_t valueC8A762; // 原全局：0x00C8A762。
+    login::YobiAction* actionC8A764; // 原全局：0x00C8A764。
+    std::uint32_t valueC8A768 {}; // 原全局：0x00C8A768。 原PE未初始化区装载清零；413070仅覆写命中半字。
+    std::uint32_t valueC8A76C {}; // 原全局：0x00C8A76C。
+    float value55DE9C {5.0F}; // 原全局：0x0055DE9C。
+    std::int16_t value55DEA0 {315}; // 原全局：0x0055DEA0。
+    std::int16_t value55DEA2 {-1}; // 原全局：0x0055DEA2。
 };
 
 MapCharaSceneSlots gMapCharaSceneSlots {};
 
 // 原 .data [55DEB0,55DF10)：前/后三项分别供 46F1D0 的 kind 6/7 绘图。
-std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{
+std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全局：0x0055DEB0。
     {{0x00, 0x00, 0x10, 0xFF, 0x40, 0x01, 0x22, 0x01,
       0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
     {{0xC0, 0xFE, 0x40, 0x00, 0x40, 0x01, 0x0E, 0x01,
@@ -415,20 +415,20 @@ std::int32_t Sub_4B0F10()
 }
 
 // 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。
-constexpr char kCutPath55DE50[] = "bin\\PUK2\\cutdat\\%d.cut";
-constexpr char kCutReadMode554920[] = "rb";
+constexpr char kCutPath55DE50[] = "bin\\PUK2\\cutdat\\%d.cut"; // 原常量参考：0x0055DE50。
+constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
 
 // 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。
-constexpr char kCutMessage55DE3C[] =
+constexpr char kCutMessage55DE3C[] = // 原常量参考：0x0055DE3C。
     "\x63\x75\x74\xB5\xD8\x88\x44\x99\x6E\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kCutCaption5536B8[] = "\xB4\x5F\xD5\x4A";
-constexpr char kCutMessage55DE20[] =
+constexpr char kCutCaption5536B8[] = "\xB4\x5F\xD5\x4A"; // 原常量参考：0x005536B8。
+constexpr char kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
     "\xD2\xAA\x99\x7A\xD2\x95\x46\x41\x51\x86\xE1\xA3\xBF";
-constexpr char kCutCaption55DE30[] = "\x99\x6E\xB0\xB8\xE5\x65\xD5\x60";
+constexpr char kCutCaption55DE30[] = "\x99\x6E\xB0\xB8\xE5\x65\xD5\x60"; // 原常量参考：0x0055DE30。
 
 // 原 0x55DE7C/0x55DE68；.aut 相对路径与打开失败的第一正文。
-constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut";
-constexpr char kAutMessage55DE68[] =
+constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut"; // 原常量参考：0x0055DE7C。
+constexpr char kAutMessage55DE68[] = // 原常量参考：0x0055DE68。
     "\x61\x75\x74\xB5\xD8\x88\x44\x99\x6E\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1\xA1\xA3";
 
 // 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
@@ -441,13 +441,13 @@ constexpr char kMapCreateMode[] = "wb";
 constexpr char kMapReadMode[] = "rb";
 constexpr char kMapUpdateMode[] = "rb+";
 constexpr char kMapHeaderLabel[] = "MAP";
-constexpr char kUnknownText554590[] = "???";
+constexpr char kUnknownText554590[] = "???"; // 原常量参考：0x00554590。
 
 // 原 [9DAD30,9DAD4A)；地图回复的 24 字节正文和 NUL，首字节另有世界重置写者。
-std::array<std::uint8_t, 26> gText9DAD30 {};
+std::array<std::uint8_t, 26> gText9DAD30 {}; // 原全局：0x009DAD30。
 
 // 原 55DAAC/55DBAC；两表各 256 项，原始内容分别为逐位反转与 0x1021 多项式表。
-constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC {
+constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC { // 原常量参考：0x0055DAAC。
     0x00u, 0x80u, 0x40u, 0xC0u, 0x20u, 0xA0u, 0x60u, 0xE0u, 0x10u, 0x90u, 0x50u, 0xD0u, 0x30u, 0xB0u, 0x70u, 0xF0u,
     0x08u, 0x88u, 0x48u, 0xC8u, 0x28u, 0xA8u, 0x68u, 0xE8u, 0x18u, 0x98u, 0x58u, 0xD8u, 0x38u, 0xB8u, 0x78u, 0xF8u,
     0x04u, 0x84u, 0x44u, 0xC4u, 0x24u, 0xA4u, 0x64u, 0xE4u, 0x14u, 0x94u, 0x54u, 0xD4u, 0x34u, 0xB4u, 0x74u, 0xF4u,
@@ -466,7 +466,7 @@ constexpr std::array<std::uint8_t, 256> kMapBitReverse55DAAC {
     0x0Fu, 0x8Fu, 0x4Fu, 0xCFu, 0x2Fu, 0xAFu, 0x6Fu, 0xEFu, 0x1Fu, 0x9Fu, 0x5Fu, 0xDFu, 0x3Fu, 0xBFu, 0x7Fu, 0xFFu
 };
 
-constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC {
+constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考：0x0055DBAC。
     0x0000u, 0x1021u, 0x2042u, 0x3063u, 0x4084u, 0x50A5u, 0x60C6u, 0x70E7u, 0x8108u, 0x9129u, 0xA14Au, 0xB16Bu, 0xC18Cu, 0xD1ADu, 0xE1CEu, 0xF1EFu,
     0x1231u, 0x0210u, 0x3273u, 0x2252u, 0x52B5u, 0x4294u, 0x72F7u, 0x62D6u, 0x9339u, 0x8318u, 0xB37Bu, 0xA35Au, 0xD3BDu, 0xC39Cu, 0xF3FFu, 0xE3DEu,
     0x2462u, 0x3443u, 0x0420u, 0x1401u, 0x64E6u, 0x74C7u, 0x44A4u, 0x5485u, 0xA56Au, 0xB54Bu, 0x8528u, 0x9509u, 0xE5EEu, 0xF5CFu, 0xC5ACu, 0xD58Du,
@@ -494,7 +494,7 @@ std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
-std::array<std::uint64_t, 65> gAngleTableBits55EA50 {
+std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x0055EA50。
     0x0000000000000000ULL, 0x3FECA543F1C75819ULL, 0x3FFCA379B77C02B0ULL, 0x4005785F06F69446ULL,
     0x400C9C55000C953AULL, 0x4011DE5EEDCC20D5ULL, 0x40156C5D63886595ULL, 0x4018F7B84DB9C737ULL,
     0x401C800431BDE82DULL, 0x4020026BD6E8AF81ULL, 0x4021C2E5BC87DB2BULL, 0x4023813DD97F62B7ULL,
@@ -542,22 +542,22 @@ static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
 } // namespace
 
-std::int32_t& gCurrentSceneType = platform::gValueFF0D40;
-std::int32_t gPendingSceneState = 0;
-std::int32_t gCurrentSceneState = 0;
-std::int32_t gPendingSceneType = 0;
+std::int32_t& gCurrentSceneType = platform::gValueFF0D40; // 原全局：0x00FF0D40。
+std::int32_t gPendingSceneState = 0; // 原全局：0x00FF0D60。
+std::int32_t gCurrentSceneState = 0; // 原全局：0x00FF0D64。
+std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 
-std::uint8_t gValueC82204 = 0;
-std::uint32_t gValue5ABFC4 = 0;
-std::uint32_t gValue9A6E0C = 0;
-std::uint32_t gValueFF0D5C = 0;
-std::uint32_t gValueFF0D58 = 0;
-std::uint32_t gValueD67E78 = 0;
-std::uint32_t gValueFF0D74 = 0;
-std::uint8_t& gValue9DAD30 = gText9DAD30[0];
-std::array<std::uint32_t, 7> gValueD67B08 {};
-std::uint32_t gValue58B6D0 = 1;
-std::uint8_t gValueD9F2CA = 0;
+std::uint8_t gValueC82204 = 0; // 原全局：0x00C82204。
+std::uint32_t gValue5ABFC4 = 0; // 原全局：0x005ABFC4。
+std::uint32_t gValue9A6E0C = 0; // 原全局：0x009A6E0C。
+std::uint32_t gValueFF0D5C = 0; // 原全局：0x00FF0D5C。
+std::uint32_t gValueFF0D58 = 0; // 原全局：0x00FF0D58。
+std::uint32_t gValueD67E78 = 0; // 原全局：0x00D67E78。
+std::uint32_t gValueFF0D74 = 0; // 原全局：0x00FF0D74。
+std::uint8_t& gValue9DAD30 = gText9DAD30[0]; // 原全局：0x009DAD30。
+std::array<std::uint32_t, 7> gValueD67B08 {}; // 原全局：0x00D67B08。
+std::uint32_t gValue58B6D0 = 1; // 原全局：0x0058B6D0。
+std::uint8_t gValueD9F2CA = 0; // 原全局：0x00D9F2CA。
 
 const char* ReadText9DAD30() noexcept
 {
@@ -575,14 +575,14 @@ void Sub_51BEF0() noexcept
     gPlayerRuntime.flags18C &= 0xFF7FFFFFu;
 }
 
-std::uint32_t gWorldProjectionSourceA = 0;
-std::uint32_t gWorldProjectionSourceB = 0;
-std::uint32_t gWorldProjectionSourceC = 0;
-std::uint32_t gWorldProjectionSourceD = 0;
-std::uint32_t gWorldProjectionSnapshotA = 0;
-std::uint32_t gWorldProjectionSnapshotB = 0;
-std::uint32_t gWorldProjectionSnapshotC = 0;
-std::uint32_t gWorldProjectionSnapshotD = 0;
+std::uint32_t gWorldProjectionSourceA = 0; // 原全局：0x009EE908。
+std::uint32_t gWorldProjectionSourceB = 0; // 原全局：0x009EE90C。
+std::uint32_t gWorldProjectionSourceC = 0; // 原全局：0x009EE904。
+std::uint32_t gWorldProjectionSourceD = 0; // 原全局：0x009EE8F4。
+std::uint32_t gWorldProjectionSnapshotA = 0; // 原全局：0x00AF10C4。
+std::uint32_t gWorldProjectionSnapshotB = 0; // 原全局：0x00AF10CC。
+std::uint32_t gWorldProjectionSnapshotC = 0; // 原全局：0x00AF10D0。
+std::uint32_t gWorldProjectionSnapshotD = 0; // 原全局：0x00AF10D4。
 
 volatile std::int32_t gMapFloor = 0; // 原 0x9EE8F0。
 volatile std::uint32_t gWorldCurrentXBits = 0; // 原 0x9DAD4C。
@@ -1180,12 +1180,12 @@ std::uint32_t InitializeAlbum_518C20()
 
 namespace detail {
 
-platform::LegacyCryptInt gValue73ECD0 {};
+platform::LegacyCryptInt gValue73ECD0 {}; // 原全局：0x0073ECD0。
 
-std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
-std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;
-std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768;
-std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C;
+std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758; // 原全局：0x00C8A758。
+std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C; // 原全局：0x00C8A75C。
+std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768; // 原全局：0x00C8A768。
+std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // 原全局：0x00C8A76C。
 
 const std::byte* BorrowSelectedAlbumRecords()
 {
@@ -1418,14 +1418,14 @@ namespace {
 std::array<MapEffectRecord, 500> gMapEffectRecords {};
 MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
-std::uint8_t gMapEffectStartedC8A728 = 0;
-std::uint32_t gMapEffectTickC8A730 = 0;
-std::uint8_t gMapEffectStartedC82240 = 0;
-std::uint32_t gMapEffectTickC82250 = 0;
-std::uint8_t gMapEffectStartedC8224C = 0;
-std::uint32_t gMapEffectTickC8A734 = 0;
-std::int32_t gProjectedX55DEA4 = -1;
-std::int32_t gProjectedY55DEA8 = -1;
+std::uint8_t gMapEffectStartedC8A728 = 0; // 原全局：0x00C8A728。
+std::uint32_t gMapEffectTickC8A730 = 0; // 原全局：0x00C8A730。
+std::uint8_t gMapEffectStartedC82240 = 0; // 原全局：0x00C82240。
+std::uint32_t gMapEffectTickC82250 = 0; // 原全局：0x00C82250。
+std::uint8_t gMapEffectStartedC8224C = 0; // 原全局：0x00C8224C。
+std::uint32_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
+std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
+std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
 } // namespace
 
@@ -3422,9 +3422,9 @@ void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text
 }
 
 // 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
-std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills;
-std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs;
-std::uint16_t gValueDA3B20 = 0;
+std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills; // 原全局：0x00F1BAFC。
+std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs; // 原全局：0x00F63370。
+std::uint16_t gValueDA3B20 = 0; // 原全局：0x00DA3B20。
 
 std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
 {
@@ -3718,7 +3718,7 @@ void Sub_518600(
         });
 }
 
-std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4 = gPlayerRuntime.items;
+std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4 = gPlayerRuntime.items; // 原全局：0x00FDA8A4。
 
 namespace {
 
@@ -3968,13 +3968,13 @@ void Sub_51B630(
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
-std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {};
-std::array<PetPairRecord, 5> gPetPairsDE0B08 {};
-std::int32_t gPetCountDE0B00 = 0;
-std::uint32_t gValueD67B28 = 0;
+std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {}; // 原全局：0x00F633F8。
+std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
+std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
+std::uint32_t gValueD67B28 = 0; // 原全局：0x00D67B28。
 
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
-ReplyRecordF7C950 gReplyRecordF7C950 {};
+ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
 
 // 原函数：0x0052E180。
 std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId)
@@ -4376,8 +4376,8 @@ void Sub_492250()
 }
 
 // 原两表均位于PE虚拟零区；5199A0后续只重置原表编号，不能清副本。
-std::array<TitleRecord, 64> gTitlesFF0508 {};
-std::array<TitleRecord, 64> gSortedTitlesDE03F8 {};
+std::array<TitleRecord, 64> gTitlesFF0508 {}; // 原全局：0x00FF0508。
+std::array<TitleRecord, 64> gSortedTitlesDE03F8 {}; // 原全局：0x00DE03F8。
 
 // 原函数：0x0050A300。
 void Sub_50A300(const std::uintptr_t /*socket*/, const char* const payload)
@@ -4482,81 +4482,81 @@ std::int32_t Sub_5198F0(const void* const left, const void* const right)
 
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
-std::int32_t gDialogRequestCC21E0 = 0;
-std::int32_t gDialogTargetD2DE6C = 0;
+std::int32_t gDialogRequestCC21E0 = 0; // 原全局：0x00CC21E0。
+std::int32_t gDialogTargetD2DE6C = 0; // 原全局：0x00D2DE6C。
 
 // 原 455BD0 的 23 个独立 W16/W32 共享槽；仅两个 556C 槽的映像初值为 1。
-std::uint16_t gValue556C14 = 1;
-std::uint16_t gValue62B34E = 0;
-std::uint16_t gValue62B34C = 0;
-std::uint16_t gValue62B318 = 0;
-std::uint32_t gValue62B328 = 0;
-std::uint16_t gValue62B3B0 = 0;
-std::uint16_t gValue556C34 = 1;
-std::uint16_t gValue62B5AA = 0;
-std::uint16_t gValue62B5A8 = 0;
-std::uint32_t gValue62B5B0 = 0;
-std::uint32_t gValue62B308 = 0;
-std::uint32_t gValue62B398 = 0;
-std::uint32_t gValue62B358 = 0;
-std::uint32_t gValue62B384 = 0;
-std::uint32_t gValue62B310 = 0;
-std::uint32_t gValue62B364 = 0;
-std::uint32_t gValue62B338 = 0;
-std::uint32_t gValue62B36C = 0;
-std::uint32_t gValue62B2F8 = 0;
-std::uint32_t gValue62B324 = 0;
-std::uint32_t gValue62B30C = 0;
-std::uint32_t gValue62B388 = 0;
-std::uint32_t gValue62B3A0 = 0;
-std::uint32_t gValue62B38C = 0;
+std::uint16_t gValue556C14 = 1; // 原全局：0x00556C14。
+std::uint16_t gValue62B34E = 0; // 原全局：0x0062B34E。
+std::uint16_t gValue62B34C = 0; // 原全局：0x0062B34C。
+std::uint16_t gValue62B318 = 0; // 原全局：0x0062B318。
+std::uint32_t gValue62B328 = 0; // 原全局：0x0062B328。
+std::uint16_t gValue62B3B0 = 0; // 原全局：0x0062B3B0。
+std::uint16_t gValue556C34 = 1; // 原全局：0x00556C34。
+std::uint16_t gValue62B5AA = 0; // 原全局：0x0062B5AA。
+std::uint16_t gValue62B5A8 = 0; // 原全局：0x0062B5A8。
+std::uint32_t gValue62B5B0 = 0; // 原全局：0x0062B5B0。
+std::uint32_t gValue62B308 = 0; // 原全局：0x0062B308。
+std::uint32_t gValue62B398 = 0; // 原全局：0x0062B398。
+std::uint32_t gValue62B358 = 0; // 原全局：0x0062B358。
+std::uint32_t gValue62B384 = 0; // 原全局：0x0062B384。
+std::uint32_t gValue62B310 = 0; // 原全局：0x0062B310。
+std::uint32_t gValue62B364 = 0; // 原全局：0x0062B364。
+std::uint32_t gValue62B338 = 0; // 原全局：0x0062B338。
+std::uint32_t gValue62B36C = 0; // 原全局：0x0062B36C。
+std::uint32_t gValue62B2F8 = 0; // 原全局：0x0062B2F8。
+std::uint32_t gValue62B324 = 0; // 原全局：0x0062B324。
+std::uint32_t gValue62B30C = 0; // 原全局：0x0062B30C。
+std::uint32_t gValue62B388 = 0; // 原全局：0x0062B388。
+std::uint32_t gValue62B3A0 = 0; // 原全局：0x0062B3A0。
+std::uint32_t gValue62B38C = 0; // 原全局：0x0062B38C。
 
 // 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
-std::uint32_t gValue9FB934 = 0;
-std::uint32_t gValue9FB928 = 0;
-std::uint32_t gValue9A86C0 = 0;
-std::uint32_t gValue9A7F78 = 0;
+std::uint32_t gValue9FB934 = 0; // 原全局：0x009FB934。
+std::uint32_t gValue9FB928 = 0; // 原全局：0x009FB928。
+std::uint32_t gValue9A86C0 = 0; // 原全局：0x009A86C0。
+std::uint32_t gValue9A7F78 = 0; // 原全局：0x009A7F78。
 
 // 原59F9F8；50D120生产，421480后续复用。
 std::int32_t gBattleBackgroundImage59F9F8 = 0;
-std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0;
-std::int32_t gBattleType5ABFC8 = 0;
-std::uint32_t gBattleModeFlag5ABFCC = 0;
-std::uint32_t gValue5ABB1C = 0;
-std::uint32_t gValue5ABB20 = 0xFFFFFFFFu;
-std::uint32_t gValue5ABB28 = 0;
-std::uint32_t gBattleFirstTurnPending5ABC6C = 0;
-std::int32_t gBattleCWriteIndex5AAA6C = 0;
-std::int32_t gBattleCReadIndex5AAA44 = 0;
-std::int32_t gBattleMWriteIndex5A3A1C = 0;
-std::int32_t gBattleMReadIndex5AAA68 = 0;
-std::array<char, 0x4000> gBattleCQueue5A4A3C {};
-std::array<char, 0x4000> gBattleMQueue59FA18 {};
-std::array<char, 0x1000> gBattleCText5A3A20 {};
-std::int32_t gBattleCOffset5ABA80 = 0;
-std::uint32_t gBattleFieldFlags5ABB58 = 0;
-std::array<char, 0x1000> gBattleMText5AAA7C {};
-std::int32_t gBattleMScanOffset5A8A3C = 0;
-std::int32_t gBattleMPreviewOffset5AAA60 = 0;
-std::uint32_t gBattleActiveEventMask5AAA74 = 0;
-std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C {};
-const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13};
+std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
+std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
+std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
+std::uint32_t gValue5ABB1C = 0; // 原全局：0x005ABB1C。
+std::uint32_t gValue5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
+std::uint32_t gValue5ABB28 = 0; // 原全局：0x005ABB28。
+std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
+std::int32_t gBattleCWriteIndex5AAA6C = 0; // 原全局：0x005AAA6C。
+std::int32_t gBattleCReadIndex5AAA44 = 0; // 原全局：0x005AAA44。
+std::int32_t gBattleMWriteIndex5A3A1C = 0; // 原全局：0x005A3A1C。
+std::int32_t gBattleMReadIndex5AAA68 = 0; // 原全局：0x005AAA68。
+std::array<char, 0x4000> gBattleCQueue5A4A3C {}; // 原全局：0x005A4A3C。
+std::array<char, 0x4000> gBattleMQueue59FA18 {}; // 原全局：0x0059FA18。
+std::array<char, 0x1000> gBattleCText5A3A20 {}; // 原全局：0x005A3A20。
+std::int32_t gBattleCOffset5ABA80 = 0; // 原全局：0x005ABA80。
+std::uint32_t gBattleFieldFlags5ABB58 = 0; // 原全局：0x005ABB58。
+std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
+std::int32_t gBattleMScanOffset5A8A3C = 0; // 原全局：0x005A8A3C。
+std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
+std::uint32_t gBattleActiveEventMask5AAA74 = 0; // 原全局：0x005AAA74。
+std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C {}; // 原全局：0x005ABA9C。
+const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 static_assert(sizeof(gBattleEventActions5ABA9C) == 32 * sizeof(login::YobiAction*));
-std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {};
-std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {};
-std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {};
+std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {}; // 原全局：0x005AAA48。
+std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
+std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
 static_assert(sizeof(BattleNamedEffectRecord) == 36);
 static_assert(offsetof(BattleNamedEffectRecord, value) == 32);
 static_assert(sizeof(gBattleNamedEffects5ABCE0) == 720);
-login::YobiAction* gBattleSceneAction5ABA94 = nullptr;
-std::array<login::YobiAction*, 22> gBattleAllEntries59E980 {};
-constinit const std::span<login::YobiAction*, 20> gBattleEntries59E980 {
+login::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
+std::array<login::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
+constinit const std::span<login::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
     gBattleAllEntries59E980.data(), 20
 };
-const std::array<std::int32_t, 22> gBattlePointIndices5536FC {
+const std::array<std::int32_t, 22> gBattlePointIndices5536FC { // 原全局：0x005536FC。
     2, 1, 3, 0, 4, 7, 6, 8, 5, 9, 12, 11, 13, 10, 14, 17, 16, 18, 15, 19, 20, 21
 };
-const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{
+const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{ // 原全局：0x00553758。
     {910, 590, 610, 290}, {845, 625, 545, 325}, {780, 660, 480, 360},
     {715, 695, 415, 395}, {650, 730, 350, 430}, {845, 540, 545, 240},
     {781, 576, 481, 276}, {718, 613, 418, 313}, {654, 649, 354, 349},
@@ -4566,44 +4566,44 @@ const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{
     {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
     {-131, -121, 218, 228},
 }};
-std::int32_t gBattleCurrentPosition5ABCA4 = 0;
-std::uint32_t gBattlePosition5ABCA8 = 0;
-std::int32_t gBattlePlayerActionState5ABC74 = 0;
-std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {};
-std::int32_t gBattleSelectedSkill5ABB5C = 0;
-std::int32_t gBattleSelectedTechnique5ABC78 = 0;
-std::int32_t gBattleCommandState5ABC3C = 0;
-std::uint8_t gBattleRebirthDisabled5ABC40 = 0;
-std::int32_t gBattleSkillActionCount5ABBF4 = 0;
-std::int32_t gBattlePetActionCount5ABBBC = 0;
-std::int32_t gBattleCountdownActive5ABCB8 = 0;
-std::uint32_t gBattleCommandDeadline5ABBF8 = 0;
-std::int32_t gBattleCountdownSecond5ABB80 = 0;
-std::int32_t gBattleSnapshotPetIndex5ABBFC = 0;
-std::int32_t gBattleCommandX553F78 = 490;
-std::int32_t gBattleCommandY553F7C = -104;
-std::int32_t gBattleCommandValue553F80 = 17;
-std::int32_t gBattlePetSkillGraphicIndex553F8C = -1;
-std::array<std::int32_t, 9> gBattleResetValues5ABB84 {};
-login::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr;
-std::int32_t gBattleSelectionMode5ABC70 = 0;
-std::int32_t gBattleSkillUsed5ABC68 = 0;
-std::int32_t gBattlePetCommandPhase553F88 = 1;
-std::int32_t gBattleValue5ABCC0 = 0;
-login::YobiAction* gBattleCommandAction5ABC00 = nullptr;
-std::uint32_t gBattleTargetFlags5ABC44 = 0;
-std::int32_t gBattleSelectedItem5ABC48 = 0;
-std::int32_t gBattleItemTargetPending5ABCC4 = 0;
-std::int32_t gBattleBombLevelD67B2C = 0;
-std::uint32_t gBattlePlayerFlags5ABCAC = 0;
-std::uint32_t gBattleSkillFlags5ABC04 = 0;
-std::uint32_t gBattlePetSkillFlags5ABB78 = 0;
-std::uint32_t gBattleRebirthLevel5ABB7C = 0;
-std::uint32_t gBattleRidePet5ABC38 = 0;
-std::uint32_t gBattleEndBits5ABBC0 = 0;
-std::uint32_t gBattleTurn5ABB74 = 0;
-std::uint32_t gBattleTurnSnapshot5ABC08 = 0;
-std::uint32_t gValue5ABCB0 = 0;
+std::int32_t gBattleCurrentPosition5ABCA4 = 0; // 原全局：0x005ABCA4。
+std::uint32_t gBattlePosition5ABCA8 = 0; // 原全局：0x005ABCA8。
+std::int32_t gBattlePlayerActionState5ABC74 = 0; // 原全局：0x005ABC74。
+std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {}; // 原全局：0x005ABC7C。
+std::int32_t gBattleSelectedSkill5ABB5C = 0; // 原全局：0x005ABB5C。
+std::int32_t gBattleSelectedTechnique5ABC78 = 0; // 原全局：0x005ABC78。
+std::int32_t gBattleCommandState5ABC3C = 0; // 原全局：0x005ABC3C。
+std::uint8_t gBattleRebirthDisabled5ABC40 = 0; // 原全局：0x005ABC40。
+std::int32_t gBattleSkillActionCount5ABBF4 = 0; // 原全局：0x005ABBF4。
+std::int32_t gBattlePetActionCount5ABBBC = 0; // 原全局：0x005ABBBC。
+std::int32_t gBattleCountdownActive5ABCB8 = 0; // 原全局：0x005ABCB8。
+std::uint32_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
+std::int32_t gBattleCountdownSecond5ABB80 = 0; // 原全局：0x005ABB80。
+std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
+std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
+std::int32_t gBattleCommandY553F7C = -104; // 原全局：0x00553F7C。
+std::int32_t gBattleCommandValue553F80 = 17; // 原全局：0x00553F80。
+std::int32_t gBattlePetSkillGraphicIndex553F8C = -1; // 原全局：0x00553F8C。
+std::array<std::int32_t, 9> gBattleResetValues5ABB84 {}; // 原全局：0x005ABB84。
+login::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr; // 原全局：0x005ABFB8。
+std::int32_t gBattleSelectionMode5ABC70 = 0; // 原全局：0x005ABC70。
+std::int32_t gBattleSkillUsed5ABC68 = 0; // 原全局：0x005ABC68。
+std::int32_t gBattlePetCommandPhase553F88 = 1; // 原全局：0x00553F88。
+std::int32_t gBattleValue5ABCC0 = 0; // 原全局：0x005ABCC0。
+login::YobiAction* gBattleCommandAction5ABC00 = nullptr; // 原全局：0x005ABC00。
+std::uint32_t gBattleTargetFlags5ABC44 = 0; // 原全局：0x005ABC44。
+std::int32_t gBattleSelectedItem5ABC48 = 0; // 原全局：0x005ABC48。
+std::int32_t gBattleItemTargetPending5ABCC4 = 0; // 原全局：0x005ABCC4。
+std::int32_t gBattleBombLevelD67B2C = 0; // 原全局：0x00D67B2C。
+std::uint32_t gBattlePlayerFlags5ABCAC = 0; // 原全局：0x005ABCAC。
+std::uint32_t gBattleSkillFlags5ABC04 = 0; // 原全局：0x005ABC04。
+std::uint32_t gBattlePetSkillFlags5ABB78 = 0; // 原全局：0x005ABB78。
+std::uint32_t gBattleRebirthLevel5ABB7C = 0; // 原全局：0x005ABB7C。
+std::uint32_t gBattleRidePet5ABC38 = 0; // 原全局：0x005ABC38。
+std::uint32_t gBattleEndBits5ABBC0 = 0; // 原全局：0x005ABBC0。
+std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
+std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
+std::uint32_t gValue5ABCB0 = 0; // 原全局：0x005ABCB0。
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(login::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
@@ -4614,22 +4614,22 @@ static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
-std::int32_t gValueD2F788 = 0;
-std::uint16_t gValueFF0C10 = 0;
+std::int32_t gValueD2F788 = 0; // 原全局：0x00D2F788。
+std::uint16_t gValueFF0C10 = 0; // 原全局：0x00FF0C10。
 
 // 原 0xFF0D04/0xFF0D08：50D700 写入、展示侧按 S32 读取的独立槽。
-std::int32_t gValueFF0D04 = 0;
-std::int32_t gValueFF0D08 = 0;
+std::int32_t gValueFF0D04 = 0; // 原全局：0x00FF0D04。
+std::int32_t gValueFF0D08 = 0; // 原全局：0x00FF0D08。
 
 // 原 0xFF0D34：50D3B0 写入、5199A0 清零的独立 W16 槽。
 std::uint16_t gValueFF0D34 = 0;
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
-std::uint16_t gValueFF0D30 = 0;
-std::uint16_t gValueFF0D32 = 0;
-std::uint16_t gValueF7CA04 = 0;
-std::uint16_t gValueFF03D8 = 0;
-std::uint16_t gValueFF0D36 = 0;
-std::uint32_t gValueFF0D38 = 0;
+std::uint16_t gValueFF0D30 = 0; // 原全局：0x00FF0D30。
+std::uint16_t gValueFF0D32 = 0; // 原全局：0x00FF0D32。
+std::uint16_t gValueF7CA04 = 0; // 原全局：0x00F7CA04。
+std::uint16_t gValueFF03D8 = 0; // 原全局：0x00FF03D8。
+std::uint16_t gValueFF0D36 = 0; // 原全局：0x00FF0D36。
+std::uint32_t gValueFF0D38 = 0; // 原全局：0x00FF0D38。
 
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
@@ -4637,74 +4637,74 @@ std::uint32_t gValueCAFEA0 = 0;
 // 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
 std::uint32_t gValue9A6204 = 0;
 // 原 45ED90 的四个布局 W32 与非拥有 action 槽，均只由本体直接读写。
-std::int32_t gValue9A5674 = 0;
-std::int32_t gValue9A594C = 0;
-std::int32_t gValue9A61F8 = 0;
-std::int32_t gValue9A5AC0 = 0;
-login::YobiAction* gAction9A6E98 = nullptr;
+std::int32_t gValue9A5674 = 0; // 原全局：0x009A5674。
+std::int32_t gValue9A594C = 0; // 原全局：0x009A594C。
+std::int32_t gValue9A61F8 = 0; // 原全局：0x009A61F8。
+std::int32_t gValue9A5AC0 = 0; // 原全局：0x009A5AC0。
+login::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
-std::int32_t gValue5ABB70 = 0;
-std::int32_t gValue5ABB6C = 0;
-std::int32_t gValue553F90 = -1;
-std::int32_t gValue553F84 = -1;
+std::int32_t gValue5ABB70 = 0; // 原全局：0x005ABB70。
+std::int32_t gValue5ABB6C = 0; // 原全局：0x005ABB6C。
+std::int32_t gValue553F90 = -1; // 原全局：0x00553F90。
+std::int32_t gValue553F84 = -1; // 原全局：0x00553F84。
 
 // 原 0xC8222E；pending 消费与世界循环尾部共用的 W16 门禁。
 std::uint16_t gValueC8222E = 0;
 
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
-std::uint32_t gValueC82230 = 0;
-std::int16_t gValueC82234 = 0;
-std::int16_t gValueC82236 = 0;
+std::uint32_t gValueC82230 = 0; // 原全局：0x00C82230。
+std::int16_t gValueC82234 = 0; // 原全局：0x00C82234。
+std::int16_t gValueC82236 = 0; // 原全局：0x00C82236。
 
 // 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 的独立 W32 槽。
-std::uint32_t gValueC3500C = 0;
-std::uint32_t gValueC75010 = 0;
-std::uint32_t gValue9EE8A0 = 0;
-std::uint32_t gValue9ED438 = 0;
-std::uint32_t gValue9ED440 = 0;
+std::uint32_t gValueC3500C = 0; // 原全局：0x00C3500C。
+std::uint32_t gValueC75010 = 0; // 原全局：0x00C75010。
+std::uint32_t gValue9EE8A0 = 0; // 原全局：0x009EE8A0。
+std::uint32_t gValue9ED438 = 0; // 原全局：0x009ED438。
+std::uint32_t gValue9ED440 = 0; // 原全局：0x009ED440。
 
 // 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 的 W32 目标。
-std::uint32_t gValueC35008 = 0;
-std::uint32_t gValue9DAD2C = 0;
-std::uint32_t gValue9FB930 = 0;
-std::uint32_t gValueC821D4 = 0;
-std::uint32_t gValue9A86DC = 0;
+std::uint32_t gValueC35008 = 0; // 原全局：0x00C35008。
+std::uint32_t gValue9DAD2C = 0; // 原全局：0x009DAD2C。
+std::uint32_t gValue9FB930 = 0; // 原全局：0x009FB930。
+std::uint32_t gValueC821D4 = 0; // 原全局：0x00C821D4。
+std::uint32_t gValue9A86DC = 0; // 原全局：0x009A86DC。
 
-std::int16_t gMapXStart = 0;
-std::int16_t gMapYStart = 0;
-std::int16_t gMapXEnd = 0;
-std::int16_t gMapYEnd = 0;
-std::int16_t gMapSpanX = 0;
-std::int16_t gMapSpanY = 0;
-platform::LegacyCryptInt gPlayerX {};
-platform::LegacyCryptInt gPlayerY {};
-platform::LegacyCryptInt gPlayerSnapshotX {};
-platform::LegacyCryptInt gPlayerSnapshotY {};
-platform::LegacyCryptInt gValue9EE8D0 {};
-platform::LegacyCryptInt gValue9EE8E0 {};
-platform::LegacyCryptInt gValueC27FF8 {};
-platform::LegacyCryptInt gValueC27FE8 {};
-platform::LegacyCryptInt gValue9A7F88 {};
-platform::LegacyCryptInt gValue9A7F98 {};
-platform::LegacyCryptInt gValueC821E8 {};
-platform::LegacyCryptInt gValue9E03C0 {};
-platform::LegacyCryptInt gValue9FB918 {};
-platform::LegacyCryptInt gValueAF0FE8 {};
-platform::LegacyCryptInt gValueC821D8 {};
-std::uint32_t gValueAF10C0 = 0;
-std::uint32_t gValue9EE8F8 = 0;
-std::uint32_t gValue9EE8FC = 0;
-std::uint32_t gValue9EE900 = 0;
-std::uint32_t gValue9DAD78 = 0;
-std::uint8_t gValue9A4B94 = 0;
-std::uint16_t gValueC82200 = 0;
-std::uint16_t gValueC82202 = 0;
-std::array<std::int16_t, 2> gMapWindowEndY9A86C4 {};
-std::array<std::int16_t, 2> gMapWindowStartY9A86C8 {};
-std::array<std::int16_t, 2> gMapWindowEndX9A86CC {};
-std::array<std::int16_t, 2> gMapWindowStartX9A86D0 {};
-std::array<std::uint16_t, 2> gPendingDirections9A86D4 {};
+std::int16_t gMapXStart = 0; // 原全局：0x009DEF64。
+std::int16_t gMapYStart = 0; // 原全局：0x009DEF60。
+std::int16_t gMapXEnd = 0; // 原全局：0x009DEF62。
+std::int16_t gMapYEnd = 0; // 原全局：0x009DEF5E。
+std::int16_t gMapSpanX = 0; // 原全局：0x009A86E0。
+std::int16_t gMapSpanY = 0; // 原全局：0x009ED43C。
+platform::LegacyCryptInt gPlayerX {}; // 原全局：0x009EE8A8。
+platform::LegacyCryptInt gPlayerY {}; // 原全局：0x009EE8C0。
+platform::LegacyCryptInt gPlayerSnapshotX {}; // 原全局：0x00C751C0。
+platform::LegacyCryptInt gPlayerSnapshotY {}; // 原全局：0x00C751B0。
+platform::LegacyCryptInt gValue9EE8D0 {}; // 原全局：0x009EE8D0。
+platform::LegacyCryptInt gValue9EE8E0 {}; // 原全局：0x009EE8E0。
+platform::LegacyCryptInt gValueC27FF8 {}; // 原全局：0x00C27FF8。
+platform::LegacyCryptInt gValueC27FE8 {}; // 原全局：0x00C27FE8。
+platform::LegacyCryptInt gValue9A7F88 {}; // 原全局：0x009A7F88。
+platform::LegacyCryptInt gValue9A7F98 {}; // 原全局：0x009A7F98。
+platform::LegacyCryptInt gValueC821E8 {}; // 原全局：0x00C821E8。
+platform::LegacyCryptInt gValue9E03C0 {}; // 原全局：0x009E03C0。
+platform::LegacyCryptInt gValue9FB918 {}; // 原全局：0x009FB918。
+platform::LegacyCryptInt gValueAF0FE8 {}; // 原全局：0x00AF0FE8。
+platform::LegacyCryptInt gValueC821D8 {}; // 原全局：0x00C821D8。
+std::uint32_t gValueAF10C0 = 0; // 原全局：0x00AF10C0。
+std::uint32_t gValue9EE8F8 = 0; // 原全局：0x009EE8F8。
+std::uint32_t gValue9EE8FC = 0; // 原全局：0x009EE8FC。
+std::uint32_t gValue9EE900 = 0; // 原全局：0x009EE900。
+std::uint32_t gValue9DAD78 = 0; // 原全局：0x009DAD78。
+std::uint8_t gValue9A4B94 = 0; // 原全局：0x009A4B94。
+std::uint16_t gValueC82200 = 0; // 原全局：0x00C82200。
+std::uint16_t gValueC82202 = 0; // 原全局：0x00C82202。
+std::array<std::int16_t, 2> gMapWindowEndY9A86C4 {}; // 原全局：0x009A86C4。
+std::array<std::int16_t, 2> gMapWindowStartY9A86C8 {}; // 原全局：0x009A86C8。
+std::array<std::int16_t, 2> gMapWindowEndX9A86CC {}; // 原全局：0x009A86CC。
+std::array<std::int16_t, 2> gMapWindowStartX9A86D0 {}; // 原全局：0x009A86D0。
+std::array<std::uint16_t, 2> gPendingDirections9A86D4 {}; // 原全局：0x009A86D4。
 std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathX {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathY {};
@@ -4716,55 +4716,55 @@ static_assert(sizeof(gMapWindowStartY9A86C8) == 4);
 static_assert(sizeof(gMapWindowEndX9A86CC) == 4);
 static_assert(sizeof(gMapWindowStartX9A86D0) == 4);
 static_assert(sizeof(gPendingDirections9A86D4) == 4);
-std::uint32_t gValueC821FC = 0;
-std::uint32_t gValue9EE8B8 = 0;
-std::uint16_t gValue9EE8A4 = 0;
-std::int32_t gValue9A7F7C = 0;
-std::int32_t gValue9A7F80 = 0;
-std::uint32_t gValueAF10C8 = 0;
-std::uint16_t gValueC8A79C = 0;
-std::uint16_t gValue9A86D8 = 0;
-std::uint16_t gValue9FB92E = 0;
-std::uint16_t gValueB65A7C = 0;
-std::uint16_t gValueC82220 = 0;
-std::uint32_t gValueC82238 = 0;
-std::uint32_t gValueC8223C = 0; // 原转向发送的独立GetTickCount位槽。
-std::uint32_t gValueC8A774 = 0;
-std::uint32_t gValueC8A778 = 0;
-std::uint32_t gValueC8A77C = 0;
-std::uint32_t gValueC8A780 = 0;
+std::uint32_t gValueC821FC = 0; // 原全局：0x00C821FC。
+std::uint32_t gValue9EE8B8 = 0; // 原全局：0x009EE8B8。
+std::uint16_t gValue9EE8A4 = 0; // 原全局：0x009EE8A4。
+std::int32_t gValue9A7F7C = 0; // 原全局：0x009A7F7C。
+std::int32_t gValue9A7F80 = 0; // 原全局：0x009A7F80。
+std::uint32_t gValueAF10C8 = 0; // 原全局：0x00AF10C8。
+std::uint16_t gValueC8A79C = 0; // 原全局：0x00C8A79C。
+std::uint16_t gValue9A86D8 = 0; // 原全局：0x009A86D8。
+std::uint16_t gValue9FB92E = 0; // 原全局：0x009FB92E。
+std::uint16_t gValueB65A7C = 0; // 原全局：0x00B65A7C。
+std::uint16_t gValueC82220 = 0; // 原全局：0x00C82220。
+std::uint32_t gValueC82238 = 0; // 原全局：0x00C82238。
+std::uint32_t gValueC8223C = 0; // 原全局：0x00C8223C。 原转向发送的独立GetTickCount位槽。
+std::uint32_t gValueC8A774 = 0; // 原全局：0x00C8A774。
+std::uint32_t gValueC8A778 = 0; // 原全局：0x00C8A778。
+std::uint32_t gValueC8A77C = 0; // 原全局：0x00C8A77C。
+std::uint32_t gValueC8A780 = 0; // 原全局：0x00C8A780。
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
-std::int32_t gValueC8A78C = 0;
-std::int32_t gValueC8A790 = 0;
-std::uint32_t gValueC8A794 = 0;
-std::uint32_t gValueC8A7A0 = 0;
-std::uint32_t gValueC8A7A4 = 0;
-std::uint32_t gValueC8A7A8 = 0;
-std::uint32_t gValueC8A7AC = 0;
-std::uint32_t gValue55DDAC = 0xFFFFFFFFu;
-std::uint32_t gValueC82208 = 0;
-std::uint32_t gValueC8220C = 0;
-std::uint32_t gValueC82210 = 0;
-std::uint32_t gValueC82214 = 0;
-std::uint32_t gValueC82218 = 0;
-std::int32_t gValueFF0D4C = 0;
-std::int32_t gValue73ED44 = 0;
-std::int32_t gValue73ED48 = 0;
-std::uint32_t gValueC82224 = 0;
-std::uint32_t gValueC8221C = 0;
-std::uint16_t gValue9DAD54 = 0;
-std::uint16_t gValue9DAD56 = 0;
-std::uint16_t gValue9FB92C = 0;
-std::uint16_t gValue55D9FC = 0xFFFFu;
-std::uint16_t gValueC821D0 = 0;
-std::uint16_t gValue9EE910 = 0;
+std::int32_t gValueC8A78C = 0; // 原全局：0x00C8A78C。
+std::int32_t gValueC8A790 = 0; // 原全局：0x00C8A790。
+std::uint32_t gValueC8A794 = 0; // 原全局：0x00C8A794。
+std::uint32_t gValueC8A7A0 = 0; // 原全局：0x00C8A7A0。
+std::uint32_t gValueC8A7A4 = 0; // 原全局：0x00C8A7A4。
+std::uint32_t gValueC8A7A8 = 0; // 原全局：0x00C8A7A8。
+std::uint32_t gValueC8A7AC = 0; // 原全局：0x00C8A7AC。
+std::uint32_t gValue55DDAC = 0xFFFFFFFFu; // 原全局：0x0055DDAC。
+std::uint32_t gValueC82208 = 0; // 原全局：0x00C82208。
+std::uint32_t gValueC8220C = 0; // 原全局：0x00C8220C。
+std::uint32_t gValueC82210 = 0; // 原全局：0x00C82210。
+std::uint32_t gValueC82214 = 0; // 原全局：0x00C82214。
+std::uint32_t gValueC82218 = 0; // 原全局：0x00C82218。
+std::int32_t gValueFF0D4C = 0; // 原全局：0x00FF0D4C。
+std::int32_t gValue73ED44 = 0; // 原全局：0x0073ED44。
+std::int32_t gValue73ED48 = 0; // 原全局：0x0073ED48。
+std::uint32_t gValueC82224 = 0; // 原全局：0x00C82224。
+std::uint32_t gValueC8221C = 0; // 原全局：0x00C8221C。
+std::uint16_t gValue9DAD54 = 0; // 原全局：0x009DAD54。
+std::uint16_t gValue9DAD56 = 0; // 原全局：0x009DAD56。
+std::uint16_t gValue9FB92C = 0; // 原全局：0x009FB92C。
+std::uint16_t gValue55D9FC = 0xFFFFu; // 原全局：0x0055D9FC。
+std::uint16_t gValueC821D0 = 0; // 原全局：0x00C821D0。
+std::uint16_t gValue9EE910 = 0; // 原全局：0x009EE910。
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
-std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {};
-std::uint16_t gLastDetectedCode = 0;
-std::int32_t gValue9E0434 = 0;
+std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {}; // 原全局：0x009DEF68。
+std::uint16_t gLastDetectedCode = 0; // 原全局：0x009DAD4A。
+std::int32_t gValue9E0434 = 0; // 原全局：0x009E0434。
 
 static_assert(sizeof(gMapTileArray) == 5202);
 static_assert(sizeof(gMapObjArray) == 5202);
@@ -5207,39 +5207,39 @@ std::int32_t __cdecl Sub_468C40(
 }
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。
-std::uint32_t gValue9DAD5C = 0;
-std::uint32_t gValue9DAD68 = 0;
-std::int32_t gValue9DAD58 = 0;
-std::int32_t gValue9DAD60 = 0;
-std::int32_t gValue9DAD64 = 0;
+std::uint32_t gValue9DAD5C = 0; // 原全局：0x009DAD5C。
+std::uint32_t gValue9DAD68 = 0; // 原全局：0x009DAD68。
+std::int32_t gValue9DAD58 = 0; // 原全局：0x009DAD58。
+std::int32_t gValue9DAD60 = 0; // 原全局：0x009DAD60。
+std::int32_t gValue9DAD64 = 0; // 原全局：0x009DAD64。
 
 // 原 [0x9FB948,0xAEFB94)；供 .cut 重置、加载及后续 46CF60 共享。
-CutData9FB948 gCutData9FB948 {};
+CutData9FB948 gCutData9FB948 {}; // 原全局：0x009FB948。
 
 // 原 [0xAF10D8,0xB65A7B)；.aut 单次读取的唯一共享表。
-AutRecordAF10D8 gAutDataAF10D8[159201] {};
+AutRecordAF10D8 gAutDataAF10D8[159201] {}; // 原全局：0x00AF10D8。
 static_assert(sizeof(gAutDataAF10D8) == 477603);
 
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
-std::int32_t gValuesC35010[65536] {};
+std::int32_t gValuesC35010[65536] {}; // 原全局：0x00C35010。
 static_assert(sizeof(gValuesC35010) == 0x40000);
 
-std::uint32_t gValue55DA88 = 1;
+std::uint32_t gValue55DA88 = 1; // 原全局：0x0055DA88。
 
 namespace {
 
 // 原 55DA90/55DA94：保留可写索引及三组 S32 尺寸，不冻结为当前 54x54。
-std::int16_t gAutoMapWindowIndex55DA90 = 1;
+std::int16_t gAutoMapWindowIndex55DA90 = 1; // 原全局：0x0055DA90。
 struct AutoMapWindowSize {
     std::int32_t width;
     std::int32_t height;
 };
-AutoMapWindowSize gAutoMapWindowSizes55DA94[3] {{107, 107}, {54, 54}, {27, 27}};
+AutoMapWindowSize gAutoMapWindowSizes55DA94[3] {{107, 107}, {54, 54}, {27, 27}}; // 原全局：0x0055DA94。
 
 // 原 46C840 的清零字节数；与 51x51 世界地图缓存独立。
 constexpr std::size_t kAutoMapWindowCells = 11664;
-std::uint32_t gAutoMapColorWindow9CF6EC[kAutoMapWindowCells] {};
-std::uint8_t gAutoMapIndexWindow9DAD7C[kAutoMapWindowCells] {};
+std::uint32_t gAutoMapColorWindow9CF6EC[kAutoMapWindowCells] {}; // 原全局：0x009CF6EC。
+std::uint8_t gAutoMapIndexWindow9DAD7C[kAutoMapWindowCells] {}; // 原全局：0x009DAD7C。
 static_assert(sizeof(AutoMapWindowSize) == 8);
 static_assert(sizeof(gAutoMapColorWindow9CF6EC) == 46656);
 static_assert(sizeof(gAutoMapIndexWindow9DAD7C) == 11664);
@@ -8950,7 +8950,7 @@ const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
     }
 }
 
-std::uint32_t gActorBarsEnabled5AC490 = 0;
+std::uint32_t gActorBarsEnabled5AC490 = 0; // 原全局：0x005AC490。
 
 std::int32_t ReadPlayerImageNo() noexcept
 {

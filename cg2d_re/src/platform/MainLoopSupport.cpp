@@ -31,12 +31,12 @@ namespace cg::platform {
 namespace {
 
 // 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
-volatile std::uint32_t gKeepAliveBaselineTick = 0;
-volatile std::uint32_t gKeepAliveRecentTick = 0;
+volatile std::uint32_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
+volatile std::uint32_t gKeepAliveRecentTick = 0; // 原全局：0x0073ED20。
 
 // 原 W32 0x59E544、0x593FD0；供未来 0x4043B0/0x4048E0 在本文件共享。
-volatile std::uint32_t gValue59E544 = 0;
-volatile std::uint32_t gValue593FD0 = 0;
+volatile std::uint32_t gValue59E544 = 0; // 原全局：0x0059E544。
+volatile std::uint32_t gValue593FD0 = 0; // 原全局：0x00593FD0。
 
 // 原 W32 0x59E564；0x4043B0 独立使用，不能与其他防护计数槽复用。
 volatile std::uint32_t gProtectionCheckCounter = 0;

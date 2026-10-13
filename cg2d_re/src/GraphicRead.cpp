@@ -21,14 +21,14 @@
 
 namespace cg::resource {
 
-platform::LegacyFile* gGraphicFiles[9] {};
-std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {};
-std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {};
-std::uint8_t* gGraphicDataPtr = nullptr;
-std::uint32_t gCurrentGraphicHeight = 0;
-std::uint32_t gCurrentGraphicWidth = 0;
-std::uint32_t gCurrentGraphicPaletteSize = 0;
-std::int32_t gGraphicDataBuffer = 0;
+platform::LegacyFile* gGraphicFiles[9] {}; // 原全局：0x00927EF4。
+std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {}; // 原全局：0x00833CB0。
+std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {}; // 原全局：0x0073F138。
+std::uint8_t* gGraphicDataPtr = nullptr; // 原全局：0x01020EC0。
+std::uint32_t gCurrentGraphicHeight = 0; // 原全局：0x01020ED0。
+std::uint32_t gCurrentGraphicWidth = 0; // 原全局：0x01020ED4。
+std::uint32_t gCurrentGraphicPaletteSize = 0; // 原全局：0x01020ED8。
+std::int32_t gGraphicDataBuffer = 0; // 原全局：0x01020EE0。
 
 namespace {
 

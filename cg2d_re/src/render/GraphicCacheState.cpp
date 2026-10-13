@@ -2,7 +2,7 @@
 
 namespace cg::render {
 
-std::array<std::uint32_t, 6> gGraphicCache4Queue {};
+std::array<std::uint32_t, 6> gGraphicCache4Queue {}; // 原全局：0x0062ECA0。
 
 static_assert(sizeof(gGraphicCache4Queue) == 0x18);
 

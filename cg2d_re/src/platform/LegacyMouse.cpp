@@ -22,9 +22,9 @@
 
 namespace cg::platform {
 
-LegacyMouseState gLegacyMouseState {};
-std::uint32_t gValueD68BF0 = 0;
-std::uint32_t gValueD68DC8 = 0;
+LegacyMouseState gLegacyMouseState {}; // 原全局：0x00D68CF8。
+std::uint32_t gValueD68BF0 = 0; // 原全局：0x00D68BF0。
+std::uint32_t gValueD68DC8 = 0; // 原全局：0x00D68DC8。
 
 namespace {
 
@@ -119,8 +119,8 @@ struct WideStandardStreamsStaticInitializer {
 const WideStandardStreamsStaticInitializer gWideStandardStreamsStaticInitializer;
 
 // 原五个CRT入口共用的W8标记；保留其他位，不为各包装另建状态。
-std::uint8_t gLegacyPrimaryExitGuard1086760 = 0;
-std::uint8_t gLegacySecondaryExitGuard1087AFC = 0;
+std::uint8_t gLegacyPrimaryExitGuard1086760 = 0; // 原全局：0x01086760。
+std::uint8_t gLegacySecondaryExitGuard1087AFC = 0; // 原全局：0x01087AFC。
 
 // 原536960、54843B各只有RET；这两个回调确实不执行清理业务。
 void EmptyLegacyExit_536960()
@@ -442,13 +442,13 @@ struct LegacyPairedEmptyExitStaticInitializer {
     }
 };
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130; // 原全局：0x00553130。
 
 // SLN01原553134：独立完整SDK Init对象持有窄流生命周期。
 // 自动析构由SDK承接；不另登记旧5491F6或改Legacy计数/登记表。
 std::ios_base::Init gSdkNarrowLateInit553134;
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158; // 原全局：0x00553158。
 
 // SCL01原55315C：晚段经典对象职责由宿主完整locale持有并清理。
 // 不另登记旧54A3FA，也不将SDK对象写入Legacy三槽。
@@ -460,10 +460,10 @@ struct SdkClassicLocaleStaticInitializer final {
 };
 static_assert(std::is_trivially_destructible_v<SdkClassicLocaleStaticInitializer>);
 
-const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C;
+const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C; // 原全局：0x0055315C。
 
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160;
-const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160; // 原全局：0x00553160。
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164; // 原全局：0x00553164。
 
 } // namespace
 
@@ -794,9 +794,9 @@ std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 
 namespace cg::login::detail {
 
-std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons;
-std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons;
-std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons;
+std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons; // 原全局：0x00D68D98。
+std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons; // 原全局：0x00D68D9C。
+std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons; // 原全局：0x00D68DA0。
 
 std::int32_t ReadLegacyMouseX()
 {

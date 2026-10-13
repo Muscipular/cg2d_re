@@ -16,16 +16,16 @@ namespace cg::render {
 
 // 原 GraphicCache4@[0x62ECB8,0x73ECB8) 的 4096 项文本链记录。
 struct TextPendingRecord {
-    std::int16_t x;
-    std::int16_t y;
-    std::uint8_t color;
-    std::uint8_t fontType;
-    std::uint8_t renderMode;
-    std::uint8_t value7;
-    std::uint8_t marker;
-    char text[255];
-    std::int32_t field108;
-    std::uint32_t nextToken;
+    std::int16_t x; // 原成员偏移：+0x00。
+    std::int16_t y; // 原成员偏移：+0x02。
+    std::uint8_t color; // 原成员偏移：+0x04。
+    std::uint8_t fontType; // 原成员偏移：+0x05。
+    std::uint8_t renderMode; // 原成员偏移：+0x06。
+    std::uint8_t value7; // 原成员偏移：+0x07。
+    std::uint8_t marker; // 原成员偏移：+0x08。
+    char text[255]; // 原成员偏移：+0x09。
+    std::int32_t field108; // 原成员偏移：+0x108。
+    std::uint32_t nextToken; // 原成员偏移：+0x10C。
 };
 
 static_assert(sizeof(TextPendingRecord) == 0x110);
@@ -42,15 +42,15 @@ static_assert(offsetof(TextPendingRecord, nextToken) == 0x10C);
 
 // 原 fontLayer@0x558F50 的六项四字节记录；本目标只读取低字节 layer。
 struct TextFontLayerRecord {
-    std::uint8_t layer;
-    std::array<std::uint8_t, 3> initialZeroTail;
+    std::uint8_t layer; // 原成员偏移：+0x00。
+    std::array<std::uint8_t, 3> initialZeroTail; // 原成员偏移：+0x01。
 };
 
 static_assert(sizeof(TextFontLayerRecord) == 0x04);
 static_assert(offsetof(TextFontLayerRecord, layer) == 0x00);
 
-extern std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords;
-extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords;
+extern std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords; // 原全局：0x0062ECB8。
+extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords; // 原全局：0x00558F50。
 
 // 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。
 extern std::int32_t gHoveredTextPendingIndex;

@@ -3,7 +3,7 @@
 namespace cg {
 
 // 各槽按原始 ASCII 字符串初始化，终止 NUL 后的剩余字节全部补零。
-char gResourceNames[ResourceNameTableCount][9][128] = {
+char gResourceNames[ResourceNameTableCount][9][128] = { // 原全局：0x00556F84。
     {
         "Graphic.bin",
         "GraphicEx.bin",

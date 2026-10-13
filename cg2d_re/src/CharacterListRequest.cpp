@@ -144,7 +144,7 @@ std::int32_t WriteCharacterRecord_51B1B0(
 
 namespace cg::login {
 
-std::uint16_t gCharacterListReplyCode = 0;
+std::uint16_t gCharacterListReplyCode = 0; // 原全局：0x00DA3B26。
 
 // 原函数：0x00508910。
 std::uint32_t StartCharacterListRequest()

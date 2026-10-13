@@ -46,7 +46,7 @@ constexpr std::array<CharacterSelectUiRecord, 12> kCreationUi54E0BC {{
 }};
 
 // 54DDE8为同表第14项，不另建状态或重复表。
-constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{
+constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{ // 原常量参考：0x0054DDB0。
     100002, 100027, 100052, 100077, 100102, 100127, 100152,
     100252, 100277, 100302, 100327, 100352, 100377, 100402,
     105002, 105027, 105052, 105077, 105102, 105127, 105152,
@@ -61,7 +61,7 @@ constexpr std::array<std::int32_t, 84> kCreationMotion54DDB0 {{
     100900, 100900, 100900, 120126, 100900, 100900, 100900,
 }};
 
-constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{
+constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{ // 原常量参考：0x0055C354。
     240000, 240100, 240200, 240300, 240400, 240500, 240600,
     240700, 240800, 240900, 241000, 241100, 241200, 241300,
     241400, 241500, 241600, 241700, 241800, 241900, 242000,
@@ -70,18 +70,18 @@ constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{
     205700, 205800, 205900, 270100, 206100, 206200, 206300,
 }};
 
-constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectDraw54DF00 {{
+constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectDraw54DF00 {{ // 原常量参考：0x0054DF00。
     {{111, 169}}, {{111, 243}}, {{111, 317}}, {{179, 133}}, {{179, 207}},
     {{179, 281}}, {{179, 355}}, {{315, 169}}, {{315, 243}}, {{315, 317}},
     {{247, 133}}, {{247, 207}}, {{247, 281}}, {{247, 355}},
 }};
-constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {{
+constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {{ // 原常量参考：0x0054DF70。
     {{79, 133}}, {{79, 207}}, {{79, 281}}, {{147, 97}}, {{147, 171}},
     {{147, 245}}, {{147, 319}}, {{283, 133}}, {{283, 207}}, {{283, 281}},
     {{215, 97}}, {{215, 171}}, {{215, 245}}, {{215, 319}},
 }};
-constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}};
-constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{
+constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}}; // 原常量参考：0x0054DFE0。
+constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{ // 原常量参考：0x0054DFE8。
     {{256, 400, 65, 17, 243048, 243049, 243050}},
     {{105, 400, 66, 17, 245045, 245046, 245047}},
 }};
@@ -89,33 +89,33 @@ constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{
 constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationVersionHit54E020 {{
     {{222, 420, 18, 18}}, {{186, 420, 18, 18}},
 }};
-constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{
+constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{ // 原常量参考：0x0054E040。
     {{243033, 243034, 243035}}, {{243030, 243031, 243032}},
 }};
-constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{
+constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{ // 原常量参考：0x0054E058。
     245481, 245482, 245483,
 }};
-constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationPreviewHit54E064 {{
+constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationPreviewHit54E064 {{ // 原常量参考：0x0054E064。
     {{455, 138, 125, 125}}, {{455, 291, 125, 125}},
 }};
-constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{
+constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{ // 原常量参考：0x0054E084。
     {{458, 268, 18, 18, 243030, 243031, 243032}},
     {{559, 268, 18, 18, 243033, 243034, 243035}},
 }};
-constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{
+constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{ // 原常量参考：0x0055C3FC。
     202800, 202900, 203000, 203100, 203200, 203300, 203400,
     203500, 203600, 203700, 203800, 203900, 204000, 204100,
     200000, 200200, 200800, 201000, 201200, 201400, 201600,
     200400, 200600, 201800, 202000, 202200, 202400, 202600,
 }};
-constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{
+constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参考：0x0055C46C。
     30000, 34000, 38000, 46000, 42000, 50000, 54000,
     70000, 74000, 78000, 82000, 86000, 90000, 94000,
     33100, 33100, 33100, 33100, 33100, 33100, 33100,
     33101, 33101, 33101, 33101, 33101, 33101, 33101,
 }};
 
-constexpr char kCreationConfirm55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
+constexpr char kCreationConfirm55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0055C9B0。
 constexpr std::array<const char*, 6> kCreationErrors {{
     "\x9B\x5D\xD3\xD0\xDD\x94\xC8\xEB\xD0\xD5\xC3\xFB\xA3\xA1", // 55C9A0。
     "\xBD\xC7\xC9\xAB\xC3\xFB\xB7\x51\xD6\xD8\xD1\x7D", // 55C918。
@@ -151,21 +151,21 @@ std::int32_t MapCreationGraphic(const std::int32_t base, const std::int32_t mode
 
 // 原14个离散备份W32与9A4F38输入备份，仅4642C0/464380直接访问。
 struct CreationSnapshot {
-    std::int32_t value9A50A4;
-    std::int32_t value9A4B98;
-    std::int32_t value9A50A0;
-    std::int32_t value9A5670;
-    std::int32_t value9A4E98;
-    std::int32_t value9A4E84;
-    std::int32_t value9A50E4;
-    std::int32_t value9A60E8;
-    std::int32_t value9A5094;
-    std::int32_t value9A57E8;
-    std::int32_t value9A61F4;
-    std::int32_t value9A554C;
-    std::int32_t value9A5664;
-    std::int32_t value9A5954;
-    input::InputContext input9A4F38;
+    std::int32_t value9A50A4; // 来源全局：0x009A50A4。
+    std::int32_t value9A4B98; // 来源全局：0x009A4B98。
+    std::int32_t value9A50A0; // 来源全局：0x009A50A0。
+    std::int32_t value9A5670; // 来源全局：0x009A5670。
+    std::int32_t value9A4E98; // 来源全局：0x009A4E98。
+    std::int32_t value9A4E84; // 来源全局：0x009A4E84。
+    std::int32_t value9A50E4; // 来源全局：0x009A50E4。
+    std::int32_t value9A60E8; // 来源全局：0x009A60E8。
+    std::int32_t value9A5094; // 来源全局：0x009A5094。
+    std::int32_t value9A57E8; // 来源全局：0x009A57E8。
+    std::int32_t value9A61F4; // 来源全局：0x009A61F4。
+    std::int32_t value9A554C; // 来源全局：0x009A554C。
+    std::int32_t value9A5664; // 来源全局：0x009A5664。
+    std::int32_t value9A5954; // 来源全局：0x009A5954。
+    input::InputContext input9A4F38; // 来源全局：0x009A4F38。
 };
 
 CreationSnapshot gCreationSnapshot {};
@@ -181,11 +181,11 @@ struct CreationRequestProgress {
 };
 
 CreationRequestProgress gCreationRequestProgress {};
-constexpr char kCreationProgress55C9C0[] = "\x84\x93\xD4\xEC\xBD\xC7\xC9\xAB\xD6\xD0";
+constexpr char kCreationProgress55C9C0[] = "\x84\x93\xD4\xEC\xBD\xC7\xC9\xAB\xD6\xD0"; // 原常量参考：0x0055C9C0。
 static_assert(sizeof(kCreationProgress55C9C0) == 11);
 
-std::uint8_t gCreationRestore9A6EB8 = 0; // 原创建场景同次调用的恢复回边标志。
-constexpr char kCreationDuplicate55C980[] =
+std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
+constexpr char kCreationDuplicate55C980[] = // 原常量参考：0x0055C980。
     "\xD2\xD1\xBD\x9B\xD3\xD0\xCF\xE0\xCD\xAC\xC3\xFB\xD7\xD6"
     "\xB5\xC4\xBD\xC7\xC9\xAB\xB4\xE6\xD4\xDA\xC1\xCB\xA3\xA1";
 static_assert(sizeof(kCreationDuplicate55C980) == 29);
@@ -1203,50 +1203,50 @@ std::int32_t Sub_464290(const std::int32_t* const rectangle)
         left, top, left + width, top + height, -1);
 }
 
-char gText9A4EAC[128] {};
+char gText9A4EAC[128] {}; // 原全局：0x009A4EAC。
 
 } // namespace cg::character_select::detail
 
 namespace cg::character_select::state {
 
-std::uint8_t gPukVersion = 0;
-std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF;
-std::uint8_t gValue9A57E0 = 0;
-std::uint8_t gValue9A4CFC = 0;
-std::uint8_t gValue9A5B00 = 0;
+std::uint8_t gPukVersion = 0; // 原全局：0x009A6E1C。
+std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF; // 原全局：0x0058B6A0。
+std::uint8_t gValue9A57E0 = 0; // 原全局：0x009A57E0。
+std::uint8_t gValue9A4CFC = 0; // 原全局：0x009A4CFC。
+std::uint8_t gValue9A5B00 = 0; // 原全局：0x009A5B00。
 std::array<login::YobiAction*, 2> gCreateActions {};
-input::InputContext gCreationInput9A51E8 {};
-std::uint8_t gValue9A5E78 = 0;
-std::int32_t gValue9A5FA4 = 0;
-std::int32_t gValue9A5FA0 = 0;
-std::uint32_t gValue9A5FD4 = 0;
-std::uint32_t gValue9A50D0 = 0;
-std::uint8_t gValue9A5FD8 = 0;
-std::uint8_t gValue9A5668 = 0;
-std::uint8_t gValue9A4B80 = 0;
-std::uint8_t gValue9A4D04 = 0;
-std::uint8_t gValue9A50C8 = 0;
-std::uint8_t gValue9A4B88 = 0;
-std::int32_t gValue9A5AFC = 0;
-std::int32_t gValueF633F0 = 0;
-std::int32_t gValueF7CA00 = 0;
-std::int32_t gValueF633EC = 0;
-std::int32_t gValueF633F4 = 0;
-std::int32_t gValueDE0AF8 = 0;
-std::int32_t gValueDE03F4 = 0;
-std::int32_t gValueFF03D0 = 0;
-std::int32_t gValueF7C948 = 0;
-std::int32_t gValueDE0B04 = 0;
-std::int32_t gValueDE0AFC = 0;
-std::array<char, 24> gCreationNameFF0D18 {};
+input::InputContext gCreationInput9A51E8 {}; // 原全局：0x009A51E8。
+std::uint8_t gValue9A5E78 = 0; // 原全局：0x009A5E78。
+std::int32_t gValue9A5FA4 = 0; // 原全局：0x009A5FA4。
+std::int32_t gValue9A5FA0 = 0; // 原全局：0x009A5FA0。
+std::uint32_t gValue9A5FD4 = 0; // 原全局：0x009A5FD4。
+std::uint32_t gValue9A50D0 = 0; // 原全局：0x009A50D0。
+std::uint8_t gValue9A5FD8 = 0; // 原全局：0x009A5FD8。
+std::uint8_t gValue9A5668 = 0; // 原全局：0x009A5668。
+std::uint8_t gValue9A4B80 = 0; // 原全局：0x009A4B80。
+std::uint8_t gValue9A4D04 = 0; // 原全局：0x009A4D04。
+std::uint8_t gValue9A50C8 = 0; // 原全局：0x009A50C8。
+std::uint8_t gValue9A4B88 = 0; // 原全局：0x009A4B88。
+std::int32_t gValue9A5AFC = 0; // 原全局：0x009A5AFC。
+std::int32_t gValueF633F0 = 0; // 原全局：0x00F633F0。
+std::int32_t gValueF7CA00 = 0; // 原全局：0x00F7CA00。
+std::int32_t gValueF633EC = 0; // 原全局：0x00F633EC。
+std::int32_t gValueF633F4 = 0; // 原全局：0x00F633F4。
+std::int32_t gValueDE0AF8 = 0; // 原全局：0x00DE0AF8。
+std::int32_t gValueDE03F4 = 0; // 原全局：0x00DE03F4。
+std::int32_t gValueFF03D0 = 0; // 原全局：0x00FF03D0。
+std::int32_t gValueF7C948 = 0; // 原全局：0x00F7C948。
+std::int32_t gValueDE0B04 = 0; // 原全局：0x00DE0B04。
+std::int32_t gValueDE0AFC = 0; // 原全局：0x00DE0AFC。
+std::array<char, 24> gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 std::array<login::YobiAction*, 2> gPreviewActions {};
-login::YobiAction* gCharacterModalAction = nullptr;
-std::int16_t gPendingCharacterCount = 0;
-std::int32_t gSelectedGraphicNo = 0;
-std::uint16_t gCharacterEntryState = 0;
-std::int32_t gPreviewToggleState = 0;
-char gSelectedCharacterName[256] {};
-char gDeleteCharacterName[132] {};
+login::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
+std::int16_t gPendingCharacterCount = 0; // 原全局：0x00F7CA06。
+std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
+std::uint16_t gCharacterEntryState = 0; // 原全局：0x009A6E10。
+std::int32_t gPreviewToggleState = 0; // 原全局：0x009A6E14。
+char gSelectedCharacterName[256] {}; // 原全局：0x00DA391C。
+char gDeleteCharacterName[132] {}; // 原全局：0x00DA3A9C。
 
 static_assert(sizeof(gCreateActions) == 2 * sizeof(login::YobiAction*));
 static_assert(sizeof(gPreviewActions) == 2 * sizeof(login::YobiAction*));

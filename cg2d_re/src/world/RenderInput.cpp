@@ -20,10 +20,10 @@
 
 namespace cg::world::detail {
 
-std::int32_t gValueD460C8 = 0;
+std::int32_t gValueD460C8 = 0; // 原全局：0x00D460C8。
 // 原.data两说明坐标；本体按Y→X独立读取，保持S16和已加载初值。
-std::int16_t gImeDescriptionX5595EC = 542;
-std::int16_t gImeDescriptionY5595F0 = 461;
+std::int16_t gImeDescriptionX5595EC = 542; // 原全局：0x005595EC。
+std::int16_t gImeDescriptionY5595F0 = 461; // 原全局：0x005595F0。
 
 namespace {
 

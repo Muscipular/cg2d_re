@@ -5,9 +5,9 @@
 namespace cg::resource {
 
 // 原 9A4A50、D2D5FC、CC3E68；其他消费者须复用同一槽。
-extern std::uint32_t gValue9A4A50;
-extern std::uint32_t gValueD2D5FC;
-extern std::uint32_t gValueCC3E68;
+extern std::uint32_t gValue9A4A50; // 原全局：0x009A4A50。
+extern std::uint32_t gValueD2D5FC; // 原全局：0x00D2D5FC。
+extern std::uint32_t gValueCC3E68; // 原全局：0x00CC3E68。
 
 // 原 4574E0：探测路径、发布四块、联合失败或按序清零。
 std::int32_t GraphicAlloc_4574E0(); // GAP01：原容量/返回取样及四块pub/失败清理/清零原序，完整owner待。

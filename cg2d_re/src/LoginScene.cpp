@@ -229,7 +229,7 @@ constexpr std::array<const char*, 20> kServerLabels {
 };
 
 struct LoginUiRecord {
-    std::array<std::int32_t, 7> values;
+    std::array<std::int32_t, 7> values; // 原成员偏移：+0x00。
 };
 
 static_assert(sizeof(LoginUiRecord) == 0x1C);
@@ -441,14 +441,14 @@ bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32
 
 namespace cg::login {
 
-std::int32_t gValueD69794 = 0;
-std::array<LoginServerRecord, 800> gValueD69798 {};
-std::array<std::int32_t, 60> gValueD9F2D4 {};
-std::int16_t gValue58AD94 = -1;
-char gValueDA38DC[64] {};
-char gValueDA3A1C[64] {};
-char gValueDA3A5C[64] {};
-std::int16_t gValueDA3B24 = 0;
+std::int32_t gValueD69794 = 0; // 原全局：0x00D69794。
+std::array<LoginServerRecord, 800> gValueD69798 {}; // 原全局：0x00D69798。
+std::array<std::int32_t, 60> gValueD9F2D4 {}; // 原全局：0x00D9F2D4。
+std::int16_t gValue58AD94 = -1; // 原全局：0x0058AD94。
+char gValueDA38DC[64] {}; // 原全局：0x00DA38DC。
+char gValueDA3A1C[64] {}; // 原全局：0x00DA3A1C。
+char gValueDA3A5C[64] {}; // 原全局：0x00DA3A5C。
+std::int16_t gValueDA3B24 = 0; // 原全局：0x00DA3B24。
 
 static_assert(sizeof(gValueD69798) == 800 * 0xC1);
 static_assert(sizeof(gValueD9F2D4) == 60 * sizeof(std::int32_t));

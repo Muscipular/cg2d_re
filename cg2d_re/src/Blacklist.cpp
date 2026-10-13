@@ -63,10 +63,10 @@ std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 
 } // namespace
 
-RecordTable gRecords {};
-PathBuffer gPath {};
-std::int32_t gCursor = 0;
-std::int32_t gCurrentFileId = -1;
+RecordTable gRecords {}; // 原全局：0x00592FA8。
+PathBuffer gPath {}; // 原全局：0x0059364C。
+std::int32_t gCursor = 0; // 原全局：0x0059384C。
+std::int32_t gCurrentFileId = -1; // 原全局：0x005531A0。
 
 static_assert(sizeof(Record) == 17);
 static_assert(sizeof(RecordTable) == 0x6A4);

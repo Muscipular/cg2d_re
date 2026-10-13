@@ -30,7 +30,7 @@ static_assert(sizeof(kSuccessfulResult) == 11);
 
 namespace cg::login {
 
-std::uint16_t gCharacterCreationReplyCode = 0;
+std::uint16_t gCharacterCreationReplyCode = 0; // 原全局：0x00DA3B2A。
 
 // 原函数：0x00508E00。
 std::uint32_t StartCharacterCreationRequest()

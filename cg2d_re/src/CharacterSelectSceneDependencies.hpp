@@ -17,20 +17,20 @@ namespace cg::character_select::detail {
 
 // 原 UI 记录严格由 7 个 32 位整数组成；接口保留强类型原生指针。
 struct CharacterSelectUiRecord {
-    std::array<std::int32_t, 7> values;
+    std::array<std::int32_t, 7> values; // 原成员偏移：+0x00。
 };
 
 static_assert(sizeof(CharacterSelectUiRecord) == 0x1C);
 
 // sub_462090 的六个定宽坐标字段和一个原生文本指针。
 struct CharacterModalUiRecord {
-    std::int32_t textX;
-    std::int32_t textY;
-    std::int32_t left;
-    std::int32_t top;
-    std::int32_t width;
-    std::int32_t height;
-    const char* text;
+    std::int32_t textX; // 原成员偏移：+0x00。
+    std::int32_t textY; // 原成员偏移：+0x04。
+    std::int32_t left; // 原成员偏移：+0x08。
+    std::int32_t top; // 原成员偏移：+0x0C。
+    std::int32_t width; // 原成员偏移：+0x10。
+    std::int32_t height; // 原成员偏移：+0x14。
+    const char* text; // 原成员偏移：+0x18。
 };
 
 static_assert(offsetof(CharacterModalUiRecord, textX) == 0x00);
@@ -152,7 +152,7 @@ static_assert(sizeof(gVersionPayload9A5C10) == 1);
 
 // 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。
 // 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。
-extern char gText9A4EAC[128];
+extern char gText9A4EAC[128]; // 原全局：0x009A4EAC。
 static_assert(sizeof(gText9A4EAC) == 128);
 
 } // namespace cg::character_select::detail

@@ -234,7 +234,7 @@ private:
 
 namespace cg::platform {
 
-WNDCLASSA gWindowClass {};
+WNDCLASSA gWindowClass {}; // 原全局：0x009A6ED0。
 
 } // namespace cg::platform
 

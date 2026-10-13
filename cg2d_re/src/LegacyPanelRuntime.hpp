@@ -14,14 +14,14 @@ namespace cg::login::detail {
 
 // 原5035E0的32B图形按钮；前六字段与503990矩形合同相同，末尾是图号而非文本。
 struct LegacyPanelButtonRecord {
-    std::int32_t imageX;
-    std::int32_t imageY;
-    std::int32_t left;
-    std::int32_t top;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t normalImage;
-    std::int32_t pressedImage;
+    std::int32_t imageX; // 原成员偏移：+0x00。
+    std::int32_t imageY; // 原成员偏移：+0x04。
+    std::int32_t left; // 原成员偏移：+0x08。
+    std::int32_t top; // 原成员偏移：+0x0C。
+    std::int32_t width; // 原成员偏移：+0x10。
+    std::int32_t height; // 原成员偏移：+0x14。
+    std::int32_t normalImage; // 原成员偏移：+0x18。
+    std::int32_t pressedImage; // 原成员偏移：+0x1C。
 };
 
 // 面板按钮只按原top/left/height/width次序借矩形；旧目录拆分共用同一帮助合同。
@@ -41,7 +41,7 @@ inline std::int32_t QueryPanelButtonState(const LegacyPanelButtonRecord* const b
 // 原CA0478目录的单条96B消费布局；文本保持原字节，数组总容量/生产尚未确定。
 struct LegacyPetSkillCatalogRecord {
     std::uint16_t used; // +00：非零才参与旧58行命中/绘制。
-    std::array<std::byte, 2> reserved02;
+    std::array<std::byte, 2> reserved02; // 原成员偏移：+0x02。
     std::int32_t value04; // +04：原S32显示值。
     std::int32_t price08; // +08：原S32费用。
     std::array<char, 25> name; // +0C：名称起点；不额外截断或补字符串终止符。
@@ -58,52 +58,52 @@ static_assert(offsetof(LegacyPetSkillCatalogRecord, reserved5F) == 0x5F);
 
 // CA0478数组容量/定义/生产仍待；图号/页数已有真实PE填零初值存储，运行时生产仍待。
 extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];
-extern std::int32_t gLegacyPetSkillCatalogImageCC3E64;
-extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
-extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 唯一存储在LegacyCatalogWindows；旧58翻页写入。
-extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
-extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
-extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
-extern std::int32_t gLegacyShopChoiceModeC9A94C; // 旧62独立S32模式，生产/未写第二命令仍待事实。
+extern std::int32_t gLegacyPetSkillCatalogImageCC3E64; // 原全局：0x00CC3E64。
+extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84; // 原全局：0x00C8AF84。
+extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 原全局：0x00D45F74。 唯一存储在LegacyCatalogWindows；旧58翻页写入。
+extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 原全局：0x00C8AF70。 旧58发布相对行，旧59/60/61共用。
+extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 原全局：0x00D2E818。 旧58错误说明选择，不属于邻接确认表。
+extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 原全局：0x00C8A94C。 旧59发送后发布的候选下标，旧60/61消费。
+extern std::int32_t gLegacyShopChoiceModeC9A94C; // 原全局：0x00C9A94C。 旧62独立S32模式，生产/未写第二命令仍待事实。
 
 // 名单容量/定义/生产仍待；总数/页数已有真实PE填零初值存储，不推运行时生产。
-extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
-extern std::int32_t gLegacyTradeTargetCountD30134;
-extern std::int32_t gLegacyTradeTargetPageCountCF46D0;
-extern std::int32_t gLegacyTradeTargetPageCC3208; // 唯一存储在LegacyCatalogWindows；旧51翻页写入。
+extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[]; // 原全局：0x00CB1D1C。
+extern std::int32_t gLegacyTradeTargetCountD30134; // 原全局：0x00D30134。
+extern std::int32_t gLegacyTradeTargetPageCountCF46D0; // 原全局：0x00CF46D0。
+extern std::int32_t gLegacyTradeTargetPageCC3208; // 原全局：0x00CC3208。 唯一存储在LegacyCatalogWindows；旧51翻页写入。
 
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {
-    std::int32_t image;
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t width;
-    std::int32_t height;
-    const char* hint;
+    std::int32_t image; // 原成员偏移：+0x00。
+    std::int32_t x; // 原成员偏移：+0x04。
+    std::int32_t y; // 原成员偏移：+0x08。
+    std::int32_t width; // 原成员偏移：+0x0C。
+    std::int32_t height; // 原成员偏移：+0x10。
+    const char* hint; // 原成员偏移：+0x14。
 };
 
 // 原503160/503440共用196B记录；新端不使用原偏移遍历指针字段。
 struct LegacyPanelRecord {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t width;
-    std::int32_t height;
-    std::uint32_t id;
-    std::array<std::int32_t, 5> backgrounds;
-    std::array<LegacyPanelTabRecord, 5> tabs;
-    std::int8_t selected;
-    std::int8_t hovered;
-    std::array<std::byte, 2> reservedA2;
-    LegacyPanelButtonRecord closeButton;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t width; // 原成员偏移：+0x08。
+    std::int32_t height; // 原成员偏移：+0x0C。
+    std::uint32_t id; // 原成员偏移：+0x10。
+    std::array<std::int32_t, 5> backgrounds; // 原成员偏移：+0x14。
+    std::array<LegacyPanelTabRecord, 5> tabs; // 原成员偏移：+0x28。
+    std::int8_t selected; // 原成员偏移：+0xA0。
+    std::int8_t hovered; // 原成员偏移：+0xA1。
+    std::array<std::byte, 2> reservedA2; // 原成员偏移：+0xA2。
+    LegacyPanelButtonRecord closeButton; // 原成员偏移：+0xA4。
 };
 
 // 原5030A0/503120共用40B文字按钮；三个原指针分别保留正文/回调/提示身份。
 struct LegacyPanelTextButtonRecord {
-    character_select::detail::CharacterModalUiRecord label;
-    std::int32_t (*callback)();
-    std::uint8_t color;
-    std::array<std::byte, 3> reserved21;
-    const char* hint;
+    character_select::detail::CharacterModalUiRecord label; // 原成员偏移：+0x00。
+    std::int32_t (*callback)(); // 原成员偏移：+0x1C。
+    std::uint8_t color; // 原成员偏移：+0x20。
+    std::array<std::byte, 3> reserved21; // 原成员偏移：+0x21。
+    const char* hint; // 原成员偏移：+0x24。
 };
 
 static_assert(sizeof(LegacyPanelButtonRecord) == 32);
@@ -118,25 +118,25 @@ static_assert(offsetof(LegacyPanelTextButtonRecord, color) == 40);
 static_assert(offsetof(LegacyPanelTextButtonRecord, hint) == 48);
 static_assert(sizeof(LegacyPanelTextButtonRecord) == 56);
 
-extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函数借用。
-extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是同源selected。
-extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 旧选择编号2；585870是三页共享selected。
-extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
-extern std::int32_t gLegacyRequiredFpCC31D8; // 4EF0F0/4FF650生产，旧选择34显示；不复制玩家FP。
-extern std::int32_t gLegacyItemWorkSelection584394; // 旧物品加工槽号，初值-1，不是现代选中物品状态。
-extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定64B复制目标。
-extern std::int32_t gLegacyItemWorkImageCC320C;
-extern std::int32_t gLegacyCraftPhaseD67D00; // 旧选择26/27共享，不是现代窗口11状态。
-extern std::int32_t gLegacyGemPhaseD68A8C; // 旧29/30共享阶段，独立于D68A7C字符串探针。
-extern std::int32_t gLegacyRecipePageD67D0C; // 旧25页号；4FF650真实复位写同一槽。
-extern std::int32_t gLegacyInventoryValueC8B388; // 旧14特殊使用只见写0，不猜其他用途。
-extern std::int32_t gLegacySpecialUseItemC8A96C; // 旧79的原物品槽/列/行。
-extern std::int32_t gLegacySpecialUseColumnCF4AA8;
-extern std::int32_t gLegacySpecialUseRowD2D614;
-extern std::int32_t gLegacySplitSourceCC3E60; // 旧16拆分，来源/目标/数量非现代窗口42状态。
-extern std::int32_t gLegacySplitTargetCC21DC;
-extern std::int32_t gLegacySplitAmountC8A948;
-extern std::int32_t gLegacyLastUsedItemCB01EC; // 4E4460后续消费的真实使用来源。
+extern std::uint32_t gLegacyPanelHitIdD046C0; // 原全局：0x00D046C0。 503160写入，旧面板父函数借用。
+extern LegacyPanelRecord gLegacySkillList585708; // 原全局：0x00585708。 选择编号18；5857A8是同源selected。
+extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 原全局：0x005857D0。 旧选择编号2；585870是三页共享selected。
+extern std::uint8_t gLegacySkillPendingD67C48; // 原全局：0x00D67C48。 500370清零，旧技能/加工父入口共享。
+extern std::int32_t gLegacyRequiredFpCC31D8; // 原全局：0x00CC31D8。 4EF0F0/4FF650生产，旧选择34显示；不复制玩家FP。
+extern std::int32_t gLegacyItemWorkSelection584394; // 原全局：0x00584394。 旧物品加工槽号，初值-1，不是现代选中物品状态。
+extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 原全局：0x00CC40D8。 4F24A0/4F2A30的固定64B复制目标。
+extern std::int32_t gLegacyItemWorkImageCC320C; // 原全局：0x00CC320C。
+extern std::int32_t gLegacyCraftPhaseD67D00; // 原全局：0x00D67D00。 旧选择26/27共享，不是现代窗口11状态。
+extern std::int32_t gLegacyGemPhaseD68A8C; // 原全局：0x00D68A8C。 旧29/30共享阶段，独立于D68A7C字符串探针。
+extern std::int32_t gLegacyRecipePageD67D0C; // 原全局：0x00D67D0C。 旧25页号；4FF650真实复位写同一槽。
+extern std::int32_t gLegacyInventoryValueC8B388; // 原全局：0x00C8B388。 旧14特殊使用只见写0，不猜其他用途。
+extern std::int32_t gLegacySpecialUseItemC8A96C; // 原全局：0x00C8A96C。 旧79的原物品槽/列/行。
+extern std::int32_t gLegacySpecialUseColumnCF4AA8; // 原全局：0x00CF4AA8。
+extern std::int32_t gLegacySpecialUseRowD2D614; // 原全局：0x00D2D614。
+extern std::int32_t gLegacySplitSourceCC3E60; // 原全局：0x00CC3E60。 旧16拆分，来源/目标/数量非现代窗口42状态。
+extern std::int32_t gLegacySplitTargetCC21DC; // 原全局：0x00CC21DC。
+extern std::int32_t gLegacySplitAmountC8A948; // 原全局：0x00C8A948。
+extern std::int32_t gLegacyLastUsedItemCB01EC; // 原全局：0x00CB01EC。 4E4460后续消费的真实使用来源。
 // 原402020旧日志载入；0打开失败，否则S32总页数，1000B局部按D01仅入口清零。
 std::int32_t ReloadLegacyLog_402020();
 // 原4021A0旧98完整页面；正常W32/关闭原生InputContext地址返回，外层旧路由仍待。

@@ -55,10 +55,10 @@ static_assert(offsetof(AnimeCacheRecord, buffer) == 0x20);
 
 // 原 9A4A58/9A4A60/9A4A4C；GraphicAlloc 分配主表，AnimeInit 发布元素数。
 // 原getIndex仍将元素数作为包含上界；不因此扩分配容量或补一过尾零记录。
-extern AnimateRecord* gAnimateRecords9A4A58;
-extern AnimeCacheRecord* gAnimateCache9A4A5C;
-extern std::int32_t gAnimateCount9A4A60;
-extern std::int32_t gMaxAnimateCount9A4A4C;
+extern AnimateRecord* gAnimateRecords9A4A58; // 原全局：0x009A4A58。
+extern AnimeCacheRecord* gAnimateCache9A4A5C; // 原全局：0x009A4A5C。
+extern std::int32_t gAnimateCount9A4A60; // 原全局：0x009A4A60。
+extern std::int32_t gMaxAnimateCount9A4A4C; // 原全局：0x009A4A4C。
 
 // 原CRT 553060及完整复制叶：9A4A50单次快照写入独立9A4A48，返回同一W32。
 // 原函数：0x0045B370。

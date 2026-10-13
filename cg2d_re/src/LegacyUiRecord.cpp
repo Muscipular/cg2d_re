@@ -189,26 +189,26 @@ void DrawLegacyUiRecord_45EFD0(
 
 namespace cg::login::detail {
 
-std::uint32_t gLegacyPanelHitIdD046C0 = 0;
-LegacyPanelRecord gLegacySkillList585708 {
+std::uint32_t gLegacyPanelHitIdD046C0 = 0; // 原全局：0x00D046C0。
+LegacyPanelRecord gLegacySkillList585708 { // 原全局：0x00585708。
     0, 0, 272, 438, 18, {0x58DE, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::uint8_t gLegacySkillPendingD67C48 = 0;
-std::int32_t gLegacyRequiredFpCC31D8 = 0;
-std::int32_t gLegacyItemWorkSelection584394 = -1;
-std::array<char, 64> gLegacyItemWorkNameCC40D8 {};
-std::int32_t gLegacyItemWorkImageCC320C = 0;
-std::int32_t gLegacyCraftPhaseD67D00 = 0;
-std::int32_t gLegacyGemPhaseD68A8C = 0;
-std::int32_t gLegacyRecipePageD67D0C = 0;
-std::int32_t gLegacyInventoryValueC8B388 = 0;
-std::int32_t gLegacySpecialUseItemC8A96C = 0;
-std::int32_t gLegacySpecialUseColumnCF4AA8 = 0;
-std::int32_t gLegacySpecialUseRowD2D614 = 0;
-std::int32_t gLegacySplitSourceCC3E60 = 0;
-std::int32_t gLegacySplitTargetCC21DC = 0;
-std::int32_t gLegacySplitAmountC8A948 = 0;
-std::int32_t gLegacyLastUsedItemCB01EC = 0;
+std::uint8_t gLegacySkillPendingD67C48 = 0; // 原全局：0x00D67C48。
+std::int32_t gLegacyRequiredFpCC31D8 = 0; // 原全局：0x00CC31D8。
+std::int32_t gLegacyItemWorkSelection584394 = -1; // 原全局：0x00584394。
+std::array<char, 64> gLegacyItemWorkNameCC40D8 {}; // 原全局：0x00CC40D8。
+std::int32_t gLegacyItemWorkImageCC320C = 0; // 原全局：0x00CC320C。
+std::int32_t gLegacyCraftPhaseD67D00 = 0; // 原全局：0x00D67D00。
+std::int32_t gLegacyGemPhaseD68A8C = 0; // 原全局：0x00D68A8C。
+std::int32_t gLegacyRecipePageD67D0C = 0; // 原全局：0x00D67D0C。
+std::int32_t gLegacyInventoryValueC8B388 = 0; // 原全局：0x00C8B388。
+std::int32_t gLegacySpecialUseItemC8A96C = 0; // 原全局：0x00C8A96C。
+std::int32_t gLegacySpecialUseColumnCF4AA8 = 0; // 原全局：0x00CF4AA8。
+std::int32_t gLegacySpecialUseRowD2D614 = 0; // 原全局：0x00D2D614。
+std::int32_t gLegacySplitSourceCC3E60 = 0; // 原全局：0x00CC3E60。
+std::int32_t gLegacySplitTargetCC21DC = 0; // 原全局：0x00CC21DC。
+std::int32_t gLegacySplitAmountC8A948 = 0; // 原全局：0x00C8A948。
+std::int32_t gLegacyLastUsedItemCB01EC = 0; // 原全局：0x00CB01EC。
 // 原PE.data载入填零；图号/页数运行时生产仍待，不在开页时重置。
 
 
@@ -216,7 +216,7 @@ std::int32_t gLegacyLastUsedItemCB01EC = 0;
 
 
 
-std::int32_t gLegacyShopChoiceModeC9A94C = 0; // 原PE虚拟零S32；运行时生产仍须事实。
+std::int32_t gLegacyShopChoiceModeC9A94C = 0; // 原全局：0x00C9A94C。 原PE虚拟零S32；运行时生产仍须事实。
 // 原PE.data载入填零；人数/页数运行时生产仍待，不借现代名单计数。
 
 
@@ -228,51 +228,51 @@ namespace {
 // 装填可沿原顺序写入第17行并覆盖相邻已证字段，不扩大显示容量或新增裁剪。
 struct LegacyLogStorage {
     std::array<char, 1040> rows;
-    std::int32_t time593E10;
-    std::array<std::byte, 4> reserved593E14;
-    input::InputContext input593E18;
+    std::int32_t time593E10; // 原全局：0x00593E10。
+    std::array<std::byte, 4> reserved593E14; // 原全局：0x00593E14。
+    input::InputContext input593E18; // 原全局：0x00593E18。
 };
 static_assert(offsetof(LegacyLogStorage, time593E10) == 1040);
 static_assert(offsetof(LegacyLogStorage, input593E18) == 1048);
 static_assert(sizeof(LegacyLogStorage) == 1396);
-LegacyLogStorage gLegacyLogStorage593A00 {}; // PE.data未载入尾，沿既有节头填零证据。
-LegacyPanelRecord gLegacyLogPanel553440 {
+LegacyLogStorage gLegacyLogStorage593A00 {}; // 原全局：0x00593A00。 PE.data未载入尾，沿既有节头填零证据。
+LegacyPanelRecord gLegacyLogPanel553440 { // 原全局：0x00553440。
     20, 10, 600, 438, 98, {31501, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyLogPageCount553504 = 1;
-std::int32_t gLegacyLogPage553508 = 1;
-platform::LegacyFile* gLegacyLogFile593F78 = nullptr;
-std::int32_t gLegacyLogError593F7C = 0;
-std::int32_t gLegacyLogLineCount593F80 = 0;
-platform::LegacyTm53B8C6* gLegacyLogCalendar593F88 = nullptr; // 借用原共享localtime九槽。
-input::InputContext* gLegacyLogInput593F8C = nullptr; // 借同一连续owner，不另建输入副本。
-constexpr char kLegacyLogFailure55358C[] = "\x9F\x6F\xB7\xA8\xE9\x5F\x86\xA2\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49";
-constexpr char kLegacyLogAfterDay553534[] = "\xE1\xE1\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3";
-constexpr char kLegacyLogBeforeDay553544[] = "\xC7\xB0\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3";
-constexpr char kLegacyLogWrite553554[] = "\x8C\x91\xC8\xEB\xC8\xD5\xD5\x49\xA1\xA3";
-constexpr char kLegacyLogLast553560[] = "\xD7\xEE\xE1\xE1\xD2\xBB\xED\x93";
-constexpr char kLegacyLogFirst55356C[] = "\xB5\xDA\xD2\xBB\xED\x93";
-constexpr char kLegacyLogNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyLogPrevious553580[] = "\xC9\xCF\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyLogWriteFormat5535A0[] = "\x0A\x20%02d:%02d:%02d\x81\x40%s";
-constexpr char kLegacyLogClose55331C[] = "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3";
+std::int32_t gLegacyLogPageCount553504 = 1; // 原全局：0x00553504。
+std::int32_t gLegacyLogPage553508 = 1; // 原全局：0x00553508。
+platform::LegacyFile* gLegacyLogFile593F78 = nullptr; // 原全局：0x00593F78。
+std::int32_t gLegacyLogError593F7C = 0; // 原全局：0x00593F7C。
+std::int32_t gLegacyLogLineCount593F80 = 0; // 原全局：0x00593F80。
+platform::LegacyTm53B8C6* gLegacyLogCalendar593F88 = nullptr; // 原全局：0x00593F88。 借用原共享localtime九槽。
+input::InputContext* gLegacyLogInput593F8C = nullptr; // 原全局：0x00593F8C。 借同一连续owner，不另建输入副本。
+constexpr char kLegacyLogFailure55358C[] = "\x9F\x6F\xB7\xA8\xE9\x5F\x86\xA2\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49"; // 原常量参考：0x0055358C。
+constexpr char kLegacyLogAfterDay553534[] = "\xE1\xE1\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553534。
+constexpr char kLegacyLogBeforeDay553544[] = "\xC7\xB0\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553544。
+constexpr char kLegacyLogWrite553554[] = "\x8C\x91\xC8\xEB\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553554。
+constexpr char kLegacyLogLast553560[] = "\xD7\xEE\xE1\xE1\xD2\xBB\xED\x93"; // 原常量参考：0x00553560。
+constexpr char kLegacyLogFirst55356C[] = "\xB5\xDA\xD2\xBB\xED\x93"; // 原常量参考：0x0055356C。
+constexpr char kLegacyLogNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553574。
+constexpr char kLegacyLogPrevious553580[] = "\xC9\xCF\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553580。
+constexpr char kLegacyLogWriteFormat5535A0[] = "\x0A\x20%02d:%02d:%02d\x81\x40%s"; // 原常量参考：0x005535A0。
+constexpr char kLegacyLogClose55331C[] = "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0055331C。
 
 // 原旧53/54共享状态；虚拟零仅承载映像初值，布局/文本/输入生产仍待。
-LegacyPanelRecord gLegacyDialogPanelD2D9C8 {};
-LegacyPanelRecord gLegacyLineDialogPanelCC4150 {};
-std::int32_t gLegacyDialogLineCountCA043C = 0;
-std::int32_t gLegacyDialogOffsetXCAFEAC = 0;
-std::int32_t gLegacyDialogOffsetYCAFEA8 = 0;
-std::int32_t gLegacyDialogColumnsCA0010 = 0;
-std::int32_t gLegacyDialogFirstLineD673D4 = 0;
-input::InputContext* gLegacyDialogInputD67C4C = nullptr;
-constexpr char kLegacyDialogButton58599C[] = "\x20\xB4\x5F\xB6\xA8\x20";
-constexpr char kLegacyDialogButton585994[] = "\x20\xC8\xA1\xCF\xFB\x20";
-constexpr char kLegacyDialogButton58598C[] = "\x20\x20\xCA\xC7\x20\x20";
-constexpr char kLegacyDialogButton585984[] = "\x20\x20\xB7\xF1\x20\x20";
-constexpr char kLegacyDialogButton58597C[] = "\xC9\xCF\xD2\xBB\xED\x93";
-constexpr char kLegacyDialogButton585974[] = "\xCF\xC2\xD2\xBB\xED\x93";
-std::array<character_select::detail::CharacterModalUiRecord, 6> gLegacyDialogButtons581808 {{
+LegacyPanelRecord gLegacyDialogPanelD2D9C8 {}; // 原全局：0x00D2D9C8。
+LegacyPanelRecord gLegacyLineDialogPanelCC4150 {}; // 原全局：0x00CC4150。
+std::int32_t gLegacyDialogLineCountCA043C = 0; // 原全局：0x00CA043C。
+std::int32_t gLegacyDialogOffsetXCAFEAC = 0; // 原全局：0x00CAFEAC。
+std::int32_t gLegacyDialogOffsetYCAFEA8 = 0; // 原全局：0x00CAFEA8。
+std::int32_t gLegacyDialogColumnsCA0010 = 0; // 原全局：0x00CA0010。
+std::int32_t gLegacyDialogFirstLineD673D4 = 0; // 原全局：0x00D673D4。
+input::InputContext* gLegacyDialogInputD67C4C = nullptr; // 原全局：0x00D67C4C。
+constexpr char kLegacyDialogButton58599C[] = "\x20\xB4\x5F\xB6\xA8\x20"; // 原常量参考：0x0058599C。
+constexpr char kLegacyDialogButton585994[] = "\x20\xC8\xA1\xCF\xFB\x20"; // 原常量参考：0x00585994。
+constexpr char kLegacyDialogButton58598C[] = "\x20\x20\xCA\xC7\x20\x20"; // 原常量参考：0x0058598C。
+constexpr char kLegacyDialogButton585984[] = "\x20\x20\xB7\xF1\x20\x20"; // 原常量参考：0x00585984。
+constexpr char kLegacyDialogButton58597C[] = "\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058597C。
+constexpr char kLegacyDialogButton585974[] = "\xCF\xC2\xD2\xBB\xED\x93"; // 原常量参考：0x00585974。
+std::array<character_select::detail::CharacterModalUiRecord, 6> gLegacyDialogButtons581808 {{ // 原全局：0x00581808。
     {0, 0, 0, 0, 54, 16, kLegacyDialogButton58599C},
     {0, 0, 0, 0, 54, 16, kLegacyDialogButton585994},
     {0, 0, 0, 0, 51, 16, kLegacyDialogButton58598C},
@@ -281,67 +281,67 @@ std::array<character_select::detail::CharacterModalUiRecord, 6> gLegacyDialogBut
     {0, 0, 0, 0, 52, 16, kLegacyDialogButton585974},
 }};
 
-LegacyPanelRecord gLegacySkillChoicePanel581D60 {
+LegacyPanelRecord gLegacySkillChoicePanel581D60 { // 原全局：0x00581D60。
     0, 0, 292, 260, 55, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacySkillChoiceActionD67C58 = nullptr; // 原旧55/56/57同源借用，关闭标记死亡后清槽。
-constexpr char kLegacySkillChoiceLearn585AC4[] = "\xCF\xEB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC";
-constexpr char kLegacySkillChoiceForget588BC8[] = "\xCF\xEB\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC";
-constexpr char kLegacySkillChoiceCancel588BBC[] = "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB";
-constexpr char kLegacySkillChoiceLearnHint588BA8[] = "\xCF\xF2\xB4\xCB\xC8\xCB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacySkillChoiceForgetHint588B90[] = "\xCD\xFC\xD3\x9B\xD7\xD4\xBC\xBA\xCB\xF9\xB3\xD6\xD3\xD0\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacySkillChoiceCancelHint588B80[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
+YobiAction* gLegacySkillChoiceActionD67C58 = nullptr; // 原全局：0x00D67C58。 原旧55/56/57同源借用，关闭标记死亡后清槽。
+constexpr char kLegacySkillChoiceLearn585AC4[] = "\xCF\xEB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC"; // 原常量参考：0x00585AC4。
+constexpr char kLegacySkillChoiceForget588BC8[] = "\xCF\xEB\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC"; // 原常量参考：0x00588BC8。
+constexpr char kLegacySkillChoiceCancel588BBC[] = "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB"; // 原常量参考：0x00588BBC。
+constexpr char kLegacySkillChoiceLearnHint588BA8[] = "\xCF\xF2\xB4\xCB\xC8\xCB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588BA8。
+constexpr char kLegacySkillChoiceForgetHint588B90[] = "\xCD\xFC\xD3\x9B\xD7\xD4\xBC\xBA\xCB\xF9\xB3\xD6\xD3\xD0\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588B90。
+constexpr char kLegacySkillChoiceCancelHint588B80[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588B80。
 
-LegacyPanelRecord gLegacySkillLearningPanel581E28 {
+LegacyPanelRecord gLegacySkillLearningPanel581E28 { // 原全局：0x00581E28。
     0, 0, 576, 432, 56, {23301, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillLearningAccept588C20[] = "\x20\x8C\x57\x20\x20\xC1\x95";
-constexpr char kLegacySkillLearningCancel588C18[] = "\x20\xB2\xBB\x20\x20\x8C\x57";
-constexpr char kLegacySkillLearningSlots588C00[] = "\xCA\xB9\xD3\xC3\xBC\xBC\xC4\xDC\x99\xDA\xCE\xBB\x94\xB5\xA3\xBA\x25\x64\x20\x99\xDA";
-constexpr char kLegacySkillLearningCost588BEC[] = "\x8C\x57\xC1\x95\xD9\x4D\xD3\xC3\xA3\xBA\x25\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacySkillLearningAcceptHint588BE0[] = "\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacySkillLearningCancelHint588BD4[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xA1\xA3";
+constexpr char kLegacySkillLearningAccept588C20[] = "\x20\x8C\x57\x20\x20\xC1\x95"; // 原常量参考：0x00588C20。
+constexpr char kLegacySkillLearningCancel588C18[] = "\x20\xB2\xBB\x20\x20\x8C\x57"; // 原常量参考：0x00588C18。
+constexpr char kLegacySkillLearningSlots588C00[] = "\xCA\xB9\xD3\xC3\xBC\xBC\xC4\xDC\x99\xDA\xCE\xBB\x94\xB5\xA3\xBA\x25\x64\x20\x99\xDA"; // 原常量参考：0x00588C00。
+constexpr char kLegacySkillLearningCost588BEC[] = "\x8C\x57\xC1\x95\xD9\x4D\xD3\xC3\xA3\xBA\x25\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588BEC。
+constexpr char kLegacySkillLearningAcceptHint588BE0[] = "\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588BE0。
+constexpr char kLegacySkillLearningCancelHint588BD4[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xA1\xA3"; // 原常量参考：0x00588BD4。
 
-LegacyPanelRecord gLegacySkillForgetPanel581EF0 {
+LegacyPanelRecord gLegacySkillForgetPanel581EF0 { // 原全局：0x00581EF0。
     0, 0, 576, 432, 57, {23300, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillForgetCancel588CBC[] = "\xDF\x80\xCA\xC7\xB2\xBB\xD2\xAA\xCD\xFC\xD3\x9B\xBA\xC3\xC1\xCB";
-constexpr char kLegacySkillForgetNotes588CA4[] = "\xA1\xF9\xA1\xF9\xA1\xF9\x20\x20\xD7\xA2\xD2\xE2\x20\x20\xA1\xF9\xA1\xF9\xA1\xF9";
-constexpr char kLegacySkillForgetWarning588C94[] = "\xBC\xBC\xC4\xDC\xD6\xBB\xD2\xAA\xD2\xBB\xCD\xFC\xD3\x9B";
-constexpr char kLegacySkillForgetNoRestore588C88[] = "\xBE\xCD\x9F\x6F\xB7\xA8\x8F\xCD\xD4\xAD";
-constexpr char kLegacySkillForgetCareful588C7C[] = "\xD5\x88\xD7\xA2\xD2\xE2\xA1\xA3";
-constexpr char kLegacySkillForgetSelect588C68[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xCD\xFC\xD3\x9B\xB5\xC4\xBC\xBC\xC4\xDC";
-constexpr char kLegacySkillForgetTotal588C48[] = "\xAC\x46\xD4\xDA\xBC\xBC\xC4\xDC\x99\xDA\xCA\xB9\xD3\xC3\xC1\xBF\xB5\xC4\xBA\xCF\xD3\x8B\xA3\xBA\x25\x32\x64\x2F\x31\x30";
-constexpr char kLegacySkillForgetCancelHint588C38[] = "\xCD\xA3\xD6\xB9\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacySkillForgetRowHint588C28[] = "\xCD\xFC\xD3\x9B\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3";
+constexpr char kLegacySkillForgetCancel588CBC[] = "\xDF\x80\xCA\xC7\xB2\xBB\xD2\xAA\xCD\xFC\xD3\x9B\xBA\xC3\xC1\xCB"; // 原常量参考：0x00588CBC。
+constexpr char kLegacySkillForgetNotes588CA4[] = "\xA1\xF9\xA1\xF9\xA1\xF9\x20\x20\xD7\xA2\xD2\xE2\x20\x20\xA1\xF9\xA1\xF9\xA1\xF9"; // 原常量参考：0x00588CA4。
+constexpr char kLegacySkillForgetWarning588C94[] = "\xBC\xBC\xC4\xDC\xD6\xBB\xD2\xAA\xD2\xBB\xCD\xFC\xD3\x9B"; // 原常量参考：0x00588C94。
+constexpr char kLegacySkillForgetNoRestore588C88[] = "\xBE\xCD\x9F\x6F\xB7\xA8\x8F\xCD\xD4\xAD"; // 原常量参考：0x00588C88。
+constexpr char kLegacySkillForgetCareful588C7C[] = "\xD5\x88\xD7\xA2\xD2\xE2\xA1\xA3"; // 原常量参考：0x00588C7C。
+constexpr char kLegacySkillForgetSelect588C68[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xCD\xFC\xD3\x9B\xB5\xC4\xBC\xBC\xC4\xDC"; // 原常量参考：0x00588C68。
+constexpr char kLegacySkillForgetTotal588C48[] = "\xAC\x46\xD4\xDA\xBC\xBC\xC4\xDC\x99\xDA\xCA\xB9\xD3\xC3\xC1\xBF\xB5\xC4\xBA\xCF\xD3\x8B\xA3\xBA\x25\x32\x64\x2F\x31\x30"; // 原常量参考：0x00588C48。
+constexpr char kLegacySkillForgetCancelHint588C38[] = "\xCD\xA3\xD6\xB9\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588C38。
+constexpr char kLegacySkillForgetRowHint588C28[] = "\xCD\xFC\xD3\x9B\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588C28。
 
-LegacyPanelRecord gLegacySkillStatusPanel583C90 {
+LegacyPanelRecord gLegacySkillStatusPanel583C90 { // 原全局：0x00583C90。
     64, 108, 512, 240, 36, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillStatusPrompt589B58[] = "\xD5\x88\xDF\x78\x93\xF1\xCA\xB9\xD3\xC3\x8C\xA6\xCF\xF3\xA1\xA3";
-constexpr char kLegacySkillStatusHeader589B2C[] = "\xBD\xA1\xBF\xB5\x20\x20\xB5\xC8\xBC\x89\x20\xD0\xD5\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xC9\xFA\xC3\xFC\x20\x20\x20\x20\x20\x20\xC4\xA7\xC1\xA6";
-constexpr char kLegacySkillStatusCancelTransform589B20[] = "\xCD\xA3\xD6\xB9\xD7\x83\xD1\x62\xA1\xA3";
-constexpr char kLegacySkillStatusCancelDisguise589B14[] = "\xCD\xA3\xD6\xB9\xD7\x83\xC9\xED\xA1\xA3";
-constexpr char kLegacySkillStatusCancelRestore589B08[] = "\xCD\xA3\xD6\xB9\xBC\xB1\xBE\xC8\xA1\xA3";
-constexpr char kLegacySkillStatusCancelHeal589AFC[] = "\xCD\xA3\xD6\xB9\xD6\xCE\xAF\x9F\xA1\xA3";
-constexpr char kLegacySkillStatusTransform589AEC[] = "\xD7\x83\xD1\x62\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xA1\xA3";
-constexpr char kLegacySkillStatusDisguise589ADC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacySkillStatusSelf589ACC[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xAF\x9F\x82\xFB\xA1\xA3";
-constexpr char kLegacySkillStatusPet589AB8[] = "\xCC\xE6\xDF\x40\x82\x80\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3";
-constexpr char kLegacySkillStatusPerson589AA8[] = "\xCC\xE6\xB4\xCB\xC8\xCB\xAF\x9F\x82\xFB\xA1\xA3";
+constexpr char kLegacySkillStatusPrompt589B58[] = "\xD5\x88\xDF\x78\x93\xF1\xCA\xB9\xD3\xC3\x8C\xA6\xCF\xF3\xA1\xA3"; // 原常量参考：0x00589B58。
+constexpr char kLegacySkillStatusHeader589B2C[] = "\xBD\xA1\xBF\xB5\x20\x20\xB5\xC8\xBC\x89\x20\xD0\xD5\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xC9\xFA\xC3\xFC\x20\x20\x20\x20\x20\x20\xC4\xA7\xC1\xA6"; // 原常量参考：0x00589B2C。
+constexpr char kLegacySkillStatusCancelTransform589B20[] = "\xCD\xA3\xD6\xB9\xD7\x83\xD1\x62\xA1\xA3"; // 原常量参考：0x00589B20。
+constexpr char kLegacySkillStatusCancelDisguise589B14[] = "\xCD\xA3\xD6\xB9\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00589B14。
+constexpr char kLegacySkillStatusCancelRestore589B08[] = "\xCD\xA3\xD6\xB9\xBC\xB1\xBE\xC8\xA1\xA3"; // 原常量参考：0x00589B08。
+constexpr char kLegacySkillStatusCancelHeal589AFC[] = "\xCD\xA3\xD6\xB9\xD6\xCE\xAF\x9F\xA1\xA3"; // 原常量参考：0x00589AFC。
+constexpr char kLegacySkillStatusTransform589AEC[] = "\xD7\x83\xD1\x62\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00589AEC。
+constexpr char kLegacySkillStatusDisguise589ADC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589ADC。
+constexpr char kLegacySkillStatusSelf589ACC[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589ACC。
+constexpr char kLegacySkillStatusPet589AB8[] = "\xCC\xE6\xDF\x40\x82\x80\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589AB8。
+constexpr char kLegacySkillStatusPerson589AA8[] = "\xCC\xE6\xB4\xCB\xC8\xCB\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589AA8。
 
-LegacyPanelRecord gLegacySkillTargetPanel583D58 {
+LegacyPanelRecord gLegacySkillTargetPanel583D58 { // 原全局：0x00583D58。
     160, 132, 320, 192, 35, {}, {}, 0, 0, {}, {},
 };
 
 
-constexpr char kLegacySkillTargetTransform589BD8[] = "\xD7\x83\xB3\xC9\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xA1\xA3";
-constexpr char kLegacySkillTargetDisguiseSelf589BC4[] = "\xD7\x83\xC9\xED\xB3\xC9\xD7\xD4\xBC\xBA\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacySkillTargetDisguisePerson589BAC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacySkillTargetRestoreSelf589B98[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3";
-constexpr char kLegacySkillTargetRestorePerson589B80[] = "\xCC\xE6\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3";
+constexpr char kLegacySkillTargetTransform589BD8[] = "\xD7\x83\xB3\xC9\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00589BD8。
+constexpr char kLegacySkillTargetDisguiseSelf589BC4[] = "\xD7\x83\xC9\xED\xB3\xC9\xD7\xD4\xBC\xBA\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589BC4。
+constexpr char kLegacySkillTargetDisguisePerson589BAC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589BAC。
+constexpr char kLegacySkillTargetRestoreSelf589B98[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589B98。
+constexpr char kLegacySkillTargetRestorePerson589B80[] = "\xCC\xE6\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589B80。
 
-LegacyPanelRecord gLegacyItemTargetPanel582D40 {
+LegacyPanelRecord gLegacyItemTargetPanel582D40 { // 原全局：0x00582D40。
     160, 132, 320, 192, 77, {}, {}, 0, 0, {}, {},
 };
 
@@ -349,98 +349,98 @@ LegacyPanelRecord gLegacyItemTargetPanel582D40 {
  // 4E4EA0发送前发布，发送后重读。
 
 
-LegacyPanelRecord gLegacyTextNoticePanel583EE8 {
+LegacyPanelRecord gLegacyTextNoticePanel583EE8 { // 原全局：0x00583EE8。
     130, 180, 336, 96, 81, {}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyTextNoticePanel583FB0 {
+LegacyPanelRecord gLegacyTextNoticePanel583FB0 { // 原全局：0x00583FB0。
     130, 180, 336, 96, 82, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyTextNotice589C24[] = "\xB0\xFC\xBA\xAC\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xA1\xA3\x20";
-constexpr char kLegacyTextNotice589C08[] = "\xBF\xCC\xD3\xA1\xB2\xBB\xC4\xDC\xCA\xB9\xD3\xC3\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xB5\xC4\xD7\xD6\xA1\xA3";
-constexpr char kLegacyTextNotice589C4C[] = "\xB2\xBB\xB0\xFC\xC0\xA8\xBF\xD5\xB0\xD7\xD2\xD4\xCD\xE2\xB5\xC4\xCE\xC4\xD7\xD6\xA1\xA3";
-constexpr char kLegacyTextNotice589C34[] = "\xBF\xCC\xD3\xA1\xC3\xFB\xB2\xBB\xC4\xDC\xCA\xC7\xBF\xD5\xB0\xD7\xB5\xC4\xA1\xA3";
+constexpr char kLegacyTextNotice589C24[] = "\xB0\xFC\xBA\xAC\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xA1\xA3\x20"; // 原常量参考：0x00589C24。
+constexpr char kLegacyTextNotice589C08[] = "\xBF\xCC\xD3\xA1\xB2\xBB\xC4\xDC\xCA\xB9\xD3\xC3\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xB5\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x00589C08。
+constexpr char kLegacyTextNotice589C4C[] = "\xB2\xBB\xB0\xFC\xC0\xA8\xBF\xD5\xB0\xD7\xD2\xD4\xCD\xE2\xB5\xC4\xCE\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x00589C4C。
+constexpr char kLegacyTextNotice589C34[] = "\xBF\xCC\xD3\xA1\xC3\xFB\xB2\xBB\xC4\xDC\xCA\xC7\xBF\xD5\xB0\xD7\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589C34。
 
-LegacyPanelRecord gLegacyBuyPanel5823A0 {
+LegacyPanelRecord gLegacyBuyPanel5823A0 { // 原全局：0x005823A0。
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyBuyConfirmPanel582468 {
+LegacyPanelRecord gLegacyBuyConfirmPanel582468 { // 原全局：0x00582468。
     0, 36, 640, 384, 65, {}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyBuyActionD67C6C = nullptr;
-std::int32_t gLegacyBuyImageD2DBFC = 0; // 独立图号，原生产待证。
-std::int32_t gLegacyBuyPageCountD2D63C = 0; // 原生产待证，不以初值替代实际页数。
-std::int32_t gLegacyBuyDetailPageD67C70 = 0;
-std::int32_t gLegacyBuyPreviousHover582464 = -1;
-std::int32_t gLegacyBuyTotalC8AF6C = 0; // 旧63统计，旧65借读。
-std::int32_t gLegacyBuyMessageD30414 = 0;
-LegacyPanelRecord gLegacySellPanel582530 {
+YobiAction* gLegacyBuyActionD67C6C = nullptr; // 原全局：0x00D67C6C。
+std::int32_t gLegacyBuyImageD2DBFC = 0; // 原全局：0x00D2DBFC。 独立图号，原生产待证。
+std::int32_t gLegacyBuyPageCountD2D63C = 0; // 原全局：0x00D2D63C。 原生产待证，不以初值替代实际页数。
+std::int32_t gLegacyBuyDetailPageD67C70 = 0; // 原全局：0x00D67C70。
+std::int32_t gLegacyBuyPreviousHover582464 = -1; // 原全局：0x00582464。
+std::int32_t gLegacyBuyTotalC8AF6C = 0; // 原全局：0x00C8AF6C。 旧63统计，旧65借读。
+std::int32_t gLegacyBuyMessageD30414 = 0; // 原全局：0x00D30414。
+LegacyPanelRecord gLegacySellPanel582530 { // 原全局：0x00582530。
     0, 0, 576, 432, 64, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacySellConfirmPanel5825F8 {
+LegacyPanelRecord gLegacySellConfirmPanel5825F8 { // 原全局：0x005825F8。
     0, 36, 640, 384, 66, {}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacySellActionD67C74 = nullptr; // 旧64预览借用，关闭时标记死亡。
-std::int32_t gLegacySellImageCC3EFC = 0; // 独立图号，原生产待证。
-std::int32_t gLegacySellPageCF49FC = 0; // 独立旧64页号，初始生产待证。
-std::int32_t gLegacySellPageCountCA0ABC = 0; // 原生产待证，不用虚拟零推定页数。
-std::int32_t gLegacySellDetailPageD67C78 = 0;
-std::int32_t gLegacySellPreviousHover5825F4 = -1;
-std::int32_t gLegacySellTotalCF3FCC = 0; // 旧64入口统计，旧66借读。
-std::int32_t gLegacySellLimitMessageCB0A88 = 0; // 增量金额失败写1，数量成功后清0。
-LegacyPanelRecord gLegacyHealingPanel5826C0 {
+YobiAction* gLegacySellActionD67C74 = nullptr; // 原全局：0x00D67C74。 旧64预览借用，关闭时标记死亡。
+std::int32_t gLegacySellImageCC3EFC = 0; // 原全局：0x00CC3EFC。 独立图号，原生产待证。
+std::int32_t gLegacySellPageCF49FC = 0; // 原全局：0x00CF49FC。 独立旧64页号，初始生产待证。
+std::int32_t gLegacySellPageCountCA0ABC = 0; // 原全局：0x00CA0ABC。 原生产待证，不用虚拟零推定页数。
+std::int32_t gLegacySellDetailPageD67C78 = 0; // 原全局：0x00D67C78。
+std::int32_t gLegacySellPreviousHover5825F4 = -1; // 原全局：0x005825F4。
+std::int32_t gLegacySellTotalCF3FCC = 0; // 原全局：0x00CF3FCC。 旧64入口统计，旧66借读。
+std::int32_t gLegacySellLimitMessageCB0A88 = 0; // 原全局：0x00CB0A88。 增量金额失败写1，数量成功后清0。
+LegacyPanelRecord gLegacyHealingPanel5826C0 { // 原全局：0x005826C0。
     96, 86, 448, 288, 67, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyHealingPrompt588FF8[] = "\xD5\x88\xDF\x78\x93\xF1\xD6\xCE\xAF\x9F\x8C\xA6\xCF\xF3";
-constexpr char kLegacyHealingHeader588FD0[] = "\xBD\xA1\xBF\xB5\x20\xB5\xC8\xBC\x89\x20\x20\x20\x20\x20\xD0\xD5\x20\x20\x20\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\xCB\xF9\xD0\xE8\xBB\xA8\xD9\x4D";
-constexpr char kLegacyHealingTotal588FA8[] = "\xC8\xAB\xB2\xBF\xD2\xBB\xC6\xF0\xD6\xCE\xAF\x9F\x20\x20\x20\x20\x20\x25\x38\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacyHealingGold588F94[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacyHealingCancel588F34[] = "\xC8\xA1\xCF\xFB\xD6\xCE\xAF\x9F\xA1\xA3";
-constexpr char kLegacyHealingOne588F40[] = "\xD6\xCE\xAF\x9F\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xB5\xC4\x82\xFB\xA1\xA3";
-constexpr char kLegacyHealingHealthy588F54[] = "\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\x81\x4B\x9B\x5D\xD3\xD0\xCA\xDC\x82\xFB\xA1\xA3";
-constexpr char kLegacyHealingAllHealthy588F6C[] = "\x9B\x5D\xD3\xD0\xC8\xCE\xBA\xCE\xBD\xC7\xC9\xAB\xCA\xDC\x82\xFB\xA1\xA3";
-constexpr char kLegacyHealingAll588F80[] = "\xD6\xCE\xAF\x9F\xCB\xF9\xD3\xD0\xCA\xDC\x82\xFB\xBD\xC7\xC9\xAB\xA1\xA3";
+constexpr char kLegacyHealingPrompt588FF8[] = "\xD5\x88\xDF\x78\x93\xF1\xD6\xCE\xAF\x9F\x8C\xA6\xCF\xF3"; // 原常量参考：0x00588FF8。
+constexpr char kLegacyHealingHeader588FD0[] = "\xBD\xA1\xBF\xB5\x20\xB5\xC8\xBC\x89\x20\x20\x20\x20\x20\xD0\xD5\x20\x20\x20\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\xCB\xF9\xD0\xE8\xBB\xA8\xD9\x4D"; // 原常量参考：0x00588FD0。
+constexpr char kLegacyHealingTotal588FA8[] = "\xC8\xAB\xB2\xBF\xD2\xBB\xC6\xF0\xD6\xCE\xAF\x9F\x20\x20\x20\x20\x20\x25\x38\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588FA8。
+constexpr char kLegacyHealingGold588F94[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588F94。
+constexpr char kLegacyHealingCancel588F34[] = "\xC8\xA1\xCF\xFB\xD6\xCE\xAF\x9F\xA1\xA3"; // 原常量参考：0x00588F34。
+constexpr char kLegacyHealingOne588F40[] = "\xD6\xCE\xAF\x9F\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xB5\xC4\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F40。
+constexpr char kLegacyHealingHealthy588F54[] = "\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\x81\x4B\x9B\x5D\xD3\xD0\xCA\xDC\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F54。
+constexpr char kLegacyHealingAllHealthy588F6C[] = "\x9B\x5D\xD3\xD0\xC8\xCE\xBA\xCE\xBD\xC7\xC9\xAB\xCA\xDC\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F6C。
+constexpr char kLegacyHealingAll588F80[] = "\xD6\xCE\xAF\x9F\xCB\xF9\xD3\xD0\xCA\xDC\x82\xFB\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00588F80。
 
-LegacyPanelRecord gLegacyRepairPanel582788 {
+LegacyPanelRecord gLegacyRepairPanel582788 { // 原全局：0x00582788。
     32, 12, 576, 432, 70, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyRepairConfirmPanel582850 {
+LegacyPanelRecord gLegacyRepairConfirmPanel582850 { // 原全局：0x00582850。
     0, 36, 640, 384, 71, {}, {}, 0, 0, {}, {},
 };
 // 原CE4548独立二十条C48H记录，字段合同见legacy_repair_list.md；上游生产待补。
 std::array<char, 20 * 0xC48> gLegacyRepairItemsCE4548 {};
-YobiAction* gLegacyRepairActionD67C7C = nullptr; // 旧70预览借用，关闭时标记死亡。
-std::int32_t gLegacyRepairImageD673E8 = 0; // 独立图号，原生产待证。
-std::int32_t gLegacyRepairPageCF4A08 = 0; // 独立页号，初始生产待证。
-std::int32_t gLegacyRepairPageCountCC4B24 = 0; // 原生产待证，不用虚拟零推定页数。
-std::int32_t gLegacyRepairDetailPageD67C80 = 0;
-std::int32_t gLegacyRepairPreviousHover58284C = -1;
-std::int32_t gLegacyRepairTotalD460C4 = 0; // 旧70入口统计，旧71借读。
-std::int32_t gLegacyRepairMessageD64E14 = 0; // 初始化/数量成功/翻页清0，金额不足写1。
-constexpr char kLegacyRepairWelcome587D2C[] = "\x9A\x67\xD3\xAD\xB9\xE2\xC5\x52\xA1\xA3";
-constexpr char kLegacyRepairDecrease589010[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyRepairIncrease589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyRepairCancel589034[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyRepairConfirm589048[] = "\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyRepairPrompt589058[] = "\xD2\xAA\xD0\xDE\xC0\xED\xC4\xC4\xD2\xBB\x82\x80\xC4\xD8\xA3\xBF";
-constexpr char kLegacyRepairNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1";
-constexpr char kLegacyRepairStopHint58907C[] = "\xB2\xBB\xD0\xDE\xA1\xA3";
-constexpr char kLegacyRepairAcceptHint589084[] = "\xD0\xDE\xC0\xED\xA1\xA3";
-constexpr char kLegacyRepairQuestion58908C[] = "\xD0\xDE\xC0\xED\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyRepairSummary5890A4[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xD0\xDE\xC0\xED\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
+YobiAction* gLegacyRepairActionD67C7C = nullptr; // 原全局：0x00D67C7C。 旧70预览借用，关闭时标记死亡。
+std::int32_t gLegacyRepairImageD673E8 = 0; // 原全局：0x00D673E8。 独立图号，原生产待证。
+std::int32_t gLegacyRepairPageCF4A08 = 0; // 原全局：0x00CF4A08。 独立页号，初始生产待证。
+std::int32_t gLegacyRepairPageCountCC4B24 = 0; // 原全局：0x00CC4B24。 原生产待证，不用虚拟零推定页数。
+std::int32_t gLegacyRepairDetailPageD67C80 = 0; // 原全局：0x00D67C80。
+std::int32_t gLegacyRepairPreviousHover58284C = -1; // 原全局：0x0058284C。
+std::int32_t gLegacyRepairTotalD460C4 = 0; // 原全局：0x00D460C4。 旧70入口统计，旧71借读。
+std::int32_t gLegacyRepairMessageD64E14 = 0; // 原全局：0x00D64E14。 初始化/数量成功/翻页清0，金额不足写1。
+constexpr char kLegacyRepairWelcome587D2C[] = "\x9A\x67\xD3\xAD\xB9\xE2\xC5\x52\xA1\xA3"; // 原常量参考：0x00587D2C。
+constexpr char kLegacyRepairDecrease589010[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589010。
+constexpr char kLegacyRepairIncrease589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589024。
+constexpr char kLegacyRepairCancel589034[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589034。
+constexpr char kLegacyRepairConfirm589048[] = "\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589048。
+constexpr char kLegacyRepairPrompt589058[] = "\xD2\xAA\xD0\xDE\xC0\xED\xC4\xC4\xD2\xBB\x82\x80\xC4\xD8\xA3\xBF"; // 原常量参考：0x00589058。
+constexpr char kLegacyRepairNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1"; // 原常量参考：0x0058906C。
+constexpr char kLegacyRepairStopHint58907C[] = "\xB2\xBB\xD0\xDE\xA1\xA3"; // 原常量参考：0x0058907C。
+constexpr char kLegacyRepairAcceptHint589084[] = "\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589084。
+constexpr char kLegacyRepairQuestion58908C[] = "\xD0\xDE\xC0\xED\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0058908C。
+constexpr char kLegacyRepairSummary5890A4[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xD0\xDE\xC0\xED\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x005890A4。
 
 // SCP01旧62完整本体承载；独立面板/预览复用，模式生产与未写命令仍未闭。
-constexpr char kLegacyShopBuyInitial588DCC[] = "\x20\xCF\xEB\x20\xD9\x49\x20";
-constexpr char kLegacyShopSellInitial588DC4[] = "\x20\xCF\xEB\x20\xD9\x75\x20";
-constexpr char kLegacyShopStopInitial588DB8[] = "\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB";
-constexpr char kLegacyShopBuy588DAC[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x49";
-constexpr char kLegacyShopSell588DA0[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x75";
-constexpr char kLegacyShopCancel588D94[] = "\x20\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB";
-constexpr char kLegacyShopBuyHint588D84[] = "\xD9\x8F\xD9\x49\xB4\xCB\xB5\xEA\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyShopSellHint588D70[] = "\x8C\xA2\xCE\xEF\xC6\xB7\xD9\x75\xBD\x6F\xB4\xCB\xB5\xEA\xA1\xA3";
-LegacyPanelRecord gLegacyShopChoicePanel5822D8 {
+constexpr char kLegacyShopBuyInitial588DCC[] = "\x20\xCF\xEB\x20\xD9\x49\x20"; // 原常量参考：0x00588DCC。
+constexpr char kLegacyShopSellInitial588DC4[] = "\x20\xCF\xEB\x20\xD9\x75\x20"; // 原常量参考：0x00588DC4。
+constexpr char kLegacyShopStopInitial588DB8[] = "\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB"; // 原常量参考：0x00588DB8。
+constexpr char kLegacyShopBuy588DAC[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x49"; // 原常量参考：0x00588DAC。
+constexpr char kLegacyShopSell588DA0[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x75"; // 原常量参考：0x00588DA0。
+constexpr char kLegacyShopCancel588D94[] = "\x20\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB"; // 原常量参考：0x00588D94。
+constexpr char kLegacyShopBuyHint588D84[] = "\xD9\x8F\xD9\x49\xB4\xCB\xB5\xEA\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588D84。
+constexpr char kLegacyShopSellHint588D70[] = "\x8C\xA2\xCE\xEF\xC6\xB7\xD9\x75\xBD\x6F\xB4\xCB\xB5\xEA\xA1\xA3"; // 原常量参考：0x00588D70。
+LegacyPanelRecord gLegacyShopChoicePanel5822D8 { // 原全局：0x005822D8。
     0, 0, 292, 260, 62, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyShopChoiceActionD67C68 = nullptr;
+YobiAction* gLegacyShopChoiceActionD67C68 = nullptr; // 原全局：0x00D67C68。
 
 
  // 4D7440发布，4D7470关闭时标死/清槽。
@@ -466,65 +466,65 @@ YobiAction* gLegacyShopChoiceActionD67C68 = nullptr;
 
 
 
-LegacyPanelRecord gLegacyIdentifyPanel582918 {
+LegacyPanelRecord gLegacyIdentifyPanel582918 { // 原全局：0x00582918。
     32, 12, 576, 432, 68, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyIdentifyConfirmPanel5829E0 {
+LegacyPanelRecord gLegacyIdentifyConfirmPanel5829E0 { // 原全局：0x005829E0。
     0, 36, 640, 384, 69, {}, {}, 0, 0, {}, {},
 };
 // 原C8B390独立二十条C48H记录，末端C9A930；原字段合同见legacy_identify_list.md。
-std::array<char, 20 * 0xC48> gLegacyIdentifyItemsC8B390 {};
-YobiAction* gLegacyIdentifyActionD67C84 = nullptr; // 旧68预览借用，关闭时标记死亡。
-std::int32_t gLegacyIdentifyImageCF4698 = 0; // 独立图号，原生产待证。
-std::int32_t gLegacyIdentifyPageCC3F00 = 0; // 独立页号，初始生产待证。
-std::int32_t gLegacyIdentifyPageCountC9A950 = 0; // 原生产待证，不用虚拟零推定页数。
-std::int32_t gLegacyIdentifyDetailPageD67C88 = 0;
-std::int32_t gLegacyIdentifyPreviousHover5829DC = -1;
-std::int32_t gLegacyIdentifyTotalCB1E3C = 0; // 入口统计，翻页/数量成功清0，旧69借读。
-std::int32_t gLegacyIdentifyMessageC9A948 = 0; // 初始化清0，金币不足写1；翻页/数量成功不清。
-constexpr char kLegacyIdentifyDecrease5890D0[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyIdentifyIncrease5890E4[] = "\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyIdentifyConfirm5890F4[] = "\xE8\x61\xB6\xA8\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyIdentifyCancel589104[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xA1\xA3";
-constexpr char kLegacyIdentifyPrompt589110[] = "\xD2\xAA\xE8\x61\xB6\xA8\xC4\xC4\xD2\xBB\x82\x80\xCE\xEF\xC6\xB7\xA3\xBF";
-constexpr char kLegacyIdentifyStopHint589124[] = "\xB2\xBB\xE8\x61\xB6\xA8\xA1\xA3";
-constexpr char kLegacyIdentifyAcceptHint589130[] = "\xE8\x61\xB6\xA8\xA1\xA3";
-constexpr char kLegacyIdentifyQuestion589138[] = "\xE8\x61\xB6\xA8\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyIdentifySummary589150[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xE8\x61\xB6\xA8\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
+std::array<char, 20 * 0xC48> gLegacyIdentifyItemsC8B390 {}; // 原全局：0x00C8B390。
+YobiAction* gLegacyIdentifyActionD67C84 = nullptr; // 原全局：0x00D67C84。 旧68预览借用，关闭时标记死亡。
+std::int32_t gLegacyIdentifyImageCF4698 = 0; // 原全局：0x00CF4698。 独立图号，原生产待证。
+std::int32_t gLegacyIdentifyPageCC3F00 = 0; // 原全局：0x00CC3F00。 独立页号，初始生产待证。
+std::int32_t gLegacyIdentifyPageCountC9A950 = 0; // 原全局：0x00C9A950。 原生产待证，不用虚拟零推定页数。
+std::int32_t gLegacyIdentifyDetailPageD67C88 = 0; // 原全局：0x00D67C88。
+std::int32_t gLegacyIdentifyPreviousHover5829DC = -1; // 原全局：0x005829DC。
+std::int32_t gLegacyIdentifyTotalCB1E3C = 0; // 原全局：0x00CB1E3C。 入口统计，翻页/数量成功清0，旧69借读。
+std::int32_t gLegacyIdentifyMessageC9A948 = 0; // 原全局：0x00C9A948。 初始化清0，金币不足写1；翻页/数量成功不清。
+constexpr char kLegacyIdentifyDecrease5890D0[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890D0。
+constexpr char kLegacyIdentifyIncrease5890E4[] = "\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890E4。
+constexpr char kLegacyIdentifyConfirm5890F4[] = "\xE8\x61\xB6\xA8\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890F4。
+constexpr char kLegacyIdentifyCancel589104[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589104。
+constexpr char kLegacyIdentifyPrompt589110[] = "\xD2\xAA\xE8\x61\xB6\xA8\xC4\xC4\xD2\xBB\x82\x80\xCE\xEF\xC6\xB7\xA3\xBF"; // 原常量参考：0x00589110。
+constexpr char kLegacyIdentifyStopHint589124[] = "\xB2\xBB\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589124。
+constexpr char kLegacyIdentifyAcceptHint589130[] = "\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589130。
+constexpr char kLegacyIdentifyQuestion589138[] = "\xE8\x61\xB6\xA8\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00589138。
+constexpr char kLegacyIdentifySummary589150[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xE8\x61\xB6\xA8\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00589150。
 
-LegacyPanelRecord gLegacyMessagePanel582AA8 {
+LegacyPanelRecord gLegacyMessagePanel582AA8 { // 原全局：0x00582AA8。
     20, 9, 600, 438, 73, {23224, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-input::InputContext* gLegacyMessageInputD67C8C = nullptr; // 非拥有CC46E0借用，关闭只清槽/归还焦点。
-constexpr char kLegacyMessageDelete58917C[] = "\x84\x68\xB3\xFD\xB4\xCB\xC1\xF4\xD1\xD4\xA1\xA3";
-constexpr char kLegacyMessagePrevious58918C[] = "\xC7\xB0\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyMessageCancel589198[] = "\xC8\xA1\xCF\xFB\xC1\xF4\xD1\xD4\xA1\xA3";
-constexpr char kLegacyMessageEmpty5891A4[] = "\xD5\x88\xDD\x94\xC8\xEB\xCE\xC4\xD7\xD6\xA1\xA3";
-constexpr char kLegacyMessagePost5891B4[] = "\xC1\xF4\xD1\xD4\xA1\xA3";
-constexpr char kLegacyMessageNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3";
+input::InputContext* gLegacyMessageInputD67C8C = nullptr; // 原全局：0x00D67C8C。 非拥有CC46E0借用，关闭只清槽/归还焦点。
+constexpr char kLegacyMessageDelete58917C[] = "\x84\x68\xB3\xFD\xB4\xCB\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x0058917C。
+constexpr char kLegacyMessagePrevious58918C[] = "\xC7\xB0\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x0058918C。
+constexpr char kLegacyMessageCancel589198[] = "\xC8\xA1\xCF\xFB\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x00589198。
+constexpr char kLegacyMessageEmpty5891A4[] = "\xD5\x88\xDD\x94\xC8\xEB\xCE\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x005891A4。
+constexpr char kLegacyMessagePost5891B4[] = "\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x005891B4。
+constexpr char kLegacyMessageNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553574。
 
-constexpr char kLegacySellDecrease588E74[] = "\x9C\x70\xC9\xD9\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacySellIncrease588E8C[] = "\xD4\xF6\xBC\xD3\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacySellConfirm588EA4[] = "\xD9\x75\xB5\xF4\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacySellCancel588EB4[] = "\xB2\xBB\xD9\x75\xC1\xCB\xA1\xA3";
-constexpr char kLegacySellLimitLine588ECC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xC4\xC3";
-constexpr char kLegacySellLimitLine588EC0[] = "\xB8\xFC\xB6\xE0\xB5\xC4\xE5\x58\xC1\xCB";
-constexpr char kLegacySellStopHint588ED8[] = "\xB2\xBB\xD9\x75\xA1\xA3";
-constexpr char kLegacySellAcceptHint588EE0[] = "\xD9\x75\xB3\xF6\xA1\xA3";
-constexpr char kLegacySellQuestion588EE8[] = "\xD9\x75\xB3\xF6\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacySellSummary588F00[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\xD9\x75\xB3\xF6\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacySellQuantity588F28[] = "\x25\x73\x28\x25\x64\x81\x7E\x25\x64\x29";
+constexpr char kLegacySellDecrease588E74[] = "\x9C\x70\xC9\xD9\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588E74。
+constexpr char kLegacySellIncrease588E8C[] = "\xD4\xF6\xBC\xD3\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588E8C。
+constexpr char kLegacySellConfirm588EA4[] = "\xD9\x75\xB5\xF4\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588EA4。
+constexpr char kLegacySellCancel588EB4[] = "\xB2\xBB\xD9\x75\xC1\xCB\xA1\xA3"; // 原常量参考：0x00588EB4。
+constexpr char kLegacySellLimitLine588ECC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xC4\xC3"; // 原常量参考：0x00588ECC。
+constexpr char kLegacySellLimitLine588EC0[] = "\xB8\xFC\xB6\xE0\xB5\xC4\xE5\x58\xC1\xCB"; // 原常量参考：0x00588EC0。
+constexpr char kLegacySellStopHint588ED8[] = "\xB2\xBB\xD9\x75\xA1\xA3"; // 原常量参考：0x00588ED8。
+constexpr char kLegacySellAcceptHint588EE0[] = "\xD9\x75\xB3\xF6\xA1\xA3"; // 原常量参考：0x00588EE0。
+constexpr char kLegacySellQuestion588EE8[] = "\xD9\x75\xB3\xF6\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588EE8。
+constexpr char kLegacySellSummary588F00[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\xD9\x75\xB3\xF6\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588F00。
+constexpr char kLegacySellQuantity588F28[] = "\x25\x73\x28\x25\x64\x81\x7E\x25\x64\x29"; // 原常量参考：0x00588F28。
 
-constexpr char kLegacyBuyUnavailable588E20[] = "\x81\x7E";
-constexpr char kLegacyBuyCancel588E14[] = "\xB2\xBB\xD9\x49\xC1\xCB\xA1\xA3";
-constexpr char kLegacyBuyConfirm588E04[] = "\xD9\x8F\xD9\x49\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyBuyDecrease588DD4[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyBuyIncrease588DEC[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyBuyUnavailableHint586BF4[] = "\xA3\xAA\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4";
-constexpr char kLegacyBuyQuestion588E34[] = "\xD9\x8F\xD9\x49\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyBuyAcceptHint588E2C[] = "\xD9\x8F\xD9\x49\xA1\xA3";
-constexpr char kLegacyBuyStopHint588E24[] = "\xB2\xBB\xD9\x49\xA1\xA3";
-constexpr char kLegacyBuySummary588E4C[] =
+constexpr char kLegacyBuyUnavailable588E20[] = "\x81\x7E"; // 原常量参考：0x00588E20。
+constexpr char kLegacyBuyCancel588E14[] = "\xB2\xBB\xD9\x49\xC1\xCB\xA1\xA3"; // 原常量参考：0x00588E14。
+constexpr char kLegacyBuyConfirm588E04[] = "\xD9\x8F\xD9\x49\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588E04。
+constexpr char kLegacyBuyDecrease588DD4[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588DD4。
+constexpr char kLegacyBuyIncrease588DEC[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588DEC。
+constexpr char kLegacyBuyUnavailableHint586BF4[] = "\xA3\xAA\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4"; // 原常量参考：0x00586BF4。
+constexpr char kLegacyBuyQuestion588E34[] = "\xD9\x8F\xD9\x49\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588E34。
+constexpr char kLegacyBuyAcceptHint588E2C[] = "\xD9\x8F\xD9\x49\xA1\xA3"; // 原常量参考：0x00588E2C。
+constexpr char kLegacyBuyStopHint588E24[] = "\xB2\xBB\xD9\x49\xA1\xA3"; // 原常量参考：0x00588E24。
+constexpr char kLegacyBuySummary588E4C[] = // 原常量参考：0x00588E4C。
     "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E  %7d \xBD\xF0\x8E\xC5  \xD9\x8F\xD9\x49\xBD\xF0\xEE\x7E  %7d \xBD\xF0\x8E\xC5";
 
 // 原CC1A0C是现有商店文本区尾部别名，不能另建页号副本。
@@ -556,12 +556,12 @@ char* BorrowLegacyIdentifyItemC8B390(const std::int32_t index)
 // 原CA0B30二十条C2CH记录，物理末端CAFEA0不含相邻状态。
 struct LegacyBarterItemRecord {
     std::uint8_t used;
-    std::array<char, 29> name;
-    std::array<std::array<char, 96>, 32> descriptions;
-    std::array<std::byte, 2> reservedC1E;
-    std::int32_t image;
-    std::int32_t cost;
-    std::int32_t selected;
+    std::array<char, 29> name; // 原成员偏移：+0x01。
+    std::array<std::array<char, 96>, 32> descriptions; // 原成员偏移：+0x1E。
+    std::array<std::byte, 2> reservedC1E; // 原成员偏移：+0xC1E。
+    std::int32_t image; // 原成员偏移：+0xC20。
+    std::int32_t cost; // 原成员偏移：+0xC24。
+    std::int32_t selected; // 原成员偏移：+0xC28。
 };
 static_assert(sizeof(LegacyBarterItemRecord) == 0xC2C);
 static_assert(offsetof(LegacyBarterItemRecord, name) == 1);
@@ -569,75 +569,75 @@ static_assert(offsetof(LegacyBarterItemRecord, descriptions) == 0x1E);
 static_assert(offsetof(LegacyBarterItemRecord, image) == 0xC20);
 static_assert(offsetof(LegacyBarterItemRecord, cost) == 0xC24);
 static_assert(offsetof(LegacyBarterItemRecord, selected) == 0xC28);
-std::array<LegacyBarterItemRecord, 20> gLegacyBarterItemsCA0B30 {};
-LegacyPanelRecord gLegacyBarterPanel5818B0 {
+std::array<LegacyBarterItemRecord, 20> gLegacyBarterItemsCA0B30 {}; // 原全局：0x00CA0B30。
+LegacyPanelRecord gLegacyBarterPanel5818B0 { // 原全局：0x005818B0。
     0, 0, 576, 432, 75, {23330, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyBarterConfirmPanel581978 {
+LegacyPanelRecord gLegacyBarterConfirmPanel581978 { // 原全局：0x00581978。
     0, 36, 640, 384, 76, {}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyBarterActionD67C50 = nullptr;
-std::int32_t gLegacyBarterImageCF4A0C = 0; // 独立图号，原生产待证。
-std::int32_t gLegacyBarterDetailPageD67C54 = 0;
-std::int32_t gLegacyBarterPreviousHover581974 = -1;
-std::int32_t gLegacyBarterPageCB10D0 = 0;
-std::int32_t gLegacyBarterPageCountC8A954 = 0; // 原生产待证，不以初值替代实际页数。
-std::int32_t gLegacyBarterTotalD2F334 = 0; // 旧75统计，旧76借读。
-std::int32_t gLegacyBarterMessageCC2E54 = 0;
-constexpr char kLegacyBarterCancel588994[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyBarterConfirm588984[] = "\xBD\xBB\xD2\xD7\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyBarterIncrease58896C[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyBarterDecrease588954[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3";
+YobiAction* gLegacyBarterActionD67C50 = nullptr; // 原全局：0x00D67C50。
+std::int32_t gLegacyBarterImageCF4A0C = 0; // 原全局：0x00CF4A0C。 独立图号，原生产待证。
+std::int32_t gLegacyBarterDetailPageD67C54 = 0; // 原全局：0x00D67C54。
+std::int32_t gLegacyBarterPreviousHover581974 = -1; // 原全局：0x00581974。
+std::int32_t gLegacyBarterPageCB10D0 = 0; // 原全局：0x00CB10D0。
+std::int32_t gLegacyBarterPageCountC8A954 = 0; // 原全局：0x00C8A954。 原生产待证，不以初值替代实际页数。
+std::int32_t gLegacyBarterTotalD2F334 = 0; // 原全局：0x00D2F334。 旧75统计，旧76借读。
+std::int32_t gLegacyBarterMessageCC2E54 = 0; // 原全局：0x00CC2E54。
+constexpr char kLegacyBarterCancel588994[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588994。
+constexpr char kLegacyBarterConfirm588984[] = "\xBD\xBB\xD2\xD7\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588984。
+constexpr char kLegacyBarterIncrease58896C[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x0058896C。
+constexpr char kLegacyBarterDecrease588954[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588954。
 
 
-constexpr char kLegacyBarterQuestion5889C0[] = "\xBD\xBB\xD2\xD7\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyBarterAcceptHint5889B8[] = "\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyBarterStopHint5889AC[] = "\xCD\xA3\xD6\xB9\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyBarterSummary5889D8[] =
+constexpr char kLegacyBarterQuestion5889C0[] = "\xBD\xBB\xD2\xD7\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x005889C0。
+constexpr char kLegacyBarterAcceptHint5889B8[] = "\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x005889B8。
+constexpr char kLegacyBarterStopHint5889AC[] = "\xCD\xA3\xD6\xB9\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x005889AC。
+constexpr char kLegacyBarterSummary5889D8[] = // 原常量参考：0x005889D8。
     "%s  %7d \x82\x80   \xBD\xBB\x93\x51\x82\x80\x94\xB5  %7d \x82\x80";
 
-LegacyPanelRecord gLegacyExchangePanel581A40 {
+LegacyPanelRecord gLegacyExchangePanel581A40 { // 原全局：0x00581A40。
     0, 0, 292, 260, 74, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyGiveReceivePanel581B08 {
+LegacyPanelRecord gLegacyGiveReceivePanel581B08 { // 原全局：0x00581B08。
     0, 0, 292, 260, 83, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyExchangeActionCF4B5C = nullptr;
-YobiAction* gLegacyGiveReceiveActionCB2228 = nullptr;
-std::int32_t gLegacyGiveReceiveModeC8AA98 = 0; // 独立原状态，非4A0850的receive局部；非零生产待证。
-LegacyPanelRecord gLegacyGiveReceiveQuantityPanel581BD0 {
+YobiAction* gLegacyExchangeActionCF4B5C = nullptr; // 原全局：0x00CF4B5C。
+YobiAction* gLegacyGiveReceiveActionCB2228 = nullptr; // 原全局：0x00CB2228。
+std::int32_t gLegacyGiveReceiveModeC8AA98 = 0; // 原全局：0x00C8AA98。 独立原状态，非4A0850的receive局部；非零生产待证。
+LegacyPanelRecord gLegacyGiveReceiveQuantityPanel581BD0 { // 原全局：0x00581BD0。
     0, 0, 576, 432, 84, {23330, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyGiveConfirmPanel581C98 {
+LegacyPanelRecord gLegacyGiveConfirmPanel581C98 { // 原全局：0x00581C98。
     0, 0, 448, 240, 85, {0, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGiveConfirmReceiveFormat588B40[] = "\xBD\xD3\xCA\xDC\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyGiveConfirmGiveFormat588B60[] = "\xBD\xBB\xB3\xF6\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyGiveConfirmReceiveHint588B20[] = "\xBD\xD3\xCA\xDC\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyGiveConfirmGiveHint588B30[] = "\xBD\xBB\xB3\xF6\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyGiveConfirmCancelReceive588B10[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3";
-YobiAction* gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr;
-std::int32_t gLegacyGiveReceiveImageD2D814 = 0; // 独立图号，生产待证，不借现代D2DAD0。
-std::int32_t gLegacyGiveReceiveDetailPageD2EAB0 = 0;
-constexpr char kLegacyExchangeChoice588A40[] = "\x20\xCF\xEB\x20\xBD\xBB\x20\xD2\xD7";
-constexpr char kLegacyExchangeCancel588A34[] = "\x20\x20\x20\x9B\x5D\x20\xCA\xC2";
-constexpr char kLegacyExchangeHint588A20[] = "\xC5\x63\xB4\xCB\xB5\xEA\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyExchangeCancelHint588A10[] = "\xB2\xBB\xCF\xEB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyGiveReceiveCancel588A70[] = "\xA1\xA1\xA1\xA1\xC8\xA1\xCF\xFB\xA1\xA1\xA1\xA1";
-constexpr char kLegacyGiveChoice588A64[] = "\xA1\xA1\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7";
-constexpr char kLegacyReceiveChoice585A40[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7";
-constexpr char kLegacyGiveHint588A58[] = "\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyGiveReceiveCancelHint588A4C[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyQuantityUnit5889A4[] = "\x82\x80";
-constexpr char kLegacyQuantityIncreaseLimit588ABC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xD4\xF6\xBC\xD3\xA1\xA3";
-constexpr char kLegacyReceiveIncrease588AA8[] = "\xD4\xF6\xBC\xD3\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyGiveIncrease588ACC[] = "\xD4\xF6\xBC\xD3\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyQuantityDecreaseLimit588944[] = "\x9F\x6F\xB7\xA8\xD4\xD9\x9C\x70\xC9\xD9\xA1\xA3";
-constexpr char kLegacyReceiveDecrease588A80[] = "\x9C\x70\xC9\xD9\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyGiveDecrease588A94[] = "\x9C\x70\xC9\xD9\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3";
-constexpr char kLegacyReceiveCancel588AEC[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xD5\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyGiveCancel588AFC[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyReceiveHint588AE0[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3";
+constexpr char kLegacyGiveConfirmReceiveFormat588B40[] = "\xBD\xD3\xCA\xDC\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588B40。
+constexpr char kLegacyGiveConfirmGiveFormat588B60[] = "\xBD\xBB\xB3\xF6\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588B60。
+constexpr char kLegacyGiveConfirmReceiveHint588B20[] = "\xBD\xD3\xCA\xDC\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B20。
+constexpr char kLegacyGiveConfirmGiveHint588B30[] = "\xBD\xBB\xB3\xF6\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B30。
+constexpr char kLegacyGiveConfirmCancelReceive588B10[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B10。
+YobiAction* gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr; // 原全局：0x00CB1DD4。
+std::int32_t gLegacyGiveReceiveImageD2D814 = 0; // 原全局：0x00D2D814。 独立图号，生产待证，不借现代D2DAD0。
+std::int32_t gLegacyGiveReceiveDetailPageD2EAB0 = 0; // 原全局：0x00D2EAB0。
+constexpr char kLegacyExchangeChoice588A40[] = "\x20\xCF\xEB\x20\xBD\xBB\x20\xD2\xD7"; // 原常量参考：0x00588A40。
+constexpr char kLegacyExchangeCancel588A34[] = "\x20\x20\x20\x9B\x5D\x20\xCA\xC2"; // 原常量参考：0x00588A34。
+constexpr char kLegacyExchangeHint588A20[] = "\xC5\x63\xB4\xCB\xB5\xEA\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A20。
+constexpr char kLegacyExchangeCancelHint588A10[] = "\xB2\xBB\xCF\xEB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A10。
+constexpr char kLegacyGiveReceiveCancel588A70[] = "\xA1\xA1\xA1\xA1\xC8\xA1\xCF\xFB\xA1\xA1\xA1\xA1"; // 原常量参考：0x00588A70。
+constexpr char kLegacyGiveChoice588A64[] = "\xA1\xA1\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7"; // 原常量参考：0x00588A64。
+constexpr char kLegacyReceiveChoice585A40[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7"; // 原常量参考：0x00585A40。
+constexpr char kLegacyGiveHint588A58[] = "\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A58。
+constexpr char kLegacyGiveReceiveCancelHint588A4C[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00588A4C。
+constexpr char kLegacyQuantityUnit5889A4[] = "\x82\x80"; // 原常量参考：0x005889A4。
+constexpr char kLegacyQuantityIncreaseLimit588ABC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xD4\xF6\xBC\xD3\xA1\xA3"; // 原常量参考：0x00588ABC。
+constexpr char kLegacyReceiveIncrease588AA8[] = "\xD4\xF6\xBC\xD3\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588AA8。
+constexpr char kLegacyGiveIncrease588ACC[] = "\xD4\xF6\xBC\xD3\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588ACC。
+constexpr char kLegacyQuantityDecreaseLimit588944[] = "\x9F\x6F\xB7\xA8\xD4\xD9\x9C\x70\xC9\xD9\xA1\xA3"; // 原常量参考：0x00588944。
+constexpr char kLegacyReceiveDecrease588A80[] = "\x9C\x70\xC9\xD9\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588A80。
+constexpr char kLegacyGiveDecrease588A94[] = "\x9C\x70\xC9\xD9\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588A94。
+constexpr char kLegacyReceiveCancel588AEC[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xD5\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AEC。
+constexpr char kLegacyGiveCancel588AFC[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AFC。
+constexpr char kLegacyReceiveHint588AE0[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AE0。
 
 // 旧74/83完全同构的标题及五行正文；每次绘制后仍重读面板坐标。
 void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
@@ -656,69 +656,69 @@ void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
     }
 }
 
-LegacyPanelRecord gLegacyAlbumDetailPanel5846C0 {
+LegacyPanelRecord gLegacyAlbumDetailPanel5846C0 { // 原全局：0x005846C0。
     0, 0, 272, 438, 24, {22890, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyAlbumListPanel584788 {
+LegacyPanelRecord gLegacyAlbumListPanel584788 { // 原全局：0x00584788。
     0, 0, 272, 438, 23, {22880, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyAlbumSelectionC8AF7C = 0;
-std::int32_t gLegacyAlbumPageC8B1B0 = 0;
-std::int32_t gLegacyAlbumReturningCC40D0 = 0;
-YobiAction* gLegacyAlbumActionD67D14 = nullptr;
-constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xCC\xF8\xDF\x5E\x31\x30\xED\x93\xA1\xA3";
-constexpr char kLegacyAlbumBack58A0FC[] = "\xBB\xD8\xB5\xBD\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyAlbumOpen58A114[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3";
+std::int32_t gLegacyAlbumSelectionC8AF7C = 0; // 原全局：0x00C8AF7C。
+std::int32_t gLegacyAlbumPageC8B1B0 = 0; // 原全局：0x00C8B1B0。
+std::int32_t gLegacyAlbumReturningCC40D0 = 0; // 原全局：0x00CC40D0。
+YobiAction* gLegacyAlbumActionD67D14 = nullptr; // 原全局：0x00D67D14。
+constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xCC\xF8\xDF\x5E\x31\x30\xED\x93\xA1\xA3"; // 原常量参考：0x0058A0F0。
+constexpr char kLegacyAlbumBack58A0FC[] = "\xBB\xD8\xB5\xBD\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A0FC。
+constexpr char kLegacyAlbumOpen58A114[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A114。
 
 // 原旧20列表面板及两帧展开标志；4F7140初始化，4F7150/4F7870共享。
-LegacyPanelRecord gLegacyPetListPanel584850 {
+LegacyPanelRecord gLegacyPetListPanel584850 { // 原全局：0x00584850。
     0, 0, 272, 408, 20, {22840, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int16_t gLegacyPetStateOpenD67D18 = 0;
-std::int16_t gLegacyPetStatePreviousD2D48C = 0;
+std::int16_t gLegacyPetStateOpenD67D18 = 0; // 原全局：0x00D67D18。
+std::int16_t gLegacyPetStatePreviousD2D48C = 0; // 原全局：0x00D2D48C。
 // 原旧20状态选择器的独立S16待提交数据；五物理槽，与现代窗口状态无别名。
-std::array<std::int16_t, 5> gLegacyPetStateValuesCF4E38 {};
-std::int16_t gLegacyPetStandbyCountCC4D18 = 0;
-std::int16_t gLegacyPetBattleCountD45F8C = 0; // 不属于D45F78金额文本或D45F88编号。
-constexpr char kLegacyPetStateConfirm58A1F0[] = "\x9B\x51\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateCancel58A1D8[] = "\xCD\xA3\xD6\xB9\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xDF\x78\x93\xF1\xA1\xA3";
-constexpr char kLegacyPetStateBattle586C40[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateBattleCurrent586C5C[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateStandby586C78[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateStandbyCurrent586C94[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateRestCurrent58A140[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42";
-constexpr char kLegacyPetStateRest58A158[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateStandbyRejected58A174[] = "\x9F\x6F\xB7\xA8\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateBattleRejected58A194[] = "\x9F\x6F\xB7\xA8\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kLegacyPetStateSwap58A1B0[] = "\xB0\xD1\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xBA\xCD\xD4\x4F\x9E\xE9\x85\xA2\x91\xF0\xA0\xEE\x91\x42\xB5\xC4\x8C\x99\xCE\xEF\xCC\xE6\x93\x51\xA1\xA3";
-constexpr std::array<std::int32_t, 10> kLegacyPetTribeImages57CB2C {
+std::array<std::int16_t, 5> gLegacyPetStateValuesCF4E38 {}; // 原全局：0x00CF4E38。
+std::int16_t gLegacyPetStandbyCountCC4D18 = 0; // 原全局：0x00CC4D18。
+std::int16_t gLegacyPetBattleCountD45F8C = 0; // 原全局：0x00D45F8C。 不属于D45F78金额文本或D45F88编号。
+constexpr char kLegacyPetStateConfirm58A1F0[] = "\x9B\x51\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A1F0。
+constexpr char kLegacyPetStateCancel58A1D8[] = "\xCD\xA3\xD6\xB9\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x0058A1D8。
+constexpr char kLegacyPetStateBattle586C40[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C40。
+constexpr char kLegacyPetStateBattleCurrent586C5C[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C5C。
+constexpr char kLegacyPetStateStandby586C78[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C78。
+constexpr char kLegacyPetStateStandbyCurrent586C94[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C94。
+constexpr char kLegacyPetStateRestCurrent58A140[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42"; // 原常量参考：0x0058A140。
+constexpr char kLegacyPetStateRest58A158[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A158。
+constexpr char kLegacyPetStateStandbyRejected58A174[] = "\x9F\x6F\xB7\xA8\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A174。
+constexpr char kLegacyPetStateBattleRejected58A194[] = "\x9F\x6F\xB7\xA8\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A194。
+constexpr char kLegacyPetStateSwap58A1B0[] = "\xB0\xD1\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xBA\xCD\xD4\x4F\x9E\xE9\x85\xA2\x91\xF0\xA0\xEE\x91\x42\xB5\xC4\x8C\x99\xCE\xEF\xCC\xE6\x93\x51\xA1\xA3"; // 原常量参考：0x0058A1B0。
+constexpr std::array<std::int32_t, 10> kLegacyPetTribeImages57CB2C { // 原常量参考：0x0057CB2C。
     22865, 22866, 22867, 22868, 22869, 22870, 22871, 22872, 22873, 22874,
 };
-constexpr char kLegacyPetOpenDetails586D0C[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyPetChooseState58A12C[] = "\xD6\xB8\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3";
+constexpr char kLegacyPetOpenDetails586D0C[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586D0C。
+constexpr char kLegacyPetChooseState58A12C[] = "\xD6\xB8\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A12C。
 
-constexpr char kLegacyPetBasicTab585958[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyPetAttributeTab58593C[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xD4\x94\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyPetSkillTab585920[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyPetBack58A204[] = "\xBB\xD8\xB5\xBD\x8C\x99\xCE\xEF\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyPetRename586D38[] = "\xD7\x83\xB8\xFC\x8C\x99\xCE\xEF\xC3\xFB\xD7\xD6\xA1\xA3";
-constexpr char kLegacyPetLevelLimit58A214[] = "   ---   ";
-constexpr char kLegacyPetVitality58A288[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC9\xFA\xC3\xFC\xA1\xA3";
-constexpr char kLegacyPetToughness58A260[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xB7\xC0\xB6\x52\xA1\xA3";
-constexpr char kLegacyPetMagic58A238[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC4\xA7\xB7\xA8\xA1\xA3";
-LegacyPanelRecord gLegacyPetDetailPanel584918 {
+constexpr char kLegacyPetBasicTab585958[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585958。
+constexpr char kLegacyPetAttributeTab58593C[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xD4\x94\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058593C。
+constexpr char kLegacyPetSkillTab585920[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585920。
+constexpr char kLegacyPetBack58A204[] = "\xBB\xD8\xB5\xBD\x8C\x99\xCE\xEF\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A204。
+constexpr char kLegacyPetRename586D38[] = "\xD7\x83\xB8\xFC\x8C\x99\xCE\xEF\xC3\xFB\xD7\xD6\xA1\xA3"; // 原常量参考：0x00586D38。
+constexpr char kLegacyPetLevelLimit58A214[] = "   ---   "; // 原常量参考：0x0058A214。
+constexpr char kLegacyPetVitality58A288[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC9\xFA\xC3\xFC\xA1\xA3"; // 原常量参考：0x0058A288。
+constexpr char kLegacyPetToughness58A260[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xB7\xC0\xB6\x52\xA1\xA3"; // 原常量参考：0x0058A260。
+constexpr char kLegacyPetMagic58A238[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC4\xA7\xB7\xA8\xA1\xA3"; // 原常量参考：0x0058A238。
+LegacyPanelRecord gLegacyPetDetailPanel584918 { // 原全局：0x00584918。
     0, 0, 272, 438, 21, {22800, 22810, 22824, 0, 0},
     {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958},
       {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593C},
       {1, 187, 415, 78, 17, kLegacyPetSkillTab585920}, {}, {}}},
     0, 0, {}, {},
 };
-std::int32_t gLegacyPetSelectionD67ADC = 0; // 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
-YobiAction* gLegacyPetDetailActionD67AE0 = nullptr;
-LegacyPanelRecord gLegacyPetRenamePanel5849E0 {
+std::int32_t gLegacyPetSelectionD67ADC = 0; // 原全局：0x00D67ADC。 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
+YobiAction* gLegacyPetDetailActionD67AE0 = nullptr; // 原全局：0x00D67AE0。
+LegacyPanelRecord gLegacyPetRenamePanel5849E0 { // 原全局：0x005849E0。
     0, 0, 272, 200, 22, {22809, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-input::InputContext* gLegacyPetRenameInputD67D1C = nullptr; // 借用独立D2DFD0，不复用现代宠物输入。
+input::InputContext* gLegacyPetRenameInputD67D1C = nullptr; // 原全局：0x00D67D1C。 借用独立D2DFD0，不复用现代宠物输入。
 
 bool HandleLegacyPetNavigation(const LegacyPanelButtonRecord* const back,
     const LegacyPanelButtonRecord* const previous, const LegacyPanelButtonRecord* const next)
@@ -745,55 +745,55 @@ bool HandleLegacyPetNavigation(const LegacyPanelButtonRecord* const back,
 }
 
 // 旧52独立面板/拆分参数；交易展示、金额和公开阶段借WindowRuntime原owner。
-LegacyPanelRecord gLegacyTradePanel582F00 {
+LegacyPanelRecord gLegacyTradePanel582F00 { // 原全局：0x00582F00。
     40, 0, 560, 364, 52, {23230, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr std::array<std::array<std::int32_t, 4>, 2> kLegacyTradeGrid582ECC {{
+constexpr std::array<std::array<std::int32_t, 4>, 2> kLegacyTradeGrid582ECC {{ // 原常量参考：0x00582ECC。
     {13, 94, 60, 141}, {291, 94, 338, 141},
 }};
-std::int32_t gLegacyTradeSplitSourceD45F90 = 0;
-std::int32_t gLegacyTradeSplitTargetD2D668 = 0;
-std::int32_t gLegacyTradeSplitAmountD2D490 = 0;
-std::int32_t gLegacyTradeMouseXCF3FEC = 0;
-std::int32_t gLegacyTradeMouseYCF3FE8 = 0;
-std::int32_t gLegacyTradeDetailPageD67CC8 = 0;
-std::int32_t gLegacyTradePrevious582FCC = -1;
-constexpr std::array<std::array<std::int32_t, 2>, 2> kLegacyTradePetRows582EEC {{
+std::int32_t gLegacyTradeSplitSourceD45F90 = 0; // 原全局：0x00D45F90。
+std::int32_t gLegacyTradeSplitTargetD2D668 = 0; // 原全局：0x00D2D668。
+std::int32_t gLegacyTradeSplitAmountD2D490 = 0; // 原全局：0x00D2D490。
+std::int32_t gLegacyTradeMouseXCF3FEC = 0; // 原全局：0x00CF3FEC。
+std::int32_t gLegacyTradeMouseYCF3FE8 = 0; // 原全局：0x00CF3FE8。
+std::int32_t gLegacyTradeDetailPageD67CC8 = 0; // 原全局：0x00D67CC8。
+std::int32_t gLegacyTradePrevious582FCC = -1; // 原全局：0x00582FCC。
+constexpr std::array<std::array<std::int32_t, 2>, 2> kLegacyTradePetRows582EEC {{ // 原常量参考：0x00582EEC。
     {70, 123}, {348, 123},
 }};
-std::int32_t gLegacyTradeRemoteItemPrevious582FC4 = -1;
-std::int32_t gLegacyTradeRemotePetPrevious582FC8 = -1;
-std::int32_t gLegacyTradeLocalPetPrevious582FD0 = -1;
-std::int32_t gLegacyTradeRemoteItemPageD67CC0 = 0;
-std::int32_t gLegacyTradeRemotePetPageD67CC4 = 0;
-std::int32_t gLegacyTradeLocalPetPageD67CCC = 0;
-YobiAction* gLegacyTradePetActionD67CB4 = nullptr; // 旧52外层创建/关闭，属性页借用。
-constexpr char kLegacyTradeAvailable589524[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradeUnavailable58953C[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xB2\xBB\xC4\xDC\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradeSelected589554[] = "\xB0\xD1\xB4\xCB\xCE\xEF\xC6\xB7\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradeRemoteItem5894DC[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyTradeRemotePet5894F4[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacyTradeRemoteMoney58950C[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyTradePetAvailable589568[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradePetSelected589580[] = "\xB0\xD1\xB4\xCB\x8C\x99\xCE\xEF\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradeChoosing5894CC[] = "\xDF\x78\xC8\xA1\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xD6\xD0";
-constexpr char kLegacyTradePublished5894B8[] = "\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xDF\x78\xC8\xA1\xCD\xEA\xB3\xC9";
-constexpr char kLegacyTradeConfirming5894AC[] = "\xB4\x5F\xD5\x4A\xBD\xBB\xD2\xD7\xD6\xD0";
-constexpr char kLegacyTradeConfirmSelected589484[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kLegacyTradeConfirm589478[] = "\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3";
+std::int32_t gLegacyTradeRemoteItemPrevious582FC4 = -1; // 原全局：0x00582FC4。
+std::int32_t gLegacyTradeRemotePetPrevious582FC8 = -1; // 原全局：0x00582FC8。
+std::int32_t gLegacyTradeLocalPetPrevious582FD0 = -1; // 原全局：0x00582FD0。
+std::int32_t gLegacyTradeRemoteItemPageD67CC0 = 0; // 原全局：0x00D67CC0。
+std::int32_t gLegacyTradeRemotePetPageD67CC4 = 0; // 原全局：0x00D67CC4。
+std::int32_t gLegacyTradeLocalPetPageD67CCC = 0; // 原全局：0x00D67CCC。
+YobiAction* gLegacyTradePetActionD67CB4 = nullptr; // 原全局：0x00D67CB4。 旧52外层创建/关闭，属性页借用。
+constexpr char kLegacyTradeAvailable589524[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589524。
+constexpr char kLegacyTradeUnavailable58953C[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xB2\xBB\xC4\xDC\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x0058953C。
+constexpr char kLegacyTradeSelected589554[] = "\xB0\xD1\xB4\xCB\xCE\xEF\xC6\xB7\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589554。
+constexpr char kLegacyTradeRemoteItem5894DC[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005894DC。
+constexpr char kLegacyTradeRemotePet5894F4[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005894F4。
+constexpr char kLegacyTradeRemoteMoney58950C[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x0058950C。
+constexpr char kLegacyTradePetAvailable589568[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589568。
+constexpr char kLegacyTradePetSelected589580[] = "\xB0\xD1\xB4\xCB\x8C\x99\xCE\xEF\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589580。
+constexpr char kLegacyTradeChoosing5894CC[] = "\xDF\x78\xC8\xA1\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xD6\xD0"; // 原常量参考：0x005894CC。
+constexpr char kLegacyTradePublished5894B8[] = "\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xDF\x78\xC8\xA1\xCD\xEA\xB3\xC9"; // 原常量参考：0x005894B8。
+constexpr char kLegacyTradeConfirming5894AC[] = "\xB4\x5F\xD5\x4A\xBD\xBB\xD2\xD7\xD6\xD0"; // 原常量参考：0x005894AC。
+constexpr char kLegacyTradeConfirmSelected589484[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589484。
+constexpr char kLegacyTradeConfirm589478[] = "\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589478。
 
-constexpr char kLegacyTradeRemoteItemTab589458[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradeRemotePetTab589438[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradeRemoteMoneyTab589418[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradeLocalItemTab589400[] = "\xC7\xD0\x93\x51\xD6\xC1\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradeLocalPetTab5893E8[] = "\xC7\xD0\x93\x51\xD6\xC1\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradeLocalMoneyTab5893D0[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyTradePublishItems5893B4[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3";
-constexpr char kLegacyTradePublishPets589398[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\x8C\x99\xCE\xEF\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3";
-constexpr char kLegacyTradePublishMoney589380[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3";
-constexpr char kLegacyTradePetCount58949C[] = "%d\xEB\x62";
-constexpr char kLegacyTradeItemCount5894A4[] = "%2d\x82\x80";
-constexpr char kLegacyTradeMoney589494[] = "%7d\xBD\xF0\x8E\xC5";
+constexpr char kLegacyTradeRemoteItemTab589458[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589458。
+constexpr char kLegacyTradeRemotePetTab589438[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589438。
+constexpr char kLegacyTradeRemoteMoneyTab589418[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589418。
+constexpr char kLegacyTradeLocalItemTab589400[] = "\xC7\xD0\x93\x51\xD6\xC1\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589400。
+constexpr char kLegacyTradeLocalPetTab5893E8[] = "\xC7\xD0\x93\x51\xD6\xC1\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x005893E8。
+constexpr char kLegacyTradeLocalMoneyTab5893D0[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x005893D0。
+constexpr char kLegacyTradePublishItems5893B4[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x005893B4。
+constexpr char kLegacyTradePublishPets589398[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\x8C\x99\xCE\xEF\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x00589398。
+constexpr char kLegacyTradePublishMoney589380[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x00589380。
+constexpr char kLegacyTradePetCount58949C[] = "%d\xEB\x62"; // 原常量参考：0x0058949C。
+constexpr char kLegacyTradeItemCount5894A4[] = "%2d\x82\x80"; // 原常量参考：0x005894A4。
+constexpr char kLegacyTradeMoney589494[] = "%7d\xBD\xF0\x8E\xC5"; // 原常量参考：0x00589494。
 
 char* BorrowLegacyTradeItem(const std::int32_t side, const std::int32_t item)
 {
@@ -823,72 +823,72 @@ void CancelLegacyTradeOffer()
 }
 
 // 旧72物品子页与后续外层切页共用；CC4D58展示记录仍归WindowRuntime。
-LegacyPanelRecord gLegacyStoragePanel582B70 {
+LegacyPanelRecord gLegacyStoragePanel582B70 { // 原全局：0x00582B70。
     40, 16, 560, 364, 72, {23340, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr std::array<std::array<std::int32_t, 4>, 2> kLegacyStorageGrid582C34 {{
+constexpr std::array<std::array<std::int32_t, 4>, 2> kLegacyStorageGrid582C34 {{ // 原常量参考：0x00582C34。
     {13, 94, 60, 141}, {291, 94, 338, 141},
 }};
-std::int32_t gLegacyStoragePreviousLeft582C64 = -1;
-std::int32_t gLegacyStoragePreviousRight582C68 = -1;
-std::int32_t gLegacyStorageSplitModeCA0AA8 = 0;
-std::int32_t gLegacyStorageSplitSourceD3FACC = 0;
-std::int32_t gLegacyStorageSplitTargetCC4D38 = 0;
-std::int32_t gLegacyStorageSplitAmountCB2220 = 0;
-std::int32_t gLegacyStorageDragSlotCC4C98 = 0;
-std::int32_t gLegacyStorageDragImageCB09D4 = 0;
-std::int32_t gLegacyStorageDetailPageD67C94 = 0;
-std::int32_t gLegacyStorageMessageD67C98 = 0;
-std::uint32_t gLegacyStorageMessageTickD67C9C = 0;
-std::int32_t gLegacyStorageEmptySlotsCF49BC = 0;
-std::int32_t gLegacyStorageTakeCountCF4A04 = 0;
-std::int32_t gLegacyStoragePutCountD2DAD4 = 0;
-std::int32_t gLegacyStorageCapacityD30404 = 0;
-std::int32_t gLegacyStorageFeeD40B04 = 0;
-std::int32_t gLegacyStorageMoneyD2F79C = 0;
-std::int32_t gLegacyStorageWithdrawDraftD2EA98 = 0;
-std::int32_t gLegacyStorageWithdrawAmountCF49B8 = 0;
-std::int32_t gLegacyStorageDepositMessageD67CAC = 0;
-std::uint32_t gLegacyStorageDepositTickD67CB0 = 0;
-constexpr std::array<std::array<std::int32_t, 2>, 2> kLegacyStoragePetRows582C54 {{
+std::int32_t gLegacyStoragePreviousLeft582C64 = -1; // 原全局：0x00582C64。
+std::int32_t gLegacyStoragePreviousRight582C68 = -1; // 原全局：0x00582C68。
+std::int32_t gLegacyStorageSplitModeCA0AA8 = 0; // 原全局：0x00CA0AA8。
+std::int32_t gLegacyStorageSplitSourceD3FACC = 0; // 原全局：0x00D3FACC。
+std::int32_t gLegacyStorageSplitTargetCC4D38 = 0; // 原全局：0x00CC4D38。
+std::int32_t gLegacyStorageSplitAmountCB2220 = 0; // 原全局：0x00CB2220。
+std::int32_t gLegacyStorageDragSlotCC4C98 = 0; // 原全局：0x00CC4C98。
+std::int32_t gLegacyStorageDragImageCB09D4 = 0; // 原全局：0x00CB09D4。
+std::int32_t gLegacyStorageDetailPageD67C94 = 0; // 原全局：0x00D67C94。
+std::int32_t gLegacyStorageMessageD67C98 = 0; // 原全局：0x00D67C98。
+std::uint32_t gLegacyStorageMessageTickD67C9C = 0; // 原全局：0x00D67C9C。
+std::int32_t gLegacyStorageEmptySlotsCF49BC = 0; // 原全局：0x00CF49BC。
+std::int32_t gLegacyStorageTakeCountCF4A04 = 0; // 原全局：0x00CF4A04。
+std::int32_t gLegacyStoragePutCountD2DAD4 = 0; // 原全局：0x00D2DAD4。
+std::int32_t gLegacyStorageCapacityD30404 = 0; // 原全局：0x00D30404。
+std::int32_t gLegacyStorageFeeD40B04 = 0; // 原全局：0x00D40B04。
+std::int32_t gLegacyStorageMoneyD2F79C = 0; // 原全局：0x00D2F79C。
+std::int32_t gLegacyStorageWithdrawDraftD2EA98 = 0; // 原全局：0x00D2EA98。
+std::int32_t gLegacyStorageWithdrawAmountCF49B8 = 0; // 原全局：0x00CF49B8。
+std::int32_t gLegacyStorageDepositMessageD67CAC = 0; // 原全局：0x00D67CAC。
+std::uint32_t gLegacyStorageDepositTickD67CB0 = 0; // 原全局：0x00D67CB0。
+constexpr std::array<std::array<std::int32_t, 2>, 2> kLegacyStoragePetRows582C54 {{ // 原常量参考：0x00582C54。
     {70, 123}, {348, 123},
 }};
-std::int32_t gLegacyStoragePetPreviousLeft582C6C = -1;
-std::int32_t gLegacyStoragePetPreviousRight582C70 = -1;
-std::int32_t gLegacyStoragePetPageD67CA0 = 0;
-std::int32_t gLegacyStoragePetMessageD67CA4 = 0;
-std::uint32_t gLegacyStoragePetTickD67CA8 = 0;
-std::int32_t gLegacyStoragePetPutCountD2D600 = 0;
-std::int32_t gLegacyStoragePetTakeCountD2D824 = 0;
-std::int32_t gLegacyStoragePetCapacityCB1DDC = 0;
-YobiAction* gLegacyStoragePetActionD67C90 = nullptr;
-constexpr char kLegacyStorageNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1";
-constexpr char kLegacyStorageFee589284[] = "\xCA\xD6\xC0\x6D\xD9\x4D";
-constexpr char kLegacyStorageGold589278[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E";
-constexpr char kLegacyStorageAmount588FC4[] = "%7d \xBD\xF0\x8E\xC5";
-constexpr char kLegacyStorageTake589268[] = "\xC8\xA1\xB3\xF6\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyStorageFull589230[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyStorageCanPut589244[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3";
-constexpr char kLegacyStoragePut589258[] = "\xB4\xE6\xB7\xC5\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyStorageCannotPut5878BC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xB4\xE6\xB7\xC5\xA1\xA3";
-constexpr char kLegacyStorageClear5859FC[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3";
-constexpr char kLegacyStorageAmountLimit5892D4[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyStorageDeposit5892F4[] = "\xB4\xE6\xC8\xEB\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyStorageCannotDeposit5892E8[] = "\x9F\x6F\xB7\xA8\xB4\xE6\xC8\xEB\xA1\xA3";
-constexpr char kLegacyStorageBalance589314[] = "\xB4\xE6\xBF\xEE";
-constexpr char kLegacyStorageWithdraw589304[] = "\xC8\xA1\xB3\xF6\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyStoragePetTake5892C4[] = "\xC8\xA1\xB3\xF6\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacyStoragePetPut5892B4[] = "\xB4\xE6\xB7\xC5\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacyStoragePetCanPut5892A0[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3";
-constexpr char kLegacyStoragePetFull58928C[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\x8C\x99\xCE\xEF\xA1\xA3";
-constexpr char kLegacyStorageItemTab589214[] = "\xCE\xEF\xC6\xB7\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3";
-constexpr char kLegacyStoragePetTab589200[] = "\x8C\x99\xCE\xEF\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3";
-constexpr char kLegacyStorageDepositTab5891F8[] = "\xB4\xE6\xE5\x58\xA1\xA3";
-constexpr char kLegacyStorageWithdrawTab5891F0[] = "\xEE\x49\xE5\x58\xA1\xA3";
-constexpr char kLegacyStorageConfirm5891C4[] = "\xB4\x5F\xB6\xA8\xA1\xA3";
-constexpr char kLegacyStorageCancel5891BC[] = "\xC8\xA1\xCF\xFB\xA1\xA3";
-constexpr char kLegacyStorageItemCount5891D4[] = "%2d \x82\x80";
-constexpr char kLegacyStoragePetCount5891CC[] = "%d \xEB\x62";
+std::int32_t gLegacyStoragePetPreviousLeft582C6C = -1; // 原全局：0x00582C6C。
+std::int32_t gLegacyStoragePetPreviousRight582C70 = -1; // 原全局：0x00582C70。
+std::int32_t gLegacyStoragePetPageD67CA0 = 0; // 原全局：0x00D67CA0。
+std::int32_t gLegacyStoragePetMessageD67CA4 = 0; // 原全局：0x00D67CA4。
+std::uint32_t gLegacyStoragePetTickD67CA8 = 0; // 原全局：0x00D67CA8。
+std::int32_t gLegacyStoragePetPutCountD2D600 = 0; // 原全局：0x00D2D600。
+std::int32_t gLegacyStoragePetTakeCountD2D824 = 0; // 原全局：0x00D2D824。
+std::int32_t gLegacyStoragePetCapacityCB1DDC = 0; // 原全局：0x00CB1DDC。
+YobiAction* gLegacyStoragePetActionD67C90 = nullptr; // 原全局：0x00D67C90。
+constexpr char kLegacyStorageNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1"; // 原常量参考：0x0058906C。
+constexpr char kLegacyStorageFee589284[] = "\xCA\xD6\xC0\x6D\xD9\x4D"; // 原常量参考：0x00589284。
+constexpr char kLegacyStorageGold589278[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E"; // 原常量参考：0x00589278。
+constexpr char kLegacyStorageAmount588FC4[] = "%7d \xBD\xF0\x8E\xC5"; // 原常量参考：0x00588FC4。
+constexpr char kLegacyStorageTake589268[] = "\xC8\xA1\xB3\xF6\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589268。
+constexpr char kLegacyStorageFull589230[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589230。
+constexpr char kLegacyStorageCanPut589244[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x00589244。
+constexpr char kLegacyStoragePut589258[] = "\xB4\xE6\xB7\xC5\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589258。
+constexpr char kLegacyStorageCannotPut5878BC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x005878BC。
+constexpr char kLegacyStorageClear5859FC[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x005859FC。
+constexpr char kLegacyStorageAmountLimit5892D4[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x005892D4。
+constexpr char kLegacyStorageDeposit5892F4[] = "\xB4\xE6\xC8\xEB\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x005892F4。
+constexpr char kLegacyStorageCannotDeposit5892E8[] = "\x9F\x6F\xB7\xA8\xB4\xE6\xC8\xEB\xA1\xA3"; // 原常量参考：0x005892E8。
+constexpr char kLegacyStorageBalance589314[] = "\xB4\xE6\xBF\xEE"; // 原常量参考：0x00589314。
+constexpr char kLegacyStorageWithdraw589304[] = "\xC8\xA1\xB3\xF6\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00589304。
+constexpr char kLegacyStoragePetTake5892C4[] = "\xC8\xA1\xB3\xF6\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005892C4。
+constexpr char kLegacyStoragePetPut5892B4[] = "\xB4\xE6\xB7\xC5\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005892B4。
+constexpr char kLegacyStoragePetCanPut5892A0[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x005892A0。
+constexpr char kLegacyStoragePetFull58928C[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x0058928C。
+constexpr char kLegacyStorageItemTab589214[] = "\xCE\xEF\xC6\xB7\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3"; // 原常量参考：0x00589214。
+constexpr char kLegacyStoragePetTab589200[] = "\x8C\x99\xCE\xEF\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3"; // 原常量参考：0x00589200。
+constexpr char kLegacyStorageDepositTab5891F8[] = "\xB4\xE6\xE5\x58\xA1\xA3"; // 原常量参考：0x005891F8。
+constexpr char kLegacyStorageWithdrawTab5891F0[] = "\xEE\x49\xE5\x58\xA1\xA3"; // 原常量参考：0x005891F0。
+constexpr char kLegacyStorageConfirm5891C4[] = "\xB4\x5F\xB6\xA8\xA1\xA3"; // 原常量参考：0x005891C4。
+constexpr char kLegacyStorageCancel5891BC[] = "\xC8\xA1\xCF\xFB\xA1\xA3"; // 原常量参考：0x005891BC。
+constexpr char kLegacyStorageItemCount5891D4[] = "%2d \x82\x80"; // 原常量参考：0x005891D4。
+constexpr char kLegacyStoragePetCount5891CC[] = "%d \xEB\x62"; // 原常量参考：0x005891CC。
 
 char* BorrowLegacyStorageItem(const std::int32_t side, const std::int32_t item)
 {
@@ -913,431 +913,431 @@ void WriteLegacyStorageSelection(char* const record, const std::int16_t value)
 }
 
 // 原旧19唯一585640面板；5856E0借同一selected，非列表页签副本。
-LegacyPanelRecord gLegacySkillDetail585640 {
+LegacyPanelRecord gLegacySkillDetail585640 { // 原全局：0x00585640。
     0, 0, 272, 448, 19, {22770, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillDetailNoFp58A9D4[] = "\xC4\xA7\xB7\xA8\xB2\xBB\xD7\xE3\xA1\xA3";
-constexpr char kLegacySkillDetailNoSpace58A9C4[] = "\xCE\xEF\xC6\xB7\x99\xDA\x9D\x4D\xC1\xCB\xA1\xA3";
-constexpr char kLegacySkillDetailHiddenFp58A9BC[] = "\x3F\x3F\x3F\x3F";
-constexpr char kLegacySkillDetailUse58A9AC[] = "\xCA\xB9\xD3\xC3\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacySkillDetailBack554088[] = "\xBB\xD8\xB5\xBD\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacySkillDetailUnavailable58A994[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3";
-constexpr char kLegacySkillDetailTransform554104[] = "\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3";
-constexpr char kLegacySkillDetailRelease554114[] = "\xBD\xE2\xB3\xFD\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3";
-constexpr char kLegacySkillClose55331C[] =
+constexpr char kLegacySkillDetailNoFp58A9D4[] = "\xC4\xA7\xB7\xA8\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058A9D4。
+constexpr char kLegacySkillDetailNoSpace58A9C4[] = "\xCE\xEF\xC6\xB7\x99\xDA\x9D\x4D\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A9C4。
+constexpr char kLegacySkillDetailHiddenFp58A9BC[] = "\x3F\x3F\x3F\x3F"; // 原常量参考：0x0058A9BC。
+constexpr char kLegacySkillDetailUse58A9AC[] = "\xCA\xB9\xD3\xC3\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x0058A9AC。
+constexpr char kLegacySkillDetailBack554088[] = "\xBB\xD8\xB5\xBD\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00554088。
+constexpr char kLegacySkillDetailUnavailable58A994[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x0058A994。
+constexpr char kLegacySkillDetailTransform554104[] = "\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00554104。
+constexpr char kLegacySkillDetailRelease554114[] = "\xBD\xE2\xB3\xFD\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00554114。
+constexpr char kLegacySkillClose55331C[] = // 原常量参考：0x0055331C。
     "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacySkillOpen5864C8[] =
+constexpr char kLegacySkillOpen5864C8[] = // 原常量参考：0x005864C8。
     "\xB4\xF2\xE9\x5F\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xB5\xC4\xBC\xBC"
     "\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyAttributeLimit58A220[] =
+constexpr char kLegacyAttributeLimit58A220[] = // 原常量参考：0x0058A220。
     "\xD2\xD1\xBD\x9B\xB2\xBB\xC4\xDC\xD4\xD9\xB7\xD6\xC5\xE4\xFC\x63"
     "\x94\xB5\xC1\xCB\xA1\xA3";
-constexpr char kLegacyAttributeHint58AA08[] =
+constexpr char kLegacyAttributeHint58AA08[] = // 原常量参考：0x0058AA08。
     "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xF3\x77\xC1\xA6\xA1\xA3";
-constexpr char kLegacyAttributeHint58A274[] =
+constexpr char kLegacyAttributeHint58A274[] = // 原常量参考：0x0058A274。
     "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC1\xA6\xC1\xBF\xA1\xA3";
-constexpr char kLegacyAttributeHint58A9F4[] =
+constexpr char kLegacyAttributeHint58A9F4[] = // 原常量参考：0x0058A9F4。
     "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\x8F\x8A\xB6\xC8\xA1\xA3";
-constexpr char kLegacyAttributeHint58A24C[] =
+constexpr char kLegacyAttributeHint58A24C[] = // 原常量参考：0x0058A24C。
     "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xCB\xD9\xB6\xC8\xA1\xA3";
-constexpr char kLegacyAttributeHint58A9E0[] =
+constexpr char kLegacyAttributeHint58A9E0[] = // 原常量参考：0x0058A9E0。
     "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC4\xA7\xC1\xA6\xA1\xA3";
-constexpr char kLegacyProfileTab5858D8[] =
+constexpr char kLegacyProfileTab5858D8[] = // 原常量参考：0x005858D8。
     "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileTab5858C0[] =
+constexpr char kLegacyProfileTab5858C0[] = // 原常量参考：0x005858C0。
     "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xC3\xF7\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileTab5858A8[] =
+constexpr char kLegacyProfileTab5858A8[] = // 原常量参考：0x005858A8。
     "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xB7\x51\xCC\x96\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileRear586344[] =
+constexpr char kLegacyProfileRear586344[] = // 原常量参考：0x00586344。
     "\xB0\xD1\x91\xF0\xF4\x59\x95\x72\xB5\xC4\xCE\xBB\xD6\xC3\xD7\x83"
     "\xB8\xFC\x9E\xE9\xE1\xE1\xC5\xC5\xA1\xA3";
-constexpr char kLegacyProfileFront586360[] =
+constexpr char kLegacyProfileFront586360[] = // 原常量参考：0x00586360。
     "\xB0\xD1\x91\xF0\xF4\x59\x95\x72\xB5\xC4\xCE\xBB\xD6\xC3\xD7\x83"
     "\xB8\xFC\x9E\xE9\xC7\xB0\xC5\xC5\xA1\xA3";
-constexpr std::array<std::array<std::uint32_t, 2>, 4> kLegacyAttributeBars57CBB8 {{
+constexpr std::array<std::array<std::uint32_t, 2>, 4> kLegacyAttributeBars57CBB8 {{ // 原常量参考：0x0057CBB8。
     {250, 2}, {254, 6}, {249, 1}, {251, 3},
 }};
-std::uint32_t gLegacyProfilePositionTickD68860 = 0;
-input::InputContext* gLegacyProfileInputD6885C = nullptr;
-std::int32_t gLegacyProfilePreviousPage585894 = -1;
-std::uint32_t gLegacyProfileEditTickD68864 = 0;
-std::int8_t gLegacyTitlePageCF49B4 = 0;
-std::int8_t gLegacyTitlePageCountC8AF80 = 0;
-std::int8_t gLegacyTitleDeleteCF4678 = 0;
-LegacyPanelRecord gLegacyMapPanelD68868 {};
-std::int32_t gLegacyMapDefaultX57CB24 = 392;
-std::int32_t gLegacyMapDefaultYD67AD4 = 0;
-constexpr char kLegacyMapEast58AA54[] = "\x96\x7C %3d";
-constexpr char kLegacyMapSouth58AA4C[] = "\xC4\xCF %3d";
-LegacyPanelRecord gLegacyPointResultPanel5838A8 {
+std::uint32_t gLegacyProfilePositionTickD68860 = 0; // 原全局：0x00D68860。
+input::InputContext* gLegacyProfileInputD6885C = nullptr; // 原全局：0x00D6885C。
+std::int32_t gLegacyProfilePreviousPage585894 = -1; // 原全局：0x00585894。
+std::uint32_t gLegacyProfileEditTickD68864 = 0; // 原全局：0x00D68864。
+std::int8_t gLegacyTitlePageCF49B4 = 0; // 原全局：0x00CF49B4。
+std::int8_t gLegacyTitlePageCountC8AF80 = 0; // 原全局：0x00C8AF80。
+std::int8_t gLegacyTitleDeleteCF4678 = 0; // 原全局：0x00CF4678。
+LegacyPanelRecord gLegacyMapPanelD68868 {}; // 原全局：0x00D68868。
+std::int32_t gLegacyMapDefaultX57CB24 = 392; // 原全局：0x0057CB24。
+std::int32_t gLegacyMapDefaultYD67AD4 = 0; // 原全局：0x00D67AD4。
+constexpr char kLegacyMapEast58AA54[] = "\x96\x7C %3d"; // 原常量参考：0x0058AA54。
+constexpr char kLegacyMapSouth58AA4C[] = "\xC4\xCF %3d"; // 原常量参考：0x0058AA4C。
+LegacyPanelRecord gLegacyPointResultPanel5838A8 { // 原全局：0x005838A8。
     236, 152, 168, 152, 41, {23385, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyBattleResultPanel583970 {
+LegacyPanelRecord gLegacyBattleResultPanel583970 { // 原全局：0x00583970。
     12, 74, 616, 308, 40, {23380, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::uint32_t gLegacyPointResultTickCC3E74 = 0;
-std::uint32_t gLegacyBattleResultTickD3FAB8 = 0;
+std::uint32_t gLegacyPointResultTickCC3E74 = 0; // 原全局：0x00CC3E74。
+std::uint32_t gLegacyBattleResultTickD3FAB8 = 0; // 原全局：0x00D3FAB8。
 // 旧选择39；结果数据借窗口12，独立开关/时间槽不能套用其现代窗口状态机。
-LegacyPanelRecord gLegacyGatherResultPanel583A38 {
+LegacyPanelRecord gLegacyGatherResultPanel583A38 { // 原全局：0x00583A38。
     0, 0, 272, 440, 39, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGatherRepeat583AFC = 1;
-std::uint32_t gLegacyGatherResultTickCA0AB8 = 0;
-YobiAction* gLegacyGatherResultActionD67CD4 = nullptr;
-constexpr char kLegacyGatherNoFp5864F0[] = "\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA1\xA3";
-constexpr char kLegacyGatherNoSpace589868[] = "\xCE\xEF\xC6\xB7\x99\xDA\xD2\xD1\x9D\x4D\xA1\xA3";
-constexpr char kLegacyGatherLimit589858[] = "   --   ";
-constexpr char kLegacyGatherStop589848[] = "\x8C\xA2\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE\xA1\xA3";
-constexpr char kLegacyGatherStart58983C[] = "\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE";
-LegacyPanelRecord gLegacySkillResultPanel583BC8 {
+std::int32_t gLegacyGatherRepeat583AFC = 1; // 原全局：0x00583AFC。
+std::uint32_t gLegacyGatherResultTickCA0AB8 = 0; // 原全局：0x00CA0AB8。
+YobiAction* gLegacyGatherResultActionD67CD4 = nullptr; // 原全局：0x00D67CD4。
+constexpr char kLegacyGatherNoFp5864F0[] = "\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x005864F0。
+constexpr char kLegacyGatherNoSpace589868[] = "\xCE\xEF\xC6\xB7\x99\xDA\xD2\xD1\x9D\x4D\xA1\xA3"; // 原常量参考：0x00589868。
+constexpr char kLegacyGatherLimit589858[] = "   --   "; // 原常量参考：0x00589858。
+constexpr char kLegacyGatherStop589848[] = "\x8C\xA2\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE\xA1\xA3"; // 原常量参考：0x00589848。
+constexpr char kLegacyGatherStart58983C[] = "\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE"; // 原常量参考：0x0058983C。
+LegacyPanelRecord gLegacySkillResultPanel583BC8 { // 原全局：0x00583BC8。
     0, 0, 272, 440, 37, {23356, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacySkillResultActionD67CDC = nullptr;
-LegacyPanelRecord gLegacyFpNoticePanel583E20 {
+YobiAction* gLegacySkillResultActionD67CDC = nullptr; // 原全局：0x00D67CDC。
+LegacyPanelRecord gLegacyFpNoticePanel583E20 { // 原全局：0x00583E20。
     160, 180, 320, 96, 34, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillRetry589A94[] =
+constexpr char kLegacySkillRetry589A94[] = // 原常量参考：0x00589A94。
     "\xD4\xD9\xCA\xB9\xD3\xC3\xB4\xCB\xBC\xBC\xC4\xDC\xD2\xBB\xB4\xCE\xA1\xA3";
-constexpr char kLegacyFpConfirm55C5D4[] = "\xB4\x5F\xB6\xA8";
-constexpr char kLegacyFpNotice589BFC[] = "\xC4\xA7\xC1\xA6\xB2\xBB\x89\xF2\xA1\xA3";
-constexpr char kLegacyFpRequired589BE8[] =
+constexpr char kLegacyFpConfirm55C5D4[] = "\xB4\x5F\xB6\xA8"; // 原常量参考：0x0055C5D4。
+constexpr char kLegacyFpNotice589BFC[] = "\xC4\xA7\xC1\xA6\xB2\xBB\x89\xF2\xA1\xA3"; // 原常量参考：0x00589BFC。
+constexpr char kLegacyFpRequired589BE8[] = // 原常量参考：0x00589BE8。
     "\xD0\xE8\xD2\xAA%d\xFC\x63\xB5\xC4\xC4\xA7\xC1\xA6\xD6\xB5\xA1\xA3";
-LegacyPanelRecord gLegacyItemWorkResultPanel584140 {
+LegacyPanelRecord gLegacyItemWorkResultPanel584140 { // 原全局：0x00584140。
     0, 0, 272, 440, 33, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyItemWorkResultActionD67CE0 = nullptr;
-LegacyPanelRecord gLegacyItemWorkNamePanel584208 {
+YobiAction* gLegacyItemWorkResultActionD67CE0 = nullptr; // 原全局：0x00D67CE0。
+LegacyPanelRecord gLegacyItemWorkNamePanel584208 { // 原全局：0x00584208。
     368, 0, 272, 104, 32, {23355, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyItemWorkPanel5842D0 {
+LegacyPanelRecord gLegacyItemWorkPanel5842D0 { // 原全局：0x005842D0。
     368, 0, 272, 440, 31, {23354, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-input::InputContext* gLegacyItemWorkInputD67CE4 = nullptr;
-std::string gLegacyItemWorkDraftCC31E0; // 仅已证NUL复制合同，不猜原固定容量。
-std::int32_t gLegacyItemWorkInitGateD67CE8 = 0; // 只证W32测试/返回，尚无地址用途。
-std::int32_t gLegacyItemWorkButtonKindD67CF4 = 0;
-std::int32_t gLegacyItemWorkPhaseCC4220 = 0;
-YobiAction* gLegacyItemWorkActionD67CEC = nullptr;
-std::int32_t gLegacyItemWorkHover584398 = -1;
-std::int32_t gLegacyItemWorkPageD67CF8 = 0;
-std::uint32_t gLegacyItemWorkTickD2E12C = 0;
-std::uint32_t gLegacyItemWorkDurationCC3EDC = 0;
-std::string gLegacyItemWorkMessageCA0ACC; // 原NUL格式化/分行合同，未知阶段保留旧文本。
-constexpr char kItemWorkText589F84[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589F6C[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589F54[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xD0\xDE\xC0\xED\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589F40[] = "\xD5\x88\xDF\x78\x93\xF1\x8C\xA6\xCF\xF3\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589F2C[] = "\xD0\xE8\xD2\xAA%d\xFC\x63\xB5\xC4\xC4\xA7\xC1\xA6\xA1\xA3";
-constexpr char kItemWorkText589F1C[] = "\xD2\xD1\xBD\x9B\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkText589F04[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xA1\xA3";
-constexpr char kItemWorkText589EF4[] = "\xD2\xD1\xBD\x9B\xBF\xCC\xD3\xA1\xDF\x5E\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkText589EDC[] = "\x0A\x0A      \xD0\xDE\xC0\xED\xD6\xD0......";
-constexpr char kItemWorkText589EC4[] = "\x0A\x0A      \xE8\x61\xB6\xA8\xD6\xD0......";
-constexpr char kItemWorkText589EAC[] = "\x0A\x0A      \xBF\xCC\xD3\xA1\xD6\xD0......";
-constexpr char kItemWorkText589E94[] = "\x9F\x6F\xB7\xA8\xD2\xD4\xD4\x93\xBC\xBC\xC4\xDC\xDF\x4D\xD0\xD0\xD0\xDE\xC0\xED\xA1\xA3";
-constexpr char kItemWorkText589E80[] = "\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589E58[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3";
-constexpr char kItemWorkText589E30[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3";
-constexpr char kItemWorkText589E1C[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589E04[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xCE\xB4\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589DF4[] = "\xBF\xCC\xD3\xA1\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589DE0[] = "\xD5\x88\xDF\x78\x93\xF1\xBF\xCC\xD3\xA1\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589DD0[] = "\xE8\x61\xB6\xA8\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589DBC[] = "\xD5\x88\xDF\x78\x93\xF1\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589DAC[] = "\xD0\xDE\xC0\xED\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589D98[] = "\xD5\x88\xDF\x78\x93\xF1\xD0\xDE\xC0\xED\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589D88[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589D74[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3";
-constexpr char kItemWorkText589D54[] = "\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3";
-constexpr char kItemWorkText589D44[] = "\xE8\x61\xB6\xA8\xD4\x93\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kItemWorkText589D30[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkText589D10[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3";
-constexpr char kItemWorkText589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-LegacyPanelRecord gLegacyCraftResultPanel5843A0 {
+input::InputContext* gLegacyItemWorkInputD67CE4 = nullptr; // 原全局：0x00D67CE4。
+std::string gLegacyItemWorkDraftCC31E0; // 原全局：0x00CC31E0。 仅已证NUL复制合同，不猜原固定容量。
+std::int32_t gLegacyItemWorkInitGateD67CE8 = 0; // 原全局：0x00D67CE8。 只证W32测试/返回，尚无地址用途。
+std::int32_t gLegacyItemWorkButtonKindD67CF4 = 0; // 原全局：0x00D67CF4。
+std::int32_t gLegacyItemWorkPhaseCC4220 = 0; // 原全局：0x00CC4220。
+YobiAction* gLegacyItemWorkActionD67CEC = nullptr; // 原全局：0x00D67CEC。
+std::int32_t gLegacyItemWorkHover584398 = -1; // 原全局：0x00584398。
+std::int32_t gLegacyItemWorkPageD67CF8 = 0; // 原全局：0x00D67CF8。
+std::uint32_t gLegacyItemWorkTickD2E12C = 0; // 原全局：0x00D2E12C。
+std::uint32_t gLegacyItemWorkDurationCC3EDC = 0; // 原全局：0x00CC3EDC。
+std::string gLegacyItemWorkMessageCA0ACC; // 原全局：0x00CA0ACC。 原NUL格式化/分行合同，未知阶段保留旧文本。
+constexpr char kItemWorkText589F84[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F84。
+constexpr char kItemWorkText589F6C[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F6C。
+constexpr char kItemWorkText589F54[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xD0\xDE\xC0\xED\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F54。
+constexpr char kItemWorkText589F40[] = "\xD5\x88\xDF\x78\x93\xF1\x8C\xA6\xCF\xF3\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F40。
+constexpr char kItemWorkText589F2C[] = "\xD0\xE8\xD2\xAA%d\xFC\x63\xB5\xC4\xC4\xA7\xC1\xA6\xA1\xA3"; // 原常量参考：0x00589F2C。
+constexpr char kItemWorkText589F1C[] = "\xD2\xD1\xBD\x9B\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589F1C。
+constexpr char kItemWorkText589F04[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589F04。
+constexpr char kItemWorkText589EF4[] = "\xD2\xD1\xBD\x9B\xBF\xCC\xD3\xA1\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589EF4。
+constexpr char kItemWorkText589EDC[] = "\x0A\x0A      \xD0\xDE\xC0\xED\xD6\xD0......"; // 原常量参考：0x00589EDC。
+constexpr char kItemWorkText589EC4[] = "\x0A\x0A      \xE8\x61\xB6\xA8\xD6\xD0......"; // 原常量参考：0x00589EC4。
+constexpr char kItemWorkText589EAC[] = "\x0A\x0A      \xBF\xCC\xD3\xA1\xD6\xD0......"; // 原常量参考：0x00589EAC。
+constexpr char kItemWorkText589E94[] = "\x9F\x6F\xB7\xA8\xD2\xD4\xD4\x93\xBC\xBC\xC4\xDC\xDF\x4D\xD0\xD0\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589E94。
+constexpr char kItemWorkText589E80[] = "\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E80。
+constexpr char kItemWorkText589E58[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589E58。
+constexpr char kItemWorkText589E30[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589E30。
+constexpr char kItemWorkText589E1C[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E1C。
+constexpr char kItemWorkText589E04[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xCE\xB4\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E04。
+constexpr char kItemWorkText589DF4[] = "\xBF\xCC\xD3\xA1\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DF4。
+constexpr char kItemWorkText589DE0[] = "\xD5\x88\xDF\x78\x93\xF1\xBF\xCC\xD3\xA1\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DE0。
+constexpr char kItemWorkText589DD0[] = "\xE8\x61\xB6\xA8\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DD0。
+constexpr char kItemWorkText589DBC[] = "\xD5\x88\xDF\x78\x93\xF1\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DBC。
+constexpr char kItemWorkText589DAC[] = "\xD0\xDE\xC0\xED\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DAC。
+constexpr char kItemWorkText589D98[] = "\xD5\x88\xDF\x78\x93\xF1\xD0\xDE\xC0\xED\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D98。
+constexpr char kItemWorkText589D88[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D88。
+constexpr char kItemWorkText589D74[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3"; // 原常量参考：0x00589D74。
+constexpr char kItemWorkText589D54[] = "\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589D54。
+constexpr char kItemWorkText589D44[] = "\xE8\x61\xB6\xA8\xD4\x93\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D44。
+constexpr char kItemWorkText589D30[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589D30。
+constexpr char kItemWorkText589D10[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589D10。
+constexpr char kItemWorkText589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589024。
+LegacyPanelRecord gLegacyCraftResultPanel5843A0 { // 原全局：0x005843A0。
     0, 0, 272, 440, 28, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyCraftResultActionD67CFC = nullptr;
-LegacyPanelRecord gLegacyCraftExecutionPanel584530 {
+YobiAction* gLegacyCraftResultActionD67CFC = nullptr; // 原全局：0x00D67CFC。
+LegacyPanelRecord gLegacyCraftExecutionPanel584530 { // 原全局：0x00584530。
     0, 0, 344, 380, 26, {23351, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyCraftExecutionActionD67D08 = nullptr;
-std::uint32_t gLegacyCraftExecutionTickD2F78C = 0;
-std::uint32_t gLegacyCraftExecutionDurationD2DC08 = 0;
-constexpr char kLegacyCraftMissing58A098[] = "\xB2\xC4\xC1\xCF\xCE\xB4\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3";
-constexpr char kLegacyCraftExecute58A0A8[] = "\x8C\xA2\xB4\xCB\xB2\xC4\xC1\xCF\xBA\xCF\xB3\xC9\xA1\xA3";
-constexpr char kLegacyCraftBack58A084[] = "\xBB\xD8\xB5\xBD\xC9\xCF\xD2\xBB\x82\x80\xD2\x95\xB4\xB0\xA1\xA3";
-LegacyPanelRecord gLegacyCraftMaterialsPanel584468 {
+YobiAction* gLegacyCraftExecutionActionD67D08 = nullptr; // 原全局：0x00D67D08。
+std::uint32_t gLegacyCraftExecutionTickD2F78C = 0; // 原全局：0x00D2F78C。
+std::uint32_t gLegacyCraftExecutionDurationD2DC08 = 0; // 原全局：0x00D2DC08。
+constexpr char kLegacyCraftMissing58A098[] = "\xB2\xC4\xC1\xCF\xCE\xB4\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058A098。
+constexpr char kLegacyCraftExecute58A0A8[] = "\x8C\xA2\xB4\xCB\xB2\xC4\xC1\xCF\xBA\xCF\xB3\xC9\xA1\xA3"; // 原常量参考：0x0058A0A8。
+constexpr char kLegacyCraftBack58A084[] = "\xBB\xD8\xB5\xBD\xC9\xCF\xD2\xBB\x82\x80\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A084。
+LegacyPanelRecord gLegacyCraftMaterialsPanel584468 { // 原全局：0x00584468。
     368, 0, 272, 380, 27, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<std::uint8_t, 20> gLegacyCraftMarksC8AA7C {};
-std::int32_t gLegacyCraftMaterialPageD67D04 = 0;
-std::int32_t gLegacyCraftMaterialHoverD45F84 = 0; // 位于12B金额文本之后，非文本别名。
-std::int32_t gLegacyCraftDragSlotD2F330 = 0;
-std::int32_t gLegacyCraftDragImageCC3E7C = 0;
-constexpr char kLegacyMaterialText58A078[] = "\xB2\xC4\xC1\xCF\xB2\xBB\xD7\xE3\xA1\xA3";
-constexpr char kLegacyMaterialText58A064[] = "\xB2\xC4\xC1\xCF\xB5\xC4\xDF\x78\x93\xF1\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3";
-constexpr char kLegacyMaterialText58A054[] = "\xC9\xD0\xCE\xB4\xB5\xC7\xE4\x9B\xB2\xC4\xC1\xCF\xA1\xA3";
-constexpr char kLegacyMaterialText58A044[] = "\xB2\xC4\xC1\xCF\xB5\xC7\xE4\x9B\xC1\xCB\xA1\xA3";
-constexpr char kLegacyMaterialText58A034[] = "\xBC\xD3\xB9\xA4\xD6\xD0......";
-constexpr char kLegacyMaterialText58A010[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB2\xC4\xC1\xCF\xA1\xA3";
-constexpr char kLegacyMaterialText58A020[] = "\xB5\xC7\xE4\x9B\xCB\xF9\xDF\x78\xB5\xC4\xB2\xC4\xC1\xCF\xA1\xA3";
-constexpr char kLegacyMaterialText589FFC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3";
-constexpr char kLegacyMaterialText589FEC[] = "\xDF\x78\x93\xF1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-LegacyPanelRecord gLegacyCraftRecipePanel5845F8 {
+std::array<std::uint8_t, 20> gLegacyCraftMarksC8AA7C {}; // 原全局：0x00C8AA7C。
+std::int32_t gLegacyCraftMaterialPageD67D04 = 0; // 原全局：0x00D67D04。
+std::int32_t gLegacyCraftMaterialHoverD45F84 = 0; // 原全局：0x00D45F84。 位于12B金额文本之后，非文本别名。
+std::int32_t gLegacyCraftDragSlotD2F330 = 0; // 原全局：0x00D2F330。
+std::int32_t gLegacyCraftDragImageCC3E7C = 0; // 原全局：0x00CC3E7C。
+constexpr char kLegacyMaterialText58A078[] = "\xB2\xC4\xC1\xCF\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058A078。
+constexpr char kLegacyMaterialText58A064[] = "\xB2\xC4\xC1\xCF\xB5\xC4\xDF\x78\x93\xF1\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3"; // 原常量参考：0x0058A064。
+constexpr char kLegacyMaterialText58A054[] = "\xC9\xD0\xCE\xB4\xB5\xC7\xE4\x9B\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A054。
+constexpr char kLegacyMaterialText58A044[] = "\xB2\xC4\xC1\xCF\xB5\xC7\xE4\x9B\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A044。
+constexpr char kLegacyMaterialText58A034[] = "\xBC\xD3\xB9\xA4\xD6\xD0......"; // 原常量参考：0x0058A034。
+constexpr char kLegacyMaterialText58A010[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A010。
+constexpr char kLegacyMaterialText58A020[] = "\xB5\xC7\xE4\x9B\xCB\xF9\xDF\x78\xB5\xC4\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A020。
+constexpr char kLegacyMaterialText589FFC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x00589FFC。
+constexpr char kLegacyMaterialText589FEC[] = "\xDF\x78\x93\xF1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589FEC。
+LegacyPanelRecord gLegacyCraftRecipePanel5845F8 { // 原全局：0x005845F8。
     0, 0, 344, 380, 25, {23350, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyRecipePageCountD67D10 = 0;
+std::int32_t gLegacyRecipePageCountD67D10 = 0; // 原全局：0x00D67D10。
 
-constexpr char kLegacyRecipeBack58A0E0[] = "\xBB\xD8\xB5\xBD\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyRecipeUnavailable58A0B8[] = "\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyRecipeSelect58A0D0[] = "\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3";
-LegacyPanelRecord gLegacyInventoryPanel584C00 {
+constexpr char kLegacyRecipeBack58A0E0[] = "\xBB\xD8\xB5\xBD\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A0E0。
+constexpr char kLegacyRecipeUnavailable58A0B8[] = "\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x0058A0B8。
+constexpr char kLegacyRecipeSelect58A0D0[] = "\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x0058A0D0。
+LegacyPanelRecord gLegacyInventoryPanel584C00 { // 原全局：0x00584C00。
     368, 0, 272, 436, 14, {22540, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyInventoryActionD67D2C = nullptr;
-std::int32_t gLegacyInventoryPageD67D28 = 0;
-std::int32_t gLegacyInventoryHoverC8AF78 = 0;
-constexpr std::array<std::array<std::int32_t, 2>, 28> kLegacyInventoryPositions584CC4 {{
+YobiAction* gLegacyInventoryActionD67D2C = nullptr; // 原全局：0x00D67D2C。
+std::int32_t gLegacyInventoryPageD67D28 = 0; // 原全局：0x00D67D28。
+std::int32_t gLegacyInventoryHoverC8AF78 = 0; // 原全局：0x00C8AF78。
+constexpr std::array<std::array<std::int32_t, 2>, 28> kLegacyInventoryPositions584CC4 {{ // 原常量参考：0x00584CC4。
     {69, 39}, {11, 149}, {11, 94}, {127, 94}, {127, 149}, {11, 39}, {127, 39}, {202, 144},
     {9, 215}, {61, 215}, {113, 215}, {165, 215}, {217, 215},
     {9, 268}, {61, 268}, {113, 268}, {165, 268}, {217, 268},
     {9, 321}, {61, 321}, {113, 321}, {165, 321}, {217, 321},
     {9, 374}, {61, 374}, {113, 374}, {165, 374}, {217, 374},
 }};
-constexpr char kLegacyInventoryTarget58A394[] =
+constexpr char kLegacyInventoryTarget58A394[] = // 原常量参考：0x0058A394。
     "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\x8C\xA2\xCE\xEF\xC6\xB7\xCA\xB9\xD3\xC3\xD4\xDA\xD5\x6C\xC9\xED\xC9\xCF\xA1\xA3";
-constexpr char kLegacyInventoryMoney58A37C[] = "\xB4\xF2\xE9\x5F\xBD\xF0\x8E\xC5\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyInventoryHead585C38[] = "\xD1\x62\x82\xE4\xEE\x5E\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryBody585C20[] = "\xD1\x62\x82\xE4\xC9\xED\xF3\x77\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryHand585C08[] = "\xD1\x62\x82\xE4\xCE\xE4\xC6\xF7\xB8\xFA\xB6\xDC\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryFeet585BF0[] = "\xD1\x62\x82\xE4\xC4\x5F\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryAccessory585BDC[] = "\xD1\x62\x82\xE4\xD1\x62\xEF\x97\xC6\xB7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryCrystal585BC8[] = "\xD1\x62\x82\xE4\xCB\xAE\xBE\xA7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3";
-constexpr char kLegacyInventoryMemo58A38C[] = "\xA1\xBA%s\xA1\xBB";
-LegacyPanelRecord gLegacyItemSplitPanel584078 {
+constexpr char kLegacyInventoryMoney58A37C[] = "\xB4\xF2\xE9\x5F\xBD\xF0\x8E\xC5\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A37C。
+constexpr char kLegacyInventoryHead585C38[] = "\xD1\x62\x82\xE4\xEE\x5E\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C38。
+constexpr char kLegacyInventoryBody585C20[] = "\xD1\x62\x82\xE4\xC9\xED\xF3\x77\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C20。
+constexpr char kLegacyInventoryHand585C08[] = "\xD1\x62\x82\xE4\xCE\xE4\xC6\xF7\xB8\xFA\xB6\xDC\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C08。
+constexpr char kLegacyInventoryFeet585BF0[] = "\xD1\x62\x82\xE4\xC4\x5F\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BF0。
+constexpr char kLegacyInventoryAccessory585BDC[] = "\xD1\x62\x82\xE4\xD1\x62\xEF\x97\xC6\xB7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BDC。
+constexpr char kLegacyInventoryCrystal585BC8[] = "\xD1\x62\x82\xE4\xCB\xAE\xBE\xA7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BC8。
+constexpr char kLegacyInventoryMemo58A38C[] = "\xA1\xBA%s\xA1\xBB"; // 原常量参考：0x0058A38C。
+LegacyPanelRecord gLegacyItemSplitPanel584078 { // 原全局：0x00584078。
     440, 0, 200, 200, 16, {23310, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySplitConfirm589CC4[] = "\xD6\xB8\xB6\xA8\xB7\xD6\xC5\xE4\x82\x80\x94\xB5";
-constexpr char kLegacySplitEmpty589CB4[] = "\xD5\x88\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3";
-constexpr char kLegacySplitBack589CA4[] = "\xBB\xD8\xB5\xBD\xCE\xEF\xC6\xB7\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacySplitAll589C98[] = "\xC8\xAB\xB2\xBF\xD6\xB8\xB6\xA8\xA1\xA3";
-constexpr char kLegacySplitClear589C84[] = "\x8C\xA2\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\x9A\x77\xC1\xE3\xA1\xA3";
-constexpr char kLegacySplitBackspace585B34[] = "\x9C\x70\xC9\xD9\xD2\xBB\xCE\xBB\x94\xB5\xA1\xA3";
-constexpr char kLegacySplitLimit589C64[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\x82\x80\x94\xB5\xA1\xA3";
-constexpr char kLegacySplitDigit589C78[] = "\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3";
-LegacyPanelRecord gLegacyMoneyPanel584DA8 {
+constexpr char kLegacySplitConfirm589CC4[] = "\xD6\xB8\xB6\xA8\xB7\xD6\xC5\xE4\x82\x80\x94\xB5"; // 原常量参考：0x00589CC4。
+constexpr char kLegacySplitEmpty589CB4[] = "\xD5\x88\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589CB4。
+constexpr char kLegacySplitBack589CA4[] = "\xBB\xD8\xB5\xBD\xCE\xEF\xC6\xB7\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589CA4。
+constexpr char kLegacySplitAll589C98[] = "\xC8\xAB\xB2\xBF\xD6\xB8\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589C98。
+constexpr char kLegacySplitClear589C84[] = "\x8C\xA2\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x00589C84。
+constexpr char kLegacySplitBackspace585B34[] = "\x9C\x70\xC9\xD9\xD2\xBB\xCE\xBB\x94\xB5\xA1\xA3"; // 原常量参考：0x00585B34。
+constexpr char kLegacySplitLimit589C64[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589C64。
+constexpr char kLegacySplitDigit589C78[] = "\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589C78。
+LegacyPanelRecord gLegacyMoneyPanel584DA8 { // 原全局：0x00584DA8。
     440, 0, 200, 200, 15, {22930, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyMoneyAmountD2D618 = 0;
-constexpr char kLegacyMoneyDrop585B54[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xB5\xC4\xBD\xF0\xEE\x7E\xB7\xC5\xB5\xD8\xC9\xCF\xA1\xA3";
-constexpr char kLegacyMoneyEmpty585B44[] = "\xD5\x88\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyMoneyAll585B28[] = "\xD6\xB8\xB6\xA8\xC8\xAB\xEE\x7E\xA1\xA3";
-constexpr char kLegacyMoneyClear585B14[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3";
-constexpr char kLegacyMoneyDigit585B6C[] = "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3";
-constexpr char kLegacyMoneyLimit58A3B4[] = "\xB2\xBB\xC4\xDC\xB3\xAC\xB3\xF6\xDF\x40\x82\x80\xBD\xF0\xEE\x7E\xA1\xA3";
-LegacyPanelRecord gLegacyEngravingPanel582FD8 {
+std::int32_t gLegacyMoneyAmountD2D618 = 0; // 原全局：0x00D2D618。
+constexpr char kLegacyMoneyDrop585B54[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xB5\xC4\xBD\xF0\xEE\x7E\xB7\xC5\xB5\xD8\xC9\xCF\xA1\xA3"; // 原常量参考：0x00585B54。
+constexpr char kLegacyMoneyEmpty585B44[] = "\xD5\x88\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B44。
+constexpr char kLegacyMoneyAll585B28[] = "\xD6\xB8\xB6\xA8\xC8\xAB\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B28。
+constexpr char kLegacyMoneyClear585B14[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x00585B14。
+constexpr char kLegacyMoneyDigit585B6C[] = "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B6C。
+constexpr char kLegacyMoneyLimit58A3B4[] = "\xB2\xBB\xC4\xDC\xB3\xAC\xB3\xF6\xDF\x40\x82\x80\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x0058A3B4。
+LegacyPanelRecord gLegacyEngravingPanel582FD8 { // 原全局：0x00582FD8。
     368, 0, 272, 252, 79, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyEngravingHover58309C = -1;
-std::int32_t gLegacyEngravingPageC8AA9C = 0;
-std::int32_t gLegacyEngravingTargetCC1A14 = 0;
-constexpr char kLegacyEngravingSelect5895C0[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xB5\xC0\xBE\xDF\xA1\xA3";
-constexpr char kLegacyEngravingReject5895AC[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3";
-constexpr char kLegacyEngravingClose5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0";
-constexpr char kLegacyEngravingChoose589594[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xB5\xC0\xBE\xDF\xA1\xA3";
+std::int32_t gLegacyEngravingHover58309C = -1; // 原全局：0x0058309C。
+std::int32_t gLegacyEngravingPageC8AA9C = 0; // 原全局：0x00C8AA9C。
+std::int32_t gLegacyEngravingTargetCC1A14 = 0; // 原全局：0x00CC1A14。
+constexpr char kLegacyEngravingSelect5895C0[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x005895C0。
+constexpr char kLegacyEngravingReject5895AC[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3"; // 原常量参考：0x005895AC。
+constexpr char kLegacyEngravingClose5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0"; // 原常量参考：0x005868EC。
+constexpr char kLegacyEngravingChoose589594[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x00589594。
 // 旧80独立状态；583164为已加载-1，其余五槽按原虚拟零初始化。
-LegacyPanelRecord gLegacyBurialPanel5830A0 {
+LegacyPanelRecord gLegacyBurialPanel5830A0 { // 原全局：0x005830A0。
     368, 0, 272, 252, 80, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyBurialHover583164 = -1;
-std::int32_t gLegacyBurialPageCC4B64 = 0;
-std::int32_t gLegacyBurialSelectedCC4214 = 0;
-std::int32_t gLegacyBurialExcludedCC48AC = 0;
-std::int32_t gLegacyBurialExcludedColumnD2E2B4 = 0;
-std::int32_t gLegacyBurialExcludedRowD671D0 = 0;
-constexpr char kLegacyBurialSelect5895FC[] = "\xC2\xF1\xC6\xF0\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kLegacyBurialReject5895E4[] = "\xDF\x40\x82\x80\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xC2\xF1\xC6\xF0\x81\xED\xA1\xA3";
-constexpr char kLegacyBurialChoose5895D0[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xC2\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
+std::int32_t gLegacyBurialHover583164 = -1; // 原全局：0x00583164。
+std::int32_t gLegacyBurialPageCC4B64 = 0; // 原全局：0x00CC4B64。
+std::int32_t gLegacyBurialSelectedCC4214 = 0; // 原全局：0x00CC4214。
+std::int32_t gLegacyBurialExcludedCC48AC = 0; // 原全局：0x00CC48AC。
+std::int32_t gLegacyBurialExcludedColumnD2E2B4 = 0; // 原全局：0x00D2E2B4。
+std::int32_t gLegacyBurialExcludedRowD671D0 = 0; // 原全局：0x00D671D0。
+constexpr char kLegacyBurialSelect5895FC[] = "\xC2\xF1\xC6\xF0\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005895FC。
+constexpr char kLegacyBurialReject5895E4[] = "\xDF\x40\x82\x80\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xC2\xF1\xC6\xF0\x81\xED\xA1\xA3"; // 原常量参考：0x005895E4。
+constexpr char kLegacyBurialChoose5895D0[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xC2\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005895D0。
 // 旧50赠送页；CC1A2C与后续旧49共用唯一选择，不复制邮件草稿。
-LegacyPanelRecord gLegacyMailGiftPanel583168 {
+LegacyPanelRecord gLegacyMailGiftPanel583168 { // 原全局：0x00583168。
     368, 0, 272, 252, 50, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyMailGiftHover58322C = -1;
-std::int32_t gLegacyMailGiftPageCC2E58 = 0;
-std::int32_t gLegacyMailGiftSelectedCC1A2C = 0;
-std::int32_t gLegacyMailGiftColumnD2D498 = 0;
-std::int32_t gLegacyMailGiftRowCC3E6C = 0;
-constexpr char kLegacyMailGift58960C[] = "\x8C\xA2\xB4\xCB\xCE\xEF\xC6\xB7\xCB\xCD\xBD\x6F\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3";
+std::int32_t gLegacyMailGiftHover58322C = -1; // 原全局：0x0058322C。
+std::int32_t gLegacyMailGiftPageCC2E58 = 0; // 原全局：0x00CC2E58。
+std::int32_t gLegacyMailGiftSelectedCC1A2C = 0; // 原全局：0x00CC1A2C。
+std::int32_t gLegacyMailGiftColumnD2D498 = 0; // 原全局：0x00D2D498。
+std::int32_t gLegacyMailGiftRowCC3E6C = 0; // 原全局：0x00CC3E6C。
+constexpr char kLegacyMailGift58960C[] = "\x8C\xA2\xB4\xCB\xCE\xEF\xC6\xB7\xCB\xCD\xBD\x6F\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x0058960C。
 // 旧49联系人/协议值唯一承载；分别由旧42联系人发布与旧48邮件宠物选择生产。
-LegacyPanelRecord gLegacyMailComposePanel583230 {
+LegacyPanelRecord gLegacyMailComposePanel583230 { // 原全局：0x00583230。
     0, 0, 272, 438, 49, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyMailContactCC4228 = 0;
-std::int32_t gLegacyMailValueCC2E60 = 0;
-constexpr char kLegacyMailSend589640[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3";
-constexpr char kLegacyMailReturn589628[] = "\xBB\xD8\xB5\xBD\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\xB5\xC4\xD2\x95\xB4\xB0\xA1\xA3";
-LegacyPanelRecord gLegacyMailPetPanel5832F8 {
+std::int32_t gLegacyMailContactCC4228 = 0; // 原全局：0x00CC4228。
+std::int32_t gLegacyMailValueCC2E60 = 0; // 原全局：0x00CC2E60。
+constexpr char kLegacyMailSend589640[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x00589640。
+constexpr char kLegacyMailReturn589628[] = "\xBB\xD8\xB5\xBD\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\xB5\xC4\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589628。
+LegacyPanelRecord gLegacyMailPetPanel5832F8 { // 原全局：0x005832F8。
     0, 0, 272, 238, 48, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailPet589660[] = "\xD7\x8C\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xDF\x5C\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
+constexpr char kLegacyMailPet589660[] = "\xD7\x8C\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xDF\x5C\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x00589660。
 // 旧42四个未读提示T*槽，仅借用真实动画；初始化补空，关闭逐槽标死并清引用。
-LegacyPanelRecord gLegacyMailContactPanel5837A8 {
+LegacyPanelRecord gLegacyMailContactPanel5837A8 { // 原全局：0x005837A8。
     0, 0, 272, 451, 42, {238521, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<YobiAction*, 4> gLegacyMailUnreadActionsCC3E48 {};
-std::int32_t gLegacyMailSelectedD30410 = 0;
-std::int32_t gLegacyMailPreviousPageD2DACC = 0;
-constexpr std::array<std::int32_t, 15> kLegacyMailStatusImages58386C {
+std::array<YobiAction*, 4> gLegacyMailUnreadActionsCC3E48 {}; // 原全局：0x00CC3E48。
+std::int32_t gLegacyMailSelectedD30410 = 0; // 原全局：0x00D30410。
+std::int32_t gLegacyMailPreviousPageD2DACC = 0; // 原全局：0x00D2DACC。
+constexpr std::array<std::int32_t, 15> kLegacyMailStatusImages58386C { // 原常量参考：0x0058386C。
     30131, 30231, 30331, 30431, 30531, 30631, 30731, 30831,
     30931, 31131, 31231, 31331, 31431, 31531, 31631,
 };
-constexpr char kLegacyMailEdit5897AC[] = "\x8C\xA2\xC3\xFB\xC6\xAC\xB5\xC4\xB1\xED\xCA\xBE\xED\x98\xD0\xF2\xC5\xC5\xD0\xF2\xA1\xA3";
-constexpr char kLegacyMailGroup589798[] = "\xEF\x40\xCA\xBE\xBC\xD2\xD7\xE5\xCD\xA8\xD3\x8D\xE4\x9B\xA1\xA3";
-constexpr char kLegacyMailContactSend589780[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1";
-constexpr char kLegacyMailContactRead589760[] = "\xBF\xB4\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xBA\xC3\xD3\xD1\xB5\xC4\xE0\x5D\xBC\xFE\xCD\xA8\xD0\xC5\xBC\x6F\xE4\x9B\xA1\xA3";
-constexpr char kLegacyMailContactDelete589750[] = "\x84\x68\xB3\xFD\xDF\x40\x8F\x88\xC3\xFB\xC6\xAC\xA1\xA3";
-LegacyPanelRecord gLegacyMailDeliveryPanel583550 {
+constexpr char kLegacyMailEdit5897AC[] = "\x8C\xA2\xC3\xFB\xC6\xAC\xB5\xC4\xB1\xED\xCA\xBE\xED\x98\xD0\xF2\xC5\xC5\xD0\xF2\xA1\xA3"; // 原常量参考：0x005897AC。
+constexpr char kLegacyMailGroup589798[] = "\xEF\x40\xCA\xBE\xBC\xD2\xD7\xE5\xCD\xA8\xD3\x8D\xE4\x9B\xA1\xA3"; // 原常量参考：0x00589798。
+constexpr char kLegacyMailContactSend589780[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1"; // 原常量参考：0x00589780。
+constexpr char kLegacyMailContactRead589760[] = "\xBF\xB4\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xBA\xC3\xD3\xD1\xB5\xC4\xE0\x5D\xBC\xFE\xCD\xA8\xD0\xC5\xBC\x6F\xE4\x9B\xA1\xA3"; // 原常量参考：0x00589760。
+constexpr char kLegacyMailContactDelete589750[] = "\x84\x68\xB3\xFD\xDF\x40\x8F\x88\xC3\xFB\xC6\xAC\xA1\xA3"; // 原常量参考：0x00589750。
+LegacyPanelRecord gLegacyMailDeliveryPanel583550 { // 原全局：0x00583550。
     0, 0, 192, 174, 45, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailNormalMode5896E0[] = "\xD2\xD4\xC6\xD5\xCD\xA8\xC4\xA3\xCA\xBD\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kLegacyMailPetMode5896D0[] = "\xD2\xD4\x8C\x99\xCE\xEF\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
-LegacyPanelRecord gLegacyMailDeletePanel583618 {
+constexpr char kLegacyMailNormalMode5896E0[] = "\xD2\xD4\xC6\xD5\xCD\xA8\xC4\xA3\xCA\xBD\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005896E0。
+constexpr char kLegacyMailPetMode5896D0[] = "\xD2\xD4\x8C\x99\xCE\xEF\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005896D0。
+LegacyPanelRecord gLegacyMailDeletePanel583618 { // 原全局：0x00583618。
     0, 0, 320, 240, 44, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailDeleteYes589728[] = "\x20\xCA\xC7";
-constexpr char kLegacyMailDeleteLead589714[] = "\xD7\xD4\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\x84\x68\xB3\xFD";
-constexpr char kLegacyMailDeleteEnd589708[] = "\xB5\xC4\xC3\xFB\xC6\xAC\x86\xE1\xA3\xBF";
-constexpr char kLegacyMailDeleteHint589700[] = "\x84\x68\xB3\xFD\xA1\xA3";
-constexpr char kLegacyMailKeepHint5896F4[] = "\xB2\xBB\x84\x68\xB3\xFD\xA1\xA3";
+constexpr char kLegacyMailDeleteYes589728[] = "\x20\xCA\xC7"; // 原常量参考：0x00589728。
+constexpr char kLegacyMailDeleteLead589714[] = "\xD7\xD4\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\x84\x68\xB3\xFD"; // 原常量参考：0x00589714。
+constexpr char kLegacyMailDeleteEnd589708[] = "\xB5\xC4\xC3\xFB\xC6\xAC\x86\xE1\xA3\xBF"; // 原常量参考：0x00589708。
+constexpr char kLegacyMailDeleteHint589700[] = "\x84\x68\xB3\xFD\xA1\xA3"; // 原常量参考：0x00589700。
+constexpr char kLegacyMailKeepHint5896F4[] = "\xB2\xBB\x84\x68\xB3\xFD\xA1\xA3"; // 原常量参考：0x005896F4。
 // 旧46普通邮件；CB0AA8的60个U8由本页初始化生产，与旧42共享目标和页号。
-LegacyPanelRecord gLegacyMailNormalPanel583488 {
+LegacyPanelRecord gLegacyMailNormalPanel583488 { // 原全局：0x00583488。
     0, 0, 272, 438, 46, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<std::uint8_t, 60> gLegacyMailSelectedFlagsCB0AA8 {};
-constexpr char kLegacyMailChooseRecipients5896A4[] = "\xD5\x88\xDF\x78\x93\xF1\xCB\xCD\xD0\xC5\xB5\xC4\x8C\xA6\xCF\xF3\xA1\xA3";
-constexpr char kLegacyMailSendSelected5896B8[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3";
-constexpr char kLegacyMailUnselect58968C[] = "\xCD\xA3\xD6\xB9\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3";
-constexpr char kLegacyMailSelect589678[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3";
-LegacyPanelRecord gLegacyMailSortPanel5836E0 {
+std::array<std::uint8_t, 60> gLegacyMailSelectedFlagsCB0AA8 {}; // 原全局：0x00CB0AA8。
+constexpr char kLegacyMailChooseRecipients5896A4[] = "\xD5\x88\xDF\x78\x93\xF1\xCB\xCD\xD0\xC5\xB5\xC4\x8C\xA6\xCF\xF3\xA1\xA3"; // 原常量参考：0x005896A4。
+constexpr char kLegacyMailSendSelected5896B8[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x005896B8。
+constexpr char kLegacyMailUnselect58968C[] = "\xCD\xA3\xD6\xB9\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x0058968C。
+constexpr char kLegacyMailSelect589678[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x00589678。
+LegacyPanelRecord gLegacyMailSortPanel5836E0 { // 原全局：0x005836E0。
     0, 0, 192, 254, 43, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailSortFirst589744[] = "\xB5\xC7\xE4\x9B\xED\x98\xD0\xF2";
-constexpr char kLegacyMailSortSecond589738[] = "\xC6\xB4\xD2\xF4\xED\x98\xD0\xF2";
-constexpr char kLegacyMailSortThird58972C[] = "\xC9\xCF\xBE\x80\xED\x98\xD0\xF2";
+constexpr char kLegacyMailSortFirst589744[] = "\xB5\xC7\xE4\x9B\xED\x98\xD0\xF2"; // 原常量参考：0x00589744。
+constexpr char kLegacyMailSortSecond589738[] = "\xC6\xB4\xD2\xF4\xED\x98\xD0\xF2"; // 原常量参考：0x00589738。
+constexpr char kLegacyMailSortThird58972C[] = "\xC9\xCF\xBE\x80\xED\x98\xD0\xF2"; // 原常量参考：0x0058972C。
 // 旧47只借同源MailState消息、联系人及页号，面板独立于现代多类别阅读窗口。
-LegacyPanelRecord gLegacyMailReadPanel5833C0 {
+LegacyPanelRecord gLegacyMailReadPanel5833C0 { // 原全局：0x005833C0。
     0, 0, 272, 428, 47, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 // 旧94独立面板与导航状态；成员/排序/职级文本借既有唯一背板，详见旧公会通讯录SPEC。
-LegacyPanelRecord gLegacyGuildContactPanel58EF90 {
+LegacyPanelRecord gLegacyGuildContactPanel58EF90 { // 原全局：0x0058EF90。
     0, 0, 272, 451, 94, {238522, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildPage1050B78 = 0; // 52FCF0写入、旧94翻页与四行消费。
-std::int32_t gLegacyGuildInitialPage1050DA4 = 0; // 原虚拟零；直接xref只有初始化读取，间接生产仍待。
-std::int32_t gLegacyGuildReadTarget1050DB4 = 0; // 旧94发布，旧89读取目标。
-std::array<YobiAction*, 4> gLegacyGuildUnreadActions1050DB8 {}; // 专用未读动画的四个非拥有槽。
-std::int32_t gLegacyGuildComposeTarget1051340 = 0; // 旧94发布普通撰写初选。
-std::int32_t gLegacyGuildComposePage1051330 = 0; // 旧94发布、旧90继续翻页。
-std::int32_t gLegacyGuildMailTarget1050DCC = 0; // 旧94发布、旧87宠物发送消费。
-std::int32_t gLegacyGuildDeleteTarget105132C = 0; // 旧94发布、旧92删除消费。
-std::int32_t gLegacyGuildRankTarget1057C70 = 0; // 旧94发布、旧96职级页消费。
-constexpr std::array<std::int32_t, 17> kLegacyGuildStatusImages58F054 {
+std::int32_t gLegacyGuildPage1050B78 = 0; // 原全局：0x01050B78。 52FCF0写入、旧94翻页与四行消费。
+std::int32_t gLegacyGuildInitialPage1050DA4 = 0; // 原全局：0x01050DA4。 原虚拟零；直接xref只有初始化读取，间接生产仍待。
+std::int32_t gLegacyGuildReadTarget1050DB4 = 0; // 原全局：0x01050DB4。 旧94发布，旧89读取目标。
+std::array<YobiAction*, 4> gLegacyGuildUnreadActions1050DB8 {}; // 原全局：0x01050DB8。 专用未读动画的四个非拥有槽。
+std::int32_t gLegacyGuildComposeTarget1051340 = 0; // 原全局：0x01051340。 旧94发布普通撰写初选。
+std::int32_t gLegacyGuildComposePage1051330 = 0; // 原全局：0x01051330。 旧94发布、旧90继续翻页。
+std::int32_t gLegacyGuildMailTarget1050DCC = 0; // 原全局：0x01050DCC。 旧94发布、旧87宠物发送消费。
+std::int32_t gLegacyGuildDeleteTarget105132C = 0; // 原全局：0x0105132C。 旧94发布、旧92删除消费。
+std::int32_t gLegacyGuildRankTarget1057C70 = 0; // 原全局：0x01057C70。 旧94发布、旧96职级页消费。
+constexpr std::array<std::int32_t, 17> kLegacyGuildStatusImages58F054 { // 原常量参考：0x0058F054。
     23110, 23120, 23121, 23122, 23123, 23124, 23125, 23126, 23127,
     23128, 23129, 23130, 23131, 23132, 23133, 23134, 23135,
 };
-constexpr char kLegacyGuildClose58F248[] = "\x82\xB1\x82\xCC\x83\x45\x83\x42\x3F\x83\x68\x83\x45\x82\xF0\x95\xC2\x82\xB6\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildPage58F2D4[] = "\x83\x79\x81\x5B\x83\x57\x82\xF0\x90\xD8\x82\xE8\x91\xD6\x82\xA6\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildSort58F4A8[] = "\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x95\x5C\x8E\xA6\x3F\x94\xD4\x82\xF0\x83\x5C\x81\x5B\x83\x67\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildDetails58F490[] = "\x83\x4D\x3F\x83\x68\x8F\xDA\x8D\xD7\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildContacts58F474[] = "\x83\x41\x83\x68\x3F\x83\x58\x83\x75\x83\x62\x83\x4E\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildSend58F2EC[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildRead58F44C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildRemove58F42C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildRank58F410[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildSortPanel58EEC8 {
+constexpr char kLegacyGuildClose58F248[] = "\x82\xB1\x82\xCC\x83\x45\x83\x42\x3F\x83\x68\x83\x45\x82\xF0\x95\xC2\x82\xB6\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F248。
+constexpr char kLegacyGuildPage58F2D4[] = "\x83\x79\x81\x5B\x83\x57\x82\xF0\x90\xD8\x82\xE8\x91\xD6\x82\xA6\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2D4。
+constexpr char kLegacyGuildSort58F4A8[] = "\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x95\x5C\x8E\xA6\x3F\x94\xD4\x82\xF0\x83\x5C\x81\x5B\x83\x67\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4A8。
+constexpr char kLegacyGuildDetails58F490[] = "\x83\x4D\x3F\x83\x68\x8F\xDA\x8D\xD7\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F490。
+constexpr char kLegacyGuildContacts58F474[] = "\x83\x41\x83\x68\x3F\x83\x58\x83\x75\x83\x62\x83\x4E\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F474。
+constexpr char kLegacyGuildSend58F2EC[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2EC。
+constexpr char kLegacyGuildRead58F44C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F44C。
+constexpr char kLegacyGuildRemove58F42C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F42C。
+constexpr char kLegacyGuildRank58F410[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F410。
+LegacyPanelRecord gLegacyGuildSortPanel58EEC8 { // 原全局：0x0058EEC8。
     0, 0, 192, 254, 93, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSortFirst58F408[] = "\x93\x6F\x98\x5E\x3F";
-constexpr char kLegacyGuildSortSecond58F400[] = "\x82\x54\x82\x4F\x89\xB9\x3F";
-constexpr char kLegacyGuildSortThird58F3F4[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F";
-LegacyPanelRecord gLegacyGuildDeletePanel58EE00 {
+constexpr char kLegacyGuildSortFirst58F408[] = "\x93\x6F\x98\x5E\x3F"; // 原常量参考：0x0058F408。
+constexpr char kLegacyGuildSortSecond58F400[] = "\x82\x54\x82\x4F\x89\xB9\x3F"; // 原常量参考：0x0058F400。
+constexpr char kLegacyGuildSortThird58F3F4[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F"; // 原常量参考：0x0058F3F4。
+LegacyPanelRecord gLegacyGuildDeletePanel58EE00 { // 原全局：0x0058EE00。
     0, 0, 320, 240, 92, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildDeleteYes58F3EC[] = "\x82\xCD\x82\xA2";
-constexpr char kLegacyGuildDeleteNo58F3E4[] = "\x82\xA2\x82\xA2\x82\xA6";
-constexpr char kLegacyGuildDeleteDenied58F3C8[] = "\xC4\xE3\x9B\x5D\xD3\xD0\xCC\xDE\xB3\xFD\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\x99\xE0\xCF\xDE";
-constexpr char kLegacyGuildDeleteLead58F3B8[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7";
-constexpr char kLegacyGuildDeleteEnd58F3AC[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7";
-constexpr char kLegacyGuildDeleteHint58F3A0[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildKeepHint58F38C[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 {
+constexpr char kLegacyGuildDeleteYes58F3EC[] = "\x82\xCD\x82\xA2"; // 原常量参考：0x0058F3EC。
+constexpr char kLegacyGuildDeleteNo58F3E4[] = "\x82\xA2\x82\xA2\x82\xA6"; // 原常量参考：0x0058F3E4。
+constexpr char kLegacyGuildDeleteDenied58F3C8[] = "\xC4\xE3\x9B\x5D\xD3\xD0\xCC\xDE\xB3\xFD\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\x99\xE0\xCF\xDE"; // 原常量参考：0x0058F3C8。
+constexpr char kLegacyGuildDeleteLead58F3B8[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7"; // 原常量参考：0x0058F3B8。
+constexpr char kLegacyGuildDeleteEnd58F3AC[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7"; // 原常量参考：0x0058F3AC。
+constexpr char kLegacyGuildDeleteHint58F3A0[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F3A0。
+constexpr char kLegacyGuildKeepHint58F38C[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F38C。
+LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 { // 原全局：0x0058ED38。
     0, 0, 192, 174, 91, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildNormalMode58F374[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildPetMode58F358[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildReturn58F264[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildPetPanel58EAE0 {
+constexpr char kLegacyGuildNormalMode58F374[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F374。
+constexpr char kLegacyGuildPetMode58F358[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F358。
+constexpr char kLegacyGuildReturn58F264[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F264。
+LegacyPanelRecord gLegacyGuildPetPanel58EAE0 { // 原全局：0x0058EAE0。
     0, 0, 272, 238, 88, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildPetIndex1050DB0 = 0; // 旧88写入、旧87发送消费，独立于普通邮件CC2E60。
-constexpr char kLegacyGuildPetHint58F2B4[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42";
+std::int32_t gLegacyGuildPetIndex1050DB0 = 0; // 原全局：0x01050DB0。 旧88写入、旧87发送消费，独立于普通邮件CC2E60。
+constexpr char kLegacyGuildPetHint58F2B4[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2B4。
 // 旧86独立赠品状态；58EA14已加载-1，其余四槽按原虚拟零初始化。
-LegacyPanelRecord gLegacyGuildGiftPanel58E950 {
+LegacyPanelRecord gLegacyGuildGiftPanel58E950 { // 原全局：0x0058E950。
     368, 0, 272, 252, 86, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildGiftHover58EA14 = -1;
-std::int32_t gLegacyGuildGiftPage1050DAC = 0;
-std::int32_t gLegacyGuildGiftSelected1050DA8 = 0; // 旧86生产、旧87消费，不能借普通邮件赠品槽。
-std::int32_t gLegacyGuildGiftColumn1050F10 = 0;
-std::int32_t gLegacyGuildGiftRow1050DC8 = 0;
-constexpr char kLegacyGuildGift58F224[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildComposePanel58EA18 {
+std::int32_t gLegacyGuildGiftHover58EA14 = -1; // 原全局：0x0058EA14。
+std::int32_t gLegacyGuildGiftPage1050DAC = 0; // 原全局：0x01050DAC。
+std::int32_t gLegacyGuildGiftSelected1050DA8 = 0; // 原全局：0x01050DA8。 旧86生产、旧87消费，不能借普通邮件赠品槽。
+std::int32_t gLegacyGuildGiftColumn1050F10 = 0; // 原全局：0x01050F10。
+std::int32_t gLegacyGuildGiftRow1050DC8 = 0; // 原全局：0x01050DC8。
+constexpr char kLegacyGuildGift58F224[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F224。
+LegacyPanelRecord gLegacyGuildComposePanel58EA18 { // 原全局：0x0058EA18。
     0, 0, 272, 438, 87, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSendMail58F288[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildReadPanel58EBA8 {
+constexpr char kLegacyGuildSendMail58F288[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F288。
+LegacyPanelRecord gLegacyGuildReadPanel58EBA8 { // 原全局：0x0058EBA8。
     0, 0, 272, 428, 89, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildReadPage1050EF8 = 0; // 旧89独立页号，读取同源公会十条邮件。
-LegacyPanelRecord gLegacyGuildNormalPanel58EC70 {
+std::int32_t gLegacyGuildReadPage1050EF8 = 0; // 原全局：0x01050EF8。 旧89独立页号，读取同源公会十条邮件。
+LegacyPanelRecord gLegacyGuildNormalPanel58EC70 { // 原全局：0x0058EC70。
     0, 0, 272, 438, 90, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 旧90多人选择，不包含1050DA4。
-constexpr char kLegacyGuildUnselect58F310[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildChooseRecipients58F33C[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42";
-LegacyPanelRecord gLegacyGuildRankPanel58F160 {
+std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 原全局：0x01050CDC。 旧90多人选择，不包含1050DA4。
+constexpr char kLegacyGuildUnselect58F310[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F310。
+constexpr char kLegacyGuildChooseRecipients58F33C[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42"; // 原常量参考：0x0058F33C。
+LegacyPanelRecord gLegacyGuildRankPanel58F160 { // 原全局：0x0058F160。
     0, 0, 272, 411, 96, {238556, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildRankReady1057C8C = 0;
-std::int32_t gLegacyGuildRankPage1051334 = 0;
-std::int32_t gLegacyGuildRankPageCount105133C = 0;
-std::int32_t gLegacyGuildRankSelected1051338 = 0;
-std::array<std::int32_t, 8> gLegacyGuildRankHighlights1050ED8 {};
-std::uint32_t gLegacyGuildRankTick1057C90 = 0;
-std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 旧95/96共享资格，532430按本人职级是否0生产。
-constexpr char kLegacyGuildRankRequired58F584[] = "\xD5\x88\xDF\x78\x93\xF1\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96";
-constexpr char kLegacyGuildRankRemove58F568[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildRankSelect58F4FC[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyGuildDetailsPanel58F098 {
+std::int32_t gLegacyGuildRankReady1057C8C = 0; // 原全局：0x01057C8C。
+std::int32_t gLegacyGuildRankPage1051334 = 0; // 原全局：0x01051334。
+std::int32_t gLegacyGuildRankPageCount105133C = 0; // 原全局：0x0105133C。
+std::int32_t gLegacyGuildRankSelected1051338 = 0; // 原全局：0x01051338。
+std::array<std::int32_t, 8> gLegacyGuildRankHighlights1050ED8 {}; // 原全局：0x01050ED8。
+std::uint32_t gLegacyGuildRankTick1057C90 = 0; // 原全局：0x01057C90。
+std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 原全局：0x01050F14。 旧95/96共享资格，532430按本人职级是否0生产。
+constexpr char kLegacyGuildRankRequired58F584[] = "\xD5\x88\xDF\x78\x93\xF1\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96"; // 原常量参考：0x0058F584。
+constexpr char kLegacyGuildRankRemove58F568[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F568。
+constexpr char kLegacyGuildRankSelect58F4FC[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4FC。
+LegacyPanelRecord gLegacyGuildDetailsPanel58F098 { // 原全局：0x0058F098。
     0, 0, 300, 438, 95, {238535, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGuildDetailsSelected58F15C = -1;
-std::array<input::InputContext*, 3> gLegacyGuildDetailsInputs1057C7C {}; // 原三T*缓存，只借1050F18实体。
-std::uint32_t gLegacyGuildDetailsTick1057C88 = 0;
-std::array<char, 128> gLegacyGuildNameCache1050DD0 {};
-std::array<char, 128> gLegacyGuildSecondCache1050E50 {};
-std::int32_t gLegacyGuildDetailsPageCount1050ED0 = 0;
-std::int32_t gLegacyGuildDetailsPage1050ED4 = 0;
-std::array<std::int32_t, 5> gLegacyGuildDetailsHighlights1050EFC {};
-constexpr char kLegacyGuildNameEdit58F550[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildSecondEdit58F534[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildRankEdit58F518[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildPermissionFirst58F4E4[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-constexpr char kLegacyGuildPermissionSecond58F4D0[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-LegacyPanelRecord gLegacyEmotePanel584AA8 {
+std::int32_t gLegacyGuildDetailsSelected58F15C = -1; // 原全局：0x0058F15C。
+std::array<input::InputContext*, 3> gLegacyGuildDetailsInputs1057C7C {}; // 原全局：0x01057C7C。 原三T*缓存，只借1050F18实体。
+std::uint32_t gLegacyGuildDetailsTick1057C88 = 0; // 原全局：0x01057C88。
+std::array<char, 128> gLegacyGuildNameCache1050DD0 {}; // 原全局：0x01050DD0。
+std::array<char, 128> gLegacyGuildSecondCache1050E50 {}; // 原全局：0x01050E50。
+std::int32_t gLegacyGuildDetailsPageCount1050ED0 = 0; // 原全局：0x01050ED0。
+std::int32_t gLegacyGuildDetailsPage1050ED4 = 0; // 原全局：0x01050ED4。
+std::array<std::int32_t, 5> gLegacyGuildDetailsHighlights1050EFC {}; // 原全局：0x01050EFC。
+constexpr char kLegacyGuildNameEdit58F550[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F550。
+constexpr char kLegacyGuildSecondEdit58F534[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F534。
+constexpr char kLegacyGuildRankEdit58F518[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F518。
+constexpr char kLegacyGuildPermissionFirst58F4E4[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4E4。
+constexpr char kLegacyGuildPermissionSecond58F4D0[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4D0。
+LegacyPanelRecord gLegacyEmotePanel584AA8 { // 原全局：0x00584AA8。
     448, 0, 192, 360, 17, {22640, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr const char* kLegacyEmoteLabels58A370[18] {
+constexpr const char* kLegacyEmoteLabels58A370[18] { // 原常量参考：0x0058A370。
     "\x20\xD7\xF8\xA1\xA1\xCF\xC2\x20", // 原58A370
     "\x20\xD5\xBE\xA1\xA1\xC1\xA2\x20", // 原58A364
     "\x20\x93\x5D\x20\x20\xCA\xD6\x20", // 原58A358
@@ -1357,7 +1357,7 @@ constexpr const char* kLegacyEmoteLabels58A370[18] {
     "\x20\x20\x20\xB2\xBC\x20\x20\x20", // 原58A2B0
     "\x20\xCA\xAF\x20\x20\xEE\x5E\x20", // 原58A2A4
 };
-constexpr const char* kLegacyEmoteHints5871B0[18] {
+constexpr const char* kLegacyEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
     "\xD7\xF6\xA1\xB8\xD7\xF8\xCF\xC2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5871B0
     "\xD7\xF6\xA1\xB8\xD5\xBE\xC1\xA2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870D8
     "\xD7\xF6\xA1\xB8\x93\x5D\xCA\xD6\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587198
@@ -1377,155 +1377,155 @@ constexpr const char* kLegacyEmoteHints5871B0[18] {
     "\xD7\xF6\xA1\xB8\xB3\xF6\xB2\xBC\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870F0
     "\xD7\xF6\xA1\xB8\xB3\xF6\xCA\xAF\xEE\x5E\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587018
 };
-constexpr char kLegacyBlacklistText5533F4[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x9F\xE1\xE6\x49\xCA\xB9\xD3\xC3\xD5\x66\xC3\xF7\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D";
-constexpr char kLegacyBlacklistText5533B4[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xBC\xD3\xC8\xEB\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x49\x6E\x73\x65\x72\x74\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\xB7\xC5\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE";
-constexpr char kLegacyBlacklistText553370[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xD2\xC6\xB3\xFD\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x44\x65\x6C\x65\x74\x65\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD";
-constexpr char kLegacyBlacklistText55332C[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\xC4\xBF\xC7\xB0\xB9\xB2\xD3\xD0\x25\x32\x64\xC8\xCB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D";
-constexpr char kLegacyBlacklistText553304[] = "\xD0\xC2\xD4\xF6\xA3\xAF\xD2\xC6\xB3\xFD\xBA\xDA\xC3\xFB\x86\xCE\xB5\xC4\x83\xC8\xC8\xDD";
-constexpr char kLegacyBlacklistText5532EC[] = "\xD2\xD1\x8C\xA2\x25\x73\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\xD2\xC6\xB3\xFD";
-constexpr char kLegacyBlacklistText5532D8[] = "\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD\x25\x73\xCA\xA7\x94\xA1";
-constexpr char kLegacyBlacklistText553294[] = "\xC4\xE3\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xD1\x9D\x4D\xA3\xAC\x9F\x6F\xB7\xA8\xD4\xD9\xBC\xD3\xC8\xEB";
-constexpr char kLegacyBlacklistText5532C4[] = "\xD2\xD1\x8C\xA2\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
-constexpr char kLegacyBlacklistText5532B0[] = "\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
-LegacyPanelRecord gLegacyBlacklistPanel5531D0 {
+constexpr char kLegacyBlacklistText5533F4[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x9F\xE1\xE6\x49\xCA\xB9\xD3\xC3\xD5\x66\xC3\xF7\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D"; // 原常量参考：0x005533F4。
+constexpr char kLegacyBlacklistText5533B4[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xBC\xD3\xC8\xEB\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x49\x6E\x73\x65\x72\x74\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\xB7\xC5\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE"; // 原常量参考：0x005533B4。
+constexpr char kLegacyBlacklistText553370[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xD2\xC6\xB3\xFD\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x44\x65\x6C\x65\x74\x65\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD"; // 原常量参考：0x00553370。
+constexpr char kLegacyBlacklistText55332C[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\xC4\xBF\xC7\xB0\xB9\xB2\xD3\xD0\x25\x32\x64\xC8\xCB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D"; // 原常量参考：0x0055332C。
+constexpr char kLegacyBlacklistText553304[] = "\xD0\xC2\xD4\xF6\xA3\xAF\xD2\xC6\xB3\xFD\xBA\xDA\xC3\xFB\x86\xCE\xB5\xC4\x83\xC8\xC8\xDD"; // 原常量参考：0x00553304。
+constexpr char kLegacyBlacklistText5532EC[] = "\xD2\xD1\x8C\xA2\x25\x73\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\xD2\xC6\xB3\xFD"; // 原常量参考：0x005532EC。
+constexpr char kLegacyBlacklistText5532D8[] = "\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD\x25\x73\xCA\xA7\x94\xA1"; // 原常量参考：0x005532D8。
+constexpr char kLegacyBlacklistText553294[] = "\xC4\xE3\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xD1\x9D\x4D\xA3\xAC\x9F\x6F\xB7\xA8\xD4\xD9\xBC\xD3\xC8\xEB"; // 原常量参考：0x00553294。
+constexpr char kLegacyBlacklistText5532C4[] = "\xD2\xD1\x8C\xA2\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE"; // 原常量参考：0x005532C4。
+constexpr char kLegacyBlacklistText5532B0[] = "\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1"; // 原常量参考：0x005532B0。
+LegacyPanelRecord gLegacyBlacklistPanel5531D0 { // 原全局：0x005531D0。
     20, 10, 600, 438, 99, {99100, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-input::InputContext* gLegacyBlacklistInput5939B8 = nullptr; // 旧99借用槽，独立于当前输入焦点。
-constexpr char kLegacyPresetConfirm58A6C0[] = "\xBD\x59\xCA\xF8\xD4\x4F\xB6\xA8\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3";
-constexpr char kLegacyPresetCtrl58A68C[] = "\x8C\xA2\x43\x74\x72\x6C\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3";
-constexpr char kLegacyPresetShift58A66C[] = "\x8C\xA2\x53\x68\x69\x66\x74\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3";
-constexpr char kLegacyPresetNormal58A6A8[] = "\x8C\xA2\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3";
-constexpr char kLegacyPresetTab585910[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xD2\xBB\xED\x93\xA1\xA3";
-constexpr char kLegacyPresetTab585900[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xB6\xFE\xED\x93\xA1\xA3";
-constexpr char kLegacyPresetTab5858F0[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xC8\xFD\xED\x93\xA1\xA3";
-LegacyPanelRecord gLegacyPresetPanel5850C8 {
+input::InputContext* gLegacyBlacklistInput5939B8 = nullptr; // 原全局：0x005939B8。 旧99借用槽，独立于当前输入焦点。
+constexpr char kLegacyPresetConfirm58A6C0[] = "\xBD\x59\xCA\xF8\xD4\x4F\xB6\xA8\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A6C0。
+constexpr char kLegacyPresetCtrl58A68C[] = "\x8C\xA2\x43\x74\x72\x6C\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A68C。
+constexpr char kLegacyPresetShift58A66C[] = "\x8C\xA2\x53\x68\x69\x66\x74\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A66C。
+constexpr char kLegacyPresetNormal58A6A8[] = "\x8C\xA2\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A6A8。
+constexpr char kLegacyPresetTab585910[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00585910。
+constexpr char kLegacyPresetTab585900[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xB6\xFE\xED\x93\xA1\xA3"; // 原常量参考：0x00585900。
+constexpr char kLegacyPresetTab5858F0[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xC8\xFD\xED\x93\xA1\xA3"; // 原常量参考：0x005858F0。
+LegacyPanelRecord gLegacyPresetPanel5850C8 { // 原全局：0x005850C8。
     0, 0, 272, 438, 6, {22950, 22951, 22952, 0, 0},
     {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910},
       {22954, 110, 43, 52, 18, kLegacyPresetTab585900},
       {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0}, {}, {}}},
     0, 0, {}, {},
 };
-std::int32_t gLegacyPresetRowD30408 = 0; // 页号直接借面板selected，只有行号是独立S32。
-LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
+std::int32_t gLegacyPresetRowD30408 = 0; // 原全局：0x00D30408。 页号直接借面板selected，只有行号是独立S32。
+LegacyPanelRecord gLegacyItemUseStatusPanel582C78 { // 原全局：0x00582C78。
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
 
-constexpr char kLegacyItemUsePrevious58597C[] = "\xC9\xCF\xD2\xBB\xED\x93";
+constexpr char kLegacyItemUsePrevious58597C[] = "\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058597C。
 
-constexpr char kLegacyItemUseHeader58932C[] =
+constexpr char kLegacyItemUseHeader58932C[] = // 原常量参考：0x0058932C。
     "\xBD\xA1\xBF\xB5\x20\x20\xB5\xC8\xBC\x89\x20\xD0\xD5\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
     "\xC9\xFA\xC3\xFC\xC1\xA6\x20\x20\x20\x20\xC4\xA7\xC1\xA6";
-LegacyPanelRecord gLegacyGemExecutionPanel58AB28 {
+LegacyPanelRecord gLegacyGemExecutionPanel58AB28 { // 原全局：0x0058AB28。
     0, 0, 344, 380, 29, {23351, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyGemActionD68A88 = nullptr;
-std::uint32_t gLegacyGemTickD68AB4 = 0;
-std::int32_t gLegacyGemDurationD68AB8 = 0;
-std::int32_t gLegacyGemElapsedD68ABC = 0;
-constexpr char kLegacyGemMissing58AC7C[] = "\xCB\xD8\xB2\xC4\x9B\x5D\xD3\xD0\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3";
-constexpr char kLegacyGemExecute58ACB0[] = "\xE8\x82\xC8\xEB\x8C\x9A\xCA\xAF\xA1\xA3";
-constexpr char kLegacyGemBack5871F0[] = "\xB7\xB5\xBB\xD8\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-LegacyPanelRecord gLegacyGemMaterialsPanel58AA60 {
+YobiAction* gLegacyGemActionD68A88 = nullptr; // 原全局：0x00D68A88。
+std::uint32_t gLegacyGemTickD68AB4 = 0; // 原全局：0x00D68AB4。
+std::int32_t gLegacyGemDurationD68AB8 = 0; // 原全局：0x00D68AB8。
+std::int32_t gLegacyGemElapsedD68ABC = 0; // 原全局：0x00D68ABC。
+constexpr char kLegacyGemMissing58AC7C[] = "\xCB\xD8\xB2\xC4\x9B\x5D\xD3\xD0\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058AC7C。
+constexpr char kLegacyGemExecute58ACB0[] = "\xE8\x82\xC8\xEB\x8C\x9A\xCA\xAF\xA1\xA3"; // 原常量参考：0x0058ACB0。
+constexpr char kLegacyGemBack5871F0[] = "\xB7\xB5\xBB\xD8\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005871F0。
+LegacyPanelRecord gLegacyGemMaterialsPanel58AA60 { // 原全局：0x0058AA60。
     368, 0, 272, 380, 30, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyGemMaterialHoverD68A84 = 0;
-std::int32_t gLegacyGemDragImageD68AA4 = 0;
-std::int32_t gLegacyGemDragSlotD68AA8 = 0;
-std::int32_t gLegacyGemMaterialPageD68AAC = 0;
-constexpr char kLegacyGemTooFew58ACA4[] = "\xCB\xD8\xB2\xC4\xB2\xBB\xD7\xE3\xA1\xA3";
-constexpr char kLegacyGemInvalid58AC90[] = "\xDF\x78\x93\xF1\xB5\xC4\xCB\xD8\xB2\xC4\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3";
-constexpr char kLegacyGemRegistered58AC6C[] = "\xCB\xD8\xB2\xC4\xD2\xD1\xB5\xC7\xE4\x9B\xA1\xA3";
-constexpr char kLegacyGemWorking58AC58[] = "\xBC\xD3\xB9\xA4\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4";
-constexpr char kLegacyGemNone58AC28[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB5\xBD\xCB\xD8\xB2\xC4\xA1\xA3";
-constexpr char kLegacyGemRegister58AC3C[] = "\x8C\xA2\xDF\x78\xB5\xBD\xB5\xC4\xB5\xC0\xBE\xDF\xB5\xC7\xE4\x9B\x9E\xE9\xCB\xD8\xB2\xC4\xA1\xA3";
-constexpr char kLegacyGemSelected58AC10[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xD2\xD1\xBD\x9B\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3";
-constexpr char kLegacyGemSelect58AC00[] = "\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3";
-constexpr char kLegacyGemReject58ABEC[] = "\x9F\x6F\xB7\xA8\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3";
-constexpr char kLegacyCraftAdd589FC8[] = "\xBB\xD8\xB5\xBD\xD7\xB7\xBC\xD3\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyCraftChoose589FD8[] =
+std::int32_t gLegacyGemMaterialHoverD68A84 = 0; // 原全局：0x00D68A84。
+std::int32_t gLegacyGemDragImageD68AA4 = 0; // 原全局：0x00D68AA4。
+std::int32_t gLegacyGemDragSlotD68AA8 = 0; // 原全局：0x00D68AA8。
+std::int32_t gLegacyGemMaterialPageD68AAC = 0; // 原全局：0x00D68AAC。
+constexpr char kLegacyGemTooFew58ACA4[] = "\xCB\xD8\xB2\xC4\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058ACA4。
+constexpr char kLegacyGemInvalid58AC90[] = "\xDF\x78\x93\xF1\xB5\xC4\xCB\xD8\xB2\xC4\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3"; // 原常量参考：0x0058AC90。
+constexpr char kLegacyGemRegistered58AC6C[] = "\xCB\xD8\xB2\xC4\xD2\xD1\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058AC6C。
+constexpr char kLegacyGemWorking58AC58[] = "\xBC\xD3\xB9\xA4\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4"; // 原常量参考：0x0058AC58。
+constexpr char kLegacyGemNone58AC28[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB5\xBD\xCB\xD8\xB2\xC4\xA1\xA3"; // 原常量参考：0x0058AC28。
+constexpr char kLegacyGemRegister58AC3C[] = "\x8C\xA2\xDF\x78\xB5\xBD\xB5\xC4\xB5\xC0\xBE\xDF\xB5\xC7\xE4\x9B\x9E\xE9\xCB\xD8\xB2\xC4\xA1\xA3"; // 原常量参考：0x0058AC3C。
+constexpr char kLegacyGemSelected58AC10[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xD2\xD1\xBD\x9B\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x0058AC10。
+constexpr char kLegacyGemSelect58AC00[] = "\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x0058AC00。
+constexpr char kLegacyGemReject58ABEC[] = "\x9F\x6F\xB7\xA8\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x0058ABEC。
+constexpr char kLegacyCraftAdd589FC8[] = "\xBB\xD8\xB5\xBD\xD7\xB7\xBC\xD3\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589FC8。
+constexpr char kLegacyCraftChoose589FD8[] = // 原常量参考：0x00589FD8。
     "\xBB\xD8\xB5\xBD\xC9\xFA\xB3\xC9\xDF\x78\x93\xF1\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyResultLimit5897D4[] = "  --  ";
-constexpr char kLegacyTitleSubmit5863C4[] =
+constexpr char kLegacyResultLimit5897D4[] = "  --  "; // 原常量参考：0x005897D4。
+constexpr char kLegacyTitleSubmit5863C4[] = // 原常量参考：0x005863C4。
     "\xD4\x4F\xB6\xA8\xD7\xD4\xBC\xBA\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitlePage58A98C[] = "\x93\x51\xED\x93\xA1\xA3";
-constexpr char kLegacyTitleDelete5863E8[] =
+constexpr char kLegacyTitlePage58A98C[] = "\x93\x51\xED\x93\xA1\xA3"; // 原常量参考：0x0058A98C。
+constexpr char kLegacyTitleDelete5863E8[] = // 原常量参考：0x005863E8。
     "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleCancelDelete58AA3C[] =
+constexpr char kLegacyTitleCancelDelete58AA3C[] = // 原常量参考：0x0058AA3C。
     "\xB2\xBB\xC4\xDC\x84\x68\xB3\xFD\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleClear5863FC[] =
+constexpr char kLegacyTitleClear5863FC[] = // 原常量参考：0x005863FC。
     "\xC8\xA1\xCF\xFB\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleRemove58AA1C[] =
+constexpr char kLegacyTitleRemove58AA1C[] = // 原常量参考：0x0058AA1C。
     "\xC8\xA1\xCF\xFB\xDF\x40\x82\x80\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleSelect58AA2C[] =
+constexpr char kLegacyTitleSelect58AA2C[] = // 原常量参考：0x0058AA2C。
     "\xD4\x4F\xB6\xA8\xDF\x40\x82\x80\xB7\x51\xCC\x96\xA1\xA3";
-std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0;
-std::uint32_t gLegacyAttributeTickD67440 = 0;
+std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0; // 原全局：0x00CC3EF8。
+std::uint32_t gLegacyAttributeTickD67440 = 0; // 原全局：0x00D67440。
 
-LegacyPanelRecord gLegacySettingsMenu584E70 {
+LegacyPanelRecord gLegacySettingsMenu584E70 { // 原全局：0x00584E70。
     0, 0, 192, 304, 3, {22500, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 8> gLegacySettingsButtonsD67D38 {};
-constexpr char kLegacySettingsText58A4A4[] = "\xB5\xC7\x20\x20\x20\x20\x20\x20\x20\xB3\xF6";
-constexpr char kLegacySettingsHint586DE8[] = "\xB5\xC7\xB3\xF6\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3";
-constexpr char kLegacySettingsText58A498[] = "\xC1\xC4\x20\xCC\xEC\x20\xD4\x4F\x20\xB6\xA8";
-constexpr char kLegacySettingsHint58A484[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xB5\xC4\xDF\x78\xED\x97\xA1\xA3";
-constexpr char kLegacySettingsText58A478[] = "\xD2\xF4\x20\x98\xB7\x20\xD4\x4F\x20\xB6\xA8";
-constexpr char kLegacySettingsHint58A460[] = "\xD4\x4F\xB6\xA8\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3";
-constexpr char kLegacySettingsText58A454[] = "\xD2\xF4\x20\xD0\xA7\x20\xD4\x4F\x20\xB6\xA8";
-constexpr char kLegacySettingsHint58A440[] = "\xD4\x4F\xB6\xA8\xD2\xF4\xD0\xA7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3";
-constexpr char kLegacySettingsText58A434[] = "\xBB\xAC\x20\xCA\xF3\x20\xD4\x4F\x20\xB6\xA8";
-constexpr char kLegacySettingsHint58A420[] = "\xD4\x4F\xB6\xA8\xBB\xAC\xCA\xF3\xB5\xC4\xDF\x78\xED\x97\xA1\xA3";
-constexpr char kLegacySettingsText58A414[] = "\xE6\x49\x20\xB1\x50\x20\x9F\xE1\x20\xE6\x49";
-constexpr char kLegacySettingsHint58A400[] = "\xE6\x49\xB1\x50\x9F\xE1\xE6\x49\xB5\xC4\xD5\x66\xC3\xF7\xA1\xA3";
-constexpr char kLegacySettingsText58A3F4[] = "\xC0\x4C\x20\x88\x44\x20\xD4\x4F\x20\xB6\xA8";
-constexpr char kLegacySettingsHint58A3E4[] = "\xD4\x4F\xB6\xA8\xC0\x4C\x88\x44\xC4\xA3\xCA\xBD\xA1\xA3";
-constexpr char kLegacySettingsText58A3D8[] = "\xD4\x4F\xB6\xA8\xB0\xB4\xE2\x6F";
-constexpr char kLegacySettingsHint58A3C8[] = "\xDF\x4D\xD0\xD0\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8";
+std::array<LegacyPanelTextButtonRecord, 8> gLegacySettingsButtonsD67D38 {}; // 原全局：0x00D67D38。
+constexpr char kLegacySettingsText58A4A4[] = "\xB5\xC7\x20\x20\x20\x20\x20\x20\x20\xB3\xF6"; // 原常量参考：0x0058A4A4。
+constexpr char kLegacySettingsHint586DE8[] = "\xB5\xC7\xB3\xF6\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3"; // 原常量参考：0x00586DE8。
+constexpr char kLegacySettingsText58A498[] = "\xC1\xC4\x20\xCC\xEC\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A498。
+constexpr char kLegacySettingsHint58A484[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A484。
+constexpr char kLegacySettingsText58A478[] = "\xD2\xF4\x20\x98\xB7\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A478。
+constexpr char kLegacySettingsHint58A460[] = "\xD4\x4F\xB6\xA8\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A460。
+constexpr char kLegacySettingsText58A454[] = "\xD2\xF4\x20\xD0\xA7\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A454。
+constexpr char kLegacySettingsHint58A440[] = "\xD4\x4F\xB6\xA8\xD2\xF4\xD0\xA7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A440。
+constexpr char kLegacySettingsText58A434[] = "\xBB\xAC\x20\xCA\xF3\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A434。
+constexpr char kLegacySettingsHint58A420[] = "\xD4\x4F\xB6\xA8\xBB\xAC\xCA\xF3\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A420。
+constexpr char kLegacySettingsText58A414[] = "\xE6\x49\x20\xB1\x50\x20\x9F\xE1\x20\xE6\x49"; // 原常量参考：0x0058A414。
+constexpr char kLegacySettingsHint58A400[] = "\xE6\x49\xB1\x50\x9F\xE1\xE6\x49\xB5\xC4\xD5\x66\xC3\xF7\xA1\xA3"; // 原常量参考：0x0058A400。
+constexpr char kLegacySettingsText58A3F4[] = "\xC0\x4C\x20\x88\x44\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A3F4。
+constexpr char kLegacySettingsHint58A3E4[] = "\xD4\x4F\xB6\xA8\xC0\x4C\x88\x44\xC4\xA3\xCA\xBD\xA1\xA3"; // 原常量参考：0x0058A3E4。
+constexpr char kLegacySettingsText58A3D8[] = "\xD4\x4F\xB6\xA8\xB0\xB4\xE2\x6F"; // 原常量参考：0x0058A3D8。
+constexpr char kLegacySettingsHint58A3C8[] = "\xDF\x4D\xD0\xD0\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A3C8。
 
-LegacyPanelRecord gLegacyChatSettings585000 {
+LegacyPanelRecord gLegacyChatSettings585000 { // 原全局：0x00585000。
     0, 0, 192, 304, 5, {22960, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 18> gLegacyChatRecordsD67E80 {};
-constexpr char kLegacyChat58A584[] = "\xD4\x4F\xB6\xA8\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5";
-constexpr char kLegacyChat58A57C[] = "\xC4\xBF\xC7\xB0";
-constexpr char kLegacyChat58A578[] = "\xD0\xD0";
-constexpr char kLegacyChat58A574[] = "\xA1\xFC";
-constexpr char kLegacyChat58A570[] = "\xA1\xFD";
-constexpr char kLegacyChat58A560[] = "\xCE\xC4\xD7\xD6\xEE\x81\xC9\xAB\xD4\x4F\xB6\xA8";
-constexpr char kLegacyChat58A554[] = "\xC4\xBF\xC7\xB0\xEE\x81\xC9\xAB";
-constexpr char kLegacyChat58A54C[] = "\x3C\xD7\x83\xB8\xFC\x3E";
-constexpr char kLegacyChat5877B4[] = "\xD7\x83\xB8\xFC\xCE\xC4\xD7\xD6\xB5\xC4\xEE\x81\xC9\xAB\xA1\xA3";
-constexpr char kLegacyChat58A540[] = "\xB3\xA3\xD3\xC3\xBE\xE4\xD4\x4F\xB6\xA8";
-constexpr char kLegacyChat58A538[] = "\x3C\xD4\x4F\xB6\xA8\x3E";
-constexpr char kLegacyChat58A524[] = "\xB4\xF2\xE9\x5F\xB3\xA3\xD3\xC3\xBE\xE4\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyChat58A514[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7";
-constexpr char kLegacyChat58A508[] = "\xB9\xA0\x87\xFA\xD4\x4F\xB6\xA8";
-constexpr char kLegacyChat58A500[] = "\xAC\x46\xD4\xDA";
-constexpr char kLegacyChat58A4F8[] = "\x20\xC9\xCF\xD2\xBB\xED\x93";
-constexpr char kLegacyChat58A4E8[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyChat58A668[] = "\xE9\x5F";
-constexpr char kLegacyChat58A664[] = "\xEA\x50";
-constexpr char kLegacyChat58A654[] = "\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3";
-constexpr char kLegacyChat58A63C[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3";
-constexpr char kLegacyChat58A62C[] = "\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3";
-constexpr char kLegacyChat58A614[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3";
-constexpr char kLegacyChat58A604[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3";
-constexpr char kLegacyChat58A5F4[] = "\xE9\x5F\x86\xA2\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3";
-constexpr char kLegacyChat58A5E0[] = "\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3";
-constexpr char kLegacyChat58A5C4[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3";
-constexpr char kLegacyChat58A5B0[] = "\xBF\x73\xD0\xA1\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3";
-constexpr char kLegacyChat58A594[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3";
-constexpr char kLegacyChat553FB4[] = "\x25\x32\x64";
-constexpr char kLegacyChat5531A4[] = "\x25\x64";
+std::array<LegacyPanelTextButtonRecord, 18> gLegacyChatRecordsD67E80 {}; // 原全局：0x00D67E80。
+constexpr char kLegacyChat58A584[] = "\xD4\x4F\xB6\xA8\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5"; // 原常量参考：0x0058A584。
+constexpr char kLegacyChat58A57C[] = "\xC4\xBF\xC7\xB0"; // 原常量参考：0x0058A57C。
+constexpr char kLegacyChat58A578[] = "\xD0\xD0"; // 原常量参考：0x0058A578。
+constexpr char kLegacyChat58A574[] = "\xA1\xFC"; // 原常量参考：0x0058A574。
+constexpr char kLegacyChat58A570[] = "\xA1\xFD"; // 原常量参考：0x0058A570。
+constexpr char kLegacyChat58A560[] = "\xCE\xC4\xD7\xD6\xEE\x81\xC9\xAB\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A560。
+constexpr char kLegacyChat58A554[] = "\xC4\xBF\xC7\xB0\xEE\x81\xC9\xAB"; // 原常量参考：0x0058A554。
+constexpr char kLegacyChat58A54C[] = "\x3C\xD7\x83\xB8\xFC\x3E"; // 原常量参考：0x0058A54C。
+constexpr char kLegacyChat5877B4[] = "\xD7\x83\xB8\xFC\xCE\xC4\xD7\xD6\xB5\xC4\xEE\x81\xC9\xAB\xA1\xA3"; // 原常量参考：0x005877B4。
+constexpr char kLegacyChat58A540[] = "\xB3\xA3\xD3\xC3\xBE\xE4\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A540。
+constexpr char kLegacyChat58A538[] = "\x3C\xD4\x4F\xB6\xA8\x3E"; // 原常量参考：0x0058A538。
+constexpr char kLegacyChat58A524[] = "\xB4\xF2\xE9\x5F\xB3\xA3\xD3\xC3\xBE\xE4\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A524。
+constexpr char kLegacyChat58A514[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7"; // 原常量参考：0x0058A514。
+constexpr char kLegacyChat58A508[] = "\xB9\xA0\x87\xFA\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A508。
+constexpr char kLegacyChat58A500[] = "\xAC\x46\xD4\xDA"; // 原常量参考：0x0058A500。
+constexpr char kLegacyChat58A4F8[] = "\x20\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058A4F8。
+constexpr char kLegacyChat58A4E8[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A4E8。
+constexpr char kLegacyChat58A668[] = "\xE9\x5F"; // 原常量参考：0x0058A668。
+constexpr char kLegacyChat58A664[] = "\xEA\x50"; // 原常量参考：0x0058A664。
+constexpr char kLegacyChat58A654[] = "\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3"; // 原常量参考：0x0058A654。
+constexpr char kLegacyChat58A63C[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A63C。
+constexpr char kLegacyChat58A62C[] = "\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3"; // 原常量参考：0x0058A62C。
+constexpr char kLegacyChat58A614[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A614。
+constexpr char kLegacyChat58A604[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3"; // 原常量参考：0x0058A604。
+constexpr char kLegacyChat58A5F4[] = "\xE9\x5F\x86\xA2\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3"; // 原常量参考：0x0058A5F4。
+constexpr char kLegacyChat58A5E0[] = "\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3"; // 原常量参考：0x0058A5E0。
+constexpr char kLegacyChat58A5C4[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A5C4。
+constexpr char kLegacyChat58A5B0[] = "\xBF\x73\xD0\xA1\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3"; // 原常量参考：0x0058A5B0。
+constexpr char kLegacyChat58A594[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A594。
+constexpr char kLegacyChat553FB4[] = "\x25\x32\x64"; // 原常量参考：0x00553FB4。
+constexpr char kLegacyChat5531A4[] = "\x25\x64"; // 原常量参考：0x005531A4。
 
-LegacyPanelRecord gLegacyMusicSettings585190 {
+LegacyPanelRecord gLegacyMusicSettings585190 { // 原全局：0x00585190。
     0, 0, 192, 304, 7, {22961, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 5> gLegacyMusicRecordsD68150 {};
-LegacyPanelRecord gLegacySoundSettings585258 {
+std::array<LegacyPanelTextButtonRecord, 5> gLegacyMusicRecordsD68150 {}; // 原全局：0x00D68150。
+LegacyPanelRecord gLegacySoundSettings585258 { // 原全局：0x00585258。
     0, 0, 192, 304, 8, {22962, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 8> gLegacySoundRecordsD68218 {};
+std::array<LegacyPanelTextButtonRecord, 8> gLegacySoundRecordsD68218 {}; // 原全局：0x00D68218。
 constexpr char kLegacyAudio58A6D4[] = "\xD2\xF4\xC1\xBF\xD4\x4F\xB6\xA8"; // 原58A6D4 音量設定
 constexpr char kLegacyAudio58A720[] = "\xD4\x4F\xB6\xA8\xC2\x95\xD2\xF4\xC4\xA3\xCA\xBD"; // 原58A720 設定聲音模式
 constexpr char kLegacyAudio58A76C[] = "\x86\xCE\xC2\x95\xB5\xC0"; // 原58A76C 單聲道
@@ -1538,99 +1538,99 @@ constexpr char kLegacyAudio58A750[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD5\x7B\xB8\xDF\
 constexpr char kLegacyAudio58A740[] = "\xD7\x83\xB8\xFC\x9E\xE9\x86\xCE\xC2\x95\xB5\xC0\xA1\xA3"; // 原58A740 變更為單聲道。
 constexpr char kLegacyAudio58A730[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC1\xA2\xF3\x77\xC2\x95\xA1\xA3"; // 原58A730 變更為立體聲。
 
-LegacyPanelRecord gLegacyMouseSettings585320 {
+LegacyPanelRecord gLegacyMouseSettings585320 { // 原全局：0x00585320。
     0, 0, 192, 304, 9, {22963, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 11> gLegacyMouseRecordsD68358 {};
-constexpr char kLegacyMouse58A7B0[] = "\xBB\xAC\xCA\xF3\xD3\xCE\x98\xCB\xD4\x4F\xB6\xA8";
-constexpr char kLegacyMouse58A7A0[] = "\xD4\x4F\xB6\xA8\xCE\xEF\xC6\xB7\xB5\xC4\xD2\xC6\x84\xD3";
-constexpr char kLegacyMouse58A790[] = "\xD5\x7B\xD5\xFB\xBB\xAC\xCA\xF3\xCB\xD9\xB6\xC8";
-constexpr char kLegacyMouse58A784[] = "\xC4\xBF\xC7\xB0\xCB\xD9\xB6\xC8";
-constexpr char kLegacyMouse58A774[] = "\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyMouse58A838[] = "\xD5\xFD\xB3\xA3";
-constexpr char kLegacyMouse58A830[] = "\xC6\xBD\xBB\xAC";
-constexpr char kLegacyMouse58A820[] = "\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49";
-constexpr char kLegacyMouse58A814[] = "\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49";
-constexpr char kLegacyMouse58A7FC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xD5\xFD\xB3\xA3\xA1\xA3";
-constexpr char kLegacyMouse58A7EC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC6\xBD\xBB\xAC\xA1\xA3";
-constexpr char kLegacyMouse58A7D4[] = "\xD7\x83\xB8\xFC\x9E\xE9\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3";
-constexpr char kLegacyMouse58A7C0[] = "\xD7\x83\xB8\xFC\x9E\xE9\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3";
-constexpr char kLegacyMouse5535F8[] = "\x25\x73";
-constexpr char kLegacyMouse58A80C[] = "\x25\x32\x2E\x31\x66";
+std::array<LegacyPanelTextButtonRecord, 11> gLegacyMouseRecordsD68358 {}; // 原全局：0x00D68358。
+constexpr char kLegacyMouse58A7B0[] = "\xBB\xAC\xCA\xF3\xD3\xCE\x98\xCB\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A7B0。
+constexpr char kLegacyMouse58A7A0[] = "\xD4\x4F\xB6\xA8\xCE\xEF\xC6\xB7\xB5\xC4\xD2\xC6\x84\xD3"; // 原常量参考：0x0058A7A0。
+constexpr char kLegacyMouse58A790[] = "\xD5\x7B\xD5\xFB\xBB\xAC\xCA\xF3\xCB\xD9\xB6\xC8"; // 原常量参考：0x0058A790。
+constexpr char kLegacyMouse58A784[] = "\xC4\xBF\xC7\xB0\xCB\xD9\xB6\xC8"; // 原常量参考：0x0058A784。
+constexpr char kLegacyMouse58A774[] = "\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A774。
+constexpr char kLegacyMouse58A838[] = "\xD5\xFD\xB3\xA3"; // 原常量参考：0x0058A838。
+constexpr char kLegacyMouse58A830[] = "\xC6\xBD\xBB\xAC"; // 原常量参考：0x0058A830。
+constexpr char kLegacyMouse58A820[] = "\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49"; // 原常量参考：0x0058A820。
+constexpr char kLegacyMouse58A814[] = "\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49"; // 原常量参考：0x0058A814。
+constexpr char kLegacyMouse58A7FC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xD5\xFD\xB3\xA3\xA1\xA3"; // 原常量参考：0x0058A7FC。
+constexpr char kLegacyMouse58A7EC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC6\xBD\xBB\xAC\xA1\xA3"; // 原常量参考：0x0058A7EC。
+constexpr char kLegacyMouse58A7D4[] = "\xD7\x83\xB8\xFC\x9E\xE9\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3"; // 原常量参考：0x0058A7D4。
+constexpr char kLegacyMouse58A7C0[] = "\xD7\x83\xB8\xFC\x9E\xE9\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3"; // 原常量参考：0x0058A7C0。
+constexpr char kLegacyMouse5535F8[] = "\x25\x73"; // 原常量参考：0x005535F8。
+constexpr char kLegacyMouse58A80C[] = "\x25\x32\x2E\x31\x66"; // 原常量参考：0x0058A80C。
 
-LegacyPanelRecord gLegacyHotkeyHelp5853E8 {
+LegacyPanelRecord gLegacyHotkeyHelp5853E8 { // 原全局：0x005853E8。
     0, 0, 192, 304, 10, {22964, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 13> gLegacyHotkeyRecordsD68510 {};
-constexpr char kLegacyHotkey58A8AC[] = "\xC8\xCB\xCE\xEF\xC3\xFB\xB7\x51\xEF\x40\xCA\xBE";
-constexpr char kLegacyHotkey58A8A8[] = "\x46\x31\x31";
-constexpr char kLegacyHotkey58A89C[] = "\xCE\x9E\xC4\xBB\x94\x58\xC8\xA1";
-constexpr char kLegacyHotkey58A898[] = "\x46\x31\x32";
-constexpr char kLegacyHotkey58A884[] = "\xC7\xE5\xB3\xFD\xCE\x9E\xC4\xBB\xC1\xC4\xCC\xEC\xD3\x8D\xCF\xA2";
-constexpr char kLegacyHotkey58A87C[] = "\x48\x4F\x4D\x45";
-constexpr char kLegacyHotkey58A86C[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xEE\x6C\xB5\xC0";
-constexpr char kLegacyHotkey58A85C[] = "\x53\x68\x69\x66\x74\x20\x2B\x20\x48\x4F\x4D\x45";
-constexpr char kLegacyHotkey58A850[] = "\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49";
-constexpr char kLegacyHotkey58A84C[] = "\x46\x39";
-constexpr char kLegacyHotkey58A840[] = "\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED";
-constexpr char kLegacyHotkey553F00[] = "\x45\x4E\x44";
-LegacyPanelRecord gLegacyScanlineSettings5854B0 {
+std::array<LegacyPanelTextButtonRecord, 13> gLegacyHotkeyRecordsD68510 {}; // 原全局：0x00D68510。
+constexpr char kLegacyHotkey58A8AC[] = "\xC8\xCB\xCE\xEF\xC3\xFB\xB7\x51\xEF\x40\xCA\xBE"; // 原常量参考：0x0058A8AC。
+constexpr char kLegacyHotkey58A8A8[] = "\x46\x31\x31"; // 原常量参考：0x0058A8A8。
+constexpr char kLegacyHotkey58A89C[] = "\xCE\x9E\xC4\xBB\x94\x58\xC8\xA1"; // 原常量参考：0x0058A89C。
+constexpr char kLegacyHotkey58A898[] = "\x46\x31\x32"; // 原常量参考：0x0058A898。
+constexpr char kLegacyHotkey58A884[] = "\xC7\xE5\xB3\xFD\xCE\x9E\xC4\xBB\xC1\xC4\xCC\xEC\xD3\x8D\xCF\xA2"; // 原常量参考：0x0058A884。
+constexpr char kLegacyHotkey58A87C[] = "\x48\x4F\x4D\x45"; // 原常量参考：0x0058A87C。
+constexpr char kLegacyHotkey58A86C[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xEE\x6C\xB5\xC0"; // 原常量参考：0x0058A86C。
+constexpr char kLegacyHotkey58A85C[] = "\x53\x68\x69\x66\x74\x20\x2B\x20\x48\x4F\x4D\x45"; // 原常量参考：0x0058A85C。
+constexpr char kLegacyHotkey58A850[] = "\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49"; // 原常量参考：0x0058A850。
+constexpr char kLegacyHotkey58A84C[] = "\x46\x39"; // 原常量参考：0x0058A84C。
+constexpr char kLegacyHotkey58A840[] = "\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED"; // 原常量参考：0x0058A840。
+constexpr char kLegacyHotkey553F00[] = "\x45\x4E\x44"; // 原常量参考：0x00553F00。
+LegacyPanelRecord gLegacyScanlineSettings5854B0 { // 原全局：0x005854B0。
     0, 0, 192, 304, 11, {22965, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 4> gLegacyScanlineRecordsD68718 {};
-constexpr char kLegacyScanline586E24[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xC6\xDA\xD4\x4F\xB6\xA8";
-constexpr char kLegacyScanline58A8F8[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xB2\xBD";
-constexpr char kLegacyScanline58A8E8[] = "\x92\xDF\xC3\xE8\xBE\x80\xB7\xC7\xCD\xAC\xB2\xBD";
-constexpr char kLegacyScanline58A8D4[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xCD\xAC\xB2\xBD\xA1\xA3";
-constexpr char kLegacyScanline58A8BC[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xB7\xC7\xCD\xAC\xB2\xBD\xA1\xA3";
+std::array<LegacyPanelTextButtonRecord, 4> gLegacyScanlineRecordsD68718 {}; // 原全局：0x00D68718。
+constexpr char kLegacyScanline586E24[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xC6\xDA\xD4\x4F\xB6\xA8"; // 原常量参考：0x00586E24。
+constexpr char kLegacyScanline58A8F8[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xB2\xBD"; // 原常量参考：0x0058A8F8。
+constexpr char kLegacyScanline58A8E8[] = "\x92\xDF\xC3\xE8\xBE\x80\xB7\xC7\xCD\xAC\xB2\xBD"; // 原常量参考：0x0058A8E8。
+constexpr char kLegacyScanline58A8D4[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xCD\xAC\xB2\xBD\xA1\xA3"; // 原常量参考：0x0058A8D4。
+constexpr char kLegacyScanline58A8BC[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xB7\xC7\xCD\xAC\xB2\xBD\xA1\xA3"; // 原常量参考：0x0058A8BC。
 
-LegacyPanelRecord gLegacyButtonSettings585578 {
+LegacyPanelRecord gLegacyButtonSettings585578 { // 原全局：0x00585578。
     0, 0, 192, 304, 12, {22549, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::array<LegacyPanelTextButtonRecord, 4> gLegacyButtonRecordsD687B8 {};
-std::int32_t gLegacyUiHeight556C28 = 64;
-std::int32_t gLegacyUiY556C2C = -1;
-std::int32_t gLegacyUiWidth556C30 = 192;
-std::int32_t gLegacyUiX62B39C = 0;
+std::array<LegacyPanelTextButtonRecord, 4> gLegacyButtonRecordsD687B8 {}; // 原全局：0x00D687B8。
+std::int32_t gLegacyUiHeight556C28 = 64; // 原全局：0x00556C28。
+std::int32_t gLegacyUiY556C2C = -1; // 原全局：0x00556C2C。
+std::int32_t gLegacyUiWidth556C30 = 192; // 原全局：0x00556C30。
+std::int32_t gLegacyUiX62B39C = 0; // 原全局：0x0062B39C。
 // 455490组只存已证的八槽初始化值；不据此公开未知消费者的记录布局。
-std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B3B8 {};
-std::array<std::int32_t, 8> gLegacyUiInitWords62B460 {};
-std::array<std::int32_t, 8> gLegacyUiInitWords62B488 {};
-std::array<std::array<std::int32_t, 8>, 3> gLegacyUiInitWords62B4A8 {};
-std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B508 {};
-std::int32_t gLegacyBottomWidth5858A0 = 640;
-std::int32_t gLegacyBottomHeight5858A4 = 24;
-std::int32_t gLegacyBottomXD68930 = 0;
-std::int32_t gLegacyBottomYCB1DD8 = 0;
-std::int32_t gLegacyBottomHeightCA0014 = 0;
-std::int32_t gLegacyBottomHeightD2DAB4 = 0;
+std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B3B8 {}; // 原全局：0x0062B3B8。
+std::array<std::int32_t, 8> gLegacyUiInitWords62B460 {}; // 原全局：0x0062B460。
+std::array<std::int32_t, 8> gLegacyUiInitWords62B488 {}; // 原全局：0x0062B488。
+std::array<std::array<std::int32_t, 8>, 3> gLegacyUiInitWords62B4A8 {}; // 原全局：0x0062B4A8。
+std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B508 {}; // 原全局：0x0062B508。
+std::int32_t gLegacyBottomWidth5858A0 = 640; // 原全局：0x005858A0。
+std::int32_t gLegacyBottomHeight5858A4 = 24; // 原全局：0x005858A4。
+std::int32_t gLegacyBottomXD68930 = 0; // 原全局：0x00D68930。
+std::int32_t gLegacyBottomYCB1DD8 = 0; // 原全局：0x00CB1DD8。
+std::int32_t gLegacyBottomHeightCA0014 = 0; // 原全局：0x00CA0014。
+std::int32_t gLegacyBottomHeightD2DAB4 = 0; // 原全局：0x00D2DAB4。
 // 仅承接九个已证W32初始化值；不是原40B结构，未知+24H尾部及指针语义不定型。
-std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {};
+std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {}; // 原全局：0x00D68938。
 // BRU01：原D68AC6正常加载零字节，无新增运行写者；不猜相邻未用区容量。
 const std::uint8_t gLoginUnloadedByteD68AC6 {};
-constexpr char kLegacyButton58A914[] = "\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8";
-constexpr char kLegacyButton58A4BC[] = "\xBB\xD8\xC9\xCF\xD2\xBB\xED\x93";
-constexpr char kLegacyButton58A904[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xDF\x78\x86\xCE\xA1\xA3";
-constexpr char kLegacyButton58A97C[] = "\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1";
-constexpr char kLegacyButton58A970[] = "\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA";
-constexpr char kLegacyButton58A948[] =
+constexpr char kLegacyButton58A914[] = "\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A914。
+constexpr char kLegacyButton58A4BC[] = "\xBB\xD8\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058A4BC。
+constexpr char kLegacyButton58A904[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xDF\x78\x86\xCE\xA1\xA3"; // 原常量参考：0x0058A904。
+constexpr char kLegacyButton58A97C[] = "\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1"; // 原常量参考：0x0058A97C。
+constexpr char kLegacyButton58A970[] = "\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA"; // 原常量参考：0x0058A970。
+constexpr char kLegacyButton58A948[] = // 原常量参考：0x0058A948。
     "\x8C\xA2\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1\xB0\xB4\xE2\x6F"
     "\xD7\x83\xB8\xFC\xB3\xC9\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA\xB0\xB4\xE2\x6F\xA1\xA3";
-constexpr char kLegacyButton58A920[] =
+constexpr char kLegacyButton58A920[] = // 原常量参考：0x0058A920。
     "\x8C\xA2\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA\xB0\xB4\xE2\x6F\xD7\x83\xB8\xFC"
     "\xB3\xC9\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1\xB0\xB4\xE2\x6F\xA1\xA3";
 
-LegacyPanelRecord gLegacyLogoutPanel584F38 {
+LegacyPanelRecord gLegacyLogoutPanel584F38 { // 原全局：0x00584F38。
     0, 0, 192, 304, 4, {22504, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyLogout58A4D8[] = "\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63";
-constexpr char kLegacyLogout58A4C8[] = "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6";
+constexpr char kLegacyLogout58A4D8[] = "\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63"; // 原常量参考：0x0058A4D8。
+constexpr char kLegacyLogout58A4C8[] = "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6"; // 原常量参考：0x0058A4C8。
 
-constexpr char kLegacyLogout586E60[] =
+constexpr char kLegacyLogout586E60[] = // 原常量参考：0x00586E60。
     "\xB5\xC7\xB3\xF6\xE1\xE1\xBB\xD8\xB5\xBD\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6\xA1\xA3";
-constexpr char kLegacyLogout586E48[] =
+constexpr char kLegacyLogout586E48[] = // 原常量参考：0x00586E48。
     "\xB5\xC7\xB3\xF6\x81\x4B\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63\xA1\xA3";
-constexpr char kLegacyLogout58A4B0[] = "\xB7\xC5\x97\x89\xB5\xC7\xB3\xF6\xA1\xA3";
+constexpr char kLegacyLogout58A4B0[] = "\xB7\xC5\x97\x89\xB5\xC7\xB3\xF6\xA1\xA3"; // 原常量参考：0x0058A4B0。
 
 // 原函数：0x004FC7F0。
 std::int32_t Sub_4FC7F0()
@@ -1814,7 +1814,7 @@ std::uint8_t ReadNegativeSelectionAvailability(
     }
 }
 
-LegacyPanelRecord gLegacyProfilePanel5857D0 {
+LegacyPanelRecord gLegacyProfilePanel5857D0 { // 原全局：0x005857D0。
     0, 0, 272, 438, 2, {22501, 22515, 22980, 0, 0},
     {{{1, 7, 416, 77, 16, kLegacyProfileTab5858D8},
       {1, 97, 416, 77, 16, kLegacyProfileTab5858C0},

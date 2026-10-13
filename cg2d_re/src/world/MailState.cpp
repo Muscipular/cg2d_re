@@ -25,22 +25,22 @@
 
 namespace cg::world::detail {
 
-std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {};
-std::array<std::int32_t, 60> gContactIndicesFDA608 {};
-std::uint16_t gValue62B354 = 0;
-std::uint32_t gValueCB1384 = 0;
-std::uint32_t gValueCB0354 = 0;
-std::int32_t gValueCF4FC0 = 0;
-std::int32_t gValueD046D4 = 0;
-std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490清-1，窗口63保存同一发信目标编号。
+std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {}; // 原全局：0x00F19FB0。
+std::array<std::int32_t, 60> gContactIndicesFDA608 {}; // 原全局：0x00FDA608。
+std::uint16_t gValue62B354 = 0; // 原全局：0x0062B354。
+std::uint32_t gValueCB1384 = 0; // 原全局：0x00CB1384。
+std::uint32_t gValueCB0354 = 0; // 原全局：0x00CB0354。
+std::int32_t gValueCF4FC0 = 0; // 原全局：0x00CF4FC0。
+std::int32_t gValueD046D4 = 0; // 原全局：0x00D046D4。
+std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490清-1，窗口63保存同一发信目标编号。
 static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
 namespace {
 
 // 文件、网络回复与窗口40共用这些原字节区；UI经BorrowMailMessageF7CA08/BorrowGuildMailMessageDE0B30借用，存储归本模块持有。
-alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
-alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
+alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
+alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
 
 struct alignas(std::uint32_t) MiniMailRuntimeSlots {
     std::array<MiniMailContactRecord, 20> contacts;
@@ -63,7 +63,7 @@ static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
 static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
 MiniMailRuntimeSlots gMiniMailRuntime {};
-std::uint32_t gMiniMailSequence1075A88 = 0; // W32序号，先发布低W16再递增。
+std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
 
 static_assert(offsetof(ProfileEntry, value00) == 0);
 static_assert(offsetof(ProfileEntry, value04) == 4);
@@ -84,13 +84,13 @@ static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
 static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
 // 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
-std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {};
-ProfileRuntimeRecord gCurrentProfile10738E8 {};
-ProfileRuntimeRecord gReceivedProfile1074110 {};
-ProfileRuntimeRecord gViewedProfile105ECE0 {};
+std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
+ProfileRuntimeRecord gCurrentProfile10738E8 {}; // 原全局：0x010738E8。
+ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
+ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
 static_assert(sizeof(gProfiles1074938) == 0x1050);
-constexpr char kProfileDefault58F614[] = "\xCE\xB4\xD4\x4F\xB6\xA8";
-constexpr char kProfileHidden58F61C[] = "\xB2\xBB\xB9\xAB\xE9\x5F";
+constexpr char kProfileDefault58F614[] = "\xCE\xB4\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058F614。
+constexpr char kProfileHidden58F61C[] = "\xB2\xBB\xB9\xAB\xE9\x5F"; // 原常量参考：0x0058F61C。
 static_assert(sizeof(kProfileDefault58F614) == 7);
 static_assert(sizeof(kProfileHidden58F61C) == 7);
 
@@ -108,14 +108,14 @@ static_assert(offsetof(ProfileSearchRuntimeSlots, value00) == 0);
 static_assert(offsetof(ProfileSearchRuntimeSlots, value04) == 4);
 static_assert(offsetof(ProfileSearchRuntimeSlots, records) == 8);
 static_assert(sizeof(ProfileSearchRuntimeSlots) == 0x28F8);
-ProfileSearchRuntimeSlots gProfileSearch105C398 {};
+ProfileSearchRuntimeSlots gProfileSearch105C398 {}; // 原全局：0x0105C398。
 
 struct CategoryRuntimeSlots {
-    std::int32_t value00; // 原105FA10，50F2A0发布、50F3A0比较。
-    std::int32_t value04; // 原105FA14，50F8E0发布、50F3A0比较。
-    std::int32_t count08;
-    std::int32_t count0C;
-    std::int32_t value10; // 原105FA20，50F3A0第三字段。
+    std::int32_t value00; // 原成员偏移：+0x00。 原105FA10，50F2A0发布、50F3A0比较。
+    std::int32_t value04; // 原成员偏移：+0x04。 原105FA14，50F8E0发布、50F3A0比较。
+    std::int32_t count08; // 原成员偏移：+0x08。
+    std::int32_t count0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。 原105FA20，50F3A0第三字段。
     std::array<CategoryRecord, 300> records; // 原105FA24/1066464/106CEA4三组同源区。
 };
 
@@ -136,17 +136,17 @@ static_assert(offsetof(CategoryRuntimeSlots, count0C) == 0x0C);
 static_assert(offsetof(CategoryRuntimeSlots, value10) == 0x10);
 static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
 static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
-CategoryRuntimeSlots gCategory105FA10 {};
+CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
-constexpr char kReceivedMailFormat58B07C[] =
+constexpr char kReceivedMailFormat58B07C[] = // 原常量参考：0x0058B07C。
     "\xCA\xD5\xB5\xBD\x8F\xC4" "%s" "\xBC\xC4\x81\xED\xB5\xC4"
     "\xE0\x5D\xBC\xFE\xA3\xA1";
-constexpr char kReceivedPetMailFormat58B064[] =
+constexpr char kReceivedPetMailFormat58B064[] = // 原常量参考：0x0058B064。
     "\xD3\xC9" "%s" "\xCB\xCD\x81\xED\xC1\xCB\x8C\x99\xCE\xEF"
     "\xE0\x5D\xBC\xFE\xA3\xA1";
 static_assert(sizeof(kReceivedMailFormat58B07C) == 21);
 static_assert(sizeof(kReceivedPetMailFormat58B064) == 21);
-constexpr char kReceivedMiniMailFormat58B108[] =
+constexpr char kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
     "\xCC\xE1\xCA\xBE\xA3\xA1\xC4\xFA\xCA\xD5\xB5\xBD\x81\xED\xD7\xD4"
     " %s " "\xB5\xC4\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xA1\xAB";
 static_assert(sizeof(kReceivedMiniMailFormat58B108) == 33);

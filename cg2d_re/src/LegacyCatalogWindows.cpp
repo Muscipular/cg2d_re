@@ -41,54 +41,54 @@
 
 namespace cg::login::detail {
 
-std::int32_t gLegacyPetSkillCatalogImageCC3E64 = 0;
-std::int32_t gLegacyPetSkillCatalogMessageD2E818 = 0;
-std::int32_t gLegacyPetSkillCatalogPageCountC8AF84 = 0;
-std::int32_t gLegacyPetSkillCatalogPageD45F74 = 0;
-std::int32_t gLegacyPetSkillCatalogSelectionC8AF70 = 0;
-std::int32_t gLegacyPetSkillPetSelectionC8A94C = 0;
-std::int32_t gLegacyTradeTargetCountD30134 = 0;
-std::int32_t gLegacyTradeTargetPageCC3208 = 0;
-std::int32_t gLegacyTradeTargetPageCountCF46D0 = 0;
+std::int32_t gLegacyPetSkillCatalogImageCC3E64 = 0; // 原全局：0x00CC3E64。
+std::int32_t gLegacyPetSkillCatalogMessageD2E818 = 0; // 原全局：0x00D2E818。
+std::int32_t gLegacyPetSkillCatalogPageCountC8AF84 = 0; // 原全局：0x00C8AF84。
+std::int32_t gLegacyPetSkillCatalogPageD45F74 = 0; // 原全局：0x00D45F74。
+std::int32_t gLegacyPetSkillCatalogSelectionC8AF70 = 0; // 原全局：0x00C8AF70。
+std::int32_t gLegacyPetSkillPetSelectionC8A94C = 0; // 原全局：0x00C8A94C。
+std::int32_t gLegacyTradeTargetCountD30134 = 0; // 原全局：0x00D30134。
+std::int32_t gLegacyTradeTargetPageCC3208 = 0; // 原全局：0x00CC3208。
+std::int32_t gLegacyTradeTargetPageCountCF46D0 = 0; // 原全局：0x00CF46D0。
 
 namespace {
 
-YobiAction* gLegacyPetSkillCatalogActionD67C5C = nullptr;
-LegacyPanelRecord gLegacyPetSkillCatalogPanel581FB8 {
+YobiAction* gLegacyPetSkillCatalogActionD67C5C = nullptr; // 原全局：0x00D67C5C。
+LegacyPanelRecord gLegacyPetSkillCatalogPanel581FB8 { // 原全局：0x00581FB8。
     0, 0, 576, 432, 58, {23090, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyPetSkillConfirmPanel582210 {
+LegacyPanelRecord gLegacyPetSkillConfirmPanel582210 { // 原全局：0x00582210。
     160, 108, 320, 240, 61, {}, {}, 0, 0, {}, {},
 };
-YobiAction* gLegacyPetSkillPetActionD67C60 = nullptr;
-LegacyPanelRecord gLegacyPetSkillPetPanel582080 {
+YobiAction* gLegacyPetSkillPetActionD67C60 = nullptr; // 原全局：0x00D67C60。
+LegacyPanelRecord gLegacyPetSkillPetPanel582080 { // 原全局：0x00582080。
     0, 0, 576, 432, 59, {23091, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyPetSkillSlotCF4B64 = 0;
-YobiAction* gLegacyPetSkillSlotsActionD67C64 = nullptr;
-LegacyPanelRecord gLegacyPetSkillSlotsPanel582148 {
+std::int32_t gLegacyPetSkillSlotCF4B64 = 0; // 原全局：0x00CF4B64。
+YobiAction* gLegacyPetSkillSlotsActionD67C64 = nullptr; // 原全局：0x00D67C64。
+LegacyPanelRecord gLegacyPetSkillSlotsPanel582148 { // 原全局：0x00582148。
     0, 0, 576, 432, 60, {23092, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-LegacyPanelRecord gLegacyTradeTargetPanel582E08 {
+LegacyPanelRecord gLegacyTradeTargetPanel582E08 { // 原全局：0x00582E08。
     160, 132, 320, 192, 51, {}, {}, 0, 0, {}, {},
 };
-std::int32_t gLegacyTradeTargetSelectionCC4D48 = 0;
-constexpr char kLegacyPetSkillAccept588D34[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillCatalogCancel588CD0[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillCatalogLearn588268[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillEmptySlot5882F4[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBF\xD5\x99\xDA\xCE\xBB\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3";
-constexpr char kLegacyPetSkillGold588D5C[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\xA1\xA1\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacyPetSkillLearnLine5882E8[] = "\x81\xED\x8C\x57\xC1\x95\xA1\xA3";
-constexpr char kLegacyPetSkillPetCancel588CE8[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillPetMeasure588320[] = "\xD7\x8C\xA1\xBA\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\xA1\xBB";
-constexpr char kLegacyPetSkillPetName588338[] = "\xD7\x8C\xA1\xBA\x25\x73\xA1\xBB";
-constexpr char kLegacyPetSkillPrice588D48[] = "\xD9\x8F\xD9\x49\xBD\xF0\xEE\x7E\x20\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5";
-constexpr char kLegacyPetSkillQuestion55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
-constexpr char kLegacyPetSkillSlotHint588D00[] = "\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillStop588D18[] = "\xCD\xA3\xD6\xB9\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kLegacyPetSkillTitle588344[] = "\x8C\x57\xC1\x95\xA1\xBA\x25\x73\xA1\xBB";
-constexpr char kLegacyPetSkillUsedSlot58830C[] = "\xCA\xB9\xD3\xC3\xA1\xBA\x25\x73\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3";
-constexpr char kLegacyTradeTargetHint589368[] = "\xC5\x63\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3";
+std::int32_t gLegacyTradeTargetSelectionCC4D48 = 0; // 原全局：0x00CC4D48。
+constexpr char kLegacyPetSkillAccept588D34[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D34。
+constexpr char kLegacyPetSkillCatalogCancel588CD0[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588CD0。
+constexpr char kLegacyPetSkillCatalogLearn588268[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588268。
+constexpr char kLegacyPetSkillEmptySlot5882F4[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBF\xD5\x99\xDA\xCE\xBB\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3"; // 原常量参考：0x005882F4。
+constexpr char kLegacyPetSkillGold588D5C[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\xA1\xA1\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588D5C。
+constexpr char kLegacyPetSkillLearnLine5882E8[] = "\x81\xED\x8C\x57\xC1\x95\xA1\xA3"; // 原常量参考：0x005882E8。
+constexpr char kLegacyPetSkillPetCancel588CE8[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588CE8。
+constexpr char kLegacyPetSkillPetMeasure588320[] = "\xD7\x8C\xA1\xBA\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\xA1\xBB"; // 原常量参考：0x00588320。
+constexpr char kLegacyPetSkillPetName588338[] = "\xD7\x8C\xA1\xBA\x25\x73\xA1\xBB"; // 原常量参考：0x00588338。
+constexpr char kLegacyPetSkillPrice588D48[] = "\xD9\x8F\xD9\x49\xBD\xF0\xEE\x7E\x20\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588D48。
+constexpr char kLegacyPetSkillQuestion55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0055C9B0。
+constexpr char kLegacyPetSkillSlotHint588D00[] = "\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D00。
+constexpr char kLegacyPetSkillStop588D18[] = "\xCD\xA3\xD6\xB9\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D18。
+constexpr char kLegacyPetSkillTitle588344[] = "\x8C\x57\xC1\x95\xA1\xBA\x25\x73\xA1\xBB"; // 原常量参考：0x00588344。
+constexpr char kLegacyPetSkillUsedSlot58830C[] = "\xCA\xB9\xD3\xC3\xA1\xBA\x25\x73\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3"; // 原常量参考：0x0058830C。
+constexpr char kLegacyTradeTargetHint589368[] = "\xC5\x63\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589368。
 
 std::uint16_t Low16(const std::int32_t value)
 {

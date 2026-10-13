@@ -16,22 +16,22 @@ inline constexpr std::size_t InputTextCapacity = 0x120;
 
 // 原 InputContext，固定承接 x86 的 0x15C 字节值布局。
 struct InputContext {
-    char text[InputTextCapacity];
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t caretByteOffset;
-    std::int32_t totalByteLength;
-    std::int32_t field130;
-    std::int32_t field134;
-    std::uint8_t field138[4];
-    std::int32_t field13C;
-    std::int32_t field140;
-    std::int32_t maxLine;
-    std::int32_t maxCharPerLine;
-    std::int32_t field14C;
-    std::int32_t encrypt;
-    std::int32_t field154;
-    std::int32_t field158;
+    char text[InputTextCapacity]; // 原成员偏移：+0x00。
+    std::int32_t x; // 原成员偏移：+0x120。
+    std::int32_t y; // 原成员偏移：+0x124。
+    std::int32_t caretByteOffset; // 原成员偏移：+0x128。
+    std::int32_t totalByteLength; // 原成员偏移：+0x12C。
+    std::int32_t field130; // 原成员偏移：+0x130。
+    std::int32_t field134; // 原成员偏移：+0x134。
+    std::uint8_t field138[4]; // 原成员偏移：+0x138。
+    std::int32_t field13C; // 原成员偏移：+0x13C。
+    std::int32_t field140; // 原成员偏移：+0x140。
+    std::int32_t maxLine; // 原成员偏移：+0x144。
+    std::int32_t maxCharPerLine; // 原成员偏移：+0x148。
+    std::int32_t field14C; // 原成员偏移：+0x14C。
+    std::int32_t encrypt; // 原成员偏移：+0x150。
+    std::int32_t field154; // 原成员偏移：+0x154。
+    std::int32_t field158; // 原成员偏移：+0x158。
 };
 
 static_assert(offsetof(InputContext, text) == 0x000);
@@ -65,45 +65,45 @@ extern InputContext* gCurrentInputData;
 // 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
 extern InputContext gInputContext626AA0;
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
-extern InputContext gInputContexts5F9758[24];
+extern InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。
 // 旧6的15CH*(行+26*页)地址视图；24以后的原地址落入既有聊天存储，不创建额外预设。
 InputContext* BorrowLegacyPresetContext5F9758(std::int32_t index) noexcept;
 // 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
-extern InputContext gInputContextD66CA8;
-extern InputContext gInputContextCB03F0;
-extern InputContext gInputContextCC46E0;
-extern InputContext gInputContextCC2080;
-extern InputContext gInputContextD2D828;
-extern InputContext gInputContextCA0180;
-extern InputContext gInputContextCB0610; // 原窗口61关键词输入，独立15CH虚拟零对象。
-extern InputContext gInputContextCB0028; // 原摆摊名称输入，与说明上下文独立。
-extern InputContext gInputContextCC2378; // 原摆摊说明输入，15CH虚拟零对象。
-extern InputContext gInputContextCF4E60; // 原摆摊定价输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD2DE70; // 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
-extern InputContext gInputContextD2DFD0; // 旧22宠物改名输入，末尾不包含独立D2E12C计时槽。
-extern InputContext gInputContextD2DC10; // 原窗口9称号输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD2D4A0; // 原宠物详情共享名称输入，独立15CH虚拟零对象。
-extern InputContext gInputContextD64CB0; // 原窗口58第一条资料输入。
-extern InputContext gInputContextD2D670; // 原窗口58第二条资料输入。
-extern InputContext gInputContextCAFEC8; // 原窗口58第三条资料输入。
-extern InputContext gInputContextC8B1B8;
+extern InputContext gInputContextD66CA8; // 原全局：0x00D66CA8。
+extern InputContext gInputContextCB03F0; // 原全局：0x00CB03F0。
+extern InputContext gInputContextCC46E0; // 原全局：0x00CC46E0。
+extern InputContext gInputContextCC2080; // 原全局：0x00CC2080。
+extern InputContext gInputContextD2D828; // 原全局：0x00D2D828。
+extern InputContext gInputContextCA0180; // 原全局：0x00CA0180。
+extern InputContext gInputContextCB0610; // 原全局：0x00CB0610。 原窗口61关键词输入，独立15CH虚拟零对象。
+extern InputContext gInputContextCB0028; // 原全局：0x00CB0028。 原摆摊名称输入，与说明上下文独立。
+extern InputContext gInputContextCC2378; // 原全局：0x00CC2378。 原摆摊说明输入，15CH虚拟零对象。
+extern InputContext gInputContextCF4E60; // 原全局：0x00CF4E60。 原摆摊定价输入，独立15CH虚拟零对象。
+extern InputContext gInputContextD2DE70; // 原全局：0x00D2DE70。 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
+extern InputContext gInputContextD2DFD0; // 原全局：0x00D2DFD0。 旧22宠物改名输入，末尾不包含独立D2E12C计时槽。
+extern InputContext gInputContextD2DC10; // 原全局：0x00D2DC10。 原窗口9称号输入，独立15CH虚拟零对象。
+extern InputContext gInputContextD2D4A0; // 原全局：0x00D2D4A0。 原宠物详情共享名称输入，独立15CH虚拟零对象。
+extern InputContext gInputContextD64CB0; // 原全局：0x00D64CB0。 原窗口58第一条资料输入。
+extern InputContext gInputContextD2D670; // 原全局：0x00D2D670。 原窗口58第二条资料输入。
+extern InputContext gInputContextCAFEC8; // 原全局：0x00CAFEC8。 原窗口58第三条资料输入。
+extern InputContext gInputContextC8B1B8; // 原全局：0x00C8B1B8。
 // 原 CC21E8：交易数值输入，末尾不包含独立的 CC2344 状态。
-extern InputContext gInputContextCC21E8;
+extern InputContext gInputContextCC21E8; // 原全局：0x00CC21E8。
 // 原CB0878：窗口42数量输入，独立于交易输入与聊天输入。
 extern InputContext gInputContextCB0878;
 // 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
-extern InputContext gInputContextCA0018;
+extern InputContext gInputContextCA0018; // 原全局：0x00CA0018。
 // 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
-extern InputContext gInputContextCC49C0;
+extern InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
 // 原CA02E0：通用对话36/37共享输入上下文，UI只借用。
 extern InputContext gInputContextCA02E0;
-extern InputContext gInputContextD2E130; // 窗口48九个输入原型共用的唯一上下文。
-extern InputContext gInputContextD2E2E0; // 旧人物501FD0称号编辑，独立于现代窗口9。
-extern InputContext gInputContextCB01F8; // 旧选择32物品名称输入；CB0320/24为本对象字段别名。
-extern InputContext gInputContextCF47E0; // 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。
-extern InputContext gInputContext1050B80; // 旧87公会宠物邮件草稿，独立15CH虚拟零对象。
-extern InputContext gInputContext1051348; // 旧90公会普通邮件草稿，独立于宠物邮件输入。
-extern InputContext gInputContexts1050F18[3]; // 旧95三项资料输入，原15CH步长，末界不含105132C。
+extern InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
+extern InputContext gInputContextD2E2E0; // 原全局：0x00D2E2E0。 旧人物501FD0称号编辑，独立于现代窗口9。
+extern InputContext gInputContextCB01F8; // 原全局：0x00CB01F8。 旧选择32物品名称输入；CB0320/24为本对象字段别名。
+extern InputContext gInputContextCF47E0; // 原全局：0x00CF47E0。 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。
+extern InputContext gInputContext1050B80; // 原全局：0x01050B80。 旧87公会宠物邮件草稿，独立15CH虚拟零对象。
+extern InputContext gInputContext1051348; // 原全局：0x01051348。 旧90公会普通邮件草稿，独立于宠物邮件输入。
+extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95三项资料输入，原15CH步长，末界不含105132C。
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 
@@ -113,10 +113,10 @@ const char* LegacyText593850() noexcept;
 InputContext* BorrowLegacyBlacklistContext593858() noexcept;
 
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
-extern std::int32_t gValue626C0C; // 输入相位计数；接受字符后写 20。
-extern std::int32_t gValue626C14; // 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
-extern std::int32_t gValue626C20; // 超过 maxLine 时选择截断或回滚分支。
-extern std::int32_t gValue626C28; // 特定回滚路径写 1。
+extern std::int32_t gValue626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
+extern std::int32_t gValue626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
+extern std::int32_t gValue626C20; // 原全局：0x00626C20。 超过 maxLine 时选择截断或回滚分支。
+extern std::int32_t gValue626C28; // 原全局：0x00626C28。 特定回滚路径写 1。
 
 // 原 Input::SetContext@[0x44B330,0x44B33A)。
 void SetContext_44B330(InputContext* context);

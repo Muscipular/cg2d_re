@@ -13,18 +13,18 @@
 
 namespace cg::login {
 
-input::InputContext gInputContext9A4D20 {};
-input::InputContext gInputContext9A5960 {};
-input::InputContext gInputContext9A5678 {};
+input::InputContext gInputContext9A4D20 {}; // 原全局：0x009A4D20。
+input::InputContext gInputContext9A5960 {}; // 原全局：0x009A5960。
+input::InputContext gInputContext9A5678 {}; // 原全局：0x009A5678。
 
-std::int16_t gInputContext9A5960X = 0;
-std::int16_t gInputContext9A5960Y = 0;
-std::int16_t gInputContext9A5678X = 0;
-std::int16_t gInputContext9A5678Y = 0;
-std::int32_t gValue9A6E20 = 0;
-std::uint32_t gValue9A6200 = 0;
+std::int16_t gInputContext9A5960X = 0; // 原全局：0x009A4B8C。
+std::int16_t gInputContext9A5960Y = 0; // 原全局：0x009A4B8A。
+std::int16_t gInputContext9A5678X = 0; // 原全局：0x009A4B9E。
+std::int16_t gInputContext9A5678Y = 0; // 原全局：0x009A4B9C。
+std::int32_t gValue9A6E20 = 0; // 原全局：0x009A6E20。
+std::uint32_t gValue9A6200 = 0; // 原全局：0x009A6200。
 
-input::InputContext* gInputContextFocusTable[3] {
+input::InputContext* gInputContextFocusTable[3] { // 原全局：0x00559FFC。
     &gInputContext9A5960,
     &gInputContext9A5678,
     &gInputContext9A5960,

@@ -19,13 +19,13 @@ namespace {
 struct MapDrawRecord {
     std::int32_t imageNo;
     std::int32_t sourceIndex;
-    std::uint32_t value08;
+    std::uint32_t value08; // 原成员偏移：+0x08。
     std::uint32_t worldXBits;
     std::uint32_t worldYBits;
     std::int16_t x;
     std::int16_t y;
     std::uint8_t batchType;
-    std::array<std::uint8_t, 3> unwritten19;
+    std::array<std::uint8_t, 3> unwritten19; // 原成员偏移：+0x19。
     render::GraphicDescriptor16 descriptor;
     MapDrawRecord* before;
     MapDrawRecord* after;
@@ -50,12 +50,12 @@ static_assert(alignof(MapDrawRecord) == 8);
 
 constexpr std::int32_t kSourceCapacity = 1024;
 constexpr std::int32_t kMergedCapacity = 3072;
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawPrimary9EE918 {};
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawAttachments9E0438 {};
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawObjectsC751D0 {};
-std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {};
-std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {};
-std::int32_t gMapDrawMergedCount9EE914 = 0;
+std::array<MapDrawRecord, kSourceCapacity> gMapDrawPrimary9EE918 {}; // 原全局：0x009EE918。
+std::array<MapDrawRecord, kSourceCapacity> gMapDrawAttachments9E0438 {}; // 原全局：0x009E0438。
+std::array<MapDrawRecord, kSourceCapacity> gMapDrawObjectsC751D0 {}; // 原全局：0x00C751D0。
+std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {}; // 原全局：0x00C28008。
+std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {}; // 原全局：0x009A86E8。
+std::int32_t gMapDrawMergedCount9EE914 = 0; // 原全局：0x009EE914。
 
 // 各生产者共同的逐字段默认值/逐 W32 复制，不清记录的其他字段。
 void WriteMapDrawDescriptor(

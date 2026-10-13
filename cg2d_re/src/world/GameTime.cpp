@@ -6,11 +6,11 @@
 
 namespace cg::world {
 
-GameTime gCgTime {};
-std::uint32_t gValue559508 = 0x3AE805E7;
-std::uint32_t gValue73ED40 = 0;
-std::uint32_t gValue73ED4C = 0;
-std::uint32_t gValue73ED68 = 0;
+GameTime gCgTime {}; // 原全局：0x0073ED50。
+std::uint32_t gValue559508 = 0x3AE805E7; // 原全局：0x00559508。
+std::uint32_t gValue73ED40 = 0; // 原全局：0x0073ED40。
+std::uint32_t gValue73ED4C = 0; // 原全局：0x0073ED4C。
+std::uint32_t gValue73ED68 = 0; // 原全局：0x0073ED68。
 
 // GTP01：原 [0x458DE0,0x458EBB)；六 W32 按 year/month/day/hours/minutes/sTick 发布，返 phase 商。
 int UpdateGameTime(GameTime* output)

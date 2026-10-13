@@ -17,8 +17,8 @@ static_assert(sizeof(CharacterRecordBytes) == 0x94);
 static_assert(sizeof(CharacterRecordArray) == 0x128);
 
 // 原 [0xFF03E0,0xFF0508) 与 0xFF0C08；均有跨场景引用，映像初值为 0。
-extern CharacterRecordArray gCharacterRecords;
-extern std::int16_t gSelectedCharacterIndex;
+extern CharacterRecordArray gCharacterRecords; // 原全局：0x00FF03E0。
+extern std::int16_t gSelectedCharacterIndex; // 原全局：0x00FF0C08。
 
 // 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);

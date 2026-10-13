@@ -52,16 +52,16 @@ struct RendererResources {
 };
 
 RendererResources* gRenderer = nullptr;
-std::uint32_t gLegacyTextureStage = 0;
-std::uint32_t gRendererRedMask = 0;
-std::uint32_t gRendererGreenMask = 0;
-std::uint32_t gRendererBlueMask = 0;
-std::int32_t gRendererRedShift = 0;
-std::int32_t gRendererGreenShift = 0;
-std::int32_t gRendererBlueShift = 0;
-std::int32_t gRendererRedOffset = 0;
-std::int32_t gRendererGreenOffset = 0;
-std::int32_t gRendererBlueOffset = 0;
+std::uint32_t gLegacyTextureStage = 0; // 原全局：0x0062A648。
+std::uint32_t gRendererRedMask = 0; // 原全局：0x00628FE4。
+std::uint32_t gRendererGreenMask = 0; // 原全局：0x0062A660。
+std::uint32_t gRendererBlueMask = 0; // 原全局：0x00628FC0。
+std::int32_t gRendererRedShift = 0; // 原全局：0x006287A8。
+std::int32_t gRendererGreenShift = 0; // 原全局：0x0062A658。
+std::int32_t gRendererBlueShift = 0; // 原全局：0x00628BB8。
+std::int32_t gRendererRedOffset = 0; // 原全局：0x00629314。
+std::int32_t gRendererGreenOffset = 0; // 原全局：0x00629718。
+std::int32_t gRendererBlueOffset = 0; // 原全局：0x0062971C。
 
 namespace {
 

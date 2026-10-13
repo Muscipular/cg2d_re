@@ -11,20 +11,20 @@ namespace cg::platform {
 // 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态。末尾 0xD68DC4 由 Startup.hpp
 // 中的既有唯一存储承接，不属于本结构。
 struct LegacyMouseState {
-    LegacyCryptInt mouseX;
-    LegacyCryptInt mouseY;
-    LegacyCryptInt buttonCoordinates[8];
-    std::uint32_t heldButtons;
-    std::uint32_t edgeButtons;
-    std::uint32_t pulseButtons;
-    std::uint32_t leftDownTick;
-    std::uint32_t leftElapsed;
-    std::uint32_t rightDownTick;
-    std::uint32_t rightElapsed;
-    std::uint32_t valueD68DB4;
-    std::int32_t valueD68DB8;
-    std::uint32_t drawingSuppression;
-    std::uint32_t tailReset;
+    LegacyCryptInt mouseX; // 原成员偏移：+0x00。
+    LegacyCryptInt mouseY; // 原成员偏移：+0x10。
+    LegacyCryptInt buttonCoordinates[8]; // 原成员偏移：+0x20。
+    std::uint32_t heldButtons; // 原成员偏移：+0xA0。
+    std::uint32_t edgeButtons; // 原成员偏移：+0xA4。
+    std::uint32_t pulseButtons; // 原成员偏移：+0xA8。
+    std::uint32_t leftDownTick; // 原成员偏移：+0xAC。
+    std::uint32_t leftElapsed; // 原成员偏移：+0xB0。
+    std::uint32_t rightDownTick; // 原成员偏移：+0xB4。
+    std::uint32_t rightElapsed; // 原成员偏移：+0xB8。
+    std::uint32_t valueD68DB4; // 原全局：0x00D68DB4。
+    std::int32_t valueD68DB8; // 原全局：0x00D68DB8。
+    std::uint32_t drawingSuppression; // 原成员偏移：+0xC4。
+    std::uint32_t tailReset; // 原成员偏移：+0xC8。
 };
 
 static_assert(std::is_standard_layout_v<LegacyMouseState>);
@@ -46,15 +46,15 @@ static_assert(offsetof(LegacyMouseState, valueD68DB8) == 0xC0);
 static_assert(offsetof(LegacyMouseState, drawingSuppression) == 0xC4);
 static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
 
-extern LegacyMouseState gLegacyMouseState;
+extern LegacyMouseState gLegacyMouseState; // 原全局：0x00D68CF8。
 
 // 原CRT 5530F8：同一鼠标十值构造后宿主std::atexit即时登记整体退出，传出真实S32；全应用序待。
 // 原函数：0x00506340。
 std::int32_t InitializeLegacyMouseRuntime_506340();
 
 // 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
-extern std::uint32_t gValueD68BF0;
-extern std::uint32_t gValueD68DC8;
+extern std::uint32_t gValueD68BF0; // 原全局：0x00D68BF0。
+extern std::uint32_t gValueD68DC8; // 原全局：0x00D68DC8。
 
 // 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。
 std::int32_t ResetLegacyMouseState_506870();

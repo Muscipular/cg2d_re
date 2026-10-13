@@ -63,7 +63,7 @@ std::int32_t RoundMessageWidth(std::int32_t textWidth)
 
 } // namespace
 
-char gValue9A620C[12][256] {};
+char gValue9A620C[12][256] {}; // 原全局：0x009A620C。
 
 static_assert(sizeof(gValue9A620C) == 12 * 256);
 static_assert(sizeof(gValue9A620C[0]) == 256);

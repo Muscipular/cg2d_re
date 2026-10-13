@@ -171,9 +171,9 @@ using SurfaceTransformCache =
 // 被动存储不自动构析；唯一活动路径是下方两个原相邻槽的宿主登记。
 // std::map 只拥有私有节点，surface 键和值均沿原业务清理借用。
 alignas(SurfaceTransformCache)
-std::byte gSurfaceTransforms629300[sizeof(SurfaceTransformCache)] {};
+std::byte gSurfaceTransforms629300[sizeof(SurfaceTransformCache)] {}; // 原全局：0x00629300。
 alignas(SurfaceTransformCache)
-std::byte gSurfaceTransforms62A630[sizeof(SurfaceTransformCache)] {};
+std::byte gSurfaceTransforms62A630[sizeof(SurfaceTransformCache)] {}; // 原全局：0x0062A630。
 
 SurfaceTransformCache& BorrowSurfaceTransformCache629300() noexcept
 {
@@ -229,14 +229,14 @@ std::int32_t InitializeSurfaceTransformCache62A630_44CD30()
     return std::atexit(DestroySurfaceTransformCache62A630_44CD70);
 }
 
-DxGraphicEntry* gGraphicDxCache103CFA4 = nullptr;
-std::array<TextureNode, kTextureNodeCapacity> gTextureNodes {};
-std::int32_t gTextureNodeCount = 0;
-std::int32_t gTextureScanIndex = 0;
-std::int32_t gTexturePreferredCount = 0;
-std::int32_t gTextureFallbackCount = 0;
-std::int32_t gTextureSizeW = 0;
-std::int32_t gTextureSizeH = 0;
+DxGraphicEntry* gGraphicDxCache103CFA4 = nullptr; // 原全局：0x0103CFA4。
+std::array<TextureNode, kTextureNodeCapacity> gTextureNodes {}; // 原全局：0x01020F08。
+std::int32_t gTextureNodeCount = 0; // 原全局：0x0103CF24。
+std::int32_t gTextureScanIndex = 0; // 原全局：0x0103CF20。
+std::int32_t gTexturePreferredCount = 0; // 原全局：0x0103CF9C。
+std::int32_t gTextureFallbackCount = 0; // 原全局：0x0103CF98。
+std::int32_t gTextureSizeW = 0; // 原全局：0x0103CF2C。
+std::int32_t gTextureSizeH = 0; // 原全局：0x0103CF28。
 
 // 原函数：0x0044C6D0。
 TextureSurface* CreateTextureSurface_44C6D0(

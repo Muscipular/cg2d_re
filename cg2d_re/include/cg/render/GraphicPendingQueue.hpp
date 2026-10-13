@@ -15,7 +15,7 @@ namespace cg::render {
 
 // 原 KRECT/GraphicMode 的 16 字节逐字节描述；字段解释由具体绘制入口负责。
 struct GraphicDescriptor16 {
-    std::array<std::uint8_t, 16> bytes;
+    std::array<std::uint8_t, 16> bytes; // 原成员偏移：+0x00。
 };
 
 static_assert(sizeof(GraphicDescriptor16) == 0x10);
@@ -34,14 +34,14 @@ static_assert(std::is_trivially_copyable_v<GraphicQueueReference>);
 
 // 原 [0xFF4EB8,0x101CEB8) 的 4096 项记录；新端按 DX x64 SPEC §15 承载为 48B。
 struct GraphicCacheItem32 {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t imageNo;
-    GraphicQueueReference reference;
-    std::int32_t value4;
-    std::array<std::uint8_t, 16> descriptor;
-    std::uint8_t batchType;
-    std::array<std::uint8_t, 3> unwrittenTail;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t imageNo; // 原成员偏移：+0x08。
+    GraphicQueueReference reference; // 原成员偏移：+0x0C。
+    std::int32_t value4; // 原成员偏移：+0x10。
+    std::array<std::uint8_t, 16> descriptor; // 原成员偏移：+0x14。
+    std::uint8_t batchType; // 原成员偏移：+0x24。
+    std::array<std::uint8_t, 3> unwrittenTail; // 原成员偏移：+0x25。
 };
 
 static_assert(sizeof(GraphicCacheItem32) == 0x30);
@@ -59,9 +59,9 @@ static_assert(offsetof(GraphicCacheItem32, unwrittenTail) == 0x2D);
 
 // 原 [0x101CEB8,0x1020EB8) 的 4096 项四字节并行记录。
 struct GraphicCache3 {
-    std::int16_t cacheIndex;
-    std::uint8_t layer;
-    std::uint8_t unwrittenByte;
+    std::int16_t cacheIndex; // 原成员偏移：+0x00。
+    std::uint8_t layer; // 原成员偏移：+0x02。
+    std::uint8_t unwrittenByte; // 原成员偏移：+0x03。
 };
 
 static_assert(sizeof(GraphicCache3) == 0x04);
@@ -72,9 +72,9 @@ static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 // 原 [0xFF4E30,0x1020EB8) 的唯一 x64 承载，不是原内存镜像；前缀别名位置不变。
 // 原 0x1020EB8 的 W16 计数复用 platform 既有存储。
 struct LegacyPendingStorage {
-    char prefix[0x88];
-    std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records;
-    std::array<GraphicCache3, MAX_QUEUE_SIZE> cache3;
+    char prefix[0x88]; // 原全局：0x00FF4E30。
+    std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records; // 原全局：0x00FF4EB8。
+    std::array<GraphicCache3, MAX_QUEUE_SIZE> cache3; // 原全局：0x0101CEB8。
 };
 
 static_assert(offsetof(LegacyPendingStorage, prefix) == 0x00000);
@@ -86,7 +86,7 @@ static_assert(std::is_standard_layout_v<LegacyPendingStorage>);
 static_assert(std::is_trivially_copyable_v<LegacyPendingStorage>);
 
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
-extern LegacyPendingStorage gLegacyPendingStorage;
+extern LegacyPendingStorage gLegacyPendingStorage; // 原全局：0x00FF4E30。
 
 // 原D6976C：S32图形命中索引，初值0；507140生产，战斗/UI消费，不是对象地址。
 extern std::int32_t gHoveredGraphicPendingIndex;

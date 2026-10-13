@@ -17,7 +17,7 @@ namespace cg::resource {
 namespace {
 
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
-std::uint8_t gAutoMapColors927F48[500000] {};
+std::uint8_t gAutoMapColors927F48[500000] {}; // 原全局：0x00927F48。
 
 // 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
 bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
@@ -150,7 +150,7 @@ const std::uint8_t* BorrowAutoMapColors() noexcept
     return gAutoMapColors927F48;
 }
 
-CursorPathStorage gCursorPathStorage {
+CursorPathStorage gCursorPathStorage { // 原全局：0x0055CE88。
     {
         {0x6B, 0x0003BE9B, 0xFFE2FFEC},
         {0x6C, 0x0003BE9C, 0x00000000},
@@ -166,21 +166,21 @@ CursorPathStorage gCursorPathStorage {
     0x6E,
     "Bin",
 };
-char (&gBinPath)[128] = gCursorPathStorage.binPath;
+char (&gBinPath)[128] = gCursorPathStorage.binPath; // 原全局：0x0055CF04。
 
-char gGraphicPathStorage[9][256] {};
-char gGraphicInfoPathStorage[9][256] {};
-char gAnimePathStorage[9][256] {};
-char gAnimeInfoPathStorage[9][256] {};
-char gCoordinatePathStorage[9][256] {};
-char gCoordinateInfoPathStorage[9][256] {};
+char gGraphicPathStorage[9][256] {}; // 原全局：0x0062DA98。
+char gGraphicInfoPathStorage[9][256] {}; // 原全局：0x0062D174。
+char gAnimePathStorage[9][256] {}; // 原全局：0x0062B5E4。
+char gAnimeInfoPathStorage[9][256] {}; // 原全局：0x0062C808。
+char gCoordinatePathStorage[9][256] {}; // 原全局：0x0062E398。
+char gCoordinateInfoPathStorage[9][256] {}; // 原全局：0x0062BF08。
 
-char* gGraphicPaths[9] {};
-char* gGraphicInfoPaths[9] {};
-char* gAnimePaths[9] {};
-char* gAnimeInfoPaths[9] {};
-char* gCoordinatePaths[9] {};
-char* gCoordinateInfoPaths[9] {};
+char* gGraphicPaths[9] {}; // 原全局：0x0062D108。
+char* gGraphicInfoPaths[9] {}; // 原全局：0x0062DA74。
+char* gAnimePaths[9] {}; // 原全局：0x0062BEE4。
+char* gAnimeInfoPaths[9] {}; // 原全局：0x0062D150。
+char* gCoordinatePaths[9] {}; // 原全局：0x0062B5C0。
+char* gCoordinateInfoPaths[9] {}; // 原全局：0x0062D12C。
 
 // 原函数：0x00456050。
 int BuildResourcePaths()

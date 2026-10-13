@@ -75,48 +75,48 @@ std::int32_t DefaultNetworkCallback(
 struct NetworkRuntimeState {
     // 原 0x593FB0、0x593FB4、0x593FB8、0x593FBC、
     // 0x593FA0、0x593FA4、0x593FA8、0x593FAC，均为 W32。
-    std::uint32_t protocolWord0;
-    std::uint32_t protocolWord1;
-    std::uint32_t protocolWord2;
-    std::uint32_t protocolWord3;
-    std::uint32_t protocolWord4;
-    std::uint32_t protocolWord5;
-    std::uint32_t protocolWord6;
-    std::uint32_t protocolWord7;
+    std::uint32_t protocolWord0; // 原全局：0x00593FB0。
+    std::uint32_t protocolWord1; // 原全局：0x00593FB4。
+    std::uint32_t protocolWord2; // 原全局：0x00593FB8。
+    std::uint32_t protocolWord3; // 原全局：0x00593FBC。
+    std::uint32_t protocolWord4; // 原全局：0x00593FA0。
+    std::uint32_t protocolWord5; // 原全局：0x00593FA4。
+    std::uint32_t protocolWord6; // 原全局：0x00593FA8。
+    std::uint32_t protocolWord7; // 原全局：0x00593FAC。
 
     // 原 [0x593FC4,0x593FD0) 连续协议短状态。
-    std::array<std::uint8_t, 12> protocolState593FC4;
-    std::uint16_t protocolModeDA3B22;
-    std::int32_t time62B394; // 原 __time32_t，独立于 0xDA3B28 回复码。
-    platform::LegacyTm53B8C6* localTime62B380; // 原 W32 指针槽，借用旧时间层的共享九槽对象。
+    std::array<std::uint8_t, 12> protocolState593FC4; // 原全局：0x00593FC4。
+    std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
+    std::int32_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
+    platform::LegacyTm53B8C6* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用旧时间层的共享九槽对象。
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
-    std::uint8_t* buffer58B5F0;
-    std::uint8_t* buffer58B5F4;
-    std::uint8_t* buffer58B5F8;
-    std::uint8_t* buffer58B5FC;
-    char** pointerTable58B614;
-    std::uint8_t* tripleBuffer58B604;
-    std::uint8_t* tripleBuffer58B608;
-    std::uint8_t* tripleBuffer58B60C;
-    std::uint8_t* tripleBuffer58B610;
-    SendProtocolObserver sendObserver58B61C;
-    char sendLogPathDA3B58[0x400];
-    std::string receiveLogPathDA3F9C; // 原字节路径；固定容量未证，不据相邻地址猜测。
+    std::uint8_t* buffer58B5F0; // 原全局：0x0058B5F0。
+    std::uint8_t* buffer58B5F4; // 原全局：0x0058B5F4。
+    std::uint8_t* buffer58B5F8; // 原全局：0x0058B5F8。
+    std::uint8_t* buffer58B5FC; // 原全局：0x0058B5FC。
+    char** pointerTable58B614; // 原全局：0x0058B614。
+    std::uint8_t* tripleBuffer58B604; // 原全局：0x0058B604。
+    std::uint8_t* tripleBuffer58B608; // 原全局：0x0058B608。
+    std::uint8_t* tripleBuffer58B60C; // 原全局：0x0058B60C。
+    std::uint8_t* tripleBuffer58B610; // 原全局：0x0058B610。
+    SendProtocolObserver sendObserver58B61C; // 原全局：0x0058B61C。
+    char sendLogPathDA3B58[0x400]; // 原全局：0x00DA3B58。
+    std::string receiveLogPathDA3F9C; // 原全局：0x00DA3F9C。 原字节路径；固定容量未证，不据相邻地址猜测。
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
     std::uint32_t valueD9F2D0; // 原 0xD9F2D0，首标记优先状态；当前明文无置1生产者。
     // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
-    std::array<std::uint8_t, kQueueStorageSize> queueBytes;
+    std::array<std::uint8_t, kQueueStorageSize> queueBytes; // 原全局：0x00D8F2B8。
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
-    std::uint8_t flagsD9F2C0;
-    std::uint32_t lastTickD9F2C4;
-    std::int32_t errorD9F2CC;
-    std::uint32_t receiveResetD9F3C4;
-    std::uint32_t frameModuloD9F3C8;
-    std::uint8_t value58ADA4 = 0x80; // 原ed回复独立字节，不属于58ADA8的排除链文本。
-    std::array<char, 0x104> addressTextDA33D8; // 原lSZ回复缓存，非空时按strstr判断变化。
+    std::uint8_t flagsD9F2C0; // 原全局：0x00D9F2C0。
+    std::uint32_t lastTickD9F2C4; // 原全局：0x00D9F2C4。
+    std::int32_t errorD9F2CC; // 原全局：0x00D9F2CC。
+    std::uint32_t receiveResetD9F3C4; // 原全局：0x00D9F3C4。
+    std::uint32_t frameModuloD9F3C8; // 原全局：0x00D9F3C8。
+    std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
+    std::array<char, 0x104> addressTextDA33D8; // 原全局：0x00DA33D8。 原lSZ回复缓存，非空时按strstr判断变化。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};

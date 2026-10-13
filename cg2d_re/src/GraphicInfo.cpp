@@ -17,16 +17,16 @@
 
 namespace cg::resource {
 
-std::int32_t gMaxGraphicCount = 0;
-GraphicInfo* gGraphicInfo = nullptr;
-std::int32_t* gGraphicMapNoIndex = nullptr;
-std::int32_t gGraphicStartIndices[9] {};
+std::int32_t gMaxGraphicCount = 0; // 原全局：0x0103CFA0。
+GraphicInfo* gGraphicInfo = nullptr; // 原全局：0x009A2970。
+std::int32_t* gGraphicMapNoIndex = nullptr; // 原全局：0x009A2974。
+std::int32_t gGraphicStartIndices[9] {}; // 原全局：0x0073F100。
 
 namespace {
 
 // 原 9A2068/83339C；与 ResourcePaths 的 256B 路径槽不同，缓存步长仍是 255B。
-char gGraphicCachedPaths[9][255] {};
-char gGraphicInfoCachedPaths[9][255] {};
+char gGraphicCachedPaths[9][255] {}; // 原全局：0x009A2068。
+char gGraphicInfoCachedPaths[9][255] {}; // 原全局：0x0083339C。
 platform::LegacyFile* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
 std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10。
 

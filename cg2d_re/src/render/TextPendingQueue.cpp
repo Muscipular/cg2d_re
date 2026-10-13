@@ -42,8 +42,8 @@ void CopyTextRemainder(
 
 } // namespace
 
-std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords {};
-std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{
+std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords {}; // 原全局：0x0062ECB8。
+std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{ // 原全局：0x00558F50。
     {0xD2, {}},
     {0xD4, {}},
     {0xD8, {}},
@@ -51,7 +51,7 @@ std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{
     {0xE2, {}},
     {0xE6, {}},
 }};
-std::int32_t gHoveredTextPendingIndex = 0;
+std::int32_t gHoveredTextPendingIndex = 0; // 原全局：0x00D68BEC。
 
 // 原函数：0x0045D7A0。
 std::int32_t FindClickedTextIndex_45D7A0(

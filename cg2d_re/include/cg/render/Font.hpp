@@ -9,14 +9,14 @@ namespace cg::render {
 // 原 gFontList@0x558F68 每项去除首个原生 HFONT W32 后的固定度量与配置。
 // 原生句柄不属于地址中性的度量状态，后续须由独立资源类型承载。
 struct FontMetrics {
-    std::int32_t sWidth;
-    std::int32_t sHeight;
-    std::int32_t doubleWidth;
-    std::int32_t doubleHeight;
-    std::int8_t familyIndex;
-    std::uint8_t fontHeight;
-    std::uint8_t field16;
-    std::uint8_t field17;
+    std::int32_t sWidth; // 原成员偏移：+0x04。
+    std::int32_t sHeight; // 原成员偏移：+0x08。
+    std::int32_t doubleWidth; // 原成员偏移：+0x0C。
+    std::int32_t doubleHeight; // 原成员偏移：+0x10。
+    std::int8_t familyIndex; // 原成员偏移：+0x14。
+    std::uint8_t fontHeight; // 原成员偏移：+0x15。
+    std::uint8_t field16; // 原成员偏移：+0x16。
+    std::uint8_t field17; // 原成员偏移：+0x17。
 };
 
 inline constexpr std::size_t kFontTypeCount = 14;

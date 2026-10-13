@@ -9,7 +9,7 @@
 
 namespace cg::platform {
 
-std::uintptr_t gLegacyWindow = 0;
+std::uintptr_t gLegacyWindow = 0; // 原全局：0x009A6F34。
 
 int ShowLegacyMessage(const char* text, const char* caption, std::uint32_t flags)
 {

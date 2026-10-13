@@ -7,11 +7,11 @@ namespace cg::audio {
 
 // 原103D1C0的50项记录；52CD40只写+04/+00，后三个S32保留。
 struct SpatialAudioRecord final {
-    std::uint32_t value00;
-    std::int32_t value04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::int32_t value10;
+    std::uint32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
 };
 
 static_assert(offsetof(SpatialAudioRecord, value00) == 0x00);

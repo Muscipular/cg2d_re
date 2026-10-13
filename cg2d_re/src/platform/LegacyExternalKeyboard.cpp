@@ -16,21 +16,21 @@ namespace cg::platform {
 // 原 dword_1085F5C：与 DialogFunc 共享的实例句柄；原包装层只读，不写回窗口查询值。
 HINSTANCE gExternalKeyboardInstance1085F5C = nullptr;
 // 原 byte_1085E08：与 DialogFunc 共享的结果；保留至下一对象 0x1085F10 的 0x108 字节。
-char gExternalKeyboardResult1085E08[0x108] {};
+char gExternalKeyboardResult1085E08[0x108] {}; // 原全局：0x01085E08。
 
 namespace {
 
 std::int32_t gExternalKeyboardX1085DA8 = 0;            // 原 dword_1085DA8：随机窗口 X。
-std::int32_t gExternalKeyboardWidth1085DAC = 0;        // 原 nWidth：对象宽度加窗口边框。
+std::int32_t gExternalKeyboardWidth1085DAC = 0;        // 原全局：0x01085DAC。 原 nWidth：对象宽度加窗口边框。
 std::int32_t gExternalKeyboardY1085DB0 = 0;            // 原 dword_1085DB0：随机窗口 Y。
 RECT gExternalKeyboardClientRect1085DB8 {};           // 原 stru_1085DB8：对话框客户区。
 std::int32_t gExternalKeyboardBorderWidth1085DCC = 0;  // 原 dword_1085DCC：左右边框总宽。
-std::int32_t gExternalKeyboardHeight1085DD0 = 0;       // 原 nHeight：对象高度加窗口边框。
+std::int32_t gExternalKeyboardHeight1085DD0 = 0;       // 原全局：0x01085DD0。 原 nHeight：对象高度加窗口边框。
 std::int32_t gExternalKeyboardBorderHeight1085DD4 = 0; // 原 dword_1085DD4：上下边框总高。
-RECT gExternalKeyboardWindowRect1085DD8 {};           // 原 Rect：首次读取的对话框矩形。
+RECT gExternalKeyboardWindowRect1085DD8 {};           // 原全局：0x01085DD8。 原 Rect：首次读取的对话框矩形。
 RECT gExternalKeyboardParentRect1085DE8 {};           // 原 stru_1085DE8：父窗口矩形。
 RECT gExternalKeyboardWindowRect1085DF8 {};           // 原 stru_1085DF8：再次读取的对话框矩形。
-PAINTSTRUCT gExternalKeyboardPaint1085F10 {};         // 原 Paint：使用原生布局，不固定为 x86 大小。
+PAINTSTRUCT gExternalKeyboardPaint1085F10 {};         // 原全局：0x01085F10。 原 Paint：使用原生布局，不固定为 x86 大小。
 HDC gExternalKeyboardPaintDc1085F50 = nullptr;        // 原 dword_1085F50：BeginPaint 返回值。
 ExternalKeyboard* gExternalKeyboardObject1085F54 = nullptr; // 原 dword_1085F54：唯一对象指针。
 HWND gExternalKeyboardParent1085F58 = nullptr;        // 原 dword_1085F58：GetParent 返回值。

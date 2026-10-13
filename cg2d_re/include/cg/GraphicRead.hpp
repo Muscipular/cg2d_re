@@ -24,16 +24,16 @@ extern platform::LegacyFile* gGraphicFiles[9];
 // 新端选定读取承载范围为原 0x833CB0..0x927EF0，解压承载范围为 0x73F138..0x833378。
 // 两段彼此独立，不证明原数组声明或跨界行为；读盘复用前者，实际解码写入才修改后者。
 inline constexpr std::size_t GraphicScratchCapacity = 1'000'000;
-extern std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity];
-extern std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity];
+extern std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity]; // 原全局：0x00833CB0。
+extern std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity]; // 原全局：0x0073F138。
 
 // 原 1020EC0/1020ED0/1020ED4/1020ED8/1020EE0：跨资源读取与渲染共享的当前图状态。
 // data 为非拥有解码区引用，宽高与调色板长度为完整 W32；图号按 S32 比较。
-extern std::uint8_t* gGraphicDataPtr;
-extern std::uint32_t gCurrentGraphicHeight;
-extern std::uint32_t gCurrentGraphicWidth;
-extern std::uint32_t gCurrentGraphicPaletteSize;
-extern std::int32_t gGraphicDataBuffer;
+extern std::uint8_t* gGraphicDataPtr; // 原全局：0x01020EC0。
+extern std::uint32_t gCurrentGraphicHeight; // 原全局：0x01020ED0。
+extern std::uint32_t gCurrentGraphicWidth; // 原全局：0x01020ED4。
+extern std::uint32_t gCurrentGraphicPaletteSize; // 原全局：0x01020ED8。
+extern std::int32_t gGraphicDataBuffer; // 原全局：0x01020EE0。
 
 // 原 0x53AF90：DBF 压缩字节的字面量/回溯解码；仅遇结束标记才写实际输出长度。
 // 调用者须提供完整有效的压缩流和足以容纳解压结果的目标区。

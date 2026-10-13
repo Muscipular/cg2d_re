@@ -37,15 +37,15 @@ static_assert(sizeof(kSuccessfulResult) == 11);
 
 namespace cg::login {
 
-CharacterRecordArray gCharacterRecords {};
-std::int16_t gSelectedCharacterIndex = 0;
+CharacterRecordArray gCharacterRecords {}; // 原全局：0x00FF03E0。
+std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。
 
-std::uint16_t gRequestReplyCode = 0;
-std::int32_t gRequestStatus = 0;
-std::uint32_t gRequestStartTick = 0;
-std::uint8_t gRequestPollingEnabled = 0;
-std::int32_t gRequestOutcomeFlag = 0;
-char gRequestMessage[RequestMessageCapacity] {};
+std::uint16_t gRequestReplyCode = 0; // 原全局：0x00DA3B2C。
+std::int32_t gRequestStatus = 0; // 原全局：0x00DA3B34。
+std::uint32_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
+std::uint8_t gRequestPollingEnabled = 0; // 原全局：0x00D9F2C9。
+std::int32_t gRequestOutcomeFlag = 0; // 原全局：0x00DA3B30。
+char gRequestMessage[RequestMessageCapacity] {}; // 原全局：0x00DA34DC。
 
 static_assert(sizeof(gCharacterRecords) == 0x128);
 static_assert(sizeof(gRequestMessage) == RequestMessageCapacity);
@@ -185,7 +185,7 @@ void HandleLoginResponse_508BC0(
 namespace cg::login::detail {
 
 // 原 0xDA3B2E，W16，独立于相邻的 0xDA3B2C 登录回复码。
-std::uint16_t gReplyCodeDA3B2E = 0;
+std::uint16_t gReplyCodeDA3B2E = 0; // 原全局：0x00DA3B2E。
 
 // 原 sub_508C40@[0x508C40,0x508C81)：登出请求启动。
 std::uint32_t Sub_508C40()

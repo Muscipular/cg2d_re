@@ -54,207 +54,207 @@
 namespace cg::ui {
 namespace detail {
 
-WindowItemSelectorState gItemSelectorCF3B10 {};
-WindowItemSelectorState gItemSelectorD2F338 {};
+WindowItemSelectorState gItemSelectorCF3B10 {}; // 原全局：0x00CF3B10。
+WindowItemSelectorState gItemSelectorD2F338 {}; // 原全局：0x00D2F338。
 
-std::array<WindowInstance*, kWindowCount> gWindows {};
-std::array<WindowState, kWindowCount> gWindowStates {};
-WindowInstance* gCurrentWindow = nullptr;
-WindowState* gCurrentWindowState = nullptr;
-std::uint8_t gValueD67BE0 = 0;
-std::array<char, 256> gStallMessageC8A978 {};
-std::array<char, 17> gStallNameD67BE4 {};
-std::uint8_t gStallPendingD67C31 = 0;
-std::int32_t gStallMessageModeD67C34 = 0;
-std::int32_t gStallMessageValueD67C38 = 0;
-std::array<char, 16> gStallMoneyText57B440 {'0', '1', '2', '3', '4', '5', '6', '7'};
-std::int32_t gDragItemIndex584DA4 = -1;
-std::int32_t gDragImageNoD67D24 = 0;
-std::int32_t gItemDragXCC4880 = 0;
-std::int32_t gItemDragYCC4884 = 0;
-std::int32_t gDraggingCA0B28 = 0;
-std::int32_t gValue58589C = 1;
-void* gFocusedElementDataD45F94 = nullptr;
-std::int32_t gMouseValue57C110 = 0;
-std::int32_t gDragSourceIndex57C114 = 0;
-WindowDragCallback gDragCallback57C118 = nullptr;
-std::int16_t gDragX57C11C = 0;
-std::int16_t gDragY57C11E = 0;
-std::int32_t gFocusWindowId57C120 = 0;
-std::int32_t gFocusElementIndex57C124 = -1;
-std::int32_t gMousePhase57C128 = 0;
-std::int32_t gCurrentElementIndex57C12C = -1;
-std::int32_t gCurrentWindowIdD67A1C = 0;
-std::uint32_t gWindowHasFocusCA0AB4 = 0;
-WindowInputPrototype gChatInputPrototype57E970 {
+std::array<WindowInstance*, kWindowCount> gWindows {}; // 原全局：0x00C8B094。
+std::array<WindowState, kWindowCount> gWindowStates {}; // 原全局：0x00C9A9B0。
+WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
+WindowState* gCurrentWindowState = nullptr; // 原全局：0x00CF4684。
+std::uint8_t gValueD67BE0 = 0; // 原全局：0x00D67BE0。
+std::array<char, 256> gStallMessageC8A978 {}; // 原全局：0x00C8A978。
+std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
+std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
+std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
+std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
+std::array<char, 16> gStallMoneyText57B440 {'0', '1', '2', '3', '4', '5', '6', '7'}; // 原全局：0x0057B440。
+std::int32_t gDragItemIndex584DA4 = -1; // 原全局：0x00584DA4。
+std::int32_t gDragImageNoD67D24 = 0; // 原全局：0x00D67D24。
+std::int32_t gItemDragXCC4880 = 0; // 原全局：0x00CC4880。
+std::int32_t gItemDragYCC4884 = 0; // 原全局：0x00CC4884。
+std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
+std::int32_t gValue58589C = 1; // 原全局：0x0058589C。
+void* gFocusedElementDataD45F94 = nullptr; // 原全局：0x00D45F94。
+std::int32_t gMouseValue57C110 = 0; // 原全局：0x0057C110。
+std::int32_t gDragSourceIndex57C114 = 0; // 原全局：0x0057C114。
+WindowDragCallback gDragCallback57C118 = nullptr; // 原全局：0x0057C118。
+std::int16_t gDragX57C11C = 0; // 原全局：0x0057C11C。
+std::int16_t gDragY57C11E = 0; // 原全局：0x0057C11E。
+std::int32_t gFocusWindowId57C120 = 0; // 原全局：0x0057C120。
+std::int32_t gFocusElementIndex57C124 = -1; // 原全局：0x0057C124。
+std::int32_t gMousePhase57C128 = 0; // 原全局：0x0057C128。
+std::int32_t gCurrentElementIndex57C12C = -1; // 原全局：0x0057C12C。
+std::int32_t gCurrentWindowIdD67A1C = 0; // 原全局：0x00D67A1C。
+std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
+WindowInputPrototype gChatInputPrototype57E970 { // 原全局：0x0057E970。
     {{&input::gInputContext626AA0}, WindowInputReferenceKind::Context},
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
 };
-WindowInputPrototype gTradeInputPrototype5803D0 {
+WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
     {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
-WindowInputPrototype gMailInputPrototype57E740 {
+WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
     {{&input::gInputContextD66CA8}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
-WindowInputPrototype gNumberInputPrototype57DA70 {
+WindowInputPrototype gNumberInputPrototype57DA70 { // 原全局：0x0057DA70。
     {{&input::gInputContextCB0878}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
-WindowInputPrototype gStorageInputPrototype57EBA0 {
+WindowInputPrototype gStorageInputPrototype57EBA0 { // 原全局：0x0057EBA0。
     {{&input::gInputContextCA0018}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
-WindowInputPrototype gTitleInputPrototype57EE10 {
+WindowInputPrototype gTitleInputPrototype57EE10 { // 原全局：0x0057EE10。
     {{&input::gInputContextCC49C0}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
 };
-WindowInputPrototype gDialogInputPrototype57E478 {
+WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
     {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
     0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
 };
-WindowInputPrototype gWindow50InputPrototype580618 {
+WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
     {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
     33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
 };
-WindowInputPrototype gBlacklistInputPrototype580EF0 {
+WindowInputPrototype gBlacklistInputPrototype580EF0 { // 原全局：0x00580EF0。
     {{&input::gInputContextC8B1B8}, WindowInputReferenceKind::Context},
     75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
 };
-std::int32_t gChatWindowModeD66E04 = 0;
-std::int32_t gLogDisplayGate593F84 = 0;
-std::uint8_t gValue5F9754 = 0;
-std::int32_t gChatWidthUnitsC9A930 = 0;
-std::int32_t gChatWidthRequestC9A934 = 0;
-std::int32_t gChatHeightUnitsC9A938 = 0;
-std::int32_t gChatHeightRequestC9A93C = 0;
-std::int32_t gChatScrollOffsetC9A940 = 0;
-std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {};
-std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {};
-std::array<char, 5 * 0x600> gPetStorageD64E18 {};
-std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {};
-std::array<char, 20 * 0xC58> gShopItemsCF4FE0 {};
-std::int32_t gShopItemCountCB1E10 = 0;
-std::int32_t gShopReplyItemCountCF4B58 = 0;
-std::int32_t gShopImageD2DAD0 = 0;
-std::int32_t gValueD2D608 = 0;
-std::int32_t gDialogValueCF4E5C = 0;
-std::int32_t gProfileCategory1085DA0 = 0;
-std::int32_t gProfileScrollCA0444 = 0;
-std::int32_t gShopDialogTypeCC3EC8 = 0;
-std::int32_t gShopValueCF467C = 0;
-std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {};
-std::array<char, 20> gShopSelectedSlotsCB03DC {};
-std::array<char, 32> gShopTextCB0184 {};
-std::array<char, 0xC38> gShopDetailCC3210 {};
-std::int32_t gShopValueCAFEA4 = 0;
-std::int32_t gShopValueD046C4 = 0;
-std::int32_t gShopValueD672D4 = 0;
-std::int32_t gShopTooltipIndex580844 = -1;
-std::int32_t gShopMessage580848 = -1;
-std::int32_t gShopInventoryHover58084C = -2;
-std::int32_t gShopTooltipPageD67B8C = 0;
-std::int32_t gShopTotalD2DAFC = 0;
-std::int32_t gShopValueC8AF74 = 0;
-std::int32_t gShopScrollCC488C = 0;
-std::array<char, 55> gShopPriceTextsD673EC {};
-std::array<char, 55> gShopCountTextsD2D988 {};
-std::array<char, 48> gShopTotalTextCC4B2C {};
-std::array<char, 16> gShopMoneyTextCC1A00 {};
-std::int32_t gShopAvailableCF4A24 = 0;
-std::array<char, 20> gShopValueTextCF4A28 {};
-std::array<std::int32_t, 5> gShopRowKeysC9A954 {};
-std::uint8_t gShopDragFlagD67B90 = 0;
-std::int32_t gQuantityLimit581C94 = 999;
-WindowValueCallback gConfirmationCallbackC8B088 = nullptr;
-std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40 {};
-std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90 {};
-std::array<char, 100> gConfirmationLineCB1320 {};
-std::array<char, 104> gConfirmationLineCB1210 {};
-std::array<char, 256> gConfirmationAcceptHintCC3FCC {};
-std::array<char, 256> gConfirmationCancelHintD45D70 {};
-std::int32_t gWindow54DialogTypeCB2224 = 0;
-std::int32_t gWindow54ImageCC18C4 = 0;
-std::int32_t gWindow54ValueCC2E68 = 0;
-std::int32_t gWindow54ValueCF4A3C = 0;
-std::int32_t gWindow54ValueCB01E4 = 0;
-std::int32_t gWindow54ValueCB01E8 = 0;
-std::uint8_t gWindow54ModeC8AF64 = 0;
-std::int32_t gWindow54LifecycleD67434 = 0;
-std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0 {};
-std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {};
-std::array<std::int32_t, 15> gWindow54ValuesCB09D8 {};
-std::array<Window54SkillRecord, 16> gWindow54SkillsD2EAB8 {};
-std::int32_t gWindow54SkillScrollCC31F4 = 0;
-std::int32_t gWindow54MessageC9FCE0 = 0;
-std::int32_t gWindow54HoverD2DAD8 = 0;
-std::int32_t gWindow54SelectedD2DC04 = 0;
-std::array<char, 12> gWindow54AmountTextD45F78 {};
-std::array<char, 110> gWindow54ValueTextsCB035C {};
-std::array<char, 110> gWindow54ValueTextsC8B318 {};
-std::array<char, 55> gWindow54SkillValueTextsCF4978 {};
-std::array<char, 55> gWindow54SkillPriceTextsCF493C {};
-std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {};
-std::array<std::int8_t, 5> gWindow54PetMapCF4AB0 {};
-std::int32_t gWindow54TribeCA0B2C = 0;
-std::int32_t gWindow54PetChoiceC8AA90 = 0;
-std::int32_t gWindow54PetScrollCC31DC = 0;
-std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {};
-std::int32_t gWindow54ReplacementC8B08C = 0;
-std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {};
-std::array<char, 12> gWindow54MoneyTextC9A9A4 {};
-std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230 {};
-std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {};
-std::int32_t gWindow69ValueD67B98 = 0;
-std::uint8_t gWindow69FlagD2EA5B = 0;
-std::int32_t gWindow69ImageCB01F0 = 0;
-std::int32_t gWindow69DialogTypeD2D810 = 0;
-std::int32_t gWindow70ValueD67BA4 = 0;
-std::uint8_t gWindow70FlagD673D8 = 0;
-std::int32_t gWindow70ImageD2E43C = 0;
-std::int32_t gWindow70ValueD6791C = 0;
-std::int32_t gWindow70DialogTypeD45D6C = 0;
-std::int32_t gWindow69ScrollD2D604 = 0;
-std::int32_t gWindow70ScrollCC4B68 = 0;
-std::int32_t gWindow69DirtyD67B9C = 0;
-std::int32_t gWindow70DirtyD67BA8 = 0;
-std::int32_t gWindow69CachedScroll580858 = -1;
-std::int32_t gWindow70CachedScroll580868 = -1;
-std::int32_t gWindow69TotalD45E70 = 0;
-std::int32_t gWindow70TotalCB0F74 = 0;
-std::int32_t gWindow69SlotsCA0AC8 = 0;
-std::int32_t gWindow70SlotsCF4E44 = 0;
-std::array<char, 55> gWindow69PriceTextsD2D7CC {};
-std::array<char, 55> gWindow70PriceTextsCF49C4 {};
-std::array<char, 55> gWindow69CountTextsD2EA24 {};
-std::array<char, 55> gWindow70CountTextsCC4848 {};
-std::array<char, 12> gWindow69TotalTextCC48B0 {};
-std::array<char, 12> gWindow70TotalTextD2D804 {};
-std::int32_t gWindow69Tooltip580850 = -1;
-std::int32_t gWindow70Tooltip580860 = -1;
-std::int32_t gWindow69Message580854 = -1;
-std::int32_t gWindow70Message580864 = -1;
-std::int32_t gWindow69TooltipPageD67B94 = 0;
-std::int32_t gWindow70TooltipPageD67BA0 = 0;
-std::int32_t gWindow69InventoryHover58085C = -2;
-std::int32_t gWindow70InventoryHover58086C = -2;
-std::array<char, 12> gWindow69BalanceTextD2E448 {};
-std::array<char, 12> gWindow70BalanceTextCF3F14 {};
-WindowValueCallback gWindow69ConfirmCallbackCF4E48 = nullptr;
-WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr;
-std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458 {};
-std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8 {};
-std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8 {};
-std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290 {};
-std::array<char, 50> gWindow69ConfirmHeadingCC3F68 {};
-std::array<char, 48> gWindow70ConfirmHeadingCF4A40 {};
-std::array<char, 21> gWindow69ConfirmQuestionCC3F04 {};
-std::array<char, 21> gWindow70ConfirmQuestionCF4ABC {};
-std::array<char, 11> gWindow69ConfirmAcceptD2E81C {};
-std::array<char, 11> gWindow70ConfirmAcceptD2DD6C {};
-std::array<char, 11> gWindow69ConfirmCancelCB076C {};
-std::array<char, 11> gWindow70ConfirmCancelCC48BC {};
+std::int32_t gChatWindowModeD66E04 = 0; // 原全局：0x00D66E04。
+std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。
+std::uint8_t gValue5F9754 = 0; // 原全局：0x005F9754。
+std::int32_t gChatWidthUnitsC9A930 = 0; // 原全局：0x00C9A930。
+std::int32_t gChatWidthRequestC9A934 = 0; // 原全局：0x00C9A934。
+std::int32_t gChatHeightUnitsC9A938 = 0; // 原全局：0x00C9A938。
+std::int32_t gChatHeightRequestC9A93C = 0; // 原全局：0x00C9A93C。
+std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
+std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {}; // 原全局：0x00D460D0。
+std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {}; // 原全局：0x00C9C108。
+std::array<char, 5 * 0x600> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
+std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
+std::array<char, 20 * 0xC58> gShopItemsCF4FE0 {}; // 原全局：0x00CF4FE0。
+std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
+std::int32_t gShopReplyItemCountCF4B58 = 0; // 原全局：0x00CF4B58。
+std::int32_t gShopImageD2DAD0 = 0; // 原全局：0x00D2DAD0。
+std::int32_t gValueD2D608 = 0; // 原全局：0x00D2D608。
+std::int32_t gDialogValueCF4E5C = 0; // 原全局：0x00CF4E5C。
+std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
+std::int32_t gProfileScrollCA0444 = 0; // 原全局：0x00CA0444。
+std::int32_t gShopDialogTypeCC3EC8 = 0; // 原全局：0x00CC3EC8。
+std::int32_t gShopValueCF467C = 0; // 原全局：0x00CF467C。
+std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {}; // 原全局：0x00D2DAB8。
+std::array<char, 20> gShopSelectedSlotsCB03DC {}; // 原全局：0x00CB03DC。
+std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。
+std::array<char, 0xC38> gShopDetailCC3210 {}; // 原全局：0x00CC3210。
+std::int32_t gShopValueCAFEA4 = 0; // 原全局：0x00CAFEA4。
+std::int32_t gShopValueD046C4 = 0; // 原全局：0x00D046C4。
+std::int32_t gShopValueD672D4 = 0; // 原全局：0x00D672D4。
+std::int32_t gShopTooltipIndex580844 = -1; // 原全局：0x00580844。
+std::int32_t gShopMessage580848 = -1; // 原全局：0x00580848。
+std::int32_t gShopInventoryHover58084C = -2; // 原全局：0x0058084C。
+std::int32_t gShopTooltipPageD67B8C = 0; // 原全局：0x00D67B8C。
+std::int32_t gShopTotalD2DAFC = 0; // 原全局：0x00D2DAFC。
+std::int32_t gShopValueC8AF74 = 0; // 原全局：0x00C8AF74。
+std::int32_t gShopScrollCC488C = 0; // 原全局：0x00CC488C。
+std::array<char, 55> gShopPriceTextsD673EC {}; // 原全局：0x00D673EC。
+std::array<char, 55> gShopCountTextsD2D988 {}; // 原全局：0x00D2D988。
+std::array<char, 48> gShopTotalTextCC4B2C {}; // 原全局：0x00CC4B2C。
+std::array<char, 16> gShopMoneyTextCC1A00 {}; // 原全局：0x00CC1A00。
+std::int32_t gShopAvailableCF4A24 = 0; // 原全局：0x00CF4A24。
+std::array<char, 20> gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
+std::array<std::int32_t, 5> gShopRowKeysC9A954 {}; // 原全局：0x00C9A954。
+std::uint8_t gShopDragFlagD67B90 = 0; // 原全局：0x00D67B90。
+std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。
+WindowValueCallback gConfirmationCallbackC8B088 = nullptr; // 原全局：0x00C8B088。
+std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40 {}; // 原全局：0x00CB1E40。
+std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90 {}; // 原全局：0x00CB0F90。
+std::array<char, 100> gConfirmationLineCB1320 {}; // 原全局：0x00CB1320。
+std::array<char, 104> gConfirmationLineCB1210 {}; // 原全局：0x00CB1210。
+std::array<char, 256> gConfirmationAcceptHintCC3FCC {}; // 原全局：0x00CC3FCC。
+std::array<char, 256> gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
+std::int32_t gWindow54DialogTypeCB2224 = 0; // 原全局：0x00CB2224。
+std::int32_t gWindow54ImageCC18C4 = 0; // 原全局：0x00CC18C4。
+std::int32_t gWindow54ValueCC2E68 = 0; // 原全局：0x00CC2E68。
+std::int32_t gWindow54ValueCF4A3C = 0; // 原全局：0x00CF4A3C。
+std::int32_t gWindow54ValueCB01E4 = 0; // 原全局：0x00CB01E4。
+std::int32_t gWindow54ValueCB01E8 = 0; // 原全局：0x00CB01E8。
+std::uint8_t gWindow54ModeC8AF64 = 0; // 原全局：0x00C8AF64。
+std::int32_t gWindow54LifecycleD67434 = 0; // 原全局：0x00D67434。
+std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0 {}; // 原全局：0x00C8AAA0。
+std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {}; // 原全局：0x00CB01A4。
+std::array<std::int32_t, 15> gWindow54ValuesCB09D8 {}; // 原全局：0x00CB09D8。
+std::array<Window54SkillRecord, 16> gWindow54SkillsD2EAB8 {}; // 原全局：0x00D2EAB8。
+std::int32_t gWindow54SkillScrollCC31F4 = 0; // 原全局：0x00CC31F4。
+std::int32_t gWindow54MessageC9FCE0 = 0; // 原全局：0x00C9FCE0。
+std::int32_t gWindow54HoverD2DAD8 = 0; // 原全局：0x00D2DAD8。
+std::int32_t gWindow54SelectedD2DC04 = 0; // 原全局：0x00D2DC04。
+std::array<char, 12> gWindow54AmountTextD45F78 {}; // 原全局：0x00D45F78。
+std::array<char, 110> gWindow54ValueTextsCB035C {}; // 原全局：0x00CB035C。
+std::array<char, 110> gWindow54ValueTextsC8B318 {}; // 原全局：0x00C8B318。
+std::array<char, 55> gWindow54SkillValueTextsCF4978 {}; // 原全局：0x00CF4978。
+std::array<char, 55> gWindow54SkillPriceTextsCF493C {}; // 原全局：0x00CF493C。
+std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。
+std::array<std::int8_t, 5> gWindow54PetMapCF4AB0 {}; // 原全局：0x00CF4AB0。
+std::int32_t gWindow54TribeCA0B2C = 0; // 原全局：0x00CA0B2C。
+std::int32_t gWindow54PetChoiceC8AA90 = 0; // 原全局：0x00C8AA90。
+std::int32_t gWindow54PetScrollCC31DC = 0; // 原全局：0x00CC31DC。
+std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。
+std::int32_t gWindow54ReplacementC8B08C = 0; // 原全局：0x00C8B08C。
+std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {}; // 原全局：0x00CC4D04。
+std::array<char, 12> gWindow54MoneyTextC9A9A4 {}; // 原全局：0x00C9A9A4。
+std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230 {}; // 原全局：0x00CB2230。
+std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {}; // 原全局：0x00D30428。
+std::int32_t gWindow69ValueD67B98 = 0; // 原全局：0x00D67B98。
+std::uint8_t gWindow69FlagD2EA5B = 0; // 原全局：0x00D2EA5B。
+std::int32_t gWindow69ImageCB01F0 = 0; // 原全局：0x00CB01F0。
+std::int32_t gWindow69DialogTypeD2D810 = 0; // 原全局：0x00D2D810。
+std::int32_t gWindow70ValueD67BA4 = 0; // 原全局：0x00D67BA4。
+std::uint8_t gWindow70FlagD673D8 = 0; // 原全局：0x00D673D8。
+std::int32_t gWindow70ImageD2E43C = 0; // 原全局：0x00D2E43C。
+std::int32_t gWindow70ValueD6791C = 0; // 原全局：0x00D6791C。
+std::int32_t gWindow70DialogTypeD45D6C = 0; // 原全局：0x00D45D6C。
+std::int32_t gWindow69ScrollD2D604 = 0; // 原全局：0x00D2D604。
+std::int32_t gWindow70ScrollCC4B68 = 0; // 原全局：0x00CC4B68。
+std::int32_t gWindow69DirtyD67B9C = 0; // 原全局：0x00D67B9C。
+std::int32_t gWindow70DirtyD67BA8 = 0; // 原全局：0x00D67BA8。
+std::int32_t gWindow69CachedScroll580858 = -1; // 原全局：0x00580858。
+std::int32_t gWindow70CachedScroll580868 = -1; // 原全局：0x00580868。
+std::int32_t gWindow69TotalD45E70 = 0; // 原全局：0x00D45E70。
+std::int32_t gWindow70TotalCB0F74 = 0; // 原全局：0x00CB0F74。
+std::int32_t gWindow69SlotsCA0AC8 = 0; // 原全局：0x00CA0AC8。
+std::int32_t gWindow70SlotsCF4E44 = 0; // 原全局：0x00CF4E44。
+std::array<char, 55> gWindow69PriceTextsD2D7CC {}; // 原全局：0x00D2D7CC。
+std::array<char, 55> gWindow70PriceTextsCF49C4 {}; // 原全局：0x00CF49C4。
+std::array<char, 55> gWindow69CountTextsD2EA24 {}; // 原全局：0x00D2EA24。
+std::array<char, 55> gWindow70CountTextsCC4848 {}; // 原全局：0x00CC4848。
+std::array<char, 12> gWindow69TotalTextCC48B0 {}; // 原全局：0x00CC48B0。
+std::array<char, 12> gWindow70TotalTextD2D804 {}; // 原全局：0x00D2D804。
+std::int32_t gWindow69Tooltip580850 = -1; // 原全局：0x00580850。
+std::int32_t gWindow70Tooltip580860 = -1; // 原全局：0x00580860。
+std::int32_t gWindow69Message580854 = -1; // 原全局：0x00580854。
+std::int32_t gWindow70Message580864 = -1; // 原全局：0x00580864。
+std::int32_t gWindow69TooltipPageD67B94 = 0; // 原全局：0x00D67B94。
+std::int32_t gWindow70TooltipPageD67BA0 = 0; // 原全局：0x00D67BA0。
+std::int32_t gWindow69InventoryHover58085C = -2; // 原全局：0x0058085C。
+std::int32_t gWindow70InventoryHover58086C = -2; // 原全局：0x0058086C。
+std::array<char, 12> gWindow69BalanceTextD2E448 {}; // 原全局：0x00D2E448。
+std::array<char, 12> gWindow70BalanceTextCF3F14 {}; // 原全局：0x00CF3F14。
+WindowValueCallback gWindow69ConfirmCallbackCF4E48 = nullptr; // 原全局：0x00CF4E48。
+WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr; // 原全局：0x00CF4AA4。
+std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458 {}; // 原全局：0x00D2E458。
+std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8 {}; // 原全局：0x00CB0AE8。
+std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8 {}; // 原全局：0x00D2E2B8。
+std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290 {}; // 原全局：0x00D2E290。
+std::array<char, 50> gWindow69ConfirmHeadingCC3F68 {}; // 原全局：0x00CC3F68。
+std::array<char, 48> gWindow70ConfirmHeadingCF4A40 {}; // 原全局：0x00CF4A40。
+std::array<char, 21> gWindow69ConfirmQuestionCC3F04 {}; // 原全局：0x00CC3F04。
+std::array<char, 21> gWindow70ConfirmQuestionCF4ABC {}; // 原全局：0x00CF4ABC。
+std::array<char, 11> gWindow69ConfirmAcceptD2E81C {}; // 原全局：0x00D2E81C。
+std::array<char, 11> gWindow70ConfirmAcceptD2DD6C {}; // 原全局：0x00D2DD6C。
+std::array<char, 11> gWindow69ConfirmCancelCB076C {}; // 原全局：0x00CB076C。
+std::array<char, 11> gWindow70ConfirmCancelCC48BC {}; // 原全局：0x00CC48BC。
 static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
 static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
@@ -266,103 +266,103 @@ static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
-std::int32_t gTradeValueCC4224 = 0;
-std::int32_t gStorageValueCC4218 = 0;
-std::int32_t gStorageOwnHover57EE04 = -2;
-std::int32_t gStorageExternalHover57EE08 = -2;
-std::int32_t gBankOwnHover57EDCC = -2;
-std::int32_t gBankExternalHover57EDD0 = -2;
-const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320};
-const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321};
-const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323};
-const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322};
-std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {};
-std::array<char, 22> gStorageAmountTextsCB1DF8 {};
+std::int32_t gTradeValueCC4224 = 0; // 原全局：0x00CC4224。
+std::int32_t gStorageValueCC4218 = 0; // 原全局：0x00CC4218。
+std::int32_t gStorageOwnHover57EE04 = -2; // 原全局：0x0057EE04。
+std::int32_t gStorageExternalHover57EE08 = -2; // 原全局：0x0057EE08。
+std::int32_t gBankOwnHover57EDCC = -2; // 原全局：0x0057EDCC。
+std::int32_t gBankExternalHover57EDD0 = -2; // 原全局：0x0057EDD0。
+const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320}; // 原全局：0x0054F4E8。
+const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321}; // 原全局：0x0054F4F0。
+const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323}; // 原全局：0x0054F4F8。
+const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322}; // 原全局：0x0054F500。
+std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：0x00D67B68。
+std::array<char, 22> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
 // 窗口51拥有行表/行文本；其他载荷仅复制或借用，不另建文本owner。
-char** gWindowLinesD67B70 = nullptr;
-std::int32_t gWindowLineCountD67B74 = 0;
-std::int32_t gWindowLineScrollCF46B8 = 0;
-std::array<char, 56> gWindowTitleCC4118 {};
-std::int32_t gWindowRequestD672B0 = 0;
-std::int32_t gWindowRequestCF46AC = 0;
-std::int32_t gWindowCloseRequestCC4B28 = 0;
-std::array<char, 256> gWindowModalTextC8AF88 {};
-std::int32_t gTradeValueCF4688 = 0;
-std::int32_t gTradeValueD046D0 = 0;
-std::int32_t gTradeValueD2E2B0 = 0;
-std::uint8_t gTradeValueD67B80 = 0;
-login::YobiAction* gTradeWindowActionD67B7C = nullptr;
-std::int32_t gTradeValueCF4A1C = 0;
-std::int32_t gTradeValueD673E0 = 0;
-std::int32_t gTradeValueCC4C94 = 0;
-std::int32_t gTradeValueC8AF68 = 0;
-std::int32_t gTradeValueCB03CC = 0;
-std::int32_t gTradeValueCF4AB8 = 0;
-std::int32_t gTradeValueD67CB8 = 0;
-std::int32_t gTradeValueD67CBC = 0;
-std::int32_t gTradeValueCC3EC4 = 0;
-std::int32_t gTradeValueD66E08 = 0;
-std::int32_t gTradeValueCC2344 = 0;
-std::array<char, 17> gTradeNameD2D654 {};
-std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {};
-std::int32_t gWindowListCountCF46A8 = 0;
-WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr;
-std::int32_t gWindowListOffsetCC3EF4 = 0;
-std::array<char, 256> gHoverTextD68AE8 {};
-std::array<char, 24> gStatusHpTextD40B18 {};
-std::array<char, 28> gStatusFpTextD45D50 {};
-std::int32_t gHoverObjectValueD68AC8 = 0;
-std::array<char, 260> gHoverTitleD68BF4 {};
-std::int32_t gHoverTitleValueD69748 = 0;
-std::int32_t gWindow6HoverD2EA70 = 0;
-static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原W64；473840只用低W32差作30秒门禁。
-std::int32_t gValueCC4D34 = 0;
-std::int32_t gValueCC4D3C = 0;
+char** gWindowLinesD67B70 = nullptr; // 原全局：0x00D67B70。
+std::int32_t gWindowLineCountD67B74 = 0; // 原全局：0x00D67B74。
+std::int32_t gWindowLineScrollCF46B8 = 0; // 原全局：0x00CF46B8。
+std::array<char, 56> gWindowTitleCC4118 {}; // 原全局：0x00CC4118。
+std::int32_t gWindowRequestD672B0 = 0; // 原全局：0x00D672B0。
+std::int32_t gWindowRequestCF46AC = 0; // 原全局：0x00CF46AC。
+std::int32_t gWindowCloseRequestCC4B28 = 0; // 原全局：0x00CC4B28。
+std::array<char, 256> gWindowModalTextC8AF88 {}; // 原全局：0x00C8AF88。
+std::int32_t gTradeValueCF4688 = 0; // 原全局：0x00CF4688。
+std::int32_t gTradeValueD046D0 = 0; // 原全局：0x00D046D0。
+std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
+std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
+login::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
+std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。
+std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。
+std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。
+std::int32_t gTradeValueC8AF68 = 0; // 原全局：0x00C8AF68。
+std::int32_t gTradeValueCB03CC = 0; // 原全局：0x00CB03CC。
+std::int32_t gTradeValueCF4AB8 = 0; // 原全局：0x00CF4AB8。
+std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。
+std::int32_t gTradeValueD67CBC = 0; // 原全局：0x00D67CBC。
+std::int32_t gTradeValueCC3EC4 = 0; // 原全局：0x00CC3EC4。
+std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。
+std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。
+std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
+std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
+std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
+WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原全局：0x00CB1E14。
+std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
+std::array<char, 256> gHoverTextD68AE8 {}; // 原全局：0x00D68AE8。
+std::array<char, 24> gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
+std::array<char, 28> gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
+std::int32_t gHoverObjectValueD68AC8 = 0; // 原全局：0x00D68AC8。
+std::array<char, 260> gHoverTitleD68BF4 {}; // 原全局：0x00D68BF4。
+std::int32_t gHoverTitleValueD69748 = 0; // 原全局：0x00D69748。
+std::int32_t gWindow6HoverD2EA70 = 0; // 原全局：0x00D2EA70。
+static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原全局：0x00D67AF0。 原W64；473840只用低W32差作30秒门禁。
+std::int32_t gValueCC4D34 = 0; // 原全局：0x00CC4D34。
+std::int32_t gValueCC4D3C = 0; // 原全局：0x00CC4D3C。
 static_assert(sizeof(gTradeNameD2D654) == 17);
 static_assert(sizeof(gWindowListNamesCF3F20) == 170);
 static_assert(sizeof(WindowListSelectionCallback) == 8);
-std::int32_t gSelectedItemCB1DF4 = 0;
-std::int32_t gSelectedItemCB0A44 = 0;
-std::uint8_t gItemSelectionModeCC40D4 = 0;
-std::int32_t gSelectedItem57EE0C = -1;
-std::uint8_t gSkillPairIndexD67AD8 = 0;
-std::int32_t gRecipeIndex5846BC = -1;
-std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {};
-std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {};
-std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {};
-std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {};
-std::uint8_t gTradePhaseCAFEC4 = 0;
-std::uint8_t gTradeStepD3040C = 0;
-std::uint8_t gTradeValueD2EA20 = 0;
-std::uint8_t gTradeValueD6742C = 0;
-std::uint8_t gTradeValueC8AF81 = 0;
-std::uint8_t gTradeTabCC4D1A = 0;
-std::int32_t gTradeHoverSlotC8B314 = 0;
-std::int32_t gTradeHoverSlotC8AA78 = 0;
-std::int32_t gTradeHoverSlotCB0A4C = 0;
-std::int32_t gPetDragModeD2EA1C = 0;
-std::int32_t gItemDragModeCC4C9C = 0;
-std::int32_t gItemMoveSourceCF46B0 = 0;
-std::int32_t gItemMoveTargetD2DBF8 = 0;
-std::int32_t gValueD67B00 = 0;
-std::array<char, 12> gNumberWindowTextCC4D1C {};
-std::int32_t gTradeScrollCF3B0C = 0;
-std::int32_t gTradeScrollCC4C90 = 0;
-std::int32_t gTradeScrollD67430 = 0;
-std::int32_t gTradePreviewCC2E64 = 0;
-std::uint8_t gTradeTooltipPageCB10D4 = 0;
-std::uint32_t gWindowActionTick62B5AC = 0;
-std::int32_t gTooltipColorD67D30 = 0;
-std::int32_t gTooltipSourceD303FC = 0;
-std::uint16_t gTooltipXCF46C0 = 0;
-std::uint16_t gTooltipYCF46CC = 0;
-const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434 {{
+std::int32_t gSelectedItemCB1DF4 = 0; // 原全局：0x00CB1DF4。
+std::int32_t gSelectedItemCB0A44 = 0; // 原全局：0x00CB0A44。
+std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
+std::int32_t gSelectedItem57EE0C = -1; // 原全局：0x0057EE0C。
+std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。
+std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。
+std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
+std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {}; // 原全局：0x00D2D61C。
+std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {}; // 原全局：0x00CC4D28。
+std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {}; // 原全局：0x00CF3AFC。
+std::uint8_t gTradePhaseCAFEC4 = 0; // 原全局：0x00CAFEC4。
+std::uint8_t gTradeStepD3040C = 0; // 原全局：0x00D3040C。
+std::uint8_t gTradeValueD2EA20 = 0; // 原全局：0x00D2EA20。
+std::uint8_t gTradeValueD6742C = 0; // 原全局：0x00D6742C。
+std::uint8_t gTradeValueC8AF81 = 0; // 原全局：0x00C8AF81。
+std::uint8_t gTradeTabCC4D1A = 0; // 原全局：0x00CC4D1A。
+std::int32_t gTradeHoverSlotC8B314 = 0; // 原全局：0x00C8B314。
+std::int32_t gTradeHoverSlotC8AA78 = 0; // 原全局：0x00C8AA78。
+std::int32_t gTradeHoverSlotCB0A4C = 0; // 原全局：0x00CB0A4C。
+std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
+std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
+std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
+std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
+std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
+std::array<char, 12> gNumberWindowTextCC4D1C {}; // 原全局：0x00CC4D1C。
+std::int32_t gTradeScrollCF3B0C = 0; // 原全局：0x00CF3B0C。
+std::int32_t gTradeScrollCC4C90 = 0; // 原全局：0x00CC4C90。
+std::int32_t gTradeScrollD67430 = 0; // 原全局：0x00D67430。
+std::int32_t gTradePreviewCC2E64 = 0; // 原全局：0x00CC2E64。
+std::uint8_t gTradeTooltipPageCB10D4 = 0; // 原全局：0x00CB10D4。
+std::uint32_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
+std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
+std::int32_t gTooltipSourceD303FC = 0; // 原全局：0x00D303FC。
+std::uint16_t gTooltipXCF46C0 = 0; // 原全局：0x00CF46C0。
+std::uint16_t gTooltipYCF46CC = 0; // 原全局：0x00CF46CC。
+const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434 {{ // 原全局：0x0057E434。
     {243151, 243152, 243153, 243154},
     {243156, 243157, 243158, 243159},
     {243161, 243162, 243163, 243164},
     {243166, 243167, 243168, 243169},
 }};
-const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{
+const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{ // 原全局：0x0054F030。
     {243170, 243171, 243172},
     {243173, 243174, 243175},
     {243176, 243177, 243178},
@@ -378,7 +378,7 @@ const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{
     {243206, 243207, 243208},
     {243209, 243210, 243211},
 }};
-const std::array<const char*, 6> gTradeNumberHints5805FC {{
+const std::array<const char*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD6\xB8\xB6\xA8\xCC\xE1\xEE\x49\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x94\xB5\xC1\xBF\xA1\xA3",
@@ -386,7 +386,7 @@ const std::array<const char*, 6> gTradeNumberHints5805FC {{
     "\xD6\xB8\xB6\xA8\xC8\xAB\xB2\xBF\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3",
 }};
-const std::array<const char*, 6> gNumberWindowHints57DC9C {{
+const std::array<const char*, 6> gNumberWindowHints57DC9C {{ // 原全局：0x0057DC9C。
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
     "\x8C\xA2\xD6\xB8\xB6\xA8\xCE\xEF\xBD\xF0\xEE\x7E\xB7\xC5\xB5\xD8\xC9\xCF\xA1\xA3",
     "\xD5\x88\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
@@ -394,7 +394,7 @@ const std::array<const char*, 6> gNumberWindowHints57DC9C {{
     "\xD6\xB8\xB6\xA8\xC8\xAB\xEE\x7E\xA1\xA3",
     "\x8C\xA2\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3",
 }};
-const std::array<const char*, 6> gStorageDepositHints57EDD4 {{
+const std::array<const char*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD6\xB8\xB6\xA8\xB4\xE6\xC8\xEB\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD5\x88\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
@@ -402,7 +402,7 @@ const std::array<const char*, 6> gStorageDepositHints57EDD4 {{
     "\xD6\xB8\xB6\xA8\xC8\xAB\xB2\xBF\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3",
 }};
-const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{
+const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD6\xB8\xB6\xA8\xCC\xE1\xEE\x49\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x94\xB5\xC1\xBF\xA1\xA3",
@@ -410,13 +410,13 @@ const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{
     "\xD6\xB8\xB6\xA8\xC8\xAB\xB2\xBF\xBD\xF0\xEE\x7E\xA1\xA3",
     "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3",
 }};
-static constexpr char kStoragePetEquipmentWarning587900[] =
+static constexpr char kStoragePetEquipmentWarning587900[] = // 原常量参考：0x00587900。
     "\x8C\x99\xCE\xEF\xD3\xFB\xB7\xC5\xC8\xEB\xBC\xD2\xD7\xE5\x8C\x99"
     "\xCE\xEF\x8E\xEC\xA3\xAC\xD5\x88\xD0\xB6\xCF\xC2\x8C\x99\xCE\xEF"
     "\xC9\xED\xC9\xCF\xB5\xC4\xD1\x62\x82\xE4\xE1\xE1\xD4\xD9\xB2\xD9"
     "\xD7\xF7\xA1\xA3";
-static constexpr char kTribeUnopened585C50[] = "\xCE\xB4\xE9\x5F\xB7\xC5";
-const std::array<const char*, 20> gTribeNames57CB54 {{
+static constexpr char kTribeUnopened585C50[] = "\xCE\xB4\xE9\x5F\xB7\xC5"; // 原常量参考：0x00585C50。
+const std::array<const char*, 20> gTribeNames57CB54 {{ // 原全局：0x0057CB54。
     "\xC8\xCB\xD0\xCE\xCF\xB5",
     "\xFD\x88\xCF\xB5",
     "\xB2\xBB\xCB\xC0\xCF\xB5",
@@ -432,87 +432,87 @@ const std::array<const char*, 20> gTribeNames57CB54 {{
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
 }};
-std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
-std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
-std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
-std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {};
-std::array<char, 24> gMaterialOccupancyCC4894 {};
-std::int32_t gSelectedItemD460C0 = 0;
-std::int32_t gSelectedImageCC3ED8 = 0;
-std::int32_t gSelectedCountCC483C = 0;
-std::uint8_t gSelectionModeD2D650 = 0;
-std::array<std::uint8_t, 28> gItemMarksD67290 {};
-std::array<std::uint8_t, 20> gItemMarksD68A90 {};
-static std::int32_t gCraftBackpackHover57DA24 = -2; // 483150唯一读写，区别于材料/单选悬停槽。
-std::uint8_t gValue57DA28 = 0xFF;
-std::int32_t gInventoryHover57DA2C = -2;
-std::int32_t gEquipmentHover57DA68 = -2;
-std::array<char, 12> gInventoryMoneyTextCB086C {};
-std::array<char, 12> gInventoryValueTextCC3ECC {};
-std::int32_t gBattleItemHoverCF49B0 = 0;
-std::int32_t gBattleItemPageCB01E0 = 0;
-std::uint8_t gBattleItemTargetFlagCC4D40 = 0;
-static std::int32_t gBattleBackpackHover57E430 = -2;
-std::array<char, 12> gBattleMoneyTextCF469C {};
-std::array<char, 12> gBattleValueTextC8A960 {};
-std::uint8_t gValue57E42C = 0xFF;
-const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
-const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
-const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165};
-const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30};
-std::int32_t gValueCF4AAC = 0;
-std::int32_t gValueCF4690 = 0;
-std::int32_t gValueCA0440 = 0;
-std::int32_t gValueD67B38 = 0;
-std::int8_t gSettingsPanelCC4234 = 0;
-std::int32_t gSettingsOffsetCA02DC = 0;
-std::int32_t gSettingsStepD2D610 = 0;
-std::array<char, 12> gSettingsMusicTextD3041C {};
-std::array<char, 12> gSettingsEffectTextD2EA64 {};
-std::int8_t gHotkeySelectedCC4B20 = 0;
-WindowInputPrototype gHotkeyInputPrototype57DF48 {
+std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
+std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
+std::array<std::int32_t, 6> gSelectionCountsD66E0C {}; // 原全局：0x00D66E0C。
+std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {}; // 原全局：0x00CF3FF4。
+std::array<char, 24> gMaterialOccupancyCC4894 {}; // 原全局：0x00CC4894。
+std::int32_t gSelectedItemD460C0 = 0; // 原全局：0x00D460C0。
+std::int32_t gSelectedImageCC3ED8 = 0; // 原全局：0x00CC3ED8。
+std::int32_t gSelectedCountCC483C = 0; // 原全局：0x00CC483C。
+std::uint8_t gSelectionModeD2D650 = 0; // 原全局：0x00D2D650。
+std::array<std::uint8_t, 28> gItemMarksD67290 {}; // 原全局：0x00D67290。
+std::array<std::uint8_t, 20> gItemMarksD68A90 {}; // 原全局：0x00D68A90。
+static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。 483150唯一读写，区别于材料/单选悬停槽。
+std::uint8_t gValue57DA28 = 0xFF; // 原全局：0x0057DA28。
+std::int32_t gInventoryHover57DA2C = -2; // 原全局：0x0057DA2C。
+std::int32_t gEquipmentHover57DA68 = -2; // 原全局：0x0057DA68。
+std::array<char, 12> gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
+std::array<char, 12> gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
+std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
+std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。
+std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
+static std::int32_t gBattleBackpackHover57E430 = -2; // 原全局：0x0057E430。
+std::array<char, 12> gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
+std::array<char, 12> gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
+std::uint8_t gValue57E42C = 0xFF; // 原全局：0x0057E42C。
+const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
+const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180}; // 原全局：0x0054F5A4。
+const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
+const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
+std::int32_t gValueCF4AAC = 0; // 原全局：0x00CF4AAC。
+std::int32_t gValueCF4690 = 0; // 原全局：0x00CF4690。
+std::int32_t gValueCA0440 = 0; // 原全局：0x00CA0440。
+std::int32_t gValueD67B38 = 0; // 原全局：0x00D67B38。
+std::int8_t gSettingsPanelCC4234 = 0; // 原全局：0x00CC4234。
+std::int32_t gSettingsOffsetCA02DC = 0; // 原全局：0x00CA02DC。
+std::int32_t gSettingsStepD2D610 = 0; // 原全局：0x00D2D610。
+std::array<char, 12> gSettingsMusicTextD3041C {}; // 原全局：0x00D3041C。
+std::array<char, 12> gSettingsEffectTextD2EA64 {}; // 原全局：0x00D2EA64。
+std::int8_t gHotkeySelectedCC4B20 = 0; // 原全局：0x00CC4B20。
+WindowInputPrototype gHotkeyInputPrototype57DF48 { // 原全局：0x0057DF48。
     {{nullptr}, WindowInputReferenceKind::Context},
     0, 0, 3, 8, 0, {}, 1, 24, 0, 0,
 };
-login::YobiAction* gWindowActionCA0174 = nullptr;
-login::YobiAction* gWindowActionD2E928 = nullptr;
-login::YobiAction* gPreviewActionD67B84 = nullptr;
-std::int32_t gValueD67AF8 = 0;
-std::uint8_t gValueD67AFC = 0;
-std::uint8_t gValueD67AFD = 0;
-std::uint8_t gValueD67AFE = 0;
-std::uint8_t gValueD67B24 = 0;
-std::int32_t gUsingSkillIndexD2F32C = 0;
-std::int32_t gUsingSkillLevelCA0AC4 = 0;
-std::int32_t gSkillTargetKindCF4A10 = 0;
-std::int32_t gSkillTargetCountCA0004 = 0;
-std::int32_t gSkillTargetPageC8A974 = 0;
-std::int32_t gSkillTargetPageCountCA0178 = 0;
-std::int32_t gSkillSendModeC8A970 = 0;
-std::int32_t gSkillSelectedTargetCC4B1C = 0;
-std::int32_t gSkillWindowModeD672AC = 0;
-std::int32_t gSkillWindowIndexD2EA60 = 0;
-static std::int32_t gSkillWindowScrollD2D648 = 0;
-static std::int32_t gSkillWindowHoverD2F744 = 0;
-static std::int32_t gSkillRecipeLevelC8B1B4 = 0;
-static std::int32_t gSkillWindowMaximumCA000C = 0;
+login::YobiAction* gWindowActionCA0174 = nullptr; // 原全局：0x00CA0174。
+login::YobiAction* gWindowActionD2E928 = nullptr; // 原全局：0x00D2E928。
+login::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
+std::int32_t gValueD67AF8 = 0; // 原全局：0x00D67AF8。
+std::uint8_t gValueD67AFC = 0; // 原全局：0x00D67AFC。
+std::uint8_t gValueD67AFD = 0; // 原全局：0x00D67AFD。
+std::uint8_t gValueD67AFE = 0; // 原全局：0x00D67AFE。
+std::uint8_t gValueD67B24 = 0; // 原全局：0x00D67B24。
+std::int32_t gUsingSkillIndexD2F32C = 0; // 原全局：0x00D2F32C。
+std::int32_t gUsingSkillLevelCA0AC4 = 0; // 原全局：0x00CA0AC4。
+std::int32_t gSkillTargetKindCF4A10 = 0; // 原全局：0x00CF4A10。
+std::int32_t gSkillTargetCountCA0004 = 0; // 原全局：0x00CA0004。
+std::int32_t gSkillTargetPageC8A974 = 0; // 原全局：0x00C8A974。
+std::int32_t gSkillTargetPageCountCA0178 = 0; // 原全局：0x00CA0178。
+std::int32_t gSkillSendModeC8A970 = 0; // 原全局：0x00C8A970。
+std::int32_t gSkillSelectedTargetCC4B1C = 0; // 原全局：0x00CC4B1C。
+std::int32_t gSkillWindowModeD672AC = 0; // 原全局：0x00D672AC。
+std::int32_t gSkillWindowIndexD2EA60 = 0; // 原全局：0x00D2EA60。
+static std::int32_t gSkillWindowScrollD2D648 = 0; // 原全局：0x00D2D648。
+static std::int32_t gSkillWindowHoverD2F744 = 0; // 原全局：0x00D2F744。
+static std::int32_t gSkillRecipeLevelC8B1B4 = 0; // 原全局：0x00C8B1B4。
+static std::int32_t gSkillWindowMaximumCA000C = 0; // 原全局：0x00CA000C。
 // 前15项为配对行号，末字节D3FACB单独参与479FA9计数门槛，见战斗列表SPEC。
-static std::array<std::int8_t, 16> gBattleSkillRowsD3FABC {};
-static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr;
-static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr;
+static std::array<std::int8_t, 16> gBattleSkillRowsD3FABC {}; // 原全局：0x00D3FABC。
+static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr; // 原全局：0x00CC4230。
+static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr; // 原全局：0x00CC4D14。
 // 原战斗子窗展开引用；CC423C独立于关闭入口处理的前三槽，不合并生命周期。
-static login::YobiAction* gBattleSkillWindowActionCC1A10 = nullptr;
-static login::YobiAction* gBattleItemWindowActionD2F790 = nullptr;
-static login::YobiAction* gBattlePetWindowActionD2D60C = nullptr;
-static login::YobiAction* gBattlePetSkillWindowActionCC423C = nullptr;
-static std::uint8_t gBattleSkillTargetPendingD303F8 = 0;
-static std::uint8_t gBattleValueCB054C = 0;
-std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
-std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
-std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
-std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {};
-std::uint8_t gSkillTargetPendingC8AF5F = 0;
-std::array<char, 20> gSkillTargetNameD2F748 {};
+static login::YobiAction* gBattleSkillWindowActionCC1A10 = nullptr; // 原全局：0x00CC1A10。
+static login::YobiAction* gBattleItemWindowActionD2F790 = nullptr; // 原全局：0x00D2F790。
+static login::YobiAction* gBattlePetWindowActionD2D60C = nullptr; // 原全局：0x00D2D60C。
+static login::YobiAction* gBattlePetSkillWindowActionCC423C = nullptr; // 原全局：0x00CC423C。
+static std::uint8_t gBattleSkillTargetPendingD303F8 = 0; // 原全局：0x00D303F8。
+static std::uint8_t gBattleValueCB054C = 0; // 原全局：0x00CB054C。
+std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。
+std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
+std::array<const char*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
+std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {}; // 原全局：0x00CB1DE4。
+std::uint8_t gSkillTargetPendingC8AF5F = 0; // 原全局：0x00C8AF5F。
+std::array<char, 20> gSkillTargetNameD2F748 {}; // 原全局：0x00D2F748。
 
 namespace {
 
@@ -524,60 +524,60 @@ struct BattlePetVitals {
     std::int32_t maxFp;
 };
 static_assert(sizeof(BattlePetVitals) == 0x10);
-std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {};
+std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 
 // 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
 std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
 static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
 
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
-const char* const* gTextChoiceNamesD30130 = nullptr;
-const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr;
-std::int32_t gTextChoiceCountCC4CE4 = 0;
-WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr;
-WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr;
-std::int32_t gTextChoiceOffsetD2D9C0 = 0;
-std::uint8_t gTextChoiceEnabledCA0008 = 0;
-const WindowStatusChoiceRecord* gStatusChoiceRecordsCB03D0 = nullptr;
-std::int32_t gStatusChoiceCountCC2364 = 0;
-WindowTextChoiceCallback gStatusChoiceCallbackCF47D4 = nullptr;
-std::int32_t gStatusChoiceOffsetD671D4 = 0;
-std::uint8_t gStatusChoiceEnabledC9A970 = 0;
+const char* const* gTextChoiceNamesD30130 = nullptr; // 原全局：0x00D30130。
+const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
+std::int32_t gTextChoiceCountCC4CE4 = 0; // 原全局：0x00CC4CE4。
+WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr; // 原全局：0x00C9A974。
+WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr; // 原全局：0x00CA0AC0。
+std::int32_t gTextChoiceOffsetD2D9C0 = 0; // 原全局：0x00D2D9C0。
+std::uint8_t gTextChoiceEnabledCA0008 = 0; // 原全局：0x00CA0008。
+const WindowStatusChoiceRecord* gStatusChoiceRecordsCB03D0 = nullptr; // 原全局：0x00CB03D0。
+std::int32_t gStatusChoiceCountCC2364 = 0; // 原全局：0x00CC2364。
+WindowTextChoiceCallback gStatusChoiceCallbackCF47D4 = nullptr; // 原全局：0x00CF47D4。
+std::int32_t gStatusChoiceOffsetD671D4 = 0; // 原全局：0x00D671D4。
+std::uint8_t gStatusChoiceEnabledC9A970 = 0; // 原全局：0x00C9A970。
 
 // 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
 struct ItemUseTargetRecord {
     std::int16_t kind;
-    std::array<char, 17> name;
-    std::byte byte13;
+    std::array<char, 17> name; // 原成员偏移：+0x02。
+    std::byte byte13; // 原成员偏移：+0x13。
 };
 static_assert(offsetof(ItemUseTargetRecord, name) == 2);
 static_assert(sizeof(ItemUseTargetRecord) == 20);
-std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {};
-std::int32_t gItemUseTargetCountCC40CC = 0;
-std::int32_t gItemUsePageCC46DC = 0;
-std::int32_t gItemUsePageCountCC3E70 = 0;
-std::int32_t gItemUseTargetCB0A48 = 0;
-std::array<const char*, 10> gItemUseNamesCB0A1C {};
-std::array<std::uint8_t, 10> gItemUseColorsD2E91C {};
+std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {}; // 原全局：0x00CB0EA8。
+std::int32_t gItemUseTargetCountCC40CC = 0; // 原全局：0x00CC40CC。
+std::int32_t gItemUsePageCC46DC = 0; // 原全局：0x00CC46DC。
+std::int32_t gItemUsePageCountCC3E70 = 0; // 原全局：0x00CC3E70。
+std::int32_t gItemUseTargetCB0A48 = 0; // 原全局：0x00CB0A48。
+std::array<const char*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
+std::array<std::uint8_t, 10> gItemUseColorsD2E91C {}; // 原全局：0x00D2E91C。
 
 // 仅映射已证最多六行，不冻结相邻未消费容量；旧78借用同源记录。
-std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
-std::int32_t gItemUseStatusCountCC4D44 = 0;
-std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
+std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {}; // 原全局：0x00CB10D8。
+std::int32_t gItemUseStatusCountCC4D44 = 0; // 原全局：0x00CC4D44。
+std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 原全局：0x00CB1278。
 
 // ND六行属性使用各自原槽，不能与nFV值记录或ysVc名称表混用。
-std::int32_t gSkillStatusCountC8AA94 = 0;
-std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {};
-std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {};
-std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {};
-std::array<std::int32_t, 6> gSkillStatusHpCC318C {};
-std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {};
-std::array<std::int32_t, 6> gSkillStatusFpCC2348 {};
-std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {};
-std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {};
-std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {};
-std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {};
-std::int32_t gSkillPetImageCB0A18 = 0;
+std::int32_t gSkillStatusCountC8AA94 = 0; // 原全局：0x00C8AA94。
+std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
+std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {}; // 原全局：0x00CC31C0。
+std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {}; // 原全局：0x00D67600。
+std::array<std::int32_t, 6> gSkillStatusHpCC318C {}; // 原全局：0x00CC318C。
+std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {}; // 原全局：0x00D66C1C。
+std::array<std::int32_t, 6> gSkillStatusFpCC2348 {}; // 原全局：0x00CC2348。
+std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {}; // 原全局：0x00D2EA80。
+std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {}; // 原全局：0x00CA0A78。
+std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {}; // 原全局：0x00CF3FD0。
+std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {}; // 原全局：0x00CC4BE8。
+std::int32_t gSkillPetImageCB0A18 = 0; // 原全局：0x00CB0A18。
 constexpr std::array<std::array<std::int32_t, 2>, 8> kPetCrystalItemRanges {{
     {0x24B9, 0x24C2}, {0x24C3, 0x24CC}, {0x24CD, 0x24D6}, {0x24D7, 0x24E0},
     {0x24E1, 0x24E5}, {0x24E6, 0x24EA}, {0x24EB, 0x24EF}, {0x24F0, 0x24F4},
@@ -588,35 +588,35 @@ constexpr std::array<std::array<std::int32_t, 2>, 15> kPetCrystalLevels54F2C8 {{
     {37, 50}, {44, 57}, {51, 64}, {58, 71}, {65, 78},
     {72, 85}, {79, 92}, {86, 99}, {93, 106}, {100, 1000},
 }};
-constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 {
+constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 { // 原常量参考：0x0054F340。
     1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8,
 };
 
-std::int32_t gCraftSkillIndexCC2368 = 0;
-std::int32_t gCraftRecipeIndexD2D638 = 0;
-std::int32_t gCraftRecipeIdD2E440 = 0; // 主更新重定位配方使用的原id快照。
-std::int32_t gCraftRequestValueD30400 = 0; // 制造发送保留完整S32值。
-std::uint8_t gSkillRequestByteD64E13 = 0; // 其他加工发送按S8读取。
-std::uint32_t gCraftDeadlineCF3B04 = 0; // 制作等待阶段的同源U32截止值。
-std::int32_t gCraftResultCC46D8 = 0;
-std::int32_t gCraftExperienceCC3204 = 0;
-std::int32_t gCraftValueCC4840 = 0;
-std::int32_t gCraftLevelUpCF4974 = 0;
-std::int32_t gCraftEnduranceD2F328 = 0;
-std::int32_t gCraftDexterityCA0448 = 0;
-std::int32_t gCraftIntelligenceCB0F84 = 0;
-std::int32_t gCraftInjuryD2EA78 = 0;
-std::int32_t gCraftResultImageCF4B60 = 0;
-std::int32_t gCraftDisplayImageCB2204 = 0;
-std::array<char, 60> gCraftNameCF46D4 {};
-std::array<char, 32> gCraftResultSuffixD672B4 {};
+std::int32_t gCraftSkillIndexCC2368 = 0; // 原全局：0x00CC2368。
+std::int32_t gCraftRecipeIndexD2D638 = 0; // 原全局：0x00D2D638。
+std::int32_t gCraftRecipeIdD2E440 = 0; // 原全局：0x00D2E440。 主更新重定位配方使用的原id快照。
+std::int32_t gCraftRequestValueD30400 = 0; // 原全局：0x00D30400。 制造发送保留完整S32值。
+std::uint8_t gSkillRequestByteD64E13 = 0; // 原全局：0x00D64E13。 其他加工发送按S8读取。
+std::uint32_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 制作等待阶段的同源U32截止值。
+std::int32_t gCraftResultCC46D8 = 0; // 原全局：0x00CC46D8。
+std::int32_t gCraftExperienceCC3204 = 0; // 原全局：0x00CC3204。
+std::int32_t gCraftValueCC4840 = 0; // 原全局：0x00CC4840。
+std::int32_t gCraftLevelUpCF4974 = 0; // 原全局：0x00CF4974。
+std::int32_t gCraftEnduranceD2F328 = 0; // 原全局：0x00D2F328。
+std::int32_t gCraftDexterityCA0448 = 0; // 原全局：0x00CA0448。
+std::int32_t gCraftIntelligenceCB0F84 = 0; // 原全局：0x00CB0F84。
+std::int32_t gCraftInjuryD2EA78 = 0; // 原全局：0x00D2EA78。
+std::int32_t gCraftResultImageCF4B60 = 0; // 原全局：0x00CF4B60。
+std::int32_t gCraftDisplayImageCB2204 = 0; // 原全局：0x00CB2204。
+std::array<char, 60> gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
+std::array<char, 32> gCraftResultSuffixD672B4 {}; // 原全局：0x00D672B4。
 // 只承接已证NUL文本合同；原固定容量未证，不猜数组上界或保留邻区。
-std::string gCraftResultDetailsD2E92C;
-std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {};
-std::int32_t gMaterialHintPageCF4FD8 = 0;
-std::int32_t gMaterialHoveredItemD67424 = 0;
+std::string gCraftResultDetailsD2E92C; // 原全局：0x00D2E92C。
+std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {}; // 原全局：0x00CB0A8C。
+std::int32_t gMaterialHintPageCF4FD8 = 0; // 原全局：0x00CF4FD8。
+std::int32_t gMaterialHoveredItemD67424 = 0; // 原全局：0x00D67424。
 // 原57D7F8：单选加工输入原型，只借用Input拥有的D2DE70。
-WindowInputPrototype gCraftInputPrototype57D7F8 {
+WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
     {{&input::gInputContextD2DE70}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
 };
@@ -624,160 +624,160 @@ constexpr std::array<std::array<std::int32_t, 2>, 6> kCraftAlternateActionImages
     {0x186A0, 0x18A87}, {0x19A28, 0x1A130}, {0x197D0, 0x19848},
     {0x1D524, 0x1D553}, {0x1D55C, 0x1D563}, {0x1AF0E, 0x1AF25},
 }};
-constexpr std::int16_t kCraftPreviewOffsetX57D7D0 = 30;
-constexpr std::int16_t kCraftPreviewOffsetY57D7D2 = -45;
-constexpr char kCraftSuccess586638[] = "\xA1\xA1\xD1\x75\xD4\xEC\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3";
-constexpr char kCraftFailure586628[] = "\xA1\xA1\xD1\x75\xD4\xEC\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
-constexpr char kCraftLevelUp58661C[] = "\xB5\xC8\xBC\x89\xCC\xE1\xC9\xFD\xA3\xA1";
-constexpr char kCraftExperience58660C[] = "\xBC\xBC\xC4\xDC\xBD\x9B\xF2\x9E\xD6\xB5 +%d";
-constexpr char kCraftEndurance586600[] = "\xA1\xA1\xC4\xCD\xC1\xA6 +%d";
-constexpr char kCraftDexterity5865F4[] = "\xA1\xA1\xEC\x60\xC7\xC9 +%d";
-constexpr char kCraftIntelligence5865E8[] = "\xA1\xA1\xD6\xC7\xC1\xA6 +%d";
-constexpr char kCraftInjury5865DC[] = "\xCA\xDC\x82\xFB\xC1\xCB\xA3\xA1";
-constexpr char kCraftSuccess589FB8[] = "\xB5\xC4\xBA\xCF\xB3\xC9\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3";
-constexpr char kCraftFailure589FA8[] = "\xB5\xC4\xBA\xCF\xB3\xC9\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
-constexpr char kCraftExperience589820[] = "\xBC\xBC\xC4\xDC\xBD\x9B\xF2\x9E\xD6\xB5 %+d";
-constexpr char kCraftLevelUp589814[] = "\xB5\xC8\xBC\x89\xC9\xCF\xC9\xFD\xA3\xA1\n";
-constexpr char kCraftEndurance589808[] = "\xC4\xCD\xC1\xA6 %+d";
-constexpr char kCraftDexterity5897FC[] = "\xEC\x60\xC7\xC9 %+d";
-constexpr char kCraftIntelligence5897F0[] = "\xD6\xC7\xC1\xA6 %+d";
-constexpr char kCraftInjury589CD4[] = "\xCA\xDC\x82\xFB\xC1\xCB\xA3\xA1\n";
-constexpr char kCraftLostItem589F9C[] = "%s \xCA\xA7\xC8\xA5\xC1\xCB\xA3\xA1";
+constexpr std::int16_t kCraftPreviewOffsetX57D7D0 = 30; // 原常量参考：0x0057D7D0。
+constexpr std::int16_t kCraftPreviewOffsetY57D7D2 = -45; // 原常量参考：0x0057D7D2。
+constexpr char kCraftSuccess586638[] = "\xA1\xA1\xD1\x75\xD4\xEC\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586638。
+constexpr char kCraftFailure586628[] = "\xA1\xA1\xD1\x75\xD4\xEC\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586628。
+constexpr char kCraftLevelUp58661C[] = "\xB5\xC8\xBC\x89\xCC\xE1\xC9\xFD\xA3\xA1"; // 原常量参考：0x0058661C。
+constexpr char kCraftExperience58660C[] = "\xBC\xBC\xC4\xDC\xBD\x9B\xF2\x9E\xD6\xB5 +%d"; // 原常量参考：0x0058660C。
+constexpr char kCraftEndurance586600[] = "\xA1\xA1\xC4\xCD\xC1\xA6 +%d"; // 原常量参考：0x00586600。
+constexpr char kCraftDexterity5865F4[] = "\xA1\xA1\xEC\x60\xC7\xC9 +%d"; // 原常量参考：0x005865F4。
+constexpr char kCraftIntelligence5865E8[] = "\xA1\xA1\xD6\xC7\xC1\xA6 +%d"; // 原常量参考：0x005865E8。
+constexpr char kCraftInjury5865DC[] = "\xCA\xDC\x82\xFB\xC1\xCB\xA3\xA1"; // 原常量参考：0x005865DC。
+constexpr char kCraftSuccess589FB8[] = "\xB5\xC4\xBA\xCF\xB3\xC9\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589FB8。
+constexpr char kCraftFailure589FA8[] = "\xB5\xC4\xBA\xCF\xB3\xC9\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589FA8。
+constexpr char kCraftExperience589820[] = "\xBC\xBC\xC4\xDC\xBD\x9B\xF2\x9E\xD6\xB5 %+d"; // 原常量参考：0x00589820。
+constexpr char kCraftLevelUp589814[] = "\xB5\xC8\xBC\x89\xC9\xCF\xC9\xFD\xA3\xA1\n"; // 原常量参考：0x00589814。
+constexpr char kCraftEndurance589808[] = "\xC4\xCD\xC1\xA6 %+d"; // 原常量参考：0x00589808。
+constexpr char kCraftDexterity5897FC[] = "\xEC\x60\xC7\xC9 %+d"; // 原常量参考：0x005897FC。
+constexpr char kCraftIntelligence5897F0[] = "\xD6\xC7\xC1\xA6 %+d"; // 原常量参考：0x005897F0。
+constexpr char kCraftInjury589CD4[] = "\xCA\xDC\x82\xFB\xC1\xCB\xA3\xA1\n"; // 原常量参考：0x00589CD4。
+constexpr char kCraftLostItem589F9C[] = "%s \xCA\xA7\xC8\xA5\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589F9C。
 
-std::int32_t gItemWorkResultCB05FC = 0;
-std::int32_t gItemWorkExperienceC8A950 = 0;
-std::int32_t gItemWorkValueD2E2AC = 0;
-std::int32_t gItemWorkLevelUpCB03D8 = 0;
-std::int32_t gItemWorkEnduranceCF46B4 = 0;
-std::int32_t gItemWorkDexterityCB0A14 = 0;
-std::int32_t gItemWorkIntelligenceD30418 = 0;
-std::int32_t gItemWorkInjuryD2E2A8 = 0;
-std::int32_t gItemWorkSkillIdD67CF0 = 0;
-std::array<char, 32> gItemWorkSuffixD2DADC {};
-std::string gItemWorkDetailsD2DB00; // 独立NUL文本合同，与制造详情不共用。
-std::int32_t gMaterialSingleHoverCB0AA4 = 0;
-constexpr char kItemWorkEngrave589D08[] = "\xB5\xC4\xBF\xCC\xD3\xA1";
-constexpr char kItemWorkIdentify589D00[] = "\xB5\xC4\xE8\x61\xB6\xA8";
-constexpr char kItemWorkRepair589CF8[] = "\xB5\xC4\xD0\xDE\xC0\xED";
-constexpr char kItemWorkSuccess589CEC[] = "\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkFailure589CE0[] = "\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkSuccess586774[] = "\xA1\xA1\xBF\xCC\xD3\xA1\xC9\xCF\xC8\xA5\xC1\xCB\xA3\xA1";
-constexpr char kItemWorkFailure586764[] = "\xA1\xA1\xBF\xCC\xD3\xA1\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkSuccess586754[] = "\xBE\xAB\x9F\x92\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kItemWorkFailure586744[] = "\xBE\xAB\x9F\x92\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kItemWorkSuccess586730[] = "\xA1\xA1\xB5\xC4\xE8\x61\xB6\xA8\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kItemWorkFailure58671C[] = "\xA1\xA1\xB5\xC4\xE8\x61\xB6\xA8\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
-constexpr char kItemWorkSuccess586708[] = "\xA1\xA1\xB5\xC4\xD0\xDE\xC0\xED\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kItemWorkFailure5866F4[] = "\xA1\xA1\xB5\xC4\xD0\xDE\xC0\xED\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3";
+std::int32_t gItemWorkResultCB05FC = 0; // 原全局：0x00CB05FC。
+std::int32_t gItemWorkExperienceC8A950 = 0; // 原全局：0x00C8A950。
+std::int32_t gItemWorkValueD2E2AC = 0; // 原全局：0x00D2E2AC。
+std::int32_t gItemWorkLevelUpCB03D8 = 0; // 原全局：0x00CB03D8。
+std::int32_t gItemWorkEnduranceCF46B4 = 0; // 原全局：0x00CF46B4。
+std::int32_t gItemWorkDexterityCB0A14 = 0; // 原全局：0x00CB0A14。
+std::int32_t gItemWorkIntelligenceD30418 = 0; // 原全局：0x00D30418。
+std::int32_t gItemWorkInjuryD2E2A8 = 0; // 原全局：0x00D2E2A8。
+std::int32_t gItemWorkSkillIdD67CF0 = 0; // 原全局：0x00D67CF0。
+std::array<char, 32> gItemWorkSuffixD2DADC {}; // 原全局：0x00D2DADC。
+std::string gItemWorkDetailsD2DB00; // 原全局：0x00D2DB00。 独立NUL文本合同，与制造详情不共用。
+std::int32_t gMaterialSingleHoverCB0AA4 = 0; // 原全局：0x00CB0AA4。
+constexpr char kItemWorkEngrave589D08[] = "\xB5\xC4\xBF\xCC\xD3\xA1"; // 原常量参考：0x00589D08。
+constexpr char kItemWorkIdentify589D00[] = "\xB5\xC4\xE8\x61\xB6\xA8"; // 原常量参考：0x00589D00。
+constexpr char kItemWorkRepair589CF8[] = "\xB5\xC4\xD0\xDE\xC0\xED"; // 原常量参考：0x00589CF8。
+constexpr char kItemWorkSuccess589CEC[] = "\xB3\xC9\xB9\xA6\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589CEC。
+constexpr char kItemWorkFailure589CE0[] = "\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589CE0。
+constexpr char kItemWorkSuccess586774[] = "\xA1\xA1\xBF\xCC\xD3\xA1\xC9\xCF\xC8\xA5\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586774。
+constexpr char kItemWorkFailure586764[] = "\xA1\xA1\xBF\xCC\xD3\xA1\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586764。
+constexpr char kItemWorkSuccess586754[] = "\xBE\xAB\x9F\x92\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586754。
+constexpr char kItemWorkFailure586744[] = "\xBE\xAB\x9F\x92\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586744。
+constexpr char kItemWorkSuccess586730[] = "\xA1\xA1\xB5\xC4\xE8\x61\xB6\xA8\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586730。
+constexpr char kItemWorkFailure58671C[] = "\xA1\xA1\xB5\xC4\xE8\x61\xB6\xA8\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058671C。
+constexpr char kItemWorkSuccess586708[] = "\xA1\xA1\xB5\xC4\xD0\xDE\xC0\xED\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586708。
+constexpr char kItemWorkFailure5866F4[] = "\xA1\xA1\xB5\xC4\xD0\xDE\xC0\xED\xCA\xA7\x94\xA1\xC1\xCB\xA1\xA3"; // 原常量参考：0x005866F4。
 
-std::int32_t gWindow12ResultD2D820 = 0;
-std::int32_t gWindow12ExperienceD2DFCC = 0;
-std::int32_t gWindow12ValueD40B08 = 0;
-std::int32_t gWindow12LevelUpC9C0FC = 0;
-std::int32_t gWindow12EnduranceCB0358 = 0;
-std::int32_t gWindow12DexterityCC3EC0 = 0;
-std::int32_t gWindow12IntelligenceCC4B60 = 0;
-std::int32_t gWindow12ValueCF3FF0 = 0; // 回复第七字段，486F20按结果图号消费。
-std::int32_t gWindow12ValueD66E28 = 0;
-std::array<char, 32> gWindow12NameD2DA94 {};
-std::array<char, 32> gWindow12SuffixCB1E1C {};
-std::string gWindow12DetailsCC190C; // 只承接已证NUL文本，不与前两结果摘要混用。
-std::uint8_t gWindow12ModeCC3E80 = 0;
-std::uint8_t gWindow12FlagCC4D27 = 0;
-std::uint32_t gWindow12TickD45D4C = 0;
-std::uint32_t gSkillPreviewTickCF46C8 = 0; // 多个技能窗口共用的另一计时槽。
-std::uint8_t gWindow12SkillIndexCA0470 = 0; // 原低U8发布，索引消费按S8。
-std::uint8_t gWindow12SkillLevelCB0608 = 0;
-std::uint8_t gWindow12KindD046CC = 0;
-std::uint32_t gSkillExtraDelayCF46C4 = 0;
-std::uint32_t gWindow12DeadlineCB0F7C = 0;
-std::int32_t gWindow12PetImageCB10CC = 0;
-std::int32_t gWindow12CrystalLevelCC3E90 = 0;
-constexpr std::array<std::int8_t, 16> kSkillRebirthRates57D7A4 {
+std::int32_t gWindow12ResultD2D820 = 0; // 原全局：0x00D2D820。
+std::int32_t gWindow12ExperienceD2DFCC = 0; // 原全局：0x00D2DFCC。
+std::int32_t gWindow12ValueD40B08 = 0; // 原全局：0x00D40B08。
+std::int32_t gWindow12LevelUpC9C0FC = 0; // 原全局：0x00C9C0FC。
+std::int32_t gWindow12EnduranceCB0358 = 0; // 原全局：0x00CB0358。
+std::int32_t gWindow12DexterityCC3EC0 = 0; // 原全局：0x00CC3EC0。
+std::int32_t gWindow12IntelligenceCC4B60 = 0; // 原全局：0x00CC4B60。
+std::int32_t gWindow12ValueCF3FF0 = 0; // 原全局：0x00CF3FF0。 回复第七字段，486F20按结果图号消费。
+std::int32_t gWindow12ValueD66E28 = 0; // 原全局：0x00D66E28。
+std::array<char, 32> gWindow12NameD2DA94 {}; // 原全局：0x00D2DA94。
+std::array<char, 32> gWindow12SuffixCB1E1C {}; // 原全局：0x00CB1E1C。
+std::string gWindow12DetailsCC190C; // 原全局：0x00CC190C。 只承接已证NUL文本，不与前两结果摘要混用。
+std::uint8_t gWindow12ModeCC3E80 = 0; // 原全局：0x00CC3E80。
+std::uint8_t gWindow12FlagCC4D27 = 0; // 原全局：0x00CC4D27。
+std::uint32_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
+std::uint32_t gSkillPreviewTickCF46C8 = 0; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
+std::uint8_t gWindow12SkillIndexCA0470 = 0; // 原全局：0x00CA0470。 原低U8发布，索引消费按S8。
+std::uint8_t gWindow12SkillLevelCB0608 = 0; // 原全局：0x00CB0608。
+std::uint8_t gWindow12KindD046CC = 0; // 原全局：0x00D046CC。
+std::uint32_t gSkillExtraDelayCF46C4 = 0; // 原全局：0x00CF46C4。
+std::uint32_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
+std::int32_t gWindow12PetImageCB10CC = 0; // 原全局：0x00CB10CC。
+std::int32_t gWindow12CrystalLevelCC3E90 = 0; // 原全局：0x00CC3E90。
+constexpr std::array<std::int8_t, 16> kSkillRebirthRates57D7A4 { // 原常量参考：0x0057D7A4。
     100, 95, 90, 85, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 0,
 };
-constexpr std::array<std::int8_t, 16> kSkillCrystalRates57D7B4 {
+constexpr std::array<std::int8_t, 16> kSkillCrystalRates57D7B4 { // 原常量参考：0x0057D7B4。
     100, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
 };
-constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{
+constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{ // 原常量参考：0x0057D7D0。
     {30, -45, 0}, {-30, -45, 7}, {-50, -20, 6},
     {-35, 22, 4}, {35, 22, 3}, {50, -20, 2},
 }};
-constexpr char kWindow12Suffix589830[] = "\xB5\xC3\xB5\xBD\xC1\xCB\xA3\xA1";
-constexpr char kWindow12Nothing5897DC[] = "\x9B\x5D\xBF\xB4\xB5\xBD\xC8\xCE\xBA\xCE\x96\x7C\xCE\xF7\xA1\xA3\n";
-constexpr char kWindow12Success5869D4[] = "\xA1\xA1\xB0\x6C\xAC\x46\xC1\xCB\xA1\xA3";
-constexpr char kWindow12Failure5869C4[] = "\xCA\xB2\xFC\x4E\xB6\xBC\x9B\x5D\xB0\x6C\xAC\x46\xA1\xA3";
-constexpr char kWindow12Unknown554590[] = "???";
-constexpr char kWindow12NoFp5864F0[] = "\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA1\xA3";
-constexpr char kWindow12NoSpace5869E0[] = "\xCE\xEF\xC6\xB7\x99\xDA\x9B\x5D\xD3\xD0\xBF\xD5\xCE\xBB\xA1\xA3";
-constexpr char kWindow12Restart5869F4[] = "\xD6\xD8\xD0\xC2\xD4\xD9\xE9\x5F\xA1\xA3";
-constexpr char kWindow12Cancel586A00[] = "\x95\xBA\x95\x72\xD6\xD0\x94\xE0\xA1\xA3";
+constexpr char kWindow12Suffix589830[] = "\xB5\xC3\xB5\xBD\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589830。
+constexpr char kWindow12Nothing5897DC[] = "\x9B\x5D\xBF\xB4\xB5\xBD\xC8\xCE\xBA\xCE\x96\x7C\xCE\xF7\xA1\xA3\n"; // 原常量参考：0x005897DC。
+constexpr char kWindow12Success5869D4[] = "\xA1\xA1\xB0\x6C\xAC\x46\xC1\xCB\xA1\xA3"; // 原常量参考：0x005869D4。
+constexpr char kWindow12Failure5869C4[] = "\xCA\xB2\xFC\x4E\xB6\xBC\x9B\x5D\xB0\x6C\xAC\x46\xA1\xA3"; // 原常量参考：0x005869C4。
+constexpr char kWindow12Unknown554590[] = "???"; // 原常量参考：0x00554590。
+constexpr char kWindow12NoFp5864F0[] = "\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x005864F0。
+constexpr char kWindow12NoSpace5869E0[] = "\xCE\xEF\xC6\xB7\x99\xDA\x9B\x5D\xD3\xD0\xBF\xD5\xCE\xBB\xA1\xA3"; // 原常量参考：0x005869E0。
+constexpr char kWindow12Restart5869F4[] = "\xD6\xD8\xD0\xC2\xD4\xD9\xE9\x5F\xA1\xA3"; // 原常量参考：0x005869F4。
+constexpr char kWindow12Cancel586A00[] = "\x95\xBA\x95\x72\xD6\xD0\x94\xE0\xA1\xA3"; // 原常量参考：0x00586A00。
 static_assert(sizeof(kWindow12Nothing5897DC) == 18);
 
-std::int32_t gWindow13ResultD66E2C = 0;
-std::int32_t gWindow13ExperienceCC2E5C = 0;
-std::int32_t gWindow13ValueCC3E8C = 0;
-std::int32_t gWindow13LevelUpCF468C = 0;
-std::int32_t gWindow13EnduranceCC421C = 0;
-std::int32_t gWindow13DexterityD2D644 = 0;
-std::int32_t gWindow13IntelligenceCC19FC = 0;
-std::int32_t gWindow13ValueD2DBF0 = 0;
-std::array<char, 32> gWindow13SummaryCC18CC {};
-std::array<char, 32> gWindow13TitleCC18EC {};
-std::string gWindow13DetailsCB0FDC; // 原NUL详情，只供同源结果消费者借读。
-constexpr char kWindow13Text589A80[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC";
-constexpr char kWindow13Text589A64[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text589A48[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text589A34[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC";
-constexpr char kWindow13Text589A18[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text5899FC[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text5899E8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC";
-constexpr char kWindow13Text5899D4[] = "\xBB\xD8\x8F\xCD\xC1\xCB\x25\x64\xFC\x63\xC9\xFA\xC3\xFC\xC1\xA6\xA1\xA3";
-constexpr char kWindow13Text5899B8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text5899A0[] = "\x9F\x6F\xB7\xA8\x8C\x8D\xCA\xA9\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xA1";
-constexpr char kWindow13Text589984[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text589970[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC";
-constexpr char kWindow13Text589954[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text589940[] = "\xBB\xD8\x8F\xCD\xC1\xCB\xBD\xA1\xBF\xB5\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kWindow13Text589928[] = "\xBB\xD8\x8F\xCD\xC1\xCB\xC9\xD9\xD4\x53\xBD\xA1\xBF\xB5\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kWindow13Text589914[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC";
-constexpr char kWindow13Text5898F4[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\x9F\x6F\xB7\xA8\x8C\x8D\xCA\xA9\xA3\xA1";
-constexpr char kWindow13Text5898D8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text5898B8[] = "\x82\xFB\x84\xDD\xDF\x5E\xB6\xC8\x90\xBA\xBB\xAF\xA3\xAC\xEC\x60\xBB\xEA\xB5\xF4\xC1\xCB\xD2\xBB\xB8\xF1\xA1\xA3";
-constexpr char kWindow13Text5898A8[] = "\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xC1\xCB\xA1\xA3";
-constexpr char kWindow13Text586B00[] = "\x8C\xA6\x25\x2D\x32\x32\x73";
-constexpr char kWindow13Text586AF0[] = "\xA1\xA1\xD7\x83\xD1\x62\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586AE0[] = "\xA1\xA1\xD7\x83\xD1\x62\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586AD0[] = "\xA1\xA1\xD7\x83\xC9\xED\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586AC0[] = "\xA1\xA1\xD7\x83\xC9\xED\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586AAC[] = "\x25\x2D\x31\x36\x73\xB5\xC4\xD6\xCE\xAF\x9F\xB3\xC9\xB9\xA6\xC1\xCB";
-constexpr char kWindow13Text586A94[] = "\xA1\xA1\xC9\xFA\xC3\xFC\xD6\xB5\xBB\xD6\x8F\xCD\xC1\xCB\x20\x25\x64\x20\xA1\xA3";
-constexpr char kWindow13Text586A80[] = "\xA1\xA1\xB2\xBB\xD0\xE8\xDF\x4D\xD0\xD0\xD6\xCE\xAF\x9F\xA3\xA1";
-constexpr char kWindow13Text586A70[] = "\xA1\xA1\xD6\xCE\xAF\x9F\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586A5C[] = "\x82\xFB\x84\xDD\xC8\xAB\xB2\xBF\xBB\xD6\x8F\xCD\xC1\xCB\xA3\xA1";
-constexpr char kWindow13Text586A48[] = "\x82\xFB\x84\xDD\xC9\xD4\xCE\xA2\xBB\xD6\x8F\xCD\xC1\xCB\xA1\xA3";
-constexpr char kWindow13Text586A34[] = "\x25\x2D\x31\x36\x73\xB5\xC4\xD6\xCE\xAF\x9F\xCA\xA7\x94\xA1\xC1\xCB";
-constexpr char kWindow13Text586A1C[] = "\xA1\xA1\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xB6\xF8\xB5\xF4\xBB\xEA\xC1\xCB\xA1\xA3";
-constexpr char kWindow13Text586A0C[] = "\xA1\xA1\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xC1\xCB\xA1\xA3";
-constexpr char kWindow13Text5868E0[] = "\xC0\x5E\xC0\x6D\x88\xCC\xD0\xD0\xA1\xA3";
-constexpr char kWindow13Text5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0";
+std::int32_t gWindow13ResultD66E2C = 0; // 原全局：0x00D66E2C。
+std::int32_t gWindow13ExperienceCC2E5C = 0; // 原全局：0x00CC2E5C。
+std::int32_t gWindow13ValueCC3E8C = 0; // 原全局：0x00CC3E8C。
+std::int32_t gWindow13LevelUpCF468C = 0; // 原全局：0x00CF468C。
+std::int32_t gWindow13EnduranceCC421C = 0; // 原全局：0x00CC421C。
+std::int32_t gWindow13DexterityD2D644 = 0; // 原全局：0x00D2D644。
+std::int32_t gWindow13IntelligenceCC19FC = 0; // 原全局：0x00CC19FC。
+std::int32_t gWindow13ValueD2DBF0 = 0; // 原全局：0x00D2DBF0。
+std::array<char, 32> gWindow13SummaryCC18CC {}; // 原全局：0x00CC18CC。
+std::array<char, 32> gWindow13TitleCC18EC {}; // 原全局：0x00CC18EC。
+std::string gWindow13DetailsCB0FDC; // 原全局：0x00CB0FDC。 原NUL详情，只供同源结果消费者借读。
+constexpr char kWindow13Text589A80[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC"; // 原常量参考：0x00589A80。
+constexpr char kWindow13Text589A64[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589A64。
+constexpr char kWindow13Text589A48[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xD1\x62\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589A48。
+constexpr char kWindow13Text589A34[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC"; // 原常量参考：0x00589A34。
+constexpr char kWindow13Text589A18[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589A18。
+constexpr char kWindow13Text5899FC[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD7\x83\xC9\xED\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x005899FC。
+constexpr char kWindow13Text5899E8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC"; // 原常量参考：0x005899E8。
+constexpr char kWindow13Text5899D4[] = "\xBB\xD8\x8F\xCD\xC1\xCB\x25\x64\xFC\x63\xC9\xFA\xC3\xFC\xC1\xA6\xA1\xA3"; // 原常量参考：0x005899D4。
+constexpr char kWindow13Text5899B8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x005899B8。
+constexpr char kWindow13Text5899A0[] = "\x9F\x6F\xB7\xA8\x8C\x8D\xCA\xA9\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xA1"; // 原常量参考：0x005899A0。
+constexpr char kWindow13Text589984[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBC\xB1\xBE\xC8\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589984。
+constexpr char kWindow13Text589970[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC"; // 原常量参考：0x00589970。
+constexpr char kWindow13Text589954[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00589954。
+constexpr char kWindow13Text589940[] = "\xBB\xD8\x8F\xCD\xC1\xCB\xBD\xA1\xBF\xB5\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00589940。
+constexpr char kWindow13Text589928[] = "\xBB\xD8\x8F\xCD\xC1\xCB\xC9\xD9\xD4\x53\xBD\xA1\xBF\xB5\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00589928。
+constexpr char kWindow13Text589914[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC"; // 原常量参考：0x00589914。
+constexpr char kWindow13Text5898F4[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\x9F\x6F\xB7\xA8\x8C\x8D\xCA\xA9\xA3\xA1"; // 原常量参考：0x005898F4。
+constexpr char kWindow13Text5898D8[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xD6\xCE\xAF\x9F\xA1\xBB\xBC\xBC\xC4\xDC\xA3\xAC\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x005898D8。
+constexpr char kWindow13Text5898B8[] = "\x82\xFB\x84\xDD\xDF\x5E\xB6\xC8\x90\xBA\xBB\xAF\xA3\xAC\xEC\x60\xBB\xEA\xB5\xF4\xC1\xCB\xD2\xBB\xB8\xF1\xA1\xA3"; // 原常量参考：0x005898B8。
+constexpr char kWindow13Text5898A8[] = "\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xC1\xCB\xA1\xA3"; // 原常量参考：0x005898A8。
+constexpr char kWindow13Text586B00[] = "\x8C\xA6\x25\x2D\x32\x32\x73"; // 原常量参考：0x00586B00。
+constexpr char kWindow13Text586AF0[] = "\xA1\xA1\xD7\x83\xD1\x62\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586AF0。
+constexpr char kWindow13Text586AE0[] = "\xA1\xA1\xD7\x83\xD1\x62\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586AE0。
+constexpr char kWindow13Text586AD0[] = "\xA1\xA1\xD7\x83\xC9\xED\xB3\xC9\xB9\xA6\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586AD0。
+constexpr char kWindow13Text586AC0[] = "\xA1\xA1\xD7\x83\xC9\xED\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586AC0。
+constexpr char kWindow13Text586AAC[] = "\x25\x2D\x31\x36\x73\xB5\xC4\xD6\xCE\xAF\x9F\xB3\xC9\xB9\xA6\xC1\xCB"; // 原常量参考：0x00586AAC。
+constexpr char kWindow13Text586A94[] = "\xA1\xA1\xC9\xFA\xC3\xFC\xD6\xB5\xBB\xD6\x8F\xCD\xC1\xCB\x20\x25\x64\x20\xA1\xA3"; // 原常量参考：0x00586A94。
+constexpr char kWindow13Text586A80[] = "\xA1\xA1\xB2\xBB\xD0\xE8\xDF\x4D\xD0\xD0\xD6\xCE\xAF\x9F\xA3\xA1"; // 原常量参考：0x00586A80。
+constexpr char kWindow13Text586A70[] = "\xA1\xA1\xD6\xCE\xAF\x9F\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586A70。
+constexpr char kWindow13Text586A5C[] = "\x82\xFB\x84\xDD\xC8\xAB\xB2\xBF\xBB\xD6\x8F\xCD\xC1\xCB\xA3\xA1"; // 原常量参考：0x00586A5C。
+constexpr char kWindow13Text586A48[] = "\x82\xFB\x84\xDD\xC9\xD4\xCE\xA2\xBB\xD6\x8F\xCD\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586A48。
+constexpr char kWindow13Text586A34[] = "\x25\x2D\x31\x36\x73\xB5\xC4\xD6\xCE\xAF\x9F\xCA\xA7\x94\xA1\xC1\xCB"; // 原常量参考：0x00586A34。
+constexpr char kWindow13Text586A1C[] = "\xA1\xA1\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xB6\xF8\xB5\xF4\xBB\xEA\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586A1C。
+constexpr char kWindow13Text586A0C[] = "\xA1\xA1\x82\xFB\x84\xDD\x90\xBA\xBB\xAF\xC1\xCB\xA1\xA3"; // 原常量参考：0x00586A0C。
+constexpr char kWindow13Text5868E0[] = "\xC0\x5E\xC0\x6D\x88\xCC\xD0\xD0\xA1\xA3"; // 原常量参考：0x005868E0。
+constexpr char kWindow13Text5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0"; // 原常量参考：0x005868EC。
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
-    std::array<char, 17> sellerName00;
-    std::array<char, 17> stallName11;
-    std::array<char, 57> description22;
-    std::array<std::byte, 1> bytes5B;
-    std::int32_t target5C; // 4CED60发布的浏览对象编号，不是地址。
-    std::int32_t imageNo60;
-    std::int32_t action64;
-    std::int32_t direction68;
+    std::array<char, 17> sellerName00; // 原成员偏移：+0x00。
+    std::array<char, 17> stallName11; // 原成员偏移：+0x11。
+    std::array<char, 57> description22; // 原成员偏移：+0x22。
+    std::array<std::byte, 1> bytes5B; // 原成员偏移：+0x5B。
+    std::int32_t target5C; // 原成员偏移：+0x5C。 4CED60发布的浏览对象编号，不是地址。
+    std::int32_t imageNo60; // 原成员偏移：+0x60。
+    std::int32_t action64; // 原成员偏移：+0x64。
+    std::int32_t direction68; // 原成员偏移：+0x68。
     std::array<world::detail::PlayerItemRecord, 20> items;
-    std::array<std::int32_t, 20> itemValuesD13E74;
-    std::array<std::int32_t, 20> itemValuesD13EC4;
+    std::array<std::int32_t, 20> itemValuesD13E74; // 原全局：0x00D13E74。
+    std::array<std::int32_t, 20> itemValuesD13EC4; // 原全局：0x00D13EC4。
     std::array<world::detail::PetRuntimeRecord, 5> pets;
-    std::array<std::int32_t, 5> petValuesD2D464;
-    std::array<std::int32_t, 5> petValuesD2D478;
+    std::array<std::int32_t, 5> petValuesD2D464; // 原全局：0x00D2D464。
+    std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
 static_assert(std::is_standard_layout_v<StallBrowseData>);
 static_assert(std::is_trivially_copyable_v<StallBrowseData>);
@@ -796,36 +796,36 @@ static_assert(offsetof(StallBrowseData, pets) == 0xF83C);
 static_assert(offsetof(StallBrowseData, petValuesD2D464) == 0x28D8C);
 static_assert(offsetof(StallBrowseData, petValuesD2D478) == 0x28DA0);
 static_assert(sizeof(StallBrowseData) == 0x28DB4);
-StallBrowseData gStallBrowseD046D8 {};
-std::int32_t gStallItemPageD67BC8 = 0;
-std::int32_t gStallItemCountD67BCC = 0;
-std::int32_t gStallPetPageD67BD0 = 0;
-std::int32_t gStallPetCountD67BD4 = 0;
-std::int32_t gStallModeD67BDC = 0;
-std::int32_t gStallItemSelection581124 = -1;
-std::int32_t gStallPetSelection581128 = -1;
-std::uint8_t gStallOwn58111C = 1;
-std::int32_t gStallHover581120 = -1;
-std::int32_t gStallDescriptionPageD67C3C = 0;
-std::int32_t gStallPetCandidatePageD67BD8 = 0;
-std::array<char, 57> gStallDescriptionD67BF8 {};
-WindowInputPrototype gStallNameInput581130 {
+StallBrowseData gStallBrowseD046D8 {}; // 原全局：0x00D046D8。
+std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
+std::int32_t gStallItemCountD67BCC = 0; // 原全局：0x00D67BCC。
+std::int32_t gStallPetPageD67BD0 = 0; // 原全局：0x00D67BD0。
+std::int32_t gStallPetCountD67BD4 = 0; // 原全局：0x00D67BD4。
+std::int32_t gStallModeD67BDC = 0; // 原全局：0x00D67BDC。
+std::int32_t gStallItemSelection581124 = -1; // 原全局：0x00581124。
+std::int32_t gStallPetSelection581128 = -1; // 原全局：0x00581128。
+std::uint8_t gStallOwn58111C = 1; // 原全局：0x0058111C。
+std::int32_t gStallHover581120 = -1; // 原全局：0x00581120。
+std::int32_t gStallDescriptionPageD67C3C = 0; // 原全局：0x00D67C3C。
+std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8。
+std::array<char, 57> gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
+WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
     {{&input::gInputContextCB0028}, WindowInputReferenceKind::Context},
     230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
 };
-WindowInputPrototype gStallDescriptionInput581360 {
+WindowInputPrototype gStallDescriptionInput581360 { // 原全局：0x00581360。
     {{&input::gInputContextCC2378}, WindowInputReferenceKind::Context},
     299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
 };
-WindowInputPrototype gStallPriceInput581590 {
+WindowInputPrototype gStallPriceInput581590 { // 原全局：0x00581590。
     {{&input::gInputContextCF4E60}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
-std::int32_t gStallPriceD67C40 = 0;
-std::int32_t gStallButtonStateD67C44 = 0;
-std::int32_t gStallInventoryHover5817FC = -1;
-constexpr char kStallInputHint586450[] = "\xD5\x88\xDD\x94\xC8\xEB\xC3\xE8\xCA\xF6";
-constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{
+std::int32_t gStallPriceD67C40 = 0; // 原全局：0x00D67C40。
+std::int32_t gStallButtonStateD67C44 = 0; // 原全局：0x00D67C44。
+std::int32_t gStallInventoryHover5817FC = -1; // 原全局：0x005817FC。
+constexpr char kStallInputHint586450[] = "\xD5\x88\xDD\x94\xC8\xEB\xC3\xE8\xCA\xF6"; // 原常量参考：0x00586450。
+constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{ // 原常量参考：0x0054EEE0。
     {98891, 98886, 98890},
     {98888, 98889, 98887},
     {98885, 98883, 98884},
@@ -833,11 +833,11 @@ constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{
     {98882, 98880, 98881},
     {98873, 98871, 98872},
 }};
-constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{
+constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{ // 原常量参考：0x0054EF40。
     {98864, 98862, 98863},
     {98867, 98865, 98866},
 }};
-constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButtonImages54EF28 {{
+constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButtonImages54EF28 {{ // 原常量参考：0x0054EF28。
     {98876, 98874, 98875},
     {98879, 98877, 98878},
 }};
@@ -849,13 +849,13 @@ struct StallOffer {
 };
 static_assert(sizeof(StallOffer) == 8);
 static_assert(offsetof(StallOffer, value) == 4);
-std::array<StallOffer, 20> gStallItemOffersD671D8 {};
-std::array<StallOffer, 5> gStallPetOffersCC3E98 {};
-std::array<std::uint8_t, 20> gStallItemUsedCC31AC {};
-std::array<std::uint8_t, 5> gStallPetUsedCF400C {};
+std::array<StallOffer, 20> gStallItemOffersD671D8 {}; // 原全局：0x00D671D8。
+std::array<StallOffer, 5> gStallPetOffersCC3E98 {}; // 原全局：0x00CC3E98。
+std::array<std::uint8_t, 20> gStallItemUsedCC31AC {}; // 原全局：0x00CC31AC。
+std::array<std::uint8_t, 5> gStallPetUsedCF400C {}; // 原全局：0x00CF400C。
 
-std::array<char, 256> gProfileSearchKeyword1075988 {};
-WindowInputPrototype gProfileSearchInputPrototype580A80 {
+std::array<char, 256> gProfileSearchKeyword1075988 {}; // 原全局：0x01075988。
+WindowInputPrototype gProfileSearchInputPrototype580A80 { // 原全局：0x00580A80。
     {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
     20, 370, 3, 12, 6, {}, 1, 26, 0, 0,
 };
@@ -864,17 +864,17 @@ WindowInputPrototype gProfileSearchInputPrototype580A80 {
 struct MiniMailComposeState {
     std::int32_t target;
     std::array<char, 256> name;
-    std::array<char, 0x404> text104;
+    std::array<char, 0x404> text104; // 原成员偏移：+0x104。
 };
 static_assert(offsetof(MiniMailComposeState, name) == 4);
 static_assert(offsetof(MiniMailComposeState, text104) == 0x104);
 static_assert(sizeof(MiniMailComposeState) == 0x508);
-MiniMailComposeState gMiniMailCompose105F508 {};
-WindowInputPrototype gMiniMailInputPrototype580CB0 {
+MiniMailComposeState gMiniMailCompose105F508 {}; // 原全局：0x0105F508。
+WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0。
     {{&input::gInputContextCA0180}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
-constexpr char kMiniMailCostHint588588[] =
+constexpr char kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
     "\xCA\xB9\xD3\xC3\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xB0\x6C\xD0\xC5"
     "\xD0\xE8\xD2\xAA\xBB\xA8\xD9\x4D\xC4\xA7\x8E\xC5" "%dG";
 static_assert(sizeof(kMiniMailCostHint588588) == 32);
@@ -886,38 +886,38 @@ struct Window56TextStorage {
 };
 static_assert(offsetof(Window56TextStorage, messages) == 0x34);
 static_assert(sizeof(Window56TextStorage) == 0x90);
-Window56TextStorage gWindow56Texts580870 {"NPCNAME", {"MESSAGE", "MESSAGE"}};
-std::int32_t gWindow56DialogTypeCB1DE0 = 0;
-std::int32_t gWindow56RequestCF49C0 = 0; // 创建保留，确认请求实际读取共享对话参数。
-std::int32_t gWindow56TargetC8AF60 = 0;
-std::int32_t gWindow56MinimumCB0F80 = 0;
-std::int32_t gWindow56MaximumC8A958 = 0;
-std::int32_t gWindow56BaseCB0F8C = 0;
-std::int32_t gWindow56ClassCC466C = 0;
-std::int32_t gWindow56QuarterCC3E88 = 0;
-std::int32_t gWindow56FifthCB0F88 = 0;
-std::int32_t gWindow56OnesCF4680 = 0;
+Window56TextStorage gWindow56Texts580870 {"NPCNAME", {"MESSAGE", "MESSAGE"}}; // 原全局：0x00580870。
+std::int32_t gWindow56DialogTypeCB1DE0 = 0; // 原全局：0x00CB1DE0。
+std::int32_t gWindow56RequestCF49C0 = 0; // 原全局：0x00CF49C0。 创建保留，确认请求实际读取共享对话参数。
+std::int32_t gWindow56TargetC8AF60 = 0; // 原全局：0x00C8AF60。
+std::int32_t gWindow56MinimumCB0F80 = 0; // 原全局：0x00CB0F80。
+std::int32_t gWindow56MaximumC8A958 = 0; // 原全局：0x00C8A958。
+std::int32_t gWindow56BaseCB0F8C = 0; // 原全局：0x00CB0F8C。
+std::int32_t gWindow56ClassCC466C = 0; // 原全局：0x00CC466C。
+std::int32_t gWindow56QuarterCC3E88 = 0; // 原全局：0x00CC3E88。
+std::int32_t gWindow56FifthCB0F88 = 0; // 原全局：0x00CB0F88。
+std::int32_t gWindow56OnesCF4680 = 0; // 原全局：0x00CF4680。
 
 // 原D2F7A0..AC四个数值槽；D2F7B0只映射固定240高所能消费的13行。
-std::int32_t gImageDialogTypeD2F7A0 = 0;
-std::int32_t gImageDialogRequestD2F7A4 = 0;
-std::int32_t gImageDialogTargetD2F7A8 = 0;
-std::int32_t gImageDialogImageD2F7AC = 0;
-std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {};
+std::int32_t gImageDialogTypeD2F7A0 = 0; // 原全局：0x00D2F7A0。
+std::int32_t gImageDialogRequestD2F7A4 = 0; // 原全局：0x00D2F7A4。
+std::int32_t gImageDialogTargetD2F7A8 = 0; // 原全局：0x00D2F7A8。
+std::int32_t gImageDialogImageD2F7AC = 0; // 原全局：0x00D2F7AC。
+std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {}; // 原全局：0x00D2F7B0。
 
 // 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
 struct WindowSavedRecord {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::int32_t value10;
-    std::array<std::byte, 0x114> bytes14;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+    std::array<std::byte, 0x114> bytes14; // 原成员偏移：+0x14。
 };
 
 struct WindowSavedData {
     std::int32_t version;
-    std::array<WindowSavedRecord, kWindowCount> records;
+    std::array<WindowSavedRecord, kWindowCount> records; // 原成员偏移：+0x04。
 };
 
 static_assert(offsetof(WindowSavedRecord, x) == 0);
@@ -931,32 +931,32 @@ static_assert(std::is_standard_layout_v<WindowSavedData>);
 static_assert(std::is_trivially_copyable_v<WindowSavedData>);
 static_assert(offsetof(WindowSavedData, records) == 4);
 static_assert(sizeof(WindowSavedData) == 0x521C);
-WindowSavedData gWindowSavedDataD40B30 {};
-std::int32_t gWindowSavedLengthCC4238 = 0;
-std::uint32_t gValueCF4B6C = 0; // 原4705D0独立清零槽，不扩展用途。
+WindowSavedData gWindowSavedDataD40B30 {}; // 原全局：0x00D40B30。
+std::int32_t gWindowSavedLengthCC4238 = 0; // 原全局：0x00CC4238。
+std::uint32_t gValueCF4B6C = 0; // 原全局：0x00CF4B6C。 原4705D0独立清零槽，不扩展用途。
 
 struct WindowListRecordD3FAD4 {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<std::array<char, 0x100>, 4> texts08;
-    std::int32_t value408;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::array<std::array<char, 0x100>, 4> texts08; // 原成员偏移：+0x08。
+    std::int32_t value408; // 原成员偏移：+0x408。
 };
 
 struct WindowChoiceSlotsCC4CA0 {
-    std::int32_t value00;
-    std::array<std::int32_t, 5> values04;
-    std::array<std::array<std::int32_t, 2>, 5> pairs18;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::array<std::int32_t, 5> values04; // 原成员偏移：+0x04。
+    std::array<std::array<std::int32_t, 2>, 5> pairs18; // 原成员偏移：+0x18。
 };
 
 // 仅承接D2F0B8已消费前缀，不视为完整对象或最终x64布局。
 struct WindowRuntimePrefixD2F0B8 {
     std::int32_t value00; // 4A2610先写+10再写此槽，后续由邮件窗口消费。
-    std::int32_t value04; // 4A3C70写排序后的记录索引，不是地址。
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::int32_t value10; // 原W32方式值，不是地址。
-    std::array<std::byte, 0x258> bytes14;
-    std::uint32_t value26C;
+    std::int32_t value04; // 原成员偏移：+0x04。 4A3C70写排序后的记录索引，不是地址。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。 原W32方式值，不是地址。
+    std::array<std::byte, 0x258> bytes14; // 原成员偏移：+0x14。
+    std::uint32_t value26C; // 原成员偏移：+0x26C。
 };
 
 // 原CC1A30..CC207B，窗口22消费、窗口49生产；两个数组各200个数值槽。
@@ -999,125 +999,125 @@ static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
 
 struct LoginWindowRuntimeSlots {
-    std::int32_t valueCF4A00;
-    std::int32_t valueC8A95C;
-    std::int32_t valueCB2200;
-    std::uint32_t valueD3FAD0;
-    std::array<WindowListRecordD3FAD4, 4> recordsD3FAD4;
-    WindowChoiceSlotsCC4CA0 choicesCC4CA0;
-    WindowRuntimePrefixD2F0B8 prefixD2F0B8;
-    WindowRuntimePrefixD2F0B8 mailDraftCF4BC8; // 4A5650只更新五字段和正文，保留其余字节。
-    WindowMailGroupSlotsCC1A30 mailGroupCC1A30;
-    std::int32_t mailGroupScrollD67B88;
-    std::int32_t mailGroupSortCategoryCB0600;
-    std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原排序索引，末地址CC318C，不与技能HP区重叠。
-    std::int32_t statusHasPointsD66E24; // 470AC0生产，4723D0两次独立读取。
-    std::int32_t statusHasInjuryD046C8; // 伤势提示门禁，不是玩家伤势副本。
-    std::int32_t statusHasMailCC4B5C; // 470AC0的518DA0结果，按钮固定入口快照。
-    std::int32_t statusMailCategoryD66E34; // 4723D0传给518F00的同源输出。
-    std::int32_t statusMailIndexD2E2D8;
-    std::int32_t statusBlinkPhaseCF4FBC; // 470AC0递增并在>60时回零，开窗不重置。
-    std::int32_t valueD673D0;
-    std::int32_t selectedPetCC3E5C;
-    std::int32_t previousPetCC4888; // 详情页记排序位置，不是实际宠物编号。
-    std::array<std::int32_t, 5> petSequencesCAFEB0;
-    std::array<char, 256> petNameDraftD45E74;
-    std::int32_t petTechniqueD2D66C; // 原物理技能下标，生产见48F620/48F690/48F6C0。
-    std::int32_t petTechniqueValueD2F784; // 原拖动关联槽，48D9A0置-1，48F620/48F6C0后续写。
-    std::int32_t petTechniqueDragD460CC; // 4920F0绘制门禁，初始化由48D9A0负责。
-    std::array<std::int32_t, 5> valuesCC1A18;
-    std::array<std::int32_t, 5> valuesCC4CE8;
-    std::int32_t countCC4CFC; // 48D460每帧重建的状态1计数，48C150不清此槽。
-    std::array<std::int32_t, 3> valuesD2EAA0;
-    std::array<std::int32_t, 2> valuesCF4E50;
-    std::array<std::int32_t, 7> valuesD67B40; // 两组三类滚动位置，末槽为D67B58类别。
-    std::uint32_t mailSortModeD67B3C; // 4A0970从存档live排序模式复制。
-    std::int32_t mailBlinkPhaseD67B5C; // 4A32B0有符号余数相位。
-    std::int32_t mailBlinkFlagD67B60; // 每16帧异或1，开窗不清零。
-    std::array<std::int32_t, 200> mailIndicesC9FCE4; // 窗口21三类名单共用的数值索引，不与CA0004重叠。
-    std::array<std::uint8_t, 2> mailGuildColorsD6784C; // 公会状态文本两W8颜色，保留原虚拟零存储。
-    std::int32_t mailMemberIndexCB1D18; // 4A38C0按编号查得，窗口55的4A4540消费。
-    std::int32_t mailMemberKeyD45F88; // 独立于D45F78金额文本；4A4370消费编号。
-    std::int32_t mailRankCF4A14; // 4A38C0/4A4220生产，4A4370发送时读取。
-    std::int32_t mailRankScrollCA0474; // 窗口55滚动位置，初始化不清所选职级。
-    std::int32_t mailCategoryD67B64; // 4A2B00发布，4A47C0/4A48A0消费。
-    std::int32_t mailCategoryCC4D50; // 4A2B00随后发布，4A49B0/4A4FC0消费。
-    std::int32_t mailDeleteIndexD2DA8C; // 删除确认与后续列表父链共用的记录索引。
-    std::int32_t valueCC31A4;
-    std::int32_t valueD2E444;
-    std::int32_t blacklistDeleteModeD67BC4; // 只由65删除按钮切换，初始化不重置。
-    std::int32_t valueCB0604;
-    std::uint32_t valueD67618;
-    platform::LegacyTm53B8C6* calendarTimeD67BAC; // 借用platform同一可变localtime对象。
-    std::int32_t timeCB1DF0;
-    std::int32_t valueD67BB0;
-    std::int32_t logViewerMaximumD67BB4; // 原计数上限，含EOF空读取，不减可见行数。
-    platform::LegacyFile* logViewerFileD67BB8; // 借用当前打开的MSVC FILE，关闭后不得重复消费。
-    std::int32_t logViewerErrorD67BBC;
-    std::int32_t dayD67BC0;
+    std::int32_t valueCF4A00; // 原全局：0x00CF4A00。
+    std::int32_t valueC8A95C; // 原全局：0x00C8A95C。
+    std::int32_t valueCB2200; // 原全局：0x00CB2200。
+    std::uint32_t valueD3FAD0; // 原全局：0x00D3FAD0。
+    std::array<WindowListRecordD3FAD4, 4> recordsD3FAD4; // 原全局：0x00D3FAD4。
+    WindowChoiceSlotsCC4CA0 choicesCC4CA0; // 原全局：0x00CC4CA0。
+    WindowRuntimePrefixD2F0B8 prefixD2F0B8; // 原全局：0x00D2F0B8。
+    WindowRuntimePrefixD2F0B8 mailDraftCF4BC8; // 原全局：0x00CF4BC8。 4A5650只更新五字段和正文，保留其余字节。
+    WindowMailGroupSlotsCC1A30 mailGroupCC1A30; // 原全局：0x00CC1A30。
+    std::int32_t mailGroupScrollD67B88; // 原全局：0x00D67B88。
+    std::int32_t mailGroupSortCategoryCB0600; // 原全局：0x00CB0600。
+    std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原全局：0x00CC2E6C。 原排序索引，末地址CC318C，不与技能HP区重叠。
+    std::int32_t statusHasPointsD66E24; // 原全局：0x00D66E24。 470AC0生产，4723D0两次独立读取。
+    std::int32_t statusHasInjuryD046C8; // 原全局：0x00D046C8。 伤势提示门禁，不是玩家伤势副本。
+    std::int32_t statusHasMailCC4B5C; // 原全局：0x00CC4B5C。 470AC0的518DA0结果，按钮固定入口快照。
+    std::int32_t statusMailCategoryD66E34; // 原全局：0x00D66E34。 4723D0传给518F00的同源输出。
+    std::int32_t statusMailIndexD2E2D8; // 原全局：0x00D2E2D8。
+    std::int32_t statusBlinkPhaseCF4FBC; // 原全局：0x00CF4FBC。 470AC0递增并在>60时回零，开窗不重置。
+    std::int32_t valueD673D0; // 原全局：0x00D673D0。
+    std::int32_t selectedPetCC3E5C; // 原全局：0x00CC3E5C。
+    std::int32_t previousPetCC4888; // 原全局：0x00CC4888。 详情页记排序位置，不是实际宠物编号。
+    std::array<std::int32_t, 5> petSequencesCAFEB0; // 原全局：0x00CAFEB0。
+    std::array<char, 256> petNameDraftD45E74; // 原全局：0x00D45E74。
+    std::int32_t petTechniqueD2D66C; // 原全局：0x00D2D66C。 原物理技能下标，生产见48F620/48F690/48F6C0。
+    std::int32_t petTechniqueValueD2F784; // 原全局：0x00D2F784。 原拖动关联槽，48D9A0置-1，48F620/48F6C0后续写。
+    std::int32_t petTechniqueDragD460CC; // 原全局：0x00D460CC。 4920F0绘制门禁，初始化由48D9A0负责。
+    std::array<std::int32_t, 5> valuesCC1A18; // 原全局：0x00CC1A18。
+    std::array<std::int32_t, 5> valuesCC4CE8; // 原全局：0x00CC4CE8。
+    std::int32_t countCC4CFC; // 原全局：0x00CC4CFC。 48D460每帧重建的状态1计数，48C150不清此槽。
+    std::array<std::int32_t, 3> valuesD2EAA0; // 原全局：0x00D2EAA0。
+    std::array<std::int32_t, 2> valuesCF4E50; // 原全局：0x00CF4E50。
+    std::array<std::int32_t, 7> valuesD67B40; // 原全局：0x00D67B40。 两组三类滚动位置，末槽为D67B58类别。
+    std::uint32_t mailSortModeD67B3C; // 原全局：0x00D67B3C。 4A0970从存档live排序模式复制。
+    std::int32_t mailBlinkPhaseD67B5C; // 原全局：0x00D67B5C。 4A32B0有符号余数相位。
+    std::int32_t mailBlinkFlagD67B60; // 原全局：0x00D67B60。 每16帧异或1，开窗不清零。
+    std::array<std::int32_t, 200> mailIndicesC9FCE4; // 原全局：0x00C9FCE4。 窗口21三类名单共用的数值索引，不与CA0004重叠。
+    std::array<std::uint8_t, 2> mailGuildColorsD6784C; // 原全局：0x00D6784C。 公会状态文本两W8颜色，保留原虚拟零存储。
+    std::int32_t mailMemberIndexCB1D18; // 原全局：0x00CB1D18。 4A38C0按编号查得，窗口55的4A4540消费。
+    std::int32_t mailMemberKeyD45F88; // 原全局：0x00D45F88。 独立于D45F78金额文本；4A4370消费编号。
+    std::int32_t mailRankCF4A14; // 原全局：0x00CF4A14。 4A38C0/4A4220生产，4A4370发送时读取。
+    std::int32_t mailRankScrollCA0474; // 原全局：0x00CA0474。 窗口55滚动位置，初始化不清所选职级。
+    std::int32_t mailCategoryD67B64; // 原全局：0x00D67B64。 4A2B00发布，4A47C0/4A48A0消费。
+    std::int32_t mailCategoryCC4D50; // 原全局：0x00CC4D50。 4A2B00随后发布，4A49B0/4A4FC0消费。
+    std::int32_t mailDeleteIndexD2DA8C; // 原全局：0x00D2DA8C。 删除确认与后续列表父链共用的记录索引。
+    std::int32_t valueCC31A4; // 原全局：0x00CC31A4。
+    std::int32_t valueD2E444; // 原全局：0x00D2E444。
+    std::int32_t blacklistDeleteModeD67BC4; // 原全局：0x00D67BC4。 只由65删除按钮切换，初始化不重置。
+    std::int32_t valueCB0604; // 原全局：0x00CB0604。
+    std::uint32_t valueD67618; // 原全局：0x00D67618。
+    platform::LegacyTm53B8C6* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用platform同一可变localtime对象。
+    std::int32_t timeCB1DF0; // 原全局：0x00CB1DF0。
+    std::int32_t valueD67BB0; // 原全局：0x00D67BB0。
+    std::int32_t logViewerMaximumD67BB4; // 原全局：0x00D67BB4。 原计数上限，含EOF空读取，不减可见行数。
+    platform::LegacyFile* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。
+    std::int32_t logViewerErrorD67BBC; // 原全局：0x00D67BBC。
+    std::int32_t dayD67BC0; // 原全局：0x00D67BC0。
 };
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
 // 原CC4240..CC466C确认上下文；函数指针原生化，不沿用x86字段偏移。
 struct Window47RuntimeSlots {
-    std::int32_t visibleMaskCC4240;
-    std::int32_t widthUnitsCC4244;
-    std::uint32_t valueCC4248;
-    std::uint32_t valueCC424C;
-    WindowCallback initializeCC4250;
-    std::array<WindowElementCallback, 6> actionsCC4254;
-    std::array<char, 1024> textCC426C;
+    std::int32_t visibleMaskCC4240; // 原全局：0x00CC4240。
+    std::int32_t widthUnitsCC4244; // 原全局：0x00CC4244。
+    std::uint32_t valueCC4248; // 原全局：0x00CC4248。
+    std::uint32_t valueCC424C; // 原全局：0x00CC424C。
+    WindowCallback initializeCC4250; // 原全局：0x00CC4250。
+    std::array<WindowElementCallback, 6> actionsCC4254; // 原全局：0x00CC4254。
+    std::array<char, 1024> textCC426C; // 原全局：0x00CC426C。
 };
 
 Window47RuntimeSlots gWindow47Runtime {};
-constexpr char kBlacklistRejectHint588668[] =
+constexpr char kBlacklistRejectHint588668[] = // 原常量参考：0x00588668。
     "\xBE\xDC\xBD\x5E\xBD\xD3\xCA\xD5\xB4\xCB\xC8\xCB\xB5\xC4\xB0\x6C\xD4\x92\xA1\xA3";
-constexpr char kBlacklistDeleteRowHint588654[] =
+constexpr char kBlacklistDeleteRowHint588654[] = // 原常量参考：0x00588654。
     "\x84\x68\xB3\xFD\xB4\xCB\xB9\x50\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistOccupied5885FC[] =
+constexpr char kBlacklistOccupied5885FC[] = // 原常量参考：0x005885FC。
     "\xB4\xCB\x99\xDA\xCE\xBB\xD2\xD1\xD3\xD0\xC3\xFB\x86\xCE";
-constexpr char kBlacklistPreviousHint5886CC[] =
+constexpr char kBlacklistPreviousHint5886CC[] = // 原常量参考：0x005886CC。
     "\xEF\x40\xCA\xBE\xC7\xB0\xCA\xAE\xB9\x50\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistNextHint5886B4[] =
+constexpr char kBlacklistNextHint5886B4[] = // 原常量参考：0x005886B4。
     "\xEF\x40\xCA\xBE\xE1\xE1\xCA\xAE\xB9\x50\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistDeleteHint58869C[] =
+constexpr char kBlacklistDeleteHint58869C[] = // 原常量参考：0x0058869C。
     "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistClearHint588680[] =
+constexpr char kBlacklistClearHint588680[] = // 原常量参考：0x00588680。
     "\xBF\xC9\xD2\xBB\xB4\xCE\x84\x68\xB3\xFD\xCB\xF9\xD3\xD0\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistRemoved58863C[] =
+constexpr char kBlacklistRemoved58863C[] = // 原常量参考：0x0058863C。
     "\xD2\xD1\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED\xD6\xD0\xD2\xC6\xB3\xFD\x25\x73";
-constexpr char kBlacklistRemoveFailed588620[] =
+constexpr char kBlacklistRemoveFailed588620[] = // 原常量参考：0x00588620。
     "\x9F\x6F\xB7\xA8\x8C\xA2\x25\x73\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED\xD6\xD0\xD2\xC6\xB3\xFD";
-constexpr char kBlacklistAbsent58860C[] =
+constexpr char kBlacklistAbsent58860C[] = // 原常量参考：0x0058860C。
     "\x25\x73\xB2\xBB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED\xD6\xD0";
-constexpr char kBlacklistClearConfirm5886E4[] =
+constexpr char kBlacklistClearConfirm5886E4[] = // 原常量参考：0x005886E4。
     "\x0A\x20\x20\x0A\x20\x20\x20\x20\xB4\x5F\xB6\xA8\x84\x68\xB3\xFD\x0A\x20\x20\x20"
     "\xCB\xF9\xD3\xD0\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\x86\xE1\xA3\xBF\x0A\x20\x0A\x20"
     "\x28\xB4\x5F\xB6\xA8\x84\x68\xB3\xFD\x95\x72\xA3\xAC\xD5\x88\xB0\xB4\xD7\xA1\x0A"
     "\x20\x43\x54\x52\x4C\xE6\x49\xD4\xD9\xDF\x78\x93\xF1\xA1\xB8\xCA\xC7\xA1\xB9\x29";
-constexpr char kBlacklistCleared588754[] =
+constexpr char kBlacklistCleared588754[] = // 原常量参考：0x00588754。
     "\xD2\xD1\x84\x68\xB3\xFD\xCB\xF9\xD3\xD0\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xA1\xA3";
-constexpr char kBlacklistEmpty588738[] =
+constexpr char kBlacklistEmpty588738[] = // 原常量参考：0x00588738。
     "\xBA\xDA\xC3\xFB\x86\xCE\x81\x4B\x9B\x5D\xD3\xD0\x83\xC8\xC8\xDD\xBF\xC9\x84\x68\xB3\xFD\xA1\xA3";
-constexpr char kLogViewerUpHint5885EC[] =
+constexpr char kLogViewerUpHint5885EC[] = // 原常量参考：0x005885EC。
     "\xCD\xF9\xC9\xCF\xB2\xE9\xBF\xB4\x83\xC8\xC8\xDD\xA1\xA3";
-constexpr char kLogViewerDownHint5885DC[] =
+constexpr char kLogViewerDownHint5885DC[] = // 原常量参考：0x005885DC。
     "\xCD\xF9\xCF\xC2\xB2\xE9\xBF\xB4\x83\xC8\xC8\xDD\xA1\xA3";
-constexpr char kLogViewerNextHint5885C8[] =
+constexpr char kLogViewerNextHint5885C8[] = // 原常量参考：0x005885C8。
     "\xB2\xE9\xBF\xB4\xE1\xE1\xD2\xBB\xCC\xEC\xB5\xC4\x83\xC8\xC8\xDD\xA1\xA3";
-constexpr char kLogViewerPreviousHint5885B4[] =
+constexpr char kLogViewerPreviousHint5885B4[] = // 原常量参考：0x005885B4。
     "\xB2\xE9\xBF\xB4\xC7\xB0\xD2\xBB\xCC\xEC\xB5\xC4\x83\xC8\xC8\xDD\xA1\xA3";
-constexpr char kLogViewerFailure55358C[] =
+constexpr char kLogViewerFailure55358C[] = // 原常量参考：0x0055358C。
     "\x9F\x6F\xB7\xA8\xE9\x5F\x86\xA2\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49";
-constexpr char kLogViewerFileFormat55351C[] = "chat_%02d%02d%02d.txt";
-constexpr char kLogViewerDirectory554658[] = "Log";
-constexpr char kLogViewerPathFormat553514[] = "%s\\%s";
-constexpr char kLogViewerReadMode553510[] = "rt";
-constexpr char kLogViewerAppendMode55350C[] = "a+t";
+constexpr char kLogViewerFileFormat55351C[] = "chat_%02d%02d%02d.txt"; // 原常量参考：0x0055351C。
+constexpr char kLogViewerDirectory554658[] = "Log"; // 原常量参考：0x00554658。
+constexpr char kLogViewerPathFormat553514[] = "%s\\%s"; // 原常量参考：0x00553514。
+constexpr char kLogViewerReadMode553510[] = "rt"; // 原常量参考：0x00553510。
+constexpr char kLogViewerAppendMode55350C[] = "a+t"; // 原常量参考：0x0055350C。
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
-std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
-constexpr char kWindow50WriteHint587C84[] = "\x8C\x91\xCF\xC2\xD3\x8D\xCF\xA2\xA1\xA3";
+std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {}; // 原全局：0x00D30138。
+constexpr char kWindow50WriteHint587C84[] = "\x8C\x91\xCF\xC2\xD3\x8D\xCF\xA2\xA1\xA3"; // 原常量参考：0x00587C84。
 
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
@@ -1146,12 +1146,12 @@ struct MessageDialogRuntimeSlots {
 
 struct MessageDialogImageRecord {
     std::int32_t imageNo;
-    std::uint8_t direction;
-    std::byte byte05;
-    std::int16_t x;
-    std::int16_t y;
-    std::uint8_t used;
-    std::byte byte0B;
+    std::uint8_t direction; // 原成员偏移：+0x04。
+    std::byte byte05; // 原成员偏移：+0x05。
+    std::int16_t x; // 原成员偏移：+0x06。
+    std::int16_t y; // 原成员偏移：+0x08。
+    std::uint8_t used; // 原成员偏移：+0x0A。
+    std::byte byte0B; // 原成员偏移：+0x0B。
 };
 static_assert(sizeof(MessageDialogImageRecord) == 12);
 static_assert(offsetof(MessageDialogImageRecord, direction) == 4);
@@ -1159,8 +1159,8 @@ static_assert(offsetof(MessageDialogImageRecord, x) == 6);
 static_assert(offsetof(MessageDialogImageRecord, y) == 8);
 static_assert(offsetof(MessageDialogImageRecord, used) == 10);
 MessageDialogRuntimeSlots gMessageDialog {};
-std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {};
-std::uint8_t gMessageDialogImageCountD67B30 = 0;
+std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {}; // 原全局：0x00CC4B70。
+std::uint8_t gMessageDialogImageCountD67B30 = 0; // 原全局：0x00D67B30。
 
 // 原CB1388..CB1394；49DF30/49E400共同生产，49DA30回复逐次读取。
 struct DialogReplyRuntimeSlots {
@@ -1170,8 +1170,8 @@ struct DialogReplyRuntimeSlots {
     std::int32_t firstLine;
 };
 DialogReplyRuntimeSlots gDialogReply {};
-std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {};
-std::array<std::int16_t, 2> gDialogInputYD67B34 {};
+std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {}; // 原全局：0x00CB1398。
+std::array<std::int16_t, 2> gDialogInputYD67B34 {}; // 原全局：0x00D67B34。
 
 // 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
 struct ChoiceDialogRuntimeSlots {
@@ -1188,16 +1188,16 @@ struct ChoiceDialogRuntimeSlots {
 };
 ChoiceDialogRuntimeSlots gChoiceDialog {};
 // CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
-std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {};
-std::array<const char*, 5> gChoiceDialogLinesD672D8 {};
-std::int32_t gShopImageC9A9A0 = 0;
-std::array<const char*, 3> gShopChoicesCB1DC8 {};
-std::array<const char*, 3> gShopHintsD2F738 {};
-std::array<std::int8_t, 3> gShopCommandsD64E10 {};
-constexpr std::array<const char*, 3> kShopChoices57E6B8 {
+std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {}; // 原全局：0x00CC24D4。
+std::array<const char*, 5> gChoiceDialogLinesD672D8 {}; // 原全局：0x00D672D8。
+std::int32_t gShopImageC9A9A0 = 0; // 原全局：0x00C9A9A0。
+std::array<const char*, 3> gShopChoicesCB1DC8 {}; // 原全局：0x00CB1DC8。
+std::array<const char*, 3> gShopHintsD2F738 {}; // 原全局：0x00D2F738。
+std::array<std::int8_t, 3> gShopCommandsD64E10 {}; // 原全局：0x00D64E10。
+constexpr std::array<const char*, 3> kShopChoices57E6B8 { // 原常量参考：0x0057E6B8。
     "\xD9\x49", "\xD9\x75", "\xB2\xBB\xD3\xC3\xC1\xCB",
 };
-constexpr std::array<const char*, 3> kShopHints57E6C4 {
+constexpr std::array<const char*, 3> kShopHints57E6C4 { // 原常量参考：0x0057E6C4。
     "\xD4\xDA\xDF\x40\xBC\xD2\xB5\xEA\xD9\x49\xCE\xEF\xC6\xB7\xA1\xA3",
     "\xD4\xDA\xDF\x40\xBC\xD2\xB5\xEA\xD9\x75\xCE\xEF\xC6\xB7\xA1\xA3",
     "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB\xA1\xA3",
@@ -1235,43 +1235,43 @@ constexpr std::array<const char*, 6> kShopConfirmAcceptHints {
     "\xDF\x4D\xD0\xD0\xE8\x61\xB6\xA8\xA1\xA3",
     "\xDF\x4D\xD0\xD0\xD0\xDE\xC0\xED\xA1\xA3",
 };
-constexpr char kShopUnavailableHint586BF4[] = "\xA3\xAA\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4";
+constexpr char kShopUnavailableHint586BF4[] = "\xA3\xAA\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4"; // 原常量参考：0x00586BF4。
 
-std::int32_t gChoiceImageCB0AE4 = 0;
-std::int32_t gChoiceImageCF4A18 = 0;
-std::int32_t gChoiceImageCC4890 = 0;
-std::int32_t gChoiceImageC9A99C = 0;
-std::int32_t gChoiceImageD2EA74 = 0;
-std::array<const char*, 2> gChoicesD67438 {};
-std::array<const char*, 2> gChoiceHintsCC31FC {};
-std::array<std::int8_t, 2> gChoiceCommandsCB03D4 {};
-std::array<const char*, 2> gChoicesD2D818 {};
-std::array<const char*, 2> gChoiceHintsCA0AAC {};
-std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {};
-constexpr std::array<const char*, 3> kSkillChoices57E6F0 {
+std::int32_t gChoiceImageCB0AE4 = 0; // 原全局：0x00CB0AE4。
+std::int32_t gChoiceImageCF4A18 = 0; // 原全局：0x00CF4A18。
+std::int32_t gChoiceImageCC4890 = 0; // 原全局：0x00CC4890。
+std::int32_t gChoiceImageC9A99C = 0; // 原全局：0x00C9A99C。
+std::int32_t gChoiceImageD2EA74 = 0; // 原全局：0x00D2EA74。
+std::array<const char*, 2> gChoicesD67438 {}; // 原全局：0x00D67438。
+std::array<const char*, 2> gChoiceHintsCC31FC {}; // 原全局：0x00CC31FC。
+std::array<std::int8_t, 2> gChoiceCommandsCB03D4 {}; // 原全局：0x00CB03D4。
+std::array<const char*, 2> gChoicesD2D818 {}; // 原全局：0x00D2D818。
+std::array<const char*, 2> gChoiceHintsCA0AAC {}; // 原全局：0x00CA0AAC。
+std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {}; // 原全局：0x00CF47D8。
+constexpr std::array<const char*, 3> kSkillChoices57E6F0 { // 原常量参考：0x0057E6F0。
     "\xCF\xEB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC",
     "\xCF\xEB\xDF\x7A\xCD\xFC\xBC\xBC\xC4\xDC",
     kShopChoices57E6B8[2],
 };
-constexpr std::array<const char*, 3> kSkillHints57E6FC {
+constexpr std::array<const char*, 3> kSkillHints57E6FC { // 原常量参考：0x0057E6FC。
     "\xCF\xF2\xDF\x40\xCE\xBB\xBC\xBC\xC4\xDC\x8E\x9F\xB9\xA0"
     "\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3",
     "\xDF\x7A\xCD\xFC\xD7\xD4\xBC\xBA\x8C\x57\xC1\x95\xB5\xBD"
     "\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3",
     "\xB2\xBB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3",
 };
-constexpr std::array<const char*, 3> kExchangeChoices57E708 {
+constexpr std::array<const char*, 3> kExchangeChoices57E708 { // 原常量参考：0x0057E708。
     "\xBD\xBB\xD2\xD7", kShopChoices57E6B8[2], nullptr,
 };
-constexpr std::array<const char*, 3> kExchangeHints57E714 {
+constexpr std::array<const char*, 3> kExchangeHints57E714 { // 原常量参考：0x0057E714。
     "\xBD\xBB\x93\x51\xDF\x40\xBC\xD2\xB5\xEA\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3",
     kShopHints57E6C4[2], nullptr,
 };
-constexpr std::array<const char*, 2> kGiveReceiveLabels57E720 {
+constexpr std::array<const char*, 2> kGiveReceiveLabels57E720 { // 原常量参考：0x0057E720。
     "\xBD\x6F\xD3\xE8\xCE\xEF\xC6\xB7", "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7",
 };
-std::array<const char*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]};
-constexpr std::array<const char*, 3> kGiveReceiveHints57E730 {
+std::array<const char*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]}; // 原全局：0x0057E728。
+constexpr std::array<const char*, 3> kGiveReceiveHints57E730 { // 原常量参考：0x0057E730。
     kExchangeHints57E714[0], kShopHints57E6C4[2], nullptr,
 };
 
@@ -1306,17 +1306,17 @@ std::int32_t SendChoiceDialogReply(char* const buffer)
 struct HealingDialogRecord {
     std::int32_t level;
     std::int32_t health;
-    std::int32_t cost;
-    std::array<char, 17> name;
-    std::array<std::byte, 3> reserved1D;
+    std::int32_t cost; // 原成员偏移：+0x08。
+    std::array<char, 17> name; // 原成员偏移：+0x0C。
+    std::array<std::byte, 3> reserved1D; // 原成员偏移：+0x1D。
 };
 static_assert(sizeof(HealingDialogRecord) == 32);
 static_assert(offsetof(HealingDialogRecord, cost) == 8);
 static_assert(offsetof(HealingDialogRecord, name) == 12);
-std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {};
-std::int32_t gHealingDialogHealthD2DC00 = 0;
-constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524};
-constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221, 243222, 243223, 243224};
+std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {}; // 原全局：0x00D672F0。
+std::int32_t gHealingDialogHealthD2DC00 = 0; // 原全局：0x00D2DC00。
+constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524}; // 原全局：0x0057CBA4。
+constexpr std::array<std::int32_t, 5> gHealthImages57E6A4 {243220, 243221, 243222, 243223, 243224}; // 原全局：0x0057E6A4。
 
 // 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
 std::int32_t Sub_519680(const std::int32_t health)
@@ -1334,47 +1334,47 @@ std::int32_t Sub_519680(const std::int32_t health)
 }
 
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
-WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
-WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}};
-WindowDragRect gDragRects5624C0[] {{10, 0, 553, 27}, {566, 5, 18, 79}};
-WindowDragRect gDragRects562800[] {{10, 0, 288, 27}, {201, 5, 18, 79}};
-WindowDragRect gDragRects562AF0[] {{10, 0, 288, 27}, {201, 5, 18, 79}};
-WindowDragRect gDragRects562FD8[] {{22, 0, 256, 33}, {282, 7, 18, 78}};
-WindowDragRect gDragRects5631F0[] {{12, 0, 113, 26}, {128, 7, 18, 78}};
-WindowDragRect gDragRects565560[] {{0, 0, 343, 30}, {323, 0, 20, 122}};
-WindowDragRect gDragRects566E70[] {{0, 0, 272, 30}, {252, 0, 20, 100}};
-WindowDragRect gDragRects567908[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
-WindowDragRect gDragRects568528[] {{0, 0, 279, 25}, {249, 0, 25, 120}};
-WindowDragRect gDragRects568DC8[] {{16, 0, 184, 30}, {209, 7, 18, 78}};
-WindowDragRect gDragRects569298[] {{10, 0, 275, 33}, {288, 5, 18, 79}};
-WindowDragRect gDragRects56B030[] {{0, 0, 184, 21}};
-WindowDragRect gDragRects56B538[] {{0, 0, 61, 25}};
-WindowDragRect gDragRects56C1F8[] {{9, 0, 481, 27}, {493, 7, 18, 78}};
-WindowDragRect gDragRects56C6F0[] {{17, 0, 300, 33}, {320, 7, 18, 78}};
-WindowDragRect gDragRects56C900[] {{17, 0, 339, 33}, {359, 7, 18, 78}};
-WindowDragRect gDragRects56E918[] {{0, 0, 342, 30}, {331, 0, 20, 120}};
-WindowDragRect gDragRects56FC00[] {{0, 0, 243, 10}};
-WindowDragRect gDragRects570010[] {{0, 0, 267, 25}, {207, 0, 25, 100}};
-WindowDragRect gDragRects5704B8[] {{0, 0, 232, 30}, {207, 0, 25, 100}};
-WindowDragRect gDragRects570F30[] {{0, 0, 100, 25}};
-WindowDragRect gDragRects571620[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
-WindowDragRect gDragRects571800[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
-WindowDragRect gDragRects571D48[] {{10, 0, 231, 27}, {234, 5, 18, 79}};
-WindowDragRect gDragRects572898[] {{0, 0, 320, 25}, {317, 0, 20, 100}};
-WindowDragRect gDragRects572D78[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
-WindowDragRect gDragRects573430[] {{0, 0, 280, 27}, {260, 0, 20, 120}};
-WindowDragRect gDragRects573A48[] {{0, 0, 634, 30}, {604, 0, 30, 130}};
-WindowDragRect gDragRects5745C0[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
-WindowDragRect gDragRects575648[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
-WindowDragRect gDragRects576248[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
-WindowDragRect gDragRects576E48[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
-WindowDragRect gDragRects577698[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
-WindowDragRect gDragRects579D28[] {{0, 0, 634, 35}, {600, 0, 34, 130}};
-WindowDragRect gDragRects579DD0[] {{0, 0, 305, 25}, {300, 0, 30, 130}};
-WindowDragRect gDragRects579E78[] {{0, 0, 317, 25}, {307, 0, 30, 130}};
-WindowDragRect gDragRects57AD30[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
-WindowDragRect gDragRects57B1E0[] {{0, 0, 460, 25}, {445, 0, 30, 102}};
-WindowDragRect gDragRects57B460[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}}; // 原全局：0x00561998。
+WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}}; // 原全局：0x00561F38。
+WindowDragRect gDragRects5624C0[] {{10, 0, 553, 27}, {566, 5, 18, 79}}; // 原全局：0x005624C0。
+WindowDragRect gDragRects562800[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562800。
+WindowDragRect gDragRects562AF0[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562AF0。
+WindowDragRect gDragRects562FD8[] {{22, 0, 256, 33}, {282, 7, 18, 78}}; // 原全局：0x00562FD8。
+WindowDragRect gDragRects5631F0[] {{12, 0, 113, 26}, {128, 7, 18, 78}}; // 原全局：0x005631F0。
+WindowDragRect gDragRects565560[] {{0, 0, 343, 30}, {323, 0, 20, 122}}; // 原全局：0x00565560。
+WindowDragRect gDragRects566E70[] {{0, 0, 272, 30}, {252, 0, 20, 100}}; // 原全局：0x00566E70。
+WindowDragRect gDragRects567908[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00567908。
+WindowDragRect gDragRects568528[] {{0, 0, 279, 25}, {249, 0, 25, 120}}; // 原全局：0x00568528。
+WindowDragRect gDragRects568DC8[] {{16, 0, 184, 30}, {209, 7, 18, 78}}; // 原全局：0x00568DC8。
+WindowDragRect gDragRects569298[] {{10, 0, 275, 33}, {288, 5, 18, 79}}; // 原全局：0x00569298。
+WindowDragRect gDragRects56B030[] {{0, 0, 184, 21}}; // 原全局：0x0056B030。
+WindowDragRect gDragRects56B538[] {{0, 0, 61, 25}}; // 原全局：0x0056B538。
+WindowDragRect gDragRects56C1F8[] {{9, 0, 481, 27}, {493, 7, 18, 78}}; // 原全局：0x0056C1F8。
+WindowDragRect gDragRects56C6F0[] {{17, 0, 300, 33}, {320, 7, 18, 78}}; // 原全局：0x0056C6F0。
+WindowDragRect gDragRects56C900[] {{17, 0, 339, 33}, {359, 7, 18, 78}}; // 原全局：0x0056C900。
+WindowDragRect gDragRects56E918[] {{0, 0, 342, 30}, {331, 0, 20, 120}}; // 原全局：0x0056E918。
+WindowDragRect gDragRects56FC00[] {{0, 0, 243, 10}}; // 原全局：0x0056FC00。
+WindowDragRect gDragRects570010[] {{0, 0, 267, 25}, {207, 0, 25, 100}}; // 原全局：0x00570010。
+WindowDragRect gDragRects5704B8[] {{0, 0, 232, 30}, {207, 0, 25, 100}}; // 原全局：0x005704B8。
+WindowDragRect gDragRects570F30[] {{0, 0, 100, 25}}; // 原全局：0x00570F30。
+WindowDragRect gDragRects571620[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571620。
+WindowDragRect gDragRects571800[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571800。
+WindowDragRect gDragRects571D48[] {{10, 0, 231, 27}, {234, 5, 18, 79}}; // 原全局：0x00571D48。
+WindowDragRect gDragRects572898[] {{0, 0, 320, 25}, {317, 0, 20, 100}}; // 原全局：0x00572898。
+WindowDragRect gDragRects572D78[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00572D78。
+WindowDragRect gDragRects573430[] {{0, 0, 280, 27}, {260, 0, 20, 120}}; // 原全局：0x00573430。
+WindowDragRect gDragRects573A48[] {{0, 0, 634, 30}, {604, 0, 30, 130}}; // 原全局：0x00573A48。
+WindowDragRect gDragRects5745C0[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x005745C0。
+WindowDragRect gDragRects575648[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00575648。
+WindowDragRect gDragRects576248[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576248。
+WindowDragRect gDragRects576E48[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576E48。
+WindowDragRect gDragRects577698[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00577698。
+WindowDragRect gDragRects579D28[] {{0, 0, 634, 35}, {600, 0, 34, 130}}; // 原全局：0x00579D28。
+WindowDragRect gDragRects579DD0[] {{0, 0, 305, 25}, {300, 0, 30, 130}}; // 原全局：0x00579DD0。
+WindowDragRect gDragRects579E78[] {{0, 0, 317, 25}, {307, 0, 30, 130}}; // 原全局：0x00579E78。
+WindowDragRect gDragRects57AD30[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x0057AD30。
+WindowDragRect gDragRects57B1E0[] {{0, 0, 460, 25}, {445, 0, 30, 102}}; // 原全局：0x0057B1E0。
+WindowDragRect gDragRects57B460[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x0057B460。
 
 std::array<WindowDragPrototype, 42> gDragPrototypes {{
     {2, gDragRects561998}, // 0
@@ -1438,7 +1438,7 @@ constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 2, 2, 2, 2,
 };
 
-constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 {
+constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
     243300, 243310, 243320, 243330, 243340, 243350, 243360,
     243370, 243380, 243390, 245500, 245500, 245500,
     243500, 243510, 243520, 243530, 243540, 243550, 243560,
@@ -1449,7 +1449,7 @@ constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 {
     245580, 245520, 245520, 245540, 245540, 245540,
 };
 
-constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 {
+constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 { // 原常量参考：0x0054F1A8。
     243400, 243410, 243420, 243430, 243440, 243450, 243460,
     243470, 243480, 243490, 245510, 245510, 245510,
     243600, 243610, 243620, 243630, 243640, 243650, 243660,
@@ -1460,11 +1460,11 @@ constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 {
     245580, 245530, 245530, 245550, 245550, 245550,
 };
 
-constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 {
+constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 { // 原常量参考：0x0054F278。
     2, 2, 5, 5, 4, 8, 5, 5, 8, 2, 3, 5,
 };
-constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1};
-std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {};
+constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1}; // 原常量参考：0x0054F2A8。
+std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00D67AC4。
 
 // 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
 std::int32_t AppendMouseButtonEvents(std::int32_t events)
@@ -1724,38 +1724,38 @@ const char* BorrowLegacyCraftDetailsD2E92C() noexcept
     return gCraftResultDetailsD2E92C.c_str();
 }
 
-std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
-std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
-std::array<char, 256> gTitleDraftD45FC0 {};
-WindowInputPrototype gTitleInputPrototype57CCB8 {
+std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0]; // 原全局：0x00CF4E50。
+std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1]; // 原全局：0x00CF4E54。
+std::array<char, 256> gTitleDraftD45FC0 {}; // 原全局：0x00D45FC0。
+WindowInputPrototype gTitleInputPrototype57CCB8 { // 原全局：0x0057CCB8。
     {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
     105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
-WindowInputPrototype gOwnProfileInputPrototype57CEE8 {
+WindowInputPrototype gOwnProfileInputPrototype57CEE8 { // 原全局：0x0057CEE8。
     {{&input::gInputContextD64CB0}, WindowInputReferenceKind::Context},
     97, 108, 3, 12, 6, {}, 1, 26, 0, 0,
 };
-WindowInputPrototype gOwnProfileInputPrototype57D118 {
+WindowInputPrototype gOwnProfileInputPrototype57D118 { // 原全局：0x0057D118。
     {{&input::gInputContextD2D670}, WindowInputReferenceKind::Context},
     97, 130, 3, 12, 6, {}, 1, 26, 0, 0,
 };
-WindowInputPrototype gOwnProfileInputPrototype57D348 {
+WindowInputPrototype gOwnProfileInputPrototype57D348 { // 原全局：0x0057D348。
     {{&input::gInputContextCAFEC8}, WindowInputReferenceKind::Context},
     97, 152, 3, 12, 6, {}, 1, 26, 0, 0,
 };
-WindowInputPrototype gOwnProfileInputPrototype57D578 {
+WindowInputPrototype gOwnProfileInputPrototype57D578 { // 原全局：0x0057D578。
     {{&input::gInputContextD2D828}, WindowInputReferenceKind::Context},
     97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
 };
-WindowInputPrototype gPetNameInputPrototype57DCF8 {
+WindowInputPrototype gPetNameInputPrototype57DCF8 { // 原全局：0x0057DCF8。
     {{&input::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
     66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
-std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34 {};
+std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34 {}; // 原全局：0x00D66C34。
 static_assert(sizeof(gPetTechniqueCostsD66C34) == 110);
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
-std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
+std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
     &gDragPrototypes[41], // 0
     &gDragPrototypes[41],
     &gDragPrototypes[41],
@@ -4459,9 +4459,9 @@ std::int32_t Sub_4C94B0(const std::int32_t value)
     return 1;
 }
 
-static constexpr char kProfileCategoryHint5884F4[] = "\xD4\x4F\xB6\xA8\xD8\x9C\xD9\x75\xB5\xC4\xC4\xBF\xE4\x9B";
-static constexpr char kProfileCategoryHint588504[] = "\xD4\x4F\xB6\xA8\xD9\x8F\xD9\x49\xB5\xC4\xC4\xBF\xE4\x9B";
-static constexpr char kProfileCategoryHint588514[] = "\xD4\x4F\xB6\xA8\xC3\xE8\xCA\xF6\xB5\xC4\xC4\xBF\xE4\x9B";
+static constexpr char kProfileCategoryHint5884F4[] = "\xD4\x4F\xB6\xA8\xD8\x9C\xD9\x75\xB5\xC4\xC4\xBF\xE4\x9B"; // 原常量参考：0x005884F4。
+static constexpr char kProfileCategoryHint588504[] = "\xD4\x4F\xB6\xA8\xD9\x8F\xD9\x49\xB5\xC4\xC4\xBF\xE4\x9B"; // 原常量参考：0x00588504。
+static constexpr char kProfileCategoryHint588514[] = "\xD4\x4F\xB6\xA8\xC3\xE8\xCA\xF6\xB5\xC4\xC4\xBF\xE4\x9B"; // 原常量参考：0x00588514。
 
 // 原函数：0x004C94F0。
 std::int32_t Sub_4C94F0(const std::int32_t index, const std::int32_t state)
@@ -16017,7 +16017,7 @@ void RestoreWindowPositions_475C10()
 
 namespace {
 
-std::int32_t gWindowUpdateCountCC4844 = 0; // 473F80的共享数量，draw返回后重读。
+std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
 
 void ToggleShortcutWindow(const std::int32_t id)
 {
@@ -16678,12 +16678,12 @@ std::int32_t Sub_492840(const std::int32_t, const std::int32_t state)
 
 namespace {
 
-constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E};
-constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11};
-constexpr char kAlbumPreviousTen586DC8[] = "\xBF\xEC\xCB\xD9\xC7\xD0\x93\x51\xD6\xC1\xE1\xE1\x31\x30\xED\x93\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kAlbumPrevious586DB4[] = "\xC7\xD0\x93\x51\xD6\xC1\xE1\xE1\xD2\xBB\xED\x93\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kAlbumNext586DA0[] = "\xC7\xD0\x93\x51\xD6\xC1\xC7\xB0\xD2\xBB\xED\x93\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kAlbumNextTen586D88[] = "\xBF\xEC\xCB\xD9\xC7\xD0\x93\x51\xD6\xC1\xC7\xB0\x31\x30\xED\x93\xD2\x95\xB4\xB0\xA1\xA3";
+constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E}; // 原常量参考：0x0057DF24。
+constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11}; // 原常量参考：0x0057DF2C。
+constexpr char kAlbumPreviousTen586DC8[] = "\xBF\xEC\xCB\xD9\xC7\xD0\x93\x51\xD6\xC1\xE1\xE1\x31\x30\xED\x93\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586DC8。
+constexpr char kAlbumPrevious586DB4[] = "\xC7\xD0\x93\x51\xD6\xC1\xE1\xE1\xD2\xBB\xED\x93\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586DB4。
+constexpr char kAlbumNext586DA0[] = "\xC7\xD0\x93\x51\xD6\xC1\xC7\xB0\xD2\xBB\xED\x93\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586DA0。
+constexpr char kAlbumNextTen586D88[] = "\xBF\xEC\xCB\xD9\xC7\xD0\x93\x51\xD6\xC1\xC7\xB0\x31\x30\xED\x93\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586D88。
 
 } // namespace
 
@@ -16936,33 +16936,33 @@ std::int32_t Sub_492880(const std::int32_t index, const std::int32_t state)
 
 namespace {
 
-constexpr std::array<WindowValueCallback, 4> kSettingsPanelCallbacks57DF38 {
+constexpr std::array<WindowValueCallback, 4> kSettingsPanelCallbacks57DF38 { // 原常量参考：0x0057DF38。
     &Sub_493A70, &Sub_493AF0, &Sub_493B70, &Sub_493CB0,
 };
-constexpr char kSettingsLogout586DE8[] = "\xB5\xC7\xB3\xF6\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3";
-constexpr char kSettingsInput586DF8[] = "\xD4\x4F\xB6\xA8\xBB\xAC\xCA\xF3\xC5\x63\xE6\x49\xB1\x50\xB5\xC4\xB2\xD9\xD7\xF7\xB7\xBD\xCA\xBD\xA1\xA3";
-constexpr char kSettingsAudio586E14[] = "\xD4\x4F\xB6\xA8\xD2\xF4\x98\xB7\xD2\xF4\xD0\xA7\xA1\xA3";
-constexpr char kSettingsDisplay586E24[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xC6\xDA\xD4\x4F\xB6\xA8";
-constexpr std::array<std::int32_t, 6> kSettingsKeyImages54F460 {
+constexpr char kSettingsLogout586DE8[] = "\xB5\xC7\xB3\xF6\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3"; // 原常量参考：0x00586DE8。
+constexpr char kSettingsInput586DF8[] = "\xD4\x4F\xB6\xA8\xBB\xAC\xCA\xF3\xC5\x63\xE6\x49\xB1\x50\xB5\xC4\xB2\xD9\xD7\xF7\xB7\xBD\xCA\xBD\xA1\xA3"; // 原常量参考：0x00586DF8。
+constexpr char kSettingsAudio586E14[] = "\xD4\x4F\xB6\xA8\xD2\xF4\x98\xB7\xD2\xF4\xD0\xA7\xA1\xA3"; // 原常量参考：0x00586E14。
+constexpr char kSettingsDisplay586E24[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xC6\xDA\xD4\x4F\xB6\xA8"; // 原常量参考：0x00586E24。
+constexpr std::array<std::int32_t, 6> kSettingsKeyImages54F460 { // 原常量参考：0x0054F460。
     0x3BE63, 0x3BE64, 0x3BE65, 0x3BE66, 0x3BE67, 0x3BE68,
 };
-constexpr char kSettingsClose55331C[] = "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kSettingsHotkeys586E34[] = "\xE9\x5F\x86\xA2\x9F\xE1\xE6\x49\xD2\xBB\xD3\x5B\xB1\xED\xA1\xA3";
-constexpr char kSettingsLogoutTown586E48[] = "\xB5\xC7\xB3\xF6\x81\x4B\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63\xA1\xA3";
-constexpr char kSettingsLogoutServer586E60[] = "\xB5\xC7\xB3\xF6\xE1\xE1\xBB\xD8\xB5\xBD\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6\xA1\xA3";
-constexpr char kSettingsStackMode586E7C[] = "\xD7\x83\xB8\xFC\xCE\xEF\xC6\xB7\xB6\xD1\xAF\x42\xD2\x95\xB4\xB0\xB5\xC4\xE9\x5F\x86\xA2\xB7\xBD\xCA\xBD\xA1\xA3";
-constexpr char kSettingsCursor586E9C[] = "\xD7\x83\xB8\xFC\xBB\xAC\xCA\xF3\xD3\xCE\x98\xCB\xB7\x4E\xEE\x90\xA1\xA3";
-constexpr char kSettingsKeyMode586EB0[] = "\xD7\x83\xB8\xFC\xBF\xEC\xCB\xD9\xE6\x49\xB5\xC4\xD0\xCD\x91\x42\xA1\xA3";
-constexpr char kSettingsMusicMin586EC4[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xBD\xB5\xB5\xCD\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsMusicDown586EE0[] = "\xBD\xB5\xB5\xCD\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsMusicMax586EF8[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xCC\xE1\xB8\xDF\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsMusicUp586F14[] = "\xCC\xE1\xB8\xDF\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsEffectMin586F2C[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xBD\xB5\xB5\xCD\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsEffectDown586F44[] = "\xBD\xB5\xB5\xCD\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsEffectMax586F54[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xCC\xE1\xB8\xDF\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsEffectUp586F6C[] = "\xCC\xE1\xB8\xDF\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3";
-constexpr char kSettingsOutput586F7C[] = "\xD7\x83\xB8\xFC\xD2\xF4\xED\x91\xDD\x94\xB3\xF6\xEE\x90\xD0\xCD\xA1\xA3";
-constexpr char kSettingsRenderMode586F90[] = "\xC4\xBF\xC7\xB0\xB5\xC4\xC3\xE8\xC0\x4C\xB9\xA6\xC4\xDC\xA1\xA3";
+constexpr char kSettingsClose55331C[] = "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0055331C。
+constexpr char kSettingsHotkeys586E34[] = "\xE9\x5F\x86\xA2\x9F\xE1\xE6\x49\xD2\xBB\xD3\x5B\xB1\xED\xA1\xA3"; // 原常量参考：0x00586E34。
+constexpr char kSettingsLogoutTown586E48[] = "\xB5\xC7\xB3\xF6\x81\x4B\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63\xA1\xA3"; // 原常量参考：0x00586E48。
+constexpr char kSettingsLogoutServer586E60[] = "\xB5\xC7\xB3\xF6\xE1\xE1\xBB\xD8\xB5\xBD\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6\xA1\xA3"; // 原常量参考：0x00586E60。
+constexpr char kSettingsStackMode586E7C[] = "\xD7\x83\xB8\xFC\xCE\xEF\xC6\xB7\xB6\xD1\xAF\x42\xD2\x95\xB4\xB0\xB5\xC4\xE9\x5F\x86\xA2\xB7\xBD\xCA\xBD\xA1\xA3"; // 原常量参考：0x00586E7C。
+constexpr char kSettingsCursor586E9C[] = "\xD7\x83\xB8\xFC\xBB\xAC\xCA\xF3\xD3\xCE\x98\xCB\xB7\x4E\xEE\x90\xA1\xA3"; // 原常量参考：0x00586E9C。
+constexpr char kSettingsKeyMode586EB0[] = "\xD7\x83\xB8\xFC\xBF\xEC\xCB\xD9\xE6\x49\xB5\xC4\xD0\xCD\x91\x42\xA1\xA3"; // 原常量参考：0x00586EB0。
+constexpr char kSettingsMusicMin586EC4[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xBD\xB5\xB5\xCD\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586EC4。
+constexpr char kSettingsMusicDown586EE0[] = "\xBD\xB5\xB5\xCD\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586EE0。
+constexpr char kSettingsMusicMax586EF8[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xCC\xE1\xB8\xDF\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586EF8。
+constexpr char kSettingsMusicUp586F14[] = "\xCC\xE1\xB8\xDF\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586F14。
+constexpr char kSettingsEffectMin586F2C[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xBD\xB5\xB5\xCD\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586F2C。
+constexpr char kSettingsEffectDown586F44[] = "\xBD\xB5\xB5\xCD\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586F44。
+constexpr char kSettingsEffectMax586F54[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xCC\xE1\xB8\xDF\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586F54。
+constexpr char kSettingsEffectUp586F6C[] = "\xCC\xE1\xB8\xDF\xD0\xA7\xB9\xFB\xD2\xF4\xC1\xBF\xA1\xA3"; // 原常量参考：0x00586F6C。
+constexpr char kSettingsOutput586F7C[] = "\xD7\x83\xB8\xFC\xD2\xF4\xED\x91\xDD\x94\xB3\xF6\xEE\x90\xD0\xCD\xA1\xA3"; // 原常量参考：0x00586F7C。
+constexpr char kSettingsRenderMode586F90[] = "\xC4\xBF\xC7\xB0\xB5\xC4\xC3\xE8\xC0\x4C\xB9\xA6\xC4\xDC\xA1\xA3"; // 原常量参考：0x00586F90。
 
 } // namespace
 
@@ -17730,8 +17730,8 @@ std::int32_t Sub_4950D0(const std::int32_t index, const std::int32_t state)
 
 namespace {
 
-constexpr std::array<std::int8_t, 8> kHotkeyCounts56AEC4 {14, 27, 16, 24, 14, 27, 16, 24};
-constexpr char kHotkeyText56933C[14][51] {
+constexpr std::array<std::int8_t, 8> kHotkeyCounts56AEC4 {14, 27, 16, 24, 14, 27, 16, 24}; // 原常量参考：0x0056AEC4。
+constexpr char kHotkeyText56933C[14][51] { // 原常量参考：0x0056933C。
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x57",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x45",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xCE\xEF\xC6\xB7\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x52",
@@ -17747,7 +17747,7 @@ constexpr char kHotkeyText56933C[14][51] {
     "\xB0\xD1\xD2\xC6\xD6\xC1\xAE\x8B\xC3\xE6\xB9\xA0\x87\xFA\xCD\xE2\xB5\xC4\xD2\x95\xB4\xB0\xD2\xC6\xBB\xD8\x81\xED\x20\x43\x74\x72\x6C\x20\x2B\x20\x46\x31\x32",
     "\xEA\x50\xE9\x5D\xCB\xF9\xD3\xD0\xE9\x5F\x86\xA2\xD6\xD0\xB5\xC4\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\x20\xA1\xA1\x53\x48\x49\x46\x54\x20\x2B\x20\x46\x31\x32",
 };
-constexpr char kHotkeyText569608[27][51] {
+constexpr char kHotkeyText569608[27][51] { // 原常量参考：0x00569608。
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\x8C\xA6\x91\xF0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x50",
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\xBD\x4D\xEA\xA0\xBD\xBB\xD5\x84\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x3B",
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\xBD\x4D\xEA\xA0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x2E",
@@ -17776,7 +17776,7 @@ constexpr char kHotkeyText569608[27][51] {
     "\xC7\xD0\x93\x51\xC8\xCB\xCE\xEF\xEE\x5E\xC9\xCF\xEF\x40\xCA\xBE\xC3\xFB\xB7\x51\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x46\x31\x31",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xA0\xEE\x91\x42\xEF\x40\xCA\xBE\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x46\x31\x31",
 };
-constexpr char kHotkeyText569B6C[16][51] {
+constexpr char kHotkeyText569B6C[16][51] { // 原常量参考：0x00569B6C。
     "\xD7\xF8\xCF\xC2\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x31",
     "\x93\x5D\xCA\xD6\x20\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x32",
     "\xFC\x63\xEE\x5E\x20\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x33",
@@ -17794,7 +17794,7 @@ constexpr char kHotkeyText569B6C[16][51] {
     "\xC4\xA7\xB7\xA8\x20\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x42",
     "\xB2\xC2\xC8\xAD\x20\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x5C",
 };
-constexpr char kHotkeyText569E9C[14][51] {
+constexpr char kHotkeyText569E9C[14][51] { // 原常量参考：0x00569E9C。
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x51",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x57",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xCE\xEF\xC6\xB7\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x45",
@@ -17810,7 +17810,7 @@ constexpr char kHotkeyText569E9C[14][51] {
     "\xB0\xD1\xD2\xC6\xD6\xC1\xAE\x8B\xC3\xE6\xB9\xA0\x87\xFA\xCD\xE2\xB5\xC4\xD2\x95\xB4\xB0\xD2\xC6\xBB\xD8\x81\xED\x20\x43\x74\x72\x6C\x20\x2B\x20\x46\x31\x32",
     "\xEA\x50\xE9\x5D\xCB\xF9\xD3\xD0\xE9\x5F\x86\xA2\xD6\xD0\xB5\xC4\xD2\x95\xB4\xB0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x53\x48\x49\x46\x54\x20\x2B\x20\x46\x31\x32",
 };
-constexpr char kHotkeyText56A168[27][51] {
+constexpr char kHotkeyText56A168[27][51] { // 原常量参考：0x0056A168。
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\x8C\xA6\x91\xF0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x55",
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\xBD\x4D\xEA\xA0\xBD\xBB\xD5\x84\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x49",
     "\xD4\xCA\xD4\x53\x2F\xBE\xDC\xBD\x5E\xBD\x4D\xEA\xA0\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x4F",
@@ -17839,7 +17839,7 @@ constexpr char kHotkeyText56A168[27][51] {
     "\xC7\xD0\x93\x51\xC8\xCB\xCE\xEF\xEE\x5E\xC9\xCF\xEF\x40\xCA\xBE\xC3\xFB\xB7\x51\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x46\x31\x31",
     "\xE9\x5F\x86\xA2\x2F\xEA\x50\xE9\x5D\xC8\xCB\xCE\xEF\xA0\xEE\x91\x42\xEF\x40\xCA\xBE\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x43\x74\x72\x6C\x20\x2B\x20\x46\x31\x31",
 };
-constexpr char kHotkeyText56A6CC[16][51] {
+constexpr char kHotkeyText56A6CC[16][51] { // 原常量参考：0x0056A6CC。
     "\xD7\xF8\xCF\xC2\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x31",
     "\x93\x5D\xCA\xD6\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x32",
     "\xFC\x63\xEE\x5E\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x33",
@@ -17857,7 +17857,7 @@ constexpr char kHotkeyText56A6CC[16][51] {
     "\xC4\xA7\xB7\xA8\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x2F",
     "\xB2\xC2\xC8\xAD\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xA1\x20\x43\x74\x72\x6C\x20\x2B\x20\x5C",
 };
-constexpr char kHotkeyText56A9FC[24][51] {
+constexpr char kHotkeyText56A9FC[24][51] { // 原常量参考：0x0056A9FC。
     "\x46\x31\xA1\xA1\xA1\xA1\xA1\xA1\x3A",
     "\x46\x32\xA1\xA1\xA1\xA1\xA1\xA1\x3A",
     "\x46\x33\xA1\xA1\xA1\xA1\xA1\xA1\x3A",
@@ -17887,10 +17887,10 @@ constexpr std::array<const char (*)[51], 8> kHotkeyTextTables56AECC {
     kHotkeyText56933C, kHotkeyText569608, kHotkeyText569B6C, kHotkeyText56A9FC,
     kHotkeyText569E9C, kHotkeyText56A168, kHotkeyText56A6CC, kHotkeyText56A9FC,
 };
-constexpr char kHotkeyWindows586FA4[] = "\xEF\x40\xCA\xBE\xDF\x5B\x91\xF2\xB9\xA6\xC4\xDC\xD2\x95\xB4\xB0\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3";
-constexpr char kHotkeyStatus586FC0[] = "\xEF\x40\xCA\xBE\xAE\x8B\xC3\xE6\xD7\xF3\xC9\xCF\xBD\xC7\xA0\xEE\x91\x42\xEF\x40\xCA\xBE\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3";
-constexpr char kHotkeyActions586FE4[] = "\xEF\x40\xCA\xBE\xAE\x8B\xC3\xE6\xD3\xD2\xC9\xCF\xBD\xC7\xC7\xE9\xBE\x77\x84\xD3\xD7\xF7\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3";
-constexpr char kHotkeyPresets587008[] = "\xB5\xC7\xE4\x9B\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3";
+constexpr char kHotkeyWindows586FA4[] = "\xEF\x40\xCA\xBE\xDF\x5B\x91\xF2\xB9\xA6\xC4\xDC\xD2\x95\xB4\xB0\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3"; // 原常量参考：0x00586FA4。
+constexpr char kHotkeyStatus586FC0[] = "\xEF\x40\xCA\xBE\xAE\x8B\xC3\xE6\xD7\xF3\xC9\xCF\xBD\xC7\xA0\xEE\x91\x42\xEF\x40\xCA\xBE\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3"; // 原常量参考：0x00586FC0。
+constexpr char kHotkeyActions586FE4[] = "\xEF\x40\xCA\xBE\xAE\x8B\xC3\xE6\xD3\xD2\xC9\xCF\xBD\xC7\xC7\xE9\xBE\x77\x84\xD3\xD7\xF7\xCF\xE0\xEA\x50\x9F\xE1\xE6\x49\xA1\xA3"; // 原常量参考：0x00586FE4。
+constexpr char kHotkeyPresets587008[] = "\xB5\xC7\xE4\x9B\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x00587008。
 
 } // namespace
 
@@ -25801,43 +25801,43 @@ std::int32_t Sub_4742B0()
 
 namespace {
 
-constexpr char kMailDetailedHint587444[] = "\xC7\xD0\x93\x51\x9E\xE9\xD4\x94\xBC\x9A\xEF\x40\xCA\xBE\xA1\xA3";
-constexpr char kMailPreviewHint587458[] = "\xC7\xD0\x93\x51\x9E\xE9\xEE\x41\xD3\x5B\xEF\x40\xCA\xBE\xA1\xA3";
-constexpr char kMailSortHint58746C[] = "\xC7\xD0\x93\x51\xC3\xFB\xC6\xAC\xB5\xC4\xC5\xC5\xD0\xF2\xB7\xBD\xCA\xBD\xA1\xA3";
-constexpr char kMailGroupHint58749C[] = "\x8C\xA6\xD2\xBB\xC8\xBA\xC8\xCB\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kMailContactsHint5874B0[] = "\xC7\xD0\x93\x51\xD6\xC1\xC3\xFB\xC6\xAC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kMailGuildHint5874C4[] = "\xC7\xD0\x93\x51\xD6\xC1\xBC\xD2\xD7\xE5\xC3\xFB\xB2\xBE\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kMailMiniHint5874DC[] = "\xC7\xD0\x93\x51\xB5\xBD\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xC8\xBA\xBD\x4D\xA1\xA3";
-constexpr char kMailGuildDetailsHint587544[] = "\xE9\x5F\x86\xA2\xBC\xD2\xD7\xE5\xD4\x94\xBC\x9A\xD9\x59\xC1\xCF\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kMailRankHint587484[] = "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kMailReadContactHint5874F4[] = "\xB2\xEC\xBF\xB4\xB4\xCB\xC3\xFB\xC6\xAC\xD6\xAE\xD6\xF7\xC8\xCB\xB5\xC4\xE0\x5D\xBC\xFE\xBC\x6F\xE4\x9B";
-constexpr char kMailReadGuildHint587510[] = "\xB2\xEC\xBF\xB4\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\xE0\x5D\xBC\xFE\xBC\x6F\xE4\x9B";
-constexpr char kMailReadMiniHint58752C[] = "\x9E\x67\xD3\x5B\xB4\xCB\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xB5\xC4\x9A\x76\xB3\xCC\xA1\xA3";
-constexpr char kMailWriteContactHint5876B0[] = "\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xB4\xCB\xC3\xFB\xC6\xAC\xB5\xC4\xD6\xF7\xC8\xCB\xA1\xA3";
-constexpr char kMailWriteGuildHint5876CC[] = "\x8C\xA6\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kMailWriteMiniHint5876E4[] = "\x82\xF7\xCB\xCD\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kGuildRankSelectHint5876F4[] = "\xDF\x78\x93\xF1\xB4\xCB\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kGuildRankApplyHint587704[] = "\xD4\x4F\xB6\xA8\xD2\xD1\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kMailDeleteContactHint58755C[] = "\x84\x68\xB3\xFD\xB4\xCB\xC3\xFB\xC6\xAC\xA1\xA3";
-constexpr char kMailDeleteGuildHint58756C[] = "\x8C\xA6\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xDF\x4D\xD0\xD0\xB3\xFD\xC3\xFB\xA1\xA3";
-constexpr char kMailDeleteMiniHint587584[] = "\x84\x68\xB3\xFD\xB4\xCB\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xB5\xC4\xC3\xFB\xC6\xAC\xA1\xA3";
-constexpr char kMailDeleteContactFormat58759C[] =
+constexpr char kMailDetailedHint587444[] = "\xC7\xD0\x93\x51\x9E\xE9\xD4\x94\xBC\x9A\xEF\x40\xCA\xBE\xA1\xA3"; // 原常量参考：0x00587444。
+constexpr char kMailPreviewHint587458[] = "\xC7\xD0\x93\x51\x9E\xE9\xEE\x41\xD3\x5B\xEF\x40\xCA\xBE\xA1\xA3"; // 原常量参考：0x00587458。
+constexpr char kMailSortHint58746C[] = "\xC7\xD0\x93\x51\xC3\xFB\xC6\xAC\xB5\xC4\xC5\xC5\xD0\xF2\xB7\xBD\xCA\xBD\xA1\xA3"; // 原常量参考：0x0058746C。
+constexpr char kMailGroupHint58749C[] = "\x8C\xA6\xD2\xBB\xC8\xBA\xC8\xCB\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x0058749C。
+constexpr char kMailContactsHint5874B0[] = "\xC7\xD0\x93\x51\xD6\xC1\xC3\xFB\xC6\xAC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005874B0。
+constexpr char kMailGuildHint5874C4[] = "\xC7\xD0\x93\x51\xD6\xC1\xBC\xD2\xD7\xE5\xC3\xFB\xB2\xBE\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005874C4。
+constexpr char kMailMiniHint5874DC[] = "\xC7\xD0\x93\x51\xB5\xBD\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xC8\xBA\xBD\x4D\xA1\xA3"; // 原常量参考：0x005874DC。
+constexpr char kMailGuildDetailsHint587544[] = "\xE9\x5F\x86\xA2\xBC\xD2\xD7\xE5\xD4\x94\xBC\x9A\xD9\x59\xC1\xCF\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00587544。
+constexpr char kMailRankHint587484[] = "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x00587484。
+constexpr char kMailReadContactHint5874F4[] = "\xB2\xEC\xBF\xB4\xB4\xCB\xC3\xFB\xC6\xAC\xD6\xAE\xD6\xF7\xC8\xCB\xB5\xC4\xE0\x5D\xBC\xFE\xBC\x6F\xE4\x9B"; // 原常量参考：0x005874F4。
+constexpr char kMailReadGuildHint587510[] = "\xB2\xEC\xBF\xB4\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\xE0\x5D\xBC\xFE\xBC\x6F\xE4\x9B"; // 原常量参考：0x00587510。
+constexpr char kMailReadMiniHint58752C[] = "\x9E\x67\xD3\x5B\xB4\xCB\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xB5\xC4\x9A\x76\xB3\xCC\xA1\xA3"; // 原常量参考：0x0058752C。
+constexpr char kMailWriteContactHint5876B0[] = "\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xB4\xCB\xC3\xFB\xC6\xAC\xB5\xC4\xD6\xF7\xC8\xCB\xA1\xA3"; // 原常量参考：0x005876B0。
+constexpr char kMailWriteGuildHint5876CC[] = "\x8C\xA6\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005876CC。
+constexpr char kMailWriteMiniHint5876E4[] = "\x82\xF7\xCB\xCD\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005876E4。
+constexpr char kGuildRankSelectHint5876F4[] = "\xDF\x78\x93\xF1\xB4\xCB\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x005876F4。
+constexpr char kGuildRankApplyHint587704[] = "\xD4\x4F\xB6\xA8\xD2\xD1\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x00587704。
+constexpr char kMailDeleteContactHint58755C[] = "\x84\x68\xB3\xFD\xB4\xCB\xC3\xFB\xC6\xAC\xA1\xA3"; // 原常量参考：0x0058755C。
+constexpr char kMailDeleteGuildHint58756C[] = "\x8C\xA6\xB4\xCB\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xDF\x4D\xD0\xD0\xB3\xFD\xC3\xFB\xA1\xA3"; // 原常量参考：0x0058756C。
+constexpr char kMailDeleteMiniHint587584[] = "\x84\x68\xB3\xFD\xB4\xCB\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xB5\xC4\xC3\xFB\xC6\xAC\xA1\xA3"; // 原常量参考：0x00587584。
+constexpr char kMailDeleteContactFormat58759C[] = // 原常量参考：0x0058759C。
     "\n     \xB4\x5F\xB6\xA8\x8C\xA2\n\xA1\xA1\n\xA1\xA1%s\n\xA1\xA1\n"
     "\xA1\xA1\x8F\xC4\xC3\xFB\xC6\xAC\xD1\x65\x84\x68\xB3\xFD\x86\xE1\xA3\xBF\n \n"
     " (\xB4\x5F\xB6\xA8\x84\x68\xB3\xFD\x95\x72\xA3\xAC\xD5\x88\xB0\xB4\xD7\xA1\n"
     "  CTRL\xE6\x49\xD4\xD9\xDF\x78\x93\xF1\xA1\xB8\xCA\xC7\xA1\xB9)";
-constexpr char kMailDeleteGuildFormat5875F4[] =
+constexpr char kMailDeleteGuildFormat5875F4[] = // 原常量参考：0x005875F4。
     "\n     \xB4\x5F\xB6\xA8\x8C\xA2\n\xA1\xA1\n\xA1\xA1%s\n\xA1\xA1\n"
     "\x8F\xC4\xBC\xD2\xD7\xE5\x95\xFE\x86\x54\xC3\xFB\x86\xCE\xD6\xD0\x84\x68\xB3\xFD\x86\xE1\xA3\xBF\n\n"
     " (\xB4\x5F\xB6\xA8\x84\x68\xB3\xFD\x95\x72\xA3\xAC\xD5\x88\xB0\xB4\xD7\xA1\n"
     "  CTRL\xE6\x49\xD4\xD9\xDF\x78\x93\xF1\xA1\xB8\xCA\xC7\xA1\xB9)";
-constexpr char kMailDeleteMiniFormat587654[] =
+constexpr char kMailDeleteMiniFormat587654[] = // 原常量参考：0x00587654。
     "\n     \xB4\x5F\xB6\xA8\x8C\xA2\n\xA1\xA1\n\xA1\xA1%s\n\xA1\xA1\n"
     "\x8F\xC4\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xD6\xD0\x84\x68\xB3\xFD\x86\xE1\xA3\xBF\n\n"
     " (\xB4\x5F\xB6\xA8\x84\x68\xB3\xFD\x95\x72\xA3\xAC\xD5\x88\xB0\xB4\xD7\xA1\n"
     "  CTRL\xE6\x49\xD4\xD9\xDF\x78\x93\xF1\xA1\xB8\xCA\xC7\xA1\xB9)";
-constexpr char kWindow47Delimiter5531C4[] = "\n";
-constexpr char kWindow47Space55C9BC[] = " ";
+constexpr char kWindow47Delimiter5531C4[] = "\n"; // 原常量参考：0x005531C4。
+constexpr char kWindow47Space55C9BC[] = " "; // 原常量参考：0x0055C9BC。
 
 void InitializeMailDeleteConfirmation(const WindowElementCallback callback)
 {
@@ -25887,7 +25887,7 @@ struct MailStatusTextTable {
 static_assert(offsetof(MailStatusTextTable, suffixes) == 0x640);
 static_assert(sizeof(MailStatusTextTable) == 1760);
 
-constexpr MailStatusTextTable kMailContactStatusText56E9BC {
+constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量参考：0x0056E9BC。
     {
         "\xBF\xA8\xC9\x8F",
         "\xBD\xF0\xC5\xA3\xD7\xF9",
@@ -25920,7 +25920,7 @@ constexpr MailStatusTextTable kMailContactStatusText56E9BC {
         "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
     },
 };
-constexpr MailStatusTextTable kMailGuildStatusText56F0AC {
+constexpr MailStatusTextTable kMailGuildStatusText56F0AC { // 原常量参考：0x0056F0AC。
     {
         "\xBF\xA8\xC9\x8F",
         "\xBD\xF0\xC5\xA3\xD7\xF9",
@@ -25953,21 +25953,21 @@ constexpr MailStatusTextTable kMailGuildStatusText56F0AC {
         "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
     },
 };
-constexpr std::array<std::int32_t, 15> kMailSortImages54F4C0 {
+constexpr std::array<std::int32_t, 15> kMailSortImages54F4C0 { // 原常量参考：0x0054F4C0。
     0x3B60C, 0x3B60D, 0x3B60F, 0x3B610, 0x3B613,
     0x3B60C, 0x3B60E, 0x3B60F, 0x3B610, 0x3B613,
     0x3BAA6, 0x3BA60, 0x3BAA7, 0x3BA61, 0x3BAA8,
 };
-constexpr std::array<std::array<std::int32_t, 2>, 3> kMailImageAnchors56F790 {{
+constexpr std::array<std::array<std::int32_t, 2>, 3> kMailImageAnchors56F790 {{ // 原常量参考：0x0056F790。
     {62, 115}, {62, 202}, {62, 289},
 }};
-constexpr std::array<std::uint8_t, 16> kMailStatusColors56F09C {
+constexpr std::array<std::uint8_t, 16> kMailStatusColors56F09C { // 原常量参考：0x0056F09C。
     7, 5, 1, 3, 4, 2, 6, 5, 1, 3, 4, 2, 6, 0, 0, 0,
 };
-constexpr char kMailOffline58743C[] = "\xEB\x78\xBE\x80";
-constexpr char kMailStatusFormat5598F0[] = "%s%s";
-constexpr char kMailNumberFormat553FCC[] = "%3d";
-constexpr char kMailReverseFormat587434[] = "\xC4\xE6-%s";
+constexpr char kMailOffline58743C[] = "\xEB\x78\xBE\x80"; // 原常量参考：0x0058743C。
+constexpr char kMailStatusFormat5598F0[] = "%s%s"; // 原常量参考：0x005598F0。
+constexpr char kMailNumberFormat553FCC[] = "%3d"; // 原常量参考：0x00553FCC。
+constexpr char kMailReverseFormat587434[] = "\xC4\xE6-%s"; // 原常量参考：0x00587434。
 
 // 只借各原字段；公会记录的+8前缀不强转为另一种C++记录。
 struct MailContactView {
@@ -25976,8 +25976,8 @@ struct MailContactView {
     const std::int32_t* number;
     const std::int32_t* imageNo;
     const char* name;
-    const char* text21;
-    const char* text32;
+    const char* text21; // 原成员偏移：+0x21。
+    const char* text32; // 原成员偏移：+0x32。
 
     std::int16_t ReadStatus() const
     {
@@ -27355,14 +27355,14 @@ std::int32_t Sub_4A45E0(const std::int32_t, const std::int32_t state)
 
 namespace {
 
-constexpr char kPreviousMailHint587718[] = "\xC9\xCF\xD2\xBB\xB7\xE2\xE0\x5D\xBC\xFE";
-constexpr char kNextMailHint587724[] = "\xCF\xC2\xD2\xBB\xB7\xE2\xE0\x5D\xBC\xFE";
-constexpr char kReplyMailHint587730[] =
+constexpr char kPreviousMailHint587718[] = "\xC9\xCF\xD2\xBB\xB7\xE2\xE0\x5D\xBC\xFE"; // 原常量参考：0x00587718。
+constexpr char kNextMailHint587724[] = "\xCF\xC2\xD2\xBB\xB7\xE2\xE0\x5D\xBC\xFE"; // 原常量参考：0x00587724。
+constexpr char kReplyMailHint587730[] = // 原常量参考：0x00587730。
     "\x8C\xA6\xD2\xD1\xDF\x78\x93\xF1\xB5\xC4\x8C\xA6\xCF\xF3\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kPetMailHint58774C[] = "\xCA\xB9\xD3\xC3\x8C\x99\xCE\xEF\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kGroupMailText587780[] = "\xC8\xBA\xBD\x4D\xE0\x5D\xBC\xFE";
-constexpr char kNormalMailHint5877A4[] = "\xBC\xC4\xCB\xCD\xD2\xBB\xB0\xE3\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kSwitchMailPetHint58778C[] =
+constexpr char kPetMailHint58774C[] = "\xCA\xB9\xD3\xC3\x8C\x99\xCE\xEF\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x0058774C。
+constexpr char kGroupMailText587780[] = "\xC8\xBA\xBD\x4D\xE0\x5D\xBC\xFE"; // 原常量参考：0x00587780。
+constexpr char kNormalMailHint5877A4[] = "\xBC\xC4\xCB\xCD\xD2\xBB\xB0\xE3\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005877A4。
+constexpr char kSwitchMailPetHint58778C[] = // 原常量参考：0x0058778C。
     "\x93\x51\xC1\xED\xD2\xBB\xEB\x62\x8C\x99\xCE\xEF\xBC\xC4\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3";
 
 // MC01-C8：两邮件索引域共用std::sort；三向COMP<0表示在前，同键等价。
@@ -29124,17 +29124,17 @@ namespace {
 
 struct GuildRankDraft {
     std::int32_t flags;
-    std::array<char, 41> text;
-    std::array<std::byte, 3> bytes2D;
+    std::array<char, 41> text; // 原成员偏移：+0x04。
+    std::array<std::byte, 3> bytes2D; // 原成员偏移：+0x2D。
 };
 
 // CF401C+48*33与CF464C是同一草稿文本；仅保留已证字段及间隔，不解释未消费字节。
 struct GuildWindowDraft {
     std::array<GuildRankDraft, 32> ranks;
-    std::array<std::byte, 4> bytes600;
-    std::array<char, 41> name604;
-    std::array<std::byte, 7> bytes62D;
-    std::array<char, 41> secondText634;
+    std::array<std::byte, 4> bytes600; // 原成员偏移：+0x600。
+    std::array<char, 41> name604; // 原成员偏移：+0x604。
+    std::array<std::byte, 7> bytes62D; // 原成员偏移：+0x62D。
+    std::array<char, 41> secondText634; // 原成员偏移：+0x634。
 };
 
 static_assert(offsetof(GuildRankDraft, text) == 4);
@@ -29142,10 +29142,10 @@ static_assert(offsetof(GuildRankDraft, bytes2D) == 0x2D);
 static_assert(sizeof(GuildRankDraft) == 0x30);
 static_assert(offsetof(GuildWindowDraft, name604) == 0x604);
 static_assert(offsetof(GuildWindowDraft, secondText634) == 0x634);
-GuildWindowDraft gGuildDraftCF4018 {};
-std::int32_t gGuildPageD67B78 = 0;
-std::int32_t gGuildEditing57F03C = -1;
-std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{
+GuildWindowDraft gGuildDraftCF4018 {}; // 原全局：0x00CF4018。
+std::int32_t gGuildPageD67B78 = 0; // 原全局：0x00D67B78。
+std::int32_t gGuildEditing57F03C = -1; // 原全局：0x0057F03C。
+std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{ // 原全局：0x0057F040。
     {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
         116, 31, 3, 12, 6, {}, 1, 24, 0, 0},
     {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
@@ -29165,21 +29165,21 @@ std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{
     {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
         38, 279, 3, 12, 6, {}, 1, 16, 0, 0},
 }};
-constexpr char kGuildPermissionHint587AA8[] =
+constexpr char kGuildPermissionHint587AA8[] = // 原常量参考：0x00587AA8。
     "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96\xCB\xF9"
     "\x8C\xD9\xB5\xC4\xBC\xD3\xC8\xEB\x99\xE0\xCF\xDE\xA1\xA3";
-constexpr char kGuildPermissionHint587A88[] =
+constexpr char kGuildPermissionHint587A88[] = // 原常量参考：0x00587A88。
     "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96\xCB\xF9"
     "\x8C\xD9\xB5\xC4\xB3\xFD\xC3\xFB\x99\xE0\xCF\xDE\xA1\xA3";
-constexpr char kGuildPermissionHint587A60[] =
+constexpr char kGuildPermissionHint587A60[] = // 原常量参考：0x00587A60。
     "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96\xCB\xF9"
     "\x8C\xD9\xB5\xC4\xBC\xD2\xD7\xE5\xAB\x46\xF0\x6A\xF0\x42\x99\xE0"
     "\xCF\xDE\xA1\xA3";
-constexpr char kGuildPermissionHint587A38[] =
+constexpr char kGuildPermissionHint587A38[] = // 原常量参考：0x00587A38。
     "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96\xCB\xF9"
     "\x8C\xD9\xB5\xC4\xBC\xD2\xD7\xE5\x82\x7D\x8E\xEC\xCA\xB9\xD3\xC3"
     "\x99\xE0\xCF\xDE\xA1\xA3";
-constexpr char kGuildPermissionHint587A10[] =
+constexpr char kGuildPermissionHint587A10[] = // 原常量参考：0x00587A10。
     "\xD7\x83\xB8\xFC\xB4\xCB\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96\xCB\xF9"
     "\x8C\xD9\xB5\xC4\xC1\xF4\xD1\xD4\xB0\xE5\x84\x68\xB3\xFD\x99\xE0"
     "\xCF\xDE\xA1\xA3";
@@ -29187,16 +29187,16 @@ constexpr const char* kGuildPermissionHints[] {
     kGuildPermissionHint587AA8, kGuildPermissionHint587A88,
     kGuildPermissionHint587A60, kGuildPermissionHint587A38, kGuildPermissionHint587A10,
 };
-constexpr char kGuildNameSubmitHint587AC8[] =
+constexpr char kGuildNameSubmitHint587AC8[] = // 原常量参考：0x00587AC8。
     "\xD7\x83\xB8\xFC\xBC\xD2\xD7\xE5\xC3\xFB\xB7\x51\xA1\xA3";
-constexpr char kGuildSecondSubmitHint587AD8[] =
+constexpr char kGuildSecondSubmitHint587AD8[] = // 原常量参考：0x00587AD8。
     "\xD7\x83\xB8\xFC\xBC\xD2\xD7\xE5\x95\xFE\xF0\x5E\xC3\xFB\xB7\x51\xA1\xA3";
-constexpr char kGuildRankSubmitHint587AEC[] =
+constexpr char kGuildRankSubmitHint587AEC[] = // 原常量参考：0x00587AEC。
     "\xD7\x83\xB8\xFC\xD2\xD1\xD4\x4F\xB6\xA8\xB5\xC4\xBC\xD2\xD7\xE5"
     "\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kGuildNameEditMessage587B04[] =
+constexpr char kGuildNameEditMessage587B04[] = // 原常量参考：0x00587B04。
     "\xBC\xD2\xD7\xE5\xC3\xFB\xB7\x51\xB2\xBB\xB5\xC3\xB8\xFC\xB8\xC4\xE0\xB8\x21\x21";
-constexpr char kGuildCloseHint5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0";
+constexpr char kGuildCloseHint5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0"; // 原常量参考：0x005868EC。
 
 } // namespace
 
@@ -31345,32 +31345,32 @@ std::int32_t Sub_49BDB0(const std::int32_t)
 
 namespace {
 
-constexpr char kCraftDecorate586784[] = "\xD1\x62\xEF\x97";
-constexpr char kCraftPetDecorate5867AC[] = "\xD1\x62\xEF\x97\x8C\x99\xCE\xEF\xD1\x62\x82\xE4";
-constexpr char kCraftMagicCost58678C[] = "                     \xC4\xA7\xC1\xA6%3d";
-constexpr char kCraftExecute5868D8[] = "\x88\xCC\xD0\xD0\xA1\xA3";
-constexpr char kCraftNamePrompt5868C8[] = "\xD5\x88\xDD\x94\xC8\xEB\xC3\xFB\xB7\x51\xA1\xA3";
-constexpr char kCraftNameCost5868A8[] = "                     \xC4\xA7\xC1\xA6 10";
-constexpr char kCraftCannotItem586894[] = "\xC4\xBF\xC7\xB0\x9F\x6F\xB7\xA8\x8C\xA6\xB4\xCB\xCE\xEF\xC6\xB7";
-constexpr char kCraftCannotEngrave586884[] = "\xA1\xA1\xDF\x4D\xD0\xD0\xBF\xCC\xD3\xA1\xA1\xA3";
-constexpr char kCraftMaterials58681C[] = "\xD5\x88\xDF\x78\x93\xF1\xD1\x75\xD7\xF7\xB2\xC4\xC1\xCF\xA1\xA3";
-constexpr char kCraftFood5867FC[] = "                   \xC1\xCF\xC0\xED/\xCB\x8E\xCB\xAE";
-constexpr char kCraftWood5867DC[] = "                        \xC4\xBE\xB2\xC4";
-constexpr char kCraftCloth5867BC[] = "                        \xB2\xBC\xC1\xCF";
-constexpr char kCraftRefine586860[] = "\xBE\xAB\x9F\x92";
-constexpr char kCraftWorking5865C4[] =
+constexpr char kCraftDecorate586784[] = "\xD1\x62\xEF\x97"; // 原常量参考：0x00586784。
+constexpr char kCraftPetDecorate5867AC[] = "\xD1\x62\xEF\x97\x8C\x99\xCE\xEF\xD1\x62\x82\xE4"; // 原常量参考：0x005867AC。
+constexpr char kCraftMagicCost58678C[] = "                     \xC4\xA7\xC1\xA6%3d"; // 原常量参考：0x0058678C。
+constexpr char kCraftExecute5868D8[] = "\x88\xCC\xD0\xD0\xA1\xA3"; // 原常量参考：0x005868D8。
+constexpr char kCraftNamePrompt5868C8[] = "\xD5\x88\xDD\x94\xC8\xEB\xC3\xFB\xB7\x51\xA1\xA3"; // 原常量参考：0x005868C8。
+constexpr char kCraftNameCost5868A8[] = "                     \xC4\xA7\xC1\xA6 10"; // 原常量参考：0x005868A8。
+constexpr char kCraftCannotItem586894[] = "\xC4\xBF\xC7\xB0\x9F\x6F\xB7\xA8\x8C\xA6\xB4\xCB\xCE\xEF\xC6\xB7"; // 原常量参考：0x00586894。
+constexpr char kCraftCannotEngrave586884[] = "\xA1\xA1\xDF\x4D\xD0\xD0\xBF\xCC\xD3\xA1\xA1\xA3"; // 原常量参考：0x00586884。
+constexpr char kCraftMaterials58681C[] = "\xD5\x88\xDF\x78\x93\xF1\xD1\x75\xD7\xF7\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058681C。
+constexpr char kCraftFood5867FC[] = "                   \xC1\xCF\xC0\xED/\xCB\x8E\xCB\xAE"; // 原常量参考：0x005867FC。
+constexpr char kCraftWood5867DC[] = "                        \xC4\xBE\xB2\xC4"; // 原常量参考：0x005867DC。
+constexpr char kCraftCloth5867BC[] = "                        \xB2\xBC\xC1\xCF"; // 原常量参考：0x005867BC。
+constexpr char kCraftRefine586860[] = "\xBE\xAB\x9F\x92"; // 原常量参考：0x00586860。
+constexpr char kCraftWorking5865C4[] = // 原常量参考：0x005865C4。
     "\xA1\xA1\xA1\xA1\xA1\xA1\x2E\x2E\x2E\xA1\xA1\xD7\xF7\xB3\xC9\xD6\xD0\xA1\xA1\x2E\x2E\x2E";
-constexpr char kCraftEngraving5866DC[] =
+constexpr char kCraftEngraving5866DC[] = // 原常量参考：0x005866DC。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xBF\xCC\xD3\xA1\xD6\xD0\xA1\xA1\xA1\xAD";
-constexpr char kCraftRefining5866C4[] =
+constexpr char kCraftRefining5866C4[] = // 原常量参考：0x005866C4。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xBE\xAB\x9F\x92\xD6\xD0\xA1\xA1\xA1\xAD";
-constexpr char kCraftIdentifying5866AC[] =
+constexpr char kCraftIdentifying5866AC[] = // 原常量参考：0x005866AC。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xE8\x61\xB6\xA8\xD6\xD0\xA1\xA1\xA1\xAD";
-constexpr char kCraftRepairing586694[] =
+constexpr char kCraftRepairing586694[] = // 原常量参考：0x00586694。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xD0\xDE\xC0\xED\xD6\xD0\xA1\xA1\xA1\xAD";
-constexpr char kCraftPacking586830[] =
+constexpr char kCraftPacking586830[] = // 原常量参考：0x00586830。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xB4\xF2\xB0\xFC\xD6\xD0\xA1\xA1\xA1\xAD";
-constexpr char kCraftDecorating586848[] =
+constexpr char kCraftDecorating586848[] = // 原常量参考：0x00586848。
     "\xA1\xA1\xA1\xA1\xA1\xA1\xA1\xAD\xA1\xA1\xD1\x62\xEF\x97\xD6\xD0\xA1\xA1\xA1\xAD";
 
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
@@ -35905,47 +35905,47 @@ std::int32_t Sub_4EF710(const std::int32_t skillId)
 
 namespace {
 
-constexpr std::array<std::int32_t, 18> kSkillListImages54F37C {
+constexpr std::array<std::int32_t, 18> kSkillListImages54F37C { // 原常量参考：0x0054F37C。
     0x3B59F, 0x3B5A0, 0x3B5A1, 0x3B5A5, 0x3B5A6, 0x3B5A7,
     0x3B5A5, 0x3B5A6, 0x3B5A7, 0x3B5A8, 0x3B5A9, 0x3B5AA,
     0x3B5A2, 0x3B5A3, 0x3B5A4, 0x3B59F, 0x3B5A0, 0x3B5A1,
 };
-constexpr std::array<std::int32_t, 3> kPetSkillImages54F454 {0x3B5B7, 0x3B5B8, 0x3B5B9};
-constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 {
+constexpr std::array<std::int32_t, 3> kPetSkillImages54F454 {0x3B5B7, 0x3B5B8, 0x3B5B9}; // 原常量参考：0x0054F454。
+constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 { // 原常量参考：0x0054F3C4。
     0x3B5AB, 0x3B5AC, 0x3B5AD, 0x3B5B1, 0x3B5B2, 0x3B5B3,
     0x3B5B1, 0x3B5B2, 0x3B5B3, 0x3B5B4, 0x3B5B5, 0x3B5B6,
     0x3B5AE, 0x3B5AF, 0x3B5B0, 0x3B5AB, 0x3B5AC, 0x3B5AD,
 };
-constexpr std::array<std::int32_t, 18> kSkillRecipeImages54F40C {
+constexpr std::array<std::int32_t, 18> kSkillRecipeImages54F40C { // 原常量参考：0x0054F40C。
     0x3B5B7, 0x3B5B8, 0x3B5B9, 0x3B5BD, 0x3B5BE, 0x3B5BF,
     0x3B5BD, 0x3B5BE, 0x3B5BF, 0x3B5C0, 0x3B5C1, 0x3B5C2,
     0x3B5BA, 0x3B5BB, 0x3B5BC, 0x3B5B7, 0x3B5B8, 0x3B5B9,
 };
-constexpr char kSkillUsable586518[] =
+constexpr char kSkillUsable586518[] = // 原常量参考：0x00586518。
     "\xCA\xB9\xD3\xC3\xB4\xCB\xD2\xBB\xB5\xC8\xBC\x89\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kSkillUnusable5864FC[] =
+constexpr char kSkillUnusable5864FC[] = // 原常量参考：0x005864FC。
     "\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xB4\xCB\xD2\xBB\xB5\xC8\xBC\x89"
     "\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kSkillInventoryFull5864E4[] = "\xCE\xEF\xC6\xB7\x99\xDA\xD2\xD1\x9D\x4D";
-constexpr char kSkillRecipeHint586530[] =
+constexpr char kSkillInventoryFull5864E4[] = "\xCE\xEF\xC6\xB7\x99\xDA\xD2\xD1\x9D\x4D"; // 原常量参考：0x005864E4。
+constexpr char kSkillRecipeHint586530[] = // 原常量参考：0x00586530。
     "\xD1\x75\xD7\xF7\xB4\xCB\xC5\xE4\xB7\xBD\x83\xC8\xC8\xDD\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3";
-constexpr char kSkillListHint5864C8[] =
+constexpr char kSkillListHint5864C8[] = // 原常量参考：0x005864C8。
     "\xB4\xF2\xE9\x5F\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kBattleSkillInventoryFull586548[] =
+constexpr char kBattleSkillInventoryFull586548[] = // 原常量参考：0x00586548。
     "\xD3\xC9\xEC\xB6\xB3\xD6\xD3\xD0\xCE\xEF\xC6\xB7\x9D\x4D\xC1\xCB\xA3\xAC\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xA1\xA3";
-constexpr char kBattleSkillNoFp586568[] =
+constexpr char kBattleSkillNoFp586568[] = // 原常量参考：0x00586568。
     "\xD3\xC9\xEC\xB6\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA3\xAC\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kBattleSkillUnusable586588[] =
+constexpr char kBattleSkillUnusable586588[] = // 原常量参考：0x00586588。
     "\xD3\xC9\xEC\xB6\xC4\xDC\xC1\xA6\xB2\xBB\xD7\xE3\xA3\xAC\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3";
-constexpr char kSkillBackToTechniques586470[] =
+constexpr char kSkillBackToTechniques586470[] = // 原常量参考：0x00586470。
     "\xC7\xD0\x93\x51\xBB\xD8\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kSkillBackToList586488[] =
+constexpr char kSkillBackToList586488[] = // 原常量参考：0x00586488。
     "\xC7\xD0\x93\x51\xBB\xD8\xBC\xBC\xC4\xDC\xD2\xBB\xD3\x5B\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kSkillEnableRebirth5864A0[] =
+constexpr char kSkillEnableRebirth5864A0[] = // 原常量参考：0x005864A0。
     "\xDF\x4D\xD0\xD0\xA1\xB8\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xB9\xA1\xA3";
-constexpr char kSkillDisableRebirth5864B4[] =
+constexpr char kSkillDisableRebirth5864B4[] = // 原常量参考：0x005864B4。
     "\xBD\xE2\xB3\xFD\xA1\xB8\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xB9\xA1\xA3";
-constexpr char kPetSkillSkip5865A8[] = "\xC2\xD4\xDF\x5E\xB4\xCB\xBB\xD8\xBA\xCF\xA1\xA3";
+constexpr char kPetSkillSkip5865A8[] = "\xC2\xD4\xDF\x5E\xB4\xCB\xBB\xD8\xBA\xCF\xA1\xA3"; // 原常量参考：0x005865A8。
 
 } // namespace
 
@@ -40245,7 +40245,7 @@ void Sub_49F7E0(const std::int32_t offset)
 
 namespace {
 
-std::uint32_t gBattleResultCloseTickCB0F78 = 0; // 原窗口30/31共用到期tick，不按窗口复制。
+std::uint32_t gBattleResultCloseTickCB0F78 = 0; // 原全局：0x00CB0F78。 原窗口30/31共用到期tick，不按窗口复制。
 
 } // namespace
 
@@ -41398,8 +41398,8 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
 
 namespace {
 
-constexpr char kStatusVitalsFormat553FE8[] = "%4d/%4d";
-constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556});
+constexpr char kStatusVitalsFormat553FE8[] = "%4d/%4d"; // 原常量参考：0x00553FE8。
+constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556}); // 原常量参考：0x0054F638。
 
 // 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
 void FormatStatusBarVitals(char* const buffer)
@@ -41484,58 +41484,58 @@ void DrawStatusBarTimer(const std::int32_t firstElement, render::GraphicDescript
     }
 }
 
-constexpr char kStatusNoMail556D14[] = "\xAC\x46\xD4\xDA\x9B\x5D\xD3\xD0\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kStatusNewMail556D24[] = "\xAC\x46\xD4\xDA\xD3\xD0\xD0\xC2\xE0\x5D\xBC\xFE\xA1\xA3";
-constexpr char kStatusNoPoints556D34[] =
+constexpr char kStatusNoMail556D14[] = "\xAC\x46\xD4\xDA\x9B\x5D\xD3\xD0\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x00556D14。
+constexpr char kStatusNewMail556D24[] = "\xAC\x46\xD4\xDA\xD3\xD0\xD0\xC2\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x00556D24。
+constexpr char kStatusNoPoints556D34[] = // 原常量参考：0x00556D34。
     "\xAC\x46\xD4\xDA\x9B\x5D\xD3\xD0\xC8\xCE\xBA\xCE\xB5\xC4\xD4\xF6\xBC\xD3\xFC\x63\x94\xB5\xA1\xA3";
-constexpr char kStatusPlayerPoints556D50[] =
+constexpr char kStatusPlayerPoints556D50[] = // 原常量参考：0x00556D50。
     "\xAC\x46\xD4\xDA\xD3\xD0\xD4\xF6\xBC\xD3\xFC\x63\x94\xB5%d\xFC\x63\xA1\xA3";
-constexpr char kStatusHealthy556D68[] = "\xAC\x46\xD4\xDA\xCA\xAE\xB7\xD6\xBD\xA1\xBF\xB5\xA1\xA3";
-constexpr char kStatusPetInjury556D78[] = "\xAC\x46\xD4\xDA%s\x9E\x6C\xC5\x52\xCB\xC0\xCD\xF6\xA1\xA3";
-constexpr char kStatusPetInjury556D8C[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xC1\xCB\xD6\xD8\x82\xFB\xA1\xA3";
-constexpr char kStatusPetInjury556DA0[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xB5\xBD\xDD\x70\x82\xFB\xA1\xA3";
-constexpr char kStatusPetInjury556DB4[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xB5\xBD\xB2\xC1\x82\xFB\xA1\xA3";
-constexpr char kStatusPlayerInjury556DC8[] =
+constexpr char kStatusHealthy556D68[] = "\xAC\x46\xD4\xDA\xCA\xAE\xB7\xD6\xBD\xA1\xBF\xB5\xA1\xA3"; // 原常量参考：0x00556D68。
+constexpr char kStatusPetInjury556D78[] = "\xAC\x46\xD4\xDA%s\x9E\x6C\xC5\x52\xCB\xC0\xCD\xF6\xA1\xA3"; // 原常量参考：0x00556D78。
+constexpr char kStatusPetInjury556D8C[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xC1\xCB\xD6\xD8\x82\xFB\xA1\xA3"; // 原常量参考：0x00556D8C。
+constexpr char kStatusPetInjury556DA0[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xB5\xBD\xDD\x70\x82\xFB\xA1\xA3"; // 原常量参考：0x00556DA0。
+constexpr char kStatusPetInjury556DB4[] = "\xAC\x46\xD4\xDA%s\xCA\xDC\xB5\xBD\xB2\xC1\x82\xFB\xA1\xA3"; // 原常量参考：0x00556DB4。
+constexpr char kStatusPlayerInjury556DC8[] = // 原常量参考：0x00556DC8。
     "\xAC\x46\xD4\xDA\xD5\xFD\xC3\xE6\xC5\x52\xCB\xC0\xCD\xF6\xDF\x85\xBE\x89\xA1\xA3";
-constexpr char kStatusPlayerInjury556DE0[] = "\xAC\x46\xD4\xDA\xCA\xDC\xB5\xBD\xD6\xD8\x82\xFB\xA1\xA3";
-constexpr char kStatusPlayerInjury556DF0[] = "\xAC\x46\xD4\xDA\xCA\xDC\xC1\xCB\xDD\x70\x82\xFB\xA1\xA3";
-constexpr char kStatusPlayerInjury556E00[] =
+constexpr char kStatusPlayerInjury556DE0[] = "\xAC\x46\xD4\xDA\xCA\xDC\xB5\xBD\xD6\xD8\x82\xFB\xA1\xA3"; // 原常量参考：0x00556DE0。
+constexpr char kStatusPlayerInjury556DF0[] = "\xAC\x46\xD4\xDA\xCA\xDC\xC1\xCB\xDD\x70\x82\xFB\xA1\xA3"; // 原常量参考：0x00556DF0。
+constexpr char kStatusPlayerInjury556E00[] = // 原常量参考：0x00556E00。
     "\xAC\x46\xD4\xDA\xCA\xDC\xC1\xCB\xD2\xBB\xFC\x63\xD0\xA1\x82\xFB\xA1\xA3";
-constexpr char kStatusPetPoints586314[] =
+constexpr char kStatusPetPoints586314[] = // 原常量参考：0x00586314。
     "\xAC\x46\xD4\xDA%s\x93\xED\xD3\xD0%d\xFC\x63\xB5\xC4\xC4\xDC\xC1\xA6\xFC\x63\x94\xB5\xA1\xA3";
-constexpr char kStatusDuelOff556E14[] = "\xAC\x46\xD4\xDA\xB2\xBB\xC4\xDC\xB8\xFA\x84\x65\xC8\xCB\x8C\xA6\x91\xF0\xA1\xA3";
-constexpr char kStatusDuelOn556E2C[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xB8\xFA\x84\x65\xC8\xCB\x8C\xA6\x91\xF0\xA1\xA3";
-constexpr char kStatusChatOff556E44[] = "\xAC\x46\xD4\xDA\xDF\x4D\xD0\xD0\xC6\xD5\xCD\xA8\xB5\xC4\xC1\xC4\xCC\xEC\xA1\xA3";
-constexpr char kStatusChatOn556E5C[] = "\xAC\x46\xD4\xDA\xDF\x4D\xD0\xD0\xD0\xA1\xEA\xA0\xB5\xC4\xC1\xC4\xCC\xEC\xA1\xA3";
-constexpr char kStatusPartyOff556E74[] =
+constexpr char kStatusDuelOff556E14[] = "\xAC\x46\xD4\xDA\xB2\xBB\xC4\xDC\xB8\xFA\x84\x65\xC8\xCB\x8C\xA6\x91\xF0\xA1\xA3"; // 原常量参考：0x00556E14。
+constexpr char kStatusDuelOn556E2C[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xB8\xFA\x84\x65\xC8\xCB\x8C\xA6\x91\xF0\xA1\xA3"; // 原常量参考：0x00556E2C。
+constexpr char kStatusChatOff556E44[] = "\xAC\x46\xD4\xDA\xDF\x4D\xD0\xD0\xC6\xD5\xCD\xA8\xB5\xC4\xC1\xC4\xCC\xEC\xA1\xA3"; // 原常量参考：0x00556E44。
+constexpr char kStatusChatOn556E5C[] = "\xAC\x46\xD4\xDA\xDF\x4D\xD0\xD0\xD0\xA1\xEA\xA0\xB5\xC4\xC1\xC4\xCC\xEC\xA1\xA3"; // 原常量参考：0x00556E5C。
+constexpr char kStatusPartyOff556E74[] = // 原常量参考：0x00556E74。
     "\xAC\x46\xD4\xDA\xBD\xFB\xD6\xB9\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\x4D\xEA\xA0\xA1\xA3";
-constexpr char kStatusPartyOn556E90[] =
+constexpr char kStatusPartyOn556E90[] = // 原常量参考：0x00556E90。
     "\xAC\x46\xD4\xDA\xD4\xCA\xD4\x53\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\x4D\xEA\xA0\xA1\xA3";
-constexpr char kStatusCardOff556EAC[] =
+constexpr char kStatusCardOff556EAC[] = // 原常量参考：0x00556EAC。
     "\xAC\x46\xD4\xDA\xBD\xFB\xD6\xB9\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\xBB\x93\x51\xC3\xFB\xC6\xAC\xA1\xA3";
-constexpr char kStatusCardOn556ECC[] =
+constexpr char kStatusCardOn556ECC[] = // 原常量参考：0x00556ECC。
     "\xAC\x46\xD4\xDA\xD4\xCA\xD4\x53\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\xBB\x93\x51\xC3\xFB\xC6\xAC\xA1\xA3";
-constexpr char kStatusTradeOff556EEC[] =
+constexpr char kStatusTradeOff556EEC[] = // 原常量参考：0x00556EEC。
     "\xAC\x46\xD4\xDA\xBD\xFB\xD6\xB9\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kStatusTradeOn556F08[] =
+constexpr char kStatusTradeOn556F08[] = // 原常量参考：0x00556F08。
     "\xAC\x46\xD4\xDA\xD4\xCA\xD4\x53\x84\x65\xC8\xCB\xC5\x63\xD7\xD4\xBC\xBA\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kStatusGuildUnavailable586270[] = "\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xBC\xD2\xD7\xE5\xB9\xA6\xC4\xDC\xA1\xA3";
-constexpr char kStatusGuildOff5862D4[] =
+constexpr char kStatusGuildUnavailable586270[] = "\x9F\x6F\xB7\xA8\xCA\xB9\xD3\xC3\xBC\xD2\xD7\xE5\xB9\xA6\xC4\xDC\xA1\xA3"; // 原常量参考：0x00586270。
+constexpr char kStatusGuildOff5862D4[] = // 原常量参考：0x005862D4。
     "\xAC\x46\xD4\xDA\xBD\xFB\xD6\xB9\x84\x65\xC8\xCB\xD1\xFB\xD5\x88\xD7\xD4\xBC\xBA\x85\xA2\xBC\xD3\xBC\xD2\xD7\xE5\xA1\xA3";
-constexpr char kStatusGuildOn5862F4[] =
+constexpr char kStatusGuildOn5862F4[] = // 原常量参考：0x005862F4。
     "\xAC\x46\xD4\xDA\xD4\xCA\xD4\x53\x84\x65\xC8\xCB\xD1\xFB\xD5\x88\xD7\xD4\xBC\xBA\x85\xA2\xBC\xD3\xBC\xD2\xD7\xE5\xA1\xA3";
 
-constexpr char kQuickDuel556C80[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\x8C\xA6\x91\xF0\xA1\xA3";
-constexpr char kQuickWatch556C90[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\xD3\x5E\x91\xF0\xA1\xA3";
-constexpr char kQuickTeam556CA0[] = "\xD2\xAA\xC7\xF3\xBC\xD3\xC8\xEB\xC3\xB0\xEB\x55\xEA\xA0\xCE\xE9\xA1\xA3";
-constexpr char kQuickCard556CB4[] = "\xD2\xAA\xC7\xF3\xBD\xBB\x93\x51\xC3\xFB\xC6\xAC\xA1\xA3";
-constexpr char kQuickTrade556CD8[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3";
-constexpr char kQuickEmote556CE8[] = "\xB4\xF2\xE9\x5F\xC7\xE9\xBE\x77\x84\xD3\xD7\xF7\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kQuickMap58625C[] = "\xB4\xF2\xE9\x5F\xD0\xA1\xB5\xD8\x88\x44\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kQuickGuild586284[] = "\xD1\xFB\xD5\x88\x8C\xA6\xB7\xBD\xBC\xD3\xC8\xEB\xD7\xD4\xBC\xBA\xB5\xC4\xBC\xD2\xD7\xE5\xA1\xA3";
-constexpr char kQuickStall5862A0[] = "\xDF\x4D\xD0\xD0\x94\x5B\x94\x82";
+constexpr char kQuickDuel556C80[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\x8C\xA6\x91\xF0\xA1\xA3"; // 原常量参考：0x00556C80。
+constexpr char kQuickWatch556C90[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\xD3\x5E\x91\xF0\xA1\xA3"; // 原常量参考：0x00556C90。
+constexpr char kQuickTeam556CA0[] = "\xD2\xAA\xC7\xF3\xBC\xD3\xC8\xEB\xC3\xB0\xEB\x55\xEA\xA0\xCE\xE9\xA1\xA3"; // 原常量参考：0x00556CA0。
+constexpr char kQuickCard556CB4[] = "\xD2\xAA\xC7\xF3\xBD\xBB\x93\x51\xC3\xFB\xC6\xAC\xA1\xA3"; // 原常量参考：0x00556CB4。
+constexpr char kQuickTrade556CD8[] = "\xD2\xAA\xC7\xF3\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00556CD8。
+constexpr char kQuickEmote556CE8[] = "\xB4\xF2\xE9\x5F\xC7\xE9\xBE\x77\x84\xD3\xD7\xF7\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00556CE8。
+constexpr char kQuickMap58625C[] = "\xB4\xF2\xE9\x5F\xD0\xA1\xB5\xD8\x88\x44\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058625C。
+constexpr char kQuickGuild586284[] = "\xD1\xFB\xD5\x88\x8C\xA6\xB7\xBD\xBC\xD3\xC8\xEB\xD7\xD4\xBC\xBA\xB5\xC4\xBC\xD2\xD7\xE5\xA1\xA3"; // 原常量参考：0x00586284。
+constexpr char kQuickStall5862A0[] = "\xDF\x4D\xD0\xD0\x94\x5B\x94\x82"; // 原常量参考：0x005862A0。
 
-constexpr const char* kEmoteHints5871B0[18] {
+constexpr const char* kEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
     "\xD7\xF6\xA1\xB8\xD7\xF8\xCF\xC2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3",
     "\xD7\xF6\xA1\xB8\x93\x5D\xCA\xD6\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3",
     "\xD7\xF6\xA1\xB8\xFC\x63\xEE\x5E\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3",
@@ -42814,16 +42814,16 @@ std::int32_t SendPetStateValues(const std::array<std::int32_t, 5>& values)
     return network::Sub_511AE0(socket, first, second, third, fourth, fifth);
 }
 
-constexpr char kPetPlaceHint586C14[] = "\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\xB7\xC5\xD4\xDA\xB5\xD8\xC9\xCF\xA1\xA3";
-constexpr char kPetPlacedHint586C28[] = "\x9F\x6F\xB7\xA8\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\xB7\xC5\xD4\xDA\xB5\xD8\xC9\xCF\xA1\xA3";
-constexpr char kPetBattleHint586C40[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kPetBattlingHint586C5C[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kPetReadyHint586C78[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kPetReadiedHint586C94[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3";
-constexpr char kPetFollowHint586CD8[] = "\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\x8E\xA7\xD4\xDA\xC9\xED\xE1\xE1\xC9\xA2\xB2\xBD\xA1\xA3";
-constexpr char kPetFollowingHint586CF0[] = "\x9F\x6F\xB7\xA8\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\x8E\xA7\xD4\xDA\xC9\xED\xE1\xE1\xC9\xA2\xB2\xBD\xA1\xA3";
-constexpr char kPetDetailsHint586D0C[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kPetLowLoyalty586CB0[] =
+constexpr char kPetPlaceHint586C14[] = "\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\xB7\xC5\xD4\xDA\xB5\xD8\xC9\xCF\xA1\xA3"; // 原常量参考：0x00586C14。
+constexpr char kPetPlacedHint586C28[] = "\x9F\x6F\xB7\xA8\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\xB7\xC5\xD4\xDA\xB5\xD8\xC9\xCF\xA1\xA3"; // 原常量参考：0x00586C28。
+constexpr char kPetBattleHint586C40[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C40。
+constexpr char kPetBattlingHint586C5C[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C5C。
+constexpr char kPetReadyHint586C78[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C78。
+constexpr char kPetReadiedHint586C94[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C94。
+constexpr char kPetFollowHint586CD8[] = "\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\x8E\xA7\xD4\xDA\xC9\xED\xE1\xE1\xC9\xA2\xB2\xBD\xA1\xA3"; // 原常量参考：0x00586CD8。
+constexpr char kPetFollowingHint586CF0[] = "\x9F\x6F\xB7\xA8\x8C\xA2\xB4\xCB\x8C\x99\xCE\xEF\x8E\xA7\xD4\xDA\xC9\xED\xE1\xE1\xC9\xA2\xB2\xBD\xA1\xA3"; // 原常量参考：0x00586CF0。
+constexpr char kPetDetailsHint586D0C[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586D0C。
+constexpr char kPetLowLoyalty586CB0[] = // 原常量参考：0x00586CB0。
     "\x8C\x99\xCE\xEF\xD6\xD2\xD5\x5C\xB6\xC8\xD0\xE8\xDF\x5F\xB5\xBD\x36\x30\xD2\xD4"
     "\xC9\xCF\xB2\xC5\xBF\xC9\xD2\xD4\x8E\xA7\xCB\xFC\xC9\xA2\xB2\xBD\xE0\xB8\x21";
 
@@ -43262,13 +43262,13 @@ std::int32_t Sub_48C1B0(const std::int32_t value)
     return 1;
 }
 
-static constexpr char kTitleEditHint5863C4[] = "\xD4\x4F\xB6\xA8\xD7\xD4\xBC\xBA\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-static constexpr char kTitleSelectHint5863D8[] = "\xD4\x4F\xB6\xA8\xB4\xCB\xB7\x51\xCC\x96\xA1\xA3";
-static constexpr char kTitleStatusHint5858D8[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA3";
-static constexpr char kTitleDetailsHint5858C0[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xC3\xF7\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3";
-static constexpr char kTitleProfileHint58637C[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xBA\x86\xBD\xE9\xD2\x95\xB4\xB0";
-static constexpr char kTitleCancelHint5863FC[] = "\xC8\xA1\xCF\xFB\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-static constexpr char kTitleDeleteHint5863E8[] = "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
+static constexpr char kTitleEditHint5863C4[] = "\xD4\x4F\xB6\xA8\xD7\xD4\xBC\xBA\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x005863C4。
+static constexpr char kTitleSelectHint5863D8[] = "\xD4\x4F\xB6\xA8\xB4\xCB\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x005863D8。
+static constexpr char kTitleStatusHint5858D8[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005858D8。
+static constexpr char kTitleDetailsHint5858C0[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xC3\xF7\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005858C0。
+static constexpr char kTitleProfileHint58637C[] = "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xBA\x86\xBD\xE9\xD2\x95\xB4\xB0"; // 原常量参考：0x0058637C。
+static constexpr char kTitleCancelHint5863FC[] = "\xC8\xA1\xCF\xFB\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x005863FC。
+static constexpr char kTitleDeleteHint5863E8[] = "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3"; // 原常量参考：0x005863E8。
 
 // 原函数：0x00492260。
 void Sub_492260()
@@ -43900,12 +43900,12 @@ void Sub_48DD40()
 
 namespace {
 
-constexpr char kPetSkillPageHint585920[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kPetDetailPageHint58593C[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xD4\x94\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kPetAbilityPageHint585958[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kPetSelectHint586D2C[] = "\xC7\xD0\x93\x51\xED\x93\x94\xB5\xA1\xA3";
-constexpr char kPetRenameHint586D38[] = "\xD7\x83\xB8\xFC\x8C\x99\xCE\xEF\xC3\xFB\xD7\xD6\xA1\xA3";
-constexpr char kPetAllocateHint5863A4[] = "\xB7\xD6\xC5\xE4\xFC\x63\x94\xB5\xD6\xC1\xC4\xBF\xC7\xB0\xB5\xC4\xC4\xDC\xC1\xA6\x94\xB5\xD6\xB5\xA1\xA3";
+constexpr char kPetSkillPageHint585920[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585920。
+constexpr char kPetDetailPageHint58593C[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xD4\x94\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058593C。
+constexpr char kPetAbilityPageHint585958[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585958。
+constexpr char kPetSelectHint586D2C[] = "\xC7\xD0\x93\x51\xED\x93\x94\xB5\xA1\xA3"; // 原常量参考：0x00586D2C。
+constexpr char kPetRenameHint586D38[] = "\xD7\x83\xB8\xFC\x8C\x99\xCE\xEF\xC3\xFB\xD7\xD6\xA1\xA3"; // 原常量参考：0x00586D38。
+constexpr char kPetAllocateHint5863A4[] = "\xB7\xD6\xC5\xE4\xFC\x63\x94\xB5\xD6\xC1\xC4\xBF\xC7\xB0\xB5\xC4\xC4\xDC\xC1\xA6\x94\xB5\xD6\xB5\xA1\xA3"; // 原常量参考：0x005863A4。
 
 } // namespace
 

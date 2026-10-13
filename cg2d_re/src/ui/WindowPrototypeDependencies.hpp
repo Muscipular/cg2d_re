@@ -5,75 +5,75 @@
 namespace cg::ui::detail {
 
 // 原57C130指向的元素数组；实际初值和回调绑定位于WindowPrototypes.cpp，本头声明供窗口调用侧使用。
-extern WindowElementPrototype gWindowElements55ED60[11];
-extern WindowElementPrototype gWindowElements55EEC0[2];
-extern WindowElementPrototype gWindowElements55F0A0[24];
-extern WindowElementPrototype gWindowElements55F3A0[7];
-extern WindowElementPrototype gWindowElements55F480[2];
-extern WindowElementPrototype gWindowElements55F5C0[14];
-extern WindowElementPrototype gWindowElements55FD60[73];
-extern WindowElementPrototype gWindowElements560840[43];
-extern WindowElementPrototype gWindowElements560F50[37];
-extern WindowElementPrototype gWindowElements561558[34];
-extern WindowElementPrototype gWindowElements561B78[30];
-extern WindowElementPrototype gWindowElements5620E0[31];
-extern WindowElementPrototype gWindowElements562620[15];
-extern WindowElementPrototype gWindowElements562930[14];
-extern WindowElementPrototype gWindowElements562CD8[24];
-extern WindowElementPrototype gWindowElements5630F0[8];
-extern WindowElementPrototype gWindowElements563500[259];
-extern WindowElementPrototype gWindowElements5659C0[66];
-extern WindowElementPrototype gWindowElements566200[46];
-extern WindowElementPrototype gWindowElements566810[51];
-extern WindowElementPrototype gWindowElements567028[71];
-extern WindowElementPrototype gWindowElements567AE8[82];
-extern WindowElementPrototype gWindowElements5689C8[32];
-extern WindowElementPrototype gWindowElements568F78[25];
-extern WindowElementPrototype gWindowElements56AF50[7];
-extern WindowElementPrototype gWindowElements56B2B8[20];
-extern WindowElementPrototype gWindowElements56B710[14];
-extern WindowElementPrototype gWindowElements56B8D8[2];
-extern WindowElementPrototype gWindowElements56B9B8[66];
-extern WindowElementPrototype gWindowElements56C2C8[4];
-extern WindowElementPrototype gWindowElements56C430[22];
-extern WindowElementPrototype gWindowElements56C800[8];
-extern WindowElementPrototype gWindowElements56C9B8[2];
-extern WindowElementPrototype gWindowElements56CA88[19];
-extern WindowElementPrototype gWindowElements56CCD0[1];
-extern WindowElementPrototype gWindowElements56CDB0[19];
-extern WindowElementPrototype gWindowElements56D0B0[19];
-extern WindowElementPrototype gWindowElements56D3E8[34];
-extern WindowElementPrototype gWindowElements56D838[3];
-extern WindowElementPrototype gWindowElements56DB38[111];
-extern WindowElementPrototype gWindowElements56F860[29];
-extern WindowElementPrototype gWindowElements56FD70[21];
-extern WindowElementPrototype gWindowElements5701F8[9];
-extern WindowElementPrototype gWindowElements570318[13];
-extern WindowElementPrototype gWindowElements5706D0[34];
-extern WindowElementPrototype gWindowElements570CB0[20];
-extern WindowElementPrototype gWindowElements570FD8[2];
-extern WindowElementPrototype gWindowElements571160[38];
-extern WindowElementPrototype gWindowElements571740[6];
-extern WindowElementPrototype gWindowElements5719E8[26];
-extern WindowElementPrototype gWindowElements571F18[76];
-extern WindowElementPrototype gWindowElements572AF8[20];
-extern WindowElementPrototype gWindowElements572F90[37];
-extern WindowElementPrototype gWindowElements5735C8[36];
-extern WindowElementPrototype gWindowElements573D80[66];
-extern WindowElementPrototype gWindowElements5748E8[107];
-extern WindowElementPrototype gWindowElements575988[70];
-extern WindowElementPrototype gWindowElements576588[70];
-extern WindowElementPrototype gWindowElements576F90[15];
-extern WindowElementPrototype gWindowElements577298[32];
-extern WindowElementPrototype gWindowElements5777A8[162];
-extern WindowElementPrototype gWindowElements578CC8[71];
-extern WindowElementPrototype gWindowElements579710[22];
-extern WindowElementPrototype gWindowElements579B28[16];
-extern WindowElementPrototype gWindowElements57A070[21];
-extern WindowElementPrototype gWindowElements57A450[71];
-extern WindowElementPrototype gWindowElements57AEC0[25];
-extern WindowElementPrototype gWindowElements57B508[48];
-extern WindowElementPrototype gWindowElements57BB08[43];
+extern WindowElementPrototype gWindowElements55ED60[11]; // 原全局：0x0055ED60。
+extern WindowElementPrototype gWindowElements55EEC0[2]; // 原全局：0x0055EEC0。
+extern WindowElementPrototype gWindowElements55F0A0[24]; // 原全局：0x0055F0A0。
+extern WindowElementPrototype gWindowElements55F3A0[7]; // 原全局：0x0055F3A0。
+extern WindowElementPrototype gWindowElements55F480[2]; // 原全局：0x0055F480。
+extern WindowElementPrototype gWindowElements55F5C0[14]; // 原全局：0x0055F5C0。
+extern WindowElementPrototype gWindowElements55FD60[73]; // 原全局：0x0055FD60。
+extern WindowElementPrototype gWindowElements560840[43]; // 原全局：0x00560840。
+extern WindowElementPrototype gWindowElements560F50[37]; // 原全局：0x00560F50。
+extern WindowElementPrototype gWindowElements561558[34]; // 原全局：0x00561558。
+extern WindowElementPrototype gWindowElements561B78[30]; // 原全局：0x00561B78。
+extern WindowElementPrototype gWindowElements5620E0[31]; // 原全局：0x005620E0。
+extern WindowElementPrototype gWindowElements562620[15]; // 原全局：0x00562620。
+extern WindowElementPrototype gWindowElements562930[14]; // 原全局：0x00562930。
+extern WindowElementPrototype gWindowElements562CD8[24]; // 原全局：0x00562CD8。
+extern WindowElementPrototype gWindowElements5630F0[8]; // 原全局：0x005630F0。
+extern WindowElementPrototype gWindowElements563500[259]; // 原全局：0x00563500。
+extern WindowElementPrototype gWindowElements5659C0[66]; // 原全局：0x005659C0。
+extern WindowElementPrototype gWindowElements566200[46]; // 原全局：0x00566200。
+extern WindowElementPrototype gWindowElements566810[51]; // 原全局：0x00566810。
+extern WindowElementPrototype gWindowElements567028[71]; // 原全局：0x00567028。
+extern WindowElementPrototype gWindowElements567AE8[82]; // 原全局：0x00567AE8。
+extern WindowElementPrototype gWindowElements5689C8[32]; // 原全局：0x005689C8。
+extern WindowElementPrototype gWindowElements568F78[25]; // 原全局：0x00568F78。
+extern WindowElementPrototype gWindowElements56AF50[7]; // 原全局：0x0056AF50。
+extern WindowElementPrototype gWindowElements56B2B8[20]; // 原全局：0x0056B2B8。
+extern WindowElementPrototype gWindowElements56B710[14]; // 原全局：0x0056B710。
+extern WindowElementPrototype gWindowElements56B8D8[2]; // 原全局：0x0056B8D8。
+extern WindowElementPrototype gWindowElements56B9B8[66]; // 原全局：0x0056B9B8。
+extern WindowElementPrototype gWindowElements56C2C8[4]; // 原全局：0x0056C2C8。
+extern WindowElementPrototype gWindowElements56C430[22]; // 原全局：0x0056C430。
+extern WindowElementPrototype gWindowElements56C800[8]; // 原全局：0x0056C800。
+extern WindowElementPrototype gWindowElements56C9B8[2]; // 原全局：0x0056C9B8。
+extern WindowElementPrototype gWindowElements56CA88[19]; // 原全局：0x0056CA88。
+extern WindowElementPrototype gWindowElements56CCD0[1]; // 原全局：0x0056CCD0。
+extern WindowElementPrototype gWindowElements56CDB0[19]; // 原全局：0x0056CDB0。
+extern WindowElementPrototype gWindowElements56D0B0[19]; // 原全局：0x0056D0B0。
+extern WindowElementPrototype gWindowElements56D3E8[34]; // 原全局：0x0056D3E8。
+extern WindowElementPrototype gWindowElements56D838[3]; // 原全局：0x0056D838。
+extern WindowElementPrototype gWindowElements56DB38[111]; // 原全局：0x0056DB38。
+extern WindowElementPrototype gWindowElements56F860[29]; // 原全局：0x0056F860。
+extern WindowElementPrototype gWindowElements56FD70[21]; // 原全局：0x0056FD70。
+extern WindowElementPrototype gWindowElements5701F8[9]; // 原全局：0x005701F8。
+extern WindowElementPrototype gWindowElements570318[13]; // 原全局：0x00570318。
+extern WindowElementPrototype gWindowElements5706D0[34]; // 原全局：0x005706D0。
+extern WindowElementPrototype gWindowElements570CB0[20]; // 原全局：0x00570CB0。
+extern WindowElementPrototype gWindowElements570FD8[2]; // 原全局：0x00570FD8。
+extern WindowElementPrototype gWindowElements571160[38]; // 原全局：0x00571160。
+extern WindowElementPrototype gWindowElements571740[6]; // 原全局：0x00571740。
+extern WindowElementPrototype gWindowElements5719E8[26]; // 原全局：0x005719E8。
+extern WindowElementPrototype gWindowElements571F18[76]; // 原全局：0x00571F18。
+extern WindowElementPrototype gWindowElements572AF8[20]; // 原全局：0x00572AF8。
+extern WindowElementPrototype gWindowElements572F90[37]; // 原全局：0x00572F90。
+extern WindowElementPrototype gWindowElements5735C8[36]; // 原全局：0x005735C8。
+extern WindowElementPrototype gWindowElements573D80[66]; // 原全局：0x00573D80。
+extern WindowElementPrototype gWindowElements5748E8[107]; // 原全局：0x005748E8。
+extern WindowElementPrototype gWindowElements575988[70]; // 原全局：0x00575988。
+extern WindowElementPrototype gWindowElements576588[70]; // 原全局：0x00576588。
+extern WindowElementPrototype gWindowElements576F90[15]; // 原全局：0x00576F90。
+extern WindowElementPrototype gWindowElements577298[32]; // 原全局：0x00577298。
+extern WindowElementPrototype gWindowElements5777A8[162]; // 原全局：0x005777A8。
+extern WindowElementPrototype gWindowElements578CC8[71]; // 原全局：0x00578CC8。
+extern WindowElementPrototype gWindowElements579710[22]; // 原全局：0x00579710。
+extern WindowElementPrototype gWindowElements579B28[16]; // 原全局：0x00579B28。
+extern WindowElementPrototype gWindowElements57A070[21]; // 原全局：0x0057A070。
+extern WindowElementPrototype gWindowElements57A450[71]; // 原全局：0x0057A450。
+extern WindowElementPrototype gWindowElements57AEC0[25]; // 原全局：0x0057AEC0。
+extern WindowElementPrototype gWindowElements57B508[48]; // 原全局：0x0057B508。
+extern WindowElementPrototype gWindowElements57BB08[43]; // 原全局：0x0057BB08。
 
 // 主原型中的真实回调依赖；本声明只约束窗口调用侧，不替代各本体取证。
 // 原函数：0x0046FBA0。

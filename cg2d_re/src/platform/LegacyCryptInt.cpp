@@ -9,8 +9,8 @@ namespace cg::platform::legacy_crypt_int {
 namespace {
 
 // 原CRT首项的两个独立对象；不与后续保护状态共享。
-LegacyCryptInt gStartupValue5939C8{};
-LegacyCryptInt gStartupValue5939D8{};
+LegacyCryptInt gStartupValue5939C8{}; // 原全局：0x005939C8。
+LegacyCryptInt gStartupValue5939D8{}; // 原全局：0x005939D8。
 
 std::uint32_t ToBits(std::int32_t value)
 {

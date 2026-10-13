@@ -14,11 +14,11 @@
 namespace cg::world {
 namespace detail {
 
-std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects {};
-std::int32_t gWorldObjectFindCursor = 0;
-std::int32_t gWorldObjectFreeCursor = 0;
-std::int32_t gWorldObjectUsedCount = 0;
-std::int32_t gWorldObjectUpperBound = 0;
+std::array<WorldObjectRecord, kWorldObjectCapacity> gWorldObjects {}; // 原全局：0x005AC4C0。
+std::int32_t gWorldObjectFindCursor = 0; // 原全局：0x005AC498。
+std::int32_t gWorldObjectFreeCursor = 0; // 原全局：0x005AC49C。
+std::int32_t gWorldObjectUsedCount = 0; // 原全局：0x005AC4B4。
+std::int32_t gWorldObjectUpperBound = 0; // 原全局：0x005F9738。
 
 namespace {
 

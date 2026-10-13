@@ -12,9 +12,9 @@
 
 namespace cg::resource {
 
-std::uint32_t gValue9A4A50 = 0;
-std::uint32_t gValueD2D5FC = 0;
-std::uint32_t gValueCC3E68 = 0;
+std::uint32_t gValue9A4A50 = 0; // 原全局：0x009A4A50。
+std::uint32_t gValueD2D5FC = 0; // 原全局：0x00D2D5FC。
+std::uint32_t gValueCC3E68 = 0; // 原全局：0x00CC3E68。
 
 // GAP01：原4574E0完整116条复用ACB01；返回/容量先取再pub，原失败清理与四块清零序保持。
 std::int32_t GraphicAlloc_4574E0()

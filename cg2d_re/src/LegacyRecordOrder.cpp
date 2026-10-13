@@ -15,28 +15,28 @@
 
 namespace cg::login::detail {
 
-std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {};
-std::uint32_t gOrderMode1057C78 = 0;
-std::int32_t gOrderedRecordCount1051510 = 0;
+std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {}; // 原全局：0x01051B14。
+std::uint32_t gOrderMode1057C78 = 0; // 原全局：0x01057C78。
+std::int32_t gOrderedRecordCount1051510 = 0; // 原全局：0x01051510。
 
 namespace {
 
 // 原10514A8的五S32和两条原字节文本；重置保留+0C/+10及文本尾部。
 struct GuildHeader10514A8 {
-    std::int32_t key00;
-    std::int32_t value04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::int32_t value10;
-    std::array<std::array<char, 41>, 2> texts14;
-    std::array<std::byte, 2> bytes66;
+    std::int32_t key00; // 原成员偏移：+0x00。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+    std::array<std::array<char, 41>, 2> texts14; // 原成员偏移：+0x14。
+    std::array<std::byte, 2> bytes66; // 原成员偏移：+0x66。
 };
 
 // 原1051514的32条30H文本记录，末3B未消费，不据此补业务含义。
 struct GuildTextRecord1051514 {
-    std::int32_t value00;
-    std::array<char, 41> text04;
-    std::array<std::byte, 3> bytes2D;
+    std::int32_t value00; // 原成员偏移：+0x00。
+    std::array<char, 41> text04; // 原成员偏移：+0x04。
+    std::array<std::byte, 3> bytes2D; // 原成员偏移：+0x2D。
 };
 
 static_assert(offsetof(GuildHeader10514A8, value04) == 4);
@@ -49,9 +49,9 @@ static_assert(sizeof(GuildHeader10514A8) == 0x68);
 static_assert(offsetof(GuildTextRecord1051514, text04) == 4);
 static_assert(offsetof(GuildTextRecord1051514, bytes2D) == 0x2D);
 static_assert(sizeof(GuildTextRecord1051514) == 0x30);
-GuildHeader10514A8 gGuildHeader10514A8 {};
-std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {};
-std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {};
+GuildHeader10514A8 gGuildHeader10514A8 {}; // 原全局：0x010514A8。
+std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {}; // 原全局：0x01051514。
+std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {}; // 原全局：0x01057BF4。
 static_assert(sizeof(gGuildTextRecords1051514) == 0x600);
 static_assert(sizeof(gGuildTexts1057BF4) == 0x7B);
 

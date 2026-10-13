@@ -66,10 +66,10 @@ TextureSurface* gCpuAutoMapSurface {};
 TextureSurface* gCpuTempSurface {};
 
 // 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
-std::uint16_t gIndexedAutoMapBlink62B07C = 0;
-std::uint32_t gIndexedAutoMapTick62B080 = 0;
-std::uint16_t gColorAutoMapBlink62B094 = 0;
-std::uint32_t gColorAutoMapTick62B098 = 0;
+std::uint16_t gIndexedAutoMapBlink62B07C = 0; // 原全局：0x0062B07C。
+std::uint32_t gIndexedAutoMapTick62B080 = 0; // 原全局：0x0062B080。
+std::uint16_t gColorAutoMapBlink62B094 = 0; // 原全局：0x0062B094。
+std::uint32_t gColorAutoMapTick62B098 = 0; // 原全局：0x0062B098。
 
 // 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
 bool BlitWithoutSourceColorKey(
@@ -175,8 +175,8 @@ std::int32_t DrawAutoMap32(
 
 } // namespace
 
-std::uint32_t gBackgroundColor = 0;
-std::uint32_t gValueFF48E4 = 0;
+std::uint32_t gBackgroundColor = 0; // 原全局：0x0062B0A8。
+std::uint32_t gValueFF48E4 = 0; // 原全局：0x00FF48E4。
 
 bool CreateCpuBackSurface() noexcept
 {

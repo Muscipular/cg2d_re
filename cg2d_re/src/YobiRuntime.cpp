@@ -53,10 +53,10 @@ using YobiCallback = void (*)(YobiAction* action);
 
 // 原 x86 +offset 只作为字段来源证据；原生 x64 对象不复制 0x330 指针布局。
 struct YobiAction {
-    YobiAction* prev;
-    YobiAction* next;
-    YobiCallback callback;
-    void* payload;
+    YobiAction* prev; // 原成员偏移：+0x00。
+    YobiAction* next; // 原成员偏移：+0x04。
+    YobiCallback callback; // 原成员偏移：+0x08。
+    void* payload; // 原成员偏移：+0x0C。
     union {
         YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
@@ -64,19 +64,19 @@ struct YobiAction {
         YobiAction* battleOpponent10; // 同一原+10，416DD0/412900的非拥有对象引用；412900另快照原值。
         YobiAction* battleCastEffect10; // 同一原+10，413400保存创建返回的非拥有施法特效。
     };
-    std::uint8_t priority;
-    std::uint8_t displayPriority;
-    std::int32_t cacheIndex;
-    std::int32_t deathFlag;
-    std::int32_t graphicIndex;
-    std::uint32_t flags;
+    std::uint8_t priority; // 原成员偏移：+0x14。
+    std::uint8_t displayPriority; // 原成员偏移：+0x15。
+    std::int32_t cacheIndex; // 原成员偏移：+0x18。
+    std::int32_t deathFlag; // 原成员偏移：+0x1C。
+    std::int32_t graphicIndex; // 原成员偏移：+0x20。
+    std::uint32_t flags; // 原成员偏移：+0x24。
     std::int32_t counter28; // 原+28，440440退出轨迹的独立计数。
     union {
         std::int32_t phase; // 原+2C，普通对象的S32阶段。
-        ui::WindowValueCallback numberWindowCallback2C; // 48AC60数量族的非拥有函数指针。
+        ui::WindowValueCallback numberWindowCallback2C; // 原成员偏移：+0x2C。 48AC60数量族的非拥有函数指针。
     };
-    std::int32_t x;
-    std::int32_t y;
+    std::int32_t x; // 原成员偏移：+0x30。
+    std::int32_t y; // 原成员偏移：+0x34。
     std::int32_t deltaX; // 原+38；窗口横向步长，41F570/41FB20复用为计数。
     std::int32_t deltaY; // 原+3C；窗口/排序字段，41F570复用为寿命上限，不与y合并。
     float offset40; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
@@ -86,8 +86,8 @@ struct YobiAction {
     float angle50; // 原+50；本对象族创建清零，449160另作角度。
     float value54; // 原+54；三路对象速度及其他回调的幅值，共用F32。
     std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。
-    float scaleX;
-    float scaleY;
+    float scaleX; // 原成员偏移：+0x5C。
+    float scaleY; // 原成员偏移：+0x60。
     std::array<char, 64> displayName; // 原 +64..+A3；41EB10 按 64B 复制，保留原编码。
     std::int32_t nameX;              // 原 +A4；DrawText2消费低S16，41A7D0作S32生成计数。
     std::int32_t nameY;              // 原+A8；下落族作终点，41B440帧事件族作S32消退计数。
@@ -101,42 +101,42 @@ struct YobiAction {
     std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。
     std::array<char, 29> nameC4; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。
     std::array<char, 33> titleE1; // 原+E1..101；41EB10复制33B，51A090仍最多写16B及NUL。
-    std::array<char, 33> text102;
-    std::array<char, 33> text123;
+    std::array<char, 33> text102; // 原成员偏移：+0x102。
+    std::array<char, 33> text123; // 原成员偏移：+0x123。
     std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
     std::array<std::byte, 25> bytes155; // 原+155..16D，41EB10复制原字节，业务用途未定。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
     platform::LegacyCryptInt value190; // 原+190/+1A0，选择对象静态构造各自初始化。
-    platform::LegacyCryptInt value1A0;
+    platform::LegacyCryptInt value1A0; // 原成员偏移：+0x1A0。
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     union {
         std::int32_t field1D0; // 原+1D0数值路径，宽度保持S32。
-        YobiAction** windowCompletionSlot1D0; // 475950/4758D0非拥有完成槽。
+        YobiAction** windowCompletionSlot1D0; // 原成员偏移：+0x1D0。 475950/4758D0非拥有完成槽。
     };
     std::int32_t value1D4; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
     std::int32_t counter1DC; // 原+1DC，442F70图标/420300序列特效计数。
     platform::LegacyCryptInt mapX1E0; // 原+1E0/+1F0当前位置；420100族复用为序号/计时。
-    platform::LegacyCryptInt mapY1F0; // 46DD90仍按X→Y读取坐标并乘64。
+    platform::LegacyCryptInt mapY1F0; // 原成员偏移：+0x1F0。 46DD90仍按X→Y读取坐标并乘64。
     platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。
-    platform::LegacyCryptInt mapY210;
+    platform::LegacyCryptInt mapY210; // 原成员偏移：+0x210。
     std::array<std::int32_t, 10> pathX220; // 原 +220..+247，路径X。
     std::array<std::int32_t, 10> pathY248; // 原 +248..+26F，路径Y。
     std::uint16_t field270; // 原 +270；路径按S16消费，地图创建只清本W16。
     std::uint16_t field272; // 原 +272；移动动作标志，不与路径计数合并。
     float worldX; // 原 +274/+278，地图投影输入，与 CryptInt 两组坐标独立。
-    float worldY;
-    std::uint32_t field27C;
-    std::uint32_t field280;
-    std::int32_t walkSpeed;
+    float worldY; // 原成员偏移：+0x278。
+    std::uint32_t field27C; // 原成员偏移：+0x27C。
+    std::uint32_t field280; // 原成员偏移：+0x280。
+    std::int32_t walkSpeed; // 原成员偏移：+0x284。
     std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。
     std::array<std::byte, 20> bytes290; // 原+290..2A3的五W32复制范围；不作为本机地址存储。
-    std::int32_t framePlayingRate;
+    std::int32_t framePlayingRate; // 原成员偏移：+0x2A4。
     std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
-    std::int32_t characterAction;
-    std::int32_t direction;
+    std::int32_t characterAction; // 原成员偏移：+0x2B0。
+    std::int32_t direction; // 原成员偏移：+0x2B8。
     std::int32_t lastImageNo;       // 原 +2AC：上次播放图号。
     std::int32_t lastCharacterAction; // 原 +2B4：上次动作。
     std::int32_t lastDirection;     // 原 +2BC：上次方向。
@@ -154,13 +154,13 @@ struct YobiAction {
     std::uint8_t refresh2EC;        // 原+2EC，创建第一附件时清零。
     std::int32_t frameX;            // 原 +2F0：帧坐标叠加坐标文件偏移。
     std::int32_t frameY;            // 原 +2F4。
-    render::GraphicDescriptor16 drawMode;
-    std::uint8_t batchType;
-    std::int32_t color2;
-    std::uint8_t rebirthValue1;
-    std::uint8_t rebirthValue2;
+    render::GraphicDescriptor16 drawMode; // 原成员偏移：+0x2F8。
+    std::uint8_t batchType; // 原成员偏移：+0x308。
+    std::int32_t color2; // 原成员偏移：+0x30C。
+    std::uint8_t rebirthValue1; // 原成员偏移：+0x309。
+    std::uint8_t rebirthValue2; // 原成员偏移：+0x310。
     std::int32_t mapOffsetX; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
-    std::int32_t mapOffsetY;
+    std::int32_t mapOffsetY; // 原成员偏移：+0x318。
     std::array<char, 17> text31C; // 原 +31C；51A090 第四文本的独立槽。
 };
 
@@ -172,8 +172,8 @@ namespace detail {
 // 原选择对象内嵌+78，静态生命周期；UI只持有对应非拥有T*。
 static std::array<YobiAction, 2> gWindowSelectorPreviews {};
 
-std::int32_t gYobiUpdateGateMode = 0;
-std::int32_t gYobiUpdatePhaseCounter = 0;
+std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
+std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
 volatile std::uint32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
 volatile std::uint32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
@@ -184,17 +184,17 @@ namespace {
 
 // 原475950/48AC60共用布局的24H载荷；函数指针与完成槽留在action各自家族字段。
 struct WindowOpeningPayload {
-    std::uint16_t id; // 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。
-    std::uint16_t counter;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t centerX;
-    std::int32_t centerY;
-    std::int32_t halfWidth;
-    std::int32_t halfHeight;
-    std::int32_t value1C;
-    std::uint16_t flag20;
-    std::array<std::byte, 2> bytes22;
+    std::uint16_t id; // 原成员偏移：+0x00。 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。
+    std::uint16_t counter; // 原成员偏移：+0x02。
+    std::int32_t width; // 原成员偏移：+0x04。
+    std::int32_t height; // 原成员偏移：+0x08。
+    std::int32_t centerX; // 原成员偏移：+0x0C。
+    std::int32_t centerY; // 原成员偏移：+0x10。
+    std::int32_t halfWidth; // 原成员偏移：+0x14。
+    std::int32_t halfHeight; // 原成员偏移：+0x18。
+    std::int32_t value1C; // 原成员偏移：+0x1C。
+    std::uint16_t flag20; // 原成员偏移：+0x20。
+    std::array<std::byte, 2> bytes22; // 原成员偏移：+0x22。
 };
 static_assert(offsetof(WindowOpeningPayload, counter) == 2);
 static_assert(offsetof(WindowOpeningPayload, width) == 4);
@@ -213,8 +213,8 @@ constexpr std::size_t kYobiRegistryEntryCount =
     kYobiRegistryRowCount * kYobiRegistryColumnCount;
 
 // 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
-std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {};
-std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {};
+std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {}; // 原全局：0x00B65A80。
+std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {}; // 原全局：0x00B8C864。
 
 static_assert(
     std::tuple_size_v<decltype(gYobiRegistryFlags)>
@@ -239,9 +239,9 @@ constexpr char kYobiAllocationText[] =
 constexpr char kYobiAllocationCaption[] = "GetYobi Erorr";
 
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
-std::int32_t gDuration5AC4B8 = 0;
-std::uint32_t gStartTick5F973C = 0;
-std::uint8_t gEffectCounter5F9755 = 0; // 原449160独占的U8生成计数，非相邻UI标志。
+std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
+std::uint32_t gStartTick5F973C = 0; // 原全局：0x005F973C。
+std::uint8_t gEffectCounter5F9755 = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
 
 struct SceneEffectFrame {
     std::int32_t duration; // -1终止、-2跳转，其他值为帧时长。
@@ -249,62 +249,62 @@ struct SceneEffectFrame {
 };
 static_assert(sizeof(SceneEffectFrame) == 8);
 
-constexpr SceneEffectFrame kFrames55433C[] {
+constexpr SceneEffectFrame kFrames55433C[] { // 原常量参考：0x0055433C。
     {24, 0x38C54}, {24, 0x38C55}, {24, 0x38C56}, {24, 0x38C57},
     {24, 0x38C58}, {24, 0x38C59}, {24, 0x38C5A}, {24, 0x38C5B},
     {24, 0x38C5C}, {24, 0x38C5D}, {24, 0x38C5E}, {24, 0x38C5F},
     {24, 0x38C60}, {24, 0x38C61}, {24, 0x38C62}, {24, 0x38C63}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames5543C4[] {
+constexpr SceneEffectFrame kFrames5543C4[] { // 原常量参考：0x005543C4。
     {16, 0x38C54}, {16, 0x38C55}, {16, 0x38C56}, {16, 0x38C57},
     {16, 0x38C58}, {16, 0x38C59}, {16, 0x38C5A}, {16, 0x38C5B},
     {16, 0x38C5C}, {16, 0x38C5D}, {16, 0x38C5E}, {16, 0x38C5F},
     {16, 0x38C60}, {16, 0x38C61}, {16, 0x38C62}, {16, 0x38C63}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames554454[] {
+constexpr SceneEffectFrame kFrames554454[] { // 原常量参考：0x00554454。
     {8, 0x38C3C}, {8, 0x38C3D}, {8, 0x38C3E}, {8, 0x38C3F},
     {4, 0x38C40}, {4, 0x38C41}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames55448C[] {
+constexpr SceneEffectFrame kFrames55448C[] { // 原常量参考：0x0055448C。
     {8, 0x38C48}, {8, 0x38C49}, {8, 0x38C4A}, {8, 0x38C4B},
     {4, 0x38C4C}, {4, 0x38C4D}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames5544C4[] {
+constexpr SceneEffectFrame kFrames5544C4[] { // 原常量参考：0x005544C4。
     {8, 0x38C42}, {8, 0x38C43}, {8, 0x38C44}, {8, 0x38C45},
     {4, 0x38C46}, {4, 0x38C47}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames5544FC[] {
+constexpr SceneEffectFrame kFrames5544FC[] { // 原常量参考：0x005544FC。
     {8, 0x38C4E}, {8, 0x38C4F}, {8, 0x38C50}, {8, 0x38C51},
     {4, 0x38C52}, {4, 0x38C53}, {-2, 0},
 };
-constexpr SceneEffectFrame kFrames554534[] {
+constexpr SceneEffectFrame kFrames554534[] { // 原常量参考：0x00554534。
     {240, 227336}, {8, 227335}, {30, 227334}, {8, 227335}, {-2, 0},
 };
-constexpr const SceneEffectFrame* kFrameGroup55444C[] {
+constexpr const SceneEffectFrame* kFrameGroup55444C[] { // 原常量参考：0x0055444C。
     kFrames55433C, kFrames5543C4,
 };
-constexpr const SceneEffectFrame* kFrameGroup55455C[] {
+constexpr const SceneEffectFrame* kFrameGroup55455C[] { // 原常量参考：0x0055455C。
     kFrames554454, kFrames55448C, kFrames5544C4, kFrames5544FC, kFrames554534,
 };
-constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
+constexpr const SceneEffectFrame* const* kFrameGroups554570[] { // 原常量参考：0x00554570。
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
 // 原4217F0的18H（24B）文本载荷；末4B用途未定，行表/行字节由421750释放。
 struct BattleTextPayload {
-    YobiAction* panel00;
-    char** lines04;
-    std::int32_t lineCount08;
-    std::int32_t fontType0C;
-    std::int32_t remaining10;
+    YobiAction* panel00; // 原成员偏移：+0x00。
+    char** lines04; // 原成员偏移：+0x04。
+    std::int32_t lineCount08; // 原成员偏移：+0x08。
+    std::int32_t fontType0C; // 原成员偏移：+0x0C。
+    std::int32_t remaining10; // 原成员偏移：+0x10。
     std::array<std::byte, 4> bytes14; // 原+14..+17H：仅显式保留存储，不猜新状态或地址类型。
 };
 static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) + 16);
 
 // 原41DA04分配的132B数值载荷，41A590逐槽生成；不与战斗角色载荷混用。
 struct BattleRingEmitterPayload {
-    std::array<std::int32_t, 32> counts00;
-    std::int32_t lastIndex80;
+    std::array<std::int32_t, 32> counts00; // 原成员偏移：+0x00。
+    std::int32_t lastIndex80; // 原成员偏移：+0x80。
 };
 static_assert(sizeof(BattleRingEmitterPayload) == 0x84);
 static_assert(offsetof(BattleRingEmitterPayload, lastIndex80) == 0x80);
@@ -322,25 +322,25 @@ constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
 
 // 4239D0/427470骑乘拆分原18h载荷；指针原生拓宽，末8B仅保留原分配范围，不解释业务。
 struct BattleRideCarrierPayload {
-    YobiAction* first00; // 42958F/424179写首个438290结果，非拥有引用，226恢复角色槽。
-    YobiAction* second04; // 429923/42417B写第二个438290结果，非拥有引用，226恢复后清槽。
-    std::uint32_t flags08; // 42912D写M整数、414820恢复FDC；4239D0/RID不写此字段。
-    std::int32_t gearImage0C; // 428FEC/42933E写51B740结果，恢复时严格>0才建主装备。
-    std::array<std::byte, 8> bytes10;
+    YobiAction* first00; // 原成员偏移：+0x00。 42958F/424179写首个438290结果，非拥有引用，226恢复角色槽。
+    YobiAction* second04; // 原成员偏移：+0x04。 429923/42417B写第二个438290结果，非拥有引用，226恢复后清槽。
+    std::uint32_t flags08; // 原成员偏移：+0x08。 42912D写M整数、414820恢复FDC；4239D0/RID不写此字段。
+    std::int32_t gearImage0C; // 原成员偏移：+0x0C。 428FEC/42933E写51B740结果，恢复时严格>0才建主装备。
+    std::array<std::byte, 8> bytes10; // 原成员偏移：+0x10。
 };
 static_assert(sizeof(BattleRideCarrierPayload) == 2 * sizeof(YobiAction*) + 16);
 
 // 原419CF0的12B载荷：仅父引用拓宽，419CB0按屏幕坐标和S32偏移跟随。
 struct BattleFollowOffsetPayload {
-    YobiAction* parent00;
-    std::int32_t offsetX04;
-    std::int32_t offsetY08;
+    YobiAction* parent00; // 原成员偏移：+0x00。
+    std::int32_t offsetX04; // 原成员偏移：+0x04。
+    std::int32_t offsetY08; // 原成员偏移：+0x08。
 };
 static_assert(sizeof(BattleFollowOffsetPayload) == sizeof(YobiAction*) + 2 * sizeof(std::int32_t));
 
 // 原419C10请求12B；父引用原生拓宽，尾8B保留分配足迹，419BE0不消费载荷。
 struct BattleTransitionEffectPayload {
-    YobiAction* parent00;
+    YobiAction* parent00; // 原成员偏移：+0x00。
     std::array<std::byte, 8> bytes04; // 原+4..+BH：用途及地址属性未定，只沿通用清零保留存储。
 };
 static_assert(sizeof(BattleTransitionEffectPayload) == sizeof(YobiAction*) + 8);
@@ -361,90 +361,90 @@ constexpr std::array<std::int32_t, 4> kRebirthExitSounds411901 {426, 428, 430, 4
 
 // 战斗专用原生载荷；保留四段用途未定字节，后缀仅标原位置；完整字段/生产仍待证。
 struct BattleActorPayload {
-    std::int32_t x00; // 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
-    std::int32_t y04;
-    std::int32_t x08;
-    std::int32_t y0C; // 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
-    std::int32_t x10; // 416DD0恢复目标对象的F32坐标来源。
-    std::int32_t y14;
+    std::int32_t x00; // 原成员偏移：+0x00。 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
+    std::int32_t y04; // 原成员偏移：+0x04。
+    std::int32_t x08; // 原成员偏移：+0x08。
+    std::int32_t y0C; // 原成员偏移：+0x0C。 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
+    std::int32_t x10; // 原成员偏移：+0x10。 416DD0恢复目标对象的F32坐标来源。
+    std::int32_t y14; // 原成员偏移：+0x14。
     std::int32_t battlePosition18; // 4221F0/422A30/422B00复制到附件+1D4。
-    std::array<BattleEntryEffectRecord, 200> effects1C; // 原16B效果记录，重置只写position。
-    std::int32_t effectRunningC9C;
-    std::int32_t effectCountCA0;
-    std::array<std::int32_t, 200> castListCA4; // FC4前的200项动作队列。
-    std::int32_t castPlayIndexFC4;
-    std::int32_t castListIndexFC8;
-    std::int32_t valueFCC;
-    std::int32_t valueFD0;
-    std::int32_t valueFD4;
-    std::int32_t busyFD8;
-    std::uint32_t flagsFDC;
-    std::uint32_t stateFE0;
-    std::int32_t effectFlagsFE4;
+    std::array<BattleEntryEffectRecord, 200> effects1C; // 原成员偏移：+0x1C。 原16B效果记录，重置只写position。
+    std::int32_t effectRunningC9C; // 原成员偏移：+0xC9C。
+    std::int32_t effectCountCA0; // 原成员偏移：+0xCA0。
+    std::array<std::int32_t, 200> castListCA4; // 原成员偏移：+0xCA4。 FC4前的200项动作队列。
+    std::int32_t castPlayIndexFC4; // 原成员偏移：+0xFC4。
+    std::int32_t castListIndexFC8; // 原成员偏移：+0xFC8。
+    std::int32_t valueFCC; // 原成员偏移：+0xFCC。
+    std::int32_t valueFD0; // 原成员偏移：+0xFD0。
+    std::int32_t valueFD4; // 原成员偏移：+0xFD4。
+    std::int32_t busyFD8; // 原成员偏移：+0xFD8。
+    std::uint32_t flagsFDC; // 原成员偏移：+0xFDC。
+    std::uint32_t stateFE0; // 原成员偏移：+0xFE0。
+    std::int32_t effectFlagsFE4; // 原成员偏移：+0xFE4。
     std::int32_t moveTargetXFE8; // 412870按目标坐标侧写入；与00/08/10坐标来源独立。
     std::int32_t moveTargetYFEC;
-    std::int32_t valueFF0;
-    std::int32_t attackModeFF4; // 426FC0写入原完整攻击模式。
-    std::int32_t aliveFF8;
-    std::array<std::byte, 4> bytesFFC; // 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
-    std::int32_t flashCounter1000; // 404DB0残影节拍；438290沿通用分配零化，不额外写入。
-    std::int32_t flash1004; // 416DD0的bit100门禁，仅首次写1并播放音效。
-    std::int32_t fpUsed1008;
-    std::int32_t targetPosition100C; // 4242B0三方序列写入原目标。
-    std::int32_t reactionImage1010;
-    std::int32_t image1014; // 427470装备消息写51B740转换后的图号，40C480消费。
-    std::int32_t value1018;
-    std::int32_t value101C; // 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
-    std::int32_t value1020; // 40CCE0音效编号；与1018/101C独立，不是地址。
-    std::int32_t value1024;
-    std::int32_t image1028; // 427470技能链生产图号；41CD00的type34用作图号及音效/坐标重读源。
-    std::int32_t image102C; // 426FC0按技术索引和目标阵营选表。
-    std::int32_t value1030; // 41CD00的type18按2000/3500选图，非指针。
-    std::int32_t value1034; // 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
-    std::int32_t value1038;
-    std::int32_t castSkill103C;
-    std::int32_t castLevel1040; // 与1044的技术索引独立。
-    std::int32_t castSkillLevel1044;
-    std::int32_t value1048; // 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
-    std::array<std::byte, 4> bytes104C; // 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
-    std::int32_t value1050; // 424F64保存技能94的M整数；409680用于减益图号偏移。
-    YobiAction* effect1054; // 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
-    YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
-    YobiAction* effect105C; // 41F860发布；4131B0/422370标死并清槽，非拥有引用。
-    YobiAction* effect1060; // 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
-    YobiAction* centeredEffect1064; // 41FA00发布的非拥有居中特效；41F950随父对象移动。
-    YobiAction* effect1068; // 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
-    YobiAction* rebirthEffect106C; // 4114B0/438CAF发布419CF0结果；497C80只检查空值，79标死后清槽。
-    YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
-    std::array<YobiAction*, 3> rebirthAuxiliaryEffects1074; // 原1074/1078/107C三槽，非拥有；79按原顺序清理。
-    std::int8_t rebirthEffectType1080; // 4113A0按低U8加1发布/退出清零，4208F0按S8选图；其他生产仍缺。
-    std::array<std::byte, 3> bytes1081; // 原1081..1083：用途未定字节，不以原生隐式对齐代替承载。
-    std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
-    std::int32_t value13A4;
-    std::int32_t queuedTargetCount13A8;
-    std::int32_t baseImage13AC; // 413550保存原图号，413750/413980恢复，独立于13E4。
-    std::int32_t value13B0; // 413550写0/1，413750/413980恢复后清零，4131B0消费。
-    YobiAction* gear13B4; // 422C20主附件，非拥有引用。
-    std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
-    std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
-    YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
-    std::int32_t debuffState13CC; // 41F660分配前写2，失败不回滚。
-    std::int32_t debuffType13D0; // 41F660六图号对应类型1至6。
-    std::array<std::byte, 4> bytes13D4; // 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
-    std::int32_t value13D8; // 427470状态/技能链生产；41FE00按完整W32与3比较。
-    std::int32_t value13DC; // 427470状态/技能链生产141/143状态图号选择值。
-    std::int32_t value13E0; // 427470技能链生产索引；143的13DC==7按S32查54D4C0。
-    std::int32_t image13E4; // 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
+    std::int32_t valueFF0; // 原成员偏移：+0xFF0。
+    std::int32_t attackModeFF4; // 原成员偏移：+0xFF4。 426FC0写入原完整攻击模式。
+    std::int32_t aliveFF8; // 原成员偏移：+0xFF8。
+    std::array<std::byte, 4> bytesFFC; // 原成员偏移：+0xFFC。 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
+    std::int32_t flashCounter1000; // 原成员偏移：+0x1000。 404DB0残影节拍；438290沿通用分配零化，不额外写入。
+    std::int32_t flash1004; // 原成员偏移：+0x1004。 416DD0的bit100门禁，仅首次写1并播放音效。
+    std::int32_t fpUsed1008; // 原成员偏移：+0x1008。
+    std::int32_t targetPosition100C; // 原成员偏移：+0x100C。 4242B0三方序列写入原目标。
+    std::int32_t reactionImage1010; // 原成员偏移：+0x1010。
+    std::int32_t image1014; // 原成员偏移：+0x1014。 427470装备消息写51B740转换后的图号，40C480消费。
+    std::int32_t value1018; // 原成员偏移：+0x1018。
+    std::int32_t value101C; // 原成员偏移：+0x101C。 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
+    std::int32_t value1020; // 原成员偏移：+0x1020。 40CCE0音效编号；与1018/101C独立，不是地址。
+    std::int32_t value1024; // 原成员偏移：+0x1024。
+    std::int32_t image1028; // 原成员偏移：+0x1028。 427470技能链生产图号；41CD00的type34用作图号及音效/坐标重读源。
+    std::int32_t image102C; // 原成员偏移：+0x102C。 426FC0按技术索引和目标阵营选表。
+    std::int32_t value1030; // 原成员偏移：+0x1030。 41CD00的type18按2000/3500选图，非指针。
+    std::int32_t value1034; // 原成员偏移：+0x1034。 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
+    std::int32_t value1038; // 原成员偏移：+0x1038。
+    std::int32_t castSkill103C; // 原成员偏移：+0x103C。
+    std::int32_t castLevel1040; // 原成员偏移：+0x1040。 与1044的技术索引独立。
+    std::int32_t castSkillLevel1044; // 原成员偏移：+0x1044。
+    std::int32_t value1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
+    std::array<std::byte, 4> bytes104C; // 原成员偏移：+0x104C。 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
+    std::int32_t value1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
+    YobiAction* effect1054; // 原成员偏移：+0x1054。 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
+    YobiAction* attachedEffect1058; // 原成员偏移：+0x1058。 41FBE0创建并发布的非拥有附属特效引用。
+    YobiAction* effect105C; // 原成员偏移：+0x105C。 41F860发布；4131B0/422370标死并清槽，非拥有引用。
+    YobiAction* effect1060; // 原成员偏移：+0x1060。 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
+    YobiAction* centeredEffect1064; // 原成员偏移：+0x1064。 41FA00发布的非拥有居中特效；41F950随父对象移动。
+    YobiAction* effect1068; // 原成员偏移：+0x1068。 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
+    YobiAction* rebirthEffect106C; // 原成员偏移：+0x106C。 4114B0/438CAF发布419CF0结果；497C80只检查空值，79标死后清槽。
+    YobiAction* caster1070; // 原成员偏移：+0x1070。 4392A0记录动作发起者，非拥有引用。
+    std::array<YobiAction*, 3> rebirthAuxiliaryEffects1074; // 原成员偏移：+0x1074。 原1074/1078/107C三槽，非拥有；79按原顺序清理。
+    std::int8_t rebirthEffectType1080; // 原成员偏移：+0x1080。 4113A0按低U8加1发布/退出清零，4208F0按S8选图；其他生产仍缺。
+    std::array<std::byte, 3> bytes1081; // 原成员偏移：+0x1081。 原1081..1083：用途未定字节，不以原生隐式对齐代替承载。
+    std::array<std::int32_t, 200> queuedTargets1084; // 原成员偏移：+0x1084。 原[1084,13A4)，43B7F0追加值及哨兵。
+    std::int32_t value13A4; // 原成员偏移：+0x13A4。
+    std::int32_t queuedTargetCount13A8; // 原成员偏移：+0x13A8。
+    std::int32_t baseImage13AC; // 原成员偏移：+0x13AC。 413550保存原图号，413750/413980恢复，独立于13E4。
+    std::int32_t value13B0; // 原成员偏移：+0x13B0。 413550写0/1，413750/413980恢复后清零，4131B0消费。
+    YobiAction* gear13B4; // 原成员偏移：+0x13B4。 422C20主附件，非拥有引用。
+    std::array<YobiAction*, 2> auxiliaryGear13B8; // 原成员偏移：+0x13B8。 原13B8/13BC，422C90的0/1槽。
+    std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原成员偏移：+0x13C0。 原13C0/13C4，清附件不清类型。
+    YobiAction* rider13C8; // 原成员偏移：+0x13C8。 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
+    std::int32_t debuffState13CC; // 原成员偏移：+0x13CC。 41F660分配前写2，失败不回滚。
+    std::int32_t debuffType13D0; // 原成员偏移：+0x13D0。 41F660六图号对应类型1至6。
+    std::array<std::byte, 4> bytes13D4; // 原成员偏移：+0x13D4。 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
+    std::int32_t value13D8; // 原成员偏移：+0x13D8。 427470状态/技能链生产；41FE00按完整W32与3比较。
+    std::int32_t value13DC; // 原成员偏移：+0x13DC。 427470状态/技能链生产141/143状态图号选择值。
+    std::int32_t value13E0; // 原成员偏移：+0x13E0。 427470技能链生产索引；143的13DC==7按S32查54D4C0。
+    std::int32_t image13E4; // 原成员偏移：+0x13E4。 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
 static_assert(std::is_trivially_copyable_v<BattleActorPayload>);
 static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
 
 // 原553A38的12项S32等级映射；59F9E8只有工厂type34/43发布，不拥有或释放对象。
-constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0};
-constexpr std::array<std::int32_t, 5> kBattleHitImages54D450 {111256, 111257, 111258, 111259, 111260};
+constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0}; // 原常量参考：0x00553A38。
+constexpr std::array<std::int32_t, 5> kBattleHitImages54D450 {111256, 111257, 111258, 111259, 111260}; // 原常量参考：0x0054D450。
 // 408BD4以54D438加1..5档索引；此表从首个有效S32图号54D43C开始。
-constexpr std::array<std::int32_t, 5> kBattleBoomerangHitImages54D43C {111136, 111137, 111138, 111139, 111140};
+constexpr std::array<std::int32_t, 5> kBattleBoomerangHitImages54D43C {111136, 111137, 111138, 111139, 111140}; // 原常量参考：0x0054D43C。
 // 原57E174的57条三S32记录及全零哨兵；动作85只消费前两列。
 constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57E174 {{
     {40779, 104201, 99510},
@@ -508,17 +508,17 @@ constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57
 }};
 static_assert(sizeof(kBattleNamedEffectImages57E174) == 696);
 // BCPY01：原5538F4十行S8序列；后八行全0，59F9DC按已证PE映像静态零初值。
-constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 {
+constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 { // 原常量参考：0x005538F4。
     7, 8, 16, 15, 10, 11, 13, 12, 14, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
-std::int32_t gBattleActionSequenceIndex59F9DC = 0;
+std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 // BCVI01：现1025个S32位置槽的映像覆盖区为零；114按效果索引存位置编号。
-std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {};
-constexpr char kBattleInspectFailure5539BC[] = "\x9F\x6F\xB7\xA8\xD5\x7B\xB2\xE9\xB3\xF6 %s \xB5\xC4\xC7\xE9\x88\xF3";
-constexpr char kBattleInspectHp5539E8[] = "%s \xB5\xC4\xC9\xFA\xC3\xFC\x9E\xE9 %d / %d";
-constexpr char kBattleInspectFp5539D4[] = "%s \xB5\xC4\xC4\xA7\xC1\xA6\x9E\xE9 %d / %d";
-YobiAction* gBattleFactoryEffect59F9E8 = nullptr;
+std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {}; // 原全局：0x0059E9D8。
+constexpr char kBattleInspectFailure5539BC[] = "\x9F\x6F\xB7\xA8\xD5\x7B\xB2\xE9\xB3\xF6 %s \xB5\xC4\xC7\xE9\x88\xF3"; // 原常量参考：0x005539BC。
+constexpr char kBattleInspectHp5539E8[] = "%s \xB5\xC4\xC9\xFA\xC3\xFC\x9E\xE9 %d / %d"; // 原常量参考：0x005539E8。
+constexpr char kBattleInspectFp5539D4[] = "%s \xB5\xC4\xC4\xA7\xC1\xA6\x9E\xE9 %d / %d"; // 原常量参考：0x005539D4。
+YobiAction* gBattleFactoryEffect59F9E8 = nullptr; // 原全局：0x0059F9E8。
 
 // 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
 constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
@@ -535,39 +535,39 @@ constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
     28913, 28913, 28913, 28913, 28914, 28914, 28914, 28914,
     28915, 28915, 28915, 28915, 28916, 28916, 28916, 28916,
 };
-std::int32_t gBattleTiledEffectPhase59F9EC = 0;
-std::int32_t gBattleTiledEffectReverse59F9F0 = 0;
+std::int32_t gBattleTiledEffectPhase59F9EC = 0; // 原全局：0x0059F9EC。
+std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9F0。
 // 原54D4C0起物理16B；末零不用于索引回退，逻辑有效项数不据此扩充。
 constexpr std::array<std::int32_t, 4> kBattleStatusImages54D4C0 {103018, 103022, 103020, 0};
 
 // 原场景180B载荷；标量保留宽度，B0场地特效引用按原生T*拓宽。
 struct BattleScenePayload {
     std::int32_t value00; // 原+00，41A9E0/41AF00完成指定分类且场景phase8时递增。
-    std::int32_t entryCount04; // 427470/CMB按S32读写的参与者数量。
-    std::array<std::int32_t, 20> entryPositions08; // 原08..57的位置列表，非对象地址。
-    std::int32_t packetSubState58;
-    std::int32_t remainingMessages5C;
-    std::int32_t eventSlot60;
-    std::int32_t packetOffset64;
-    std::int32_t groupBase68;
-    std::int32_t casterPosition6C; // 427750恢复、437A29回存的同源执行快照，非新端字节偏移。
-    std::int32_t value70;
-    std::int32_t defenderPosition74;
-    std::int32_t targetPosition78;
-    std::int32_t skill7C;
-    std::int32_t technique80;
-    std::int32_t value84;
-    std::int32_t value88;
-    std::int32_t value8C;
-    std::uint32_t resultFlags90;
-    std::uint32_t flags94;
-    std::int32_t value98;
-    std::uint32_t flags9C; // 恢复为函数局部量，公共尾不回存。
-    std::int32_t valueA0; // 同上，不与messageValueA4合并。
-    std::int32_t messageValueA4;
-    std::uint32_t entryMaskA8; // 4394A0参与对象位图，含特殊槽20/21。
-    std::int32_t waitCountAC; // 忙状态每次检查递增，超时逐对象恢复后清零。
-    YobiAction* fieldEffectB0; // 41FFE0发布的非拥有场地特效；438550无场地标志时标死并重取载荷清槽。
+    std::int32_t entryCount04; // 原成员偏移：+0x04。 427470/CMB按S32读写的参与者数量。
+    std::array<std::int32_t, 20> entryPositions08; // 原成员偏移：+0x08。 原08..57的位置列表，非对象地址。
+    std::int32_t packetSubState58; // 原成员偏移：+0x58。
+    std::int32_t remainingMessages5C; // 原成员偏移：+0x5C。
+    std::int32_t eventSlot60; // 原成员偏移：+0x60。
+    std::int32_t packetOffset64; // 原成员偏移：+0x64。
+    std::int32_t groupBase68; // 原成员偏移：+0x68。
+    std::int32_t casterPosition6C; // 原成员偏移：+0x6C。 427750恢复、437A29回存的同源执行快照，非新端字节偏移。
+    std::int32_t value70; // 原成员偏移：+0x70。
+    std::int32_t defenderPosition74; // 原成员偏移：+0x74。
+    std::int32_t targetPosition78; // 原成员偏移：+0x78。
+    std::int32_t skill7C; // 原成员偏移：+0x7C。
+    std::int32_t technique80; // 原成员偏移：+0x80。
+    std::int32_t value84; // 原成员偏移：+0x84。
+    std::int32_t value88; // 原成员偏移：+0x88。
+    std::int32_t value8C; // 原成员偏移：+0x8C。
+    std::uint32_t resultFlags90; // 原成员偏移：+0x90。
+    std::uint32_t flags94; // 原成员偏移：+0x94。
+    std::int32_t value98; // 原成员偏移：+0x98。
+    std::uint32_t flags9C; // 原成员偏移：+0x9C。 恢复为函数局部量，公共尾不回存。
+    std::int32_t valueA0; // 原成员偏移：+0xA0。 同上，不与messageValueA4合并。
+    std::int32_t messageValueA4; // 原成员偏移：+0xA4。
+    std::uint32_t entryMaskA8; // 原成员偏移：+0xA8。 4394A0参与对象位图，含特殊槽20/21。
+    std::int32_t waitCountAC; // 原成员偏移：+0xAC。 忙状态每次检查递增，超时逐对象恢复后清零。
+    YobiAction* fieldEffectB0; // 原成员偏移：+0xB0。 41FFE0发布的非拥有场地特效；438550无场地标志时标死并重取载荷清槽。
 };
 static_assert(offsetof(BattleScenePayload, entryMaskA8) == 0xA8);
 static_assert(offsetof(BattleScenePayload, fieldEffectB0) == 0xB0);
@@ -591,33 +591,33 @@ void ResetBattleCastEffects(BattleActorPayload* const payload)
         effect.position = -1;
     }
 }
-constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
+constexpr std::array<const char*, 25> kBattleMHeaders553E94 { // 原常量参考：0x00553E94。
     "SKL", "ESC", "CLR", "SUP", "POS", "MON", "EQU", "ITM", "CMB", "PSN",
     "ANR", "PUE", "ACT", "CFP", "CHT", "PNO", "PLV", "CBC", "PDN", "REB",
     "BST", "GMN", "RID", "DSK", "END",
 };
 
 // 原427470独占的同源W32；活动路径先从载荷恢复，失活消息先解析位置，不依赖初值。
-std::int32_t gBattleMCasterPosition5AAA64 = 0;
-std::uint32_t gBattleMResultFlags5A4A20 = 0;
-std::int32_t gBattleMValue5ABA7C = 0;
-std::int32_t gBattleMDefenderPosition5A4A24 = 0;
-std::int32_t gBattleMTargetPosition5AAA40 = 0;
-std::int32_t gBattleMSkill5AAA78 = 0;
-std::int32_t gBattleMTechnique5A4A38 = 0;
-std::int32_t gBattleMValue59FA10 = 0;
-std::int32_t gBattleMValue5A4A34 = 0;
-std::int32_t gBattleMValue5ABA90 = 0;
-std::uint32_t gBattleMFlags5ABA84 = 0;
-std::int32_t gBattleMValue5A4A28 = 0;
-std::int32_t gBattleMMessageValue59FA14 = 0;
-std::int32_t gBattleMStatusMode5ABA88 = 0; // PSN先写后读，不属于13项回存。
-std::int32_t gBattleMSkillLevel5A4A2C = 0; // SKL状态0先写后读，不属于13项快照。
-std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 与88/8C独立的归一化等级索引。
-std::int32_t gBattleMSelectedPosition5ABA98 = 0; // SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
-std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 426FC0/424620的独立转向输出，非13项快照或5A4A28。
-std::int32_t gBattlePendingGroupCount5ABB24 = 0; // 4383F0/43B360生产组计数，427470延迟减到零时递减。
-constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 {
+std::int32_t gBattleMCasterPosition5AAA64 = 0; // 原全局：0x005AAA64。
+std::uint32_t gBattleMResultFlags5A4A20 = 0; // 原全局：0x005A4A20。
+std::int32_t gBattleMValue5ABA7C = 0; // 原全局：0x005ABA7C。
+std::int32_t gBattleMDefenderPosition5A4A24 = 0; // 原全局：0x005A4A24。
+std::int32_t gBattleMTargetPosition5AAA40 = 0; // 原全局：0x005AAA40。
+std::int32_t gBattleMSkill5AAA78 = 0; // 原全局：0x005AAA78。
+std::int32_t gBattleMTechnique5A4A38 = 0; // 原全局：0x005A4A38。
+std::int32_t gBattleMValue59FA10 = 0; // 原全局：0x0059FA10。
+std::int32_t gBattleMValue5A4A34 = 0; // 原全局：0x005A4A34。
+std::int32_t gBattleMValue5ABA90 = 0; // 原全局：0x005ABA90。
+std::uint32_t gBattleMFlags5ABA84 = 0; // 原全局：0x005ABA84。
+std::int32_t gBattleMValue5A4A28 = 0; // 原全局：0x005A4A28。
+std::int32_t gBattleMMessageValue59FA14 = 0; // 原全局：0x0059FA14。
+std::int32_t gBattleMStatusMode5ABA88 = 0; // 原全局：0x005ABA88。 PSN先写后读，不属于13项回存。
+std::int32_t gBattleMSkillLevel5A4A2C = 0; // 原全局：0x005A4A2C。 SKL状态0先写后读，不属于13项快照。
+std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 原全局：0x005A3A18。 与88/8C独立的归一化等级索引。
+std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA98。 SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
+std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 原全局：0x005AAA70。 426FC0/424620的独立转向输出，非13项快照或5A4A28。
+std::int32_t gBattlePendingGroupCount5ABB24 = 0; // 原全局：0x005ABB24。 4383F0/43B360生产组计数，427470延迟减到零时递减。
+constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 { // 原常量参考：0x00553E58。
     3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0,
 }; // 原553E58，独立于效果工厂553A38的同值表。
 
@@ -647,18 +647,18 @@ constexpr std::array<std::array<std::int32_t, 4>, 10> kBattleNumberGraphics54D4E
     {0x3B84E, 0x3B8B2, 0x3B8B3, 0x3B8B4}}};
 
 // 420100只消费这两段40B，不冻结相邻未消费的原表布局。
-constexpr std::array<std::int32_t, 10> kBattleSequenceOffsets553BF4 {
+constexpr std::array<std::int32_t, 10> kBattleSequenceOffsets553BF4 { // 原常量参考：0x00553BF4。
     0, 34, 54, 66, 88, 108, 131, 152, 171, 0,
 };
-constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C {
+constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C { // 原常量参考：0x00553C1C。
     0, 8, 7, 6, 5, 4, 3, 2, 1, 9,
 };
 
 // 426FC0的两组五项原表；由404D90保留S32索引门禁。
-constexpr std::array<std::int32_t, 5> kBattleSkillImages54D710 {
+constexpr std::array<std::int32_t, 5> kBattleSkillImages54D710 { // 原常量参考：0x0054D710。
     0x1B293, 0x1B294, 0x1B295, 0x1B296, 0x1B297,
 };
-constexpr std::array<std::int32_t, 5> kBattleSkillImages54D724 {
+constexpr std::array<std::int32_t, 5> kBattleSkillImages54D724 { // 原常量参考：0x0054D724。
     0x1B29D, 0x1B29E, 0x1B29F, 0x1B2A0, 0x1B2A1,
 };
 
@@ -740,21 +740,21 @@ struct BattleAppendEffectNode {
     BattleAppendEffectNode* previous;
     BattleAppendEffectNode* next;
 };
-static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr;
+static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr; // 原全局：0x005ABA8C。
 
 struct YobiUIData {
-    std::int16_t winId;
-    std::int16_t frameCount;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t centerX;
-    std::int32_t centerY;
-    std::int32_t currentHalfWidth;
-    std::int32_t currentHalfHeight;
-    std::int32_t baseImageNo;
-    std::int16_t tileStyle;
-    std::uint8_t trailingZero0;
-    std::uint8_t trailingZero1;
+    std::int16_t winId; // 原成员偏移：+0x00。
+    std::int16_t frameCount; // 原成员偏移：+0x02。
+    std::int32_t width; // 原成员偏移：+0x04。
+    std::int32_t height; // 原成员偏移：+0x08。
+    std::int32_t centerX; // 原成员偏移：+0x0C。
+    std::int32_t centerY; // 原成员偏移：+0x10。
+    std::int32_t currentHalfWidth; // 原成员偏移：+0x14。
+    std::int32_t currentHalfHeight; // 原成员偏移：+0x18。
+    std::int32_t baseImageNo; // 原成员偏移：+0x1C。
+    std::int16_t tileStyle; // 原成员偏移：+0x20。
+    std::uint8_t trailingZero0; // 原成员偏移：+0x22。
+    std::uint8_t trailingZero1; // 原成员偏移：+0x23。
 };
 
 // 原 payload +00..+2F；原生指针扩宽后只供三种地图角色及观察链使用。
@@ -775,26 +775,26 @@ static_assert(sizeof(MapCharaPayload) == 0x50);
 
 // 原 441DB0 的 0x50 载荷，与上方观察链载荷不同；未消费区不猜业务类型。
 struct MapActorPayload {
-    std::int32_t index;
-    YobiAction* action04;
-    YobiAction* action08;
-    YobiAction* action0C;
-    YobiAction* action10;
-    std::uint32_t chatDeadline14;
+    std::int32_t index; // 原成员偏移：+0x00。
+    YobiAction* action04; // 原成员偏移：+0x04。
+    YobiAction* action08; // 原成员偏移：+0x08。
+    YobiAction* action0C; // 原成员偏移：+0x0C。
+    YobiAction* action10; // 原成员偏移：+0x10。
+    std::uint32_t chatDeadline14; // 原成员偏移：+0x14。
     std::int32_t value18; // 原+18，445D20发布协议数值value50。
-    char* text1C;
+    char* text1C; // 原成员偏移：+0x1C。
     std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
-    std::int32_t textLength24;
-    std::int32_t font28;
-    YobiAction* action2C;
-    YobiAction* action30;
-    YobiAction* action34;
-    YobiAction* action38;
+    std::int32_t textLength24; // 原成员偏移：+0x24。
+    std::int32_t font28; // 原成员偏移：+0x28。
+    YobiAction* action2C; // 原成员偏移：+0x2C。
+    YobiAction* action30; // 原成员偏移：+0x30。
+    YobiAction* action34; // 原成员偏移：+0x34。
+    YobiAction* action38; // 原成员偏移：+0x38。
     std::int32_t kind3C; // 原+3C；action34的挂件种类，4412D0/441430/441570消费。
     std::int32_t kind40; // 原+40；action38的挂件种类。
-    YobiAction* action44;
+    YobiAction* action44; // 原成员偏移：+0x44。
     std::int32_t counter48; // 原+48；43E490有符号比较/递增，46A700清零。
-    YobiAction* action4C;
+    YobiAction* action4C; // 原成员偏移：+0x4C。
 };
 
 static_assert(std::is_standard_layout_v<MapActorPayload>);
@@ -823,40 +823,40 @@ static_assert(sizeof(MapActorPayload) == 0x88);
 // 原448040的+18/+1C：模式0/1是附件指针，其他模式是S32状态。
 union MapTransitionSlots18 {
     struct {
-        YobiAction* action18;
-        YobiAction* action1C;
+        YobiAction* action18; // 原成员偏移：+0x18。
+        YobiAction* action1C; // 原成员偏移：+0x1C。
     } attachments;
     struct {
-        std::int32_t state18;
-        std::int32_t state1C;
+        std::int32_t state18; // 原成员偏移：+0x18。
+        std::int32_t state1C; // 原成员偏移：+0x1C。
     } values;
 };
 
 struct MapTransitionPayload {
     std::int16_t mode;
-    std::int16_t value02;
-    std::int16_t value04;
-    std::uint16_t value06;
-    std::int32_t mapX08;
-    std::int32_t mapY0C;
-    std::int32_t counter10;
-    std::uint32_t tick14;
-    MapTransitionSlots18 slots18;
-    float value20;
-    std::int32_t value24;
-    std::int32_t objectIndex28;
-    std::uint32_t visible2C;
-    std::uint32_t frame30;
-    std::int32_t step34;
-    std::int32_t countdown38;
-    std::int32_t height3C;
-    std::int32_t velocity40;
-    std::array<std::int32_t, 10> trailGraphic44;
-    std::array<std::int32_t, 10> trailX6C;
-    std::array<std::int32_t, 10> trailY94;
-    std::array<std::uint32_t, 10> trailWorldXBitsBC;
-    std::array<std::uint32_t, 10> trailWorldYBitsE4;
-    std::uint32_t flags10C;
+    std::int16_t value02; // 原成员偏移：+0x02。
+    std::int16_t value04; // 原成员偏移：+0x04。
+    std::uint16_t value06; // 原成员偏移：+0x06。
+    std::int32_t mapX08; // 原成员偏移：+0x08。
+    std::int32_t mapY0C; // 原成员偏移：+0x0C。
+    std::int32_t counter10; // 原成员偏移：+0x10。
+    std::uint32_t tick14; // 原成员偏移：+0x14。
+    MapTransitionSlots18 slots18; // 原成员偏移：+0x18。
+    float value20; // 原成员偏移：+0x20。
+    std::int32_t value24; // 原成员偏移：+0x24。
+    std::int32_t objectIndex28; // 原成员偏移：+0x28。
+    std::uint32_t visible2C; // 原成员偏移：+0x2C。
+    std::uint32_t frame30; // 原成员偏移：+0x30。
+    std::int32_t step34; // 原成员偏移：+0x34。
+    std::int32_t countdown38; // 原成员偏移：+0x38。
+    std::int32_t height3C; // 原成员偏移：+0x3C。
+    std::int32_t velocity40; // 原成员偏移：+0x40。
+    std::array<std::int32_t, 10> trailGraphic44; // 原成员偏移：+0x44。
+    std::array<std::int32_t, 10> trailX6C; // 原成员偏移：+0x6C。
+    std::array<std::int32_t, 10> trailY94; // 原成员偏移：+0x94。
+    std::array<std::uint32_t, 10> trailWorldXBitsBC; // 原成员偏移：+0xBC。
+    std::array<std::uint32_t, 10> trailWorldYBitsE4; // 原成员偏移：+0xE4。
+    std::uint32_t flags10C; // 原成员偏移：+0x10C。
 };
 
 static_assert(std::is_standard_layout_v<MapTransitionPayload>);
@@ -947,19 +947,19 @@ static_assert(offsetof(NineGridDescriptorFields, clip) == 0x0C);
 static_assert(offsetof(NineGridDescriptorFields, mixMode) == 0x0D);
 static_assert(offsetof(NineGridDescriptorFields, paletteCacheIndex) == 0x0E);
 
-YobiAction* gYobiActionStart = nullptr;
-YobiAction* gYobiActionEnd = nullptr;
-std::int32_t gDrawYobiCount59E578 = 0;
-std::array<YobiAction*, 257> gDrawYobiList59E57C {}; // 原257地址槽，非拥有T*；不清排序范围外尾部。
+YobiAction* gYobiActionStart = nullptr; // 原全局：0x0059E56C。
+YobiAction* gYobiActionEnd = nullptr; // 原全局：0x0059E568。
+std::int32_t gDrawYobiCount59E578 = 0; // 原全局：0x0059E578。
+std::array<YobiAction*, 257> gDrawYobiList59E57C {}; // 原全局：0x0059E57C。 原257地址槽，非拥有T*；不清排序范围外尾部。
 YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
-std::array<std::int32_t, 5> gMapValues5F9720 {};
-std::array<std::int32_t, 5> gMapImages5AC4A0 {};
-std::int32_t gMapImage5F9734 = 0;
-std::int32_t gMapDirection5F9740 = 0;
-std::int32_t gMapDuration5F9744 = 0;
+std::array<std::int32_t, 5> gMapValues5F9720 {}; // 原全局：0x005F9720。
+std::array<std::int32_t, 5> gMapImages5AC4A0 {}; // 原全局：0x005AC4A0。
+std::int32_t gMapImage5F9734 = 0; // 原全局：0x005F9734。
+std::int32_t gMapDirection5F9740 = 0; // 原全局：0x005F9740。
+std::int32_t gMapDuration5F9744 = 0; // 原全局：0x005F9744。
 
 // 原[554204,5542A4)的40项S32初值；4417A0按每25个图号一组读取。
-std::array<std::int32_t, 40> gActorHeightOffsets554204 {
+std::array<std::int32_t, 40> gActorHeightOffsets554204 { // 原全局：0x00554204。
     -78, -88, -88, -81, -88, -90, -99, -88, -88, -88,
     -79, -86, -88, -85, -88, -88, -96, -78, -88, -86,
     -88, -88, -81, -88, -90, -99, -79, -85, -88, -88,
@@ -968,12 +968,12 @@ std::array<std::int32_t, 40> gActorHeightOffsets554204 {
 static_assert(sizeof(gActorHeightOffsets554204) == 0xA0);
 
 // 原5542F4/554338，分别为17项状态图号表和聊天泡开关。
-std::array<std::int32_t, 17> gActorStatusImages5542F4 {
+std::array<std::int32_t, 17> gActorStatusImages5542F4 { // 原全局：0x005542F4。
     0, 0x192BC, 0x1AF41, 0x1AF42, 0x1AF43, 0x1AF44,
     0x1AF45, 0x1AF46, 0x1AF47, 0x1AF48, 0x1AF49, 0x1AF4A,
     0x1AF4B, 0x1AF4C, 0x1AF4D, 0x1AF4E, 0x19708,
 };
-std::uint32_t gChatBubbles554338 = 1;
+std::uint32_t gChatBubbles554338 = 1; // 原全局：0x00554338。
 
 struct MapPartyOffset {
     std::int32_t x;
@@ -981,7 +981,7 @@ struct MapPartyOffset {
 };
 
 // 原只读 [54D950,54DD10)：group/slot/direction 扁平索引；保留相邻项。
-constexpr std::array<MapPartyOffset, 120> kMapPartyOffsets54D950 {{
+constexpr std::array<MapPartyOffset, 120> kMapPartyOffsets54D950 {{ // 原常量参考：0x0054D950。
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
     {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
@@ -19789,7 +19789,7 @@ namespace {
 }
 
 // 原54D6FC..54D710，2028按等级有符号除3选择前四项，第五项用于等级>=12。
-constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111148, 111149, 111150, 111151};
+constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111148, 111149, 111150, 111151}; // 原常量参考：0x0054D6FC。
 
 // 原43227D..43282A及42BD50..42BEAC；累计反弹参与者，保留149调用后的双位置重读。
 [[maybe_unused]] void ProcessBattleMSkill2028(
@@ -19971,7 +19971,7 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {111147, 111
 namespace {
 
 // 原54D680按有效档1..5索引；只保存54D684开始的五个实际图号。
-constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111127, 111128, 111129, 111130};
+constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111127, 111128, 111129, 111130}; // 原常量参考：0x0054D684。
 
 // 原432867..432ECE，99..104/2019/3001共享状态生产；固定状态载荷跨144调用保留。
 [[maybe_unused]] void ProcessBattleMSkill99Family(
@@ -20156,7 +20156,7 @@ constexpr std::array<std::array<std::int32_t, 5>, 8> kBattleMStatusBandImages {{
     {111142, 111143, 111144, 111145, 111146},
 }};
 // 原54D738..54D864，按真实等级直接索引，重复图号不取消列。
-constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738 {{
+constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738 {{ // 原常量参考：0x0054D738。
     {111167, 111167, 111167, 111167, 111167},
     {111168, 111168, 111168, 111168, 111168},
     {111169, 111169, 111169, 111169, 111169},
@@ -20174,7 +20174,7 @@ constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738
     {111078, 111079, 111080, 111081, 111082},
 }};
 // 原54D864..54D93C，前三行2050..2052，后十五行3002..3016。
-constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864 {{
+constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864 {{ // 原常量参考：0x0054D864。
     {111153, 111154, 111155},
     {111156, 111157, 111158},
     {111159, 111160, 111161},
@@ -21299,7 +21299,7 @@ namespace {
 
 namespace {
 
-constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 {
+constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 原常量参考：0x0054D5F4。
     111067, 111068, 111069, 111070, 111071, 111072,
 };
 
@@ -36065,16 +36065,16 @@ void SetYobiActionField30F(
 namespace {
 
 // 旧选择38的私有面板/预览状态；证据见doc/ui_windows/legacy_gather_panel.md。
-LegacyPanelRecord gLegacyGatherPanel583B00 {0, 0, 272, 252, 38, {23357}};
-YobiAction* gLegacyGatherActionD67CD8 = nullptr;
-std::int32_t gLegacyGatherPhaseCC3E78 = 0;
-std::int32_t gLegacyGatherKindCF3F10 = 0;
-std::int32_t gLegacyGatherStopD2D494 = 0;
-std::int32_t gLegacyGatherStopD2D64C = 0;
-std::int32_t gLegacyGatherStopD64E0C = 0;
-std::uint32_t gLegacyGatherTickCC3E84 = 0;
-std::uint32_t gLegacyGatherTickD2F794 = 0;
-std::uint32_t gLegacyGatherTickC8B38C = 0;
+LegacyPanelRecord gLegacyGatherPanel583B00 {0, 0, 272, 252, 38, {23357}}; // 原全局：0x00583B00。
+YobiAction* gLegacyGatherActionD67CD8 = nullptr; // 原全局：0x00D67CD8。
+std::int32_t gLegacyGatherPhaseCC3E78 = 0; // 原全局：0x00CC3E78。
+std::int32_t gLegacyGatherKindCF3F10 = 0; // 原全局：0x00CF3F10。
+std::int32_t gLegacyGatherStopD2D494 = 0; // 原全局：0x00D2D494。
+std::int32_t gLegacyGatherStopD2D64C = 0; // 原全局：0x00D2D64C。
+std::int32_t gLegacyGatherStopD64E0C = 0; // 原全局：0x00D64E0C。
+std::uint32_t gLegacyGatherTickCC3E84 = 0; // 原全局：0x00CC3E84。
+std::uint32_t gLegacyGatherTickD2F794 = 0; // 原全局：0x00D2F794。
+std::uint32_t gLegacyGatherTickC8B38C = 0; // 原全局：0x00C8B38C。
 
 std::int32_t ReadGatherActionMode294(const YobiAction* const action)
 {
@@ -36580,7 +36580,7 @@ namespace cg::world::detail {
 
 namespace {
 
-constexpr char kChatFamilyPrefix554580[] = "[\xBC\xD2\xD7\xE5]";
+constexpr char kChatFamilyPrefix554580[] = "[\xBC\xD2\xD7\xE5]"; // 原常量参考：0x00554580。
 static_assert(sizeof(kChatFamilyPrefix554580) == 7);
 
 void AllocateActorChatText(

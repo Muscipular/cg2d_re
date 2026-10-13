@@ -19,10 +19,10 @@ std::int32_t gCapability4ModalInitialized = 0;
 // 原 dword_55C580@0x55C580，文件初值与每次初始化值均为 -2。
 std::int32_t gCapability4ModalSentinel = -2;
 // 原 0x9A4EA8/0x9A5448/0x9A4B78/0x9A4E7C，PE 虚拟零填充。
-std::int32_t gCapability4ModalWidth = 0;
-std::int32_t gCapability4ModalHeight = 0;
-std::int32_t gCapability4ModalX = 0;
-std::int32_t gCapability4ModalY = 0;
+std::int32_t gCapability4ModalWidth = 0; // 原全局：0x009A4EA8。
+std::int32_t gCapability4ModalHeight = 0; // 原全局：0x009A5448。
+std::int32_t gCapability4ModalX = 0; // 原全局：0x009A4B78。
+std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
 // 原 dword_9A6EBC@0x9A6EBC；原生指针宽度观察者，不放入 W32。
 cg::login::YobiAction* gCapability4ModalAction = nullptr;
 

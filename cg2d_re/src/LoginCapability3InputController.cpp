@@ -22,13 +22,13 @@ namespace {
 
 // 原 sub_45FA70 栈上按钮记录，固定 7×W32。
 struct Capability3InputButton32 final {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t normalImageNo;
-    std::int32_t hoverImageNo;
-    std::int32_t clickedImageNo;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t width; // 原成员偏移：+0x08。
+    std::int32_t height; // 原成员偏移：+0x0C。
+    std::int32_t normalImageNo; // 原成员偏移：+0x10。
+    std::int32_t hoverImageNo; // 原成员偏移：+0x14。
+    std::int32_t clickedImageNo; // 原成员偏移：+0x18。
 };
 
 static_assert(offsetof(Capability3InputButton32, x) == 0x00);
@@ -69,8 +69,8 @@ std::uint16_t LowW16(const std::int32_t value) noexcept
 }
 
 // 原 dword_9A6EA0 与 dword_9A6E9C；仅 sub_45FA70 引用。
-std::int32_t gFocus9A6EA0 = 0;
-std::int32_t gPending9A6E9C = 0;
+std::int32_t gFocus9A6EA0 = 0; // 原全局：0x009A6EA0。
+std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
 
 } // namespace
 

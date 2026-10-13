@@ -48,7 +48,7 @@ void WriteColor32(
 
 } // namespace
 
-PaletteCacheItem* gGraphicDataCacheList = nullptr;
+PaletteCacheItem* gGraphicDataCacheList = nullptr; // 原全局：0x0062B068。
 std::array<PaletteCacheItem, kGraphicPaletteStaticCount> gGraphicDataCacheStatic {};
 
 // 原函数：0x0044E0C0。

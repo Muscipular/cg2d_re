@@ -316,10 +316,10 @@ std::int32_t Sub_508360()
 
 } // namespace detail
 
-std::uint16_t gValue9A6E3C = 0;
-std::uint16_t gValue9A6E3E = 0;
-std::int32_t gValue55A054 = -1;
-char gValue9A5348[256] {};
+std::uint16_t gValue9A6E3C = 0; // 原全局：0x009A6E3C。
+std::uint16_t gValue9A6E3E = 0; // 原全局：0x009A6E3E。
+std::int32_t gValue55A054 = -1; // 原全局：0x0055A054。
+char gValue9A5348[256] {}; // 原全局：0x009A5348。
 
 static_assert(sizeof(gServerConnectingText) == 256);
 static_assert(sizeof(kServerConnectingText) <= sizeof(gServerConnectingText));

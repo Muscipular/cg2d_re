@@ -25,7 +25,7 @@ static_assert(sizeof(kSuccessfulResult) == 11);
 
 namespace cg::login {
 
-std::uint16_t gCharacterDeletionReplyCode = 0;
+std::uint16_t gCharacterDeletionReplyCode = 0; // 原全局：0x00DA3B28。
 
 // 原函数：0x00508F70。
 std::uint32_t StartCharacterDeletionRequest()

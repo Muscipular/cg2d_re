@@ -25,16 +25,16 @@ private:
 };
 
 // 原常量位样本；F32提升为double时不重建十进制近似值。
-constexpr double kRadians54DD18 = std::bit_cast<double>(std::uint64_t{0x3F91DF46A2506B91});
-constexpr float kSpeedScale54E228 = std::bit_cast<float>(std::uint32_t{0x3A83126F});
-constexpr float kFallback54E230 = std::bit_cast<float>(std::uint32_t{0x38D1B717});
-constexpr float kSpawnScale54E22C = std::bit_cast<float>(std::uint32_t{0x44340000});
-constexpr float kPercentScale54D4E4 = std::bit_cast<float>(std::uint32_t{0x3C23D70A});
-constexpr float kArcScale54DD34 = std::bit_cast<float>(std::uint32_t{0x3D088889});
-constexpr float kActorRate54DD3C = std::bit_cast<float>(std::uint32_t{0x3FCCCCCD});
-constexpr float kActorRate54DD40 = std::bit_cast<float>(std::uint32_t{0x3F99999A});
-constexpr float kSpiralY54DD10 = std::bit_cast<float>(std::uint32_t{0x3F19999A});
-constexpr float kProjectionInverse54E218 = std::bit_cast<float>(std::uint32_t{0x3FAAAAAB});
+constexpr double kRadians54DD18 = std::bit_cast<double>(std::uint64_t{0x3F91DF46A2506B91}); // 原常量参考：0x0054DD18。
+constexpr float kSpeedScale54E228 = std::bit_cast<float>(std::uint32_t{0x3A83126F}); // 原常量参考：0x0054E228。
+constexpr float kFallback54E230 = std::bit_cast<float>(std::uint32_t{0x38D1B717}); // 原常量参考：0x0054E230。
+constexpr float kSpawnScale54E22C = std::bit_cast<float>(std::uint32_t{0x44340000}); // 原常量参考：0x0054E22C。
+constexpr float kPercentScale54D4E4 = std::bit_cast<float>(std::uint32_t{0x3C23D70A}); // 原常量参考：0x0054D4E4。
+constexpr float kArcScale54DD34 = std::bit_cast<float>(std::uint32_t{0x3D088889}); // 原常量参考：0x0054DD34。
+constexpr float kActorRate54DD3C = std::bit_cast<float>(std::uint32_t{0x3FCCCCCD}); // 原常量参考：0x0054DD3C。
+constexpr float kActorRate54DD40 = std::bit_cast<float>(std::uint32_t{0x3F99999A}); // 原常量参考：0x0054DD40。
+constexpr float kSpiralY54DD10 = std::bit_cast<float>(std::uint32_t{0x3F19999A}); // 原常量参考：0x0054DD10。
+constexpr float kProjectionInverse54E218 = std::bit_cast<float>(std::uint32_t{0x3FAAAAAB}); // 原常量参考：0x0054E218。
 constexpr std::array<double, 8> kObserverAngles {
     std::bit_cast<double>(std::uint64_t{0x4002D97C7F30D173}),
     std::bit_cast<double>(std::uint64_t{0x3FF921FB54411744}),

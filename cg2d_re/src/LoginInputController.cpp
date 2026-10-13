@@ -43,13 +43,13 @@ constexpr char kVersion[] = "7.1.00";
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
 struct Capability4InputButton32 final {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t width;
-    std::int32_t height;
-    std::int32_t normalImageNo;
-    std::int32_t activeImageNo;
-    std::int32_t clickedImageNo;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t width; // 原成员偏移：+0x08。
+    std::int32_t height; // 原成员偏移：+0x0C。
+    std::int32_t normalImageNo; // 原成员偏移：+0x10。
+    std::int32_t activeImageNo; // 原成员偏移：+0x14。
+    std::int32_t clickedImageNo; // 原成员偏移：+0x18。
 };
 
 static_assert(offsetof(Capability4InputButton32, x) == 0x00);
@@ -89,8 +89,8 @@ std::uint16_t LowW16(const std::int32_t value) noexcept
 }
 
 // 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
-std::int32_t gFocus55A048 = 1;
-std::int32_t gPending9A6E28 = 0;
+std::int32_t gFocus55A048 = 1; // 原全局：0x0055A048。
+std::int32_t gPending9A6E28 = 0; // 原全局：0x009A6E28。
 
 } // namespace
 

@@ -21,22 +21,22 @@
 
 namespace cg::platform {
 
-std::uint8_t gKeyStates[LegacyKeyStateCount] {};
+std::uint8_t gKeyStates[LegacyKeyStateCount] {}; // 原全局：0x0073EFF8。
 
-std::uint32_t gCurrentClientWidth = 0;
-std::uint32_t gCurrentClientHeight = 0;
-std::uint32_t gWindowResizePhase = 0;
+std::uint32_t gCurrentClientWidth = 0; // 原全局：0x009A6F2C。
+std::uint32_t gCurrentClientHeight = 0; // 原全局：0x009A6F30。
+std::uint32_t gWindowResizePhase = 0; // 原全局：0x009A7F68。
 
-char gImeDescription[100] {};
-std::uintptr_t gImeContext = 0;
-std::uintptr_t gPreviousImeContext = 0;
-char gImeComposition[256] {};
-std::uint8_t gImeAttributes[256] {};
+char gImeDescription[100] {}; // 原全局：0x0073ED70。
+std::uintptr_t gImeContext = 0; // 原全局：0x0073EDD8。
+std::uintptr_t gPreviousImeContext = 0; // 原全局：0x0073EDDC。
+char gImeComposition[256] {}; // 原全局：0x0073EDE0。
+std::uint8_t gImeAttributes[256] {}; // 原全局：0x0073EEE0。
 std::int32_t gImeCompositionCursorPosition = 0;
-std::uint32_t gImeConversionMode = 0;
-std::uint32_t gImeSentenceMode = 0;
+std::uint32_t gImeConversionMode = 0; // 原全局：0x0073EFE4。
+std::uint32_t gImeSentenceMode = 0; // 原全局：0x0073EFE8。
 void* gImeCandidateList = nullptr;
-std::uint8_t gImeState73EFF0 = 0;
+std::uint8_t gImeState73EFF0 = 0; // 原全局：0x0073EFF0。
 
 // 原函数：0x00459760。
 int ClearKeyFlags_459760() noexcept

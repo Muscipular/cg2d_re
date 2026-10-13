@@ -6,8 +6,8 @@
 
 namespace cg::platform {
 
-std::int32_t gLegacyMouseTrackerThreshold = 50;
-std::int32_t gLegacyMouseTrackerCapacity = 100;
+std::int32_t gLegacyMouseTrackerThreshold = 50; // 原全局：0x0058ACBC。
+std::int32_t gLegacyMouseTrackerCapacity = 100; // 原全局：0x0058ACC0。
 
 namespace {
 

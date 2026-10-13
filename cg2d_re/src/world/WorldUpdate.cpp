@@ -197,16 +197,16 @@ sceneSixTail:
 
 namespace detail {
 
-char gDisconnectText9A4D10[16] {};
+char gDisconnectText9A4D10[16] {}; // 原全局：0x009A4D10。
 
 namespace {
 
-login::YobiAction* gDisconnectAction62B5B4 = nullptr;
-std::int32_t gDisconnectState62B3A8 = 0;
-std::int32_t gDisconnectWidth62B32C = 0;
-std::int32_t gDisconnectHeight62B304 = 0;
-std::int32_t gDisconnectX62B390 = 0;
-std::int32_t gDisconnectY62B2EC = 0;
+login::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
+std::int32_t gDisconnectState62B3A8 = 0; // 原全局：0x0062B3A8。
+std::int32_t gDisconnectWidth62B32C = 0; // 原全局：0x0062B32C。
+std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
+std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
+std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
 constexpr char kErrorFormat[] =
     "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x42\xBE\x80\xD6\xD0"

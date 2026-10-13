@@ -8,12 +8,12 @@ namespace cg::platform {
 
 // 原 x86 节点 +0x10/+0x14 是非拥有地址；x64 只拓宽链接，前四个 S32 保持。
 struct LegacyMouseTrackerNode {
-    std::int32_t x;
-    std::int32_t y;
-    std::int32_t tag;
-    std::int32_t count;
-    LegacyMouseTrackerNode* next;
-    LegacyMouseTrackerNode* prev;
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t tag; // 原成员偏移：+0x08。
+    std::int32_t count; // 原成员偏移：+0x0C。
+    LegacyMouseTrackerNode* next; // 原成员偏移：+0x10。
+    LegacyMouseTrackerNode* prev; // 原成员偏移：+0x14。
 };
 
 static_assert(std::is_standard_layout_v<LegacyMouseTrackerNode>);
@@ -29,8 +29,8 @@ static_assert(offsetof(LegacyMouseTrackerNode, prev)
     == 0x10 + sizeof(LegacyMouseTrackerNode*));
 
 // 原 0x58ACBC、0x58ACC0 的唯一 signed32 配置存储。修改 capacity 后须调用重置。
-extern std::int32_t gLegacyMouseTrackerThreshold;
-extern std::int32_t gLegacyMouseTrackerCapacity;
+extern std::int32_t gLegacyMouseTrackerThreshold; // 原全局：0x0058ACBC。
+extern std::int32_t gLegacyMouseTrackerCapacity; // 原全局：0x0058ACC0。
 
 // BRU01：只读原固定池映像偏移[0,2400)；链接BYTE按原节点/哨兵身份投影。
 // 不跟随动态nativePool、不消费RNG或返回可解引用地址；正常调用点见登录负分类SPEC。

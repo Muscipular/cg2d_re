@@ -55,7 +55,7 @@ std::int32_t FindNearestPaletteColor_451E90(
     return selected;
 }
 
-PaletteFile gPaletteFiles[45] {
+PaletteFile gPaletteFiles[45] { // 原全局：0x00554B78。
     {0, "pal\\palet_00.cgp"}, {0, "pal\\palet_01.cgp"},
     {0, "pal\\palet_02.cgp"}, {0, "pal\\palet_03.cgp"},
     {0, "pal\\palet_04.cgp"}, {0, "pal\\palet_05.cgp"},
@@ -81,13 +81,13 @@ PaletteFile gPaletteFiles[45] {
     {0, "pal\\palet_e_s.cgp"},
 };
 
-PaletteEntry gPalette[256] {};
-PaletteEntry gPaletteBackup[256] {};
-std::uint32_t gPaletteAutoMap[256] {};
-PaletteEntry gPaletteTarget[256] {};
+PaletteEntry gPalette[256] {}; // 原全局：0x00629B20。
+PaletteEntry gPaletteBackup[256] {}; // 原全局：0x00629F2C。
+std::uint32_t gPaletteAutoMap[256] {}; // 原全局：0x00628BC0。
+PaletteEntry gPaletteTarget[256] {}; // 原全局：0x00626C60。
 
 // 原 [0x556254,0x5562DB)：45 项、每项连续 R/G/B 三字节。
-std::uint8_t gPaletteToneTargets[45][3] {
+std::uint8_t gPaletteToneTargets[45][3] { // 原全局：0x00556254。
     {128, 128, 128}, {90, 120, 150}, {128, 86, 86}, {128, 120, 120},
     {128, 160, 128}, {160, 160, 128}, {160, 128, 128}, {160, 128, 160},
     {128, 128, 160}, {96, 144, 160}, {128, 160, 160}, {128, 160, 144},
@@ -102,26 +102,26 @@ std::uint8_t gPaletteToneTargets[45][3] {
     {128, 128, 128},
 };
 
-PaletteTone gPaletteTone {128, 128, 128, 0};
-PaletteTone* gPaletteTonePointer = &gPaletteTone;
-std::int32_t gLoadedPalette = -1;
-std::int32_t gPaletteTransitionActive = 0;
-std::int32_t gPaletteTransitionFrame = 0;
-float gPaletteBlueCurrent[256] {};
-float gPaletteGreenCurrent[256] {};
-float gPaletteRedCurrent[256] {};
-float gPaletteBlueStep[256] {};
-float gPaletteGreenStep[256] {};
-float gPaletteRedStep[256] {};
-float gPaletteToneBlueCurrent = 0.0f;
-float gPaletteToneGreenCurrent = 0.0f;
-float gPaletteToneRedCurrent = 0.0f;
-float gPaletteToneBlueStep = 0.0f;
-float gPaletteToneGreenStep = 0.0f;
-float gPaletteToneRedStep = 0.0f;
-std::int32_t gPaletteToneTargetIndex = 0;
-std::int32_t gPaletteFrameVersion = 0;
-std::int32_t gPaletteVersionThrottle = 0;
+PaletteTone gPaletteTone {128, 128, 128, 0}; // 原全局：0x005562E0。
+PaletteTone* gPaletteTonePointer = &gPaletteTone; // 原全局：0x005562E4。
+std::int32_t gLoadedPalette = -1; // 原全局：0x005562F4。
+std::int32_t gPaletteTransitionActive = 0; // 原全局：0x0062B0A0。
+std::int32_t gPaletteTransitionFrame = 0; // 原全局：0x0062B09C。
+float gPaletteBlueCurrent[256] {}; // 原全局：0x0062A664。
+float gPaletteGreenCurrent[256] {}; // 原全局：0x00629720。
+float gPaletteRedCurrent[256] {}; // 原全局：0x00629318。
+float gPaletteBlueStep[256] {}; // 原全局：0x006287B4。
+float gPaletteGreenStep[256] {}; // 原全局：0x006283A8。
+float gPaletteRedStep[256] {}; // 原全局：0x0062AA64。
+float gPaletteToneBlueCurrent = 0.0f; // 原全局：0x00629F28。
+float gPaletteToneGreenCurrent = 0.0f; // 原全局：0x00629F24。
+float gPaletteToneRedCurrent = 0.0f; // 原全局：0x00629F20。
+float gPaletteToneBlueStep = 0.0f; // 原全局：0x00628FF8。
+float gPaletteToneGreenStep = 0.0f; // 原全局：0x00628FF4。
+float gPaletteToneRedStep = 0.0f; // 原全局：0x00628FF0。
+std::int32_t gPaletteToneTargetIndex = 0; // 原全局：0x00628BBC。
+std::int32_t gPaletteFrameVersion = 0; // 原全局：0x00628FDC。
+std::int32_t gPaletteVersionThrottle = 0; // 原全局：0x00629310。
 
 namespace {
 
@@ -170,12 +170,12 @@ int CountMaskBits_453DE0(std::uint32_t mask) noexcept
     return std::popcount(mask);
 }
 
-ColorChannelMaps gColorChannelMaps {blueMap, greenMap, redMap};
-std::int32_t gPaletteInitialized = 0;
-std::int32_t gActivePalette = 0;
-std::int32_t gPaletteTransitionSteps = 0;
-std::int32_t gPaletteCapability = 0;
-std::int32_t gPaletteChanging = 0;
+ColorChannelMaps gColorChannelMaps {blueMap, greenMap, redMap}; // 原全局：0x005562E8。
+std::int32_t gPaletteInitialized = 0; // 原全局：0x00628FD8。
+std::int32_t gActivePalette = 0; // 原全局：0x00628FD0。
+std::int32_t gPaletteTransitionSteps = 0; // 原全局：0x00628FD4。
+std::int32_t gPaletteCapability = 0; // 原全局：0x009A7F64。
+std::int32_t gPaletteChanging = 0; // 原全局：0x00628FEC。
 
 // 原函数：0x00450470。
 int InitPalette32()

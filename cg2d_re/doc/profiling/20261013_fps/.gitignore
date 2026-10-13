@@ -1,0 +1,7 @@
+# 原始性能追踪与进程快照仅本地保留。
+/release_cpu.diagsession/
+/release_trace_events.csv
+/release_main_thread_wall.json
+/session_id.txt
+/*.scratch/
+/__pycache__/

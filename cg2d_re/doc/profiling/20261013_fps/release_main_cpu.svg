@@ -1,0 +1,1140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="782" viewBox="0 0 1500 782">
+<rect width="100%" height="100%" fill="#fafafa"/>
+<style>text{font-family:Consolas,"Microsoft YaHei",sans-serif}g:hover rect{stroke:#222;stroke-width:1.5}</style>
+<text x="16" y="29" font-size="21">Release 主线程 CPU 火焰图（运行样本）</text>
+<text x="16" y="53" font-size="13">样本数：2124；宽度表示样本占比。悬停查看完整调用与数量。CPU 图范围为采集第 40–60 秒；等待图为后续 12 秒周期采样。</text>
+<g><title>主线程
+2124 样本，100.00%</title><rect x="10.000" y="752" width="1480.000" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="766" font-size="11">主线程</text>
+</g>
+<g><title>ntdll.dll!RtlUserThreadStart+0x21
+2117 样本，99.67%</title><rect x="10.000" y="731" width="1475.122" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="745" font-size="11">ntdll.dll!RtlUserThreadStart+0x21</text>
+</g>
+<g><title>KERNEL32.DLL!BaseThreadInitThunk+0x14
+2117 样本，99.67%</title><rect x="10.000" y="710" width="1475.122" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="724" font-size="11">KERNEL32.DLL!BaseThreadInitThunk+0x14</text>
+</g>
+<g><title>__scrt_common_main_seh
+2117 样本，99.67%</title><rect x="10.000" y="689" width="1475.122" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="703" font-size="11">__scrt_common_main_seh</text>
+</g>
+<g><title>WinMain
+2117 样本，99.67%</title><rect x="10.000" y="668" width="1475.122" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="682" font-size="11">WinMain</text>
+</g>
+<g><title>cg::platform::MainLoop
+2117 样本，99.67%</title><rect x="10.000" y="647" width="1475.122" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="661" font-size="11">cg::platform::MainLoop</text>
+</g>
+<g><title>cg::render::DrawAllQueued_520DD0
+1583 样本，74.53%</title><rect x="10.000" y="626" width="1103.032" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="640" font-size="11">cg::render::DrawAllQueued_520DD0</text>
+</g>
+<g><title>cg::render::`anonymous namespace&#x27;::DrawSprite
+1466 样本，69.02%</title><rect x="10.000" y="605" width="1021.507" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="619" font-size="11">cg::render::`anonymous namespace&#x27;::DrawSprite</text>
+</g>
+<g><title>cg::render::`anonymous namespace&#x27;::DrawIntegerNodes
+1466 样本，69.02%</title><rect x="10.000" y="584" width="1021.507" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="598" font-size="11">cg::render::`anonymous namespace&#x27;::DrawIntegerNodes</text>
+</g>
+<g><title>cg::render::RenderTextureToSurface_44D520
+1464 样本，68.93%</title><rect x="10.000" y="563" width="1020.113" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="577" font-size="11">cg::render::RenderTextureToSurface_44D520</text>
+</g>
+<g><title>cg::render::`anonymous namespace&#x27;::SubmitTexturedRectangle
+1460 样本，68.74%</title><rect x="10.000" y="542" width="1017.326" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="556" font-size="11">cg::render::`anonymous namespace&#x27;::SubmitTexturedRectangle</text>
+</g>
+<g><title>cg::render::`anonymous namespace&#x27;::DrawTextureRectangle
+1454 样本，68.46%</title><rect x="10.000" y="521" width="1013.145" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="535" font-size="11">cg::render::`anonymous namespace&#x27;::DrawTextureRectangle</text>
+</g>
+<g><title>SDL3.dll!RVA_0x178f41
+152 样本，7.16%</title><rect x="10.000" y="500" width="105.913" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="514" font-size="11">SDL3.dll!RVA_0</text>
+</g>
+<g><title>SDL3.dll!RVA_0x12243f
+135 样本，6.36%</title><rect x="10.000" y="479" width="94.068" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="13.000" y="493" font-size="11">SDL3.dll!RVA</text>
+</g>
+<g><title>SDL3.dll!RVA_0x155553
+9 样本，0.42%</title><rect x="10.000" y="458" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15578b
+7 样本，0.33%</title><rect x="16.271" y="458" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15579c
+7 样本，0.33%</title><rect x="21.149" y="458" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15571c
+6 样本，0.28%</title><rect x="26.026" y="458" width="4.181" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155795
+6 样本，0.28%</title><rect x="30.207" y="458" width="4.181" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155704
+5 样本，0.24%</title><rect x="34.388" y="458" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155715
+5 样本，0.24%</title><rect x="37.872" y="458" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155723
+5 样本，0.24%</title><rect x="41.356" y="458" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155764
+5 样本，0.24%</title><rect x="44.840" y="458" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15570b
+4 样本，0.19%</title><rect x="48.324" y="458" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15572d
+4 样本，0.19%</title><rect x="51.111" y="458" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15574c
+4 样本，0.19%</title><rect x="53.898" y="458" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155753
+4 样本，0.19%</title><rect x="56.685" y="458" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15577d
+4 样本，0.19%</title><rect x="59.473" y="458" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556b6
+3 样本，0.14%</title><rect x="62.260" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556ea
+3 样本，0.14%</title><rect x="64.350" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155734
+3 样本，0.14%</title><rect x="66.441" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15573b
+3 样本，0.14%</title><rect x="68.531" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155745
+3 样本，0.14%</title><rect x="70.621" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155797
+3 样本，0.14%</title><rect x="72.712" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1557a3
+3 样本，0.14%</title><rect x="74.802" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1554a4
+2 样本，0.09%</title><rect x="76.893" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x155568
+2 样本，0.09%</title><rect x="78.286" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556e5
+2 样本，0.09%</title><rect x="79.680" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556e7
+2 样本，0.09%</title><rect x="81.073" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556f3
+2 样本，0.09%</title><rect x="82.467" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1556fd
+2 样本，0.09%</title><rect x="83.861" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15571a
+2 样本，0.09%</title><rect x="85.254" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15573f
+2 样本，0.09%</title><rect x="86.648" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15575d
+2 样本，0.09%</title><rect x="88.041" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x15576b
+2 样本，0.09%</title><rect x="89.435" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x156a24
+2 样本，0.09%</title><rect x="90.829" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x12236e
+3 样本，0.14%</title><rect x="104.068" y="479" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ucrtbase.dll!RVA_0x33703
+63 样本，2.97%</title><rect x="115.913" y="500" width="43.898" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="118.913" y="514" font-size="11">ucrtb</text>
+</g>
+<g><title>ucrtbase.dll!RVA_0x3372f
+54 样本，2.54%</title><rect x="159.812" y="500" width="37.627" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="162.812" y="514" font-size="11">ucrt</text>
+</g>
+<g><title>ucrtbase.dll!floor+0x0
+54 样本，2.54%</title><rect x="197.439" y="500" width="37.627" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="200.439" y="514" font-size="11">ucrt</text>
+</g>
+<g><title>ucrtbase.dll!floor+0x86
+49 样本，2.31%</title><rect x="235.066" y="500" width="34.143" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ucrtbase.dll!floor+0x9d
+19 样本，0.89%</title><rect x="269.209" y="500" width="13.239" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ucrtbase.dll!RVA_0x3370e
+8 样本，0.38%</title><rect x="282.448" y="500" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x178f00
+3 样本，0.14%</title><rect x="288.023" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x17b36b
+3 样本，0.14%</title><rect x="290.113" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ucrtbase.dll!RVA_0x33797
+3 样本，0.14%</title><rect x="292.203" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x178f4b
+2 样本，0.09%</title><rect x="294.294" y="500" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::TextureSurfaceBinding::Bind
+5 样本，0.24%</title><rect x="1023.145" y="521" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::LoadGraphicTexture_520B10
+2 样本，0.09%</title><rect x="1030.113" y="563" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::RenderTextToSurface_456D70
+93 样本，4.38%</title><rect x="1031.507" y="605" width="64.802" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1034.507" y="619" font-size="11">cg::rend</text>
+</g>
+<g><title>GDI32.dll!TextOutA+0x4e
+62 样本，2.92%</title><rect x="1031.507" y="584" width="43.202" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1034.507" y="598" font-size="11">GDI32</text>
+</g>
+<g><title>gdi32full.dll!TextOutA+0x6e
+59 样本，2.78%</title><rect x="1031.507" y="563" width="41.111" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1034.507" y="577" font-size="11">gdi3</text>
+</g>
+<g><title>gdi32full.dll!RVA_0x67bcb
+54 样本，2.54%</title><rect x="1031.507" y="542" width="37.627" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1034.507" y="556" font-size="11">gdi3</text>
+</g>
+<g><title>gdi32full.dll!RVA_0xc7de
+37 样本，1.74%</title><rect x="1031.507" y="521" width="25.782" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!ExtTextOutW+0x91
+35 样本，1.65%</title><rect x="1031.507" y="500" width="24.388" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0xc3be
+26 样本，1.22%</title><rect x="1031.507" y="479" width="18.117" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiExtTextOutW+0x14
+26 样本，1.22%</title><rect x="1031.507" y="458" width="18.117" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+26 样本，1.22%</title><rect x="1031.507" y="437" width="18.117" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2b210
+26 样本，1.22%</title><rect x="1031.507" y="416" width="18.117" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0aabaa
+26 样本，1.22%</title><rect x="1031.507" y="395" width="18.117" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0aad7b
+15 样本，0.71%</title><rect x="1031.507" y="374" width="10.452" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a092e0d
+7 样本，0.33%</title><rect x="1031.507" y="353" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0cbce7
+5 样本，0.24%</title><rect x="1031.507" y="332" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0cc627
+2 样本，0.09%</title><rect x="1031.507" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0cb9c8
+2 样本，0.09%</title><rect x="1034.991" y="332" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acfa9a8
+2 样本，0.09%</title><rect x="1034.991" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0d32e4
+2 样本，0.09%</title><rect x="1034.991" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572db418e
+2 样本，0.09%</title><rect x="1034.991" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805726bc86f
+2 样本，0.09%</title><rect x="1034.991" y="248" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a09263f
+5 样本，0.24%</title><rect x="1036.384" y="353" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0942b8
+2 样本，0.09%</title><rect x="1036.384" y="332" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0aad1b
+8 样本，0.38%</title><rect x="1041.959" y="374" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbbe5c
+3 样本，0.14%</title><rect x="1041.959" y="353" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3ad4818a
+2 样本，0.09%</title><rect x="1041.959" y="332" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0xc387
+9 样本，0.42%</title><rect x="1049.623" y="479" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x3e2ac
+9 样本，0.42%</title><rect x="1049.623" y="458" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!GetFontRealizationInfo+0x114
+9 样本，0.42%</title><rect x="1049.623" y="437" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x1069a
+9 样本，0.42%</title><rect x="1049.623" y="416" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiGetRealizationInfo+0x14
+9 样本，0.42%</title><rect x="1049.623" y="395" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+7 样本，0.33%</title><rect x="1049.623" y="374" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2bead
+7 样本，0.33%</title><rect x="1049.623" y="353" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0939c0
+7 样本，0.33%</title><rect x="1049.623" y="332" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a137992
+7 样本，0.33%</title><rect x="1049.623" y="311" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a09415c
+2 样本，0.09%</title><rect x="1049.623" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0xc8ad
+13 样本，0.61%</title><rect x="1057.288" y="521" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!OffsetViewportOrgEx+0x1a4
+11 样本，0.52%</title><rect x="1057.288" y="500" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!GetFontRealizationInfo+0x114
+11 样本，0.52%</title><rect x="1057.288" y="479" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x1069a
+11 样本，0.52%</title><rect x="1057.288" y="458" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiGetRealizationInfo+0x14
+11 样本，0.52%</title><rect x="1057.288" y="437" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+11 样本，0.52%</title><rect x="1057.288" y="416" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2bead
+11 样本，0.52%</title><rect x="1057.288" y="395" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0939c0
+11 样本，0.52%</title><rect x="1057.288" y="374" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a137992
+8 样本，0.38%</title><rect x="1057.288" y="353" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a0945ad
+3 样本，0.14%</title><rect x="1057.288" y="332" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a137970
+2 样本，0.09%</title><rect x="1062.863" y="353" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0xc89c
+4 样本，0.19%</title><rect x="1066.347" y="521" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x127a4
+2 样本，0.09%</title><rect x="1066.347" y="500" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x67a10
+4 样本，0.19%</title><rect x="1069.134" y="542" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0xd621
+4 样本，0.19%</title><rect x="1069.134" y="521" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x1164
+4 样本，0.19%</title><rect x="1069.134" y="500" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+4 样本，0.19%</title><rect x="1069.134" y="479" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2b64d
+3 样本，0.14%</title><rect x="1069.134" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a09bf99
+2 样本，0.09%</title><rect x="1069.134" y="437" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::AcquireCpuBackTextDc
+27 样本，1.27%</title><rect x="1074.708" y="584" width="18.814" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!CreateCompatibleDC+0x14
+22 样本，1.04%</title><rect x="1074.708" y="563" width="15.330" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiCreateCompatibleDC+0x14
+21 样本，0.99%</title><rect x="1074.708" y="542" width="14.633" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+21 样本，0.99%</title><rect x="1074.708" y="521" width="14.633" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f29e15
+20 样本，0.94%</title><rect x="1074.708" y="500" width="13.936" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbc719
+19 样本，0.89%</title><rect x="1074.708" y="479" width="13.239" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbc877
+16 样本，0.75%</title><rect x="1074.708" y="458" width="11.149" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbcba1
+5 样本，0.24%</title><rect x="1074.708" y="437" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3ad48360
+3 样本，0.14%</title><rect x="1074.708" y="416" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbcd3d
+4 样本，0.19%</title><rect x="1078.192" y="437" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3adbc870
+4 样本，0.19%</title><rect x="1078.192" y="416" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acac113
+4 样本，0.19%</title><rect x="1078.192" y="395" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3adbe5da
+3 样本，0.14%</title><rect x="1078.192" y="374" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbc860
+3 样本，0.14%</title><rect x="1085.857" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!SelectObject+0x55
+4 样本，0.19%</title><rect x="1090.038" y="563" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!SelectObjectImpl+0x1f0
+4 样本，0.19%</title><rect x="1090.038" y="542" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiSelectBitmap+0x14
+4 样本，0.19%</title><rect x="1090.038" y="521" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+4 样本，0.19%</title><rect x="1090.038" y="500" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2cc61
+4 样本，0.19%</title><rect x="1090.038" y="479" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a100eb3
+3 样本，0.14%</title><rect x="1090.038" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a2ad9bb
+3 样本，0.14%</title><rect x="1090.038" y="437" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a16a123
+2 样本，0.09%</title><rect x="1090.038" y="416" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!SelectObject+0x55
+4 样本，0.19%</title><rect x="1093.522" y="584" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x1be44
+4 样本，0.19%</title><rect x="1093.522" y="563" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x1764
+4 样本，0.19%</title><rect x="1093.522" y="542" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+4 样本，0.19%</title><rect x="1093.522" y="521" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2cce5
+4 样本，0.19%</title><rect x="1093.522" y="500" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a045e6c
+4 样本，0.19%</title><rect x="1093.522" y="479" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a16c976
+2 样本，0.09%</title><rect x="1093.522" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::`anonymous namespace&#x27;::CpuBackStorage::ReleaseTextDc
+20 样本，0.94%</title><rect x="1096.309" y="605" width="13.936" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!RVA_0x2cb6
+14 样本，0.66%</title><rect x="1096.309" y="584" width="9.755" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!RVA_0x2f3d
+10 样本，0.47%</title><rect x="1096.309" y="563" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x14a4
+10 样本，0.47%</title><rect x="1096.309" y="542" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+10 样本，0.47%</title><rect x="1096.309" y="521" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2df49
+10 样本，0.47%</title><rect x="1096.309" y="500" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acb39d9
+10 样本，0.47%</title><rect x="1096.309" y="479" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3ac88f39
+10 样本，0.47%</title><rect x="1096.309" y="458" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbc770
+9 样本，0.42%</title><rect x="1096.309" y="437" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbca83
+5 样本，0.24%</title><rect x="1096.309" y="416" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3ad13817
+2 样本，0.09%</title><rect x="1096.309" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3acbca9c
+4 样本，0.19%</title><rect x="1099.793" y="416" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3adcd361
+2 样本，0.09%</title><rect x="1099.793" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!RVA_0x2f8b
+4 样本，0.19%</title><rect x="1103.277" y="563" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x2700f
+4 样本，0.19%</title><rect x="1103.277" y="542" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!RVA_0x270fc
+3 样本，0.14%</title><rect x="1103.277" y="521" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x7264
+3 样本，0.14%</title><rect x="1103.277" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+3 样本，0.14%</title><rect x="1103.277" y="479" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2cfd1
+3 样本，0.14%</title><rect x="1103.277" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a14c199
+3 样本，0.14%</title><rect x="1103.277" y="437" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>GDI32.dll!SelectObject+0x55
+5 样本，0.24%</title><rect x="1106.064" y="584" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>gdi32full.dll!SelectObjectImpl+0x1f0
+5 样本，0.24%</title><rect x="1106.064" y="563" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtGdiSelectBitmap+0x14
+5 样本，0.24%</title><rect x="1106.064" y="542" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+5 样本，0.24%</title><rect x="1106.064" y="521" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f2cc61
+5 样本，0.24%</title><rect x="1106.064" y="500" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a100f26
+4 样本，0.19%</title><rect x="1106.064" y="479" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3ad4a720
+3 样本，0.14%</title><rect x="1106.064" y="458" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::Flip_44C560
+465 样本，21.89%</title><rect x="1113.032" y="626" width="324.011" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="640" font-size="11">cg::render::Flip_44C560</text>
+</g>
+<g><title>cg::render::SdlPresenter::Present
+465 样本，21.89%</title><rect x="1113.032" y="605" width="324.011" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="619" font-size="11">cg::render::SdlPresenter::Present</text>
+</g>
+<g><title>SDL3.dll!RVA_0xe448b
+397 样本，18.69%</title><rect x="1113.032" y="584" width="276.629" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="598" font-size="11">SDL3.dll!RVA_0xe448b</text>
+</g>
+<g><title>SDL3.dll!RVA_0xcc57c
+397 样本，18.69%</title><rect x="1113.032" y="563" width="276.629" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="577" font-size="11">SDL3.dll!RVA_0xcc57c</text>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x726e5
+350 样本，16.48%</title><rect x="1113.032" y="542" width="243.879" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="556" font-size="11">RTSSHooks64.dll!RVA_0x726e5</text>
+</g>
+<g><title>DXGI.DLL!RVA_0x6ab6c
+348 样本，16.38%</title><rect x="1113.032" y="521" width="242.486" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="535" font-size="11">DXGI.DLL!RVA_0x6ab6c</text>
+</g>
+<g><title>DXGI.DLL!RVA_0x15f5b
+348 样本，16.38%</title><rect x="1113.032" y="500" width="242.486" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="514" font-size="11">DXGI.DLL!RVA_0x15f5b</text>
+</g>
+<g><title>DXGI.DLL!RVA_0x17137
+345 样本，16.24%</title><rect x="1113.032" y="479" width="240.395" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="493" font-size="11">DXGI.DLL!RVA_0x17137</text>
+</g>
+<g><title>DXGI.DLL!RVA_0x22ca
+345 样本，16.24%</title><rect x="1113.032" y="458" width="240.395" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="472" font-size="11">DXGI.DLL!RVA_0x22ca</text>
+</g>
+<g><title>DXGI.DLL!RVA_0x2679
+343 样本，16.15%</title><rect x="1113.032" y="437" width="239.002" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="451" font-size="11">DXGI.DLL!RVA_0x2679</text>
+</g>
+<g><title>d3d11.dll!RVA_0x13c36
+342 样本，16.10%</title><rect x="1113.032" y="416" width="238.305" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="430" font-size="11">d3d11.dll!RVA_0x13c36</text>
+</g>
+<g><title>d3d11.dll!RVA_0x14ea1
+333 样本，15.68%</title><rect x="1113.032" y="395" width="232.034" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="409" font-size="11">d3d11.dll!RVA_0x14ea1</text>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x2549ad
+332 样本，15.63%</title><rect x="1113.032" y="374" width="231.337" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="388" font-size="11">nvwgf2umx.dll!RVA_0x2549ad</text>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x571e89
+319 样本，15.02%</title><rect x="1113.032" y="353" width="222.279" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="367" font-size="11">nvwgf2umx.dll!RVA_0x571e89</text>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x57144a
+314 样本，14.78%</title><rect x="1113.032" y="332" width="218.795" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="346" font-size="11">nvwgf2umx.dll!RVA_0x57144a</text>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e96
+216 样本，10.17%</title><rect x="1113.032" y="311" width="150.508" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="325" font-size="11">nvwgf2umx.dll!RVA_0x</text>
+</g>
+<g><title>KERNELBASE.dll!SleepEx+0x9e
+204 样本，9.60%</title><rect x="1113.032" y="290" width="142.147" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="304" font-size="11">KERNELBASE.dll!Slee</text>
+</g>
+<g><title>ntdll.dll!NtDelayExecution+0x14
+191 样本，8.99%</title><rect x="1113.032" y="269" width="133.089" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="283" font-size="11">ntdll.dll!NtDelayE</text>
+</g>
+<g><title>未知模块!0xfffff80572811365
+84 样本，3.95%</title><rect x="1113.032" y="248" width="58.531" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1116.032" y="262" font-size="11">未知模块!0x</text>
+</g>
+<g><title>未知模块!0xfffff80572811508
+27 样本，1.27%</title><rect x="1171.563" y="248" width="18.814" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a1a86f
+13 样本，0.61%</title><rect x="1171.563" y="227" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572656d52
+4 样本，0.19%</title><rect x="1171.563" y="206" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572656d42
+3 样本，0.14%</title><rect x="1174.350" y="206" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572656cf2
+2 样本，0.09%</title><rect x="1176.441" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572656cf4
+2 样本，0.09%</title><rect x="1177.834" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572656d6a
+2 样本，0.09%</title><rect x="1179.228" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a1a814
+6 样本，0.28%</title><rect x="1180.621" y="227" width="4.181" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a1a821
+5 样本，0.24%</title><rect x="1184.802" y="227" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a1a85d
+2 样本，0.09%</title><rect x="1188.286" y="227" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff8057281153f
+6 样本，0.28%</title><rect x="1190.377" y="248" width="4.181" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805728113bd
+2 样本，0.09%</title><rect x="1194.557" y="248" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!RVA_0x46220
+3 样本，0.14%</title><rect x="1255.179" y="290" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!RVA_0x46330
+3 样本，0.14%</title><rect x="1257.269" y="290" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!RVA_0x4627b
+2 样本，0.09%</title><rect x="1259.360" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e05
+40 样本，1.88%</title><rect x="1263.540" y="311" width="27.872" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!RVA_0x401b5
+29 样本，1.37%</title><rect x="1263.540" y="290" width="20.207" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!RVA_0x401a4
+2 样本，0.09%</title><rect x="1283.748" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!RVA_0x401e2
+2 样本，0.09%</title><rect x="1285.141" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x131223
+25 样本，1.18%</title><rect x="1291.412" y="311" width="17.420" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x131a21
+13 样本，0.61%</title><rect x="1291.412" y="290" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x4aab9e
+3 样本，0.14%</title><rect x="1291.412" y="269" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x4aab50
+2 样本，0.09%</title><rect x="1293.503" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x4aab5f
+2 样本，0.09%</title><rect x="1294.896" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x4aab9a
+2 样本，0.09%</title><rect x="1296.290" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x131700
+2 样本，0.09%</title><rect x="1300.471" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x131b00
+2 样本，0.09%</title><rect x="1301.864" y="290" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e3a
+10 样本，0.47%</title><rect x="1308.832" y="311" width="6.968" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e09
+3 样本，0.14%</title><rect x="1315.800" y="311" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e16
+3 样本，0.14%</title><rect x="1317.891" y="311" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x1311c6
+3 样本，0.14%</title><rect x="1319.981" y="311" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e3f
+2 样本，0.09%</title><rect x="1322.072" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x130e77
+2 样本，0.09%</title><rect x="1323.465" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x1311b3
+2 样本，0.09%</title><rect x="1324.859" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x1311cd
+2 样本，0.09%</title><rect x="1326.252" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x1311f4
+2 样本，0.09%</title><rect x="1327.646" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x571222
+3 样本，0.14%</title><rect x="1331.827" y="332" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56ce4c
+3 样本，0.14%</title><rect x="1331.827" y="311" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!ReleaseSemaphore+0xb
+3 样本，0.14%</title><rect x="1331.827" y="290" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!NtReleaseSemaphore+0x14
+2 样本，0.09%</title><rect x="1331.827" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+2 样本，0.09%</title><rect x="1331.827" y="248" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a6194b
+2 样本，0.09%</title><rect x="1331.827" y="227" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805726f1ab0
+2 样本，0.09%</title><rect x="1331.827" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805726c4291
+2 样本，0.09%</title><rect x="1331.827" y="185" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805726c4a5e
+2 样本，0.09%</title><rect x="1331.827" y="164" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x5720f2
+9 样本，0.42%</title><rect x="1335.311" y="353" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56d9d0
+9 样本，0.42%</title><rect x="1335.311" y="332" width="6.271" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56b59a
+4 样本，0.19%</title><rect x="1335.311" y="311" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!RVA_0x273ee
+4 样本，0.19%</title><rect x="1335.311" y="290" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!RVA_0x9fb74
+4 样本，0.19%</title><rect x="1335.311" y="269" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+4 样本，0.19%</title><rect x="1335.311" y="248" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a26113
+4 样本，0.19%</title><rect x="1335.311" y="227" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a26333
+2 样本，0.09%</title><rect x="1335.311" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a540c9
+2 样本，0.09%</title><rect x="1335.311" y="185" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56b5ae
+2 样本，0.09%</title><rect x="1338.098" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x571d82
+3 样本，0.14%</title><rect x="1341.582" y="353" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x1fc58a
+2 样本，0.09%</title><rect x="1341.582" y="332" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x264916
+2 样本，0.09%</title><rect x="1341.582" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x13fd3
+3 样本，0.14%</title><rect x="1345.066" y="395" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0xc08a1
+3 样本，0.14%</title><rect x="1345.066" y="374" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x7ce4
+2 样本，0.09%</title><rect x="1345.066" y="353" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x13da9
+2 样本，0.09%</title><rect x="1347.156" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x13f7e
+2 样本，0.09%</title><rect x="1348.550" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!WaitForSingleObjectEx+0x8e
+2 样本，0.09%</title><rect x="1348.550" y="374" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!ZwWaitForSingleObject+0x14
+2 样本，0.09%</title><rect x="1348.550" y="353" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+2 样本，0.09%</title><rect x="1348.550" y="332" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a3dfba
+2 样本，0.09%</title><rect x="1348.550" y="311" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x14c72
+2 样本，0.09%</title><rect x="1349.944" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x154ef
+2 样本，0.09%</title><rect x="1349.944" y="374" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x156ba
+2 样本，0.09%</title><rect x="1349.944" y="353" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>DXGI.DLL!RVA_0x26a0
+2 样本，0.09%</title><rect x="1352.034" y="437" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>DXGI.DLL!RVA_0x1be35
+2 样本，0.09%</title><rect x="1352.034" y="416" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>DXGI.DLL!RVA_0x16f56
+2 样本，0.09%</title><rect x="1353.427" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>DXGI.DLL!RVA_0x6ab6f
+2 样本，0.09%</title><rect x="1355.518" y="521" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x726d3
+37 样本，1.74%</title><rect x="1356.911" y="542" width="25.782" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x728b2
+37 样本，1.74%</title><rect x="1356.911" y="521" width="25.782" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x7d492
+33 样本，1.55%</title><rect x="1356.911" y="500" width="22.994" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44b77
+31 样本，1.46%</title><rect x="1356.911" y="479" width="21.601" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44af2
+31 样本，1.46%</title><rect x="1356.911" y="458" width="21.601" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44380
+11 样本，0.52%</title><rect x="1356.911" y="437" width="7.665" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x6656c
+8 样本，0.38%</title><rect x="1356.911" y="416" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x6407c
+2 样本，0.09%</title><rect x="1356.911" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44453
+5 样本，0.24%</title><rect x="1364.576" y="437" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x27702
+5 样本，0.24%</title><rect x="1364.576" y="416" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x26f5c
+4 样本，0.19%</title><rect x="1364.576" y="395" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x33fcc
+4 样本，0.19%</title><rect x="1364.576" y="374" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x3381d
+4 样本，0.19%</title><rect x="1364.576" y="353" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x2cd20
+3 样本，0.14%</title><rect x="1364.576" y="332" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x80717
+3 样本，0.14%</title><rect x="1364.576" y="311" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x2c243
+3 样本，0.14%</title><rect x="1364.576" y="290" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x566295
+3 样本，0.14%</title><rect x="1364.576" y="269" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56d53e
+2 样本，0.09%</title><rect x="1364.576" y="248" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56cf10
+2 样本，0.09%</title><rect x="1364.576" y="227" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56c64e
+2 样本，0.09%</title><rect x="1364.576" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44575
+5 样本，0.24%</title><rect x="1368.060" y="437" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44e4c
+2 样本，0.09%</title><rect x="1368.060" y="416" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x455d4
+2 样本，0.09%</title><rect x="1369.454" y="416" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x1207ec
+2 样本，0.09%</title><rect x="1369.454" y="395" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x445cd
+5 样本，0.24%</title><rect x="1371.544" y="437" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x451ee
+3 样本，0.14%</title><rect x="1371.544" y="416" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x44b5a
+2 样本，0.09%</title><rect x="1378.512" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x7d615
+2 样本，0.09%</title><rect x="1379.906" y="500" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x86a63
+2 样本，0.09%</title><rect x="1379.906" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x87408
+2 样本，0.09%</title><rect x="1379.906" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x269ac
+2 样本，0.09%</title><rect x="1379.906" y="437" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvapi64.dll!RVA_0x2c8834
+2 样本，0.09%</title><rect x="1379.906" y="416" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x726f1
+8 样本，0.38%</title><rect x="1382.693" y="542" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x85efd
+3 样本，0.14%</title><rect x="1382.693" y="521" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x87b51
+3 样本，0.14%</title><rect x="1382.693" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x85cec
+2 样本，0.09%</title><rect x="1382.693" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x8641b
+3 样本，0.14%</title><rect x="1384.783" y="521" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x87822
+3 样本，0.14%</title><rect x="1384.783" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x26a7c
+2 样本，0.09%</title><rect x="1384.783" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xe96b8
+57 样本，2.68%</title><rect x="1389.661" y="584" width="39.718" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1392.661" y="598" font-size="11">SDL3</text>
+</g>
+<g><title>SDL3.dll!RVA_0xcda2f
+57 样本，2.68%</title><rect x="1389.661" y="563" width="39.718" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+<text x="1392.661" y="577" font-size="11">SDL3</text>
+</g>
+<g><title>SDL3.dll!RVA_0xcdb98
+32 样本，1.51%</title><rect x="1389.661" y="542" width="22.298" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1da423
+13 样本，0.61%</title><rect x="1389.661" y="521" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1da446
+8 样本，0.38%</title><rect x="1398.719" y="521" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1da456
+4 样本，0.19%</title><rect x="1404.294" y="521" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1da436
+3 样本，0.14%</title><rect x="1407.081" y="521" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0x1da476
+2 样本，0.09%</title><rect x="1409.171" y="521" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xcdad9
+22 样本，1.04%</title><rect x="1411.959" y="542" width="15.330" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x1d307
+22 样本，1.04%</title><rect x="1411.959" y="521" width="15.330" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x1d864
+18 样本，0.85%</title><rect x="1411.959" y="500" width="12.542" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x33fcc
+17 样本，0.80%</title><rect x="1411.959" y="479" width="11.846" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x33a31
+17 样本，0.80%</title><rect x="1411.959" y="458" width="11.846" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x33640
+17 样本，0.80%</title><rect x="1411.959" y="437" width="11.846" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x33559
+17 样本，0.80%</title><rect x="1411.959" y="416" width="11.846" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x2d167
+16 样本，0.75%</title><rect x="1411.959" y="395" width="11.149" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x80b43
+16 样本，0.75%</title><rect x="1411.959" y="374" width="11.149" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x292c3
+16 样本，0.75%</title><rect x="1411.959" y="353" width="11.149" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x29723
+15 样本，0.71%</title><rect x="1411.959" y="332" width="10.452" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x565deb
+15 样本，0.71%</title><rect x="1411.959" y="311" width="10.452" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56ec13
+15 样本，0.71%</title><rect x="1411.959" y="290" width="10.452" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56d53e
+13 样本，0.61%</title><rect x="1411.959" y="269" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56cf10
+13 样本，0.61%</title><rect x="1411.959" y="248" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56c64e
+12 样本，0.56%</title><rect x="1411.959" y="227" width="8.362" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>nvwgf2umx.dll!RVA_0x56d533
+2 样本，0.09%</title><rect x="1421.017" y="269" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>KERNELBASE.dll!ReleaseSemaphore+0xb
+2 样本，0.09%</title><rect x="1421.017" y="248" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>ntdll.dll!NtReleaseSemaphore+0x14
+2 样本，0.09%</title><rect x="1421.017" y="227" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+2 样本，0.09%</title><rect x="1421.017" y="206" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572a6194b
+2 样本，0.09%</title><rect x="1421.017" y="185" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x1d67e
+3 样本，0.14%</title><rect x="1424.501" y="500" width="2.090" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x25d6a
+2 样本，0.09%</title><rect x="1424.501" y="479" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x24e7e
+2 样本，0.09%</title><rect x="1424.501" y="458" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>d3d11.dll!RVA_0x4a21b
+2 样本，0.09%</title><rect x="1424.501" y="437" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xe447f
+7 样本，0.33%</title><rect x="1429.379" y="584" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xdce61
+7 样本，0.33%</title><rect x="1429.379" y="563" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xcca75
+5 样本，0.24%</title><rect x="1429.379" y="542" width="3.484" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>RTSSHooks64.dll!RVA_0x71821
+2 样本，0.09%</title><rect x="1429.379" y="521" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>SDL3.dll!RVA_0xcc8f7
+2 样本，0.09%</title><rect x="1432.863" y="542" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::ClearSurface_4512C0
+45 样本，2.12%</title><rect x="1437.043" y="626" width="31.356" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>VCRUNTIME140.dll!RVA_0x12843
+13 样本，0.61%</title><rect x="1437.043" y="605" width="9.058" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>VCRUNTIME140.dll!RVA_0x12833
+12 样本，0.56%</title><rect x="1446.102" y="605" width="8.362" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>VCRUNTIME140.dll!memset+0x143
+12 样本，0.56%</title><rect x="1454.463" y="605" width="8.362" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>VCRUNTIME140.dll!RVA_0x12819
+7 样本，0.33%</title><rect x="1462.825" y="605" width="4.878" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::world::Update
+17 样本，0.80%</title><rect x="1468.399" y="626" width="11.846" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::world::detail::RenderInput_4590E0
+8 样本，0.38%</title><rect x="1468.399" y="605" width="5.574" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>IMM32.dll!RVA_0x10340
+2 样本，0.09%</title><rect x="1468.399" y="584" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>IMM32.dll!RVA_0x6dd0
+2 样本，0.09%</title><rect x="1469.793" y="584" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!RVA_0x9244
+2 样本，0.09%</title><rect x="1469.793" y="563" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572811508
+2 样本，0.09%</title><rect x="1469.793" y="542" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b39f260a1
+2 样本，0.09%</title><rect x="1469.793" y="521" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xffff8c8b3a00ecc8
+2 样本，0.09%</title><rect x="1469.793" y="500" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::world::detail::Sub_464840
+4 样本，0.19%</title><rect x="1473.974" y="605" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::login::ProcessCapability4Input_464E30
+4 样本，0.19%</title><rect x="1473.974" y="584" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::render::DrawInputText_4568A0
+2 样本，0.09%</title><rect x="1473.974" y="563" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>`anonymous namespace&#x27;::ProcessCapability4CommonTail
+2 样本，0.09%</title><rect x="1476.761" y="605" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::world::detail::Sub_44A410
+2 样本，0.09%</title><rect x="1478.154" y="605" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>cg::platform::IsImeKeyboardLayout_459090
+2 样本，0.09%</title><rect x="1478.154" y="584" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>USER32.dll!GetKeyboardLayout+0x13
+2 样本，0.09%</title><rect x="1478.154" y="563" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>win32u.dll!NtUserGetKeyboardLayout+0x14
+2 样本，0.09%</title><rect x="1478.154" y="542" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805727ffe27
+4 样本，0.19%</title><rect x="1485.122" y="731" width="2.787" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805727ff5d5
+2 样本，0.09%</title><rect x="1485.122" y="710" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff805727ff5fa
+2 样本，0.09%</title><rect x="1486.516" y="710" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+<g><title>未知模块!0xfffff80572743a65
+2 样本，0.09%</title><rect x="1486.516" y="689" width="1.394" height="20" fill="#f1b55b" stroke="white" stroke-width="0.5"/>
+</g>
+</svg>

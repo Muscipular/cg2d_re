@@ -8,12 +8,32 @@
 #include "cg/platform/Startup.hpp"
 
 #include <dbghelp.h>
+#include <mmsystem.h>
 #include <cstdio>
 #include <cstring>
 #include <cwchar>
 #include <string>
 
 namespace {
+
+// 客户端活动期申请 1ms 定时器精度；仅释放本次成功获得的请求。
+class ClientTimerResolution final {
+public:
+    ClientTimerResolution() noexcept
+        : requested_(::timeBeginPeriod(1) == TIMERR_NOERROR)
+    {
+    }
+
+    ~ClientTimerResolution()
+    {
+        if (requested_) {
+            static_cast<void>(::timeEndPeriod(1));
+        }
+    }
+
+private:
+    bool requested_; // timeBeginPeriod 成功后由析构函数配对释放。
+};
 
 constexpr std::size_t kMinidumpPathCapacity = 32768;
 wchar_t gMinidumpDirectory[kMinidumpPathCapacity] {};
@@ -243,6 +263,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 {
     using namespace cg::platform;
 
+    const ClientTimerResolution timerResolution;
     const ClientMinidumpReport minidumpReport;
 #ifdef _DEBUG
     const DebugAssertionReport assertionReport;

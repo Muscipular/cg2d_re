@@ -5,3 +5,6 @@
 /session_id.txt
 /*.scratch/
 /__pycache__/
+/release_*_main_thread_wall.json
+/*_client_pid.txt
+/*.map

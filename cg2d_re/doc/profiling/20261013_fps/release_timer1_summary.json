@@ -1,0 +1,158 @@
+{
+  "pid": 69768,
+  "main_thread": 71484,
+  "map_timestamp": "6ace31ba",
+  "wall_duration_ms": 12014.2853,
+  "wall_samples": 770,
+  "wall_cpu_seconds": 1.53125,
+  "sampler_suspension_ms_total": 479.691,
+  "sampler_suspension_ms_max": 7.3286,
+  "wall_leaf_top": [
+    [
+      "ntdll.dll!ZwWaitForSingleObject+0x14",
+      703
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawTextureRectangle",
+      38
+    ],
+    [
+      "ntdll.dll!NtDelayExecution+0x14",
+      4
+    ],
+    [
+      "ucrtbase.dll!floor+0x9d",
+      3
+    ],
+    [
+      "ucrtbase.dll!floor+0x0",
+      3
+    ],
+    [
+      "ucrtbase.dll!floor+0x86",
+      2
+    ],
+    [
+      "ucrtbase.dll!floor+0xe",
+      2
+    ],
+    [
+      "ucrtbase.dll!floor+0x2f",
+      2
+    ],
+    [
+      "SDL3.dll!RVA_0x1557a7",
+      1
+    ],
+    [
+      "cg::audio::Sub_52CCA0",
+      1
+    ],
+    [
+      "SDL3.dll!RVA_0x155784",
+      1
+    ],
+    [
+      "SDL3.dll!RVA_0x155745",
+      1
+    ]
+  ],
+  "wall_inclusive_top": [
+    [
+      "WinMain",
+      770
+    ],
+    [
+      "KERNEL32.DLL!BaseThreadInitThunk+0x14",
+      770
+    ],
+    [
+      "cg::platform::MainLoop",
+      770
+    ],
+    [
+      "__scrt_common_main_seh",
+      770
+    ],
+    [
+      "ntdll.dll!RtlUserThreadStart+0x21",
+      770
+    ],
+    [
+      "cg::render::Flip_44C560",
+      712
+    ],
+    [
+      "cg::render::SdlPresenter::Present",
+      712
+    ],
+    [
+      "SDL3.dll!RVA_0xcc57c",
+      711
+    ],
+    [
+      "SDL3.dll!RVA_0xe448b",
+      711
+    ],
+    [
+      "RTSSHooks64.dll!RVA_0x726e5",
+      710
+    ],
+    [
+      "DXGI.DLL!RVA_0x15f5b",
+      710
+    ],
+    [
+      "DXGI.DLL!RVA_0x6ab6c",
+      710
+    ],
+    [
+      "DXGI.DLL!RVA_0x2679",
+      709
+    ],
+    [
+      "DXGI.DLL!RVA_0x17137",
+      709
+    ],
+    [
+      "DXGI.DLL!RVA_0x22ca",
+      709
+    ],
+    [
+      "d3d11.dll!RVA_0x13c36",
+      709
+    ],
+    [
+      "ntdll.dll!ZwWaitForSingleObject+0x14",
+      703
+    ],
+    [
+      "KERNELBASE.dll!WaitForSingleObjectEx+0x8e",
+      703
+    ],
+    [
+      "d3d11.dll!RVA_0x13f7e",
+      703
+    ],
+    [
+      "cg::render::DrawAllQueued_520DD0",
+      56
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawTextureRectangle",
+      54
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawIntegerNodes",
+      54
+    ],
+    [
+      "cg::render::RenderTextureToSurface_44D520",
+      54
+    ],
+    [
+      "cg::render::`anonymous namespace'::SubmitTexturedRectangle",
+      54
+    ]
+  ]
+}

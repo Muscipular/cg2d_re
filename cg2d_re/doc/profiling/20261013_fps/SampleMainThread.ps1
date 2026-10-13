@@ -1,4 +1,4 @@
-param([int]$TargetProcessId, [int]$DurationSeconds = 12)
+param([int]$TargetProcessId, [int]$DurationSeconds = 12, [string]$OutputName = 'release_main_thread_wall.json')
 $ErrorActionPreference = 'Stop'
 $profileSource = @"
 using System;
@@ -106,5 +106,5 @@ public static class CgFrameStackSampler {
 "@
 Add-Type -TypeDefinition $profileSource -Language CSharp
 $profileResult = [CgFrameStackSampler]::Capture($TargetProcessId, $DurationSeconds)
-$profileResult | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'release_main_thread_wall.json') -Encoding UTF8
+$profileResult | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $PSScriptRoot $OutputName) -Encoding UTF8
 [PSCustomObject]@{ ProcessId=$profileResult.processId; ThreadId=$profileResult.threadId; Samples=$profileResult.samples.Count; DurationMs=$profileResult.durationMs; CPUSeconds=($profileResult.cpuSecondsAfter-$profileResult.cpuSecondsBefore); MaxSuspensionMs=($profileResult.samples.suspensionMs | Measure-Object -Maximum).Maximum; FirstStacks=$profileResult.samples[0].addresses } | ConvertTo-Json -Depth 6 -Compress

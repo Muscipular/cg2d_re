@@ -31,7 +31,7 @@ constexpr char kLoadingMessage[] =
 // 原 InitLoading@[457B10,4582FE)，完整阶段及公共帧尾见 cg2d_loading_screen.md。
 std::int32_t InitLoading_457B10()
 {
-    std::int32_t phase = 0;
+    std::int32_t phase = 21; // 自动跳过片头，复用原按键跳过后的清理阶段。
     std::int32_t image = 0;
     bool keepRunning = true;
     render::gPaletteCapability = resource::ProbePaletteCapability_45C970();

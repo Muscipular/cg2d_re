@@ -1,0 +1,158 @@
+{
+  "pid": 75720,
+  "main_thread": 71180,
+  "map_timestamp": "6ace31ba",
+  "wall_duration_ms": 12008.9281,
+  "wall_samples": 762,
+  "wall_cpu_seconds": 0.21875,
+  "sampler_suspension_ms_total": 186.2568,
+  "sampler_suspension_ms_max": 5.8172,
+  "wall_leaf_top": [
+    [
+      "ntdll.dll!NtDelayExecution+0x14",
+      587
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawTextureRectangle",
+      80
+    ],
+    [
+      "win32u.dll!NtGdiBitBlt+0x14",
+      15
+    ],
+    [
+      "ntdll.dll!ZwReadVirtualMemory+0x14",
+      13
+    ],
+    [
+      "ucrtbase.dll!floor+0x86",
+      6
+    ],
+    [
+      "win32u.dll!NtUserGetImeInfoEx+0x14",
+      5
+    ],
+    [
+      "win32u.dll!NtUserGetKeyboardLayout+0x14",
+      5
+    ],
+    [
+      "ucrtbase.dll!floor+0x9d",
+      4
+    ],
+    [
+      "ucrtbase.dll!floor+0x2f",
+      4
+    ],
+    [
+      "ucrtbase.dll!floor+0x0",
+      3
+    ],
+    [
+      "SDL3.dll!RVA_0x1556de",
+      2
+    ],
+    [
+      "SDL3.dll!RVA_0x15f123",
+      2
+    ]
+  ],
+  "wall_inclusive_top": [
+    [
+      "WinMain",
+      762
+    ],
+    [
+      "__scrt_common_main_seh",
+      762
+    ],
+    [
+      "cg::platform::MainLoop",
+      762
+    ],
+    [
+      "ntdll.dll!RtlUserThreadStart+0x21",
+      762
+    ],
+    [
+      "KERNEL32.DLL!BaseThreadInitThunk+0x14",
+      762
+    ],
+    [
+      "KERNELBASE.dll!SleepEx+0x9e",
+      587
+    ],
+    [
+      "ntdll.dll!NtDelayExecution+0x14",
+      587
+    ],
+    [
+      "cg::render::DrawAllQueued_520DD0",
+      113
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawIntegerNodes",
+      108
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawSprite",
+      108
+    ],
+    [
+      "cg::render::RenderTextureToSurface_44D520",
+      107
+    ],
+    [
+      "cg::render::`anonymous namespace'::SubmitTexturedRectangle",
+      106
+    ],
+    [
+      "cg::render::`anonymous namespace'::DrawTextureRectangle",
+      106
+    ],
+    [
+      "cg::render::SdlPresenter::Present",
+      23
+    ],
+    [
+      "cg::render::Flip_44C560",
+      23
+    ],
+    [
+      "cg::platform::CheckProtection_4043B0",
+      20
+    ],
+    [
+      "win32u.dll!NtGdiBitBlt+0x14",
+      15
+    ],
+    [
+      "SDL3.dll!RVA_0xe448b",
+      15
+    ],
+    [
+      "SDL3.dll!RVA_0x196595",
+      15
+    ],
+    [
+      "GDI32.dll!BitBlt+0xab",
+      15
+    ],
+    [
+      "SDL3.dll!RVA_0x187a58",
+      15
+    ],
+    [
+      "gdi32full.dll!BitBlt+0xce",
+      15
+    ],
+    [
+      "KERNEL32.DLL!CreateToolhelp32Snapshot+0x10e",
+      14
+    ],
+    [
+      "ntdll.dll!ZwReadVirtualMemory+0x14",
+      13
+    ]
+  ]
+}

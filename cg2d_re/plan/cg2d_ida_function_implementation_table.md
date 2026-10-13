@@ -817,7 +817,7 @@
 | 789 | 0x004576B0 | `sub_4576B0` | 有正文 | `src/platform/ClientInitialization.cpp:186 — InitializeClient_4576B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 790 | 0x00457A40 | `sub_457A40` | 有正文 | `src/platform/ClientShutdown.cpp:42 — ShutdownClient_457A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 791 | 0x00457AB0 | `KeepAlive` | 有正文 | `src/platform/MainLoopSupport.cpp:633 — KeepAlive_457AB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 792 | 0x00457B10 | `InitLoading` | 有正文 | `src/platform/LoadingScreen.cpp:32 — InitLoading_457B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 792 | 0x00457B10 | `InitLoading` | 有正文 | `src/platform/LoadingScreen.cpp:32 — InitLoading_457B10` | 实际非占位正文已定位；2026-10-13 按用户要求初始阶段改为 21，自动走既有跳过清理；完整业务／接线／运行未验 |
 | 793 | 0x00458390 | `sub_458390` | 有正文 | `src/platform/ClientInitialization.cpp:108 — FadeInLoading_458390` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 794 | 0x004585F0 | `sub_4585F0` | 有正文 | `src/platform/ClientInitialization.cpp:154 — FadeOutLoading_4585F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 795 | 0x004587D0 | `sub_4587D0` | 有正文 | `src/platform/MainLoopWindowEnumeration.cpp:76 — EnumerateWindows_4587D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |

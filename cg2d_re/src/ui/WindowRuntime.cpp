@@ -1296,9 +1296,9 @@ std::int32_t SendChoiceDialogReply(char* const buffer)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, buffer + 16);
 }
 
@@ -2907,7 +2907,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(render::DrawText_456780(
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
-    platform::FormatLegacyString_53B304(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+    platform::FormatLegacyString_53B304(buffer, "%4d", pet->values0C[1].Read_401EC0());
     drawText(227, 58);
     platform::FormatLegacyString_53B304(buffer, "%3d", pet->value08);
     drawText(53, 75);
@@ -2918,7 +2918,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         buffer[0] = '\0';
     }
     drawText(120, 75);
-    platform::FormatLegacyString_53B304(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+    platform::FormatLegacyString_53B304(buffer, "%4d", pet->values0C[3].Read_401EC0());
     drawText(227, 75);
     platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[0]);
     drawText(117, 93);
@@ -3081,16 +3081,12 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
     drawText(298, 132);
     platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
-        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[1]);
-    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
-        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[0]);
+    const std::int32_t maxHp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[1].Read_401EC0();
+    const std::int32_t hp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[0].Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
-        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[3]);
-    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
-        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[2]);
+    const std::int32_t maxFp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[3].Read_401EC0();
+    const std::int32_t fp = world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[2].Read_401EC0();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
@@ -3650,7 +3646,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
         };
         platform::FormatLegacyString_53B304(details, "%s", pet->name6AC.data());
         drawPetText(75, 61);
-        platform::FormatLegacyString_53B304(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+        platform::FormatLegacyString_53B304(details, "%4d", pet->values0C[1].Read_401EC0());
         drawPetText(225, 61);
         platform::FormatLegacyString_53B304(details, "%3d", pet->value08);
         drawPetText(51, 78);
@@ -3661,7 +3657,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             details[0] = '\0';
         }
         drawPetText(118, 78);
-        platform::FormatLegacyString_53B304(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+        platform::FormatLegacyString_53B304(details, "%4d", pet->values0C[3].Read_401EC0());
         drawPetText(225, 78);
         platform::FormatLegacyString_53B304(details, "%3d", pet->values70[0]);
         drawPetText(115, 96);
@@ -4115,7 +4111,7 @@ void Sub_4CED60(
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
         for (std::int32_t value = 0; value < 6; ++value) {
             const std::int32_t plain = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-            platform::legacy_crypt_int::AssignFromInt(&pet.values0C[value], plain);
+            (pet.values0C[value] = static_cast<std::int32_t>(plain));
         }
         pet.value08 = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         for (std::int32_t value = 5; value <= 10; ++value) {
@@ -4781,8 +4777,8 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
         input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffers[1].data()));
         std::strcpy(gProfileSearchKeyword1075988.data(), input::LegacyText593850());
@@ -4929,8 +4925,8 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, commands[position], buffers[2].data()));
     return 1;
@@ -4960,8 +4956,8 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
         input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;
@@ -5187,8 +5183,8 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
@@ -5394,13 +5390,13 @@ std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
 std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
 {
     const double playerX = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX)) * 64.0;
+        world::detail::gPlayerX.Read_401EC0()) * 64.0;
     if (playerX != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
         return 0;
     }
     const double playerY = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY)) * 64.0;
+        world::detail::gPlayerY.Read_401EC0()) * 64.0;
     if (playerY != static_cast<double>(std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
         return 0;
@@ -5733,8 +5729,8 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
 }
@@ -5833,8 +5829,8 @@ void Sub_48BB90(
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128));
 }
@@ -5942,9 +5938,9 @@ std::int32_t Sub_4B0290(const std::int32_t value)
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
         platform::FormatLegacyString_53B304(ownName->text, "%-16s", playerName);
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(Sub_4D3020(x, y));
     }
     if (Sub_4D3040(1, 1) != 0) {
@@ -6095,8 +6091,7 @@ std::int32_t Sub_4B08D0(const std::int32_t)
                 gTradePreviewCC2E64 = preview;
             }
             if (preview >= 0) {
-                const bool left = platform::legacy_crypt_int::Less_401DB0(
-                    &platform::gLegacyMouseState.mouseX, 320);
+                const bool left = (platform::gLegacyMouseState.mouseX < 320);
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
                 if (ownPet != 0) {
@@ -6147,8 +6142,8 @@ void Sub_4AAB70(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
     }
-    drawNumber(platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]), "%4d", 210, 5);
-    drawNumber(platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]), "%4d", 210, 22);
+    drawNumber(pet.values0C[1].Read_401EC0(), "%4d", 210, 5);
+    drawNumber(pet.values0C[3].Read_401EC0(), "%4d", 210, 22);
     drawNumber(pet.values70[0], "%3d", 95, 40);
     drawNumber(pet.values70[1], "%3d", 155, 40);
     drawNumber(pet.values70[2], "%3d", 215, 40);
@@ -6246,12 +6241,12 @@ std::int32_t Sub_48D540(
         if (tribe >= 0 && tribe < 20) {
             drawText(gTribeNames57CB54[tribe], 118, 21);
         }
-        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
-        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+        const std::int32_t maxHp = pet.values0C[1].Read_401EC0();
+        const std::int32_t hp = pet.values0C[0].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
         drawText(buffer, 37, 19);
-        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
-        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+        const std::int32_t maxFp = pet.values0C[3].Read_401EC0();
+        const std::int32_t fp = pet.values0C[2].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
         drawText(buffer, 37, 32);
         if (Sub_4EA670(index) == 1) {
@@ -6438,9 +6433,9 @@ std::int32_t Sub_4B1260(
             numericElement == -1 ? nullptr : &window->elements[numericElement].state;
         const std::int32_t scrollSnapshot = *scrollValue;
         const std::int32_t mouseY =
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+            platform::gLegacyMouseState.mouseY.Read_401EC0();
         const std::int32_t mouseX =
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+            platform::gLegacyMouseState.mouseX.Read_401EC0();
         callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
                  &itemCount, &petCount, &amount, &displayAmount, descriptor);
     }
@@ -6520,18 +6515,18 @@ void Sub_48BF30(
         if ((clicked & 2u) != 0) {
             static_cast<void>(Sub_4763E0());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+                platform::gLegacyMouseState.mouseX.Read_401EC0()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+                platform::gLegacyMouseState.mouseY.Read_401EC0()));
             static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
         }
     } else {
         if ((clicked & 1u) != 0) {
             static_cast<void>(Sub_4763E0());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+                platform::gLegacyMouseState.mouseX.Read_401EC0()));
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+                platform::gLegacyMouseState.mouseY.Read_401EC0()));
             static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -6544,30 +6539,30 @@ void Sub_48BF30(
         const std::int32_t drawKind = Sub_48BB70(sourceIndex);
         if (drawKind == 1) {
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+                (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+                (platform::gLegacyMouseState.mouseX - 120)));
             Sub_4AAB70(x, y, sourceIndex, 5);
         } else if (drawKind == 2) {
             const std::int32_t slot = sourceIndex - 100;
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+                (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+                (platform::gLegacyMouseState.mouseX - 120)));
             Sub_4AB400(x, y, slot, 5);
         } else {
             return;
         }
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+            platform::gLegacyMouseState.mouseY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+            platform::gLegacyMouseState.mouseX.Read_401EC0();
         static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
     } else if (drawMode == 0 && Sub_48BB70(sourceIndex) == 1) {
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            platform::gLegacyMouseState.mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            platform::gLegacyMouseState.mouseY.Read_401EC0()));
         static_cast<void>(Sub_48D540(x, y, sourceIndex, 5, 230, color));
     }
 }
@@ -6596,9 +6591,9 @@ void Sub_48BC90(
                 std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
                 ? Sub_4C71B0(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_510CE0(
                 platform::gConnectionSocket, x, y, group, sourceIndex));
         }
@@ -6631,9 +6626,9 @@ void Sub_48BC90(
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            platform::gLegacyMouseState.mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            platform::gLegacyMouseState.mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(2, sourceIndex, x, y, Sub_48BC90));
     }
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
@@ -6663,9 +6658,9 @@ void Sub_48BC90(
         return;
     }
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, drawDescriptor));
 }
 
@@ -7070,9 +7065,9 @@ void Sub_4B25D0(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            platform::gLegacyMouseState.mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            platform::gLegacyMouseState.mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(6, sourceIndex, x, y, Sub_4B25D0));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -7082,9 +7077,9 @@ void Sub_4B25D0(
     const std::int32_t imageNo =
         world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(sourceIndex)].imageNo;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -7109,9 +7104,9 @@ void Sub_4B2E00(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            platform::gLegacyMouseState.mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            platform::gLegacyMouseState.mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(7, sourceIndex, x, y, Sub_4B2E00));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -7120,14 +7115,14 @@ void Sub_4B2E00(
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t slot = Sub_4B00F0(sourceIndex);
     const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+        (platform::gLegacyMouseState.mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+        (platform::gLegacyMouseState.mouseX - 120)));
     Sub_4AAB70(petX, petY, slot, 5);
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
 }
 
@@ -7700,12 +7695,12 @@ bool Sub_4B1900(
     const std::int32_t width, const std::int32_t height)
 {
     const std::int32_t relativeX =
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, x);
+        (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(x));
     if (relativeX < 0 || relativeX >= width) {
         return false;
     }
     const std::int32_t relativeY =
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, y);
+        (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(y));
     return relativeY >= 0 && relativeY < height;
 }
 
@@ -7728,14 +7723,10 @@ std::uint8_t Sub_474550(
     // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
     const auto hit = [](const std::int32_t left, const std::int32_t top,
                        const std::int32_t right, const std::int32_t bottom) {
-        return platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(
-                   left, &platform::gLegacyMouseState.mouseX)
-            && platform::legacy_crypt_int::Less_401DB0(
-                   &platform::gLegacyMouseState.mouseX, right)
-            && platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(
-                   top, &platform::gLegacyMouseState.mouseY)
-            && platform::legacy_crypt_int::Less_401DB0(
-                   &platform::gLegacyMouseState.mouseY, bottom);
+        return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
+            && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
     };
     std::int32_t selected = -1;
     for (std::int32_t row = 0; row < 3; ++row) {
@@ -8047,14 +8038,14 @@ std::int32_t Sub_48B450(
     const std::int32_t key = index + 200;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int32_t sideOffset =
@@ -9085,13 +9076,11 @@ std::int32_t Sub_488B10(const std::int32_t)
     } else if (mode == 1 || mode == 2) {
         const char* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
-        const std::int32_t y = platform::legacy_crypt_int::Add_401E10(
-            &platform::gLegacyMouseState.mouseY, top ? 60 : -174);
+            (platform::gLegacyMouseState.mouseY < 240);
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY + static_cast<std::int32_t>(top ? 60 : -174));
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
-        const std::int32_t x = platform::legacy_crypt_int::Add_401E10(
-            &platform::gLegacyMouseState.mouseX, left ? 60 : -257);
+            (platform::gLegacyMouseState.mouseX < 320);
+        const std::int32_t x = (platform::gLegacyMouseState.mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(Sub_48B930(
             x, y, input::LegacyText593850(), 0, text, 31, 4, nullptr, 0));
     }
@@ -9134,8 +9123,8 @@ void Sub_488CF0(const std::int32_t amount)
 {
     if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::detail::Sub_440B50() == 0) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
     }
 }
@@ -9770,9 +9759,9 @@ std::int32_t Sub_49DA30(
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, button, reply));
         world::detail::gValue581800 = -1;
@@ -9785,9 +9774,9 @@ std::int32_t Sub_49DA30(
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, rowReply));
         world::detail::gValue581800 = -1;
@@ -9894,9 +9883,9 @@ void Sub_49D2E0(
             world::detail::gDialogRequestCC21E0 = request;
             world::detail::gDialogTargetD2DE6C = target;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(Sub_4D3020(x, y));
             static_cast<void>(Sub_4B6970(value, text));
             static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
@@ -9950,9 +9939,9 @@ void Sub_49D2E0(
     world::detail::gDialogRequestCC21E0 = request;
     world::detail::gDialogTargetD2DE6C = target;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     switch (type) {
     case 0:
@@ -10096,8 +10085,8 @@ void Sub_49D8F0(
     gDialogValueCF4E5C = value;
     world::detail::gDialogRequestCC21E0 = request;
     world::detail::gDialogTargetD2DE6C = target;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     switch (type) {
     case 38:
@@ -10483,9 +10472,9 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 16);
 }
@@ -11602,9 +11591,9 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
                         const std::int32_t group = mode > 0
                             ? Sub_4C71B0(&gItemSelectorCF3B10) + 1 : 0;
                         const std::int32_t y =
-                            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                            world::detail::gPlayerY.Read_401EC0();
                         const std::int32_t x =
-                            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                            world::detail::gPlayerX.Read_401EC0();
                         static_cast<void>(network::Sub_510A00(
                             platform::gConnectionSocket, x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
@@ -11843,9 +11832,9 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
                                 platform::gConnectionSocket, group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
-                                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                                world::detail::gPlayerY.Read_401EC0();
                             const std::int32_t x =
-                                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                                world::detail::gPlayerX.Read_401EC0();
                             static_cast<void>(network::Sub_510A00(
                                 platform::gConnectionSocket, x, y, hovered, 0));
                         }
@@ -12172,9 +12161,9 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
                 const std::int32_t y =
-                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                    world::detail::gPlayerY.Read_401EC0();
                 const std::int32_t x =
-                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                    world::detail::gPlayerX.Read_401EC0();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
                 leaveSelection();
@@ -12187,9 +12176,9 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
     }
     const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[gSelectedItemCB0A44].imageNo;
     const std::int32_t mouseY =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t mouseX =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(mouseX, mouseY, 230, imageNo, 0, &descriptor));
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
@@ -12245,14 +12234,14 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
 {
     if (gTooltipSourceD303FC != index) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
@@ -12289,14 +12278,14 @@ std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
     const std::int32_t key = index + 100;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -12319,14 +12308,14 @@ std::int32_t Sub_48B560(
     std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -12364,14 +12353,14 @@ std::int32_t Sub_48B750(const std::int32_t page)
 {
     if (gTooltipSourceD303FC != 400) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
@@ -12948,9 +12937,9 @@ login::YobiAction* Sub_49E800(
     }
     gWindowListCallbackCB1E14 = callback;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     return CreateWindowAnimation_475AA0(44, 1, 0, nullptr);
 }
@@ -13016,10 +13005,10 @@ void Sub_4E52B0(const std::int32_t side)
         WriteTradeValue(record, 0x0C, value08);
         for (std::int32_t value = 0; value < 3; ++value) {
             WriteTradeValue(record, 0x10 + value * 4,
-                platform::legacy_crypt_int::Read_401EC0(&source.values0C[value]));
+                source.values0C[value].Read_401EC0());
         }
         const std::int32_t fourth =
-            platform::legacy_crypt_int::Read_401EC0(&source.values0C[3]);
+            source.values0C[3].Read_401EC0();
         std::int32_t first = source.values70[5];
         std::int32_t second = source.values70[6];
         WriteTradeValue(record, 0x1C, fourth);
@@ -13243,9 +13232,9 @@ void Sub_4AD780()
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, "C"));
     }
@@ -13513,9 +13502,9 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 256));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13550,9 +13539,9 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, buffer.data()));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -13703,9 +13692,9 @@ void Sub_4A83D0()
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data()));
     WindowInstance* const numberWindow = gWindowStates[42].window;
@@ -13773,8 +13762,7 @@ std::int32_t Sub_4A9160(const std::int32_t)
     if (preview >= 0) {
         if (preview >= 200) {
             gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
-            const bool left = platform::legacy_crypt_int::Less_401DB0(
-                &platform::gLegacyMouseState.mouseX, 320);
+            const bool left = (platform::gLegacyMouseState.mouseX < 320);
             const std::int32_t x = left ? 413 : 0;
             const std::int32_t index =
                 std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
@@ -14731,9 +14719,9 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
                     std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
                 const std::int32_t y =
-                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                    world::detail::gPlayerY.Read_401EC0();
                 const std::int32_t x =
-                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                    world::detail::gPlayerX.Read_401EC0();
                 static_cast<void>(network::Sub_512620(
                     platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 256));
             }
@@ -14865,9 +14853,9 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
                 std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 128));
             window = gCurrentWindow;
@@ -17371,11 +17359,11 @@ std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
             world::gCurrentSceneState = 9;
         } else {
             platform::LegacyCryptInt temporary;
-            platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+            temporary.ConstructFromInt_401CC0(0);
             world::detail::gValue73ECD0.encoded = temporary.encoded;
             world::detail::gValue73ECD0.mask = temporary.mask;
             world::detail::gValue73ECD0.readCount = temporary.readCount;
-            platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
             static_cast<void>(world::SetPendingSceneType(7));
         }
         static_cast<void>(audio::PlaySe_52C450(60, 320));
@@ -17440,10 +17428,8 @@ std::int32_t Sub_4947F0(const std::int32_t index, const std::int32_t state)
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B8E3;
         }
-        const std::int32_t y = platform::legacy_crypt_int::Add_401E10(
-            &platform::gLegacyMouseState.mouseY, 16);
-        const std::int32_t x = platform::legacy_crypt_int::Add_401E10(
-            &platform::gLegacyMouseState.mouseX, 16);
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
+        const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
         static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     } else {
         graphic->imageNo = 0x3B8E4;
@@ -18474,9 +18460,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 64, escaped));
         static_cast<void>(Sub_4B6C20());
@@ -18501,9 +18487,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 1, escaped));
             gWindow50InputPrototype580618.input.context->text[0] = '\0';
@@ -18532,9 +18518,9 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             escaped[0] = '\0';
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
             static_cast<void>(Sub_4B6C20());
@@ -18693,9 +18679,9 @@ void Sub_4B6C50(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            platform::gLegacyMouseState.mouseX.Read_401EC0()));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            platform::gLegacyMouseState.mouseY.Read_401EC0()));
         static_cast<void>(Sub_476490(9, sourceIndex, x, y, &Sub_4B6C50));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -18706,9 +18692,9 @@ void Sub_4B6C50(
     std::int32_t imageNo;
     std::memcpy(&imageNo, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC20, sizeof(imageNo));
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -19818,9 +19804,9 @@ void Sub_4B9B10(const std::int32_t selection)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
@@ -20114,9 +20100,9 @@ std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
         gCurrentWindow->state |= 0x8000u;
@@ -22623,9 +22609,9 @@ std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22676,9 +22662,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22692,9 +22678,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
             gCurrentWindow->state |= 0x8000u;
@@ -22711,9 +22697,9 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const char* const text = input::LegacyText593850();
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 2, text));
             world::detail::gValue581800 = -2;
@@ -23481,9 +23467,9 @@ void Sub_4C2060(const std::int32_t value)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
     gCurrentWindow->state |= 0x8000u;
@@ -23596,9 +23582,9 @@ std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
         gCurrentWindow->state |= 0x8000u;
@@ -24080,14 +24066,14 @@ std::int32_t Sub_4C33B0(
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -24455,9 +24441,9 @@ void Sub_4C4270(const std::int32_t value)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 1, escaped.data()));
     gCurrentWindow->state |= 0x8000u;
@@ -25035,14 +25021,14 @@ std::int32_t Sub_4C54D0(
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         gTooltipYCF46CC = static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         const bool left =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+            (platform::gLegacyMouseState.mouseX < 320);
         gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
         const bool top =
-            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+            (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
@@ -25201,9 +25187,9 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 1, buffer.data()));
         gCurrentWindow->state |= 0x8000u;
@@ -25342,9 +25328,9 @@ std::int32_t Sub_4C5F80(
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, button, escaped.data()));
     world::detail::gValue581800 = -1;
@@ -25406,9 +25392,9 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
         gCurrentWindow->state |= 0x8000u;
@@ -25476,9 +25462,9 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            world::detail::gPlayerY.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_512620(
             platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
         world::detail::gValue581800 = -2;
@@ -25580,9 +25566,9 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
     world::detail::gValue581800 = -2;
@@ -25631,9 +25617,9 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                world::detail::gPlayerY.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                world::detail::gPlayerX.Read_401EC0();
             static_cast<void>(network::Sub_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText.data()));
             gCurrentWindow->state &= ~2u;
@@ -31711,8 +31697,8 @@ login::YobiAction* Sub_47D5F0(
     gCraftRecipeIndexD2D638 = recipe;
     gSelectionModeD2D650 = 0;
     gCraftRecipeIdD2E440 = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31732,8 +31718,8 @@ login::YobiAction* Sub_47D780(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 3;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31756,8 +31742,8 @@ login::YobiAction* Sub_47D8F0(
     if (kind == 1) {
         gSelectionModeD2D650 = 15;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31776,8 +31762,8 @@ login::YobiAction* Sub_47DA70(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 9;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -31797,8 +31783,8 @@ login::YobiAction* Sub_47DB50(const std::int32_t skill, const std::int32_t reque
     gCraftRequestValueD30400 = request;
     gCraftSkillIndexCC2368 = skill;
     gSelectionModeD2D650 = 12;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     Sub_479650();
     Sub_4796D0();
@@ -32447,9 +32433,9 @@ void Sub_47DE00(
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(10, sourceIndex, x, y, Sub_47DE00));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
@@ -32459,9 +32445,9 @@ void Sub_47DE00(
     const std::int32_t imageNo =
         sourceIndex < 6 ? gSelectionImagesCF3FF4[sourceIndex] : gSelectedImageCC3ED8;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        platform::gLegacyMouseState.mouseY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        platform::gLegacyMouseState.mouseX.Read_401EC0();
     static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
 }
 
@@ -34558,8 +34544,8 @@ login::YobiAction* Sub_4854A0(const std::int32_t skill, const std::int32_t level
         default:
             break;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     gSkillExtraDelayCF46C4 = 2000;
     Sub_479650();
@@ -35147,8 +35133,8 @@ std::int32_t Sub_486CF0(const std::int32_t index, const std::int32_t state)
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(Sub_4D3020(x, y));
         static_cast<void>(Sub_485890(gCurrentWindow));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -35675,8 +35661,7 @@ std::int32_t Sub_479AB0()
         return 0;
     }
     const std::int32_t required = kPetCrystalFp54F340[level - 1];
-    return platform::legacy_crypt_int::Less_401DB0(
-        &world::detail::gPetRuntimeF633F8[index].values0C[2], required) ? 0 : 1;
+    return (world::detail::gPetRuntimeF633F8[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
 }
 
 // 原函数：0x00479B00。
@@ -35793,8 +35778,8 @@ login::YobiAction* Sub_4874B0()
 // 原函数：0x004EF750。
 login::YobiAction* Sub_4EF750(const char* const text)
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t selected = gSkillSelectedTargetCC4B1C;
     const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
@@ -35835,14 +35820,14 @@ login::YobiAction* Sub_4EF750(const char* const text)
             gSkillStatusInjuriesD67600[count] = pet.values70[25];
             std::memcpy(destination + prefix, name + prefix, size - prefix);
             gSkillStatusLevelsCC31C0[count] = pet.value08;
-            const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+            const std::int32_t hp = pet.values0C[0].Read_401EC0();
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
-            const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+            const std::int32_t maxHp = pet.values0C[1].Read_401EC0();
             gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
-            const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+            const std::int32_t fp = pet.values0C[2].Read_401EC0();
             const std::int32_t output = gSkillStatusCountC8AA94;
             gSkillStatusFpCC2348[output] = fp;
-            const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+            const std::int32_t maxFp = pet.values0C[3].Read_401EC0();
             count = gSkillStatusCountC8AA94 + 1;
             gSkillStatusMaxFpD2EA80[output] = maxFp;
             gSkillStatusTargetsCF3FD0[output] = target++;
@@ -35992,9 +35977,9 @@ void Sub_479700(
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(4, sourceIndex, x, y, Sub_479700));
     }
     if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
@@ -36002,9 +35987,9 @@ void Sub_479700(
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t y =
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 8);
+        (platform::gLegacyMouseState.mouseY - 8);
     const std::int32_t x =
-        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 103);
+        (platform::gLegacyMouseState.mouseX - 103);
     Sub_47B6C0(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y),
         2, sourceIndex, 1, 5, 230, 0x80FFFFFFu);
 }
@@ -38072,10 +38057,10 @@ void Sub_496570()
     }
     for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
         auto& pet = world::detail::gPetRuntimeF633F8[index];
-        gBattlePetVitalsCF4B78[index].hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
-        gBattlePetVitalsCF4B78[index].maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
-        gBattlePetVitalsCF4B78[index].fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
-        gBattlePetVitalsCF4B78[index].maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+        gBattlePetVitalsCF4B78[index].hp = pet.values0C[0].Read_401EC0();
+        gBattlePetVitalsCF4B78[index].maxHp = pet.values0C[1].Read_401EC0();
+        gBattlePetVitalsCF4B78[index].fp = pet.values0C[2].Read_401EC0();
+        gBattlePetVitalsCF4B78[index].maxFp = pet.values0C[3].Read_401EC0();
     }
 }
 
@@ -38739,8 +38724,8 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & 2) != 0) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const std::uint8_t previous = occupancy[7];
@@ -39470,8 +39455,8 @@ void Sub_479660()
     if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
@@ -39569,8 +39554,8 @@ login::YobiAction* Sub_4871B0()
 // 原函数：0x004F0200。
 void Sub_4F0200(const char* const text)
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t kind = Sub_4EF710(world::detail::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;
@@ -39698,8 +39683,8 @@ login::YobiAction* Sub_48AF00()
 // 原函数：0x004E4860。
 login::YobiAction* Sub_4E4860(const char* const text)
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
     const char* const ownName = world::detail::BorrowPlayerDisplayText(1);
@@ -39755,8 +39740,8 @@ std::int32_t Sub_48B010(const std::int32_t index, const char*)
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
     }
     if (index == -1) {
@@ -39813,8 +39798,8 @@ login::YobiAction* Sub_48B0A0()
 // 原函数：0x004E4020。
 login::YobiAction* Sub_4E4020(const char* const text)
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(Sub_4D3020(x, y));
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
@@ -39850,14 +39835,14 @@ login::YobiAction* Sub_4E4020(const char* const text)
             const std::int32_t petInjury = pet.values70[25];
             gItemUseStatusRecordsCB10D8[count].level = pet.value08;
             gItemUseStatusRecordsCB10D8[count].injury = petInjury;
-            const std::int32_t petHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+            const std::int32_t petHp = pet.values0C[0].Read_401EC0();
             gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = petHp;
-            const std::int32_t petMaxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+            const std::int32_t petMaxHp = pet.values0C[1].Read_401EC0();
             gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = petMaxHp;
-            const std::int32_t petFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+            const std::int32_t petFp = pet.values0C[2].Read_401EC0();
             const std::int32_t output = gItemUseStatusCountCC4D44;
             gItemUseStatusRecordsCB10D8[output].fp = petFp;
-            const std::int32_t petMaxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+            const std::int32_t petMaxFp = pet.values0C[3].Read_401EC0();
             gItemUseStatusRecordsCB10D8[output].maxFp = petMaxFp;
             count = gItemUseStatusCountCC4D44 + 1;
             gItemUseStatusRecordsCB10D8[output].kind = 4;
@@ -40320,8 +40305,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
                 ? world::detail::IsPlayerNextExperienceEqual(-1)
-                : platform::legacy_crypt_int::Equal_401D00(
-                    &world::detail::gPetRuntimeF633F8[static_cast<std::int16_t>(experienceTarget)].values0C[5], -1);
+                : (world::detail::gPetRuntimeF633F8[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text, "  ---  ");
             } else {
@@ -40934,13 +40918,11 @@ std::int32_t Sub_472F00(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
-    const std::int32_t x = platform::legacy_crypt_int::Subtract_401E60(
-        &platform::gLegacyMouseState.mouseX, left);
+    const std::int32_t x = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(left));
     if (x < 0 || x >= width) {
         return 0;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
-        &platform::gLegacyMouseState.mouseY, top);
+    const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(top));
     return y >= 0 && y < height ? 1 : 0;
 }
 
@@ -41081,19 +41063,15 @@ std::int32_t Sub_472D20()
             if ((state & 0x800u) != 0) {
                 if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
                     std::int32_t* const x = &window->x;
-                    const std::int32_t deltaX = platform::legacy_crypt_int::Subtract_401E60(
-                        &platform::gLegacyMouseState.mouseX, window->dragMouseX1C);
+                    const std::int32_t deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
                     window = gCurrentWindow;
                     std::int32_t* const y = &window->y;
-                    const std::int32_t deltaY = platform::legacy_crypt_int::Subtract_401E60(
-                        &platform::gLegacyMouseState.mouseY, window->dragMouseY20);
+                    const std::int32_t deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->dragMouseY20));
                     *y += deltaY;
-                    const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
-                        &platform::gLegacyMouseState.mouseX);
+                    const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
                     gCurrentWindow->dragMouseX1C = mouseX;
-                    const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
-                        &platform::gLegacyMouseState.mouseY);
+                    const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
                     gCurrentWindow->dragMouseY20 = mouseY;
                 } else {
                     window->state = state & ~std::uint32_t{0x800};
@@ -41115,11 +41093,9 @@ std::int32_t Sub_472D20()
                     const std::int32_t width = rect.width;
                     if (focusAvailable) {
                         if (Sub_472F00(left, top, width, height) != 0) {
-                            const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
-                                &platform::gLegacyMouseState.mouseX);
+                            const std::int32_t mouseX = platform::gLegacyMouseState.mouseX.Read_401EC0();
                             gCurrentWindow->dragMouseX1C = mouseX;
-                            const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
-                                &platform::gLegacyMouseState.mouseY);
+                            const std::int32_t mouseY = platform::gLegacyMouseState.mouseY.Read_401EC0();
                             gCurrentWindow->dragMouseY20 = mouseY;
                             gCurrentWindow->state |= 0x800u;
                             result |= 2;
@@ -41653,7 +41629,7 @@ std::int32_t Sub_495E60(const std::int32_t index, const std::int32_t)
         return 0;
     }
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     platform::FormatLegacyString_53B304(data->text, "%3d", x);
     return 0;
 }
@@ -41666,7 +41642,7 @@ std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
         return 0;
     }
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     platform::FormatLegacyString_53B304(data->text, "%3d", y);
     return 0;
 }
@@ -41706,9 +41682,9 @@ std::int32_t Sub_495F70(const std::int32_t index)
     ClearEmoteSelection();
     gEmoteSelectionCF4FC4[index] = 1;
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     return Sub_4D3020(x, y);
 }
 
@@ -43199,16 +43175,12 @@ void Sub_48C920()
             colorState == 3 ? std::byte{7} : std::byte{0};
         platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[petIndex()].value08);
         copyNumber(textBase + 1);
-        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
-            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[1]);
-        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
-            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[0]);
+        const std::int32_t maxHp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[1].Read_401EC0();
+        const std::int32_t hp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[0].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
         copyNumber(textBase + 2);
-        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
-            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[3]);
-        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
-            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[2]);
+        const std::int32_t maxFp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[3].Read_401EC0();
+        const std::int32_t fp = world::detail::gPetRuntimeF633F8[petIndex()].values0C[2].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
         copyNumber(textBase + 3);
 
@@ -43384,24 +43356,21 @@ std::uint32_t Sub_48F8F0()
         const bool changed = std::strcmp(gLoginWindowRuntime.petNameDraftD45E74.data(), name) != 0;
         gCurrentWindow->elements[5].visible = changed ? 1 : 0;
 
-        if (platform::legacy_crypt_int::Equal_401D00(&selectedPet().values0C[5], -1)) {
-            const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
-                &selectedPet().values0C[4]);
+        if ((selectedPet().values0C[5] == -1)) {
+            const std::int32_t experience = selectedPet().values0C[4].Read_401EC0();
             platform::FormatLegacyString_53B304(buffer, "%8d/       -", experience);
         } else {
-            const std::int32_t nextExperience = platform::legacy_crypt_int::Read_401EC0(
-                &selectedPet().values0C[5]);
-            const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
-                &selectedPet().values0C[4]);
+            const std::int32_t nextExperience = selectedPet().values0C[5].Read_401EC0();
+            const std::int32_t experience = selectedPet().values0C[4].Read_401EC0();
             platform::FormatLegacyString_53B304(buffer, "%8d/%8d", experience, nextExperience);
         }
         copyTextAfterScan(11, buffer);
-        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
-        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
+        const std::int32_t maxHp = selectedPet().values0C[1].Read_401EC0();
+        const std::int32_t hp = selectedPet().values0C[0].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%5d/%5d", hp, maxHp);
         copyTextAfterScan(12, buffer);
-        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
-        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
+        const std::int32_t maxFp = selectedPet().values0C[3].Read_401EC0();
+        const std::int32_t fp = selectedPet().values0C[2].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%5d/%5d", fp, maxFp);
         copyTextAfterScan(13, buffer);
 
@@ -43603,12 +43572,12 @@ std::uint32_t Sub_490780()
         gCurrentWindow->elements[5].visible = changed ? 1 : 0;
 
         writeNumber(15, selectedPet().value08);
-        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
-        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
+        const std::int32_t maxHp = selectedPet().values0C[1].Read_401EC0();
+        const std::int32_t hp = selectedPet().values0C[0].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
         copyTextAfterScan(16, buffer);
-        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
-        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
+        const std::int32_t maxFp = selectedPet().values0C[3].Read_401EC0();
+        const std::int32_t fp = selectedPet().values0C[2].Read_401EC0();
         platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
         copyTextAfterScan(17, buffer);
         writeNumber(19, selectedPet().lvFlag6C);
@@ -43786,10 +43755,8 @@ std::int32_t Sub_4920F0()
     if (gLoginWindowRuntime.petTechniqueDragD460CC == 0) {
         return 0;
     }
-    const std::int32_t x = platform::legacy_crypt_int::Subtract_401E60(
-        &platform::gLegacyMouseState.mouseX, 105);
-    const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
-        &platform::gLegacyMouseState.mouseY, 8);
+    const std::int32_t x = (platform::gLegacyMouseState.mouseX - 105);
+    const std::int32_t y = (platform::gLegacyMouseState.mouseY - 8);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
@@ -43966,8 +43933,8 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -44113,8 +44080,8 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -44258,8 +44225,8 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
                 && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::detail::Sub_440B50() == 0) {
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_510E30(socket, x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -44428,9 +44395,9 @@ void Sub_48F620(const std::int32_t mode, const std::int32_t, const std::int32_t 
     if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
         static_cast<void>(Sub_4763E0());
         const auto x = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+            platform::gLegacyMouseState.mouseX.Read_401EC0());
         const auto y = static_cast<std::int16_t>(
-            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+            platform::gLegacyMouseState.mouseY.Read_401EC0());
         static_cast<void>(Sub_476490(11, source, x, y, Sub_48F620));
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -45197,13 +45164,9 @@ void Sub_473560(const std::int32_t index)
             WindowElement* const currentElement = &currentWindow->elements[index];
             if (currentElement->type == 4) {
                 auto* const data = static_cast<WindowMouseData*>(currentElement->data);
-                data->deltaX = platform::legacy_crypt_int::Subtract_401E60(
-                    &platform::gLegacyMouseState.mouseX,
-                    currentWindow->x + currentElement->x);
+                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
                 WindowInstance* const yWindow = gCurrentWindow;
-                data->deltaY = platform::legacy_crypt_int::Subtract_401E60(
-                    &platform::gLegacyMouseState.mouseY,
-                    yWindow->y + yWindow->elements[index].y);
+                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(yWindow->y + yWindow->elements[index].y));
             }
         }
         phase = gMousePhase57C128;
@@ -45254,8 +45217,7 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
     if ((std::to_integer<std::uint8_t>(data[0]) & 2u) != 0) {
         WindowInstance* const window = gCurrentWindow;
         WindowElement* const previous = &window->elements[index - 1];
-        const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
-            &platform::gLegacyMouseState.mouseY, window->y);
+        const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->y));
         previous->y = y - (previous->height >> 1);
     }
     WindowElement* element = &gCurrentWindow->elements[index];
@@ -45507,8 +45469,8 @@ std::int32_t RenderWindows_504120()
 {
     using namespace detail;
     if (gValue5F9754 != 0 && world::detail::ReadPlayerTimerRemaining0C() <= 0) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+        const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
@@ -46279,9 +46241,9 @@ std::int32_t CloseAllWindows_472190()
         return 0;
     }
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        world::detail::gPlayerY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        world::detail::gPlayerX.Read_401EC0();
     const std::uintptr_t socket = platform::gConnectionSocket;
     const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;

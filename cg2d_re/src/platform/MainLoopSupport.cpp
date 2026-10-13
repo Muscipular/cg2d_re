@@ -134,9 +134,7 @@ void UpdateProtectionChecksum(
                 break;
             }
 
-            legacy_crypt_int::AddAssign_401E20(
-                checksum,
-                static_cast<std::int32_t>(
+            ((*checksum) += static_cast<std::int32_t>(
                     std::bit_cast<std::int8_t>(byte)));
         }
     }
@@ -157,7 +155,7 @@ void UpdateProtectionChecksum(
     BOOL hasModule = Module32First(snapshot, &moduleEntry);
     while (hasModule != FALSE) {
         const DWORD currentProcessId = static_cast<DWORD>(
-            legacy_crypt_int::Read_401EC0(&gProtectionProcessState));
+            gProtectionProcessState.Read_401EC0());
         const std::uint8_t* moduleNameTable =
             moduleEntry.th32ProcessID == currentProcessId
             ? gProtectionBuffer2
@@ -268,13 +266,13 @@ ProtectionChecksum1Startup::~ProtectionChecksum1Startup()
 // 原函数：0x00404130。
 void ConstructProtectionChecksum1_404130()
 {
-    legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum1);
+    gProtectionChecksum1.ConstructZero_401C70();
 }
 
 // 原函数：0x00404150。
 void DestroyProtectionChecksum1_404150()
 {
-    legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum1);
+    gProtectionChecksum1.Destroy_401CF0();
 }
 
 // 原函数：0x00404160；LCI01启动拥有者替代CRT构造／退出登记。
@@ -292,13 +290,13 @@ ProtectionChecksum2Startup::~ProtectionChecksum2Startup()
 // 原函数：0x00404170。
 void ConstructProtectionChecksum2_404170()
 {
-    legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum2);
+    gProtectionChecksum2.ConstructZero_401C70();
 }
 
 // 原函数：0x00404190。
 void DestroyProtectionChecksum2_404190()
 {
-    legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum2);
+    gProtectionChecksum2.Destroy_401CF0();
 }
 
 // 原函数：0x004041A0；LCI01启动拥有者替代CRT构造／退出登记。
@@ -316,13 +314,13 @@ ProtectionProcessStateStartup::~ProtectionProcessStateStartup()
 // 原函数：0x004041B0。
 void ConstructProtectionProcessState_4041B0()
 {
-    legacy_crypt_int::ConstructZero_401C70(&gProtectionProcessState);
+    gProtectionProcessState.ConstructZero_401C70();
 }
 
 // 原函数：0x004041D0。
 void DestroyProtectionProcessState_4041D0()
 {
-    legacy_crypt_int::Destroy_401CF0(&gProtectionProcessState);
+    gProtectionProcessState.Destroy_401CF0();
 }
 
 // 原函数：0x004041E0。
@@ -355,9 +353,7 @@ void InitializeProtection_4041E0(const char* moduleName)
 
     const std::uint32_t processIdBits =
         static_cast<std::uint32_t>(GetCurrentProcessId());
-    legacy_crypt_int::AssignFromInt(
-        &gProtectionProcessState,
-        std::bit_cast<std::int32_t>(processIdBits));
+    (gProtectionProcessState = static_cast<std::int32_t>(std::bit_cast<std::int32_t>(processIdBits)));
 }
 
 // 原函数：0x004043B0。
@@ -439,7 +435,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (legacy_crypt_int::Read_401EC0(&gProtectionChecksum1) != checksum) {
+    if (gProtectionChecksum1.Read_401EC0() != checksum) {
         return 1;
     }
 
@@ -460,7 +456,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (legacy_crypt_int::Read_401EC0(&gProtectionChecksum2) != checksum) {
+    if (gProtectionChecksum2.Read_401EC0() != checksum) {
         return 1;
     }
 
@@ -482,8 +478,8 @@ void ParseProtectionTables_404600(const char* input)
 {
     std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
     std::memset(gProtectionBuffer2, 0, sizeof(gProtectionBuffer2));
-    legacy_crypt_int::AssignFromInt(&gProtectionChecksum1, 0);
-    legacy_crypt_int::AssignFromInt(&gProtectionChecksum2, 0);
+    (gProtectionChecksum1 = 0);
+    (gProtectionChecksum2 = 0);
     gProtectionAuxiliaryRecordCount = 0;
     for (ProtectionAuxiliaryRecord& record : gProtectionAuxiliaryRecords) {
         record.flagA = 0;

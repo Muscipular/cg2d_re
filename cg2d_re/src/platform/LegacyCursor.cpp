@@ -121,12 +121,10 @@ void DrawTableCursor()
 
     const std::uint32_t imageState = gValueD68DC4;
     const std::int32_t image = ReadCursorImage(imageState);
-    const std::int32_t mouseY = legacy_crypt_int::Add_401E10(
-        &gLegacyMouseState.mouseY, 16);
+    const std::int32_t mouseY = (gLegacyMouseState.mouseY + 16);
     const std::uint32_t yState = gValueD68DC4;
     const std::int32_t y = mouseY + ReadCursorOffsetY(yState);
-    const std::int32_t mouseX = legacy_crypt_int::Add_401E10(
-        &gLegacyMouseState.mouseX, 16);
+    const std::int32_t mouseX = (gLegacyMouseState.mouseX + 16);
     const std::uint32_t xState = gValueD68DC4;
     const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
@@ -155,10 +153,8 @@ void UpdateNativeCursor()
     gValueD68BE8 = gValueD68DC4;
 
     if (gLegacyMouseState.drawingSuppression == 0) {
-        const std::int32_t y = legacy_crypt_int::Add_401E10(
-            &gLegacyMouseState.mouseY, 16);
-        const std::int32_t x = legacy_crypt_int::Add_401E10(
-            &gLegacyMouseState.mouseX, 16);
+        const std::int32_t y = (gLegacyMouseState.mouseY + 16);
+        const std::int32_t x = (gLegacyMouseState.mouseX + 16);
         login::detail::DrawGraphic(
             x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);
     }

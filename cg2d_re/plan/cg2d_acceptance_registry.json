@@ -280,6 +280,7 @@
       ],
       "acceptance_focus": "初始化/退出顺序、唯一构析与失败清理",
       "decision_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -1073,6 +1074,9 @@
       "dependencies": [],
       "acceptance_focus": "分配域配对、文件/格式可见结果、异常映射和正常失败",
       "decision_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",

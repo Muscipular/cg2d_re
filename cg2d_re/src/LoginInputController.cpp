@@ -184,23 +184,17 @@ std::int32_t ProcessCapability4Input_464E30()
 
     if (platform::gMonitorKeyboard == 0) {
         if (static_cast<std::uint8_t>(
-                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                platform::gLegacyMouseState.mouseX.IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5678X))) != 0
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678X),
-                    &platform::gLegacyMouseState.mouseX)) != 0
-            && platform::legacy_crypt_int::Less_401DB0(
-                &platform::gLegacyMouseState.mouseX,
-                AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5678X),
-                    372))
+                    372)))
             && static_cast<std::uint8_t>(
-                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                platform::gLegacyMouseState.mouseY.IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5678Y))) != 0
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678Y),
-                    &platform::gLegacyMouseState.mouseY)) != 0
-            && platform::legacy_crypt_int::Less_401DB0(
-                &platform::gLegacyMouseState.mouseY,
-                AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5678Y),
-                    26))
+                    26)))
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)
                     & 1U)
                 != 0) {
@@ -208,23 +202,17 @@ std::int32_t ProcessCapability4Input_464E30()
             gValue9A6E20 = 1;
         }
         if (static_cast<std::uint8_t>(
-                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                platform::gLegacyMouseState.mouseX.IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5960X))) != 0
+            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960X),
-                    &platform::gLegacyMouseState.mouseX)) != 0
-            && platform::legacy_crypt_int::Less_401DB0(
-                &platform::gLegacyMouseState.mouseX,
-                AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5960X),
-                    372))
+                    372)))
             && static_cast<std::uint8_t>(
-                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                platform::gLegacyMouseState.mouseY.IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5960Y))) != 0
+            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960Y),
-                    &platform::gLegacyMouseState.mouseY)) != 0
-            && platform::legacy_crypt_int::Less_401DB0(
-                &platform::gLegacyMouseState.mouseY,
-                AddW32(
-                    static_cast<std::int32_t>(gInputContext9A5960Y),
-                    26))
+                    26)))
             && (static_cast<std::uint8_t>(detail::gValueD68D9C)
                     & 1U)
                 != 0) {

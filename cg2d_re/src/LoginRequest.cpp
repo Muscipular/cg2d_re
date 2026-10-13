@@ -255,7 +255,7 @@ std::int32_t Sub_508CF0(
     gRequestStatus = 2;
     gReplyCodeDA3B2E = 2;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
     const std::uint32_t mask = temporary.mask;
     const std::uint32_t encoded = temporary.encoded;
@@ -263,7 +263,7 @@ std::int32_t Sub_508CF0(
     world::detail::gValue73ECD0.mask = mask;
     world::detail::gValue73ECD0.encoded = encoded;
     world::detail::gValue73ECD0.readCount = readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     static_cast<void>(world::SetPendingSceneType(7));
     return audio::PlaySe_52C450(60, 320);
 }

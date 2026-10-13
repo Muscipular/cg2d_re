@@ -201,8 +201,8 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     audio::gBgmRequest1050810 = 0;
     const bool cutMode = mode == 1;
     gValue55DA8C = previousCount + 1u;
-    if (platform::legacy_crypt_int::NotEqual_401D20(&gPlayerX, &gValue9EE8D0)
-        || platform::legacy_crypt_int::NotEqual_401D20(&gPlayerY, &gValue9EE8E0)
+    if ((gPlayerX != gValue9EE8D0)
+        || (gPlayerY != gValue9EE8E0)
         || gValue9EE910 != 0) {
         const std::int32_t loadYEnd = gMapYEnd;
         const std::int32_t loadXEnd = gMapXEnd;
@@ -284,9 +284,9 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
 
     Sub_46C2F0();
     static_cast<void>(Sub_46C1C0());
-    const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t playerX = gPlayerX.Read_401EC0();
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerX);
+    temporary.ConstructFromInt_401CC0(playerX);
     if (cutMode) {
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t encoded = temporary.encoded;
@@ -302,9 +302,9 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         gValue9EE8D0.encoded = encoded;
         gValue9EE8D0.readCount = readCount;
     }
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerY);
+    temporary.Destroy_401CF0();
+    const std::int32_t playerY = gPlayerY.Read_401EC0();
+    temporary.ConstructFromInt_401CC0(playerY);
     if (cutMode) {
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t encoded = temporary.encoded;
@@ -320,7 +320,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         gValue9EE8E0.encoded = encoded;
         gValue9EE8E0.readCount = readCount;
     }
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     audio::Sub_52CD60();
 }
 

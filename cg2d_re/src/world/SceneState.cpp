@@ -635,22 +635,22 @@ PetRuntimeValuesStartup::~PetRuntimeValuesStartup()
 
 void ConstructPlayerRuntimeValues()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.hp);
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.maxHp);
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.fp);
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.maxFp);
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.value58);
-    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.value68);
+    gPlayerRuntime.hp.ConstructZero_401C70();
+    gPlayerRuntime.maxHp.ConstructZero_401C70();
+    gPlayerRuntime.fp.ConstructZero_401C70();
+    gPlayerRuntime.maxFp.ConstructZero_401C70();
+    gPlayerRuntime.value58.ConstructZero_401C70();
+    gPlayerRuntime.value68.ConstructZero_401C70();
 }
 
 void DestroyPlayerRuntimeValues()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.value68);
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.value58);
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.maxFp);
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.fp);
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.maxHp);
-    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.hp);
+    gPlayerRuntime.value68.Destroy_401CF0();
+    gPlayerRuntime.value58.Destroy_401CF0();
+    gPlayerRuntime.maxFp.Destroy_401CF0();
+    gPlayerRuntime.fp.Destroy_401CF0();
+    gPlayerRuntime.maxHp.Destroy_401CF0();
+    gPlayerRuntime.hp.Destroy_401CF0();
 }
 
 // SLC01：原51C410只判断S32索引0..4；已证八调用只消费低W8结果。
@@ -667,13 +667,13 @@ detail::PetRuntimeRecord* ConstructLegacyPetElement_4CD360(detail::PetRuntimeRec
     std::uint32_t completed = 0;
     try {
         for (platform::LegacyCryptInt& value : record->values0C) {
-            platform::legacy_crypt_int::ConstructZero_401C70(&value);
+            value.ConstructZero_401C70();
             ++completed;
         }
     } catch (...) {
         while (completed != 0) {
             --completed;
-            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[completed]);
+            record->values0C[completed].Destroy_401CF0();
         }
         throw;
     }
@@ -687,12 +687,12 @@ void DestroyLegacyPetElement_4CD2D0(detail::PetRuntimeRecord* const record)
     try {
         while (remaining != 0) {
             --remaining;
-            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[remaining]);
+            record->values0C[remaining].Destroy_401CF0();
         }
     } catch (...) {
         while (remaining != 0) {
             --remaining;
-            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[remaining]);
+            record->values0C[remaining].Destroy_401CF0();
         }
         throw;
     }
@@ -746,13 +746,13 @@ SceneTransitionValueStartup::~SceneTransitionValueStartup()
 // 原函数：0x00456FE0。
 void ConstructSceneTransitionValue()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue73ECD0);
+    detail::gValue73ECD0.ConstructZero_401C70();
 }
 
 // 原函数：0x00457000。
 void DestroySceneTransitionValue()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue73ECD0);
+    detail::gValue73ECD0.Destroy_401CF0();
 }
 
 namespace {
@@ -760,163 +760,163 @@ namespace {
 // 原467BA0：按9EE8A8→9EE8C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerCoordinates_467BA0()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerX);
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerY);
+    detail::gPlayerX.ConstructZero_401C70();
+    return detail::gPlayerY.ConstructZero_401C70();
 }
 
 // 原467BD0无参退出：按9EE8C0→9EE8A8析构，只复用原叶动作。
 void DestroyLegacyPlayerCoordinates_467BD0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerY);
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerX);
+    detail::gPlayerY.Destroy_401CF0();
+    detail::gPlayerX.Destroy_401CF0();
 }
 
 // 原467C00：按C751C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotX_467C00()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotX);
+    return detail::gPlayerSnapshotX.ConstructZero_401C70();
 }
 
 // 原467C20无参退出：按C751C0析构，只复用原叶动作。
 void DestroyLegacyPlayerSnapshotX_467C20()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotX);
+    detail::gPlayerSnapshotX.Destroy_401CF0();
 }
 
 // 原467C40：按C751B0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyPlayerSnapshotY_467C40()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotY);
+    return detail::gPlayerSnapshotY.ConstructZero_401C70();
 }
 
 // 原467C60无参退出：按C751B0析构，只复用原叶动作。
 void DestroyLegacyPlayerSnapshotY_467C60()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotY);
+    detail::gPlayerSnapshotY.Destroy_401CF0();
 }
 
 // 原467C80：按9EE8D0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinateState_467C80()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8D0);
+    return detail::gValue9EE8D0.ConstructZero_401C70();
 }
 
 // 原467CA0无参退出：按9EE8D0析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinateState_467CA0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8D0);
+    detail::gValue9EE8D0.Destroy_401CF0();
 }
 
 // 原467CC0：按9EE8E0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinateState_467CC0()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8E0);
+    return detail::gValue9EE8E0.ConstructZero_401C70();
 }
 
 // 原467CE0无参退出：按9EE8E0析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinateState_467CE0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8E0);
+    detail::gValue9EE8E0.Destroy_401CF0();
 }
 
 // 原467D00：按C27FF8→C27FE8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldCoordinatePair_467D00()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FF8);
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FE8);
+    detail::gValueC27FF8.ConstructZero_401C70();
+    return detail::gValueC27FE8.ConstructZero_401C70();
 }
 
 // 原467D30无参退出：按C27FE8→C27FF8析构，只复用原叶动作。
 void DestroyLegacyWorldCoordinatePair_467D30()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FE8);
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FF8);
+    detail::gValueC27FE8.Destroy_401CF0();
+    detail::gValueC27FF8.Destroy_401CF0();
 }
 
 // 原467D60：按9A7F88→9A7F98构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveTargets_467D60()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F88);
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F98);
+    detail::gValue9A7F88.ConstructZero_401C70();
+    return detail::gValue9A7F98.ConstructZero_401C70();
 }
 
 // 原467D90无参退出：按9A7F98→9A7F88析构，只复用原叶动作。
 void DestroyLegacyWorldMoveTargets_467D90()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F98);
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F88);
+    detail::gValue9A7F98.Destroy_401CF0();
+    detail::gValue9A7F88.Destroy_401CF0();
 }
 
 // 原467DC0：按C821E8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467DC0()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821E8);
+    return detail::gValueC821E8.ConstructZero_401C70();
 }
 
 // 原467DE0无参退出：按C821E8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467DE0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821E8);
+    detail::gValueC821E8.Destroy_401CF0();
 }
 
 // 原467E00：按9E03C0构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E00()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9E03C0);
+    return detail::gValue9E03C0.ConstructZero_401C70();
 }
 
 // 原467E20无参退出：按9E03C0析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467E20()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9E03C0);
+    detail::gValue9E03C0.Destroy_401CF0();
 }
 
 // 原467E40：按9FB918构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E40()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9FB918);
+    return detail::gValue9FB918.ConstructZero_401C70();
 }
 
 // 原467E60无参退出：按9FB918析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467E60()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9FB918);
+    detail::gValue9FB918.Destroy_401CF0();
 }
 
 // 原467E80：按AF0FE8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467E80()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueAF0FE8);
+    return detail::gValueAF0FE8.ConstructZero_401C70();
 }
 
 // 原467EA0无参退出：按AF0FE8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467EA0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueAF0FE8);
+    detail::gValueAF0FE8.Destroy_401CF0();
 }
 
 // 原467EC0：按C821D8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyWorldMoveState_467EC0()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821D8);
+    return detail::gValueC821D8.ConstructZero_401C70();
 }
 
 // 原467EE0无参退出：按C821D8析构，只复用原叶动作。
 void DestroyLegacyWorldMoveState_467EE0()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821D8);
+    detail::gValueC821D8.Destroy_401CF0();
 }
 
 // 原467F00：按9A7FA8构造，返回末对象真实this。
 platform::LegacyCryptInt* ConstructLegacyRippleGate_467F00()
 {
-    return platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
+    return gRippleGate.ConstructZero_401C70();
 }
 
 // 原467F20无参退出：按9A7FA8析构，只复用原叶动作。
 void DestroyLegacyRippleGate_467F20()
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&gRippleGate);
+    gRippleGate.Destroy_401CF0();
 }
 
 } // namespace
@@ -1079,7 +1079,7 @@ RippleGateStartup::~RippleGateStartup()
 
 std::int32_t ReadRippleGateOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gRippleGate);
+    return gRippleGate.Read_401EC0();
 }
 
 // 原函数：0x00448240。
@@ -3128,8 +3128,8 @@ std::int32_t Sub_50C940(
     platform::FormatLegacyString_53B304(packet, "P|%s", escaped);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
@@ -3262,8 +3262,8 @@ void Sub_50D000(
         static_cast<void>(Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(gPlayerRuntime.direction));
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+        const std::int32_t y = gPlayerSnapshotY.Read_401EC0();
+        const std::int32_t x = gPlayerSnapshotX.Read_401EC0();
         static_cast<void>(
             network::Sub_512720(platform::gConnectionSocket, x, y, direction));
     }
@@ -3287,14 +3287,14 @@ std::int32_t Sub_509650(
             const std::int32_t parsed =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
             platform::LegacyCryptInt temporary;
-            platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, parsed);
+            temporary.ConstructFromInt_401CC0(parsed);
             const std::uint32_t maskValue = temporary.mask;
             const std::uint32_t encodedValue = temporary.encoded;
             const std::uint8_t readCountValue = temporary.readCount;
             target->mask = maskValue;
             target->encoded = encodedValue;
             target->readCount = readCountValue;
-            platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
             ++field;
         }
     };
@@ -4156,11 +4156,11 @@ void Sub_50A6B0(
                 const std::int32_t parsed =
                     network::ParseDelimitedInteger_52CFA0(payload, '|', field);
                 platform::LegacyCryptInt temporary;
-                platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, parsed);
+                temporary.ConstructFromInt_401CC0(parsed);
                 value.mask = temporary.mask;
                 value.encoded = temporary.encoded;
                 value.readCount = temporary.readCount;
-                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                temporary.Destroy_401CF0();
                 ++field;
             }
             bit <<= 1;
@@ -4995,32 +4995,30 @@ std::int32_t Sub_469870(const std::int32_t direction)
     if (gMapSpanX < 51 || gMapSpanY < 51) {
         return 0;
     }
-    if (platform::legacy_crypt_int::Greater_401D40(&gPlayerX, 11)) {
+    if ((gPlayerX > 11)) {
         static_cast<void>(
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11));
+            (gPlayerX - 11));
     }
-    if (platform::legacy_crypt_int::Greater_401D40(&gPlayerY, 11)) {
+    if ((gPlayerY > 11)) {
         static_cast<void>(
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11));
+            (gPlayerY - 11));
     }
-    if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
-            std::bit_cast<std::int32_t>(gValue9FB930), &gPlayerX) > 11) {
+    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValue9FB930)) - gPlayerX) > 11) {
         static_cast<void>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 11));
+            (gPlayerX + 11));
     }
-    if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
-            std::bit_cast<std::int32_t>(gValueC821D4), &gPlayerY) > 11) {
+    if ((static_cast<std::int32_t>(std::bit_cast<std::int32_t>(gValueC821D4)) - gPlayerY) > 11) {
         static_cast<void>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 11));
+            (gPlayerY + 11));
     }
 
     gValue9DAD56 = 0;
     std::int32_t found = 0;
     if (direction == 6 || direction == 7 || direction == 5) {
         const std::int32_t x =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+            (gPlayerX - 11);
         std::int32_t y =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+            (gPlayerY - 11);
         const std::int32_t span = gMapSpanX;
         for (std::int32_t step = 0; step < 23; ++step, ++y) {
             if (x >= 0 && x < std::bit_cast<std::int32_t>(gValue9FB930)
@@ -5047,9 +5045,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 0 || direction == 7 || direction == 1) {
         std::int32_t x =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+            (gPlayerX - 11);
         const std::int32_t y =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+            (gPlayerY - 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++x) {
@@ -5080,9 +5078,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 2 || direction == 1 || direction == 3) {
         const std::int32_t x =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 11);
+            (gPlayerX + 11);
         std::int32_t y =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+            (gPlayerY - 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++y) {
@@ -5113,9 +5111,9 @@ std::int32_t Sub_469870(const std::int32_t direction)
 
     if (direction == 4 || direction == 3 || direction == 5) {
         std::int32_t x =
-            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+            (gPlayerX - 11);
         const std::int32_t y =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 11);
+            (gPlayerY + 11);
         const std::int32_t span = gMapSpanX;
         const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
         for (std::int32_t step = 0; step < 23; ++step, ++x) {
@@ -5168,8 +5166,8 @@ std::uint32_t Sub_46AF30()
 
     gValue9EE8B8 = 1;
     gValue9EE8A4 = static_cast<std::uint16_t>(direction);
-    gValue9A7F7C = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
-    gValue9A7F80 = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    gValue9A7F7C = gPlayerX.Read_401EC0();
+    gValue9A7F80 = gPlayerY.Read_401EC0();
     const std::uint32_t tick = platform::ReadTickCount32();
     gValueAF10C8 = tick;
     return tick;
@@ -5457,8 +5455,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
 {
     if (gValue9DAD68 == 1) {
         gValue55DA88 = 1;
-        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t playerY = gPlayerY.Read_401EC0();
+        const std::int32_t playerX = gPlayerX.Read_401EC0();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         const std::int32_t index = gAutoMapWindowIndex55DA90;
         gValue55DA88 = 0;
@@ -5467,8 +5465,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
         return render::DrawColorAutoMap_44FEB0(x, y, gAutoMapColorWindow9CF6EC, width, height);
     }
     if (gValue55DA88 != 0) {
-        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t playerY = gPlayerY.Read_401EC0();
+        const std::int32_t playerX = gPlayerX.Read_401EC0();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         gValue55DA88 = 0;
     }
@@ -5552,16 +5550,16 @@ std::uint16_t __cdecl Sub_468200()
 {
     gMapXStart = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, -30)));
+            (gPlayerX + -30)));
     gMapYStart = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, -20)));
+            (gPlayerY + -20)));
     gMapXEnd = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 21)));
+            (gPlayerX + 21)));
     gMapYEnd = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 31)));
+            (gPlayerY + 31)));
 
     Sub_468290(&gMapXStart, &gMapYStart, &gMapXEnd, &gMapYEnd);
     const std::uint16_t xEnd = static_cast<std::uint16_t>(gMapXEnd);
@@ -5578,16 +5576,16 @@ std::uint16_t __cdecl Sub_468200()
 // 原 [0x46CEC0,0x46CED6)：Y 的读取先于 X 的带参读取。
 std::int32_t __cdecl Sub_46CEC0()
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    return platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    return (gPlayerX + static_cast<std::int32_t>(y));
 }
 
 // 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
 std::int32_t __cdecl Sub_46CEE0()
 {
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t y = gPlayerY.Read_401EC0();
     const std::int32_t result =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);
+        (gPlayerX + static_cast<std::int32_t>(y));
     gValueAF10C0 = std::bit_cast<std::uint32_t>(result);
     return result;
 }
@@ -5598,31 +5596,31 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     static_cast<void>(Sub_46CEC0());
 
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xTemporaryEncoded = temporary.encoded;
     const std::uint32_t xTemporaryMask = temporary.mask;
     const std::uint8_t xTemporaryReadCount = temporary.readCount;
     gPlayerX.encoded = xTemporaryEncoded;
     gPlayerX.mask = xTemporaryMask;
     gPlayerX.readCount = xTemporaryReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yTemporaryReadCount = temporary.readCount;
     const std::uint32_t yTemporaryEncoded = temporary.encoded;
     const std::uint32_t yTemporaryMask = temporary.mask;
     gPlayerY.readCount = yTemporaryReadCount;
     gPlayerY.encoded = yTemporaryEncoded;
     gPlayerY.mask = yTemporaryMask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
-        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerX));
+        static_cast<double>(gPlayerX.Read_401EC0());
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
-        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerY));
+        static_cast<double>(gPlayerY.Read_401EC0());
     const std::uint8_t snapshotXCount = gPlayerX.readCount;
     const std::uint32_t snapshotXEncoded = gPlayerX.encoded;
     const double scaledY = currentY * 64.0;
@@ -5643,41 +5641,41 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     gValue9EE900 = 0;
     gValue9DAD78 = 0x3F800000u;
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     const std::uint8_t reset8D0ReadCount = temporary.readCount;
     const std::uint32_t reset8D0Encoded = temporary.encoded;
     const std::uint32_t reset8D0Mask = temporary.mask;
     gValue9EE8D0.readCount = reset8D0ReadCount;
     gValue9EE8D0.encoded = reset8D0Encoded;
     gValue9EE8D0.mask = reset8D0Mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     const std::uint8_t reset8E0ReadCount = temporary.readCount;
     const std::uint32_t reset8E0Encoded = temporary.encoded;
     const std::uint32_t reset8E0Mask = temporary.mask;
     gValue9EE8E0.readCount = reset8E0ReadCount;
     gValue9EE8E0.encoded = reset8E0Encoded;
     gValue9EE8E0.mask = reset8E0Mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     const std::uint32_t resetC27FF8Encoded = temporary.encoded;
     const std::uint32_t resetC27FF8Mask = temporary.mask;
     const std::uint8_t resetC27FF8ReadCount = temporary.readCount;
     gValueC27FF8.encoded = resetC27FF8Encoded;
     gValueC27FF8.mask = resetC27FF8Mask;
     gValueC27FF8.readCount = resetC27FF8ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     const std::uint8_t resetC27FE8ReadCount = temporary.readCount;
     const std::uint32_t resetC27FE8Encoded = temporary.encoded;
     const std::uint32_t resetC27FE8Mask = temporary.mask;
     gValueC27FE8.readCount = resetC27FE8ReadCount;
     gValueC27FE8.encoded = resetC27FE8Encoded;
     gValueC27FE8.mask = resetC27FE8Mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t xBits = gWorldCurrentXBits;
     const std::uint32_t finalYBits = gWorldCurrentYBits;
@@ -5693,7 +5691,7 @@ std::int32_t* Sub_467F30()
     static_cast<void>(Sub_468330(0, 0));
 
     platform::LegacyCryptInt first;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    first.ConstructFromInt_401CC0(0);
     const std::uint32_t firstMask = first.mask;
     const std::uint32_t firstEncoded = first.encoded;
     const std::uint8_t firstReadCount = first.readCount;
@@ -5702,17 +5700,17 @@ std::int32_t* Sub_467F30()
     gValue9EE8D0.readCount = firstReadCount;
 
     platform::LegacyCryptInt second;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
+    second.ConstructFromInt_401CC0(0);
     const std::uint32_t secondMask = second.mask;
     const std::uint32_t secondEncoded = second.encoded;
     const std::uint8_t secondReadCount = second.readCount;
     gValue9EE8E0.mask = secondMask;
     gValue9EE8E0.encoded = secondEncoded;
     gValue9EE8E0.readCount = secondReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&second);
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    second.Destroy_401CF0();
+    first.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
+    second.ConstructFromInt_401CC0(0);
     const std::uint32_t thirdMask = second.mask;
     const std::uint32_t thirdEncoded = second.encoded;
     const std::uint8_t thirdReadCount = second.readCount;
@@ -5720,15 +5718,15 @@ std::int32_t* Sub_467F30()
     gValueC27FF8.encoded = thirdEncoded;
     gValueC27FF8.readCount = thirdReadCount;
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    first.ConstructFromInt_401CC0(0);
     const std::uint32_t fourthMask = first.mask;
     const std::uint32_t fourthEncoded = first.encoded;
     const std::uint8_t fourthReadCount = first.readCount;
     gValueC27FE8.mask = fourthMask;
     gValueC27FE8.encoded = fourthEncoded;
     gValueC27FE8.readCount = fourthReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
-    platform::legacy_crypt_int::Destroy_401CF0(&second);
+    first.Destroy_401CF0();
+    second.Destroy_401CF0();
 
     gValue9A4B94 = 3;
     static_cast<void>(Sub_468200());
@@ -5738,42 +5736,42 @@ std::int32_t* Sub_467F30()
     gValue9EE8B8 = 0;
     gValueC8A79C = 0;
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    first.ConstructFromInt_401CC0(0);
     const std::uint32_t fifthEncoded = first.encoded;
     const std::uint32_t fifthMask = first.mask;
     gValueC821E8.encoded = fifthEncoded;
     gValueC821E8.mask = fifthMask;
     gValueC821E8.readCount = first.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    first.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    first.ConstructFromInt_401CC0(0);
     const std::uint32_t sixthMask = first.mask;
     const std::uint32_t sixthEncoded = first.encoded;
     const std::uint8_t sixthReadCount = first.readCount;
     gValue9E03C0.mask = sixthMask;
     gValue9E03C0.encoded = sixthEncoded;
     gValue9E03C0.readCount = sixthReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    first.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    first.ConstructFromInt_401CC0(0);
     const std::uint32_t seventhMask = first.mask;
     const std::uint32_t seventhEncoded = first.encoded;
     const std::uint8_t seventhReadCount = first.readCount;
     gValueC821D8.mask = seventhMask;
     gValueC821D8.encoded = seventhEncoded;
     gValueC821D8.readCount = seventhReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    first.Destroy_401CF0();
 
     // 原末次改用独立var_1C，保留第三临时对象。
     platform::LegacyCryptInt ripple;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&ripple, 0);
+    ripple.ConstructFromInt_401CC0(0);
     const std::uint32_t eighthMask = ripple.mask;
     const std::uint32_t eighthEncoded = ripple.encoded;
     const std::uint8_t eighthReadCount = ripple.readCount;
     gRippleGate.mask = eighthMask;
     gRippleGate.encoded = eighthEncoded;
     gRippleGate.readCount = eighthReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&ripple);
+    ripple.Destroy_401CF0();
 
     gValue9A86D8 = 0;
     gValue9FB92E = 0;
@@ -5800,9 +5798,9 @@ std::int32_t* Sub_467F30()
 std::int32_t __cdecl Sub_4681B0()
 {
     const std::int32_t y =
-        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+        gPlayerSnapshotY.Read_401EC0();
     const std::int32_t x =
-        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+        gPlayerSnapshotX.Read_401EC0();
     static_cast<void>(Sub_468330(x, y));
     static_cast<void>(Sub_468200());
     gValueC82200 = 0;
@@ -5945,7 +5943,7 @@ std::int32_t __cdecl Sub_469290(
 void __cdecl Sub_4691D0()
 {
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     // 原第一组先读齐两个 W32 和 BYTE 计数，再依原序发布。
     const std::uint32_t firstMask = temporary.mask;
     const std::uint32_t firstEncoded = temporary.encoded;
@@ -5953,9 +5951,9 @@ void __cdecl Sub_4691D0()
     gValue9EE8D0.mask = firstMask;
     gValue9EE8D0.encoded = firstEncoded;
     gValue9EE8D0.readCount = firstReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    temporary.ConstructFromInt_401CC0(-1);
     // 原第二组先读齐两个 W32 和 BYTE 计数，再依原序发布。
     const std::uint32_t secondMask = temporary.mask;
     const std::uint32_t secondEncoded = temporary.encoded;
@@ -5963,7 +5961,7 @@ void __cdecl Sub_4691D0()
     gValue9EE8E0.mask = secondMask;
     gValue9EE8E0.encoded = secondEncoded;
     gValue9EE8E0.readCount = secondReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 }
 
 // 原函数：0x005093C0。
@@ -5982,17 +5980,17 @@ void Sub_50D080(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
 {
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, first);
+    temporary.ConstructFromInt_401CC0(first);
     gValue9FB918.encoded = temporary.encoded;
     gValue9FB918.mask = temporary.mask;
     gValue9FB918.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, second);
+    temporary.ConstructFromInt_401CC0(second);
     gValueAF0FE8.readCount = temporary.readCount;
     gValueAF0FE8.encoded = temporary.encoded;
     gValueAF0FE8.mask = temporary.mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t encoded = gValue9FB918.encoded;
     const std::uint32_t mask = gValue9FB918.mask;
@@ -6062,23 +6060,23 @@ void Sub_50D120(
         gValueC821E8.readCount = readCount;
 
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+        temporary.ConstructFromInt_401CC0(0);
         const std::uint32_t zeroMask = temporary.mask;
         const std::uint32_t zeroEncoded = temporary.encoded;
         const std::uint8_t zeroReadCount = temporary.readCount;
         gValueC821D8.mask = zeroMask;
         gValueC821D8.encoded = zeroEncoded;
         gValueC821D8.readCount = zeroReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
 
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+        temporary.ConstructFromInt_401CC0(1);
         const std::uint32_t enabledMask = temporary.mask;
         const std::uint32_t enabledEncoded = temporary.encoded;
         const std::uint8_t enabledReadCount = temporary.readCount;
         gRippleGate.mask = enabledMask;
         gRippleGate.encoded = enabledEncoded;
         gRippleGate.readCount = enabledReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
 
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
@@ -6087,14 +6085,14 @@ void Sub_50D120(
         login::detail::YobiClearUp_404D30();
         Sub_446610();
 
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+        temporary.ConstructFromInt_401CC0(0);
         const std::uint32_t disabledMask = temporary.mask;
         const std::uint32_t disabledEncoded = temporary.encoded;
         const std::uint8_t disabledReadCount = temporary.readCount;
         gRippleGate.mask = disabledMask;
         gRippleGate.encoded = disabledEncoded;
         gRippleGate.readCount = disabledReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -6138,14 +6136,14 @@ void Sub_50D120(
         return;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     const std::uint8_t exitReadCount = temporary.readCount;
     const std::uint32_t exitEncoded = temporary.encoded;
     const std::uint32_t exitMask = temporary.mask;
     gValueC821D8.readCount = exitReadCount;
     gValueC821D8.encoded = exitEncoded;
     gValueC821D8.mask = exitMask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gValueFF03D8 = 0;
     gValueF7CA04 = 0;
 }
@@ -6458,10 +6456,10 @@ std::int32_t __cdecl Sub_509100(
 
     if (currentMapId == mapId
         && gMapFloor == floor
-        && platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 10) <= xStart
-        && xEnd <= platform::legacy_crypt_int::Add_401E10(&gPlayerX, 10)
-        && platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 10) <= yStart
-        && yEnd <= platform::legacy_crypt_int::Add_401E10(&gPlayerY, 10)) {
+        && (gPlayerX - 10) <= xStart
+        && xEnd <= (gPlayerX + 10)
+        && (gPlayerY - 10) <= yStart
+        && yEnd <= (gPlayerY + 10)) {
         gValue9EE910 = 1;
     }
 
@@ -6521,11 +6519,11 @@ std::int32_t __cdecl Sub_5093F0(
     gValueC821E8.readCount = readCount;
 
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     gValue9E03C0.mask = temporary.mask;
     gValue9E03C0.encoded = temporary.encoded;
     gValue9E03C0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     static_cast<void>(Sub_4681B0());
 
     if (a11 > 0) {
@@ -7007,23 +7005,23 @@ void DrawNormalScene_51C7D0()
         gValueC821E8.encoded = encoded;
         gValueC821E8.readCount = readCount;
         platform::LegacyCryptInt zero;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
+        zero.ConstructFromInt_401CC0(0);
         const std::uint32_t zeroMask = zero.mask;
         const std::uint32_t zeroEncoded = zero.encoded;
         const std::uint8_t zeroReadCount = zero.readCount;
         gValueC821D8.mask = zeroMask;
         gValueC821D8.encoded = zeroEncoded;
         gValueC821D8.readCount = zeroReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&zero);
+        zero.Destroy_401CF0();
         platform::LegacyCryptInt one;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&one, 1);
+        one.ConstructFromInt_401CC0(1);
         const std::uint32_t oneMask = one.mask;
         const std::uint32_t oneEncoded = one.encoded;
         const std::uint8_t oneReadCount = one.readCount;
         gRippleGate.mask = oneMask;
         gRippleGate.encoded = oneEncoded;
         gRippleGate.readCount = oneReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&one);
+        one.Destroy_401CF0();
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
@@ -7508,14 +7506,14 @@ void DrawBattleScene_43CBB0()
         YobiClearUp_404D30();
         Sub_446610();
         platform::LegacyCryptInt zero;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
+        zero.ConstructFromInt_401CC0(0);
         const std::uint32_t zeroMask = zero.mask;
         const std::uint32_t zeroEncoded = zero.encoded;
         const std::uint8_t zeroReadCount = zero.readCount;
         gRippleGate.mask = zeroMask;
         gRippleGate.encoded = zeroEncoded;
         gRippleGate.readCount = zeroReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&zero);
+        zero.Destroy_401CF0();
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -7542,23 +7540,23 @@ void DrawBattleScene_43CBB0()
         YobiClearUp_404D30();
         Sub_446610();
         platform::LegacyCryptInt rippleZero;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&rippleZero, 0);
+        rippleZero.ConstructFromInt_401CC0(0);
         const std::uint32_t rippleZeroMask = rippleZero.mask;
         const std::uint32_t rippleZeroEncoded = rippleZero.encoded;
         const std::uint8_t rippleZeroReadCount = rippleZero.readCount;
         gRippleGate.mask = rippleZeroMask;
         gRippleGate.encoded = rippleZeroEncoded;
         gRippleGate.readCount = rippleZeroReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&rippleZero);
+        rippleZero.Destroy_401CF0();
         platform::LegacyCryptInt transitionZero;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&transitionZero, 0);
+        transitionZero.ConstructFromInt_401CC0(0);
         const std::uint32_t transitionZeroMask = transitionZero.mask;
         const std::uint32_t transitionZeroEncoded = transitionZero.encoded;
         const std::uint8_t transitionZeroReadCount = transitionZero.readCount;
         gValue73ECD0.mask = transitionZeroMask;
         gValue73ECD0.encoded = transitionZeroEncoded;
         gValue73ECD0.readCount = transitionZeroReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&transitionZero);
+        transitionZero.Destroy_401CF0();
         static_cast<void>(SetPendingSceneType(7));
         return;
     }
@@ -7936,8 +7934,8 @@ std::int32_t __cdecl Sub_46A9E0()
 // PDH01：原 [0x46AA00,0x46AB56)；X/Y 字段取样后先 Y 更新，两整数差再落 F32，保早退 Y/pending 序。
 std::int32_t __cdecl Sub_46AA00()
 {
-    std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
-    std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    std::int32_t x = gPlayerX.Read_401EC0();
+    std::int32_t y = gPlayerY.Read_401EC0();
     if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
         return y;
     }
@@ -8069,8 +8067,8 @@ std::uint16_t Sub_46AC10()
         }
     }
     gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     return static_cast<std::uint16_t>(
         Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
@@ -8105,8 +8103,8 @@ void* __cdecl Sub_46ADA0()
     gValueC82220 = 1;
     gValue9DAD54 = sequenceLow;
 
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gValueC8221C;
@@ -8171,16 +8169,16 @@ std::int32_t __cdecl Sub_46AC90()
     static_cast<void>(Sub_4681B0());
 
     platform::LegacyCryptInt temporary {};
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+    temporary.ConstructFromInt_401CC0(1);
     gValueC821D8.mask = temporary.mask;
     gValueC821D8.encoded = temporary.encoded;
     gValueC821D8.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     gValueC82220 = 1;
     gValueB65A7C = 0;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     return network::Sub_510810(platform::gConnectionSocket, x, y);
 }
 
@@ -8198,8 +8196,8 @@ std::int32_t __cdecl Sub_46AEA0()
     gValueC82220 = 1;
     gValue9FB92C = sequenceLow;
 
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     const std::uint32_t sequence = gValueC8221C;
     static_cast<void>(network::Sub_510630(
         platform::gConnectionSocket,
@@ -8452,11 +8450,11 @@ std::int32_t __cdecl Sub_46B5C0(
 std::int32_t Sub_46B6F0()
 {
     const std::int32_t targetX =
-        platform::legacy_crypt_int::Read_401EC0(&gValue9A7F88);
+        gValue9A7F88.Read_401EC0();
     const std::int32_t targetY =
-        platform::legacy_crypt_int::Read_401EC0(&gValue9A7F98);
-    std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
-    std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        gValue9A7F98.Read_401EC0();
+    std::int32_t x = gPlayerX.Read_401EC0();
+    std::int32_t y = gPlayerY.Read_401EC0();
     const std::array<std::int32_t, 3> offsets {0, 1, -1};
     std::int32_t accumulatedX = 0;
     std::int32_t accumulatedY = 0;
@@ -8847,17 +8845,17 @@ std::int16_t ReadPlayerTribe() noexcept
 
 std::int32_t ReadPlayerExperienceOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.value58);
+    return gPlayerRuntime.value58.Read_401EC0();
 }
 
 std::int32_t ReadPlayerNextExperienceOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.value68);
+    return gPlayerRuntime.value68.Read_401EC0();
 }
 
 bool IsPlayerNextExperienceEqual(const std::int32_t expected)
 {
-    return platform::legacy_crypt_int::Equal_401D00(&gPlayerRuntime.value68, expected);
+    return (gPlayerRuntime.value68 == static_cast<std::int32_t>(expected));
 }
 
 std::int32_t ReadPlayerDuelPoint() noexcept
@@ -8877,17 +8875,17 @@ std::int32_t ReadPlayerPenalty() noexcept
 
 std::int32_t ReadPlayerHpOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.hp);
+    return gPlayerRuntime.hp.Read_401EC0();
 }
 
 std::int32_t ReadPlayerMaxHpOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.maxHp);
+    return gPlayerRuntime.maxHp.Read_401EC0();
 }
 
 std::int32_t ReadPlayerFpOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.fp);
+    return gPlayerRuntime.fp.Read_401EC0();
 }
 
 platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
@@ -8897,22 +8895,22 @@ platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
 
 std::int32_t ReadPlayerMaxFpOnce()
 {
-    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.maxFp);
+    return gPlayerRuntime.maxFp.Read_401EC0();
 }
 
 bool IsPlayerFpLessThan(const std::int32_t cost)
 {
-    return platform::legacy_crypt_int::Less_401DB0(&gPlayerRuntime.fp, cost);
+    return (gPlayerRuntime.fp < static_cast<std::int32_t>(cost));
 }
 
 bool IsCostGreaterThanPlayerFp(const std::int32_t cost)
 {
-    return platform::legacy_crypt_int::IntGreaterCrypt_401F80(cost, &gPlayerRuntime.fp);
+    return (static_cast<std::int32_t>(cost) > gPlayerRuntime.fp);
 }
 
 bool IsPlayerFpGreaterEqual(const std::int32_t cost)
 {
-    return platform::legacy_crypt_int::GreaterEqual_401D70(&gPlayerRuntime.fp, cost);
+    return (gPlayerRuntime.fp >= static_cast<std::int32_t>(cost));
 }
 
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
@@ -8954,10 +8952,10 @@ void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
 {
-    platform::legacy_crypt_int::CopyPayload(hp, &gPlayerRuntime.hp);
-    platform::legacy_crypt_int::CopyPayload(maxHp, &gPlayerRuntime.maxHp);
-    platform::legacy_crypt_int::CopyPayload(fp, &gPlayerRuntime.fp);
-    platform::legacy_crypt_int::CopyPayload(maxFp, &gPlayerRuntime.maxFp);
+    hp->CopyPayload(&gPlayerRuntime.hp);
+    maxHp->CopyPayload(&gPlayerRuntime.maxHp);
+    fp->CopyPayload(&gPlayerRuntime.fp);
+    maxFp->CopyPayload(&gPlayerRuntime.maxFp);
 }
 
 const char* BorrowTitleText(const std::int32_t index) noexcept
@@ -9175,9 +9173,9 @@ void Sub_46A940()
 std::uint8_t Sub_46F680()
 {
     const float mouseY = static_cast<float>(
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        platform::gLegacyMouseState.mouseY.Read_401EC0());
     const float mouseX = static_cast<float>(
-        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        platform::gLegacyMouseState.mouseX.Read_401EC0());
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -9203,8 +9201,7 @@ std::uint8_t Sub_46F680()
     gValueC8A7A8 = 0;
     gValueC8A7AC = 0;
 
-    if (platform::legacy_crypt_int::Less_401DB0(
-            &platform::gLegacyMouseState.mouseY, 456)
+    if ((platform::gLegacyMouseState.mouseY < 456)
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::ReadDragItemIndex_584DA4() < 0)
@@ -9221,8 +9218,7 @@ std::uint8_t Sub_46F680()
         static_cast<void>(
             login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
     }
-    const bool mouseBelowLimit = platform::legacy_crypt_int::Less_401DB0(
-        &platform::gLegacyMouseState.mouseY, 456);
+    const bool mouseBelowLimit = (platform::gLegacyMouseState.mouseY < 456);
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
@@ -9290,21 +9286,21 @@ void Sub_470050()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
     const std::int32_t target = Sub_4450D0(targetX, targetY, 8);
     const std::uint16_t follow = gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t y = gPlayerY.Read_401EC0();
+        const std::int32_t x = gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9324,22 +9320,22 @@ void Sub_470150()
     std::int32_t target = 0;
     if (Sub_455A90() == 1) {
         const std::int32_t targetY =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+            (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+            (gPlayerX + static_cast<std::int32_t>(deltaX));
         target = Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
     }
     const std::uint16_t follow = gValueFF0D36;
     if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
         || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t y = gPlayerY.Read_401EC0();
+        const std::int32_t x = gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9359,16 +9355,16 @@ void Sub_470270()
         const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
         const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
         const std::int32_t targetY =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+            (gPlayerY + static_cast<std::int32_t>(deltaY));
         const std::int32_t targetX =
-            platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+            (gPlayerX + static_cast<std::int32_t>(deltaX));
         if (Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             return;
         }
     }
     if (gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9378,8 +9374,8 @@ void Sub_470270()
             return;
         }
         const std::int32_t mode = joinTeam ? 1 : 0;
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t y = gPlayerY.Read_401EC0();
+        const std::int32_t x = gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9397,19 +9393,19 @@ void Sub_4703C0()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
     if (Sub_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t y = gPlayerY.Read_401EC0();
+        const std::int32_t x = gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9427,14 +9423,14 @@ void Sub_4704A0()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t firstY =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t firstX =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
     const std::int32_t first = Sub_4450D0(firstX, firstY, 8);
     const std::int32_t secondY =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY * 2);
+        (gPlayerY + static_cast<std::int32_t>(deltaY * 2));
     const std::int32_t secondX =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX * 2);
+        (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
     if (gValueFF0D36 != 1 && first != 1 && second != 1) {
         Sub_44B050(kTradeNoTarget556CC4, 4, 0);
@@ -9442,7 +9438,7 @@ void Sub_4704A0()
         return;
     }
     if (gValue9A86D8 == 0 && gValue9FB92E == 0
-        && platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        && (gValueC821D8 == 0)) {
         const std::uint32_t now = platform::ReadTickCount32();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
             static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
@@ -9463,12 +9459,12 @@ void Sub_470670()
     const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
     const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
     const std::int32_t targetY =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        (gPlayerY + static_cast<std::int32_t>(deltaY));
     const std::int32_t targetX =
-        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        (gPlayerX + static_cast<std::int32_t>(deltaX));
     if (Sub_4450D0(targetX, targetY, 8) != 1
         || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        || !(gValueC821D8 == 0)) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9480,8 +9476,8 @@ void Sub_470670()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        const std::int32_t y = gPlayerY.Read_401EC0();
+        const std::int32_t x = gPlayerX.Read_401EC0();
         static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9497,7 +9493,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         return reinterpret_cast<std::uintptr_t>(initialAction);
     }
     // 原401D00仅改AL，保留读取值高24位；只能读取一次，避免额外计数/RNG。
-    const std::int32_t comparisonValue = platform::legacy_crypt_int::Read_401EC0(&gValueC821D8);
+    const std::int32_t comparisonValue = gValueC821D8.Read_401EC0();
     const std::uint32_t comparisonResult = (std::bit_cast<std::uint32_t>(comparisonValue) & 0xFFFFFF00u)
         | static_cast<std::uint32_t>(comparisonValue == 0);
     if (comparisonValue != 0 || index < 0) {
@@ -9526,8 +9522,8 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         selected = 1;
     }
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
@@ -9552,8 +9548,8 @@ std::uint32_t Sub_51B3E0()
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signX =
-        platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, gPlayerMoveTargetX);
-    result = platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, gPlayerMoveTargetX);
+        (gPlayerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
+    result = (gPlayerX - static_cast<std::int32_t>(gPlayerMoveTargetX));
     if (signX < 0) {
         result = -result;
     }
@@ -9561,8 +9557,8 @@ std::uint32_t Sub_51B3E0()
         return std::bit_cast<std::uint32_t>(result);
     }
     const std::int32_t signY =
-        platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, gPlayerMoveTargetY);
-    result = platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, gPlayerMoveTargetY);
+        (gPlayerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
+    result = (gPlayerY - static_cast<std::int32_t>(gPlayerMoveTargetY));
     if (signY < 0) {
         result = -result;
     }
@@ -9576,11 +9572,11 @@ std::uint32_t Sub_51B3E0()
         return 0;
     }
     const std::int32_t deltaX =
-        platform::legacy_crypt_int::IntMinusCrypt_401FE0(gPlayerMoveTargetX, &gPlayerX);
+        (static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX);
     const std::int32_t secondTargetY = gPlayerMoveTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
-        platform::legacy_crypt_int::IntMinusCrypt_401FE0(secondTargetY, &gPlayerY);
+        (static_cast<std::int32_t>(secondTargetY) - gPlayerY);
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
@@ -9588,8 +9584,8 @@ std::uint32_t Sub_51B3E0()
     if (gValueFF0D38 + 500u >= now) {
         return now;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint32_t sentAt = platform::ReadTickCount32();
     gValueFF0D38 = sentAt;
@@ -9611,16 +9607,16 @@ void Sub_46B370()
         || gValue62B5AA != 0 || gValueC82220 != 0) {
         return;
     }
-    if (platform::legacy_crypt_int::Equal_401D00(&gPlayerX, gPlayerMoveTargetX)
-        && platform::legacy_crypt_int::Equal_401D00(&gPlayerY, gPlayerMoveTargetY)) {
+    if ((gPlayerX == static_cast<std::int32_t>(gPlayerMoveTargetX))
+        && (gPlayerY == static_cast<std::int32_t>(gPlayerMoveTargetY))) {
         return;
     }
     const std::int32_t deltaX =
-        platform::legacy_crypt_int::IntMinusCrypt_401FE0(gPlayerMoveTargetX, &gPlayerX);
+        (static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX);
     const std::int32_t targetY = gPlayerMoveTargetY;
     const float differenceX = static_cast<float>(deltaX);
     const std::int32_t deltaY =
-        platform::legacy_crypt_int::IntMinusCrypt_401FE0(targetY, &gPlayerY);
+        (static_cast<std::int32_t>(targetY) - gPlayerY);
     const float differenceY = static_cast<float>(deltaY);
     const std::int32_t direction = static_cast<std::int32_t>(
         Sub_46CDF0(differenceX, differenceY));
@@ -9633,8 +9629,8 @@ void Sub_46B370()
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount32();
 }
@@ -9643,7 +9639,7 @@ void Sub_46B370()
 std::uint8_t Sub_469C90()
 {
     const bool pendingIsZero =
-        platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0);
+        (gValueC821D8 == 0);
     if (pendingIsZero && gValue9A86D8 == 0 && gValue9FB92E == 0) {
         gValueC82220 = 0;
     }
@@ -9687,36 +9683,32 @@ std::uint8_t Sub_469C90()
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     gValue55DDAC = sampledTick;
                     platform::LegacyCryptInt temporary;
-                    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
+                    temporary.ConstructFromInt_401CC0(targetX);
                     const std::uint32_t maskX = temporary.mask;
                     const std::uint32_t encodedX = temporary.encoded;
                     const std::uint8_t readCountX = temporary.readCount;
                     gValue9A7F88.mask = maskX;
                     gValue9A7F88.encoded = encodedX;
                     gValue9A7F88.readCount = readCountX;
-                    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-                    platform::legacy_crypt_int::ConstructFromInt_401CC0(
-                        &temporary, gPlayerMoveTargetY);
+                    temporary.Destroy_401CF0();
+                    temporary.ConstructFromInt_401CC0(gPlayerMoveTargetY);
                     const std::uint32_t encodedY = temporary.encoded;
                     const std::uint32_t maskY = temporary.mask;
                     const std::uint8_t readCountY = temporary.readCount;
                     gValue9A7F98.encoded = encodedY;
                     gValue9A7F98.mask = maskY;
                     gValue9A7F98.readCount = readCountY;
-                    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                     gValueC821FC = 1;
                 }
-                if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
-                        gPlayerMoveTargetX, &gPlayerX) != 0
-                    || platform::legacy_crypt_int::IntMinusCrypt_401FE0(
-                        gPlayerMoveTargetY, &gPlayerY) != 0) {
+                if ((static_cast<std::int32_t>(gPlayerMoveTargetX) - gPlayerX) != 0
+                    || (static_cast<std::int32_t>(gPlayerMoveTargetY) - gPlayerY) != 0) {
                     const std::int32_t deltaY =
-                        platform::legacy_crypt_int::IntMinusCrypt_401FE0(
-                            gPlayerMoveTargetY, &gPlayerY);
+                        (static_cast<std::int32_t>(gPlayerMoveTargetY) - gPlayerY);
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     const float differenceY = static_cast<float>(deltaY);
                     const std::int32_t deltaX =
-                        platform::legacy_crypt_int::IntMinusCrypt_401FE0(targetX, &gPlayerX);
+                        (static_cast<std::int32_t>(targetX) - gPlayerX);
                     const float differenceX = static_cast<float>(deltaX);
                     const std::int32_t direction = static_cast<std::int32_t>(
                         Sub_46CDF0(differenceX, differenceY));
@@ -9729,24 +9721,22 @@ std::uint8_t Sub_469C90()
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
                 gValue55DDAC = platform::ReadTickCount32();
                 platform::LegacyCryptInt temporary;
-                platform::legacy_crypt_int::ConstructFromInt_401CC0(
-                    &temporary, gPlayerMoveTargetX);
+                temporary.ConstructFromInt_401CC0(gPlayerMoveTargetX);
                 const std::uint32_t encodedX = temporary.encoded;
                 const std::uint32_t maskX = temporary.mask;
                 const std::uint8_t readCountX = temporary.readCount;
                 gValue9A7F88.encoded = encodedX;
                 gValue9A7F88.mask = maskX;
                 gValue9A7F88.readCount = readCountX;
-                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-                platform::legacy_crypt_int::ConstructFromInt_401CC0(
-                    &temporary, gPlayerMoveTargetY);
+                temporary.Destroy_401CF0();
+                temporary.ConstructFromInt_401CC0(gPlayerMoveTargetY);
                 const std::uint8_t readCountY = temporary.readCount;
                 const std::uint32_t encodedY = temporary.encoded;
                 const std::uint32_t maskY = temporary.mask;
                 gValue9A7F98.readCount = readCountY;
                 gValue9A7F98.encoded = encodedY;
                 gValue9A7F98.mask = maskY;
-                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                temporary.Destroy_401CF0();
                 gValueC821FC = 1;
             }
         }
@@ -9766,19 +9756,19 @@ std::uint16_t Sub_469FC0()
     if (stopped != 0) {
         return static_cast<std::uint16_t>(stopped);
     }
-    if (platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)
+    if ((gValueC821D8 == 0)
         && gValue9A86D8 == 0 && gValue9FB92E == 0) {
         const std::int32_t pending = Sub_46AB60();
         if (pending != 0) {
             return static_cast<std::uint16_t>(pending);
         }
         const double targetX = static_cast<double>(
-            platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F;
+            gPlayerSnapshotX.Read_401EC0()) * 64.0F;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
             const double targetY = static_cast<double>(
-                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+                gPlayerSnapshotY.Read_401EC0()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -9824,16 +9814,16 @@ std::uint16_t Sub_469FC0()
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
                     // 原401E00忽略实参高W16；复用单次读取的加法与S16扩展。
                     const std::int32_t nextY =
-                        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+                        (gPlayerY + static_cast<std::int32_t>(deltaY));
                     const std::int16_t deltaX =
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
                     const std::int32_t nextX =
-                        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+                        (gPlayerX + static_cast<std::int32_t>(deltaX));
                     MovePlayerOneStep_46B1B0(nextX, nextY, speed);
                     const std::int32_t y =
-                        platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+                        gPlayerY.Read_401EC0();
                     const std::int32_t x =
-                        platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+                        gPlayerX.Read_401EC0();
                     Sub_46A5A0(x, y);
                 }
             }
@@ -9860,30 +9850,30 @@ void Sub_46A410(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint32_t maskX = temporary.mask;
     const std::uint8_t readCountX = temporary.readCount;
     gPlayerSnapshotX.encoded = encodedX;
     gPlayerSnapshotX.mask = maskX;
     gPlayerSnapshotX.readCount = readCountX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t readCountY = temporary.readCount;
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint32_t maskY = temporary.mask;
     gPlayerSnapshotY.readCount = readCountY;
     gPlayerSnapshotY.encoded = encodedY;
     gPlayerSnapshotY.mask = maskY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::int32_t pixelX =
-        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotX, 64);
+        (gPlayerSnapshotX * 64);
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotY, 64);
+        (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
         static_cast<double>(differenceX),
@@ -9936,9 +9926,9 @@ void Sub_46A700()
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F);
+        gPlayerSnapshotX.Read_401EC0()) * 64.0F);
     const double scaledTargetY = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+        gPlayerSnapshotY.Read_401EC0()) * 64.0F;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -9972,26 +9962,26 @@ void Sub_46A700()
         gValueC8222E = 1;
         platform::LegacyCryptInt temporary;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+        temporary.ConstructFromInt_401CC0(x);
         const std::uint32_t maskX = temporary.mask;
         const std::uint32_t encodedX = temporary.encoded;
         const std::uint8_t readCountX = temporary.readCount;
         gPlayerX.mask = maskX;
         gPlayerX.encoded = encodedX;
         gPlayerX.readCount = readCountX;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
 
         const std::uint32_t currentYBits = gWorldCurrentYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+        temporary.ConstructFromInt_401CC0(y);
         const std::uint32_t maskY = temporary.mask;
         const std::uint32_t encodedY = temporary.encoded;
         const std::uint8_t readCountY = temporary.readCount;
         gPlayerY.mask = maskY;
         gPlayerY.encoded = encodedY;
         gPlayerY.readCount = readCountY;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
 
         const std::int32_t count = gPlayerRuntime.value174;
         if (count > 0) {
@@ -10002,9 +9992,9 @@ void Sub_46A700()
                 if (action != nullptr) {
                     login::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
-                        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+                        gPlayerSnapshotY.Read_401EC0();
                     const std::int32_t snapshotX =
-                        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+                        gPlayerSnapshotX.Read_401EC0();
                     static_cast<void>(network::Sub_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
@@ -10026,8 +10016,8 @@ void Sub_46A700()
 void Sub_519A80()
 {
     const std::int32_t direction = gPlayerRuntime.direction;
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     Sub_519CD0(gPlayerRuntime.imageNo, x, y, direction);
     const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
@@ -10542,8 +10532,8 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+    const std::int32_t y = gPlayerSnapshotY.Read_401EC0();
+    const std::int32_t x = gPlayerSnapshotX.Read_401EC0();
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
@@ -11060,22 +11050,22 @@ std::int32_t Sub_51D790(
     gTransitionVelocityFF48F8 = 0.0f;
 
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     const std::uint8_t readCount = temporary.readCount;
     const std::uint32_t encoded = temporary.encoded;
     const std::uint32_t mask = temporary.mask;
     gValue73ECD0.readCount = readCount;
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.mask = mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     return 1;
 }
 
@@ -11508,23 +11498,23 @@ std::int32_t Sub_51E0D0(
         return 0;
     }
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         gReverseTransitionPhase58B6D4 = -1;
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     const std::uint32_t encoded = temporary.encoded;
     const std::uint32_t mask = temporary.mask;
     const std::uint8_t readCount = temporary.readCount;
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.mask = mask;
     gValue73ECD0.readCount = readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gReverseTransitionPhase58B6D4 = -1;
     return 1;
 }
@@ -11673,23 +11663,23 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
         return 0;
     }
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         gQuadrantTransitionPhase58B6D8 = -1;
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     const std::uint32_t mask = temporary.mask;
     const std::uint32_t encoded = temporary.encoded;
     const std::uint8_t readCount = temporary.readCount;
     gValue73ECD0.mask = mask;
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.readCount = readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gQuadrantTransitionPhase58B6D8 = -1;
     return 1;
 }
@@ -11857,23 +11847,23 @@ std::int32_t Sub_51EF80(
         return 0;
     }
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         gTileTransitionPhase58B6DC = -1;
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     const std::uint8_t readCount = temporary.readCount;
     const std::uint32_t encoded = temporary.encoded;
     const std::uint32_t mask = temporary.mask;
     gValue73ECD0.readCount = readCount;
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.mask = mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gTileTransitionPhase58B6DC = -1;
     return 1;
 }
@@ -11927,23 +11917,23 @@ std::int32_t Sub_51F610(const std::int32_t value)
     }
 
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         gImageTransitionInitializedFF4910 = 0;
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     const std::uint32_t mask = temporary.mask;
     const std::uint32_t encoded = temporary.encoded;
     const std::uint8_t readCount = temporary.readCount;
     gValue73ECD0.mask = mask;
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.readCount = readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }
@@ -12001,16 +11991,16 @@ std::int32_t ProcessScanlineTransition(
     }
 
     std::int32_t nextState;
-    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+    if ((gValue73ECD0 == 2)) {
         nextState = 3;
-    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+    } else if ((gValue73ECD0 == 3)) {
         nextState = 4;
     } else {
         gImageTransitionInitializedFF4910 = 0;
         return 1;
     }
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    temporary.ConstructFromInt_401CC0(nextState);
     if (direction < 0) {
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
@@ -12026,7 +12016,7 @@ std::int32_t ProcessScanlineTransition(
         gValue73ECD0.mask = mask;
         gValue73ECD0.readCount = readCount;
     }
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }

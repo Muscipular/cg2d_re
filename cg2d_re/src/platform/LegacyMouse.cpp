@@ -30,7 +30,7 @@ namespace {
 
 // 原CRT553004..553010：四个原生启动拥有者保持五对象构造／逆序退出与RNG序。
 // 原函数：0x00401C10；同一中央位置构造，MSVC按完成逆序析构。
-const cg::platform::legacy_crypt_int::StartupValues gStartupValues;
+const cg::platform::LegacyCryptInt::StartupValues gStartupValues;
 
 // 原函数：0x00404120；同一中央位置构造，MSVC按完成逆序析构。
 const cg::platform::ProtectionChecksum1Startup gProtectionChecksum1Startup;
@@ -449,13 +449,13 @@ LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
         ~MouseConstructionPrefix()
         {
             while (completed != 0) {
-                legacy_crypt_int::Destroy_401CF0(values[--completed]);
+                values[--completed]->Destroy_401CF0();
             }
         }
     } constructed;
 
     for (LegacyCryptInt* value : constructed.values) {
-        legacy_crypt_int::ConstructZero_401C70(value);
+        value->ConstructZero_401C70();
         ++constructed.completed;
     }
     constructed.completed = 0;
@@ -466,10 +466,10 @@ LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
 void ReleaseLegacyMouseRuntimeAtExit_506370()
 {
     for (std::size_t index = 8; index != 0; --index) {
-        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.buttonCoordinates[index - 1]);
+        gLegacyMouseState.buttonCoordinates[index - 1].Destroy_401CF0();
     }
-    legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseY);
-    legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseX);
+    gLegacyMouseState.mouseY.Destroy_401CF0();
+    gLegacyMouseState.mouseX.Destroy_401CF0();
 }
 
 } // namespace
@@ -499,23 +499,23 @@ std::int32_t ResetLegacyMouseState_506870()
 void ResetLegacyMousePosition_506890(const std::int32_t x, const std::int32_t y)
 {
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.mouseX.encoded = xEncoded;
     gLegacyMouseState.mouseX.mask = xMask;
     gLegacyMouseState.mouseX.readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yReadCount = temporary.readCount;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint32_t yMask = temporary.mask;
     gLegacyMouseState.mouseY.readCount = yReadCount;
     gLegacyMouseState.mouseY.encoded = yEncoded;
     gLegacyMouseState.mouseY.mask = yMask;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 }
 
 // 原函数：0x00506900。
@@ -531,23 +531,23 @@ std::int32_t UpdateLegacyMouseLeftDown_506900(
     gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xMask = temporary.mask;
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[0].mask = xMask;
     gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint32_t yMask = temporary.mask;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint8_t yReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[1].mask = yMask;
     gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.leftDownTick = tick;
@@ -574,23 +574,23 @@ std::int32_t UpdateLegacyMouseLeftUp_5069E0(
     gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[2].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[2].mask = xMask;
     gLegacyMouseState.buttonCoordinates[2].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yReadCount = temporary.readCount;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint32_t yMask = temporary.mask;
     gLegacyMouseState.buttonCoordinates[3].readCount = yReadCount;
     gLegacyMouseState.buttonCoordinates[3].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[3].mask = yMask;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     gLegacyMouseState.leftDownTick = 0;
     gLegacyMouseState.leftElapsed = 0;
@@ -610,23 +610,23 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
     gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[0].mask = xMask;
     gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yReadCount = temporary.readCount;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint32_t yMask = temporary.mask;
     gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;
     gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[1].mask = yMask;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.leftDownTick = tick;
@@ -647,23 +647,23 @@ std::int32_t UpdateLegacyMouseRightDown_506B50(
     gLegacyMouseState.edgeButtons = edgeButtons | 2u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xMask = temporary.mask;
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[4].mask = xMask;
     gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint32_t yMask = temporary.mask;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint8_t yReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[5].mask = yMask;
     gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.rightDownTick = tick;
@@ -690,23 +690,23 @@ std::int32_t UpdateLegacyMouseRightUp_506C40(
     gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[6].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[6].mask = xMask;
     gLegacyMouseState.buttonCoordinates[6].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yReadCount = temporary.readCount;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint32_t yMask = temporary.mask;
     gLegacyMouseState.buttonCoordinates[7].readCount = yReadCount;
     gLegacyMouseState.buttonCoordinates[7].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[7].mask = yMask;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     gLegacyMouseState.rightDownTick = 0;
     gLegacyMouseState.rightElapsed = 0;
@@ -726,23 +726,23 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     gLegacyMouseState.pulseButtons = pulseButtons | 2u;
 
     LegacyCryptInt temporary;
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     const std::uint8_t xReadCount = temporary.readCount;
     gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;
     gLegacyMouseState.buttonCoordinates[4].mask = xMask;
     gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
-    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint8_t yReadCount = temporary.readCount;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint32_t yMask = temporary.mask;
     gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;
     gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;
     gLegacyMouseState.buttonCoordinates[5].mask = yMask;
-    legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::uint32_t tick = ReadTickCount32();
     gLegacyMouseState.rightDownTick = tick;
@@ -767,14 +767,12 @@ std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons; // 原�
 
 std::int32_t ReadLegacyMouseX()
 {
-    return platform::legacy_crypt_int::Read_401EC0(
-        &platform::gLegacyMouseState.mouseX);
+    return platform::gLegacyMouseState.mouseX.Read_401EC0();
 }
 
 std::int32_t ReadLegacyMouseY()
 {
-    return platform::legacy_crypt_int::Read_401EC0(
-        &platform::gLegacyMouseState.mouseY);
+    return platform::gLegacyMouseState.mouseY.Read_401EC0();
 }
 
 } // namespace cg::login::detail

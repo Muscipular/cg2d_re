@@ -1315,7 +1315,7 @@ void DrawNineGridImpl_49BE00(
 
 void AssignReady(YobiAction* const action)
 {
-    platform::legacy_crypt_int::AssignFromInt(&action->readiness, 1);
+    (action->readiness = 1);
 }
 
 // 原函数：0x005046D0。
@@ -1708,7 +1708,6 @@ namespace {
 // 原41EB10逐成员复制；三个联合槽按原生宽度复制，CryptInt不改目标token/保留字节。
 YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiAction* const source)
 {
-    using platform::legacy_crypt_int::CopyPayload;
     destination->prev = source->prev;
     destination->next = source->next;
     destination->callback = source->callback;
@@ -1752,20 +1751,20 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
     destination->text123 = source->text123;
     destination->text144 = source->text144;
     destination->bytes155 = source->bytes155;
-    CopyPayload(&destination->readiness, &source->readiness);
-    CopyPayload(&destination->maxHp, &source->maxHp);
-    CopyPayload(&destination->value190, &source->value190);
-    CopyPayload(&destination->value1A0, &source->value1A0);
-    CopyPayload(&destination->barValue1B0, &source->barValue1B0);
-    CopyPayload(&destination->barMaximum1C0, &source->barMaximum1C0);
+    destination->readiness.CopyPayload(&source->readiness);
+    destination->maxHp.CopyPayload(&source->maxHp);
+    destination->value190.CopyPayload(&source->value190);
+    destination->value1A0.CopyPayload(&source->value1A0);
+    destination->barValue1B0.CopyPayload(&source->barValue1B0);
+    destination->barMaximum1C0.CopyPayload(&source->barMaximum1C0);
     std::memcpy(&destination->windowCompletionSlot1D0, &source->windowCompletionSlot1D0, sizeof(source->windowCompletionSlot1D0));
     destination->value1D4 = source->value1D4;
     destination->field1D8 = source->field1D8;
     destination->counter1DC = source->counter1DC;
-    CopyPayload(&destination->mapX1E0, &source->mapX1E0);
-    CopyPayload(&destination->mapY1F0, &source->mapY1F0);
-    CopyPayload(&destination->mapX200, &source->mapX200);
-    CopyPayload(&destination->mapY210, &source->mapY210);
+    destination->mapX1E0.CopyPayload(&source->mapX1E0);
+    destination->mapY1F0.CopyPayload(&source->mapY1F0);
+    destination->mapX200.CopyPayload(&source->mapX200);
+    destination->mapY210.CopyPayload(&source->mapY210);
     destination->pathX220 = source->pathX220;
     destination->pathY248 = source->pathY248;
     destination->field270 = source->field270;
@@ -1985,9 +1984,9 @@ void Sub_48ABC0(YobiAction* const action)
     if (complete) {
         const ui::WindowValueCallback callback = action->numberWindowCallback2C;
         const std::int32_t initialValue =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            action->mapY1F0.Read_401EC0();
         const std::int32_t value14 =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            action->mapX1E0.Read_401EC0();
         const std::int32_t imageNo = action->graphicIndex;
         const std::int32_t sourceElement = action->nameY;
         const std::int32_t maximum = action->field1D0;
@@ -2045,16 +2044,16 @@ YobiAction* Sub_48AC60(
     action->numberWindowCallback2C = callback;
     action->field1D0 = maximum;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
+    temporary.ConstructFromInt_401CC0(value14);
     action->mapX1E0.mask = temporary.mask;
     action->mapX1E0.encoded = temporary.encoded;
     action->mapX1E0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, initialValue);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(initialValue);
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
     action->mapY1F0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     action->nameX = sourceWindow;
     action->nameY = sourceElement;
     payload->counter = 0;
@@ -2096,9 +2095,9 @@ void Sub_4ABE60(YobiAction* const action)
     payload->halfHeight = previousHeight + deltaY;
     if (complete) {
         const std::int32_t userState =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            action->mapY1F0.Read_401EC0();
         const std::int32_t value14 =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            action->mapX1E0.Read_401EC0();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
         static_cast<void>(MarkDeath(action));
@@ -2143,22 +2142,22 @@ YobiAction* Sub_4ABEF0(
     payload->height = height;
     payload->id = static_cast<std::uint16_t>(kind);
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
+    temporary.ConstructFromInt_401CC0(value14);
     const std::uint8_t value14ReadCount = temporary.readCount;
     const std::uint32_t value14Encoded = temporary.encoded;
     const std::uint32_t value14Mask = temporary.mask;
     action->mapX1E0.readCount = value14ReadCount;
     action->mapX1E0.encoded = value14Encoded;
     action->mapX1E0.mask = value14Mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(userState);
     const std::uint32_t userStateMask = temporary.mask;
     const std::uint32_t userStateEncoded = temporary.encoded;
     const std::uint8_t userStateReadCount = temporary.readCount;
     action->mapY1F0.mask = userStateMask;
     action->mapY1F0.encoded = userStateEncoded;
     action->mapY1F0.readCount = userStateReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
     if (lowMode == 0) {
@@ -2200,9 +2199,9 @@ void Sub_4ACDF0(YobiAction* const action)
     if (complete) {
         const std::int32_t phase = action->phase;
         const std::int32_t userState =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            action->mapY1F0.Read_401EC0();
         const std::int32_t value14 =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            action->mapX1E0.Read_401EC0();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
         static_cast<void>(MarkDeath(action));
@@ -2248,22 +2247,22 @@ YobiAction* Sub_4ACE80(
     payload->id = static_cast<std::uint16_t>(kind);
     action->phase = phase;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
+    temporary.ConstructFromInt_401CC0(value14);
     const std::uint32_t value14Encoded = temporary.encoded;
     const std::uint32_t value14Mask = temporary.mask;
     const std::uint8_t value14ReadCount = temporary.readCount;
     action->mapX1E0.encoded = value14Encoded;
     action->mapX1E0.mask = value14Mask;
     action->mapX1E0.readCount = value14ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(userState);
     const std::uint8_t userStateReadCount = temporary.readCount;
     const std::uint32_t userStateEncoded = temporary.encoded;
     const std::uint32_t userStateMask = temporary.mask;
     action->mapY1F0.readCount = userStateReadCount;
     action->mapY1F0.encoded = userStateEncoded;
     action->mapY1F0.mask = userStateMask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
     if (lowMode == 0) {
@@ -2313,14 +2312,14 @@ YobiAction* Sub_43F330(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint8_t readCount = temporary.readCount;
         target.mask = mask;
         target.encoded = encoded;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -2334,14 +2333,14 @@ YobiAction* Sub_43F330(
     action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
 
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value170);
+    temporary.ConstructFromInt_401CC0(value170);
     const std::uint8_t readCount = temporary.readCount;
     const std::uint32_t mask = temporary.mask;
     const std::uint32_t encoded = temporary.encoded;
     action->readiness.readCount = readCount;
     action->readiness.mask = mask;
     action->readiness.encoded = encoded;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     action->phase = 1;
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -2374,14 +2373,14 @@ YobiAction* Sub_43FEB0(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
         target.readCount = readCount;
         target.mask = mask;
         target.encoded = encoded;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -3005,9 +3004,9 @@ std::int32_t Sub_440920(
         const std::int32_t value170 = values[1];
         const std::int32_t direction = source->direction;
         const std::int32_t sourceY =
-            platform::legacy_crypt_int::Read_401EC0(&source->mapY1F0);
+            source->mapY1F0.Read_401EC0();
         const std::int32_t sourceX =
-            platform::legacy_crypt_int::Read_401EC0(&source->mapX1E0);
+            source->mapX1E0.Read_401EC0();
         YobiAction* const observer = Sub_43F330(
             source->imageNo, sourceX, sourceY, direction, value170);
         Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
@@ -3055,14 +3054,14 @@ YobiAction* Sub_441DB0(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         target.readCount = readCount;
         target.encoded = encoded;
         target.mask = mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -3109,14 +3108,14 @@ YobiAction* Sub_448040(
     platform::LegacyCryptInt temporary;
     const auto assignCoordinate = [&temporary](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         target.readCount = readCount;
         target.encoded = encoded;
         target.mask = mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -3323,10 +3322,10 @@ YobiAction* Sub_444260(
     action->direction = direction;
     action->displayPriority = displayPriority;
     action->flags = 0x20u;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    (action->mapX200 = static_cast<std::int32_t>(mapX));
+    (action->mapY210 = static_cast<std::int32_t>(mapY));
+    (action->mapX1E0 = static_cast<std::int32_t>(mapX));
+    (action->mapY1F0 = static_cast<std::int32_t>(mapY));
     const double scaledX = static_cast<double>(mapX) * 64.0F;
     action->field27C = 0;
     action->field280 = 0;
@@ -3351,10 +3350,8 @@ void Sub_4469C0(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
-        || platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
     auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
@@ -3365,8 +3362,8 @@ void Sub_4469C0(YobiAction* const action)
     do {
         const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(direction);
         const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(direction);
-        candidateX = platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, deltaX);
-        candidateY = platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, deltaY);
+        candidateX = (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
+        candidateY = (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
         if ((candidateX != payload->mapX08 || candidateY != payload->mapY0C)
             && world::detail::Sub_469810(candidateX, candidateY) == 0) {
             break;
@@ -3396,8 +3393,8 @@ void Sub_4469C0(YobiAction* const action)
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = candidateX;
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = candidateY;
     ++action->field270;
-    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
-    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+    payload->mapX08 = action->mapX1E0.Read_401EC0();
+    payload->mapY0C = action->mapY1F0.Read_401EC0();
 }
 
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
@@ -3407,31 +3404,29 @@ void Sub_446B50(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
-        || platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
     const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(payload->value02);
     const std::int32_t x =
-        platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, deltaX);
+        (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
     const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(payload->value02);
     const std::int32_t y =
-        platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, deltaY);
+        (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
-    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+    payload->mapX08 = action->mapX1E0.Read_401EC0();
+    payload->mapY0C = action->mapY1F0.Read_401EC0();
 }
 
 // 两次差值都保留读计数/RNG副作用；第二次结果按首次符号取负，不可换成abs。
 std::int32_t TransitionDistance(
     platform::LegacyCryptInt* const lhs, platform::LegacyCryptInt* const rhs)
 {
-    const std::int32_t sign = platform::legacy_crypt_int::Difference_401E70(lhs, rhs);
-    const std::int32_t value = platform::legacy_crypt_int::Difference_401E70(lhs, rhs);
+    const std::int32_t sign = ((*lhs) - (*rhs));
+    const std::int32_t value = ((*lhs) - (*rhs));
     return sign < 0 ? -value : value;
 }
 
@@ -3444,39 +3439,33 @@ void Sub_446C10(YobiAction* const action)
     if (std::bit_cast<std::int16_t>(action->field270) > 0) {
         return;
     }
-    if (platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
-        || platform::legacy_crypt_int::NotEqual_401D20(
-            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+    if ((world::detail::gPlayerX != world::detail::gValue9EE8D0)
+        || (world::detail::gPlayerY != world::detail::gValue9EE8E0)) {
         return;
     }
     if (TransitionDistance(&world::detail::gPlayerX, &action->mapX1E0) <= 1
         && TransitionDistance(&world::detail::gPlayerY, &action->mapY1F0) <= 1) {
         return;
     }
-    if (platform::legacy_crypt_int::Difference_401E70(
-            &world::detail::gPlayerX, &action->mapX1E0) > 0) {
+    if ((world::detail::gPlayerX - action->mapX1E0) > 0) {
         stepX = 1;
-    } else if (platform::legacy_crypt_int::Difference_401E70(
-                   &world::detail::gPlayerX, &action->mapX1E0) < 0) {
+    } else if ((world::detail::gPlayerX - action->mapX1E0) < 0) {
         stepX = -1;
     }
-    if (platform::legacy_crypt_int::Difference_401E70(
-            &world::detail::gPlayerY, &action->mapY1F0) > 0) {
+    if ((world::detail::gPlayerY - action->mapY1F0) > 0) {
         stepY = 1;
-    } else if (platform::legacy_crypt_int::Difference_401E70(
-                   &world::detail::gPlayerY, &action->mapY1F0) < 0) {
+    } else if ((world::detail::gPlayerY - action->mapY1F0) < 0) {
         stepY = -1;
     }
     const std::int32_t x =
-        platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, stepX);
+        (action->mapX1E0 + static_cast<std::int32_t>(stepX));
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
     const std::int32_t y =
-        platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, stepY);
+        (action->mapY1F0 + static_cast<std::int32_t>(stepY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
-    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+    payload->mapX08 = action->mapX1E0.Read_401EC0();
+    payload->mapY0C = action->mapY1F0.Read_401EC0();
 }
 
 // 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
@@ -3699,9 +3688,9 @@ std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7200u < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                action->mapY1F0.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                action->mapX1E0.Read_401EC0();
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 1u;
         }
@@ -3713,9 +3702,9 @@ std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                action->mapY1F0.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                action->mapX1E0.Read_401EC0();
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 2u;
         }
@@ -3748,9 +3737,9 @@ std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                action->mapY1F0.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                action->mapX1E0.Read_401EC0();
             payload->slots18.attachments.action18 =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
@@ -3760,9 +3749,9 @@ std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 + 500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                action->mapY1F0.Read_401EC0();
             const std::int32_t x =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                action->mapX1E0.Read_401EC0();
             payload->slots18.attachments.action1C =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
@@ -4051,13 +4040,13 @@ YobiAction* PublishPlayerActionIdentity(
 void CopyYobiPlayerHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
-    platform::legacy_crypt_int::CopyPayload(&action->readiness, source);
+    action->readiness.CopyPayload(source);
 }
 
 void CopyYobiPlayerMaxHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
-    platform::legacy_crypt_int::CopyPayload(&action->maxHp, source);
+    action->maxHp.CopyPayload(source);
 }
 
 void CopyInitialPlayerActionIdentity(
@@ -4078,9 +4067,9 @@ void CopyInitialPlayerActionIdentity(
     }
     action->field1D0 = *level;
     action = world::detail::ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->readiness, hp);
+    action->readiness.CopyPayload(hp);
     action = world::detail::ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->maxHp, maxHp);
+    action->maxHp.CopyPayload(maxHp);
 }
 
 void UpdateMapActorMode(
@@ -4113,8 +4102,8 @@ void ReadMapActorTarget(
     YobiAction* const action, YobiAction*& slot,
     std::int32_t* const x, std::int32_t* const y)
 {
-    *x = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
-    *y = platform::legacy_crypt_int::Read_401EC0(&slot->mapY210);
+    *x = action->mapX200.Read_401EC0();
+    *y = slot->mapY210.Read_401EC0();
 }
 
 void ReadMapActorTarget(
@@ -4135,13 +4124,13 @@ bool IsMapActorIdleAtTarget(YobiAction* const action)
         return false;
     }
     const double x = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+        action->mapX200.Read_401EC0()) * 64.0F;
     const float worldX = action->worldX;
     if (x < worldX || x > worldX) {
         return false;
     }
     const double y = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+        action->mapY210.Read_401EC0()) * 64.0F;
     const float worldY = action->worldY;
     return !(y < worldY || y > worldY);
 }
@@ -4150,13 +4139,11 @@ bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
 {
     YobiAction* const currentSignX = current;
     YobiAction* const previousSignX = previous;
-    const std::int32_t signX = platform::legacy_crypt_int::Difference_401E70(
-        &previousSignX->mapX200, &currentSignX->mapX200);
+    const std::int32_t signX = (previousSignX->mapX200 - currentSignX->mapX200);
     const bool negativeX = signX < 0;
     YobiAction* const currentMagnitudeX = current;
     YobiAction* const previousMagnitudeX = previous;
-    std::int32_t distanceX = platform::legacy_crypt_int::Difference_401E70(
-        &previousMagnitudeX->mapX200, &currentMagnitudeX->mapX200);
+    std::int32_t distanceX = (previousMagnitudeX->mapX200 - currentMagnitudeX->mapX200);
     if (negativeX) {
         distanceX = -distanceX;
     }
@@ -4165,13 +4152,11 @@ bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
     }
     YobiAction* const currentSignY = current;
     YobiAction* const previousSignY = previous;
-    const std::int32_t signY = platform::legacy_crypt_int::Difference_401E70(
-        &previousSignY->mapY210, &currentSignY->mapY210);
+    const std::int32_t signY = (previousSignY->mapY210 - currentSignY->mapY210);
     const bool negativeY = signY < 0;
     YobiAction* const currentMagnitudeY = current;
     YobiAction* const previousMagnitudeY = previous;
-    std::int32_t distanceY = platform::legacy_crypt_int::Difference_401E70(
-        &previousMagnitudeY->mapY210, &currentMagnitudeY->mapY210);
+    std::int32_t distanceY = (previousMagnitudeY->mapY210 - currentMagnitudeY->mapY210);
     if (negativeY) {
         distanceY = -distanceY;
     }
@@ -4216,10 +4201,8 @@ void ApplyPlayerAppearanceReply(
         std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
         bool hasPet = payload->action34 != nullptr;
         if (!hasPet) {
-            const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
-                &world::detail::ReadPlayerAction()->mapY1F0);
-            const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
-                &world::detail::ReadPlayerAction()->mapX1E0);
+            const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.Read_401EC0();
+            const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.Read_401EC0();
             YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
             hasPet = pet != nullptr;
             payload->action34 = pet;
@@ -4234,10 +4217,8 @@ void ApplyPlayerAppearanceReply(
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;
             if (!hasSecondPet) {
-                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
-                    &world::detail::ReadPlayerAction()->mapY1F0);
-                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
-                    &world::detail::ReadPlayerAction()->mapX1E0);
+                const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.Read_401EC0();
+                const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.Read_401EC0();
                 YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
                 payload->action38 = pet;
@@ -4374,14 +4355,14 @@ void Sub_442AB0(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint8_t readCount = temporary.readCount;
         target.mask = mask;
         target.encoded = encoded;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX1E0, targetX);
     assignCoordinate(action->mapY1F0, targetY);
@@ -4433,8 +4414,8 @@ void Sub_441FC0(
         startX = action->pathX220[last];
         startY = action->pathY248[last];
     } else {
-        startX = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
-        startY = platform::legacy_crypt_int::Read_401EC0(&action->mapY210);
+        startX = action->mapX200.Read_401EC0();
+        startY = action->mapY210.Read_401EC0();
     }
     const std::int32_t differenceX = targetX - startX;
     const std::int32_t differenceY = targetY - startY;
@@ -4507,14 +4488,14 @@ double Sub_442110(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         const std::uint8_t readCount = temporary.readCount;
         target.encoded = encoded;
         target.mask = mask;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, targetX);
     assignCoordinate(action->mapY210, targetY);
@@ -4551,22 +4532,22 @@ void Sub_4422F0(
         static_cast<float>(rate * direction.y * 4.0F * percent));
 
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
+    temporary.ConstructFromInt_401CC0(targetX);
     const std::uint32_t maskX = temporary.mask;
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint8_t readCountX = temporary.readCount;
     action->mapX200.mask = maskX;
     action->mapX200.encoded = encodedX;
     action->mapX200.readCount = readCountX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetY);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(targetY);
     const std::uint32_t maskY = temporary.mask;
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint8_t readCountY = temporary.readCount;
     action->mapY210.mask = maskY;
     action->mapY210.encoded = encodedY;
     action->mapY210.readCount = readCountY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     if (direction.x < 0.0F || direction.x > 0.0F
         || direction.y < 0.0F || direction.y > 0.0F) {
         action->direction = static_cast<std::int32_t>(
@@ -4603,8 +4584,8 @@ void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t 
     }
     auto& record = world::detail::gWorldObjects[static_cast<std::size_t>(index)];
     if (record.value34 != -1
-        && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, record.value38)
-        && platform::legacy_crypt_int::Equal_401D00(&action->mapY1F0, record.value3C)) {
+        && (action->mapX1E0 == static_cast<std::int32_t>(record.value38))
+        && (action->mapY1F0 == static_cast<std::int32_t>(record.value3C))) {
         action->direction = record.value34;
         record.value34 = -1;
         record.value38 = 0;
@@ -4966,9 +4947,9 @@ std::int32_t Sub_43DD00(
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
-                            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                            action->mapY1F0.Read_401EC0();
                         const std::int32_t x =
-                            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                            action->mapX1E0.Read_401EC0();
                         payload->action34 = NewYobiGearPet_441130(imageNo, x, y);
                         payload->kind3C = kind;
                     } else if (index == 1) {
@@ -4978,9 +4959,9 @@ std::int32_t Sub_43DD00(
                             payload->action34 = nullptr;
                         }
                         const std::int32_t y =
-                            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                            action->mapY1F0.Read_401EC0();
                         const std::int32_t x =
-                            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                            action->mapX1E0.Read_401EC0();
                         payload->action38 = NewYobiGearPet_441130(imageNo, x, y);
                         payload->kind40 = kind;
                     }
@@ -5053,8 +5034,8 @@ std::int32_t Sub_43DD00(
         if (action == nullptr) {
             return field;
         }
-        std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
-        std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        std::int32_t x = action->mapX1E0.Read_401EC0();
+        std::int32_t y = action->mapY1F0.Read_401EC0();
         if (payload == nullptr) {
             return field;
         }
@@ -5248,26 +5229,26 @@ void Sub_4417E0(YobiAction* const action)
     } else if ((action->flags & 0x400u) != 0) {
         if (world::detail::ReadPlayerAction() != action) {
             const std::int32_t lowerX =
-                platform::legacy_crypt_int::Subtract_401E60(&world::detail::gPlayerX, 16);
-            bool outside = platform::legacy_crypt_int::Less_401DB0(&action->mapX1E0, lowerX);
+                (world::detail::gPlayerX - 16);
+            bool outside = (action->mapX1E0 < static_cast<std::int32_t>(lowerX));
             if (!outside) {
                 const std::int32_t upperX =
-                    platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerX, 16);
+                    (world::detail::gPlayerX + 16);
                 outside = static_cast<std::uint8_t>(
-                    platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
-                        upperX, &action->mapX1E0)) != 0;
+                    action->mapX1E0.IntLessCryptRaw_401FA0(
+                        upperX)) != 0;
             }
             if (!outside) {
                 const std::int32_t lowerY =
-                    platform::legacy_crypt_int::Subtract_401E60(&world::detail::gPlayerY, 16);
-                outside = platform::legacy_crypt_int::Less_401DB0(&action->mapY1F0, lowerY);
+                    (world::detail::gPlayerY - 16);
+                outside = (action->mapY1F0 < static_cast<std::int32_t>(lowerY));
             }
             if (!outside) {
                 const std::int32_t upperY =
-                    platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerY, 16);
+                    (world::detail::gPlayerY + 16);
                 outside = static_cast<std::uint8_t>(
-                    platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
-                        upperY, &action->mapY1F0)) != 0;
+                    action->mapY1F0.IntLessCryptRaw_401FA0(
+                        upperY)) != 0;
             }
             if (outside) {
                 world::detail::Sub_4462E0(world::detail::gWorldObjects[
@@ -5275,8 +5256,8 @@ void Sub_4417E0(YobiAction* const action)
                 return;
             }
         }
-        const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
-        const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t mapY = action->mapY1F0.Read_401EC0();
+        const std::int32_t mapX = action->mapX1E0.Read_401EC0();
         const std::int32_t firstGraphicIndex = action->graphicIndex;
         if (world::detail::Sub_446900(firstGraphicIndex, mapX, mapY) == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -5382,9 +5363,9 @@ void Sub_4424B0(YobiAction* const action)
         return;
     }
     const float firstTargetX = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+        action->mapX200.Read_401EC0()) * 64.0F);
     const double firstTargetY = static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+        action->mapY210.Read_401EC0()) * 64.0F;
     const float firstWorldX = action->worldX;
     // 原 FCOMP/C3；Y在首轮不落F32，只有X比较通过才读取世界Y。
     if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
@@ -5392,9 +5373,9 @@ void Sub_4424B0(YobiAction* const action)
         if (!(firstTargetY < firstWorldY || firstTargetY > firstWorldY)
             && std::bit_cast<std::int16_t>(action->field270) > 0) {
             const std::int32_t previousX =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                action->mapX1E0.Read_401EC0();
             const std::int32_t previousY =
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                action->mapY1F0.Read_401EC0();
             const std::int32_t nextY = action->pathY248[0];
             const std::int32_t nextX = action->pathX220[0];
             const std::int32_t speed = action->walkSpeed;
@@ -5412,9 +5393,9 @@ void Sub_4424B0(YobiAction* const action)
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+        action->mapX200.Read_401EC0()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+        action->mapY210.Read_401EC0()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5452,28 +5433,28 @@ void Sub_4424B0(YobiAction* const action)
         Sub_43EFC0(action, 1, 0);
     }
 
-    // 此入口先写count，不使用encoded优先的通用AssignFromInt。
+    // 此入口先写count，不使用encoded优先的通用operator=(int32_t)。
     platform::LegacyCryptInt temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint8_t readCountX = temporary.readCount;
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint32_t maskX = temporary.mask;
     action->mapX1E0.readCount = readCountX;
     action->mapX1E0.encoded = encodedX;
     action->mapX1E0.mask = maskX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint8_t readCountY = temporary.readCount;
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint32_t maskY = temporary.mask;
     action->mapY1F0.readCount = readCountY;
     action->mapY1F0.encoded = encodedY;
     action->mapY1F0.mask = maskY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 }
 
 // 原函数：0x00442730。
@@ -5483,9 +5464,9 @@ void Sub_442730(YobiAction* const action)
         return;
     }
     const float targetX = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+        action->mapX200.Read_401EC0()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+        action->mapY210.Read_401EC0()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5526,24 +5507,24 @@ void Sub_442730(YobiAction* const action)
     platform::LegacyCryptInt temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint8_t readCountX = temporary.readCount;
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint32_t maskX = temporary.mask;
     action->mapX1E0.readCount = readCountX;
     action->mapX1E0.encoded = encodedX;
     action->mapX1E0.mask = maskX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint8_t readCountY = temporary.readCount;
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint32_t maskY = temporary.mask;
     action->mapY1F0.readCount = readCountY;
     action->mapY1F0.encoded = encodedY;
     action->mapY1F0.mask = maskY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 }
 
 // 原函数：0x004428F0。
@@ -5553,9 +5534,9 @@ void Sub_4428F0(YobiAction* const action)
         return;
     }
     const float targetX = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+        action->mapX200.Read_401EC0()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+        action->mapY210.Read_401EC0()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5600,24 +5581,24 @@ void Sub_4428F0(YobiAction* const action)
     platform::LegacyCryptInt temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint32_t maskX = temporary.mask;
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint8_t readCountX = temporary.readCount;
     action->mapX1E0.mask = maskX;
     action->mapX1E0.encoded = encodedX;
     action->mapX1E0.readCount = readCountX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint32_t maskY = temporary.mask;
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint8_t readCountY = temporary.readCount;
     action->mapY1F0.mask = maskY;
     action->mapY1F0.encoded = encodedY;
     action->mapY1F0.readCount = readCountY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 }
 
 // WLR01：玩家519D50、单项删除4462E0与整表4464D0共用八槽/text清理；正确正文保持。
@@ -5663,39 +5644,39 @@ YobiAction* Sub_46DE50(
     action->displayPriority = 10;
     action->flags = 0x30;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint32_t mapX200Encoded = temporary.encoded;
     const std::uint32_t mapX200Mask = temporary.mask;
     const std::uint8_t mapX200ReadCount = temporary.readCount;
     action->mapX200.encoded = mapX200Encoded;
     action->mapX200.mask = mapX200Mask;
     action->mapX200.readCount = mapX200ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint32_t mapY210Encoded = temporary.encoded;
     const std::uint32_t mapY210Mask = temporary.mask;
     const std::uint8_t mapY210ReadCount = temporary.readCount;
     action->mapY210.encoded = mapY210Encoded;
     action->mapY210.mask = mapY210Mask;
     action->mapY210.readCount = mapY210ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     action->field270 = 0;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint32_t mapX1E0Encoded = temporary.encoded;
     const std::uint32_t mapX1E0Mask = temporary.mask;
     const std::uint8_t mapX1E0ReadCount = temporary.readCount;
     action->mapX1E0.encoded = mapX1E0Encoded;
     action->mapX1E0.mask = mapX1E0Mask;
     action->mapX1E0.readCount = mapX1E0ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint32_t mapY1F0Encoded = temporary.encoded;
     const std::uint32_t mapY1F0Mask = temporary.mask;
     const std::uint8_t mapY1F0ReadCount = temporary.readCount;
     action->mapY1F0.encoded = mapY1F0Encoded;
     action->mapY1F0.mask = mapY1F0Mask;
     action->mapY1F0.readCount = mapY1F0ReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     const double scaledX = static_cast<double>(mapX) * 64.0f;
     action->field27C = 0;
     action->field280 = 0;
@@ -5726,9 +5707,9 @@ void Sub_46DD90(YobiAction* const action)
     action->x = static_cast<std::int32_t>(x);
     action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
     const auto worldX = static_cast<float>(
-        platform::legacy_crypt_int::Multiply_401E90(&action->mapX1E0, 64));
+        (action->mapX1E0 * 64));
     const auto worldY = static_cast<float>(
-        platform::legacy_crypt_int::Multiply_401E90(&action->mapY1F0, 64));
+        (action->mapY1F0 * 64));
     static_cast<void>(Sub_517880(action, 100, 0, 0));
     const std::int32_t offsetY = action->mapOffsetY;
     const std::int32_t offsetX = action->mapOffsetX;
@@ -5923,14 +5904,14 @@ YobiAction* Sub_444000(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         const std::uint8_t readCount = temporary.readCount;
         target.encoded = encoded;
         target.mask = mask;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -6114,10 +6095,10 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 | ((state & 0x40u) != 0 ? 0x20u : 0u));
             for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeF633F8) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
-                    platform::legacy_crypt_int::CopyPayload(&action->readiness, &pet.values0C[0]);
-                    platform::legacy_crypt_int::CopyPayload(&action->maxHp, &pet.values0C[1]);
-                    platform::legacy_crypt_int::CopyPayload(&action->barValue1B0, &pet.values0C[2]);
-                    platform::legacy_crypt_int::CopyPayload(&action->barMaximum1C0, &pet.values0C[3]);
+                    action->readiness.CopyPayload(&pet.values0C[0]);
+                    action->maxHp.CopyPayload(&pet.values0C[1]);
+                    action->barValue1B0.CopyPayload(&pet.values0C[2]);
+                    action->barMaximum1C0.CopyPayload(&pet.values0C[3]);
                     drawBars = true;
                     break;
                 }
@@ -6153,8 +6134,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (createFirst) {
         const std::int32_t kind = action->field2E4;
         action->refresh2EC = 0;
-        const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
-        const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t mapY = action->mapY1F0.Read_401EC0();
+        const std::int32_t mapX = action->mapX1E0.Read_401EC0();
         const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
         payload->action04 = Sub_444000(imageNo, mapX, mapY, 0, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
@@ -6361,8 +6342,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             statusImage = 0x1824F;
         }
         if (payload->action4C == nullptr) {
-            const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
-            const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            const std::int32_t mapY = action->mapY1F0.Read_401EC0();
+            const std::int32_t mapX = action->mapX1E0.Read_401EC0();
             YobiAction* const child = Sub_444000(statusImage, mapX, mapY, 0, 0, 10);
             payload->action4C = child;
             child->rebirthValue1 = 4;
@@ -6384,8 +6365,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if ((state & 4u) != 0) {
         if (payload->action4C == nullptr) {
             if (payload->action0C == nullptr) {
-                const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
-                const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                const std::int32_t mapY = action->mapY1F0.Read_401EC0();
+                const std::int32_t mapX = action->mapX1E0.Read_401EC0();
                 payload->action0C = Sub_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
@@ -6411,8 +6392,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     if ((state & 1u) != 0 && statusMask == 0) {
         if (payload->action10 == nullptr) {
-            const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
-            const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            const std::int32_t mapY = action->mapY1F0.Read_401EC0();
+            const std::int32_t mapX = action->mapX1E0.Read_401EC0();
             YobiAction* const child = Sub_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
             payload->action10 = child;
             child->rebirthValue1 = 4;
@@ -6499,11 +6480,11 @@ std::int32_t ShowHpBar_43DB60(
     fields.sourceY = -1;
     fields.height = 2;
     render::GraphicDescriptor16 descriptor = ToGraphicDescriptor(fields);
-    if (platform::legacy_crypt_int::Read_401EC0(&action->maxHp) != 0) {
+    if (action->maxHp.Read_401EC0() != 0) {
         const std::int32_t numerator =
-            platform::legacy_crypt_int::Read_401EC0(&action->readiness) * 32;
+            action->readiness.Read_401EC0() * 32;
         const std::int32_t maximum =
-            platform::legacy_crypt_int::Read_401EC0(&action->maxHp);
+            action->maxHp.Read_401EC0();
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY - 2;
         const std::int32_t x = action->x + offsetX - 12;
@@ -6511,11 +6492,11 @@ std::int32_t ShowHpBar_43DB60(
         static_cast<void>(render::DrawGraphic3_520970(
             x, y, 0xCF, 0x3BDF0, 0, 1, 0, &descriptor));
     }
-    if (platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0) != 0) {
+    if (action->barMaximum1C0.Read_401EC0() != 0) {
         const std::int32_t numerator =
-            platform::legacy_crypt_int::Read_401EC0(&action->barValue1B0) * 32;
+            action->barValue1B0.Read_401EC0() * 32;
         const std::int32_t maximum =
-            platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0);
+            action->barMaximum1C0.Read_401EC0();
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY + 1;
         const std::int32_t x = action->x + offsetX - 12;
@@ -6682,7 +6663,7 @@ void* Sub_440F50()
     gMapImage5F9734 = imageNo;
     gMapDirection5F9740 = action->field58;
     gMapDuration5F9744 =
-        platform::legacy_crypt_int::Multiply_401E90(&action->readiness, 60);
+        (action->readiness * 60);
     for (std::size_t index = 0; index < payload->values.size(); ++index) {
         gMapValues5F9720[index] = 0;
         gMapImages5AC4A0[index] = 0;
@@ -6725,11 +6706,11 @@ YobiAction* NewYobiGearPet_441130(
     action->characterAction = 0;
     action->displayPriority = 10;
     action->flags = 0x34u;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    (action->mapX200 = static_cast<std::int32_t>(mapX));
+    (action->mapY210 = static_cast<std::int32_t>(mapY));
     action->field270 = 0;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    (action->mapX1E0 = static_cast<std::int32_t>(mapX));
+    (action->mapY1F0 = static_cast<std::int32_t>(mapY));
     const double scaledX = static_cast<double>(mapX) * 64.0F;
     action->field27C = 0;
     action->field280 = 0;
@@ -6821,7 +6802,7 @@ void MarkDeathUnchecked(YobiAction* const action)
 void UpdateBattleText_421750(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleTextPayload*>(action->payload);
-    if (!platform::legacy_crypt_int::Greater_401D40(&payload->panel00->readiness, 0)) {
+    if (!(payload->panel00->readiness > 0)) {
         return;
     }
     for (std::int32_t index = 0; index < payload->lineCount08; ++index) {
@@ -6928,11 +6909,11 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         action->callback = UpdateBattleSequence_420300;
         action->displayPriority = 0xCD;
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, index);
+        temporary.ConstructFromInt_401CC0(index);
         action->mapX1E0.mask = temporary.mask;
         action->mapX1E0.encoded = temporary.encoded;
         action->mapX1E0.readCount = temporary.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = angle;
@@ -6993,7 +6974,6 @@ void MoveBattleSequence_420590(YobiAction* const action)
 // 原函数：0x00420300。
 void UpdateBattleSequence_420300(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     switch (action->imageNo) {
     case 0: {
         const std::int32_t count = action->counter1DC;
@@ -7003,8 +6983,8 @@ void UpdateBattleSequence_420300(YobiAction* const action)
             action->field1D0 = delay - 1;
             return;
         }
-        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
-        if (Greater_401D40(&action->mapY1F0, 60)) {
+        static_cast<void>((++action->mapY1F0));
+        if ((action->mapY1F0 > 60)) {
             ++action->imageNo;
         }
         return;
@@ -7018,25 +6998,25 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         if (!(speed > 0.0)) {
             ++action->imageNo;
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, 0);
+            temporary.ConstructFromInt_401CC0(0);
             action->mapY1F0.mask = temporary.mask;
             action->mapY1F0.encoded = temporary.encoded;
             action->mapY1F0.readCount = temporary.readCount;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         return;
     }
     case 2:
         ++action->counter1DC;
-        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        static_cast<void>((++action->mapY1F0));
         if (action->flags != 0) {
-            if (Greater_401D40(&action->mapY1F0, 50)) {
+            if ((action->mapY1F0 > 50)) {
                 const std::int32_t next = action->imageNo + 1;
                 action->flags = 0;
                 action->imageNo = next;
                 action->value54 = 10.0F;
                 action->angle50 = 0.0F;
-                if (Equal_401D00(&action->mapX1E0, 9)) {
+                if ((action->mapX1E0 == 9)) {
                     static_cast<void>(audio::PlaySe_52C450(64, 320));
                 }
             }
@@ -7047,7 +7027,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     case 3: {
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
-        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        static_cast<void>((++action->mapY1F0));
         const double speed = static_cast<double>(action->value54) - 1.0;
         action->value54 = static_cast<float>(speed);
         if (!(speed > 0.0)) {
@@ -7059,7 +7039,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     }
     case 4: {
         ++action->counter1DC;
-        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        static_cast<void>((++action->mapY1F0));
         const double speed = static_cast<double>(action->value54) + 1.0;
         action->value54 = static_cast<float>(speed);
         if (speed >= 10.0) {
@@ -7070,7 +7050,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     }
     case 5:
         ++action->counter1DC;
-        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        static_cast<void>((++action->mapY1F0));
         if (action->counter1DC > 240) {
             static_cast<void>(MarkDeath(action));
         }
@@ -7372,7 +7352,6 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialPhase == 0) {
@@ -7415,12 +7394,12 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                 NewBattleRebirthEffects_4208F0(gBattleAllEntries59E980[payload->battlePosition18], target);
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = effect.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -7428,7 +7407,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
@@ -7460,13 +7439,13 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[index];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7539,7 +7518,6 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialPhase == 0) {
@@ -7582,12 +7560,12 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                 NewBattleRebirthEffects_4208F0(gBattleAllEntries59E980[payload->battlePosition18], target);
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = effect.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -7595,7 +7573,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
@@ -7627,13 +7605,13 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[index];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7707,7 +7685,6 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialPhase == 0) {
@@ -7753,12 +7730,12 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                     NewBattleRebirthEffects_4208F0(gBattleAllEntries59E980[payload->battlePosition18], target);
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (Less_401DB0(&compareTarget->readiness, 0)) {
+                    if ((compareTarget->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary.encoded;
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -7766,7 +7743,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         copyTarget->readiness.encoded = encoded;
                         copyTarget->readiness.mask = temporary.mask;
                         copyTarget->readiness.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
                         targetPayload->flagsFDC |= 2u;
@@ -7798,13 +7775,13 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                     } else {
                         const BattleEntryEffectRecord& effect = payload->effects1C[index];
                         const std::int32_t amount = effect.position3;
-                        AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                        (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                         }
                         const std::int32_t displayIndex = payload->effectRunningC9C;
                         const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7913,7 +7890,6 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialPhase == 0) {
@@ -7970,12 +7946,12 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 const BattleEntryEffectRecord& effect = payload->effects1C[resolvedIndex];
                 const std::int32_t amount = effect.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -7983,7 +7959,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
@@ -8013,13 +7989,13 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[index];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -8164,7 +8140,6 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialPhase == 0) {
@@ -8219,12 +8194,12 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 const BattleEntryEffectRecord& effect = payload->effects1C[resolvedIndex];
                 const std::int32_t amount = effect.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -8232,7 +8207,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
@@ -8262,13 +8237,13 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[index];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -9154,7 +9129,6 @@ std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
 // 原函数：0x0041E920。
 void UpdateBattleTiledEffect_41E920(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     const std::int32_t reverse = action->value1D4;
     const std::int32_t initialPhase = action->field58;
     if (reverse == 0) {
@@ -9179,10 +9153,10 @@ void UpdateBattleTiledEffect_41E920(YobiAction* const action)
         }
     }
     auto* const count = &action->readiness;
-    if (GreaterEqualCrypt_401D80(count, &action->maxHp)) {
+    if (((*count) >= action->maxHp)) {
         static_cast<void>(MarkDeath(action));
     }
-    static_cast<void>(Increment_401DE0(count, 0));
+    static_cast<void>((++(*count)));
 }
 
 // 原函数：0x0041E9D0。
@@ -9202,8 +9176,8 @@ YobiAction* NewBattleTiledEffect_41E9D0(const std::int32_t type, const std::int3
     action->imageNo = 0;
     action->direction = 0;
     action->phase = type;
-    platform::legacy_crypt_int::AssignFromInt(&action->maxHp, lifetime);
-    platform::legacy_crypt_int::AssignFromInt(&action->readiness, 0);
+    (action->maxHp = static_cast<std::int32_t>(lifetime));
+    (action->readiness = 0);
     action->value1D4 = 0;
     action->field58 = 0;
     return action;
@@ -10388,15 +10362,14 @@ std::int32_t NewBattleNumber_41F1A0(
         action->callback = UpdateBattleNumber_41F110;
         action->displayPriority = 0xCF;
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(
-            &temporary, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
+        temporary.ConstructFromInt_401CC0(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         const std::uint8_t characterReadCount = temporary.readCount;
         const std::uint32_t characterEncoded = temporary.encoded;
         const std::uint32_t characterMask = temporary.mask;
         action->mapX1E0.readCount = characterReadCount;
         action->mapX1E0.encoded = characterEncoded;
         action->mapX1E0.mask = characterMask;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
@@ -10472,15 +10445,14 @@ std::int32_t NewBattleTimeNumber_4206C0(
         action->callback = UpdateBattleNumber_41F110;
         action->displayPriority = 0xCF;
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(
-            &temporary, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
+        temporary.ConstructFromInt_401CC0(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         const std::uint32_t characterEncoded = temporary.encoded;
         const std::uint32_t characterMask = temporary.mask;
         const std::uint8_t characterReadCount = temporary.readCount;
         action->mapX1E0.encoded = characterEncoded;
         action->mapX1E0.mask = characterMask;
         action->mapX1E0.readCount = characterReadCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
@@ -14860,7 +14832,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMDataHeader kind)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     switch (kind) {
     case BattleMDataHeader::Action: {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -14878,12 +14849,12 @@ namespace {
         gBattleMCasterPosition5AAA64 = position;
         if (actorPresent) {
             const std::int32_t amount = TakeBattleMInteger_438F70(scene);
-            SubtractAssign_401E40(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, amount);
-            if (Less_401DB0(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, 0)) {
+            (gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 -= static_cast<std::int32_t>(amount));
+            if ((gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 < 0)) {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, 0);
-                CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(0);
+                gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
         }
         FinishBattleEvent_43B6C0(scene);
@@ -14941,30 +14912,30 @@ namespace {
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
-            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->readiness, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(value);
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->readiness.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
-            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->maxHp, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(value);
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->maxHp.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
-            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(value);
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
-            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barMaximum1C0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(value);
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barMaximum1C0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         const std::int32_t riderValue = TakeBattleMInteger_438F70(scene);
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -15414,7 +15385,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
     const std::int32_t subState = payload->packetSubState58;
     if (subState == 1) {
@@ -15502,27 +15472,27 @@ namespace {
         defender->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&defender->readiness, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            defender->readiness.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&defender->maxHp, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            defender->maxHp.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&defender->barValue1B0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            defender->barValue1B0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&defender->barMaximum1C0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            defender->barMaximum1C0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         defenderPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         defenderPayload->stateFE0 = 0;
@@ -15952,7 +15922,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState != 1) {
@@ -15977,7 +15946,7 @@ namespace {
     const std::int32_t mode = TakeBattleMInteger_438F70(scene);
     if (mode == 0) {
         YobiAction** const slot = &gBattleAllEntries59E980[position];
-        const std::int32_t palette = Read_401EC0(&(*slot)->mapX1E0);
+        const std::int32_t palette = ((*slot)->mapX1E0).Read_401EC0();
         AppendBattleEffectList_4393A0(*slot, palette, 0, 40);
         AppendBattleCast_4392A0(scene, *slot, 174);
         AppendBattleCast_4392A0(scene, *slot, 176);
@@ -16026,27 +15995,27 @@ namespace {
     created->field1D0 = TakeBattleMInteger_438F70(scene);
     {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-        CopyPayload(&created->readiness, &temporary);
-        Destroy_401CF0(&temporary);
+        temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+        created->readiness.CopyPayload(&temporary);
+        temporary.Destroy_401CF0();
     }
     {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-        CopyPayload(&created->maxHp, &temporary);
-        Destroy_401CF0(&temporary);
+        temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+        created->maxHp.CopyPayload(&temporary);
+        temporary.Destroy_401CF0();
     }
     {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-        CopyPayload(&created->barValue1B0, &temporary);
-        Destroy_401CF0(&temporary);
+        temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+        created->barValue1B0.CopyPayload(&temporary);
+        temporary.Destroy_401CF0();
     }
     {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-        CopyPayload(&created->barMaximum1C0, &temporary);
-        Destroy_401CF0(&temporary);
+        temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+        created->barMaximum1C0.CopyPayload(&temporary);
+        temporary.Destroy_401CF0();
     }
     actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
     actorPayload->stateFE0 = 0;
@@ -16068,9 +16037,9 @@ namespace {
     created->rebirthValue2 = 4;
     {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, render::gActivePalette);
-        CopyPayload(&created->mapX1E0, &temporary);
-        Destroy_401CF0(&temporary);
+        temporary.ConstructFromInt_401CC0(render::gActivePalette);
+        created->mapX1E0.CopyPayload(&temporary);
+        temporary.Destroy_401CF0();
     }
     static_cast<void>(PlayFrame_517DA0(*slot, 0));
     static_cast<void>(NewBattleText_4217F0(4, created->nameC4.data(), 0, 100));
@@ -16179,7 +16148,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
@@ -16215,27 +16183,27 @@ namespace {
             carrierAction->field1D0 = TakeBattleMInteger_438F70(scene);
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&carrierAction->readiness, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                carrierAction->readiness.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&carrierAction->maxHp, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                carrierAction->maxHp.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&carrierAction->barValue1B0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                carrierAction->barValue1B0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&carrierAction->barMaximum1C0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                carrierAction->barMaximum1C0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             carrier->flags08 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             carrierAction->offset40 = static_cast<float>(
@@ -16290,27 +16258,27 @@ namespace {
         first->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&first->readiness, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            first->readiness.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&first->maxHp, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            first->maxHp.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&first->barValue1B0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            first->barValue1B0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&first->barMaximum1C0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            first->barMaximum1C0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         firstPayload->stateFE0 = 0;
@@ -16348,10 +16316,10 @@ namespace {
         carrier->first00 = first;
         std::strcpy(existingPayload->rider13C8->nameC4.data(), first->nameC4.data());
         existingPayload->rider13C8->field1D0 = first->field1D0;
-        CopyPayload(&existingPayload->rider13C8->readiness, &first->readiness);
-        CopyPayload(&existingPayload->rider13C8->maxHp, &first->maxHp);
-        CopyPayload(&existingPayload->rider13C8->barValue1B0, &first->barValue1B0);
-        CopyPayload(&existingPayload->rider13C8->barMaximum1C0, &first->barMaximum1C0);
+        existingPayload->rider13C8->readiness.CopyPayload(&first->readiness);
+        existingPayload->rider13C8->maxHp.CopyPayload(&first->maxHp);
+        existingPayload->rider13C8->barValue1B0.CopyPayload(&first->barValue1B0);
+        existingPayload->rider13C8->barMaximum1C0.CopyPayload(&first->barMaximum1C0);
         const std::int32_t casterPositionX = gBattleMCasterPosition5AAA64;
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction* const sourceX = gBattleAllEntries59E980[casterPositionX];
@@ -16368,27 +16336,27 @@ namespace {
         second->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&second->readiness, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            second->readiness.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&second->maxHp, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            second->maxHp.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&second->barValue1B0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            second->barValue1B0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&second->barMaximum1C0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            second->barMaximum1C0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         secondPayload->stateFE0 = 0;
@@ -17315,7 +17283,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = casterPosition;
@@ -17353,27 +17320,27 @@ namespace {
         created->field1D0 = TakeBattleMInteger_438F70(scene);
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&created->readiness, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            created->readiness.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&created->maxHp, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            created->maxHp.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&created->barValue1B0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            created->barValue1B0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-            CopyPayload(&created->barMaximum1C0, &temporary);
-            Destroy_401CF0(&temporary);
+            temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+            created->barMaximum1C0.CopyPayload(&temporary);
+            temporary.Destroy_401CF0();
         }
         actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         actorPayload->stateFE0 = 0;
@@ -19176,7 +19143,6 @@ namespace {
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
     const std::int32_t parsedCasterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     gBattleMCasterPosition5AAA64 = parsedCasterPosition;
@@ -19366,27 +19332,27 @@ namespace {
             first->field1D0 = TakeBattleMInteger_438F70(scene);
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&first->readiness, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                first->readiness.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&first->maxHp, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                first->maxHp.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&first->barValue1B0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                first->barValue1B0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&first->barMaximum1C0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                first->barMaximum1C0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             firstPayload->stateFE0 = 0;
@@ -19421,10 +19387,10 @@ namespace {
             YobiAction* const fieldRider = casterPayload->rider13C8;
             const std::int32_t riderField1D0 = first->field1D0;
             fieldRider->field1D0 = riderField1D0;
-            CopyPayload(&casterPayload->rider13C8->readiness, &first->readiness);
-            CopyPayload(&casterPayload->rider13C8->maxHp, &first->maxHp);
-            CopyPayload(&casterPayload->rider13C8->barValue1B0, &first->barValue1B0);
-            CopyPayload(&casterPayload->rider13C8->barMaximum1C0, &first->barMaximum1C0);
+            casterPayload->rider13C8->readiness.CopyPayload(&first->readiness);
+            casterPayload->rider13C8->maxHp.CopyPayload(&first->maxHp);
+            casterPayload->rider13C8->barValue1B0.CopyPayload(&first->barValue1B0);
+            casterPayload->rider13C8->barMaximum1C0.CopyPayload(&first->barMaximum1C0);
             const std::int32_t riderXSourcePosition = gBattleMCasterPosition5AAA64;
             YobiAction* const riderX = casterPayload->rider13C8;
             YobiAction* const sourceX = gBattleAllEntries59E980[riderXSourcePosition];
@@ -19439,27 +19405,27 @@ namespace {
             second->field1D0 = TakeBattleMInteger_438F70(scene);
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&second->readiness, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                second->readiness.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&second->maxHp, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                second->maxHp.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&second->barValue1B0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                second->barValue1B0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
-                CopyPayload(&second->barMaximum1C0, &temporary);
-                Destroy_401CF0(&temporary);
+                temporary.ConstructFromInt_401CC0(TakeBattleMInteger_438F70(scene));
+                second->barMaximum1C0.CopyPayload(&temporary);
+                temporary.Destroy_401CF0();
             }
             secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             secondPayload->stateFE0 = 0;
@@ -22196,7 +22162,6 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
 void ParseBattleMRide_4239D0(YobiAction* const action)
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     auto* const scene = static_cast<BattleScenePayload*>(action->payload);
     std::array<char, 4> header;
     std::array<char, 32> previewName;
@@ -22257,50 +22222,50 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             firstActor->readiness.readCount = count;
             firstActor->readiness.encoded = encoded;
             firstActor->readiness.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             firstActor->maxHp.readCount = count;
             firstActor->maxHp.encoded = encoded;
             firstActor->maxHp.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             firstActor->barValue1B0.readCount = count;
             firstActor->barValue1B0.encoded = encoded;
             firstActor->barValue1B0.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             const auto count = temporary.readCount;
             firstActor->barMaximum1C0.encoded = encoded;
             firstActor->barMaximum1C0.mask = mask;
             firstActor->barMaximum1C0.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
         firstPayload->stateFE0 = 0;
@@ -22339,10 +22304,10 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
 
         std::strcpy(existingPayload->rider13C8->nameC4.data(), firstActor->nameC4.data());
         existingPayload->rider13C8->field1D0 = firstActor->field1D0;
-        CopyPayload(&existingPayload->rider13C8->readiness, &firstActor->readiness);
-        CopyPayload(&existingPayload->rider13C8->maxHp, &firstActor->maxHp);
-        CopyPayload(&existingPayload->rider13C8->barValue1B0, &firstActor->barValue1B0);
-        CopyPayload(&existingPayload->rider13C8->barMaximum1C0, &firstActor->barMaximum1C0);
+        existingPayload->rider13C8->readiness.CopyPayload(&firstActor->readiness);
+        existingPayload->rider13C8->maxHp.CopyPayload(&firstActor->maxHp);
+        existingPayload->rider13C8->barValue1B0.CopyPayload(&firstActor->barValue1B0);
+        existingPayload->rider13C8->barMaximum1C0.CopyPayload(&firstActor->barMaximum1C0);
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction** const originalSlot = &gBattleAllEntries59E980[first];
         YobiAction* const sourceX = *originalSlot;
@@ -22359,50 +22324,50 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             secondActor->readiness.readCount = count;
             secondActor->readiness.encoded = encoded;
             secondActor->readiness.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             secondActor->maxHp.readCount = count;
             secondActor->maxHp.encoded = encoded;
             secondActor->maxHp.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             secondActor->barValue1B0.readCount = count;
             secondActor->barValue1B0.encoded = encoded;
             secondActor->barValue1B0.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto count = temporary.readCount;
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             secondActor->barMaximum1C0.readCount = count;
             secondActor->barMaximum1C0.encoded = encoded;
             secondActor->barMaximum1C0.mask = mask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
         secondPayload->stateFE0 = 0;
@@ -22552,7 +22517,6 @@ void TakeBattleCString_4384C0(char* const destination, const std::int32_t capaci
 void ParseBattleC_438550()
 {
     using namespace world::detail;
-    using namespace platform::legacy_crypt_int;
     std::uint32_t present = 0;
     gBattleCOffset5ABA80 = 2;
     const auto fieldFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
@@ -22597,50 +22561,50 @@ void ParseBattleC_438550()
         {
             const std::int32_t value = TakeBattleCInteger_438450();
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             const auto count = temporary.readCount;
             actor->readiness.encoded = encoded;
             actor->readiness.mask = mask;
             actor->readiness.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             const auto count = temporary.readCount;
             actor->maxHp.encoded = encoded;
             actor->maxHp.mask = mask;
             actor->maxHp.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             const auto count = temporary.readCount;
             actor->barValue1B0.encoded = encoded;
             actor->barValue1B0.mask = mask;
             actor->barValue1B0.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, value);
+            temporary.ConstructFromInt_401CC0(value);
             const auto encoded = temporary.encoded;
             const auto mask = temporary.mask;
             const auto count = temporary.readCount;
             actor->barMaximum1C0.encoded = encoded;
             actor->barMaximum1C0.mask = mask;
             actor->barMaximum1C0.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         const auto inputFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
         const std::int32_t ridingImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
@@ -23133,7 +23097,7 @@ void Sub_4990A0(const std::int32_t index)
 {
     YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
     if (initialAction->callback != nullptr
-        && !platform::legacy_crypt_int::LessEqual_401DA0(&initialAction->readiness, 0)) {
+        && !(initialAction->readiness <= 0)) {
         YobiAction* const action = world::detail::gBattleEntries59E980[index];
         if ((action->flags & 0x2000u) == 0) {
             static_cast<void>(ShowHpBar_43DB60(action, -10, 3, -1));
@@ -24682,7 +24646,6 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
 void UpdateBattleAction14_409680(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     YobiAction* const caster = payload->caster1070;
     action->characterAction = 5;
@@ -24911,11 +24874,11 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                         } else {
                             const std::int32_t amount = effect.position3;
-                            SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->barValue1B0, amount);
-                            if (Less_401DB0(&gBattleAllEntries59E980[
-                                    payload->effects1C[payload->effectRunningC9C].position]->barValue1B0, 0)) {
+                            (gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                            if ((gBattleAllEntries59E980[
+                                    payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 platform::LegacyCryptInt temporary;
-                                ConstructFromInt_401CC0(&temporary, 0);
+                                temporary.ConstructFromInt_401CC0(0);
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary.encoded;
                                 YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -24925,7 +24888,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 copyTarget->barValue1B0.mask = temporaryMask;
                                 const std::uint8_t temporaryCount = temporary.readCount;
                                 copyTarget->barValue1B0.readCount = temporaryCount;
-                                Destroy_401CF0(&temporary);
+                                temporary.Destroy_401CF0();
                             }
                             const std::int32_t numberIndex = payload->effectRunningC9C;
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -24950,11 +24913,11 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                         } else {
                             const std::int32_t amount = effect.position3;
-                            SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->barValue1B0, amount);
-                            if (Less_401DB0(&gBattleAllEntries59E980[
-                                    payload->effects1C[payload->effectRunningC9C].position]->barValue1B0, 0)) {
+                            (gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                            if ((gBattleAllEntries59E980[
+                                    payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                                 platform::LegacyCryptInt temporary;
-                                ConstructFromInt_401CC0(&temporary, 0);
+                                temporary.ConstructFromInt_401CC0(0);
                                 const std::int32_t currentIndex = payload->effectRunningC9C;
                                 const std::uint32_t temporaryEncoded = temporary.encoded;
                                 YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -24964,7 +24927,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 copyTarget->barValue1B0.mask = temporaryMask;
                                 const std::uint8_t temporaryCount = temporary.readCount;
                                 copyTarget->barValue1B0.readCount = temporaryCount;
-                                Destroy_401CF0(&temporary);
+                                temporary.Destroy_401CF0();
                             }
                             const std::int32_t numberIndex = payload->effectRunningC9C;
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25002,13 +24965,13 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                        (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25036,17 +24999,17 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                         } else {
                             auto* const fp = &action->barValue1B0;
-                            SubtractAssign_401E40(fp, effect.position3);
-                            if (Less_401DB0(fp, 0)) {
+                            ((*fp) -= static_cast<std::int32_t>(effect.position3));
+                            if (((*fp) < 0)) {
                                 platform::LegacyCryptInt temporary;
-                                ConstructFromInt_401CC0(&temporary, 0);
+                                temporary.ConstructFromInt_401CC0(0);
                                 const std::uint32_t temporaryMask = temporary.mask;
                                 const std::uint32_t temporaryEncoded = temporary.encoded;
                                 const std::uint8_t temporaryCount = temporary.readCount;
                                 fp->mask = temporaryMask;
                                 fp->encoded = temporaryEncoded;
                                 fp->readCount = temporaryCount;
-                                Destroy_401CF0(&temporary);
+                                temporary.Destroy_401CF0();
                             }
                             const std::int32_t numberIndex = payload->effectRunningC9C;
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25085,17 +25048,17 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                     } else {
                         auto* const hp = &action->readiness;
-                        SubtractAssign_401E40(hp, effect.position3);
-                        if (Less_401DB0(hp, 0)) {
+                        ((*hp) -= static_cast<std::int32_t>(effect.position3));
+                        if (((*hp) < 0)) {
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             const std::uint8_t temporaryCount = temporary.readCount;
                             const std::uint32_t temporaryEncoded = temporary.encoded;
                             const std::uint32_t temporaryMask = temporary.mask;
                             hp->readCount = temporaryCount;
                             hp->encoded = temporaryEncoded;
                             hp->mask = temporaryMask;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25121,11 +25084,11 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->barValue1B0, amount);
-                        if (Less_401DB0(&gBattleAllEntries59E980[
-                                payload->effects1C[payload->effectRunningC9C].position]->barValue1B0, 0)) {
+                        (gBattleAllEntries59E980[effect.position]->barValue1B0 -= static_cast<std::int32_t>(amount));
+                        if ((gBattleAllEntries59E980[
+                                payload->effects1C[payload->effectRunningC9C].position]->barValue1B0 < 0)) {
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             const std::int32_t currentIndex = payload->effectRunningC9C;
                             const std::uint32_t temporaryEncoded = temporary.encoded;
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -25135,7 +25098,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             copyTarget->barValue1B0.mask = temporaryMask;
                             const std::uint8_t temporaryCount = temporary.readCount;
                             copyTarget->barValue1B0.readCount = temporaryCount;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25180,11 +25143,11 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         } else {
                             const std::int32_t damageSkill = payload->castSkill103C;
                             if (damageSkill != 84 && damageSkill != 85 && damageSkill != 87) {
-                                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
-                                if (Less_401DB0(&gBattleAllEntries59E980[
-                                        payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
+                                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                                if ((gBattleAllEntries59E980[
+                                        payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                                     platform::LegacyCryptInt temporary;
-                                    ConstructFromInt_401CC0(&temporary, 0);
+                                    temporary.ConstructFromInt_401CC0(0);
                                     const std::int32_t currentIndex = payload->effectRunningC9C;
                                     const std::uint32_t temporaryEncoded = temporary.encoded;
                                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -25194,7 +25157,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                     copyTarget->readiness.mask = temporaryMask;
                                     const std::uint8_t temporaryCount = temporary.readCount;
                                     copyTarget->readiness.readCount = temporaryCount;
-                                    Destroy_401CF0(&temporary);
+                                    temporary.Destroy_401CF0();
                                 }
                                 const std::int32_t numberIndex = payload->effectRunningC9C;
                                 const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25496,7 +25459,6 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
 void UpdateBattleAction16_4072E0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     if (action == nullptr) {
         return;
     }
@@ -25692,11 +25654,11 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 static_cast<void>(audio::PlaySe_52C450(mode == 2 ? 141 : (mode == 4 ? 142 : 255), action->x));
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = effect.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
-                if (Less_401DB0(&gBattleAllEntries59E980[
-                        payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
+                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                if ((gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t zeroEncoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -25704,7 +25666,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     copyTarget->readiness.encoded = zeroEncoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((*reinterpret_cast<const unsigned char*>(
                         &payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
@@ -25762,13 +25724,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                         gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t numberIndex = payload->effectRunningC9C;
                     const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25922,7 +25884,6 @@ void UpdateBattleAction17_4093B0(YobiAction* const action)
 void UpdateBattleAction20_408410(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::int32_t initialIndex = payload->effectRunningC9C;
     const std::uint8_t entryFlags = *reinterpret_cast<const std::uint8_t*>(
@@ -25970,11 +25931,11 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                 const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                 if ((effect.flags & 0x10000000u) == 0) {
                     const std::int32_t amount = effect.position3;
-                    SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
-                    if (Less_401DB0(&gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
+                    (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                    if ((gBattleAllEntries59E980[
+                            payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary.encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -25984,7 +25945,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
                         copyTarget->readiness.mask = mask;
                         const std::uint8_t readCount = temporary.readCount;
                         copyTarget->readiness.readCount = readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
                         &payload->effects1C[payload->effectRunningC9C].flags);
@@ -26043,7 +26004,6 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
 std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t initialFrameEvent = action->frameEvent;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (initialFrameEvent == 0) {
@@ -26176,11 +26136,11 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     static_cast<void>(audio::PlaySe_52C450(143, action->x));
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
-                    if (Less_401DB0(&gBattleAllEntries59E980[
-                            payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
+                    (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
+                    if ((gBattleAllEntries59E980[
+                            payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary.encoded;
                         const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -26190,7 +26150,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         copyTarget->readiness.mask = mask;
                         const std::uint8_t readCount = temporary.readCount;
                         copyTarget->readiness.readCount = readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
                         &payload->effects1C[payload->effectRunningC9C].flags);
@@ -26211,13 +26171,13 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                             gBattleAllEntries59E980[effect.position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = effect.position3;
-                        AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                        (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -26962,14 +26922,13 @@ void UpdateBattleAction40_40BD40(YobiAction* const action)
 // 原函数：0x00405B60。
 void ConsumeBattleFpCost_405B60(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::int32_t cost = payload->fpUsed1008;
     if (cost > 0) {
-        SubtractAssign_401E40(&action->barValue1B0, cost);
-        if (Less_401DB0(&action->barValue1B0, 0)) {
+        (action->barValue1B0 -= static_cast<std::int32_t>(cost));
+        if ((action->barValue1B0 < 0)) {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, 0);
+            temporary.ConstructFromInt_401CC0(0);
             const std::uint32_t mask = temporary.mask;
             const std::uint32_t encoded = temporary.encoded;
             const std::uint8_t count = temporary.readCount;
@@ -26977,7 +26936,7 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
             action->barValue1B0.mask = mask;
             action->barValue1B0.encoded = encoded;
             action->barValue1B0.readCount = count;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         payload->fpUsed1008 = -1;
     }
@@ -27037,9 +26996,8 @@ void UpdateBattleAction44_40BDF0(YobiAction* const action)
 // 原函数：0x0040B130。
 void UpdateBattleAction45_40B130(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     platform::LegacyCryptInt temporary;
-    ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     const std::uint32_t mask = temporary.mask;
     const std::uint32_t encoded = temporary.encoded;
     const std::uint8_t count = temporary.readCount;
@@ -27047,7 +27005,7 @@ void UpdateBattleAction45_40B130(YobiAction* const action)
     action->readiness.mask = mask;
     action->readiness.encoded = encoded;
     action->readiness.readCount = count;
-    Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     AdvanceBattleCastState_439340(action);
 }
 
@@ -27746,7 +27704,6 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
 // 原函数：0x0040C520。
 void UpdateBattleAction86_40C520(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     do {
@@ -27787,12 +27744,12 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
             const std::int32_t damage = effect.position3;
             const std::int32_t position = effect.position;
-            SubtractAssign_401E40(&gBattleAllEntries59E980[position]->readiness, damage);
+            (gBattleAllEntries59E980[position]->readiness -= static_cast<std::int32_t>(damage));
             YobiAction* const compareTarget = gBattleAllEntries59E980[
                 payload->effects1C[payload->effectRunningC9C].position];
-            if (Less_401DB0(&compareTarget->readiness, 0)) {
+            if ((compareTarget->readiness < 0)) {
                 platform::LegacyCryptInt temporary;
-                ConstructFromInt_401CC0(&temporary, 0);
+                temporary.ConstructFromInt_401CC0(0);
                 const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                 const std::uint32_t encoded = temporary.encoded;
                 YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -27800,7 +27757,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
                 copyTarget->readiness.encoded = encoded;
                 copyTarget->readiness.mask = temporary.mask;
                 copyTarget->readiness.readCount = temporary.readCount;
-                Destroy_401CF0(&temporary);
+                temporary.Destroy_401CF0();
             }
         }
         MoveBattleCastState_439380(gBattleAllEntries59E980[
@@ -27979,7 +27936,6 @@ void UpdateBattleAction94_40D010(YobiAction* const action)
 // 原函数：0x0040D0B0。
 void UpdateBattleAction95_40D0B0(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (payload->valueFF0 == 0) {
         action->characterAction = 3;
@@ -27994,7 +27950,7 @@ void UpdateBattleAction95_40D0B0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         payload->valueFF0 = 0;
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, 0);
+        temporary.ConstructFromInt_401CC0(0);
         const std::int32_t effectIndex = payload->effectRunningC9C;
         const std::uint32_t encoded = temporary.encoded;
         YobiAction* const target = world::detail::gBattleAllEntries59E980[
@@ -28002,7 +27958,7 @@ void UpdateBattleAction95_40D0B0(YobiAction* const action)
         target->readiness.encoded = encoded;
         target->readiness.mask = temporary.mask;
         target->readiness.readCount = temporary.readCount;
-        Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     }
 }
 
@@ -28187,7 +28143,6 @@ std::int32_t UpdateBattleAction101_40D580(YobiAction* const action)
 // 原函数：0x0040D6C0。
 void UpdateBattleAction102_40D6C0(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 5;
@@ -28240,12 +28195,12 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                 static_cast<void>(audio::PlaySe_52C450(134, action->x));
                 const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = damage.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[damage.position]->readiness, amount);
+                (gBattleAllEntries59E980[damage.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -28253,7 +28208,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
@@ -28273,13 +28228,13 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                         gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness, amount);
+                    (gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = current.flags;
@@ -28442,7 +28397,6 @@ YobiAction* UpdateBattleAction107_40DF70(YobiAction* const action)
 // 原函数：0x0040DF80。
 void UpdateBattleAction108_40DF80(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     const std::int32_t event = action->frameEvent;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -28493,12 +28447,12 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                     static_cast<void>(audio::PlaySe_52C450(134, action->x));
                     const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = damage.position3;
-                    SubtractAssign_401E40(&gBattleAllEntries59E980[damage.position]->readiness, amount);
+                    (gBattleAllEntries59E980[damage.position]->readiness -= static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (Less_401DB0(&compareTarget->readiness, 0)) {
+                    if ((compareTarget->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         const std::int32_t copyIndex = payload->effectRunningC9C;
                         const std::uint32_t encoded = temporary.encoded;
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -28506,7 +28460,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                         copyTarget->readiness.encoded = encoded;
                         copyTarget->readiness.mask = temporary.mask;
                         copyTarget->readiness.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                         targetPayload->flagsFDC |= 2u;
@@ -28526,13 +28480,13 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                             gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
                     } else {
                         const std::int32_t amount = payload->effects1C[healIndex].position3;
-                        AddAssign_401E20(&gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness, amount);
+                        (gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                         }
                         const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                         const std::uint32_t displayFlags = current.flags;
@@ -28592,7 +28546,6 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
 // 原函数：0x0040E560。
 void UpdateBattleAction110_40E560(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 3;
@@ -28631,7 +28584,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             effect->scaleY = 2.0F;
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::uint32_t encoded = temporary.encoded;
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -28639,7 +28592,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary.mask;
                             copyTarget->readiness.readCount = temporary.readCount;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                                 targetPayload->flagsFDC |= 2u;
                                 gYobiUpdateGateMode = 1;
@@ -28654,14 +28607,14 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             effect->scaleY = 2.0F;
                             static_cast<void>(audio::PlaySe_52C450(132, action->x));
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             const std::int32_t sourcePosition = payload->battlePosition18;
                             const std::uint32_t encoded = temporary.encoded;
                             YobiAction* const copyTarget = gBattleAllEntries59E980[sourcePosition];
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary.mask;
                             copyTarget->readiness.readCount = temporary.readCount;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & 0x20u) != 0) {
                                 payload->flagsFDC |= 2u;
                                 gYobiUpdateGateMode = 1;
@@ -28810,7 +28763,6 @@ void UpdateBattleAction113_40EFE0(YobiAction* const action)
 // 原函数：0x0040F0A0。
 void UpdateBattleAction114_40F0A0(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleEffectPairs5A8A40;
     using world::detail::gBattleNamedEffects5ABCE0;
@@ -28896,12 +28848,12 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                 static_cast<void>(audio::PlaySe_52C450(267, action->x));
                 const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = damage.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[damage.position]->readiness, amount);
+                (gBattleAllEntries59E980[damage.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::int32_t copyEffectIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
@@ -28909,7 +28861,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 const std::uint8_t effectFlags = *reinterpret_cast<const std::uint8_t*>(
                     &payload->effects1C[payload->effectRunningC9C].flags);
@@ -28931,13 +28883,13 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                         gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness, amount);
+                    (gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = current.flags;
@@ -29094,7 +29046,6 @@ void UpdateBattleAction138_40FF40(YobiAction* const action)
 // 原函数：0x00410000。
 void UpdateBattleAction139_410000(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     using world::detail::gBattleAllEntries59E980;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 6;
@@ -29173,7 +29124,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                         // 构造会消费共享随机数，每次之后按当前效果重新查对象，再复制并析构。
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary,
+                        temporary.ConstructFromInt_401CC0(
                             payload->effects1C[payload->effectRunningC9C].position3);
                         const std::int32_t hpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -29182,8 +29133,8 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->readiness.encoded = hpEncoded;
                         target->readiness.mask = temporary.mask;
                         target->readiness.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
-                        ConstructFromInt_401CC0(&temporary,
+                        temporary.Destroy_401CF0();
+                        temporary.ConstructFromInt_401CC0(
                             payload->effects1C[payload->effectRunningC9C].position4);
                         const std::int32_t maxHpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -29192,9 +29143,9 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->maxHp.encoded = maxHpEncoded;
                         target->maxHp.mask = temporary.mask;
                         target->maxHp.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                         static_cast<void>(AdvanceBattleEffect_439470(action));
-                        ConstructFromInt_401CC0(&temporary,
+                        temporary.ConstructFromInt_401CC0(
                             payload->effects1C[payload->effectRunningC9C].position3);
                         const std::int32_t fpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -29203,8 +29154,8 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->barValue1B0.encoded = fpEncoded;
                         target->barValue1B0.mask = temporary.mask;
                         target->barValue1B0.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
-                        ConstructFromInt_401CC0(&temporary,
+                        temporary.Destroy_401CF0();
+                        temporary.ConstructFromInt_401CC0(
                             payload->effects1C[payload->effectRunningC9C].position4);
                         const std::int32_t maxFpPosition =
                             payload->effects1C[payload->effectRunningC9C].position;
@@ -29213,7 +29164,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         target->barMaximum1C0.encoded = maxFpEncoded;
                         target->barMaximum1C0.mask = temporary.mask;
                         target->barMaximum1C0.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
                 } else if ((skill >= 19 && skill <= 30) || (skill >= 2068 && skill <= 2079)
@@ -29637,7 +29588,6 @@ namespace {
 // 4107C0/410B00排除七处不同收尾后245条规范化指令相同；仅复用数值段。
 void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if ((payload->flagsFDC & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -29650,43 +29600,43 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     }
     switch (payload->value1034) {
     case 6:
-        SubtractAssign_401E40(&action->readiness, payload->value1030);
-        if (Less_401DB0(&action->readiness, 0)) {
+        (action->readiness -= static_cast<std::int32_t>(payload->value1030));
+        if ((action->readiness < 0)) {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, 0);
+            temporary.ConstructFromInt_401CC0(0);
             const std::uint32_t encoded = temporary.encoded;
             const std::uint32_t mask = temporary.mask;
             const std::uint8_t readCount = temporary.readCount;
             action->readiness.encoded = encoded;
             action->readiness.mask = mask;
             action->readiness.readCount = readCount;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         break;
     case 5:
-        AddAssign_401E20(&action->readiness, payload->value1030);
-        if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
-            CopyPayload(&action->readiness, &action->maxHp);
+        (action->readiness += static_cast<std::int32_t>(payload->value1030));
+        if ((action->maxHp < action->readiness)) {
+            action->readiness.CopyPayload(&action->maxHp);
         }
         break;
     case 4:
-        AddAssign_401E20(&action->barValue1B0, payload->value1030);
-        if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
-            CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+        (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
+        if ((action->barMaximum1C0 < action->barValue1B0)) {
+            action->barValue1B0.CopyPayload(&action->barMaximum1C0);
         }
         break;
     case 3:
-        SubtractAssign_401E40(&action->barValue1B0, payload->value1030);
-        if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
+        (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
+        if ((0 > action->barValue1B0)) {
             platform::LegacyCryptInt temporary;
-            ConstructFromInt_401CC0(&temporary, 0);
+            temporary.ConstructFromInt_401CC0(0);
             const std::uint32_t encoded = temporary.encoded;
             const std::uint32_t mask = temporary.mask;
             const std::uint8_t readCount = temporary.readCount;
             action->barValue1B0.encoded = encoded;
             action->barValue1B0.mask = mask;
             action->barValue1B0.readCount = readCount;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
         break;
     case 0:
@@ -29694,51 +29644,51 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         break;
     case 9: {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, payload->value1030);
+        temporary.ConstructFromInt_401CC0(payload->value1030);
         const std::uint8_t readCount = temporary.readCount;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         action->readiness.readCount = readCount;
         action->readiness.encoded = encoded;
         action->readiness.mask = mask;
-        Destroy_401CF0(&temporary);
-        if (IntGreaterCrypt_401F80(0, &action->readiness)) {
-            ConstructFromInt_401CC0(&temporary, 0);
+        temporary.Destroy_401CF0();
+        if ((0 > action->readiness)) {
+            temporary.ConstructFromInt_401CC0(0);
             const std::uint8_t zeroReadCount = temporary.readCount;
             const std::uint32_t zeroEncoded = temporary.encoded;
             const std::uint32_t zeroMask = temporary.mask;
             action->readiness.readCount = zeroReadCount;
             action->readiness.encoded = zeroEncoded;
             action->readiness.mask = zeroMask;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
-        if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
-            CopyPayload(&action->readiness, &action->maxHp);
+        if ((action->maxHp < action->readiness)) {
+            action->readiness.CopyPayload(&action->maxHp);
         }
         break;
     }
     case 8: {
         platform::LegacyCryptInt temporary;
-        ConstructFromInt_401CC0(&temporary, payload->value1030);
+        temporary.ConstructFromInt_401CC0(payload->value1030);
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint8_t readCount = temporary.readCount;
         action->barValue1B0.mask = mask;
         action->barValue1B0.encoded = encoded;
         action->barValue1B0.readCount = readCount;
-        Destroy_401CF0(&temporary);
-        if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
-            ConstructFromInt_401CC0(&temporary, 0);
+        temporary.Destroy_401CF0();
+        if ((0 > action->barValue1B0)) {
+            temporary.ConstructFromInt_401CC0(0);
             const std::uint32_t zeroMask = temporary.mask;
             const std::uint32_t zeroEncoded = temporary.encoded;
             const std::uint8_t zeroReadCount = temporary.readCount;
             action->barValue1B0.mask = zeroMask;
             action->barValue1B0.encoded = zeroEncoded;
             action->barValue1B0.readCount = zeroReadCount;
-            Destroy_401CF0(&temporary);
+            temporary.Destroy_401CF0();
         }
-        if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
-            CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+        if ((action->barMaximum1C0 < action->barValue1B0)) {
+            action->barValue1B0.CopyPayload(&action->barMaximum1C0);
         }
         break;
     }
@@ -30562,7 +30512,6 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
 // 原函数：0x004124E0。
 void UpdateBattleAction204_4124E0(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if ((payload->flagsFDC & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -30602,43 +30551,43 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
             }
             switch (payload->value1034) {
             case 6:
-                SubtractAssign_401E40(&action->readiness, payload->value1030);
-                if (Less_401DB0(&action->readiness, 0)) {
+                (action->readiness -= static_cast<std::int32_t>(payload->value1030));
+                if ((action->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::uint32_t mask = temporary.mask;
                     const std::uint32_t encoded = temporary.encoded;
                     const std::uint8_t readCount = temporary.readCount;
                     action->readiness.mask = mask;
                     action->readiness.encoded = encoded;
                     action->readiness.readCount = readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 break;
             case 5:
-                AddAssign_401E20(&action->readiness, payload->value1030);
-                if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
-                    CopyPayload(&action->readiness, &action->maxHp);
+                (action->readiness += static_cast<std::int32_t>(payload->value1030));
+                if ((action->maxHp < action->readiness)) {
+                    action->readiness.CopyPayload(&action->maxHp);
                 }
                 break;
             case 4:
-                AddAssign_401E20(&action->barValue1B0, payload->value1030);
-                if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
-                    CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+                (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
+                if ((action->barMaximum1C0 < action->barValue1B0)) {
+                    action->barValue1B0.CopyPayload(&action->barMaximum1C0);
                 }
                 break;
             case 3:
-                SubtractAssign_401E40(&action->barValue1B0, payload->value1030);
-                if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
+                (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
+                if ((0 > action->barValue1B0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::uint32_t mask = temporary.mask;
                     const std::uint32_t encoded = temporary.encoded;
                     const std::uint8_t readCount = temporary.readCount;
                     action->barValue1B0.mask = mask;
                     action->barValue1B0.encoded = encoded;
                     action->barValue1B0.readCount = readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 break;
             default:
@@ -31020,7 +30969,6 @@ void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPaylo
 // 原函数：0x00414050。
 void UpdateBattleAction224_414050(YobiAction* const action)
 {
-    using platform::legacy_crypt_int::CopyPayload;
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleGraphicPoints553758;
     using world::detail::gBattlePointIndices5536FC;
@@ -31047,16 +30995,16 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             valueRider->field1D0 = valueSource->field1D0;
             YobiAction* cryptSource = gBattleAllEntries59E980[first];
             YobiAction* cryptRider = payload->rider13C8;
-            CopyPayload(&cryptRider->readiness, &cryptSource->readiness);
+            cryptRider->readiness.CopyPayload(&cryptSource->readiness);
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            CopyPayload(&cryptRider->maxHp, &cryptSource->maxHp);
+            cryptRider->maxHp.CopyPayload(&cryptSource->maxHp);
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            CopyPayload(&cryptRider->barValue1B0, &cryptSource->barValue1B0);
+            cryptRider->barValue1B0.CopyPayload(&cryptSource->barValue1B0);
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            CopyPayload(&cryptRider->barMaximum1C0, &cryptSource->barMaximum1C0);
+            cryptRider->barMaximum1C0.CopyPayload(&cryptSource->barMaximum1C0);
             YobiAction* coordinateSource = gBattleAllEntries59E980[first];
             YobiAction* coordinateRider = payload->rider13C8;
             coordinateRider->x = coordinateSource->x;
@@ -31075,10 +31023,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             action->characterAction = 0;
             action->imageNo = nextImage;
             action->field1D0 = gBattleAllEntries59E980[second]->field1D0;
-            CopyPayload(&action->readiness, &gBattleAllEntries59E980[second]->readiness);
-            CopyPayload(&action->maxHp, &gBattleAllEntries59E980[second]->maxHp);
-            CopyPayload(&action->barValue1B0, &gBattleAllEntries59E980[second]->barValue1B0);
-            CopyPayload(&action->barMaximum1C0, &gBattleAllEntries59E980[second]->barMaximum1C0);
+            action->readiness.CopyPayload(&gBattleAllEntries59E980[second]->readiness);
+            action->maxHp.CopyPayload(&gBattleAllEntries59E980[second]->maxHp);
+            action->barValue1B0.CopyPayload(&gBattleAllEntries59E980[second]->barValue1B0);
+            action->barMaximum1C0.CopyPayload(&gBattleAllEntries59E980[second]->barMaximum1C0);
             action->x = gBattleAllEntries59E980[second]->x;
             action->y = gBattleAllEntries59E980[second]->y;
             action->offset40 = gBattleAllEntries59E980[second]->offset40;
@@ -31166,10 +31114,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             std::strcpy(action->nameC4.data(), effect->nameC4.data());
             action->characterAction = 0;
             action->field1D0 = effect->field1D0;
-            CopyPayload(&action->readiness, &effect->readiness);
-            CopyPayload(&action->maxHp, &effect->maxHp);
-            CopyPayload(&action->barValue1B0, &effect->barValue1B0);
-            CopyPayload(&action->barMaximum1C0, &effect->barMaximum1C0);
+            action->readiness.CopyPayload(&effect->readiness);
+            action->maxHp.CopyPayload(&effect->maxHp);
+            action->barValue1B0.CopyPayload(&effect->barValue1B0);
+            action->barMaximum1C0.CopyPayload(&effect->barMaximum1C0);
             const std::uint32_t restoredFlags = carrier->flags08;
             payload->stateFE0 = 0;
             payload->flagsFDC = restoredFlags;
@@ -31298,10 +31246,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         ClearBattleRideAttachments(payload);
         std::strcpy(action->nameC4.data(), carrier->second04->nameC4.data());
         action->field1D0 = carrier->second04->field1D0;
-        CopyPayload(&action->readiness, &carrier->second04->readiness);
-        CopyPayload(&action->maxHp, &carrier->second04->maxHp);
-        CopyPayload(&action->barValue1B0, &carrier->second04->barValue1B0);
-        CopyPayload(&action->barMaximum1C0, &carrier->second04->barMaximum1C0);
+        action->readiness.CopyPayload(&carrier->second04->readiness);
+        action->maxHp.CopyPayload(&carrier->second04->maxHp);
+        action->barValue1B0.CopyPayload(&carrier->second04->barValue1B0);
+        action->barMaximum1C0.CopyPayload(&carrier->second04->barMaximum1C0);
         action->x = carrier->second04->x;
         action->y = carrier->second04->y;
         Sub_406260(action);
@@ -31636,7 +31584,6 @@ void UpdateBattleAction227_415940(YobiAction* const action)
 // 原函数：0x004150F0。
 void UpdateBattleAction225_4150F0(YobiAction* const action)
 {
-    using platform::legacy_crypt_int::CopyPayload;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     YobiAction* const initialRider = payload->rider13C8;
     if (initialRider == nullptr) {
@@ -31651,10 +31598,10 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         YobiAction* const levelRider = payload->rider13C8;
         const std::int32_t level = action->field1D0;
         levelRider->field1D0 = level;
-        CopyPayload(&payload->rider13C8->readiness, &action->readiness);
-        CopyPayload(&payload->rider13C8->maxHp, &action->maxHp);
-        CopyPayload(&payload->rider13C8->barValue1B0, &action->barValue1B0);
-        CopyPayload(&payload->rider13C8->barMaximum1C0, &action->barMaximum1C0);
+        payload->rider13C8->readiness.CopyPayload(&action->readiness);
+        payload->rider13C8->maxHp.CopyPayload(&action->maxHp);
+        payload->rider13C8->barValue1B0.CopyPayload(&action->barValue1B0);
+        payload->rider13C8->barMaximum1C0.CopyPayload(&action->barMaximum1C0);
         YobiAction* const copyXRider = payload->rider13C8;
         const std::int32_t sourceX = action->x;
         copyXRider->x = sourceX;
@@ -31834,7 +31781,6 @@ std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
 std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 3;
     action->value54 = 10.0F;
@@ -31910,13 +31856,13 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
@@ -31933,11 +31879,10 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[position], 22459, 0, 0));
                 } else {
-                    SubtractAssign_401E40(&action->readiness,
-                        payload->effects1C[payload->effectRunningC9C].position3);
-                    if (Less_401DB0(&action->readiness, 0)) {
+                    (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
+                    if ((action->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         // 原416655..416671先齐读，再按mask、encoded、readCount发布。
                         const std::uint32_t mask = temporary.mask;
                         const std::uint32_t encoded = temporary.encoded;
@@ -31945,7 +31890,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                         action->readiness.mask = mask;
                         action->readiness.encoded = encoded;
                         action->readiness.readCount = readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
@@ -31964,12 +31909,12 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
                     if (amount != 0) {
-                        SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                        (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (Less_401DB0(&compareTarget->readiness, 0)) {
+                        if ((compareTarget->readiness < 0)) {
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             // 原416753..416781先取位置/encoded，再借目标；后两字段交替读写。
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -31978,7 +31923,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary.mask;
                             copyTarget->readiness.readCount = temporary.readCount;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                         }
                         const std::int32_t damageDisplayIndex = payload->effectRunningC9C;
                         const std::int32_t y = target->y - 80;
@@ -32285,7 +32230,6 @@ void SetBattleAction208Target_412870(YobiAction* const action)
 std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 8;
     if ((payload->effectFlagsFE4 & 0xC04) != 0) {
@@ -32440,12 +32384,12 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                         } else {
                             const std::int32_t skill = payload->castSkill103C;
                             if (skill != 84 && skill != 85 && skill != 87) {
-                                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                                (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                                     payload->effects1C[payload->effectRunningC9C].position];
-                                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                                if ((compareTarget->readiness < 0)) {
                                     platform::LegacyCryptInt temporary;
-                                    ConstructFromInt_401CC0(&temporary, 0);
+                                    temporary.ConstructFromInt_401CC0(0);
                                     const std::int32_t copyIndex = payload->effectRunningC9C;
                                     const std::uint32_t encoded = temporary.encoded;
                                     const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
@@ -32453,7 +32397,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                                     copyTarget->readiness.encoded = encoded;
                                     copyTarget->readiness.mask = temporary.mask;
                                     copyTarget->readiness.readCount = temporary.readCount;
-                                    Destroy_401CF0(&temporary);
+                                    temporary.Destroy_401CF0();
                                 }
                                 const std::int32_t displayIndex = payload->effectRunningC9C;
                                 const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -32913,7 +32857,6 @@ void UpdateBattleAction220_413980(YobiAction* const action)
 void UpdateBattleAction221_413B40(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     std::int32_t imageNo = -1;
     const std::int32_t attackerPosition = payload->effects1C[payload->effectRunningC9C].position;
@@ -32942,9 +32885,9 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
             if ((flags & 0x10000000u) != 0) {
                 static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22459, 0, 0));
             } else {
-                AddAssign_401E20(&target->readiness, payload->effects1C[index].position3);
-                if (GreaterCrypt_401D50(&target->readiness, &target->maxHp)) {
-                    CopyPayload(&target->readiness, &target->maxHp);
+                (target->readiness += static_cast<std::int32_t>(payload->effects1C[index].position3));
+                if ((target->readiness > target->maxHp)) {
+                    target->readiness.CopyPayload(&target->maxHp);
                 }
                 const std::int32_t numberIndex = payload->effectRunningC9C;
                 const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -32964,10 +32907,10 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                 static_cast<void>(NewBattleFloatingIcon_41F4C0(
                     gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
             } else {
-                SubtractAssign_401E40(&target->readiness, payload->effects1C[index].position3);
-                if (Less_401DB0(&target->readiness, 0)) {
+                (target->readiness -= static_cast<std::int32_t>(payload->effects1C[index].position3));
+                if ((target->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     const std::uint32_t mask = temporary.mask;
                     const std::uint32_t encoded = temporary.encoded;
                     const std::uint8_t count = temporary.readCount;
@@ -32975,7 +32918,7 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                     action->readiness.mask = mask;
                     action->readiness.encoded = encoded;
                     action->readiness.readCount = count;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 const std::int32_t hitIndex = payload->effectRunningC9C;
                 if (payload->effects1C[hitIndex].position3 != 0) {
@@ -33080,7 +33023,6 @@ void UpdateBattleAction223_413FE0(YobiAction* const action)
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 3;
     action->value54 = 10.0F;
@@ -33159,13 +33101,13 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                 } else {
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    (gBattleAllEntries59E980[effect.position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
@@ -33183,11 +33125,10 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[position], 22459, 0, 0));
                 } else {
-                    SubtractAssign_401E40(&action->readiness,
-                        payload->effects1C[payload->effectRunningC9C].position3);
-                    if (Less_401DB0(&action->readiness, 0)) {
+                    (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
+                    if ((action->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         // 原4171EA..417206先齐读encoded、mask、readCount，再写源HP。
                         const std::uint32_t encoded = temporary.encoded;
                         const std::uint32_t mask = temporary.mask;
@@ -33195,7 +33136,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                         action->readiness.encoded = encoded;
                         action->readiness.mask = mask;
                         action->readiness.readCount = readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
@@ -33214,12 +33155,12 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
                     const std::int32_t amount = effect.position3;
                     if (amount != 0) {
-                        SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                        (gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        if (Less_401DB0(&compareTarget->readiness, 0)) {
+                        if ((compareTarget->readiness < 0)) {
                             platform::LegacyCryptInt temporary;
-                            ConstructFromInt_401CC0(&temporary, 0);
+                            temporary.ConstructFromInt_401CC0(0);
                             // 原4172E8..417316先取索引/encoded，再取位置/目标；后两字段交替。
                             const std::int32_t copyIndex = payload->effectRunningC9C;
                             const std::uint32_t encoded = temporary.encoded;
@@ -33228,7 +33169,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                             copyTarget->readiness.encoded = encoded;
                             copyTarget->readiness.mask = temporary.mask;
                             copyTarget->readiness.readCount = temporary.readCount;
-                            Destroy_401CF0(&temporary);
+                            temporary.Destroy_401CF0();
                         }
                         const std::int32_t damageDisplayIndex = payload->effectRunningC9C;
                         const std::int32_t y = target->y - 80;
@@ -33267,7 +33208,6 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 void UpdateBattleActions238_239_417410(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const BattleEntryEffectRecord& initial = payload->effects1C[payload->effectRunningC9C];
     if ((initial.flags & 0x20000000u) != 0
@@ -33335,12 +33275,12 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 static_cast<void>(audio::PlaySe_52C450(255, action->x));
                 const BattleEntryEffectRecord& damage = payload->effects1C[payload->effectRunningC9C];
                 const std::int32_t amount = damage.position3;
-                SubtractAssign_401E40(&gBattleAllEntries59E980[damage.position]->readiness, amount);
+                (gBattleAllEntries59E980[damage.position]->readiness -= static_cast<std::int32_t>(amount));
                 YobiAction* const compareTarget = gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                if ((compareTarget->readiness < 0)) {
                     platform::LegacyCryptInt temporary;
-                    ConstructFromInt_401CC0(&temporary, 0);
+                    temporary.ConstructFromInt_401CC0(0);
                     // 原4176DA..41770C先取索引/encoded，再借共享目标；后两字段交替。
                     const std::int32_t copyIndex = payload->effectRunningC9C;
                     const std::uint32_t encoded = temporary.encoded;
@@ -33349,7 +33289,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     copyTarget->readiness.encoded = encoded;
                     copyTarget->readiness.mask = temporary.mask;
                     copyTarget->readiness.readCount = temporary.readCount;
-                    Destroy_401CF0(&temporary);
+                    temporary.Destroy_401CF0();
                 }
                 const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
                     &payload->effects1C[payload->effectRunningC9C].flags);
@@ -33371,13 +33311,13 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                         gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness, amount);
+                    (gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const BattleEntryEffectRecord& display = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = display.flags;
@@ -33494,7 +33434,6 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
 void UpdateBattleAction243_417D80(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const BattleEntryEffectRecord& initial = payload->effects1C[payload->effectRunningC9C];
     const std::uint8_t turnFlags = *reinterpret_cast<const std::uint8_t*>(&initial.flags);
@@ -33612,13 +33551,13 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                         gBattleAllEntries59E980[payload->effects1C[healIndex].position], 22459, 0, 0));
                 } else {
                     const std::int32_t amount = payload->effects1C[healIndex].position3;
-                    AddAssign_401E20(&gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness, amount);
+                    (gBattleAllEntries59E980[payload->effects1C[healIndex].position]->readiness += static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position];
-                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                    if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                     }
                     const BattleEntryEffectRecord& display = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = display.flags;
@@ -33756,24 +33695,23 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
 // 原函数：0x0040B180。
 void UpdateBattleAction251_40B180(YobiAction* const action)
 {
-    using namespace platform::legacy_crypt_int;
     platform::LegacyCryptInt temporary;
-    ConstructFromInt_401CC0(&temporary, 1);
+    temporary.ConstructFromInt_401CC0(1);
     const std::uint32_t hpMask = temporary.mask;
     const std::uint32_t hpEncoded = temporary.encoded;
     const std::uint8_t hpCount = temporary.readCount;
     action->readiness.mask = hpMask;
     action->readiness.encoded = hpEncoded;
     action->readiness.readCount = hpCount;
-    Destroy_401CF0(&temporary);
-    ConstructFromInt_401CC0(&temporary, 1);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(1);
     const std::uint32_t fpMask = temporary.mask;
     const std::uint32_t fpEncoded = temporary.encoded;
     const std::uint8_t fpCount = temporary.readCount;
     action->barValue1B0.mask = fpMask;
     action->barValue1B0.encoded = fpEncoded;
     action->barValue1B0.readCount = fpCount;
-    Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     AdvanceBattleCastState_439340(action);
 }
 
@@ -33807,7 +33745,6 @@ void UpdateBattleAction254_40FEB0(YobiAction* const action)
 void UpdateBattleAction255_4186B0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;
-    using namespace platform::legacy_crypt_int;
     const std::int32_t event = action->frameEvent;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     action->characterAction = 5;
@@ -33864,18 +33801,18 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     static_cast<void>(audio::PlaySe_52C450(134, action->x));
                     const std::int32_t damagePosition = effect.position;
                     const std::int32_t amount = effect.position3;
-                    SubtractAssign_401E40(&gBattleAllEntries59E980[damagePosition]->readiness, amount);
+                    (gBattleAllEntries59E980[damagePosition]->readiness -= static_cast<std::int32_t>(amount));
                     YobiAction* const compareTarget = gBattleAllEntries59E980[effect.position];
-                    if (Less_401DB0(&compareTarget->readiness, 0)) {
+                    if ((compareTarget->readiness < 0)) {
                         platform::LegacyCryptInt temporary;
-                        ConstructFromInt_401CC0(&temporary, 0);
+                        temporary.ConstructFromInt_401CC0(0);
                         const std::int32_t copyPosition = effect.position;
                         const std::uint32_t encoded = temporary.encoded;
                         YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
                         copyTarget->readiness.encoded = encoded;
                         copyTarget->readiness.mask = temporary.mask;
                         copyTarget->readiness.readCount = temporary.readCount;
-                        Destroy_401CF0(&temporary);
+                        temporary.Destroy_401CF0();
                     }
                     const std::uint8_t activationFlags =
                         *reinterpret_cast<const std::uint8_t*>(&effect.flags);
@@ -33897,11 +33834,11 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     } else {
                         YobiAction* const healTarget = gBattleAllEntries59E980[effect.position];
                         const std::int32_t amount = healTarget->counter1DC;
-                        AddAssign_401E20(&healTarget->readiness, amount);
+                        (healTarget->readiness += static_cast<std::int32_t>(amount));
                         YobiAction* const compareTarget = gBattleAllEntries59E980[effect.position];
-                        if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[effect.position];
-                            CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
                         }
                         const std::uint32_t displayFlags = effect.flags;
                         const std::int32_t y = target->y - 80;
@@ -34156,7 +34093,7 @@ std::int32_t CheckBattleCommand_43C560(
     if ((flags & 4u) != 0) {
         YobiAction* const action = gBattleEntries59E980[pet];
         if (action != nullptr
-            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+            && (!(action->readiness <= 0)
                 || (flags & 2u) != 0)) {
             gBattleEntries59E980[pet]->flags |= 8u;
         }
@@ -34164,7 +34101,7 @@ std::int32_t CheckBattleCommand_43C560(
     if ((flags & 8u) != 0) {
         YobiAction* const action = gBattleEntries59E980[position];
         if (action != nullptr
-            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+            && (!(action->readiness <= 0)
                 || (flags & 2u) != 0)) {
             gBattleEntries59E980[position]->flags |= 8u;
         }
@@ -34181,7 +34118,7 @@ std::int32_t CheckBattleCommand_43C560(
                     || ((flags & 0x800u) != 0
                         && (*reinterpret_cast<const std::uint8_t*>(
                             &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0))
-                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
                 gBattleEntries59E980[slot]->flags |= 8u;
             }
@@ -34192,7 +34129,7 @@ std::int32_t CheckBattleCommand_43C560(
         for (std::int32_t slot = first; slot < first + 10; ++slot) {
             YobiAction* const action = gBattleEntries59E980[slot];
             if (action != nullptr
-                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
                 gBattleEntries59E980[slot]->flags |= 8u;
             }
@@ -34403,7 +34340,7 @@ void InitializeSceneEffectGraphic(
 void Sub_448A50(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor) {
+    if (action->mapY1F0.Read_401EC0() != floor) {
         MarkDeath(action);
         return;
     }
@@ -34456,7 +34393,7 @@ void Sub_448A50(YobiAction* const action)
 void Sub_448BF0(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor) {
+    if (action->mapY1F0.Read_401EC0() != floor) {
         MarkDeath(action);
         return;
     }
@@ -34541,16 +34478,16 @@ void Sub_448810(
     action->characterAction = mode;
     action->displayPriority = 11;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     action->mapX1E0.encoded = temporary.encoded;
     action->mapX1E0.mask = temporary.mask;
     action->mapX1E0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(floor);
     action->mapY1F0.readCount = temporary.readCount;
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     switch (mode) {
     case 1:
         action->offset40 = 870.0F;
@@ -34631,16 +34568,16 @@ void Sub_448D90(
     action->characterAction = mode;
     action->displayPriority = 4;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     action->mapX1E0.mask = temporary.mask;
     action->mapX1E0.encoded = temporary.encoded;
     action->mapX1E0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(floor);
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
     action->mapY1F0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     switch (mode) {
     case 1:
         action->offset40 = -870.0F;
@@ -34673,7 +34610,7 @@ void Sub_449A00(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor
+    if (action->mapY1F0.Read_401EC0() != floor
         || world::detail::ReadPlayerAction() == nullptr) {
         MarkDeath(action);
         return;
@@ -34683,14 +34620,14 @@ void Sub_449A00(YobiAction* const action)
         action->worldX = static_cast<float>(x);
         action->worldY = static_cast<float>(static_cast<double>(action->worldY) + 0.75);
         const auto targetX = static_cast<std::int32_t>(static_cast<std::int64_t>(x));
-        if (platform::legacy_crypt_int::GreaterEqual_401D70(&action->mapX200, targetX)) {
+        if ((action->mapX200 >= static_cast<std::int32_t>(targetX))) {
             const auto targetY = static_cast<std::int32_t>(
                 static_cast<std::int64_t>(action->worldY));
-            if (platform::legacy_crypt_int::LessEqual_401DA0(&action->mapY210, targetY)) {
+            if ((action->mapY210 <= static_cast<std::int32_t>(targetY))) {
                 action->worldX = static_cast<float>(
-                    platform::legacy_crypt_int::Read_401EC0(&action->mapX200));
+                    action->mapX200.Read_401EC0());
                 action->worldY = static_cast<float>(
-                    platform::legacy_crypt_int::Read_401EC0(&action->mapY210));
+                    action->mapY210.Read_401EC0());
                 ++action->characterAction;
             }
         }
@@ -34711,13 +34648,13 @@ void Sub_449A00(YobiAction* const action)
     const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(screenY) + 0.5));
     action->y = offsetY + projectedY;
-    if (platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, 0)) {
+    if ((action->mapX1E0 == 0)) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+        temporary.ConstructFromInt_401CC0(1);
         action->mapX1E0.readCount = temporary.readCount;
         action->mapX1E0.encoded = temporary.encoded;
         action->mapX1E0.mask = temporary.mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     } else {
         static_cast<void>(Sub_4496C0(action));
     }
@@ -34792,46 +34729,46 @@ void Sub_449700(
     action->characterAction = mode;
     action->displayPriority = 3;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    temporary.ConstructFromInt_401CC0(0);
     action->mapX1E0.encoded = temporary.encoded;
     action->mapX1E0.mask = temporary.mask;
     action->mapX1E0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(floor);
     action->mapY1F0.readCount = temporary.readCount;
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     switch (mode) {
     case 1: {
         platform::LegacyCryptInt targetX;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetX, mapX * 64);
+        targetX.ConstructFromInt_401CC0(mapX * 64);
         action->mapX200.readCount = targetX.readCount;
         action->mapX200.encoded = targetX.encoded;
         action->mapX200.mask = targetX.mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&targetX);
+        targetX.Destroy_401CF0();
         platform::LegacyCryptInt targetY;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetY, mapY * 64);
+        targetY.ConstructFromInt_401CC0(mapY * 64);
         action->mapY210.mask = targetY.mask;
         action->mapY210.encoded = targetY.encoded;
         action->mapY210.readCount = targetY.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&targetY);
+        targetY.Destroy_401CF0();
         action->worldX = static_cast<float>(static_cast<double>(mapX + 10) * 64.0F);
         action->worldY = static_cast<float>(static_cast<double>(mapY - 10) * 64.0F);
         break;
     }
     case 3: {
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, (mapX - 10) * 64);
+        temporary.ConstructFromInt_401CC0((mapX - 10) * 64);
         action->mapX200.mask = temporary.mask;
         action->mapX200.encoded = temporary.encoded;
         action->mapX200.readCount = temporary.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
         platform::LegacyCryptInt targetY;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetY, (mapY - 10) * 64);
+        targetY.ConstructFromInt_401CC0((mapY - 10) * 64);
         action->mapY210.encoded = targetY.encoded;
         action->mapY210.mask = targetY.mask;
         action->mapY210.readCount = targetY.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&targetY);
+        targetY.Destroy_401CF0();
         [[fallthrough]];
     }
     case 2:
@@ -34854,7 +34791,7 @@ void Sub_4483A0(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (floor != 59529
-        && platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor
+        && action->mapY1F0.Read_401EC0() != floor
         && world::gMapFloor != 38251) {
         MarkDeath(action);
         return;
@@ -34988,11 +34925,11 @@ void Sub_448290()
     action->callback = Sub_4483A0;
     action->displayPriority = 1;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, world::gMapFloor);
+    temporary.ConstructFromInt_401CC0(world::gMapFloor);
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
     action->mapY1F0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     action->flags = 2;
     action->value54 = 0.0F;
     action->drawMode.bytes[0x0C] = 1;
@@ -35027,7 +34964,7 @@ void Sub_449400(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor) {
+    if (action->mapY1F0.Read_401EC0() != floor) {
         MarkDeath(action);
         return;
     }
@@ -35097,11 +35034,11 @@ void Sub_449160()
     action->callback = Sub_449400;
     action->displayPriority = 30;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, world::gMapFloor);
+    temporary.ConstructFromInt_401CC0(world::gMapFloor);
     action->mapY1F0.encoded = temporary.encoded;
     action->mapY1F0.mask = temporary.mask;
     action->mapY1F0.readCount = temporary.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     const auto timeCategory = static_cast<std::uint8_t>(world::detail::gValue73ED48);
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
@@ -35244,63 +35181,57 @@ bool IsYobiActionReady(
     YobiAction* const action,
     const std::int32_t threshold)
 {
-    return platform::legacy_crypt_int::GreaterEqual_401D70(
-        &action->readiness,
-        threshold);
+    return (action->readiness >= static_cast<std::int32_t>(threshold));
 }
 
 bool IsYobiActionStateEqual(
     YobiAction* const action,
     const std::int32_t expected)
 {
-    return platform::legacy_crypt_int::Equal_401D00(
-        &action->readiness,
-        expected);
+    return (action->readiness == static_cast<std::int32_t>(expected));
 }
 
 bool IsYobiActionStateLessOrEqual(
     YobiAction* const action,
     const std::int32_t maximum)
 {
-    return platform::legacy_crypt_int::LessEqual_401DA0(
-        &action->readiness,
-        maximum);
+    return (action->readiness <= static_cast<std::int32_t>(maximum));
 }
 
 bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
 {
-    return platform::legacy_crypt_int::Less_401DB0(&action->barValue1B0, cost);
+    return (action->barValue1B0 < static_cast<std::int32_t>(cost));
 }
 
 // 原401F80：cost在左、action FP为右值；右对象只读一次，保留计数/RNG消费。
 bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const action)
 {
-    return platform::legacy_crypt_int::IntGreaterCrypt_401F80(cost, &action->barValue1B0);
+    return (static_cast<std::int32_t>(cost) > action->barValue1B0);
 }
 
 bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
 {
-    return platform::legacy_crypt_int::GreaterEqual_401D70(&action->barValue1B0, cost);
+    return (action->barValue1B0 >= static_cast<std::int32_t>(cost));
 }
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 {
-    return platform::legacy_crypt_int::Read_401EC0(&action->barValue1B0);
+    return action->barValue1B0.Read_401EC0();
 }
 
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
-    return platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0);
+    return action->barMaximum1C0.Read_401EC0();
 }
 
 std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
 {
-    return platform::legacy_crypt_int::Read_401EC0(&action->readiness);
+    return action->readiness.Read_401EC0();
 }
 
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
 {
-    return platform::legacy_crypt_int::Read_401EC0(&action->maxHp);
+    return action->maxHp.Read_401EC0();
 }
 
 // 原函数：0x00517880。
@@ -35738,13 +35669,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 
     // 原507AEA/507B8F固定首对象供名称/等级，后续三个CryptInt仍逐次重取对象。
     YobiAction* const fixed = graphic->reference.action;
-    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&fixed->barMaximum1C0);
-    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
-        &graphic->reference.action->barValue1B0);
-    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
-        &graphic->reference.action->maxHp);
-    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
-        &graphic->reference.action->readiness);
+    const std::int32_t maxFp = fixed->barMaximum1C0.Read_401EC0();
+    const std::int32_t fp = graphic->reference.action->barValue1B0.Read_401EC0();
+    const std::int32_t maxHp = graphic->reference.action->maxHp.Read_401EC0();
+    const std::int32_t hp = graphic->reference.action->readiness.Read_401EC0();
     platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kFull58AD04,
         fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
 }
@@ -35811,16 +35739,16 @@ YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept
 // SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
 std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->readiness);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->maxHp);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->value190);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->value1A0);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->barValue1B0);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->barMaximum1C0);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX1E0);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY1F0);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX200);
-    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY210);
+    action->readiness.ConstructZero_401C70();
+    action->maxHp.ConstructZero_401C70();
+    action->value190.ConstructZero_401C70();
+    action->value1A0.ConstructZero_401C70();
+    action->barValue1B0.ConstructZero_401C70();
+    action->barMaximum1C0.ConstructZero_401C70();
+    action->mapX1E0.ConstructZero_401C70();
+    action->mapY1F0.ConstructZero_401C70();
+    action->mapX200.ConstructZero_401C70();
+    action->mapY210.ConstructZero_401C70();
     return action->flags | 2u;
 }
 
@@ -35843,16 +35771,16 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
 // SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。
 void DestroyWindowSelectorPreview(YobiAction* const action)
 {
-    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY210);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX200);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY1F0);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX1E0);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->barMaximum1C0);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->barValue1B0);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->value1A0);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->value190);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->maxHp);
-    platform::legacy_crypt_int::Destroy_401CF0(&action->readiness);
+    action->mapY210.Destroy_401CF0();
+    action->mapX200.Destroy_401CF0();
+    action->mapY1F0.Destroy_401CF0();
+    action->mapX1E0.Destroy_401CF0();
+    action->barMaximum1C0.Destroy_401CF0();
+    action->barValue1B0.Destroy_401CF0();
+    action->value1A0.Destroy_401CF0();
+    action->value190.Destroy_401CF0();
+    action->maxHp.Destroy_401CF0();
+    action->readiness.Destroy_401CF0();
 }
 
 const render::GraphicDescriptor16* BorrowYobiActionDrawMode(
@@ -35885,7 +35813,7 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
         if (static_cast<std::uint32_t>(next) >= 16) {
             action->phase = 0;
         }
-        const std::int32_t base = platform::legacy_crypt_int::Read_401EC0(&action->readiness);
+        const std::int32_t base = action->readiness.Read_401EC0();
         const std::int32_t current = action->phase;
         action->imageNo = base;
         const std::int32_t offset = sequence[current][2];
@@ -36130,8 +36058,8 @@ std::int32_t Sub_4EE9E0()
 // 原函数：0x004EE130。
 std::int32_t Sub_4EE130()
 {
-    const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::int32_t playerY = world::detail::gPlayerY.Read_401EC0();
+    const std::int32_t playerX = world::detail::gPlayerX.Read_401EC0();
     static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
     const std::int32_t y = gLegacyGatherPanel583B00.y + 132;
     const std::int32_t x = gLegacyGatherPanel583B00.x + 136;
@@ -36504,8 +36432,8 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const std::int32_t y = world::detail::gPlayerY.Read_401EC0();
+                const std::int32_t x = world::detail::gPlayerX.Read_401EC0();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -36657,32 +36585,32 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
 
         // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一CopyPayload。
         platform::LegacyCryptInt hpValue;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&hpValue, hp);
+        hpValue.ConstructFromInt_401CC0(hp);
         action->readiness.readCount = hpValue.readCount;
         action->readiness.encoded = hpValue.encoded;
         action->readiness.mask = hpValue.mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&hpValue);
+        hpValue.Destroy_401CF0();
 
         platform::LegacyCryptInt maxHpValue;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&maxHpValue, maxHp);
+        maxHpValue.ConstructFromInt_401CC0(maxHp);
         action->maxHp.mask = maxHpValue.mask;
         action->maxHp.encoded = maxHpValue.encoded;
         action->maxHp.readCount = maxHpValue.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&maxHpValue);
+        maxHpValue.Destroy_401CF0();
 
         platform::LegacyCryptInt fpValue;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&fpValue, fp);
+        fpValue.ConstructFromInt_401CC0(fp);
         action->barValue1B0.encoded = fpValue.encoded;
         action->barValue1B0.mask = fpValue.mask;
         action->barValue1B0.readCount = fpValue.readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&fpValue);
+        fpValue.Destroy_401CF0();
 
         platform::LegacyCryptInt maxFpValue;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&maxFpValue, maxFp);
+        maxFpValue.ConstructFromInt_401CC0(maxFp);
         action->barMaximum1C0.readCount = maxFpValue.readCount;
         action->barMaximum1C0.encoded = maxFpValue.encoded;
         action->barMaximum1C0.mask = maxFpValue.mask;
-        platform::legacy_crypt_int::Destroy_401CF0(&maxFpValue);
+        maxFpValue.Destroy_401CF0();
     }
 }
 
@@ -36999,16 +36927,16 @@ void Sub_444410(
         record.value34 = direction;
         record.value38 = x;
         record.value3C = y;
-        if (platform::legacy_crypt_int::Equal_401D00(&action->mapX200, x)
-            && platform::legacy_crypt_int::Equal_401D00(&action->mapY210, y)) {
+        if ((action->mapX200 == static_cast<std::int32_t>(x))
+            && (action->mapY210 == static_cast<std::int32_t>(y))) {
             return;
         }
         const auto distance = [](const std::int32_t target,
                                  platform::LegacyCryptInt* const coordinate) {
             const std::int32_t sign =
-                platform::legacy_crypt_int::IntMinusCrypt_401FE0(target, coordinate);
+                (static_cast<std::int32_t>(target) - (*coordinate));
             const std::int32_t value =
-                platform::legacy_crypt_int::IntMinusCrypt_401FE0(target, coordinate);
+                (static_cast<std::int32_t>(target) - (*coordinate));
             return sign < 0 ? -value : value;
         };
         const std::int32_t firstX = distance(x, &action->mapX200);
@@ -37154,9 +37082,9 @@ void Sub_444410(
             std::int32_t image = character_select::detail::Sub_51B740(option3);
             if (payload->action34 == nullptr) {
                 const std::int32_t petY =
-                    platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                    action->mapY1F0.Read_401EC0();
                 const std::int32_t petX =
-                    platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                    action->mapX1E0.Read_401EC0();
                 payload->action34 = login::detail::NewYobiGearPet_441130(image, petX, petY);
             }
             login::YobiAction* const firstPet = payload->action34;
@@ -37168,9 +37096,9 @@ void Sub_444410(
                 ++image;
                 if (previousSecondPet == nullptr) {
                     const std::int32_t petY =
-                        platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                        action->mapY1F0.Read_401EC0();
                     const std::int32_t petX =
-                        platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                        action->mapX1E0.Read_401EC0();
                     payload->action38 = login::detail::NewYobiGearPet_441130(image, petX, petY);
                 }
                 login::YobiAction* const secondPet = payload->action38;
@@ -37340,9 +37268,9 @@ void Sub_4467D0(const std::int32_t objectIndex)
     }
     const std::int32_t direction = record.direction;
     const std::int32_t mapY =
-        platform::legacy_crypt_int::Read_401EC0(&record.coordinate1C);
+        record.coordinate1C.Read_401EC0();
     const std::int32_t mapX =
-        platform::legacy_crypt_int::Read_401EC0(&record.coordinate0C);
+        record.coordinate0C.Read_401EC0();
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     login::YobiAction* action =
         login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -37375,9 +37303,9 @@ void Sub_446640()
         }
         const std::int32_t direction = record.direction;
         const std::int32_t mapY =
-            platform::legacy_crypt_int::Read_401EC0(&record.coordinate1C);
+            record.coordinate1C.Read_401EC0();
         const std::int32_t mapX =
-            platform::legacy_crypt_int::Read_401EC0(&record.coordinate0C);
+            record.coordinate0C.Read_401EC0();
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         login::YobiAction* action =
             login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -37452,22 +37380,22 @@ void Sub_445350(
     record.value40 = static_cast<std::uint16_t>(value40);
     record.level2C = level;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint8_t firstReadCount = temporary.readCount;
     const std::uint32_t firstEncoded = temporary.encoded;
     const std::uint32_t firstMask = temporary.mask;
     record.coordinate0C.readCount = firstReadCount;
     record.coordinate0C.encoded = firstEncoded;
     record.coordinate0C.mask = firstMask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint32_t secondMask = temporary.mask;
     const std::uint32_t secondEncoded = temporary.encoded;
     const std::uint8_t secondReadCount = temporary.readCount;
     record.coordinate1C.mask = secondMask;
     record.coordinate1C.encoded = secondEncoded;
     record.coordinate1C.readCount = secondReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     record.direction = selectedDirection;
     if (flag1 != 0) {
         *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x40u;
@@ -37604,18 +37532,18 @@ void Sub_445D20(
     auto& record = gWorldObjects[static_cast<std::size_t>(index)];
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value48 = value48;
-    // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享AssignFromInt。
+    // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享operator=(int32_t)。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t mask = temporary.mask;
         const std::uint32_t encoded = temporary.encoded;
         const std::uint8_t readCount = temporary.readCount;
         target.mask = mask;
         target.encoded = encoded;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(record.coordinate0C, mapX);
     assignCoordinate(record.coordinate1C, mapY);
@@ -37676,14 +37604,14 @@ void Sub_445F40(
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
-        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        temporary.ConstructFromInt_401CC0(value);
         const std::uint32_t encoded = temporary.encoded;
         const std::uint32_t mask = temporary.mask;
         const std::uint8_t readCount = temporary.readCount;
         target.encoded = encoded;
         target.mask = mask;
         target.readCount = readCount;
-        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        temporary.Destroy_401CF0();
     };
     assignCoordinate(record.coordinate0C, mapX);
     assignCoordinate(record.coordinate1C, mapY);
@@ -37723,8 +37651,8 @@ std::int32_t Sub_445030(
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
-                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
-                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (action->mapX1E0 == static_cast<std::int32_t>(x))
+                && (record.action->mapY1F0 == static_cast<std::int32_t>(y))
                 && (record.category & category) != 0
                 && (record.flags120 & flags) != 0) {
                 return record.objectIndex;
@@ -37751,8 +37679,8 @@ std::int32_t Sub_4450D0(
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
-                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
-                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (action->mapX1E0 == static_cast<std::int32_t>(x))
+                && (record.action->mapY1F0 == static_cast<std::int32_t>(y))
                 && (record.category & category) != 0) {
                 return 1;
             }
@@ -37778,8 +37706,8 @@ std::int32_t Sub_445160(
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
-                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
-                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (action->mapX1E0 == static_cast<std::int32_t>(x))
+                && (record.action->mapY1F0 == static_cast<std::int32_t>(y))
                 && (record.category & category) != 0) {
                 return record.objectIndex;
             }
@@ -37806,8 +37734,8 @@ std::int32_t Sub_4451F0(
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
-                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
-                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (action->mapX1E0 == static_cast<std::int32_t>(x))
+                && (record.action->mapY1F0 == static_cast<std::int32_t>(y))
                 && (record.category & category) != 0
                 && (flags42Mask == 0 || (record.flags42 & flags42Mask) != 0)
                 && (flags120Mask == 0 || (record.flags120 & flags120Mask) != 0)) {
@@ -37836,8 +37764,8 @@ std::int32_t Sub_4452A0(
         if (record.used != 0) {
             login::YobiAction* const action = record.action;
             if (action != nullptr
-                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
-                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (action->mapX1E0 == static_cast<std::int32_t>(x))
+                && (record.action->mapY1F0 == static_cast<std::int32_t>(y))
                 && (record.category & category) != 0
                 && (record.flags42 & excluded42) == 0
                 && (record.flags120 & excluded120) == 0) {
@@ -37879,8 +37807,8 @@ void Sub_46B4B0(const std::int32_t direction)
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC8223C = platform::ReadTickCount32();
 }
@@ -37898,14 +37826,14 @@ std::uint32_t Sub_46A190()
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
             const double targetX = static_cast<double>(
-                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F;
+                gPlayerSnapshotX.Read_401EC0()) * 64.0F;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<double>(
-                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+                gPlayerSnapshotY.Read_401EC0()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -37914,13 +37842,13 @@ std::uint32_t Sub_46A190()
             }
         } else {
             const double targetX = static_cast<double>(
-                platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+                action->mapX200.Read_401EC0()) * 64.0F;
             const float worldX = action->worldX;
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<double>(
-                platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+                action->mapY210.Read_401EC0()) * 64.0F;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
                 || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -37960,9 +37888,9 @@ std::uint32_t Sub_46A190()
         }
         login::YobiAction* const next = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            action->mapY1F0.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            action->mapX1E0.Read_401EC0();
         login::detail::Sub_441F60(next, x, y);
     }
 
@@ -37997,38 +37925,38 @@ void MovePlayerOneStep_46B1B0(
         static_cast<double>(speed) * std::bit_cast<float>(0x3C23D70Au));
     if (payload != nullptr && payload->action2C != nullptr) {
         const std::int32_t previousY =
-            platform::legacy_crypt_int::Read_401EC0(&player->mapY1F0);
+            player->mapY1F0.Read_401EC0();
         const std::int32_t previousX =
-            platform::legacy_crypt_int::Read_401EC0(&ReadPlayerAction()->mapX1E0);
+            ReadPlayerAction()->mapX1E0.Read_401EC0();
         static_cast<void>(login::detail::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
 
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    temporary.ConstructFromInt_401CC0(x);
     const std::uint32_t maskX = temporary.mask;
     const std::uint32_t encodedX = temporary.encoded;
     const std::uint8_t readCountX = temporary.readCount;
     gPlayerSnapshotX.mask = maskX;
     gPlayerSnapshotX.encoded = encodedX;
     gPlayerSnapshotX.readCount = readCountX;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(y);
     const std::uint32_t encodedY = temporary.encoded;
     const std::uint32_t maskY = temporary.mask;
     const std::uint8_t readCountY = temporary.readCount;
     gPlayerSnapshotY.encoded = encodedY;
     gPlayerSnapshotY.mask = maskY;
     gPlayerSnapshotY.readCount = readCountY;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
 
     const std::int32_t pixelX =
-        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotX, 64);
+        (gPlayerSnapshotX * 64);
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     const float differenceX = static_cast<float>(
         static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
     const std::int32_t pixelY =
-        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotY, 64);
+        (gPlayerSnapshotY * 64);
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const platform::detail::MapMoveDifference difference {
         static_cast<double>(differenceX),
@@ -38063,13 +37991,13 @@ void Sub_46A5F0()
         }
         login::YobiAction* const action = ReadPetMapAction(index);
         const double targetX = static_cast<double>(
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+            action->mapX200.Read_401EC0()) * 64.0F;
         const float worldX = action->worldX;
         if (targetX < worldX || targetX > worldX) {
             continue;
         }
         const double targetY = static_cast<double>(
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+            action->mapY210.Read_401EC0()) * 64.0F;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
             || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -38092,9 +38020,9 @@ void Sub_46A5F0()
         }
         login::YobiAction* const nextAction = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            action->mapY1F0.Read_401EC0();
         const std::int32_t x =
-            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            action->mapX1E0.Read_401EC0();
         login::detail::Sub_441F60(nextAction, x, y);
     }
 }
@@ -38132,13 +38060,13 @@ void Sub_519EE0()
     if (ReadPlayerAction() == nullptr) {
         return;
     }
-    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
-    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t y = gPlayerY.Read_401EC0();
+    const std::int32_t x = gPlayerX.Read_401EC0();
     const std::int32_t blocked = Sub_469810(x, y);
     login::YobiAction* action = ReadPlayerAction();
     if (blocked != 0) {
-        platform::legacy_crypt_int::CopyPayload(&gPlayerX, &action->mapX1E0);
-        platform::legacy_crypt_int::CopyPayload(&gPlayerY, &action->mapY1F0);
+        gPlayerX.CopyPayload(&action->mapX1E0);
+        gPlayerY.CopyPayload(&action->mapY1F0);
     }
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
@@ -38147,18 +38075,18 @@ void Sub_519EE0()
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
     action = ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->mapX1E0, &gPlayerX);
+    action->mapX1E0.CopyPayload(&gPlayerX);
     action = ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->mapY1F0, &gPlayerY);
+    action->mapY1F0.CopyPayload(&gPlayerY);
     action = ReadPlayerAction();
     action->field27C = gValue9EE8FC;
     const std::uint32_t movementY = gValue9EE900;
     action = ReadPlayerAction();
     action->field280 = movementY;
     action = ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->mapX200, &gPlayerSnapshotX);
+    action->mapX200.CopyPayload(&gPlayerSnapshotX);
     action = ReadPlayerAction();
-    platform::legacy_crypt_int::CopyPayload(&action->mapY210, &gPlayerSnapshotY);
+    action->mapY210.CopyPayload(&gPlayerSnapshotY);
 }
 
 // 原函数：0x00521F20。

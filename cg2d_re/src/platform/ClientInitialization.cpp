@@ -245,8 +245,8 @@ int InitializeClient_4576B0()
     const std::uint32_t drawCursor = gValueD67AE4;
     ShowLegacyCursor(0);
     if (drawCursor != 0) {
-        const std::int32_t y = legacy_crypt_int::Add_401E10(&gLegacyMouseState.mouseY, 16);
-        const std::int32_t x = legacy_crypt_int::Add_401E10(&gLegacyMouseState.mouseX, 16);
+        const std::int32_t y = (gLegacyMouseState.mouseY + 16);
+        const std::int32_t x = (gLegacyMouseState.mouseX + 16);
         static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;

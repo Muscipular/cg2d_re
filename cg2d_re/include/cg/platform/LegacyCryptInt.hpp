@@ -15,35 +15,85 @@ public:
     explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
     explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
 
-    LegacyCryptInt& operator=(std::int32_t value); // 原AssignFromInt载荷赋值。
+    LegacyCryptInt& operator=(std::int32_t value); // 原整数临时构造／载荷赋值。
     LegacyCryptInt& operator=(std::uint32_t value); // 保留目标token与reserved。
 
     // 每次转换单读并消费原计数／刷新；标量两侧算术、比较沿C++整数提升。
+    // 原标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FC0。
+    // 原标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
     operator std::int32_t();
     explicit operator std::uint32_t();
+    // 原函数：0x00401E20。
     LegacyCryptInt& operator+=(std::int32_t amount); // 原401E20，单读后SetNorVal。
     LegacyCryptInt& operator+=(std::uint32_t amount); // 无符号W32加后写回位模式。
+    // 原函数：0x00401E40。
     LegacyCryptInt& operator-=(std::int32_t amount); // 原401E40，单读后SetNorVal。
     LegacyCryptInt& operator-=(std::uint32_t amount); // 无符号W32减后写回位模式。
-    LegacyCryptInt& operator++(); // 原401DE0：返回本对象。
+    LegacyCryptInt& operator++(); // 原0x00401DE0：返回本对象。
     std::int32_t operator++(int); // 单读递增，返回递增前明文。
 
     // 同类双值运算先右后左各读一次，即使两引用指向同一对象。
     friend std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 原0x00401E70@[401E70,401E8B)：右→左读取后求差。
     friend std::int32_t operator-(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 原0x00401D20@[0x401D20,0x401D40)：右→左读取后比较。
     friend bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 原函数：0x00401D50。
     friend bool operator>(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 原函数：0x00401D80。
     friend bool operator>=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+    // 原函数：0x00401DC0。
     friend bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
+
+    // 原地址成员保留显式生命周期和特殊返回合同；operator直接复用这些正文。
+    // 原 sub_401C70@[0x401C70,0x401C92)。本对象须为可写的16字节存储。
+    LegacyCryptInt* ConstructZero_401C70();
+
+    // 原 CryptInt_Init@[0x401CC0,0x401CE7)。
+    LegacyCryptInt* ConstructFromInt_401CC0(std::int32_t value);
+
+    // 原 CryptInt_delete@[0x401CF0,0x401CF7)，只恢复 legacyVftToken。
+    void Destroy_401CF0();
+
+    // 原401CA0：先析构，flags bit0置位才free；返回原指针，不表示释放后仍可访问。
+    LegacyCryptInt* DestroyAndFree_401CA0(std::uint32_t flags);
+
+    // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
+    void SetNorVal_401F50(std::int32_t value);
+
+    // 原0x00438270载荷复制只改+0x04、+0x08、+0x0C，保留目标token与reserved。
+    void CopyPayload(const LegacyCryptInt* source);
+
+    // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
+    std::int32_t Read_401EC0();
+
+    // 原0x00401FA0：右对象单读，S32 lhs<rhs覆盖AL，高24位保留读取值。
+    std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs);
+
+    // 首项启动组的拥有者；类型本身不增加CryptInt载荷。
+    class StartupValues;
 
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
     std::uint8_t readCount; // 原成员偏移：+0x0C。
     std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
+
+private:
+    // 启动拥有者沿同一全局存储成组构造／逆序销毁。
+    // 原函数：0x00401C20。
+    static void ConstructStartupValues_401C20();
+    // 原函数：0x00401C50。
+    static void DestroyStartupValues_401C50();
+    // 明文转原W32位模式，供encoded异或与原返回高位使用。
+    static std::uint32_t ToBits(std::int32_t value);
+    // 解码后的W32位模式恢复为有符号明文。
+    static std::int32_t FromBits(std::uint32_t value);
+    // 沿共享NextRandom一次取mask，构造与读计数刷新共用。
+    static std::uint32_t NextMask();
 };
 static_assert(sizeof(LegacyCryptInt) == 16);
 static_assert(std::is_standard_layout_v<LegacyCryptInt>);
@@ -58,12 +108,10 @@ static_assert(offsetof(LegacyCryptInt, reserved) == 0x0D);
 
 inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
 
-namespace legacy_crypt_int {
-
 // 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
 // 对应原553004；本类构造／析构沿同一存储，退出登记由MSVC承接。
 // 原函数：0x00401C10。
-class StartupValues final {
+class LegacyCryptInt::StartupValues final {
 public:
     // 原函数：0x00401C10；只接管同组原始载荷的启动寿命。
     StartupValues();
@@ -72,85 +120,4 @@ public:
     StartupValues& operator=(const StartupValues&) = delete;
 };
 
-// 原函数：0x00401C20。
-void ConstructStartupValues_401C20();
-// 原函数：0x00401C50。
-void DestroyStartupValues_401C50();
-
-// 原 sub_401C70@[0x401C70,0x401C92)。storage 必须指向可写的 16 字节对象。
-LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage);
-
-// 原 CryptInt_Init@[0x401CC0,0x401CE7)。
-LegacyCryptInt* ConstructFromInt_401CC0(
-    LegacyCryptInt* storage,
-    std::int32_t value);
-
-// 原 CryptInt_delete@[0x401CF0,0x401CF7)，只恢复 legacyVftToken。
-void Destroy_401CF0(LegacyCryptInt* value);
-
-// 原401CA0：先析构，flags bit0置位才free；返回原指针，不表示释放后仍可访问。
-LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags);
-
-// 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
-void SetNorVal_401F50(LegacyCryptInt* target, std::int32_t value);
-
-// 原赋值展开只复制 +0x04、+0x08、+0x0C；保留目标 token 与 reserved。
-void CopyPayload(LegacyCryptInt* target, const LegacyCryptInt* source);
-
-// 对应原“构造 int 临时量、复制载荷、析构临时量”的赋值形态。
-void AssignFromInt(LegacyCryptInt* target, std::int32_t value);
-
-// 原 sub_401EC0@[0x401EC0,0x401F45)，读取会修改 readCount，必要时换 mask。
-// 关联原入口：0x00401EA0（跳转共用本函数读取正文）。
-std::int32_t Read_401EC0(LegacyCryptInt* value);
-
-// 原401DE0：单次读取后自增并SetNorVal，返回新值；原未使用的S32参数保留。
-std::int32_t Increment_401DE0(LegacyCryptInt* value, std::int32_t unused);
-
-// 原401E10：单读后S32加法；CQA01按RPLAN.24不专设数学回绕/异常结果。
-std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
-// 原函数：0x00401E20。
-void AddAssign_401E20(LegacyCryptInt* value, std::int32_t amount); // 单次读取后加并SetNorVal。
-// 原函数：0x00401E40。
-void SubtractAssign_401E40(LegacyCryptInt* value, std::int32_t amount); // 单次读取后减并SetNorVal。
-
-// 原401E60：单读后S32差值；异常域同CQA01，编码异或边界保持。
-std::int32_t Subtract_401E60(LegacyCryptInt* value, std::int32_t amount);
-
-// 原401E70@[401E70,401E8B)：先读右对象，再读左对象，返回lhs-rhs。
-std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
-
-// 原401E90机器乘积取低W32；新端S32普通乘法，异常域同CQA01。
-std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
-
-// 下列比较按有符号int32；整数比较单读，加密双值比较按各自合同独立读取。
-// 原函数：0x00401D00。
-bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
-// 原 CryptInt::neq@[0x401D20,0x401D40)：先读右对象，再读左对象。
-bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
-// 原函数：0x00401D40。
-bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);
-// 原函数：0x00401D50。
-bool GreaterCrypt_401D50(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
-// 原函数：0x00401D70。
-bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
-// 原函数：0x00401D80。
-bool GreaterEqualCrypt_401D80(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
-// 原函数：0x00401DA0。
-bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
-// 原函数：0x00401DB0。
-bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
-// 原函数：0x00401DC0。
-bool LessCrypt_401DC0(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左独立读取，即使别名。
-// 原函数：0x00401F80。
-bool IntGreaterCrypt_401F80(std::int32_t lhs, LegacyCryptInt* rhs); // 右值单读，保留计数/RNG副作用。
-// 原401FA0：单读右对象，S32 lhs<rhs覆盖返回AL，高24位保留读取值；条件只消费低W8。
-std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs, LegacyCryptInt* rhs);
-// RHL01：原401FC0单读右对象，再按有符号S32比较lhs<=rhs；已证调用仅消费AL。
-bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);
-
-// 原401FE0经401EA0尾跳单读右对象；新端S32 lhs-rhs，异常域同CQA01。
-std::int32_t IntMinusCrypt_401FE0(std::int32_t lhs, LegacyCryptInt* rhs);
-
-} // namespace legacy_crypt_int
 } // namespace cg::platform

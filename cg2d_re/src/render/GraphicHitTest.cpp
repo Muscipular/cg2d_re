@@ -28,7 +28,6 @@ namespace cg::platform {
 namespace {
 
 using namespace render;
-namespace crypt = legacy_crypt_int;
 
 std::uint32_t gHoverColorIndexD6978C = 0; // 原全局：0x00D6978C。
 constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考：0x0058ACC8。
@@ -44,19 +43,19 @@ constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考�
 bool HitQueuedText(const TextPendingRecord& text, std::int32_t& width)
 {
     width = login::detail::TextMeasure(text.text, text.fontType);
-    if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseX, text.x + width + 2)) {
+    if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
         return false;
     }
-    if (!crypt::IntLessEqualCrypt_401FC0(text.x - 2, &gLegacyMouseState.mouseX)) {
+    if (!(static_cast<std::int32_t>(text.x - 2) <= gLegacyMouseState.mouseX)) {
         return false;
     }
     const std::uint8_t fontType = text.fontType;
     const std::int32_t y = text.y;
     const std::int32_t height = gFontMetrics[fontType].doubleHeight;
-    if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseY, y + height + 2)) {
+    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height + 2))) {
         return false;
     }
-    return crypt::IntLessEqualCrypt_401FC0(text.y - 2, &gLegacyMouseState.mouseY);
+    return (static_cast<std::int32_t>(text.y - 2) <= gLegacyMouseState.mouseY);
 }
 
 // 原5072AD..50756F；调用方已经通过value4和真实图形加载门禁。
@@ -68,20 +67,20 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
         const DxGraphicEntry* const base = gGraphicDxCache103CFA4;
         const std::int32_t width = std::bit_cast<std::int16_t>(base[imageNo].width);
         const std::int32_t x = graphic.x;
-        if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseX, x + width)) {
+        if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(x + width))) {
             return false;
         }
-        if (!crypt::IntLessEqualCrypt_401FC0(graphic.x, &gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(graphic.x) <= gLegacyMouseState.mouseX)) {
             return false;
         }
         const std::int32_t heightImage = graphic.imageNo;
         const DxGraphicEntry* const heightBase = gGraphicDxCache103CFA4;
         const std::int32_t y = graphic.y;
         const std::int32_t height = std::bit_cast<std::int16_t>(heightBase[heightImage].height);
-        if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseY, y + height)) {
+        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height))) {
             return false;
         }
-        return crypt::IntLessEqualCrypt_401FC0(graphic.y, &gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(graphic.y) <= gLegacyMouseState.mouseY);
     }
 
     const std::int32_t scene = world::gCurrentSceneType;
@@ -92,20 +91,19 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
         if (ReadLegacyMouseX() > centerX + 16) {
             return false;
         }
-        if (!crypt::IntLessEqualCrypt_401FC0(centerX - 16, &gLegacyMouseState.mouseX)) {
+        if (!(static_cast<std::int32_t>(centerX - 16) <= gLegacyMouseState.mouseX)) {
             return false;
         }
         const login::YobiAction* const upperAction = graphic.reference.action;
         const std::int32_t upperY = graphic.y;
         const std::int32_t upperOffset = ReadYobiGraphicOffsetY(upperAction);
-        if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseY, upperY - upperOffset + 12)) {
+        if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
             return false;
         }
         const login::YobiAction* const lowerAction = graphic.reference.action;
         const std::int32_t lowerY = graphic.y;
         const std::int32_t lowerOffset = ReadYobiGraphicOffsetY(lowerAction);
-        return crypt::IntLessEqualCrypt_401FC0(
-            lowerY - lowerOffset - 12, &gLegacyMouseState.mouseY);
+        return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= gLegacyMouseState.mouseY);
     }
 
     const std::int32_t imageNo = graphic.imageNo;
@@ -127,15 +125,14 @@ bool HitQueuedGraphic(const GraphicCacheItem32& graphic)
     const DxGraphicEntry* const upperBase = gGraphicDxCache103CFA4;
     const std::int32_t upperHeight = std::bit_cast<std::int16_t>(upperBase[upperImage].height);
     const std::int32_t upperY = graphic.y;
-    if (!crypt::LessEqual_401DA0(&gLegacyMouseState.mouseY, upperHeight + upperY)) {
+    if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
         return false;
     }
     const std::int32_t lowerImage = graphic.imageNo;
     const DxGraphicEntry* const lowerBase = gGraphicDxCache103CFA4;
     const std::int32_t lowerHeight = std::bit_cast<std::int16_t>(lowerBase[lowerImage].height);
     const std::int32_t lowerY = graphic.y;
-    if (!crypt::IntLessEqualCrypt_401FC0(
-            lowerHeight - hitHeight + lowerY, &gLegacyMouseState.mouseY)) {
+    if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= gLegacyMouseState.mouseY)) {
         return false;
     }
     return (ReadYobiActionFlags(graphic.reference.action) & 0x02000000u) == 0;

@@ -201,22 +201,22 @@ std::int32_t Sub_445A60(
     record.value40 = value40;
     record.level2C = level;
     platform::LegacyCryptInt temporary;
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    temporary.ConstructFromInt_401CC0(mapX);
     const std::uint8_t xReadCount = temporary.readCount;
     const std::uint32_t xEncoded = temporary.encoded;
     const std::uint32_t xMask = temporary.mask;
     record.coordinate0C.readCount = xReadCount;
     record.coordinate0C.encoded = xEncoded;
     record.coordinate0C.mask = xMask;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    temporary.Destroy_401CF0();
+    temporary.ConstructFromInt_401CC0(mapY);
     const std::uint32_t yMask = temporary.mask;
     const std::uint32_t yEncoded = temporary.encoded;
     const std::uint8_t yReadCount = temporary.readCount;
     record.coordinate1C.mask = yMask;
     record.coordinate1C.encoded = yEncoded;
     record.coordinate1C.readCount = yReadCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    temporary.Destroy_401CF0();
     record.direction = direction;
     // 原两处只写+42低W8；+43高字节与其他清理入口仍共享同一W16。
     if (flag1 != 0) {
@@ -341,11 +341,11 @@ namespace {
 // 原43D7C0按0C/1C构造；第一成员成功后才承担其C++失败清理，返回真实对象。
 detail::WorldObjectRecord* ConstructLegacyWorldElement_43D7C0(detail::WorldObjectRecord* const record)
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&record->coordinate0C);
+    record->coordinate0C.ConstructZero_401C70();
     try {
-        platform::legacy_crypt_int::ConstructZero_401C70(&record->coordinate1C);
+        record->coordinate1C.ConstructZero_401C70();
     } catch (...) {
-        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+        record->coordinate0C.Destroy_401CF0();
         throw;
     }
     return record;
@@ -355,12 +355,12 @@ detail::WorldObjectRecord* ConstructLegacyWorldElement_43D7C0(detail::WorldObjec
 void DestroyLegacyWorldElement_43D810(detail::WorldObjectRecord* const record)
 {
     try {
-        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate1C);
+        record->coordinate1C.Destroy_401CF0();
     } catch (...) {
-        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+        record->coordinate0C.Destroy_401CF0();
         throw;
     }
-    platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+    record->coordinate0C.Destroy_401CF0();
 }
 
 // 原迭代器不消费构造返回；只适配显式元素地址/函数签名，不计新原身份。

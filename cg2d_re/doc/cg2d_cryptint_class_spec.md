@@ -1,6 +1,6 @@
 # LegacyCryptInt class 与整数运算符 SPEC（LCI01）
 
-日期：2026-10-14。状态：用户已确认；接口与CryptInt启动拥有者已实现，当前只做静态核对。
+日期：2026-10-14。状态：用户已确认；接口与CryptInt启动拥有者已实现；LCI02按用户后续指令合并命名空间，当前只做静态核对。
 
 ## 目标与源码基线
 
@@ -103,7 +103,7 @@ uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异
 
 | 原入口 | 原生启动拥有者 | 构造 / 清理正文 |
 |---|---|---|
-| 0x00401C10 | `cg::platform::legacy_crypt_int::StartupValues` | `ConstructStartupValues_401C20` / `DestroyStartupValues_401C50` |
+| 0x00401C10 | `cg::platform::LegacyCryptInt::StartupValues` | `ConstructStartupValues_401C20` / `DestroyStartupValues_401C50` |
 | 0x00404120 | `cg::platform::ProtectionChecksum1Startup` | `ConstructProtectionChecksum1_404130` / `DestroyProtectionChecksum1_404150` |
 | 0x00404160 | `cg::platform::ProtectionChecksum2Startup` | `ConstructProtectionChecksum2_404170` / `DestroyProtectionChecksum2_404190` |
 | 0x004041A0 | `cg::platform::ProtectionProcessStateStartup` | `ConstructProtectionProcessState_4041B0` / `DestroyProtectionProcessState_4041D0` |
@@ -137,3 +137,62 @@ uint32按通常转换参与无符号运算。算术溢出沿CQA01，不新增异
 所有新增当前项的build_verified／runtime_verified均false，四项任务仍开放。
 JSON／UTF-8无BOM／LF和Git差异核对、文本汇总器及其-Check完成；只说明源码／台账结构，
 不替代编译、链接、数值／正常退出和实际运行验收。未构建、测试、运行、检查产物或计算摘要。
+
+<a id="cryptint-class-merge"></a>
+## 命名空间合并裁决（LCI02）
+
+2026-10-14用户指出：`legacy_crypt_int`应合并进CryptInt类。
+本项沿用户已确认的class封装方向和子项目第8条工程委托实施，覆盖LCI01第9项暂不迁移数值调用的阶段限制。
+
+1. 保留现有`LegacyCryptInt`类型名；删除`legacy_crypt_int`命名空间，原数值／显式构销函数正文改为对象成员。
+   原对象参数由`this`承接；双对象运算仍接收右对象，标量左侧入口由右对象接收左整数。
+   保留地址后缀和特殊返回合同，不将全部旧入口替换成语义不同的operator。
+2. operator与整数构造直接调用类内成员，不保留类外数值后端或同义兼容包装。
+   位模式转换和mask生成改为私有静态成员；不新增数据成员、虚函数或RTTI。
+3. 首项启动拥有者改为嵌套类型`LegacyCryptInt::StartupValues`，两对象成组构销入口为私有静态成员；
+   中央翻译单元中的实例顺序、同一全局载荷及MSVC退出承接保持。其余23组拥有者职责与接线不变。
+4. 所有源码消费者迁移到对象成员调用；参数表达式、读取次数、先右后左读取及字段发布顺序保持。
+   原始存储、public字段、平凡默认构造／析构／同类复制及16字节布局仍沿已确认合同，不扩大为全自动生命周期。
+5. 同步受影响源码定位、语义映射、验收登记与唯一进度，仅做必要静态核对和文本汇总。
+   当前不构建、不测试、不运行、不检查产物、不计算摘要；不提高运行验收状态。
+
+## LCI02合并阶段源码状态（普通运算后续按LCI03／LCI04收敛）
+
+旧命名空间的28个对象操作、2个成组构销和3个私有辅助正文已移入LegacyCryptInt；
+operator直接复用成员，所有旧限定／别名／using调用已迁移，源码与头文件无legacy_crypt_int引用。
+静态核对33个正文仅改变接收方式，五字段与既有大小／偏移／平凡属性断言保持；
+特殊401FA0返回、读计数、RNG及双对象先右后左保持，布局断言尚未经编译器执行。
+
+<a id="cryptint-comparison-operators"></a>
+## 普通比较入口收敛为operator（LCI03）
+
+2026-10-14用户继续指出IntGreaterCrypt_401F80这类入口应使用operator。
+本项只收敛11个普通bool比较成员及其消费者；标量两侧比较复用已批准的单次int32转换和C++内建operator，
+同类比较沿已有friend operator，保先右后左独立读取。原S32形参的转换边界仍保持，不能因调用改写使旧S32比较变成U32比较。
+IntLessCryptRaw_401FA0保留完整U32高24位返回合同，作为特殊成员保留；不扩展算术或自动生命周期范围。
+移除同义命名比较声明／正文，更新全量表当前承接和语义定位，历史入口身份与验收门禁保持。
+
+<a id="cryptint-native-operators"></a>
+## 自增与算术收敛为operator（LCI04）
+
+按用户追加指令，移除Increment、加减乘、复合赋值和整数赋值等9个同义命名成员。
+原前置自增、复合赋值、赋值及同类差值正文直接进入对应operator；标量普通算术继续单次int32转换与内建operator。
+旧S32参数边界保持；前置自增按已批准接口返回对象引用，当前源码没有旧整数返回消费者。
+原地址注释迁移到实际operator／转换承接处，不删除原身份；低层载荷复制／显式构销与特殊原返回保留独立合同。
+
+<a id="cryptint-native-lifecycle-proposal"></a>
+## 原生析构与分配释放方案（LCI05，范围待确认）
+
+用户指出DestroyAndFree_401CA0应采用析构函数。原401CF0只恢复token；401CA0先执行401CF0、再按flags bit0决定free。
+方案为将401CF0正文放入~LegacyCryptInt，401CA0的释放责任由delete／operator delete承接，仍配对CRT malloc／free，
+原地址分别注释在析构与释放边界；不在析构中无条件free(this)，防止销毁栈／嵌入对象时错误释放。
+新增非平凡析构与LCI01原“平凡载荷”合同有范围冲突；须同步迁移裸内存／数组和24组启动拥有者的手工构销，
+明确每个实际对象何时开始／结束寿命、同一存储重构与前缀异常清理，避免手工与自动析构重复。
+在范围确认及这些生产／消费迁移完成前，保持当前显式构销代码，不仅添加析构／删除静态断言以掩盖未迁移存储。
+仍保留16字节／字段宽度／地址注释、读取及RNG顺序；不自动恢复构建、测试、运行或文件摘要权限。
+
+## LCI03／LCI04当前实现
+
+普通比较178处、自增／算术／赋值185处消费者已使用operator，20个同义命名成员声明与正文退休。
+前置自增、复合赋值、整数赋值和同类运算直接复用原正文；标量运算使用单次int32转换，保留旧S32参数转换。
+原源码／头文件中的十六进制地址全部保留到实际接口／承接注释；401CA0／401CF0当前仍按LCI05范围确认前的显式生命周期实现。

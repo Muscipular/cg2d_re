@@ -316,7 +316,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "每项按coordinate0C、coordinate1C构造；由统一CRT组按1000项正序调用。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
       "instruction_count": 25,
@@ -341,7 +342,7 @@
           "parent_entry": "0x43D7C0",
           "call_site": "0x43D7E0",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "ConstructLegacyWorldElement_43D7C0",
           "original_this_offset": "0xC",
@@ -352,7 +353,7 @@
           "parent_entry": "0x43D7C0",
           "call_site": "0x43D7F0",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "ConstructLegacyWorldElement_43D7C0",
           "original_this_offset": "0x1C",
@@ -409,7 +410,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "每项按coordinate1C、coordinate0C析构；表逆序，不释放action。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
       "instruction_count": 25,
@@ -434,7 +436,7 @@
           "parent_entry": "0x43D810",
           "call_site": "0x43D838",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "DestroyLegacyWorldElement_43D810",
           "original_this_offset": "0x1C",
@@ -445,7 +447,7 @@
           "parent_entry": "0x43D810",
           "call_site": "0x43D848",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "DestroyLegacyWorldElement_43D810",
           "original_this_offset": "0xC",
@@ -664,7 +666,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "共享六成员析构叶；主宠物和浏览宠物各复用自身唯一owner，记录与字段均逆序。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
       "instruction_count": 49,
@@ -689,7 +692,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD2F8",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0x5C",
@@ -700,7 +703,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD305",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0x4C",
@@ -711,7 +714,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD312",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0x3C",
@@ -722,7 +725,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD31F",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0x2C",
@@ -733,7 +736,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD32C",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0x1C",
@@ -744,7 +747,7 @@
           "parent_entry": "0x4CD2D0",
           "call_site": "0x4CD33C",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0",
           "original_this_offset": "0xC",
@@ -844,7 +847,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "共享六成员构造叶；主宠物与浏览宠物均按+0C..+5C构造，不合并实体或RNG调用。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
       "instruction_count": 49,
@@ -869,7 +873,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD380",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0xC",
@@ -880,7 +884,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD390",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0x1C",
@@ -891,7 +895,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD39D",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0x2C",
@@ -902,7 +906,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD3AA",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0x3C",
@@ -913,7 +917,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD3B7",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0x4C",
@@ -924,7 +928,7 @@
           "parent_entry": "0x4CD360",
           "call_site": "0x4CD3C4",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPetElement_4CD360",
           "original_this_offset": "0x5C",
@@ -3182,7 +3186,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553064",
       "original_role": "构造叶",
@@ -3204,7 +3209,7 @@
           "parent_entry": "0x467BA0",
           "call_site": "0x467BA5",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPlayerCoordinates_467BA0",
@@ -3217,7 +3222,7 @@
           "parent_entry": "0x467BA0",
           "call_site": "0x467BAF",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPlayerCoordinates_467BA0",
@@ -3264,7 +3269,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553064",
       "original_role": "退出回调",
@@ -3286,7 +3292,7 @@
           "parent_entry": "0x467BD0",
           "call_site": "0x467BD5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPlayerCoordinates_467BD0",
@@ -3299,7 +3305,7 @@
           "parent_entry": "0x467BD0",
           "call_site": "0x467BDF",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPlayerCoordinates_467BD0",
@@ -3531,7 +3537,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553068",
       "original_role": "构造叶",
@@ -3552,7 +3559,7 @@
           "parent_entry": "0x467C00",
           "call_site": "0x467C05",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPlayerSnapshotX_467C00",
@@ -3599,7 +3606,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553068",
       "original_role": "退出回调",
@@ -3620,7 +3628,7 @@
           "parent_entry": "0x467C20",
           "call_site": "0x467C25",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPlayerSnapshotX_467C20",
@@ -3852,7 +3860,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55306C",
       "original_role": "构造叶",
@@ -3873,7 +3882,7 @@
           "parent_entry": "0x467C40",
           "call_site": "0x467C45",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyPlayerSnapshotY_467C40",
@@ -3920,7 +3929,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55306C",
       "original_role": "退出回调",
@@ -3941,7 +3951,7 @@
           "parent_entry": "0x467C60",
           "call_site": "0x467C65",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPlayerSnapshotY_467C60",
@@ -4173,7 +4183,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553070",
       "original_role": "构造叶",
@@ -4194,7 +4205,7 @@
           "parent_entry": "0x467C80",
           "call_site": "0x467C85",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldCoordinateState_467C80",
@@ -4241,7 +4252,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553070",
       "original_role": "退出回调",
@@ -4262,7 +4274,7 @@
           "parent_entry": "0x467CA0",
           "call_site": "0x467CA5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldCoordinateState_467CA0",
@@ -4494,7 +4506,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553074",
       "original_role": "构造叶",
@@ -4515,7 +4528,7 @@
           "parent_entry": "0x467CC0",
           "call_site": "0x467CC5",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldCoordinateState_467CC0",
@@ -4562,7 +4575,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553074",
       "original_role": "退出回调",
@@ -4583,7 +4597,7 @@
           "parent_entry": "0x467CE0",
           "call_site": "0x467CE5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldCoordinateState_467CE0",
@@ -4816,7 +4830,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553078",
       "original_role": "构造叶",
@@ -4838,7 +4853,7 @@
           "parent_entry": "0x467D00",
           "call_site": "0x467D05",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldCoordinatePair_467D00",
@@ -4851,7 +4866,7 @@
           "parent_entry": "0x467D00",
           "call_site": "0x467D0F",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldCoordinatePair_467D00",
@@ -4898,7 +4913,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553078",
       "original_role": "退出回调",
@@ -4920,7 +4936,7 @@
           "parent_entry": "0x467D30",
           "call_site": "0x467D35",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldCoordinatePair_467D30",
@@ -4933,7 +4949,7 @@
           "parent_entry": "0x467D30",
           "call_site": "0x467D3F",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldCoordinatePair_467D30",
@@ -5166,7 +5182,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55307C",
       "original_role": "构造叶",
@@ -5188,7 +5205,7 @@
           "parent_entry": "0x467D60",
           "call_site": "0x467D65",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveTargets_467D60",
@@ -5201,7 +5218,7 @@
           "parent_entry": "0x467D60",
           "call_site": "0x467D6F",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveTargets_467D60",
@@ -5248,7 +5265,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55307C",
       "original_role": "退出回调",
@@ -5270,7 +5288,7 @@
           "parent_entry": "0x467D90",
           "call_site": "0x467D95",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveTargets_467D90",
@@ -5283,7 +5301,7 @@
           "parent_entry": "0x467D90",
           "call_site": "0x467D9F",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveTargets_467D90",
@@ -5515,7 +5533,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553080",
       "original_role": "构造叶",
@@ -5536,7 +5555,7 @@
           "parent_entry": "0x467DC0",
           "call_site": "0x467DC5",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveState_467DC0",
@@ -5583,7 +5602,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553080",
       "original_role": "退出回调",
@@ -5604,7 +5624,7 @@
           "parent_entry": "0x467DE0",
           "call_site": "0x467DE5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveState_467DE0",
@@ -5836,7 +5856,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553084",
       "original_role": "构造叶",
@@ -5857,7 +5878,7 @@
           "parent_entry": "0x467E00",
           "call_site": "0x467E05",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveState_467E00",
@@ -5904,7 +5925,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553084",
       "original_role": "退出回调",
@@ -5925,7 +5947,7 @@
           "parent_entry": "0x467E20",
           "call_site": "0x467E25",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveState_467E20",
@@ -6157,7 +6179,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553088",
       "original_role": "构造叶",
@@ -6178,7 +6201,7 @@
           "parent_entry": "0x467E40",
           "call_site": "0x467E45",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveState_467E40",
@@ -6225,7 +6248,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553088",
       "original_role": "退出回调",
@@ -6246,7 +6270,7 @@
           "parent_entry": "0x467E60",
           "call_site": "0x467E65",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveState_467E60",
@@ -6478,7 +6502,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55308C",
       "original_role": "构造叶",
@@ -6499,7 +6524,7 @@
           "parent_entry": "0x467E80",
           "call_site": "0x467E85",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveState_467E80",
@@ -6546,7 +6571,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x55308C",
       "original_role": "退出回调",
@@ -6567,7 +6593,7 @@
           "parent_entry": "0x467EA0",
           "call_site": "0x467EA5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveState_467EA0",
@@ -6799,7 +6825,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553090",
       "original_role": "构造叶",
@@ -6820,7 +6847,7 @@
           "parent_entry": "0x467EC0",
           "call_site": "0x467EC5",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyWorldMoveState_467EC0",
@@ -6867,7 +6894,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553090",
       "original_role": "退出回调",
@@ -6888,7 +6916,7 @@
           "parent_entry": "0x467EE0",
           "call_site": "0x467EE5",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyWorldMoveState_467EE0",
@@ -7120,7 +7148,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553094",
       "original_role": "构造叶",
@@ -7141,7 +7170,7 @@
           "parent_entry": "0x467F00",
           "call_site": "0x467F05",
           "target_entry": "0x401C70",
-          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "platform::LegacyCryptInt::ConstructZero_401C70",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "ConstructLegacyRippleGate_467F00",
@@ -7188,7 +7217,8 @@
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "crt_slot": "0x553094",
       "original_role": "退出回调",
@@ -7209,7 +7239,7 @@
           "parent_entry": "0x467F20",
           "call_site": "0x467F25",
           "target_entry": "0x401CF0",
-          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "platform::LegacyCryptInt::Destroy_401CF0",
           "target_source": "src/platform/LegacyCryptInt.cpp",
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyRippleGate_467F20",
@@ -8351,7 +8381,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Read_401EC0"
+            "LegacyCryptInt::Read_401EC0"
           ]
         },
         {
@@ -8370,7 +8400,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "Read_401EC0后与整数比较不等；四个直接callsite为40454E/404598/449421/449A22，各读取一次且只判AL。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
     },
@@ -8383,7 +8414,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Read_401EC0"
+            "LegacyCryptInt::Read_401EC0"
           ]
         },
         {
@@ -8397,7 +8428,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "原从第二参数取得CryptInt，单次读取后与第一整数不等比较；三处caller的当前Read != floor内联保留读取次数。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
     },
@@ -8410,11 +8442,11 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Read_401EC0",
-            "Greater_401D40",
-            "IntLessCryptRaw_401FA0"
+            "LegacyCryptInt::Read_401EC0",
+            "cg::platform::LegacyCryptInt::operator std::int32_t",
+            "LegacyCryptInt::IntLessCryptRaw_401FA0"
           ],
-          "relationship": "BSB01当前具名原401FA0：一次Read_401EC0，S32左整数<右载体，保高24位只替换AL；其余旧读取/比较符号保历史与现有其它源使用"
+          "relationship": "BSB01当前具名原401FA0：一次Read_401EC0，S32左整数<右载体，保高24位只替换AL；其余旧读取/比较符号保历史与现有其它源使用；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -8441,7 +8473,7 @@
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "IntLessCryptRaw_401FA0"
+            "LegacyCryptInt::IntLessCryptRaw_401FA0"
           ],
           "relationship": "既有数字载体库内声明，S32左值/原生非拥有右对象，uint32原返回位型"
         }
@@ -8453,7 +8485,9 @@
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_integer_left_compare_dispatch_evidence.json"
+        "doc/cg2d_integer_left_compare_dispatch_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
       "original_end_exclusive": "0x401fb1",
@@ -8504,8 +8538,9 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Equal_401D00"
-          ]
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
+          ],
+          "relationship": "；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -8524,7 +8559,9 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "原单次读取第二参数CryptInt并与整数相等比较，十处直接callsite只判AL；有S32返回的43E490各退出显式生产0/1，不透传该比较的高位。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
     },
@@ -8714,14 +8751,14 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "StartupValues::StartupValues StartupValues::~StartupValues ConstructStartupValues_401C20 DestroyStartupValues_401C50"
+            "LegacyCryptInt::StartupValues::StartupValues LegacyCryptInt::StartupValues::~LegacyCryptInt::StartupValues LegacyCryptInt::ConstructStartupValues_401C20 LegacyCryptInt::DestroyStartupValues_401C50"
           ],
           "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "StartupValues"
+            "LegacyCryptInt::StartupValues"
           ],
           "relationship": "不可拷贝启动拥有者声明；对应LCI01批准的生命周期替换。"
         }
@@ -8736,7 +8773,8 @@
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "LCI01覆盖当前手写atexit／S32登记结果合同，采用MSVC构造析构；下列原登记边及前态保持历史，不能作当前手写调用证明。先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。",
       "instruction_count": 6,
@@ -8835,7 +8873,7 @@
         "current_source": "src/platform/LegacyMouse.cpp",
         "current_initializer_type": "StartupValues",
         "current_initializer_variable": "gStartupValues",
-        "direct_call_symbol": "cg::platform::legacy_crypt_int::StartupValues::StartupValues",
+        "direct_call_symbol": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -8865,9 +8903,9 @@
       },
       "lci01_current_native_lifecycle": {
         "runtime_verified": false,
-        "destructor": "cg::platform::legacy_crypt_int::StartupValues::~StartupValues",
+        "destructor": "cg::platform::LegacyCryptInt::StartupValues::~StartupValues",
         "decision_ref": "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "constructor": "cg::platform::legacy_crypt_int::StartupValues::StartupValues",
+        "constructor": "cg::platform::LegacyCryptInt::StartupValues::StartupValues",
         "startup_variable": "gStartupValues",
         "build_verified": false,
         "registration": "MSVC原生对象寿命；原手写atexit登记边与失败结果合同已由批准差异覆盖。",
@@ -10761,7 +10799,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Destroy_401CF0"
+            "LegacyCryptInt::Destroy_401CF0"
           ],
           "relationship": "复用既有成员销毁动作，不改变其正文、RNG或字段"
         }
@@ -10770,7 +10808,8 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "原两成员+10／+00逆序叶经八展开跳转用于已完成对清理；当前局部非拥有指针数组和完成计数真实接C++异常前缀析构，构造成功后取消，未完成成员不清理。原FS／EH元数据和机器ABI由编译器持有，全部SEH故障／二次异常／完整业务owner／SDK／运行未验；不把正常退出代异常接线，不补atexit登记失败或快速退出。",
       "current_provider": {
@@ -18786,8 +18825,9 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Add_401E10"
-          ]
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
+          ],
+          "relationship": "；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -18804,7 +18844,9 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "先调用401EC0一次，再将实参低W16作S16扩展并相加，返回完整W32；当前四处调用由显式S16方向分量加Add_401E10承接，不将完整S32偏移误用到此叶。"
     },
@@ -18818,13 +18860,14 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Read_401EC0"
+            "LegacyCryptInt::Read_401EC0"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "唯一指令jmp401EC0，复用同一读取入口，不再额外读取或复制readCount/RNG状态。当前611处直接引用中，609处归入230个IDA函数，另495E8D/495EDD是未归入函数的call指令；本轮没有重新验证全部调用时序或把未归属指令排除。"
     },
@@ -18838,7 +18881,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Read_401EC0"
+            "LegacyCryptInt::Read_401EC0"
           ]
         },
         {
@@ -18871,7 +18914,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "单次读取S32后fild返回浮点，不是先转F32。当前12个父入口28处原调用由各父单次Read及对应浮点表达式承接；F32落点按父合同保留，不把独立S32转换映射当作后续x87精度、舍入和完整路径验收。"
     },
@@ -18885,19 +18929,20 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "CopyPayload"
+            "LegacyCryptInt::CopyPayload"
           ]
         },
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "CopyPayload"
+            "LegacyCryptInt::CopyPayload"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token/reserved；不读明文、不调用RNG。原返回目标引用，427470内30处调用按既有父合同弃返回，使用void CopyPayload承接；不以此替换count先写等不同内联复制序。"
     },
@@ -27642,7 +27687,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
       "verification_level": "当前源/消费者/类型/关闭/SDK声明限定静态核对；原证据保持，未编译/运行",
@@ -28054,7 +28100,7 @@
         {
           "reference_site": "0x553004",
           "target_entry": "0x401C10",
-          "target_symbol": "cg::platform::legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+          "target_symbol": "cg::platform::LegacyCryptInt::InitializeLegacyStartupValues_401C10",
           "source": "src/platform/LegacyCryptInt.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
@@ -100717,7 +100763,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-draw-width-source-state",
         "doc/cg2d_window_draw_width_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "原mode/own/页行/used选择固定PetRuntimeRecord借用，十三信息和两价格分支沿32B未清buffer接真实格式；%s借用原名称/种族，%4d两次CryptInt，%3d各S32偏移和%d两个价格owner保持。格式后价格仍重新取页和金额，各次绘制/数值宽度/分支/颜色/选中/详情/返回正文逐字不变，不新增边界策略或改既有回调槽。仅格式依赖差异，不据此验收完整父、67/68生产/表路由/CRT或运行。",
       "original_incoming": [],
@@ -100828,7 +100875,7 @@
         {
           "site": "0x4D0FC0",
           "fmt": "%4d",
-          "arg": "platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1])",
+          "arg": "platform::LegacyCryptInt::Read_401EC0(&pet->values0C[1])",
           "offset": "0x1C",
           "format_address": "0x553FDC",
           "format_push_site": "0x4d0fba",
@@ -100861,7 +100908,7 @@
         {
           "site": "0x4D10B7",
           "fmt": "%4d",
-          "arg": "platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3])",
+          "arg": "platform::LegacyCryptInt::Read_401EC0(&pet->values0C[3])",
           "offset": "0x3C",
           "format_address": "0x553FDC",
           "format_push_site": "0x4d10b1",
@@ -104715,7 +104762,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "仅16个格式callee接真实53B304，20B buffer/32B details均未清；物品同源selection-20/name分两行/图号/价格时重新取选择号、S32 count>0；宠物同源selection-5借name、+1C/+3C两独立CryptInt调用401EA0→既有401EC0返回S32，+8/+70/+74/+78/+6A4/+7C/+80/+98/+6C各完整S32按原顺序格式即刻绘制。种族+4 S16且[0,20)借表名，否则只details[0]=0仍绘制；宠物价格时重新读选择号到D2D464数组，原预偏移地址别名保持。初始petLayout布局快照/购买与取消点击后窗口重取/隐藏、正文mode再读、页轮换/hover/原图号与色/坐标S16转换/背景/返回全不动，不把属性或选择/模式重读合并缓存，不重验桥接/扫描/父核心。",
       "original_incoming": [],
@@ -104861,7 +104909,7 @@
           "target_entry": "0x53B304",
           "format_address": "0x553FDC",
           "format_bytes": "25346400",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet->values0C[1])",
           "argument_widths": [
             "S32"
           ],
@@ -104899,7 +104947,7 @@
           "target_entry": "0x53B304",
           "format_address": "0x553FDC",
           "format_bytes": "25346400",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet->values0C[3])",
           "argument_widths": [
             "S32"
           ],
@@ -114563,7 +114611,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_43.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "仅一drawNumber格式callee承接十个原点，入口S16 x/y、S32 index、U8文字层与void返回保持；固定借World原pet，used零立即返回，名称自定义优先/种族S16门槛与原清层保持。十S32依次value08、CryptInt values0C[1]和[3]独立读取、values70[0..4]/[10]、value6A4，按原%3d/%4d/%2d写同一未清256B；每项格式后以字体13/颜色低U8 138/低S16坐标借buffer绘文字，消费完才读下一项。保留+98而不误读[5]、maxHp/maxFp非普通记录值，不预清/缓存/保护或更换owner。",
       "original_incoming": [
@@ -114689,8 +114738,8 @@
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACB3",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1])",
-          "source_field": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[1])",
+          "source_field": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[1])",
           "original_value_read_site": "0x4AAC9D",
           "original_value_offset": 28,
           "original_storage_address": "0xF633F8",
@@ -114713,8 +114762,8 @@
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACF3",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3])",
-          "source_field": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[3])",
+          "source_field": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[3])",
           "original_value_read_site": "0x4AACDD",
           "original_value_offset": 60,
           "original_storage_address": "0xF633F8",
@@ -118769,7 +118818,8 @@
         "doc/ui_windows/window_33.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
-        "doc/cg2d_code_range_identity_evidence.json"
+        "doc/cg2d_code_range_identity_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "仅一现callee接一原格式点；原入口固定当前元素WindowTextData*，440B50非零时之后读取同一data的text、只清首NUL并返回0。否则独立读取gPlayerX的CryptInt S32、完成后才读取同一data->text，以既有553FCC %3d直接写借用载荷，返回0。两S32形参/未用state及全部正文保持；不提前缓存text、不造局部缓冲/固定容量，不预清、钳制、保护或改关联查询/坐标owner。",
       "original_incoming": [],
@@ -118795,7 +118845,7 @@
           "source_expression_group": "player_coordinate_x_window_text",
           "source_expression": "x",
           "source_format_expression": "\"%3d\"",
-          "value_source_expression": "platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX)",
+          "value_source_expression": "platform::LegacyCryptInt::Read_401EC0(&world::detail::gPlayerX)",
           "original_value_read_site": "0x495E8D",
           "original_destination_pointer_read_site": "0x495E92",
           "condition_expression": "world::detail::Sub_440B50() == 0",
@@ -118837,7 +118887,8 @@
         "doc/ui_windows/window_33.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
-        "doc/cg2d_code_range_identity_evidence.json"
+        "doc/cg2d_code_range_identity_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "仅一现callee接一原格式点；原入口固定当前元素WindowTextData*，440B50非零时之后读取同一data的text、只清首NUL并返回0。否则独立读取gPlayerY的CryptInt S32、完成后才读取同一data->text，以既有553FCC %3d直接写借用载荷，返回0。两S32形参/未用state及全部正文保持；不提前缓存text、不造局部缓冲/固定容量，不预清、钳制、保护或改关联查询/坐标owner。",
       "original_incoming": [],
@@ -118863,7 +118914,7 @@
           "source_expression_group": "player_coordinate_y_window_text",
           "source_expression": "y",
           "source_format_expression": "\"%3d\"",
-          "value_source_expression": "platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY)",
+          "value_source_expression": "platform::LegacyCryptInt::Read_401EC0(&world::detail::gPlayerY)",
           "original_value_read_site": "0x495EDD",
           "original_destination_pointer_read_site": "0x495EE2",
           "condition_expression": "world::detail::Sub_440B50() == 0",
@@ -127028,7 +127079,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_detail.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "只换八源码格式接口、登记十三原点。导航后固定同一S16索引宠物；等级/经验绘后新等级<130分支、各CryptInt读序最大值先/参数当前在前；六项属性逐项读取+84..98、槽+6A4、元素后新位置/数量、同未清256B/输入坐标与页码新面板坐标/font1保持。原预览T*旗标/图号/生命期、导航/改名请求、种族/元素/伤势/四按钮/提示与S32返回0等正文不动。原父/旧路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -127151,7 +127203,7 @@
           ],
           "source_format_symbol": "Sub_4F8550",
           "source_format_expression": "\"%9d\"",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[4])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[4])",
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "original_record_stride": 20752,
@@ -127176,7 +127228,7 @@
           ],
           "source_format_symbol": "Sub_4F8550",
           "source_format_expression": "\"%9d\"",
-          "source_expression": "platform::legacy_crypt_int::Read_401EC0(&pet.values0C[5])",
+          "source_expression": "platform::LegacyCryptInt::Read_401EC0(&pet.values0C[5])",
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "original_record_stride": 20752,
@@ -139287,7 +139339,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "ConstructStartupValues_401C20",
+            "LegacyCryptInt::ConstructStartupValues_401C20",
             "gStartupValue5939C8",
             "gStartupValue5939D8"
           ],
@@ -139296,14 +139348,15 @@
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "ConstructStartupValues_401C20"
+            "LegacyCryptInt::ConstructStartupValues_401C20"
           ],
           "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139328,9 +139381,9 @@
           "parent_entry": "0x401C20",
           "call_site": "0x401C25",
           "target_entry": "0x401C70",
-          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "LegacyCryptInt::ConstructZero_401C70",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "ConstructStartupValues_401C20",
+          "symbol": "LegacyCryptInt::ConstructStartupValues_401C20",
           "arguments": "&gStartupValue5939C8；原固定0x5939C8",
           "relationship": "固定owner正序真实构造，不增加RNG调用"
         },
@@ -139338,9 +139391,9 @@
           "parent_entry": "0x401C20",
           "call_site": "0x401C2F",
           "target_entry": "0x401C70",
-          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "LegacyCryptInt::ConstructZero_401C70",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "ConstructStartupValues_401C20",
+          "symbol": "LegacyCryptInt::ConstructStartupValues_401C20",
           "arguments": "&gStartupValue5939D8；原固定0x5939D8",
           "relationship": "固定owner正序真实构造，不增加RNG调用"
         }
@@ -139403,7 +139456,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "DestroyStartupValues_401C50",
+            "LegacyCryptInt::DestroyStartupValues_401C50",
             "gStartupValue5939C8",
             "gStartupValue5939D8"
           ],
@@ -139412,14 +139465,15 @@
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "DestroyStartupValues_401C50"
+            "LegacyCryptInt::DestroyStartupValues_401C50"
           ],
           "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139444,9 +139498,9 @@
           "parent_entry": "0x401C50",
           "call_site": "0x401C55",
           "target_entry": "0x401CF0",
-          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "LegacyCryptInt::Destroy_401CF0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "DestroyStartupValues_401C50",
+          "symbol": "LegacyCryptInt::DestroyStartupValues_401C50",
           "arguments": "&gStartupValue5939D8；原固定0x5939D8",
           "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
         },
@@ -139454,9 +139508,9 @@
           "parent_entry": "0x401C50",
           "call_site": "0x401C5F",
           "target_entry": "0x401CF0",
-          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "LegacyCryptInt::Destroy_401CF0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "DestroyStartupValues_401C50",
+          "symbol": "LegacyCryptInt::DestroyStartupValues_401C50",
           "arguments": "&gStartupValue5939C8；原固定0x5939C8",
           "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
         }
@@ -139534,7 +139588,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139557,7 +139612,7 @@
           "parent_entry": "0x404130",
           "call_site": "0x404135",
           "target_entry": "0x401C70",
-          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "LegacyCryptInt::ConstructZero_401C70",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "ConstructProtectionChecksum1_404130",
           "arguments": "&gProtectionChecksum1；原固定0x594070",
@@ -139637,7 +139692,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139660,7 +139716,7 @@
           "parent_entry": "0x404150",
           "call_site": "0x404155",
           "target_entry": "0x401CF0",
-          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "LegacyCryptInt::Destroy_401CF0",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "DestroyProtectionChecksum1_404150",
           "arguments": "&gProtectionChecksum1；原固定0x594070",
@@ -139740,7 +139796,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139763,7 +139820,7 @@
           "parent_entry": "0x404170",
           "call_site": "0x404175",
           "target_entry": "0x401C70",
-          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "LegacyCryptInt::ConstructZero_401C70",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "ConstructProtectionChecksum2_404170",
           "arguments": "&gProtectionChecksum2；原固定0x594080",
@@ -139843,7 +139900,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139866,7 +139924,7 @@
           "parent_entry": "0x404190",
           "call_site": "0x404195",
           "target_entry": "0x401CF0",
-          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "LegacyCryptInt::Destroy_401CF0",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "DestroyProtectionChecksum2_404190",
           "arguments": "&gProtectionChecksum2；原固定0x594080",
@@ -139946,7 +140004,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -139969,7 +140028,7 @@
           "parent_entry": "0x4041B0",
           "call_site": "0x4041B5",
           "target_entry": "0x401C70",
-          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "target_symbol": "LegacyCryptInt::ConstructZero_401C70",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "ConstructProtectionProcessState_4041B0",
           "arguments": "&gProtectionProcessState；原固定0x59E548",
@@ -140049,7 +140108,8 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
       "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
@@ -140072,7 +140132,7 @@
           "parent_entry": "0x4041D0",
           "call_site": "0x4041D5",
           "target_entry": "0x401CF0",
-          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "target_symbol": "LegacyCryptInt::Destroy_401CF0",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "DestroyProtectionProcessState_4041D0",
           "arguments": "&gProtectionProcessState；原固定0x59E548",
@@ -145678,22 +145738,24 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Add_401E10"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "Add_401E10"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_cryptint_arithmetic_evidence.json"
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) + amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部42原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -145917,7 +145979,7 @@
       "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "Add_401E10",
+        "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
         "source_body_implemented": true,
         "runtime_verified": false
       },
@@ -145937,7 +145999,7 @@
           "target_entry": "0x401EC0",
           "native_target_symbol": "Read_401EC0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "Add_401E10",
+          "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
         }
       ]
@@ -145953,22 +146015,24 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Subtract_401E60"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "Subtract_401E60"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_cryptint_arithmetic_evidence.json"
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) - amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部37原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -146167,7 +146231,7 @@
       "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "Subtract_401E60",
+        "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
         "source_body_implemented": true,
         "runtime_verified": false
       },
@@ -146187,7 +146251,7 @@
           "target_entry": "0x401EC0",
           "native_target_symbol": "Read_401EC0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "Subtract_401E60",
+          "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
         }
       ]
@@ -146203,22 +146267,24 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Multiply_401E90"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "Multiply_401E90"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_cryptint_arithmetic_evidence.json"
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) * amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部7原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -146267,7 +146333,7 @@
       "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "Multiply_401E90",
+        "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
         "source_body_implemented": true,
         "runtime_verified": false
       },
@@ -146287,7 +146353,7 @@
           "target_entry": "0x401EC0",
           "native_target_symbol": "Read_401EC0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "Multiply_401E90",
+          "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
         }
       ]
@@ -146303,22 +146369,24 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "IntMinusCrypt_401FE0"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "IntMinusCrypt_401FE0"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明；LCI04当前算术／赋值已收敛为operator，旧S32边界、单读、载荷发布和RNG消费保持。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_cryptint_arithmetic_evidence.json"
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "实际S32表达式 lhs - Read_401EC0(rhs)，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部28原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -146472,7 +146540,7 @@
       "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "IntMinusCrypt_401FE0",
+        "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
         "source_body_implemented": true,
         "runtime_verified": false
       },
@@ -146492,7 +146560,7 @@
           "target_entry": "0x401EA0",
           "native_target_symbol": "Read_401EC0",
           "source": "src/platform/LegacyCryptInt.cpp",
-          "symbol": "IntMinusCrypt_401FE0",
+          "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原401EA0单尾跳401EC0，实际右对象读取一次；不增加第二次读取"
         }
       ]
@@ -146712,7 +146780,9 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_mouse_input_chain_evidence.json"
+        "doc/cg2d_mouse_input_chain_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "X先401E60读取/减left，x<0或x>=width直接0且不读Y；通过才401E60读取Y/减top，0<=y<height返回1，否则0。两Read/RNG次数保持，参数/算术/比较/返回S32。原20条/59B、五直接入向来自472D20三点/473560两点；不代完整父或全间接调用/ABI/运行，不新增保护/回绕/钳制；RPLAN.24、原格式明文、音频暂停及不构建/测试/运行/摘要保持。",
       "verification_level": "完整原根/直接入向、现有源码短路/阶段/事件映射限定静态；全父/间接目标/别名与ABI/运行未验",
@@ -146720,13 +146790,13 @@
         {
           "call_site": "0x472F0A",
           "target_entry": "0x401E60",
-          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "source_symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "先X/left，未通过就返回0"
         },
         {
           "call_site": "0x472F23",
           "target_entry": "0x401E60",
-          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "source_symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "仅X通过才Y/top"
         }
       ],
@@ -146804,7 +146874,9 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_mouse_input_chain_evidence.json"
+        "doc/cg2d_mouse_input_chain_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
       ],
       "boundary": "保存入口element/矩形，phase1/4/2/6先D68DB4低U8<212再命中并重读phase，焦点window/sharedIndex同一才追加按钮位；其他阶段仅focus0时命中，events1并追加W8 edge/held/pulse，type4才取X->Y/存两个S32 delta。phase4以两个S16拖动坐标和保存矩形追加40；仍用入口保存element，visible严格1才mouseCallback(index,events)。非零后重读phase、写低W8=212及focus1，phase4可选拖动(4,0,sourceIndex)后重置。原214条/735B、唯一474023来自473F80；现有void只针对已证caller弃返回。没有重建元素owner/私有事件状态，全上游/父/间接目标/alias/寿命/ABI/运行未验；不构建/测试/运行/摘要、音频暂停、原格式明文及RPLAN.24保持。",
       "verification_level": "完整原根/直接入向、现有源码短路/阶段/事件映射限定静态；全父/间接目标/别名与ABI/运行未验",
@@ -146818,13 +146890,13 @@
         {
           "call_site": "0x47369D",
           "target_entry": "0x401E60",
-          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "source_symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "type4当前element数据的deltaX，X先读/存"
         },
         {
           "call_site": "0x4736BC",
           "target_entry": "0x401E60",
-          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "source_symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "X写后重读当前window/元素Y并读Y存deltaY"
         },
         {
@@ -167885,9 +167957,9 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "IntGreaterCrypt_401F80"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。"
+          "relationship": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -167902,7 +167974,9 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
-        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
       "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
@@ -168892,9 +168966,9 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "GreaterEqual_401D70"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。"
+          "relationship": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -168909,7 +168983,9 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
       "verification_level": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
@@ -170570,10 +170646,10 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "Less_401DB0",
-            "Read_401EC0"
+            "cg::platform::LegacyCryptInt::operator std::int32_t",
+            "LegacyCryptInt::Read_401EC0"
           ],
-          "relationship": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。"
+          "relationship": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         }
       ],
       "evidence_documents": [
@@ -170581,7 +170657,9 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
@@ -221718,16 +221796,16 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "IntLessEqualCrypt_401FC0"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "RHL01原单读与S32比较正确body保持，AL消费合同注释"
+          "relationship": "RHL01原单读与S32比较正确body保持，AL消费合同注释；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
-            "IntLessEqualCrypt_401FC0"
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "RHL01真实声明/参数返回保持，仅合同注释"
+          "relationship": "RHL01真实声明/参数返回保持，仅合同注释；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         }
       ],
       "evidence_documents": [
@@ -221735,7 +221813,9 @@
         "doc/cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-decision",
         "doc/cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-acceptance",
         "doc/cg2d_rectangle_hit_hover_spec.md#rectangle-hit-hover-source-state",
-        "doc/cg2d_rectangle_hit_hover_spec.md#evidence-archive-20261011"
+        "doc/cg2d_rectangle_hit_hover_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
       ],
       "boundary": "RHL01仅完整5049A0矩形命中及401FC0有符号比较叶：60条150B/两页、六实际E8四目标/五跳三RET；135矩形CALL和16比较CALL原字节/父有据，比较16点均仅TEST AL。四次短路接回既有Less与IntLessEqual，原单读/RNG及半开边界保持；负layer仍成功，非负沿既有绘框截坐标W16/层W8、完整hover/step0，绘框返回丢弃、S32结果0/1不改。原401FC0的SETLE仅AL，新bool限已证消费者，原EAX高24位/其它ABI不记等价；实际401EA0由现Read_401EC0承接。比较叶正确body保。四整源只两已有头、单组四调用和四注释；无新API/helper/字段/布局/owner/保护/补零/默认值/容量限制/钳制/回滚/异常模型。旧Less/绘框/悬停父身份及body复用不改。两新F/两adapted、INPUT+2/RENDER+1/UIRUNTIME+1、三限定S零I/十任务open；全父/间接路由/全部坐标hover生产消费/队列及alias-owner寿命、SDK/机器ABI/优化后读取/描边像素/运行待，48有界记录及全部枚举gates/六closure/总SPEC§10保持。",
       "verification_level": "pass，两完整原根60条150B/两页、六实际E8四目标/五跳三RET及135矩形CALL/102父、16比较CALL/三父有据；四根短路与16叶消费仅AL，原半开边界/负layer成功/可描边后S32返回保持。四整源精确差异仅两已有头、一组四调用及四注释，比较叶正确body/其余全文保持；读取和RNG沿原单读，未执行算法。完整生产消费/全部父和alias-owner、ABI/像素及运行待",
@@ -243221,7 +243301,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::legacy_crypt_int::ConstructZero_401C70"
+            "cg::platform::LegacyCryptInt::ConstructZero_401C70"
           ],
           "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
         },
@@ -243229,7 +243309,7 @@
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "ConstructZero_401C70"
+            "LegacyCryptInt::ConstructZero_401C70"
           ],
           "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
         }
@@ -243238,14 +243318,15 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，以零值编码后返回原生对象地址；保留三字节不写。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
       "native_signature": "LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage)",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "ConstructZero_401C70",
+        "symbol": "LegacyCryptInt::ConstructZero_401C70",
         "source_body_implemented": true,
         "runtime_verified": false
       }
@@ -243267,7 +243348,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::legacy_crypt_int::DestroyAndFree_401CA0"
+            "cg::platform::LegacyCryptInt::DestroyAndFree_401CA0"
           ],
           "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
         },
@@ -243275,7 +243356,7 @@
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "DestroyAndFree_401CA0"
+            "LegacyCryptInt::DestroyAndFree_401CA0"
           ],
           "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
         }
@@ -243284,14 +243365,15 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "先恢复令牌，flags bit0置位才同域std::free；两路返回原地址，释放后不恢复对象或所有权。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
       "native_signature": "LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags)",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "DestroyAndFree_401CA0",
+        "symbol": "LegacyCryptInt::DestroyAndFree_401CA0",
         "source_body_implemented": true,
         "runtime_verified": false
       }
@@ -243313,7 +243395,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::legacy_crypt_int::ConstructFromInt_401CC0"
+            "cg::platform::LegacyCryptInt::ConstructFromInt_401CC0"
           ],
           "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
         },
@@ -243321,7 +243403,7 @@
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "ConstructFromInt_401CC0"
+            "LegacyCryptInt::ConstructFromInt_401CC0"
           ],
           "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
         }
@@ -243330,14 +243412,15 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，用传入S32位模式编码后返回同一原生对象地址。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
       "native_signature": "LegacyCryptInt* ConstructFromInt_401CC0(LegacyCryptInt* storage, std::int32_t value)",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "ConstructFromInt_401CC0",
+        "symbol": "LegacyCryptInt::ConstructFromInt_401CC0",
         "source_body_implemented": true,
         "runtime_verified": false
       }
@@ -243359,7 +243442,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::legacy_crypt_int::Destroy_401CF0"
+            "cg::platform::LegacyCryptInt::Destroy_401CF0"
           ],
           "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
         },
@@ -243367,7 +243450,7 @@
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "Destroy_401CF0"
+            "LegacyCryptInt::Destroy_401CF0"
           ],
           "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
         }
@@ -243376,14 +243459,15 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "仅恢复首W32令牌；不清编码/mask/count/保留区，不释放对象。当前void接口的全部原EAX消费仍待证。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
       "native_signature": "void Destroy_401CF0(LegacyCryptInt* value)",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "Destroy_401CF0",
+        "symbol": "LegacyCryptInt::Destroy_401CF0",
         "source_body_implemented": true,
         "runtime_verified": false
       }
@@ -243405,7 +243489,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::legacy_crypt_int::SetNorVal_401F50"
+            "cg::platform::LegacyCryptInt::SetNorVal_401F50"
           ],
           "relationship": "已有唯一实现，CLCI01补独立原身份和字段/返回/分配域合同，源码正文保持。"
         },
@@ -243413,7 +243497,7 @@
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "SetNorVal_401F50"
+            "LegacyCryptInt::SetNorVal_401F50"
           ],
           "relationship": "既有16B定宽载体和显式T*/S32/U32接口；原W32令牌不作为本机虚表解引用。"
         }
@@ -243422,14 +243506,15 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state"
+        "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
       ],
       "boundary": "读当前mask与输入S32位模式异或后只写encoded；不增加读取计数或RNG。当前void接口不承诺全部原EAX残留消费者。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
       "native_signature": "void SetNorVal_401F50(LegacyCryptInt* target, std::int32_t value)",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "SetNorVal_401F50",
+        "symbol": "LegacyCryptInt::SetNorVal_401F50",
         "source_body_implemented": true,
         "runtime_verified": false
       }

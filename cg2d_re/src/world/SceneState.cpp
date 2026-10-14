@@ -1043,7 +1043,7 @@ RippleGateStartup::~RippleGateStartup()
 
 std::int32_t ReadRippleGateOnce()
 {
-    return BorrowRippleGateStorage()->Read_401EC0();
+    return BorrowRippleGateStorage()->value();
 }
 
 // 原函数：0x00448240。
@@ -3097,8 +3097,8 @@ std::int32_t Sub_50C940(
     platform::FormatLegacyString_53B304(packet, "P|%s", escaped);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
@@ -3231,8 +3231,8 @@ void Sub_50D000(
         static_cast<void>(Sub_51B080());
         const std::int32_t direction = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->direction));
-        const std::int32_t y = BorrowPlayerSnapshotYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerSnapshotXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerSnapshotYStorage()->value();
+        const std::int32_t x = BorrowPlayerSnapshotXStorage()->value();
         static_cast<void>(
             network::Sub_512720(platform::gConnectionSocket, x, y, direction));
     }
@@ -5216,8 +5216,8 @@ std::uint32_t Sub_46AF30()
 
     gValue9EE8B8 = 1;
     gValue9EE8A4 = static_cast<std::uint16_t>(direction);
-    gValue9A7F7C = BorrowPlayerXStorage()->Read_401EC0();
-    gValue9A7F80 = BorrowPlayerYStorage()->Read_401EC0();
+    gValue9A7F7C = BorrowPlayerXStorage()->value();
+    gValue9A7F80 = BorrowPlayerYStorage()->value();
     const std::uint32_t tick = platform::ReadTickCount32();
     gValueAF10C8 = tick;
     return tick;
@@ -5505,8 +5505,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
 {
     if (gValue9DAD68 == 1) {
         gValue55DA88 = 1;
-        const std::int32_t playerY = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = BorrowPlayerXStorage()->value();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         const std::int32_t index = gAutoMapWindowIndex55DA90;
         gValue55DA88 = 0;
@@ -5515,8 +5515,8 @@ std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
         return render::DrawColorAutoMap_44FEB0(x, y, gAutoMapColorWindow9CF6EC, width, height);
     }
     if (gValue55DA88 != 0) {
-        const std::int32_t playerY = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = BorrowPlayerXStorage()->value();
         static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
         gValue55DA88 = 0;
     }
@@ -5626,14 +5626,14 @@ std::uint16_t __cdecl Sub_468200()
 // 原 [0x46CEC0,0x46CED6)：Y 的读取先于 X 的带参读取。
 std::int32_t __cdecl Sub_46CEC0()
 {
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
     return ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(y));
 }
 
 // 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
 std::int32_t __cdecl Sub_46CEE0()
 {
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
     const std::int32_t result =
         ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(y));
     gValueAF10C0 = std::bit_cast<std::uint32_t>(result);
@@ -5651,11 +5651,11 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
-        static_cast<double>(BorrowPlayerXStorage()->Read_401EC0());
+        static_cast<double>(BorrowPlayerXStorage()->value());
     gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(currentX * 64.0));
     const double currentY =
-        static_cast<double>(BorrowPlayerYStorage()->Read_401EC0());
+        static_cast<double>(BorrowPlayerYStorage()->value());
     const std::uint8_t snapshotXCount = BorrowPlayerXStorage()->readCount;
     const std::uint32_t snapshotXEncoded = BorrowPlayerXStorage()->encoded;
     const double scaledY = currentY * 64.0;
@@ -5763,9 +5763,9 @@ std::int32_t* Sub_467F30()
 std::int32_t __cdecl Sub_4681B0()
 {
     const std::int32_t y =
-        BorrowPlayerSnapshotYStorage()->Read_401EC0();
+        BorrowPlayerSnapshotYStorage()->value();
     const std::int32_t x =
-        BorrowPlayerSnapshotXStorage()->Read_401EC0();
+        BorrowPlayerSnapshotXStorage()->value();
     static_cast<void>(Sub_468330(x, y));
     static_cast<void>(Sub_468200());
     gValueC82200 = 0;
@@ -7802,8 +7802,8 @@ std::int32_t __cdecl Sub_46A9E0()
 // PDH01：原 [0x46AA00,0x46AB56)；X/Y 字段取样后先 Y 更新，两整数差再落 F32，保早退 Y/pending 序。
 std::int32_t __cdecl Sub_46AA00()
 {
-    std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
-    std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+    std::int32_t x = BorrowPlayerXStorage()->value();
+    std::int32_t y = BorrowPlayerYStorage()->value();
     if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
         return y;
     }
@@ -7935,8 +7935,8 @@ std::uint16_t Sub_46AC10()
         }
     }
     gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     return static_cast<std::uint16_t>(
         Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
@@ -7971,8 +7971,8 @@ void* __cdecl Sub_46ADA0()
     gValueC82220 = 1;
     gValue9DAD54 = sequenceLow;
 
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gValueC8221C;
@@ -8041,8 +8041,8 @@ std::int32_t __cdecl Sub_46AC90()
 
     gValueC82220 = 1;
     gValueB65A7C = 0;
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     return network::Sub_510810(platform::gConnectionSocket, x, y);
 }
 
@@ -8060,8 +8060,8 @@ std::int32_t __cdecl Sub_46AEA0()
     gValueC82220 = 1;
     gValue9FB92C = sequenceLow;
 
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::uint32_t sequence = gValueC8221C;
     static_cast<void>(network::Sub_510630(
         platform::gConnectionSocket,
@@ -8314,11 +8314,11 @@ std::int32_t __cdecl Sub_46B5C0(
 std::int32_t Sub_46B6F0()
 {
     const std::int32_t targetX =
-        BorrowValue9A7F88Storage()->Read_401EC0();
+        BorrowValue9A7F88Storage()->value();
     const std::int32_t targetY =
-        BorrowValue9A7F98Storage()->Read_401EC0();
-    std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
-    std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
+        BorrowValue9A7F98Storage()->value();
+    std::int32_t x = BorrowPlayerXStorage()->value();
+    std::int32_t y = BorrowPlayerYStorage()->value();
     const std::array<std::int32_t, 3> offsets {0, 1, -1};
     std::int32_t accumulatedX = 0;
     std::int32_t accumulatedY = 0;
@@ -8709,12 +8709,12 @@ std::int16_t ReadPlayerTribe() noexcept
 
 std::int32_t ReadPlayerExperienceOnce()
 {
-    return BorrowPlayerRuntimeStorage()->value58.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->value58.value();
 }
 
 std::int32_t ReadPlayerNextExperienceOnce()
 {
-    return BorrowPlayerRuntimeStorage()->value68.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->value68.value();
 }
 
 bool IsPlayerNextExperienceEqual(const std::int32_t expected)
@@ -8739,17 +8739,17 @@ std::int32_t ReadPlayerPenalty() noexcept
 
 std::int32_t ReadPlayerHpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->hp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->hp.value();
 }
 
 std::int32_t ReadPlayerMaxHpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->maxHp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->maxHp.value();
 }
 
 std::int32_t ReadPlayerFpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->fp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->fp.value();
 }
 
 platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
@@ -8759,7 +8759,7 @@ platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
 
 std::int32_t ReadPlayerMaxFpOnce()
 {
-    return BorrowPlayerRuntimeStorage()->maxFp.Read_401EC0();
+    return BorrowPlayerRuntimeStorage()->maxFp.value();
 }
 
 bool IsPlayerFpLessThan(const std::int32_t cost)
@@ -9037,9 +9037,9 @@ void Sub_46A940()
 std::uint8_t Sub_46F680()
 {
     const float mouseY = static_cast<float>(
-        platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0());
+        platform::BorrowLegacyMouseStateStorage()->mouseY.value());
     const float mouseX = static_cast<float>(
-        platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0());
+        platform::BorrowLegacyMouseStateStorage()->mouseX.value());
     float projectedX;
     float projectedY;
     static_cast<void>(
@@ -9163,8 +9163,8 @@ void Sub_470050()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->value();
+        const std::int32_t x = BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9198,8 +9198,8 @@ void Sub_470150()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->value();
+        const std::int32_t x = BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9238,8 +9238,8 @@ void Sub_470270()
             return;
         }
         const std::int32_t mode = joinTeam ? 1 : 0;
-        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->value();
+        const std::int32_t x = BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9268,8 +9268,8 @@ void Sub_4703C0()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->value();
+        const std::int32_t x = BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9340,8 +9340,8 @@ void Sub_470670()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-        const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t y = BorrowPlayerYStorage()->value();
+        const std::int32_t x = BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
@@ -9357,7 +9357,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         return reinterpret_cast<std::uintptr_t>(initialAction);
     }
     // 原401D00仅改AL，保留读取值高24位；只能读取一次，避免额外计数/RNG。
-    const std::int32_t comparisonValue = BorrowValueC821D8Storage()->Read_401EC0();
+    const std::int32_t comparisonValue = BorrowValueC821D8Storage()->value();
     const std::uint32_t comparisonResult = (std::bit_cast<std::uint32_t>(comparisonValue) & 0xFFFFFF00u)
         | static_cast<std::uint32_t>(comparisonValue == 0);
     if (comparisonValue != 0 || index < 0) {
@@ -9386,8 +9386,8 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
         selected = 1;
     }
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_511DD0(
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
@@ -9448,8 +9448,8 @@ std::uint32_t Sub_51B3E0()
     if (gValueFF0D38 + 500u >= now) {
         return now;
     }
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
     const std::uint32_t sentAt = platform::ReadTickCount32();
     gValueFF0D38 = sentAt;
@@ -9493,8 +9493,8 @@ void Sub_46B370()
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount32();
 }
@@ -9597,12 +9597,12 @@ std::uint16_t Sub_469FC0()
             return static_cast<std::uint16_t>(pending);
         }
         const double targetX = static_cast<double>(
-            BorrowPlayerSnapshotXStorage()->Read_401EC0()) * 64.0F;
+            BorrowPlayerSnapshotXStorage()->value()) * 64.0F;
         const std::uint32_t worldXBits = gWorldCurrentXBits;
         const float worldX = std::bit_cast<float>(worldXBits);
         if (!(targetX < worldX || targetX > worldX)) {
             const double targetY = static_cast<double>(
-                BorrowPlayerSnapshotYStorage()->Read_401EC0()) * 64.0F;
+                BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (!(targetY < worldY || targetY > worldY)) {
@@ -9655,9 +9655,9 @@ std::uint16_t Sub_469FC0()
                         ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX));
                     MovePlayerOneStep_46B1B0(nextX, nextY, speed);
                     const std::int32_t y =
-                        BorrowPlayerYStorage()->Read_401EC0();
+                        BorrowPlayerYStorage()->value();
                     const std::int32_t x =
-                        BorrowPlayerXStorage()->Read_401EC0();
+                        BorrowPlayerXStorage()->value();
                     Sub_46A5A0(x, y);
                 }
             }
@@ -9745,9 +9745,9 @@ void Sub_46A700()
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        BorrowPlayerSnapshotXStorage()->Read_401EC0()) * 64.0F);
+        BorrowPlayerSnapshotXStorage()->value()) * 64.0F);
     const double scaledTargetY = static_cast<double>(
-        BorrowPlayerSnapshotYStorage()->Read_401EC0()) * 64.0F;
+        BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     const float targetY = static_cast<float>(scaledTargetY);
     const float rateX = std::bit_cast<float>(gValue9DAD78);
@@ -9796,9 +9796,9 @@ void Sub_46A700()
                 if (action != nullptr) {
                     login::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
-                        BorrowPlayerSnapshotYStorage()->Read_401EC0();
+                        BorrowPlayerSnapshotYStorage()->value();
                     const std::int32_t snapshotX =
-                        BorrowPlayerSnapshotXStorage()->Read_401EC0();
+                        BorrowPlayerSnapshotXStorage()->value();
                     static_cast<void>(network::Sub_511DD0(
                         platform::gConnectionSocket, snapshotX, snapshotY, 70));
                 }
@@ -9820,8 +9820,8 @@ void Sub_46A700()
 void Sub_519A80()
 {
     const std::int32_t direction = BorrowPlayerRuntimeStorage()->direction;
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     Sub_519CD0(BorrowPlayerRuntimeStorage()->imageNo, x, y, direction);
     const auto flags = static_cast<std::uint8_t>(BorrowPlayerRuntimeStorage()->flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
@@ -10336,8 +10336,8 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const std::int32_t y = BorrowPlayerSnapshotYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerSnapshotXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerSnapshotYStorage()->value();
+    const std::int32_t x = BorrowPlayerSnapshotXStorage()->value();
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。

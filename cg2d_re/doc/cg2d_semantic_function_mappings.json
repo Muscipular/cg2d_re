@@ -9360,7 +9360,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::Read_401EC0"
+            "LegacyCryptInt::value"
           ]
         },
         {
@@ -9380,7 +9380,8 @@
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "Read_401EC0后与整数比较不等；四个直接callsite为40454E/404598/449421/449A22，各读取一次且只判AL。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
     },
@@ -9393,7 +9394,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::Read_401EC0"
+            "LegacyCryptInt::value"
           ]
         },
         {
@@ -9408,7 +9409,8 @@
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "原从第二参数取得CryptInt，单次读取后与第一整数不等比较；三处caller的当前Read != floor内联保留读取次数。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
     },
@@ -9421,10 +9423,10 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::Read_401EC0",
+            "LegacyCryptInt::value",
             "cg::platform::LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次value；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
           "historical_symbols_before_lci_fa0": [
             "LegacyCryptInt::Read_401EC0",
             "cg::platform::LegacyCryptInt::operator std::int32_t",
@@ -9459,7 +9461,7 @@
           "symbols": [
             "LegacyCryptInt::operator std::int32_t"
           ],
-          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次value；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
           "historical_symbols_before_lci_fa0": [
             "LegacyCryptInt::IntLessCryptRaw_401FA0"
           ],
@@ -9476,7 +9478,8 @@
         "doc/cg2d_integer_left_compare_dispatch_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "original_end_exclusive": "0x401fb1",
@@ -20170,16 +20173,31 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::Read_401EC0"
+            "LegacyCryptInt::value"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
-      "boundary": "唯一指令jmp401EC0，复用同一读取入口，不再额外读取或复制readCount/RNG状态。当前611处直接引用中，609处归入230个IDA函数，另495E8D/495EDD是未归入函数的call指令；本轮没有重新验证全部调用时序或把未归属指令排除。"
+      "boundary": "唯一指令jmp401EC0，复用同一读取入口，不再额外读取或复制readCount/RNG状态。当前611处直接引用中，609处归入230个IDA函数，另495E8D/495EDD是未归入函数的call指令；本轮没有重新验证全部调用时序或把未归属指令排除。",
+      "value_accessor_lci14": {
+        "recorded_on": "2026-10-14",
+        "retired_interface": "LegacyCryptInt::Read_401EC0()",
+        "native_signature": "std::int32_t LegacyCryptInt::value()",
+        "source_files": 10,
+        "identifier_occurrences": 557,
+        "read_body_changed": false,
+        "read_order_changed": false,
+        "rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false,
+        "original_body_entry": "0x401EC0",
+        "forwarding_entry": "0x401EA0"
+      }
     },
     {
       "original_entry": "0x401EB0",
@@ -20191,7 +20209,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::Read_401EC0"
+            "LegacyCryptInt::value"
           ]
         },
         {
@@ -20226,7 +20244,8 @@
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "单次读取S32后fild返回浮点，不是先转F32。当前12个父入口28处原调用由各父单次Read及对应浮点表达式承接；F32落点按父合同保留，不把独立S32转换映射当作后续x87精度、舍入和完整路径验收。",
       "integer_assignment_lci09": {
@@ -81569,14 +81588,15 @@
           "relationship": "转义后按target/request/Y/X/socket取样以mode0发送；原返回消费/关闭时点保持，包加解密排除不改"
         }
       ],
-      "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+      "native_reference": "原401EA0仅单条jmp401EC0，既有value直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/ui_windows/legacy_skill_choice.md",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "verification_level": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "boundary": "旧55唯一%d选择回传接真实53B304，S32 index+1/16B两局部/容量15保持，第三按钮仍不发送；原查询/预览/关闭/文字/按钮/提示/指针及W32返回正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。 技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
@@ -81776,14 +81796,15 @@
           "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
         }
       ],
-      "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+      "native_reference": "原401EA0仅单条jmp401EC0，既有value直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/ui_windows/legacy_skill_learning.md",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "verification_level": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "boundary": "旧56四格式（选择、gold、slots、cost）均接真实53B304；16B回传与64B三显示、四S32参数、两个旧字节数组及即时文字入队次序保持，第二按钮仍发送，不增资格或金额门禁；其他正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。 技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
@@ -81978,14 +81999,15 @@
           "relationship": "即时消费同一未清text；原坐标/mode2/font0/color0/末两参数0及其间其他绘制保持"
         }
       ],
-      "native_reference": "原401EA0仅单条jmp401EC0，既有Read_401EC0直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
+      "native_reference": "原401EA0仅单条jmp401EC0，既有value直接适配保持；每次回传Y后X各读一次，不新增RNG消费。",
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/ui_windows/legacy_skill_forgetting.md",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
         "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "verification_level": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
       "boundary": "旧57四格式（选择、两逐行值、合计）均接真实53B304；16B回传与256B逐行/合计显示、S32参数及十五轮合法行先累计/名字/重读两值各自格式及绘制/图形次序保持，原99取消/CB01E0窄边界许可不改；其他正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。 技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 BVZ01六技能/宠物技能页面一CPP六片段实修：消除opaque YobiAction::flags直接访问，恢复共享预览一次持样、同样本判空并以既有SetYobiActionFlag2(false)清W32 bit1。原六阶段24条78B及四零寄存器上下文有据，六完整父其余正文、生产/关闭、格式/字节/消费者和原生helper/头保持；无新函数/API/helper/owner或保护，六已有原新追加/六adapted F，六页各一实际父与限定I-S。仅本阶段，不重验全部父/旧外路由或正常owner-alias寿命/画面运行；原格式明文、音频暂停及RPLAN.24保持。",
@@ -103503,7 +103525,8 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "原32B未清buffer与忽略返回/即刻文字保持。名称借入口initialPet，等级/四次CryptInt/种族仍分别重新取候选页+行的玩家记录；maxHp→hp→maxFp→fp及中间页重读保持，格式参数当前值在前；原401EA0单条jmp401EC0，现Read_401EC0身份不变。种族S16 0..19后借57CB54文本，否则只清首字节。仅五callee差异，绘制lambda/S16坐标/3-12-0与used早退/选中/属性条/上架/悬停/详情/回调表和返回全保持，不新增范围或编码策略，不据此验收完整父/67/68生产/路由/CRT或运行。",
       "original_incoming": [],
@@ -103608,7 +103631,7 @@
           "call_site": "0x4D182D",
           "target_entry": "0x401EA0",
           "implementation_entry": "0x401EC0",
-          "implementation_symbol": "Read_401EC0",
+          "implementation_symbol": "value",
           "field_offset": "0x1C",
           "result": "S32 maxHp",
           "relationship": "原caller直达401EA0，其唯一指令jmp401EC0，现省同一跳转桥接而直调实现；不把实现名冒充原call目标"
@@ -103617,7 +103640,7 @@
           "call_site": "0x4D1850",
           "target_entry": "0x401EA0",
           "implementation_entry": "0x401EC0",
-          "implementation_symbol": "Read_401EC0",
+          "implementation_symbol": "value",
           "field_offset": "0x0C",
           "result": "S32 hp",
           "relationship": "原caller直达401EA0，其唯一指令jmp401EC0，现省同一跳转桥接而直调实现；不把实现名冒充原call目标"
@@ -103626,7 +103649,7 @@
           "call_site": "0x4D18B5",
           "target_entry": "0x401EA0",
           "implementation_entry": "0x401EC0",
-          "implementation_symbol": "Read_401EC0",
+          "implementation_symbol": "value",
           "field_offset": "0x3C",
           "result": "S32 maxFp",
           "relationship": "原caller直达401EA0，其唯一指令jmp401EC0，现省同一跳转桥接而直调实现；不把实现名冒充原call目标"
@@ -103635,7 +103658,7 @@
           "call_site": "0x4D18D8",
           "target_entry": "0x401EA0",
           "implementation_entry": "0x401EC0",
-          "implementation_symbol": "Read_401EC0",
+          "implementation_symbol": "value",
           "field_offset": "0x2C",
           "result": "S32 fp",
           "relationship": "原caller直达401EA0，其唯一指令jmp401EC0，现省同一跳转桥接而直调实现；不把实现名冒充原call目标"
@@ -148745,7 +148768,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_cryptint_arithmetic_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) + amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部42原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -148987,7 +149011,7 @@
           "parent_entry": "0x401E10",
           "call_site": "0x401E10",
           "target_entry": "0x401EC0",
-          "native_target_symbol": "Read_401EC0",
+          "native_target_symbol": "value",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
@@ -149022,7 +149046,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_cryptint_arithmetic_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) - amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部37原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -149239,7 +149264,7 @@
           "parent_entry": "0x401E60",
           "call_site": "0x401E60",
           "target_entry": "0x401EC0",
-          "native_target_symbol": "Read_401EC0",
+          "native_target_symbol": "value",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
@@ -149274,7 +149299,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_cryptint_arithmetic_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "实际S32表达式 Read_401EC0(value) * amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部7原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -149341,7 +149367,7 @@
           "parent_entry": "0x401E90",
           "call_site": "0x401E90",
           "target_entry": "0x401EC0",
-          "native_target_symbol": "Read_401EC0",
+          "native_target_symbol": "value",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
@@ -149376,7 +149402,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_cryptint_arithmetic_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "实际S32表达式 lhs - Read_401EC0(rhs)，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部28原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
       "function_chunks": [
@@ -149548,7 +149575,7 @@
           "parent_entry": "0x401FE0",
           "call_site": "0x401FE4",
           "target_entry": "0x401EA0",
-          "native_target_symbol": "Read_401EC0",
+          "native_target_symbol": "value",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "cg::platform::LegacyCryptInt::operator std::int32_t",
           "relationship": "原401EA0单尾跳401EC0，实际右对象读取一次；不增加第二次读取"
@@ -174032,7 +174059,7 @@
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
             "cg::platform::LegacyCryptInt::operator std::int32_t",
-            "LegacyCryptInt::Read_401EC0"
+            "LegacyCryptInt::value"
           ],
           "relationship": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         }
@@ -174044,7 +174071,8 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
         "doc/cg2d_capability4_input_normal_arithmetic_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
       ],
       "boundary": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",

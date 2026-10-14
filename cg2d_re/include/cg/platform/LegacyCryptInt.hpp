@@ -71,7 +71,7 @@ public:
     void SetNorVal_401F50(std::int32_t value);
 
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
-    std::int32_t Read_401EC0();
+    std::int32_t value();
 
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。

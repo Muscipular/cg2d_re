@@ -159,7 +159,7 @@ void UpdateProtectionChecksum(
     BOOL hasModule = Module32First(snapshot, &moduleEntry);
     while (hasModule != FALSE) {
         const DWORD currentProcessId = static_cast<DWORD>(
-            BorrowProtectionProcessStateStorage()->Read_401EC0());
+            BorrowProtectionProcessStateStorage()->value());
         const std::uint8_t* moduleNameTable =
             moduleEntry.th32ProcessID == currentProcessId
             ? gProtectionBuffer2
@@ -439,7 +439,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (BorrowProtectionChecksum1Storage()->Read_401EC0() != checksum) {
+    if (BorrowProtectionChecksum1Storage()->value() != checksum) {
         return 1;
     }
 
@@ -460,7 +460,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
                 std::bit_cast<std::int8_t>(byte));
         }
     }
-    if (BorrowProtectionChecksum2Storage()->Read_401EC0() != checksum) {
+    if (BorrowProtectionChecksum2Storage()->value() != checksum) {
         return 1;
     }
 

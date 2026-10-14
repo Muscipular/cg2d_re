@@ -73,7 +73,7 @@ LegacyCryptInt& LegacyCryptInt::operator=(const LegacyCryptInt& source) noexcept
 
 // 原函数：0x00401EC0。
 // 关联原入口：0x00401EA0（跳转共用本函数读取正文）。
-std::int32_t LegacyCryptInt::Read_401EC0()
+std::int32_t LegacyCryptInt::value()
 {
     const std::uint8_t nextCount =
         static_cast<std::uint8_t>(this->readCount + std::uint8_t{1});
@@ -113,18 +113,18 @@ LegacyCryptInt& LegacyCryptInt::operator=(const std::uint32_t value)
 // 原S32标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
 LegacyCryptInt::operator std::int32_t()
 {
-    return Read_401EC0();
+    return value();
 }
 
 LegacyCryptInt::operator std::uint32_t()
 {
-    return static_cast<std::uint32_t>(Read_401EC0());
+    return static_cast<std::uint32_t>(value());
 }
 
 // 原函数：0x00401E20。
 LegacyCryptInt& LegacyCryptInt::operator+=(const std::int32_t amount)
 {
-    const std::int32_t result = Read_401EC0() + amount;
+    const std::int32_t result = value() + amount;
     SetNorVal_401F50(result);
     return *this;
 }
@@ -139,7 +139,7 @@ LegacyCryptInt& LegacyCryptInt::operator+=(const std::uint32_t amount)
 // 原函数：0x00401E40。
 LegacyCryptInt& LegacyCryptInt::operator-=(const std::int32_t amount)
 {
-    const std::int32_t result = Read_401EC0() - amount;
+    const std::int32_t result = value() - amount;
     SetNorVal_401F50(result);
     return *this;
 }
@@ -154,35 +154,35 @@ LegacyCryptInt& LegacyCryptInt::operator-=(const std::uint32_t amount)
 // 原函数：0x00401DE0；单读递增正文移入前置operator，当前调用不消费旧整数返回。
 LegacyCryptInt& LegacyCryptInt::operator++()
 {
-    const std::int32_t result = Read_401EC0() + 1;
+    const std::int32_t result = value() + 1;
     SetNorVal_401F50(result);
     return *this;
 }
 
 std::int32_t LegacyCryptInt::operator++(int)
 {
-    const std::int32_t previous = Read_401EC0();
+    const std::int32_t previous = value();
     SetNorVal_401F50(previous + 1);
     return previous;
 }
 
 std::int32_t operator+(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() + right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() + right;
 }
 
 // 原函数：0x00401E70。
 std::int32_t operator-(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() - right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() - right;
 }
 
 std::int32_t operator*(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() * right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() * right;
 }
 
 // 原函数：0x00401D20；相等与不等使用同一右→左读取顺序。
@@ -193,29 +193,29 @@ bool operator==(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 
 bool operator!=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() != right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() != right;
 }
 
 // 原函数：0x00401D50。
 bool operator>(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() > right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() > right;
 }
 
 // 原函数：0x00401D80。
 bool operator>=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() >= right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() >= right;
 }
 
 // 原函数：0x00401DC0。
 bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs)
 {
-    const std::int32_t right = rhs.Read_401EC0();
-    return lhs.Read_401EC0() < right;
+    const std::int32_t right = rhs.value();
+    return lhs.value() < right;
 }
 
 bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs)

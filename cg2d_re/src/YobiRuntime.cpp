@@ -2022,9 +2022,9 @@ void Sub_48ABC0(YobiAction* const action)
     if (complete) {
         const ui::WindowValueCallback callback = action->numberWindowCallback2C;
         const std::int32_t initialValue =
-            action->mapY1F0.Read_401EC0();
+            action->mapY1F0.value();
         const std::int32_t value14 =
-            action->mapX1E0.Read_401EC0();
+            action->mapX1E0.value();
         const std::int32_t imageNo = action->graphicIndex;
         const std::int32_t sourceElement = action->nameY;
         const std::int32_t maximum = action->field1D0;
@@ -2124,9 +2124,9 @@ void Sub_4ABE60(YobiAction* const action)
     payload->halfHeight = previousHeight + deltaY;
     if (complete) {
         const std::int32_t userState =
-            action->mapY1F0.Read_401EC0();
+            action->mapY1F0.value();
         const std::int32_t value14 =
-            action->mapX1E0.Read_401EC0();
+            action->mapX1E0.value();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
         static_cast<void>(MarkDeath(action));
@@ -2213,9 +2213,9 @@ void Sub_4ACDF0(YobiAction* const action)
     if (complete) {
         const std::int32_t phase = action->phase;
         const std::int32_t userState =
-            action->mapY1F0.Read_401EC0();
+            action->mapY1F0.value();
         const std::int32_t value14 =
-            action->mapX1E0.Read_401EC0();
+            action->mapX1E0.value();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
         static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
         static_cast<void>(MarkDeath(action));
@@ -2979,9 +2979,9 @@ std::int32_t Sub_440920(
         const std::int32_t value170 = values[1];
         const std::int32_t direction = source->direction;
         const std::int32_t sourceY =
-            source->mapY1F0.Read_401EC0();
+            source->mapY1F0.value();
         const std::int32_t sourceX =
-            source->mapX1E0.Read_401EC0();
+            source->mapX1E0.value();
         YobiAction* const observer = Sub_43F330(
             source->imageNo, sourceX, sourceY, direction, value170);
         Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
@@ -3352,8 +3352,8 @@ void Sub_4469C0(YobiAction* const action)
     action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = candidateX;
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = candidateY;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.Read_401EC0();
-    payload->mapY0C = action->mapY1F0.Read_401EC0();
+    payload->mapX08 = action->mapX1E0.value();
+    payload->mapY0C = action->mapY1F0.value();
 }
 
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
@@ -3376,8 +3376,8 @@ void Sub_446B50(YobiAction* const action)
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.Read_401EC0();
-    payload->mapY0C = action->mapY1F0.Read_401EC0();
+    payload->mapX08 = action->mapX1E0.value();
+    payload->mapY0C = action->mapY1F0.value();
 }
 
 // 两次差值都保留读计数/RNG副作用；第二次结果按首次符号取负，不可换成abs。
@@ -3423,8 +3423,8 @@ void Sub_446C10(YobiAction* const action)
         (action->mapY1F0 + static_cast<std::int32_t>(stepY));
     action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
     ++action->field270;
-    payload->mapX08 = action->mapX1E0.Read_401EC0();
-    payload->mapY0C = action->mapY1F0.Read_401EC0();
+    payload->mapX08 = action->mapX1E0.value();
+    payload->mapY0C = action->mapY1F0.value();
 }
 
 // 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
@@ -3647,9 +3647,9 @@ std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7200u < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.Read_401EC0();
+                action->mapY1F0.value();
             const std::int32_t x =
-                action->mapX1E0.Read_401EC0();
+                action->mapX1E0.value();
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 1u;
         }
@@ -3661,9 +3661,9 @@ std::int32_t Sub_446D80(YobiAction* const action)
         if (payload->tick14 + 7500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.Read_401EC0();
+                action->mapY1F0.value();
             const std::int32_t x =
-                action->mapX1E0.Read_401EC0();
+                action->mapX1E0.value();
             *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
             payload->flags10C |= 2u;
         }
@@ -3696,9 +3696,9 @@ std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.Read_401EC0();
+                action->mapY1F0.value();
             const std::int32_t x =
-                action->mapX1E0.Read_401EC0();
+                action->mapX1E0.value();
             payload->slots18.attachments.action18 =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
@@ -3708,9 +3708,9 @@ std::int32_t Sub_446FA0(YobiAction* const action)
         if (payload->tick14 + 500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
             const std::int32_t y =
-                action->mapY1F0.Read_401EC0();
+                action->mapY1F0.value();
             const std::int32_t x =
-                action->mapX1E0.Read_401EC0();
+                action->mapX1E0.value();
             payload->slots18.attachments.action1C =
                 Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
         }
@@ -4061,8 +4061,8 @@ void ReadMapActorTarget(
     YobiAction* const action, YobiAction*& slot,
     std::int32_t* const x, std::int32_t* const y)
 {
-    *x = action->mapX200.Read_401EC0();
-    *y = slot->mapY210.Read_401EC0();
+    *x = action->mapX200.value();
+    *y = slot->mapY210.value();
 }
 
 void ReadMapActorTarget(
@@ -4083,13 +4083,13 @@ bool IsMapActorIdleAtTarget(YobiAction* const action)
         return false;
     }
     const double x = static_cast<double>(
-        action->mapX200.Read_401EC0()) * 64.0F;
+        action->mapX200.value()) * 64.0F;
     const float worldX = action->worldX;
     if (x < worldX || x > worldX) {
         return false;
     }
     const double y = static_cast<double>(
-        action->mapY210.Read_401EC0()) * 64.0F;
+        action->mapY210.value()) * 64.0F;
     const float worldY = action->worldY;
     return !(y < worldY || y > worldY);
 }
@@ -4160,8 +4160,8 @@ void ApplyPlayerAppearanceReply(
         std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
         bool hasPet = payload->action34 != nullptr;
         if (!hasPet) {
-            const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.Read_401EC0();
-            const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.Read_401EC0();
+            const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.value();
+            const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.value();
             YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
             hasPet = pet != nullptr;
             payload->action34 = pet;
@@ -4176,8 +4176,8 @@ void ApplyPlayerAppearanceReply(
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;
             if (!hasSecondPet) {
-                const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.Read_401EC0();
-                const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.Read_401EC0();
+                const std::int32_t y = world::detail::ReadPlayerAction()->mapY1F0.value();
+                const std::int32_t x = world::detail::ReadPlayerAction()->mapX1E0.value();
                 YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
                 payload->action38 = pet;
@@ -4365,8 +4365,8 @@ void Sub_441FC0(
         startX = action->pathX220[last];
         startY = action->pathY248[last];
     } else {
-        startX = action->mapX200.Read_401EC0();
-        startY = action->mapY210.Read_401EC0();
+        startX = action->mapX200.value();
+        startY = action->mapY210.value();
     }
     const std::int32_t differenceX = targetX - startX;
     const std::int32_t differenceY = targetY - startY;
@@ -4875,9 +4875,9 @@ std::int32_t Sub_43DD00(
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
-                            action->mapY1F0.Read_401EC0();
+                            action->mapY1F0.value();
                         const std::int32_t x =
-                            action->mapX1E0.Read_401EC0();
+                            action->mapX1E0.value();
                         payload->action34 = NewYobiGearPet_441130(imageNo, x, y);
                         payload->kind3C = kind;
                     } else if (index == 1) {
@@ -4887,9 +4887,9 @@ std::int32_t Sub_43DD00(
                             payload->action34 = nullptr;
                         }
                         const std::int32_t y =
-                            action->mapY1F0.Read_401EC0();
+                            action->mapY1F0.value();
                         const std::int32_t x =
-                            action->mapX1E0.Read_401EC0();
+                            action->mapX1E0.value();
                         payload->action38 = NewYobiGearPet_441130(imageNo, x, y);
                         payload->kind40 = kind;
                     }
@@ -4962,8 +4962,8 @@ std::int32_t Sub_43DD00(
         if (action == nullptr) {
             return field;
         }
-        std::int32_t x = action->mapX1E0.Read_401EC0();
-        std::int32_t y = action->mapY1F0.Read_401EC0();
+        std::int32_t x = action->mapX1E0.value();
+        std::int32_t y = action->mapY1F0.value();
         if (payload == nullptr) {
             return field;
         }
@@ -5180,8 +5180,8 @@ void Sub_4417E0(YobiAction* const action)
                 return;
             }
         }
-        const std::int32_t mapY = action->mapY1F0.Read_401EC0();
-        const std::int32_t mapX = action->mapX1E0.Read_401EC0();
+        const std::int32_t mapY = action->mapY1F0.value();
+        const std::int32_t mapX = action->mapX1E0.value();
         const std::int32_t firstGraphicIndex = action->graphicIndex;
         if (world::detail::Sub_446900(firstGraphicIndex, mapX, mapY) == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -5287,9 +5287,9 @@ void Sub_4424B0(YobiAction* const action)
         return;
     }
     const float firstTargetX = static_cast<float>(static_cast<double>(
-        action->mapX200.Read_401EC0()) * 64.0F);
+        action->mapX200.value()) * 64.0F);
     const double firstTargetY = static_cast<double>(
-        action->mapY210.Read_401EC0()) * 64.0F;
+        action->mapY210.value()) * 64.0F;
     const float firstWorldX = action->worldX;
     // 原 FCOMP/C3；Y在首轮不落F32，只有X比较通过才读取世界Y。
     if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
@@ -5297,9 +5297,9 @@ void Sub_4424B0(YobiAction* const action)
         if (!(firstTargetY < firstWorldY || firstTargetY > firstWorldY)
             && std::bit_cast<std::int16_t>(action->field270) > 0) {
             const std::int32_t previousX =
-                action->mapX1E0.Read_401EC0();
+                action->mapX1E0.value();
             const std::int32_t previousY =
-                action->mapY1F0.Read_401EC0();
+                action->mapY1F0.value();
             const std::int32_t nextY = action->pathY248[0];
             const std::int32_t nextX = action->pathX220[0];
             const std::int32_t speed = action->walkSpeed;
@@ -5317,9 +5317,9 @@ void Sub_4424B0(YobiAction* const action)
     }
 
     const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.Read_401EC0()) * 64.0F);
+        action->mapX200.value()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.Read_401EC0()) * 64.0F);
+        action->mapY210.value()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5373,9 +5373,9 @@ void Sub_442730(YobiAction* const action)
         return;
     }
     const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.Read_401EC0()) * 64.0F);
+        action->mapX200.value()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.Read_401EC0()) * 64.0F);
+        action->mapY210.value()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5428,9 +5428,9 @@ void Sub_4428F0(YobiAction* const action)
         return;
     }
     const float targetX = static_cast<float>(static_cast<double>(
-        action->mapX200.Read_401EC0()) * 64.0F);
+        action->mapX200.value()) * 64.0F);
     const float targetY = static_cast<float>(static_cast<double>(
-        action->mapY210.Read_401EC0()) * 64.0F);
+        action->mapY210.value()) * 64.0F);
     const float movementX = std::bit_cast<float>(action->field27C);
     bool idle = !(movementX < 0.0F || movementX > 0.0F);
     if (idle) {
@@ -5976,8 +5976,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (createFirst) {
         const std::int32_t kind = action->field2E4;
         action->refresh2EC = 0;
-        const std::int32_t mapY = action->mapY1F0.Read_401EC0();
-        const std::int32_t mapX = action->mapX1E0.Read_401EC0();
+        const std::int32_t mapY = action->mapY1F0.value();
+        const std::int32_t mapX = action->mapX1E0.value();
         const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
         payload->action04 = Sub_444000(imageNo, mapX, mapY, 0, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
@@ -6184,8 +6184,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             statusImage = 0x1824F;
         }
         if (payload->action4C == nullptr) {
-            const std::int32_t mapY = action->mapY1F0.Read_401EC0();
-            const std::int32_t mapX = action->mapX1E0.Read_401EC0();
+            const std::int32_t mapY = action->mapY1F0.value();
+            const std::int32_t mapX = action->mapX1E0.value();
             YobiAction* const child = Sub_444000(statusImage, mapX, mapY, 0, 0, 10);
             payload->action4C = child;
             child->rebirthValue1 = 4;
@@ -6207,8 +6207,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if ((state & 4u) != 0) {
         if (payload->action4C == nullptr) {
             if (payload->action0C == nullptr) {
-                const std::int32_t mapY = action->mapY1F0.Read_401EC0();
-                const std::int32_t mapX = action->mapX1E0.Read_401EC0();
+                const std::int32_t mapY = action->mapY1F0.value();
+                const std::int32_t mapX = action->mapX1E0.value();
                 payload->action0C = Sub_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
@@ -6234,8 +6234,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     if ((state & 1u) != 0 && statusMask == 0) {
         if (payload->action10 == nullptr) {
-            const std::int32_t mapY = action->mapY1F0.Read_401EC0();
-            const std::int32_t mapX = action->mapX1E0.Read_401EC0();
+            const std::int32_t mapY = action->mapY1F0.value();
+            const std::int32_t mapX = action->mapX1E0.value();
             YobiAction* const child = Sub_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
             payload->action10 = child;
             child->rebirthValue1 = 4;
@@ -6322,11 +6322,11 @@ std::int32_t ShowHpBar_43DB60(
     fields.sourceY = -1;
     fields.height = 2;
     render::GraphicDescriptor16 descriptor = ToGraphicDescriptor(fields);
-    if (action->maxHp.Read_401EC0() != 0) {
+    if (action->maxHp.value() != 0) {
         const std::int32_t numerator =
-            action->readiness.Read_401EC0() * 32;
+            action->readiness.value() * 32;
         const std::int32_t maximum =
-            action->maxHp.Read_401EC0();
+            action->maxHp.value();
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY - 2;
         const std::int32_t x = action->x + offsetX - 12;
@@ -6334,11 +6334,11 @@ std::int32_t ShowHpBar_43DB60(
         static_cast<void>(render::DrawGraphic3_520970(
             x, y, 0xCF, 0x3BDF0, 0, 1, 0, &descriptor));
     }
-    if (action->barMaximum1C0.Read_401EC0() != 0) {
+    if (action->barMaximum1C0.value() != 0) {
         const std::int32_t numerator =
-            action->barValue1B0.Read_401EC0() * 32;
+            action->barValue1B0.value() * 32;
         const std::int32_t maximum =
-            action->barMaximum1C0.Read_401EC0();
+            action->barMaximum1C0.value();
         fields.width = static_cast<std::int16_t>(numerator / maximum);
         const std::int32_t y = action->y + offsetY + 1;
         const std::int32_t x = action->x + offsetX - 12;
@@ -15735,7 +15735,7 @@ namespace {
     const std::int32_t mode = TakeBattleMInteger_438F70(scene);
     if (mode == 0) {
         YobiAction** const slot = &gBattleAllEntries59E980[position];
-        const std::int32_t palette = ((*slot)->mapX1E0).Read_401EC0();
+        const std::int32_t palette = ((*slot)->mapX1E0).value();
         AppendBattleEffectList_4393A0(*slot, palette, 0, 40);
         AppendBattleCast_4392A0(scene, *slot, 174);
         AppendBattleCast_4392A0(scene, *slot, 176);
@@ -33820,7 +33820,7 @@ void InitializeSceneEffectGraphic(
 void Sub_448A50(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.Read_401EC0() != floor) {
+    if (action->mapY1F0.value() != floor) {
         MarkDeath(action);
         return;
     }
@@ -33873,7 +33873,7 @@ void Sub_448A50(YobiAction* const action)
 void Sub_448BF0(YobiAction* const action)
 {
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.Read_401EC0() != floor) {
+    if (action->mapY1F0.value() != floor) {
         MarkDeath(action);
         return;
     }
@@ -34072,7 +34072,7 @@ void Sub_449A00(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.Read_401EC0() != floor
+    if (action->mapY1F0.value() != floor
         || world::detail::ReadPlayerAction() == nullptr) {
         MarkDeath(action);
         return;
@@ -34087,9 +34087,9 @@ void Sub_449A00(YobiAction* const action)
                 static_cast<std::int64_t>(action->worldY));
             if ((action->mapY210 <= static_cast<std::int32_t>(targetY))) {
                 action->worldX = static_cast<float>(
-                    action->mapX200.Read_401EC0());
+                    action->mapX200.value());
                 action->worldY = static_cast<float>(
-                    action->mapY210.Read_401EC0());
+                    action->mapY210.value());
                 ++action->characterAction;
             }
         }
@@ -34220,7 +34220,7 @@ void Sub_4483A0(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (floor != 59529
-        && action->mapY1F0.Read_401EC0() != floor
+        && action->mapY1F0.value() != floor
         && world::gMapFloor != 38251) {
         MarkDeath(action);
         return;
@@ -34388,7 +34388,7 @@ void Sub_449400(YobiAction* const action)
         return;
     }
     const std::int32_t floor = world::gMapFloor;
-    if (action->mapY1F0.Read_401EC0() != floor) {
+    if (action->mapY1F0.value() != floor) {
         MarkDeath(action);
         return;
     }
@@ -34635,22 +34635,22 @@ bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cos
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 {
-    return action->barValue1B0.Read_401EC0();
+    return action->barValue1B0.value();
 }
 
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
-    return action->barMaximum1C0.Read_401EC0();
+    return action->barMaximum1C0.value();
 }
 
 std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
 {
-    return action->readiness.Read_401EC0();
+    return action->readiness.value();
 }
 
 std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
 {
-    return action->maxHp.Read_401EC0();
+    return action->maxHp.value();
 }
 
 // 原函数：0x00517880。
@@ -35088,10 +35088,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 
     // 原507AEA/507B8F固定首对象供名称/等级，后续三个CryptInt仍逐次重取对象。
     YobiAction* const fixed = graphic->reference.action;
-    const std::int32_t maxFp = fixed->barMaximum1C0.Read_401EC0();
-    const std::int32_t fp = graphic->reference.action->barValue1B0.Read_401EC0();
-    const std::int32_t maxHp = graphic->reference.action->maxHp.Read_401EC0();
-    const std::int32_t hp = graphic->reference.action->readiness.Read_401EC0();
+    const std::int32_t maxFp = fixed->barMaximum1C0.value();
+    const std::int32_t fp = graphic->reference.action->barValue1B0.value();
+    const std::int32_t maxHp = graphic->reference.action->maxHp.value();
+    const std::int32_t hp = graphic->reference.action->readiness.value();
     platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kFull58AD04,
         fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
 }
@@ -35210,7 +35210,7 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
         if (static_cast<std::uint32_t>(next) >= 16) {
             action->phase = 0;
         }
-        const std::int32_t base = action->readiness.Read_401EC0();
+        const std::int32_t base = action->readiness.value();
         const std::int32_t current = action->phase;
         action->imageNo = base;
         const std::int32_t offset = sequence[current][2];
@@ -35455,8 +35455,8 @@ std::int32_t Sub_4EE9E0()
 // 原函数：0x004EE130。
 std::int32_t Sub_4EE130()
 {
-    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
     const std::int32_t y = gLegacyGatherPanel583B00.y + 132;
     const std::int32_t x = gLegacyGatherPanel583B00.x + 136;
@@ -35829,8 +35829,8 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+                const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -36459,9 +36459,9 @@ void Sub_444410(
             std::int32_t image = character_select::detail::Sub_51B740(option3);
             if (payload->action34 == nullptr) {
                 const std::int32_t petY =
-                    action->mapY1F0.Read_401EC0();
+                    action->mapY1F0.value();
                 const std::int32_t petX =
-                    action->mapX1E0.Read_401EC0();
+                    action->mapX1E0.value();
                 payload->action34 = login::detail::NewYobiGearPet_441130(image, petX, petY);
             }
             login::YobiAction* const firstPet = payload->action34;
@@ -36473,9 +36473,9 @@ void Sub_444410(
                 ++image;
                 if (previousSecondPet == nullptr) {
                     const std::int32_t petY =
-                        action->mapY1F0.Read_401EC0();
+                        action->mapY1F0.value();
                     const std::int32_t petX =
-                        action->mapX1E0.Read_401EC0();
+                        action->mapX1E0.value();
                     payload->action38 = login::detail::NewYobiGearPet_441130(image, petX, petY);
                 }
                 login::YobiAction* const secondPet = payload->action38;
@@ -36645,9 +36645,9 @@ void Sub_4467D0(const std::int32_t objectIndex)
     }
     const std::int32_t direction = record.direction;
     const std::int32_t mapY =
-        record.coordinate1C.Read_401EC0();
+        record.coordinate1C.value();
     const std::int32_t mapX =
-        record.coordinate0C.Read_401EC0();
+        record.coordinate0C.value();
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     login::YobiAction* action =
         login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -36680,9 +36680,9 @@ void Sub_446640()
         }
         const std::int32_t direction = record.direction;
         const std::int32_t mapY =
-            record.coordinate1C.Read_401EC0();
+            record.coordinate1C.value();
         const std::int32_t mapX =
-            record.coordinate0C.Read_401EC0();
+            record.coordinate0C.value();
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         login::YobiAction* action =
             login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
@@ -37153,8 +37153,8 @@ void Sub_46B4B0(const std::int32_t direction)
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
     };
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC8223C = platform::ReadTickCount32();
 }
@@ -37172,14 +37172,14 @@ std::uint32_t Sub_46A190()
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
             const double targetX = static_cast<double>(
-                BorrowPlayerSnapshotXStorage()->Read_401EC0()) * 64.0F;
+                BorrowPlayerSnapshotXStorage()->value()) * 64.0F;
             const std::uint32_t worldXBits = gWorldCurrentXBits;
             const float worldX = std::bit_cast<float>(worldXBits);
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<double>(
-                BorrowPlayerSnapshotYStorage()->Read_401EC0()) * 64.0F;
+                BorrowPlayerSnapshotYStorage()->value()) * 64.0F;
             const std::uint32_t worldYBits = gWorldCurrentYBits;
             const float worldY = std::bit_cast<float>(worldYBits);
             if (targetY < worldY || targetY > worldY
@@ -37188,13 +37188,13 @@ std::uint32_t Sub_46A190()
             }
         } else {
             const double targetX = static_cast<double>(
-                action->mapX200.Read_401EC0()) * 64.0F;
+                action->mapX200.value()) * 64.0F;
             const float worldX = action->worldX;
             if (targetX < worldX || targetX > worldX) {
                 continue;
             }
             const double targetY = static_cast<double>(
-                action->mapY210.Read_401EC0()) * 64.0F;
+                action->mapY210.value()) * 64.0F;
             const float worldY = action->worldY;
             if (targetY < worldY || targetY > worldY
                 || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -37234,9 +37234,9 @@ std::uint32_t Sub_46A190()
         }
         login::YobiAction* const next = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            action->mapY1F0.Read_401EC0();
+            action->mapY1F0.value();
         const std::int32_t x =
-            action->mapX1E0.Read_401EC0();
+            action->mapX1E0.value();
         login::detail::Sub_441F60(next, x, y);
     }
 
@@ -37271,9 +37271,9 @@ void MovePlayerOneStep_46B1B0(
         static_cast<double>(speed) * std::bit_cast<float>(0x3C23D70Au));
     if (payload != nullptr && payload->action2C != nullptr) {
         const std::int32_t previousY =
-            player->mapY1F0.Read_401EC0();
+            player->mapY1F0.value();
         const std::int32_t previousX =
-            ReadPlayerAction()->mapX1E0.Read_401EC0();
+            ReadPlayerAction()->mapX1E0.value();
         static_cast<void>(login::detail::Sub_442110(
             payload->action2C, previousX, previousY, speed, rate));
     }
@@ -37322,13 +37322,13 @@ void Sub_46A5F0()
         }
         login::YobiAction* const action = ReadPetMapAction(index);
         const double targetX = static_cast<double>(
-            action->mapX200.Read_401EC0()) * 64.0F;
+            action->mapX200.value()) * 64.0F;
         const float worldX = action->worldX;
         if (targetX < worldX || targetX > worldX) {
             continue;
         }
         const double targetY = static_cast<double>(
-            action->mapY210.Read_401EC0()) * 64.0F;
+            action->mapY210.value()) * 64.0F;
         const float worldY = action->worldY;
         if (targetY < worldY || targetY > worldY
             || std::bit_cast<std::int16_t>(action->field270) <= 0) {
@@ -37351,9 +37351,9 @@ void Sub_46A5F0()
         }
         login::YobiAction* const nextAction = ReadPetMapAction(nextIndex);
         const std::int32_t y =
-            action->mapY1F0.Read_401EC0();
+            action->mapY1F0.value();
         const std::int32_t x =
-            action->mapX1E0.Read_401EC0();
+            action->mapX1E0.value();
         login::detail::Sub_441F60(nextAction, x, y);
     }
 }
@@ -37391,8 +37391,8 @@ void Sub_519EE0()
     if (ReadPlayerAction() == nullptr) {
         return;
     }
-    const std::int32_t y = BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = BorrowPlayerYStorage()->value();
+    const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::int32_t blocked = Sub_469810(x, y);
     login::YobiAction* action = ReadPlayerAction();
     if (blocked != 0) {

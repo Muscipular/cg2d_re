@@ -285,7 +285,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
 
     Sub_46C2F0();
     static_cast<void>(Sub_46C1C0());
-    const std::int32_t playerX = BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t playerX = BorrowPlayerXStorage()->value();
     std::optional<platform::LegacyCryptInt> temporary;
     temporary.emplace(static_cast<std::int32_t>(playerX));
     if (cutMode) {
@@ -304,7 +304,7 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
         BorrowValue9EE8D0Storage()->readCount = readCount;
     }
     temporary.reset();
-    const std::int32_t playerY = BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t playerY = BorrowPlayerYStorage()->value();
     temporary.emplace(static_cast<std::int32_t>(playerY));
     if (cutMode) {
         const std::uint8_t readCount = temporary->readCount;

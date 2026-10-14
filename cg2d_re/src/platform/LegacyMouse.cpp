@@ -657,12 +657,12 @@ std::uint32_t& gValueD68DA0 = platform::BorrowLegacyMouseStateStorage()->pulseBu
 
 std::int32_t ReadLegacyMouseX()
 {
-    return platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+    return platform::BorrowLegacyMouseStateStorage()->mouseX.value();
 }
 
 std::int32_t ReadLegacyMouseY()
 {
-    return platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+    return platform::BorrowLegacyMouseStateStorage()->mouseY.value();
 }
 
 } // namespace cg::login::detail

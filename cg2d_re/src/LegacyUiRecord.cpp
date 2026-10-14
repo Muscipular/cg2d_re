@@ -2405,8 +2405,8 @@ std::uintptr_t Sub_4D3210(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, buffer, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer));
         static_cast<void>(audio::Sub_5042D0(gLegacyDialogPanelD2D9C8.id));
@@ -2472,8 +2472,8 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyLineDialogPanelCC4150.id));
@@ -2559,8 +2559,8 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         }
@@ -2649,8 +2649,8 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));
@@ -2786,8 +2786,8 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
             static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));
@@ -2879,8 +2879,8 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         if (flag == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         const std::uint32_t result = std::bit_cast<std::uint32_t>(
             network::Sub_511DD0(socket, playerX, playerY, 62));
@@ -3020,8 +3020,8 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
         if (flag == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         const std::uint32_t result = std::bit_cast<std::uint32_t>(
             network::Sub_511DD0(socket, playerX, playerY, 62));
@@ -3386,8 +3386,8 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
-                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                 const auto socket = platform::gConnectionSocket;
                 static_cast<void>(network::Sub_512620(socket, playerX, playerY,
                     request, target, 0, escaped));
@@ -3545,8 +3545,8 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyPanel5823A0.id));
@@ -3787,8 +3787,8 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyConfirmPanel582468.id));
@@ -3932,8 +3932,8 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacySellPanel582530.id));
@@ -4159,8 +4159,8 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacySellConfirmPanel5825F8.id));
@@ -4263,8 +4263,8 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
@@ -4663,8 +4663,8 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyRepairConfirmPanel582850.id));
@@ -5050,8 +5050,8 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyConfirmPanel5829E0.id));
@@ -5159,8 +5159,8 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
     const auto sendReply = [](const std::int32_t mode, const char* const text) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, mode, text));
     };
@@ -5389,8 +5389,8 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
     if ((QueryPanelButtonState(&cancel) & 1) != 0) {
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 2, input::LegacyText593850()));
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterPanel5818B0.id));
@@ -5635,8 +5635,8 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, buffer + 256));
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
@@ -5733,8 +5733,8 @@ std::uintptr_t Sub_4D4F00(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, escaped));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -5810,8 +5810,8 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
                 request, target, 0, escaped));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -6138,8 +6138,8 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, description, 256));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const std::uintptr_t socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, description));
     } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
@@ -6266,8 +6266,8 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 127));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
             request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
@@ -6885,8 +6885,8 @@ std::uint32_t Sub_4E2030()
     }
     const std::int32_t image = gLegacyStorageDragImageCB09D4;
     if (image != 0) {
-        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 230, image, 0, nullptr));
     }
     if (left >= 0) {
@@ -7426,8 +7426,8 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
         const std::int32_t item = gLegacyLastUsedItemCB01EC;
         const std::int32_t target = ui::detail::ReadLegacyItemUseStatus(hovered).target;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, playerX, playerY, item, target));
         static_cast<void>(audio::Sub_504180(14));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -8320,8 +8320,8 @@ std::int32_t Sub_4E83D0()
     }
     // 原分支分别跳往拖图尾/公共尾，不能统一在清槽后重新判定。
     if (drawDrag && ui::detail::gTradeValueD66E08 != 0) {
-        gLegacyTradeMouseXCF3FEC = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
-        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+        gLegacyTradeMouseXCF3FEC = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
         const std::int32_t image = ui::detail::gTradeValueD66E08;
         gLegacyTradeMouseYCF3FE8 = mouseY;
         const std::int32_t mouseX = gLegacyTradeMouseXCF3FEC;
@@ -8737,8 +8737,8 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
         static_cast<void>(audio::Sub_5042D0(80));
@@ -11532,8 +11532,8 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -11668,8 +11668,8 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
         const bool notify = pending ? world::detail::ReadPlayerTimerRemaining0C() <= 0
                                     : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -11785,8 +11785,8 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         if (ui::detail::gValue5F9754 == 0) {
             return 0;
         }
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const std::int32_t result = network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62);
         ui::detail::gValue5F9754 = 0;
         return static_cast<std::uint32_t>(result);
@@ -11957,8 +11957,8 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -12065,8 +12065,8 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
             ? world::detail::ReadPlayerTimerRemaining0C() <= 0
             : ui::detail::gValue5F9754 != 0;
         if (notify) {
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             ui::detail::gValue5F9754 = 0;
         }
@@ -12285,8 +12285,8 @@ std::int32_t Sub_4F2650()
     if (gate != 0) {
         return gate;
     }
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(ui::detail::Sub_4D3020(x, y));
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     gLegacyItemWorkSelection584394 = -1;
@@ -12394,8 +12394,8 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -12969,8 +12969,8 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
     }
     if (drawDragged && gLegacyCraftDragSlotD2F330 >= 0) {
         const std::int32_t image = gLegacyCraftDragImageCC3E7C;
-        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, &descriptor));
     }
     char buffer[256];
@@ -13123,8 +13123,8 @@ std::int32_t Sub_4F51A0()
 {
     static_cast<void>(Sub_4F5170());
     gLegacyCraftPhaseD67D00 = 0;
-    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     return ui::detail::Sub_4D3020(x, y);
 }
 
@@ -13155,8 +13155,8 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
             if (gLegacySkillPendingD67C48 != 0) {
                 gLegacySkillPendingD67C48 = 0;
             } else if (ui::detail::gValue5F9754 != 0) {
-                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
                 ui::detail::gValue5F9754 = 0;
             }
@@ -13471,8 +13471,8 @@ std::uint32_t Sub_505170(const std::int32_t opened)
     }
     if (!skipDrag && gLegacyGemDragSlotD68AA8 >= 0) {
         const std::int32_t image = gLegacyGemDragImageD68AA4;
-        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
-        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
+        const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, nullptr));
     }
     char buffer[256];
@@ -13578,8 +13578,8 @@ std::uint32_t Sub_505170(const std::int32_t opened)
 // 原函数：0x00505BC0。
 std::int32_t Sub_505BC0()
 {
-    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
     YobiAction* action = gLegacyGemActionD68A88;
     if (action == nullptr) {
@@ -13786,8 +13786,8 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
         if (notify == 0) {
             return (selected & 0xFFFFFF00u) | notify;
         }
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const std::int32_t result = network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62);
         ui::detail::gValue5F9754 = 0;
         return static_cast<std::uint32_t>(result);
@@ -14284,8 +14284,8 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
             gLegacyPetSelectionD67ADC = nameHovered;
         } else if ((clicks & 2) != 0) {
             const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[nameHovered].index);
-            const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
             const std::uintptr_t socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_510E30(socket, x, y, index));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -14312,14 +14312,14 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
             2, 1, 0, buffer, 0, 0));
-        const std::int32_t maxHp = pet.values0C[1].Read_401EC0();
-        const std::int32_t hp = pet.values0C[0].Read_401EC0();
+        const std::int32_t maxHp = pet.values0C[1].value();
+        const std::int32_t hp = pet.values0C[0].value();
         platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 61 + 75 * row),
             2, 1, 0, buffer, 0, 0));
-        const std::int32_t maxFp = pet.values0C[3].Read_401EC0();
-        const std::int32_t fp = pet.values0C[2].Read_401EC0();
+        const std::int32_t maxFp = pet.values0C[3].value();
+        const std::int32_t fp = pet.values0C[2].value();
         platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 83 + 75 * row),
@@ -14666,20 +14666,20 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     char buffer[256];
     platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 44);
-    platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[4].Read_401EC0());
+    platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[4].value());
     drawAt(buffer, 55, 66);
     if (pet.value08 < 130) {
-        platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[5].Read_401EC0());
+        platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[5].value());
         drawAt(buffer, 55, 89);
     } else {
         drawAt(kLegacyPetLevelLimit58A214, 55, 89);
     }
-    const std::int32_t maxHp = pet.values0C[1].Read_401EC0();
-    const std::int32_t hp = pet.values0C[0].Read_401EC0();
+    const std::int32_t maxHp = pet.values0C[1].value();
+    const std::int32_t hp = pet.values0C[0].value();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 113);
-    const std::int32_t maxFp = pet.values0C[3].Read_401EC0();
-    const std::int32_t fp = pet.values0C[2].Read_401EC0();
+    const std::int32_t maxFp = pet.values0C[3].value();
+    const std::int32_t fp = pet.values0C[2].value();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 136);
     for (std::int32_t field = 0; field < 6; ++field) {
@@ -14779,12 +14779,12 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
     char buffer[256];
     platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 36);
-    const std::int32_t maxHp = pet.values0C[1].Read_401EC0();
-    const std::int32_t hp = pet.values0C[0].Read_401EC0();
+    const std::int32_t maxHp = pet.values0C[1].value();
+    const std::int32_t hp = pet.values0C[0].value();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 59);
-    const std::int32_t maxFp = pet.values0C[3].Read_401EC0();
-    const std::int32_t fp = pet.values0C[2].Read_401EC0();
+    const std::int32_t maxFp = pet.values0C[3].value();
+    const std::int32_t fp = pet.values0C[2].value();
     platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 82);
     for (std::int32_t field = 0; field < 5; ++field) {
@@ -15434,8 +15434,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     bool createPreview = initialAction == nullptr;
     if (rebirthMode != 0) {
         if (world::detail::ReadPlayerValue08() == 0 || world::detail::ReadPlayerTimerRemaining0C() <= 0) {
-            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
             YobiAction* const current = gLegacyInventoryActionD67D2C;
             ui::detail::gValue5F9754 = 0;
@@ -15489,8 +15489,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
                 gLegacySpecialUseRowD2D614 = (hovered - 8) / 5;
                 static_cast<void>(audio::Sub_504180(79));
             } else {
-                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_510A00(platform::gConnectionSocket, playerX, playerY, hovered, 0));
                 static_cast<void>(audio::PlaySe_52C450(77, 320));
                 static_cast<void>(ui::detail::Sub_4FB8F0());
@@ -15547,8 +15547,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
                         }
                     }
                 } else if (mode == 2 && world::detail::BorrowPlayerItemsFDA8A4()[hovered].used != 0) {
-                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                     static_cast<void>(network::Sub_510A00(platform::gConnectionSocket, playerX, playerY, source, hovered));
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -15556,8 +15556,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
             } else if (static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212u
                        && (clicks & 1u) != 0) {
                 if (ui::detail::gDraggingCA0B28 == 1) {
-                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+                    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
                     static_cast<void>(network::Sub_510CE0(platform::gConnectionSocket, playerX, playerY, 0, source));
                 }
                 resetDrag = true;
@@ -15570,8 +15570,8 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
         }
     }
     if (ui::detail::gDragImageNoD67D24 != 0) {
-        ui::detail::gItemDragXCC4880 = platform::BorrowLegacyMouseStateStorage()->mouseX.Read_401EC0();
-        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.Read_401EC0();
+        ui::detail::gItemDragXCC4880 = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
+        const std::int32_t mouseY = platform::BorrowLegacyMouseStateStorage()->mouseY.value();
         const std::int32_t image = ui::detail::gDragImageNoD67D24;
         ui::detail::gItemDragYCC4884 = mouseY;
         if (image != 0) {
@@ -15703,8 +15703,8 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
     input::SetContext_44B330(nullptr);
     if (gLegacyMoneyAmountD2D618 != 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
         const std::int32_t amount = gLegacyMoneyAmountD2D618;
-        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+        const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
+        const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, playerX, playerY, amount));
         gLegacyMoneyAmountD2D618 = 0;
     } else if ((QueryPanelButtonState(&back) & 1) != 0) {
@@ -15850,8 +15850,8 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
                 const std::uint8_t active = ui::detail::gValue5F9754;
                 result = (result & 0xFFFFFF00u) | active;
                 if (active != 0) {
-                    const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-                    const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+                    const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+                    const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     result = static_cast<std::uint32_t>(network::Sub_511DD0(socket, x, y, 62));
                     ui::detail::gValue5F9754 = 0;
@@ -15959,8 +15959,8 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
             && world::detail::ReadPlayerValue08() != 0
             && world::detail::ReadPlayerTimerRemaining0C() > 0) {
             const bool active = ui::detail::gValue5F9754 != 0;
-            const std::int32_t y = world::detail::BorrowPlayerYStorage()->Read_401EC0();
-            const std::int32_t x = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+            const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
+            const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
             const std::uintptr_t socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_511DD0(socket, x, y, active ? 62 : 61));
             ui::detail::gValue5F9754 = active ? 0 : 1;
@@ -18114,13 +18114,13 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX - nameWidth / 2 + 124),
         static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
     char buffer[256];
-    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->Read_401EC0();
+    const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
     platform::FormatLegacyString_53B304(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
     const std::int32_t eastX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
         static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
-    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->Read_401EC0();
+    const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
     platform::FormatLegacyString_53B304(buffer, kLegacyMapSouth58AA4C, playerY);
     const std::int32_t southY = gLegacyMapPanelD68868.y;
     const std::int32_t southX = gLegacyMapPanelD68868.x;

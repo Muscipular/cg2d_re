@@ -11386,7 +11386,7 @@
       "additional_ascii_button_arrays": 6,
       "wide_emote_label_entries": 18,
       "wide_emote_hint_entries": 18,
-      "narrow_readonly_compatibility_views": 219,
+      "narrow_readonly_compatibility_views": 213,
       "direct_stall_input_hint_references": 2,
       "preserved_original_address": "0x00586450",
       "view_contract": "由宽常量派生、先定义后借用、同作用域寿命；仅窄CRT/旧只读接口，不作为可写UI正文。",
@@ -11827,6 +11827,58 @@
       "function_table_identity_status_preserved": true,
       "git_diff_check": true,
       "traceability_check": true
+    }
+  },
+  "message_box_compile_feedback": {
+    "recorded_on": "2026-10-14",
+    "source_functions": [
+      {
+        "path": "src/Input.cpp",
+        "symbol": "AppendText",
+        "line": 294
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44B050",
+        "line": 1429
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44AB60",
+        "line": 1572
+      },
+      {
+        "path": "src/platform/WindowProcedure.cpp",
+        "symbol": "WindowProcedure",
+        "line": 139
+      },
+      {
+        "path": "src/platform/LegacyExternalKeyboard.cpp",
+        "symbol": "Sub_534AB0",
+        "line": 171
+      },
+      {
+        "path": "src/LoginSavedState.cpp",
+        "symbol": "Sub_520160",
+        "line": 997,
+        "change": "补直接声明头文件，函数正文不变"
+      }
+    ],
+    "input_direct_win32_calls_replaced": 3,
+    "missing_direct_header_units_fixed": 2,
+    "wide_message_box_argument_pairs_fixed": 3,
+    "unused_utf8_views_removed": 6,
+    "all_show_wide_message_units_include_declaration": 12,
+    "duplicate_c_str_patterns_remaining": 0,
+    "input_dialog_owner": "沿现有ShowWideMessage使用当前主窗口",
+    "platform_dialog_owner_flags_and_return_preserved": true,
+    "verification": "依据用户编译诊断及源码静态检查；本线程未重新编译、测试或运行",
+    "static_checks": {
+      "direct_message_box_calls": 5,
+      "all_direct_message_box_calls_have_four_arguments": true,
+      "source_encoding_and_diff_checked": true,
+      "original_address_comments_preserved": true,
+      "traceability_final_check": true
     }
   }
 }

@@ -206,3 +206,4 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 按全量表核[十三项私有堆](../doc/cg2d_heap_malloc_unification_spec.md#private-heap-current-services-20261012)及[542F44错误转换](../doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012)：原malloc／calloc／free／realloc／msize／CRT启动链及九个文件／目录父有据，现标准分配族／宿主启动和MSVC文件／线程错误服务已明确。十四行有承接，保原身份、既有host及CRT553成员；十三旧语义来源补关系，一错误语义新增，两限定S零新增I。C01／C06／C08／C11／V02／V03只补引用仍open，源码／头／构建配置及完整业务owner／正常失败／错误消费／SDK／运行门禁保持，不重建私有池或旧错误表。
 
 2026-10-14 UTL02遗留复查：修正c_str/const别名写入、标识符误替换、动态输入暂存与邮件300B GBK提交预检，见[当前文本SPEC](../doc/cg2d_text_encoding_spec.md)和[复查证据](../doc/cg2d_unicode_utf16_evidence.json)。仅静态源码修正，原开放任务及完整门禁不升级。
+2026-10-14 UTL02消息框编译反馈：Input错误提示接既有平台宽消息框、Input/SavedState补直接声明，关闭确认和外部键盘三处调用直接传宽常量，退休六个无用窄视图；完整任务状态保持，当前未重新编译。

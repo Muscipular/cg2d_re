@@ -9,6 +9,7 @@
 #include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <bit>

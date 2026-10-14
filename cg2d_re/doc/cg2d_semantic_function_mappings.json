@@ -14071,6 +14071,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_message_box_correction": {
+        "recorded_on": "2026-10-14",
+        "symbols": [
+          "WindowProcedure"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
       }
     },
     {
@@ -14434,6 +14442,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_message_box_correction": {
+        "recorded_on": "2026-10-14",
+        "symbols": [
+          "WindowProcedure"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
       }
     },
     {
@@ -20153,6 +20169,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_message_box_correction": {
+        "recorded_on": "2026-10-14",
+        "symbols": [
+          "WindowProcedure"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
       }
     },
     {
@@ -91443,6 +91467,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_message_box_correction": {
+        "recorded_on": "2026-10-14",
+        "symbols": [
+          "Sub_44B050"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
       }
     },
     {
@@ -94897,6 +94929,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_message_box_correction": {
+        "recorded_on": "2026-10-14",
+        "symbols": [
+          "Sub_44AB60"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
       }
     },
     {

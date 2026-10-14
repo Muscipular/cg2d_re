@@ -190393,6 +190393,7 @@
       "source_evidence": "doc/cg2d_unicode_utf16_evidence.json",
       "scope": "只读指针写入、替换残留、动态输入暂存及邮件提交容量修正",
       "full_gates_changed": false
-    }
+    },
+    "message_box_compile_feedback": "用户编译反馈的Input/SavedState声明和平台宽字符实参错误已在源码修正，外部键盘同模式两调用同步；未经本线程重新编译"
   }
 }

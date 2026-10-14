@@ -4,6 +4,7 @@
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
@@ -316,7 +317,7 @@ void AppendText(const std::wstring_view utf16)
                 return;
             }
         } catch (const std::system_error&) {
-            ::MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字输入", MB_OK | MB_ICONERROR);
+            platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字输入", 0x10U);
             return;
         }
         const auto lines = SplitLines(*context);
@@ -1440,7 +1441,7 @@ void Sub_44B050(
     std::string stored;
     try { stored = cg::text::ToGbk(text); }
     catch (const std::system_error&) {
-        MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字编码", MB_OK | MB_ICONERROR);
+        platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字编码", 0x10U);
         return;
     }
     text = stored.c_str();
@@ -1581,7 +1582,7 @@ void Sub_44AB60()
         std::string stored;
         try { stored = cg::text::ToGbk(ContextText(*context)); }
         catch (const std::system_error&) {
-            MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字编码", MB_OK | MB_ICONERROR);
+            platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字编码", 0x10U);
             return;
         }
         auto& history = world::detail::gChatHistory621FF8;

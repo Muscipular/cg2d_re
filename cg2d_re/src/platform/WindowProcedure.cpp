@@ -83,9 +83,7 @@ namespace {
 inline constexpr UINT kResizeWindowFlags = 0x26u;
 inline constexpr wchar_t kCloseQuestion[] =
     L"可以結束魔力寶貝嗎？";
-inline const std::string kCloseQuestionUtf8View = cg::text::FromUtf16(kCloseQuestion); // 旧窄接口只读兼容视图。
 inline constexpr wchar_t kConfirmCaption[] = L"確認";
-inline const std::string kConfirmCaptionUtf8View = cg::text::FromUtf16(kConfirmCaption); // 旧窄接口只读兼容视图。
 
 struct MouseCoordinates {
     std::int32_t x;
@@ -335,8 +333,8 @@ LRESULT CALLBACK WindowProcedure(
         if (wParam32 == SC_CLOSE && gWindowMode == 1
             && MessageBoxW(
                 window,
-                kCloseQuestionUtf8View.c_str().c_str(),
-                kConfirmCaptionUtf8View.c_str().c_str(),
+                kCloseQuestion,
+                kConfirmCaption,
                 MB_OKCANCEL) == IDCANCEL) {
             const std::uint32_t tick = ReadTickCount32();
             gLastRenderDt = static_cast<double>(tick);

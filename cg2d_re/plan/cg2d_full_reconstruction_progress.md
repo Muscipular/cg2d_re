@@ -2385,3 +2385,9 @@ UTL02本轮静态收尾：87个C++源码/头文件词法括号、拥有文件UTF
 ## 229. 2026-10-14：定位登录负分类wstring断言
 
 用户提供22:23:54断言转储；使用同目录匹配PDB（GUID／Age一致）与已有DbgHelp离线解析，确认线程13608、category=-1／page=0／slot=3。ReadNegativeSelectionAvailability在LegacyUiRecord.cpp:1907读取空gHoverTextD68AE8[159]；原GBK固定区字节偏移未随wstring迁移处理，旁边gHoverTitleD68BF4[84]同类。调用回溯、实际this／下标／长度与两处登录消费者见[诊断证据](../doc/cg2d_login_wstring_assert_20261014.md)。第一尾另有非负分类判断，第二尾实际消费负分类读取，不能仅短路第一尾宣称完整修复。只完成定位及记录，未改业务源码、构建、测试、启动／附加客户端、部署或计算摘要；既有完整验收状态保持。
+
+## 230. 2026-10-14：修复登录未选择分类的Unicode断言
+
+用户明确要求修复。按[LNW01](../doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014)，结合-1初值／取消选择／有效分类生产及服务器输入门槛，统一两处绘制的未选择分类语义：不显示服务器按钮，不再读取旧相邻文字／鼠标字节。ReadServerAvailability在负分类返回false；非负分类的记录索引与available读取保持。退休负分类辅助及声明、仅供其使用的D68AC6常量，原地址与20点历史证据保留。当前开展集中静态核对与台账同步；不构建、测试、运行、部署或计算摘要，完整门禁保持。
+
+集中静态核对结果：三个源码／头的词法与精确差异通过，退休符号及两个hover字符串下标模式清零；ProcessScene_45FEA0全文和LegacyUiRecord其余函数正文逐项保持。283处当前源码定位更新，3680函数身份／名称／状态守恒，完整功能门禁未改。台账汇总通过3680函数／218导入／3061区间／184叶功能／60任务；最终-Check及UTF-8无BOM/LF、JSON、Git差异检查均通过，实际重编和用户复现仍待。本步在cg2d_re分支精确提交，不夹带用户已有改动。

@@ -75,3 +75,14 @@ D68AC6：未装载/文件偏移-1；389569条代码操作数目标区D68AC0..C8�
 
 十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+<a id="login-unselected-unicode-20261014"></a>
+## LNW01：动态UTF-16迁移后的未选择分类语义（2026-10-14）
+
+用户要求修复已定位的wstring断言。按已批准的动态UTF-16布局及AGENTS第8条工程委托，先记录本次局部裁决：category=-1为未选择分类，服务器可用性仅来自选定分类的LoginServerRecord。依据为LoginState的初值-1、ProcessScene_45FEA0取消选择写-1／page=0、点击有效分类写实际index，以及服务器输入分支已有category>=0门槛。
+
+两处绘制仍共用ReadServerAvailability，category<0时返回false且不读取服务器表或相邻UI／鼠标存储；非负分类保原category*20+page*10+slot及available字节读取。删除ReadNegativeSelectionAvailability及其声明、仅供该观察使用的D68AC6零字节。原460B1D／460BD7和D68B87／D68C48地址在源码注释及本文保留；原20点表、固定池只读桥及历史证据保留，不改变实际鼠标追踪／CryptInt／RNG／网络／声音。
+
+此裁决具名覆盖BRU01的负分类先读20字节兼容要求：未选择分类时不显示服务器按钮；第二个绘制尾原本受旧邻接字节影响的显隐不再保留。这是适应原生Unicode对象的明确行为选择，不声称按动态wstring还原了原GBK固定区的尾字节。两处尾调用位置及已选择分类的绘制样式／翻页保持，不增加新的page／slot上界、不回退固定字符容量或引入GBK影子文字owner。
+
+本次只修复源码并做必要静态核对／台账汇总，不恢复构建、测试、客户端运行、部署或摘要权限。实际重编及用户复现尚待，完整登录／Unicode验收不因本步关闭。

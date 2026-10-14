@@ -270,3 +270,5 @@ UTL02消息框编译反馈修正：输入错误提示使用既有platform::ShowW
 检索关键字4CA450两个分支统一返回含NUL的UTF-16码元数（当前唯一调用方丢弃返回值）；宠物48F8F0／490780最终页码返回来自纯ASCII数字，改为宽码元长度后数值不变。宽辅助复制只借用调用期间wstring_view，目标仍由原wstring拥有。此项纳入本次Debug重新构建，运行验收不扩权。
 
 InputContext后续：用户确认InputContext也直接使用wstring。退休utf8()便利成员；普通输入仍由现有text持有，LegacyInputStorage只保留实际GBK聊天叠加存储。404060名称校验入口接收wstring_view并在原GBK校验边界编码，476740／45E770直接检查宽正文；黑名单公开名称及登录单字段写入口同步接收宽文本，原GBK记录／容量／失败返回／原地址保持。提示改宽格式化，解析删除集合仍由原GBK字节解码，不猜换成其它字符；网络窄签名的转码只保留在调用边界。
+
+UTL02登录断言后续：依据用户“修复它”及[LNW01](cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014)，未选择分类的服务器可用性不再旁读原文字／鼠标邻接字节。动态HoverText／HoverTitle不承接原固定区+159／+84字节，旧适配器退休；两处绘制共用未选返回false的查询，已选择分类读取原真实服务器记录。此具名差异覆盖BRU01旧20点旁读要求，完整运行验收仍待。

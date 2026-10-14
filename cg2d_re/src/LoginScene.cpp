@@ -401,8 +401,10 @@ void DrawCategoryControls()
 
 bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32_t slot)
 {
+    // LNW01：原0x00460B1D／0x00460BD7的负分类旁读退休；未选分类没有服务器项。
+    // 原0x00D68B87／0x00D68C48是固定GBK区字节，不能索引动态UTF-16正文。
     if (category < 0) {
-        return cg::login::detail::ReadNegativeSelectionAvailability(page, slot) != 0;
+        return false;
     }
     const std::int32_t index = category * 20 + page * 10 + slot;
     return cg::login::gValueD69798[static_cast<std::size_t>(index)].available != 0;

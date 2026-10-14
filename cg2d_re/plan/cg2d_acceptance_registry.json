@@ -2274,7 +2274,8 @@
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-decision",
         "doc/cg2d_network_compatibility_spec.md#login-receive-diagnostics-source-state",
         "doc/cg2d_login_receive_diagnostics_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build"
+        "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -74232,6 +74233,33 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-12"
+    },
+    {
+      "id": "E-LOGIN-UNSELECTED-UNICODE-S-20261014",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_login_wstring_assert_20261014.md",
+      "implementation_reference": "src/LoginScene.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014",
+        "doc/cg2d_login_wstring_assert_20261014.md#login-wstring-assert-source-fix",
+        "src/LoginScene.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSceneDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "未选择分类时无可用服务器项；不再以原20处邻接字节决定按钮显隐，动态Unicode不保固定文字区尾字节。",
+          "decision_ref": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14",
+      "observation": "用户转储证实未选分类时读取空wstring[159]触发断言，相邻[84]同类。",
+      "expected": "两处登录尾部均不再读取失效的固定文字区索引，已选择分类的服务器表读取保持。",
+      "actual": "共享ReadServerAvailability负分类直接返回false，原ReadNegativeSelectionAvailability和仅供其使用的D68AC6常量／声明退休；非负索引公式和available表达式及ProcessScene正文保持。仅静态源码，不宣称实际重编／运行复现通过。"
     }
   ],
   "task_acceptance": [
@@ -190414,6 +190442,14 @@
         "compiled": true,
         "linked": true
       },
+      "runtime_verified": false,
+      "complete_gates_changed": false
+    },
+    "login_unselected_assert_fix": {
+      "decision_ref": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014",
+      "source_evidence": "doc/cg2d_login_wstring_assert_20261014.md",
+      "static_evidence": "E-LOGIN-UNSELECTED-UNICODE-S-20261014",
+      "build_verified": false,
       "runtime_verified": false,
       "complete_gates_changed": false
     }

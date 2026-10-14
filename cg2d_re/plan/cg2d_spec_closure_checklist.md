@@ -211,3 +211,5 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 2026-10-14 UTL02审查缺口修正：按[明确边界](../doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014)修正宽字符串判空、动态UTF-16转义及GBK容量、登录整组预检／失败留编辑、聊天历史和动态发送组包；三条文字长度断言退休，布局断言保持。源码证据见[Unicode证据](../doc/cg2d_unicode_utf16_evidence.json)，开放任务和完整编译／运行门禁保持。
 
 2026-10-14 UCB01／UTL03：按[构建SPEC](../doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014)修复宽窄实参、回调／声明／固定表容量并完成Debug编译链接；按用户确认重写旧占位为中文宽文案，去内部往返，InputContext周边接口直接接宽文本。原字节映射及实际验证见[Unicode证据](../doc/cg2d_unicode_utf16_evidence.json)。原身份／完整门禁保持，未运行测试／客户端，开放任务不以构建结果关闭。
+
+2026-10-14 LNW01：用户转储所示登录wstring[159]断言已按[未选择分类语义](../doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014)修正；共同查询覆盖两个绘制尾，旧负分类字节观察退休，非负服务器读取保持。增加LOGIN限定S，V03及其它开放任务／完整门禁保持；未重编或运行。

@@ -2081,17 +2081,8 @@ YobiAction* Sub_48AC60(
     payload->height = height;
     action->numberWindowCallback2C = callback;
     action->field1D0 = maximum;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(value14));
-    action->mapX1E0.mask = temporary->mask;
-    action->mapX1E0.encoded = temporary->encoded;
-    action->mapX1E0.readCount = temporary->readCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(initialValue));
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    action->mapY1F0.readCount = temporary->readCount;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(value14);
+    action->mapY1F0 = static_cast<std::int32_t>(initialValue);
     action->nameX = sourceWindow;
     action->nameY = sourceElement;
     payload->counter = 0;
@@ -6763,12 +6754,7 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         }
         action->callback = UpdateBattleSequence_420300;
         action->displayPriority = 0xCD;
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(index));
-        action->mapX1E0.mask = temporary->mask;
-        action->mapX1E0.encoded = temporary->encoded;
-        action->mapX1E0.readCount = temporary->readCount;
-        temporary.reset();
+        action->mapX1E0 = static_cast<std::int32_t>(index);
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = angle;
@@ -6852,12 +6838,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         // 原FST后比较未舍入值，FCOMP的无序也走阶段推进分支。
         if (!(speed > 0.0)) {
             ++action->imageNo;
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(0));
-            action->mapY1F0.mask = temporary->mask;
-            action->mapY1F0.encoded = temporary->encoded;
-            action->mapY1F0.readCount = temporary->readCount;
-            temporary.reset();
+            action->mapY1F0 = std::int32_t{0};
         }
         return;
     }
@@ -14690,10 +14671,7 @@ namespace {
             const std::int32_t amount = TakeBattleMInteger_438F70(scene);
             (gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 -= static_cast<std::int32_t>(amount));
             if ((gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 < 0)) {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(0));
-                gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0.CopyPayload(&(*temporary));
-                temporary.reset();
+                gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 = std::int32_t{0};
             }
         }
         FinishBattleEvent_43B6C0(scene);
@@ -14750,31 +14728,19 @@ namespace {
         gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->imageNo = image;
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->readiness.CopyPayload(&(*temporary));
-            temporary.reset();
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->readiness = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->maxHp.CopyPayload(&(*temporary));
-            temporary.reset();
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->maxHp = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0.CopyPayload(&(*temporary));
-            temporary.reset();
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(scene);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barMaximum1C0.CopyPayload(&(*temporary));
-            temporary.reset();
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
         const std::int32_t riderValue = TakeBattleMInteger_438F70(scene);
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -15310,28 +15276,16 @@ namespace {
         defender->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
         defender->field1D0 = TakeBattleMInteger_438F70(scene);
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            defender->readiness.CopyPayload(&(*temporary));
-            temporary.reset();
+            defender->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            defender->maxHp.CopyPayload(&(*temporary));
-            temporary.reset();
+            defender->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            defender->barValue1B0.CopyPayload(&(*temporary));
-            temporary.reset();
+            defender->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            defender->barMaximum1C0.CopyPayload(&(*temporary));
-            temporary.reset();
+            defender->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         defenderPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         defenderPayload->stateFE0 = 0;
@@ -15833,28 +15787,16 @@ namespace {
     created->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
     created->field1D0 = TakeBattleMInteger_438F70(scene);
     {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-        created->readiness.CopyPayload(&(*temporary));
-        temporary.reset();
+        created->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
     }
     {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-        created->maxHp.CopyPayload(&(*temporary));
-        temporary.reset();
+        created->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
     }
     {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-        created->barValue1B0.CopyPayload(&(*temporary));
-        temporary.reset();
+        created->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
     }
     {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-        created->barMaximum1C0.CopyPayload(&(*temporary));
-        temporary.reset();
+        created->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
     }
     actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
     actorPayload->stateFE0 = 0;
@@ -15875,10 +15817,7 @@ namespace {
     created->rebirthValue1 = 4;
     created->rebirthValue2 = 4;
     {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(render::gActivePalette));
-        created->mapX1E0.CopyPayload(&(*temporary));
-        temporary.reset();
+        created->mapX1E0 = static_cast<std::int32_t>(render::gActivePalette);
     }
     static_cast<void>(PlayFrame_517DA0(*slot, 0));
     static_cast<void>(NewBattleText_4217F0(4, created->nameC4.data(), 0, 100));
@@ -16021,28 +15960,16 @@ namespace {
             carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
             carrierAction->field1D0 = TakeBattleMInteger_438F70(scene);
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                carrierAction->readiness.CopyPayload(&(*temporary));
-                temporary.reset();
+                carrierAction->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                carrierAction->maxHp.CopyPayload(&(*temporary));
-                temporary.reset();
+                carrierAction->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                carrierAction->barValue1B0.CopyPayload(&(*temporary));
-                temporary.reset();
+                carrierAction->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                carrierAction->barMaximum1C0.CopyPayload(&(*temporary));
-                temporary.reset();
+                carrierAction->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             carrier->flags08 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             carrierAction->offset40 = static_cast<float>(
@@ -16096,28 +16023,16 @@ namespace {
         carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
         first->field1D0 = TakeBattleMInteger_438F70(scene);
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            first->readiness.CopyPayload(&(*temporary));
-            temporary.reset();
+            first->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            first->maxHp.CopyPayload(&(*temporary));
-            temporary.reset();
+            first->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            first->barValue1B0.CopyPayload(&(*temporary));
-            temporary.reset();
+            first->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            first->barMaximum1C0.CopyPayload(&(*temporary));
-            temporary.reset();
+            first->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         firstPayload->stateFE0 = 0;
@@ -16174,28 +16089,16 @@ namespace {
         second->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
         second->field1D0 = TakeBattleMInteger_438F70(scene);
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            second->readiness.CopyPayload(&(*temporary));
-            temporary.reset();
+            second->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            second->maxHp.CopyPayload(&(*temporary));
-            temporary.reset();
+            second->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            second->barValue1B0.CopyPayload(&(*temporary));
-            temporary.reset();
+            second->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            second->barMaximum1C0.CopyPayload(&(*temporary));
-            temporary.reset();
+            second->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         secondPayload->stateFE0 = 0;
@@ -17158,28 +17061,16 @@ namespace {
         created->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
         created->field1D0 = TakeBattleMInteger_438F70(scene);
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            created->readiness.CopyPayload(&(*temporary));
-            temporary.reset();
+            created->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            created->maxHp.CopyPayload(&(*temporary));
-            temporary.reset();
+            created->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            created->barValue1B0.CopyPayload(&(*temporary));
-            temporary.reset();
+            created->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-            created->barMaximum1C0.CopyPayload(&(*temporary));
-            temporary.reset();
+            created->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
         }
         actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         actorPayload->stateFE0 = 0;
@@ -19170,28 +19061,16 @@ namespace {
             }
             first->field1D0 = TakeBattleMInteger_438F70(scene);
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                first->readiness.CopyPayload(&(*temporary));
-                temporary.reset();
+                first->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                first->maxHp.CopyPayload(&(*temporary));
-                temporary.reset();
+                first->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                first->barValue1B0.CopyPayload(&(*temporary));
-                temporary.reset();
+                first->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                first->barMaximum1C0.CopyPayload(&(*temporary));
-                temporary.reset();
+                first->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             firstPayload->stateFE0 = 0;
@@ -19243,28 +19122,16 @@ namespace {
             second->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
             second->field1D0 = TakeBattleMInteger_438F70(scene);
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                second->readiness.CopyPayload(&(*temporary));
-                temporary.reset();
+                second->readiness = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                second->maxHp.CopyPayload(&(*temporary));
-                temporary.reset();
+                second->maxHp = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                second->barValue1B0.CopyPayload(&(*temporary));
-                temporary.reset();
+                second->barValue1B0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             {
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene)));
-                second->barMaximum1C0.CopyPayload(&(*temporary));
-                temporary.reset();
+                second->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             secondPayload->stateFE0 = 0;
@@ -22060,51 +21927,19 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         firstActor->field1D0 = TakeBattleMInteger_438F70(action);
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            firstActor->readiness.readCount = count;
-            firstActor->readiness.encoded = encoded;
-            firstActor->readiness.mask = mask;
-            temporary.reset();
+            firstActor->readiness = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            firstActor->maxHp.readCount = count;
-            firstActor->maxHp.encoded = encoded;
-            firstActor->maxHp.mask = mask;
-            temporary.reset();
+            firstActor->maxHp = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            firstActor->barValue1B0.readCount = count;
-            firstActor->barValue1B0.encoded = encoded;
-            firstActor->barValue1B0.mask = mask;
-            temporary.reset();
+            firstActor->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            const auto count = temporary->readCount;
-            firstActor->barMaximum1C0.encoded = encoded;
-            firstActor->barMaximum1C0.mask = mask;
-            firstActor->barMaximum1C0.readCount = count;
-            temporary.reset();
+            firstActor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
         firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
         firstPayload->stateFE0 = 0;
@@ -22162,51 +21997,19 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         secondActor->field1D0 = TakeBattleMInteger_438F70(action);
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            secondActor->readiness.readCount = count;
-            secondActor->readiness.encoded = encoded;
-            secondActor->readiness.mask = mask;
-            temporary.reset();
+            secondActor->readiness = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            secondActor->maxHp.readCount = count;
-            secondActor->maxHp.encoded = encoded;
-            secondActor->maxHp.mask = mask;
-            temporary.reset();
+            secondActor->maxHp = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            secondActor->barValue1B0.readCount = count;
-            secondActor->barValue1B0.encoded = encoded;
-            secondActor->barValue1B0.mask = mask;
-            temporary.reset();
+            secondActor->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleMInteger_438F70(action);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto count = temporary->readCount;
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            secondActor->barMaximum1C0.readCount = count;
-            secondActor->barMaximum1C0.encoded = encoded;
-            secondActor->barMaximum1C0.mask = mask;
-            temporary.reset();
+            secondActor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
         secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
         secondPayload->stateFE0 = 0;
@@ -22399,51 +22202,19 @@ void ParseBattleC_438550()
         actor->field1D0 = TakeBattleCInteger_438450();
         {
             const std::int32_t value = TakeBattleCInteger_438450();
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            const auto count = temporary->readCount;
-            actor->readiness.encoded = encoded;
-            actor->readiness.mask = mask;
-            actor->readiness.readCount = count;
-            temporary.reset();
+            actor->readiness = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            const auto count = temporary->readCount;
-            actor->maxHp.encoded = encoded;
-            actor->maxHp.mask = mask;
-            actor->maxHp.readCount = count;
-            temporary.reset();
+            actor->maxHp = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            const auto count = temporary->readCount;
-            actor->barValue1B0.encoded = encoded;
-            actor->barValue1B0.mask = mask;
-            actor->barValue1B0.readCount = count;
-            temporary.reset();
+            actor->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
             const std::int32_t value = TakeBattleCInteger_438450();
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(value));
-            const auto encoded = temporary->encoded;
-            const auto mask = temporary->mask;
-            const auto count = temporary->readCount;
-            actor->barMaximum1C0.encoded = encoded;
-            actor->barMaximum1C0.mask = mask;
-            actor->barMaximum1C0.readCount = count;
-            temporary.reset();
+            actor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
         const auto inputFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
         const std::int32_t ridingImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
@@ -26750,16 +26521,9 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
     if (cost > 0) {
         (action->barValue1B0 -= static_cast<std::int32_t>(cost));
         if ((action->barValue1B0 < 0)) {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(0));
-            const std::uint32_t mask = temporary->mask;
-            const std::uint32_t encoded = temporary->encoded;
-            const std::uint8_t count = temporary->readCount;
             // 原405BA8/AF/B2先mask后encoded，不使用写序不同的CopyPayload。
-            action->barValue1B0.mask = mask;
-            action->barValue1B0.encoded = encoded;
-            action->barValue1B0.readCount = count;
-            temporary.reset();
+            // 现由整数赋值统一三字段发布；一次RNG，目标token／reserved保持。
+            action->barValue1B0 = std::int32_t{0};
         }
         payload->fpUsed1008 = -1;
     }
@@ -26819,16 +26583,9 @@ void UpdateBattleAction44_40BDF0(YobiAction* const action)
 // 原函数：0x0040B130。
 void UpdateBattleAction45_40B130(YobiAction* const action)
 {
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t mask = temporary->mask;
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint8_t count = temporary->readCount;
     // 原40B14F/59/5F先mask后encoded，保留目标token及未复制字节。
-    action->readiness.mask = mask;
-    action->readiness.encoded = encoded;
-    action->readiness.readCount = count;
-    temporary.reset();
+    // 现由整数赋值统一三字段发布；一次RNG，目标token／reserved保持。
+    action->readiness = std::int32_t{0};
     AdvanceBattleCastState_439340(action);
 }
 
@@ -29450,15 +29207,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22459, 0, 0));
         break;
     case 9: {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(payload->value1030));
-        const std::uint8_t readCount = temporary->readCount;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        action->readiness.readCount = readCount;
-        action->readiness.encoded = encoded;
-        action->readiness.mask = mask;
-        temporary.reset();
+        action->readiness = static_cast<std::int32_t>(payload->value1030);
         if ((0 > action->readiness)) {
             action->readiness = std::int32_t{0};
         }
@@ -29468,15 +29217,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         break;
     }
     case 8: {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(payload->value1030));
-        const std::uint32_t mask = temporary->mask;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint8_t readCount = temporary->readCount;
-        action->barValue1B0.mask = mask;
-        action->barValue1B0.encoded = encoded;
-        action->barValue1B0.readCount = readCount;
-        temporary.reset();
+        action->barValue1B0 = static_cast<std::int32_t>(payload->value1030);
         if ((0 > action->barValue1B0)) {
             action->barValue1B0 = std::int32_t{0};
         }
@@ -32679,16 +32420,9 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
             } else {
                 (target->readiness -= static_cast<std::int32_t>(payload->effects1C[index].position3));
                 if ((target->readiness < 0)) {
-                    std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
-                    const std::uint32_t mask = temporary->mask;
-                    const std::uint32_t encoded = temporary->encoded;
-                    const std::uint8_t count = temporary->readCount;
                     // 原413D6A/74/7A清源对象HP而非目标，且先mask后encoded，不能改用CopyPayload。
-                    action->readiness.mask = mask;
-                    action->readiness.encoded = encoded;
-                    action->readiness.readCount = count;
-                    temporary.reset();
+                    // 现由整数赋值统一三字段发布；一次RNG，目标token／reserved保持。
+                    action->readiness = std::int32_t{0};
                 }
                 const std::int32_t hitIndex = payload->effectRunningC9C;
                 if (payload->effects1C[hitIndex].position3 != 0) {
@@ -34227,17 +33961,8 @@ void Sub_448810(
     action->graphicOffsetY -= 93;
     action->characterAction = mode;
     action->displayPriority = 11;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    action->mapX1E0.encoded = temporary->encoded;
-    action->mapX1E0.mask = temporary->mask;
-    action->mapX1E0.readCount = temporary->readCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(floor));
-    action->mapY1F0.readCount = temporary->readCount;
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    temporary.reset();
+    action->mapX1E0 = std::int32_t{0};
+    action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
     case 1:
         action->offset40 = 870.0F;
@@ -34317,17 +34042,8 @@ void Sub_448D90(
     }
     action->characterAction = mode;
     action->displayPriority = 4;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    action->mapX1E0.mask = temporary->mask;
-    action->mapX1E0.encoded = temporary->encoded;
-    action->mapX1E0.readCount = temporary->readCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(floor));
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    action->mapY1F0.readCount = temporary->readCount;
-    temporary.reset();
+    action->mapX1E0 = std::int32_t{0};
+    action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
     case 1:
         action->offset40 = -870.0F;
@@ -34399,12 +34115,7 @@ void Sub_449A00(YobiAction* const action)
         static_cast<double>(screenY) + 0.5));
     action->y = offsetY + projectedY;
     if ((action->mapX1E0 == 0)) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(1));
-        action->mapX1E0.readCount = temporary->readCount;
-        action->mapX1E0.encoded = temporary->encoded;
-        action->mapX1E0.mask = temporary->mask;
-        temporary.reset();
+        action->mapX1E0 = std::int32_t{1};
     } else {
         static_cast<void>(Sub_4496C0(action));
     }
@@ -34478,47 +34189,19 @@ void Sub_449700(
     InitializeSceneEffectGraphic(action, 230058, created);
     action->characterAction = mode;
     action->displayPriority = 3;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    action->mapX1E0.encoded = temporary->encoded;
-    action->mapX1E0.mask = temporary->mask;
-    action->mapX1E0.readCount = temporary->readCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(floor));
-    action->mapY1F0.readCount = temporary->readCount;
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    temporary.reset();
+    action->mapX1E0 = std::int32_t{0};
+    action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
     case 1: {
-        std::optional<platform::LegacyCryptInt> targetX;
-        targetX.emplace(static_cast<std::int32_t>(mapX * 64));
-        action->mapX200.readCount = (*targetX).readCount;
-        action->mapX200.encoded = (*targetX).encoded;
-        action->mapX200.mask = (*targetX).mask;
-        targetX.reset();
-        std::optional<platform::LegacyCryptInt> targetY;
-        targetY.emplace(static_cast<std::int32_t>(mapY * 64));
-        action->mapY210.mask = (*targetY).mask;
-        action->mapY210.encoded = (*targetY).encoded;
-        action->mapY210.readCount = (*targetY).readCount;
-        targetY.reset();
+        action->mapX200 = static_cast<std::int32_t>(mapX * 64);
+        action->mapY210 = static_cast<std::int32_t>(mapY * 64);
         action->worldX = static_cast<float>(static_cast<double>(mapX + 10) * 64.0F);
         action->worldY = static_cast<float>(static_cast<double>(mapY - 10) * 64.0F);
         break;
     }
     case 3: {
-        temporary.emplace(static_cast<std::int32_t>((mapX - 10) * 64));
-        action->mapX200.mask = temporary->mask;
-        action->mapX200.encoded = temporary->encoded;
-        action->mapX200.readCount = temporary->readCount;
-        temporary.reset();
-        std::optional<platform::LegacyCryptInt> targetY;
-        targetY.emplace(static_cast<std::int32_t>((mapY - 10) * 64));
-        action->mapY210.encoded = (*targetY).encoded;
-        action->mapY210.mask = (*targetY).mask;
-        action->mapY210.readCount = (*targetY).readCount;
-        targetY.reset();
+        action->mapX200 = static_cast<std::int32_t>((mapX - 10) * 64);
+        action->mapY210 = static_cast<std::int32_t>((mapY - 10) * 64);
         [[fallthrough]];
     }
     case 2:
@@ -34674,12 +34357,7 @@ void Sub_448290()
     }
     action->callback = Sub_4483A0;
     action->displayPriority = 1;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(world::gMapFloor));
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    action->mapY1F0.readCount = temporary->readCount;
-    temporary.reset();
+    action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     action->flags = 2;
     action->value54 = 0.0F;
     action->drawMode.bytes[0x0C] = 1;
@@ -34783,12 +34461,7 @@ void Sub_449160()
     }
     action->callback = Sub_449400;
     action->displayPriority = 30;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(world::gMapFloor));
-    action->mapY1F0.encoded = temporary->encoded;
-    action->mapY1F0.mask = temporary->mask;
-    action->mapY1F0.readCount = temporary->readCount;
-    temporary.reset();
+    action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     const auto timeCategory = static_cast<std::uint8_t>(world::detail::gValue73ED48);
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
@@ -36312,33 +35985,13 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
         }
 
         // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一CopyPayload。
-        std::optional<platform::LegacyCryptInt> hpValue;
-        hpValue.emplace(static_cast<std::int32_t>(hp));
-        action->readiness.readCount = (*hpValue).readCount;
-        action->readiness.encoded = (*hpValue).encoded;
-        action->readiness.mask = (*hpValue).mask;
-        hpValue.reset();
+        action->readiness = static_cast<std::int32_t>(hp);
 
-        std::optional<platform::LegacyCryptInt> maxHpValue;
-        maxHpValue.emplace(static_cast<std::int32_t>(maxHp));
-        action->maxHp.mask = (*maxHpValue).mask;
-        action->maxHp.encoded = (*maxHpValue).encoded;
-        action->maxHp.readCount = (*maxHpValue).readCount;
-        maxHpValue.reset();
+        action->maxHp = static_cast<std::int32_t>(maxHp);
 
-        std::optional<platform::LegacyCryptInt> fpValue;
-        fpValue.emplace(static_cast<std::int32_t>(fp));
-        action->barValue1B0.encoded = (*fpValue).encoded;
-        action->barValue1B0.mask = (*fpValue).mask;
-        action->barValue1B0.readCount = (*fpValue).readCount;
-        fpValue.reset();
+        action->barValue1B0 = static_cast<std::int32_t>(fp);
 
-        std::optional<platform::LegacyCryptInt> maxFpValue;
-        maxFpValue.emplace(static_cast<std::int32_t>(maxFp));
-        action->barMaximum1C0.readCount = (*maxFpValue).readCount;
-        action->barMaximum1C0.encoded = (*maxFpValue).encoded;
-        action->barMaximum1C0.mask = (*maxFpValue).mask;
-        maxFpValue.reset();
+        action->barMaximum1C0 = static_cast<std::int32_t>(maxFp);
     }
 }
 

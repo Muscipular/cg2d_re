@@ -4135,12 +4135,7 @@ void Sub_50A6B0(
             if ((flags & (bit | 1u)) != 0) {
                 const std::int32_t parsed =
                     network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(parsed));
-                value.mask = temporary->mask;
-                value.encoded = temporary->encoded;
-                value.readCount = temporary->readCount;
-                temporary.reset();
+                value = static_cast<std::int32_t>(parsed);
                 ++field;
             }
             bit <<= 1;
@@ -5734,13 +5729,7 @@ std::int32_t* Sub_467F30()
     gValue9EE8B8 = 0;
     gValueC8A79C = 0;
 
-    first.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t fifthEncoded = first->encoded;
-    const std::uint32_t fifthMask = first->mask;
-    BorrowValueC821E8Storage()->encoded = fifthEncoded;
-    BorrowValueC821E8Storage()->mask = fifthMask;
-    BorrowValueC821E8Storage()->readCount = first->readCount;
-    first.reset();
+    *BorrowValueC821E8Storage() = std::int32_t{0};
 
     *BorrowValue9E03C0Storage() = std::int32_t{0};
 
@@ -5942,18 +5931,9 @@ void Sub_5093C0(
 void Sub_50D080(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
 {
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(first));
-    BorrowValue9FB918Storage()->encoded = temporary->encoded;
-    BorrowValue9FB918Storage()->mask = temporary->mask;
-    BorrowValue9FB918Storage()->readCount = temporary->readCount;
-    temporary.reset();
+    *BorrowValue9FB918Storage() = static_cast<std::int32_t>(first);
 
-    temporary.emplace(static_cast<std::int32_t>(second));
-    BorrowValueAF0FE8Storage()->readCount = temporary->readCount;
-    BorrowValueAF0FE8Storage()->encoded = temporary->encoded;
-    BorrowValueAF0FE8Storage()->mask = temporary->mask;
-    temporary.reset();
+    *BorrowValueAF0FE8Storage() = static_cast<std::int32_t>(second);
 
     const std::uint32_t encoded = BorrowValue9FB918Storage()->encoded;
     const std::uint32_t mask = BorrowValue9FB918Storage()->mask;
@@ -6451,12 +6431,7 @@ std::int32_t __cdecl Sub_5093F0(
     BorrowValueC821E8Storage()->encoded = encoded;
     BorrowValueC821E8Storage()->readCount = readCount;
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    BorrowValue9E03C0Storage()->mask = temporary->mask;
-    BorrowValue9E03C0Storage()->encoded = temporary->encoded;
-    BorrowValue9E03C0Storage()->readCount = temporary->readCount;
-    temporary.reset();
+    *BorrowValue9E03C0Storage() = std::int32_t{0};
     static_cast<void>(Sub_4681B0());
 
     if (a11 > 0) {

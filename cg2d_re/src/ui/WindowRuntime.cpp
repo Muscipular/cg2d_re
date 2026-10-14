@@ -17370,12 +17370,7 @@ std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
         if (world::gCurrentSceneType == 10) {
             world::gCurrentSceneState = 9;
         } else {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(0));
-            world::detail::BorrowValue73ECD0Storage()->encoded = temporary->encoded;
-            world::detail::BorrowValue73ECD0Storage()->mask = temporary->mask;
-            world::detail::BorrowValue73ECD0Storage()->readCount = temporary->readCount;
-            temporary.reset();
+            *world::detail::BorrowValue73ECD0Storage() = std::int32_t{0};
             static_cast<void>(world::SetPendingSceneType(7));
         }
         static_cast<void>(audio::PlaySe_52C450(60, 320));

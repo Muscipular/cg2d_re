@@ -314,7 +314,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -442,6 +443,22 @@
         "build_verified": false,
         "runtime_verified": false,
         "rng_calls_for_assignment": 1
+      },
+      "cryptint_integer_assignment_lci11": {
+        "recorded_on": "2026-10-14",
+        "simplified_statement_groups": 82,
+        "copy_payload_groups": 38,
+        "direct_field_groups": 44,
+        "local_optional_containers_removed": 75,
+        "remaining_local_optional_containers": 29,
+        "affected_source_files": 3,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_token_and_reserved_written": false,
+        "startup_and_exit_changed": false,
+        "class_bodies_and_layout_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -1229,7 +1246,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1393,6 +1411,22 @@
         "build_verified": false,
         "runtime_verified": false,
         "rng_calls_for_assignment": 1
+      },
+      "cryptint_integer_assignment_lci11": {
+        "recorded_on": "2026-10-14",
+        "simplified_statement_groups": 82,
+        "copy_payload_groups": 38,
+        "direct_field_groups": 44,
+        "local_optional_containers_removed": 75,
+        "remaining_local_optional_containers": 29,
+        "affected_source_files": 3,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_token_and_reserved_written": false,
+        "startup_and_exit_changed": false,
+        "class_bodies_and_layout_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -69817,7 +69851,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ]
     },
     {
@@ -81220,7 +81255,8 @@
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-acceptance",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_resource_copy_evidence.json"
+        "doc/cg2d_battle_resource_copy_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "动作159/4107C0：flagsFDC MOV W32/TEST AL60清才PlayFrame(action,0)弃返；fresh type非零则先Y/X/amount和type数显(mode2/flags0)，其后fresh type按6扣readiness/最低0、5加readiness/最高maxHp、4加barValue/最高barMaximum、3扣barValue/最低0、0图22459、9先构造值赋readiness再限制0/maxHp、8先构造值赋barValue再限制0/barMaximum，default无资源更新但仍公共推进。各零临时与8/9初始临时先完整取三载荷字段再按原顺序写；token/reserved保，Constructor/Destroy和实际业务上下限保。原七439340点的所有正常路径归现有入口一次439340，不新增helper原身份。 三完整原根540条1709B/九页、63实际call/36普通内部jump/15ret、三唯一普通入向同父404DB0的九条邻窗及十二原临时复制阶段，只当前完整正常源合同/读写阶段与接线静态。源码一既有共享helper内六片段恢复全载荷取样，三个入口与其它源保持，正常旧载荷值一致，不声称数值/并发或生成机器bug。全部子依赖/其它生产/完整父与间接alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未新验；内存CryptInt与原业务上下限保，网络仍原格式明文，RPLAN.24不专项异常/保护/模拟或故障等价。"
     },
@@ -81234,7 +81270,8 @@
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-acceptance",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_resource_copy_evidence.json",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-item-completion",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "动作160/410B00：与159相同数显/fresh type/七case/default及内存CryptInt业务合同，六临时复制阶段同原顺序；尾是phase=37，包括default，原七独立写点归现有入口一次发布。共享既有ApplyBattleResourceChange_4107C0_410B00正常处理，不把159推进尾混入160或加helper返回门禁。 三完整原根540条1709B/九页、63实际call/36普通内部jump/15ret、三唯一普通入向同父404DB0的九条邻窗及十二原临时复制阶段，只当前完整正常源合同/读写阶段与接线静态。源码一既有共享helper内六片段恢复全载荷取样，三个入口与其它源保持，正常旧载荷值一致，不声称数值/并发或生成机器bug。全部子依赖/其它生产/完整父与间接alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未新验；内存CryptInt与原业务上下限保，网络仍原格式明文，RPLAN.24不专项异常/保护/模拟或故障等价。"
     },
@@ -81707,7 +81744,8 @@
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
+        "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "221：固定payload，imageNo初始-1，fresh current.position先保存attackerPosition→439470推进。fresh currentIndex捕targetPosition和initialFlags W32后共享59E980目标T*/其payload一次保存，initialFlags bit4图110000；否则400时技术8/targetPosition阈12图110098或111048并源RandomEffect110014；其它skillLevel>=9图110014。target+10=共享attacker，fresh current.flags W32写target FE4→ApplyFlags(attackerPosition,action)。fresh index/flags W32先8000决定共同跳尾，4000恢复分支先10000000图22459，否则给target.readiness加amount，GreaterCrypt(target,maxHp)才普通CopyPayload上限（原encoded/mask/readCount交替，token/reserved不复制）；随后fresh flags W32→targetY→amount→targetX数显type5/style2/flags，再fresh current.flags低W8 bit2给target图22454，Attribute(action,target)。非4000且2000清时扣减：10000000用fresh共享当前目标图22459；否则target.readiness扣amount/<0 Construct0，原先齐读mask/encoded W32/readCount W8后按原序写action.readiness（确为源对象，不是target）→Destroy，现正确体保。fresh hitIndex.position3非0才同cached index.flags低W8 bit2生成target110008，imageNo非负才target图、共享attacker/target Rebirth；fresh flags W32→Y→amount→X数显type6/style2/flags，再fresh current.flags低W8 bit2给action图22454（不是target），Attribute(共享attacker,target)。扣减分支共同fresh current.flags低W8 bit20才源FDC W32|2/gate1/alive1。恢复或8000/2000跳尾不执行此激活。共同source439340→439470弃返，所有参数/返回与source/target别名、真实生产消费/业务上限和未决寿命范围保。 两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     },
@@ -83167,7 +83205,8 @@
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
         "doc/cg2d_main_entry_state_carrier_sampling_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
     },
@@ -96972,7 +97011,8 @@
         "doc/cg2d_quantity_window_creation_spec.md#quantity-decision",
         "doc/cg2d_quantity_window_creation_spec.md#quantity-acceptance",
         "doc/cg2d_quantity_window_creation_spec.md#quantity-source-state",
-        "doc/cg2d_quantity_window_creation_spec.md#evidence-archive-20261011"
+        "doc/cg2d_quantity_window_creation_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "QIP01仅数量框创建48AC60/动画48ABC0/发布48A830三个完整原根282条873B/五页。创建actionFlags W32先发布→声56→真实new(3,24H)→旧窗bit15/声57→原失败直接发布并返回空；成功prototype持址先于flags低BYTE→原四S32尺寸→低BYTE flags/低BYTE mode，两CryptInt构造复制析构原序及非拥有callback保持。24H既有WindowOpeningPayload结构不改，不补未写半高/模式其它字段。动画描边四坐标低U16→半宽/半高增量，counter按S16>=10才callback快照→mapY后mapX真实CryptInt读取→七参数发布→标死，末无条件W16自增；现void与原残留EAX分界具名，完整机器ABI/所有调度消费待。发布窗口42已存在清bit15/声57否则真实OpenWindow(42)，图号写elem6→maximum先窗口指针取样→value10/value14/callback→该窗口elem2初值→返回窗口取样→sourceWindow/sourceElement，返回该快照；仅补低BYTE及两个指针取样组三处，不新增保护/清零/默认/回滚/字段/公开helper。四入CALL、各四后邻及一个动画data持址仅来源/局部消费，不代两外父完整或动态callback寿命。当前WAV-only/原命令字段LF明文/MSVC CRT及所有完整门禁保持；数量确认/取消/关闭、共享窗口与载荷owner、生成机器读取/ABI、SDK/声音/画面及实际运行待，整体未完成。"
     },
@@ -97673,7 +97713,8 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-byte-transfer",
         "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-value-setup",
-        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow"
+        "doc/cg2d_battle_m_skill_item_acceptance.md#battle-m-skill-item-acceptance-rid-control-flow",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
       ],
       "boundary": "已有语义811/真实RID正文及595条库存统计保持，不重复身份。本步仅消息种类kind原EDI32取样/递增/22门禁，将size_t恢复S32及固定25项size比较同型化；只两行，无新增校验、补零/钳制/保护、容量或RNG/失败策略。原其余RID/字符/预读回退/角色分配更新/数值/音效和接口保持；适配处置不等于完整RID、全部父-callee/正常失败/资源、alias-owner/机器ABI或运行通过，全部适用门禁保持。 BMSA07补三处标志BYTE内存读取与载体三注释，S32/W32字段及第二预读寄存器位测试保持；原第一/第二新角色原无分配守卫和226延后共享槽发布保持，仅所述源级关系，不代完整owner/失败/运行。 BMSA09补原三类回退/空槽Finish后子状态发布、两新对象停更与载体先挂后写/成功游标回存关系；仅限定S，原无调用端分配守卫及其它全部字段/接口保持，不代实际失败/所有callee与owner/资源/ABI/运行。"
     },

@@ -6,7 +6,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
-#include "../platform/LegacyFormat.hpp"
+#include "../platform/StartupNative.hpp" // ERROR_INSUFFICIENT_BUFFER的Win32声明。
 #include "../platform/LegacyStdio.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"

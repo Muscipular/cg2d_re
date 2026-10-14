@@ -128,3 +128,7 @@ ShowLegacyCursor三个调用、PostLegacyQuitMessage一个调用改为直接Win3
 保原函数／全局地址注释，新增处仅引用已有函数及系统API，不编造原函数地址。只做必要静态核对，完整构建／运行及其它历史文件删除造成的台账限制如实记录。
 
 WMP01静态结果：11个消息调用、10个宽常量、两处wstring格式化及四个直接系统调用已核对；四个退休符号无残留，保留窗口适配全文保持。八源码／头词法、原地址／身份／状态及编码／JSON／差异检查通过，69条语义与370处定位同步。完整台账仍仅报两份已删除外部键盘历史附件缺失，未生成派生文件；本次不宣构建、测试或运行通过。
+
+### DLI01直接依赖补正（2026-10-15）
+
+用户反馈WindowRuntime.cpp:9690的ERROR_INSUFFICIENT_BUFFER未声明。退休LegacyLowIo.hpp时移除了其间接引入的StartupNative.hpp／Windows.h，而255B回复容量失败路径仍使用该Win32错误码。当前用显式StartupNative.hpp替换本单元未使用的LegacyFormat.hpp；已有cstdio、cstdint和LegacyStdio直接依赖保持。仅改一行include，函数正文／原地址／行号及错误语义不变；不新增错误码常量或改变容量策略。静态依赖与精确差异核对，不重新编译；此前独立外部键盘历史文件缺失不在此步处理。

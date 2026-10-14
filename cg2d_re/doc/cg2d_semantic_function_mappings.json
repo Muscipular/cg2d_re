@@ -248034,6 +248034,56 @@
       },
       "boundary": "原先写系统错误1085FE4，再以8B原表及13h..24h／BCh..CAh／其它边界更新errno1085FE0；九原调用仅旧文件／目录CRT链。按已批直接MSVC替换整体职责，不要求复制旧表／机器ABI，原ID保留。当前真实错误消费、全部文件owner／正常失败／寿命及SDK／运行未验。",
       "verification_level": "只读原26条／103B与九入引用，核当前公共文件／目录服务及错误访问；无源码变更，不构建／测试／运行／查产物／摘要。"
+    },
+    {
+      "original_entry": "0x46AC90",
+      "inventory_id": "F:0006AC90",
+      "status": "LCI10当前源码局部整数赋值重构；函数实施状态沿全量表有正文，完整运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46AC90"
+          ],
+          "relationship": "仅将单个临时载荷发布段收敛到既有整数operator=；函数其他调用／标志／Y→X读取／发送和返回保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "boundary": "原入口身份沿全量表与既有登记，范围注释沿现有源；本步没有新增IDA取证或声称原完整语义已验。临时reserved零写没有被目标复制、读取或析构消费；整数赋值保留一次RNG和目标token／reserved。完整SDK、异常域及运行仍未验。",
+      "verification_level": "仅当前源码块、已有整数赋值／CopyPayload／析构、原地址和后续语句顺序的静态核对；不构建、测试、运行或计算摘要。",
+      "source_refactor_only": true,
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46AC90",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci10": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "current_integer_assignment_groups": 1,
+        "removed_local_optional_containers": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "discarded_temporary_reserved_zero_writes": 3,
+        "following_order": [
+          "Sub_4681B0先执行",
+          "状态整数赋值",
+          "两个原标志发布",
+          "Y读取",
+          "X读取",
+          "Sub_510810发送并返回"
+        ],
+        "build_verified": false,
+        "runtime_verified": false,
+        "rng_calls_for_assignment": 1
+      }
     }
   ]
 }

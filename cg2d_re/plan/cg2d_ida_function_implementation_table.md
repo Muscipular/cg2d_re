@@ -17,6 +17,8 @@
 
 > 2026-10-14 [LCI09](../doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment)：98个简单单目标临时载荷段收敛到既有整数operator=，保留一次RNG与目标token／reserved；移除60个无剩余使用的局部optional。源定位同步，原入口身份／状态与门禁保持，仅静态核对。
 
+> 2026-10-14 [LCI10](../doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment)：46AC90中无观察的临时reserved零写与载荷段收敛到整数赋值；后续原序保持。只同步本步SceneState源定位，原入口身份／状态与验收门禁保持，仅静态核对。
+
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2865 |
@@ -126,7 +128,7 @@
 | 88 | 0x00404D60 | `sub_404D60` | 有正文 | `src/YobiRuntime.cpp:33977 — Sub_404D60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 89 | 0x00404D90 | `SelectIntValue` | 有正文 | `src/YobiRuntime.cpp:11907 — SelectIntValue_404D90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 90 | 0x00404DB0 | `BattleEntry::EffectUpdate` | 有正文 | `src/YobiRuntime.cpp:23369 — UpdateBattleActor_404DB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:8609 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 91 | 0x00405B40 | `GetPetPosition` | 有正文 | `src/world/SceneState.cpp:8603 — GetBattlePetPosition_405B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 92 | 0x00405B60 | `sub_405B60` | 有正文 | `src/YobiRuntime.cpp:26746 — ConsumeBattleFpCost_405B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 93 | 0x00405BD0 | `CompareFunction` | 有正文 | `src/YobiRuntime.cpp:23062 — CompareBattleDrawActions_405BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 94 | 0x00405C30 | `Yobi::sort` | 有正文 | `src/YobiRuntime.cpp:23090 — SortBattleActions_405C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -506,7 +508,7 @@
 | 468 | 0x0043C4B0 | `Battle::GetBattlePetIndex` | 有正文 | `src/world/SceneState.cpp:4324 — Sub_43C4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 469 | 0x0043C4E0 | `BattleScene::InitCommand` | 有正文 | `src/world/SceneState.cpp:4336 — Sub_43C4E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 470 | 0x0043C560 | `BattleScene::CheckCommand` | 有正文 | `src/YobiRuntime.cpp:33832 — CheckBattleCommand_43C560` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:10564 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 471 | 0x0043C8F0 | `sub_43C8F0` | 有正文 | `src/world/SceneState.cpp:10558 — Sub_43C8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 472 | 0x0043C910 | `sub_43C910` | 有正文 | `src/YobiRuntime.cpp:33741 — Sub_43C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 473 | 0x0043C950 | `sub_43C950` | 有正文 | `src/ui/WindowRuntime.cpp:31297 — Sub_43C950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 474 | 0x0043C9A0 | `sub_43C9A0` | 有正文 | `src/YobiRuntime.cpp:33756 — Sub_43C9A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -550,13 +552,13 @@
 | 512 | 0x00440440 | `sub_440440` | 有正文 | `src/YobiRuntime.cpp:2583 — Sub_440440` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 513 | 0x004408C0 | `sub_4408C0` | 有正文 | `src/YobiRuntime.cpp:2394 — Sub_4408C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 514 | 0x00440920 | `sub_440920` | 有正文 | `src/YobiRuntime.cpp:2953 — Sub_440920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:8572 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 515 | 0x00440B50 | `sub_440B50` | 有正文 | `src/world/SceneState.cpp:8566 — Sub_440B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 516 | 0x00440B70 | `sub_440B70` | 有正文 | `src/YobiRuntime.cpp:6464 — Sub_440B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 517 | 0x00440C50 | `sub_440C50` | 有正文 | `src/YobiRuntime.cpp:6370 — Sub_440C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 518 | 0x00440F50 | `sub_440F50` | 有正文 | `src/YobiRuntime.cpp:6508 — Sub_440F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 519 | 0x00440FE0 | `sub_440FE0` | 有正文 | `src/YobiRuntime.cpp:6544 — Sub_440FE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 520 | 0x00440FF0 | `sub_440FF0` | 有正文 | `src/world/SceneState.cpp:2433 — Sub_440FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:8579 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 521 | 0x004410E0 | `sub_4410E0` | 有正文 | `src/world/SceneState.cpp:8573 — Sub_4410E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 522 | 0x004410F0 | `YobiGear::new` | 有正文 | `src/YobiRuntime.cpp:6588 — NewYobiGear_4410F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 523 | 0x00441130 | `YobiGearPet::new` | 有正文 | `src/YobiRuntime.cpp:6552 — NewYobiGearPet_441130` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 524 | 0x004412D0 | `sub_4412D0` | 有正文 | `src/YobiRuntime.cpp:5793 — Sub_4412D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -789,20 +791,20 @@
 | 751 | 0x00455850 | `sub_455850` | 有正文 | `src/LegacyUiRecord.cpp:2249 — Sub_455850` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 752 | 0x00455930 | `sub_455930` | 有正文 | `src/LegacyUiRecord.cpp:2288 — Sub_455930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 753 | 0x00455940 | `sub_455940` | 有正文 | `src/LegacyUiRecord.cpp:2294 — Sub_455940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:9159 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:10434 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:10440 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:10446 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:10452 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:10458 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:10464 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:10470 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:10478 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:10484 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:10492 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:10500 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:10508 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:10516 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 754 | 0x00455A90 | `canWatchBattle` | 有正文 | `src/world/SceneState.cpp:9153 — Sub_455A90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 755 | 0x00455AC0 | `___setargv` | 有正文 | `src/world/SceneState.cpp:10428 — Sub_455AC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 756 | 0x00455AD0 | `___setargv_0` | 有正文 | `src/world/SceneState.cpp:10434 — Sub_455AD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 757 | 0x00455AE0 | `___setargv_1` | 有正文 | `src/world/SceneState.cpp:10440 — Sub_455AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 758 | 0x00455AF0 | `___setargv_2` | 有正文 | `src/world/SceneState.cpp:10446 — Sub_455AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 759 | 0x00455B00 | `___setargv_3` | 有正文 | `src/world/SceneState.cpp:10452 — Sub_455B00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 760 | 0x00455B10 | `sub_455B10` | 有正文 | `src/world/SceneState.cpp:10458 — Sub_455B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 761 | 0x00455B20 | `sub_455B20` | 有正文 | `src/world/SceneState.cpp:10464 — Sub_455B20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 762 | 0x00455B40 | `___setargv_6` | 有正文 | `src/world/SceneState.cpp:10472 — Sub_455B40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 763 | 0x00455B50 | `sub_455B50` | 有正文 | `src/world/SceneState.cpp:10478 — Sub_455B50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 764 | 0x00455B70 | `sub_455B70` | 有正文 | `src/world/SceneState.cpp:10486 — Sub_455B70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 765 | 0x00455B90 | `sub_455B90` | 有正文 | `src/world/SceneState.cpp:10494 — Sub_455B90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 766 | 0x00455BB0 | `sub_455BB0` | 有正文 | `src/world/SceneState.cpp:10502 — Sub_455BB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 767 | 0x00455BD0 | `sub_455BD0` | 有正文 | `src/world/SceneState.cpp:10510 — Sub_455BD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 768 | 0x00455C60 | `sub_455C60` | 有正文 | `src/world/SceneState.cpp:5967 — Sub_455C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 769 | 0x00455C70 | `sub_455C70` | 有正文 | `src/world/SceneState.cpp:1154 — NextRotationValue_455C70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 770 | 0x00455C90 | `sub_455C90` | 有正文 | `src/world/WorldUpdate.cpp:232 — Sub_455C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -935,10 +937,10 @@
 | 897 | 0x0045E960 | `sub_45E960` | 有正文 | `src/LoginState.cpp:439 — ProcessState_45E960` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 898 | 0x0045EA50 | `sub_45EA50` | 有正文 | `src/LoginState.cpp:479 — ResetLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 899 | 0x0045EA60 | `sub_45EA60` | 有正文 | `src/LoginState.cpp:485 — UpdateLoginProgress` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11889 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11967 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11973 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10583 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 900 | 0x0045EBB0 | `sub_45EBB0` | 有正文 | `src/world/SceneState.cpp:11883 — Sub_45EBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 901 | 0x0045ED80 | `sub_45ED80` | 有正文 | `src/world/SceneState.cpp:11961 — Sub_45ED80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11967 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10577 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 904 | 0x0045EF80 | `sub_45EF80` | 有正文 | `src/LoginCapability3Scene.cpp:70 — Sub_45EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/LegacyUiRecord.cpp:18634 — Sub_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 906 | 0x0045F090 | `sub_45F090` | 有正文 | `src/DrawGraphic.cpp:129 — Sub_45F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1029,8 +1031,8 @@
 | 991 | 0x004688A0 | `sub_4688A0` | 有正文 | `src/world/SceneState.cpp:4966 — Sub_4688A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 992 | 0x00468C00 | `sub_468C00` | 有正文 | `src/world/SceneState.cpp:5816 — Sub_468C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 993 | 0x00468C40 | `sub_468C40` | 有正文 | `src/world/SceneState.cpp:5232 — Sub_468C40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:8110 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:8128 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 994 | 0x00468F30 | `sub_468F30` | 有正文 | `src/world/SceneState.cpp:8104 — Sub_468F30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 995 | 0x00468F70 | `sub_468F70` | 有正文 | `src/world/SceneState.cpp:8122 — Sub_468F70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 996 | 0x00468FF0 | `sub_468FF0` | 有正文 | `src/world/SceneState.cpp:1126 — CopyWorldProjectionState_468FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 997 | 0x00469020 | `sub_469020` | 有正文 | `src/world/MapSceneDrawing.cpp:329 — Sub_469020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 998 | 0x00469030 | `sub_469030` | 有正文 | `src/world/SceneState.cpp:7553 — Sub_469030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1040,37 +1042,37 @@
 | 1002 | 0x004693F0 | `sub_4693F0` | 有正文 | `src/world/SceneState.cpp:7627 — Sub_4693F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1003 | 0x00469810 | `sub_469810` | 有正文 | `src/world/SceneState.cpp:5839 — Sub_469810` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1004 | 0x00469870 | `sub_469870` | 有正文 | `src/world/SceneState.cpp:5048 — Sub_469870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:9532 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:9615 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1005 | 0x00469C90 | `World::CharaMove` | 有正文 | `src/world/SceneState.cpp:9526 — Sub_469C90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1006 | 0x00469FC0 | `sub_469FC0` | 有正文 | `src/world/SceneState.cpp:9609 — Sub_469FC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1007 | 0x0046A190 | `sub_46A190` | 有正文 | `src/YobiRuntime.cpp:37514 — Sub_46A190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9712 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:9024 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1008 | 0x0046A410 | `sub_46A410` | 有正文 | `src/world/SceneState.cpp:9706 — Sub_46A410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1009 | 0x0046A5A0 | `sub_46A5A0` | 有正文 | `src/world/SceneState.cpp:9018 — Sub_46A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1010 | 0x0046A5F0 | `sub_46A5F0` | 有正文 | `src/YobiRuntime.cpp:37664 — Sub_46A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9756 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:9044 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8919 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1011 | 0x0046A700 | `sub_46A700` | 有正文 | `src/world/SceneState.cpp:9750 — Sub_46A700` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1012 | 0x0046A940 | `sub_46A940` | 有正文 | `src/world/SceneState.cpp:9038 — Sub_46A940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1013 | 0x0046A990 | `sub_46A990` | 有正文 | `src/world/SceneState.cpp:8913 — Sub_46A990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1014 | 0x0046A9E0 | `sub_46A9E0` | 有正文 | `src/world/SceneState.cpp:7819 — Sub_46A9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1015 | 0x0046AA00 | `sub_46AA00` | 有正文 | `src/world/SceneState.cpp:7828 — Sub_46AA00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1016 | 0x0046AB60 | `sub_46AB60` | 有正文 | `src/world/SceneState.cpp:8025 — Sub_46AB60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1017 | 0x0046ABD0 | `sub_46ABD0` | 有正文 | `src/world/SceneState.cpp:7920 — Sub_46ABD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1018 | 0x0046AC10 | `sub_46AC10` | 有正文 | `src/world/SceneState.cpp:7937 — Sub_46AC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:8060 — Sub_46AC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1019 | 0x0046AC90 | `sub_46AC90` | 有正文 | `src/world/SceneState.cpp:8060 — Sub_46AC90` | LCI10局部临时载荷改整数operator=，一次RNG、目标token／reserved与Y→X发送序保持；仅静态，完整业务／运行未验 |
 | 1020 | 0x0046AD00 | `sub_46AD00` | 有正文 | `src/world/SceneState.cpp:7750 — Sub_46AD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1021 | 0x0046ADA0 | `sub_46ADA0` | 有正文 | `src/world/SceneState.cpp:7986 — Sub_46ADA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1022 | 0x0046AE60 | `sub_46AE60` | 有正文 | `src/world/SceneState.cpp:5828 — Sub_46AE60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:8079 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1023 | 0x0046AEA0 | `sub_46AEA0` | 有正文 | `src/world/SceneState.cpp:8073 — Sub_46AEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1024 | 0x0046AF30 | `sub_46AF30` | 有正文 | `src/world/SceneState.cpp:5199 — Sub_46AF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8951 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1025 | 0x0046AFE0 | `sub_46AFE0` | 有正文 | `src/world/SceneState.cpp:8945 — Sub_46AFE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1026 | 0x0046B1B0 | `Player::MoveOneStep` | 有正文 | `src/YobiRuntime.cpp:37615 — MovePlayerOneStep_46B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:9489 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1027 | 0x0046B370 | `sub_46B370` | 有正文 | `src/world/SceneState.cpp:9483 — Sub_46B370` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1028 | 0x0046B4B0 | `sub_46B4B0` | 有正文 | `src/YobiRuntime.cpp:37479 — Sub_46B4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:8276 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:8290 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:8343 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1029 | 0x0046B580 | `sub_46B580` | 有正文 | `src/world/SceneState.cpp:8270 — Sub_46B580` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1030 | 0x0046B5C0 | `sub_46B5C0` | 有正文 | `src/world/SceneState.cpp:8284 — Sub_46B5C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1031 | 0x0046B6F0 | `sub_46B6F0` | 有正文 | `src/world/SceneState.cpp:8337 — Sub_46B6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1032 | 0x0046BC90 | `sub_46BC90` | 有正文 | `src/world/SceneState.cpp:7903 — Sub_46BC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1033 | 0x0046BCF0 | `sub_46BCF0` | 有正文 | `src/world/SceneState.cpp:7970 — Sub_46BCF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:8546 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:10545 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1034 | 0x0046BD20 | `sub_46BD20` | 有正文 | `src/world/SceneState.cpp:8540 — Sub_46BD20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1035 | 0x0046BD40 | `sub_46BD40` | 有正文 | `src/world/SceneState.cpp:10539 — Sub_46BD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1036 | 0x0046BD60 | `sub_46BD60` | 有正文 | `src/world/MapDrawCache.cpp:348 — Sub_46BD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1037 | 0x0046BE50 | `sub_46BE50` | 有正文 | `src/world/MapDrawCache.cpp:373 — Sub_46BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1038 | 0x0046C060 | `YobiMapChara::DrawGearNormal` | 有正文 | `src/world/MapDrawCache.cpp:440 — DrawGearNormal_46C060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1082,13 +1084,13 @@
 | 1044 | 0x0046C4D0 | `sub_46C4D0` | 有正文 | `src/world/MapDrawCache.cpp:186 — MergeMapDrawCache_46C4D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1045 | 0x0046C760 | `sub_46C760` | 有正文 | `src/world/SceneState.cpp:5509 — Sub_46C760` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1046 | 0x0046C840 | `sub_46C840` | 有正文 | `src/world/SceneState.cpp:5335 — Sub_46C840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:8264 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1047 | 0x0046CDF0 | `sub_46CDF0` | 有正文 | `src/world/SceneState.cpp:8258 — Sub_46CDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1048 | 0x0046CE30 | `sub_46CE30` | 有正文 | `src/world/SceneState.cpp:1080 — ProjectWorldToScreen_46CE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1049 | 0x0046CE80 | `sub_46CE80` | 有正文 | `src/world/SceneState.cpp:1092 — ProjectScreenToWorld_46CE80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1050 | 0x0046CEC0 | `sub_46CEC0` | 有正文 | `src/world/SceneState.cpp:5632 — Sub_46CEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1051 | 0x0046CEE0 | `sub_46CEE0` | 有正文 | `src/world/SceneState.cpp:5639 — Sub_46CEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:8149 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:8161 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1052 | 0x0046CF00 | `sub_46CF00` | 有正文 | `src/world/SceneState.cpp:8143 — Sub_46CF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1053 | 0x0046CF20 | `sub_46CF20` | 有正文 | `src/world/SceneState.cpp:8155 — Sub_46CF20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1054 | 0x0046CF60 | `sub_46CF60` | 有正文 | `src/world/MapSceneDrawing.cpp:197 — Sub_46CF60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1055 | 0x0046D9C0 | `sub_46D9C0` | 有正文 | `src/world/SceneState.cpp:7723 — Sub_46D9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1056 | 0x0046DA80 | `sub_46DA80` | 有正文 | `src/world/SceneState.cpp:7796 — Sub_46DA80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -1116,27 +1118,27 @@
 | 1078 | 0x0046F090 | `sub_46F090` | 有正文 | `src/world/SceneState.cpp:2206 — Sub_46F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1079 | 0x0046F160 | `sub_46F160` | 有正文 | `src/world/SceneState.cpp:2185 — Sub_46F160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1080 | 0x0046F1D0 | `sub_46F1D0` | 有正文 | `src/world/SceneState.cpp:2283 — Sub_46F1D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:9066 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:8173 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:8194 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:8203 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:8210 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1081 | 0x0046F680 | `World::RendererCursorGrid` | 有正文 | `src/world/SceneState.cpp:9060 — Sub_46F680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1082 | 0x0046F8F0 | `sub_46F8F0` | 有正文 | `src/world/SceneState.cpp:8167 — Sub_46F8F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1083 | 0x0046F930 | `sub_46F930` | 有正文 | `src/world/SceneState.cpp:8188 — Sub_46F930` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1084 | 0x0046F950 | `sub_46F950` | 有正文 | `src/world/SceneState.cpp:8197 — Sub_46F950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1085 | 0x0046F970 | `sub_46F970` | 有正文 | `src/world/SceneState.cpp:8204 — Sub_46F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1086 | 0x0046FAF0 | `RAND` | 有正文 | `src/platform/MainLoopSupport.cpp:703 — RandomRange_46FAF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1087 | 0x0046FB20 | `sub_46FB20` | 有正文 | `src/world/SceneState.cpp:1140 — InitializeRotationTable_46FB20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:8253 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1088 | 0x0046FB80 | `sub_46FB80` | 有正文 | `src/world/SceneState.cpp:8247 — Sub_46FB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1089 | 0x0046FBA0 | `sub_46FBA0` | 有正文 | `src/ui/WindowRuntime.cpp:41563 — Sub_46FBA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1090 | 0x0046FBC0 | `sub_46FBC0` | 有正文 | `src/ui/WindowRuntime.cpp:31269 — Sub_46FBC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1091 | 0x0046FBD0 | `sub_46FBD0` | 有正文 | `src/ui/WindowRuntime.cpp:41572 — Sub_46FBD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1092 | 0x0046FC60 | `sub_46FC60` | 有正文 | `src/ui/WindowRuntime.cpp:41779 — Sub_46FC60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:9172 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:9204 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:9239 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:9279 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:9309 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1093 | 0x00470050 | `sub_470050` | 有正文 | `src/world/SceneState.cpp:9166 — Sub_470050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1094 | 0x00470150 | `sub_470150` | 有正文 | `src/world/SceneState.cpp:9198 — Sub_470150` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1095 | 0x00470270 | `sub_470270` | 有正文 | `src/world/SceneState.cpp:9233 — Sub_470270` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1096 | 0x004703C0 | `sub_4703C0` | 有正文 | `src/world/SceneState.cpp:9273 — Sub_4703C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1097 | 0x004704A0 | `sub_4704A0` | 有正文 | `src/world/SceneState.cpp:9303 — Sub_4704A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1098 | 0x004705D0 | `sub_4705D0` | 有正文 | `src/ui/WindowRuntime.cpp:16461 — InitializeWindowSystem_4705D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1099 | 0x004705F0 | `sub_4705F0` | 有正文 | `src/platform/ClientShutdown.cpp:31 — Sub_4705F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1100 | 0x00470600 | `sub_470600` | 有正文 | `src/ui/WindowRuntime.cpp:30357 — InitializeLoginWindows_470600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:9345 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 1101 | 0x00470670 | `sub_470670` | 有正文 | `src/world/SceneState.cpp:9339 — Sub_470670` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1102 | 0x004708A0 | `sub_4708A0` | 有正文 | `src/ui/WindowRuntime.cpp:41739 — Sub_4708A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1103 | 0x00470910 | `sub_470910` | 有正文 | `src/ui/WindowRuntime.cpp:41759 — Sub_470910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 1104 | 0x00470980 | `sub_470980` | 有正文 | `src/ui/WindowRuntime.cpp:16441 — Sub_470980` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2141,7 +2143,7 @@
 | 2103 | 0x004D3020 | `sub_4D3020` | 有正文 | `src/ui/WindowRuntime.cpp:5393 — Sub_4D3020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2104 | 0x004D3040 | `sub_4D3040` | 有正文 | `src/ui/WindowRuntime.cpp:5401 — Sub_4D3040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2105 | 0x004D3110 | `sub_4D3110` | 有正文 | `src/YobiRuntime.cpp:35748 — Sub_4D3110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:8566 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2106 | 0x004D3170 | `sub_4D3170` | 有正文 | `src/world/SceneState.cpp:8560 — Sub_4D3170` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2107 | 0x004D3180 | `sub_4D3180` | 有正文 | `src/LegacyUiRecord.cpp:2349 — Sub_4D3180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2108 | 0x004D31C0 | `sub_4D31C0` | 有正文 | `src/LegacyUiRecord.cpp:2361 — Sub_4D31C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2109 | 0x004D3210 | `sub_4D3210` | 有正文 | `src/LegacyUiRecord.cpp:2374 — Sub_4D3210` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2331,7 +2333,7 @@
 | 2293 | 0x004F9FF0 | `sub_4F9FF0` | 有正文 | `src/YobiRuntime.cpp:35983 — Sub_4F9FF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2294 | 0x004FA050 | `sub_4FA050` | 有正文 | `src/LegacyUiRecord.cpp:15334 — Sub_4FA050` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2295 | 0x004FA350 | `sub_4FA350` | 有正文 | `src/LegacyUiRecord.cpp:15294 — Sub_4FA350` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:9430 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2296 | 0x004FA8E0 | `sub_4FA8E0` | 有正文 | `src/world/SceneState.cpp:9424 — Sub_4FA8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2297 | 0x004FACE0 | `sub_4FACE0` | 有正文 | `src/YobiRuntime.cpp:36083 — Sub_4FACE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2298 | 0x004FAED0 | `sub_4FAED0` | 有正文 | `src/LegacyUiRecord.cpp:15394 — Sub_4FAED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2299 | 0x004FAEF0 | `sub_4FAEF0` | 有正文 | `src/LegacyUiRecord.cpp:15403 — Sub_4FAEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2453,7 +2455,7 @@
 | 2415 | 0x00503E40 | `sub_503E40` | 有正文 | `src/Input.cpp:1086 — IsCurrentContext_503E40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2416 | 0x00503E60 | `sub_503E60` | 有正文 | `src/Input.cpp:1092 — IsChatContext_503E60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:46260 — ProcessSceneWindows_503E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10574 — Sub_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10568 — Sub_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:45480 — RenderWindows_504120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2420 | 0x00504180 | `sub_504180` | 有正文 | `src/LegacyAudio.cpp:796 — Sub_504180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2421 | 0x005042D0 | `sub_5042D0` | 有正文 | `src/LegacyAudio.cpp:872 — Sub_5042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2465,11 +2467,11 @@
 | 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34848 — Sub_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1355 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2429 | 0x005049A0 | `sub_5049A0` | 有正文 | `src/LegacyHitTest.cpp:12 — Sub_5049A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10555 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10549 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:6236 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2432 | 0x00504AF0 | `sub_504AF0` | 有正文 | `src/LegacyAudio.cpp:860 — Sub_504AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8677 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8693 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8671 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8687 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2435 | 0x00504BA0 | `sub_504BA0` | 有正文 | `src/LegacyUiRecord.cpp:12716 — Sub_504BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2436 | 0x00504C50 | `sub_504C50` | 有正文 | `src/YobiRuntime.cpp:35927 — Sub_504C50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2437 | 0x00504EE0 | `sub_504EE0` | 有正文 | `src/LegacyUiRecord.cpp:13307 — Sub_504EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2563,7 +2565,7 @@
 | 2525 | 0x0050C7A0 | `sub_50C7A0` | 有正文 | `src/world/SceneState.cpp:2956 — Sub_50C7A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2526 | 0x0050C7F0 | `sub_50C7F0` | 有正文 | `src/ui/WindowRuntime.cpp:45777 — Sub_50C7F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2527 | 0x0050C870 | `sub_50C870` | 有正文 | `src/world/SceneState.cpp:7089 — Sub_50C870` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:8556 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2528 | 0x0050C8D0 | `sub_50C8D0` | 有正文 | `src/world/SceneState.cpp:8550 — Sub_50C8D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2529 | 0x0050C900 | `sub_50C900` | 有正文 | `src/world/SceneState.cpp:3910 — Sub_50C900` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2530 | 0x0050C940 | `sub_50C940` | 有正文 | `src/world/SceneState.cpp:3057 — Sub_50C940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2531 | 0x0050CAE0 | `sub_50CAE0` | 有正文 | `src/world/SceneState.cpp:3113 — Sub_50CAE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2765,7 +2767,7 @@
 | 2727 | 0x00518A40 | `sub_518A40` | 有正文 | `src/world/SceneState.cpp:1334 — Sub_518A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2728 | 0x00518BE0 | `sub_518BE0` | 有正文 | `src/world/SceneState.cpp:1275 — Sub_518BE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2729 | 0x00518C20 | `sub_518C20` | 有正文 | `src/world/SceneState.cpp:1169 — InitializeAlbum_518C20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:8619 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2730 | 0x00518C60 | `sub_518C60` | 有正文 | `src/world/SceneState.cpp:8613 — Sub_518C60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2731 | 0x00518C80 | `sub_518C80` | 有正文 | `src/world/MailState.cpp:859 — Sub_518C80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2732 | 0x00518CB0 | `sub_518CB0` | 有正文 | `src/world/MailState.cpp:1383 — Sub_518CB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2733 | 0x00518DA0 | `sub_518DA0` | 有正文 | `src/world/MailState.cpp:441 — Sub_518DA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2795,38 +2797,38 @@
 | 2757 | 0x005198F0 | `sub_5198F0` | 有正文 | `src/world/SceneState.cpp:4478 — Sub_5198F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2758 | 0x00519920 | `sub_519920` | 有正文 | `src/world/SceneState.cpp:4358 — Sub_519920` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2759 | 0x00519950 | `sub_519950` | 有正文 | `src/world/SceneState.cpp:3665 — Sub_519950` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:10389 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9849 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9960 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:10206 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9985 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2760 | 0x005199A0 | `sub_5199A0` | 有正文 | `src/world/SceneState.cpp:10383 — Sub_5199A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2761 | 0x00519A80 | `sub_519A80` | 有正文 | `src/world/SceneState.cpp:9843 — Sub_519A80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2762 | 0x00519CD0 | `sub_519CD0` | 有正文 | `src/world/SceneState.cpp:9954 — Sub_519CD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2763 | 0x00519D50 | `sub_519D50` | 有正文 | `src/world/SceneState.cpp:10200 — Sub_519D50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2764 | 0x00519E50 | `sub_519E50` | 有正文 | `src/world/SceneState.cpp:9979 — Sub_519E50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2765 | 0x00519EB0 | `sub_519EB0` | 有正文 | `src/world/SceneState.cpp:7082 — Sub_519EB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:10004 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2766 | 0x00519EC0 | `sub_519EC0` | 有正文 | `src/world/SceneState.cpp:9998 — Sub_519EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2767 | 0x00519EE0 | `sub_519EE0` | 有正文 | `src/YobiRuntime.cpp:37740 — Sub_519EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:10010 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:10021 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9899 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9952 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:10222 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:10317 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:10230 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:10237 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:10243 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:10249 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:10255 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:10261 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2768 | 0x0051A040 | `sub_51A040` | 有正文 | `src/world/SceneState.cpp:10004 — Sub_51A040` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2769 | 0x0051A060 | `sub_51A060` | 有正文 | `src/world/SceneState.cpp:10015 — Sub_51A060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2770 | 0x0051A090 | `sub_51A090` | 有正文 | `src/world/SceneState.cpp:9893 — Sub_51A090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2771 | 0x0051A4B0 | `sub_51A4B0` | 有正文 | `src/world/SceneState.cpp:9946 — Sub_51A4B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2772 | 0x0051A5A0 | `sub_51A5A0` | 有正文 | `src/world/SceneState.cpp:10216 — Sub_51A5A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2773 | 0x0051A5B0 | `sub_51A5B0` | 有正文 | `src/world/SceneState.cpp:10311 — Sub_51A5B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2774 | 0x0051A5E0 | `sub_51A5E0` | 有正文 | `src/world/SceneState.cpp:10224 — Sub_51A5E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2775 | 0x0051A5F0 | `sub_51A5F0` | 有正文 | `src/world/SceneState.cpp:10231 — Sub_51A5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2776 | 0x0051A600 | `sub_51A600` | 有正文 | `src/world/SceneState.cpp:10237 — Sub_51A600` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2777 | 0x0051A610 | `sub_51A610` | 有正文 | `src/world/SceneState.cpp:10243 — Sub_51A610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2778 | 0x0051A620 | `sub_51A620` | 有正文 | `src/world/SceneState.cpp:10249 — Sub_51A620` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2779 | 0x0051A630 | `sub_51A630` | 有正文 | `src/world/SceneState.cpp:10255 — Sub_51A630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2780 | 0x0051A640 | `sub_51A640` | 有正文 | `src/YobiRuntime.cpp:37713 — Sub_51A640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2781 | 0x0051A660 | `sub_51A660` | 有正文 | `src/YobiRuntime.cpp:37723 — Sub_51A660` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2782 | 0x0051A680 | `sub_51A680` | 有正文 | `src/YobiRuntime.cpp:37733 — Sub_51A680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2783 | 0x0051A6A0 | `sub_51A6A0` | 有正文 | `src/YobiRuntime.cpp:36404 — Sub_51A6A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:10031 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8995 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8987 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2784 | 0x0051A840 | `sub_51A840` | 有正文 | `src/world/SceneState.cpp:10025 — Sub_51A840` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2785 | 0x0051B080 | `sub_51B080` | 有正文 | `src/world/SceneState.cpp:8989 — Sub_51B080` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2786 | 0x0051B0F0 | `sub_51B0F0` | 有正文 | `src/world/SceneState.cpp:8981 — Sub_51B0F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2787 | 0x0051B110 | `sub_51B110` | 有正文 | `src/LoginRequest.cpp:64 — Sub_51B110` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2788 | 0x0051B140 | `sub_51B140` | 有正文 | `src/LoginRequest.cpp:73 — CharacterNameExists_51B140` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2789 | 0x0051B1B0 | `sub_51B1B0` | 有正文 | `src/CharacterListRequest.cpp:56 — WriteCharacterRecord_51B1B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2790 | 0x0051B3B0 | `sub_51B3B0` | 有正文 | `src/LoginRequest.cpp:54 — Sub_51B3B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:9437 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2791 | 0x0051B3E0 | `sub_51B3E0` | 有正文 | `src/world/SceneState.cpp:9431 — Sub_51B3E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2792 | 0x0051B530 | `sub_51B530` | 有正文 | `src/world/SceneState.cpp:3873 — Sub_51B530` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2793 | 0x0051B5F0 | `sub_51B5F0` | 有正文 | `src/world/SceneState.cpp:3894 — Sub_51B5F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2794 | 0x0051B630 | `sub_51B630` | 有正文 | `src/world/SceneState.cpp:3924 — Sub_51B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2838,21 +2840,21 @@
 | 2800 | 0x0051BB80 | `sub_51BB80` | 有正文 | `src/CharacterSelectPreview.cpp:130 — Sub_51BB80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2801 | 0x0051BC50 | `sub_51BC50` | 有正文 | `src/CharacterSelectPreview.cpp:261 — Sub_51BC50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2802 | 0x0051BD00 | `sub_51BD00` | 有正文 | `src/CharacterSelectPreview.cpp:185 — Sub_51BD00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:10267 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:10273 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:10328 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:10336 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:10283 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:10289 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:10295 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:10305 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:10356 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:10347 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:10311 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2803 | 0x0051BDB0 | `sub_51BDB0` | 有正文 | `src/world/SceneState.cpp:10261 — Sub_51BDB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2804 | 0x0051BDC0 | `sub_51BDC0` | 有正文 | `src/world/SceneState.cpp:10267 — Sub_51BDC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2805 | 0x0051BDD0 | `sub_51BDD0` | 有正文 | `src/world/SceneState.cpp:10322 — Sub_51BDD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2806 | 0x0051BDF0 | `sub_51BDF0` | 有正文 | `src/world/SceneState.cpp:10330 — Sub_51BDF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2807 | 0x0051BE10 | `sub_51BE10` | 有正文 | `src/world/SceneState.cpp:10277 — Sub_51BE10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2808 | 0x0051BE20 | `sub_51BE20` | 有正文 | `src/world/SceneState.cpp:10283 — Sub_51BE20` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2809 | 0x0051BE30 | `sub_51BE30` | 有正文 | `src/world/SceneState.cpp:10289 — Sub_51BE30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2810 | 0x0051BE40 | `sub_51BE40` | 有正文 | `src/world/SceneState.cpp:10299 — Sub_51BE40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2811 | 0x0051BE50 | `sub_51BE50` | 有正文 | `src/world/SceneState.cpp:10350 — Sub_51BE50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2812 | 0x0051BEC0 | `sub_51BEC0` | 有正文 | `src/world/SceneState.cpp:10341 — Sub_51BEC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2813 | 0x0051BEE0 | `sub_51BEE0` | 有正文 | `src/world/SceneState.cpp:10305 — Sub_51BEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2814 | 0x0051BEF0 | `sub_51BEF0` | 有正文 | `src/world/SceneState.cpp:603 — Sub_51BEF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2815 | 0x0051BF00 | `sub_51BF00` | 有正文 | `src/CharacterSelectPreview.cpp:218 — Sub_51BF00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2816 | 0x0051BFF0 | `sub_51BFF0` | 有正文 | `src/CharacterSelectPreview.cpp:240 — Sub_51BFF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:10160 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2817 | 0x0051C0D0 | `mappingCharaImageNo` | 有正文 | `src/world/SceneState.cpp:10154 — Sub_51C0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2818 | 0x0051C410 | `sub_51C410` | 有正文 | `src/world/SceneState.cpp:679 — IsValidPetIndex_51C410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2819 | 0x0051C430 | `World::Update` | 有正文 | `src/world/WorldUpdate.cpp:27 — Update` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 2820 | 0x0051C770 | `sub_51C770` | 有正文 | `src/world/SceneState.cpp:1102 — SetCurrentSceneType` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
@@ -2863,14 +2865,14 @@
 | 2825 | 0x0051D640 | `sub_51D640` | 有正文 | `src/world/SceneState.cpp:6988 — Sub_51D640` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2826 | 0x0051D6F0 | `sub_51D6F0` | 有正文 | `src/world/SceneState.cpp:7026 — Sub_51D6F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2827 | 0x0051D750 | `sub_51D750` | 有正文 | `src/world/SceneState.cpp:7013 — Sub_51D750` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:10608 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10900 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:11342 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:11499 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:11675 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11822 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11828 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11834 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2828 | 0x0051D790 | `sub_51D790` | 有正文 | `src/world/SceneState.cpp:10602 — Sub_51D790` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2829 | 0x0051E0D0 | `sub_51E0D0` | 有正文 | `src/world/SceneState.cpp:10894 — Sub_51E0D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2830 | 0x0051EC10 | `sub_51EC10` | 有正文 | `src/world/SceneState.cpp:11336 — Sub_51EC10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2831 | 0x0051EF80 | `sub_51EF80` | 有正文 | `src/world/SceneState.cpp:11493 — Sub_51EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2832 | 0x0051F610 | `sub_51F610` | 有正文 | `src/world/SceneState.cpp:11669 — Sub_51F610` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2833 | 0x0051F860 | `sub_51F860` | 有正文 | `src/world/SceneState.cpp:11816 — Sub_51F860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2834 | 0x0051FA70 | `sub_51FA70` | 有正文 | `src/world/SceneState.cpp:11822 — Sub_51FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2835 | 0x0051FC90 | `sub_51FC90` | 有正文 | `src/world/SceneState.cpp:11828 — Sub_51FC90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2836 | 0x0051FDE0 | `sub_51FDE0` | 有正文 | `src/world/WorldUpdate.cpp:364 — Sub_51FDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2837 | 0x00520160 | `sub_520160` | 有正文 | `src/LoginSavedState.cpp:1003 — Sub_520160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2838 | 0x005201B0 | `sub_5201B0` | 有正文 | `src/LoginSavedState.cpp:803 — RestoreCurrentSavedState_5201B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3303,7 +3305,7 @@
 | 3265 | 0x0053F9E0 | `_strlen` | 有承接 | `src/platform/LegacyTime.cpp:95 — StrLen_53F9E0` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3266 | 0x0053FA5B | `sub_53FA5B` | 有承接 | `src/platform/LegacyMemory.cpp:27 — ReallocateLegacyMemory_53FA5B` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3267 | 0x0053FCFB | `sub_53FCFB` | 有承接 | `src/platform/LegacyMemory.cpp:12 — GetLegacyAllocationSize_53FCFB` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
-| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10608 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3268 | 0x0053FD5C | `__setdefaultprecision` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10602 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3269 | 0x0053FD6E | `__ms_p5_test_fdiv` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3270 | 0x0053FDAC | `__ms_p5_mp_test_fdiv` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3271 | 0x0053FDD5 | `__forcdecpt` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
@@ -3411,8 +3413,8 @@
 | 3373 | 0x0054472B | `_wctomb` | 有承接 | `src/platform/ClientEntry.cpp:242 — WinMain；src/platform/LegacyStringCompare.cpp:10 — ClassifyLegacySpace_53BDEF` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3374 | 0x005447A0 | `__aullrem` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3375 | 0x00544815 | `__getbuf` | 有承接 | `src/platform/LegacyStdio.cpp:13 — OpenLegacyStream_53B2F1` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10608 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10608 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3376 | 0x00544859 | `__control87` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10602 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
+| 3377 | 0x0054488E | `__controlfp` | 有承接 | `src/YobiRuntime.cpp:37775 — RenderChara_521F20；src/world/SceneState.cpp:10602 — Sub_51D790` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3378 | 0x005448A4 | `__abstract_cw` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3379 | 0x00544936 | `__hw_cw` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3380 | 0x005449BF | `__ZeroTail` | 有承接 | `src/platform/LegacyFormat.cpp:22 — FormatLegacyOutput_53EB28；src/platform/LegacyFormat.cpp:29 — FormatLegacyString_53B304` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

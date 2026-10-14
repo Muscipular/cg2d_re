@@ -8061,14 +8061,8 @@ std::int32_t __cdecl Sub_46AC90()
 {
     static_cast<void>(Sub_4681B0());
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(1));
-    // 原temporary{}保留三字节零初值；整数构造沿原不写reserved。
-    temporary->reserved[0] = temporary->reserved[1] = temporary->reserved[2] = 0;
-    BorrowValueC821D8Storage()->mask = temporary->mask;
-    BorrowValueC821D8Storage()->encoded = temporary->encoded;
-    BorrowValueC821D8Storage()->readCount = temporary->readCount;
-    temporary.reset();
+    // 原temporary{}的reserved零初值只在临时对象内，不发布；整数赋值仍一次RNG。
+    *BorrowValueC821D8Storage() = std::int32_t{1};
 
     gValueC82220 = 1;
     gValueB65A7C = 0;

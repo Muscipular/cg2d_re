@@ -313,7 +313,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -428,6 +429,19 @@
         "class_bodies_and_layout_changed": false,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "cryptint_46ac90_integer_assignment_lci10": {
+        "recorded_on": "2026-10-14",
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46AC90",
+        "original_entry": "0x46AC90",
+        "integer_assignment_groups": 1,
+        "local_optional_containers_removed": 1,
+        "target_token_and_reserved_written": false,
+        "following_business_order_changed": false,
+        "build_verified": false,
+        "runtime_verified": false,
+        "rng_calls_for_assignment": 1
       }
     },
     {
@@ -1214,7 +1228,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1365,6 +1380,19 @@
         "class_bodies_and_layout_changed": false,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "cryptint_46ac90_integer_assignment_lci10": {
+        "recorded_on": "2026-10-14",
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46AC90",
+        "original_entry": "0x46AC90",
+        "integer_assignment_groups": 1,
+        "local_optional_containers_removed": 1,
+        "target_token_and_reserved_written": false,
+        "following_business_order_changed": false,
+        "build_verified": false,
+        "runtime_verified": false,
+        "rng_calls_for_assignment": 1
       }
     },
     {
@@ -69788,7 +69816,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment"
       ]
     },
     {
@@ -98036,6 +98065,16 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
       ],
       "boundary": "MUP01实际鼠标十成员完成前缀C++异常清理；正常构造／退出／RNG保，原EH机器ABI用编译器，不关闭SEH／二次异常／完整owner／SDK／运行"
+    },
+    {
+      "inventory_id": "F:0006AC90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "reason": "仅现有源码局部整数赋值封装；原入口与实施状态沿全量表，不新增原端指令事实或整体功能验收。"
     }
   ],
   "auxiliary_dispositions": [

@@ -198,7 +198,7 @@ sceneSixTail:
 
 namespace detail {
 
-char gDisconnectText9A4D10[16] {}; // 原全局：0x009A4D10。
+std::wstring gDisconnectText9A4D10; // 原全局：0x009A4D10。
 
 namespace {
 

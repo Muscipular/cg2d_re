@@ -30,7 +30,6 @@ struct TextPendingRecord {
     std::uint32_t nextToken; // 原成员偏移：+0x10C。
 };
 
-
 // 原 fontLayer@0x558F50 的六项四字节记录；本目标只读取低字节 layer。
 struct TextFontLayerRecord {
     std::uint8_t layer; // 原成员偏移：+0x00。
@@ -68,15 +67,6 @@ std::int32_t DrawText3_456560(
     std::wstring_view text,
     std::int8_t value7);
 
-// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
-std::int32_t DrawText3_456560(
-    std::int16_t x,
-    std::int16_t y,
-    std::int8_t renderMode,
-    std::int8_t color,
-    const char* text,
-    std::int8_t value7);
-
 // Renderer::DrawText2@[0x456670,0x45677B)。
 std::int32_t DrawText2_456670(
     std::int16_t x,
@@ -87,16 +77,6 @@ std::int32_t DrawText2_456670(
     std::wstring_view text,
     std::int8_t value7);
 
-// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
-std::int32_t DrawText2_456670(
-    std::int16_t x,
-    std::int16_t y,
-    std::int8_t renderMode,
-    std::int8_t fontType,
-    std::int8_t color,
-    const char* text,
-    std::int8_t value7);
-
 // Renderer::DrawText@[0x456780,0x456891)。
 std::int32_t DrawText_456780(
     std::int16_t x,
@@ -105,17 +85,6 @@ std::int32_t DrawText_456780(
     std::int8_t fontType,
     std::int8_t color,
     std::wstring_view text,
-    std::int8_t value7,
-    std::int8_t marker);
-
-// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
-std::int32_t DrawText_456780(
-    std::int16_t x,
-    std::int16_t y,
-    std::uint8_t renderMode,
-    std::int8_t fontType,
-    std::int8_t color,
-    const char* text,
     std::int8_t value7,
     std::int8_t marker);
 

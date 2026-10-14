@@ -108,7 +108,7 @@ WindowGraphicData gWindowGraphic57A400 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic57A418 {36806, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057A418。
 WindowGraphicData gWindowGraphic57A430 {36809, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057A430。
 WindowTextPrototype gWindowText57A448 { // 原全局：0x0057A448。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "???",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"???",
 };
 std::uint32_t gWindowMouseFlagsD679B8 = 0; // 原全局：0x00D679B8。
 
@@ -141,10 +141,10 @@ WindowGraphicData gWindowGraphic55F580 {0x3B95C, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic55F598 {0x3B95D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F598。
 WindowTextPrototype gWindowText55F5B0 { // 原全局：0x0055F5B0。
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    "相關資訊",
+    L"相關資訊",
 };
 WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "--------",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"--------",
 };
 
 // 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
@@ -924,7 +924,7 @@ WindowTextPrototype gWindowText56D3D8 { // 原全局：0x0056D3D8。
 };
 WindowTextPrototype gWindowText56D3E0 { // 原全局：0x0056D3E0。
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    "健康程度  等級 名稱             體力            魔力",
+    L"健康程度  等級 名稱             體力            魔力",
 };
 
 WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
@@ -943,13 +943,13 @@ WindowGraphicData gWindowGraphic573580 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic573598 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573598。
 WindowTextPrototype gWindowText5735B0 { // 原全局：0x005735B0。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "留言板文字列",
+    L"留言板文字列",
 };
 WindowTextPrototype gWindowText5735B8 { // 原全局：0x005735B8。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "名稱",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"名稱",
 };
 WindowTextPrototype gWindowText5735C0 { // 原全局：0x005735C0。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "留言時間",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"留言時間",
 };
 
 WindowGraphicData gWindowGraphic573AF0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573AF0。
@@ -1019,7 +1019,7 @@ WindowGraphicData gWindowGraphic572F10 {0x3BA18, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic572F28 {0x3BA1E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F28。
 WindowGraphicData gWindowGraphic572F40 {0x3BA21, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F40。
 WindowTextPrototype gWindowText572F70 { // 原全局：0x00572F70。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "人員",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"人員",
 };
 
 WindowGraphicData gWindowGraphic574668 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00574668。
@@ -1451,15 +1451,15 @@ WindowGraphicData gWindowGraphic57B3F0 {98864, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原�
 WindowGraphicData gWindowGraphic57B408 {98867, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B408。
 WindowTextPrototype gWindowText57B420 { // 原全局：0x0057B420。
     {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}},
-    "ˋˋˋˋ",
+    L"ˋˋˋˋ",
 };
 WindowTextPrototype gWindowText57B428 { // 原全局：0x0057B428。
     {std::byte{0x8C}, std::byte{4}, std::byte{0}, std::byte{0}},
-    "請輸入店名八個字",
+    L"請輸入店名八個字",
 };
 WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
-    "請輸入店舖描述",
+    L"請輸入店舖描述",
 };
 WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
 std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B458。
@@ -1551,27 +1551,27 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1]; // 原全局：0x0054E2A0。
 WindowTextPrototype gWindowText572F58 { // 原全局：0x00572F58。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "持有名片＆上線的人員",
+    L"持有名片＆上線的人員",
 };
 WindowTextPrototype gWindowText572F60 { // 原全局：0x00572F60。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "同家族內上線的人員",
+    L"同家族內上線的人員",
 };
 WindowTextPrototype gWindowText572F68 { // 原全局：0x00572F68。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "同家族全部的人員",
+    L"同家族全部的人員",
 };
 WindowTextPrototype gWindowText572F78 { // 原全局：0x00572F78。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "交換過名片的人",
+    L"交換過名片的人",
 };
 WindowTextPrototype gWindowText572F80 { // 原全局：0x00572F80。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "家族成員",
+    L"家族成員",
 };
 WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "家族稱號",
+    L"家族稱號",
 };
 WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4]; // 原全局：0x0054E240。
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6]; // 原全局：0x0054E330。

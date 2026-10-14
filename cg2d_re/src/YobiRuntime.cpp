@@ -10168,18 +10168,18 @@ std::int32_t NewBattleNumber_41F1A0(
     const std::int32_t x, const std::int32_t y, const std::int32_t value,
     const std::int32_t style, const std::int32_t fontType, const std::uint32_t flags)
 {
-    char buffer[256];
-    std::sprintf(buffer, "%d", value);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", value);
     if (world::detail::gBattleModeFlag5ABFCC == 0) {
         if ((flags & 0x40000000u) != 0) {
-            std::strcat(buffer, "+");
+            buffer += L"+";
         }
         if ((flags & 0x80000000u) != 0) {
-            std::strcat(buffer, "-");
+            buffer += L"-";
         }
     }
     const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
-    const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
+    const std::int32_t length = static_cast<std::int32_t>(buffer.size());
     for (std::int32_t index = 0; index < length; ++index) {
         YobiAction* const action = NewYobiAction_404AE0(2, 0);
         if (action == nullptr) {
@@ -35794,10 +35794,10 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
 // 原函数：0x004EE380。
 std::uintptr_t Sub_4EE380(const std::int32_t opened)
 {
-    const char* const texts[] {
-        "伐木中···",
-        "打獵中···",
-        "挖掘中···",
+    const wchar_t* const texts[] {
+        L"伐木中···",
+        L"打獵中···",
+        L"挖掘中···",
     };
     constexpr std::int8_t imageOffsets[] {-2, -1, 0};
     const std::int32_t result = Sub_503160(
@@ -35863,17 +35863,15 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
     if (Sub_4EE670() != 0) {
         const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
         const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
-        char text[16];
-        text[0] = '\0';
         const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-        static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, cg::text::FromGbkWide(text)));
+        static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, {}));
         const std::uint32_t id = gLegacyGatherPanel583B00.id;
         gLegacySkillPendingD67C48 = 1;
         static_cast<void>(audio::Sub_5042D0(id));
     }
     const std::int32_t kind = gLegacyGatherKindCF3F10;
     const std::int32_t y = gLegacyGatherPanel583B00.y + 168;
-    const char* const text = texts[kind];
+    const wchar_t* const text = texts[kind];
     const std::int32_t x = gLegacyGatherPanel583B00.x + 72;
     DrawText(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, 0, text, 0, 0);
     return Sub_503440(&gLegacyGatherPanel583B00, 1);
@@ -36893,7 +36891,7 @@ void Sub_445F40(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const std::int32_t value4C,
-    const char* const name)
+    const std::wstring_view name)
 {
     std::int32_t index = Sub_444FA0(objectIndex);
     if (index < 0) {
@@ -36925,8 +36923,9 @@ void Sub_445F40(
     assignCoordinate(record.coordinate0C, mapX);
     assignCoordinate(record.coordinate1C, mapY);
     record.direction = direction;
-    if (std::strlen(name) <= 60) {
-        std::memmove(record.nameC9.data(), name, std::strlen(name) + 1);
+    const std::string storedName = cg::text::ToGbk(name);
+    if (storedName.size() <= 60) {
+        std::memmove(record.nameC9.data(), storedName.c_str(), storedName.size() + 1);
     }
     record.flags114 = 0x800u;
     record.value118 = 0;
@@ -36935,9 +36934,9 @@ void Sub_445F40(
         return;
     }
     action->imageNo = imageNo;
-    if (std::strlen(name) <= 16) {
+    if (storedName.size() <= 16) {
         char* const destination = record.action->nameC4.data();
-        std::memmove(destination, name, std::strlen(name) + 1);
+        std::memmove(destination, storedName.c_str(), storedName.size() + 1);
     } else {
         std::memmove(record.action->nameC4.data(), "???", 4);
     }
@@ -37420,7 +37419,7 @@ void RenderChara_521F20()
             nameLayer,
             nameFontType,
             nameColor,
-            name,
+            cg::text::FromGbkWide(name),
             static_cast<std::int8_t>(nameValue)));
 
         // 原名称调用后重定位实际槽，再独立重读容量判断用的S16计数。

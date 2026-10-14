@@ -89,17 +89,6 @@ std::int32_t DrawText3_456560(
     return DrawText2_456670(x, y, renderMode, 0, color, text, value7);
 }
 
-std::int32_t DrawText3_456560(
-    const std::int16_t x,
-    const std::int16_t y,
-    const std::int8_t renderMode,
-    const std::int8_t color,
-    const char* const text,
-    const std::int8_t value7)
-{
-    return DrawText3_456560(x, y, renderMode, color, cg::text::ToUtf16(text), value7);
-}
-
 // 原函数：0x00456670。
 std::int32_t DrawText2_456670(
     const std::int16_t x,
@@ -156,18 +145,6 @@ std::int32_t DrawText2_456670(
     return result;
 }
 
-std::int32_t DrawText2_456670(
-    const std::int16_t x,
-    const std::int16_t y,
-    const std::int8_t renderMode,
-    const std::int8_t fontType,
-    const std::int8_t color,
-    const char* const text,
-    const std::int8_t value7)
-{
-    return DrawText2_456670(x, y, renderMode, fontType, color, cg::text::ToUtf16(text), value7);
-}
-
 // 原函数：0x00456780。
 std::int32_t DrawText_456780(
     const std::int16_t x,
@@ -222,19 +199,6 @@ std::int32_t DrawText_456780(
     gGraphicCache4Queue[queueIndex] = resultBits + 1U;
     platform::gPendingGraphicCount2 = resultBits + 1U;
     return result;
-}
-
-std::int32_t DrawText_456780(
-    const std::int16_t x,
-    const std::int16_t y,
-    const std::uint8_t renderMode,
-    const std::int8_t fontType,
-    const std::int8_t color,
-    const char* const text,
-    const std::int8_t value7,
-    const std::int8_t marker)
-{
-    return DrawText_456780(x, y, renderMode, fontType, color, cg::text::ToUtf16(text), value7, marker);
 }
 
 } // namespace cg::render

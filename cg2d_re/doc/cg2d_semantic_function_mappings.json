@@ -281725,7 +281725,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第九组业务直接解码与窄写回退休；绘制／测宽兼容入口继续",
+    "phase": "第十组业务UTF8接口已退休；SDK边界与最终静态收尾继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283818,6 +283818,158 @@
       {
         "path": "src/Input.cpp",
         "symbol": "IsRejectedInputText_404060"
+      },
+      {
+        "path": "src/CharacterSelectScene.cpp",
+        "symbol": "Sub_4631D0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E4A50"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E10F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E7870"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EBD20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52F910"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F0F70"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F8E40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FAEF0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FBB40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_5014A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D1D50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48D540"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B1940"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B2730"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_488FB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A9D10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AA3D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AC290"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AC890"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BBED0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BC660"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C2B20"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C4CB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A6AC0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "DrawCraftInputNotice"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_485200"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_485350"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_43C3E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49B670"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleNumber_41F1A0"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "Sub_445F40"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "RenderChara_521F20"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50B380"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "HandleResponse_508800"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "ClassifyChatSplit_44B570"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "ClassifyLegacyBoundary_44B440"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "RemoveLegacyBytes_52D570"
       }
     ],
     "build_verified": false,
@@ -283833,7 +283985,17 @@
       "FromUtf16",
       "ToGbk(string_view)",
       "StoreGbk(string_view)",
-      "WindowTextPrototype(const char*)"
+      "WindowTextPrototype(const char*)",
+      "DrawText3_456560(const char*)",
+      "DrawText2_456670(const char*)",
+      "DrawText_456780(const char*)",
+      "Font::measure(const char*)",
+      "TextMeasure(const char*)",
+      "MeasureDefaultText_44B260(const char*)",
+      "ToUtf16",
+      "Next/Previous/Prefix/Count(string_view)",
+      "Copy(char*,...)",
+      "JoinLines(char[])"
     ]
   }
 }

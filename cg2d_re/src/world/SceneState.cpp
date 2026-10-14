@@ -509,7 +509,7 @@ constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考
 };
 
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
-char gText55BAE0[10] = "登出中";
+constexpr wchar_t gText55BAE0[] = L"登出中";
 
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
@@ -2748,7 +2748,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
             const std::int32_t count = std::atoi(field);
-            std::sprintf(label, "%d 金幣", count);
+            const std::wstring moneyLabel = std::format(L"{} 金幣", count);
             std::int32_t imageNo;
             if (count < 50) {
                 imageNo = 0x6B08;
@@ -2771,7 +2771,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             } else {
                 imageNo = 0x6B11;
             }
-            Sub_445F40(objectIndex, imageNo, x, y, 0, count, label);
+            Sub_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
         }
     }
 }

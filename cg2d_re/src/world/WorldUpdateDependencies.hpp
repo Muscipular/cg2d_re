@@ -1188,7 +1188,7 @@ void Sub_445D20(
 void Sub_445F40(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value4C,
-    const char* name);
+    std::wstring_view name);
 // 原函数：0x004462E0。
 void Sub_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
@@ -1653,7 +1653,7 @@ std::int32_t Sub_51FA70(std::int32_t index, std::int32_t value);
 std::int32_t Sub_51FC90(std::int32_t index, std::int32_t value);
 // 原函数：0x00455C90。
 std::int32_t Sub_455C90();                 // 原 0x455C90，返回值按任意非零判断。
-extern char gDisconnectText9A4D10[16];   // 原 [0x9A4D10,0x9A4D20)，独立零初值文本。
+extern std::wstring gDisconnectText9A4D10;   // 原 [0x9A4D10,0x9A4D20)，独立空初值宽正文。
 
 // 原 dword_D460C8@0xD460C8；只保留地址身份和 W32 宽度。
 extern std::int32_t gValueD460C8;

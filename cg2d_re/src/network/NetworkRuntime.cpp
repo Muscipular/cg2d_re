@@ -1099,20 +1099,15 @@ void HandleResponse_508800(
         platform::LocalTime_53B8C6(&gNetworkRuntimeState.time62B394);
 
     const char* const separator = const_cast<char*>(std::strstr(text, "|"));
-    std::memset(
-        character_select::detail::gText9A4EAC,
-        0,
-        sizeof(character_select::detail::gText9A4EAC));
+    character_select::detail::gText9A4EAC.clear();
     if (separator != nullptr) {
-        std::strncpy(character_select::detail::gText9A4EAC, text, static_cast<std::uint32_t>(static_cast<std::uint32_t>(separator - text)));
+        character_select::detail::gText9A4EAC = cg::text::FromGbkWide(
+            std::string_view(text, static_cast<std::uint32_t>(separator - text)));
         platform::ParseProtectionTables_404600(separator);
         return;
     }
 
-    std::memcpy(
-        character_select::detail::gText9A4EAC,
-        text,
-        std::strlen(text) + 1U);
+    character_select::detail::gText9A4EAC = cg::text::FromGbkWide(text);
 }
 
 // 原函数：0x00517510。

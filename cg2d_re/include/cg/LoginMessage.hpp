@@ -15,7 +15,7 @@ extern std::array<std::wstring, 12> gValue9A620C; // 原全局：0x009A620C。
 void ResetLoginMessage();
 
 // 原 sub_45CE10@0x45CE10。
-// UTL02：原生入口接收UTF-16；旧窄入口仅转换局部UTF-8视图。
+// UWF01：消息入口只接收UTF-16正文。
 std::int32_t UpdateLoginMessage(std::wstring_view text);
 
 } // namespace cg::login

@@ -121,13 +121,13 @@ constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参
 }};
 
 constexpr wchar_t kCreationConfirm55C9B0[] = L"可以嗎？"; // 原常量参考：0x0055C9B0。
-constexpr std::array<const char*, 6> kCreationErrors {{
-    "沒有輸入姓名！", // 55C9A0。
-    "角色名稱重複", // 55C918。
-    "請把持有點數分給能力！", // 55C968。
-    "請把持有點數分給屬性！", // 55C950。
-    "不能使用含有空白文字的名字或系統字元！", // 55C928。
-    "人物名稱不可含有非法字元！", // 55CE14。
+constexpr std::array<const wchar_t*, 6> kCreationErrors {{
+    L"沒有輸入姓名！", // 55C9A0。
+    L"角色名稱重複", // 55C918。
+    L"請把持有點數分給能力！", // 55C968。
+    L"請把持有點數分給屬性！", // 55C950。
+    L"不能使用含有空白文字的名字或系統字元！", // 55C928。
+    L"人物名稱不可含有非法字元！", // 55CE14。
 }};
 
 std::int32_t CreationSignedByte(const std::uint8_t value)
@@ -718,7 +718,7 @@ std::int32_t Sub_4631D0()
     std::int8_t confirmState = 0;
     std::int8_t cancelState = 0;
     std::int32_t result = 0;
-    char buffer[32];
+    std::wstring buffer;
 
     std::int32_t total = CreationSignedByte(*attributes[3]);
     total += CreationSignedByte(*attributes[2]);
@@ -1112,14 +1112,14 @@ std::int32_t Sub_4631D0()
     login::detail::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
     render::DrawInputText_4568A0(&state::gCreationInput9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
-    std::sprintf(buffer, "%02d", CreationSignedByte(state::gValue9A4D04));
+    cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(state::gValue9A4D04));
     render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);
     for (std::size_t row = 0; row < attributes.size(); ++row) {
-        std::sprintf(buffer, "%02d", CreationSignedByte(*attributes[row]));
+        cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(*attributes[row]));
         render::DrawText_456780(
             479, static_cast<std::int16_t>(199 + 14 * row), 0, 13, color, buffer, 0, 0);
     }
-    std::sprintf(buffer, "%02d", CreationSignedByte(state::gValue9A50C8));
+    cg::text::FormatTo(buffer, L"{:02}", CreationSignedByte(state::gValue9A50C8));
     render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
     login::detail::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
     login::detail::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
@@ -1209,7 +1209,7 @@ std::int32_t Sub_464290(const std::int32_t* const rectangle)
         left, top, left + width, top + height, -1);
 }
 
-char gText9A4EAC[128] {}; // 原全局：0x009A4EAC。
+std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
 
 } // namespace cg::character_select::detail
 

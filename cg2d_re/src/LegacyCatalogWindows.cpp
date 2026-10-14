@@ -157,8 +157,8 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
     if (manyPages) {
         const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
         const std::int32_t pageCount = gLegacyTradeTargetPageCountCF46D0;
-        char buffer[384];
-        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
+        std::wstring buffer;
+        cg::text::FormatTo(buffer, L"{}/{}", currentPage + 1, pageCount);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 270),
             static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 24), 2, 0, 0, buffer, 0, 0));
     }
@@ -575,15 +575,15 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 96 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, cg::text::FromGbkWide(skillName).c_str(), 0, 0));
-    char buffer[192];
+    std::wstring buffer;
     const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
-    std::sprintf(buffer, "%4d", skillValue);
+    cg::text::FormatTo(buffer, L"{:4}", skillValue);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 202),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 1, 0, buffer, 0, 0));
     const std::int32_t price = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;
-    std::sprintf(buffer, "%7d", price);
+    cg::text::FormatTo(buffer, L"{:7}", price);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 0, 0, buffer, 0, 0));
     const std::int32_t petWidth = TextMeasure(
@@ -591,7 +591,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 142 - petWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 81), 2, 0, 0, cg::text::FromGbkWide(petName).c_str(), 0, 0));
-    std::sprintf(buffer, "%3d", ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04);
+    cg::text::FormatTo(buffer, L"{:3}", ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 267),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 83), 2, 1, 0, buffer, 0, 0));
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -601,7 +601,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 156 - width / 2),
                 static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 118 + 24 * row),
                 2, 0, 0, cg::text::FromGbkWide(slot.name.data()).c_str(), 0, 0));
-            std::sprintf(buffer, "%4d", slot.value04);
+            cg::text::FormatTo(buffer, L"{:4}", slot.value04);
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),
                 static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 120 + 24 * row), 2, 1, 0, buffer, 0, 0));
         }
@@ -627,7 +627,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
                 2, 0, 0, cg::text::FromGbkWide(slot.description[row].data()).c_str(), 0, 0));
         }
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 286), 2, 0, 0, buffer, 0, 0));
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);

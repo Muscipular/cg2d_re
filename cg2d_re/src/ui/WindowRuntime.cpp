@@ -2820,9 +2820,9 @@ std::int32_t Sub_4D0A80(
             5, 12, 0, cg::text::FromGbkWide(title).c_str(), 0, 0));
     }
     const std::int32_t shortY = static_cast<std::int16_t>(y);
-    char buffer[300];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
-        std::sprintf(buffer, "%10d", pet.values70[5 + row]);
+        cg::text::FormatTo(buffer, L"{:10}", pet.values70[5 + row]);
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 144), static_cast<std::int16_t>(shortY + 23 + row * 15),
             5, 12, 0, buffer, 0, 0));
@@ -3319,7 +3319,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     std::int32_t hovered = -1;
-    char buffer[60];
+    std::wstring buffer;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
         if (item->used == 0) {
@@ -3387,7 +3387,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
                 3, 1, 1, buffer, 0, 0));
@@ -6060,16 +6060,16 @@ void Sub_4AAB70(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
-    char buffer[768];
-    const auto drawNumber = [&](const std::int32_t value, const char* const format,
+    std::wstring buffer;
+    const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
-        std::sprintf(buffer, format, value);
+        cg::text::FormatTo(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
     };
-    drawNumber(pet.value08, "%3d", 35, 22);
+    drawNumber(pet.value08, L"{:3}", 35, 22);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
     if (tribe >= 0 && tribe < 20) {
         static_cast<void>(render::DrawText_456780(
@@ -6077,15 +6077,15 @@ void Sub_4AAB70(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
     }
-    drawNumber(pet.values0C[1].value(), "%4d", 210, 5);
-    drawNumber(pet.values0C[3].value(), "%4d", 210, 22);
-    drawNumber(pet.values70[0], "%3d", 95, 40);
-    drawNumber(pet.values70[1], "%3d", 155, 40);
-    drawNumber(pet.values70[2], "%3d", 215, 40);
-    drawNumber(pet.values70[3], "%3d", 95, 55);
-    drawNumber(pet.values70[4], "%3d", 155, 55);
-    drawNumber(pet.values70[10], "%3d", 215, 55);
-    drawNumber(pet.value6A4, "%2d", 45, 55);
+    drawNumber(pet.values0C[1].value(), L"{:4}", 210, 5);
+    drawNumber(pet.values0C[3].value(), L"{:4}", 210, 22);
+    drawNumber(pet.values70[0], L"{:3}", 95, 40);
+    drawNumber(pet.values70[1], L"{:3}", 155, 40);
+    drawNumber(pet.values70[2], L"{:3}", 215, 40);
+    drawNumber(pet.values70[3], L"{:3}", 95, 55);
+    drawNumber(pet.values70[4], L"{:3}", 155, 55);
+    drawNumber(pet.values70[10], L"{:3}", 215, 55);
+    drawNumber(pet.value6A4, L"{:2}", 45, 55);
 }
 
 // 原函数：0x004AB400。
@@ -6107,18 +6107,18 @@ void Sub_4AB400(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
         textLayer, 13, color, cg::text::FromGbkWide(record + 0x5D4).c_str(), 0, 0));
-    char buffer[768];
-    const auto drawNumber = [&](const std::size_t offset, const char* const format,
+    std::wstring buffer;
+    const auto drawNumber = [&](const std::size_t offset, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {
         std::int32_t value;
         std::memcpy(&value, record + offset, sizeof(value));
-        std::sprintf(buffer, format, value);
+        cg::text::FormatTo(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
             textLayer, 13, color, buffer, 0, 0));
     };
-    drawNumber(0x08, "%3d", 35, 22);
+    drawNumber(0x08, L"{:3}", 35, 22);
     std::int16_t tribe;
     std::memcpy(&tribe, record + 2, sizeof(tribe));
     if (tribe >= 0 && tribe < 20) {
@@ -6127,15 +6127,15 @@ void Sub_4AB400(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
             textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
     }
-    drawNumber(0x10, "%4d", 210, 5);
-    drawNumber(0x18, "%4d", 210, 22);
-    drawNumber(0x1C, "%3d", 95, 40);
-    drawNumber(0x20, "%3d", 155, 40);
-    drawNumber(0x24, "%3d", 215, 40);
-    drawNumber(0x28, "%3d", 95, 55);
-    drawNumber(0x2C, "%3d", 155, 55);
-    drawNumber(0x44, "%3d", 215, 55);
-    drawNumber(0x58, "%2d", 45, 55);
+    drawNumber(0x10, L"{:4}", 210, 5);
+    drawNumber(0x18, L"{:4}", 210, 22);
+    drawNumber(0x1C, L"{:3}", 95, 40);
+    drawNumber(0x20, L"{:3}", 155, 40);
+    drawNumber(0x24, L"{:3}", 215, 40);
+    drawNumber(0x28, L"{:3}", 95, 55);
+    drawNumber(0x2C, L"{:3}", 155, 55);
+    drawNumber(0x44, L"{:3}", 215, 55);
+    drawNumber(0x58, L"{:2}", 45, 55);
 }
 
 // 原函数：0x004EA670。
@@ -6159,7 +6159,7 @@ std::int32_t Sub_48D540(
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
             0, 0, textLayer, 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
-        const auto drawText = [&](const auto& text, const std::int32_t dx,
+        const auto drawText = [&](const std::wstring_view text, const std::int32_t dx,
                                   const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originX + dx)),
@@ -6169,8 +6169,8 @@ std::int32_t Sub_48D540(
         const char* const name =
             std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
         drawText(cg::text::FromGbkWide(name), 8, 6);
-        char buffer[768];
-        std::sprintf(buffer, "%3d", pet.value08);
+        std::wstring buffer;
+        cg::text::FormatTo(buffer, L"{:3}", pet.value08);
         drawText(buffer, 141, 6);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
@@ -6178,11 +6178,11 @@ std::int32_t Sub_48D540(
         }
         const std::int32_t maxHp = pet.values0C[1].value();
         const std::int32_t hp = pet.values0C[0].value();
-        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         drawText(buffer, 37, 19);
         const std::int32_t maxFp = pet.values0C[3].value();
         const std::int32_t fp = pet.values0C[2].value();
-        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         drawText(buffer, 37, 32);
         if (Sub_4EA670(index) == 1) {
             static_cast<void>(render::DrawGraphic3_520970(
@@ -6240,18 +6240,18 @@ std::int32_t Sub_4B0F20(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
             textLayer, 8, color, cg::text::FromGbkWide(record + 0x5D8).c_str(), 0, 0));
-        char buffer[768];
-        const auto drawNumber = [&](const std::size_t offset, const char* const format,
+        std::wstring buffer;
+        const auto drawNumber = [&](const std::size_t offset, const std::wstring_view format,
                                     const std::int32_t dx, const std::int32_t dy) {
             std::int32_t value;
             std::memcpy(&value, record + offset, sizeof(value));
-            std::sprintf(buffer, format, value);
+            cg::text::FormatTo(buffer, format, value);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, color, buffer, 0, 0));
         };
-        drawNumber(0x0C, "%3d", 35, 22);
+        drawNumber(0x0C, L"{:3}", 35, 22);
         std::int16_t tribe;
         std::memcpy(&tribe, record + 4, sizeof(tribe));
         if (tribe >= 0 && tribe < 20) {
@@ -6260,15 +6260,15 @@ std::int32_t Sub_4B0F20(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
                 textLayer, 8, color, gTribeNames57CB54[tribe], 0, 0));
         }
-        drawNumber(0x14, "%4d", 210, 5);
-        drawNumber(0x1C, "%4d", 210, 22);
-        drawNumber(0x20, "%3d", 95, 40);
-        drawNumber(0x24, "%3d", 155, 40);
-        drawNumber(0x28, "%3d", 215, 40);
-        drawNumber(0x2C, "%3d", 95, 55);
-        drawNumber(0x30, "%3d", 155, 55);
-        drawNumber(0x34, "%3d", 215, 55);
-        drawNumber(0x5C, "%2d", 45, 55);
+        drawNumber(0x14, L"{:4}", 210, 5);
+        drawNumber(0x1C, L"{:4}", 210, 22);
+        drawNumber(0x20, L"{:3}", 95, 40);
+        drawNumber(0x24, L"{:3}", 155, 40);
+        drawNumber(0x28, L"{:3}", 215, 40);
+        drawNumber(0x2C, L"{:3}", 95, 55);
+        drawNumber(0x30, L"{:3}", 155, 55);
+        drawNumber(0x34, L"{:3}", 215, 55);
+        drawNumber(0x5C, L"{:2}", 45, 55);
     }
     return render::DrawGraphic3_520970(
         x, y, graphicLayer, 243141, 0, 1, 0, descriptor);
@@ -6724,7 +6724,7 @@ void Sub_4B1940(
                 223, 254, 0);
         }
     }
-    char buffer[768];
+    std::wstring buffer;
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * ((hovered - 8) % 5) + 13;
         const std::int32_t top = y + 52 * ((hovered - 8) / 5) + 26;
@@ -6777,7 +6777,7 @@ void Sub_4B1940(
         static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -7180,7 +7180,7 @@ void Sub_4B2730(
                 223, 254, 0);
         }
     }
-    char buffer[768];
+    std::wstring buffer;
     if (hover && hovered >= 0) {
         const std::int32_t left = x + 50 * (hovered % 5) + 13;
         const std::int32_t top = y + 52 * (hovered / 5) + 26;
@@ -7231,7 +7231,7 @@ void Sub_4B2730(
             centerX, centerY, 223, item.imageNo, 0, descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -10729,7 +10729,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
-    std::array<char, 12> countText;
+    std::wstring countText;
     if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
@@ -10775,10 +10775,10 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
             if (item.count > 0) {
-                std::sprintf(countText.data(), "%3d", item.count);
+                cg::text::FormatTo(countText, L"{:3}", item.count);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
-                    3, 1, 1, countText.data(), 0, 0));
+                    3, 1, 1, countText, 0, 0));
             }
         }
         return consumed;
@@ -11088,10 +11088,10 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         }
         if (item.count > 0) {
-            std::sprintf(countText.data(), "%3d", item.count);
+            cg::text::FormatTo(countText, L"{:3}", item.count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
-                3, 1, 1, countText.data(), 0, 0));
+                3, 1, 1, countText, 0, 0));
         }
     }
     return consumed;
@@ -11509,7 +11509,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
                 223, 254, 0);
         }
     }
-    std::array<char, 768> buffer;
+    std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
@@ -11551,11 +11551,11 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -11852,7 +11852,7 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
     };
     const auto drawText = [selector](
         const std::int32_t offsetX, const std::int32_t offsetY,
-        const std::int32_t textColor, const auto& text,
+        const std::int32_t textColor, const std::wstring_view text,
         const TextCoordinateOrder order) {
         const WindowElement* const textElement = selector->elements00[1];
         std::int32_t x;
@@ -12285,25 +12285,25 @@ std::int32_t Sub_4B4140(
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    std::array<char, 300> buffer;
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x30 + row * 4, sizeof(value));
-        std::sprintf(buffer.data(), "%10d", value);
+        cg::text::FormatTo(buffer, L"{:10}", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
-            5, 12, 0, buffer.data(), 0, 0));
+            5, 12, 0, buffer, 0, 0));
     }
     std::int32_t maximumWeight;
     std::memcpy(&maximumWeight, record + 0x5FC, sizeof(maximumWeight));
     if (maximumWeight > 0) {
         std::int32_t weight;
         std::memcpy(&weight, record + 0x5F8, sizeof(weight));
-        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        cg::text::FormatTo(buffer, L"{:3} / {:3}", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
-            31, 5, 12, 0, buffer.data(), 0, 0));
+            31, 5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
         gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
@@ -12412,15 +12412,15 @@ std::int32_t Sub_4B4680(
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    std::array<char, 300> buffer;
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x38 + row * 4, sizeof(value));
-        std::sprintf(buffer.data(), "%10d", value);
+        cg::text::FormatTo(buffer, L"{:10}", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
-            5, 12, 0, buffer.data(), 0, 0));
+            5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
         gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
@@ -12523,23 +12523,23 @@ std::int32_t Sub_4B3BF0(
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    std::array<char, 300> buffer;
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t value = pet.values70[5 + row];
-        std::sprintf(buffer.data(), "%10d", value);
+        cg::text::FormatTo(buffer, L"{:10}", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
-            5, 12, 0, buffer.data(), 0, 0));
+            5, 12, 0, buffer, 0, 0));
     }
     const std::int32_t maximumWeight = pet.values6D8[2];
     if (maximumWeight > 0) {
         const std::int32_t weight = pet.values6D8[1];
-        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        cg::text::FormatTo(buffer, L"{:3} / {:3}", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),
-            5, 12, 0, buffer.data(), 0, 0));
+            5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
         gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
@@ -13967,7 +13967,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::array<char, 36> buffer;
+    std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
@@ -13991,11 +13991,11 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -14160,7 +14160,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::array<char, 36> buffer;
+    std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const char* const record = gItemDetailStorageCC4D58.data() + position * 0xC44;
         std::uint16_t used;
@@ -14182,11 +14182,11 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -14871,7 +14871,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
-    std::array<char, 36> buffer;
+    std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
@@ -14898,11 +14898,11 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -15046,7 +15046,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::array<char, 36> buffer;
+    std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const char* const record = gItemDetailStorageCC4D58.data() + position * 0xC44;
         std::uint16_t used;
@@ -15068,11 +15068,11 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -20880,7 +20880,7 @@ std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
         const std::int32_t y = window->y + element.y + 31;
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 3, 0, 6, "X", 0, 0));
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 3, 0, 6, L"X", 0, 0));
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement& element = window->elements[index];
@@ -21208,7 +21208,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
                 223, 254, 0);
         }
     }
-    char buffer[768];
+    std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
@@ -21256,7 +21256,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                cg::text::FormatTo(buffer, L"{:3}", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -21293,7 +21293,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                cg::text::FormatTo(buffer, L"{:3}", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -23560,7 +23560,7 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
                 223, 254, 0);
         }
     }
-    std::array<char, 768> buffer;
+    std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
@@ -23602,11 +23602,11 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -24489,7 +24489,7 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
                 223, 254, 0);
         }
     }
-    std::array<char, 768> buffer;
+    std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
@@ -24531,11 +24531,11 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -27986,8 +27986,8 @@ std::uint8_t Sub_4A6AC0()
         const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[countSlot].count;
         if (count > 0) {
-            char buffer[192];
-            std::sprintf(buffer, "%3d", count);
+            std::wstring buffer;
+            cg::text::FormatTo(buffer, L"{:3}", count);
             const WindowInstance* const textWindow = gCurrentWindow;
             const auto textY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->y + 232));
             const auto textX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->x + 174));
@@ -32668,7 +32668,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    char countText[12];
+    std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item->used == 0) {
@@ -32688,7 +32688,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(countText, "%3d", count);
+            cg::text::FormatTo(countText, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
                 3, 1, 1, countText, 0, 0));
@@ -32767,7 +32767,7 @@ std::int32_t Sub_485160(const std::int32_t index, const std::int32_t state)
 namespace {
 
 std::int32_t DrawCraftInputNotice(
-    const std::int32_t index, const char* const first, const char* const second)
+    const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -32803,16 +32803,16 @@ std::int32_t DrawCraftInputNotice(
 std::int32_t Sub_485200(const std::int32_t index, const std::int32_t)
 {
     return DrawCraftInputNotice(index,
-        R"(包含\ 或 | 的字元。)",
-        R"(包含\ 或 | 的字元不能用來刻印。)");
+        LR"(包含\ 或 | 的字元。)",
+        LR"(包含\ 或 | 的字元不能用來刻印。)");
 }
 
 // 原函数：0x00485350。
 std::int32_t Sub_485350(const std::int32_t index, const std::int32_t)
 {
     return DrawCraftInputNotice(index,
-        "沒有包含空白以外的字元",
-        "刻印名稱不能包含空白。");
+        L"沒有包含空白以外的字元",
+        L"刻印名稱不能包含空白。");
 }
 
 // 原函数：0x004847C0。
@@ -36906,7 +36906,7 @@ void Sub_43C3E0()
     static_cast<void>(login::detail::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
     static_cast<void>(render::DrawText2_456670(
         383, static_cast<std::int16_t>(y + 12), 2, 0, 0,
-        "請選擇目標", 0));
+        L"請選擇目標", 0));
     gHoverTextD68AE8 = L"按滑鼠右鍵可取消。";
 }
 
@@ -37417,8 +37417,8 @@ void Sub_4982C0()
             gBattleCountdownSecond5ABB80 = seconds;
         }
     }
-    std::array<char, 48> buffer;
-    std::sprintf(buffer.data(), "%2d", remaining / 1000);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:2}", remaining / 1000);
     for (std::int32_t index = 0; index < 2; ++index) {
         if (buffer[index] != ' ') {
             const std::int32_t digit =
@@ -37429,8 +37429,8 @@ void Sub_4982C0()
     }
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
-        std::sprintf(buffer.data(), "第 %d 回合", turn);
-        static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer.data(), 0));
+        cg::text::FormatTo(buffer, L"第 {} 回合", turn);
+        static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer, 0));
     }
 }
 
@@ -37530,28 +37530,28 @@ void Sub_49B670(
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
             0, 0, textLayer, 8, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
-        const auto drawText = [&](const auto& text, const std::int32_t dx, const std::int32_t dy) {
+        const auto drawText = [&](const std::wstring_view text, const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, 0, text, 0, 0));
         };
         drawText(cg::text::FromGbkWide(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data()), 10, 5);
-        std::array<char, 768> buffer;
-        std::sprintf(buffer.data(), "%3d", pet.value08);
-        drawText(buffer.data(), 140, 5);
+        std::wstring buffer;
+        cg::text::FormatTo(buffer, L"{:3}", pet.value08);
+        drawText(buffer, 140, 5);
         const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
             drawText(gTribeNames57CB54[tribe], 130, 19);
         }
         const std::int32_t maxHp = gBattlePetVitalsCF4B78[petIndex].maxHp;
         const std::int32_t hp = gBattlePetVitalsCF4B78[petIndex].hp;
-        std::sprintf(buffer.data(), "%6d/%6d", hp, maxHp);
-        drawText(buffer.data(), 35, 19);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
+        drawText(buffer, 35, 19);
         const std::int32_t maxFp = gBattlePetVitalsCF4B78[petIndex].maxFp;
         const std::int32_t fp = gBattlePetVitalsCF4B78[petIndex].fp;
-        std::sprintf(buffer.data(), "%6d/%6d", fp, maxFp);
-        drawText(buffer.data(), 35, 32);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
+        drawText(buffer, 35, 32);
         for (std::int32_t row = 0; row < 4; ++row) {
             const std::int32_t segments = pet.values70[21 + row] / 10;
             const auto& images = gPetBarImages57E434[row];
@@ -43115,8 +43115,8 @@ std::int32_t Sub_4920F0()
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const std::int32_t costTechnique = gLoginWindowRuntime.petTechniqueD2D66C;
     const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp;
-    char buffer[36];
-    std::sprintf(buffer, "%3d", fp);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", fp);
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 187)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),

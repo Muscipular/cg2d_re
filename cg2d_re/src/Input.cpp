@@ -399,25 +399,23 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
     return result;
 }
 
-// 原44B570固定扫描40字节；与通常的双字节分类规则不同。
-std::int32_t ClassifyChatSplit_44B570(const char* const text, const std::int32_t)
+// 原44B570固定扫描40字节；UWF01按UTF-16码元预算保留完整字符边界。
+std::int32_t ClassifyChatSplit_44B570(const std::wstring_view text, const std::int32_t)
 {
-    const std::string_view utf8(text);
-    return cg::text::Prefix(utf8, 40) == (std::min)(std::size_t{40}, utf8.size()) ? 2 : 0;
+    return cg::text::Prefix(text, 40) == (std::min)(std::size_t{40}, text.size()) ? 2 : 0;
 }
 
 // 原 [0x44B440,0x44B49D)：仅 0x81..0x9F 与 0xE0..0xFC 为双字节首字节。
-// HBN01：原S16偏移/S32计数与固定BYTE范围，低BYTE 0/1/2类别，不改编码判据。
+// UWF01：现按UTF-16码元定位，保S16偏移和低BYTE 0/1/2类别。
 std::uint8_t ClassifyLegacyBoundary_44B440(
-    const char* const text,
-    const std::int16_t byteOffset)
+    const std::wstring_view text,
+    const std::int16_t unitOffset)
 {
-    const std::string_view utf8(text);
-    const std::size_t offset = static_cast<std::size_t>(byteOffset);
-    if (cg::text::Prefix(utf8, offset) != offset) {
+    const std::size_t offset = static_cast<std::size_t>(unitOffset);
+    if (cg::text::Prefix(text, offset) != offset) {
         return 2;
     }
-    return offset < utf8.size() && static_cast<unsigned char>(utf8[offset]) >= 0x80 ? 1 : 0;
+    return offset < text.size() && text[offset] >= 0x80 ? 1 : 0;
 }
 
 // 原 [0x44B4A0,0x44B561)：目标首字节经 movsx 后，双字节目标分支对 W8 输入不可达。
@@ -851,17 +849,17 @@ std::int32_t ExtractLegacyLine_503AB0(
     return 1;
 }
 
-// 原 [0x52D570,0x52D5BB)：每个源字节依序与删除集合比较，再原位压缩。
+// 原 [0x52D570,0x52D5BB)：UWF01按完整UTF-16字符与删除集合比较，更新动态正文。
 char RemoveLegacyBytes_52D570(
-    char* const text,
-    const char* const excluded)
+    std::wstring& text,
+    const std::wstring_view excluded)
 {
-    const std::string contents(text);
-    const std::string_view skipped(excluded);
-    std::string retained;
+    const std::wstring contents(text);
+    const std::wstring_view skipped(excluded);
+    std::wstring retained;
     for (std::size_t offset = 0; offset < contents.size();) {
         const std::size_t next = cg::text::Next(contents, offset);
-        const auto unit = std::string_view(contents).substr(offset, next - offset);
+        const auto unit = std::wstring_view(contents).substr(offset, next - offset);
         bool remove = false;
         for (std::size_t item = 0; item < skipped.size(); item = cg::text::Next(skipped, item)) {
             if (unit == skipped.substr(item, cg::text::Next(skipped, item) - item)) { remove = true; break; }
@@ -869,7 +867,7 @@ char RemoveLegacyBytes_52D570(
         if (!remove) { retained.append(unit); }
         offset = next;
     }
-    std::memcpy(text, retained.c_str(), retained.size() + 1);
+    text = std::move(retained);
     return 0;
 }
 

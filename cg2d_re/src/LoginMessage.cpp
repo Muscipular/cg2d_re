@@ -306,7 +306,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     return 0;
 }
 
-// 原0x0045CE10：旧窄调用只提供局部UTF-8视图。
+// 原0x0045CE10：消息调用已统一UTF-16正文。
 
 
 } // namespace cg::login

@@ -67,9 +67,6 @@ std::string Encode(const std::wstring_view text, const UINT codePage)
 
 } // namespace
 
-std::wstring ToUtf16(const std::string_view utf8) { return Decode(utf8, CP_UTF8); }
-
-
 std::wstring FromGbkWide(const std::string_view gbk) { return Decode(gbk, kGbkCodePage, 0); }
 std::wstring FromLegacyDisplayWide(const std::string_view bytes) { return Decode(bytes, CP_ACP, 0); }
 std::string ToGbk(const std::wstring_view utf16)
@@ -121,64 +118,6 @@ std::size_t Count(const std::wstring_view utf16) noexcept
     std::size_t count = 0;
     for (std::size_t offset = 0; offset < utf16.size(); offset = Next(utf16, offset)) { ++count; }
     return count;
-}
-
-
-
-
-std::size_t Next(const std::string_view utf8, const std::size_t offset) noexcept
-{
-    if (offset >= utf8.size()) {
-        return utf8.size();
-    }
-    const auto lead = static_cast<unsigned char>(utf8[offset]);
-    const std::size_t width = lead < 0x80 ? 1 : lead < 0xE0 ? 2 : lead < 0xF0 ? 3 : 4;
-    return (std::min)(offset + width, utf8.size());
-}
-
-std::size_t Previous(const std::string_view utf8, const std::size_t offset) noexcept
-{
-    std::size_t position = (std::min)(offset, utf8.size());
-    if (position == 0) {
-        return 0;
-    }
-    do {
-        --position;
-    } while (position != 0 && (static_cast<unsigned char>(utf8[position]) & 0xC0) == 0x80);
-    return position;
-}
-
-std::size_t Prefix(const std::string_view utf8, const std::size_t byteBudget) noexcept
-{
-    std::size_t position = (std::min)(byteBudget, utf8.size());
-    if (position < utf8.size()) {
-        while (position != 0 && (static_cast<unsigned char>(utf8[position]) & 0xC0) == 0x80) {
-            --position;
-        }
-    }
-    return position;
-}
-
-std::size_t Count(const std::string_view utf8) noexcept
-{
-    std::size_t count = 0;
-    for (std::size_t offset = 0; offset < utf8.size(); offset = Next(utf8, offset)) {
-        ++count;
-    }
-    return count;
-}
-
-std::size_t Copy(char* const destination, const std::size_t capacity, const std::string_view utf8) noexcept
-{
-    if (capacity == 0) {
-        return 0;
-    }
-    const std::size_t length = Prefix(utf8, capacity - 1);
-    if (length != 0) {
-        std::char_traits<char>::move(destination, utf8.data(), length);
-    }
-    destination[length] = '\0';
-    return length;
 }
 
 } // namespace cg::text

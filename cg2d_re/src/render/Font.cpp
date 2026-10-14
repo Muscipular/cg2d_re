@@ -247,20 +247,6 @@ std::int32_t Font::measure(const std::wstring_view text, const std::int32_t font
     return extent.cx;
 }
 
-// 原函数：0x0044B2E0。
-std::int32_t Font::measure(
-    const char* text,
-    std::int32_t fontType,
-    std::int32_t maxBytes)
-{
-    if (maxBytes <= 0 || *text == '\0') { return 0; }
-    const std::string_view utf8(text);
-    const std::wstring wide = cg::text::ToUtf16(utf8.substr(0, cg::text::Prefix(utf8, static_cast<std::size_t>(maxBytes))));
-    return measure(wide, fontType, static_cast<std::int32_t>(wide.size()));
-}
-
-
-
 std::vector<std::wstring> Font::split(const std::wstring_view text, const std::int32_t fontType, const std::int32_t width)
 {
     const std::wstring contents(text);
@@ -280,7 +266,6 @@ std::vector<std::wstring> Font::split(const std::wstring_view text, const std::i
     return lines;
 }
 
-
 } // namespace cg::render
 
 namespace cg::login::detail {
@@ -291,18 +276,6 @@ std::int32_t MeasureDefaultText_44B260(const std::wstring_view text)
     return cg::render::Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
 }
 std::int32_t TextMeasure(const std::wstring_view text, const std::int32_t fontType)
-{
-    return cg::render::Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
-}
-
-// 原函数：0x0044B260。
-std::int32_t MeasureDefaultText_44B260(const char* text)
-{
-    return cg::render::Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
-}
-
-// 原 TextMeasure@[0x44B2A0,0x44B2DC)：无字节预算的旧编码文本测宽。
-std::int32_t TextMeasure(const char* text, std::int32_t fontType)
 {
     return cg::render::Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
 }

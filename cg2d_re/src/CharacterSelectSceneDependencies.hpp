@@ -11,6 +11,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <cstdio>
 
 namespace cg::character_select::detail {
@@ -151,7 +152,6 @@ extern const wchar_t gVersionPayload9A5C10[1];
 
 // 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。
 // 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。
-extern char gText9A4EAC[128]; // 原全局：0x009A4EAC。
-static_assert(sizeof(gText9A4EAC) == 128);
+extern std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
 
 } // namespace cg::character_select::detail

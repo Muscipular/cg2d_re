@@ -102,12 +102,12 @@ void LoadInitialText_44A160(std::wstring_view initialText);
 
 // 原 sub_44B190@[0x44B190,0x44B1C5)，判断零结尾旧 ANSI 串的末单元。
 [[nodiscard]] std::int32_t ClassifyLastAnsiUnit_44B190(const char* text);
-// 原44B570：固定扫描40字节边界；非正S8按两字节推进，第二参数不消费。
-std::int32_t ClassifyChatSplit_44B570(const char* text, std::int32_t unused);
+// 原44B570：现按40个UTF-16码元判断完整字符边界，第二参数不消费。
+std::int32_t ClassifyChatSplit_44B570(std::wstring_view text, std::int32_t unused);
 
-// 原 sub_44B440@[0x44B440,0x44B49D)，按低 S16 偏移判断旧双字节边界，返回 AL=0/1/2。
+// 原 sub_44B440@[0x44B440,0x44B49D)，现按低S16码元偏移判断UTF-16边界，返回AL=0/1/2。
 [[nodiscard]] std::uint8_t ClassifyLegacyBoundary_44B440(
-    const char* text, std::int16_t byteOffset); // HBN01：见历史浏览/字节滚动完整合同。
+    std::wstring_view text, std::int16_t unitOffset);
 
 // 原 sub_44B4A0@[0x44B4A0,0x44B561)：跳过旧双字节尾字节，返回可写的首个匹配位置。
 [[nodiscard]] char* FindLegacyByte_44B4A0(char* text, const char* target);
@@ -243,8 +243,8 @@ std::int32_t ExtractLegacyLine_503AB0(
     char* destination, std::int32_t capacity, const char* source,
     std::int32_t line, std::int32_t width);
 
-// 原 sub_52D570：逐字节从原缓冲区删除指定集合，尾部写 NUL，返回低 W8 零。
-char RemoveLegacyBytes_52D570(char* text, const char* excluded);
+// 原 sub_52D570：现从动态UTF-16正文删除指定完整字符集合，返回低W8零。
+char RemoveLegacyBytes_52D570(std::wstring& text, std::wstring_view excluded);
 
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
 void ProcessKeyInput_4596D0();

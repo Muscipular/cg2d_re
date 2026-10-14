@@ -3,6 +3,7 @@
 #include <string_view>
 
 #include <cstdint>
+#include <string>
 
 namespace cg::network::detail {
 
@@ -112,7 +113,7 @@ std::uint8_t* Sub_517730(
 
 namespace cg::character_select::detail {
 
-extern char gText9A4EAC[128]; // 原全局：0x009A4EAC。
+extern std::wstring gText9A4EAC; // 原全局：0x009A4EAC。
 
 } // namespace cg::character_select::detail
 

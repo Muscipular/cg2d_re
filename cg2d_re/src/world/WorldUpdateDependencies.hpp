@@ -13,6 +13,7 @@
 #include <cstdio>
 #include <optional>
 #include <span>
+#include <string>
 #include <type_traits>
 
 namespace cg::render {
@@ -566,12 +567,12 @@ void Sub_518600(
 // 原函数：0x00518660。
 std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* right);
 
-// 原FDA8A4起的28条玩家物品，已证原字节文本与W16/S32字段；未消费尾部不冻结。
+// 原FDA8A4起的28条玩家物品；NIO01在网络字段解析后持有UTF-16，注释偏移仅作原端参考。
 struct PlayerItemRecord {
     std::uint16_t used; // 原成员偏移：+0x00。
-    std::array<char, 29> name; // 原成员偏移：+0x02。
-    std::array<char, 17> memo; // 原成员偏移：+0x1F。
-    std::array<std::array<char, 96>, 32> description; // 原成员偏移：+0x30。
+    std::wstring name; // 原成员偏移：+0x02；输入GBK上限28B。
+    std::wstring memo; // 原成员偏移：+0x1F；输入GBK上限16B。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x30；32行按原GBK列规则解析。
     std::int32_t pages; // 原成员偏移：+0xC30。
     std::int32_t color; // 原成员偏移：+0xC34。
     std::int32_t imageNo; // 原成员偏移：+0xC38。
@@ -586,27 +587,6 @@ struct PlayerItemRecord {
     std::uint16_t hasDescription; // 原成员偏移：+0xC54。
     std::array<std::byte, 6> bytesC56; // 原成员偏移：+0xC56。
 };
-
-static_assert(std::is_standard_layout_v<PlayerItemRecord>);
-static_assert(std::is_trivially_copyable_v<PlayerItemRecord>);
-static_assert(offsetof(PlayerItemRecord, used) == 0);
-static_assert(offsetof(PlayerItemRecord, name) == 2);
-static_assert(offsetof(PlayerItemRecord, memo) == 0x1F);
-static_assert(offsetof(PlayerItemRecord, description) == 0x30);
-static_assert(offsetof(PlayerItemRecord, pages) == 0xC30);
-static_assert(offsetof(PlayerItemRecord, color) == 0xC34);
-static_assert(offsetof(PlayerItemRecord, imageNo) == 0xC38);
-static_assert(offsetof(PlayerItemRecord, level) == 0xC3C);
-static_assert(offsetof(PlayerItemRecord, itemId) == 0xC40);
-static_assert(offsetof(PlayerItemRecord, count) == 0xC44);
-static_assert(offsetof(PlayerItemRecord, itemType) == 0xC48);
-static_assert(offsetof(PlayerItemRecord, canUseInField) == 0xC4C);
-static_assert(offsetof(PlayerItemRecord, battleUseFlag) == 0xC4E);
-static_assert(offsetof(PlayerItemRecord, target) == 0xC50);
-static_assert(offsetof(PlayerItemRecord, flags) == 0xC52);
-static_assert(offsetof(PlayerItemRecord, hasDescription) == 0xC54);
-static_assert(offsetof(PlayerItemRecord, bytesC56) == 0xC56);
-static_assert(sizeof(PlayerItemRecord) == 0xC5C);
 
 std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4(); // 原全局：0x00FDA8A4。 别名唯一PlayerRuntimeSlots成员。
 // 原函数：0x0050BFD0。
@@ -685,7 +665,6 @@ struct PetRuntimeRecord {
     std::array<std::byte, 3> bytes510D; // 原成员偏移：+0x510D。
 };
 
-static_assert(std::is_standard_layout_v<PetRuntimeRecord>);
 static_assert(!std::is_trivially_destructible_v<PetRuntimeRecord>);
 static_assert(offsetof(PetRuntimeRecord, used) == 0);
 static_assert(offsetof(PetRuntimeRecord, value02) == 2);
@@ -704,9 +683,6 @@ static_assert(offsetof(PetRuntimeRecord, name6BD) == 0x6BD);
 static_assert(offsetof(PetRuntimeRecord, value6D0) == 0x6D0);
 static_assert(offsetof(PetRuntimeRecord, follow6D4) == 0x6D4);
 static_assert(offsetof(PetRuntimeRecord, values6D8) == 0x6D8);
-static_assert(offsetof(PetRuntimeRecord, items6E4) == 0x6E4);
-static_assert(offsetof(PetRuntimeRecord, updated510C) == 0x510C);
-static_assert(sizeof(PetRuntimeRecord) == 0x5110);
 
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {

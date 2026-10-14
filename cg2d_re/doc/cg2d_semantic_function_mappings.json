@@ -40569,7 +40569,9 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "original_direct_reference_count": 39,
@@ -40821,6 +40823,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -51402,7 +51413,9 @@
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。 DCF01当前直接MSVC／标准库调用，原缓冲／格式／容量／变参和返回消费保持；有界九处依用户选择::_snprintf，旧包装退休，历史原语与完整门禁保留。",
       "function_chunks": [
@@ -60561,6 +60574,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -102692,7 +102714,9 @@
         "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "verification_level": "父边界/948条统计，40条文本相邻及两48B原型项/实际引用/压入格式取证；八复制/五格式/S32值和原字节、整份源码十三标识符替换/文档追加/JSON三新增父及两共享项限定差异静态核对；不重验前两父其余正文或消费者内部，未执行",
       "boundary": "浏览回复三复制已接真实53BEC0；成功分支清同一D046D8、借用action+C4卖家名16、随后目标/对象字段发布/摊名16/说明56 U32顺序保持；其余失败处理、完整物品/宠物解析与RNG消费不改。 整份WindowRuntime本步仅十三调用标识符替换，其他父正文/窗口与输入取样/owner/布局/预览/字段/返回逐字保持，不新增转码、初始化、限长、保护或故障模拟；两核心算法/声明不改，不恢复音频/加解密。完整67/68/网络/鼠标/场景及整体验收仍待，不计整个摊位已运行。",
@@ -102764,6 +102788,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -103394,7 +103427,9 @@
         "doc/ui_windows/legacy_item_work_name.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "verification_level": "完整91条原指令/两源分支共用调用与两原引用；整份源码仅三标识符、核心/声明保持和文档追加/JSON限定增量静态核对；未构建或执行",
       "boundary": "发送后读取独立source长度，非空局部source/空时当前+8物品名两互斥表达式，共用原复制点；同一64B CC40D8，不追加末NUL，之后重取选择/面板并发布图号。仅名称发布复制接线；共享64B目标、原256B局部/技能及+8物品字段、发送和重新取样/返回次序保持，不改变清尾、数值宽度或生命周期，不增加保护/转码/故障模拟。其他依赖、旧表外层路由、完整加工/跨板块运行验收仍待；计时父两宿主格式未迁，不恢复音频/加解密。",
@@ -103425,6 +103460,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -103471,7 +103515,9 @@
         "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "verification_level": "父1058条统计，仅发送/复制/图号相邻62条和入口0引用；整份源码仅三标识符、核心/声明保持和文档追加/JSON限定增量静态核对，不重验其余996条；未构建或执行；2026-10-04只读147/1058新格式及正文消费邻窗，余911沿既有父合同，18新增原常量加载字节已核；限定两接口及共享提示桥接、旧复制字段保持/JSON精确更新/文档末追加/编码与差异静态核对通过。未构建/测试/客户端/hash，原容量/父/路由/运行未闭合。",
       "boundary": "计时发送后重取选择、发布D67C48=1，再当前+8物品名复制至同一64B CC40D8；不另写NUL，复制后再取选择/面板并发布图号。仅名称发布复制接线；共享64B目标、原256B局部/技能及+8物品字段、发送和重新取样/返回次序保持，不改变清尾、数值宽度或生命周期，不增加保护/转码/故障模拟。其他依赖、旧表外层路由、完整加工/跨板块运行验收仍待；本步两宿主格式及原共享固定提示均已接53B304，不恢复音频/加解密。 原4F3380共享点补回，17固定格式零参数与阶段2成本格式分别写既有CA0ACC NUL正文owner；不猜原容量，现有256B局部桥接并发布，未知阶段/技能保留旧正文。图后数量/本帧cost快照/抽行次序与其余正文保持，原全局容量及父/路由/运行验收不转为通过。",
@@ -103733,6 +103779,15 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -121853,7 +121908,9 @@
         "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "原20B未清buffer/countBuffer；价格从自身D671DC步8或浏览D13E74步4先选S32快照，原单一%d格式与颜色继续用该快照。item+0C44 S32 count>0才%3d及绘制。固定物品T*、slot+8/浏览owner、名称抽行/测宽/绘制、所有分支/回调/返回保持，仅两个callee差异，不完成完整生产/路由或运行。",
       "original_incoming": [],
@@ -121926,6 +121983,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -122014,7 +122080,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "256B未清buffer；[kok]/[han]借名称/memo的两现互斥表达式承接一原call，memo/flags原条件与共享悬停文本复制及内联扫描保持；另一原点是S32 count>0后的%3d即刻绘制。固定玩家物品slot+8和原帧/色/鼠标/选择/绘制/返回及表绑定全不动，不算StrCpy/StrLen入口新接线或完整生产/路由运行。",
       "original_incoming": [],
@@ -122111,6 +122179,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -122280,7 +122357,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "256B未清buffer；[kok]/[han]借名称/memo的两现互斥表达式承接一原call，memo/flags原条件与共享悬停文本复制及内联扫描保持；另一原点是S32 count>0后的%3d即刻绘制。固定玩家物品slot+8和原帧/色/鼠标/选择/绘制/返回及表绑定全不动，不算StrCpy/StrLen入口新接线或完整生产/路由运行。",
       "original_incoming": [],
@@ -122377,6 +122456,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -124627,7 +124715,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "256B未清char buffer；玩家items[hovered+8]名称/memo及W16 flags原取样，两互斥提示共一原call。mode0/2/3与mode1/4/5两数量原点分别承接各自相同文本表达式，count为S32且>0才格式，used/map/选择bitmask/可用遮罩及先图形后数量保持；scanSlot未清局部复用、页轮换、拖拽/右键/消息/帧/绘制/返回保持。 2026-10-11原4BCE19允许字节读取：正常映射20恢复既有浏览首条物品description[30][72]，其余商品+C3C与零判断/绘制序保持；仅局部源码修复，未编译或运行。",
       "original_incoming": [],
@@ -124766,6 +124856,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -125846,7 +125945,9 @@
         "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅16个格式callee接真实53B304，20B buffer/32B details均未清；物品同源selection-20/name分两行/图号/价格时重新取选择号、S32 count>0；宠物同源selection-5借name、+1C/+3C两独立CryptInt调用401EA0→既有401EC0返回S32，+8/+70/+74/+78/+6A4/+7C/+80/+98/+6C各完整S32按原顺序格式即刻绘制。种族+4 S16且[0,20)借表名，否则只details[0]=0仍绘制；宠物价格时重新读选择号到D2D464数组，原预偏移地址别名保持。初始petLayout布局快照/购买与取消点击后窗口重取/隐藏、正文mode再读、页轮换/hover/原图号与色/坐标S16转换/背景/返回全不动，不把属性或选择/模式重读合并缓存，不重验桥接/扫描/父核心。",
       "original_incoming": [],
@@ -126182,6 +126283,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -128851,7 +128961,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅六现std::sprintf标识符承接六原53B304点，S32签名及全部正文保持。两个256B局部buffer/temporary保持既有未清或mode13原首字节/尾部清理；原U8 mode和U32 deadline取样、mode1 recipe itemId dword S32及两个六槽遍历（material>=0先、material<0后）分开不合并；slot+8全为S32。mode7/16按原itemType38/25/39/80分组到ordinary/special两个S32局部，原未赋初值路径不补默认；%d|%d参数ordinary在前special在后。mode10原505110验证后重新读slot以及selected=-1路径保持；mode13六槽%d|追加、原material==0时名称重读复制保持。所有格式到原buffer/temporary，内联扫描追加/名称复制不新计CRT入口；NullSub_509080、既有sendRequest在消费时分别选择S32 recipe请求或S8非recipe请求和原target、发送后mode/name/隐藏状态顺序保持，不改变网络/输入/计时器/动画等关联函数。完整制作/普通及战斗父路由和运行不据本步验收。",
       "original_incoming": [],
@@ -129028,6 +129140,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -129455,7 +129576,9 @@
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅五现格式callee接五原53B304点，S32(index,state)签名/原consumed返回及全部正文保持。12B未清countText在S8 gValue57E42C>0与普通两个路径复用，count dword S32>0才%3d，分别沿456780两套原坐标消费；256B未清buffer承接两个Q与一个I。Q255原0FFH常量保持，不是补值；两Q在窗口state|8000和selection[5]=0之后格式/发送、随后写actionState1。I仅原43C560返回0分支重读当前位置、写selectedItem后按hovered+8/currentPosition两个U32位模式输出、5109B0→Flush→actionState1；目标选择分支仍不格式。原事件低U8/S16 target符号扩展/物品与占用数组别名、bomb/装备/描述/medicine条件、鼠标复位、描述图形/悬浮/颜色、音频既有调用和暂停边界不动；不改关联函数，不新增保护或清理，完整物品/窗口14/27/战斗和运行未据本步验收。；BIP01战斗背包499C30完整1175条4105B/十九页、62E8十九目标/154跳两RET；两data持址为4C6EC0+50及原型槽3，不造普通CALL/全分发验收。先十五技能按skillId2002取首匹配与十五技术value8C连续正计usableLevel，原十五级S32表及玩家同源W32等级/业务上限保持；原skillIndex/usableLevel初值-1，bomb cost按skill+24+94H*level读S32，level0读experience、不加技能不存在/负等级保护或改变FP/RNG消费。S8mode正时二十玩家slot8..27，每轮fresh窗口/元素，五列四行左15/上48及禁图22738、占用BYTE/used W16、GBK不能装备/使用提示、层223、白/暗两descriptor、count>0的%3d/未清12B和低S16文字保持。普通event60仅dragkind!=2过滤；drop40只手位2/3统计非type7武器，真实518C60空槽/失败或原255u Q命令，窗口8000→选择槽5清0→MSVC格式/当前socket发送→动作1/声57→reset保持。hover21二十格命中、used与type/hasDescription Word/battleUseFlag低BYTE，medicine43/flag40000、bomb51/原level发布/skill成本、手位全空/FP<cost/5ABFCC!=1条件与短路保持；不能用支路原512B姓名复制→中间canUse写→尾cannotUse覆盖完整保，不清理或合并旧副作用。hover改变先页0再hover发布，双击focus27或0且used==1：bomb条件、装备type0..7/70..79及双手/空槽/未鉴定失败，容量bit8按原未加8的hover槽读，不改为实际背包槽。成功装备Q用hover+8 U32；普通使用先窗口8000→当前position S32→target W16按S16扩展为W32→43C560，沿已完整BQI01共享目标发布与原0/1返回，非零先selectedItem=hover+8/声77再pending S32=1和CC4D40 BYTE=1；零分支重新取position，selected发布→I两个U32格式/发送→Flush→动作1/声57再77。当前原命令/字段/LF明文保持，不增加发送失败回滚。单击/拖动bomb成本和used/flag/medicine门槛、48BF10与声51，右键pages快照→新page发布及原业务归零保持；两后框沿source>=8/hover>=0、不新增<28限制；末清textqueue3/593850空文本再逐used槽，bomb、不可使用/装备、未鉴定/medicine三个禁图门槛独立，允许原重复22738，occupancy后白/暗及第二%3d保持。三个逻辑组十二片段：六battleUseFlag低BYTE（五实际背包/一未加8容量索引）、五grid明确elementX→windowX/X→elementY→windowY/Y，区域一处按currentwindow→U32颜色→elements→windowY/X→elementX/height→elementY/width/原四边；均fresh原次数，不新增通用helper/新公共类型。原五MSVC格式点/12B与256B未清、GBK/两16B描述符/固定slot20和全部正常/失败/发布/RNG序保持。两整源仅上述十二片段和一定义/一声明两合同注释；旧900格式/CAB30历史保追加、既有adapted处置只追加合同/refs，不重复F或处置，既有UI成员不重复，其余INPUT/RENDER/NETWORK/BATTLE各加本根；五限定S零I九open。完整技能/物品/占用/目标参数生产、动态callback/窗口/后续pending消费者/所有callee/alias-owner寿命、SDK/生成BYTE/机器ABI/实际战斗操作画面声音与运行待。48有界代码/所有完整枚举gates/六closure/总SPEC§10保持；无新API/helper/结构/字段/owner/保护/补零/默认/新钳制/回滚/异常模型，MSVC/WAV-only/明文网络保持。",
       "original_incoming": [],
@@ -129695,6 +129818,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -130669,7 +130801,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅四现std::sprintf标识符接四原53B304点；window参数T*/WindowAnimationData*返回，未升级才元素11经验S32格式，升级仍原内联复制；元素12先首字节NUL，再按endurance→dexterity→intelligence三非0门槛S32值格式到256B未清buffer并沿原内联追加，字面+%d不改。制造经验及三增量均取原制造回复字段；原六材料回收/名称来源/成功失败与伤病/图号/可见及鼠标callback保持。原动作/图号重复读取、47D170→C8A970门槛与47D220真实T*→gSelectionModeD2D650=2→返回last、全部正文/关联函数及音频暂停边界不动，不加清理/钳制/补值，完整制作/物品作业/窗口11/父路由及运行未据本步验收。",
       "original_incoming": [
@@ -130796,6 +130930,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -130822,7 +130965,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅四现std::sprintf标识符接四原53B304点；window参数T*/WindowAnimationData*返回，未升级才元素11经验S32格式，升级仍原内联复制；元素12先首字节NUL，再按endurance→dexterity→intelligence三非0门槛S32值格式到256B未清buffer并沿原内联追加，字面+%d不改。物品作业三个显示值为CF46B4/CB0A14/D30418，但门槛仍D2F328/CA0448/CB0F84制造回复，不能合并为一来源；技能220/原消息未知分支、选中物品指针/图号与可见保持。原动作/图号重复读取、47D170→C8A970门槛与47D220真实T*→gSelectionModeD2D650=5→返回last、全部正文/关联函数及音频暂停边界不动，不加清理/钳制/补值，完整制作/物品作业/窗口11/父路由及运行未据本步验收。",
       "original_incoming": [
@@ -130960,6 +131105,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -132322,7 +132476,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅三现std::sprintf标识符接两原53B304点；4895E0原两T*/格式变体共一call，489714单count S32原点，S32(index,state)/consumed返回和全部正文保持。共用未清std::array<char,256> buffer，hovered物品used非0后原memo测长/flags100门槛才借name T*加[kok]，否则flags200才借memo T*加[han]，空memo的第二分支不加新门槛；原Word标志/field10写者与格式后内联复制gHoverTextD68AE8不动。原20槽、S32正count快照→%3d→原S16坐标x-3/y+7绘制、文本队列清尾/空文本基线、事件/占用数组/拖拽/使用发包/翻页/回调及音频暂停边界保持，不缓存/重构来源、不加清理/保护，不改关联函数，完整库存/装备/窗口14/父路由/画面与运行未据本步验收。",
       "original_incoming": [],
@@ -132462,6 +132618,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -133326,7 +133491,9 @@
         "doc/cg2d_equipment_attribute_reply_spec.md#evidence-archive-20261011",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅两现callee接489DA8一原点，S32(index,state)/consumed返回与完整正文保持。4C72C0借出的items/count、清hover前固定item T*与hitIndex不重算；used门槛后写value10，memo非空且Word flags100才借name T*加[kok]，否则flags200借memo T*加[han]，第二分支不增加memo非空门槛。256B buffer不预清、两分支共原call，格式后含NUL复制D68AE8。原装备提示/模式/U8占用/事件/拖拽/使用发包/右键翻页/绘框/末逐槽绘制及音频暂停保持，不加数量显示/文本层清理或保护，不改关联方/缓存owner，不据本步验收完整库存/装备/窗口14/父路由/画面或运行。；IER01库存装备489760及属性回复510490两完整根662条2141B/十二页、61E8二十七目标/84跳五RET，七装备data引用（六代码内持址/一原型槽17）及一个回复入CALL原516B47有据。489760先真实4C72C0借items/count、低AL失败返S32零；原两16B descriptor初始化/FF与80FF/byte13=4保持。低BYTE事件60门禁仅dragkind!=2或source>=100时清两bit/consumed1；drop40按五坐标/动态count逐槽无占用及48半开命中、S8模式/6边界分别同group搬移或跨group调用，原每出口reset及参数/失败结果不消费保持。hover21写原3F8后固定item/命中索引，BYTE模式选八玩家/六宠物GBK提示、原后续清hover不重算固定item；bit2发布窗口2000，无hover且回复used S32非零时声51→fresh窗口/3FC1/槽17回调489EE0后返既有consumed。悬浮改变先clear页，再selectedItem S32快照→发布hover；双击按原Word used/低BYTE canUseInField、特殊图26569双fresh窗口callback/声77/U8占用递增/原reset与475DA0；普通物品动作标志按BYTE已有接口、440B50、S8mode，发布selected后宠物group或玩家Y后X CryptInt原明文请求，现网络/参数/声效和原reset保。hover单击/右键页递增与原pages业务归零、拖框/原hitIndex绘框、used/Word flags100-200两[kok]/[han]共MSVC格式/未清256B保持。末动态count逐used槽x/y→低BYTE flags80→原图22739→fresh occupancy后暗图或普通图，不补索引/count保护、补零或新的失败回滚。四组四处仅两物品字段低BYTE、动作BYTE既有接口及selected在hover发布前取样；其它装备正文与提示表、两descriptor/owner、共享item和完整已批MSVC格式保持。510490正文正确保、unusedSocket地址宽度和借text T*不改：首逗号field1 max31失败先由既有提取器写text04首字节NUL，再本根只used0，不清其余字段；成功used1先于text04反转义，field2 max31失败由既有提取器写text25首字节NUL、返回弃→text25反转义→仅单空格加NUL比较相等才hasText24=0（空串为1），field3→value48 S32，按field4..27顺序写24S32值，无全局门禁/清空整记录/新字段校验。原回复分发先maxlen→workspace→text解码→callback/socket，返回残留由dispatcher后OR EAX-1覆盖；现TgX既有TryDispatchReply弃callback返回与当前本机服务端原命令/原字段/LF明文保持，不以原dispatcher-1证明当前完整分发结果或机器ABI。七装备data不是CALL，不据本步全父/原型/回调分发验收；回复入CALL仅邻窗，装备固定借用/全数据生产、动态callback/slot/拖拽与所有callee/网络send/失败、alias-owner寿命、SDK/生成BYTE/实际操作图像声音和运行待。两定义/两声明四合同注释，四源全文限定diff及正确回复/类型/既有callee/分发/原型绑定保持；旧919格式历史追加、一新F两adapted/四限定S零I八open，48有界代码/所有完整枚举gates/六closure/总SPEC§10保持；MSVC/WAV-only/明文网络保，无新公开API/helper/布局/字段/owner/保护/默认值/补零/新钳制/回滚/异常模型。",
       "original_incoming": [],
@@ -133538,6 +133705,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -138981,7 +139157,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "自有背包固定借用PlayerItemRecord，原memo长度非零再读W16 flags bit100选name[kok]，否则独立W16 bit200选memo[han]；两变体共4B1E7F一个原call。数量图形绘制后从同一item.count S32重读，正值才4B2017/%3d写及绘制；20槽/used/两标记和dimmed原序保持。 仅三个格式callee标识符替换，完整多参void签名/非拥有tab和descriptor及记录/原事件与阶段门槛/清层/图形/提示消费和真实统计返回边界保持；共用原未清256B，不新增清零、截断、缓存、范围检查、复制owner或改关联方。",
       "original_incoming": [
@@ -139084,6 +139262,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -139108,7 +139295,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "已选物品保留4AFFE0查询、非负与used门槛，固定借真实玩家item；memo长度/两次W16标志门槛分别选择name[kok]/memo[han]，共4B2C63一个原call。自动撤回扫描/绘制前再查槽/原底图保持，图形后读取item.count S32，正值才4B2DC0/%3d写及绘制。 仅三个格式callee标识符替换，完整多参void签名/非拥有tab和descriptor及记录/原事件与阶段门槛/清层/图形/提示消费和真实统计返回边界保持；共用原未清256B，不新增清零、截断、缓存、范围检查、复制owner或改关联方。",
       "original_incoming": [
@@ -139211,6 +139400,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -148318,7 +148516,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只改1格式接口，原未清128B、8..27槽C5CB/used W16/绘图后+C44 count S32>0、各格式后Y/X/低S16坐标/font1/color0保持。原刻印筛选/双hover/列内break外行继续、null描述、重取来源目标511D60/SE77后关闭79、后续提示和503440后发布hover保持。不补未知生产、旧路由或异常hover/原未写局部，不据RPLAN.24专项故障模拟完成。",
       "original_incoming": [],
@@ -148405,6 +148605,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -148554,7 +148763,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只改1格式接口，原未清128B、8..27槽C5CB/used W16/绘图后+C44 count S32>0、各格式后Y/X/低S16坐标/font1/color0保持。原used/低flags赠送bit1与鼠标10H、选择及保存最后hover行列/取消选择SE54、16B图描述、本页不发协议、状态2原关闭49而非面板50、提示保持/尾返回后发布hover不变。不补未知生产、旧路由或异常hover/原未写局部，不据RPLAN.24专项故障模拟完成。",
       "original_incoming": [],
@@ -148641,6 +148852,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -148664,7 +148884,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只改时间/赠物数量两个格式接口；发送前五S32时间/未清64B，原正文复制512B/转义600B与cap600、gift/value/contact/socket顺序、发送后重读contact/实时正文写记录/保存/SE/打开42/仅首NUL保持。最初gift>0、绘图后重取gift/count正值128B与原条件刷新nameGift/测名后新textGift、各格式后布局/原关闭50而非本页49/焦点/完整U32返回不变。旧上游/真实分派与完整收发/画面/输入/生命周期/运行未验。",
       "original_incoming": [],
@@ -148784,6 +149006,15 @@
         "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -149243,7 +149474,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只替换一格式接口，原物品8..27网格/used W16/213图后count+C44 S32>0/未清128B/格式后新Y/X保持；实际共享赠物选择/行列/详情页/双hover、负hover直访问按RPLAN.24、关闭49与完整U32返回不动。旧真实路由/协议/父运行未验。",
       "original_incoming": [],
@@ -149330,6 +149563,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -149355,7 +149597,9 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只替换时间与数量两格式接口，发送前time32/localtime五S32/64B/随后512B正文及独立600B cap600转义、发送后新1050DCC/实时正文保存保持；附件严格>0的图后新选择/+C44 S32>0/128B/格式后新布局与仅数绘后刷新nameGift、关闭焦点后86/原94返回页与完整U32不动。旧真实分派/收发保存/父运行未验。",
       "original_incoming": [],
@@ -149480,6 +149724,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -150818,7 +151071,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换三个源码格式接口，帧内pair/技能快照、4C4CH记录+1C等级/+24经验、经验绘后新+1C/+20比较/+28下一经验、共未清256B/格式后新布局/font1保持。加工满级仍格式后画固定文本、未满画buffer，两个互斥原点沿既有一次无条件表达式并分别登记。原关闭通知/控制协议/预览与结果共享生产/说明抽行/按钮/动画生命期/uintptr_t混合返回和所有其他正文不动。原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -150985,6 +151240,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -151009,7 +151273,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换三个源码格式接口，帧内pair/技能快照、4C4CH记录+1C等级/+24经验、经验绘后新+1C/+20比较/+28下一经验、共未清256B/格式后新布局/font1保持。制作满级直接固定文本而不格式。原关闭通知/控制协议/预览与结果共享生产/说明抽行/按钮/动画生命期/uintptr_t混合返回和所有其他正文不动。原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -151141,6 +151407,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -151389,7 +151664,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换一格式接口，原8..27网格/used W16/212图后+C44 S32>0/未清256B/新布局/font1保持；拖放/材料标记/共用六槽、确认/返回页/提示/完整U32与全部其他正文不动。原父/旧真实路由/生产/运行未闭合。",
       "original_incoming": [],
@@ -151474,6 +151751,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -151498,7 +151784,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换五格式接口，帧内技能快照/原phase5 U32到期门槛、配方itemId/%d/256B与六selected>=0槽+8/|%d/128B原序strcat，后新配方名/socket/level及发送状态不动。名绘后新配方FP/技能fpReduce S32乘除100费用、五材料4→0倒序/名绘后新配方数量与正数绘后更新配方、六213图后新数量/256B/font1/布局和全部其他正文/返回保持。原父/旧路由/真实组包发送/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -151690,6 +151978,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -153854,7 +154151,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "仅四格式接口改变，28槽逆序/完整used W16/图后count S32>0、悬停详情/拖动框后新金额FC、提示原memo扫描与flags W16顺序/name+02或memo+1F T*及两原字节格式、共用未清256B/font1/共享提示复制保持。原预览T*、转生/使用/拖放/详情/选择发布/关闭混合T*/正常W32的uintptr_t返回及尾先503440后悬停发布等正文不动。 原父/旧路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -153998,6 +154297,15 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -156889,7 +157197,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换一数量格式接口，四行五列used W16/slot+8物品、图后count S32>0、未清256B/%3d、新Y-X格布局/font1保持；S8标记和/注册写序/拖放/AND点击与OR提示资格/阶段七项原复制/未知阶段保留缓冲/尾先绘后hover发布及完整U32返回等正文不动。 原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -156975,6 +157285,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -156999,7 +157318,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "只换四格式接口，入口技能快照/phase6严格有符号duration<elapsed、首0槽%d|复制与末5槽%d追加/未清128B part及256B载荷、名绘后倍率先/技术FP后与S32乘除100、首图门槛/六槽图后count S32>0、布局/font1保持。不补首段未写的载荷初始化或拒绝门槛。预览T*/状态/原请求与发布/协议/阶段7/按钮/提示/完整U32返回等正文不动。 原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -157171,6 +157492,15 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -198947,7 +199277,9 @@
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
-        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
       "verification_level": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
@@ -198986,6 +199318,15 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -275491,7 +275832,9 @@
         "doc/cg2d_tooltip_description_render_spec.md#tooltip-description-source-state",
         "doc/cg2d_tooltip_description_render_spec.md#evidence-archive-20261011",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "boundary": "TDR01仅48B810完整108条283B/两页，六E8四目标/五跳一RET，九入CALL来自八父及四有限后邻有据，不将对齐字节/下一原根纳入完整父。九参数x/y原S32、title/footer原非拥有文本指针、color原低S8、lines同源非拥有行指针/stride与lineCount S32；只新F/处置，不重计旧分色808或队列/图形根。当前完整正文正确保，仅定义/声明两合同注释，不为数目改功能或增加接口/helper。原16B descriptor全部零后+8 W32颜色FFFFFFFF/+13 BYTE4保；先456D50模式5清文字尾，456780入空593850字符串(0,0,mode5,font1,color0/value7-marker0)，不是清所有owner或绘制背景。title非空才DrawText((x+10)低S16,(y+10)低S16,5,12,titleColor低S8,title,0,0)，不新增空串/长度门槛。title处理后gTooltipColorD67D30 S32清0，每条description读取首BYTE非零才4FBA30；正文先signextend y低W16，再signextend x低W16，x+10、y+lineY+22按原正常S32传分色leaf，不把标题/正文的截断阶段互套。每轮不论空行或callee结果都lines+=stride与lineY+=13，循环原lineCount>0逐项，<=0跳正文但仍footer/背景，不新增上界或改成固定八行；当前SPD01调用96/8只具体caller，不外推所有九父。4FBA30为既有已完整核原94条分色leaf，只复用现源/历史：$前缀同源宿主临时块、失败返回0/调用者弃返，原绘制→测宽→X推进→源置delimiter+2→释放→S8数字颜色/global更新→再次查找，跨行共享color延续和正常尾段低S8色彩保持，不重建CRT或私自缓存码页转换。当前456780实际先写字段再扫描strlen+1，逐W32/余W8复制含NUL到gTextPendingRecords[].text[255]，前缀在返回后测宽再释放，因此本步同当前源的正常临时文本生命周期接线有据；不据本步重验既有队列原根/所有上游、空尾/续尾/全token或SDK寿命，不引全额容量/保护或延迟借用源指针。footer非空才DrawText((x+10)低S16,(y+127)低S16,5,12,footerColor低S8,footer,0,0)，不使用body颜色或因lineCount变化移动footer。末背景在所有文字之后DrawGraphic3(x/y低S16,layerE6,graphic3BA5D,value4=0,isGraphicNo=1,batchType=0,&descriptor)，返回真实S32原callee结果，不伪造成功或返最后文字值。既有real DrawGraphic3/图形队列与W16承载保，原native DX差异按获批边界，不借descriptor/返回接线关pixel或全生命周期。两整源仅两注释、八提供者(四原callee含分色、两text-copy helper、当前SPD01父与空字串getter)、两类型/两global及四旧语义保持；九CALL只局部来源，全八父/文字全队列owner-alias及背景图/SDK/生成读取/机器ABI/所有画面与互通运行待。一新F一adapted、UI-RENDER各一成员、两限定S零I八open；不引新字段/type/owner/API/helper、lineCount/index/空/容量保护/补零/默认/钳制/回滚或异常模型，MSVC/WAV-only/原命令字段LF明文及所有完整门禁保，整体未完成。",
       "verification_level": "pass，完整108条283B/两页、六E8四目标/五跳一RET及九CALL八父/四有限后邻有据；两整源精确回放只两注释，正确正文保。层5清尾/标题/正文先Y再X低S16/逐行色彩及footer后背景真实返回明确；八provider/两类型/两global及四旧语义保，当前含NUL文字入队复制在prefix测宽/释放前有据，仅正常局部关系；全八父/文本队列owner/背景与SDK/生成读取/ABI和画面互通运行待",
@@ -275827,6 +276170,15 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "io_unicode_item_boundary_20261014": {
+        "decision": "NIO01",
+        "scope": "玩家／宠物装备／摆摊物品网络解析后持宽名称、备注和32行描述；显示直接借宽字段，相关交换、清理、结果名称迁原生对象操作。其它固定记录暂保明确GBK交接边界。",
+        "evidence_refs": [
+          "doc/cg2d_io_unicode_boundary_spec.md",
+          "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        ],
+        "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
       }
     },
     {
@@ -279022,5 +279374,271 @@
       "doc/cg2d_tooltip_gbk_crash_20261014.md"
     ],
     "complete_runtime_verified": false
+  },
+  "io_unicode_item_boundary_20261014": {
+    "decision": "NIO01",
+    "changed_sources": [
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "ClearRaw",
+        "line": 310
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "ApplyPlayerItemFields",
+        "line": 3704
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_5196B0",
+        "line": 3770
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50BFD0",
+        "line": 3798
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_51B530",
+        "line": 3856
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_51B630",
+        "line": 3906
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "ClearRaw",
+        "line": 3948
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_519770",
+        "line": 4009
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_510150",
+        "line": 4030
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_5199A0",
+        "line": 10346
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowLegacyCraftNameCF46D4",
+        "line": 1749
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "WriteLegacyCraftNameCF46D4",
+        "line": 1754
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4E54E0",
+        "line": 2140
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D04A0",
+        "line": 3218
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D2840",
+        "line": 3572
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CDB10",
+        "line": 3934
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CED60",
+        "line": 4044
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CF8A0",
+        "line": 4241
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CE930",
+        "line": 4390
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B1940",
+        "line": 6674
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B2730",
+        "line": 7133
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "DrawItemTooltipLines",
+        "line": 7912
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48B810",
+        "line": 7958
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48B810",
+        "line": 7970
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499C30",
+        "line": 10737
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_488FB0",
+        "line": 11445
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_489760",
+        "line": 11642
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48B1A0",
+        "line": 12172
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4E0100",
+        "line": 12889
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BAA50",
+        "line": 19911
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BC660",
+        "line": 21145
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C2B20",
+        "line": 23603
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C4CB0",
+        "line": 24535
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4810A0",
+        "line": 33221
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47E5E0",
+        "line": 33703
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47F3D0",
+        "line": 33919
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E92A0",
+        "line": 8701
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E9C80",
+        "line": 8973
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EA1B0",
+        "line": 9105
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52D7B0",
+        "line": 9993
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52DCE0",
+        "line": 10125
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F1C40",
+        "line": 12181
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F3ED0",
+        "line": 12292
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F24A0",
+        "line": 12484
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F2A30",
+        "line": 12618
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FB940",
+        "line": 12945
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F4790",
+        "line": 13123
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F51D0",
+        "line": 13385
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505170",
+        "line": 13601
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505C20",
+        "line": 13879
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FAEF0",
+        "line": 15690
+      }
+    ],
+    "evidence_refs": [
+      "doc/cg2d_io_unicode_boundary_spec.md",
+      "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+    ],
+    "all_io_migrated": false,
+    "runtime_verified": false
   }
 }

@@ -215,3 +215,5 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 2026-10-14 LNW01：用户转储所示登录wstring[159]断言已按[未选择分类语义](../doc/cg2d_login_negative_selection_byte_owner_spec.md#login-unselected-unicode-20261014)修正；共同查询覆盖两个绘制尾，旧负分类字节观察退休，非负服务器读取保持。增加LOGIN限定S，V03及其它开放任务／完整门禁保持；未重编或运行。
 
 2026-10-14 TUE01：按[提示GBK宽边界](../doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014)修复转储确证标题及其它已核来源的绘制／测宽遗漏，详[证据与审查范围](../doc/cg2d_tooltip_gbk_crash_20261014.md)。两个限定S，原身份／开放任务／完整门禁不升级；未重编或运行。用户已确认后续将文本解码上移至网络／文件解析边界，不能将本次显示边界修复当作该数据模型迁移完成。
+
+2026-10-14 NIO01：用户已确认网络／文件解析边界UTF-16方案，首个物品模块见[当前实现](../doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state)。玩家／宠物装备／摆摊物品、相关生命周期及结果名称成组迁宽，新增TEXT／UIRUNTIME／NETWORK各一限定S；其余原字节模块和全部运行门禁仍待，任务保持open。

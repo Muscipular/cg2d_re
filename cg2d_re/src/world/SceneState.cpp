@@ -319,7 +319,12 @@ void PlayerRuntimeSlots::ClearRaw() noexcept
     value58.RestoreRaw(zero);
     value68.RestoreRaw(zero);
     constexpr std::size_t tail = offsetof(PlayerRuntimeSlots, values78);
-    std::memset(bytes + tail, 0, sizeof(PlayerRuntimeSlots) - tail);
+    std::memset(bytes + tail, 0, offsetof(PlayerRuntimeSlots, items) - tail);
+    for (auto& item : items) { item = {}; }
+    action = nullptr;
+    text15BB8.fill(0);
+    value15BCC = 0;
+    values15BD0.fill(0);
 }
 
 // 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
@@ -3704,7 +3709,7 @@ void ApplyPlayerItemFields(
     PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
     record.used = 1;
     if (std::strlen(name) <= 28) {
-        std::strcpy(record.name.data(), name);
+        record.name = cg::text::FromGbkWide(name);
     }
     const std::int32_t color =
         network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 1);
@@ -3715,7 +3720,7 @@ void ApplyPlayerItemFields(
     network::ExtractDelimitedField_52CED0(payload, '|', nameField + 2, 767, description);
     input::UnescapeLegacyTextAndNotify_52D2F0(description);
     Sub_5196B0(index, description);
-    record.hasDescription = std::strlen(record.description[0].data()) != 0 ? 1 : 0;
+    record.hasDescription = !record.description[0].empty() ? 1 : 0;
     record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 3);
     record.canUseInField = static_cast<std::uint16_t>(
         network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 4));
@@ -3732,7 +3737,7 @@ void ApplyPlayerItemFields(
     network::ExtractDelimitedField_52CED0(payload, '|', nameField + 12, 255, memo);
     input::UnescapeLegacyTextAndNotify_52D2F0(memo);
     if (std::strlen(memo) <= 16) {
-        std::strcpy(record.memo.data(), memo);
+        record.memo = cg::text::FromGbkWide(memo);
     }
 }
 
@@ -3767,14 +3772,15 @@ void Sub_5196B0(const std::int32_t index, const char* const text)
     PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = record.description[line].data();
+        char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            record.description[line] = cg::text::FromGbkWide(row);
             last = line;
         } else {
-            row[0] = '\0';
+            record.description[line].clear();
         }
     }
-    while (last > 0 && std::strlen(record.description[last - 1].data()) == 0) {
+    while (last > 0 && record.description[last - 1].empty()) {
         --last;
     }
     if (last < 0) {
@@ -3804,7 +3810,7 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
             BorrowPlayerItemsFDA8A4()[index].used = 0;
-            BorrowPlayerItemsFDA8A4()[index].name[0] = '\0';
+            BorrowPlayerItemsFDA8A4()[index].name.clear();
         } else {
             ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
         }
@@ -3854,10 +3860,9 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     }
     PlayerItemRecord* const left = &BorrowPlayerItemsFDA8A4()[first];
     PlayerItemRecord* const right = &BorrowPlayerItemsFDA8A4()[second];
-    PlayerItemRecord temporary;
-    std::memcpy(&temporary, left, sizeof(temporary));
-    std::memmove(left, right, sizeof(temporary));
-    std::memcpy(right, &temporary, sizeof(temporary));
+    const PlayerItemRecord temporary = *left;
+    *left = *right;
+    *right = temporary;
     if (first < 8) {
         left->flags |= 0x80u;
     }
@@ -3934,10 +3939,9 @@ void Sub_51B630(
     }
     PlayerItemRecord* const first = firstBase + firstIndex;
     PlayerItemRecord* const second = secondBase + secondIndex;
-    PlayerItemRecord temporary;
-    std::memcpy(&temporary, first, sizeof(temporary));
-    std::memmove(first, second, sizeof(temporary));
-    std::memcpy(second, &temporary, sizeof(temporary));
+    const PlayerItemRecord temporary = *first;
+    *first = *second;
+    *second = temporary;
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
@@ -3949,7 +3953,10 @@ void PetRuntimeRecord::ClearRaw() noexcept
         value.RestoreRaw(platform::LegacyCryptInt::RawPayload{});
     }
     constexpr std::size_t tail = offsetof(PetRuntimeRecord, lvFlag6C);
-    std::memset(bytes + tail, 0, sizeof(PetRuntimeRecord) - tail);
+    std::memset(bytes + tail, 0, offsetof(PetRuntimeRecord, items6E4) - tail);
+    for (auto& item : items6E4) { item = {}; }
+    updated510C = 0;
+    bytes510D.fill(std::byte{0});
 }
 
 // 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
@@ -4005,14 +4012,15 @@ void Sub_519770(
     PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[itemIndex];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = record.description[line].data();
+        char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            record.description[line] = cg::text::FromGbkWide(row);
             last = line;
         } else {
-            row[0] = '\0';
+            record.description[line].clear();
         }
     }
-    while (last > 0 && std::strlen(record.description[last - 1].data()) == 0) {
+    while (last > 0 && record.description[last - 1].empty()) {
         --last;
     }
     record.pages = last < 0 ? 0 : last / 8 + 1;
@@ -4039,11 +4047,11 @@ void Sub_510150(
         PlayerItemRecord& record = (*BorrowPetRuntimeF633F8Storage())[petIndex].items6E4[index];
         if (std::strlen(name) == 0) {
             record.used = 0;
-            record.name[0] = '\0';
+            record.name.clear();
         } else {
             record.used = 1;
             if (std::strlen(name) <= 28) {
-                std::strcpy(record.name.data(), name);
+                record.name = cg::text::FromGbkWide(name);
             }
             const std::int32_t color =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
@@ -4055,7 +4063,7 @@ void Sub_510150(
                 payload, '|', field + 3, 767, description);
             input::UnescapeLegacyTextAndNotify_52D2F0(description);
             Sub_519770(petIndex, index, description);
-            record.hasDescription = std::strlen(record.description[0].data()) != 0 ? 1 : 0;
+            record.hasDescription = !record.description[0].empty() ? 1 : 0;
             record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
             record.canUseInField = static_cast<std::uint16_t>(
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5));
@@ -4073,7 +4081,7 @@ void Sub_510150(
             network::ExtractDelimitedField_52CED0(payload, '|', field + 13, 255, memo);
             input::UnescapeLegacyTextAndNotify_52D2F0(memo);
             if (std::strlen(memo) <= 16) {
-                std::strcpy(record.memo.data(), memo);
+                record.memo = cg::text::FromGbkWide(memo);
             }
         }
         field += 14;
@@ -10337,12 +10345,11 @@ std::int32_t gValueFDA6F8 = 0;
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void Sub_5199A0()
 {
-    static_assert(sizeof((*BorrowPetRuntimeF633F8Storage())) == 0x19550);
     static_assert(sizeof(gSkillRuntimeSlots) == 0x4790C);
     static_assert(sizeof(gContactsF19FB0) == 0x1B30);
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
-    // 含原生非拥有指针的两块按类型置空，其余沿原无指针整块清零。
+    // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
     BorrowPlayerRuntimeStorage()->ClearRaw();
     for (PetRuntimeRecord& record : *BorrowPetRuntimeF633F8Storage()) {
         record.ClearRaw();

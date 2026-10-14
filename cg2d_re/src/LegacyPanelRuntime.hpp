@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <string_view>
 
 namespace cg::login {
@@ -125,7 +126,7 @@ extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 原全局：0x005857D0。
 extern std::uint8_t gLegacySkillPendingD67C48; // 原全局：0x00D67C48。 500370清零，旧技能/加工父入口共享。
 extern std::int32_t gLegacyRequiredFpCC31D8; // 原全局：0x00CC31D8。 4EF0F0/4FF650生产，旧选择34显示；不复制玩家FP。
 extern std::int32_t gLegacyItemWorkSelection584394; // 原全局：0x00584394。 旧物品加工槽号，初值-1，不是现代选中物品状态。
-extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 原全局：0x00CC40D8。 4F24A0/4F2A30的固定64B复制目标。
+extern std::wstring gLegacyItemWorkNameCC40D8; // 原全局：0x00CC40D8。 4F24A0/4F2A30共用的动态宽名称。
 extern std::int32_t gLegacyItemWorkImageCC320C; // 原全局：0x00CC320C。
 extern std::int32_t gLegacyCraftPhaseD67D00; // 原全局：0x00D67D00。 旧选择26/27共享，不是现代窗口11状态。
 extern std::int32_t gLegacyGemPhaseD68A8C; // 原全局：0x00D68A8C。 旧29/30共享阶段，独立于D68A7C字符串探针。

@@ -2710,7 +2710,9 @@
         "doc/cg2d_login_receive_diagnostics_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#login-receive-diagnostics-debug-build",
         "doc/cg2d_network_compatibility_spec.md#window-report-plaintext-wiring",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "blockers": [
         "CAB27三回调入口宽度已修：未读socket只拓宽uintptr_t，Puk S32入口只消费低W8。原51条135B/唯一直接入向、源差集与当前Debug有据，三宽度警告0/其它97警告；IP2/完整网络/正常寿命/机器ABI未验，成员72枚举false。",
@@ -3443,7 +3445,9 @@
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -5157,7 +5161,9 @@
         "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -74322,6 +74328,96 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-14"
+    },
+    {
+      "id": "E-NIO01-ITEM-TEXT-S-20261014",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_io_unicode_boundary_spec.md",
+      "implementation_reference": "src/world/SceneState.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "用户确认在网络／文件解析边界统一宽文本；物品原字节模型使UI反复转码且生命周期仍依赖裸复制。",
+      "expected": "本模块解析后持wstring，正常字段／分行／状态／CryptInt取样不变，宽对象不遭裸内存复制；其它旧记录边界显式编码。",
+      "actual": "玩家／宠物装备／摆摊四入口字段成组迁宽，旧GBK行规则保留；标题与行宽接口、两个交换、三父对象清理、删除和制作／加工名称同步，两个固定尾字节旁读依据原零值不变量退休。其它网络／文件模型与完整运行未验。",
+      "differences": [
+        {
+          "description": "PlayerItemRecord成为含wstring的运行时对象，不再承担原C5C机器布局；注释保原地址，协议字段和原容量不变。",
+          "decision_ref": "doc/cg2d_io_unicode_boundary_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14"
+    },
+    {
+      "id": "E-NIO01-ITEM-UIRUNTIME-S-20261014",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_io_unicode_boundary_spec.md",
+      "implementation_reference": "src/world/SceneState.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "用户确认在网络／文件解析边界统一宽文本；物品原字节模型使UI反复转码且生命周期仍依赖裸复制。",
+      "expected": "本模块解析后持wstring，正常字段／分行／状态／CryptInt取样不变，宽对象不遭裸内存复制；其它旧记录边界显式编码。",
+      "actual": "玩家／宠物装备／摆摊四入口字段成组迁宽，旧GBK行规则保留；标题与行宽接口、两个交换、三父对象清理、删除和制作／加工名称同步，两个固定尾字节旁读依据原零值不变量退休。其它网络／文件模型与完整运行未验。",
+      "differences": [
+        {
+          "description": "PlayerItemRecord成为含wstring的运行时对象，不再承担原C5C机器布局；注释保原地址，协议字段和原容量不变。",
+          "decision_ref": "doc/cg2d_io_unicode_boundary_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14"
+    },
+    {
+      "id": "E-NIO01-ITEM-NETWORK-S-20261014",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_io_unicode_boundary_spec.md",
+      "implementation_reference": "src/world/SceneState.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp"
+      ],
+      "observation": "用户确认在网络／文件解析边界统一宽文本；物品原字节模型使UI反复转码且生命周期仍依赖裸复制。",
+      "expected": "本模块解析后持wstring，正常字段／分行／状态／CryptInt取样不变，宽对象不遭裸内存复制；其它旧记录边界显式编码。",
+      "actual": "玩家／宠物装备／摆摊四入口字段成组迁宽，旧GBK行规则保留；标题与行宽接口、两个交换、三父对象清理、删除和制作／加工名称同步，两个固定尾字节旁读依据原零值不变量退休。其它网络／文件模型与完整运行未验。",
+      "differences": [
+        {
+          "description": "PlayerItemRecord成为含wstring的运行时对象，不再承担原C5C机器布局；注释保原地址，协议字段和原容量不变。",
+          "decision_ref": "doc/cg2d_io_unicode_boundary_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14"
     }
   ],
   "task_acceptance": [
@@ -75407,7 +75503,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ]
     },
     {
@@ -75684,7 +75782,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_io_unicode_boundary_spec.md",
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
       ]
     },
     {

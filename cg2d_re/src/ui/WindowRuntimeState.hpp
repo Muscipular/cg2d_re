@@ -7,6 +7,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 namespace cg::login {
 struct YobiAction;
@@ -1794,8 +1795,8 @@ std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept; // 新旧加工入口与�
 void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
 std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
 std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
-const char* BorrowLegacyCraftNameCF46D4() noexcept;
-void WriteLegacyCraftNameCF46D4(const char* name); // 旧26发送前NUL复制，沿既有60B结果名称。
+std::wstring_view BorrowLegacyCraftNameCF46D4() noexcept;
+void WriteLegacyCraftNameCF46D4(std::wstring_view name); // 旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。
 const char* BorrowLegacyCraftSuffixD672B4() noexcept;
 std::wstring_view BorrowLegacyCraftDetailsD2E92C() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原全局：0x005846BC。 原装载初值-1。
@@ -2131,6 +2132,10 @@ std::int32_t Sub_4FBA30(
     std::int32_t fontType, std::int8_t color, std::wstring_view text,
     std::int8_t value7, std::int8_t marker); // 原$分段、颜色续接与即时测宽。
 // 原函数：0x0048B810。
+// NIO01：原0x0048B810，运行时物品描述直接借宽行。
+std::int32_t Sub_48B810(
+    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
+    const std::wstring* lines, std::int32_t lineCount, const wchar_t* footer, std::int8_t footerColor);
 std::int32_t Sub_48B810(
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const char* gbkLines, std::int32_t stride, std::int32_t lineCount,

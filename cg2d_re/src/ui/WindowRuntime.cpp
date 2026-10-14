@@ -611,7 +611,7 @@ std::int32_t gCraftIntelligenceCB0F84 = 0; // 原全局：0x00CB0F84。
 std::int32_t gCraftInjuryD2EA78 = 0; // 原全局：0x00D2EA78。
 std::int32_t gCraftResultImageCF4B60 = 0; // 原全局：0x00CF4B60。
 std::int32_t gCraftDisplayImageCB2204 = 0; // 原全局：0x00CB2204。
-std::array<char, 60> gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
+std::wstring gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
 std::array<char, 32> gCraftResultSuffixD672B4 {}; // 原全局：0x00D672B4。
 // 只承接已证NUL文本合同；原固定容量未证，不猜数组上界或保留邻区。
 std::wstring gCraftResultDetailsD2E92C; // 原全局：0x00D2E92C。
@@ -823,7 +823,6 @@ struct StallBrowseData {
     std::array<std::int32_t, 5> petValuesD2D464; // 原全局：0x00D2D464。
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
-static_assert(std::is_standard_layout_v<StallBrowseData>);
 static_assert(!std::is_trivially_destructible_v<StallBrowseData>);
 static_assert(offsetof(StallBrowseData, sellerName00) == 0);
 static_assert(offsetof(StallBrowseData, stallName11) == 0x11);
@@ -833,13 +832,6 @@ static_assert(offsetof(StallBrowseData, target5C) == 0x5C);
 static_assert(offsetof(StallBrowseData, imageNo60) == 0x60);
 static_assert(offsetof(StallBrowseData, action64) == 0x64);
 static_assert(offsetof(StallBrowseData, direction68) == 0x68);
-static_assert(offsetof(StallBrowseData, items) == 0x6C);
-static_assert(offsetof(StallBrowseData, itemValuesD13E74) == 0xF79C);
-static_assert(offsetof(StallBrowseData, itemValuesD13EC4) == 0xF7EC);
-static_assert(offsetof(StallBrowseData, pets) == 0xF83C);
-static_assert(offsetof(StallBrowseData, petValuesD2D464) == 0x28D8C);
-static_assert(offsetof(StallBrowseData, petValuesD2D478) == 0x28DA0);
-static_assert(sizeof(StallBrowseData) == 0x28DB4);
 // 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
 std::optional<StallBrowseData>& BorrowStallBrowseD046D8Storage()
 {
@@ -1754,14 +1746,14 @@ std::int32_t ReadLegacyCraftImageCF4B60() noexcept
     return gCraftResultImageCF4B60;
 }
 
-const char* BorrowLegacyCraftNameCF46D4() noexcept
+std::wstring_view BorrowLegacyCraftNameCF46D4() noexcept
 {
-    return gCraftNameCF46D4.data();
+    return gCraftNameCF46D4;
 }
 
-void WriteLegacyCraftNameCF46D4(const char* const name)
+void WriteLegacyCraftNameCF46D4(const std::wstring_view name)
 {
-    std::strcpy(gCraftNameCF46D4.data(), name);
+    gCraftNameCF46D4 = name;
 }
 
 const char* BorrowLegacyCraftSuffixD672B4() noexcept
@@ -2166,10 +2158,10 @@ void Sub_4E54E0(const std::int32_t side, const std::int32_t index)
     WriteTradeValue(record, 0x0C, itemId);
     WriteTradeValue(record, 0xC34,
         static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
-    if (std::strlen(source.memo.data()) != 0) {
-        std::strcpy(record + 0xC38, source.memo.data());
+    if (!source.memo.empty()) {
+        cg::text::StoreGbk(record + 0xC38, 17, source.memo);
     }
-    std::strcpy(record + 0x10, source.name.data());
+    cg::text::StoreGbk(record + 0x10, 29, source.name);
     if ((flags & 1u) == 0) {
         WriteTradeValue(record, 2, std::uint16_t{0xFFFF});
     }
@@ -3269,12 +3261,13 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     }
     char buffer[60];
     for (std::int32_t line = 0; line < 2; ++line) {
-        static_cast<void>(input::ExtractGbkTextLine(buffer, 20, item->name.data(), line, 10));
+        std::wstring nameLine;
+        static_cast<void>(input::ExtractTextLine(nameLine, item->name, line, 10));
         WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const auto y = static_cast<std::int16_t>(window->y + element.y + 5 + line * 14);
         const auto x = static_cast<std::int16_t>(window->x + element.x + 52);
-        static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, buffer, 0, 0));
+        static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, nameLine, 0, 0));
     }
     std::int32_t consumed = 0;
     if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
@@ -3659,14 +3652,15 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<void>(render::DrawGraphic3_520970(
                 x + 136, y + 9, 227, 243000, 0, 1, 0, &descriptor));
         }
-        static_cast<void>(input::ExtractGbkTextLine(buffer, 20, item->name.data(), 0, 10));
+        std::wstring nameLine;
+        static_cast<void>(input::ExtractTextLine(nameLine, item->name, 0, 10));
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 58),
-            4, 8, 0, buffer, 0, 0));
-        static_cast<void>(input::ExtractGbkTextLine(buffer, 20, item->name.data(), 1, 10));
+            4, 8, 0, nameLine, 0, 0));
+        static_cast<void>(input::ExtractTextLine(nameLine, item->name, 1, 10));
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
-            4, 8, 0, buffer, 0, 0));
+            4, 8, 0, nameLine, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
         std::sprintf(buffer, "%d", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
         Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
@@ -4028,18 +4022,17 @@ std::int32_t Sub_4CDB10(const std::int32_t)
             } else if (hover >= 200) {
                 const auto& item = BorrowStallBrowseD046D8Storage()->items[hover - 200];
                 const std::uint16_t flags = item.flags;
-                const std::wstring title = cg::text::FromGbkWide(item.name.data());
+                const std::wstring title = item.name;
                 const std::int8_t color = (flags & 0x100u) != 0
                     ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
                 const std::int32_t page = gStallDescriptionPageD67C3C;
-                const char* const lines = reinterpret_cast<const char*>(&item)
-                    + offsetof(world::detail::PlayerItemRecord, description) + page * 768;
+                const std::wstring* const lines = item.description.data() + page * 8;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int16_t y = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(window->y + 40));
                 const std::int16_t x = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(window->x + 320));
-                static_cast<void>(Sub_48B810(x, y, title.c_str(), color, lines, 96, 8, nullptr, 0));
+                static_cast<void>(Sub_48B810(x, y, title.c_str(), color, lines, 8, nullptr, 0));
             }
         }
     }
@@ -4080,7 +4073,10 @@ void Sub_4CED60(
 
     auto& browse = *BorrowStallBrowseD046D8Storage();
     auto* const bytes = reinterpret_cast<std::byte*>(&browse);
-    std::memset(bytes, 0, offsetof(StallBrowseData, pets));
+    std::memset(bytes, 0, offsetof(StallBrowseData, items));
+    for (auto& item : browse.items) { item = {}; }
+    browse.itemValuesD13E74.fill(0);
+    browse.itemValuesD13EC4.fill(0);
     for (world::detail::PetRuntimeRecord& pet : browse.pets) {
         pet.ClearRaw();
     }
@@ -4102,7 +4098,7 @@ void Sub_4CED60(
     for (std::int32_t index = 0; index < itemCount; ++index, itemField += 15) {
         auto& item = BorrowStallBrowseD046D8Storage()->items[gStallItemCountD67BCC];
         ++gStallItemCountD67BCC;
-        std::memset(&item, 0, sizeof(item));
+        item = {};
         BorrowStallBrowseD046D8Storage()->itemValuesD13E74[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 2);
         BorrowStallBrowseD046D8Storage()->itemValuesD13EC4[index] =
@@ -4111,7 +4107,7 @@ void Sub_4CED60(
         input::UnescapeLegacyTextAndNotify_52D2F0(itemName);
         item.used = 1;
         if (std::strlen(itemName) <= 28) {
-            std::strcpy(item.name.data(), itemName);
+            item.name = cg::text::FromGbkWide(itemName);
         }
         item.color = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 1);
         if (item.color < 0) {
@@ -4120,7 +4116,7 @@ void Sub_4CED60(
         network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField + 2, 767, itemDescription);
         input::UnescapeLegacyTextAndNotify_52D2F0(itemDescription);
         Sub_4CF8A0(&item, itemDescription);
-        item.hasDescription = item.description[0][0] != '\0' ? 1 : 0;
+        item.hasDescription = !item.description[0].empty() ? 1 : 0;
         item.imageNo = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 3);
         item.canUseInField = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 4));
@@ -4137,7 +4133,7 @@ void Sub_4CED60(
         network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField + 12, 255, itemMemo);
         input::UnescapeLegacyTextAndNotify_52D2F0(itemMemo);
         if (std::strlen(itemMemo) <= 16) {
-            std::strcpy(item.memo.data(), itemMemo);
+            item.memo = cg::text::FromGbkWide(itemMemo);
         }
     }
 
@@ -4246,15 +4242,16 @@ void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const t
 {
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
-        char* const row = item->description[line].data();
+        char row[96]; // 原每行最多32B；解析后即转为运行时宽文本。
         if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            item->description[line] = cg::text::FromGbkWide(row);
             last = line;
         } else {
-            row[0] = '\0';
+            item->description[line].clear();
         }
     }
     // 原回扫从最后成功行的前一行开始，不检查最后成功行本身。
-    while (last > 0 && std::strlen(item->description[last - 1].data()) == 0) {
+    while (last > 0 && item->description[last - 1].empty()) {
         --last;
     }
     item->pages = last < 0 ? 0 : last / 8 + 1;
@@ -4420,9 +4417,10 @@ void Sub_4CE930(const std::int32_t result)
             gStallItemCountD67BCC = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                std::memmove(BorrowStallBrowseD046D8Storage()->items.data() + index,
-                    BorrowStallBrowseD046D8Storage()->items.data() + index + 1,
-                    remaining * sizeof(world::detail::PlayerItemRecord));
+                auto* const items = BorrowStallBrowseD046D8Storage()->items.data();
+                for (std::size_t position = 0; position < remaining; ++position) {
+                    items[index + position] = items[index + position + 1];
+                }
                 std::memmove(BorrowStallBrowseD046D8Storage()->itemValuesD13E74.data() + index,
                     BorrowStallBrowseD046D8Storage()->itemValuesD13E74.data() + index + 1,
                     remaining * sizeof(std::int32_t));
@@ -6799,14 +6797,12 @@ void Sub_4B1940(
             223, login::detail::gValueD69768, 0);
         const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item.used != 0) {
-            const std::size_t memoLength = std::strlen(item.memo.data());
+            const std::size_t memoLength = item.memo.size();
             gTradePreviewCC2E64 = hovered;
             if (memoLength != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer, "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer, "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                gHoverTextD68AE8 = item.memo + L"[han]";
             }
         }
         gTradeValueD2EA20 = 0;
@@ -7260,12 +7256,10 @@ void Sub_4B2730(
             const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
             if (item.used != 0) {
                 gTradePreviewCC2E64 = slot;
-                if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                    std::sprintf(buffer, "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                    gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
+                    gHoverTextD68AE8 = item.name + L"[kok]";
                 } else if ((item.flags & 0x200u) != 0) {
-                    std::sprintf(buffer, "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                    gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                    gHoverTextD68AE8 = item.memo + L"[han]";
                 }
             }
         }
@@ -7914,10 +7908,11 @@ std::int32_t Sub_4FBA30(
 }
 
 // TDR01：原48B810完整108条；层5清尾/题目/逐行颜色/可选footer后背景入队，原坐标截断及真实返回保持。
-std::int32_t Sub_48B810(
+template <typename ReadLine>
+static std::int32_t DrawItemTooltipLines(
     const std::int32_t x, const std::int32_t y,
     const wchar_t* const title, const std::int8_t titleColor,
-    const char* gbkLines, const std::int32_t stride, const std::int32_t lineCount,
+    const ReadLine& readLine, const std::int32_t lineCount,
     const wchar_t* const footer, const std::int8_t footerColor)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -7936,15 +7931,15 @@ std::int32_t Sub_48B810(
     gTooltipColorD67D30 = 0;
     std::int32_t lineY = 0;
     for (std::int32_t line = 0; line < lineCount; ++line) {
-        if (*gbkLines != '\0') {
+        const auto contents = readLine(line);
+        if (!contents.empty()) {
             const std::int32_t shortY =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
             const std::int32_t shortX =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
             static_cast<void>(Sub_4FBA30(
-                shortX + 10, shortY + lineY + 22, 5, 12, 0, cg::text::FromGbkWide(gbkLines), 0, 0));
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, contents, 0, 0));
         }
-        gbkLines += stride;
         lineY += 13;
     }
     if (footer != nullptr) {
@@ -7957,6 +7952,30 @@ std::int32_t Sub_48B810(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
         0xE6, 0x3BA5D, 0, 1, 0, &descriptor);
+}
+
+// 原0x0048B810：已迁移的运行时描述直接借宽行，逐行读序保持。
+std::int32_t Sub_48B810(
+    const std::int32_t x, const std::int32_t y,
+    const wchar_t* const title, const std::int8_t titleColor,
+    const std::wstring* const lines, const std::int32_t lineCount,
+    const wchar_t* const footer, const std::int8_t footerColor)
+{
+    return DrawItemTooltipLines(x, y, title, titleColor,
+        [lines](const std::int32_t line) { return std::wstring_view(lines[line]); },
+        lineCount, footer, footerColor);
+}
+
+// 原0x0048B810：尚未迁移的固定GBK记录适配；保留原步长与即时逐行解码。
+std::int32_t Sub_48B810(
+    const std::int32_t x, const std::int32_t y,
+    const wchar_t* const title, const std::int8_t titleColor,
+    const char* const gbkLines, const std::int32_t stride, const std::int32_t lineCount,
+    const wchar_t* const footer, const std::int8_t footerColor)
+{
+    return DrawItemTooltipLines(x, y, title, titleColor,
+        [gbkLines, stride](const std::int32_t line) { return cg::text::FromGbkWide(gbkLines + line * stride); },
+        lineCount, footer, footerColor);
 }
 
 // 原函数：0x0048B930。
@@ -10916,8 +10935,6 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
                     }
                 }
             } else {
-                std::array<char, 512> name;
-                cg::text::Copy(name.data(), name.size(), cg::text::FromGbk(item.name.data()));
                 gHoverTextD68AE8 = canUse;
             }
             gHoverTextD68AE8 = hint;
@@ -11581,12 +11598,10 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item.used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered + 8);
-            if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+            if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
+                gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+                gHoverTextD68AE8 = item.memo + L"[han]";
             }
         }
     }
@@ -11806,7 +11821,6 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
                 223, 254, 0);
         }
     }
-    std::array<char, 768> buffer;
     if (hovered >= 0) {
         const std::int32_t left = Sub_4C7240(&gItemSelectorCF3B10, index, hitIndex, -24);
         const std::int32_t top = Sub_4C7280(&gItemSelectorCF3B10, index, hitIndex, -24);
@@ -11816,12 +11830,10 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
             223, login::detail::gValueD69768, 0);
         if (item->used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered);
-            if (std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", cg::text::FromGbk(item->name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+            if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
+                gHoverTextD68AE8 = item->name + L"[kok]";
             } else if ((item->flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", cg::text::FromGbk(item->memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+                gHoverTextD68AE8 = item->memo + L"[han]";
             }
         }
     }
@@ -12183,20 +12195,18 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
         record = &world::detail::BorrowPlayerItemsFDA8A4()[index];
     }
     const std::uint16_t flags = record->flags;
-    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0
-        ? record->memo.data() : record->name.data());
+    const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
-    const char* const lines = reinterpret_cast<const char*>(record)
-        + offsetof(world::detail::PlayerItemRecord, description) + page * 768;
+    const std::wstring* const lines = record->description.data() + page * 8;
     if (petEquipment) {
         const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
         const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-        return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
+        return Sub_48B810(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
     }
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。
@@ -12896,12 +12906,12 @@ void Sub_4E0100(const std::int32_t side, const std::int32_t index)
     const std::uint16_t flags = source.flags;
     WriteTradeValue(record, 0xC40,
         static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
-    if (std::strlen(source.memo.data()) != 0) {
-        std::strcpy(record + 0xC29, source.memo.data());
+    if (!source.memo.empty()) {
+        cg::text::StoreGbk(record + 0xC29, 17, source.memo);
     }
-    std::strcpy(record + 0x0C, source.name.data());
+    cg::text::StoreGbk(record + 0x0C, 29, source.name);
     for (std::int32_t line = 0; line < 32; ++line) {
-        std::strcpy(record + 0x29 + line * 96, source.description[line].data());
+        cg::text::StoreGbk(record + 0x29 + line * 96, 96, source.description[line]);
     }
     WriteTradeValue(record, 0xC3C, source.pages);
     if ((flags & 0x60u) != 0) {
@@ -19911,9 +19921,8 @@ std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
                 // 原4BAA95读取CF4FC4，与表情选择首字节同源。
                 allowed = gEmoteSelectionCF4FC4[0];
             } else if (item == 20) {
-                // 原D052FC为浏览首条物品+BB8，对应description[30][72]。
-                allowed = static_cast<std::uint8_t>(
-                    BorrowStallBrowseD046D8Storage()->items[0].description[30][72]);
+                // 原D052FC对应description[30][72]；旧行最多32B，此零初值尾字节没有写入者。
+                allowed = 0;
             } else {
                 allowed = static_cast<std::uint8_t>(gShopItemsCF4FE0[item * 0xC58 + 0xC3C]);
             }
@@ -21297,12 +21306,10 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             if ((mode != 1 && mode != 4 && mode != 5) || gShopInventoryMapD2DAB8[scanSlot] >= 0) {
                 gShopTooltipIndex580844 = hovered + 8;
             }
-            if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer, "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+            if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
+                gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer, "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                gHoverTextD68AE8 = item.memo + L"[han]";
             }
         }
     }
@@ -21358,9 +21365,9 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
                     223, 256, 0);
             }
             const std::int32_t mappedItem = gShopInventoryMapD2DAB8[position];
-            // 原4BCE19：映射20读取D052FC，即浏览首条物品+BB8。
+            // 原4BCE19读取D052FC；该原行尾字节始终为零，宽字符串不承接固定区旁读。
             const char allowed = mappedItem == 20
-                ? BorrowStallBrowseD046D8Storage()->items[0].description[30][72]
+                ? 0
                 : gShopItemsCF4FE0[mappedItem * 0xC58 + 0xC3C];
             if (allowed == 0) {
                 static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
@@ -23663,12 +23670,10 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         const world::detail::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             gWindow69Tooltip580850 = hovered + 8;
-            if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+            if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
+                gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+                gHoverTextD68AE8 = item.memo + L"[han]";
             }
         }
     }
@@ -24597,12 +24602,10 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         const world::detail::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
             gWindow70Tooltip580860 = hovered + 8;
-            if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", cg::text::FromGbk(item.name.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+            if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
+                gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", cg::text::FromGbk(item.memo.data()).c_str());
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer.data());
+                gHoverTextD68AE8 = item.memo + L"[han]";
             }
         }
     }
@@ -33444,10 +33447,9 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             std::sprintf(buffer, "%d|%d", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
-            const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name.data();
-            const std::size_t length = std::strlen(name) + 1;
+            const std::wstring& name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name;
             const std::uint8_t currentMode = gSelectionModeD2D650;
-            std::memcpy(gCraftNameCF46D4.data(), name, length);
+            gCraftNameCF46D4 = name;
             if (currentMode == 7) {
                 gSelectionModeD2D650 = 8;
                 hideControls = true;
@@ -33468,7 +33470,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
-            std::strcpy(gCraftNameCF46D4.data(), world::detail::BorrowPlayerItemsFDA8A4()[selected].name.data());
+            gCraftNameCF46D4 = world::detail::BorrowPlayerItemsFDA8A4()[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
             const char initial = input::LegacyText593850()[0];
@@ -33483,8 +33485,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     std::strcat(buffer, temporary);
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
-                        std::strcpy(gCraftNameCF46D4.data(),
-                            world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].name.data());
+                        gCraftNameCF46D4 = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].name;
                     }
                 }
             }
@@ -33707,10 +33708,10 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
     }
     const std::int32_t skillIndex = gCraftSkillIndexCC2368;
     const std::int32_t skillId = world::detail::gSkillsF1BAFC[skillIndex].skillId;
-    const char* const name = skillId == 255 || skillId == 2026
-        ? gCraftNameCF46D4.data()
-        : world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data();
-    static_cast<WindowTextData*>(window->elements[9].data)->text = cg::text::FromGbkWide(name);
+    const std::wstring name = skillId == 255 || skillId == 2026
+        ? gCraftNameCF46D4
+        : cg::text::FromGbkWide(world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data());
+    static_cast<WindowTextData*>(window->elements[9].data)->text = name;
     const std::int32_t result = gCraftResultCC46D8;
     auto* const resultText = static_cast<WindowTextData*>(window->elements[10].data);
     if (result != 0) {
@@ -33924,7 +33925,7 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
         static_cast<void>(Sub_47DC20(6));
     }
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[selected];
-    static_cast<WindowTextData*>(window->elements[9].data)->text = cg::text::FromGbkWide(item->name.data());
+    static_cast<WindowTextData*>(window->elements[9].data)->text = item->name;
     const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const char* message = nullptr;
     switch (skillId) {

@@ -3441,7 +3441,9 @@
         "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -5153,7 +5155,9 @@
         "doc/cg2d_build_acceptance_spec.md#window-draw-width-debug-build",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_battle_scalar_dependencies_spec.md#battle-scalar-dependencies-decision",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -74260,6 +74264,64 @@
       "observation": "用户转储证实未选分类时读取空wstring[159]触发断言，相邻[84]同类。",
       "expected": "两处登录尾部均不再读取失效的固定文字区索引，已选择分类的服务器表读取保持。",
       "actual": "共享ReadServerAvailability负分类直接返回false，原ReadNegativeSelectionAvailability和仅供其使用的D68AC6常量／声明退休；非负索引公式和available表达式及ProcessScene正文保持。仅静态源码，不宣称实际重编／运行复现通过。"
+    },
+    {
+      "id": "E-TUE01-TEXT-S-20261014",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_tooltip_gbk_crash_20261014.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp",
+        "src/YobiRuntime.cpp"
+      ],
+      "observation": "匹配转储证实GBK标题柠檬草误入CP_UTF8解码；同类入口按实际文本生产者复查。",
+      "expected": "已确认的GBK文本进入宽测宽/绘制，宽文字及UTF-8兼容输出保持各自合同。",
+      "actual": "48B810九处标题配对、48B930宽静态行、4FBA30宽入口、504BA0六调用及宠物/名单/属性/战斗结果和弹字/共享旧前缀修正；只完成静态接线核对，未重编或运行。",
+      "differences": [
+        {
+          "description": "提示、旧标题和已确认GBK正文改用原生UTF-16视图，原字节记录及取样顺序保持。",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14"
+    },
+    {
+      "id": "E-TUE01-UIRUNTIME-S-20261014",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_tooltip_gbk_crash_20261014.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp",
+        "src/YobiRuntime.cpp"
+      ],
+      "observation": "匹配转储证实GBK标题柠檬草误入CP_UTF8解码；同类入口按实际文本生产者复查。",
+      "expected": "已确认的GBK文本进入宽测宽/绘制，宽文字及UTF-8兼容输出保持各自合同。",
+      "actual": "48B810九处标题配对、48B930宽静态行、4FBA30宽入口、504BA0六调用及宠物/名单/属性/战斗结果和弹字/共享旧前缀修正；只完成静态接线核对，未重编或运行。",
+      "differences": [
+        {
+          "description": "提示、旧标题和已确认GBK正文改用原生UTF-16视图，原字节记录及取样顺序保持。",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-14"
     }
   ],
   "task_acceptance": [
@@ -75343,7 +75405,9 @@
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md"
       ]
     },
     {
@@ -75618,7 +75682,9 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
+        "doc/cg2d_tooltip_gbk_crash_20261014.md"
       ]
     },
     {

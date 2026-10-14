@@ -3201,7 +3201,7 @@ try {
             const char* const name = ui::detail::gSkillTargetNamesCB0550[absolute].data();
             const std::int8_t color = std::bit_cast<std::int8_t>(
                 static_cast<std::uint8_t>(colors[ui::detail::gSkillTargetKindsD2F75C[absolute]]));
-            drawAt(name, 88, 52 + 20 * index, color);
+            drawAt(cg::text::FromGbkWide(name), 88, 52 + 20 * index, color);
             page = ui::detail::gSkillTargetPageC8A974;
         }
     }
@@ -3338,7 +3338,7 @@ try {
             std::memcpy(&kind, record, sizeof(kind));
             const char* const name = reinterpret_cast<const char*>(record + 2);
             const std::int8_t color = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(colors[kind]));
-            drawAt(name, 88, 52 + 20 * index, color);
+            drawAt(cg::text::FromGbkWide(name), 88, 52 + 20 * index, color);
             page = *rows.page;
         }
     }
@@ -3835,22 +3835,20 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     if (item[0] == 0) {
         return;
     }
-    char title[96];
+    std::wstring title;
     const std::int32_t count = ReadRecordW32(item, 0xC30);
     if (count <= 1) {
-        cg::text::Copy(title, sizeof(title), cg::text::FromGbk(item + 1));
+        title = cg::text::FromGbkWide(item + 1);
     } else {
-        ::_snprintf(title, 84, "%s(%d)", cg::text::FromGbk(item + 1).c_str(), count);
-        title[84] = '\0';
-        title[cg::text::Prefix(title, 84)] = '\0';
+        title = std::format(L"{}({})", cg::text::FromGbkWide(item + 1), count);
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC40);
-    Sub_504BA0(x, y, 272, 4, 0, title, cg::text::FromGbk(item + 0xC44).c_str(), 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, title, cg::text::FromGbkWide(item + 0xC44), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     for (std::int32_t row = 0; row < 7; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
     if (item[0xC3C] == 0 && mode == 0) {
@@ -4739,12 +4737,12 @@ void Sub_4DDA30(const std::int32_t x, const std::int32_t y,
         return;
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC30);
-    Sub_504BA0(x, y, 272, 4, 0, item + 1, item + 0xC34, 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbkWide(item + 1), cg::text::FromGbkWide(item + 0xC34), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -5130,12 +5128,12 @@ void Sub_4DF210(const std::int32_t x, const std::int32_t y,
         return;
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC30);
-    Sub_504BA0(x, y, 272, 4, 0, item + 1, item + 0xC34, 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbkWide(item + 1), cg::text::FromGbkWide(item + 0xC34), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -5372,8 +5370,8 @@ try {
         }
         const char* const name = reinterpret_cast<const char*>(record + 9);
         if (name[0] != '\0') {
-            const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-            drawAt(name, 160 - nameWidth / 2, 43 + 76 * index, 0);
+            const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(name), 0);
+            drawAt(cg::text::FromGbkWide(name), 160 - nameWidth / 2, 43 + 76 * index, 0);
         }
         std::int32_t timeValue = ReadRecordW32(record, 4);
         if (timeValue != 0) {
@@ -5732,7 +5730,7 @@ void Sub_4D4960(const std::int32_t x, const std::int32_t y,
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item.descriptions[8 * page + row].data();
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -6253,7 +6251,7 @@ std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::i
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = description + 96 * row;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(line), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -6669,12 +6667,12 @@ std::int32_t Sub_4E0FF0(const std::int32_t x, const std::int32_t y,
         return item;
     }
     const std::int32_t flags = ReadRecordW32(record, 0xC40);
-    Sub_504BA0(x, y, 272, 4, 0, record + 0x0C, record + 0xC29, 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbkWide(record + 0x0C), cg::text::FromGbkWide(record + 0xC29), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     const char* text = record + 0x29 + page * 768;
     for (std::int32_t row = 0; row < 8; ++row, text += 96) {
         if (std::strlen(text) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(text).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(text), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -6867,8 +6865,8 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
             static_cast<std::int16_t>(y + offsetY), 4, font, 0, text, 0, 0));
     };
     const char* const name = record + 0x142;
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-    drawAt(name, 136 - width / 2, 5, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name), 0);
+    drawAt(cg::text::FromGbkWide(name), 136 - width / 2, 5, 0);
     char buffer[384];
     std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
@@ -8117,12 +8115,12 @@ std::int32_t Sub_4E7290(const std::int32_t x, const std::int32_t y,
         return item;
     }
     const std::int32_t flags = ReadRecordW32(record, 0xC34);
-    Sub_504BA0(x, y, 272, 4, 0, record + 0x10, record + 0xC38, 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbkWide(record + 0x10), cg::text::FromGbkWide(record + 0xC38), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     const char* text = record + 0x2D + page * 768;
     for (std::int32_t row = 0; row < 8; ++row, text += 96) {
         if (std::strlen(text) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(text).c_str(), 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(text), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -8160,8 +8158,8 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
             static_cast<std::int16_t>(y + offsetY), 4, font, 0, text, 0, 0));
     };
     const char* const name = record + 0x5D8;
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-    drawAt(name, 136 - width / 2, 5, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name), 0);
+    drawAt(cg::text::FromGbkWide(name), 136 - width / 2, 5, 0);
     char buffer[384];
     std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
@@ -10419,9 +10417,9 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
     std::sprintf(buffer, "%3d", member->value10);
     drawAt(buffer, 134, 49, 1, 0);
     const char* const memberName = member->text18;
-    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(memberName).c_str(), 0);
-    drawAt(memberName, 162 - nameWidth / 2, 70, 0, 0);
-    const std::int32_t rankWidth = TextMeasure(cg::text::FromGbk(BorrowGuildRankText1051518(member->value00)).c_str(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(memberName), 0);
+    drawAt(cg::text::FromGbkWide(memberName), 162 - nameWidth / 2, 70, 0, 0);
+    const std::int32_t rankWidth = TextMeasure(cg::text::FromGbkWide(BorrowGuildRankText1051518(member->value00)), 0);
     const char* const rankName = BorrowGuildRankText1051518(member->value00);
     drawAt(cg::text::FromGbk(rankName).c_str(), 162 - rankWidth / 2, 93, 0, 0);
     const std::int16_t titleSelected = login::gSelectedCharacterIndex;
@@ -11677,10 +11675,10 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             injury = pet->values70[25];
             name = hasUserName ? pet->name6BD.data() : pet->name6AC.data();
         }
-        std::strcpy(buffer, name);
+        const std::wstring displayName = cg::text::FromGbkWide(name);
         const std::int32_t injuryImage = ui::detail::ReadLegacyHealthImage(injury);
         drawImage(injuryImage, 55, row * 24 + 68);
-        drawAt(buffer, 71, row * 24 + 57, 0);
+        drawAt(displayName, 71, row * 24 + 57, 0);
         if (result->value02 != 0) {
             drawImage(23382, 244, row * 24 + 67);
         }
@@ -12963,12 +12961,12 @@ void Sub_4FB940(
     if (item->used == 0) {
         return;
     }
-    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbk(item->name.data()).c_str(), cg::text::FromGbk(item->memo.data()).c_str(),
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbkWide(item->name.data()), cg::text::FromGbkWide(item->memo.data()),
         0, 0, std::bit_cast<std::int16_t>(item->flags));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const text = item->description[page * 8 + row].data();
         if (std::strlen(text) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, text, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbkWide(text), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -12977,11 +12975,11 @@ void Sub_4FB940(
 // 原函数：0x00504BA0。
 void Sub_504BA0(
     const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::uint8_t layer,
-    const std::int32_t font, const char* const name, const char* const memo,
+    const std::int32_t font, const std::wstring_view name, const std::wstring_view memo,
     const std::int32_t, const std::int32_t, const std::int16_t flags)
 {
     std::int32_t textWidth = TextMeasure(name, font);
-    const char* text = name;
+    std::wstring_view text = name;
     std::int8_t color = 0;
     if ((flags & 0x100) != 0) {
         textWidth = TextMeasure(memo, font);
@@ -14291,9 +14289,9 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         }
         std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
         drawAt(buffer, 46, 170, 1);
-        const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(reinterpret_cast<const char*>(selectedRecord() + 0x34)).c_str(), 0);
+        const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(reinterpret_cast<const char*>(selectedRecord() + 0x34)), 0);
         const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
-        drawAt(name, 154 - nameWidth / 2, 168, 0);
+        drawAt(cg::text::FromGbkWide(name), 154 - nameWidth / 2, 168, 0);
         const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);
         const std::int32_t firstY = gLegacyAlbumDetailPanel5846C0.y + 207;
         const std::int32_t firstImage = firstMarks[firstMark];

@@ -1290,7 +1290,6 @@ constexpr std::array<const char*, 6> kShopConfirmAcceptHints {
     "進行修理。",
 };
 constexpr wchar_t kShopUnavailableHint586BF4[] = L"＊現在無法裝備"; // 原常量参考：0x00586BF4。
-const std::string kShopUnavailableHint586BF4Utf8View = cg::text::FromUtf16(kShopUnavailableHint586BF4); // 旧窄接口只读兼容视图。
 
 std::int32_t gChoiceImageCB0AE4 = 0; // 原全局：0x00CB0AE4。
 std::int32_t gChoiceImageCF4A18 = 0; // 原全局：0x00CF4A18。
@@ -2844,7 +2843,7 @@ std::int32_t Sub_4D0990(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
             5, 12, 0, cg::text::FromGbk(text).c_str(), 0, 0));
@@ -2873,7 +2872,7 @@ std::int32_t Sub_4D0A80(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -4029,7 +4028,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
             } else if (hover >= 200) {
                 const auto& item = BorrowStallBrowseD046D8Storage()->items[hover - 200];
                 const std::uint16_t flags = item.flags;
-                const char* const title = item.name.data();
+                const std::wstring title = cg::text::FromGbkWide(item.name.data());
                 const std::int8_t color = (flags & 0x100u) != 0
                     ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
                 const std::int32_t page = gStallDescriptionPageD67C3C;
@@ -4040,7 +4039,7 @@ std::int32_t Sub_4CDB10(const std::int32_t)
                     static_cast<std::uint16_t>(window->y + 40));
                 const std::int16_t x = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(window->x + 320));
-                static_cast<void>(Sub_48B810(x, y, title, color, lines, 96, 8, nullptr, 0));
+                static_cast<void>(Sub_48B810(x, y, title.c_str(), color, lines, 96, 8, nullptr, 0));
             }
         }
     }
@@ -6119,7 +6118,7 @@ void Sub_4AAB70(
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
     static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
     static_cast<void>(render::DrawText_456780(
-        0, 0, textLayer, 13, 0, input::LegacyText593850(), 0, 0));
+        0, 0, textLayer, 13, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const name =
         std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
     static_cast<void>(render::DrawText_456780(
@@ -6168,7 +6167,7 @@ void Sub_4AB400(
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
     static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
     static_cast<void>(render::DrawText_456780(
-        0, 0, textLayer, 13, color, input::LegacyText593850(), 0, 0));
+        0, 0, textLayer, 13, color, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
@@ -6224,7 +6223,7 @@ std::int32_t Sub_48D540(
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 12, 0, input::LegacyText593850(), 0, 0));
+            0, 0, textLayer, 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         const auto drawText = [&](const auto& text, const std::int32_t dx,
                                   const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
@@ -6234,7 +6233,7 @@ std::int32_t Sub_48D540(
         };
         const char* const name =
             std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
-        drawText(name, 8, 6);
+        drawText(cg::text::FromGbkWide(name), 8, 6);
         char buffer[768];
         std::sprintf(buffer, "%3d", pet.value08);
         drawText(buffer, 141, 6);
@@ -6301,7 +6300,7 @@ std::int32_t Sub_4B0F20(
         constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 8, color, input::LegacyText593850(), 0, 0));
+            0, 0, textLayer, 8, color, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
@@ -6814,7 +6813,7 @@ void Sub_4B1940(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     dimmed = *descriptor;
     dimmed.bytes[11] >>= 1;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -7281,7 +7280,7 @@ void Sub_4B2730(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = Sub_4AFFE0(position);
         if (slot < 0) {
@@ -7599,7 +7598,7 @@ void Sub_4B3610(
         }
         static_cast<void>(render::ClearTextQueueTail_456D50(3));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+            0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const char* const record = gTradeItemsD460D0.data() + slot * 0xC4C;
             std::uint16_t used;
@@ -7882,50 +7881,6 @@ std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)
     return result;
 }
 
-// 原函数：0x004FBA30。
-std::int32_t Sub_4FBA30(
-    std::int32_t x, const std::int32_t y, const std::uint8_t renderMode,
-    const std::int32_t fontType, std::int8_t color, const char* text,
-    const std::int8_t value7, const std::int8_t marker)
-{
-    const char* delimiter = const_cast<char*>(std::strchr(text, '$'));
-    while (delimiter != nullptr) {
-        std::uint32_t length = static_cast<std::uint32_t>(delimiter - text);
-        if (delimiter[1] == '$') {
-            ++length;
-        }
-        auto* const prefix = static_cast<char*>(std::malloc(static_cast<std::uint32_t>(length + 1)));
-        if (prefix == nullptr) {
-            return 0;
-        }
-        std::strncpy(prefix, text, static_cast<std::uint32_t>(length));
-        prefix[length] = '\0';
-        static_cast<void>(render::DrawText_456780(
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-            renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
-            color, prefix, value7, marker));
-        x += login::detail::TextMeasure(prefix, fontType);
-        text = delimiter + 2;
-        std::free(prefix);
-        const signed char next = static_cast<signed char>(delimiter[1]);
-        if (next != '$') {
-            const std::int32_t digit = next - '0';
-            if (digit >= 0 && digit <= 9) {
-                gTooltipColorD67D30 = digit;
-                color = static_cast<std::int8_t>(digit);
-            }
-        }
-        delimiter = const_cast<char*>(std::strchr(text, '$'));
-    }
-    return render::DrawText_456780(
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
-        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-        renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
-        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gTooltipColorD67D30)),
-        text, value7, marker);
-}
-
 // 原0x004FBA30：UTF-16色码分段与即时测宽；正文使用动态宽字符串。
 std::int32_t Sub_4FBA30(
     std::int32_t x, const std::int32_t y, const std::uint8_t renderMode,
@@ -7961,9 +7916,9 @@ std::int32_t Sub_4FBA30(
 // TDR01：原48B810完整108条；层5清尾/题目/逐行颜色/可选footer后背景入队，原坐标截断及真实返回保持。
 std::int32_t Sub_48B810(
     const std::int32_t x, const std::int32_t y,
-    const char* const title, const std::int8_t titleColor,
-    const char* lines, const std::int32_t stride, const std::int32_t lineCount,
-    const char* const footer, const std::int8_t footerColor)
+    const wchar_t* const title, const std::int8_t titleColor,
+    const char* gbkLines, const std::int32_t stride, const std::int32_t lineCount,
+    const wchar_t* const footer, const std::int8_t footerColor)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -7971,7 +7926,7 @@ std::int32_t Sub_48B810(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
@@ -7981,15 +7936,15 @@ std::int32_t Sub_48B810(
     gTooltipColorD67D30 = 0;
     std::int32_t lineY = 0;
     for (std::int32_t line = 0; line < lineCount; ++line) {
-        if (*lines != '\0') {
+        if (*gbkLines != '\0') {
             const std::int32_t shortY =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
             const std::int32_t shortX =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
             static_cast<void>(Sub_4FBA30(
-                shortX + 10, shortY + lineY + 22, 5, 12, 0, lines, 0, 0));
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, cg::text::FromGbkWide(gbkLines), 0, 0));
         }
-        lines += stride;
+        gbkLines += stride;
         lineY += 13;
     }
     if (footer != nullptr) {
@@ -8007,9 +7962,9 @@ std::int32_t Sub_48B810(
 // 原函数：0x0048B930。
 std::int32_t Sub_48B930(
     const std::int32_t x, const std::int32_t y,
-    const char* const title, const std::int8_t titleColor,
-    const char* lines, const std::int32_t, const std::int32_t lineCount,
-    const char* const footer, const std::int8_t footerColor)
+    const wchar_t* const title, const std::int8_t titleColor,
+    const std::wstring_view* lines, const std::int32_t, const std::int32_t lineCount,
+    const wchar_t* const footer, const std::int8_t footerColor)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -8017,7 +7972,7 @@ std::int32_t Sub_48B930(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
@@ -8027,16 +7982,16 @@ std::int32_t Sub_48B930(
     gTooltipColorD67D30 = 0;
     std::int32_t lineY = 0;
     for (std::int32_t line = 0; line < lineCount; ++line) {
-        if (*lines != '\0') {
+        if (!lines->empty()) {
             const std::int32_t shortY =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
             const std::int32_t shortX =
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
             static_cast<void>(Sub_4FBA30(
-                shortX + 10, shortY + lineY + 22, 5, 12, 0, lines, 0, 0));
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, *lines, 0, 0));
         }
         lineY += 13;
-        lines += std::strlen(lines) + 1;
+        ++lines;
     }
     if (footer != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -8073,13 +8028,13 @@ std::int32_t Sub_48B450(
     const char* const record = gTradeItemsD460D0.data() + (key + sideOffset * 20) * 0xC4C;
     std::uint32_t flags;
     std::memcpy(&flags, record + 0xC34, sizeof(flags));
-    const char* const title = (flags & 0x100u) != 0 ? record + 0xC38 : record + 0x10;
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record + 0xC38 : record + 0x10);
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
     const char* const lines = record + 0x2D + page * 768;
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
 }
 
 // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
@@ -9074,8 +9029,12 @@ updateSelector:
 // 原函数：0x00488B10。
 std::int32_t Sub_488B10(const std::int32_t)
 {
-    static constexpr auto selectionText586B14 = text::JoinLines("選好想蓋印的物品，", "單點滑鼠左鍵，", "可蓋下印記。", "單點滑鼠右鍵即結束。");
-    static constexpr auto selectionText586B5C = text::JoinLines("選好想掩埋的物品，", "單點滑鼠左鍵可掩埋物品。", "單點滑鼠右鍵即結束。", "");
+    static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
+        L"選好想蓋印的物品，", L"單點滑鼠左鍵，", L"可蓋下印記。", L"單點滑鼠右鍵即結束。",
+    };
+    static constexpr std::wstring_view selectionText586B5C[] { // 原常量参考：0x00586B5C。
+        L"選好想掩埋的物品，", L"單點滑鼠左鍵可掩埋物品。", L"單點滑鼠右鍵即結束。", L"",
+    };
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
         const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[14].value10);
@@ -9084,7 +9043,7 @@ std::int32_t Sub_488B10(const std::int32_t)
             static_cast<void>(Sub_48B1A0(selected, page));
         }
     } else if (mode == 1 || mode == 2) {
-        const char* const text = mode == 1 ? selectionText586B14.data() : selectionText586B5C.data();
+        const std::wstring_view* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;
         const bool top =
             (platform::BorrowLegacyMouseStateStorage()->mouseY < 240);
         const std::int32_t y = (platform::BorrowLegacyMouseStateStorage()->mouseY + static_cast<std::int32_t>(top ? 60 : -174));
@@ -9092,7 +9051,7 @@ std::int32_t Sub_488B10(const std::int32_t)
             (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
         const std::int32_t x = (platform::BorrowLegacyMouseStateStorage()->mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(Sub_48B930(
-            x, y, input::LegacyText593850(), 0, text, 31, 4, nullptr, 0));
+            x, y, cg::text::FromGbkWide(input::LegacyText593850()).c_str(), 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
         character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
@@ -11139,7 +11098,7 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = items[position + 8];
         if (item.used == 0) {
@@ -11632,7 +11591,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
         if (item.used == 0) {
@@ -11957,7 +11916,7 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
     };
     const auto drawText = [selector](
         const std::int32_t offsetX, const std::int32_t offsetY,
-        const std::int32_t textColor, const char* const text,
+        const std::int32_t textColor, const auto& text,
         const TextCoordinateOrder order) {
         const WindowElement* const textElement = selector->elements00[1];
         std::int32_t x;
@@ -11996,7 +11955,7 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
         static_cast<std::int32_t>(std::strlen(world::detail::gReplyRecordF7C950.text04.data()));
     if (length > 0) {
         drawText(100 - (12 * length) / 2 / 2, 9, 0,
-            world::detail::gReplyRecordF7C950.text04.data(), TextCoordinateOrder::Title);
+            cg::text::FromGbkWide(world::detail::gReplyRecordF7C950.text04.data()), TextCoordinateOrder::Title);
     }
     if (world::detail::gReplyRecordF7C950.value48 == 1) {
         drawText(64, 28, 0, "(有特殊稱號)",
@@ -12159,7 +12118,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
             223, login::detail::gValueD69768, 0);
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
     if (mode != 1 && mode != 2) {
         return consumed;
@@ -12224,8 +12183,8 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
         record = &world::detail::BorrowPlayerItemsFDA8A4()[index];
     }
     const std::uint16_t flags = record->flags;
-    const char* const title = (flags & 0x100u) != 0
-        ? record->memo.data() : record->name.data();
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0
+        ? record->memo.data() : record->name.data());
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
     const char* const lines = reinterpret_cast<const char*>(record)
@@ -12233,11 +12192,11 @@ std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
     if (petEquipment) {
         const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
         const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-        return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+        return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
     }
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
 }
 
 // SPD01：原48B350完整65条；W32标题字段、四次鼠标CryptInt原序和八行描述/真实返回保持。
@@ -12260,13 +12219,13 @@ std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
     const char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;
     std::uint32_t flags;
     std::memcpy(&flags, record + 0xC40, sizeof(flags));
-    const char* const title = (flags & 0x100u) != 0 ? record + 0xC29 : record + 0xC;
+    const std::wstring title = cg::text::FromGbkWide((flags & 0x100u) != 0 ? record + 0xC29 : record + 0xC);
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
     const char* const lines = record + 0x29 + page * 768;
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 0);
 }
 
 // 原函数：0x0048B560。
@@ -12290,8 +12249,7 @@ std::int32_t Sub_48B560(
     const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
     std::uint32_t flags;
     std::memcpy(&flags, record + 0xC40, sizeof(flags));
-    std::array<char, 768> buffer;
-    cg::text::Copy(buffer.data(), buffer.size(), cg::text::FromGbk(record + 0xC44));
+    std::wstring title = cg::text::FromGbkWide(record + 0xC44);
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
@@ -12299,21 +12257,21 @@ std::int32_t Sub_48B560(
         std::int32_t count;
         std::memcpy(&count, record + 0xC30, sizeof(count));
         if (count <= 1) {
-            cg::text::Copy(buffer.data(), buffer.size(), cg::text::FromGbk(record + 1));
+            title = cg::text::FromGbkWide(record + 1);
         } else {
-            static_cast<void>(::_snprintf(buffer.data(), 256, "%s(%d)", cg::text::FromGbk(record + 1).c_str(), count));
+            title = std::format(L"{}({})", cg::text::FromGbkWide(record + 1), count);
             key = gTooltipSourceD303FC;
         }
         record = gShopItemsCF4FE0.data() + (key - 300) * 0xC58;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
-    const char* const footer = record[0xC3C] == 0 && showUnavailable != 0
-        ? kShopUnavailableHint586BF4Utf8View.c_str() : nullptr;
+    const wchar_t* const footer = record[0xC3C] == 0 && showUnavailable != 0
+        ? kShopUnavailableHint586BF4 : nullptr;
     const char* const lines = record + 0x1E + page * 768;
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return Sub_48B810(x, y, buffer.data(), titleColor, lines, 96, 8, footer, 4);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, footer, 4);
 }
 
 // 原函数：0x0048B750。
@@ -12334,8 +12292,9 @@ std::int32_t Sub_48B750(const std::int32_t page)
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     gTooltipSourceD303FC = 400;
+    const std::wstring title = cg::text::FromGbkWide(gShopDetailCC3210.data());
     return Sub_48B810(
-        x, y, gShopDetailCC3210.data(), 0, gShopDetailCC3210.data() + 0x1D + page * 768,
+        x, y, title.c_str(), 0, gShopDetailCC3210.data() + 0x1D + page * 768,
         96, 8, nullptr, 0);
 }
 
@@ -12352,11 +12311,11 @@ std::int32_t Sub_4B4070(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
-            5, 12, 0, text, 0, 0));
+            5, 12, 0, cg::text::FromGbkWide(text), 0, 0));
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
@@ -12384,7 +12343,7 @@ std::int32_t Sub_4B4140(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const title = record + 0x5E5;
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -12475,11 +12434,11 @@ std::int32_t Sub_4B45A0(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
-            5, 12, 0, text, 0, 0));
+            5, 12, 0, cg::text::FromGbkWide(text), 0, 0));
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
@@ -12511,7 +12470,7 @@ std::int32_t Sub_4B4680(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const title = record + 0x5E9;
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -12592,7 +12551,7 @@ std::int32_t Sub_4B3B00(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
@@ -12622,7 +12581,7 @@ std::int32_t Sub_4B3BF0(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -14074,7 +14033,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::array<char, 36> buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -14267,7 +14226,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::array<char, 36> buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -14982,7 +14941,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::array<char, 36> buffer;
@@ -15158,7 +15117,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::array<char, 36> buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -21349,7 +21308,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
     case 0:
     case 2:
@@ -22377,7 +22336,7 @@ std::int32_t Sub_4BF950(const std::int32_t unused)
                 message = gWindow54MessageC9FCE0;
             }
             static_cast<void>(Sub_4FBA30(
-                x, y, 3, 8, 0, cg::text::FromGbk(gWindow54SkillsD2EAB8[message].description[row].data()).c_str(), 0, 0));
+                x, y, 3, 8, 0, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[message].description[row].data()), 0, 0));
             y += 10;
         }
     } else {
@@ -23715,7 +23674,7 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         const world::detail::PlayerItemRecord& item = items[slot + 8];
         if (item.used == 0) {
@@ -23860,19 +23819,18 @@ std::int32_t Sub_4C33B0(
     gTooltipSourceD303FC = key;
     const WindowCrystalItem* const item = &gWindow69ItemsCB2230[index];
     const std::uint32_t flags = item->flags;
-    std::array<char, 256> title;
-    std::strcpy(title.data(), item->tips.data());
+    std::wstring title = cg::text::FromGbkWide(item->tips.data());
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
     } else {
-        cg::text::Copy(title.data(), title.size(), cg::text::FromGbk(item->name.data()));
+        title = cg::text::FromGbkWide(item->name.data());
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
     const char* const lines = item->description.data() + page * 768;
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 4);
 }
 
 // 原函数：0x004C3530。
@@ -24650,7 +24608,7 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         const world::detail::PlayerItemRecord& item = items[slot + 8];
         if (item.used == 0) {
@@ -24795,19 +24753,18 @@ std::int32_t Sub_4C54D0(
     gTooltipSourceD303FC = key;
     const WindowCrystalItem* const item = &gWindow70ItemsD30428[index];
     const std::uint32_t flags = item->flags;
-    std::array<char, 256> title;
-    std::strcpy(title.data(), item->tips.data());
+    std::wstring title = cg::text::FromGbkWide(item->tips.data());
     std::int8_t titleColor;
     if ((flags & 0x100u) != 0) {
         titleColor = 5;
     } else {
-        cg::text::Copy(title.data(), title.size(), cg::text::FromGbk(item->name.data()));
+        title = cg::text::FromGbkWide(item->name.data());
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
     const char* const lines = item->description.data() + page * 768;
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
+    return Sub_48B810(x, y, title.c_str(), titleColor, lines, 96, 8, nullptr, 4);
 }
 
 // 原函数：0x004C5790。
@@ -32825,7 +32782,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     char countText[12];
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -35559,7 +35516,7 @@ void Sub_47B6C0(
     const auto* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const std::int8_t nameColor = enabled != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
@@ -35744,7 +35701,7 @@ void Sub_47B9B0(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const char* const name =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
     static_cast<void>(render::DrawText_456780(
@@ -35786,7 +35743,7 @@ void Sub_47C240(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const auto* const row = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe];
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
@@ -36300,13 +36257,14 @@ std::int32_t Sub_496D50(const std::int32_t)
             const auto windowY = static_cast<std::int16_t>(textWindow->y);
             const auto textX = static_cast<std::int16_t>(windowX + 17);
             const auto textY = static_cast<std::int16_t>(windowY + 89);
-            const char* name = "請選擇對象";
+            std::wstring name = L"請選擇對象";
             if (selected >= 0) {
                 const login::YobiAction* const action = world::detail::gBattleEntries59E980[selected];
-                name = login::detail::BorrowYobiTitleE1(action);
-                if (name[0] == '\0') {
-                    name = login::detail::BorrowYobiNameC4(action);
+                const char* title = login::detail::BorrowYobiTitleE1(action);
+                if (title[0] == '\0') {
+                    title = login::detail::BorrowYobiNameC4(action);
                 }
+                name = cg::text::FromGbkWide(title);
             }
             static_cast<void>(render::DrawText_456780(textX, textY, 3, 0, 0, name, 0, 0));
             WindowInstance* const backgroundWindow = gCurrentWindow;
@@ -37740,14 +37698,14 @@ void Sub_49B670(
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 8, 0, input::LegacyText593850(), 0, 0));
+            0, 0, textLayer, 8, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
         const auto drawText = [&](const auto& text, const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, 0, text, 0, 0));
         };
-        drawText(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data(), 10, 5);
+        drawText(cg::text::FromGbkWide(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data()), 10, 5);
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "%3d", pet.value08);
         drawText(buffer.data(), 140, 5);
@@ -37923,7 +37881,7 @@ void Sub_47CB00(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
         world::detail::gBattleCurrentPosition5ABCA4);
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
@@ -37961,7 +37919,7 @@ void Sub_47CE70(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     const std::int32_t cost = record->fp;
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
@@ -43337,7 +43295,7 @@ std::int32_t Sub_4920F0()
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, input::LegacyText593850(), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     const auto namePet = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const std::int32_t nameTechnique = gLoginWindowRuntime.petTechniqueD2D66C;

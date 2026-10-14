@@ -2128,22 +2128,18 @@ std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // WCL01：持�
 // 原函数：0x004FBA30。
 std::int32_t Sub_4FBA30(
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
-    std::int32_t fontType, std::int8_t color, const char* text,
-    std::int8_t value7, std::int8_t marker);
-std::int32_t Sub_4FBA30(
-    std::int32_t x, std::int32_t y, std::uint8_t renderMode,
     std::int32_t fontType, std::int8_t color, std::wstring_view text,
     std::int8_t value7, std::int8_t marker); // 原$分段、颜色续接与即时测宽。
 // 原函数：0x0048B810。
 std::int32_t Sub_48B810(
-    std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
-    const char* lines, std::int32_t stride, std::int32_t lineCount,
-    const char* footer, std::int8_t footerColor); // TDR01：完整层5提示，S16正文坐标/色彩续接、可选标题footer与真实背景返回保持。
+    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
+    const char* gbkLines, std::int32_t stride, std::int32_t lineCount,
+    const wchar_t* footer, std::int8_t footerColor); // TDR01：完整层5提示，S16正文坐标/色彩续接、可选标题footer与真实背景返回保持。
 // 原函数：0x0048B930。
 std::int32_t Sub_48B930(
-    std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
-    const char* lines, std::int32_t unusedStride, std::int32_t lineCount,
-    const char* footer, std::int8_t footerColor); // 连续NUL分段，空行仍推进，不使用stride。
+    std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
+    const std::wstring_view* lines, std::int32_t unusedStride, std::int32_t lineCount,
+    const wchar_t* footer, std::int8_t footerColor); // 原连续NUL分段改为宽行表，空行仍推进，不使用stride。
 // 原函数：0x0048B450。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 // 原函数：0x0048B1A0。

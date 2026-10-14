@@ -6649,7 +6649,7 @@ void UpdateBattleText_421750(YobiAction* const action)
         const std::int32_t x = panel->x + 40;
         // 原421793各行坐标相同，创建时的fontType只用于测量，不改为带行距绘制。
         static_cast<void>(render::DrawText3_456560(
-            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, line, 0));
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, cg::text::FromGbkWide(line), 0));
     }
     const std::int32_t remaining = payload->remaining10 - 1;
     payload->remaining10 = remaining;
@@ -6713,7 +6713,7 @@ YobiAction* NewBattleText_4217F0(
     }
     std::int32_t width = 80;
     if (longestIndex >= 0) {
-        width = TextMeasure(payload->lines04[longestIndex], payload->fontType0C) + 80;
+        width = TextMeasure(cg::text::FromGbkWide(payload->lines04[longestIndex]), payload->fontType0C) + 80;
     }
     const std::int32_t count = payload->lineCount08;
     std::int32_t height = 80;
@@ -10239,7 +10239,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const char* const prefix = seconds < 0 ? "-" : input::LegacyText593850();
     char buffer[256];
     std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
-    const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
+    const std::int32_t halfWidth = MeasureDefaultText_44B260(cg::text::FromGbkWide(buffer)) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {
         const std::int8_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));

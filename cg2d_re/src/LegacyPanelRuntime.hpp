@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace cg::login {
 struct YobiAction;
@@ -575,7 +576,7 @@ std::uintptr_t Sub_4FBB40(std::int32_t opened); // 旧15金钱页；发送留本
 // 原函数：0x00504BA0。
 void Sub_504BA0(
     std::int32_t x, std::int32_t y, std::int32_t width, std::uint8_t layer,
-    std::int32_t font, const char* name, const char* memo,
+    std::int32_t font, std::wstring_view name, std::wstring_view memo,
     std::int32_t unused1, std::int32_t unused2, std::int16_t flags); // 旧物品标题，先测名称再按标志选正文。
 // 原函数：0x004FC420。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。

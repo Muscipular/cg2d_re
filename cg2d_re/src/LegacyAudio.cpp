@@ -22,7 +22,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstring>
 #include <string>
 
@@ -520,10 +520,10 @@ std::int32_t Sub_524230()
             gSoundEffects103E7B0[static_cast<std::size_t>(entry.id)];
         effect.sampleIndex = gSampleCount104DFCC;
         char openPath[256] {};
-        static_cast<void>(platform::FormatLegacyString_53B304(
+        static_cast<void>(std::sprintf(
             openPath, "%s\\%s", static_cast<const char*>(resource::gBinPath),
             static_cast<const char*>(entry.path)));
-        static_cast<void>(platform::FormatLegacyString_53B304(
+        static_cast<void>(std::sprintf(
             effect.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
             static_cast<const char*>(entry.path)));
         // 原52B262先检查音量，再发布；音高失败仍保留此前样本/路径/音量。
@@ -584,7 +584,7 @@ std::int32_t Sub_524230()
     for (std::size_t index = 0; index < gRecords.size(); ++index) {
         const BgmConfigRecord& config = gBgmConfigRecords104A3B8[index];
         LegacyAudioRecord& record = gRecords[index];
-        static_cast<void>(platform::FormatLegacyString_53B304(
+        static_cast<void>(std::sprintf(
             record.path, "%s\\%s", static_cast<const char*>(resource::gBinPath),
             static_cast<const char*>(config.path)));
         // 原52B53D先持有三个值，再按40/44/48发布到同源BGM运行表。
@@ -649,7 +649,7 @@ std::int32_t LoadBgmConfig_524060()
             continue;
         }
 
-        static_cast<void>(platform::ScanLegacyString_53CADC(
+        static_cast<void>(std::sscanf(
             line, "%d %d %s %d %d %d",
             static_cast<void*>(&recordIndex), static_cast<void*>(&mappingIndex),
             static_cast<void*>(path), static_cast<void*>(&value40),

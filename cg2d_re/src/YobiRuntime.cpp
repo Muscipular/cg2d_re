@@ -40,7 +40,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <memory>
@@ -6119,7 +6119,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         }
         if (text != nullptr) {
             char buffer[256];
-            platform::FormatLegacyString_53B304(buffer, "%s", text);
+            std::sprintf(buffer, "%s", text);
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
@@ -10175,7 +10175,7 @@ std::int32_t NewBattleNumber_41F1A0(
     const std::int32_t style, const std::int32_t fontType, const std::uint32_t flags)
 {
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%d", value);
+    std::sprintf(buffer, "%d", value);
     if (world::detail::gBattleModeFlag5ABFCC == 0) {
         if ((flags & 0x40000000u) != 0) {
             std::strcat(buffer, "+");
@@ -10244,7 +10244,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const std::int32_t magnitude = seconds < 0 ? -seconds : seconds;
     const char* const prefix = seconds < 0 ? "-" : input::LegacyText593850();
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
+    std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
     const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {
@@ -20053,7 +20053,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
         } else if (skill == 2006 || (skill >= 2010 && skill <= 2015) || skill == 2027) {
             if (skill == 2013) {
                 std::array<char, 64> output;
-                platform::FormatLegacyString_53B304(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
+                std::sprintf(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
                 platform::WriteLegacyDebugString(output.data());
                 if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                     continue;
@@ -34960,22 +34960,22 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t fp = ReadPlayerFpOnce();
             const std::int32_t maxHp = ReadPlayerMaxHpOnce();
             const std::int32_t hp = ReadPlayerHpOnce();
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kFull58AD04,
+            std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
                 fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kLevel58AD5C,
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
                 fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
         } else if ((flags & 0x100u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kTitle58AD44,
+            std::sprintf(gHoverTextD68AE8.data(), kTitle58AD44,
                 fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
             const char* const title = graphic->reference.action->text144.data();
             if (std::strlen(title) != 0) {
-                platform::FormatLegacyString_53B304(gHoverTitleD68BF4.data(), "%-16s", title);
+                std::sprintf(gHoverTitleD68BF4.data(), "%-16s", title);
                 gHoverTitleValueD69748 = 4;
             }
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
@@ -34992,10 +34992,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 if (blacklist::ContainsBlacklistRecord_4013D0(name) == 0) {
                     const std::int8_t added = blacklist::AddBlacklistRecord_401270(
                         graphic->reference.action->nameC4.data());
-                    platform::FormatLegacyString_53B304(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0,
+                    std::sprintf(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0,
                         graphic->reference.action->nameC4.data());
                 } else {
-                    platform::FormatLegacyString_53B304(message, kAlready554928, graphic->reference.action->nameC4.data());
+                    std::sprintf(message, kAlready554928, graphic->reference.action->nameC4.data());
                 }
                 Sub_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
@@ -35007,10 +35007,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
                     const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(
                         graphic->reference.action->nameC4.data());
-                    platform::FormatLegacyString_53B304(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8,
+                    std::sprintf(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8,
                         graphic->reference.action->nameC4.data());
                 } else {
-                    platform::FormatLegacyString_53B304(message, kAbsent58AD34, graphic->reference.action->nameC4.data());
+                    std::sprintf(message, kAbsent58AD34, graphic->reference.action->nameC4.data());
                 }
                 Sub_44B050(message, 4, 3);
             }
@@ -35019,23 +35019,23 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             if (*name == '\0') {
                 name = action->nameC4.data();
             }
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kLevel58AD5C, action->field1D0, name);
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C, action->field1D0, name);
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x400u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = static_cast<MapActorPayload*>(fixed->payload)->value18;
             if (count > 0) {
-                platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), "%s(%d)", fixed->nameC4.data(), count);
+                std::sprintf(gHoverTextD68AE8.data(), "%s(%d)", fixed->nameC4.data(), count);
             } else {
-                platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), "%s", fixed->nameC4.data());
+                std::sprintf(gHoverTextD68AE8.data(), "%s", fixed->nameC4.data());
             }
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x800u) != 0) {
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x1000u) != 0) {
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
         }
         return;
     }
@@ -35054,7 +35054,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             gHoverObjectValueD68AC8 = companion;
         } else {
             if ((action->flags & 0x02000000u) == 0) {
-                platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kLevel58AD5C,
+                std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
                     action->field1D0, action->nameC4.data());
             }
             return;
@@ -35066,7 +35066,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             gHoverObjectValueD68AC8 = companion;
             YobiAction* const fixed = graphic->reference.action;
-            platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kLevel58AD5C,
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
                 fixed->field1D0, fixed->nameC4.data());
             return;
         }
@@ -35081,7 +35081,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             gHoverObjectValueD68AC8 = companion;
         }
         YobiAction* const fixed = graphic->reference.action;
-        platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kLevel58AD5C,
+        std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
             fixed->field1D0, fixed->nameC4.data());
         return;
     }
@@ -35092,7 +35092,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     const std::int32_t fp = graphic->reference.action->barValue1B0.value();
     const std::int32_t maxHp = graphic->reference.action->maxHp.value();
     const std::int32_t hp = graphic->reference.action->readiness.value();
-    platform::FormatLegacyString_53B304(gHoverTextD68AE8.data(), kFull58AD04,
+    std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
         fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
 }
 

@@ -42,6 +42,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 namespace cg::network {
 namespace {
@@ -342,7 +343,7 @@ std::int32_t Sub_403E50(
         oldTailLength);
     WriteProtocolStateW16(4, 0);
     gNetworkRuntimeState.protocolState593FC4[6] = 0;
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         reinterpret_cast<char*>(
             gNetworkRuntimeState.protocolState593FC4.data() + 4),
         "%s",
@@ -576,7 +577,7 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
         platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(
             gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), "a+");
         if (file != nullptr) {
-            static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "%s\n", buffer));
+            static_cast<void>(std::fprintf(file, "%s\n", buffer));
             static_cast<void>(platform::CloseLegacyStream_53B1D0(file));
         }
     }
@@ -724,7 +725,7 @@ std::int32_t Sub_5082D0()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
-    platform::FormatLegacyString_53B304(message, "RECV ERROR=%d", error);
+    std::sprintf(message, "RECV ERROR=%d", error);
     static_cast<void>(login::detail::Sub_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
@@ -734,7 +735,7 @@ std::int32_t Sub_508310()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
-    platform::FormatLegacyString_53B304(message, "SNED ERROR=%d", error);
+    std::sprintf(message, "SNED ERROR=%d", error);
     static_cast<void>(login::detail::Sub_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
@@ -774,7 +775,7 @@ void Sub_50CF20(
         "\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
     static_assert(sizeof(kMessage) == 9);
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, kMessage);
+    std::sprintf(buffer, kMessage);
     world::detail::Sub_44B050(buffer, 4, 3);
 }
 
@@ -951,7 +952,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         static_assert(sizeof(format58B0B0) == 24);
         static_assert(sizeof(warning58B094) == 25);
         char message[256];
-        platform::FormatLegacyString_53B304(message, format58B0B0, previous, text);
+        std::sprintf(message, format58B0B0, previous, text);
         world::detail::Sub_44B050(message, 4, 3);
         world::detail::Sub_44B050(warning58B094, 4, 3);
     }
@@ -1028,7 +1029,7 @@ void Sub_50F190(
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
         (login::detail::gOrderedRecords1051B14.data() + index)->text18;
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,
         recordName);
     static_cast<void>(world::detail::Sub_519550());
@@ -1088,7 +1089,7 @@ void HandleResponse_508800(
     login::gValueDA3B24 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
     char diagnostic[64];
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         diagnostic, "LOGIN REPLY RESULT=%d", value));
     static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
     if (value != 0) {
@@ -1130,7 +1131,7 @@ std::int32_t BuildProtocolCommand_517510(
     const char* const command)
 {
     // 与服务端nrproto_CreateHeader一致；明文命令不混淆、不生成密文状态尾。
-    static_cast<void>(platform::FormatLegacyString_53B304(buffer, "%s ", command));
+    static_cast<void>(std::sprintf(buffer, "%s ", command));
     return 0;
 }
 
@@ -1771,7 +1772,7 @@ std::int32_t SendProtocolBuffer_517480(
             gNetworkRuntimeState.sendLogPathDA3B58,
             "a+");
         if (file != nullptr) {
-            static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "->%s\n", buffer));
+            static_cast<void>(std::fprintf(file, "->%s\n", buffer));
             static_cast<void>(platform::CloseLegacyStream_53B1D0(file));
         }
     }
@@ -4674,7 +4675,7 @@ std::uint8_t NetworkLoop_507DF0()
                 received, static_cast<std::uint32_t>(receivedLength));
             if (login::gConnectionStep >= 71 && login::gConnectionStep <= 80) {
                 char diagnostic[64];
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     diagnostic, "LOGIN RECEIVED BYTES=%d QUEUE=%d", receivedLength, queued));
                 static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
             }
@@ -4723,7 +4724,7 @@ std::uint8_t NetworkLoop_507DF0()
         std::fill_n(gNetworkRuntimeState.pointerTable58B614, *length, nullptr);
         if (diagnoseLogin) {
             char diagnostic[64];
-            static_cast<void>(platform::FormatLegacyString_53B304(
+            static_cast<void>(std::sprintf(
                 diagnostic, "LOGIN DISPATCH RESULT=%d", dispatchResult));
             static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
         }
@@ -4757,7 +4758,7 @@ std::uint8_t NetworkLoop_507DF0()
             if (sent > 0 && login::gConnectionStep >= 71
                 && login::gConnectionStep <= 80) {
                 char diagnostic[64];
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     diagnostic, "LOGIN SENT BYTES=%d", sent));
                 static_cast<void>(login::detail::Sub_44B5C0(diagnostic));
             }

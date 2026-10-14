@@ -8,6 +8,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::platform {
 
@@ -30,7 +31,7 @@ int ReadSetupIni()
     if (buffer[255] != '\\') {
         std::strcat(buffer, "\\");
     }
-    FormatLegacyString_53B304(fileName, "%s%s\\%s", buffer, gDataPath, "CG-Setup.ini");
+    std::sprintf(fileName, "%s%s\\%s", buffer, gDataPath, "CG-Setup.ini");
 
     GetPrivateProfileStringA("DISPLAY", "ScreenMode", nullptr, screenMode, 128, fileName);
     GetPrivateProfileStringA("DISPLAY", "Effect", nullptr, effect, 256, fileName);
@@ -40,7 +41,7 @@ int ReadSetupIni()
 
     if (std::strcmp(screenMode, "NORMAL") == 0) {
         if (StrStr_53BE40(gCommandLine, "windowmode") == nullptr) {
-            FormatLegacyString_53B304(screenCommandLine, "windowmode %s", gCommandLine);
+            std::sprintf(screenCommandLine, "windowmode %s", gCommandLine);
             gCommandLine = screenCommandLine;
         }
     } else if (std::strcmp(screenMode, "FULLSCREEN") == 0
@@ -54,7 +55,7 @@ int ReadSetupIni()
     char* const commandAfterScreen = gCommandLine;
     if (std::strcmp(activeMode, "ONLYACTIVE") == 0) {
         if (StrStr_53BE40(commandAfterScreen, "onlyactive") == nullptr) {
-            FormatLegacyString_53B304(activeCommandLine, "onlyactive %s", gCommandLine);
+            std::sprintf(activeCommandLine, "onlyactive %s", gCommandLine);
             gCommandLine = activeCommandLine;
         }
     } else if (std::strcmp(activeMode, "NOACTIVE") == 0
@@ -79,7 +80,7 @@ int ReadSetupIni()
         gMonitorKeyboard = 0;
     }
 
-    const int result = FormatLegacyString_53B304(gCommandLineStorage, "%s", gCommandLine);
+    const int result = std::sprintf(gCommandLineStorage, "%s", gCommandLine);
     gCommandLine = gCommandLineStorage;
     return result;
 }

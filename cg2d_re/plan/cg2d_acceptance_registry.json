@@ -1344,7 +1344,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1607,6 +1608,18 @@
         "consumer_calls_changed": false,
         "old_seh_filter_active": false,
         "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -39104,7 +39117,7 @@
         "include/cg/platform/MainLoop.hpp",
         "src/platform/MainLoopSupport.cpp",
         "src/platform/LegacyFormat.hpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_stdio_contract.md",
         "src/world/SceneState.cpp#DrawBattleScene_43CBB0",
         "doc/cg2d_network_compatibility_spec.md"
@@ -39119,7 +39132,43 @@
       "recorded_on": "2026-10-07",
       "observation": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。 43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。 43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。 50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。",
       "expected": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。 43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。 43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。 50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。",
-      "actual": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。"
+      "actual": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_43C4E0",
+        "src/YobiRuntime.cpp#Sub_43C040",
+        "src/YobiRuntime.cpp#Sub_43BFF0",
+        "src/world/SceneState.cpp#Sub_50D3C0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_stdio_contract.md",
+        "src/world/SceneState.cpp#DrawBattleScene_43CBB0",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BATTLE-COMMAND-INIT-PACKET-PRODUCER-SAMPLING-S-20261007",
@@ -39148,7 +39197,7 @@
         "include/cg/platform/MainLoop.hpp",
         "src/platform/MainLoopSupport.cpp",
         "src/platform/LegacyFormat.hpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_stdio_contract.md",
         "src/world/SceneState.cpp#DrawBattleScene_43CBB0",
         "doc/cg2d_network_compatibility_spec.md"
@@ -39163,7 +39212,43 @@
       "recorded_on": "2026-10-07",
       "observation": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。 43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。 43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。 50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。",
       "expected": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。 43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。 43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。 50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。",
-      "actual": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。"
+      "actual": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_43C4E0",
+        "src/YobiRuntime.cpp#Sub_43C040",
+        "src/YobiRuntime.cpp#Sub_43BFF0",
+        "src/world/SceneState.cpp#Sub_50D3C0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_stdio_contract.md",
+        "src/world/SceneState.cpp#DrawBattleScene_43CBB0",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BATTLE-ENTRY-RESULT-PRODUCER-SAMPLING-I-20261007",
@@ -42113,14 +42198,15 @@
         "src/LegacyHitTest.cpp#Sub_5049A0",
         "src/render/Font.cpp#TextMeasure",
         "src/render/TextPendingQueue.cpp#DrawText_456780",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/CharacterListRequest.cpp",
         "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
         "src/DrawGraphic.cpp#DrawGraphic",
         "include/cg/LegacyAudio.hpp",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "differences": [
         {
@@ -42132,7 +42218,46 @@
       "recorded_on": "2026-10-07",
       "observation": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
       "expected": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
-      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
+      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Sub_455C90",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_5044E0",
+        "src/YobiRuntime.cpp#IsYobiActionReady",
+        "src/YobiRuntime.cpp#MarkDeath",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp#GreaterEqual_401D70",
+        "src/LegacyHitTest.cpp#Sub_5049A0",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-DISCONNECT-DIALOG-SAMPLING-S-20261007",
@@ -42160,14 +42285,15 @@
         "src/LegacyHitTest.cpp#Sub_5049A0",
         "src/render/Font.cpp#TextMeasure",
         "src/render/TextPendingQueue.cpp#DrawText_456780",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/CharacterListRequest.cpp",
         "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
         "src/DrawGraphic.cpp#DrawGraphic",
         "include/cg/LegacyAudio.hpp",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "differences": [
         {
@@ -42179,7 +42305,46 @@
       "recorded_on": "2026-10-07",
       "observation": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
       "expected": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
-      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
+      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Sub_455C90",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_5044E0",
+        "src/YobiRuntime.cpp#IsYobiActionReady",
+        "src/YobiRuntime.cpp#MarkDeath",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp#GreaterEqual_401D70",
+        "src/LegacyHitTest.cpp#Sub_5049A0",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-LOGOUT-PROGRESS-SAMPLING-I-20261007",
@@ -42307,7 +42472,7 @@
         "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
         "src/network/NetworkRuntime.cpp#TryDispatchReply",
         "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/CharacterListRequest.cpp",
         "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
         "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
         "include/cg/platform/LegacyCryptInt.hpp",
@@ -42319,7 +42484,8 @@
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "differences": [
         {
@@ -42331,17 +42497,8 @@
       "recorded_on": "2026-10-07",
       "observation": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
       "expected": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
-      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
-    },
-    {
-      "id": "E-LOGOUT-REPLY-SAMPLING-S-20261007",
-      "feature_id": "FUNC-LOGIN",
-      "gate": "S",
-      "epoch": "2026-10-04.1",
-      "baseline_reference": "BTE01三完整根121条421B/四页，六direct两Tick、16jump七RET；45ED90发送/轮询与512E40 HMNy两文本生产/原弃返回，成功十一B及原超时十五B，doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
-      "implementation_reference": "Git固定命名快照 cg2d-re-logout-reply-sampling-20261007",
-      "method": "static",
-      "artifacts": [
+      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "historical_artifacts_before_dcf01": [
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
@@ -42371,6 +42528,58 @@
         "doc/cg2d_local_determinism_spec.md",
         "doc/cg2d_closure_decisions_spec.md"
       ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "id": "E-LOGOUT-REPLY-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTE01三完整根121条421B/四页，六direct两Tick、16jump七RET；45ED90发送/轮询与512E40 HMNy两文本生产/原弃返回，成功十一B及原超时十五B，doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-logout-reply-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "src/LoginRequest.cpp#Sub_508C40",
+        "src/LoginRequest.cpp#Sub_508C90",
+        "src/LoginRequest.cpp#Sub_508CF0",
+        "src/LoginRequestDependencies.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/world/SceneState.cpp#Sub_45ED90",
+        "src/network/NetworkRuntime.cpp#Sub_512BD0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#SetPendingSceneType",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/platform/MainLoopSupport.cpp#ReadTickCount32",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
+      ],
       "differences": [
         {
           "description": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
@@ -42381,7 +42590,49 @@
       "recorded_on": "2026-10-07",
       "observation": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
       "expected": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
-      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "src/LoginRequest.cpp#Sub_508C40",
+        "src/LoginRequest.cpp#Sub_508C90",
+        "src/LoginRequest.cpp#Sub_508CF0",
+        "src/LoginRequestDependencies.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/world/SceneState.cpp#Sub_45ED90",
+        "src/network/NetworkRuntime.cpp#Sub_512BD0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#SetPendingSceneType",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/platform/MainLoopSupport.cpp#ReadTickCount32",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-CHARACTER-NAME-BYTE-SAMPLING-I-20261007",
@@ -55585,7 +55836,7 @@
         "doc/cg2d_stdio_contract.md",
         "src/platform/LegacyFormat.cpp",
         "src/platform/LegacyFormat.hpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
@@ -55601,7 +55852,31 @@
       "recorded_on": "2026-10-08",
       "observation": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
       "expected": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
-      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。"
+      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两完整原数学helper与全部三已证输入点4/3/10、结果后原数字扩展消费接线，不代更多间接别名或完整输入父。",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_u64_multiply_shift_evidence.json",
+        "doc/cg2d_u64_multiply_shift_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-U64-MULTIPLY-SHIFT-FUNC-CRT-S-20261008",
@@ -55617,7 +55892,7 @@
         "doc/cg2d_stdio_contract.md",
         "src/platform/LegacyFormat.cpp",
         "src/platform/LegacyFormat.hpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
         "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
@@ -55633,7 +55908,31 @@
       "recorded_on": "2026-10-08",
       "observation": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
       "expected": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
-      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。"
+      "actual": "BWV01补原U64通用乘法542F10十九条52B/左移544620十五条31B完整34条83B及唯一输入父三调用。三现源三改/两完整CPP本体和两私有声明；原高半零快路、两交叉W32乘加与低×低合成低64位、CL单BYTE及>=64原零/32..63低半搬高-清低-低五位/0..31移位保；原I64域4/3/10真实新入口接线，结果后S32数字扩展及ADD-ADC/符号/字符/流及全部其它源保持。原数值已64位非地址扩宽，零新ASM/C桥/owner/依赖或原身份，不补保护/默认计数或故障样例。完善已有462/463/两F adapted，CRT198→200/F1023/E1182两限定I-S；两CC对齐R7用途mapped已审477余2584，计数/队列其余保持。完整父/间接别名/CRT及正常寿命/机器ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 只两全根34条83B/原高半快慢-W32合成与CL三个正常分支、三源三改及10B CC用途，不代机器/全CRT或异常等价。",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_u64_multiply_shift_evidence.json",
+        "doc/cg2d_u64_multiply_shift_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-baseline",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-decision",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-acceptance",
+        "doc/cg2d_u64_multiply_shift_spec.md#u64-multiply-shift-source-state"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MATH-RESIDUAL-LEAVES-FUNC-CRT-S-20261008",
@@ -57500,16 +57799,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BGM-CONFIG-SCAN-FUNC-AUDIO-W-20261009",
@@ -57527,16 +57851,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BGM-CONFIG-SCAN-FUNC-AUDIO-S-20261009",
@@ -57554,16 +57903,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只配置父的扫描别名/复制取样发布及实际接线，不代完整音频或全配置/失败/正常寿命验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-I-20261009",
@@ -57581,16 +57955,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-W-20261009",
@@ -57608,16 +58007,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-BGM-CONFIG-SCAN-FUNC-CRT-S-20261009",
@@ -57635,16 +58059,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
         "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
         "src/LegacyAudio.cpp#LoadBgmConfig_524060",
-        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
-        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
-        "src/platform/LegacyFormat.hpp"
+        "src/platform/StartupCommon.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只原扫描包装暂停一音频业务点的实际恢复，其他21来源保持，不代全扫描/CRT验收",
       "expected": "第五/第六两%d各W32写同一5B区+0/+1，原返回忽略、记录索引持有、路径整4B/W8样本/尾BYTE及字段-末映射原序；格式/容量/owner/返回保持",
       "actual": "既有原扫描器实际借用六void*，手拼parsed/移位分支移除，字节目标定义良好/源序与其他CPP保持；当前Debug0错误/0增量警告，MAP/部署有据，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#bgm-config-scan-decision",
+        "doc/cg2d_audio_update.md#bgm-config-scan-source-state",
+        "doc/cg2d_bgm_config_scan_evidence.json",
+        "doc/cg2d_stdio_contract.md#bgm-config-scan-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#bgm-config-scan-source-state",
+        "doc/cg2d_build_acceptance_spec.md#bgm-config-scan-debug-build",
+        "src/LegacyAudio.cpp#LoadBgmConfig_524060",
+        "src/platform/LegacyScan.cpp#ScanLegacyString_53CADC",
+        "src/platform/LegacyScan.cpp#ScanLegacyInput_53DEF4",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-SE-PROPERTY-SAMPLING-FUNC-AUDIO-I-20261009",
@@ -57824,16 +58273,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-AUDIO-W-20261009",
@@ -57851,16 +58325,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-AUDIO-S-20261009",
@@ -57878,16 +58377,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "限定初始化尾部三格式/原检查失败与字段发布；完整父前段/SDK失败残留/正常寿命/声音/机器ABI不代验",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-I-20261009",
@@ -57905,16 +58429,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-W-20261009",
@@ -57932,16 +58481,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-AUDIO-LOADER-PUBLICATION-FUNC-CRT-S-20261009",
@@ -57959,16 +58533,41 @@
         "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
         "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
         "src/LegacyAudio.cpp#Sub_524230",
-        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
-        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
-        "src/platform/LegacyFormat.hpp"
+        "src/CharacterListRequest.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "observation": "只三个音频格式接线及实数1001+3，核心/前1001来源不重验，非完整CRT/全语法/全部父或机器ABI验收",
       "expected": "id门槛→sampleIndex/两真实原路径→volume检查/发布→pitch检查→loop读/pitch/loop写；BGM路径→40/44/48三读再三写，六%s源同型const char*，原返回忽略/表/owner/其余正文保持",
       "actual": "三个CPP局部段恢复原序与原53B304/53EB28调用，宿主snprintf/合并检查移除；静态次序/类型/前后保持通过、当前Debug/MAP/部署有据；接线1004/1023且241格式不增，未运行",
       "differences": [],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_audio_update.md#audio-loader-publication-decision",
+        "doc/cg2d_audio_update.md#audio-loader-publication-source-state",
+        "doc/cg2d_audio_loader_publication_evidence.json",
+        "doc/cg2d_stdio_contract.md#audio-loader-publication-source-state",
+        "doc/cg2d_client_link_sdl_audio_spec.md#audio-loader-publication-source-state",
+        "doc/cg2d_build_acceptance_spec.md#audio-loader-publication-debug-build",
+        "src/LegacyAudio.cpp#Sub_524230",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyFormat.cpp#FormatLegacyOutput_53EB28",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-KNOWN-FORMAT-CALL-INVENTORY-FUNC-CRT-S-20261009",
@@ -59679,7 +60278,7 @@
         "src/platform/LegacyMemory.cpp",
         "src/platform/LegacyStringCompare.cpp",
         "src/platform/LegacyFormat.cpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyFloatEnvironment.cpp",
         "src/platform/LegacyLowIo.cpp",
         "src/platform/LegacyMultibyte.cpp",
@@ -59700,17 +60299,8 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-09"
-    },
-    {
-      "id": "E-MSVC-CRT-SCALAR-FUNC-CRT-S-20261009",
-      "feature_id": "FUNC-CRT",
-      "gate": "S",
-      "epoch": "2026-10-04.1",
-      "baseline_reference": "用户CRT直接用MSVC指令；迁移前固定快照 cg2d-re-msvc-crt-history-20261009及原库存身份",
-      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-scalar-20261009",
-      "method": "static",
-      "artifacts": [
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
         "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
@@ -59729,6 +60319,46 @@
         "include/cg/platform/LegacyStringCompare.hpp",
         "src/platform/LegacyFormat.hpp"
       ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "id": "E-MSVC-CRT-SCALAR-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "用户CRT直接用MSVC指令；迁移前固定快照 cg2d-re-msvc-crt-history-20261009及原库存身份",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-scalar-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyMemory.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/render/SdlPresenter.cpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/LegacyFormat.hpp"
+      ],
       "observation": "核33入口，其中4已有宿主服务、29新转交MSVC；错误访问成组读取真实errno/_doserrno，截图读取同源。",
       "expected": "实际MSVC服务/必要类型适配、memmove重叠及S32时间保持；不得混用FILE/描述符或改业务格式/数据；无影子错误槽/旧时区算法。",
       "actual": "字符串/解析/内存/目录/时间/字符串格式扫描已接；八无消费者私有辅助退休。静态限定通过，完整CRT迁移和全部业务/SDK/运行门禁保持开放。",
@@ -59739,7 +60369,38 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyMemory.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/render/SdlPresenter.cpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-FILE-FUNC-CRT-I-20261009",
@@ -59771,7 +60432,7 @@
         "src/platform/LegacyLowIo.cpp",
         "src/platform/LegacyLowIo.hpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyStdio.cpp",
         "src/platform/LegacyStdio.hpp",
         "src/platform/LegacyTime.cpp",
@@ -59838,6 +60499,50 @@
         "hardware_seh_equivalence_claimed": false,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -59870,7 +60575,7 @@
         "src/platform/LegacyLowIo.cpp",
         "src/platform/LegacyLowIo.hpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyStdio.cpp",
         "src/platform/LegacyStdio.hpp",
         "src/platform/LegacyTime.cpp",
@@ -59935,6 +60640,50 @@
         "consumer_calls_changed": false,
         "old_seh_filter_active": false,
         "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -70449,7 +71198,7 @@
       "artifacts": [
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyFormat.cpp",
         "src/platform/MapEffectMath.cpp",
         "src/platform/LegacyRuntimeError.cpp",
@@ -70467,7 +71216,30 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-12"
+      "recorded_on": "2026-10-12",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/ClientEntry.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MCL01-CRT-S-20261012",
@@ -70486,7 +71258,7 @@
       "artifacts": [
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
-        "src/platform/LegacyScan.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyFormat.cpp",
         "src/platform/MapEffectMath.cpp",
         "src/platform/LegacyRuntimeError.cpp",
@@ -70504,7 +71276,30 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-12"
+      "recorded_on": "2026-10-12",
+      "historical_artifacts_before_dcf01": [
+        "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/ClientEntry.cpp",
+        "CMakeLists.txt",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MUP01-STARTUP-I-20261012",
@@ -70791,7 +71586,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ]
     },
     {
@@ -72831,7 +73627,8 @@
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ]
     },
     {
@@ -74346,7 +75143,8 @@
         "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
         "doc/cg2d_window_close_front_release_spec.md#evidence-archive-20261011",
         "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ]
     },
     {
@@ -90124,9 +90922,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00140B08",
@@ -90180,9 +90991,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00140B1D",
@@ -90394,13 +91218,26 @@
         "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
       "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。",
       "previous_disposition_before_mc01b": {
         "snapshot": "cg2d-re-msvc-crt-file-history-20261009",
         "path": "plan/cg2d_acceptance_registry.json",
         "inventory_id": "F:0013CADC"
+      },
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -90577,9 +91414,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
-      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。",
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013F38F",
@@ -90731,9 +91581,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
-      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。",
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:001437A6",
@@ -91193,9 +92056,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
       ],
-      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。"
+      "boundary": "MC01-B实际FILE/描述符/流格式、库内私有初始化/缓冲/错误职责由MSVC承接；保原身份，无旧布局/地址跳板/同名假体。仅本组静态，不宣全部CRT、业务或SDK运行通过。",
+      "direct_format_calls_dcf01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "cpp_call_sites": 841,
+        "bounded_cpp_call_sites": 9,
+        "bounded_provider": "::_snprintf",
+        "bounded_truncation_contract_changed": false,
+        "format_arguments_changed": false,
+        "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0014B574",

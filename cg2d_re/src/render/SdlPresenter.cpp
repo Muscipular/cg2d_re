@@ -29,6 +29,7 @@
 #include <limits>
 #include <new>
 #include <utility>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 #if !defined(SDL_PLATFORM_WIN32)
 #error "SdlPresenter 仅支持 Win32 窗口。"
@@ -477,7 +478,7 @@ void TakeScreenshot_453760()
         const std::int32_t month = calendar->month0based;
         const std::int32_t day = calendar->day;
         const std::int32_t year = calendar->yearMinus1900;
-        platform::FormatLegacyString_53B304(path, kScreenshotPath556714, year % 100, month + 1, day, sequence);
+        std::sprintf(path, kScreenshotPath556714, year % 100, month + 1, day, sequence);
         platform::LegacyFile* const probe = platform::OpenLegacyStream_53B2F1(path, kScreenshotReadMode554908);
         if (probe == nullptr) {
             break;
@@ -486,7 +487,7 @@ void TakeScreenshot_453760()
     }
     if (sequence >= 1000) {
         char message[1280];
-        platform::FormatLegacyString_53B304(message, kScreenshotLimit5566F4);
+        std::sprintf(message, kScreenshotLimit5566F4);
         world::detail::Sub_44B050(message, 4, 3);
         return;
     }
@@ -512,19 +513,19 @@ void TakeScreenshot_453760()
     const HDC compatible = CreateCompatibleDC(desktop);
     char message[256];
     if (compatible == nullptr) {
-        platform::FormatLegacyString_53B304(message, kScreenshotDcFailure556640, path);
+        std::sprintf(message, kScreenshotDcFailure556640, path);
     } else {
         const HBITMAP bitmap = CreateCompatibleBitmap(desktop, 640, 480);
         if (bitmap == nullptr) {
-            platform::FormatLegacyString_53B304(message, kScreenshotBitmapFailure55661C, path);
+            std::sprintf(message, kScreenshotBitmapFailure55661C, path);
         } else {
             const HGDIOBJ previous = SelectObject(compatible, bitmap);
             if (!BitBlt(compatible, 0, 0, 640, 480, desktop, origin.x, origin.y, SRCCOPY)) {
-                platform::FormatLegacyString_53B304(message, kScreenshotBlitFailure5565F8, path);
+                std::sprintf(message, kScreenshotBlitFailure5565F8, path);
             } else {
                 static_cast<void>(SelectObject(compatible, previous));
                 if (GetDIBits(compatible, bitmap, 0, 480, pixels, &bitmapInfo, DIB_RGB_COLORS) == 0) {
-                    platform::FormatLegacyString_53B304(message, kScreenshotDibFailure5565D4, path);
+                    std::sprintf(message, kScreenshotDibFailure5565D4, path);
                 } else {
                     static_cast<void>(DeleteObject(bitmap));
                     // 保留原成功支路的释放参数及失败残留，详见截图局部适配裁决。
@@ -533,9 +534,9 @@ void TakeScreenshot_453760()
                     static_cast<void>(ReleaseDC(
                         reinterpret_cast<HWND>(platform::gLegacyWindow), desktop));
                     if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path) != 0) {
-                        platform::FormatLegacyString_53B304(message, kScreenshotSuccess5565BC, path);
+                        std::sprintf(message, kScreenshotSuccess5565BC, path);
                     } else {
-                        platform::FormatLegacyString_53B304(message, kScreenshotWriteFailure556598, path);
+                        std::sprintf(message, kScreenshotWriteFailure556598, path);
                     }
                 }
             }

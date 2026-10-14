@@ -5,6 +5,7 @@
 
 #include <bit>
 #include <cstring>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::blacklist {
 
@@ -41,7 +42,7 @@ bool EqualPairedBytes(
 std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
     PathBuffer localPath {};
-    platform::FormatLegacyString_53B304(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    std::sprintf(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
 
     if (std::strcmp(gPath.data(), localPath.data()) != 0) {
         return 0;
@@ -84,7 +85,7 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
 {
     std::memset(gPath.data(), 0, sizeof(gPath));
     std::memset(gRecords.data(), 0, sizeof(gRecords));
-    platform::FormatLegacyString_53B304(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    std::sprintf(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
 
     platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(gPath.data(), "rb+");
     if (file != nullptr) {

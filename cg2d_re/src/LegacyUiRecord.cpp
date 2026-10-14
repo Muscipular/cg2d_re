@@ -33,7 +33,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D、0x0053BC0F；直接沿MSVC CRT。
 #include <cstring>
 #include <string>
 
@@ -1836,9 +1836,9 @@ std::int32_t ReloadLegacyLog_402020()
     const std::int32_t month = calendar->month0based;
     const std::int32_t day = calendar->day;
     const std::int32_t year = calendar->yearMinus1900;
-    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648,
+    std::sprintf(world::detail::gLogFileName554648,
         "chat_%02d%02d%02d.txt", year % 100, AddW32(month, 1), day);
-    platform::FormatLegacyString_53B304(path, "%s\\%s", "Log",
+    std::sprintf(path, "%s\\%s", "Log",
         world::detail::gLogFileName554648);
     platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, "rt");
     gLegacyLogFile593F78 = current;
@@ -1996,7 +1996,7 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
                 static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 40 + 20 * row)),
                 2, 0, 0, gLegacyLogStorage593A00.rows.data() + 65 * row, 0, 0));
         }
-        platform::FormatLegacyString_53B304(buffer, "%3d / %3d",
+        std::sprintf(buffer, "%3d / %3d",
             gLegacyLogPage553508, gLegacyLogPageCount553504);
         static_cast<void>(DrawText(
             static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 80)),
@@ -2035,7 +2035,7 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
                 const std::int32_t seconds = time->seconds;
                 const std::int32_t minutes = time->minutes;
                 const std::int32_t hours = time->hours;
-                platform::FormatLegacyStream_53BC0F(gLegacyLogFile593F78, kLegacyLogWriteFormat5535A0,
+                std::fprintf(gLegacyLogFile593F78, kLegacyLogWriteFormat5535A0,
                     hours, minutes, seconds, inputText);
                 static_cast<void>(platform::FlushLegacyStream_53BB02(gLegacyLogFile593F78));
                 gLegacyLogInput593F8C->text[0] = '\0';
@@ -2468,7 +2468,7 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
     const std::int32_t buttonMask = Sub_4D31C0();
     if (buttonMask != 0 || chosen >= 0) {
         char buffer[512];
-        platform::FormatLegacyString_53B304(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
+        std::sprintf(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2555,7 +2555,7 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
         if (index <= 1) {
             char buffer[16];
             char escaped[16];
-            platform::FormatLegacyString_53B304(buffer, "%d", index + 1);
+            std::sprintf(buffer, "%d", index + 1);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2645,7 +2645,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         }
         char buffer[16];
         char escaped[16];
-        platform::FormatLegacyString_53B304(buffer, "%d", index + 1);
+        std::sprintf(buffer, "%d", index + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2670,7 +2670,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
     }
     char text[64];
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    platform::FormatLegacyString_53B304(text, "%7d", gold);
+    std::sprintf(text, "%7d", gold);
     const std::int32_t goldY = gLegacySkillLearningPanel581E28.y + 287;
     const std::int32_t goldX = gLegacySkillLearningPanel581E28.x + 463;
     static_cast<void>(DrawText(static_cast<std::int16_t>(goldX),
@@ -2690,13 +2690,13 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 10].text.data(), 0, 0));
     }
     const std::int32_t slots = ui::detail::gWindow54ValueCC2E68;
-    platform::FormatLegacyString_53B304(text, kLegacySkillLearningSlots588C00, slots);
+    std::sprintf(text, kLegacySkillLearningSlots588C00, slots);
     const std::int32_t slotsY = gLegacySkillLearningPanel581E28.y + 324;
     const std::int32_t slotsX = gLegacySkillLearningPanel581E28.x + 45;
     static_cast<void>(DrawText(static_cast<std::int16_t>(slotsX),
         static_cast<std::int16_t>(slotsY), 2, 0, 0, text, 0, 0));
     const std::int32_t cost = ui::detail::gWindow54ValueCF4A3C;
-    platform::FormatLegacyString_53B304(text, kLegacySkillLearningCost588BEC, cost);
+    std::sprintf(text, kLegacySkillLearningCost588BEC, cost);
     const std::int32_t costY = gLegacySkillLearningPanel581E28.y + 372;
     const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;
     static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
@@ -2782,7 +2782,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         if (value >= 0) {
             char buffer[16];
             char escaped[16];
-            platform::FormatLegacyString_53B304(buffer, "%d", selection);
+            std::sprintf(buffer, "%d", selection);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2819,9 +2819,9 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         }
         total += ui::detail::gWindow54ValuesCB09D8[index];
         drawAt(lines[index + 10].text.data(), 78, 145 + rowOffset);
-        platform::FormatLegacyString_53B304(text, "%2d", ui::detail::gWindow54ValuesCB01A4[index]);
+        std::sprintf(text, "%2d", ui::detail::gWindow54ValuesCB01A4[index]);
         drawAt(text, 245, 145 + rowOffset);
-        platform::FormatLegacyString_53B304(text, "%d", ui::detail::gWindow54ValuesCB09D8[index]);
+        std::sprintf(text, "%d", ui::detail::gWindow54ValuesCB09D8[index]);
         drawAt(text, 292, 145 + rowOffset);
         const std::int32_t imageY = gLegacySkillForgetPanel581EF0.y + rowOffset + 154;
         const std::int32_t imageX = gLegacySkillForgetPanel581EF0.x + 176;
@@ -2834,7 +2834,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
                 214, image, 0);
         }
     }
-    platform::FormatLegacyString_53B304(text, kLegacySkillForgetTotal588C48, total);
+    std::sprintf(text, kLegacySkillForgetTotal588C48, total);
     drawAt(text, 14, 42);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));
     const char* hint = nullptr;
@@ -2934,9 +2934,9 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
     drawAt(kLegacySkillStatusPrompt589B58, 172, 24, 4);
     drawAt(kLegacySkillStatusHeader589B2C, 44, 50, 0);
     for (std::int32_t index = 0; index < *rows.count; ++index) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", rows.levels[index]);
+        std::sprintf(buffer, "%3d", rows.levels[index]);
         drawAt(buffer, 107, 76 + 20 * index, 0);
-        platform::FormatLegacyString_53B304(buffer, "%-16s", rows.names[index].data());
+        std::sprintf(buffer, "%-16s", rows.names[index].data());
         const std::int8_t color = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(colors[rows.kinds[index]]));
         drawAt(buffer, 143, 76 + 20 * index, color);
@@ -2944,7 +2944,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         const std::int32_t fp = rows.fp[index];
         const std::int32_t maxHp = rows.maxHp[index];
         const std::int32_t hp = rows.hp[index];
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
         drawAt(buffer, 296, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(rows.injuries[index]);
         const std::int32_t imageY = gLegacySkillStatusPanel583C90.y + 20 * index + 84;
@@ -3088,7 +3088,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
     if (manyPages) {
         const std::int32_t currentPage = ui::detail::gSkillTargetPageC8A974;
         const std::int32_t pageCount = ui::detail::gSkillTargetPageCountCA0178;
-        platform::FormatLegacyString_53B304(buffer, "%d/%d", currentPage + 1, pageCount);
+        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
         drawAt(buffer, 270, 24, 0);
     }
     page = ui::detail::gSkillTargetPageC8A974;
@@ -3219,7 +3219,7 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
         const std::int32_t currentPage = *rows.page;
         const std::int32_t pageCount = *rows.pageCount;
         char buffer[128];
-        platform::FormatLegacyString_53B304(buffer, "%d/%d", currentPage + 1, pageCount);
+        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
         drawAt(buffer, 270, 24, 0);
     }
     page = *rows.page;
@@ -3268,13 +3268,13 @@ std::uint32_t Sub_4F0CD0(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, kLegacyTextNotice589C24);
+    std::sprintf(buffer, kLegacyTextNotice589C24);
     const std::int32_t firstY = gLegacyTextNoticePanel583EE8.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原D2F798额外变参不被无25H的格式消费；不制造未知值或默认owner。
-    platform::FormatLegacyString_53B304(buffer, kLegacyTextNotice589C08);
+    std::sprintf(buffer, kLegacyTextNotice589C08);
     const std::int32_t secondY = gLegacyTextNoticePanel583EE8.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -3301,13 +3301,13 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, kLegacyTextNotice589C4C);
+    std::sprintf(buffer, kLegacyTextNotice589C4C);
     const std::int32_t firstY = gLegacyTextNoticePanel583FB0.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原CF3B08额外变参不被固定格式消费；仅消去无可观察结果的普通读。
-    platform::FormatLegacyString_53B304(buffer, kLegacyTextNotice589C34);
+    std::sprintf(buffer, kLegacyTextNotice589C34);
     const std::int32_t secondY = gLegacyTextNoticePanel583FB0.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -3381,7 +3381,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
     for (std::int32_t row = 0; row < count; ++row) {
         if ((character_select::detail::Sub_503990(&options[row]) & 1) != 0) {
             if (row <= 1) {
-                platform::FormatLegacyString_53B304(buffer, "%d",
+                std::sprintf(buffer, "%d",
                     platform::Cg2dReadLegacyShopCommandW32(&commands[row]));
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -3647,9 +3647,9 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
         if (priceColor != 0) {
             drawAt(kLegacyBuyUnavailable588E20, dx + 21, dy + 123, 6);
         }
-        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -3661,16 +3661,16 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
         const std::int32_t group = gLegacyBuyMessageD30414;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
     const std::int32_t currentTotal = gLegacyBuyTotalC8AF6C;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
     const std::int8_t totalColor = currentTotal > gold ? 6 : 0;
-    platform::FormatLegacyString_53B304(buffer, "%7d", currentTotal);
+    std::sprintf(buffer, "%7d", currentTotal);
     drawAt(buffer, 463, 338, totalColor);
     const std::int32_t page = ReadLegacyBuyPageCC1A0C();
     const std::int32_t pageCount = gLegacyBuyPageCountD2D63C;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -3721,7 +3721,7 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     if (count <= 1) {
         std::strcpy(title, item + 1);
     } else {
-        platform::FormatLegacyBoundedString_53D21D(title, 28, "%s(%d)", item + 1, count);
+        ::_snprintf(title, 28, "%s(%d)", item + 1, count);
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC40);
     Sub_504BA0(x, y, 272, 4, 0, title, item + 0xC44, 0, 0,
@@ -3778,7 +3778,7 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
                     if (count > 0) {
                         std::strcat(buffer, "|");
                     }
-                    platform::FormatLegacyString_53B304(entry, "%d|%d", index, selected);
+                    std::sprintf(entry, "%d|%d", index, selected);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -3813,14 +3813,14 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
             const std::int32_t nameY = gLegacyBuyConfirmPanel582468.y + dy + 34;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
                 static_cast<std::int16_t>(nameY), 2, 0, 0, item + 1, 0, 0));
-            platform::FormatLegacyString_53B304(buffer, "x%2d", ReadRecordW32(item, 0xC28));
+            std::sprintf(buffer, "x%2d", ReadRecordW32(item, 0xC28));
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
         }
     }
     const std::int32_t total = gLegacyBuyTotalC8AF6C;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    platform::FormatLegacyString_53B304(buffer, kLegacyBuySummary588E4C, gold, total);
+    std::sprintf(buffer, kLegacyBuySummary588E4C, gold, total);
     drawAt(buffer, 144, 254);
     drawAt(kLegacyBuyQuestion588E34, 178, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
@@ -4037,9 +4037,9 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = item[0xC3C] == 0 ? 6
             : ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4055,13 +4055,13 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
             drawAt(lines[1 + row].text.data(), 375, 59 + 20 * row, 0);
         }
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacySellTotalCF3FCC);
+    std::sprintf(buffer, "%7d", gLegacySellTotalCF3FCC);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacySellPageCF49FC;
     const std::int32_t pageCount = gLegacySellPageCountCA0ABC;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -4150,7 +4150,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
                         std::strcat(buffer, "|");
                     }
                     const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
-                    platform::FormatLegacyString_53B304(entry, "%d|%d", inventoryIndex, selected);
+                    std::sprintf(entry, "%d|%d", inventoryIndex, selected);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -4193,7 +4193,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
                 std::strcpy(buffer, name);
             } else {
                 const std::int32_t value = ReadRecordW32(item, 0xC38);
-                platform::FormatLegacyString_53B304(buffer, kLegacySellQuantity588F28, name, value, selected);
+                std::sprintf(buffer, kLegacySellQuantity588F28, name, value, selected);
             }
             // 原100H/200H分支借旧65坐标，普通分支才取旧66，不能统一改成本面板。
             const LegacyPanelRecord& textPanel = (flags & 0x300) != 0
@@ -4207,7 +4207,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
     }
     const std::int32_t total = gLegacySellTotalCF3FCC;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    platform::FormatLegacyString_53B304(buffer, kLegacySellSummary588F00, gold, total);
+    std::sprintf(buffer, kLegacySellSummary588F00, gold, total);
     drawAt(buffer, 144, 254);
     drawAt(kLegacySellQuestion588EE8, 178, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
@@ -4259,7 +4259,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
     char buffer[128];
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         char escaped[16];
-        platform::FormatLegacyString_53B304(buffer, "%d", hovered + 1);
+        std::sprintf(buffer, "%d", hovered + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4290,11 +4290,11 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         if (level <= 0) {
             continue;
         }
-        platform::FormatLegacyString_53B304(buffer, "%3d", level);
+        std::sprintf(buffer, "%3d", level);
         drawAt(buffer, 100, 76 + 20 * index, 0);
-        platform::FormatLegacyString_53B304(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
+        std::sprintf(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
         drawAt(buffer, 141, 76 + 20 * index, 0);
-        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
         drawAt(buffer, 290, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(ReadRecordW32(record, 4));
         const std::int32_t imageY = gLegacyHealingPanel5826C0.y + 20 * index + 84;
@@ -4305,9 +4305,9 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         totalCost += cost;
         totalHealth += health;
     }
-    platform::FormatLegacyString_53B304(buffer, kLegacyHealingTotal588FA8, totalCost);
+    std::sprintf(buffer, kLegacyHealingTotal588FA8, totalCost);
     drawAt(buffer, 114, 196, 0);
-    platform::FormatLegacyString_53B304(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 151, 224, 0);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
     const char* hint = nullptr;
@@ -4520,9 +4520,9 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         const std::int32_t left = gLegacyRepairPanel582788.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4536,13 +4536,13 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
     } else if (gLegacyRepairMessageD64E14 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyRepairTotalD460C4);
+    std::sprintf(buffer, "%7d", gLegacyRepairTotalD460C4);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyRepairPageCF4A08;
     const std::int32_t pageCount = gLegacyRepairPageCountCC4B24;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -4654,7 +4654,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
                         std::strcat(buffer, "|");
                     }
                     const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
-                    platform::FormatLegacyString_53B304(entry, "%d", inventoryIndex);
+                    std::sprintf(entry, "%d", inventoryIndex);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -4700,7 +4700,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
     }
     const std::int32_t total = gLegacyRepairTotalD460C4;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    platform::FormatLegacyString_53B304(buffer, kLegacyRepairSummary5890A4, gold, total);
+    std::sprintf(buffer, kLegacyRepairSummary5890A4, gold, total);
     drawAt(buffer, 134, 254);
     drawAt(kLegacyRepairQuestion58908C, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
@@ -4907,9 +4907,9 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         const std::int32_t left = gLegacyIdentifyPanel582918.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4923,13 +4923,13 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
     } else if (gLegacyIdentifyMessageC9A948 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
+    std::sprintf(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyIdentifyPageCC3F00;
     const std::int32_t pageCount = gLegacyIdentifyPageCountC9A950;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -5041,7 +5041,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
                         std::strcat(buffer, "|");
                     }
                     const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
-                    platform::FormatLegacyString_53B304(entry, "%d", inventoryIndex);
+                    std::sprintf(entry, "%d", inventoryIndex);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -5087,7 +5087,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
     }
     const std::int32_t total = gLegacyIdentifyTotalCB1E3C;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    platform::FormatLegacyString_53B304(buffer, kLegacyIdentifySummary589150, gold, total);
+    std::sprintf(buffer, kLegacyIdentifySummary589150, gold, total);
     drawAt(buffer, 134, 254);
     drawAt(kLegacyIdentifyQuestion589138, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
@@ -5200,7 +5200,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
                 deleteHovered = index;
             }
             if ((QueryPanelButtonState(&deletes[index]) & 1) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%d", index);
+                std::sprintf(buffer, "%d", index);
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 127));
                 sendReply(64, buffer + 128);
                 static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
@@ -5241,7 +5241,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
                 const std::int32_t day = time->day;
                 const std::int32_t month = time->month0based + 1;
                 const std::int32_t year = time->yearMinus1900 + 1900;
-                platform::FormatLegacyString_53B304(buffer, "%4d/%02d/%02d/%02d:%02d", year, month, day, hours, minutes);
+                std::sprintf(buffer, "%4d/%02d/%02d/%02d:%02d", year, month, day, hours, minutes);
                 drawAt(buffer, 248, 45 + 76 * index, 1);
             }
         }
@@ -5507,9 +5507,9 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         const std::int32_t currentTotal = gLegacyBarterTotalD2F334;
         const std::int32_t currentAvailable = ui::detail::gShopAvailableCF4A24;
         const std::int8_t color = currentAvailable < cost + currentTotal ? 7 : 0;
-        platform::FormatLegacyString_53B304(buffer, "%7d", cost);
+        std::sprintf(buffer, "%7d", cost);
         drawAt(buffer, dx + 87, dy + 120, color);
-        platform::FormatLegacyString_53B304(buffer, "%2d", item.selected);
+        std::sprintf(buffer, "%2d", item.selected);
         drawAt(buffer, dx + 82, dy + 92, 0);
         drawAt(kLegacyQuantityUnit5889A4, dx + 155, dy + 120, 4);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
@@ -5522,15 +5522,15 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         const std::int32_t group = gLegacyBarterMessageCC2E54;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopAvailableCF4A24);
+    std::sprintf(buffer, "%7d", ui::detail::gShopAvailableCF4A24);
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyBarterTotalD2F334);
+    std::sprintf(buffer, "%7d", gLegacyBarterTotalD2F334);
     drawAt(buffer, 463, 338, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
     const std::int32_t page = gLegacyBarterPageCB10D0;
     const std::int32_t pageCount = gLegacyBarterPageCountC8A954;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 168, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -5626,7 +5626,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
                     if (count > 0) {
                         std::strcat(buffer, "|");
                     }
-                    platform::FormatLegacyString_53B304(entry, "%d|%d", index, selected);
+                    std::sprintf(entry, "%d|%d", index, selected);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -5657,14 +5657,14 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
             drawAt(item.name.data(), dx + 24, dy + 34);
-            platform::FormatLegacyString_53B304(buffer, "x%2d", item.selected);
+            std::sprintf(buffer, "x%2d", item.selected);
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
         }
     }
     const std::int32_t total = gLegacyBarterTotalD2F334;
     const std::int32_t available = ui::detail::gShopAvailableCF4A24;
-    platform::FormatLegacyString_53B304(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
+    std::sprintf(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
     const std::int32_t width = MeasureDefaultText_44B260(buffer);
     const std::int32_t summaryY = gLegacyBarterConfirmPanel581978.y + 254;
     static_cast<void>(DrawText(static_cast<std::int16_t>(320 - width / 2),
@@ -5806,7 +5806,7 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
     char escaped[16];
     for (std::int32_t choice = 0; choice < 2; ++choice) {
         if ((character_select::detail::Sub_503990(&buttons[choice]) & 1) != 0) {
-            platform::FormatLegacyString_53B304(response, "%d", choice + 1);
+            std::sprintf(response, "%d", choice + 1);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -6007,9 +6007,9 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
     static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%7d", value(0xC34));
+    std::sprintf(buffer, "%7d", value(0xC34));
     drawAt(buffer, 87, 120, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", ui::detail::gShopValueD046C4);
+    std::sprintf(buffer, "%2d", ui::detail::gShopValueD046C4);
     drawAt(buffer, 82, 92, 0);
     drawAt(kLegacyQuantityUnit5889A4, 155, 120, 4);
     const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
@@ -6022,13 +6022,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         const std::int32_t group = ui::detail::gShopValueD672D4;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
+    std::sprintf(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
-    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopValueD046C4);
+    std::sprintf(buffer, "%7d", ui::detail::gShopValueD046C4);
     drawAt(buffer, 463, 338, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
-    platform::FormatLegacyString_53B304(buffer, "1/1");
+    std::sprintf(buffer, "1/1");
     drawAt(buffer, 168, 43, 0);
     Sub_5035E0(&increase, 213, 1, gValueD69768, 0);
     Sub_5035E0(&decrease, 213, 1, gValueD69768, 0);
@@ -6134,7 +6134,7 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyGiveConfirmPanel581C98.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         const std::int32_t amount = ui::detail::gShopValueD046C4;
-        platform::FormatLegacyString_53B304(buffer, "1|%d", amount);
+        std::sprintf(buffer, "1|%d", amount);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, description, 256));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -6149,7 +6149,7 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
     const char* const format = ui::detail::gShopValueCAFEA4 != 0
         ? kLegacyGiveConfirmReceiveFormat588B40 : kLegacyGiveConfirmGiveFormat588B60;
     const std::int32_t amount = ui::detail::gShopValueD046C4;
-    platform::FormatLegacyString_53B304(description, format, ui::detail::gShopDetailCC3210.data(), amount);
+    std::sprintf(description, format, ui::detail::gShopDetailCC3210.data(), amount);
     buffer[0] = 1; // D01/P05：格式化后、首门禁前，其他255B保持原未清状态。
     for (std::int32_t row = 0; buffer[0] != '\0'; ++row) {
         static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 256, description, row, 46));
@@ -6261,7 +6261,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         }
         const std::int32_t deposit = gLegacyStorageMoneyD2F79C;
         const std::int32_t withdraw = gLegacyStorageWithdrawAmountCF49B8;
-        platform::FormatLegacyString_53B304(buffer, "%d|%d|%d|%d|%d|%d", takeItems, putItems, takePets, putPets, withdraw, deposit);
+        std::sprintf(buffer, "%d|%d|%d|%d|%d|%d", takeItems, putItems, takePets, putPets, withdraw, deposit);
         char escaped[128];
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 127));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -6338,7 +6338,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX, const std::uint8_t color) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         const std::int32_t top = gLegacyStoragePanel582B70.y + 38;
         const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -6468,7 +6468,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyStoragePanel582B70.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyStoragePanel582B70.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -6578,11 +6578,11 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%7d",
+    std::sprintf(buffer, "%7d",
         world::detail::BorrowPlayerItemsFDA8A4()[gLegacyStorageSplitSourceD3FACC + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyStorageSplitAmountCB2220);
+    std::sprintf(buffer, "%7d", gLegacyStorageSplitAmountCB2220);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 86), 4, 1, 0, buffer, 0, 0));
     for (auto& digit : digits) {
@@ -6695,23 +6695,23 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 136 - width / 2, 5, 0);
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
+        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(record, 0x44));
+    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x44));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -6917,11 +6917,11 @@ std::uint32_t Sub_4E2030()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
@@ -7074,11 +7074,11 @@ std::uint32_t Sub_4E28F0()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
@@ -7219,11 +7219,11 @@ std::uint32_t Sub_4E2D90()
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t balance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    platform::FormatLegacyString_53B304(buffer, "%7d", balance);
+    std::sprintf(buffer, "%7d", balance);
     drawAt(buffer, 146, 150, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", maximum);
+    std::sprintf(buffer, "%7d", maximum);
     drawAt(buffer, 421, 118, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", readDraft());
+    std::sprintf(buffer, "%7d", readDraft());
     drawAt(buffer, 421, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7240,11 +7240,11 @@ std::uint32_t Sub_4E2D90()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const char* hint;
     std::uint32_t result = 0;
@@ -7345,11 +7345,11 @@ std::uint32_t Sub_4E3750()
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
     char buffer[64];
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 423, 151, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", maximum);
+    std::sprintf(buffer, "%7d", maximum);
     drawAt(buffer, 143, 118, 0);
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
+    std::sprintf(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
     drawAt(buffer, 143, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7365,10 +7365,10 @@ std::uint32_t Sub_4E3750()
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t currentBalance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, currentBalance);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, currentBalance);
     drawAt(buffer, 139, 306, 1);
     drawAt(kLegacyStorageFee589284, 358, 305, 0);
-    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
     drawAt(buffer, 417, 306, 1);
     const char* hint;
     std::uint32_t result = 0;
@@ -7449,12 +7449,12 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
         const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
-        platform::FormatLegacyString_53B304(buffer, "%3d", record.level);
+        std::sprintf(buffer, "%3d", record.level);
         const std::int32_t levelY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelX),
             static_cast<std::int16_t>(levelY), 2, 0, 0, buffer, 0, 0));
-        platform::FormatLegacyString_53B304(buffer, "%-16s", record.name.data());
+        std::sprintf(buffer, "%-16s", record.name.data());
         const std::uint8_t color = static_cast<std::uint8_t>(colors[record.kind]);
         const std::int32_t nameY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t nameX = gLegacyItemUseStatusPanel582C78.x + 143;
@@ -7464,7 +7464,7 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
         const std::int32_t fp = record.fp;
         const std::int32_t maxHp = record.maxHp;
         const std::int32_t hp = record.hp;
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
         const std::int32_t valuesY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t valuesX = gLegacyItemUseStatusPanel582C78.x + 296;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valuesX),
@@ -7586,7 +7586,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             if (itemCount != 0) {
                                 std::strcat(itemSource, "|");
                             }
-                            platform::FormatLegacyString_53B304(buffer, "%d", item + 8);
+                            std::sprintf(buffer, "%d", item + 8);
                             std::strcat(itemSource, buffer);
                             ++itemCount;
                         }
@@ -7599,7 +7599,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             if (petCount != 0) {
                                 std::strcat(petSource, "|");
                             }
-                            platform::FormatLegacyString_53B304(buffer, "%d", pet);
+                            std::sprintf(buffer, "%d", pet);
                             std::strcat(petSource, buffer);
                             ++petCount;
                         }
@@ -7710,7 +7710,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
     char buffer[128];
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         const std::int32_t top = gLegacyTradePanel582F00.y + 38;
         const std::int32_t left = gLegacyTradePanel582F00.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -7854,7 +7854,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyTradePanel582F00.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyTradePanel582F00.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -7976,23 +7976,23 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 136 - width / 2, 5, 0);
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x38 + 4 * attribute));
+        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x38 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(record, 0x5C));
+    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x5C));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -8093,11 +8093,11 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%7d",
+    std::sprintf(buffer, "%7d",
         world::detail::BorrowPlayerItemsFDA8A4()[gLegacyTradeSplitSourceD45F90 + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyTradeSplitAmountD2D490);
+    std::sprintf(buffer, "%7d", gLegacyTradeSplitAmountD2D490);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 86), 4, 1, 0, buffer, 0, 0));
     for (auto& digit : digits) {
@@ -8208,7 +8208,7 @@ std::int32_t Sub_4E82F0()
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeRemoteMoney58950C);
     }
     char buffer[32];
-    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gTradeValueCF4688);
+    std::sprintf(buffer, "%7d", ui::detail::gTradeValueCF4688);
     const std::int32_t textY = gLegacyTradePanel582F00.y + 150;
     const std::int32_t textX = gLegacyTradePanel582F00.x + 146;
     static_cast<void>(DrawText(static_cast<std::int16_t>(textX),
@@ -8471,9 +8471,9 @@ std::int32_t Sub_4E8AD0()
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%7d", money);
+    std::sprintf(buffer, "%7d", money);
     drawAt(buffer, 118);
-    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gTradeValueD046D0);
+    std::sprintf(buffer, "%7d", ui::detail::gTradeValueD046D0);
     drawAt(buffer, 158);
     for (auto& digit : digits) {
         Sub_5035E0(&digit, 213, 1, gValueD69768, 0);
@@ -8576,7 +8576,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, nullptr));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyEngravingPanel582FD8.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyEngravingPanel582FD8.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8708,7 +8708,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyBurialPanel5830A0.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyBurialPanel5830A0.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8732,7 +8732,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     }
     const std::int32_t selected = gLegacyBurialSelectedCC4214;
     if (selected >= 0) {
-        platform::FormatLegacyString_53B304(buffer, "%d", selected);
+        std::sprintf(buffer, "%d", selected);
         char escaped[16];
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -8840,7 +8840,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyMailGiftPanel583168.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyMailGiftPanel583168.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8942,7 +8942,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContextCB03F0.text);
             char escaped[600];
@@ -8988,7 +8988,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
             char buffer[128];
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             const std::int32_t countY = gLegacyMailComposePanel583230.y + 127;
             const std::int32_t countX = gLegacyMailComposePanel583230.x + 213;
             static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -9075,7 +9075,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
             static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
         // 原4EA912实际F63400，即宠物+08；不借反编译lv名改成+6C。
         const std::int32_t value = pet->value08;
-        platform::FormatLegacyString_53B304(buffer, "%3d", value);
+        std::sprintf(buffer, "%3d", value);
         const std::int32_t valueY = gLegacyMailPetPanel5832F8.y + 45 + 28 * row;
         const std::int32_t valueX = gLegacyMailPetPanel5832F8.x + 226;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
@@ -9277,7 +9277,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, nullptr));
         const std::int32_t valueContact = world::detail::gContactIndicesFDA608[position];
         const std::int32_t value = world::detail::gContactsF19FB0[valueContact].value08;
-        platform::FormatLegacyString_53B304(buffer, "%3d", value);
+        std::sprintf(buffer, "%3d", value);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
         drawAt(world::detail::gContactsF19FB0[nameContact].name10.data(), 77, 68 + 90 * row, color);
@@ -9291,7 +9291,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         Sub_5035E0(&deletes[row], 212, 1, gValueD69768, 0);
     }
     const std::int32_t page = std::bit_cast<std::int32_t>(world::detail::gValueCB0354);
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, 15);
+    std::sprintf(buffer, "%2d/%2d", page + 1, 15);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&edit, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
@@ -9502,7 +9502,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     };
     char buffer[128];
     const std::int32_t valueContact = world::detail::gValueCF4FC0;
-    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
+    std::sprintf(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
     drawAt(buffer, 134, 49, 1, 0);
     const std::int32_t measuredNameContact = world::detail::gValueCF4FC0;
     const std::int32_t nameWidth = TextMeasure(world::detail::gContactsF19FB0[measuredNameContact].name10.data(), 0);
@@ -9530,7 +9530,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 128, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
+    std::sprintf(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
     drawAt(buffer, 56, 403, 1, 0);
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -9623,7 +9623,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContextD66CA8.text);
             char escaped[600];
@@ -9686,7 +9686,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
     }
     char pageText[128];
-    platform::FormatLegacyString_53B304(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
+    std::sprintf(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
     const std::int32_t pageY = gLegacyMailNormalPanel583488.y + 152;
     const std::int32_t pageX = gLegacyMailNormalPanel583488.x + 119;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -9845,7 +9845,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGuildGiftPanel58E950.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyGuildGiftPanel58E950.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -9947,7 +9947,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContext1050B80.text);
             char escaped[600];
@@ -9992,7 +9992,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
             char buffer[128];
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             const std::int32_t countY = gLegacyGuildComposePanel58EA18.y + 127;
             const std::int32_t countX = gLegacyGuildComposePanel58EA18.x + 213;
             static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -10079,7 +10079,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
             static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
         // 原52E4C2操作数F63400为宠物+08，不按反编译lv名称改到+6C。
         const std::int32_t value = pet->value08;
-        platform::FormatLegacyString_53B304(buffer, "%3d", value);
+        std::sprintf(buffer, "%3d", value);
         const std::int32_t valueY = gLegacyGuildPetPanel58EAE0.y + 45 + 28 * row;
         const std::int32_t valueX = gLegacyGuildPetPanel58EAE0.x + 226;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
@@ -10191,7 +10191,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, font, color, text, 0, 0));
     };
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%3d", member->value10);
+    std::sprintf(buffer, "%3d", member->value10);
     drawAt(buffer, 134, 49, 1, 0);
     const char* const memberName = member->text18;
     const std::int32_t nameWidth = TextMeasure(memberName, 0);
@@ -10220,7 +10220,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 128, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", gLegacyGuildReadPage1050EF8 + 1, 10);
+    std::sprintf(buffer, "%2d/%2d", gLegacyGuildReadPage1050EF8 + 1, 10);
     drawAt(buffer, 56, 403, 1, 0);
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -10313,7 +10313,7 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContext1051348.text);
             char escaped[600];
@@ -10378,7 +10378,7 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
     }
     char pageText[128];
-    platform::FormatLegacyString_53B304(pageText, "%2d/%2d", gLegacyGuildComposePage1051330 + 1, 50);
+    std::sprintf(pageText, "%2d/%2d", gLegacyGuildComposePage1051330 + 1, 50);
     const std::int32_t pageY = gLegacyGuildNormalPanel58EC70.y + 152;
     const std::int32_t pageX = gLegacyGuildNormalPanel58EC70.x + 119;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -10754,7 +10754,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         const std::int32_t statusX = gLegacyGuildContactPanel58EF90.x + 105;
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, &descriptor));
         const std::int32_t valueIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-        platform::FormatLegacyString_53B304(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
+        std::sprintf(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         drawAt(gOrderedRecords1051B14[nameIndex].text18, 77, 68 + 90 * row, color);
@@ -10768,7 +10768,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         Sub_5035E0(&removes[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&ranks[row], 212, 1, gValueD69768, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", gLegacyGuildPage1050B78 + 1, 50);
+    std::sprintf(buffer, "%2d/%2d", gLegacyGuildPage1050B78 + 1, 50);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&sort, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
@@ -11116,7 +11116,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
     const std::int32_t pageCount = gLegacyGuildDetailsPageCount1050ED0;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
     const std::int32_t pageY = gLegacyGuildDetailsPanel58F098.y + 225;
     const std::int32_t pageX = gLegacyGuildDetailsPanel58F098.x + 132;
     static_cast<void>(DrawText(Low16(pageX), Low16(pageY), 2, 0, 0, buffer, 0, 0));
@@ -11293,7 +11293,7 @@ std::uint32_t Sub_532450(const std::int32_t opened)
     const std::int32_t page = gLegacyGuildRankPage1051334;
     const std::int32_t pageCount = gLegacyGuildRankPageCount105133C;
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
     drawAt(buffer, 161, 100, 0);
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         Sub_5035E0(&remove, 212, 1, gValueD69768, 0);
@@ -11355,12 +11355,12 @@ std::uint32_t Sub_4ECE00(const std::int32_t opened)
         }
     }
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, "%+9d", world::detail::gValueFF0D04);
+    std::sprintf(buffer, "%+9d", world::detail::gValueFF0D04);
     const std::int32_t deltaY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t deltaX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(deltaX + 69),
         static_cast<std::int16_t>(deltaY + 44), 2, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::gValueFF0D08);
+    std::sprintf(buffer, "%9d", world::detail::gValueFF0D08);
     const std::int32_t totalY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t totalX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(totalX + 69),
@@ -11453,7 +11453,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         if (level >= 130) {
             drawAt(kLegacyResultLimit5897D4, 267, row * 24 + 59, 1);
         } else {
-            platform::FormatLegacyString_53B304(buffer, "%+6d", result->value04);
+            std::sprintf(buffer, "%+6d", result->value04);
             drawAt(buffer, 267, row * 24 + 59, 1);
         }
     }
@@ -11482,7 +11482,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             if (level >= maxLevel) {
                 drawAt(kLegacyResultLimit5897D4, 554, visibleRow * 24 + 57, 1);
             } else {
-                platform::FormatLegacyString_53B304(buffer, "%+6d", skillResults[skillIndex].value04);
+                std::sprintf(buffer, "%+6d", skillResults[skillIndex].value04);
                 drawAt(buffer, 554, visibleRow * 24 + 57, 1);
             }
             if (skillResults[skillIndex].value00 != 0) {
@@ -11613,12 +11613,12 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t skillWidth = TextMeasure(skillName, 0);
     drawAt(skillName, 82 - skillWidth / 2, 37, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
@@ -11741,12 +11741,12 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t skillWidth = TextMeasure(skillName, 0);
     drawAt(skillName, 82 - skillWidth / 2, 37, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
@@ -11796,12 +11796,12 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, kLegacyFpNotice589BFC);
+    std::sprintf(buffer, kLegacyFpNotice589BFC);
     const std::int32_t messageY = gLegacyFpNoticePanel583E20.y;
     const std::int32_t messageX = gLegacyFpNoticePanel583E20.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(messageX + 16),
         static_cast<std::int16_t>(messageY + 24), 2, 0, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, kLegacyFpRequired589BE8, gLegacyRequiredFpCC31D8);
+    std::sprintf(buffer, kLegacyFpRequired589BE8, gLegacyRequiredFpCC31D8);
     const std::int32_t valueY = gLegacyFpNoticePanel583E20.y;
     const std::int32_t valueX = gLegacyFpNoticePanel583E20.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(valueX + 16),
@@ -11884,12 +11884,12 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::BorrowPlayerItemsFDA8A4()[gLegacySplitSourceCC3E60].count);
+    std::sprintf(buffer, "%7d", world::detail::BorrowPlayerItemsFDA8A4()[gLegacySplitSourceCC3E60].count);
     const std::int32_t countY = gLegacyItemSplitPanel584078.y + 46;
     const std::int32_t countX = gLegacyItemSplitPanel584078.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
         static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacySplitAmountC8A948);
+    std::sprintf(buffer, "%7d", gLegacySplitAmountC8A948);
     const std::int32_t amountY = gLegacyItemSplitPanel584078.y + 86;
     const std::int32_t amountX = gLegacyItemSplitPanel584078.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),
@@ -12010,14 +12010,14 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 82 - width / 2, 37, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     const bool belowMaximum =
         world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel;
     // 原满级分支仍格式化一次，只替换最终绘制文本。
-    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
     drawAt(belowMaximum ? buffer : kLegacyGatherLimit589858, 198, 62, 1);
     if (gLegacyItemWorkSelection584394 >= 0) {
         const std::int32_t itemWidth = TextMeasure(gLegacyItemWorkNameCC40D8.data(), 0);
@@ -12123,12 +12123,12 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 82 - width / 2, 37, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
@@ -12527,7 +12527,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
                     212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyItemWorkPanel5842D0.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyItemWorkPanel5842D0.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -12564,7 +12564,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     }
     case 1: message = kItemWorkText589F40; break;
     case 2:
-        platform::FormatLegacyString_53B304(buffer, kItemWorkText589F2C, cost);
+        std::sprintf(buffer, kItemWorkText589F2C, cost);
         gLegacyItemWorkMessageCA0ACC = buffer;
         break;
     case 3: message = kLegacyGatherNoFp5864F0; break;
@@ -12583,7 +12583,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     default: break;
     }
     if (message != nullptr) {
-        platform::FormatLegacyString_53B304(buffer, message);
+        std::sprintf(buffer, message);
         gLegacyItemWorkMessageCA0ACC = buffer;
     }
     for (std::int32_t row = 0; row < 3; ++row) {
@@ -12986,7 +12986,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
                     212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyCraftMaterialsPanel584468.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyCraftMaterialsPanel584468.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -13193,11 +13193,11 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
                 NullSub_509080();
                 if (gLegacyCraftExecutionDurationD2DC08 < elapsed) {
                     const std::int32_t recipe = ui::detail::gRecipeIndex5846BC;
-                    platform::FormatLegacyString_53B304(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+                    std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
                     for (std::int32_t slot = 0; slot < 6; ++slot) {
                         const std::int32_t selected = ui::detail::gSelectedSlotsCA0A90[slot];
                         if (selected >= 0) {
-                            platform::FormatLegacyString_53B304(part, "|%d", selected + 8);
+                            std::sprintf(part, "|%d", selected + 8);
                             std::strcat(buffer, part);
                         }
                     }
@@ -13255,7 +13255,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     const std::int32_t costRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
     const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    platform::FormatLegacyString_53B304(buffer, "%4d", cost);
+    std::sprintf(buffer, "%4d", cost);
     drawAt(buffer, 295, 39, 1);
     std::int32_t materialRecipe = ui::detail::gRecipeIndex5846BC;
     for (std::int32_t material = 4; material >= 0; --material) {
@@ -13266,7 +13266,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
             const std::int32_t count =
                 world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material].count;
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 drawAt(buffer, 281, 67 + 24 * material, 1);
                 materialRecipe = ui::detail::gRecipeIndex5846BC;
             }
@@ -13281,7 +13281,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
                 top + positions[slot][1] + 24, 213, image, 0, &descriptor));
             const std::int32_t count = ui::detail::gSelectionCountsD66E0C[slot];
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 drawAt(buffer, positions[slot][0] + 21, positions[slot][1] + 31, 1);
             }
         }
@@ -13487,7 +13487,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGemMaterialsPanel58AA60.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyGemMaterialsPanel58AA60.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -13670,12 +13670,12 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
                 if (duration < elapsed) {
                     const std::int32_t first = ui::detail::gSelectedSlotsCA0A90[0];
                     if (first >= 0) {
-                        platform::FormatLegacyString_53B304(part, "%d|", first + 8);
+                        std::sprintf(part, "%d|", first + 8);
                         std::strcpy(buffer, part);
                     }
                     const std::int32_t last = ui::detail::gSelectedSlotsCA0A90[5];
                     if (last >= 0) {
-                        platform::FormatLegacyString_53B304(part, "%d", last + 8);
+                        std::sprintf(part, "%d", last + 8);
                         std::strcat(buffer, part);
                     }
                     NullSub_509080();
@@ -13715,7 +13715,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
         static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
     const std::int32_t reduce = world::detail::gSkillsF1BAFC[skill].fpReduce;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].techniques3C[0].value7C;
-    platform::FormatLegacyString_53B304(buffer, "%4d", fp * reduce / 100);
+    std::sprintf(buffer, "%4d", fp * reduce / 100);
     const std::int32_t costY = gLegacyGemExecutionPanel58AB28.y + 39;
     const std::int32_t costX = gLegacyGemExecutionPanel58AB28.x + 295;
     static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
@@ -13729,7 +13729,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = ui::detail::gSelectionCountsD66E0C[slot];
                 if (count > 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                    std::sprintf(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGemExecutionPanel58AB28.y + positions[slot][1] + 31;
                     const std::int32_t countX = gLegacyGemExecutionPanel58AB28.x + positions[slot][0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -13843,11 +13843,11 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 85 - width / 2, 35, 0, 0);
-    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 66, 60, 1, 0);
     // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
     const platform::LegacyCryptInt rawFp = world::detail::ReadPlayerFpRawSnapshot();
-    platform::FormatLegacyString_53B304(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
+    std::sprintf(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
     drawAt(buffer, 258, 60, 1, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t recipeIndex = row + 8 * gLegacyRecipePageD67D0C;
@@ -13860,13 +13860,13 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
             const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
             // 原4F5EB2直接以配对槽号取倍率，不再次通过pair.index映射。
             const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[multiplierSkill].fpReduce / 100;
-            platform::FormatLegacyString_53B304(buffer, "%4d", cost);
+            std::sprintf(buffer, "%4d", cost);
             drawAt(buffer, 295, 92 + 24 * row, 1, color);
         }
     }
     const std::int32_t page = gLegacyRecipePageD67D0C;
     const std::int32_t pageCount = gLegacyRecipePageCountD67D10;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
     drawAt(buffer, 87, 350, 1, 0);
     if (hoveredRow >= 0) {
         const std::int32_t recipeIndex = hoveredRow + 8 * gLegacyRecipePageD67D0C;
@@ -14011,7 +14011,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
             SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);
             ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);
         }
-        platform::FormatLegacyString_53B304(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
+        std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
         drawAt(buffer, 46, 170, 1);
         const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);
         const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
@@ -14030,7 +14030,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);
         const std::int32_t tribeWidth = TextMeasure(buffer, 1);
         drawAt(buffer, 215 - tribeWidth / 2, 193, 1);
-        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
+        std::sprintf(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
         drawAt(buffer, 195, 325, 1);
         for (std::int32_t rating = 0; rating < 5; ++rating) {
             const std::byte* const ratingRecord = selectedRecord();
@@ -14065,7 +14065,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumSelectionC8AF7C;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
-    platform::FormatLegacyString_53B304(buffer, "%3d/%3d", current + 1, count);
+    std::sprintf(buffer, "%3d/%3d", current + 1, count);
     drawAt(buffer, 150, 411, 1);
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);
@@ -14171,7 +14171,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         const std::int32_t index = row + 15 * gLegacyAlbumPageC8B1B0;
         const std::byte* const record = records + index * 0x80;
         if (record[0] != std::byte{0}) {
-            platform::FormatLegacyString_53B304(buffer, "%03d", ReadRecordW32(record, 4));
+            std::sprintf(buffer, "%03d", ReadRecordW32(record, 4));
             const std::int32_t numberY = gLegacyAlbumListPanel584788.y + 24 * row + 42;
             const std::int32_t numberX = gLegacyAlbumListPanel584788.x + 46;
             static_cast<void>(DrawText(static_cast<std::int16_t>(numberX),
@@ -14195,7 +14195,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumPageC8B1B0;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueCC3E68);
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", current + 1, count);
+    std::sprintf(buffer, "%2d/%2d", current + 1, count);
     const std::int32_t pageY = gLegacyAlbumListPanel584788.y + 406;
     const std::int32_t pageX = gLegacyAlbumListPanel584788.x + 115;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -14308,19 +14308,19 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 36 + 75 * row),
             2, 0, 0, name, 0, 0));
-        platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
+        std::sprintf(buffer, "%3d", pet.value08);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
             2, 1, 0, buffer, 0, 0));
         const std::int32_t maxHp = pet.values0C[1].value();
         const std::int32_t hp = pet.values0C[0].value();
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 61 + 75 * row),
             2, 1, 0, buffer, 0, 0));
         const std::int32_t maxFp = pet.values0C[3].value();
         const std::int32_t fp = pet.values0C[2].value();
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 83 + 75 * row),
             2, 1, 0, buffer, 0, 0));
@@ -14664,29 +14664,29 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
+    std::sprintf(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 44);
-    platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[4].value());
+    std::sprintf(buffer, "%9d", pet.values0C[4].value());
     drawAt(buffer, 55, 66);
     if (pet.value08 < 130) {
-        platform::FormatLegacyString_53B304(buffer, "%9d", pet.values0C[5].value());
+        std::sprintf(buffer, "%9d", pet.values0C[5].value());
         drawAt(buffer, 55, 89);
     } else {
         drawAt(kLegacyPetLevelLimit58A214, 55, 89);
     }
     const std::int32_t maxHp = pet.values0C[1].value();
     const std::int32_t hp = pet.values0C[0].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 113);
     const std::int32_t maxFp = pet.values0C[3].value();
     const std::int32_t fp = pet.values0C[2].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 136);
     for (std::int32_t field = 0; field < 6; ++field) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[5 + field]);
+        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
         drawAt(buffer, 62, 159 + 23 * field);
     }
-    platform::FormatLegacyString_53B304(buffer, "%2d", pet.value6A4);
+    std::sprintf(buffer, "%2d", pet.value6A4);
     drawAt(buffer, 70, 297);
     std::strcpy(buffer, ui::detail::gTribeNames57CB54[std::bit_cast<std::int16_t>(pet.value04)]);
     const std::int32_t width = TextMeasure(buffer, 1);
@@ -14703,7 +14703,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
+    std::sprintf(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 382;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -14777,44 +14777,44 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
+    std::sprintf(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 36);
     const std::int32_t maxHp = pet.values0C[1].value();
     const std::int32_t hp = pet.values0C[0].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 59);
     const std::int32_t maxFp = pet.values0C[3].value();
     const std::int32_t fp = pet.values0C[2].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 82);
     for (std::int32_t field = 0; field < 5; ++field) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[5 + field]);
+        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
         drawAt(buffer, 62, 105 + 23 * field);
     }
     for (std::int32_t field = 0; field < 6; ++field) {
-        platform::FormatLegacyString_53B304(buffer, "%+4d", pet.values70[11 + field]);
+        std::sprintf(buffer, "%+4d", pet.values70[11 + field]);
         drawAt(buffer, 69, 243 + 23 * field);
     }
     for (std::int32_t field = 0; field < 5; ++field) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[field]);
+        std::sprintf(buffer, "%3d", pet.values70[field]);
         drawAt(buffer, 192, 82 + 23 * field);
     }
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[10]);
+    std::sprintf(buffer, "%3d", pet.values70[10]);
     drawAt(buffer, 186, 202);
-    platform::FormatLegacyString_53B304(buffer, "%2d", pet.value6A4);
+    std::sprintf(buffer, "%2d", pet.value6A4);
     drawAt(buffer, 194, 227);
     for (std::int32_t field = 0; field < 4; ++field) {
-        platform::FormatLegacyString_53B304(buffer, "%+4d", pet.values70[17 + field]);
+        std::sprintf(buffer, "%+4d", pet.values70[17 + field]);
         drawAt(buffer, 193, 273 + 23 * field);
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
+    std::sprintf(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 388;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
         static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet.lvFlag6C);
+    std::sprintf(buffer, "%3d", pet.lvFlag6C);
     drawAt(buffer, 220, 59);
     if (pet.lvFlag6C != 0) {
         static_cast<void>(DrawGraphic(x + 178, y + 68, 212, 22811, 1, nullptr));
@@ -14880,7 +14880,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
             const auto& technique = pet.techniquesD8[skill];
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 39),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, technique.name.data(), 0, 0));
-            platform::FormatLegacyString_53B304(buffer, "%4d", technique.fp);
+            std::sprintf(buffer, "%4d", technique.fp);
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 211),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 1, 0, buffer, 0, 0));
         }
@@ -14898,7 +14898,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
+    std::sprintf(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 386;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -15139,7 +15139,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
     }
     const std::int32_t count = blacklist::GetBlacklistCount_401190();
     char countText[512];
-    platform::FormatLegacyString_53B304(countText, kLegacyBlacklistText55332C, count);
+    std::sprintf(countText, kLegacyBlacklistText55332C, count);
     const std::int32_t countY = gLegacyBlacklistPanel5531D0.y;
     const std::int32_t countX = gLegacyBlacklistPanel5531D0.x;
     DrawText(Low16(countX + 10), Low16(countY + 95), 2, 0, 8, countText, 0, 0);
@@ -15176,7 +15176,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         char message[128];
         if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->text) != 0) {
             const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->text) != 0;
-            platform::FormatLegacyString_53B304(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
+            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
                 gLegacyBlacklistInput5939B8->text);
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
@@ -15185,7 +15185,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
             const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->text) != 0;
-            platform::FormatLegacyString_53B304(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
+            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
                 gLegacyBlacklistInput5939B8->text);
         }
         gLegacyBlacklistInput5939B8->text[0] = 0;
@@ -15280,11 +15280,11 @@ std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
     } else if (hovered >= 0) {
         const std::int8_t currentPage = gLegacyPresetPanel5850C8.selected;
         if (currentPage == 0) {
-            platform::FormatLegacyString_53B304(hint, kLegacyPresetNormal58A6A8, hovered + 1);
+            std::sprintf(hint, kLegacyPresetNormal58A6A8, hovered + 1);
         } else if (currentPage == 1) {
-            platform::FormatLegacyString_53B304(hint, kLegacyPresetCtrl58A68C, hovered + 1);
+            std::sprintf(hint, kLegacyPresetCtrl58A68C, hovered + 1);
         } else if (currentPage == 2) {
-            platform::FormatLegacyString_53B304(hint, kLegacyPresetShift58A66C, hovered + 1);
+            std::sprintf(hint, kLegacyPresetShift58A66C, hovered + 1);
         }
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyPresetPanel5850C8, 1));
@@ -15595,7 +15595,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
             static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
             const std::int32_t count = item->count;
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 const std::int32_t countY = position[1] + gLegacyInventoryPanel584C00.y + 31;
                 const std::int32_t countX = position[0] + gLegacyInventoryPanel584C00.x + 21;
                 static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -15621,7 +15621,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
         const std::int32_t left = kLegacyInventoryPositions584CC4[dragged][0] + gLegacyInventoryPanel584C00.x;
         DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(left + 45), Low16(top + 45), 212, 254, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     const std::int32_t moneyY = gLegacyInventoryPanel584C00.y + 71;
     const std::int32_t moneyX = gLegacyInventoryPanel584C00.x + 200;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moneyX),
@@ -15635,10 +15635,10 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item->used != 0 && std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-            platform::FormatLegacyString_53B304(buffer, "%s[kok]", item->name.data());
+            std::sprintf(buffer, "%s[kok]", item->name.data());
             hint = buffer;
         } else if (item->used != 0 && (item->flags & 0x200u) != 0) {
-            platform::FormatLegacyString_53B304(buffer, kLegacyInventoryMemo58A38C, item->memo.data());
+            std::sprintf(buffer, kLegacyInventoryMemo58A38C, item->memo.data());
             hint = buffer;
         } else {
             switch (hovered) {
@@ -15738,12 +15738,12 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
         gLegacyMoneyAmountD2D618 = money;
     }
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%7d", money);
+    std::sprintf(buffer, "%7d", money);
     const std::int32_t moneyY = gLegacyMoneyPanel584DA8.y + 46;
     const std::int32_t moneyX = gLegacyMoneyPanel584DA8.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moneyX),
         static_cast<std::int16_t>(moneyY), 2, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyMoneyAmountD2D618);
+    std::sprintf(buffer, "%7d", gLegacyMoneyAmountD2D618);
     const std::int32_t amountY = gLegacyMoneyPanel584DA8.y + 86;
     const std::int32_t amountX = gLegacyMoneyPanel584DA8.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),
@@ -15991,7 +15991,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
             const std::int32_t fp = technique.value7C;
             const std::int32_t cost = std::bit_cast<std::int32_t>(
                 static_cast<std::uint32_t>(reduction) * static_cast<std::uint32_t>(fp)) / 100;
-            platform::FormatLegacyString_53B304(buffer, "%4d", cost);
+            std::sprintf(buffer, "%4d", cost);
             static_cast<void>(DrawText(
                 static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 224)),
                 static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 83 + 24 * row)),
@@ -16007,16 +16007,16 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, name, 0, 0));
     const std::int32_t maxLevel = skill.maxLevel;
     const std::int32_t level = skill.level;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", level, maxLevel);
+    std::sprintf(buffer, "%2d/%2d", level, maxLevel);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 206)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 36)), 2, 1, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, "%8d", skill.experience);
+    std::sprintf(buffer, "%8d", skill.experience);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 60)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
     if (skill.level < skill.maxLevel) {
-        platform::FormatLegacyString_53B304(buffer, "%8d", skill.nextExperience);
+        std::sprintf(buffer, "%8d", skill.nextExperience);
         static_cast<void>(DrawText(
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 193)),
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
@@ -16026,7 +16026,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, kLegacyGatherLimit589858, 0, 0));
     }
     const std::int32_t page = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8) + 1;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page, count);
+    std::sprintf(buffer, "%2d/%2d", page, count);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 164)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 423)), 2, 1, 0, buffer, 0, 0));
@@ -16141,13 +16141,13 @@ std::int32_t Sub_500370(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(skillLeft + 30),
             static_cast<std::int16_t>(skillTop + row * 29 + 120), 2, 0, 0,
             skill->name.data(), 0, 0));
-        platform::FormatLegacyString_53B304(buffer, "%2d", skill->level);
+        std::sprintf(buffer, "%2d", skill->level);
         const std::int32_t levelTop = gLegacySkillList585708.y;
         const std::int32_t levelLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelLeft + 203),
             static_cast<std::int16_t>(levelTop + row * 29 + 120), 2, 0, 0, buffer, 0, 0));
         const std::int32_t required = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
-        platform::FormatLegacyString_53B304(buffer, "%d", required);
+        std::sprintf(buffer, "%d", required);
         const std::int32_t slotsTop = gLegacySkillList585708.y;
         const std::int32_t slotsLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(slotsLeft + 250),
@@ -16169,7 +16169,7 @@ std::int32_t Sub_500370(const std::int32_t opened)
         }
     }
     const std::int32_t signedUsed = std::bit_cast<std::int8_t>(usedSlots);
-    platform::FormatLegacyString_53B304(buffer, "%2d", 10 - signedUsed);
+    std::sprintf(buffer, "%2d", 10 - signedUsed);
     const std::int32_t footerTop = gLegacySkillList585708.y;
     const std::int32_t footerLeft = gLegacySkillList585708.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(footerLeft + 156),
@@ -16292,7 +16292,7 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     };
     const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
         const std::int32_t oldY, const std::int32_t newY, const char* const format) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         drawAt(buffer, offsetX, versionY(oldY, newY));
     };
     const std::int32_t tribeWidth = TextMeasure(
@@ -16332,11 +16332,11 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     drawNumber(world::detail::ReadPlayerLevel(), 62, 122, 140, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, versionY(191, 206));
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, versionY(214, 228));
     drawNumber(world::detail::ReadPlayerValue78(8), 62, 237, 250, "%3d");
     drawNumber(world::detail::ReadPlayerValue78(9), 62, 260, 272, "%3d");
@@ -16351,7 +16351,7 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     const char* nextExperience = "   ---   ";
     if (world::detail::ReadPlayerLevel() < 130) {
         const std::int32_t next = world::detail::ReadPlayerNextExperienceOnce();
-        platform::FormatLegacyString_53B304(buffer, "%9d", next);
+        std::sprintf(buffer, "%9d", next);
         nextExperience = buffer;
     }
     drawAt(nextExperience, 55, versionY(168, 184));
@@ -16442,19 +16442,19 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
     char buffer[256];
     const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
         const std::int32_t offsetY, const char* const format, const std::int8_t color = 0) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, color, buffer, 0, 0));
     };
     drawNumber(world::detail::ReadPlayerLevel(), 62, 38, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
         static_cast<std::int16_t>(y + 61), 2, 1, 0, buffer, 0, 0));
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
         static_cast<std::int16_t>(y + 84), 2, 1, 0, buffer, 0, 0));
     drawNumber(world::detail::ReadPlayerValue78(8), 62, 107, "%3d");
@@ -16661,7 +16661,7 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     render::DrawInputText_4568A0(gLegacyProfileInputD6885C);
     const std::int32_t page = gLegacyTitlePageCF49B4;
     const std::int32_t pages = gLegacyTitlePageCountC8AF80;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pages);
+    std::sprintf(buffer, "%2d/%2d", page + 1, pages);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 166),
         static_cast<std::int16_t>(y + 101), 2, 0, 0, buffer, 0, 0));
     Sub_5035E0(&submit, 212, 1, gValueD69768, 0);
@@ -17132,7 +17132,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         return static_cast<std::uint32_t>(interaction);
     }
     char buffer[128];
-    platform::FormatLegacyString_53B304(buffer, kLegacyChat553FB4, platform::gValue55463C);
+    std::sprintf(buffer, kLegacyChat553FB4, platform::gValue55463C);
     const std::int32_t linesY = gLegacyChatSettings585000.y;
     const std::int32_t linesX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(linesX + 62),
@@ -17143,7 +17143,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
     const std::int32_t soundX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(soundX + 62),
         static_cast<std::int16_t>(soundY + 180), 2, 0, 0, buffer, 0, 0));
-    platform::FormatLegacyString_53B304(buffer, kLegacyChat5531A4, platform::gValue554640);
+    std::sprintf(buffer, kLegacyChat5531A4, platform::gValue554640);
     const std::int32_t rangeY = gLegacyChatSettings585000.y;
     const std::int32_t rangeX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(rangeX + 62),
@@ -17268,7 +17268,7 @@ std::uint32_t Sub_4FDBD0(const std::int32_t opened)
     }
 
     char buffer[128];
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         buffer, kLegacyChat553FB4, platform::gMusicVolume));
     const std::int32_t y = gLegacyMusicSettings585190.y;
     const std::int32_t x = gLegacyMusicSettings585190.x;
@@ -17425,7 +17425,7 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
     }
 
     char buffer[128];
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         buffer, kLegacyChat553FB4, platform::gEffectVolume));
     const std::int32_t volumeY = gLegacySoundSettings585258.y;
     const std::int32_t volumeX = gLegacySoundSettings585258.x;
@@ -17433,7 +17433,7 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
         static_cast<std::int16_t>(volumeY + 60), 2, 0, 0, buffer, 0, 0));
 
     const std::int32_t mode = platform::gUseStereo;
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         buffer, kLegacyMouse5535F8, modes[static_cast<std::size_t>(mode)]));
     const std::int32_t modeY = gLegacySoundSettings585258.y;
     const std::int32_t modeX = gLegacySoundSettings585258.x;
@@ -17630,13 +17630,13 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     }
     char buffer[128];
     const std::uint32_t cursorMode = platform::gValueD67AE4;
-    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
+    std::sprintf(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
     const std::int32_t cursorY = gLegacyMouseSettings585320.y;
     const std::int32_t cursorX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(cursorX + 62),
         static_cast<std::int16_t>(cursorY + 60), 2, 0, 0, buffer, 0, 0));
     const std::uint32_t moveMode = platform::gValueD67AE8;
-    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, moveNames[moveMode]);
+    std::sprintf(buffer, kLegacyMouse5535F8, moveNames[moveMode]);
     const std::int32_t moveY = gLegacyMouseSettings585320.y;
     const std::int32_t moveX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moveX + 31),
@@ -17644,7 +17644,7 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     // 原54D4BC为F32 0x3DCCCCCD，不能改成double字面量0.1。
     const double speed = static_cast<double>(platform::gValue553438)
         * static_cast<double>(std::bit_cast<float>(std::uint32_t {0x3DCCCCCD}));
-    platform::FormatLegacyString_53B304(buffer, kLegacyMouse58A80C, speed);
+    std::sprintf(buffer, kLegacyMouse58A80C, speed);
     const std::int32_t speedY = gLegacyMouseSettings585320.y;
     const std::int32_t speedX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(speedX + 100),
@@ -17949,7 +17949,7 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
     }
     char buffer[128];
     const std::int32_t mode = std::bit_cast<std::int16_t>(platform::gScanlineSyncMode);
-    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, modeNames[mode]);
+    std::sprintf(buffer, kLegacyMouse5535F8, modeNames[mode]);
     const std::int32_t y = gLegacyScanlineSettings5854B0.y;
     const std::int32_t x = gLegacyScanlineSettings5854B0.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 31),
@@ -18115,13 +18115,13 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
         static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
     char buffer[256];
     const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
-    platform::FormatLegacyString_53B304(buffer, kLegacyMapEast58AA54, playerX);
+    std::sprintf(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
     const std::int32_t eastX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
         static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
     const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
-    platform::FormatLegacyString_53B304(buffer, kLegacyMapSouth58AA4C, playerY);
+    std::sprintf(buffer, kLegacyMapSouth58AA4C, playerY);
     const std::int32_t southY = gLegacyMapPanelD68868.y;
     const std::int32_t southX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(southX + 133),
@@ -18457,7 +18457,7 @@ std::int32_t Sub_503160(
                 const char* const hint = tab->hint;
                 if (hint != nullptr) {
                     char buffer[128];
-                    platform::FormatLegacyString_53B304(buffer, "%s", hint);
+                    std::sprintf(buffer, "%s", hint);
                     std::strcpy(ui::detail::gHoverTextD68AE8.data(), buffer);
                 }
                 if ((gValueD68D9C & 1u) != 0) {

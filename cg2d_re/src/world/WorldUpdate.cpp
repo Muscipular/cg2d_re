@@ -19,7 +19,7 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include <bit>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::world {
 
@@ -297,7 +297,7 @@ std::int32_t Sub_455C90()
     char errorText[256];
     const bool connectionError = login::gValue593FC0 != 0;
     if (connectionError) {
-        platform::FormatLegacyString_53B304(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
+        std::sprintf(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
         thirdText = kTryOtherServer;
     } else {

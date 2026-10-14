@@ -9,7 +9,7 @@
 
 #include <dbghelp.h>
 #include <mmsystem.h>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 #include <cwchar>
 #include <string>
@@ -281,7 +281,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         std::memset(fileCommandLine, 0, sizeof(fileCommandLine));
         std::memset(fileName, 0, sizeof(fileName));
         std::int32_t total = 0;
-        FormatLegacyString_53B304(fileName, "%s", ".\\data\\argument.ini");
+        std::sprintf(fileName, "%s", ".\\data\\argument.ini");
         LegacyFile* file = OpenLegacyStream_53B2F1(fileName, "r");
         if (file != nullptr) {
             do {

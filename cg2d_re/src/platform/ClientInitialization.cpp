@@ -27,7 +27,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::platform {
 namespace initialization_detail {
@@ -237,7 +237,7 @@ int InitializeClient_4576B0()
     static_cast<void>(InitializeIme_458FD0());
     if (RestoreCurrentSavedState_5201B0() == 0) {
         char message[1024];
-        FormatLegacyString_53B304(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
+        std::sprintf(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
         ShowUtf8Message(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }

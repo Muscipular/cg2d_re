@@ -21,6 +21,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 namespace {
 
@@ -122,7 +123,7 @@ std::uint32_t Sub_44B5C0(const char* text)
         return 0;
     }
 
-    static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "%s\n", text));
+    static_cast<void>(std::fprintf(file, "%s\n", text));
     return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
 }
 
@@ -143,7 +144,7 @@ std::int32_t Sub_508360()
                 static_cast<std::int32_t>(gValue58AD94),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>(platform::FormatLegacyString_53B304(
+            static_cast<void>(std::sprintf(
                 gRequestMessage, kServerInfoFailureMessage));
             return -2;
         }
@@ -152,7 +153,7 @@ std::int32_t Sub_508360()
         platform::gConnectionSocket =
             static_cast<std::uintptr_t>(connectionSocket);
         if (connectionSocket == INVALID_SOCKET) {
-            static_cast<void>(platform::FormatLegacyString_53B304(
+            static_cast<void>(std::sprintf(
                 gRequestMessage, kSocketFailureMessage));
             return -3;
         }
@@ -180,7 +181,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     gRequestMessage,
                     kServerAddressFailureFormat,
                     serverAddress));
@@ -204,12 +205,12 @@ std::int32_t Sub_508360()
             const int error = ::WSAGetLastError();
             if (error != 10035) {
                 char logMessage[sizeof("CONNECT ERROR=-2147483648")];
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     logMessage, "CONNECT ERROR=%d", error));
                 static_cast<void>(Sub_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     gRequestMessage, kConnectFailureMessage));
                 return -5;
             }
@@ -246,7 +247,7 @@ std::int32_t Sub_508360()
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
-            static_cast<void>(platform::FormatLegacyString_53B304(
+            static_cast<void>(std::sprintf(
                 gRequestMessage, kConnectExceptionMessage));
             static_cast<void>(::closesocket(
                 static_cast<SOCKET>(platform::gConnectionSocket)));
@@ -274,14 +275,14 @@ std::int32_t Sub_508360()
             step = gConnectionStep;
             gRequestStatus = 1;
             char diagnostic[64];
-            static_cast<void>(platform::FormatLegacyString_53B304(
+            static_cast<void>(std::sprintf(
                 diagnostic, "LOGIN QUEUE RESULT=%d", queued));
             static_cast<void>(Sub_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
-                static_cast<void>(platform::FormatLegacyString_53B304(
+                static_cast<void>(std::sprintf(
                     gRequestMessage, kLoginRejectedMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
@@ -307,7 +308,7 @@ std::int32_t Sub_508360()
 
     const std::uint32_t now = platform::ReadTickCount32();
     if (now - gRequestStartTick > 600000U) {
-        static_cast<void>(platform::FormatLegacyString_53B304(
+        static_cast<void>(std::sprintf(
             gRequestMessage, kConnectionTimeoutMessage));
         return -1;
     }
@@ -340,7 +341,7 @@ std::int32_t UpdateServerConnection()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        static_cast<void>(platform::FormatLegacyString_53B304(
+        static_cast<void>(std::sprintf(
             gServerConnectingText, kServerConnectingText));
 
         std::int32_t columnCount =

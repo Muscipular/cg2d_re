@@ -4,14 +4,14 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 
 namespace cg::platform {
 
 // 原函数：0x004659F0。
 int ParseClientVersion()
 {
-    return ScanLegacyString_53CADC("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
+    return std::sscanf("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
 }
 
 // 原函数：0x00465A20。
@@ -28,7 +28,7 @@ int CreateSaveDirectories()
     char directory[256];
     ChangeLegacyDirectory_53DD2F("data");
     for (int i = 0; i < 10; ++i) {
-        FormatLegacyString_53B304(directory, "%d", i);
+        std::sprintf(directory, "%d", i);
         CreateLegacyDirectory_53C654(directory);
     }
     ChangeLegacyDirectory_53DD2F("..");

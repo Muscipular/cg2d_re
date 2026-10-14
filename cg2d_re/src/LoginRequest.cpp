@@ -11,6 +11,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
@@ -145,7 +146,7 @@ std::int32_t PollLoginRequest()
         return 0;
     }
 
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         gRequestMessage, kRequestTimeoutMessage));
     return -1;
 }
@@ -220,7 +221,7 @@ std::int32_t Sub_508C90()
         return 0;
     }
 
-    static_cast<void>(platform::FormatLegacyString_53B304(
+    static_cast<void>(std::sprintf(
         gRequestMessage, kLogoutTimeoutMessage));
     return -1;
 }

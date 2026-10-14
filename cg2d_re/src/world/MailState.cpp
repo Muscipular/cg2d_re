@@ -20,7 +20,7 @@
 #include <array>
 #include <bit>
 #include <cstddef>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
 namespace cg::world::detail {
@@ -655,7 +655,7 @@ void Sub_50DC70(
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5191C0(index, 0, name, text);
     const char* const contactName = gContactsF19FB0[index].name10.data();
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064,
         contactName);
     static_cast<void>(Sub_519300());
@@ -719,7 +719,7 @@ std::int32_t Sub_534520(char* const destination)
     const std::int32_t month = readField(0x10);
     const std::int32_t year = readField(0x14);
     char timestamp[256];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         timestamp, "%4d/%2d/%2d %02d:%02d", year + 1900, month + 1, day, hours, minutes);
     std::strcpy(destination, timestamp);
     return 0;
@@ -787,7 +787,7 @@ void Sub_50F7F0(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5343C0(index, 0, name, text);
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         message, kReceivedMiniMailFormat58B108,
         gMiniMailRuntime.contacts[index].name10.data());
     static_cast<void>(Sub_518DA0());
@@ -851,7 +851,7 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     }
     Sub_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    platform::FormatLegacyString_53B304(message, kReceivedMiniMailFormat58B108, record.name10.data());
+    std::sprintf(message, kReceivedMiniMailFormat58B108, record.name10.data());
     Sub_44B050(message, 4, 3);
 }
 
@@ -1282,7 +1282,7 @@ void Sub_50F450(
 std::int32_t Sub_5348A0()
 {
     char path[1024];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "bin\\%s", "category.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "wb+");
@@ -1299,7 +1299,7 @@ std::int32_t Sub_5348A0()
 std::int32_t Sub_534910()
 {
     char path[1024];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "bin\\%s", "category.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "rb+");
@@ -1345,7 +1345,7 @@ std::int32_t Sub_5345A0(const std::int32_t index)
 std::int32_t Sub_534770()
 {
     char path[1024];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "wb+");
@@ -1362,7 +1362,7 @@ std::int32_t Sub_534770()
 std::int32_t Sub_5347F0()
 {
     char path[1024];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "rb+");
@@ -1383,7 +1383,7 @@ std::int32_t Sub_5347F0()
 std::int32_t Sub_518CB0()
 {
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
     platform::LegacyFile* stream =
         platform::OpenLegacyStream_53B2F1(path, "rb");
@@ -1394,7 +1394,7 @@ std::int32_t Sub_518CB0()
         gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(gMailStorageF7CA08.size()), stream));
     static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
 
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
     stream = platform::OpenLegacyStream_53B2F1(path, "rb");
     if (stream == nullptr) {
@@ -1410,7 +1410,7 @@ std::int32_t Sub_518CB0()
 std::int32_t Sub_519300()
 {
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "wb");
@@ -1427,7 +1427,7 @@ std::int32_t Sub_519300()
 std::int32_t Sub_519550()
 {
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "wb");

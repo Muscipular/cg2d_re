@@ -20,6 +20,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
@@ -236,7 +237,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
     char path[0x400];
     std::uint8_t encoded[0xA20];
     std::int32_t decodedBytes;
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
@@ -471,7 +472,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
     gSavedState.mappingCount = 0;
 
     for (std::int32_t index = 0; index < 10; ++index) {
-        cg::platform::FormatLegacyString_53B304(
+        std::sprintf(
             gSavedState.paths[index].text,
             "data\\%d",
             index);
@@ -490,7 +491,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 {
     char path[0x400];
     for (std::int32_t index = 0; index < 10; ++index) {
-        cg::platform::FormatLegacyString_53B304(
+        std::sprintf(
             path,
             "%s\\%s",
             gSavedState.paths[index].text,
@@ -643,7 +644,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
     const std::int32_t selected = gSavedState.selected;
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[selected];
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
@@ -673,21 +674,21 @@ std::int32_t PersistCurrentSavedRecord_520200()
 {
     char path[0x400];
 
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "save.dat");
     (void)::DeleteFileA(path);
 
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "mail.dat");
     (void)::DeleteFileA(path);
 
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
@@ -1262,7 +1263,7 @@ void Sub_533730()
             encoded,
             &encodedBytes,
             0xA20);
-        cg::platform::FormatLegacyString_53B304(
+        std::sprintf(
             path,
             "%s\\%s",
             gSavedState.paths[physicalSlot].text,

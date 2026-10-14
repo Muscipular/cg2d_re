@@ -22,7 +22,7 @@
 
 #include <algorithm>
 #include <bit>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 #include <memory>
 #include <new>
@@ -121,7 +121,7 @@ void WriteRendererModeFile(const bool fallback)
         CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (file != INVALID_HANDLE_VALUE) {
         if (!fallback) {
-            platform::FormatLegacyString_53B304(buffer, "%d",
+            std::sprintf(buffer, "%d",
                 static_cast<int>(std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)));
         }
         DWORD written;

@@ -41,7 +41,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstddef>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <fcntl.h>
@@ -2451,7 +2451,7 @@ void Sub_4CFCA0(const std::int32_t petIndex)
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
             char message[128];
-            platform::FormatLegacyString_53B304(message,
+            std::sprintf(message,
                 "\xD5\x88\xD0\xB6\xCF\xC2\x8C\x99\xCE\xEF\xC9\xED\xC9\xCF"
                 "\xB5\xC4\xD1\x62\x82\xE4\xE1\xE1\xD4\xD9\xB2\xD9\xD7\xF7\xA1\xA3");
             world::detail::Sub_44B050(message, 4, 3);
@@ -2675,7 +2675,7 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                platform::FormatLegacyString_53B304(buffer, "%d|", gStallItemOffersD671D8[index].value);
+                std::sprintf(buffer, "%d|", gStallItemOffersD671D8[index].value);
                 std::strcat(offers, buffer);
                 count = gStallItemCountD67BCC;
             }
@@ -2697,7 +2697,7 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                platform::FormatLegacyString_53B304(buffer, "%d|", gStallPetOffersCC3E98[index].value);
+                std::sprintf(buffer, "%d|", gStallPetOffersCC3E98[index].value);
                 std::strcat(offers, buffer);
                 count = gStallPetCountD67BD4;
             }
@@ -2711,14 +2711,14 @@ std::int32_t Sub_4CFE70()
     const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
     offers[275] = '\0';
     if (nameLength != 0) {
-        platform::FormatLegacyString_53B304(name, "%s", gStallNameD67BE4.data());
+        std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(name, escaped, 275);
     platform::StrNCpy_53BEC0(name, escaped, 32);
     const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
     name[32] = '\0';
     if (descriptionLength != 0) {
-        platform::FormatLegacyString_53B304(description, "%s", gStallDescriptionD67BF8.data());
+        std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(description, escaped, 275);
     platform::StrNCpy_53BEC0(description, escaped, 112);
@@ -2835,7 +2835,7 @@ std::int32_t Sub_4D0A80(
     const std::int32_t shortY = static_cast<std::int16_t>(y);
     char buffer[100];
     for (std::int32_t row = 0; row < 5; ++row) {
-        platform::FormatLegacyString_53B304(buffer, "%10d", pet.values70[5 + row]);
+        std::sprintf(buffer, "%10d", pet.values70[5 + row]);
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 144), static_cast<std::int16_t>(shortY + 23 + row * 15),
             5, 12, 0, buffer, 0, 0));
@@ -2897,7 +2897,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     char buffer[32];
-    platform::FormatLegacyString_53B304(buffer, "%s", pet->name6AC.data());
+    std::sprintf(buffer, "%s", pet->name6AC.data());
     {
         WindowInstance* const window = gCurrentWindow;
         const auto x = static_cast<std::int16_t>(window->x + 77);
@@ -2912,34 +2912,34 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(render::DrawText_456780(
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
-    platform::FormatLegacyString_53B304(buffer, "%4d", pet->values0C[1].value());
+    std::sprintf(buffer, "%4d", pet->values0C[1].value());
     drawText(227, 58);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->value08);
+    std::sprintf(buffer, "%3d", pet->value08);
     drawText(53, 75);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
     if (tribe >= 0 && tribe < 20) {
-        platform::FormatLegacyString_53B304(buffer, "%s", gTribeNames57CB54[tribe]);
+        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
     } else {
         buffer[0] = '\0';
     }
     drawText(120, 75);
-    platform::FormatLegacyString_53B304(buffer, "%4d", pet->values0C[3].value());
+    std::sprintf(buffer, "%4d", pet->values0C[3].value());
     drawText(227, 75);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[0]);
+    std::sprintf(buffer, "%3d", pet->values70[0]);
     drawText(117, 93);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[1]);
+    std::sprintf(buffer, "%3d", pet->values70[1]);
     drawText(176, 93);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[2]);
+    std::sprintf(buffer, "%3d", pet->values70[2]);
     drawText(234, 93);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->value6A4);
+    std::sprintf(buffer, "%3d", pet->value6A4);
     drawText(53, 111);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[3]);
+    std::sprintf(buffer, "%3d", pet->values70[3]);
     drawText(117, 111);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[4]);
+    std::sprintf(buffer, "%3d", pet->values70[4]);
     drawText(176, 111);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[10]);
+    std::sprintf(buffer, "%3d", pet->values70[10]);
     drawText(234, 111);
-    platform::FormatLegacyString_53B304(buffer, "%3d", pet->lvFlag6C);
+    std::sprintf(buffer, "%3d", pet->lvFlag6C);
     drawText(91, 129);
     std::int32_t consumed = 0;
     if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
@@ -2992,10 +2992,10 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
     const bool priceOwn = gStallOwn58111C != 0;
     std::int32_t price;
     if (priceOwn) {
-        platform::FormatLegacyString_53B304(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
+        std::sprintf(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
         price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
     } else {
-        platform::FormatLegacyString_53B304(buffer, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
+        std::sprintf(buffer, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
         price = BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row];
     }
     std::int8_t priceColor = 0;
@@ -3082,22 +3082,22 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
         const auto x = static_cast<std::int16_t>(window->x + dx);
         static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
     };
-    platform::FormatLegacyString_53B304(buffer, "%s", initialPet->name6AC.data());
+    std::sprintf(buffer, "%s", initialPet->name6AC.data());
     drawText(298, 132);
-    platform::FormatLegacyString_53B304(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
+    std::sprintf(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
     const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
     const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     drawText(333, 146);
     const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
     const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
         (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
-        platform::FormatLegacyString_53B304(buffer, "%s", gTribeNames57CB54[tribe]);
+        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
     } else {
         buffer[0] = '\0';
     }
@@ -3283,7 +3283,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     } else {
         price = BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
-    platform::FormatLegacyString_53B304(buffer, "%d", price);
+    std::sprintf(buffer, "%d", price);
     std::int8_t priceColor = 0;
     if (price >= 10000) {
         if (price < 100000) {
@@ -3304,7 +3304,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     const std::int32_t count = item->count;
     if (count > 0) {
         char countBuffer[20];
-        platform::FormatLegacyString_53B304(countBuffer, "%3d", count);
+        std::sprintf(countBuffer, "%3d", count);
         WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
@@ -3399,7 +3399,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
                 3, 1, 1, buffer, 0, 0));
@@ -3522,7 +3522,7 @@ std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
             x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
     }
     char buffer[20];
-    platform::FormatLegacyString_53B304(buffer, "%d", gStallPriceD67C40);
+    std::sprintf(buffer, "%d", gStallPriceD67C40);
     Sub_4771B0(x + 105, y + 29, buffer, 3, 0, 1, 227);
     static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
     return state & 1;
@@ -3621,11 +3621,11 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, buffer, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        platform::FormatLegacyString_53B304(buffer, "%d", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
+        std::sprintf(buffer, "%d", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
         Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(details, "%3d", count);
+            std::sprintf(details, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 43), static_cast<std::int16_t>(y + 90),
                 4, 1, 1, details, 0, 0));
@@ -3649,38 +3649,38 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
                 4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
         };
-        platform::FormatLegacyString_53B304(details, "%s", pet->name6AC.data());
+        std::sprintf(details, "%s", pet->name6AC.data());
         drawPetText(75, 61);
-        platform::FormatLegacyString_53B304(details, "%4d", pet->values0C[1].value());
+        std::sprintf(details, "%4d", pet->values0C[1].value());
         drawPetText(225, 61);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->value08);
+        std::sprintf(details, "%3d", pet->value08);
         drawPetText(51, 78);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
         if (tribe >= 0 && tribe < 20) {
-            platform::FormatLegacyString_53B304(details, "%s", gTribeNames57CB54[tribe]);
+            std::sprintf(details, "%s", gTribeNames57CB54[tribe]);
         } else {
             details[0] = '\0';
         }
         drawPetText(118, 78);
-        platform::FormatLegacyString_53B304(details, "%4d", pet->values0C[3].value());
+        std::sprintf(details, "%4d", pet->values0C[3].value());
         drawPetText(225, 78);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[0]);
+        std::sprintf(details, "%3d", pet->values70[0]);
         drawPetText(115, 96);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[1]);
+        std::sprintf(details, "%3d", pet->values70[1]);
         drawPetText(174, 96);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[2]);
+        std::sprintf(details, "%3d", pet->values70[2]);
         drawPetText(232, 96);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->value6A4);
+        std::sprintf(details, "%3d", pet->value6A4);
         drawPetText(51, 114);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[3]);
+        std::sprintf(details, "%3d", pet->values70[3]);
         drawPetText(115, 114);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[4]);
+        std::sprintf(details, "%3d", pet->values70[4]);
         drawPetText(174, 114);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[10]);
+        std::sprintf(details, "%3d", pet->values70[10]);
         drawPetText(232, 114);
-        platform::FormatLegacyString_53B304(details, "%3d", pet->lvFlag6C);
+        std::sprintf(details, "%3d", pet->lvFlag6C);
         drawPetText(89, 132);
-        platform::FormatLegacyString_53B304(details, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128 - 5]);
+        std::sprintf(details, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128 - 5]);
         Sub_4771B0(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
@@ -3837,7 +3837,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
         }
         gStallHover581120 = -1;
     }
-    platform::FormatLegacyString_53B304(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
+    std::sprintf(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
     return 1;
 }
 
@@ -4318,7 +4318,7 @@ void Sub_4CE700(const std::int32_t result)
     world::detail::SetPlayerActionFlags(0x1000u);
     std::memset(name + 9, 0, 24);
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
-        platform::FormatLegacyString_53B304(name, "%s", gStallNameD67BE4.data());
+        std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     WindowInstance* const window = gWindowStates[67].window;
     std::strcpy(world::detail::BorrowPlayerStallName(), name);
@@ -4784,7 +4784,7 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
     std::int32_t value;
     if (Sub_4CB4A0(index, &group, &value) != 0) {
         std::array<std::array<char, 256>, 2> buffers;
-        platform::FormatLegacyString_53B304(buffers[0].data(), "%d|%d|", group, value);
+        std::sprintf(buffers[0].data(), "%d|%d|", group, value);
         input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4932,7 +4932,7 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     const auto& search = world::detail::ReadProfileSearch105C398();
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;
-    platform::FormatLegacyString_53B304(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
+    std::sprintf(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
     input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4963,7 +4963,7 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
         char packet[256];
         char combined[1024];
         std::strcpy(name, record.text04.data());
-        platform::FormatLegacyString_53B304(combined, "%d|%s", key, name);
+        std::sprintf(combined, "%d|%s", key, name);
         input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4997,7 +4997,7 @@ std::uint32_t Sub_4CAFA0()
         static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text,
         profile.text08.data());
     char number[256];
-    platform::FormatLegacyString_53B304(number, "%3d", profile.value108);
+    std::sprintf(number, "%3d", profile.value108);
     std::strcpy(
         static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text, number);
     std::strcpy(
@@ -5069,7 +5069,7 @@ std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
     if ((state & 1) != 0) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244253;
         char hint[256];
-        platform::FormatLegacyString_53B304(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         std::strcpy(gHoverTextD68AE8.data(), hint);
         consumed = 1;
     } else {
@@ -5166,7 +5166,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     if ((state & 1) != 0) {
         graphic->imageNo = 244253;
         char hint[256];
-        platform::FormatLegacyString_53B304(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         std::strcpy(gHoverTextD68AE8.data(), hint);
         consumed = 1;
     } else {
@@ -5189,7 +5189,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     std::strcpy(text, input::gInputContextCA0180.text);
     input::EscapeLegacyText_52D1B0(name, escapedName, 256);
     input::EscapeLegacyText_52D1B0(text, escapedText, 1024);
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         combined, "%d|%s|%s|%d", gMiniMailCompose105F508.target, escapedName, escapedText, 0);
     input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -5215,7 +5215,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
         std::int32_t year;
         std::memcpy(&year, bytes + 20, sizeof(year));
         char timestamp[64];
-        platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d",
+        std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
             year + 1900, month + 1, day, hour, minute);
         world::detail::Sub_5343C0(contact, 1, timestamp, text);
     }
@@ -5242,7 +5242,7 @@ std::uint32_t Sub_4CB9F0()
         static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text,
         profile.text08.data());
     char number[256];
-    platform::FormatLegacyString_53B304(number, "%d", profile.value108);
+    std::sprintf(number, "%d", profile.value108);
     std::strcpy(
         static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text, number);
     std::strcpy(
@@ -5640,7 +5640,7 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
         result = 1;
     }
-    platform::FormatLegacyString_53B304(gNumberWindowTextCC4D1C.data(), "%9d",
+    std::sprintf(gNumberWindowTextCC4D1C.data(), "%9d",
         std::bit_cast<std::int32_t>(window->elements[index].state));
     return result;
 }
@@ -5736,7 +5736,7 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
         }
     }
     char buffer[384];
-    platform::FormatLegacyString_53B304(buffer, "I|%d|%d|%d", source, target, amount);
+    std::sprintf(buffer, "I|%d|%d|%d", source, target, amount);
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
@@ -5836,7 +5836,7 @@ void Sub_48BB90(
         return;
     }
     char buffer[384];
-    platform::FormatLegacyString_53B304(buffer, "P|%d|%d", source, target);
+    std::sprintf(buffer, "P|%d|%d", source, target);
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
@@ -5941,13 +5941,13 @@ std::int32_t Sub_4B0290(const std::int32_t value)
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
         auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
-        platform::FormatLegacyString_53B304(otherName->text, "%16s", gTradeNameD2D654.data());
+        std::sprintf(otherName->text, "%16s", gTradeNameD2D654.data());
         WindowElement* const elements = gCurrentWindow->elements;
         const char* const playerName = world::detail::BorrowPlayerDisplayText(1);
         auto* const separator = static_cast<WindowTextData*>(elements[16].data);
         std::strcpy(separator->text, "<=>");
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
-        platform::FormatLegacyString_53B304(ownName->text, "%-16s", playerName);
+        std::sprintf(ownName->text, "%-16s", playerName);
         const std::int32_t y =
             world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x =
@@ -6139,7 +6139,7 @@ void Sub_4AAB70(
     char buffer[256];
     const auto drawNumber = [&](const std::int32_t value, const char* const format,
                                 const std::int32_t dx, const std::int32_t dy) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
@@ -6188,7 +6188,7 @@ void Sub_4AB400(
                                 const std::int32_t dx, const std::int32_t dy) {
         std::int32_t value;
         std::memcpy(&value, record + offset, sizeof(value));
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
@@ -6246,7 +6246,7 @@ std::int32_t Sub_48D540(
             std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
         drawText(name, 8, 6);
         char buffer[256];
-        platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
+        std::sprintf(buffer, "%3d", pet.value08);
         drawText(buffer, 141, 6);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
@@ -6254,11 +6254,11 @@ std::int32_t Sub_48D540(
         }
         const std::int32_t maxHp = pet.values0C[1].value();
         const std::int32_t hp = pet.values0C[0].value();
-        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
+        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
         drawText(buffer, 37, 19);
         const std::int32_t maxFp = pet.values0C[3].value();
         const std::int32_t fp = pet.values0C[2].value();
-        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
+        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
         drawText(buffer, 37, 32);
         if (Sub_4EA670(index) == 1) {
             static_cast<void>(render::DrawGraphic3_520970(
@@ -6321,7 +6321,7 @@ std::int32_t Sub_4B0F20(
                                     const std::int32_t dx, const std::int32_t dy) {
             std::int32_t value;
             std::memcpy(&value, record + offset, sizeof(value));
-            platform::FormatLegacyString_53B304(buffer, format, value);
+            std::sprintf(buffer, format, value);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
@@ -6482,14 +6482,14 @@ std::int32_t Sub_4B1260(
     }
     char buffer[52];
     if (*tab == 2) {
-        platform::FormatLegacyString_53B304(buffer, "%9d", displayAmount);
+        std::sprintf(buffer, "%9d", displayAmount);
         Sub_4771B0(x + 179, y + 88, buffer, 3, 0, 1, 223);
     }
-    platform::FormatLegacyString_53B304(buffer, "%3d", itemCount);
+    std::sprintf(buffer, "%3d", itemCount);
     Sub_4771B0(x + 71, y + 258, buffer, 3, 0, 1, 223);
-    platform::FormatLegacyString_53B304(buffer, "%3d", petCount);
+    std::sprintf(buffer, "%3d", petCount);
     Sub_4771B0(x + 156, y + 258, buffer, 3, 0, 1, 223);
-    platform::FormatLegacyString_53B304(buffer, "%10d", amount);
+    std::sprintf(buffer, "%10d", amount);
     Sub_4771B0(x + 241, y + 258, buffer, 3, 0, 1, 223);
     imageNo = backgroundImages[std::bit_cast<std::int8_t>(*tab)];
     static_cast<void>(render::DrawGraphic3_520970(
@@ -6816,10 +6816,10 @@ void Sub_4B1940(
             const std::size_t memoLength = std::strlen(item.memo.data());
             gTradePreviewCC2E64 = hovered;
             if (memoLength != 0 && (item.flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
+                std::sprintf(buffer, "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             } else if ((item.flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
+                std::sprintf(buffer, "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -6858,7 +6858,7 @@ void Sub_4B1940(
         static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -7279,10 +7279,10 @@ void Sub_4B2730(
             if (item.used != 0) {
                 gTradePreviewCC2E64 = slot;
                 if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
+                    std::sprintf(buffer, "%s[kok]", item.name.data());
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 } else if ((item.flags & 0x200u) != 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
+                    std::sprintf(buffer, "%s[han]", item.memo.data());
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 }
             }
@@ -7318,7 +7318,7 @@ void Sub_4B2730(
             centerX, centerY, 223, item.imageNo, 0, descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -7605,13 +7605,13 @@ void Sub_4B3610(
                     showName = (flags & 0x100u) != 0;
                 }
                 if (showName) {
-                    platform::FormatLegacyString_53B304(buffer, "%s[kok]", record + 0x10);
+                    std::sprintf(buffer, "%s[kok]", record + 0x10);
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 } else {
                     std::uint32_t flags;
                     std::memcpy(&flags, record + 0xC34, sizeof(flags));
                     if ((flags & 0x200u) != 0) {
-                        platform::FormatLegacyString_53B304(buffer, "%s[han]", memo);
+                        std::sprintf(buffer, "%s[han]", memo);
                         std::strcpy(gHoverTextD68AE8.data(), buffer);
                     }
                 }
@@ -7643,7 +7643,7 @@ void Sub_4B3610(
             std::int32_t count;
             std::memcpy(&count, record + 8, sizeof(count));
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -8472,7 +8472,7 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
     const std::int32_t maximumWeight = pet->values6D8[2];
     const std::int32_t weight = pet->values6D8[1];
     auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
-    platform::FormatLegacyString_53B304(weightData->text, "\xD8\x93\xD6\xD8:%3d/%3d", weight, maximumWeight);
+    std::sprintf(weightData->text, "\xD8\x93\xD6\xD8:%3d/%3d", weight, maximumWeight);
     const char* const weightText = weightData->text;
     const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->bytes00[1]);
     const std::int32_t weightWidth = login::detail::TextMeasure(weightText, weightFont);
@@ -9182,14 +9182,14 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
 // 原函数：0x00488E60。
 std::int32_t Sub_488E60(const std::int32_t, const std::int32_t)
 {
-    platform::FormatLegacyString_53B304(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    std::sprintf(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00488E80。
 std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
-    platform::FormatLegacyString_53B304(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
@@ -9738,7 +9738,7 @@ std::int32_t Sub_49DA30(
         }
     } else {
         if (gDialogReply.type == 2) {
-            platform::FormatLegacyString_53B304(rowReply, "%d", -gDialogReply.firstLine);
+            std::sprintf(rowReply, "%d", -gDialogReply.firstLine);
             input::EscapeLegacyTextAndNotify_52D2D0(rowReply, reply, 255);
         } else if (gDialogReply.type == 35) {
             if ((button & 1) != 0) {
@@ -9762,7 +9762,7 @@ std::int32_t Sub_49DA30(
             input::EscapeLegacyTextAndNotify_52D2D0(first, first, 255);
             std::strcpy(second, texts[1]);
             input::EscapeLegacyTextAndNotify_52D2D0(second, second, 255);
-            platform::FormatLegacyString_53B304(combined, "%s|%s", first, second);
+            std::sprintf(combined, "%s|%s", first, second);
             input::EscapeLegacyText_52D1B0(combined, reply, 255);
         } else {
             input::EscapeLegacyTextAndNotify_52D2D0(
@@ -9781,7 +9781,7 @@ std::int32_t Sub_49DA30(
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (row >= 0) {
-        platform::FormatLegacyString_53B304(reply, "%d", row + 1);
+        std::sprintf(reply, "%d", row + 1);
         input::EscapeLegacyTextAndNotify_52D2D0(reply, rowReply, 255);
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;
@@ -10233,7 +10233,7 @@ std::int32_t Sub_49E1D0(
     std::array<char, 64> buffer;
     for (std::int32_t index = 0; index < 7; ++index) {
         if (gHealingDialogRecordsD672F0[index].level != 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
+            std::sprintf(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
@@ -10246,7 +10246,7 @@ std::int32_t Sub_49E1D0(
             }
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "               \xCB\xF9\xB3\xD6\xBD\xF0 %7d \xBD\xF0\x8E\xC5",
+    std::sprintf(buffer.data(), "               \xCB\xF9\xB3\xD6\xBD\xF0 %7d \xBD\xF0\x8E\xC5",
         world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
@@ -10317,22 +10317,22 @@ login::YobiAction* Sub_49E400(
     }
     gHealingDialogRecordsD672F0[6].level = 1;
     gHealingDialogRecordsD672F0[6].cost = totalCost;
-    platform::FormatLegacyString_53B304(buffer.data(), "         \xD5\x88\xDF\x78\x93\xF1\xD6\xCE\xAF\x9F\x8C\xA6\xCF\xF3");
+    std::sprintf(buffer.data(), "         \xD5\x88\xDF\x78\x93\xF1\xD6\xCE\xAF\x9F\x8C\xA6\xCF\xF3");
     std::strcpy(gDialogLinesCB1398[0].text.data(), buffer.data());
-    platform::FormatLegacyString_53B304(buffer.data(), "   Health   LV        Name             Gold");
+    std::sprintf(buffer.data(), "   Health   LV        Name             Gold");
     std::strcpy(gDialogLinesCB1398[1].text.data(), buffer.data());
     for (std::int32_t index = 0; index < 6; ++index) {
         const auto& record = gHealingDialogRecordsD672F0[index];
         if (record.level != 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "           %3d  %-16s", record.level, record.name.data());
+            std::sprintf(buffer.data(), "           %3d  %-16s", record.level, record.name.data());
             std::strcpy(gDialogLinesCB1398[index + 2].text.data(), buffer.data());
         } else {
             gDialogLinesCB1398[index + 2].text[0] = '\0';
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "           \xCD\xEA\xD5\xFB\xD6\xCE\xAF\x9F");
+    std::sprintf(buffer.data(), "           \xCD\xEA\xD5\xFB\xD6\xCE\xAF\x9F");
     std::strcpy(gDialogLinesCB1398[8].text.data(), buffer.data());
-    platform::FormatLegacyString_53B304(buffer.data(), ""); // 原String1@D68A7C虚拟零空格式，不借用593850。
+    std::sprintf(buffer.data(), ""); // 原String1@D68A7C虚拟零空格式，不借用593850。
     std::strcpy(gDialogLinesCB1398[9].text.data(), buffer.data());
     std::strcpy(gDialogLinesCB1398[10].text.data(), input::LegacyText593850());
     gDialogReply.firstLine = 2;
@@ -10479,7 +10479,7 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
     input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 16, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -10537,7 +10537,7 @@ std::int32_t Sub_4A0280(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
     return SendChoiceDialogReply(buffer.data());
 }
 
@@ -10548,7 +10548,7 @@ std::int32_t Sub_4A0420(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
     return SendChoiceDialogReply(buffer.data());
 }
 
@@ -10559,7 +10559,7 @@ std::int32_t Sub_4A05C0(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%d", index + 1);
+    std::sprintf(buffer.data(), "%d", index + 1);
     return SendChoiceDialogReply(buffer.data());
 }
 
@@ -10689,14 +10689,14 @@ std::int32_t Sub_499970(const std::int32_t, const std::int32_t state)
 // 原函数：0x00499B00。
 std::int32_t Sub_499B00(const std::int32_t, const std::int32_t)
 {
-    platform::FormatLegacyString_53B304(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    std::sprintf(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00499B20。
 std::int32_t Sub_499B20(const std::int32_t, const std::int32_t)
 {
-    platform::FormatLegacyString_53B304(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    std::sprintf(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
@@ -10914,7 +10914,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
             if (item.count > 0) {
-                platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
+                std::sprintf(countText.data(), "%3d", item.count);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
                     3, 1, 1, countText.data(), 0, 0));
@@ -10946,7 +10946,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             } else {
                 gCurrentWindow->state |= 0x8000u;
                 world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", 255u);
+                std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(network::SendBattlePacket_5109B0(
                     platform::gConnectionSocket, buffer.data()));
                 world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -11045,7 +11045,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     } else {
                         gCurrentWindow->state |= 0x8000u;
                         world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                        platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
+                        std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(network::SendBattlePacket_5109B0(
                             platform::gConnectionSocket, buffer.data()));
                         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -11076,7 +11076,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                 } else {
                     const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
                     world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
-                    platform::FormatLegacyString_53B304(buffer.data(), "I|%X|%X",
+                    std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(network::SendBattlePacket_5109B0(
@@ -11229,7 +11229,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         }
         if (item.count > 0) {
-            platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
+            std::sprintf(countText.data(), "%3d", item.count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
                 3, 1, 1, countText.data(), 0, 0));
@@ -11335,7 +11335,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                 } else {
                     gCurrentWindow->state |= 0x8000u;
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                    platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
+                    std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -11406,7 +11406,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                 } else {
                     gCurrentWindow->state |= 0x8000u;
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                    platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", 255u);
+                    std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -11666,10 +11666,10 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         if (item.used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item.name.data());
+                std::sprintf(buffer.data(), "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item.flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item.memo.data());
+                std::sprintf(buffer.data(), "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -11696,7 +11696,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -11902,10 +11902,10 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
         if (item->used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered);
             if (std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item->name.data());
+                std::sprintf(buffer.data(), "%s[kok]", item->name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item->flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item->memo.data());
+                std::sprintf(buffer.data(), "%s[han]", item->memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -12065,13 +12065,13 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
         const char* const format = attribute.percent != 0
             ? (value < 0 ? "%s-%4d%%" : "%s+%4d%%")
             : (value < 0 ? "%s-%4d" : "%s+%4d");
-        platform::FormatLegacyString_53B304(buffer.data(), format, attribute.label, value < 0 ? -value : value);
+        std::sprintf(buffer.data(), format, attribute.label, value < 0 ? -value : value);
         drawText(x, y, attribute.color, buffer.data(), TextCoordinateOrder::WindowAfterElements);
         y += 16;
         ++lines;
     }
     if (world::detail::gReplyRecordF7C950.hasText24 != 0) {
-        platform::FormatLegacyString_53B304(buffer.data(),
+        std::sprintf(buffer.data(),
             "\xC4\xDC\x9C\x70\xC9\xD9\xCA\xB9\xD3\xC3\x22%s\x22\xB5\xC4\xC4\xA7",
             world::detail::gReplyRecordF7C950.text25.data());
         drawText(28, 188, 0, buffer.data(), TextCoordinateOrder::WindowBeforeElements);
@@ -12168,7 +12168,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(network::Sub_511D60(
                     platform::gConnectionSocket, hovered + 8, selected));
             } else if (mode == 2) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%d", hovered + 8);
+                std::sprintf(buffer.data(), "%d", hovered + 8);
                 input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), escaped.data(), 15);
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -12231,7 +12231,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -12345,7 +12345,7 @@ std::int32_t Sub_48B560(
         if (count <= 1) {
             std::strcpy(buffer.data(), record + 1);
         } else {
-            static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 256, "%s(%d)", record + 1, count));
+            static_cast<void>(::_snprintf(buffer.data(), 256, "%s(%d)", record + 1, count));
             key = gTooltipSourceD303FC;
         }
         record = gShopItemsCF4FE0.data() + (key - 300) * 0xC58;
@@ -12442,7 +12442,7 @@ std::int32_t Sub_4B4140(
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x30 + row * 4, sizeof(value));
-        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
+        std::sprintf(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
@@ -12453,7 +12453,7 @@ std::int32_t Sub_4B4140(
     if (maximumWeight > 0) {
         std::int32_t weight;
         std::memcpy(&weight, record + 0x5F8, sizeof(weight));
-        platform::FormatLegacyString_53B304(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             31, 5, 12, 0, buffer.data(), 0, 0));
@@ -12569,7 +12569,7 @@ std::int32_t Sub_4B4680(
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x38 + row * 4, sizeof(value));
-        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
+        std::sprintf(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
@@ -12679,7 +12679,7 @@ std::int32_t Sub_4B3BF0(
     std::array<char, 100> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t value = pet.values70[5 + row];
-        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
+        std::sprintf(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
@@ -12688,7 +12688,7 @@ std::int32_t Sub_4B3BF0(
     const std::int32_t maximumWeight = pet.values6D8[2];
     if (maximumWeight > 0) {
         const std::int32_t weight = pet.values6D8[1];
-        platform::FormatLegacyString_53B304(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),
@@ -12776,7 +12776,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 if (count != 0) {
                     std::strcat(itemSource.data(), "|");
                 }
-                platform::FormatLegacyString_53B304(buffer.data(), "%d|%d", slot, position);
+                std::sprintf(buffer.data(), "%d|%d", slot, position);
                 std::strcat(itemSource.data(), buffer.data());
                 ++count;
             }
@@ -12789,7 +12789,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 if (count != 0) {
                     std::strcat(petSource.data(), "|");
                 }
-                platform::FormatLegacyString_53B304(buffer.data(), "%d|%d", slot, position);
+                std::sprintf(buffer.data(), "%d|%d", slot, position);
                 std::strcat(petSource.data(), buffer.data());
                 ++count;
             }
@@ -13509,7 +13509,7 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             std::array<char, 512> buffer;
             std::strcpy(buffer.data(), gWindowTitleCC4118.data());
             input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
-            platform::FormatLegacyString_53B304(buffer.data(), "N|%s", buffer.data() + 256);
+            std::sprintf(buffer.data(), "N|%s", buffer.data() + 256);
             input::EscapeLegacyText_52D1B0(buffer.data(), buffer.data() + 256, 255);
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
@@ -13547,7 +13547,7 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
     }
     if ((state & 2) != 0) {
         std::array<char, 52> buffer;
-        platform::FormatLegacyString_53B304(buffer.data(), "I|%d", gSelectedItem57EE0C);
+        std::sprintf(buffer.data(), "I|%d", gSelectedItem57EE0C);
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =
@@ -13757,7 +13757,7 @@ std::int32_t Sub_4A9020(const std::int32_t value)
 std::int32_t Sub_4A9160(const std::int32_t)
 {
     std::array<char, 16> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%10d", gStorageValueCC4218);
+    std::sprintf(buffer.data(), "%10d", gStorageValueCC4218);
     auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
     std::strcpy(text->text, buffer.data());
     WindowElement* elements = gCurrentWindow->elements;
@@ -14231,7 +14231,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -14424,7 +14424,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -14574,7 +14574,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
             if (allowed) {
                 Sub_48BB90(41, index, source, petIndex);
             } else {
-                platform::FormatLegacyString_53B304(buffer.data(), kStoragePetEquipmentWarning587900);
+                std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
                 world::detail::Sub_44B050(buffer.data(), 4, 3);
             }
         }
@@ -14620,7 +14620,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
                 if (allowed) {
                     Sub_48BB90(41, index, petIndex, target + 100);
                 } else {
-                    platform::FormatLegacyString_53B304(buffer.data(), kStoragePetEquipmentWarning587900);
+                    std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
                     world::detail::Sub_44B050(buffer.data(), 4, 3);
                 }
             }
@@ -14691,7 +14691,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             if (allowed) {
                 Sub_48BB90(41, index, source, petIndex + 100);
             } else {
-                platform::FormatLegacyString_53B304(buffer.data() + 128, kStoragePetEquipmentWarning587900);
+                std::sprintf(buffer.data() + 128, kStoragePetEquipmentWarning587900);
                 world::detail::Sub_44B050(buffer.data() + 128, 4, 3);
             }
         }
@@ -14725,7 +14725,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             if (position < 5) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
                     world::detail::gPetPairsDE0B08[position].index);
-                platform::FormatLegacyString_53B304(buffer.data(), "P|%d|%d", petIndex + 100, target);
+                std::sprintf(buffer.data(), "P|%d|%d", petIndex + 100, target);
                 input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
                 const std::int32_t userState =
                     std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
@@ -14752,7 +14752,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t level = world::detail::ReadPlayerLevel();
             auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
-            platform::FormatLegacyString_53B304(text->text, "%10d", level);
+            std::sprintf(text->text, "%10d", level);
         } else {
             const std::int32_t slot = source - 100;
             if (Sub_475D40() == 41 && Sub_475D50() == index) {
@@ -14859,7 +14859,7 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
         if (index == 30 || index == 31) {
             std::array<char, 384> buffer;
             const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
-            platform::FormatLegacyString_53B304(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
+            std::sprintf(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
             input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 128, 255);
             const std::int32_t userState =
                 std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
@@ -14879,15 +14879,15 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
     }
     if (index == 30) {
-        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data(), "%9d",
+        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d",
             std::bit_cast<std::int32_t>(window->elements[30].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
+        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
     } else if (index == 31) {
-        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
+        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
             std::bit_cast<std::int32_t>(window->elements[31].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
+        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
     }
     return 0;
 }
@@ -14902,7 +14902,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+    std::sprintf(buffer.data(), "%3d", count);
     WindowInstance* window = gCurrentWindow;
     std::int32_t y = window->y + 285;
     std::int32_t x = window->x + 357;
@@ -14913,12 +14913,12 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+    std::sprintf(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 442;
     Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
-    platform::FormatLegacyString_53B304(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 527;
@@ -14931,7 +14931,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+    std::sprintf(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 85;
@@ -14944,7 +14944,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+    std::sprintf(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 170;
@@ -14953,7 +14953,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
     std::int32_t amount;
     std::memcpy(&amount,
         gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
-    platform::FormatLegacyString_53B304(buffer.data(), "%10d", amount);
+    std::sprintf(buffer.data(), "%10d", amount);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 255;
@@ -15152,7 +15152,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -15322,7 +15322,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -16767,9 +16767,9 @@ void Sub_492F70()
         const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
         login::detail::SetYobiActionField2B8(directionData->action, direction);
 
-        platform::FormatLegacyString_53B304(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
         copyAfterScan(3, buffer);
-        platform::FormatLegacyString_53B304(buffer, "%2d", readValue(selectedRecord(), 0x30));
+        std::sprintf(buffer, "%2d", readValue(selectedRecord(), 0x30));
         copyAfterScan(4, buffer);
         const std::byte* const tribeRecord = selectedRecord();
         WindowInstance* const tribeWindow = gCurrentWindow;
@@ -16779,7 +16779,7 @@ void Sub_492F70()
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
         const std::size_t tribeLength = std::strlen(tribeName) + 1;
         std::memcpy(tribeData->text, tribeName, tribeLength);
-        platform::FormatLegacyString_53B304(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
         const std::byte* const firstMarkRecord = selectedRecord();
@@ -16842,9 +16842,9 @@ void Sub_492F70()
             gCurrentWindow->elements[33 + slot].visible = 0;
             gCurrentWindow->elements[43 + slot].visible = 0;
         }
-        platform::FormatLegacyString_53B304(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
         copyBeforeScan(3, buffer);
-        platform::FormatLegacyString_53B304(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
     }
 }
@@ -17219,11 +17219,11 @@ std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
             gCurrentWindow->elements[17].visible = 1;
             gCurrentWindow->elements[18].visible = 1;
             gCurrentWindow->elements[29].visible = 1;
-            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             gCurrentWindow->elements[13].x =
                 ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
-            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             gCurrentWindow->elements[16].x =
                 ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
@@ -17492,7 +17492,7 @@ std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
@@ -17529,7 +17529,7 @@ std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
@@ -17566,7 +17566,7 @@ std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;
@@ -17603,7 +17603,7 @@ std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;
@@ -18462,7 +18462,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         if ((state & 2) == 0) {
             return consumed;
         }
-        platform::FormatLegacyString_53B304(text, "%d", (index - 5) / 7);
+        std::sprintf(text, "%d", (index - 5) / 7);
         input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -18568,7 +18568,7 @@ void Sub_4B62A0()
             std::memcpy(&month, bytes + 16, sizeof(month));
             std::int32_t year;
             std::memcpy(&year, bytes + 20, sizeof(year));
-            platform::FormatLegacyString_53B304(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
+            std::sprintf(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
                 year + 1900, month + 1, day, hour, minute);
             auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
             std::strcpy(date->text, buffer.data());
@@ -19139,7 +19139,7 @@ void Sub_4B8310()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        platform::FormatLegacyString_53B304(priceText, "%10d", price);
+        std::sprintf(priceText, "%10d", price);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -19155,7 +19155,7 @@ void Sub_4B8310()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -19205,7 +19205,7 @@ void Sub_4B8670()
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            platform::FormatLegacyString_53B304(text, "%2d", selected);
+            std::sprintf(text, "%2d", selected);
         }
     }
 }
@@ -19226,7 +19226,7 @@ void Sub_4B86C0()
         }
     }
     gShopTotalD2DAFC = total;
-    platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", total);
+    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
     const std::int32_t currentTotal = gShopTotalD2DAFC;
     const std::int32_t money = world::detail::ReadPlayerValueFC();
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
@@ -19272,7 +19272,7 @@ void Sub_4B8780()
         const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        platform::FormatLegacyString_53B304(priceText, "%10d", price);
+        std::sprintf(priceText, "%10d", price);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::uint32_t flags;
@@ -19289,7 +19289,7 @@ void Sub_4B8780()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = gShopItemsCF4FE0.data() + index * 0xC58;
@@ -19346,7 +19346,7 @@ void Sub_4B8B10()
             const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            platform::FormatLegacyString_53B304(text, "%2d", selected);
+            std::sprintf(text, "%2d", selected);
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t maximum;
@@ -19376,7 +19376,7 @@ void Sub_4B8BE0()
         }
     }
     gShopTotalD2DAFC = total;
-    platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", total);
+    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
 }
 
@@ -19413,7 +19413,7 @@ void Sub_4B8C90()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        platform::FormatLegacyString_53B304(priceText, "%10d", price);
+        std::sprintf(priceText, "%10d", price);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -19429,7 +19429,7 @@ void Sub_4B8C90()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -19482,7 +19482,7 @@ void Sub_4B8FF0()
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            platform::FormatLegacyString_53B304(text, "%2d", selected);
+            std::sprintf(text, "%2d", selected);
             gCurrentWindow->elements[row + 42].visible = 1;
             gCurrentWindow->elements[row + 47].visible = 1;
         }
@@ -19505,7 +19505,7 @@ void Sub_4B9090()
         }
     }
     gShopTotalD2DAFC = total;
-    platform::FormatLegacyString_53B304(gShopValueTextCF4A28.data(), "%10d", total);
+    std::sprintf(gShopValueTextCF4A28.data(), "%10d", total);
 }
 
 // 原函数：0x004B90E0。
@@ -19529,7 +19529,7 @@ void Sub_4B9110()
 {
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
-    platform::FormatLegacyString_53B304(gShopPriceTextsD673EC.data(), "%10d", price);
+    std::sprintf(gShopPriceTextsD673EC.data(), "%10d", price);
     const char* const name = gShopDetailCC3210.data();
     const char* secondLine;
     if (std::strlen(name) <= 20) {
@@ -19548,8 +19548,8 @@ void Sub_4B9110()
 // 原函数：0x004B9270。
 void Sub_4B9270()
 {
-    platform::FormatLegacyString_53B304(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
-    platform::FormatLegacyString_53B304(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
+    std::sprintf(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
+    std::sprintf(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC2C, sizeof(price));
     gShopTotalD2DAFC = price * gShopValueD046C4;
@@ -19720,7 +19720,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
             break;
         }
     }
-    platform::FormatLegacyString_53B304(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
+    std::sprintf(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
     if (gMaterialOccupancyCC4894[20] == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::detail::ReadPlayerValueFC();
@@ -19740,7 +19740,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         gShopAvailableCF4A24 = total;
         if (total != previous) {
             Sub_4B8C90();
-            platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
+            std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
         }
     }
     if (gShopMessage580848 >= 0) {
@@ -19755,7 +19755,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         } else {
             std::memcpy(&amount, gShopDetailCC3210.data() + 0xC24, sizeof(amount));
         }
-        platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", amount);
+        std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", amount);
     }
     return 1;
 }
@@ -19775,7 +19775,7 @@ void Sub_4B9B10(const std::int32_t selection)
     char* const text = textBuffer.data();
     char* const escaped = text + 256;
     if (mode == 3) {
-        platform::FormatLegacyString_53B304(text, "1|%d", gShopValueD046C4);
+        std::sprintf(text, "1|%d", gShopValueD046C4);
     } else {
         text[0] = '\0';
         std::int32_t count = 0;
@@ -19795,13 +19795,13 @@ void Sub_4B9B10(const std::int32_t selection)
             if (mode == 4 || mode == 5) {
                 std::int32_t inventoryIndex;
                 std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
-                platform::FormatLegacyString_53B304(fragment, "%d", inventoryIndex);
+                std::sprintf(fragment, "%d", inventoryIndex);
             } else {
                 std::int32_t itemIndex = index;
                 if (mode == 1) {
                     std::memcpy(&itemIndex, record + 0xC2C, sizeof(itemIndex));
                 }
-                platform::FormatLegacyString_53B304(fragment, "%d|%d", itemIndex, selected);
+                std::sprintf(fragment, "%d|%d", itemIndex, selected);
             }
             std::strcat(text, fragment);
             ++count;
@@ -20056,12 +20056,12 @@ std::int32_t Sub_4B9F40(const std::int32_t index, const std::int32_t state)
         }
         if (overlayReady) {
             if (mode == 2) {
-                platform::FormatLegacyString_53B304(gConfirmationLineCB1320.data(),
+                std::sprintf(gConfirmationLineCB1320.data(),
                     kShopConfirmHeadings[textMode], gShopTextCB0184.data());
             } else {
-                platform::FormatLegacyString_53B304(gConfirmationLineCB1320.data(), kShopConfirmHeadings[textMode]);
+                std::sprintf(gConfirmationLineCB1320.data(), kShopConfirmHeadings[textMode]);
             }
-            platform::FormatLegacyString_53B304(gConfirmationLineCB1210.data(), kShopConfirmQuestions[textMode]);
+            std::sprintf(gConfirmationLineCB1210.data(), kShopConfirmQuestions[textMode]);
             std::strcpy(gConfirmationAcceptHintCC3FCC.data(), kShopConfirmAcceptHints[textMode]);
             const char* const cancelHint = kShopHints57E6C4[2];
             if (mode == 2) {
@@ -21342,12 +21342,12 @@ std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
         }
         if ((flags & 0x100u) != 0) {
-            platform::FormatLegacyString_53B304(buffer, "%s[kok]", record + 1);
+            std::sprintf(buffer, "%s[kok]", record + 1);
             std::strcpy(gHoverTextD68AE8.data(), buffer);
         } else {
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
             if ((flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%s[han]", record + 0xC44);
+                std::sprintf(buffer, "%s[han]", record + 0xC44);
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -21528,10 +21528,10 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
                 gShopTooltipIndex580844 = hovered + 8;
             }
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
+                std::sprintf(buffer, "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             } else if ((item.flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
+                std::sprintf(buffer, "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -21561,7 +21561,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -21598,7 +21598,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                platform::FormatLegacyString_53B304(buffer, "%3d", count);
+                std::sprintf(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -21672,9 +21672,9 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    platform::FormatLegacyString_53B304(buffer, "%2d X %2d", factor, item.quantity);
+                    std::sprintf(buffer, "%2d X %2d", factor, item.quantity);
                 } else {
-                    platform::FormatLegacyString_53B304(buffer, "X %2d", item.quantity);
+                    std::sprintf(buffer, "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -21698,7 +21698,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
-            platform::FormatLegacyString_53B304(buffer, "%d", amount.value);
+            std::sprintf(buffer, "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer, 0, 4, 1, 226);
@@ -22027,7 +22027,7 @@ void Sub_4BE3F0(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
     gWindow54ValueCB01E4 = count;
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", usedSlots, totalSlots);
     std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
     if (freeSlots < 0) {
@@ -22047,11 +22047,11 @@ void Sub_4BE3F0(WindowInstance* const window)
             gNpcDialogLinesCC24D4[row + 10].text.data());
     }
     window->elements[33].visible = 1;
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[33].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[33].data)->text,
         "\xCB\xF9\xD0\xE8\xB5\xC4\xBC\xBC\xC4\xDC\x99\xDA\xCE\xBB\x94\xB5\xC1\xBF"
         "\xA3\xBA\x25\x32\x64\x99\xDA", gWindow54ValueCC2E68);
     window->elements[6].visible = 1;
-    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4B0F10;
     }
@@ -22102,7 +22102,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
     gWindow54ValueCB01E4 = count;
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", usedSlots, totalSlots);
     std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
     if (freeSlots < 0) {
@@ -22136,7 +22136,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4C0910;
     }
@@ -22167,7 +22167,7 @@ void Sub_4BE930(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
             std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
@@ -22223,7 +22223,7 @@ void Sub_4BEC20(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d",
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         const world::detail::PetPairRecord& pair = world::detail::gPetPairsDE0B08[row];
@@ -22293,7 +22293,7 @@ void Sub_4BEF30(WindowInstance* const window)
             ++used;
         }
     }
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", used, capacity);
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
@@ -22303,7 +22303,7 @@ void Sub_4BEF30(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d",
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         window->elements[row + 69].visible = 1;
@@ -22353,9 +22353,9 @@ void Sub_4BF160(
                 const world::detail::SkillRuntimeRecord& skill = world::detail::gSkillsF1BAFC[index];
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     skill.name.data());
-                platform::FormatLegacyString_53B304(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
+                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
-                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
             }
         }
     }
@@ -22384,9 +22384,9 @@ void Sub_4BF2E0(
                 window->elements[row + 59].visible = 1;
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     gWindow54NamesC8AAA0[selected].text.data());
-                platform::FormatLegacyString_53B304(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
+                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
                     gWindow54ValuesCB01A4[selected]);
-                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
                     gWindow54ValuesCB09D8[selected]);
             }
         }
@@ -22425,8 +22425,8 @@ void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
             std::strcpy(static_cast<WindowTextData*>(window->elements[row + 79].data)->text,
                 record.name.data());
-            platform::FormatLegacyString_53B304(gWindow54SkillValueTextsCF4978.data() + row * 11, "%5d", record.value04);
-            platform::FormatLegacyString_53B304(gWindow54SkillPriceTextsCF493C.data() + row * 11, "%10d", record.price);
+            std::sprintf(gWindow54SkillValueTextsCF4978.data() + row * 11, "%5d", record.value04);
+            std::sprintf(gWindow54SkillPriceTextsCF493C.data() + row * 11, "%10d", record.price);
             const std::int32_t money = world::detail::ReadPlayerValueFC();
             const std::int32_t price = record.price;
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =
@@ -22453,7 +22453,7 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
             if (used) {
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     slot.name.data());
-                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
             }
             ++row;
         } while (row < gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll);
@@ -22507,7 +22507,7 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
-    platform::FormatLegacyString_53B304(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
+    std::sprintf(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
     if (gWindow54MessageC9FCE0 >= 0) {
         gWindow54MessageC9FCE0 = -1;
     }
@@ -22680,7 +22680,7 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
         case 1: {
             std::array<char, 16> text;
             std::array<char, 16> escaped;
-            platform::FormatLegacyString_53B304(text.data(), "%d", 99);
+            std::sprintf(text.data(), "%d", 99);
             input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -23210,7 +23210,7 @@ void Sub_4C1700()
             const std::int32_t index = gWindow69ScrollD2D604 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow69ItemsCB2230[index].remainingC50;
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
                 "\xCA\xA3\xF0\x4E %2d \x82\x80", remaining);
         }
     }
@@ -23231,7 +23231,7 @@ void Sub_4C17B0()
         if (item->used == 0) {
             continue;
         }
-        platform::FormatLegacyString_53B304(price, "%10d", item->valueC24);
+        std::sprintf(price, "%10d", item->valueC24);
         item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
         if ((item->flags & 0x100u) != 0) {
             std::strcpy(buffer.data(), item->tips.data());
@@ -23242,10 +23242,10 @@ void Sub_4C17B0()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s%d)",
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%s%d)",
                     item->name.data(), "\xB6\xD1\xAF\x42\x94\xB5", stack));
             } else {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s)",
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%s)",
                     item->name.data(), "\xB2\xBB\xBF\xC9\xB6\xD1\xAF\x42"));
             }
             const std::uint32_t flags =
@@ -23279,7 +23279,7 @@ void Sub_4C1AA0()
         text[0] = '\0';
         const WindowCrystalItem& item = gWindow69ItemsCB2230[scroll + row];
         if (item.used != 0) {
-            platform::FormatLegacyString_53B304(text, "%2d", item.selectedCount);
+            std::sprintf(text, "%2d", item.selectedCount);
         }
     }
 }
@@ -23296,7 +23296,7 @@ void Sub_4C1B00()
         }
     }
     gWindow69TotalD45E70 = total;
-    platform::FormatLegacyString_53B304(gWindow69TotalTextCC48B0.data(), "%10d", total);
+    std::sprintf(gWindow69TotalTextCC48B0.data(), "%10d", total);
     const std::int32_t currentTotal = gWindow69TotalD45E70;
     const std::int32_t owned = world::detail::ReadPlayerValue15BCC();
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -23403,7 +23403,7 @@ std::int32_t Sub_4C1C50(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow69ScrollD2D604 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    platform::FormatLegacyString_53B304(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    std::sprintf(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     if (gWindow69Message580854 >= 0) {
         gWindow69Message580854 = -1;
     }
@@ -23464,7 +23464,7 @@ void Sub_4C2060(const std::int32_t value)
                 if (count > 0) {
                     std::strcat(text.data(), "|");
                 }
-                platform::FormatLegacyString_53B304(fragment.data(), "%d|%d", index, quantity);
+                std::sprintf(fragment.data(), "%d|%d", index, quantity);
                 std::strcat(text.data(), fragment.data());
                 ++count;
             }
@@ -23551,8 +23551,8 @@ std::int32_t Sub_4C21B0(const std::int32_t index, const std::int32_t state)
                     "\xB4\x5F\xD5\x4A\xD2\xAA\xD9\x8F\xD9\x49\xDF\x40\xD0\xA9\xCE\xEF\xC6\xB7\xA3\xBF";
                 constexpr char accept587F00[] = "\xD9\x49\xDF\x4D\xCE\xEF\xC6\xB7\xA1\xA3";
                 constexpr char cancel585AD0[] = "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB\xA1\xA3";
-                platform::FormatLegacyString_53B304(gWindow69ConfirmHeadingCC3F68.data(), heading588378);
-                platform::FormatLegacyString_53B304(gWindow69ConfirmQuestionCC3F04.data(), question587F0C);
+                std::sprintf(gWindow69ConfirmHeadingCC3F68.data(), heading588378);
+                std::sprintf(gWindow69ConfirmQuestionCC3F04.data(), question587F0C);
                 std::strcpy(gWindow69ConfirmAcceptD2E81C.data(), accept587F00);
                 std::strcpy(gWindow69ConfirmCancelCB076C.data(), cancel585AD0);
                 gCurrentWindow->elements[0].visible = 1;
@@ -23926,10 +23926,10 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         if (item.used != 0) {
             gWindow69Tooltip580850 = hovered + 8;
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item.name.data());
+                std::sprintf(buffer.data(), "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item.flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item.memo.data());
+                std::sprintf(buffer.data(), "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -23956,7 +23956,7 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -24026,9 +24026,9 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    platform::FormatLegacyString_53B304(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
                 } else {
-                    platform::FormatLegacyString_53B304(buffer.data(), "X %2d", item.quantity);
+                    std::sprintf(buffer.data(), "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -24052,7 +24052,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
         if (amount.visible != 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%d", amount.value);
+            std::sprintf(buffer.data(), "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
@@ -24183,7 +24183,7 @@ void Sub_4C39A0()
             const std::int32_t index = gWindow70ScrollCC4B68 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow70ItemsD30428[index].remainingC50;
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
                 "\xCA\xA3\xF0\x4E %2d \x82\x80", remaining);
         }
     }
@@ -24204,7 +24204,7 @@ void Sub_4C3A50()
         if (item->used == 0) {
             continue;
         }
-        platform::FormatLegacyString_53B304(price, "%10d", item->valueC24);
+        std::sprintf(price, "%10d", item->valueC24);
         item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if ((item->flags & 0x100u) != 0) {
             std::strcpy(buffer.data(), item->tips.data());
@@ -24215,10 +24215,10 @@ void Sub_4C3A50()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s%d)",
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%s%d)",
                     item->name.data(), "\xB6\xD1\xAF\x42\x94\xB5", stack));
             } else {
-                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s)",
+                static_cast<void>(::_snprintf(buffer.data(), 100, "%s(%s)",
                     item->name.data(), "\xB2\xBB\xBF\xC9\xB6\xD1\xAF\x42"));
             }
             const std::uint32_t flags =
@@ -24252,7 +24252,7 @@ void Sub_4C3D40()
         text[0] = '\0';
         const WindowCrystalItem& item = gWindow70ItemsD30428[scroll + row];
         if (item.used != 0) {
-            platform::FormatLegacyString_53B304(text, "%2d", item.selectedCount);
+            std::sprintf(text, "%2d", item.selectedCount);
         }
     }
 }
@@ -24269,7 +24269,7 @@ void Sub_4C3DA0()
         }
     }
     gWindow70TotalCB0F74 = total;
-    platform::FormatLegacyString_53B304(gWindow70TotalTextD2D804.data(), "%10d", total);
+    std::sprintf(gWindow70TotalTextD2D804.data(), "%10d", total);
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -24377,7 +24377,7 @@ std::int32_t Sub_4C3F00(const std::int32_t value)
         gWindow70ScrollCC4B68 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
-    platform::FormatLegacyString_53B304(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
+    std::sprintf(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
     if (gWindow70Message580864 >= 0) {
         gWindow70Message580864 = -1;
     }
@@ -24438,7 +24438,7 @@ void Sub_4C4270(const std::int32_t value)
                 if (count > 0) {
                     std::strcat(text.data(), "|");
                 }
-                platform::FormatLegacyString_53B304(fragment.data(), "%d|%d", index, quantity);
+                std::sprintf(fragment.data(), "%d|%d", index, quantity);
                 std::strcat(text.data(), fragment.data());
                 ++count;
             }
@@ -24525,8 +24525,8 @@ std::int32_t Sub_4C43C0(const std::int32_t index, const std::int32_t state)
                     "\xB4\x5F\xD5\x4A\xD2\xAA\xBD\xBB\x93\x51\xDF\x40\xD0\xA9\xCE\xEF\xC6\xB7\xA3\xBF";
                 constexpr char accept587F00[] = "\xD9\x49\xDF\x4D\xCE\xEF\xC6\xB7\xA1\xA3";
                 constexpr char cancel585AD0[] = "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB\xA1\xA3";
-                platform::FormatLegacyString_53B304(gWindow70ConfirmHeadingCF4A40.data(), heading5883D4);
-                platform::FormatLegacyString_53B304(gWindow70ConfirmQuestionCF4ABC.data(), question5883BC);
+                std::sprintf(gWindow70ConfirmHeadingCF4A40.data(), heading5883D4);
+                std::sprintf(gWindow70ConfirmQuestionCF4ABC.data(), question5883BC);
                 std::strcpy(gWindow70ConfirmAcceptD2DD6C.data(), accept587F00);
                 std::strcpy(gWindow70ConfirmCancelCC48BC.data(), cancel585AD0);
                 gCurrentWindow->elements[0].visible = 1;
@@ -24881,10 +24881,10 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         if (item.used != 0) {
             gWindow70Tooltip580860 = hovered + 8;
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item.name.data());
+                std::sprintf(buffer.data(), "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item.flags & 0x200u) != 0) {
-                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item.memo.data());
+                std::sprintf(buffer.data(), "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -24911,7 +24911,7 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
+            std::sprintf(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -24981,9 +24981,9 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    platform::FormatLegacyString_53B304(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
                 } else {
-                    platform::FormatLegacyString_53B304(buffer.data(), "X %2d", item.quantity);
+                    std::sprintf(buffer.data(), "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -25007,7 +25007,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow70ConfirmAmountsD2E290) {
         if (amount.visible != 0) {
-            platform::FormatLegacyString_53B304(buffer.data(), "%d", amount.value);
+            std::sprintf(buffer.data(), "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
@@ -25190,7 +25190,7 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t image = character_select::detail::Sub_4C5650(
             base, imageClass, quarter, fifth, ones);
         std::array<char, 52> buffer;
-        platform::FormatLegacyString_53B304(buffer.data(), "%d", image);
+        std::sprintf(buffer.data(), "%d", image);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -25330,7 +25330,7 @@ std::int32_t Sub_4C5F80(
     }
     std::array<char, 256> text;
     std::array<char, 256> escaped;
-    platform::FormatLegacyString_53B304(text.data(), "%d", gImageDialogImageD2F7AC);
+    std::sprintf(text.data(), "%d", gImageDialogImageD2F7AC);
     input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
@@ -25394,7 +25394,7 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         std::array<char, 16> text;
         std::array<char, 16> escaped;
-        platform::FormatLegacyString_53B304(text.data(), "%d", selected + 1);
+        std::sprintf(text.data(), "%d", selected + 1);
         input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -25464,7 +25464,7 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
         gWindow54PetChoiceC8AA90 = selected;
         std::array<char, 16> text;
         std::array<char, 16> escaped;
-        platform::FormatLegacyString_53B304(text.data(), "%d", selected);
+        std::sprintf(text.data(), "%d", selected);
         input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -25568,7 +25568,7 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     gWindow54SelectedD2DC04 = selected;
     std::array<char, 16> text;
     std::array<char, 16> escaped;
-    platform::FormatLegacyString_53B304(text.data(), "%d", selected);
+    std::sprintf(text.data(), "%d", selected);
     input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -25620,7 +25620,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
             std::array<char, 16> requestText;
-            platform::FormatLegacyString_53B304(requestText.data(), "%d", gWindow54ReplacementC8B08C);
+            std::sprintf(requestText.data(), "%d", gWindow54ReplacementC8B08C);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -25668,12 +25668,12 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         "\xD9\x8F\xC8\xEB\xBD\xF0\xEE\x7E\x20\x25\x37\x64\xBD\xF0\x8E\xC5";
     constexpr char question5882B0[] = "\xDF\x40\x98\xD3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF";
     std::array<char, 256> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), learnFormat588344,
+    std::sprintf(buffer.data(), learnFormat588344,
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data());
     std::int32_t width = login::detail::TextMeasure(buffer.data(), 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer.data(), 0, 0));
-    platform::FormatLegacyString_53B304(buffer.data(), petFormat588338,
+    std::sprintf(buffer.data(), petFormat588338,
         gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
     width = login::detail::TextMeasure(petMeasure588320, 0);
@@ -25681,7 +25681,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer.data(), 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
-        platform::FormatLegacyString_53B304(buffer.data(), slotFormat58830C, slot.name.data());
+        std::sprintf(buffer.data(), slotFormat58830C, slot.name.data());
     } else {
         std::strcpy(buffer.data(), emptySlot5882F4);
     }
@@ -25691,9 +25691,9 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
     width = login::detail::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    platform::FormatLegacyString_53B304(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
+    std::sprintf(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer.data(), 0, 0));
-    platform::FormatLegacyString_53B304(buffer.data(), priceFormat5882C0,
+    std::sprintf(buffer.data(), priceFormat5882C0,
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer.data(), 0, 0));
     static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, question5882B0, 0, 0));
@@ -26019,7 +26019,7 @@ void WriteMailGuildStatus(WindowTextData* const data, const std::int32_t status)
         if (server >= 25) {
             server -= 25;
         }
-        platform::FormatLegacyString_53B304(data->text, kMailStatusFormat5598F0,
+        std::sprintf(data->text, kMailStatusFormat5598F0,
             kMailGuildStatusText56F0AC.prefixes[server],
             kMailGuildStatusText56F0AC.Suffix(status));
         data->bytes00[0] = static_cast<std::byte>(gLoginWindowRuntime.mailGuildColorsD6784C[1]);
@@ -26042,10 +26042,10 @@ void WriteMailContactStatus(
             server -= 25;
         }
         const char* const prefix = kMailContactStatusText56E9BC.prefixes[server];
-        platform::FormatLegacyString_53B304(data->text, kMailStatusFormat5598F0,
+        std::sprintf(data->text, kMailStatusFormat5598F0,
             prefix, kMailContactStatusText56E9BC.Suffix(status));
         if (record.ReadStatus() == 10) {
-            platform::FormatLegacyString_53B304(data->text, kMailReverseFormat587434, prefix);
+            std::sprintf(data->text, kMailReverseFormat587434, prefix);
         }
         data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[1]);
     }
@@ -26187,7 +26187,7 @@ std::int32_t Sub_4A09E0()
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
             std::strcpy(nameData->text, record.name);
-            platform::FormatLegacyString_53B304(numberText, kMailNumberFormat553FCC, *record.number);
+            std::sprintf(numberText, kMailNumberFormat553FCC, *record.number);
             auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
             std::strcpy(numberData->text, numberText);
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -26995,7 +26995,7 @@ login::YobiAction* Sub_4A33C0(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3600);
     char buffer[1024];
-    platform::FormatLegacyString_53B304(buffer, kMailDeleteContactFormat58759C, world::detail::gContactsF19FB0[index].name10.data());
+    std::sprintf(buffer, kMailDeleteContactFormat58759C, world::detail::gContactsF19FB0[index].name10.data());
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
@@ -27005,7 +27005,7 @@ login::YobiAction* Sub_4A3480(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3660);
     char buffer[1024];
-    platform::FormatLegacyString_53B304(buffer, kMailDeleteGuildFormat5875F4, login::detail::gOrderedRecords1051B14[index].text18);
+    std::sprintf(buffer, kMailDeleteGuildFormat5875F4, login::detail::gOrderedRecords1051B14[index].text18);
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
@@ -27015,7 +27015,7 @@ login::YobiAction* Sub_4A3540(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A36B0);
     char buffer[1024];
-    platform::FormatLegacyString_53B304(buffer, kMailDeleteMiniFormat587654, world::detail::ReadMiniMailContact1075A90(index).name10.data());
+    std::sprintf(buffer, kMailDeleteMiniFormat587654, world::detail::ReadMiniMailContact1075A90(index).name10.data());
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
@@ -27386,7 +27386,7 @@ void FormatMailTimestamp587768(char* const destination)
     std::memcpy(&month, bytes + 16, sizeof(month));
     std::int32_t year;
     std::memcpy(&year, bytes + 20, sizeof(year));
-    platform::FormatLegacyString_53B304(destination, "%4d/%2d/%2d %02d:%02d",
+    std::sprintf(destination, "%4d/%2d/%2d %02d:%02d",
         year + 1900, month + 1, day, hour, minute);
 }
 
@@ -27600,7 +27600,7 @@ std::uint32_t Sub_4A49B0()
     } else {
         const MailMessageView message = borrowCurrent();
         *message.unread00 = std::byte{0};
-        platform::FormatLegacyString_53B304(buffer, "%s", message.text02);
+        std::sprintf(buffer, "%s", message.text02);
         const char* const slash = platform::StrChr_53C2F0(buffer, '/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         std::strcpy(time->text, slash != nullptr ? slash + 1 : input::LegacyText593850());
@@ -27622,11 +27622,11 @@ std::uint32_t Sub_4A49B0()
         name = category == 0 ? gContactsF19FB0[contact].name10.data()
             : ReadMiniMailContact1075A90(contact).name10.data();
     }
-    platform::FormatLegacyString_53B304(buffer, "%s", name);
+    std::sprintf(buffer, "%s", name);
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
     std::strcpy(nameData->text, buffer);
     const std::int32_t page = gValueD046D4 + 1;
-    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page, 10);
+    std::sprintf(buffer, "%2d/%2d", page, 10);
     auto* const pageData = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
     const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(buffer) + 1);
     std::memcpy(pageData->text, buffer, length);
@@ -27966,7 +27966,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 const std::int32_t key = record.key04;
                 input::EscapeLegacyText_52D1B0(record.name10.data(), escapedName, 256);
                 input::EscapeLegacyText_52D1B0(input::gInputContextD66CA8.text, escapedText, 1024);
-                platform::FormatLegacyString_53B304(combined, "%d|%s|%s", key, escapedName, escapedText);
+                std::sprintf(combined, "%d|%s|%s", key, escapedName, escapedText);
                 input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
                 static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));
@@ -28375,7 +28375,7 @@ std::uint8_t Sub_4A6AC0()
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[countSlot].count;
         if (count > 0) {
             char buffer[64];
-            platform::FormatLegacyString_53B304(buffer, "%3d", count);
+            std::sprintf(buffer, "%3d", count);
             const WindowInstance* const textWindow = gCurrentWindow;
             const auto textY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->y + 232));
             const auto textX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->x + 174));
@@ -29914,9 +29914,9 @@ std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
             if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
                 const char* const format = blacklist::RemoveBlacklistRecord_4012F0(name) != 0
                     ? kBlacklistRemoved58863C : kBlacklistRemoveFailed588620;
-                platform::FormatLegacyString_53B304(message, format, name);
+                std::sprintf(message, format, name);
             } else {
-                platform::FormatLegacyString_53B304(message, kBlacklistAbsent58860C, name);
+                std::sprintf(message, kBlacklistAbsent58860C, name);
             }
             world::detail::Sub_44B050(message, 4, 3);
         }
@@ -30111,7 +30111,7 @@ void Sub_4CBD30()
     std::memcpy(&month, bytes + 0x10, sizeof(month));
     std::int32_t year;
     std::memcpy(&year, bytes + 0x14, sizeof(year));
-    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
+    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
         year % 100, month + 1, day);
 }
 
@@ -30126,10 +30126,10 @@ void Sub_4CC540()
     platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
     const std::int32_t month = calendar->month0based;
     const std::int32_t year = calendar->yearMinus1900;
-    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
+    std::sprintf(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
         year % 100, month + 1, day);
     char path[256];
-    platform::FormatLegacyString_53B304(path, kLogViewerPathFormat553514,
+    std::sprintf(path, kLogViewerPathFormat553514,
         kLogViewerDirectory554658, world::detail::gLogFileName554648);
     platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, kLogViewerReadMode553510);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
@@ -31808,7 +31808,7 @@ WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
     std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftDecorate586784);
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[10].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
         kCraftMagicCost58678C, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
@@ -31826,7 +31826,7 @@ WindowAnimationData* Sub_47FD00(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
     std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftPetDecorate5867AC);
-    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[10].data)->text,
+    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
         kCraftMagicCost58678C, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
@@ -32220,7 +32220,7 @@ WindowAnimationData* Sub_47DF50(WindowInstance* const window)
         if (count <= 0) {
             row = 1;
         }
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[9 + row].data)->text,
+        std::sprintf(static_cast<WindowTextData*>(window->elements[9 + row].data)->text,
             "%-24s%3d", requirement->name.data(), count);
         recipe = gCraftRecipeIndexD2D638;
         ++row;
@@ -32518,7 +32518,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             enabled = !world::detail::IsPlayerFpLessThan(
                 world::detail::BorrowPlayerItemsFDA8A4()[selected].level * 10);
             const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level;
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text,
                 kCraftMagicCost58678C, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
@@ -33217,7 +33217,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            platform::FormatLegacyString_53B304(countText, "%3d", count);
+            std::sprintf(countText, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
                 3, 1, 1, countText, 0, 0));
@@ -33809,18 +33809,18 @@ std::int32_t Sub_4810A0(const std::int32_t value)
     if (gSelectionModeD2D650 == 1 && expired()) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        platform::FormatLegacyString_53B304(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                platform::FormatLegacyString_53B304(temporary, "|%d", slot + 8);
+                std::sprintf(temporary, "|%d", slot + 8);
                 std::strcat(buffer, temporary);
             }
         }
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] < 0) {
-                platform::FormatLegacyString_53B304(temporary, "|%d", slot + 8);
+                std::sprintf(temporary, "|%d", slot + 8);
                 std::strcat(buffer, temporary);
             }
         }
@@ -33857,7 +33857,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     ordinarySlot = slot + 8;
                 }
             }
-            platform::FormatLegacyString_53B304(buffer, "%d|%d", ordinarySlot, specialSlot);
+            std::sprintf(buffer, "%d|%d", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
             const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name.data();
@@ -33880,7 +33880,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     break;
                 }
             }
-            platform::FormatLegacyString_53B304(buffer, "%d", selected);
+            std::sprintf(buffer, "%d", selected);
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
@@ -33895,7 +33895,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
                 if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                    platform::FormatLegacyString_53B304(temporary, "%d|", slot + 8);
+                    std::sprintf(temporary, "%d|", slot + 8);
                     std::strcat(buffer, temporary);
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
@@ -34142,21 +34142,21 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
         std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
-        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+        std::sprintf(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gCraftEnduranceD2F328 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gCraftEnduranceD2F328);
+        std::sprintf(buffer, kCraftEndurance586600, gCraftEnduranceD2F328);
         std::strcat(increments, buffer);
     }
     if (gCraftDexterityCA0448 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gCraftDexterityCA0448);
+        std::sprintf(buffer, kCraftDexterity5865F4, gCraftDexterityCA0448);
         std::strcat(increments, buffer);
     }
     if (gCraftIntelligenceCB0F84 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
+        std::sprintf(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
         std::strcat(increments, buffer);
     }
     std::strcpy(
@@ -34243,7 +34243,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
     char lostItem[256];
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -34254,7 +34254,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, gCraftExperienceCC3204);
     }
     if (gCraftLevelUpCF4974 != 0 && lines < 8) {
-        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
+        std::sprintf(buffer, kCraftLevelUp589814);
         gCraftResultDetailsD2E92C += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -34274,7 +34274,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         if (std::strlen(buffer) == 0) {
             break;
         }
-        platform::FormatLegacyString_53B304(lostItem, kCraftLostItem589F9C, buffer);
+        std::sprintf(lostItem, kCraftLostItem589F9C, buffer);
         if (std::strlen(lostItem) < 28) {
             std::strcat(lostItem, "\n");
         }
@@ -34373,22 +34373,22 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
         std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
-        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+        std::sprintf(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
     increments[0] = '\0';
     char buffer[256];
     // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
     if (gCraftEnduranceD2F328 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gItemWorkEnduranceCF46B4);
+        std::sprintf(buffer, kCraftEndurance586600, gItemWorkEnduranceCF46B4);
         std::strcat(increments, buffer);
     }
     if (gCraftDexterityCA0448 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gItemWorkDexterityCB0A14);
+        std::sprintf(buffer, kCraftDexterity5865F4, gItemWorkDexterityCB0A14);
         std::strcat(increments, buffer);
     }
     if (gCraftIntelligenceCB0F84 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
+        std::sprintf(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
         std::strcat(increments, buffer);
     }
     std::strcpy(
@@ -34484,7 +34484,7 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
     char buffer[256];
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -34495,7 +34495,7 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, gItemWorkExperienceC8A950);
     }
     if (gItemWorkLevelUpCB03D8 != 0 && lines < 8) {
-        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
+        std::sprintf(buffer, kCraftLevelUp589814);
         gItemWorkDetailsD2DB00 += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -34774,25 +34774,25 @@ WindowAnimationData* Sub_485AF0(WindowInstance* const window)
         gWindow12ValueCF3FF0 = -1;
     }
     if (gWindow12LevelUpC9C0FC != 0) {
-        platform::FormatLegacyString_53B304(
+        std::sprintf(
             static_cast<WindowTextData*>(window->elements[6].data)->text, "%s", kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[6].data);
-        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
+        std::sprintf(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gWindow12EnduranceCB0358 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gWindow12EnduranceCB0358);
+        std::sprintf(buffer, kCraftEndurance586600, gWindow12EnduranceCB0358);
         std::strcat(increments, buffer);
     }
     if (gWindow12DexterityCC3EC0 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gWindow12DexterityCC3EC0);
+        std::sprintf(buffer, kCraftDexterity5865F4, gWindow12DexterityCC3EC0);
         std::strcat(increments, buffer);
     }
     if (gWindow12IntelligenceCC4B60 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60);
+        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60);
         std::strcat(increments, buffer);
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
@@ -34840,7 +34840,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     gWindow12ValueD66E28 = 0;
     char buffer[256];
     if (result == 0) {
-        platform::FormatLegacyString_53B304(buffer, kWindow12Nothing5897DC);
+        std::sprintf(buffer, kWindow12Nothing5897DC);
         gWindow12ExperienceD2DFCC = 0;
         // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
         gWindow12DetailsCC190C.append(buffer, 16);
@@ -34866,7 +34866,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     std::strcpy(gWindow12SuffixCB1E1C.data(), kWindow12Suffix589830);
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -34877,7 +34877,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, experience);
     }
     if (gWindow12LevelUpC9C0FC != 0 && lines < 8) {
-        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
+        std::sprintf(buffer, kCraftLevelUp589814);
         gWindow12DetailsCC190C += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -35292,7 +35292,7 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
     switch (kind) {
         case 0:
         case 1: {
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                 kWindow13Text586B00, gSkillTargetNameD2F748.data());
             const char* text = nullptr;
             if (kind == 0) {
@@ -35305,12 +35305,12 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586AAC, gSkillTargetNameD2F748.data());
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     kWindow13Text586A94, gWindow13ValueD2DBF0);
             } else {
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586B00, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70);
@@ -35318,17 +35318,17 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586AAC, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48);
             } else if (gWindow13ValueD2DBF0 == 0) {
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586B00, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     kWindow13Text586A80);
             } else {
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586A34, gSkillTargetNameD2F748.data());
                 const std::int32_t value = gWindow13ValueD2DBF0;
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
@@ -35343,22 +35343,22 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
     if (gWindow13LevelUpCF468C != 0) {
         std::strcpy(static_cast<WindowTextData*>(window->elements[6].data)->text, kCraftLevelUp58661C);
     } else {
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[6].data)->text,
+        std::sprintf(static_cast<WindowTextData*>(window->elements[6].data)->text,
             kCraftExperience58660C, gWindow13ExperienceCC2E5C);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gWindow13EnduranceCC421C != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gWindow13EnduranceCC421C);
+        std::sprintf(buffer, kCraftEndurance586600, gWindow13EnduranceCC421C);
         std::strcat(increments, buffer);
     }
     if (gWindow13DexterityD2D644 != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gWindow13DexterityD2D644);
+        std::sprintf(buffer, kCraftDexterity5865F4, gWindow13DexterityD2D644);
         std::strcat(increments, buffer);
     }
     if (gWindow13IntelligenceCC19FC != 0) {
-        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC);
+        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC);
         std::strcat(increments, buffer);
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
@@ -35511,7 +35511,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text5899E8);
             if (result != 0) {
                 std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5899B8);
-                platform::FormatLegacyString_53B304(buffer, kWindow13Text5899D4, value);
+                std::sprintf(buffer, kWindow13Text5899D4, value);
                 gWindow13DetailsCB0FDC += buffer;
                 lines = 1;
             } else {
@@ -35523,7 +35523,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             if (result != 0) {
                 std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589970);
                 std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text589954);
-                platform::FormatLegacyString_53B304(buffer, value == 4 ? kWindow13Text589940 : kWindow13Text589928);
+                std::sprintf(buffer, value == 4 ? kWindow13Text589940 : kWindow13Text589928);
                 gWindow13DetailsCB0FDC += buffer;
                 lines = 1;
             } else {
@@ -35533,7 +35533,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
                 } else {
                     std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5898D8);
                     if (value == 3 || value == 2) {
-                        platform::FormatLegacyString_53B304(buffer, value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8);
+                        std::sprintf(buffer, value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8);
                         gWindow13DetailsCB0FDC += buffer;
                     }
                     lines = 1;
@@ -35544,7 +35544,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             break;
     }
     const auto appendValue = [&](const char* const format, const std::int32_t number) {
-        platform::FormatLegacyString_53B304(buffer, format, number);
+        std::sprintf(buffer, format, number);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -35555,7 +35555,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
         appendValue(kCraftExperience589820, gWindow13ExperienceCC2E5C);
     }
     if (gWindow13LevelUpCF468C != 0 && lines < 8) {
-        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
+        std::sprintf(buffer, kCraftLevelUp589814);
         gWindow13DetailsCB0FDC += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -35963,10 +35963,10 @@ void Sub_47B6C0(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, skill->name.data(), 0, 0));
     char buffer[20];
-    platform::FormatLegacyString_53B304(buffer, "%2d", skill->level);
+    std::sprintf(buffer, "%2d", skill->level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
-    platform::FormatLegacyString_53B304(buffer, "%2d", requiredSlots);
+    std::sprintf(buffer, "%2d", requiredSlots);
     Sub_4771B0(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
@@ -36151,13 +36151,13 @@ void Sub_47B9B0(
     char buffer[20];
     const std::int32_t level =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
-    platform::FormatLegacyString_53B304(buffer, "%2d", level);
+    std::sprintf(buffer, "%2d", level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-        platform::FormatLegacyString_53B304(buffer, "%3d", cost);
+        std::sprintf(buffer, "%3d", cost);
         Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     } else {
         static_cast<void>(render::DrawText_456780(
@@ -36193,7 +36193,7 @@ void Sub_47C240(
     const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     char buffer[20];
-    platform::FormatLegacyString_53B304(buffer, "%3d", cost);
+    std::sprintf(buffer, "%3d", cost);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
@@ -36545,7 +36545,7 @@ void Sub_4966B0(
             world::detail::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
             "%4d/%4d", current, maximum);
         break;
     }
@@ -36570,7 +36570,7 @@ void Sub_4966B0(
         const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
             "%4d/%4d", current, maximum);
         break;
     }
@@ -37269,7 +37269,7 @@ void Sub_4974C0(const std::int32_t skillIndex, const std::int32_t technique)
     const std::int32_t currentTechnique = world::detail::gBattleSelectedTechnique5ABC78;
     const std::int32_t currentSkill = world::detail::gBattleSelectedSkill5ABB5C;
     std::array<char, 256> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "S|%X|%X|%X",
+    std::sprintf(buffer.data(), "S|%X|%X|%X",
         static_cast<std::uint32_t>(currentSkill),
         static_cast<std::uint32_t>(currentTechnique),
         static_cast<std::uint32_t>(currentPosition));
@@ -37385,7 +37385,7 @@ void Sub_497E30(const std::int32_t technique)
             : world::detail::Sub_43C4B0();
         const std::int32_t currentTechnique = world::detail::gValue553F84;
         std::array<char, 256> buffer;
-        platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
+        std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
         static_cast<void>(network::SendBattlePacket_5109B0(
             platform::gConnectionSocket, buffer.data()));
@@ -37433,7 +37433,7 @@ void Sub_497FF0(const std::int32_t technique)
         const std::uint32_t pet = world::detail::gBattleRidePet5ABC38;
         const std::int32_t currentTechnique = world::detail::gValue553F84;
         std::array<char, 256> buffer;
-        platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
+        std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
         static_cast<void>(network::SendBattlePacket_5109B0(
             platform::gConnectionSocket, buffer.data()));
@@ -37698,19 +37698,19 @@ void Sub_498520()
                 bool send = true;
                 switch (gBattleSelectionMode5ABC70) {
                 case 0:
-                    platform::FormatLegacyString_53B304(buffer.data(), "H|%X", static_cast<std::uint32_t>(target));
+                    std::sprintf(buffer.data(), "H|%X", static_cast<std::uint32_t>(target));
                     break;
                 case 2: {
                     const std::int32_t technique = gBattleSelectedTechnique5ABC78;
                     const std::int32_t skill = gBattleSelectedSkill5ABB5C;
-                    platform::FormatLegacyString_53B304(buffer.data(), "S|%X|%X|%X",
+                    std::sprintf(buffer.data(), "S|%X|%X|%X",
                         static_cast<std::uint32_t>(skill), static_cast<std::uint32_t>(technique),
                         static_cast<std::uint32_t>(target));
                     break;
                 }
                 case 3: {
                     const std::int32_t item = gBattleSelectedItem5ABC48;
-                    platform::FormatLegacyString_53B304(buffer.data(), "I|%X|%X",
+                    std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(item), static_cast<std::uint32_t>(target));
                     break;
                 }
@@ -37827,7 +37827,7 @@ void Sub_498520()
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
             if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0] & 1u) != 0) {
                 const std::int32_t technique = gValue553F84;
-                platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
+                std::sprintf(buffer.data(), "W|%X|%X",
                     static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
                 login::detail::FlushBattleEntries_43C060();
@@ -37919,7 +37919,7 @@ void Sub_498520()
             if (!clickedReturn && gValue553F84 != -1) {
                 const std::int32_t namePet = Sub_43C4B0();
                 const std::int32_t nameTechnique = gValue553F84;
-                platform::FormatLegacyString_53B304(buffer.data(), "%-16s",
+                std::sprintf(buffer.data(), "%-16s",
                     (*BorrowPetRuntimeF633F8Storage())[namePet].techniquesD8[nameTechnique].name.data());
                 const std::int32_t nameY = gBattleCommandY553F7C;
                 const std::int32_t nameX = gBattleCommandX553F78;
@@ -37929,7 +37929,7 @@ void Sub_498520()
                     2, 0, 0, buffer.data(), 0));
                 const std::int32_t costPet = Sub_43C4B0();
                 const std::int32_t costTechnique = gValue553F84;
-                platform::FormatLegacyString_53B304(buffer.data(), "%4d", (*BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp);
+                std::sprintf(buffer.data(), "%4d", (*BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp);
                 const std::int32_t costY = gBattleCommandY553F7C;
                 const std::int32_t costX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(
@@ -38040,7 +38040,7 @@ void Sub_4982C0()
         }
     }
     std::array<char, 16> buffer;
-    platform::FormatLegacyString_53B304(buffer.data(), "%2d", remaining / 1000);
+    std::sprintf(buffer.data(), "%2d", remaining / 1000);
     for (std::int32_t index = 0; index < 2; ++index) {
         if (buffer[index] != ' ') {
             const std::int32_t digit =
@@ -38051,7 +38051,7 @@ void Sub_4982C0()
     }
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
-        platform::FormatLegacyString_53B304(buffer.data(), "\xB5\xDA %d \xBB\xD8\xBA\xCF", turn);
+        std::sprintf(buffer.data(), "\xB5\xDA %d \xBB\xD8\xBA\xCF", turn);
         static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer.data(), 0));
     }
 }
@@ -38122,7 +38122,7 @@ std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         if (world::detail::Sub_43C4B0() != -1) {
             std::array<char, 256> buffer;
-            platform::FormatLegacyString_53B304(buffer.data(), "M|%X", 255u);
+            std::sprintf(buffer.data(), "M|%X", 255u);
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
             gCurrentWindow->state |= 0x8000u;
             world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -38161,7 +38161,7 @@ void Sub_49B670(
         };
         drawText(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data(), 10, 5);
         std::array<char, 256> buffer;
-        platform::FormatLegacyString_53B304(buffer.data(), "%3d", pet.value08);
+        std::sprintf(buffer.data(), "%3d", pet.value08);
         drawText(buffer.data(), 140, 5);
         const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
@@ -38169,11 +38169,11 @@ void Sub_49B670(
         }
         const std::int32_t maxHp = gBattlePetVitalsCF4B78[petIndex].maxHp;
         const std::int32_t hp = gBattlePetVitalsCF4B78[petIndex].hp;
-        platform::FormatLegacyString_53B304(buffer.data(), "%6d/%6d", hp, maxHp);
+        std::sprintf(buffer.data(), "%6d/%6d", hp, maxHp);
         drawText(buffer.data(), 35, 19);
         const std::int32_t maxFp = gBattlePetVitalsCF4B78[petIndex].maxFp;
         const std::int32_t fp = gBattlePetVitalsCF4B78[petIndex].fp;
-        platform::FormatLegacyString_53B304(buffer.data(), "%6d/%6d", fp, maxFp);
+        std::sprintf(buffer.data(), "%6d/%6d", fp, maxFp);
         drawText(buffer.data(), 35, 32);
         for (std::int32_t row = 0; row < 4; ++row) {
             const std::int32_t segments = pet.values70[21 + row] / 10;
@@ -38262,7 +38262,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     std::array<char, 256> buffer;
-                    platform::FormatLegacyString_53B304(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
+                    std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     gCurrentWindow->state |= 0x8000u;
@@ -38349,7 +38349,7 @@ void Sub_47CB00(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
     char buffer[20];
-    platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
+    std::sprintf(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
@@ -38386,7 +38386,7 @@ void Sub_47CE70(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
     char buffer[20];
-    platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
+    std::sprintf(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
@@ -38938,7 +38938,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
             }
         }
         const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
-        platform::FormatLegacyString_53B304(buffer, "%2d/%2d", usedSlots, totalSlots);
+        std::sprintf(buffer, "%2d/%2d", usedSlots, totalSlots);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text, buffer);
         break;
     }
@@ -38963,15 +38963,15 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
             const std::int32_t experience = record->experience;
-            platform::FormatLegacyString_53B304(buffer, "%4d/%4d", experience, next);
+            std::sprintf(buffer, "%4d/%4d", experience, next);
         } else {
-            platform::FormatLegacyString_53B304(buffer, "%4d/ -- ", record->experience);
+            std::sprintf(buffer, "%4d/ -- ", record->experience);
         }
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text, buffer);
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
-        platform::FormatLegacyString_53B304(buffer, "%2d/%2d", level, maximum);
+        std::sprintf(buffer, "%2d/%2d", level, maximum);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
@@ -38999,7 +38999,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text,
             record->techniques3C[levelIndex].name.data());
         const std::int32_t level = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
-        platform::FormatLegacyString_53B304(buffer, "%5d", level);
+        std::sprintf(buffer, "%5d", level);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
@@ -39030,7 +39030,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         }
         const std::int32_t current =
             login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text,
+        std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text,
             "%4d/%4d", current, maximum);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
@@ -40204,7 +40204,7 @@ void Sub_49F7E0(const std::int32_t offset)
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text[0] = '\0';
         const char* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text,
                 "           %s", name);
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->bytes00[0] =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
@@ -40213,14 +40213,14 @@ void Sub_49F7E0(const std::int32_t offset)
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[row + 4].data)->imageNo =
                 gHealthImages57E6A4[imageIndex];
             const std::int32_t level = gStatusChoiceRecordsCB03D0[offset + row].level;
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
                 "%10d", level);
             const WindowStatusChoiceRecord* const record = gStatusChoiceRecordsCB03D0 + offset + row;
             const std::int32_t maxFp = record->maxFp;
             const std::int32_t fp = record->fp;
             const std::int32_t maxHp = record->maxHp;
             const std::int32_t hp = record->hp;
-            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text,
+            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text,
                 "                            %6d/%6d %6d/%6d", hp, maxHp, fp, maxFp);
         }
     }
@@ -40318,7 +40318,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             } else {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, "%+7d", experience);
+                std::sprintf(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, "%+7d", experience);
             }
         }
         const auto& names = world::detail::BorrowBattleResultNames();
@@ -40350,7 +40350,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             if (level < maxLevel) {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 45].data)->text, "%+5d", experience);
+                std::sprintf(static_cast<WindowTextData*>(window->elements[row + 45].data)->text, "%+5d", experience);
             } else {
                 std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->text, " --- ");
             }
@@ -40430,10 +40430,10 @@ std::int32_t Sub_499790(const std::int32_t value)
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
         const std::int32_t delta = world::detail::gValueFF0D04;
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[2].data)->text, "DP   %+9d", delta);
+        std::sprintf(static_cast<WindowTextData*>(window->elements[2].data)->text, "DP   %+9d", delta);
         window = gCurrentWindow;
         const std::int32_t total = world::detail::gValueFF0D08;
-        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[3].data)->text, "Total%9d", total);
+        std::sprintf(static_cast<WindowTextData*>(window->elements[3].data)->text, "Total%9d", total);
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (gBattleResultCloseTickCB0F78 < now) {
@@ -41398,22 +41398,22 @@ void FormatStatusBarVitals(char* const buffer)
         const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
-        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
         std::strcpy(gStatusHpTextD40B18.data(), buffer);
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
             login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
-        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
         const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
         std::strcpy(gStatusHpTextD40B18.data(), buffer);
         const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
         const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     }
 }
 
@@ -41637,7 +41637,7 @@ std::int32_t Sub_495E60(const std::int32_t index, const std::int32_t)
     }
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
-    platform::FormatLegacyString_53B304(data->text, "%3d", x);
+    std::sprintf(data->text, "%3d", x);
     return 0;
 }
 
@@ -41650,7 +41650,7 @@ std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
     }
     const std::int32_t y =
         world::detail::BorrowPlayerYStorage()->value();
-    platform::FormatLegacyString_53B304(data->text, "%3d", y);
+    std::sprintf(data->text, "%3d", y);
     return 0;
 }
 
@@ -42095,10 +42095,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    platform::FormatLegacyString_53B304(buffer, kStatusPetPoints586314, name, points);
+                    std::sprintf(buffer, kStatusPetPoints586314, name, points);
                 } else {
                     const std::int32_t points = world::detail::gValueD2F788;
-                    platform::FormatLegacyString_53B304(buffer, kStatusPlayerPoints556D50, points);
+                    std::sprintf(buffer, kStatusPlayerPoints556D50, points);
                 }
             } else {
                 std::strcpy(buffer, kStatusNoPoints556D34);
@@ -42202,7 +42202,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     format = critical ? kStatusPetInjury556D78 : kStatusPetInjury556D8C;
                 }
-                platform::FormatLegacyString_53B304(buffer, format, name);
+                std::sprintf(buffer, format, name);
                 const std::size_t length = std::strlen(buffer) + 1;
                 const std::size_t bulk = length & ~std::size_t{3};
                 std::memcpy(gHoverTextD68AE8.data(), buffer, bulk);
@@ -42459,7 +42459,7 @@ void Sub_474FB0()
     std::memcpy(nameData->text, name, nameLength);
 
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::ReadPlayerLevel());
+    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     const std::size_t levelLength = std::strlen(buffer) + 1;
     std::memcpy(levelData->text, buffer, levelLength);
@@ -42512,21 +42512,21 @@ void Sub_474FB0()
     const std::size_t tribeLength = std::strlen(tribe) + 1;
     std::memcpy(tribeData->text, tribe, tribeLength);
 
-    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
+    std::sprintf(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     const std::size_t experienceLength = std::strlen(buffer) + 1;
     std::memcpy(experienceData->text, buffer, experienceLength);
 
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
     const std::size_t hpLength = std::strlen(buffer) + 1;
     std::memcpy(hpData->text, buffer, hpLength);
 
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     const std::size_t fpLength = std::strlen(buffer) + 1;
     std::memcpy(fpData->text, buffer, fpLength);
@@ -42535,14 +42535,14 @@ void Sub_474FB0()
     if (world::detail::IsPlayerNextExperienceEqual(-1)) {
         nextExperience = "        -";
     } else {
-        platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerNextExperienceOnce());
+        std::sprintf(buffer, "%9d", world::detail::ReadPlayerNextExperienceOnce());
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
     const std::size_t nextLength = std::strlen(nextExperience) + 1;
     std::memcpy(nextData->text, nextExperience, nextLength);
 
-    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerDuelPoint());
+    std::sprintf(buffer, "%9d", world::detail::ReadPlayerDuelPoint());
     auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
     const std::size_t duelLength = std::strlen(buffer) + 1;
     std::memcpy(duelData->text, buffer, duelLength);
@@ -42571,7 +42571,7 @@ void Sub_474FB0()
 
     const std::int32_t penalty = world::detail::ReadPlayerPenalty();
     if (penalty > 0) {
-        platform::FormatLegacyString_53B304(buffer, "x%d", penalty);
+        std::sprintf(buffer, "x%d", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;
         const std::size_t penaltyLength = std::strlen(buffer) + 1;
         auto* const penaltyData = static_cast<WindowTextData*>(penaltyElements[2].data);
@@ -42709,7 +42709,7 @@ void Sub_4767E0()
     char buffer[256];
     const auto writeNumber = [&buffer](
         const std::int32_t index, const std::int32_t value, const char* const format) {
-        platform::FormatLegacyString_53B304(buffer, format, value);
+        std::sprintf(buffer, format, value);
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
         const std::size_t length = std::strlen(buffer) + 1;
         std::memcpy(text->text, buffer, length);
@@ -43180,15 +43180,15 @@ void Sub_48C920()
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
         static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
             colorState == 3 ? std::byte{7} : std::byte{0};
-        platform::FormatLegacyString_53B304(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
+        std::sprintf(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
         copyNumber(textBase + 1);
         const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[1].value();
         const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[0].value();
-        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
+        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
         copyNumber(textBase + 2);
         const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[3].value();
         const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[2].value();
-        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
+        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
@@ -43365,20 +43365,20 @@ std::uint32_t Sub_48F8F0()
 
         if ((selectedPet().values0C[5] == -1)) {
             const std::int32_t experience = selectedPet().values0C[4].value();
-            platform::FormatLegacyString_53B304(buffer, "%8d/       -", experience);
+            std::sprintf(buffer, "%8d/       -", experience);
         } else {
             const std::int32_t nextExperience = selectedPet().values0C[5].value();
             const std::int32_t experience = selectedPet().values0C[4].value();
-            platform::FormatLegacyString_53B304(buffer, "%8d/%8d", experience, nextExperience);
+            std::sprintf(buffer, "%8d/%8d", experience, nextExperience);
         }
         copyTextAfterScan(11, buffer);
         const std::int32_t maxHp = selectedPet().values0C[1].value();
         const std::int32_t hp = selectedPet().values0C[0].value();
-        platform::FormatLegacyString_53B304(buffer, "%5d/%5d", hp, maxHp);
+        std::sprintf(buffer, "%5d/%5d", hp, maxHp);
         copyTextAfterScan(12, buffer);
         const std::int32_t maxFp = selectedPet().values0C[3].value();
         const std::int32_t fp = selectedPet().values0C[2].value();
-        platform::FormatLegacyString_53B304(buffer, "%5d/%5d", fp, maxFp);
+        std::sprintf(buffer, "%5d/%5d", fp, maxFp);
         copyTextAfterScan(13, buffer);
 
         const auto& tribePet = selectedPet();
@@ -43389,16 +43389,16 @@ std::uint32_t Sub_48F8F0()
         const std::size_t tribeLength = std::strlen(tribeName) + 1;
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[14].data);
         std::memcpy(tribeData->text, tribeName, tribeLength);
-        platform::FormatLegacyString_53B304(buffer, "%3d", selectedPet().values70[10]);
+        std::sprintf(buffer, "%3d", selectedPet().values70[10]);
         static_cast<void>(copyTextBeforeScan(15, buffer));
-        platform::FormatLegacyString_53B304(buffer, "%2d", selectedPet().value6A4);
+        std::sprintf(buffer, "%2d", selectedPet().value6A4);
         static_cast<void>(copyTextBeforeScan(16, buffer));
-        platform::FormatLegacyString_53B304(buffer, "%3d", selectedPet().value08);
+        std::sprintf(buffer, "%3d", selectedPet().value08);
         static_cast<void>(copyTextBeforeScan(18, buffer));
         const auto& weightPet = selectedPet();
         const std::int32_t maxWeight = weightPet.values6D8[2];
         const std::int32_t weight = weightPet.values6D8[1];
-        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", weight, maxWeight);
+        std::sprintf(buffer, "%6d/%6d", weight, maxWeight);
         static_cast<void>(copyTextBeforeScan(19, buffer));
 
         const auto& imagePet = selectedPet();
@@ -43463,7 +43463,7 @@ std::uint32_t Sub_48F8F0()
         }
         gCurrentWindow->elements[10].visible = 0;
     }
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
 }
 
@@ -43535,7 +43535,7 @@ std::uint32_t Sub_490780()
     };
     char buffer[256];
     const auto writeNumber = [&](const std::int32_t element, const std::int32_t value) {
-        platform::FormatLegacyString_53B304(buffer, "%3d", value);
+        std::sprintf(buffer, "%3d", value);
         static_cast<void>(copyTextBeforeScan(element, buffer));
     };
     if (selectedPet().used != 0) {
@@ -43581,11 +43581,11 @@ std::uint32_t Sub_490780()
         writeNumber(15, selectedPet().value08);
         const std::int32_t maxHp = selectedPet().values0C[1].value();
         const std::int32_t hp = selectedPet().values0C[0].value();
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
+        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
         copyTextAfterScan(16, buffer);
         const std::int32_t maxFp = selectedPet().values0C[3].value();
         const std::int32_t fp = selectedPet().values0C[2].value();
-        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
+        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
         copyTextAfterScan(17, buffer);
         writeNumber(19, selectedPet().lvFlag6C);
         for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
@@ -43626,7 +43626,7 @@ std::uint32_t Sub_490780()
             gCurrentWindow->elements[element].visible = 0;
         }
     }
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(18, buffer));
 }
 
@@ -43733,7 +43733,7 @@ WindowElement* Sub_491AA0()
                 std::strcpy(data->text, techniqueName);
                 gCurrentWindow->elements[23 + row].visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[row].fp;
-                platform::FormatLegacyString_53B304(buffer, "%3d", fp);
+                std::sprintf(buffer, "%3d", fp);
                 std::strcpy(gPetTechniqueCostsD66C34[row].data(), buffer);
             }
         }
@@ -43745,7 +43745,7 @@ WindowElement* Sub_491AA0()
             gCurrentWindow->elements[23 + row].visible = 0;
         }
     }
-    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     auto* const page = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     std::strcpy(page->text, buffer);
     gCurrentWindow->elements[33].visible = 0;
@@ -43783,7 +43783,7 @@ std::int32_t Sub_4920F0()
     const std::int32_t costTechnique = gLoginWindowRuntime.petTechniqueD2D66C;
     const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[costPet].techniquesD8[costTechnique].fp;
     char buffer[12];
-    platform::FormatLegacyString_53B304(buffer, "%3d", fp);
+    std::sprintf(buffer, "%3d", fp);
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 187)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
@@ -44801,7 +44801,7 @@ void Sub_478A10()
     const std::size_t nameLength = std::strlen(name) + 1;
     std::memcpy(nameData->text, name, nameLength);
     char number[256];
-    platform::FormatLegacyString_53B304(number, "%3d", world::detail::ReadPlayerLevel());
+    std::sprintf(number, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     const std::size_t levelLength = std::strlen(number) + 1;
     std::memcpy(levelData->text, number, levelLength);
@@ -44957,7 +44957,7 @@ void Sub_478010()
     std::memcpy(nameData->text, name, nameLength);
 
     char buffer[256];
-    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::ReadPlayerLevel());
+    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     const std::size_t levelLength = std::strlen(buffer) + 1;
     std::memcpy(levelData->text, buffer, levelLength);
@@ -45332,7 +45332,7 @@ void Sub_4740F0(char* const destination)
         }
     }
     char text[256];
-    platform::FormatLegacyString_53B304(text, "%2d/10", count);
+    std::sprintf(text, "%2d/10", count);
     std::strcpy(destination, text);
 }
 

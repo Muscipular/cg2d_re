@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <cstring>
 #include <type_traits>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 namespace cg {
 
@@ -1252,7 +1253,7 @@ std::int32_t Sub_44A090()
 {
     gCursor62683C = -1;
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
     platform::LegacyFile* const readStream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryReadMode);
@@ -1276,7 +1277,7 @@ std::int32_t Sub_44A090()
 std::int32_t Sub_449FA0(const std::int32_t index)
 {
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
     platform::LegacyFile* const stream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryUpdateMode);
@@ -1335,11 +1336,11 @@ void __cdecl Sub_449DA0()
     const std::int32_t fileMonth = readTimeField(0x10);
     const std::int32_t fileDay = readTimeField(0x0C);
     const std::int32_t fileYear = readTimeField(0x14);
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         gLogFileName554648,
         kFileFormat_55351C,
         fileYear % 100, fileMonth + 1, fileDay);
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         gLogPath62699C,
         kPathFormat_553514,
         kLogDirectory_554658,
@@ -1353,16 +1354,16 @@ void __cdecl Sub_449DA0()
         platform::LegacyFile* const appendStream =
             platform::OpenLegacyStream_53B2F1(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
-        platform::FormatLegacyStream_53BC0F(appendStream, kFirstSeparator_5548CC.data());
+        std::fprintf(appendStream, kFirstSeparator_5548CC.data());
 
         const std::int32_t titleMonth = readTimeField(0x10);
         const std::int32_t titleDay = readTimeField(0x0C);
         const std::int32_t titleYear = readTimeField(0x14);
-        platform::FormatLegacyStream_53BC0F(
+        std::fprintf(
             gLogStream626C1C,
             kDateTitle_55488C,
             titleYear % 100, titleMonth + 1, titleDay);
-        platform::FormatLegacyStream_53BC0F(gLogStream626C1C, kFirstSeparator_5548CC.data());
+        std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
         gate = gLogStream626C1C;
     } else {
         platform::CloseLegacyStream_53B1D0(readStream);
@@ -1373,7 +1374,7 @@ void __cdecl Sub_449DA0()
     }
 
     if (gate != nullptr) {
-        platform::FormatLegacyStream_53BC0F(gate, kBeforeSession_554848.data());
+        std::fprintf(gate, kBeforeSession_554848.data());
 
         const std::int32_t sessionSecond = readTimeField(0x00);
         const std::int32_t sessionMinute = readTimeField(0x04);
@@ -1381,12 +1382,12 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionDay = readTimeField(0x0C);
         const std::int32_t sessionMonth = readTimeField(0x10);
         const std::int32_t sessionYear = readTimeField(0x14);
-        platform::FormatLegacyStream_53BC0F(
+        std::fprintf(
             gLogStream626C1C,
             kSessionTime_554820,
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
-        platform::FormatLegacyStream_53BC0F(gLogStream626C1C, kAfterSession_5547DC.data());
+        std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
     }
     platform::FlushLegacyStream_53BB02(gLogStream626C1C);
 }
@@ -1447,7 +1448,7 @@ void Sub_44B050(
         std::memcpy(&minute, timeBytes + 4, sizeof(minute));
         std::memcpy(&hour, timeBytes + 8, sizeof(hour));
 
-        platform::FormatLegacyStream_53BC0F(
+        std::fprintf(
             gLogStream626C1C,
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, gRecords5FB7F8[index].text);
@@ -1628,13 +1629,13 @@ void Sub_44AB60()
             ++comparisonIndex;
         }
         if (targetsSelf) {
-            platform::FormatLegacyString_53B304(message, kBlacklistSelfText554938);
+            std::sprintf(message, kBlacklistSelfText554938);
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            platform::FormatLegacyString_53B304(message, kBlacklistExistingFormat554928, text);
+            std::sprintf(message, kBlacklistExistingFormat554928, text);
         } else {
             const char* const format = blacklist::AddBlacklistRecord_401270(text) != 0
                 ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
-            platform::FormatLegacyString_53B304(message, format, text);
+            std::sprintf(message, format, text);
         }
         gInputContextC8B1B8.text[0] = '\0';
         gInputContextC8B1B8.caretByteOffset = 0;

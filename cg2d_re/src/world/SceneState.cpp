@@ -41,7 +41,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstddef>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <new>
@@ -1207,7 +1207,7 @@ void Sub_5186A0()
     auto* const encoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "wb");
@@ -1241,7 +1241,7 @@ void Sub_518780()
     auto* const decoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
     platform::LegacyFile* const stream =
         platform::OpenLegacyStream_53B2F1(path, "rb");
@@ -2772,7 +2772,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t y = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
             const std::int32_t count = platform::Atoi_53C649(field);
-            platform::FormatLegacyString_53B304(label, "%d \xBD\xF0\x8E\xC5", count);
+            std::sprintf(label, "%d \xBD\xF0\x8E\xC5", count);
             std::int32_t imageNo;
             if (count < 50) {
                 imageNo = 0x6B08;
@@ -2981,7 +2981,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     if (platform::StrNCmp_53BFC0(source, "@FIND_LV1", 9) == 0) {
         std::int32_t sound = 0;
         platform::StrNCpy_53BEC0(command, source, static_cast<std::uint32_t>(sizeof(command)));
-        platform::ScanLegacyString_53CADC(command, "@FIND_LV1@SE:%d", &sound);
+        std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
         const char* const message = platform::StrStr_53BE40(command, "@MSG:");
         platform::StrNCpy_53BEC0(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
@@ -3094,7 +3094,7 @@ std::int32_t Sub_50C940(
     char escaped[1024];
     char packet[1024];
     input::EscapeInputText_52D2D0(context, escaped, 1024);
-    platform::FormatLegacyString_53B304(packet, "P|%s", escaped);
+    std::sprintf(packet, "P|%s", escaped);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
     const std::int32_t y = BorrowPlayerYStorage()->value();
@@ -4861,10 +4861,10 @@ std::int32_t __cdecl Sub_468520(
     const std::int32_t floor)
 {
     if (mapId == 0) {
-        return platform::FormatLegacyString_53B304(
+        return std::sprintf(
             buffer, kMapPathZero, kMapPathPrefix, 0, floor);
     }
-    return platform::FormatLegacyString_53B304(
+    return std::sprintf(
         buffer, kMapPathOther, kMapPathPrefix, mapId, value9E0434, floor);
 }
 
@@ -4886,11 +4886,11 @@ std::int32_t __cdecl Sub_468570(
     if (file == nullptr) {
         platform::CreateLegacyDirectory_53C654(kMapPathPrefix);
         char directory[256];
-        platform::FormatLegacyString_53B304(
+        std::sprintf(
             directory, kMapDirectoryOne, kMapPathPrefix, a2);
         platform::CreateLegacyDirectory_53C654(directory);
         if (a2 > 0) {
-            platform::FormatLegacyString_53B304(
+            std::sprintf(
                 directory, kMapDirectoryTwo, kMapPathPrefix, a2, a1);
             platform::CreateLegacyDirectory_53C654(directory);
         }
@@ -5540,7 +5540,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
 {
     Sub_46DC60();
     char path[256];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, kCutPath55DE50, selected);
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
@@ -5577,7 +5577,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
 std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
 {
     char path[256];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, kAutPath55DE7C, selected);
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
@@ -6082,14 +6082,14 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
         return;
     }
     if (kind == 'P') {
-        static_cast<void>(platform::ScanLegacyString_53CADC(text + 2, "%X|%X|%X|%X|%X|%X",
+        static_cast<void>(std::sscanf(text + 2, "%X|%X|%X|%X|%X|%X",
             &gBattlePosition5ABCA8, &gBattlePlayerFlags5ABCAC,
             &gBattleSkillFlags5ABC04, &gBattlePetSkillFlags5ABB78,
             &gBattleRebirthLevel5ABB7C, &gBattleRidePet5ABC38));
         return;
     }
     if (kind == 'A') {
-        static_cast<void>(platform::ScanLegacyString_53CADC(text + 2, "%X|%X",
+        static_cast<void>(std::sscanf(text + 2, "%X|%X",
             &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
         if (gBattleFirstTurnPending5ABC6C == 1) {
             const std::uint32_t turn = gBattleTurn5ABB74;

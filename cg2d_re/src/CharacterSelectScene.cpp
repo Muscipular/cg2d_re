@@ -25,6 +25,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::character_select::detail {
 namespace {
@@ -1102,14 +1103,14 @@ std::int32_t Sub_4631D0()
     login::detail::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
     render::DrawInputText_4568A0(&state::gCreationInput9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
-    platform::FormatLegacyString_53B304(buffer, "%02d", CreationSignedByte(state::gValue9A4D04));
+    std::sprintf(buffer, "%02d", CreationSignedByte(state::gValue9A4D04));
     render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);
     for (std::size_t row = 0; row < attributes.size(); ++row) {
-        platform::FormatLegacyString_53B304(buffer, "%02d", CreationSignedByte(*attributes[row]));
+        std::sprintf(buffer, "%02d", CreationSignedByte(*attributes[row]));
         render::DrawText_456780(
             479, static_cast<std::int16_t>(199 + 14 * row), 0, 13, color, buffer, 0, 0);
     }
-    platform::FormatLegacyString_53B304(buffer, "%02d", CreationSignedByte(state::gValue9A50C8));
+    std::sprintf(buffer, "%02d", CreationSignedByte(state::gValue9A50C8));
     render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
     login::detail::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
     login::detail::DrawGraphic(320, 240, 3, 245050, 0, nullptr);

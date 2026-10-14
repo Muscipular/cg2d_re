@@ -10,7 +10,7 @@
 
 #include <bit>
 #include <cstddef>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstring>
 
 namespace cg::platform {
@@ -61,23 +61,23 @@ int ParseCommandOptions()
 {
     char savedata[128] {};
     if (char* match = StrStr_53BE40(gCommandLine, "newest:")) {
-        ScanLegacyString_53CADC(match + std::strlen("newest:"), "%s", gNewestText);
+        std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
     }
     if (char* match = StrStr_53BE40(gCommandLine, "savedata:")) {
-        ScanLegacyString_53CADC(match + std::strlen("savedata:"), "%s", savedata);
+        std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
     }
     if (char* match = StrStr_53BE40(gCommandLine, "datafolder:")) {
-        ScanLegacyString_53CADC(match + std::strlen("datafolder:"), "%s", gDataPath);
+        std::sscanf(match + std::strlen("datafolder:"), "%s", gDataPath);
     }
     if (char* match = StrStr_53BE40(gCommandLine, "binfolder:")) {
-        ScanLegacyString_53CADC(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
+        std::sscanf(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
     }
     if (char* match = StrStr_53BE40(gCommandLine, "mapfolder:")) {
-        ScanLegacyString_53CADC(match + std::strlen("mapfolder:"), "%s", gMapPath);
+        std::sscanf(match + std::strlen("mapfolder:"), "%s", gMapPath);
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
-    FormatLegacyString_53B304(gTextFF4E30, "data\\0\\%s", "save.dat");
+    std::sprintf(gTextFF4E30, "data\\0\\%s", "save.dat");
 
     const char* const graphicKeys[9] = {
         "graphicbin:", "graphicbinex:", "graphicbinv2:",
@@ -149,38 +149,38 @@ int ParseCommandOptions()
     int value;
     for (int slot = 0; slot < 9; ++slot) {
         if (char* match = StrStr_53BE40(gCommandLine, graphicKeys[slot])) {
-            ScanLegacyString_53CADC(match + std::strlen(graphicKeys[slot]), "%d", &value);
-            FormatLegacyString_53B304(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            std::sscanf(match + std::strlen(graphicKeys[slot]), "%d", &value);
+            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = StrStr_53BE40(gCommandLine, graphicOverrideKeys[slot])) {
-            ScanLegacyString_53CADC(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
-            FormatLegacyString_53B304(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            std::sscanf(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
+            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = StrStr_53BE40(gCommandLine, graphicInfoKeys[slot])) {
-            ScanLegacyString_53CADC(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
-            FormatLegacyString_53B304(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
+            std::sscanf(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
+            std::sprintf(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
         }
         if (char* match = StrStr_53BE40(gCommandLine, animeKeys[slot])) {
-            ScanLegacyString_53CADC(match + std::strlen(animeKeys[slot]), "%d", &value);
-            FormatLegacyString_53B304(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
+            std::sscanf(match + std::strlen(animeKeys[slot]), "%d", &value);
+            std::sprintf(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
         }
         if (char* match = StrStr_53BE40(gCommandLine, animeInfoKeys[slot])) {
-            ScanLegacyString_53CADC(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
-            FormatLegacyString_53B304(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
+            std::sscanf(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
+            std::sprintf(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
         }
     }
 
     for (int slot = 0; slot < 9; ++slot) {
         if (!StrChr_53C2F0(gResourceNames[CoordinateNames][slot], '*')) {
             if (char* match = StrStr_53BE40(gCommandLine, coordinateKeys[slot])) {
-                ScanLegacyString_53CADC(match + std::strlen(coordinateKeys[slot]), "%d", &value);
-                FormatLegacyString_53B304(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
+                std::sscanf(match + std::strlen(coordinateKeys[slot]), "%d", &value);
+                std::sprintf(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
             }
         }
         if (!StrChr_53C2F0(gResourceNames[CoordinateInfoNames][slot], '*')) {
             if (char* match = StrStr_53BE40(gCommandLine, coordinateInfoKeys[slot])) {
-                ScanLegacyString_53CADC(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
-                FormatLegacyString_53B304(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
+                std::sscanf(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
+                std::sprintf(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
             }
         }
     }
@@ -190,7 +190,7 @@ int ParseCommandOptions()
         for (int table = CoordinateNames; table <= CoordinateInfoNames; ++table) {
             char* destination = gResourceNames[table][slot];
             if (StrChr_53C2F0(destination, '*')) {
-                ScanLegacyString_53CADC(destination, "*%d", &value);
+                std::sscanf(destination, "*%d", &value);
                 const char* source = gResourceNames[table][value];
                 const std::size_t length = std::strlen(source) + 1;
 
@@ -221,7 +221,7 @@ int ParseCommandOptions()
     if (char* match = StrStr_53BE40(gCommandLine, "winpos:")) {
         int x;
         int y;
-        ScanLegacyString_53CADC(match + std::strlen("winpos:"), "%d,%d", &x, &y);
+        std::sscanf(match + std::strlen("winpos:"), "%d,%d", &x, &y);
         if (x >= 0 && y >= 0) {
             gStartX = x;
             gStartY = y;
@@ -231,7 +231,7 @@ int ParseCommandOptions()
     gRendererFlags = 0;
     gRendererMode = 1;
     if (char* match = StrStr_53BE40(gCommandLine, "3Ddevice:")) {
-        ScanLegacyString_53CADC(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
+        std::sscanf(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
     }
     if (StrStr_53BE40(gCommandLine, "soundoff")) {
         gEnableSound = 0;
@@ -265,7 +265,7 @@ int ParseIpOptions_507C80(const char* const commandLine)
     const char* cursor = commandLine;
     while (const char* const match = StrStr_53BE40(cursor, "IP:")) {
         const char* const number = match + 3;
-        const int parsed = ScanLegacyString_53CADC(number, "%d:", &index);
+        const int parsed = std::sscanf(number, "%d:", &index);
         if (static_cast<std::uint32_t>(index)
             >= login::gValueD69798.size()) {
             return parsed;

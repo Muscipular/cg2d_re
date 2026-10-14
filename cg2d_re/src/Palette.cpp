@@ -9,7 +9,7 @@
 
 #include <bit>
 #include <cmath>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
 namespace cg::render {
@@ -215,7 +215,7 @@ int InitPalette32()
 
     if (gPaletteInitialized == 0) {
         char path[512];
-        platform::FormatLegacyString_53B304(
+        std::sprintf(
             path, "%s\\%s", resource::gBinPath, gPaletteFiles[0].path);
         platform::LegacyFile* file =
             platform::OpenLegacyStream_53B2F1(path, "rb");
@@ -280,7 +280,7 @@ int InitPalette32()
 int ReadPalette(std::int32_t index, PaletteEntry* output)
 {
     char path[256];
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         path, "%s\\%s", resource::gBinPath, gPaletteFiles[index].path);
     platform::LegacyFile* file =
         platform::OpenLegacyStream_53B2F1(path, "rb");
@@ -347,7 +347,7 @@ int UpdatePalette_450BB0()
         }
 
         char path[512];
-        platform::FormatLegacyString_53B304(
+        std::sprintf(
             path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
         platform::LegacyFile* file =
             platform::OpenLegacyStream_53B2F1(path, "rb");

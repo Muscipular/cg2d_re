@@ -19,7 +19,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
 namespace {
@@ -364,7 +364,7 @@ void IncrementSceneState()
 
 void SetBaseWindowTitle(char (&buffer)[256])
 {
-    cg::platform::FormatLegacyString_53B304(buffer, "%s %s", kWindowName, kVersion);
+    std::sprintf(buffer, "%s %s", kWindowName, kVersion);
     cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
 }
 
@@ -387,7 +387,7 @@ void SetServerWindowTitle(
     const char* const category = CategoryTitle(serverIndex / 20);
     const char* const server =
         kServerLabels[static_cast<std::size_t>(page * 10 + slot)];
-    cg::platform::FormatLegacyString_53B304(
+    std::sprintf(
         buffer,
         "%s %s [%s %s]",
         kWindowName,
@@ -395,7 +395,7 @@ void SetServerWindowTitle(
         category,
         server);
     if (slot == 9) {
-        cg::platform::FormatLegacyString_53B304(
+        std::sprintf(
             buffer,
             "%s %s [\xC4\xE6 %s]", // 原55CD18，特殊标题中的“逆”保留两字节。
             kWindowName,

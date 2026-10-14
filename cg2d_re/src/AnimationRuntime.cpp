@@ -9,7 +9,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
 
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 
@@ -154,7 +154,7 @@ std::int32_t AnimeInit_45BB20(
             indices[key] = index;
             if (count > 10000u) {
                 char message[256];
-                platform::FormatLegacyString_53B304(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
+                std::sprintf(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
                 platform::ShowLegacyMessage(message, kAnimeSizeErrorCaption, 0);
                 platform::CloseLegacyStream_53B1D0(file);
                 return cleanupFailure(5);
@@ -355,7 +355,7 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     }
     if (gAnimateRecords9A4A58[index].coordinateCount > 1000) {
         char message[256];
-        platform::FormatLegacyString_53B304(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
+        std::sprintf(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
         platform::ShowLegacyMessage(message,
             "\x8D\xC0\x95\x57\x83\x66\x81\x5B\x83\x5E\x97\xCA"
             "\x82\xAA\x88\xD9\x8F\xED\x82\xC5\x82\xB7\x81\x42", 0);

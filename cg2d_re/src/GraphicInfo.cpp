@@ -7,7 +7,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -150,7 +150,7 @@ std::int32_t GraphicInit_459960(
     gGraphicRequiredCount = static_cast<std::int32_t>(totalInfoBytes / 40u + 10u);
     if (gGraphicRequiredCount >= gMaxGraphicCount) {
         char message[256];
-        platform::FormatLegacyString_53B304(message, "MAX_GRAPHICS=%d,Need=%d",
+        std::sprintf(message, "MAX_GRAPHICS=%d,Need=%d",
             gMaxGraphicCount, gGraphicRequiredCount);
         platform::ShowLegacyMessage(
             message, "sprmgr: MAX_GRAPHICS \xB2\xBB\x89\xF2\xA1\xA3", 0);

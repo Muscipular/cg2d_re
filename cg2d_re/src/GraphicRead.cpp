@@ -18,6 +18,7 @@
 #include <new>
 #include <type_traits>
 #include <vector>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
 
@@ -232,7 +233,7 @@ void LoadIndependentPaletteIndex_522900()
     if (directory[255] != '\\') {
         std::strcat(directory, "\\");
     }
-    platform::FormatLegacyString_53B304(
+    std::sprintf(
         fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(fileName, "rb");

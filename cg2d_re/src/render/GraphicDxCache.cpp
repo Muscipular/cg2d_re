@@ -19,7 +19,7 @@
 
 #include <algorithm>
 #include <bit>
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -521,7 +521,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
         if (scan == scanStart) {
             // 原 58D348 消息字节及 52253F 路径；不足时不清除部分链或补写尾 next。
             char message[256];
-            platform::FormatLegacyString_53B304(message,
+            std::sprintf(message,
                 "\x83\x54\x81\x5B\x83\x74\x83\x46\x83\x58\x95\x73"
                 "\x91\xAB\x82\xC5\x82\xB7\x81\x42%d\n", scan);
             platform::WriteLegacyDebugString(message);

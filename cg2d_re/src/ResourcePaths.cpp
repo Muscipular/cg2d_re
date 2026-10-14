@@ -12,6 +12,7 @@
 
 #include <bit>
 #include <cstring>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
 namespace {
@@ -196,12 +197,12 @@ int BuildResourcePaths()
 
     int result = 0;
     for (int slot = 0; slot < 9; ++slot) {
-        platform::FormatLegacyString_53B304(gGraphicPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicNames][slot]);
-        platform::FormatLegacyString_53B304(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicInfoNames][slot]);
-        platform::FormatLegacyString_53B304(gAnimePaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeNames][slot]);
-        platform::FormatLegacyString_53B304(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeInfoNames][slot]);
-        platform::FormatLegacyString_53B304(gCoordinatePaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateNames][slot]);
-        result = platform::FormatLegacyString_53B304(
+        std::sprintf(gGraphicPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicNames][slot]);
+        std::sprintf(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicInfoNames][slot]);
+        std::sprintf(gAnimePaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeNames][slot]);
+        std::sprintf(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeInfoNames][slot]);
+        std::sprintf(gCoordinatePaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateNames][slot]);
+        result = std::sprintf(
             gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateInfoNames][slot]);
     }
     return result;
@@ -211,7 +212,7 @@ int BuildResourcePaths()
 std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
 {
     char fileName[128];
-    platform::FormatLegacyString_53B304(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
+    std::sprintf(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
 
     const std::int32_t loaded =
         detail::Sub_45A420(fileName, graphicInfoPaths);

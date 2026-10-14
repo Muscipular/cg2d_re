@@ -6,7 +6,7 @@
 #include <iphlpapi.h>
 #include <ipifcons.h>
 
-#include <cstdio>
+#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 #include <new>
 
@@ -69,7 +69,7 @@ std::int32_t Sub_534EF0(char* const output)
     const std::uint32_t byte2 = address[2];
     const std::uint32_t byte1 = address[1];
     const std::uint32_t byte0 = address[0];
-    FormatLegacyString_53B304(
+    std::sprintf(
         text,
         "%02x%02x%02x%02x%02x%02x",
         byte0, byte1, byte2, byte3, byte4, byte5);

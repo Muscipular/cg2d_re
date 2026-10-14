@@ -247423,7 +247423,8 @@
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，以零值编码后返回原生对象地址；保留三字节不写。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
@@ -247462,6 +247463,31 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "implicit_tail_padding_lci12": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
+        "source": "include/cg/platform/LegacyCryptInt.hpp",
+        "explicit_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "tail_padding_offset": "0x0D",
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_restore_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "padding_byte_contents_guaranteed": false,
+        "raw_constructor_and_restore_retained": true,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -247502,7 +247528,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
         "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "boundary": "原401CA0的flags bit0／原地址返回／显式free合同保留在阶段历史；当前销毁由~LegacyCryptInt恢复token，动态释放沿标准delete表达式及默认MSVC服务。类专用分配／释放重载无当前消费者，按用户要求退休。原机器ABI、未知间接消费者及完整SDK／寿命运行未验，不改其他对象的分配域或RNG。",
       "verification_level": "LCI08：当前src／include静态搜索仅有重载声明／定义，无该类动态分配、智能指针拥有或派生类型；退休重载并归并原401CA0注释。仅源码／地址／台账静态核对，未编译或运行。",
@@ -247582,6 +247609,31 @@
         "static_source_checked": true,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "implicit_tail_padding_lci12": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
+        "source": "include/cg/platform/LegacyCryptInt.hpp",
+        "explicit_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "tail_padding_offset": "0x0D",
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_restore_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "padding_byte_contents_guaranteed": false,
+        "raw_constructor_and_restore_retained": true,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -247621,7 +247673,8 @@
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "boundary": "先写W32令牌，单次共享随机写mask、清W8 count，用传入S32位模式编码后返回同一原生对象地址。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
@@ -247660,6 +247713,31 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "implicit_tail_padding_lci12": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
+        "source": "include/cg/platform/LegacyCryptInt.hpp",
+        "explicit_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "tail_padding_offset": "0x0D",
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_restore_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "padding_byte_contents_guaranteed": false,
+        "raw_constructor_and_restore_retained": true,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -247699,7 +247777,8 @@
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "boundary": "仅恢复首W32令牌；不清编码/mask/count/保留区，不释放对象。当前void接口的全部原EAX消费仍待证。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
       "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
@@ -247738,6 +247817,31 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "implicit_tail_padding_lci12": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
+        "source": "include/cg/platform/LegacyCryptInt.hpp",
+        "explicit_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "tail_padding_offset": "0x0D",
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_restore_fields": [
+          "legacyVftToken",
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "padding_byte_contents_guaranteed": false,
+        "raw_constructor_and_restore_retained": true,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {

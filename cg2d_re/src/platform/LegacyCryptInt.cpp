@@ -27,7 +27,7 @@ LegacyCryptInt::LegacyCryptInt()
 {
 }
 
-// 原0x00401CC0 CryptInt_Init@[0x401CC0,0x401CE7)。reserved沿原构造不写。
+// 原0x00401CC0 CryptInt_Init@[0x401CC0,0x401CE7)。尾部padding沿原构造不显式写。
 LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
 {
     legacyVftToken = kLegacyCryptIntVftToken;
@@ -54,9 +54,6 @@ void LegacyCryptInt::RestoreRaw(const RawPayload& raw) noexcept
     encoded = raw.encoded;
     mask = raw.mask;
     readCount = raw.readCount;
-    for (std::size_t index = 0; index < 3; ++index) {
-        reserved[index] = raw.reserved[index];
-    }
 }
 
 // 原函数：0x00401F50。

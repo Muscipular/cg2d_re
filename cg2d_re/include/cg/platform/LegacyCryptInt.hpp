@@ -22,10 +22,10 @@ public:
         std::uint32_t encoded;
         std::uint32_t mask;
         std::uint8_t readCount;
-        std::uint8_t reserved[3];
+        // 原+0x0D～+0x0F：由编译器尾部padding承接。
     };
     explicit LegacyCryptInt(const RawPayload& raw) noexcept; // 不消费RNG。
-    void RestoreRaw(const RawPayload& raw) noexcept; // 恢复全部16B字段，不改变寿命。
+    void RestoreRaw(const RawPayload& raw) noexcept; // 恢复四个有效字段，不改变寿命。
 
     explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
     explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
@@ -33,7 +33,7 @@ public:
     LegacyCryptInt& operator=(const LegacyCryptInt&) = default;
 
     LegacyCryptInt& operator=(std::int32_t value); // 原整数临时构造／载荷赋值。
-    LegacyCryptInt& operator=(std::uint32_t value); // 保留目标token与reserved。
+    LegacyCryptInt& operator=(std::uint32_t value); // 只发布三个载荷字段，保留目标token。
 
     // 每次转换单读并消费原计数／刷新；标量两侧算术、比较沿C++整数提升。
     // 原标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FA0、0x00401FC0。
@@ -69,7 +69,7 @@ public:
     // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
     void SetNorVal_401F50(std::int32_t value);
 
-    // 原0x00438270载荷复制只改+0x04、+0x08、+0x0C，保留目标token与reserved。
+    // 原0x00438270载荷复制只改+0x04、+0x08、+0x0C，不显式写目标token与尾部padding。
     void CopyPayload(const LegacyCryptInt* source);
 
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
@@ -79,7 +79,7 @@ public:
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
     std::uint8_t readCount; // 原成员偏移：+0x0C。
-    std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
+    // 原+0x0D～+0x0F：由编译器尾部padding承接。
 
 private:
     // 明文转原W32位模式，供encoded异或与mask位模式转换使用。
@@ -98,7 +98,6 @@ static_assert(offsetof(LegacyCryptInt, legacyVftToken) == 0x00);
 static_assert(offsetof(LegacyCryptInt, encoded) == 0x04);
 static_assert(offsetof(LegacyCryptInt, mask) == 0x08);
 static_assert(offsetof(LegacyCryptInt, readCount) == 0x0C);
-static_assert(offsetof(LegacyCryptInt, reserved) == 0x0D);
 
 inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
 

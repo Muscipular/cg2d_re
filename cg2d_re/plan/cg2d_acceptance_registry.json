@@ -316,7 +316,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -470,6 +471,19 @@
         "raw_interface_retired": true,
         "single_read_and_short_circuit_order_kept": true,
         "full_w32_return_as_bsb01_history": true,
+        "runtime_verified": false
+      },
+      "cryptint_implicit_tail_padding_lci12": {
+        "recorded_on": "2026-10-14",
+        "explicit_reserved_arrays_removed": 2,
+        "explicit_field_count": 4,
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_constructor_and_restore_retained": true,
+        "padding_byte_contents_guaranteed": false,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -1260,7 +1274,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1450,6 +1465,19 @@
         "raw_interface_retired": true,
         "single_read_and_short_circuit_order_kept": true,
         "full_w32_return_as_bsb01_history": true,
+        "runtime_verified": false
+      },
+      "cryptint_implicit_tail_padding_lci12": {
+        "recorded_on": "2026-10-14",
+        "explicit_reserved_arrays_removed": 2,
+        "explicit_field_count": 4,
+        "tail_padding_bytes": 3,
+        "object_size_assertion": 16,
+        "raw_payload_size_assertion": 16,
+        "raw_constructor_and_restore_retained": true,
+        "padding_byte_contents_guaranteed": false,
+        "value_operations_and_rng_changed": false,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -69877,7 +69905,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ]
     },
     {
@@ -97694,7 +97723,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ]
     },
     {
@@ -97706,7 +97736,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ]
     },
     {
@@ -97717,7 +97748,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ]
     },
     {
@@ -97728,7 +97760,8 @@
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-baseline",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-decision",
         "doc/cg2d_legacy_cryptint.md#crypt-lifecycle-contract-source-state",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding"
       ]
     },
     {

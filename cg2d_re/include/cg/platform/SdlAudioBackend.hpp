@@ -42,9 +42,9 @@ public:
     // 关联原入口：0x00455260，旧装载器释放职责归并到固定WAV清理。
     void ShutdownFixedMusic() noexcept;
 
-    // path 是现代 SDL 文件边界的 UTF-8 路径；旧原字节路径须由调用者另行转换。
+    // path 为UTF-16路径；SDL要求的编码转换仅在实现中的文件打开边界完成。
     // 保留各 WAV 自身的格式和 PCM 数据；失败不改已有槽内容。
-    [[nodiscard]] bool LoadWav(std::size_t slot, const char* path) noexcept;
+    [[nodiscard]] bool LoadWav(std::size_t slot, const wchar_t* path) noexcept;
     [[nodiscard]] bool HasSample(std::size_t slot) const noexcept;
 
     // 复制样本引用到独立通道；调用者在重绑前须先释放旧通道。
@@ -64,7 +64,7 @@ public:
     // BGM 独立于 64 个音效通道。endFrame 为 0 时使用 WAV 完整帧数；
     // 非零时按原 smpl 端点作为排他循环终点。
     [[nodiscard]] bool LoadBgmWav(
-        const char* path, std::size_t startFrame, std::size_t endFrame) noexcept;
+        const wchar_t* path, std::size_t startFrame, std::size_t endFrame) noexcept;
     // 原52BE60在流式首段预填/ready之后发布smpl终点；不清空已排队PCM或重置游标。
     [[nodiscard]] bool SetBgmLoopEnd(std::size_t endFrame) noexcept;
     [[nodiscard]] std::uint32_t ReadBgmDataLength() const noexcept; // 原流式创建先发布实际读取的PCM字节数。

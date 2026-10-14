@@ -229,7 +229,7 @@ bool ReadPcmWaveDataLength(const char* const path, std::uint32_t& dataLength)
     return result != 0;
 }
 
-std::string AudioPathToUtf8(const char* const path)
+std::wstring AudioPathToWide(const char* const path)
 {
     const int wideLength =
         ::MultiByteToWideChar(CP_ACP, 0, path, -1, nullptr, 0);
@@ -241,19 +241,8 @@ std::string AudioPathToUtf8(const char* const path)
             CP_ACP, 0, path, -1, wide.data(), wideLength) == 0) {
         return {};
     }
-    const int utf8Length = ::WideCharToMultiByte(
-        CP_UTF8, 0, wide.c_str(), -1, nullptr, 0, nullptr, nullptr);
-    if (utf8Length <= 0) {
-        return {};
-    }
-    std::string utf8(static_cast<std::size_t>(utf8Length), '\0');
-    if (::WideCharToMultiByte(
-            CP_UTF8, 0, wide.c_str(), -1, utf8.data(), utf8Length,
-            nullptr, nullptr) == 0) {
-        return {};
-    }
-    utf8.pop_back();
-    return utf8;
+    wide.pop_back();
+    return wide;
 }
 
 std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {}; // 原全局：0x0103D1C0。
@@ -414,7 +403,7 @@ static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 
 // 原52C160的SDL创建适配：首段按完整PCM预填；smpl终点由52BE60在ready后发布。
 std::int32_t LoadStreamingBgm_52C160(
-    const char* const path, const std::uint32_t startFrame)
+    const wchar_t* const path, const std::uint32_t startFrame)
 {
     if (!gSdlAudioBackend.LoadBgmWav(path, startFrame, 0)) {
         return 0;
@@ -561,12 +550,12 @@ std::int32_t Sub_524230()
             effect.baseFrequency = 49;
         }
 
-        const std::string utf8Path = AudioPathToUtf8(openPath);
+        const std::wstring widePath = AudioPathToWide(openPath);
         std::uint32_t dataLength;
-        if (utf8Path.empty() || !ReadPcmWaveDataLength(openPath, dataLength)
+        if (widePath.empty() || !ReadPcmWaveDataLength(openPath, dataLength)
             || !gSdlAudioBackend.LoadWav(
                 static_cast<std::size_t>(gSampleCount104DFCC),
-                utf8Path.c_str())) {
+                widePath.c_str())) {
             gSdlAudioBackend.Close();
             return 0;
         }
@@ -1404,7 +1393,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     if (!audio::ReadPcmWaveDataLength(record.path, dataLength)) {
         return 0;
     }
-    const std::string path = audio::AudioPathToUtf8(record.path);
+    const std::wstring path = audio::AudioPathToWide(record.path);
     if (record.value44 == 2) {
         gBgmMode1050820 = 1;
         std::FILE* const file = std::fopen(record.path, "rb");

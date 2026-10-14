@@ -41566,7 +41566,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     format = critical ? kStatusPetInjury556D78 : kStatusPetInjury556D8C;
                 }
                 cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
-                const std::size_t length = std::strlen(buffer) + 1;
+                const std::size_t length = buffer.size() + 1;
                 const std::size_t bulk = length & ~std::size_t{3};
                 gHoverTextD68AE8 = buffer;
                 injury = world::detail::ReadPlayerInjury();

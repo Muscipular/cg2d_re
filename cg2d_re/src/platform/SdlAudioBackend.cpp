@@ -143,9 +143,16 @@ struct SdlAudioBackend::Impl {
         return true;
     }
 
-    static bool LoadSample(Sample& sample, const char* const path)
+    static bool LoadSample(Sample& sample, const wchar_t* const path)
     {
-        return LoadSample(sample, SDL_IOFromFile(path, "rb"));
+        // SDL文件API只接收UTF-8；转换缓冲不离开此边界。
+        char* const encodedPath = SDL_iconv_wchar_utf8(path);
+        if (encodedPath == nullptr) {
+            return false;
+        }
+        SDL_IOStream* const input = SDL_IOFromFile(encodedPath, "rb");
+        SDL_free(encodedPath);
+        return LoadSample(sample, input);
     }
 
     static void SDLCALL FeedChannel(
@@ -302,7 +309,7 @@ bool SdlAudioBackend::IsOpen() const noexcept
 }
 
 bool SdlAudioBackend::LoadWav(
-    const std::size_t slot, const char* const path) noexcept
+    const std::size_t slot, const wchar_t* const path) noexcept
 {
     if (impl_ == nullptr || slot >= kSampleSlots || path == nullptr) {
         return false;
@@ -443,7 +450,7 @@ bool SdlAudioBackend::PlayChannel(
 }
 
 bool SdlAudioBackend::LoadBgmWav(
-    const char* const path,
+    const wchar_t* const path,
     const std::size_t startFrame,
     const std::size_t endFrame) noexcept
 {

@@ -281725,7 +281725,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第十组业务UTF8接口已退休；SDK边界与最终静态收尾继续",
+    "phase": "业务UTF8过渡接口源码迁移完成；仅静态验证，编译／运行未验",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283970,6 +283970,34 @@
       {
         "path": "src/Input.cpp",
         "symbol": "RemoveLegacyBytes_52D570"
+      },
+      {
+        "path": "src/LegacyAudio.cpp",
+        "symbol": "AudioPathToWide"
+      },
+      {
+        "path": "src/LegacyAudio.cpp",
+        "symbol": "LoadStreamingBgm_52C160"
+      },
+      {
+        "path": "src/LegacyAudio.cpp",
+        "symbol": "Sub_524230"
+      },
+      {
+        "path": "src/LegacyAudio.cpp",
+        "symbol": "LoadAndPlayBGM"
+      },
+      {
+        "path": "src/platform/SdlAudioBackend.cpp",
+        "symbol": "LoadWav"
+      },
+      {
+        "path": "src/platform/SdlAudioBackend.cpp",
+        "symbol": "LoadBgmWav"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4723D0"
       }
     ],
     "build_verified": false,
@@ -283995,7 +284023,14 @@
       "ToUtf16",
       "Next/Previous/Prefix/Count(string_view)",
       "Copy(char*,...)",
-      "JoinLines(char[])"
+      "JoinLines(char[])",
+      "AudioPathToUtf8"
+    ],
+    "source_migration_complete": true,
+    "retained_byte_boundaries": [
+      "原GBK协议／资源／存档字段，解析或读取后转UTF-16，写回时编码GBK",
+      "SDL_IOFromFile强制UTF-8的瞬时调用边界，不向业务公开",
+      "SDK／标准异常诊断遵循库char合同；停用的离线MIDI工具未纳入客户端"
     ]
   }
 }

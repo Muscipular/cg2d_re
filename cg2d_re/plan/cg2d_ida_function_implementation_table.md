@@ -770,17 +770,17 @@
 | 720 | 0x00454B90 | `sub_454B90` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 721 | 0x00454BE0 | `sub_454BE0` | 有承接 | `src/render/GraphicDxCache.cpp:165 — using SurfaceTransformCache` | SurfaceTransformCache 的实际 std::map 构析、find／operator[]／erase、构析及键复制；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 722 | 0x00454C00 | `sub_454C00` | 有正文 | `src/platform/LegacyMouse.cpp:152 — InitializeLegacyEmptyExit_454C00` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/LegacyAudio.cpp:1588 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/LegacyAudio.cpp:1575 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 725 | 0x00454FE0 | `sub_454FE0` | 有承接 | `src/LegacyAudio.cpp:1599 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:630 — InitializeFixedMusic` | 原单patch GetInstrument／DownloadInstrument／临时Release；固定WAV实际资源解码／PCM流预载承接，原音色下载机制退休；保原身份，不恢复MIDI／DLS或宣称库内HRESULT等价，声音／寿命未验 |
-| 726 | 0x00455030 | `sub_455030` | 有正文 | `src/LegacyAudio.cpp:1486 — SetFixedMusicReverb_455030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 727 | 0x00455100 | `sub_455100` | 有承接 | `src/LegacyAudio.cpp:1599 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:630 — InitializeFixedMusic` | 原Collection装载／枚举／逐patch下载，唯一初始化父传Source=0且不消费返回码；当前固定WAV实际预载承接，客户端不读音色库；保原身份，WAV质量及资源／设备／寿命未验 |
-| 728 | 0x00455260 | `sub_455260` | 有承接 | `src/LegacyAudio.cpp:1578 — ShutdownFixedMusic；src/platform/SdlAudioBackend.cpp:738 — ShutdownFixedMusic` | 原Loader非零Release并清槽，唯一音乐关闭父；当前停止并释放固定SDL流／混响／PCM样本承接，旧COM loader机制退休；保原身份，不新增影子owner，正常寿命／运行未验 |
-| 729 | 0x00455280 | `World::PlayFixedBGM` | 有正文 | `src/LegacyAudio.cpp:1528 — PlayFixedMusic_455280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 730 | 0x004553B0 | `World::PlaySegment` | 有正文 | `src/LegacyAudio.cpp:1518 — PlayFixedMusicSegment_4553B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 731 | 0x00455400 | `sub_455400` | 有正文 | `src/LegacyAudio.cpp:1492 — ApplyFixedMusicVolume_455400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 732 | 0x00455450 | `World::StopBGM` | 有正文 | `src/LegacyAudio.cpp:1502 — StopFixedMusic_455450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 733 | 0x00455470 | `sub_455470` | 有正文 | `src/LegacyAudio.cpp:1510 — SetFixedMusicRepeats_455470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 723 | 0x00454C30 | `SoundSystem::Init` | 有正文 | `src/LegacyAudio.cpp:1577 — InitializeMusic_454C30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 724 | 0x00454EE0 | `sub_454EE0` | 有正文 | `src/LegacyAudio.cpp:1564 — Sub_454EE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 725 | 0x00454FE0 | `sub_454FE0` | 有承接 | `src/LegacyAudio.cpp:1588 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:637 — InitializeFixedMusic` | 原单patch GetInstrument／DownloadInstrument／临时Release；固定WAV实际资源解码／PCM流预载承接，原音色下载机制退休；保原身份，不恢复MIDI／DLS或宣称库内HRESULT等价，声音／寿命未验 |
+| 726 | 0x00455030 | `sub_455030` | 有正文 | `src/LegacyAudio.cpp:1475 — SetFixedMusicReverb_455030` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 727 | 0x00455100 | `sub_455100` | 有承接 | `src/LegacyAudio.cpp:1588 — InitializeFixedMusic；src/platform/SdlAudioBackend.cpp:637 — InitializeFixedMusic` | 原Collection装载／枚举／逐patch下载，唯一初始化父传Source=0且不消费返回码；当前固定WAV实际预载承接，客户端不读音色库；保原身份，WAV质量及资源／设备／寿命未验 |
+| 728 | 0x00455260 | `sub_455260` | 有承接 | `src/LegacyAudio.cpp:1567 — ShutdownFixedMusic；src/platform/SdlAudioBackend.cpp:745 — ShutdownFixedMusic` | 原Loader非零Release并清槽，唯一音乐关闭父；当前停止并释放固定SDL流／混响／PCM样本承接，旧COM loader机制退休；保原身份，不新增影子owner，正常寿命／运行未验 |
+| 729 | 0x00455280 | `World::PlayFixedBGM` | 有正文 | `src/LegacyAudio.cpp:1517 — PlayFixedMusic_455280` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 730 | 0x004553B0 | `World::PlaySegment` | 有正文 | `src/LegacyAudio.cpp:1507 — PlayFixedMusicSegment_4553B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 731 | 0x00455400 | `sub_455400` | 有正文 | `src/LegacyAudio.cpp:1481 — ApplyFixedMusicVolume_455400` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 732 | 0x00455450 | `World::StopBGM` | 有正文 | `src/LegacyAudio.cpp:1491 — StopFixedMusic_455450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 733 | 0x00455470 | `sub_455470` | 有正文 | `src/LegacyAudio.cpp:1499 — SetFixedMusicRepeats_455470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 734 | 0x00455490 | `sub_455490` | 有正文 | `src/LegacyUiRecord.cpp:2121 — Sub_455490` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 735 | 0x004554A0 | `sub_4554A0` | 有正文 | `src/LegacyUiRecord.cpp:2127 — Sub_4554A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 736 | 0x004554C0 | `sub_4554C0` | 有正文 | `src/LegacyUiRecord.cpp:2136 — Sub_4554C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -850,7 +850,7 @@
 | 800 | 0x004589D0 | `sub_4589D0` | 有正文 | `src/platform/MainLoopSupport.cpp:808 — ReadSystemSeconds_4589D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 801 | 0x00458A10 | `sub_458A10` | 有正文 | `src/platform/MainLoopSupport.cpp:821 — CheckSystemSeconds_458A10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 802 | 0x00458A40 | `sub_458A40` | 有正文 | `src/platform/MainLoop.cpp:22 — ShowModeChange_458A40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 803 | 0x00458AE0 | `sub_458AE0` | 有正文 | `src/LegacyAudio.cpp:1559 — Sub_458AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 803 | 0x00458AE0 | `sub_458AE0` | 有正文 | `src/LegacyAudio.cpp:1548 — Sub_458AE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 804 | 0x00458DC0 | `sub_458DC0` | 有正文 | `src/platform/MainLoopSupport.cpp:628 — CheckLegacyDxCapability_458DC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 805 | 0x00458DE0 | `World::UpdateNRTime` | 有正文 | `src/world/GameTime.cpp:16 — UpdateGameTime` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 806 | 0x00458EC0 | `Time::GetCate` | 有正文 | `src/world/GameTime.cpp:43 — GetCate_458EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2467,19 +2467,19 @@
 | 2417 | 0x00503E80 | `sub_503E80` | 有正文 | `src/ui/WindowRuntime.cpp:45559 — ProcessSceneWindows_503E80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2418 | 0x00504100 | `sub_504100` | 有正文 | `src/world/SceneState.cpp:10522 — Sub_504100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2419 | 0x00504120 | `Window::Render` | 有正文 | `src/ui/WindowRuntime.cpp:44790 — RenderWindows_504120` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2420 | 0x00504180 | `sub_504180` | 有正文 | `src/LegacyAudio.cpp:796 — Sub_504180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2421 | 0x005042D0 | `sub_5042D0` | 有正文 | `src/LegacyAudio.cpp:872 — Sub_5042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2422 | 0x00504380 | `sub_504380` | 有正文 | `src/LegacyAudio.cpp:912 — Sub_504380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2423 | 0x005043D0 | `sub_5043D0` | 有正文 | `src/LegacyAudio.cpp:930 — Sub_5043D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2424 | 0x00504410 | `sub_504410` | 有正文 | `src/LegacyAudio.cpp:777 — Sub_504410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2425 | 0x00504460 | `sub_504460` | 有正文 | `src/LegacyAudio.cpp:761 — Sub_504460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2426 | 0x005044C0 | `sub_5044C0` | 有正文 | `src/LegacyAudio.cpp:740 — Sub_5044C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2420 | 0x00504180 | `sub_504180` | 有正文 | `src/LegacyAudio.cpp:785 — Sub_504180` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2421 | 0x005042D0 | `sub_5042D0` | 有正文 | `src/LegacyAudio.cpp:861 — Sub_5042D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2422 | 0x00504380 | `sub_504380` | 有正文 | `src/LegacyAudio.cpp:901 — Sub_504380` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2423 | 0x005043D0 | `sub_5043D0` | 有正文 | `src/LegacyAudio.cpp:919 — Sub_5043D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2424 | 0x00504410 | `sub_504410` | 有正文 | `src/LegacyAudio.cpp:766 — Sub_504410` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2425 | 0x00504460 | `sub_504460` | 有正文 | `src/LegacyAudio.cpp:750 — Sub_504460` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2426 | 0x005044C0 | `sub_5044C0` | 有正文 | `src/LegacyAudio.cpp:729 — Sub_5044C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2427 | 0x005044E0 | `sub_5044E0` | 有正文 | `src/YobiRuntime.cpp:34509 — Sub_5044E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2428 | 0x005046D0 | `sub_5046D0` | 有正文 | `src/YobiRuntime.cpp:1358 — UpdateModalAction_5046D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2429 | 0x005049A0 | `sub_5049A0` | 有正文 | `src/LegacyHitTest.cpp:12 — Sub_5049A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2430 | 0x00504A30 | `sub_504A30` | 有正文 | `src/world/SceneState.cpp:10503 — Sub_504A30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2431 | 0x00504A50 | `sub_504A50` | 有正文 | `src/world/SceneState.cpp:6193 — Sub_504A50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2432 | 0x00504AF0 | `sub_504AF0` | 有正文 | `src/LegacyAudio.cpp:860 — Sub_504AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2432 | 0x00504AF0 | `sub_504AF0` | 有正文 | `src/LegacyAudio.cpp:849 — Sub_504AF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2433 | 0x00504B10 | `sub_504B10` | 有正文 | `src/world/SceneState.cpp:8623 — Sub_504B10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2434 | 0x00504B60 | `sub_504B60` | 有正文 | `src/world/SceneState.cpp:8639 — Sub_504B60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2435 | 0x00504BA0 | `sub_504BA0` | 有正文 | `src/LegacyUiRecord.cpp:12895 — Sub_504BA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2617,7 +2617,7 @@
 | 2567 | 0x0050E5D0 | `sub_50E5D0` | 有正文 | `src/world/SceneState.cpp:1371 — Sub_50E5D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2568 | 0x0050E630 | `sub_50E630` | 有正文 | `src/network/NetworkRuntime.cpp:810 — Sub_50E630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2569 | 0x0050E650 | `sub_50E650` | 有正文 | `src/world/SceneState.cpp:2999 — Sub_50E650` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/LegacyAudio.cpp:1548 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2570 | 0x0050E680 | `sub_50E680` | 有正文 | `src/LegacyAudio.cpp:1537 — Sub_50E680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2571 | 0x0050E6C0 | `sub_50E6C0` | 有正文 | `src/network/NetworkRuntime.cpp:747 — Sub_50E6C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2572 | 0x0050E6E0 | `sub_50E6E0` | 有正文 | `src/network/NetworkRuntime.cpp:940 — Sub_50E6E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2573 | 0x0050E770 | `sub_50E770` | 有正文 | `src/CharacterSelectScene.cpp:203 — Sub_50E770` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -2956,34 +2956,34 @@
 | 2906 | 0x00523FB0 | `sub_523FB0` | 有承接 | `src/GraphicRead.cpp:154 — struct PaletteDbfState` | PaletteDbfState::records 的实际 std::map 构析、clear、try_emplace 与迭代器操作；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 2907 | 0x00523FD0 | `sub_523FD0` | 有承接 | `src/GraphicRead.cpp:154 — struct PaletteDbfState` | PaletteDbfState::records 的实际 std::map 构析、clear、try_emplace 与迭代器操作；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
 | 2908 | 0x00524030 | `sub_524030` | 有承接 | `src/GraphicRead.cpp:160 — std::vector<std::uint8_t*> decodedBlocks;` | 原指针区间拷贝叶；当前实际 vector 维护元素序列；原库内／内联容器叶不另造包装；完整 owner／运行未验 |
-| 2909 | 0x00524060 | `sub_524060` | 有正文 | `src/LegacyAudio.cpp:630 — LoadBgmConfig_524060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2910 | 0x005241A0 | `sub_5241A0` | 有正文 | `src/LegacyAudio.cpp:602 — InitializeAudio_5241A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2911 | 0x00524230 | `sub_524230` | 有正文 | `src/LegacyAudio.cpp:502 — Sub_524230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2912 | 0x0052B630 | `sub_52B630` | 有正文 | `src/LegacyAudio.cpp:481 — Sub_52B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2909 | 0x00524060 | `sub_524060` | 有正文 | `src/LegacyAudio.cpp:619 — LoadBgmConfig_524060` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2910 | 0x005241A0 | `sub_5241A0` | 有正文 | `src/LegacyAudio.cpp:591 — InitializeAudio_5241A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2911 | 0x00524230 | `sub_524230` | 有正文 | `src/LegacyAudio.cpp:491 — Sub_524230` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2912 | 0x0052B630 | `sub_52B630` | 有正文 | `src/LegacyAudio.cpp:470 — Sub_52B630` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2913 | 0x0052B710 | `sub_52B710` | 有正文 | `src/LegacyAudio.cpp:187 — ReadPcmWaveHeader_52B710` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2914 | 0x0052B810 | `sub_52B810` | 有承接 | `src/platform/SdlAudioBackend.cpp:113 — LoadSample` | 原音频缓冲写入由实际 WAV 装载／PrepareChannel 承接；完整业务／运行未验 |
-| 2915 | 0x0052B880 | `sub_52B880` | 有承接 | `src/platform/SdlAudioBackend.cpp:227 — PrepareChannel` | 原音频缓冲准备由实际 SDL 流与 WAV 装载承接；完整业务／运行未验 |
-| 2916 | 0x0052B8E0 | `sub_52B8E0` | 有正文 | `src/LegacyAudio.cpp:450 — Sub_52B8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2917 | 0x0052B940 | `sub_52B940` | 有正文 | `src/LegacyAudio.cpp:468 — Sub_52B940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2918 | 0x0052B990 | `sub_52B990` | 有正文 | `src/LegacyAudio.cpp:1358 — Sub_52B990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2919 | 0x0052B9E0 | `sub_52B9E0` | 有正文 | `src/LegacyAudio.cpp:973 — Sub_52B9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2920 | 0x0052BBE0 | `sub_52BBE0` | 有承接 | `src/platform/SdlAudioBackend.cpp:151 — FeedChannel` | 原流喂入由实际 SDL 音频回调承接；完整业务／运行未验 |
+| 2915 | 0x0052B880 | `sub_52B880` | 有承接 | `src/platform/SdlAudioBackend.cpp:234 — PrepareChannel` | 原音频缓冲准备由实际 SDL 流与 WAV 装载承接；完整业务／运行未验 |
+| 2916 | 0x0052B8E0 | `sub_52B8E0` | 有正文 | `src/LegacyAudio.cpp:439 — Sub_52B8E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2917 | 0x0052B940 | `sub_52B940` | 有正文 | `src/LegacyAudio.cpp:457 — Sub_52B940` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2918 | 0x0052B990 | `sub_52B990` | 有正文 | `src/LegacyAudio.cpp:1347 — Sub_52B990` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2919 | 0x0052B9E0 | `sub_52B9E0` | 有正文 | `src/LegacyAudio.cpp:962 — Sub_52B9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2920 | 0x0052BBE0 | `sub_52BBE0` | 有承接 | `src/platform/SdlAudioBackend.cpp:158 — FeedChannel` | 原流喂入由实际 SDL 音频回调承接；完整业务／运行未验 |
 | 2921 | 0x0052BD40 | `SoundThreadMain` | 有承接 | `src/platform/SdlAudioBackend.cpp:61 — RunBgmStopWorker` | 原音乐线程职责由实际停止线程／音频回调承接；完整业务／运行未验 |
-| 2922 | 0x0052BE60 | `World::LoadAndPlayBGM` | 有正文 | `src/LegacyAudio.cpp:1381 — LoadAndPlayBGM` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 2923 | 0x0052C160 | `sub_52C160` | 有正文 | `src/LegacyAudio.cpp:416 — LoadStreamingBgm_52C160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2924 | 0x0052C3D0 | `sub_52C3D0` | 有正文 | `src/LegacyAudio.cpp:1466 — Sub_52C3D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2925 | 0x0052C450 | `World::PlaySe` | 有正文 | `src/LegacyAudio.cpp:1050 — PlaySe_52C450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2926 | 0x0052C680 | `sub_52C680` | 有正文 | `src/LegacyAudio.cpp:1133 — Sub_52C680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2927 | 0x0052C910 | `sub_52C910` | 有正文 | `src/LegacyAudio.cpp:692 — UpdateBgmRequest_52C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2928 | 0x0052C9C0 | `sub_52C9C0` | 有正文 | `src/LegacyAudio.cpp:681 — SelectBgmTarget_52C9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2929 | 0x0052C9E0 | `sub_52C9E0` | 有正文 | `src/LegacyAudio.cpp:1011 — Sub_52C9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2930 | 0x0052CB50 | `sub_52CB50` | 有正文 | `src/LegacyAudio.cpp:1245 — Sub_52CB50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2931 | 0x0052CCA0 | `sub_52CCA0` | 有正文 | `src/LegacyAudio.cpp:1298 — Sub_52CCA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2932 | 0x0052CCE0 | `sub_52CCE0` | 有正文 | `src/LegacyAudio.cpp:950 — Sub_52CCE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2922 | 0x0052BE60 | `World::LoadAndPlayBGM` | 有正文 | `src/LegacyAudio.cpp:1370 — LoadAndPlayBGM` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 2923 | 0x0052C160 | `sub_52C160` | 有正文 | `src/LegacyAudio.cpp:405 — LoadStreamingBgm_52C160` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2924 | 0x0052C3D0 | `sub_52C3D0` | 有正文 | `src/LegacyAudio.cpp:1455 — Sub_52C3D0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2925 | 0x0052C450 | `World::PlaySe` | 有正文 | `src/LegacyAudio.cpp:1039 — PlaySe_52C450` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2926 | 0x0052C680 | `sub_52C680` | 有正文 | `src/LegacyAudio.cpp:1122 — Sub_52C680` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2927 | 0x0052C910 | `sub_52C910` | 有正文 | `src/LegacyAudio.cpp:681 — UpdateBgmRequest_52C910` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2928 | 0x0052C9C0 | `sub_52C9C0` | 有正文 | `src/LegacyAudio.cpp:670 — SelectBgmTarget_52C9C0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2929 | 0x0052C9E0 | `sub_52C9E0` | 有正文 | `src/LegacyAudio.cpp:1000 — Sub_52C9E0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2930 | 0x0052CB50 | `sub_52CB50` | 有正文 | `src/LegacyAudio.cpp:1234 — Sub_52CB50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2931 | 0x0052CCA0 | `sub_52CCA0` | 有正文 | `src/LegacyAudio.cpp:1287 — Sub_52CCA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2932 | 0x0052CCE0 | `sub_52CCE0` | 有正文 | `src/LegacyAudio.cpp:939 — Sub_52CCE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2933 | 0x0052CD30 | `sub_52CD30` | 有正文 | `src/platform/MainLoopSupport.cpp:598 — Sub_52CD30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2934 | 0x0052CD40 | `sub_52CD40` | 有正文 | `src/LegacyAudio.cpp:963 — Sub_52CD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2935 | 0x0052CD60 | `sub_52CD60` | 有正文 | `src/LegacyAudio.cpp:1331 — Sub_52CD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 2936 | 0x0052CDE0 | `sub_52CDE0` | 有正文 | `src/LegacyAudio.cpp:995 — Sub_52CDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2934 | 0x0052CD40 | `sub_52CD40` | 有正文 | `src/LegacyAudio.cpp:952 — Sub_52CD40` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2935 | 0x0052CD60 | `sub_52CD60` | 有正文 | `src/LegacyAudio.cpp:1320 — Sub_52CD60` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 2936 | 0x0052CDE0 | `sub_52CDE0` | 有正文 | `src/LegacyAudio.cpp:984 — Sub_52CDE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2937 | 0x0052CEA0 | `sub_52CEA0` | 有正文 | `src/network/NetworkRuntime.cpp:1434 — FindNextDelimitedField_52CEA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2938 | 0x0052CED0 | `sub_52CED0` | 有正文 | `src/network/NetworkRuntime.cpp:1502 — ExtractDelimitedField_52CED0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 2939 | 0x0052CF30 | `sub_52CF30` | 有正文 | `src/network/NetworkRuntime.cpp:1461 — CopyDelimitedField_52CF30` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3089,7 +3089,7 @@
 | 3039 | 0x00534A96 | `CreateToolhelp32Snapshot` | 有承接 | `src/platform/MainLoopSupport.cpp:164 — CreateToolhelp32Snapshot` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3040 | 0x00534A9C | `Process32Next` | 有承接 | `src/platform/MainLoopSupport.cpp:433 — Process32Next` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
 | 3041 | 0x00534AA2 | `Process32First` | 有承接 | `src/platform/MainLoopSupport.cpp:427 — Process32First` | 原入口为对应 Windows／Winsock import 跳板；当前真实 SDK 调用存在，完整调用方／运行未验 |
-| 3042 | 0x00534AA8 | `DirectSoundCreate` | 有承接 | `src/platform/SdlAudioBackend.cpp:278 — SdlAudioBackend::Open` | 原 DirectSoundCreate 为 import 跳板；当前 Sub_524230 实际调用 SDL 后端 Open；不造旧 SDK 包装，完整上层／运行未验 |
+| 3042 | 0x00534AA8 | `DirectSoundCreate` | 有承接 | `src/platform/SdlAudioBackend.cpp:285 — SdlAudioBackend::Open` | 原 DirectSoundCreate 为 import 跳板；当前 Sub_524230 实际调用 SDL 后端 Open；不造旧 SDK 包装，完整上层／运行未验 |
 | 3043 | 0x00534AB0 | `sub_534AB0` | 已排除 | `src/platform/LegacyExternalKeyboard.cpp:171 — Sub_534AB0` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3044 | 0x00534B80 | `DialogFunc` | 已排除 | `src/platform/LegacyExternalKeyboard.cpp:45 — DialogFunc_534B80` | 原排除正文仍在，仅作历史，不计当前实现；用户已具名排除该入口；不计实现或验收 |
 | 3045 | 0x00534EF0 | `sub_534EF0` | 有正文 | `src/platform/LegacyNetworkAdapter.cpp:16 — Sub_534EF0` | 实际非占位正文已定位；完整业务／接线／运行未验 |

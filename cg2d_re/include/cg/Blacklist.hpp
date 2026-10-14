@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace cg::blacklist {
 
@@ -39,13 +40,13 @@ std::int8_t PersistAndReset_401000(std::int32_t fileId);
 std::int32_t GetBlacklistCount_401190();
 
 // 原 [0x4013D0,0x401463)：固定扫 100 槽，先排除 593850 当前文本，命中只返回 AL=1。
-std::uint8_t ContainsBlacklistRecord_4013D0(const char* name);
+std::uint8_t ContainsBlacklistRecord_4013D0(const std::wstring_view name);
 
 // 原 sub_401270@0x401270：向首个空槽插入含 NUL 的记录，非早退路径按当前文件 ID 持久化。
-std::int8_t AddBlacklistRecord_401270(const char* name);
+std::int8_t AddBlacklistRecord_401270(const std::wstring_view name);
 
 // 原 sub_4012F0@0x4012F0：删除首个同名记录，按旧游标压移，正常完成后仅当文件 ID 非负时调用持久化，忽略其返回值。
-std::int8_t RemoveBlacklistRecord_4012F0(const char* name);
+std::int8_t RemoveBlacklistRecord_4012F0(const std::wstring_view name);
 
 // 原401470：首记录和游标均非零才清表；非负fileId持久化，忽略保存返回。
 std::int8_t ClearBlacklistRecords_401470();

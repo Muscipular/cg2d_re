@@ -146,8 +146,8 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && gInputContext9A5960.length() != 0
                 && gInputContext9A5678.length() != 0
-                && !input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())
-                && !input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())) {
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5960))
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5678))) {
                 const std::int32_t accountByteLength =
                     gInputContext9A5960.totalByteLength;
                 const std::int32_t passwordByteLength =

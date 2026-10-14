@@ -63,7 +63,6 @@ public:
     void clearText() noexcept;
     void reset() noexcept;
     void setText(std::wstring_view value);
-    [[nodiscard]] std::string utf8() const;
 
     std::wstring text; // 原+0x00；仅普通现场输入持有正文，不限制旧字节容量。
     std::int32_t& x; // 原成员偏移：+0x120。
@@ -100,7 +99,7 @@ void SetVisibleUtf16Offset(InputContext& context, std::size_t utf16Offset);
 void LoadInitialText_44A160(std::wstring_view initialText);
 
 // 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
-[[nodiscard]] bool IsRejectedInputText_404060(const char* legacyText);
+[[nodiscard]] bool IsRejectedInputText_404060(std::wstring_view text);
 
 // 原 sub_44B190@[0x44B190,0x44B1C5)，判断零结尾旧 ANSI 串的末单元。
 [[nodiscard]] std::int32_t ClassifyLastAnsiUnit_44B190(const char* text);
@@ -228,9 +227,9 @@ void LoadInitialText_44A160(const char* initialText); // 向当前动态输入�
 void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
-std::int32_t Sub_476740(const char* text);
+std::int32_t Sub_476740(std::wstring_view text);
 // 原45E770：只在81..FF后跳过一字节，命中单字节竖线/反斜杠返回1。
-std::int32_t Sub_45E770(const char* text);
+std::int32_t Sub_45E770(std::wstring_view text);
 
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
 // 旧GBK协议／存档域的字节转义，容量仍按GBK字节计算。

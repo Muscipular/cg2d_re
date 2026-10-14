@@ -149,8 +149,8 @@ public:
 // module及LoadIcon/LoadCursor共享句柄归进程寿命，窗口类/SetCursor借用期间不卸载，见CAC11。
 HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 {
-    // RT_GROUP_ICON=14；明确A系类型，避免受UNICODE宏影响。
-    if (FindResourceA(instance, MAKEINTRESOURCEW(0x67), MAKEINTRESOURCEW(14)) != nullptr) {
+    // RT_GROUP_ICON=14；资源ID与查询统一使用W接口，避免受UNICODE宏影响。
+    if (FindResourceW(instance, MAKEINTRESOURCEW(0x67), MAKEINTRESOURCEW(14)) != nullptr) {
         return instance;
     }
 
@@ -329,7 +329,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gValue9A6F44 = 0;
         gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         gWindowClass.lpszMenuName = nullptr;
-        static const std::wstring className = text::ToUtf16(gWindowClassName);
+        static const std::wstring className = cg::text::ToUtf16(gWindowClassName);
         gWindowClass.lpszClassName = className.c_str();
         if (RegisterClassW(&gWindowClass) == 0) {
             return 0;

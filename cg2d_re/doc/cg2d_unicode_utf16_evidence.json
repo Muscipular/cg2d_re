@@ -4,8 +4,8 @@
   "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
   "source_state_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
   "verification": {
-    "method": "仅源码、Git差异和词法/接口静态核对；台账汇总仅检查文本结构",
-    "build": false,
+    "method": "早期静态核对保留在initial_static_verification；本轮另按UCB01实际完成MSVC x64 Debug配置、编译和链接。台账汇总仅检查文本结构。",
+    "build": true,
     "test": false,
     "runtime": false,
     "file_hashes_computed": false
@@ -11398,7 +11398,8 @@
         "original_address": "0x0058609C",
         "source": "src/ui/WindowPrototypes.cpp"
       }
-    }
+    },
+    "historical_scope": "此组为UTL01／UTL02原始证据；本轮用户批准的旧占位文案覆盖项以readable_legacy_ui_utl03记录为准，原字节不删除。"
   },
   "native_owners": [
     "InputContext",
@@ -12136,5 +12137,1079 @@
       "function_table_identity_status_preserved": true,
       "traceability_check": true
     }
+  },
+  "readable_legacy_ui_utl03": {
+    "recorded_on": "2026-10-14",
+    "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+    "user_choice": "按用途改为中文宽字面量",
+    "scope": "静态界面占位、操作提示和显示错误文案；运行时IME来源、协议／存档字节、控制符和解析表保持。",
+    "not_original_text_recovery": true,
+    "records": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacySellQuantity588F28",
+        "original_bytes_hex": "2573282564817E256429",
+        "text": "{}({}×{})",
+        "source_comment": "// 原常量参考：0x00588F28。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyBuyUnavailable588E20",
+        "original_bytes_hex": "817E",
+        "text": "×",
+        "source_comment": "// 原常量参考：0x00588E20。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildClose58F248",
+        "original_bytes_hex": "82B182CC834583423F8368834582F095C282B682DC82B78142",
+        "text": "關閉此視窗。",
+        "source_comment": "// 原常量参考：0x0058F248。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildPage58F2D4",
+        "original_bytes_hex": "8379815B835782F090D882E891D682A682DC82B78142",
+        "text": "切換頁面。",
+        "source_comment": "// 原常量参考：0x0058F2D4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSort58F4A8",
+        "original_bytes_hex": "834D3F83683F3F836F815B82CC955C8EA63F94D482F0835C815B836782B582DC82B78142",
+        "text": "變更家族成員的顯示順序。",
+        "source_comment": "// 原常量参考：0x0058F4A8。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDetails58F490",
+        "original_bytes_hex": "834D3F83688FDA8DD782F0955C8EA682B582DC82B78142",
+        "text": "顯示家族詳細資料。",
+        "source_comment": "// 原常量参考：0x0058F490。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildContacts58F474",
+        "original_bytes_hex": "834183683F835883758362834E82F0955C8EA682B582DC82B78142",
+        "text": "顯示名片簿。",
+        "source_comment": "// 原常量参考：0x0058F474。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSend58F2EC",
+        "original_bytes_hex": "82B182CC834D3F83683F3F836F815B82C93F815B3F82F03F82E882DC82B78142",
+        "text": "寄信給這位家族成員。",
+        "source_comment": "// 原常量参考：0x0058F2EC。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRead58F44C",
+        "original_bytes_hex": "82B182CC834D3F83683F3F836F815B82CC3F815B3F82CC3F97F082F08CA982DC82B78142",
+        "text": "查看與這位家族成員的通信記錄。",
+        "source_comment": "// 原常量参考：0x0058F44C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRemove58F42C",
+        "original_bytes_hex": "82B182CC834D3F83683F3F836F815B82F08DED3F82B582DC82B78142",
+        "text": "剔除這位家族成員。",
+        "source_comment": "// 原常量参考：0x0058F42C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRank58F410",
+        "original_bytes_hex": "834D3F8368835E834383673F82F095CF8D5882B582DC82B78142",
+        "text": "變更家族稱號。",
+        "source_comment": "// 原常量参考：0x0058F410。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSortFirst58F408",
+        "original_bytes_hex": "936F985E3F",
+        "text": "登錄順序",
+        "source_comment": "// 原常量参考：0x0058F408。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSortSecond58F400",
+        "original_bytes_hex": "8254824F89B93F",
+        "text": "名稱順序",
+        "source_comment": "// 原常量参考：0x0058F400。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSortThird58F3F4",
+        "original_bytes_hex": "83493F3F83433F3F",
+        "text": "在線狀態",
+        "source_comment": "// 原常量参考：0x0058F3F4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDeleteYes58F3EC",
+        "original_bytes_hex": "82CD82A2",
+        "text": "是",
+        "source_comment": "// 原常量参考：0x0058F3EC。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDeleteNo58F3E4",
+        "original_bytes_hex": "82A282A282A6",
+        "text": "否",
+        "source_comment": "// 原常量参考：0x0058F3E4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDeleteLead58F3B8",
+        "original_bytes_hex": "834D3F836883758362834E82A982E7",
+        "text": "從家族名簿中",
+        "source_comment": "// 原常量参考：0x0058F3B8。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDeleteEnd58F3AC",
+        "original_bytes_hex": "82F08DED3F82B582DC82B7",
+        "text": "刪除此成員",
+        "source_comment": "// 原常量参考：0x0058F3AC。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildDeleteHint58F3A0",
+        "original_bytes_hex": "8DED3F82B582DC82B78142",
+        "text": "確認刪除。",
+        "source_comment": "// 原常量参考：0x0058F3A0。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildKeepHint58F38C",
+        "original_bytes_hex": "8DED3F82F08EE682E882E282DF82DC82B78142",
+        "text": "取消刪除。",
+        "source_comment": "// 原常量参考：0x0058F38C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildNormalMode58F374",
+        "original_bytes_hex": "92CA8FED3F815B3F82C53F904D82B582DC82B78142",
+        "text": "以一般郵件寄送。",
+        "source_comment": "// 原常量参考：0x0058F374。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildPetMode58F358",
+        "original_bytes_hex": "3F3F8358835E815B3F815B3F82C53F904D82B582DC82B78142",
+        "text": "使用寵物郵件寄送。",
+        "source_comment": "// 原常量参考：0x0058F358。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildReturn58F264",
+        "original_bytes_hex": "834D3F836883758362834E834583433F8368834582C996DF82E882DC82B78142",
+        "text": "返回家族名簿。",
+        "source_comment": "// 原常量参考：0x0058F264。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildPetHint58F2B4",
+        "original_bytes_hex": "82B182CC8E6782A23F82C93F815B3F82F0895E82CE82B982DC82B78142",
+        "text": "讓這隻寵物運送郵件。",
+        "source_comment": "// 原常量参考：0x0058F2B4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildGift58F224",
+        "original_bytes_hex": "82B182CC8341834383653F82F0834D3F83683F3F836F815B82C93F82E882DC82B78142",
+        "text": "把此物品寄給家族成員。",
+        "source_comment": "// 原常量参考：0x0058F224。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSendMail58F288",
+        "original_bytes_hex": "914991F082B582C482A282E9834D3F83683F3F836F815B82C93F815B3F82F03F82E882DC82B78142",
+        "text": "寄信給選定的家族成員。",
+        "source_comment": "// 原常量参考：0x0058F288。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildUnselect58F310",
+        "original_bytes_hex": "82B182CC834D3F83683F3F836F815B82C93F815B3F82F03F82E982CC82F082E282DF82DC82B78142",
+        "text": "取消寄信給這位家族成員。",
+        "source_comment": "// 原常量参考：0x0058F310。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildChooseRecipients58F33C",
+        "original_bytes_hex": "3F904D3F8EE882F0914991F082B582C482AD82BE82B382A28142",
+        "text": "請選擇收件人。",
+        "source_comment": "// 原常量参考：0x0058F33C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRankRemove58F568",
+        "original_bytes_hex": "834D3F8368835E834383673F82F08A4F82B582DC82B78142",
+        "text": "移除家族稱號。",
+        "source_comment": "// 原常量参考：0x0058F568。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRankSelect58F4FC",
+        "original_bytes_hex": "834D3F8368835E834383673F82F0914991F082B582DC82B78142",
+        "text": "選擇家族稱號。",
+        "source_comment": "// 原常量参考：0x0058F4FC。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildNameEdit58F550",
+        "original_bytes_hex": "834D3F836896BC82F093FC97CD82B582DC82B78142",
+        "text": "輸入家族名稱。",
+        "source_comment": "// 原常量参考：0x0058F550。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildSecondEdit58F534",
+        "original_bytes_hex": "834D3F8368836E8345835896BC82F093FC97CD82B582DC82B78142",
+        "text": "輸入家族住所名稱。",
+        "source_comment": "// 原常量参考：0x0058F534。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildRankEdit58F518",
+        "original_bytes_hex": "834D3F8368835E834383673F82F093FC97CD82B582DC82B78142",
+        "text": "輸入家族稱號。",
+        "source_comment": "// 原常量参考：0x0058F518。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildPermissionFirst58F4E4",
+        "original_bytes_hex": "89C193FC3F8CC082F03F89C282B582DC82B78142",
+        "text": "允許招收成員。",
+        "source_comment": "// 原常量参考：0x0058F4E4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "kLegacyGuildPermissionSecond58F4D0",
+        "original_bytes_hex": "3F96BC3F8CC082F03F89C282B582DC82B78142",
+        "text": "允許變更名稱。",
+        "source_comment": "// 原常量参考：0x0058F4D0。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindow55Rank585ED8",
+        "original_bytes_hex": "834D3F8368835E834383673F",
+        "text": "家族稱號",
+        "source_comment": "// 原常量参考：0x00585ED8。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindow55Member585ECC",
+        "original_bytes_hex": "91CE8FDB96BC914F",
+        "text": "成員名稱",
+        "source_comment": "// 原常量参考：0x00585ECC。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kPetTechnique586004",
+        "original_bytes_hex": "A7F092B0",
+        "text": "技能",
+        "source_comment": "// 原常量参考：0x00586004。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowPlaceholder586054",
+        "original_bytes_hex": "8148814881488148",
+        "text": "？？？？",
+        "source_comment": "// 原常量参考：0x00586054。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindow59Placeholder585D78",
+        "original_bytes_hex": "3F82A282C482DE",
+        "text": "物品",
+        "source_comment": "// 原常量参考：0x00585D78。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D64",
+        "original_bytes_hex": "3F8362835A815B8357",
+        "text": "訊息",
+        "source_comment": "// 原常量参考：0x00585D64。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D5C",
+        "original_bytes_hex": "82C882DC82A6",
+        "text": "名稱",
+        "source_comment": "// 原常量参考：0x00585D5C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D54",
+        "original_bytes_hex": "3F8DF595B63F",
+        "text": "介紹內容",
+        "source_comment": "// 原常量参考：0x00585D54。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D4C",
+        "original_bytes_hex": "96BC914F",
+        "text": "姓名",
+        "source_comment": "// 原常量参考：0x00585D4C。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D44",
+        "original_bytes_hex": "3F83783F",
+        "text": "等級",
+        "source_comment": "// 原常量参考：0x00585D44。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D38",
+        "original_bytes_hex": "82BD82A282C682E9",
+        "text": "稱號",
+        "source_comment": "// 原常量参考：0x00585D38。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D28",
+        "original_bytes_hex": "82B582E582AD82AC82E582A4",
+        "text": "職業",
+        "source_comment": "// 原常量参考：0x00585D28。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D20",
+        "original_bytes_hex": "82AC82E982C7",
+        "text": "家族",
+        "source_comment": "// 原常量参考：0x00585D20。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D10",
+        "original_bytes_hex": "82B982E9",
+        "text": "出售",
+        "source_comment": "// 原常量参考：0x00585D10。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D08",
+        "original_bytes_hex": "82CE82A2",
+        "text": "購買",
+        "source_comment": "// 原常量参考：0x00585D08。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D00",
+        "original_bytes_hex": "3F82CE82A482C6",
+        "text": "自我介紹",
+        "source_comment": "// 原常量参考：0x00585D00。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585CF4",
+        "original_bytes_hex": "82C482B782C682B382F1",
+        "text": "收件人",
+        "source_comment": "// 原常量参考：0x00585CF4。",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "kWindowTextBytes585D70",
+        "original_bytes_hex": "834A836583533F",
+        "text": "類別",
+        "source_comment": "原常量参考：0x00585D70。",
+        "decision": "用户批准按实际界面用途重写。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "opaqueLegacyText42",
+        "original_bytes_hex": "834A836583533F",
+        "text": "類別",
+        "decision": "用户批准按实际界面用途重写；沿现有控件原型使用。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "opaqueLegacyText41",
+        "original_bytes_hex": "834A836583533F",
+        "text": "類別",
+        "decision": "用户批准按实际界面用途重写；沿现有控件原型使用。"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "opaqueLegacyText39",
+        "original_bytes_hex": "4D415353414745373839B2313233343536373839C6313233343536373839BB313233343536373839D6313233343536373839",
+        "text": "請選擇臉部、眼睛及嘴巴。",
+        "decision": "用户批准按实际界面用途重写；沿现有控件原型使用。"
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "kAnimeSizeErrorCaption",
+        "original_bytes_hex": "8341836A3F815B83563F3F8366815B835E82AA946A91B982B582C482A282DC82B78142",
+        "text": "動畫資料損壞。",
+        "source_comment": "",
+        "decision": "用户批准按实际界面用途重写；不作为原文字还原。"
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "CoordInit_45C150提示",
+        "original_bytes_hex": "8DC095578366815B835E97CA82AA88D98FED82C582B78142",
+        "text": "座標資料數量異常。",
+        "decision": "按实际超出1000项坐标数据的失败分支重写。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotWriteFailure556598",
+        "original_bytes_hex": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD283729814228257329",
+        "text": "畫面儲存失敗(7)。({})",
+        "source_comment": "// 原常量参考：0x00556598。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotSuccess5565BC",
+        "original_bytes_hex": "89E63F82F095DB91B682B582DC82B582BD814228257329",
+        "text": "畫面已儲存。({})",
+        "source_comment": "// 原常量参考：0x005565BC。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotDibFailure5565D4",
+        "original_bytes_hex": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473429814228257329",
+        "text": "畫面儲存失敗(G4)。({})",
+        "source_comment": "// 原常量参考：0x005565D4。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotBlitFailure5565F8",
+        "original_bytes_hex": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473329814228257329",
+        "text": "畫面儲存失敗(G3)。({})",
+        "source_comment": "// 原常量参考：0x005565F8。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotBitmapFailure55661C",
+        "original_bytes_hex": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473229814228257329",
+        "text": "畫面儲存失敗(G2)。({})",
+        "source_comment": "// 原常量参考：0x0055661C。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "kScreenshotDcFailure556640",
+        "original_bytes_hex": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473129814228257329",
+        "text": "畫面儲存失敗(G1)。({})",
+        "source_comment": "// 原常量参考：0x00556640。",
+        "decision": "按截图分支重写，保原诊断编号和路径参数。"
+      },
+      {
+        "path": "src/render/GraphicDxCache.cpp",
+        "symbol": "58D348图形表面不足提示",
+        "original_bytes_hex": "8354815B837483468358957391AB82C582B7814225640A",
+        "text": "圖形表面不足。{}（末尾换行）",
+        "source_comment": "原58D348消息及52253F路径",
+        "decision": "按已穷尽表面节点的分支重写；保扫描值和换行。"
+      }
+    ]
+  },
+  "unicode_build_fixes_20261014": {
+    "recorded_on": "2026-10-14",
+    "decision_ref": "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
+    "source_functions": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DBD30",
+        "line": 4280
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D5250",
+        "line": 5971
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E0380",
+        "line": 6387
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E92A0",
+        "line": 8749
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E9C80",
+        "line": 9021
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52D7B0",
+        "line": 10041
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52DCE0",
+        "line": 10173
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52E240",
+        "line": 10290
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52E650",
+        "line": 10385
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52ED50",
+        "line": 10524
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52F460",
+        "line": 10681
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52F670",
+        "line": 10721
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52FD60",
+        "line": 10865
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_530BA0",
+        "line": 11088
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_532450",
+        "line": 11439
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EDB20",
+        "line": 11783
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EF0F0",
+        "line": 11934
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F1C40",
+        "line": 12229
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F3ED0",
+        "line": 12340
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F2130",
+        "line": 12458
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F4790",
+        "line": 13171
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F51D0",
+        "line": 13433
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505170",
+        "line": 13649
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505C20",
+        "line": 13927
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F5A60",
+        "line": 14081
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4014B0",
+        "line": 15429
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_501FD0",
+        "line": 16872
+      },
+      {
+        "path": "src/LoginMessage.cpp",
+        "symbol": "UpdateLoginMessage",
+        "line": 78
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "DescribeHoveredYobi_507140",
+        "line": 34920
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50CAE0",
+        "line": 3090
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "DrawBattleScene_43CBB0",
+        "line": 7060
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA450",
+        "line": 4871
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49DA30",
+        "line": 9683
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499C30",
+        "line": 10759
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4951C0",
+        "line": 17770
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_495C20",
+        "line": 18189
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C5F80",
+        "line": 25071
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C0CB0",
+        "line": 25271
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A1EF0",
+        "line": 26230
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A6450",
+        "line": 27976
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFB10",
+        "line": 29401
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFC00",
+        "line": 29424
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFCF0",
+        "line": 29447
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CC6E0",
+        "line": 29634
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CC9B0",
+        "line": 29692
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CBDB0",
+        "line": 29950
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_482270",
+        "line": 32119
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4810A0",
+        "line": 33261
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47E5E0",
+        "line": 33745
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47F3D0",
+        "line": 33961
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_486E50",
+        "line": 34775
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4876B0",
+        "line": 34902
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497C80",
+        "line": 36662
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47B210",
+        "line": 38296
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47BC00",
+        "line": 38859
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4723D0",
+        "line": 41677
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48C1E0",
+        "line": 42424
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48F8F0",
+        "line": 42893
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48D9A0",
+        "line": 43051
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_490780",
+        "line": 43088
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_491AA0",
+        "line": 43242
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48F380",
+        "line": 43884
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_477710",
+        "line": 44087
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "RefreshOwnProfileEntry",
+        "line": 44292
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_478A10",
+        "line": 44336
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_478010",
+        "line": 44489
+      },
+      {
+        "path": "src/platform/ClientEntry.cpp",
+        "symbol": "ResolveWindowResourceInstance",
+        "line": 150
+      },
+      {
+        "path": "src/platform/ClientEntry.cpp",
+        "symbol": "WinMain",
+        "line": 263
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "AnimeInit_45BB20",
+        "line": 88
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "CoordInit_45C150",
+        "line": 347
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "TakeScreenshot_453760",
+        "line": 457
+      },
+      {
+        "path": "src/render/GraphicDxCache.cpp",
+        "symbol": "TakeGraphicDxCache_5222D0",
+        "line": 433
+      },
+      {
+        "path": "src/platform/StartupCommon.cpp",
+        "symbol": "WriteLegacyDebugString",
+        "line": 66
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "IsRejectedInputText_404060",
+        "line": 551
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_476740",
+        "line": 607
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_45E770",
+        "line": 622
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44AB60",
+        "line": 1578
+      },
+      {
+        "path": "src/Blacklist.cpp",
+        "symbol": "ContainsBlacklistRecord_4013D0",
+        "line": 164
+      },
+      {
+        "path": "src/Blacklist.cpp",
+        "symbol": "AddBlacklistRecord_401270",
+        "line": 188
+      },
+      {
+        "path": "src/Blacklist.cpp",
+        "symbol": "RemoveBlacklistRecord_4012F0",
+        "line": 234
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "WriteStoredInputValue",
+        "line": 99
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "WriteInputValueFF494F_5203B0",
+        "line": 163
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "WriteInputValueFF4982_520410",
+        "line": 182
+      },
+      {
+        "path": "src/LoginInputController.cpp",
+        "symbol": "ProcessCapability4Input_464E30",
+        "line": 99
+      },
+      {
+        "path": "src/LoginInputController.cpp",
+        "symbol": "ProcessLoginInput_45CA20",
+        "line": 261
+      },
+      {
+        "path": "src/LoginCapability3InputController.cpp",
+        "symbol": "ProcessCapability3Input_45FA70",
+        "line": 79
+      },
+      {
+        "path": "src/CharacterSelectScene.cpp",
+        "symbol": "Sub_4631D0",
+        "line": 705
+      },
+      {
+        "path": "src/LoginCapability3Scene.cpp",
+        "symbol": "ProcessCapability3InputAndDraw",
+        "line": 139
+      }
+    ],
+    "compiled_sources": [
+      "src/LegacyUiRecord.cpp",
+      "src/LoginMessage.cpp",
+      "src/YobiRuntime.cpp",
+      "src/world/SceneState.cpp",
+      "src/ui/WindowRuntime.cpp",
+      "src/ui/WindowRuntimeState.hpp",
+      "src/platform/ClientEntry.cpp",
+      "src/platform/StartupNative.hpp",
+      "src/ui/WindowPrototypes.cpp",
+      "src/AnimationRuntime.cpp",
+      "src/render/SdlPresenter.cpp",
+      "src/render/GraphicDxCache.cpp",
+      "include/cg/platform/Startup.hpp",
+      "src/platform/StartupCommon.cpp",
+      "include/cg/Input.hpp",
+      "src/Input.cpp",
+      "include/cg/Blacklist.hpp",
+      "src/Blacklist.cpp",
+      "include/cg/LoginInput.hpp",
+      "src/LoginInput.cpp",
+      "src/LoginInputController.cpp",
+      "src/LoginCapability3InputController.cpp",
+      "src/CharacterSelectScene.cpp",
+      "src/LoginCapability3Scene.cpp"
+    ],
+    "build": {
+      "entry": "build.bat Debug",
+      "configuration": "Debug",
+      "preset": "windows-msvc-x64-debug",
+      "exit_code": 0,
+      "compiled": true,
+      "linked": true,
+      "tested": false,
+      "client_run": false,
+      "deployed": false,
+      "initial_compiler_diagnostics": 63,
+      "second_pass_client_entry_diagnostics": 5,
+      "input_wide_followup": "新增宽接口后发现全局函数的input命名空间未限定，已修正为cg::input并重新构建成功。",
+      "final_log": "build/codex-build-debug-input-wide-final.log",
+      "diagnostic_logs": [
+        "build/codex-build-debug.log",
+        "build/codex-build-debug-recheck.log",
+        "build/codex-build-debug-input-wide.log"
+      ],
+      "warning_scope": "既有未用变量、可能未初始化及API弃用等警告仍存在；最终增量成功不代表全工程零警告。"
+    },
+    "changes": [
+      "修正宽窄提示三元表达式、4处详情分行和宽回调签名；7组快捷键表用宽指针表，去固定51字节UTF-8容量。",
+      "补format声明，WNDCLASS声明／FindResource调用使用W版本，全局WinMain补cg限定。",
+      "宠物名草稿／输入原型、称号、关键词和提示直接传递wstring；复制辅助函数借wstring_view，宠物数字显示std::format宽输出。",
+      "退休InputContext::utf8和全部调用；404060接宽文本后按原GBK校验，476740／45E770直接宽检查；黑名单与登录写接口接宽文本，GBK保留在实际记录边界。",
+      "用户批准按用途重写旧占位／提示，65条原字节映射含别名，详readable_legacy_ui_utl03。"
+    ],
+    "return_units": [
+      {
+        "symbol": "Sub_4CA450",
+        "contract": "统一含NUL的UTF-16码元数，唯一当前调用方丢弃返回值。"
+      },
+      {
+        "symbols": [
+          "Sub_48F8F0",
+          "Sub_490780"
+        ],
+        "contract": "末尾页码为ASCII数字，宽码元含NUL长度与原字节长度数值一致。"
+      },
+      {
+        "symbols": [
+          "WriteInputValueFF494F_5203B0",
+          "WriteInputValueFF4982_520410"
+        ],
+        "contract": "const wchar_t*保留空指针和源终止符借用；当前唯一调用方丢弃返回值，临时owner覆盖整个调用。"
+      }
+    ],
+    "checks": {
+      "cpp_delimiter_files": 24,
+      "preserved_original_address_comments": true,
+      "function_table_rows": 3680,
+      "function_table_identity_and_status_changed": false,
+      "function_table_locations_updated": 2176,
+      "semantic_records_updated": 125,
+      "remaining_utf8_view_declarations": 197,
+      "retired_input_utf8_member_and_calls": true,
+      "search_scope": "rg入口FromUtf16与InputContext::utf8，按消费者去除宽正文往返；剩余窄CRT／网络与旧接口不按命中数判断冗余。",
+      "complete_gates_changed": false,
+      "traceability_text_summary": {
+        "functions": 3680,
+        "imports": 218,
+        "intervals": 3061,
+        "leaf_features": 184,
+        "tasks": 60
+      },
+      "traceability_final_check": true,
+      "utf8_no_bom_lf_json_checked": true,
+      "git_diff_whitespace_checked": true
+    }
+  },
+  "initial_static_verification": {
+    "method": "仅源码、Git差异和词法/接口静态核对；台账汇总仅检查文本结构",
+    "build": false,
+    "test": false,
+    "runtime": false,
+    "file_hashes_computed": false
   }
 }

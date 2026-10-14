@@ -924,9 +924,9 @@ std::int32_t Sub_4631D0()
                                 state::gValue9A5AFC = 102;
                             } else if (std::strstr(name, " ") != nullptr
                                 || std::strstr(name, "\x81\x40") != nullptr
-                                || input::IsRejectedInputText_404060(cg::text::FromUtf16(utf16Name).c_str())) {
+                                || input::IsRejectedInputText_404060(utf16Name)) {
                                 state::gValue9A5AFC = 108;
-                            } else if (input::Sub_45E770(cg::text::FromUtf16(utf16Name).c_str()) == 1) {
+                            } else if (input::Sub_45E770(utf16Name) == 1) {
                                 state::gValue9A5AFC = 110;
                             } else {
                                 state::gValue9A5AFC = 10;

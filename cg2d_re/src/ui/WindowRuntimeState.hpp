@@ -1027,7 +1027,7 @@ std::int32_t Sub_4C5DE0(std::int32_t index, std::int32_t state); // fifth分量0
 std::int32_t Sub_4C5EB0(std::int32_t index, std::int32_t state); // ones分量0..4循环。
 // 原函数：0x004C5F80。
 std::int32_t Sub_4C5F80(
-    std::int32_t button, std::int32_t row, char* const* unusedTexts,
+    std::int32_t button, std::int32_t row, const std::wstring* unusedTexts,
     std::uint8_t unusedInputCount); // 类型37回复，图号转义后发完整button。
 // 原函数：0x004C6060。
 login::YobiAction* Sub_4C6060(
@@ -1934,7 +1934,7 @@ std::int32_t Sub_4CB4A0(std::int32_t index, std::int32_t* group, std::int32_t* v
 // 关联原入口：0x004CA438（共享尾已并入本函数正文）。
 std::int32_t Sub_4CA410(std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
 // 原函数：0x004CA450。
-std::uint32_t Sub_4CA450(); // 活动输入与关键词显示互斥，返回复制含NUL长度。
+std::uint32_t Sub_4CA450(); // 活动输入与关键词显示互斥，返回含NUL的UTF-16码元数。
 // 原函数：0x004CA500。
 void Sub_4CA500(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
 // 原函数：0x004CA6F0。

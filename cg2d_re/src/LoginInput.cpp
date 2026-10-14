@@ -13,6 +13,7 @@
 #include <array>
 #include <bit>
 #include <cstring>
+#include <cwchar>
 #include <cstddef>
 
 namespace cg::login {
@@ -95,8 +96,8 @@ void DrawCapability4SavedSlotGraphic(
         -1));
 }
 
-const char* WriteStoredInputValue(
-    const char* const source,
+const wchar_t* WriteStoredInputValue(
+    const wchar_t* const source,
     char* const storedValue)
 {
     if (source == nullptr) {
@@ -104,7 +105,7 @@ const char* WriteStoredInputValue(
     }
 
     cg::text::StoreGbk(storedValue, kStoredInputValueSize, source);
-    return source + std::strlen(source);
+    return source + std::wcslen(source);
 }
 
 char* ReadStoredInputValue(
@@ -159,7 +160,7 @@ bool SaveCapability4InputSlot()
 }
 
 // 原函数：0x005203B0。
-const char* WriteInputValueFF494F_5203B0(const char* const source)
+const wchar_t* WriteInputValueFF494F_5203B0(const wchar_t* const source)
 {
     return WriteStoredInputValue(
         source,
@@ -178,7 +179,7 @@ char* ReadInputValueFF494F_5203E0(char* const output)
 }
 
 // 原函数：0x00520410。
-const char* WriteInputValueFF4982_520410(const char* const source)
+const wchar_t* WriteInputValueFF4982_520410(const wchar_t* const source)
 {
     return WriteStoredInputValue(
         source,

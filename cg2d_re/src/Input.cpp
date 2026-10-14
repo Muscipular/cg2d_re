@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <optional>
 #include <cstring>
+#include <format>
 #include <type_traits>
 #include <algorithm>
 #include <string>
@@ -104,7 +105,6 @@ void InputContext::setText(const std::wstring_view value)
     if (legacy_ != nullptr) { cg::text::StoreGbk(legacy_->text, sizeof(legacy_->text), value); }
     else { text.assign(value); }
 }
-std::string InputContext::utf8() const { return cg::text::FromUtf16(ContextText(*this)); }
 
 InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
 InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
@@ -163,12 +163,12 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
 
 constexpr wchar_t kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
     L"您…如此厭惡自己的聲音嗎？";
-constexpr char kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
-    "%s已在黑名單中";
-constexpr char kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
-    "已將%s加入黑名單";
-constexpr char kBlacklistFailedFormat5532B0[] = // 原常量参考：0x005532B0。
-    "%s加入黑名單失敗";
+constexpr wchar_t kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
+    L"{}已在黑名單中";
+constexpr wchar_t kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
+    L"已將{}加入黑名單";
+constexpr wchar_t kBlacklistFailedFormat5532B0[] = // 原常量参考：0x005532B0。
+    L"{}加入黑名單失敗";
 
 std::int8_t SignedByte(const char value)
 {
@@ -548,13 +548,13 @@ InputContext* Sub_44AA90()
 } // namespace detail
 
 // 原函数：0x00404060。
-bool IsRejectedInputText_404060(const char* legacyText)
+bool IsRejectedInputText_404060(const std::wstring_view text)
 {
-    // UTL01：名称约束仍按原 GBK 字节域判断，界面输入先显式编码。
+    // 名称约束仍按原GBK字节域判断，UTF-16输入只在此边界编码。
     std::string stored;
-    try { stored = cg::text::ToGbk(legacyText); }
+    try { stored = cg::text::ToGbk(text); }
     catch (const std::system_error&) { return true; }
-    legacyText = stored.c_str();
+    const char* const legacyText = stored.c_str();
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
     const std::int32_t length = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(std::strlen(legacyText)));
@@ -604,26 +604,26 @@ bool IsRejectedInputText_404060(const char* legacyText)
 }
 
 // 原函数：0x00476740。
-std::int32_t Sub_476740(const char* const text)
+std::int32_t Sub_476740(const std::wstring_view text)
 {
-    const std::string_view contents(text);
+    const std::wstring_view contents(text);
     bool hasText = false;
     for (std::size_t offset = 0; offset < contents.size();) {
         const std::size_t next = cg::text::Next(contents, offset);
         const auto unit = contents.substr(offset, next - offset);
-        if (unit == "," || unit == "|" || unit == R"(\)" ) { return 0; }
-        if (unit != " " && unit != "　") { hasText = true; }
+        if (unit == L"," || unit == L"|" || unit == LR"(\)" ) { return 0; }
+        if (unit != L" " && unit != L"　") { hasText = true; }
         offset = next;
     }
     return hasText ? 1 : 0;
 }
 
 // 原函数：0x0045E770。
-std::int32_t Sub_45E770(const char* const text)
+std::int32_t Sub_45E770(const std::wstring_view text)
 {
-    const std::string_view contents(text);
+    const std::wstring_view contents(text);
     for (std::size_t offset = 0; offset < contents.size(); offset = cg::text::Next(contents, offset)) {
-        if (contents[offset] == '|' || contents[offset] == '\\') { return 1; }
+        if (contents[offset] == L'|' || contents[offset] == L'\\') { return 1; }
     }
     return 0;
 }
@@ -1651,33 +1651,17 @@ void Sub_44AB60()
     }
     if (context == &gInputContextC8B1B8) {
         std::wstring message;
-        const std::string textUtf8View = gInputContextC8B1B8.utf8();
-        const char* const text = textUtf8View.c_str();
-        const std::string playerText = cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1));
-        const char* const playerName = playerText.c_str();
-        bool targetsSelf = false;
-        std::size_t comparisonIndex = 0;
-        for (;;) {
-            const auto inputByte = static_cast<unsigned char>(text[comparisonIndex]);
-            const auto playerByte =
-                static_cast<unsigned char>(playerName[comparisonIndex]);
-            if (inputByte != playerByte) {
-                break;
-            }
-            if (inputByte == 0) {
-                targetsSelf = true;
-                break;
-            }
-            ++comparisonIndex;
-        }
+        const std::wstring text = ContextText(gInputContextC8B1B8);
+        const std::wstring playerName = cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1));
+        const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = kBlacklistSelfText554938;
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            cg::text::FormatTo(message, kBlacklistExistingFormat554928, text);
+            message = std::format(kBlacklistExistingFormat554928, text);
         } else {
-            const char* const format = blacklist::AddBlacklistRecord_401270(text) != 0
-                ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
-            cg::text::FormatTo(message, format, text);
+            message = blacklist::AddBlacklistRecord_401270(text) != 0
+                ? std::format(kBlacklistAddedFormat5532C4, text)
+                : std::format(kBlacklistFailedFormat5532B0, text);
         }
         gInputContextC8B1B8.clearText();
         gInputContextC8B1B8.caretByteOffset = 0;

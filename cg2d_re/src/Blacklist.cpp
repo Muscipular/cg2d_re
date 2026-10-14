@@ -161,9 +161,9 @@ std::int32_t GetBlacklistCount_401190()
 }
 
 // 原函数：0x004013D0。
-std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
+std::uint8_t ContainsBlacklistRecord_4013D0(const std::wstring_view name)
 {
-    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    // 公开名称为UTF-16，只在此处编码为原GBK记录。
     std::string stored;
     try { stored = cg::text::ToGbk(name); }
     catch (const std::system_error&) { return 0; }
@@ -185,9 +185,9 @@ std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
 }
 
 // 原函数：0x00401270。
-std::int8_t AddBlacklistRecord_401270(const char* const name)
+std::int8_t AddBlacklistRecord_401270(const std::wstring_view name)
 {
-    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    // 公开名称为UTF-16，只在此处编码为原GBK记录。
     std::string stored;
     try { stored = cg::text::ToGbk(name); }
     catch (const std::system_error&) { return 0; }
@@ -231,9 +231,9 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
 }
 
 // 原函数：0x004012F0。
-std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
+std::int8_t RemoveBlacklistRecord_4012F0(const std::wstring_view name)
 {
-    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    // 公开名称为UTF-16，只在此处编码为原GBK记录。
     std::string stored;
     try { stored = cg::text::ToGbk(name); }
     catch (const std::system_error&) { return 0; }

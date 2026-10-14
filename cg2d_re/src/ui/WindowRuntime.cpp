@@ -4875,18 +4875,17 @@ std::uint32_t Sub_4CA450()
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(Sub_476570(
             &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
-        const std::string textUtf8View = gProfileSearchInputPrototype580A80.input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-        const auto bytes = static_cast<std::uint32_t>(std::strlen(text) + 1);
-        gProfileSearchKeyword1075988 = cg::text::ToUtf16(text);
-        return bytes;
+        const std::wstring& text = input::ContextText(*gProfileSearchInputPrototype580A80.input.context);
+        const auto length = static_cast<std::uint32_t>(text.size() + 1);
+        gProfileSearchKeyword1075988 = text;
+        return length;
     }
     gCurrentWindow->elements[6].visible = 1;
     std::wstring& text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data)->text;
-    const auto bytes = static_cast<std::uint32_t>(
+    const auto length = static_cast<std::uint32_t>(
         gProfileSearchKeyword1075988.size() + 1);
     text = gProfileSearchKeyword1075988;
-    return bytes;
+    return length;
 }
 
 // 原函数：0x004CA410。
@@ -9695,12 +9694,10 @@ std::int32_t Sub_49DA30(
         } else if (gDialogReply.type == 35) {
             if ((button & 1) != 0) {
                 if (texts[0].empty() && texts[1].empty()) { return 0; }
-                const std::string firstView = cg::text::FromUtf16(texts[0]);
-                const std::string secondView = cg::text::FromUtf16(texts[1]);
-                if (input::Sub_476740(firstView.c_str()) == 0) { return 0; }
-                if (input::Sub_476740(secondView.c_str()) == 0) { return 0; }
-                if (input::Sub_45E770(firstView.c_str()) == 1) { return 0; }
-                if (input::Sub_45E770(secondView.c_str()) == 1) { return 0; }
+                if (input::Sub_476740(texts[0]) == 0) { return 0; }
+                if (input::Sub_476740(texts[1]) == 0) { return 0; }
+                if (input::Sub_45E770(texts[0]) == 1) { return 0; }
+                if (input::Sub_45E770(texts[1]) == 1) { return 0; }
             }
             NullSub_509080();
             const std::wstring first = input::EscapeText(texts[0]);
@@ -10846,8 +10843,8 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
                 if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0
                     && item.used != 0) {
                     const std::int32_t type = item.itemType;
-                    gHoverTextD68AE8 = cg::text::ToUtf16(((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
-                            ? cannotEquip : cannotUse);
+                    gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                            ? cannotEquip : cannotUse;
                     if ((events & 1u) != 0) {
                         login::detail::DrawGraphicHover(
                             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
@@ -17586,159 +17583,159 @@ std::int32_t Sub_4950D0(const std::int32_t index, const std::int32_t state)
 namespace {
 
 constexpr std::array<std::int8_t, 8> kHotkeyCounts56AEC4 {14, 27, 16, 24, 14, 27, 16, 24}; // 原常量参考：0x0056AEC4。
-constexpr char kHotkeyText56933C[14][51] { // 原常量参考：0x0056933C。
-    "開啟/關閉人物狀態視窗　　　　Ctrl + W",
-    "開啟/關閉人物技能視窗　　　　Ctrl + E",
-    "開啟/關閉物品視窗　　　　　　Ctrl + R",
-    "開啟/關閉寵物狀態視窗　　　　Ctrl + A",
-    "開啟/關閉名片視窗　　　　　　Ctrl + S",
-    "開啟/關閉寵物圖鑑視窗　　　　Ctrl + D",
-    "開啟/關閉系統功能視窗　　　　ESC",
-    "開啟/關閉情緒動作視窗　　　　Ctrl + F",
-    "開啟/關閉小地圖視窗　　　　　Ctrl + Q",
-    "開啟/關閉熱鍵一覽視窗　　　　Ctrl + Y",
-    "開啟/關閉黑名單列表視窗　　　End",
-    "開啟/關閉冒險者日誌視窗　　　F9",
-    "把移至畫面範圍外的視窗移回來 Ctrl + F12",
-    "關閉所有開啟中的視窗　　　 　SHIFT + F12",
+constexpr const wchar_t* kHotkeyText56933C[14] { // 原常量参考：0x0056933C。
+    L"開啟/關閉人物狀態視窗　　　　Ctrl + W",
+    L"開啟/關閉人物技能視窗　　　　Ctrl + E",
+    L"開啟/關閉物品視窗　　　　　　Ctrl + R",
+    L"開啟/關閉寵物狀態視窗　　　　Ctrl + A",
+    L"開啟/關閉名片視窗　　　　　　Ctrl + S",
+    L"開啟/關閉寵物圖鑑視窗　　　　Ctrl + D",
+    L"開啟/關閉系統功能視窗　　　　ESC",
+    L"開啟/關閉情緒動作視窗　　　　Ctrl + F",
+    L"開啟/關閉小地圖視窗　　　　　Ctrl + Q",
+    L"開啟/關閉熱鍵一覽視窗　　　　Ctrl + Y",
+    L"開啟/關閉黑名單列表視窗　　　End",
+    L"開啟/關閉冒險者日誌視窗　　　F9",
+    L"把移至畫面範圍外的視窗移回來 Ctrl + F12",
+    L"關閉所有開啟中的視窗　　　 　SHIFT + F12",
 };
-constexpr char kHotkeyText569608[27][51] { // 原常量参考：0x00569608。
-    "允許/拒絕對戰　　　　　　　　Ctrl + P",
-    "允許/拒絕組隊交談　　　　　　Ctrl + ;",
-    "允許/拒絕組隊　　　　　　　　Ctrl + .",
-    "允許/拒絕交換名片　　　　　　Ctrl + L",
-    "允許/拒絕交易　　　　　　　　Ctrl + ,",
-    "允許/拒絕被邀請入家族　　　　Ctrl + N",
-    "提出對戰要求　　　　　　　　 Ctrl + K",
-    "觀戰　　　　　　　　　　　　 Ctrl + V",
-    "加入冒險隊伍　　　　　　　　 Ctrl + /",
-    "提出交換名片的要求　　　　　 Ctrl + [",
-    "提出交易的要求　　　　　　　 Ctrl + ]",
-    "邀請對方加入家族　　　　　　 Ctrl + M",
-    "更改文字大小　　　　　　　　 Ctrl + O",
-    "交談視窗顯示行數增加↑　　　 Ctrl + ↑",
-    "交談視窗顯示行數減少↓　　　 Ctrl + ↓",
-    "交談視窗顯示字數增加←　　　 Ctrl + ←",
-    "交談視窗顯示字數減少→　　　 Ctrl + →",
-    "擴大交談範圍　　　　　　　　 SHIFT + →",
-    "縮小交談範圍　　　　　　　　 SHIFT + ←",
-    "消除交談顯示文字　　　　　　 HOME",
-    "開啟/關閉交談視窗　　　　　　SHIFT + HOME",
-    "切換聊天顯示模式　　　 　　　Ctrl + HOME",
-    "將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
-    "將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
-    "遊戲畫面擷取　　　　　　　　 F12",
-    "切換人物頭上顯示名稱　　　　 F11",
-    "開啟/關閉人物狀態顯示　　　　Ctrl + F11",
+constexpr const wchar_t* kHotkeyText569608[27] { // 原常量参考：0x00569608。
+    L"允許/拒絕對戰　　　　　　　　Ctrl + P",
+    L"允許/拒絕組隊交談　　　　　　Ctrl + ;",
+    L"允許/拒絕組隊　　　　　　　　Ctrl + .",
+    L"允許/拒絕交換名片　　　　　　Ctrl + L",
+    L"允許/拒絕交易　　　　　　　　Ctrl + ,",
+    L"允許/拒絕被邀請入家族　　　　Ctrl + N",
+    L"提出對戰要求　　　　　　　　 Ctrl + K",
+    L"觀戰　　　　　　　　　　　　 Ctrl + V",
+    L"加入冒險隊伍　　　　　　　　 Ctrl + /",
+    L"提出交換名片的要求　　　　　 Ctrl + [",
+    L"提出交易的要求　　　　　　　 Ctrl + ]",
+    L"邀請對方加入家族　　　　　　 Ctrl + M",
+    L"更改文字大小　　　　　　　　 Ctrl + O",
+    L"交談視窗顯示行數增加↑　　　 Ctrl + ↑",
+    L"交談視窗顯示行數減少↓　　　 Ctrl + ↓",
+    L"交談視窗顯示字數增加←　　　 Ctrl + ←",
+    L"交談視窗顯示字數減少→　　　 Ctrl + →",
+    L"擴大交談範圍　　　　　　　　 SHIFT + →",
+    L"縮小交談範圍　　　　　　　　 SHIFT + ←",
+    L"消除交談顯示文字　　　　　　 HOME",
+    L"開啟/關閉交談視窗　　　　　　SHIFT + HOME",
+    L"切換聊天顯示模式　　　 　　　Ctrl + HOME",
+    L"將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
+    L"將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
+    L"遊戲畫面擷取　　　　　　　　 F12",
+    L"切換人物頭上顯示名稱　　　　 F11",
+    L"開啟/關閉人物狀態顯示　　　　Ctrl + F11",
 };
-constexpr char kHotkeyText569B6C[16][51] { // 原常量参考：0x00569B6C。
-    "坐下　　　　　　　　　　　　 Ctrl + 1",
-    "揮手 　　　　　　　　　　　　Ctrl + 2",
-    "點頭 　　　　　　　　　　　　Ctrl + 3",
-    "高興 　　　　　　　　　　　　Ctrl + 4",
-    "憤怒 　　　　　　　　　　　　Ctrl + 5",
-    "悲傷 　　　　　　　　　　　　Ctrl + 6",
-    "投擲 　　　　　　　　　　　　Ctrl + 7",
-    "站立 　　　　　　　　　　　　Ctrl + 8",
-    "走路 　　　　　　　　　　　　Ctrl + 9",
-    "倒下 　　　　　　　　　　　　Ctrl + 0",
-    "跑步 　　　　　　　　　　　　Ctrl + T",
-    "攻擊 　　　　　　　　　　　　Ctrl + -",
-    "防禦 　　　　　　　　　　　　Ctrl + H",
-    "受傷 　　　　　　　　　　　　Ctrl + G",
-    "魔法 　　　　　　　　　　　　Ctrl + B",
-    R"(猜拳 　　　　　　　　　　　　Ctrl + \)",
+constexpr const wchar_t* kHotkeyText569B6C[16] { // 原常量参考：0x00569B6C。
+    L"坐下　　　　　　　　　　　　 Ctrl + 1",
+    L"揮手 　　　　　　　　　　　　Ctrl + 2",
+    L"點頭 　　　　　　　　　　　　Ctrl + 3",
+    L"高興 　　　　　　　　　　　　Ctrl + 4",
+    L"憤怒 　　　　　　　　　　　　Ctrl + 5",
+    L"悲傷 　　　　　　　　　　　　Ctrl + 6",
+    L"投擲 　　　　　　　　　　　　Ctrl + 7",
+    L"站立 　　　　　　　　　　　　Ctrl + 8",
+    L"走路 　　　　　　　　　　　　Ctrl + 9",
+    L"倒下 　　　　　　　　　　　　Ctrl + 0",
+    L"跑步 　　　　　　　　　　　　Ctrl + T",
+    L"攻擊 　　　　　　　　　　　　Ctrl + -",
+    L"防禦 　　　　　　　　　　　　Ctrl + H",
+    L"受傷 　　　　　　　　　　　　Ctrl + G",
+    L"魔法 　　　　　　　　　　　　Ctrl + B",
+    LR"(猜拳 　　　　　　　　　　　　Ctrl + \)",
 };
-constexpr char kHotkeyText569E9C[14][51] { // 原常量参考：0x00569E9C。
-    "開啟/關閉人物狀態視窗　　　　Ctrl + Q",
-    "開啟/關閉人物技能視窗　　　　Ctrl + W",
-    "開啟/關閉物品視窗　　　　　　Ctrl + E",
-    "開啟/關閉寵物狀態視窗　　　　Ctrl + R",
-    "開啟/關閉名片視窗　　　　　　Ctrl + T",
-    "開啟/關閉寵物圖鑑視窗　　　　Ctrl + Y",
-    "開啟/關閉系統功能視窗　　　　ESC",
-    "開啟/關閉情緒動作視窗　　　　Ctrl + A",
-    "開啟/關閉小地圖視窗　　　　　Ctrl + S",
-    "開啟/關閉熱鍵一覽視窗　　　　Ctrl + D",
-    "開啟/關閉黑名單列表視窗　　　End",
-    "開啟/關閉冒險者日誌視窗　　　F9",
-    "把移至畫面範圍外的視窗移回來 Ctrl + F12",
-    "關閉所有開啟中的視窗　　　　 SHIFT + F12",
+constexpr const wchar_t* kHotkeyText569E9C[14] { // 原常量参考：0x00569E9C。
+    L"開啟/關閉人物狀態視窗　　　　Ctrl + Q",
+    L"開啟/關閉人物技能視窗　　　　Ctrl + W",
+    L"開啟/關閉物品視窗　　　　　　Ctrl + E",
+    L"開啟/關閉寵物狀態視窗　　　　Ctrl + R",
+    L"開啟/關閉名片視窗　　　　　　Ctrl + T",
+    L"開啟/關閉寵物圖鑑視窗　　　　Ctrl + Y",
+    L"開啟/關閉系統功能視窗　　　　ESC",
+    L"開啟/關閉情緒動作視窗　　　　Ctrl + A",
+    L"開啟/關閉小地圖視窗　　　　　Ctrl + S",
+    L"開啟/關閉熱鍵一覽視窗　　　　Ctrl + D",
+    L"開啟/關閉黑名單列表視窗　　　End",
+    L"開啟/關閉冒險者日誌視窗　　　F9",
+    L"把移至畫面範圍外的視窗移回來 Ctrl + F12",
+    L"關閉所有開啟中的視窗　　　　 SHIFT + F12",
 };
-constexpr char kHotkeyText56A168[27][51] { // 原常量参考：0x0056A168。
-    "允許/拒絕對戰　　　　　　　　Ctrl + U",
-    "允許/拒絕組隊交談　　　　　　Ctrl + I",
-    "允許/拒絕組隊　　　　　　　　Ctrl + O",
-    "允許/拒絕交換名片　　　　　　Ctrl + P",
-    "允許/拒絕交易　　　　　　　　Ctrl + F",
-    "允許/拒絕被邀請入家族　　　　Ctrl + [",
-    "提出對戰要求　　　　　　　　 Ctrl + J",
-    "觀戰　　　　　　　　　　　　 Ctrl + K",
-    "加入冒險隊伍　　　　　　　　 Ctrl + L",
-    "提出交換名片的要求　　　　　 Ctrl + ;",
-    R"(提出交易的要求　　　　　　　 Ctrl + ")",
-    "邀請對方加入家族　　　　　　 Ctrl + ]",
-    "更改文字大小　　　　　　　　 Ctrl + Z",
-    "交談視窗顯示行數增加↑　　　 Ctrl + ↑",
-    "交談視窗顯示行數減少↓　　　 Ctrl + ↓",
-    "交談視窗顯示字數增加←　　　 Ctrl + ←",
-    "交談視窗顯示字數減少→　　　 Ctrl + →",
-    "擴大交談範圍　　　　　　　　 SHIFT + →",
-    "縮小交談範圍　　　　　　　　 SHIFT + ←",
-    "消除交談顯示文字　　　　　　 HOME",
-    "開啟/關閉交談視窗　　　　　　SHIFT + HOME",
-    "切換聊天顯示模式　　　 　　　Ctrl + HOME",
-    "將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
-    "將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
-    "遊戲畫面擷取　　　　　　　　 F12",
-    "切換人物頭上顯示名稱　　　　 F11",
-    "開啟/關閉人物狀態顯示　　　　Ctrl + F11",
+constexpr const wchar_t* kHotkeyText56A168[27] { // 原常量参考：0x0056A168。
+    L"允許/拒絕對戰　　　　　　　　Ctrl + U",
+    L"允許/拒絕組隊交談　　　　　　Ctrl + I",
+    L"允許/拒絕組隊　　　　　　　　Ctrl + O",
+    L"允許/拒絕交換名片　　　　　　Ctrl + P",
+    L"允許/拒絕交易　　　　　　　　Ctrl + F",
+    L"允許/拒絕被邀請入家族　　　　Ctrl + [",
+    L"提出對戰要求　　　　　　　　 Ctrl + J",
+    L"觀戰　　　　　　　　　　　　 Ctrl + K",
+    L"加入冒險隊伍　　　　　　　　 Ctrl + L",
+    L"提出交換名片的要求　　　　　 Ctrl + ;",
+    LR"(提出交易的要求　　　　　　　 Ctrl + ")",
+    L"邀請對方加入家族　　　　　　 Ctrl + ]",
+    L"更改文字大小　　　　　　　　 Ctrl + Z",
+    L"交談視窗顯示行數增加↑　　　 Ctrl + ↑",
+    L"交談視窗顯示行數減少↓　　　 Ctrl + ↓",
+    L"交談視窗顯示字數增加←　　　 Ctrl + ←",
+    L"交談視窗顯示字數減少→　　　 Ctrl + →",
+    L"擴大交談範圍　　　　　　　　 SHIFT + →",
+    L"縮小交談範圍　　　　　　　　 SHIFT + ←",
+    L"消除交談顯示文字　　　　　　 HOME",
+    L"開啟/關閉交談視窗　　　　　　SHIFT + HOME",
+    L"切換聊天顯示模式　　　 　　　Ctrl + HOME",
+    L"將滑鼠圈選的人加入黑名單中　 Ctrl+Insert",
+    L"將滑鼠圈選的人從黑名單中移除 Ctrl+Delete",
+    L"遊戲畫面擷取　　　　　　　　 F12",
+    L"切換人物頭上顯示名稱　　　　 F11",
+    L"開啟/關閉人物狀態顯示　　　　Ctrl + F11",
 };
-constexpr char kHotkeyText56A6CC[16][51] { // 原常量参考：0x0056A6CC。
-    "坐下　　　　　　　　　　　　 Ctrl + 1",
-    "揮手　　　　　　　　　　　　 Ctrl + 2",
-    "點頭　　　　　　　　　　　　 Ctrl + 3",
-    "高興　　　　　　　　　　　　 Ctrl + 4",
-    "憤怒　　　　　　　　　　　　 Ctrl + 5",
-    "悲傷　　　　　　　　　　　　 Ctrl + 6",
-    "投擲　　　　　　　　　　　　 Ctrl + 7",
-    "站立　　　　　　　　　　　　 Ctrl + 8",
-    "走路　　　　　　　　　　　　 Ctrl + 9",
-    "倒下　　　　　　　　　　　　 Ctrl + B",
-    "跑步　　　　　　　　　　　　 Ctrl + N",
-    "攻擊　　　　　　　　　　　　 Ctrl + M",
-    "防禦　　　　　　　　　　　　 Ctrl + ,",
-    "受傷　　　　　　　　　　　　 Ctrl + .",
-    "魔法　　　　　　　　　　　　 Ctrl + /",
-    R"(猜拳　　　　　　　　　　　　 Ctrl + \)",
+constexpr const wchar_t* kHotkeyText56A6CC[16] { // 原常量参考：0x0056A6CC。
+    L"坐下　　　　　　　　　　　　 Ctrl + 1",
+    L"揮手　　　　　　　　　　　　 Ctrl + 2",
+    L"點頭　　　　　　　　　　　　 Ctrl + 3",
+    L"高興　　　　　　　　　　　　 Ctrl + 4",
+    L"憤怒　　　　　　　　　　　　 Ctrl + 5",
+    L"悲傷　　　　　　　　　　　　 Ctrl + 6",
+    L"投擲　　　　　　　　　　　　 Ctrl + 7",
+    L"站立　　　　　　　　　　　　 Ctrl + 8",
+    L"走路　　　　　　　　　　　　 Ctrl + 9",
+    L"倒下　　　　　　　　　　　　 Ctrl + B",
+    L"跑步　　　　　　　　　　　　 Ctrl + N",
+    L"攻擊　　　　　　　　　　　　 Ctrl + M",
+    L"防禦　　　　　　　　　　　　 Ctrl + ,",
+    L"受傷　　　　　　　　　　　　 Ctrl + .",
+    L"魔法　　　　　　　　　　　　 Ctrl + /",
+    LR"(猜拳　　　　　　　　　　　　 Ctrl + \)",
 };
-constexpr char kHotkeyText56A9FC[24][51] { // 原常量参考：0x0056A9FC。
-    "F1　　　:",
-    "F2　　　:",
-    "F3　　　:",
-    "F4　　　:",
-    "F5　　　:",
-    "F6　　　:",
-    "F7　　　:",
-    "F8　　　:",
-    "Ctrl+F1 :",
-    "Ctrl+F2 :",
-    "Ctrl+F3 :",
-    "Ctrl+F4 :",
-    "Ctrl+F5 :",
-    "Ctrl+F6 :",
-    "Ctrl+F7 :",
-    "Ctrl+F8 :",
-    "Shift+F1:",
-    "Shift+F2:",
-    "Shift+F3:",
-    "Shift+F4:",
-    "Shift+F5:",
-    "Shift+F6:",
-    "Shift+F7:",
-    "Shift+F8:",
+constexpr const wchar_t* kHotkeyText56A9FC[24] { // 原常量参考：0x0056A9FC。
+    L"F1　　　:",
+    L"F2　　　:",
+    L"F3　　　:",
+    L"F4　　　:",
+    L"F5　　　:",
+    L"F6　　　:",
+    L"F7　　　:",
+    L"F8　　　:",
+    L"Ctrl+F1 :",
+    L"Ctrl+F2 :",
+    L"Ctrl+F3 :",
+    L"Ctrl+F4 :",
+    L"Ctrl+F5 :",
+    L"Ctrl+F6 :",
+    L"Ctrl+F7 :",
+    L"Ctrl+F8 :",
+    L"Shift+F1:",
+    L"Shift+F2:",
+    L"Shift+F3:",
+    L"Shift+F4:",
+    L"Shift+F5:",
+    L"Shift+F6:",
+    L"Shift+F7:",
+    L"Shift+F8:",
 };
-constexpr std::array<const char (*)[51], 8> kHotkeyTextTables56AECC {
+constexpr std::array<const wchar_t* const*, 8> kHotkeyTextTables56AECC {
     kHotkeyText56933C, kHotkeyText569608, kHotkeyText569B6C, kHotkeyText56A9FC,
     kHotkeyText569E9C, kHotkeyText56A168, kHotkeyText56A6CC, kHotkeyText56A9FC,
 };
@@ -17796,7 +17793,7 @@ std::int32_t Sub_4951C0(const std::int32_t)
         const std::uint32_t currentCategory = gWindowStates[25].value10;
         const std::int32_t currentMode = gValueCF4AAC;
         const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[25].value14);
-        const char* const text = kHotkeyTextTables56AECC[currentCategory + currentMode * 4][scroll + row];
+        const wchar_t* const text = kHotkeyTextTables56AECC[currentCategory + currentMode * 4][scroll + row];
         WindowInstance* const window = gCurrentWindow;
         const std::int16_t y = static_cast<std::int16_t>(window->y);
         const std::int16_t x = static_cast<std::int16_t>(window->x);
@@ -17819,14 +17816,13 @@ std::int32_t Sub_4951C0(const std::int32_t)
             } else {
                 const std::int8_t marker = std::bit_cast<std::int8_t>(
                     static_cast<std::uint8_t>(login::detail::gValueD69768));
-                const std::string textUtf8View = input::gInputContexts5F9758[recordIndex].utf8();
-        const char* const text = textUtf8View.c_str();
+                const std::wstring text = input::ContextText(input::gInputContexts5F9758[recordIndex]);
                 WindowInstance* const window = gCurrentWindow;
                 const std::int16_t y = static_cast<std::int16_t>(window->y);
                 const std::int16_t x = static_cast<std::int16_t>(window->x);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 96),
-                    static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, cg::text::FromGbk(text).c_str(), 0, marker));
+                    static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, text, 0, marker));
             }
         }
         const std::int8_t selected = gHotkeySelectedCC4B20;
@@ -18200,8 +18196,7 @@ std::int32_t Sub_495C20(const std::int32_t index, const std::int32_t state)
         gHotkeySelectedCC4B20 = selected;
         input::InputContext* const context = &input::gInputContexts5F9758[selected];
         gHotkeyInputPrototype57DF48.input = {{context}, WindowInputReferenceKind::Context};
-        char savedText[288];
-        cg::text::Copy(savedText, sizeof(savedText), input::ContextText(*context));
+        const std::wstring savedText = input::ContextText(*context);
         static_cast<void>(Sub_476570(&gHotkeyInputPrototype57DF48, 0, 0, 0));
         input::SetContext_44B330(&input::gInputContexts5F9758[gHotkeySelectedCC4B20]);
         input::LoadInitialText_44A160(savedText);
@@ -25074,7 +25069,7 @@ std::int32_t Sub_4C5EB0(const std::int32_t index, const std::int32_t state)
 
 // 原函数：0x004C5F80。
 std::int32_t Sub_4C5F80(
-    const std::int32_t button, const std::int32_t row, char* const* const unusedTexts,
+    const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
     const std::uint8_t unusedInputCount)
 {
     static_cast<void>(unusedTexts);
@@ -25295,8 +25290,6 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
         }
         constexpr wchar_t hint[] =
             L"把此技能讓寵物學習。";
-const std::string hintUtf8View = cg::text::FromUtf16(hint); // 旧窄接口只读兼容视图。
-        const std::size_t length = std::strlen(hintUtf8View.c_str()) + 1;
         gWindow54HoverD2DAD8 = selected;
         gHoverTextD68AE8 = hint;
     }
@@ -26281,7 +26274,7 @@ std::int32_t Sub_4A1EF0(const std::int32_t index, const std::int32_t state)
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
         if (index <= 2) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(gValueD67B38 != 0 ? kMailDetailedHint587444 : kMailPreviewHint587458);
+            gHoverTextD68AE8 = gValueD67B38 != 0 ? kMailDetailedHint587444 : kMailPreviewHint587458;
         } else if (index <= 4) {
             gHoverTextD68AE8 = kMailSortHint58746C;
         }
@@ -27991,7 +27984,7 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = idle + 2;
-            gHoverTextD68AE8 = cg::text::ToUtf16(index == 2 ? kNormalMailHint5877A4 : kSwitchMailPetHint58778C);
+            gHoverTextD68AE8 = index == 2 ? kNormalMailHint5877A4 : kSwitchMailPetHint58778C;
             consumed = 1;
         } else {
             graphic->imageNo = idle;
@@ -29412,11 +29405,11 @@ std::int32_t Sub_4AFB10()
     if (result == 0) {
         return result;
     }
-    result = input::Sub_476740(cg::text::FromGbk(gGuildDraftCF4018.name604.data()).c_str());
+    result = input::Sub_476740(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
     if (result == 0) {
         return result;
     }
-    result = input::Sub_45E770(cg::text::FromGbk(gGuildDraftCF4018.name604.data()).c_str());
+    result = input::Sub_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
     if (result == 1) {
         return result;
     }
@@ -29435,11 +29428,11 @@ std::int32_t Sub_4AFC00()
     if (result == 0) {
         return result;
     }
-    result = input::Sub_476740(cg::text::FromGbk(gGuildDraftCF4018.secondText634.data()).c_str());
+    result = input::Sub_476740(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
     if (result == 0) {
         return result;
     }
-    result = input::Sub_45E770(cg::text::FromGbk(gGuildDraftCF4018.secondText634.data()).c_str());
+    result = input::Sub_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
     if (result == 1) {
         return result;
     }
@@ -29456,11 +29449,11 @@ std::int32_t Sub_4AFCF0()
     for (std::int32_t index = 0; index < 32; ++index) {
         char* const text = gGuildDraftCF4018.ranks[index].text.data();
         if (Sub_4AFE20(index) != 0) {
-            const std::int32_t valid = input::Sub_476740(cg::text::FromGbk(text).c_str());
+            const std::int32_t valid = input::Sub_476740(cg::text::FromGbkWide(text));
             if (valid == 0) {
                 return valid;
             }
-            const std::int32_t rejected = input::Sub_45E770(cg::text::FromGbk(text).c_str());
+            const std::int32_t rejected = input::Sub_45E770(cg::text::FromGbkWide(text));
             if (rejected == 1) {
                 return rejected;
             }
@@ -29660,8 +29653,8 @@ std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
             char message[384] {};
             char name[17] {};
             std::strcpy(name, record);
-            if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) != 0) {
-                const char* const format = blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbk(name).c_str()) != 0
+            if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+                const char* const format = blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(name)) != 0
                     ? kBlacklistRemoved58863C : kBlacklistRemoveFailed588620;
                 std::sprintf(message, format, cg::text::FromGbk(name).c_str());
             } else {
@@ -29733,7 +29726,7 @@ std::int32_t Sub_4CC9B0(const std::int32_t index, const std::int32_t state)
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
             base + ((state & 1) != 0 ? 2 : 0);
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(index == 5 ? kBlacklistPreviousHint5886CC : kBlacklistNextHint5886B4);
+            gHoverTextD68AE8 = index == 5 ? kBlacklistPreviousHint5886CC : kBlacklistNextHint5886B4;
         }
         if ((state & 0x400) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (index == 5 ? -10 : 10);
@@ -29962,7 +29955,7 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
     case 3: {
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(index == 2 ? kLogViewerUpHint5885EC : kLogViewerDownHint5885DC);
+            gHoverTextD68AE8 = index == 2 ? kLogViewerUpHint5885EC : kLogViewerDownHint5885DC;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -29991,7 +29984,7 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
     case 7: {
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(index == 6 ? kLogViewerNextHint5885C8 : kLogViewerPreviousHint5885B4);
+            gHoverTextD68AE8 = index == 6 ? kLogViewerNextHint5885C8 : kLogViewerPreviousHint5885B4;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -32297,22 +32290,25 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
-            std::string trimmed; // 旧窄字符删除接口的局部可写视图。
+            std::wstring trimmed;
             std::wstring buffer;
             const auto trimInput = [&] {
-                trimmed = input::gInputContextD2DE70.utf8();
-                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed.data(), " "));
-                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed.data(), cg::text::FromGbk("\x81\x40").c_str()));
+                trimmed = input::ContextText(input::gInputContextD2DE70);
+                static_cast<void>(std::erase(trimmed, L' '));
+                // 原删除集合字节仍按GBK解码，直接处理宽正文。
+                for (const wchar_t character : cg::text::FromGbkWide("\x81\x40")) {
+                    static_cast<void>(std::erase(trimmed, character));
+                }
             };
             bool send = false;
             std::int32_t notice = -1;
             const auto flags = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
-                if (input::Sub_45E770(input::gInputContextD2DE70.utf8().c_str()) == 1) {
+                if (input::Sub_45E770(input::ContextText(input::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     trimInput();
-                    if (std::strlen(trimmed.c_str()) == 0
+                    if (trimmed.empty()
                         && input::gInputContextD2DE70.length() != 0) {
                         notice = 1;
                     } else {
@@ -32321,9 +32317,9 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 }
             } else if (!input::gInputContextD2DE70.empty()) {
                 trimInput();
-                if (std::strlen(trimmed.c_str()) == 0) {
+                if (trimmed.empty()) {
                     notice = 1;
-                } else if (input::Sub_45E770(input::gInputContextD2DE70.utf8().c_str()) == 1) {
+                } else if (input::Sub_45E770(input::ContextText(input::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     send = true;
@@ -33460,7 +33456,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
         hideControls = true;
     } else if (gSelectionModeD2D650 == 4 && expired()) {
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            inputUtf8View = input::gInputContextD2DE70.utf8();
+            inputUtf8View = cg::text::FromUtf16(input::ContextText(input::gInputContextD2DE70));
             requestText = inputUtf8View.c_str();
         } else {
             buffer[0] = '\0';
@@ -33788,7 +33784,7 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
         std::sprintf(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
         increments.append(cg::text::ToUtf16(buffer));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::ToUtf16(gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : cg::text::ToUtf16(input::LegacyText593850());
     const std::int32_t imageResult = gCraftResultCC46D8;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -34018,7 +34014,7 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
         std::sprintf(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
         increments.append(cg::text::ToUtf16(buffer));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::ToUtf16(gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : cg::text::ToUtf16(input::LegacyText593850());
     const std::int32_t imageResult = gItemWorkResultCB05FC;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -34781,7 +34777,7 @@ std::int32_t Sub_486E50(const std::int32_t index, const std::int32_t state)
     WindowInstance* window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : kWindow12Cancel586A00);
+        gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : kWindow12Cancel586A00;
         window = gCurrentWindow;
     }
     std::int32_t consumed = 0;
@@ -34910,13 +34906,13 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
         case 0:
         case 1: {
             cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
-            const char* text = nullptr;
+            const wchar_t* text = nullptr;
             if (kind == 0) {
                 text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AF0 : kWindow13Text586AE0;
             } else {
                 text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AD0 : kWindow13Text586AC0;
             }
-            static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(text);
+            static_cast<WindowTextData*>(window->elements[5].data)->text = text;
             break;
         }
         case 2:
@@ -34925,21 +34921,21 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, kWindow13Text586A94, gWindow13ValueD2DBF0);
             } else {
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70);
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586AAC, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48);
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48;
             } else if (gWindow13ValueD2DBF0 == 0) {
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
                 static_cast<WindowTextData*>(window->elements[5].data)->text = kWindow13Text586A80;
             } else {
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586A34, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
                 const std::int32_t value = gWindow13ValueD2DBF0;
-                static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(value == 3 ? kWindow13Text586A1C
-                    : value == 2 ? kWindow13Text586A0C : input::LegacyText593850());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? kWindow13Text586A1C
+                    : value == 2 ? kWindow13Text586A0C : cg::text::ToUtf16(input::LegacyText593850());
             }
             break;
         default:
@@ -36694,7 +36690,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(*rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
+        gHoverTextD68AE8 = *rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
     }
     if ((state & 2) != 0) {
         Sub_496F10();
@@ -38314,8 +38310,8 @@ std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
     const std::uint8_t rebirth = gValue5F9754;
     const bool hover = (state & 1) != 0;
     if (hover) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(rebirth != 0
-            ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
+        gHoverTextD68AE8 = rebirth != 0
+            ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
     }
     std::int32_t consumed = 0;
     if (gValueD67AFC != 0) {
@@ -38870,7 +38866,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(record->techniques3C[technique].value8C != 0 ? kSkillUsable586518 : kSkillUnusable5864FC);
+        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? kSkillUsable586518 : kSkillUnusable5864FC;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
             if (world::detail::IsPlayerFpLessThan(cost)) {
@@ -41743,7 +41739,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
         const bool hover = (state & 1) != 0;
         if (hover) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(hasMail != 0 ? kStatusNewMail556D24 : kStatusNoMail556D14);
+            gHoverTextD68AE8 = hasMail != 0 ? kStatusNewMail556D24 : kStatusNoMail556D14;
             if (hasMail == 0) {
                 return 0;
             }
@@ -41778,10 +41774,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         const std::int32_t petIndex = target - 10;
         if (hover) {
             if (injury != 0) {
-                const char* const text = injury <= 25 ? kStatusPlayerInjury556E00
+                const wchar_t* const text = injury <= 25 ? kStatusPlayerInjury556E00
                     : injury <= 50 ? kStatusPlayerInjury556DF0
                     : injury <= 75 ? kStatusPlayerInjury556DE0 : kStatusPlayerInjury556DC8;
-                gHoverTextD68AE8 = cg::text::ToUtf16(text);
+                gHoverTextD68AE8 = text;
             } else if (target == -1) {
                 gHoverTextD68AE8 = kStatusHealthy556D68;
             } else {
@@ -42506,7 +42502,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         if ((state & 1) != 0) {
             setImage(0x3B588);
             const std::int32_t follow = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex(row)].follow6D4;
-            gHoverTextD68AE8 = cg::text::ToUtf16(follow != 0 ? kPetFollowingHint586CF0 : kPetFollowHint586CD8);
+            gHoverTextD68AE8 = follow != 0 ? kPetFollowingHint586CF0 : kPetFollowHint586CD8;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -42543,7 +42539,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         const std::int32_t row = index - 231;
         if ((state & 1) != 0) {
             setImage(0x3B58B);
-            gHoverTextD68AE8 = cg::text::ToUtf16(states[petIndex(row)] == 1 ? kPetReadiedHint586C94 : kPetReadyHint586C78);
+            gHoverTextD68AE8 = states[petIndex(row)] == 1 ? kPetReadiedHint586C94 : kPetReadyHint586C78;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -42587,7 +42583,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         const std::int32_t row = index - 236;
         if ((state & 1) != 0) {
             setImage(0x3B58E);
-            gHoverTextD68AE8 = cg::text::ToUtf16(states[petIndex(row)] == 2 ? kPetBattlingHint586C5C : kPetBattleHint586C40);
+            gHoverTextD68AE8 = states[petIndex(row)] == 2 ? kPetBattlingHint586C5C : kPetBattleHint586C40;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -42617,7 +42613,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
         const std::int32_t row = index - 241;
         if ((state & 1) != 0) {
             setImage(0x3B591);
-            gHoverTextD68AE8 = cg::text::ToUtf16(states[petIndex(row)] == 3 ? kPetPlacedHint586C28 : kPetPlaceHint586C14);
+            gHoverTextD68AE8 = states[petIndex(row)] == 3 ? kPetPlacedHint586C28 : kPetPlaceHint586C14;
             consumed = 1;
         }
         if ((state & 2) == 0) {
@@ -42901,20 +42897,19 @@ std::uint32_t Sub_48F8F0()
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
         return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
-    // 原复制段在测长前固定elements或data；二者取样阶段不能合并。
-    const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
+    // 保留原复制段对elements或data的取样阶段；正文直接使用UTF-16。
+    const auto copyTextAfterScan = [](const std::int32_t element, const std::wstring_view text) {
         WindowElement* const elements = gCurrentWindow->elements;
-        const std::size_t length = std::strlen(text) + 1;
         auto* const data = static_cast<WindowTextData*>(elements[element].data);
-        data->text = cg::text::ToUtf16(text);
+        data->text = text;
     };
-    const auto copyTextBeforeScan = [](const std::int32_t element, const char* const text) {
+    const auto copyTextBeforeScan = [](const std::int32_t element, const std::wstring_view text) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
-        const std::size_t length = std::strlen(text) + 1;
-        data->text = cg::text::ToUtf16(text);
+        const std::size_t length = text.size() + 1;
+        data->text = text;
         return length;
     };
-    char buffer[768];
+    std::wstring buffer;
     if (selectedPet().used != 0) {
         constexpr std::int32_t visibleElements[] {9, 11, 12, 13, 14, 15, 16, 17, 20, 10, 18, 19};
         for (const std::int32_t element : visibleElements) {
@@ -42924,20 +42919,18 @@ std::uint32_t Sub_48F8F0()
         input::InputContext* const activeInput = input::gCurrentInputData;
         if (activeInput == &input::gInputContextD2D4A0) {
             gCurrentWindow->elements[9].visible = 0;
-            const std::string textUtf8View = gPetNameInputPrototype57DCF8.input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-            const std::size_t length = std::strlen(text) + 1;
+            const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* const window = gCurrentWindow;
-            gLoginWindowRuntime.petNameDraftD45E74 = cg::text::ToUtf16(text);
+            gLoginWindowRuntime.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
             gCurrentWindow->elements[9].visible = 1;
             if (customName) {
-                static_cast<void>(copyTextBeforeScan(9, cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74).c_str()));
+                static_cast<void>(copyTextBeforeScan(9, gLoginWindowRuntime.petNameDraftD45E74));
             } else {
-                copyTextAfterScan(9, cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74).c_str());
+                copyTextAfterScan(9, gLoginWindowRuntime.petNameDraftD45E74);
             }
             const auto& compared = selectedPet();
             const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
@@ -42952,20 +42945,20 @@ std::uint32_t Sub_48F8F0()
 
         if ((selectedPet().values0C[5] == -1)) {
             const std::int32_t experience = selectedPet().values0C[4].value();
-            std::sprintf(buffer, "%8d/       -", experience);
+            buffer = std::format(L"{:>8}/       -", experience);
         } else {
             const std::int32_t nextExperience = selectedPet().values0C[5].value();
             const std::int32_t experience = selectedPet().values0C[4].value();
-            std::sprintf(buffer, "%8d/%8d", experience, nextExperience);
+            buffer = std::format(L"{:>8}/{:>8}", experience, nextExperience);
         }
         copyTextAfterScan(11, buffer);
         const std::int32_t maxHp = selectedPet().values0C[1].value();
         const std::int32_t hp = selectedPet().values0C[0].value();
-        std::sprintf(buffer, "%5d/%5d", hp, maxHp);
+        buffer = std::format(L"{:>5}/{:>5}", hp, maxHp);
         copyTextAfterScan(12, buffer);
         const std::int32_t maxFp = selectedPet().values0C[3].value();
         const std::int32_t fp = selectedPet().values0C[2].value();
-        std::sprintf(buffer, "%5d/%5d", fp, maxFp);
+        buffer = std::format(L"{:>5}/{:>5}", fp, maxFp);
         copyTextAfterScan(13, buffer);
 
         const auto& tribePet = selectedPet();
@@ -42973,19 +42966,18 @@ std::uint32_t Sub_48F8F0()
         const auto tribe = std::bit_cast<std::int16_t>(tribePet.value04);
         WindowElement* const tribeElements = tribeWindow->elements;
         const char* const tribeName = gTribeNames57CB54[tribe];
-        const std::size_t tribeLength = std::strlen(tribeName) + 1;
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[14].data);
         tribeData->text = cg::text::ToUtf16(tribeName);
-        std::sprintf(buffer, "%3d", selectedPet().values70[10]);
+        buffer = std::format(L"{:>3}", selectedPet().values70[10]);
         static_cast<void>(copyTextBeforeScan(15, buffer));
-        std::sprintf(buffer, "%2d", selectedPet().value6A4);
+        buffer = std::format(L"{:>2}", selectedPet().value6A4);
         static_cast<void>(copyTextBeforeScan(16, buffer));
-        std::sprintf(buffer, "%3d", selectedPet().value08);
+        buffer = std::format(L"{:>3}", selectedPet().value08);
         static_cast<void>(copyTextBeforeScan(18, buffer));
         const auto& weightPet = selectedPet();
         const std::int32_t maxWeight = weightPet.values6D8[2];
         const std::int32_t weight = weightPet.values6D8[1];
-        std::sprintf(buffer, "%6d/%6d", weight, maxWeight);
+        buffer = std::format(L"{:>6}/{:>6}", weight, maxWeight);
         static_cast<void>(copyTextBeforeScan(19, buffer));
 
         const auto& imagePet = selectedPet();
@@ -43050,7 +43042,7 @@ std::uint32_t Sub_48F8F0()
         }
         gCurrentWindow->elements[10].visible = 0;
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    buffer = std::format(L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
 }
 
@@ -43075,11 +43067,7 @@ std::int32_t Sub_48D9A0(const std::int32_t value)
         static_cast<void>(Sub_492350());
         Sub_492280();
         Sub_492260();
-        const std::string textUtf8View = cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74);
-    const char* const text = textUtf8View.c_str();
-        const std::size_t length = std::strlen(text) + 1;
-        const std::size_t bulk = length & ~std::size_t{3};
-        gPetNameInputPrototype57DCF8.text = cg::text::ToUtf16(text);
+        gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
@@ -43104,25 +43092,24 @@ std::uint32_t Sub_490780()
             world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
         return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
-    const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
+    const auto copyTextAfterScan = [](const std::int32_t element, const std::wstring_view text) {
         WindowElement* const elements = gCurrentWindow->elements;
-        const std::size_t length = std::strlen(text) + 1;
         auto* const data = static_cast<WindowTextData*>(elements[element].data);
-        data->text = cg::text::ToUtf16(text);
+        data->text = text;
     };
-    const auto copyTextBeforeScan = [](const std::int32_t element, const char* const text) {
+    const auto copyTextBeforeScan = [](const std::int32_t element, const std::wstring_view text) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
-        const std::size_t length = std::strlen(text) + 1;
-        data->text = cg::text::ToUtf16(text);
+        const std::size_t length = text.size() + 1;
+        data->text = text;
         return length;
     };
     constexpr std::int32_t valueElements[] {
         14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
         29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
     };
-    char buffer[768];
+    std::wstring buffer;
     const auto writeNumber = [&](const std::int32_t element, const std::int32_t value) {
-        std::sprintf(buffer, "%3d", value);
+        buffer = std::format(L"{:>3}", value);
         static_cast<void>(copyTextBeforeScan(element, buffer));
     };
     if (selectedPet().used != 0) {
@@ -43139,21 +43126,19 @@ std::uint32_t Sub_490780()
             } else {
                 originalNameElements[14].visible = 0;
             }
-            const std::string textUtf8View = gPetNameInputPrototype57DCF8.input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-            const std::size_t length = std::strlen(text) + 1;
+            const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* const window = gCurrentWindow;
-            gLoginWindowRuntime.petNameDraftD45E74 = cg::text::ToUtf16(text);
+            gLoginWindowRuntime.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
             if (customName) {
                 gCurrentWindow->elements[14].visible = 1;
-                static_cast<void>(copyTextBeforeScan(14, cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74).c_str()));
+                static_cast<void>(copyTextBeforeScan(14, gLoginWindowRuntime.petNameDraftD45E74));
             } else {
                 originalNameElements[14].visible = 1;
-                copyTextAfterScan(14, cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74).c_str());
+                copyTextAfterScan(14, gLoginWindowRuntime.petNameDraftD45E74);
             }
             const auto& compared = selectedPet();
             const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
@@ -43169,11 +43154,11 @@ std::uint32_t Sub_490780()
         writeNumber(15, selectedPet().value08);
         const std::int32_t maxHp = selectedPet().values0C[1].value();
         const std::int32_t hp = selectedPet().values0C[0].value();
-        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+        buffer = std::format(L"{:>4}/{:>4}", hp, maxHp);
         copyTextAfterScan(16, buffer);
         const std::int32_t maxFp = selectedPet().values0C[3].value();
         const std::int32_t fp = selectedPet().values0C[2].value();
-        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+        buffer = std::format(L"{:>4}/{:>4}", fp, maxFp);
         copyTextAfterScan(17, buffer);
         writeNumber(19, selectedPet().lvFlag6C);
         for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
@@ -43214,7 +43199,7 @@ std::uint32_t Sub_490780()
             gCurrentWindow->elements[element].visible = 0;
         }
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    buffer = std::format(L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(18, buffer));
 }
 
@@ -43268,18 +43253,14 @@ WindowElement* Sub_491AA0()
         input::InputContext* const activeInput = input::gCurrentInputData;
         if (activeInput == &input::gInputContextD2D4A0) {
             gCurrentWindow->elements[11].visible = 0;
-            const std::string textUtf8View = gPetNameInputPrototype57DCF8.input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-            const std::size_t length = std::strlen(text) + 1;
+            const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* window;
             if (customName) {
-                const std::size_t bulk = length & ~std::size_t{3};
-                gLoginWindowRuntime.petNameDraftD45E74 = cg::text::ToUtf16(text);
+                gLoginWindowRuntime.petNameDraftD45E74 = text;
                 window = gCurrentWindow;
-                static_cast<void>(0);
             } else {
                 window = gCurrentWindow;
-                gLoginWindowRuntime.petNameDraftD45E74 = cg::text::ToUtf16(text);
+                gLoginWindowRuntime.petNameDraftD45E74 = text;
             }
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
@@ -43905,11 +43886,7 @@ std::int32_t Sub_48F380(const std::int32_t index, const std::int32_t state)
     if ((state & 2) == 0) {
         return 0;
     }
-    const std::string textUtf8View = cg::text::FromUtf16(gLoginWindowRuntime.petNameDraftD45E74);
-    const char* const text = textUtf8View.c_str();
-    const std::size_t length = std::strlen(text) + 1;
-    const std::size_t whole = length & ~std::size_t{3};
-    gPetNameInputPrototype57DCF8.text = cg::text::ToUtf16(text);
+    gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
@@ -44126,8 +44103,8 @@ std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
         const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
         if ((state & 1) != 0) {
             setImage(hover);
-            gHoverTextD68AE8 = cg::text::ToUtf16(index == 17 ? kTitleStatusHint5858D8
-                            : index == 18 ? kTitleDetailsHint5858C0 : kTitleProfileHint58637C);
+            gHoverTextD68AE8 = index == 17 ? kTitleStatusHint5858D8
+                            : index == 18 ? kTitleDetailsHint5858C0 : kTitleProfileHint58637C;
             consumed = 1;
         } else {
             setImage(idle);
@@ -44326,9 +44303,6 @@ void RefreshOwnProfileEntry(
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(Sub_476570(prototype, x, y, 1));
-        const std::string textUtf8View = prototype->input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-        const std::size_t length = std::strlen(text) + 1;
         cg::text::StoreGbk(current.text08.data(), current.text08.size(), input::ContextText(*prototype->input.context));
         return;
     }
@@ -44415,26 +44389,15 @@ void Sub_478A10()
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(Sub_476570(&gOwnProfileInputPrototype57D578, x, y, 1));
-        const std::string textUtf8View = gOwnProfileInputPrototype57D578.input.context->utf8();
-        const char* const text = textUtf8View.c_str();
-        const std::size_t length = std::strlen(text) + 1;
         cg::text::StoreGbk(current.text728.data(), current.text728.size(), input::ContextText(*gOwnProfileInputPrototype57D578.input.context));
     } else {
-        char line[1024];
+        std::wstring line;
         for (std::int32_t index = 0; index < 4; ++index) {
             static_cast<void>(input::ExtractGbkTextLine(
-                line, 1024, current.text728.data(), index, 28));
+                line, current.text728.data(), index, 28));
             WindowElement* const elements = gCurrentWindow->elements;
-            WindowTextData* data;
-            std::size_t length;
-            if (index == 0) {
-                length = std::strlen(line) + 1;
-                data = static_cast<WindowTextData*>(elements[index + 12].data);
-            } else {
-                data = static_cast<WindowTextData*>(elements[index + 12].data);
-                length = std::strlen(line) + 1;
-            }
-            data->text = cg::text::ToUtf16(line);
+            auto* const data = static_cast<WindowTextData*>(elements[index + 12].data);
+            data->text = line;
         }
         for (std::int32_t index = 12; index < 16; ++index) {
             gCurrentWindow->elements[index].visible = 1;
@@ -44545,16 +44508,12 @@ void Sub_478010()
     if (input::gCurrentInputData != &input::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
         auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
-        const std::size_t draftLength = gTitleDraftD45FC0.size() + 1;
         draftData->text = gTitleDraftD45FC0;
         const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2))) == 0;
         auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         colorData->bytes00[0] = unchanged ? std::byte{0} : std::byte{6};
     } else {
-        const std::string editedUtf8View = gTitleInputPrototype57CCB8.input.context->utf8();
-        const char* const edited = editedUtf8View.c_str();
-        const std::size_t editedLength = std::strlen(edited) + 1;
-        gTitleDraftD45FC0 = cg::text::ToUtf16(edited);
+        gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
         gCurrentWindow->elements[8].visible = 0;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;

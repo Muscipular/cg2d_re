@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace cg::platform {
 
@@ -63,6 +64,8 @@ void UnlockGlobalMemory(void* memory);
 void FreeGlobalMemory(void* memory);
 // 原 OutputDebugStringA 窄字节边界；保留兼容字节，不猜测编码或改写消息。
 void WriteLegacyDebugString(const char* message);
+// Unicode诊断直接交Win32 W边界；原窄字节入口保留。
+void WriteLegacyDebugString(std::wstring_view message);
 // 原函数：0x004669F0。
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 // 原函数：0x00466D50。

@@ -28,6 +28,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <exception>
+#include <format>
 #include <limits>
 #include <new>
 #include <utility>
@@ -55,24 +56,12 @@ std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
 std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
 std::uint32_t gScreenshotTickD68A78 = 0; // 原全局：0x00D68A78。
 
-constexpr char kScreenshotWriteFailure556598[] = // 原常量参考：0x00556598。
-    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
-    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x37\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotSuccess5565BC[] = // 原常量参考：0x005565BC。
-    "\x89\xE6\x3F\x82\xF0\x95\xDB\x91\xB6\x82\xB5\x82\xDC\x82\xB5\x82"
-    "\xBD\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotDibFailure5565D4[] = // 原常量参考：0x005565D4。
-    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
-    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x34\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotBlitFailure5565F8[] = // 原常量参考：0x005565F8。
-    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
-    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x33\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotBitmapFailure55661C[] = // 原常量参考：0x0055661C。
-    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
-    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x32\x29\x81\x42\x28\x25\x73\x29";
-constexpr char kScreenshotDcFailure556640[] = // 原常量参考：0x00556640。
-    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
-    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x31\x29\x81\x42\x28\x25\x73\x29";
+constexpr wchar_t kScreenshotWriteFailure556598[] = L"畫面儲存失敗(7)。({})"; // 原常量参考：0x00556598。
+constexpr wchar_t kScreenshotSuccess5565BC[] = L"畫面已儲存。({})"; // 原常量参考：0x005565BC。
+constexpr wchar_t kScreenshotDibFailure5565D4[] = L"畫面儲存失敗(G4)。({})"; // 原常量参考：0x005565D4。
+constexpr wchar_t kScreenshotBlitFailure5565F8[] = L"畫面儲存失敗(G3)。({})"; // 原常量参考：0x005565F8。
+constexpr wchar_t kScreenshotBitmapFailure55661C[] = L"畫面儲存失敗(G2)。({})"; // 原常量参考：0x0055661C。
+constexpr wchar_t kScreenshotDcFailure556640[] = L"畫面儲存失敗(G1)。({})"; // 原常量参考：0x00556640。
 constexpr wchar_t kScreenshotLimit5566F4[] = // 原常量参考：0x005566F4。
     L"今天已經不能存取更多的畫面了。";
 const std::string kScreenshotLimit5566F4Utf8View = cg::text::FromUtf16(kScreenshotLimit5566F4); // 旧窄接口只读兼容视图。
@@ -515,21 +504,21 @@ void TakeScreenshot_453760()
     bitmapInfo.bmiHeader.biBitCount = 24;
     auto* const pixels = static_cast<std::uint8_t*>(std::malloc(0x12C000));
     const HDC compatible = CreateCompatibleDC(desktop);
-    char message[256];
+    std::wstring message;
     if (compatible == nullptr) {
-        std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotDcFailure556640).c_str(), cg::text::FromGbk(path).c_str());
+        message = std::format(kScreenshotDcFailure556640, cg::text::FromGbkWide(path));
     } else {
         const HBITMAP bitmap = CreateCompatibleBitmap(desktop, 640, 480);
         if (bitmap == nullptr) {
-            std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotBitmapFailure55661C).c_str(), cg::text::FromGbk(path).c_str());
+            message = std::format(kScreenshotBitmapFailure55661C, cg::text::FromGbkWide(path));
         } else {
             const HGDIOBJ previous = SelectObject(compatible, bitmap);
             if (!BitBlt(compatible, 0, 0, 640, 480, desktop, origin.x, origin.y, SRCCOPY)) {
-                std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotBlitFailure5565F8).c_str(), cg::text::FromGbk(path).c_str());
+                message = std::format(kScreenshotBlitFailure5565F8, cg::text::FromGbkWide(path));
             } else {
                 static_cast<void>(SelectObject(compatible, previous));
                 if (GetDIBits(compatible, bitmap, 0, 480, pixels, &bitmapInfo, DIB_RGB_COLORS) == 0) {
-                    std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotDibFailure5565D4).c_str(), cg::text::FromGbk(path).c_str());
+                    message = std::format(kScreenshotDibFailure5565D4, cg::text::FromGbkWide(path));
                 } else {
                     static_cast<void>(DeleteObject(bitmap));
                     // 保留原成功支路的释放参数及失败残留，详见截图局部适配裁决。
@@ -538,15 +527,15 @@ void TakeScreenshot_453760()
                     static_cast<void>(ReleaseDC(
                         reinterpret_cast<HWND>(platform::gLegacyWindow), desktop));
                     if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path) != 0) {
-                        std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotSuccess5565BC).c_str(), cg::text::FromGbk(path).c_str());
+                        message = std::format(kScreenshotSuccess5565BC, cg::text::FromGbkWide(path));
                     } else {
-                        std::sprintf(message, cg::text::FromLegacyDisplay(kScreenshotWriteFailure556598).c_str(), cg::text::FromGbk(path).c_str());
+                        message = std::format(kScreenshotWriteFailure556598, cg::text::FromGbkWide(path));
                     }
                 }
             }
         }
     }
-    world::detail::Sub_44B050(message, 4, 3);
+    world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
     std::free(pixels);
 }
 

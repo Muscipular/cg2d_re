@@ -190401,6 +190401,21 @@
       "scope": "修正wstring判空、转义UTF-8误截断、登录成组保存及聊天GBK容量，移除三条文字长度断言。",
       "complete_gates_changed": false,
       "build_verified": false
+    },
+    "unicode_build_fixes_20261014": {
+      "decision_ref": "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
+      "source_evidence": "doc/cg2d_unicode_utf16_evidence.json",
+      "scope": "宽接口／回调／常量表编译修正，中文宽文案、去冗余往返及InputContext周边接口迁宽。",
+      "build": {
+        "configuration": "Debug",
+        "preset": "windows-msvc-x64-debug",
+        "entry": "build.bat Debug",
+        "exit_code": 0,
+        "compiled": true,
+        "linked": true
+      },
+      "runtime_verified": false,
+      "complete_gates_changed": false
     }
   }
 }

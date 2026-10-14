@@ -45,6 +45,7 @@
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BFC0、0x0053BE40、0x0053BEC0、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <cstring>
+#include <format>
 #include <memory>
 #include <optional>
 #include <tuple>
@@ -34980,9 +34981,8 @@ const std::string kFullBlacklist553294Utf8View = cg::text::FromUtf16(kFullBlackl
                     return;
                 }
                 char message[128];
-                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) == 0) {
-                    const std::int8_t added = blacklist::AddBlacklistRecord_401270(
-                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
+                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
+                    const std::int8_t added = blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
                     std::sprintf(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0,
                         cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 } else {
@@ -34995,9 +34995,8 @@ const std::string kFullBlacklist553294Utf8View = cg::text::FromUtf16(kFullBlackl
                     return;
                 }
                 char message[128];
-                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) != 0) {
-                    const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(
-                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
+                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
+                    const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
                     std::sprintf(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8,
                         cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 } else {

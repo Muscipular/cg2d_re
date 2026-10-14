@@ -161,7 +161,7 @@ std::int32_t ProcessCapability3InputAndDraw()
         cg::world::gCurrentSceneState = 8;
         gMessage9A50E8 = kCredentialsPrompt;
         cg::login::gInputContext9A5960.clearText();
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::login::gInputContext9A5960.utf8().c_str()));
+        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(cg::login::gInputContext9A5960).c_str()));
     }
     return DrawCapability3CommonTail();
 }

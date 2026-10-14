@@ -535,13 +535,9 @@ constexpr wchar_t kLegacySellStopHint588ED8[] = L"不賣。"; // 原常量参考
 constexpr wchar_t kLegacySellAcceptHint588EE0[] = L"賣出。"; // 原常量参考：0x00588EE0。
 constexpr wchar_t kLegacySellQuestion588EE8[] = L"賣出以上物品。可以嗎？"; // 原常量参考：0x00588EE8。
 constexpr char kLegacySellSummary588F00[] = "持有金額  %7d 金幣   賣出金額  %7d 金幣"; // 原常量参考：0x00588F00。
-constexpr char kLegacySellQuantity588F28Raw[] = "\x25\x73\x28\x25\x64\x81\x7E\x25\x64\x29";
-const std::string kLegacySellQuantity588F28Utf8 = cg::text::FromLegacyDisplay(kLegacySellQuantity588F28Raw);
-const char* const kLegacySellQuantity588F28 = kLegacySellQuantity588F28Utf8.c_str(); // 原常量参考：0x00588F28。
+constexpr wchar_t kLegacySellQuantity588F28[] = L"{}({}×{})"; // 原常量参考：0x00588F28。
 
-constexpr char kLegacyBuyUnavailable588E20Raw[] = "\x81\x7E";
-const std::string kLegacyBuyUnavailable588E20Utf8 = cg::text::FromLegacyDisplay(kLegacyBuyUnavailable588E20Raw);
-const char* const kLegacyBuyUnavailable588E20 = kLegacyBuyUnavailable588E20Utf8.c_str(); // 原常量参考：0x00588E20。
+constexpr wchar_t kLegacyBuyUnavailable588E20[] = L"×"; // 原常量参考：0x00588E20。
 constexpr wchar_t kLegacyBuyCancel588E14[] = L"不買了。"; // 原常量参考：0x00588E14。
 constexpr wchar_t kLegacyBuyConfirm588E04[] = L"購買指定物品。"; // 原常量参考：0x00588E04。
 constexpr wchar_t kLegacyBuyDecrease588DD4[] = L"減少此物品之購買數量。"; // 原常量参考：0x00588DD4。
@@ -916,17 +912,11 @@ constexpr wchar_t kLegacyStoragePetPut5892B4[] = L"存放這隻寵物。"; // �
 constexpr wchar_t kLegacyStoragePetCanPut5892A0[] = L"此寵物可以存放。"; // 原常量参考：0x005892A0。
 constexpr wchar_t kLegacyStoragePetFull58928C[] = L"無法再存放寵物。"; // 原常量参考：0x0058928C。
 constexpr wchar_t kLegacyStorageItemTab589214[] = L"物品存放與取出。"; // 原常量参考：0x00589214。
-const std::string kLegacyStorageItemTab589214Utf8View = cg::text::FromUtf16(kLegacyStorageItemTab589214); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyStoragePetTab589200[] = L"寵物存放與取出。"; // 原常量参考：0x00589200。
-const std::string kLegacyStoragePetTab589200Utf8View = cg::text::FromUtf16(kLegacyStoragePetTab589200); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyStorageDepositTab5891F8[] = L"存錢。"; // 原常量参考：0x005891F8。
-const std::string kLegacyStorageDepositTab5891F8Utf8View = cg::text::FromUtf16(kLegacyStorageDepositTab5891F8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyStorageWithdrawTab5891F0[] = L"領錢。"; // 原常量参考：0x005891F0。
-const std::string kLegacyStorageWithdrawTab5891F0Utf8View = cg::text::FromUtf16(kLegacyStorageWithdrawTab5891F0); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyStorageConfirm5891C4[] = L"確定。"; // 原常量参考：0x005891C4。
-const std::string kLegacyStorageConfirm5891C4Utf8View = cg::text::FromUtf16(kLegacyStorageConfirm5891C4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyStorageCancel5891BC[] = L"取消。"; // 原常量参考：0x005891BC。
-const std::string kLegacyStorageCancel5891BCUtf8View = cg::text::FromUtf16(kLegacyStorageCancel5891BC); // 旧窄接口只读兼容视图。
 constexpr char kLegacyStorageItemCount5891D4[] = "%2d 個"; // 原常量参考：0x005891D4。
 constexpr char kLegacyStoragePetCount5891CC[] = "%d 隻"; // 原常量参考：0x005891CC。
 
@@ -1222,9 +1212,7 @@ std::int32_t gLegacyEngravingHover58309C = -1; // 原全局：0x0058309C。
 std::int32_t gLegacyEngravingPageC8AA9C = 0; // 原全局：0x00C8AA9C。
 std::int32_t gLegacyEngravingTargetCC1A14 = 0; // 原全局：0x00CC1A14。
 constexpr wchar_t kLegacyEngravingSelect5895C0[] = L"刻印此道具。"; // 原常量参考：0x005895C0。
-const std::string kLegacyEngravingSelect5895C0Utf8View = cg::text::FromUtf16(kLegacyEngravingSelect5895C0); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyEngravingReject5895AC[] = L"這個道具無法刻印。"; // 原常量参考：0x005895AC。
-const std::string kLegacyEngravingReject5895ACUtf8View = cg::text::FromUtf16(kLegacyEngravingReject5895AC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyEngravingClose5868EC[] = L"關閉此視窗"; // 原常量参考：0x005868EC。
 const std::string kLegacyEngravingClose5868ECUtf8View = cg::text::FromUtf16(kLegacyEngravingClose5868EC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyEngravingChoose589594[] = L"請選擇要刻印的道具。"; // 原常量参考：0x00589594。
@@ -1330,87 +1318,43 @@ constexpr std::array<std::int32_t, 17> kLegacyGuildStatusImages58F054 { // 原�
     23110, 23120, 23121, 23122, 23123, 23124, 23125, 23126, 23127,
     23128, 23129, 23130, 23131, 23132, 23133, 23134, 23135,
 };
-constexpr char kLegacyGuildClose58F248Raw[] = "\x82\xB1\x82\xCC\x83\x45\x83\x42\x3F\x83\x68\x83\x45\x82\xF0\x95\xC2\x82\xB6\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildClose58F248Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildClose58F248Raw);
-const char* const kLegacyGuildClose58F248 = kLegacyGuildClose58F248Utf8.c_str(); // 原常量参考：0x0058F248。
-constexpr char kLegacyGuildPage58F2D4Raw[] = "\x83\x79\x81\x5B\x83\x57\x82\xF0\x90\xD8\x82\xE8\x91\xD6\x82\xA6\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildPage58F2D4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPage58F2D4Raw);
-const char* const kLegacyGuildPage58F2D4 = kLegacyGuildPage58F2D4Utf8.c_str(); // 原常量参考：0x0058F2D4。
-constexpr char kLegacyGuildSort58F4A8Raw[] = "\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x95\x5C\x8E\xA6\x3F\x94\xD4\x82\xF0\x83\x5C\x81\x5B\x83\x67\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildSort58F4A8Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSort58F4A8Raw);
-const char* const kLegacyGuildSort58F4A8 = kLegacyGuildSort58F4A8Utf8.c_str(); // 原常量参考：0x0058F4A8。
-constexpr char kLegacyGuildDetails58F490Raw[] = "\x83\x4D\x3F\x83\x68\x8F\xDA\x8D\xD7\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildDetails58F490Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDetails58F490Raw);
-const char* const kLegacyGuildDetails58F490 = kLegacyGuildDetails58F490Utf8.c_str(); // 原常量参考：0x0058F490。
-constexpr char kLegacyGuildContacts58F474Raw[] = "\x83\x41\x83\x68\x3F\x83\x58\x83\x75\x83\x62\x83\x4E\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildContacts58F474Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildContacts58F474Raw);
-const char* const kLegacyGuildContacts58F474 = kLegacyGuildContacts58F474Utf8.c_str(); // 原常量参考：0x0058F474。
-constexpr char kLegacyGuildSend58F2ECRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildSend58F2ECUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildSend58F2ECRaw);
-const char* const kLegacyGuildSend58F2EC = kLegacyGuildSend58F2ECUtf8.c_str(); // 原常量参考：0x0058F2EC。
-constexpr char kLegacyGuildRead58F44CRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRead58F44CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRead58F44CRaw);
-const char* const kLegacyGuildRead58F44C = kLegacyGuildRead58F44CUtf8.c_str(); // 原常量参考：0x0058F44C。
-constexpr char kLegacyGuildRemove58F42CRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRemove58F42CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRemove58F42CRaw);
-const char* const kLegacyGuildRemove58F42C = kLegacyGuildRemove58F42CUtf8.c_str(); // 原常量参考：0x0058F42C。
-constexpr char kLegacyGuildRank58F410Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRank58F410Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRank58F410Raw);
-const char* const kLegacyGuildRank58F410 = kLegacyGuildRank58F410Utf8.c_str(); // 原常量参考：0x0058F410。
+constexpr wchar_t kLegacyGuildClose58F248[] = L"關閉此視窗。"; // 原常量参考：0x0058F248。
+constexpr wchar_t kLegacyGuildPage58F2D4[] = L"切換頁面。"; // 原常量参考：0x0058F2D4。
+constexpr wchar_t kLegacyGuildSort58F4A8[] = L"變更家族成員的顯示順序。"; // 原常量参考：0x0058F4A8。
+constexpr wchar_t kLegacyGuildDetails58F490[] = L"顯示家族詳細資料。"; // 原常量参考：0x0058F490。
+constexpr wchar_t kLegacyGuildContacts58F474[] = L"顯示名片簿。"; // 原常量参考：0x0058F474。
+constexpr wchar_t kLegacyGuildSend58F2EC[] = L"寄信給這位家族成員。"; // 原常量参考：0x0058F2EC。
+constexpr wchar_t kLegacyGuildRead58F44C[] = L"查看與這位家族成員的通信記錄。"; // 原常量参考：0x0058F44C。
+constexpr wchar_t kLegacyGuildRemove58F42C[] = L"剔除這位家族成員。"; // 原常量参考：0x0058F42C。
+constexpr wchar_t kLegacyGuildRank58F410[] = L"變更家族稱號。"; // 原常量参考：0x0058F410。
 LegacyPanelRecord gLegacyGuildSortPanel58EEC8 { // 原全局：0x0058EEC8。
     0, 0, 192, 254, 93, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSortFirst58F408Raw[] = "\x93\x6F\x98\x5E\x3F";
-const std::string kLegacyGuildSortFirst58F408Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortFirst58F408Raw);
-const char* const kLegacyGuildSortFirst58F408 = kLegacyGuildSortFirst58F408Utf8.c_str(); // 原常量参考：0x0058F408。
-constexpr char kLegacyGuildSortSecond58F400Raw[] = "\x82\x54\x82\x4F\x89\xB9\x3F";
-const std::string kLegacyGuildSortSecond58F400Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortSecond58F400Raw);
-const char* const kLegacyGuildSortSecond58F400 = kLegacyGuildSortSecond58F400Utf8.c_str(); // 原常量参考：0x0058F400。
-constexpr char kLegacyGuildSortThird58F3F4Raw[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F";
-const std::string kLegacyGuildSortThird58F3F4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortThird58F3F4Raw);
-const char* const kLegacyGuildSortThird58F3F4 = kLegacyGuildSortThird58F3F4Utf8.c_str(); // 原常量参考：0x0058F3F4。
+constexpr wchar_t kLegacyGuildSortFirst58F408[] = L"登錄順序"; // 原常量参考：0x0058F408。
+constexpr wchar_t kLegacyGuildSortSecond58F400[] = L"名稱順序"; // 原常量参考：0x0058F400。
+constexpr wchar_t kLegacyGuildSortThird58F3F4[] = L"在線狀態"; // 原常量参考：0x0058F3F4。
 LegacyPanelRecord gLegacyGuildDeletePanel58EE00 { // 原全局：0x0058EE00。
     0, 0, 320, 240, 92, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildDeleteYes58F3ECRaw[] = "\x82\xCD\x82\xA2";
-const std::string kLegacyGuildDeleteYes58F3ECUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteYes58F3ECRaw);
-const char* const kLegacyGuildDeleteYes58F3EC = kLegacyGuildDeleteYes58F3ECUtf8.c_str(); // 原常量参考：0x0058F3EC。
-constexpr char kLegacyGuildDeleteNo58F3E4Raw[] = "\x82\xA2\x82\xA2\x82\xA6";
-const std::string kLegacyGuildDeleteNo58F3E4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteNo58F3E4Raw);
-const char* const kLegacyGuildDeleteNo58F3E4 = kLegacyGuildDeleteNo58F3E4Utf8.c_str(); // 原常量参考：0x0058F3E4。
+constexpr wchar_t kLegacyGuildDeleteYes58F3EC[] = L"是"; // 原常量参考：0x0058F3EC。
+constexpr wchar_t kLegacyGuildDeleteNo58F3E4[] = L"否"; // 原常量参考：0x0058F3E4。
 constexpr wchar_t kLegacyGuildDeleteDenied58F3C8[] = L"你沒有剔除家族成員的權限"; // 原常量参考：0x0058F3C8。
 const std::string kLegacyGuildDeleteDenied58F3C8Utf8View = cg::text::FromUtf16(kLegacyGuildDeleteDenied58F3C8); // 旧窄接口只读兼容视图。
-constexpr char kLegacyGuildDeleteLead58F3B8Raw[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7";
-const std::string kLegacyGuildDeleteLead58F3B8Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteLead58F3B8Raw);
-const char* const kLegacyGuildDeleteLead58F3B8 = kLegacyGuildDeleteLead58F3B8Utf8.c_str(); // 原常量参考：0x0058F3B8。
-constexpr char kLegacyGuildDeleteEnd58F3ACRaw[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7";
-const std::string kLegacyGuildDeleteEnd58F3ACUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteEnd58F3ACRaw);
-const char* const kLegacyGuildDeleteEnd58F3AC = kLegacyGuildDeleteEnd58F3ACUtf8.c_str(); // 原常量参考：0x0058F3AC。
-constexpr char kLegacyGuildDeleteHint58F3A0Raw[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildDeleteHint58F3A0Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteHint58F3A0Raw);
-const char* const kLegacyGuildDeleteHint58F3A0 = kLegacyGuildDeleteHint58F3A0Utf8.c_str(); // 原常量参考：0x0058F3A0。
-constexpr char kLegacyGuildKeepHint58F38CRaw[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildKeepHint58F38CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildKeepHint58F38CRaw);
-const char* const kLegacyGuildKeepHint58F38C = kLegacyGuildKeepHint58F38CUtf8.c_str(); // 原常量参考：0x0058F38C。
+constexpr wchar_t kLegacyGuildDeleteLead58F3B8[] = L"從家族名簿中"; // 原常量参考：0x0058F3B8。
+constexpr wchar_t kLegacyGuildDeleteEnd58F3AC[] = L"刪除此成員"; // 原常量参考：0x0058F3AC。
+constexpr wchar_t kLegacyGuildDeleteHint58F3A0[] = L"確認刪除。"; // 原常量参考：0x0058F3A0。
+constexpr wchar_t kLegacyGuildKeepHint58F38C[] = L"取消刪除。"; // 原常量参考：0x0058F38C。
 LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 { // 原全局：0x0058ED38。
     0, 0, 192, 174, 91, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildNormalMode58F374Raw[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildNormalMode58F374Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildNormalMode58F374Raw);
-const char* const kLegacyGuildNormalMode58F374 = kLegacyGuildNormalMode58F374Utf8.c_str(); // 原常量参考：0x0058F374。
-constexpr char kLegacyGuildPetMode58F358Raw[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildPetMode58F358Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPetMode58F358Raw);
-const char* const kLegacyGuildPetMode58F358 = kLegacyGuildPetMode58F358Utf8.c_str(); // 原常量参考：0x0058F358。
-constexpr char kLegacyGuildReturn58F264Raw[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildReturn58F264Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildReturn58F264Raw);
-const char* const kLegacyGuildReturn58F264 = kLegacyGuildReturn58F264Utf8.c_str(); // 原常量参考：0x0058F264。
+constexpr wchar_t kLegacyGuildNormalMode58F374[] = L"以一般郵件寄送。"; // 原常量参考：0x0058F374。
+constexpr wchar_t kLegacyGuildPetMode58F358[] = L"使用寵物郵件寄送。"; // 原常量参考：0x0058F358。
+constexpr wchar_t kLegacyGuildReturn58F264[] = L"返回家族名簿。"; // 原常量参考：0x0058F264。
 LegacyPanelRecord gLegacyGuildPetPanel58EAE0 { // 原全局：0x0058EAE0。
     0, 0, 272, 238, 88, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyGuildPetIndex1050DB0 = 0; // 原全局：0x01050DB0。 旧88写入、旧87发送消费，独立于普通邮件CC2E60。
-constexpr char kLegacyGuildPetHint58F2B4Raw[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildPetHint58F2B4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPetHint58F2B4Raw);
-const char* const kLegacyGuildPetHint58F2B4 = kLegacyGuildPetHint58F2B4Utf8.c_str(); // 原常量参考：0x0058F2B4。
+constexpr wchar_t kLegacyGuildPetHint58F2B4[] = L"讓這隻寵物運送郵件。"; // 原常量参考：0x0058F2B4。
 // 旧86独立赠品状态；58EA14已加载-1，其余四槽按原虚拟零初始化。
 LegacyPanelRecord gLegacyGuildGiftPanel58E950 { // 原全局：0x0058E950。
     368, 0, 272, 252, 86, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1420,15 +1364,11 @@ std::int32_t gLegacyGuildGiftPage1050DAC = 0; // 原全局：0x01050DAC。
 std::int32_t gLegacyGuildGiftSelected1050DA8 = 0; // 原全局：0x01050DA8。 旧86生产、旧87消费，不能借普通邮件赠品槽。
 std::int32_t gLegacyGuildGiftColumn1050F10 = 0; // 原全局：0x01050F10。
 std::int32_t gLegacyGuildGiftRow1050DC8 = 0; // 原全局：0x01050DC8。
-constexpr char kLegacyGuildGift58F224Raw[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildGift58F224Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildGift58F224Raw);
-const char* const kLegacyGuildGift58F224 = kLegacyGuildGift58F224Utf8.c_str(); // 原常量参考：0x0058F224。
+constexpr wchar_t kLegacyGuildGift58F224[] = L"把此物品寄給家族成員。"; // 原常量参考：0x0058F224。
 LegacyPanelRecord gLegacyGuildComposePanel58EA18 { // 原全局：0x0058EA18。
     0, 0, 272, 438, 87, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSendMail58F288Raw[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildSendMail58F288Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSendMail58F288Raw);
-const char* const kLegacyGuildSendMail58F288 = kLegacyGuildSendMail58F288Utf8.c_str(); // 原常量参考：0x0058F288。
+constexpr wchar_t kLegacyGuildSendMail58F288[] = L"寄信給選定的家族成員。"; // 原常量参考：0x0058F288。
 LegacyPanelRecord gLegacyGuildReadPanel58EBA8 { // 原全局：0x0058EBA8。
     0, 0, 272, 428, 89, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1437,12 +1377,8 @@ LegacyPanelRecord gLegacyGuildNormalPanel58EC70 { // 原全局：0x0058EC70。
     0, 0, 272, 438, 90, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 原全局：0x01050CDC。 旧90多人选择，不包含1050DA4。
-constexpr char kLegacyGuildUnselect58F310Raw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildUnselect58F310Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildUnselect58F310Raw);
-const char* const kLegacyGuildUnselect58F310 = kLegacyGuildUnselect58F310Utf8.c_str(); // 原常量参考：0x0058F310。
-constexpr char kLegacyGuildChooseRecipients58F33CRaw[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42";
-const std::string kLegacyGuildChooseRecipients58F33CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildChooseRecipients58F33CRaw);
-const char* const kLegacyGuildChooseRecipients58F33C = kLegacyGuildChooseRecipients58F33CUtf8.c_str(); // 原常量参考：0x0058F33C。
+constexpr wchar_t kLegacyGuildUnselect58F310[] = L"取消寄信給這位家族成員。"; // 原常量参考：0x0058F310。
+constexpr wchar_t kLegacyGuildChooseRecipients58F33C[] = L"請選擇收件人。"; // 原常量参考：0x0058F33C。
 LegacyPanelRecord gLegacyGuildRankPanel58F160 { // 原全局：0x0058F160。
     0, 0, 272, 411, 96, {238556, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1455,12 +1391,8 @@ std::uint32_t gLegacyGuildRankTick1057C90 = 0; // 原全局：0x01057C90。
 std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 原全局：0x01050F14。 旧95/96共享资格，532430按本人职级是否0生产。
 constexpr wchar_t kLegacyGuildRankRequired58F584[] = L"請選擇家族稱號"; // 原常量参考：0x0058F584。
 const std::string kLegacyGuildRankRequired58F584Utf8View = cg::text::FromUtf16(kLegacyGuildRankRequired58F584); // 旧窄接口只读兼容视图。
-constexpr char kLegacyGuildRankRemove58F568Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRankRemove58F568Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankRemove58F568Raw);
-const char* const kLegacyGuildRankRemove58F568 = kLegacyGuildRankRemove58F568Utf8.c_str(); // 原常量参考：0x0058F568。
-constexpr char kLegacyGuildRankSelect58F4FCRaw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRankSelect58F4FCUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankSelect58F4FCRaw);
-const char* const kLegacyGuildRankSelect58F4FC = kLegacyGuildRankSelect58F4FCUtf8.c_str(); // 原常量参考：0x0058F4FC。
+constexpr wchar_t kLegacyGuildRankRemove58F568[] = L"移除家族稱號。"; // 原常量参考：0x0058F568。
+constexpr wchar_t kLegacyGuildRankSelect58F4FC[] = L"選擇家族稱號。"; // 原常量参考：0x0058F4FC。
 LegacyPanelRecord gLegacyGuildDetailsPanel58F098 { // 原全局：0x0058F098。
     0, 0, 300, 438, 95, {238535, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1472,21 +1404,11 @@ std::array<char, 128> gLegacyGuildSecondCache1050E50 {}; // 原全局：0x01050E
 std::int32_t gLegacyGuildDetailsPageCount1050ED0 = 0; // 原全局：0x01050ED0。
 std::int32_t gLegacyGuildDetailsPage1050ED4 = 0; // 原全局：0x01050ED4。
 std::array<std::int32_t, 5> gLegacyGuildDetailsHighlights1050EFC {}; // 原全局：0x01050EFC。
-constexpr char kLegacyGuildNameEdit58F550Raw[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildNameEdit58F550Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildNameEdit58F550Raw);
-const char* const kLegacyGuildNameEdit58F550 = kLegacyGuildNameEdit58F550Utf8.c_str(); // 原常量参考：0x0058F550。
-constexpr char kLegacyGuildSecondEdit58F534Raw[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildSecondEdit58F534Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSecondEdit58F534Raw);
-const char* const kLegacyGuildSecondEdit58F534 = kLegacyGuildSecondEdit58F534Utf8.c_str(); // 原常量参考：0x0058F534。
-constexpr char kLegacyGuildRankEdit58F518Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildRankEdit58F518Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankEdit58F518Raw);
-const char* const kLegacyGuildRankEdit58F518 = kLegacyGuildRankEdit58F518Utf8.c_str(); // 原常量参考：0x0058F518。
-constexpr char kLegacyGuildPermissionFirst58F4E4Raw[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildPermissionFirst58F4E4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPermissionFirst58F4E4Raw);
-const char* const kLegacyGuildPermissionFirst58F4E4 = kLegacyGuildPermissionFirst58F4E4Utf8.c_str(); // 原常量参考：0x0058F4E4。
-constexpr char kLegacyGuildPermissionSecond58F4D0Raw[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
-const std::string kLegacyGuildPermissionSecond58F4D0Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPermissionSecond58F4D0Raw);
-const char* const kLegacyGuildPermissionSecond58F4D0 = kLegacyGuildPermissionSecond58F4D0Utf8.c_str(); // 原常量参考：0x0058F4D0。
+constexpr wchar_t kLegacyGuildNameEdit58F550[] = L"輸入家族名稱。"; // 原常量参考：0x0058F550。
+constexpr wchar_t kLegacyGuildSecondEdit58F534[] = L"輸入家族住所名稱。"; // 原常量参考：0x0058F534。
+constexpr wchar_t kLegacyGuildRankEdit58F518[] = L"輸入家族稱號。"; // 原常量参考：0x0058F518。
+constexpr wchar_t kLegacyGuildPermissionFirst58F4E4[] = L"允許招收成員。"; // 原常量参考：0x0058F4E4。
+constexpr wchar_t kLegacyGuildPermissionSecond58F4D0[] = L"允許變更名稱。"; // 原常量参考：0x0058F4D0。
 LegacyPanelRecord gLegacyEmotePanel584AA8 { // 原全局：0x00584AA8。
     448, 0, 192, 360, 17, {22640, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1539,12 +1461,12 @@ const std::string kLegacyBlacklistText553370Utf8View = cg::text::FromUtf16(kLega
 constexpr char kLegacyBlacklistText55332C[] = "----------------------目前共有%2d人在黑名單中---------------------"; // 原常量参考：0x0055332C。
 constexpr wchar_t kLegacyBlacklistText553304[] = L"新增／移除黑名單的內容"; // 原常量参考：0x00553304。
 const std::string kLegacyBlacklistText553304Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553304); // 旧窄接口只读兼容视图。
-constexpr char kLegacyBlacklistText5532EC[] = "已將%s從黑名單中移除"; // 原常量参考：0x005532EC。
-constexpr char kLegacyBlacklistText5532D8[] = "從黑名單移除%s失敗"; // 原常量参考：0x005532D8。
+constexpr wchar_t kLegacyBlacklistText5532EC[] = L"已將{}從黑名單中移除"; // 原常量参考：0x005532EC。
+constexpr wchar_t kLegacyBlacklistText5532D8[] = L"從黑名單移除{}失敗"; // 原常量参考：0x005532D8。
 constexpr wchar_t kLegacyBlacklistText553294[] = L"你的黑名單已滿，無法再加入"; // 原常量参考：0x00553294。
 const std::string kLegacyBlacklistText553294Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553294); // 旧窄接口只读兼容视图。
-constexpr char kLegacyBlacklistText5532C4[] = "已將%s加入黑名單"; // 原常量参考：0x005532C4。
-constexpr char kLegacyBlacklistText5532B0[] = "%s加入黑名單失敗"; // 原常量参考：0x005532B0。
+constexpr wchar_t kLegacyBlacklistText5532C4[] = L"已將{}加入黑名單"; // 原常量参考：0x005532C4。
+constexpr wchar_t kLegacyBlacklistText5532B0[] = L"{}加入黑名單失敗"; // 原常量参考：0x005532B0。
 LegacyPanelRecord gLegacyBlacklistPanel5531D0 { // 原全局：0x005531D0。
     20, 10, 600, 438, 99, {99100, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1603,15 +1525,11 @@ const std::string kLegacyGemRegistered58AC6CUtf8View = cg::text::FromUtf16(kLega
 constexpr wchar_t kLegacyGemWorking58AC58[] = L"加工中······"; // 原常量参考：0x0058AC58。
 const std::string kLegacyGemWorking58AC58Utf8View = cg::text::FromUtf16(kLegacyGemWorking58AC58); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemNone58AC28[] = L"沒有選擇到素材。"; // 原常量参考：0x0058AC28。
-const std::string kLegacyGemNone58AC28Utf8View = cg::text::FromUtf16(kLegacyGemNone58AC28); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemRegister58AC3C[] = L"將選到的道具登錄為素材。"; // 原常量参考：0x0058AC3C。
-const std::string kLegacyGemRegister58AC3CUtf8View = cg::text::FromUtf16(kLegacyGemRegister58AC3C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemSelected58AC10[] = L"這個道具已經被選擇。"; // 原常量参考：0x0058AC10。
 const std::string kLegacyGemSelected58AC10Utf8View = cg::text::FromUtf16(kLegacyGemSelected58AC10); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemSelect58AC00[] = L"選擇這個道具。"; // 原常量参考：0x0058AC00。
-const std::string kLegacyGemSelect58AC00Utf8View = cg::text::FromUtf16(kLegacyGemSelect58AC00); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemReject58ABEC[] = L"無法選擇這個道具。"; // 原常量参考：0x0058ABEC。
-const std::string kLegacyGemReject58ABECUtf8View = cg::text::FromUtf16(kLegacyGemReject58ABEC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyCraftAdd589FC8[] = L"回到追加視窗。"; // 原常量参考：0x00589FC8。
 constexpr wchar_t kLegacyCraftChoose589FD8[] = // 原常量参考：0x00589FD8。
     L"回到生成選擇視窗。";
@@ -4437,11 +4355,10 @@ try {
             const char* const name = (flags & 0x100) != 0 ? item + 0xC44 : item + 1;
             const std::int32_t count = ReadRecordW32(item, 0xC30);
             const std::int8_t color = (flags & 0x100) != 0 ? 5 : (flags & 0x200) != 0 ? 1 : 0;
-            if (count <= 1) {
-                cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
-            } else {
+            std::wstring itemText = cg::text::FromGbkWide(name);
+            if (count > 1) {
                 const std::int32_t value = ReadRecordW32(item, 0xC38);
-                std::sprintf(buffer, kLegacySellQuantity588F28, cg::text::FromGbk(name).c_str(), value, selected);
+                itemText = std::format(kLegacySellQuantity588F28, itemText, value, selected);
             }
             // 原100H/200H分支借旧65坐标，普通分支才取旧66，不能统一改成本面板。
             const LegacyPanelRecord& textPanel = (flags & 0x300) != 0
@@ -4449,7 +4366,7 @@ try {
             const std::int32_t nameY = textPanel.y + dy + 34;
             const std::int32_t nameX = textPanel.x + dx + 24;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, color, itemText, 0, 0));
             ++shown;
         }
     }
@@ -6055,8 +5972,9 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
 try {
     const std::int32_t x = gLegacyGiveReceivePanel581B08.x;
     const std::int32_t y = gLegacyGiveReceivePanel581B08.y;
+    const std::wstring buttonText = cg::text::ToUtf16(input::LegacyText593850());
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
-        {x + 122, y + 164, x + 112, y + 164, 124, 18, input::LegacyText593850()},
+        {x + 122, y + 164, x + 112, y + 164, 124, 18, buttonText.c_str()},
         {x + 122, y + 190, x + 112, y + 190, 124, 18, kLegacyGiveReceiveCancel588A70},
     }};
     const std::int32_t state = Sub_503160(opened, &gLegacyGiveReceivePanel581B08,
@@ -6105,7 +6023,7 @@ try {
         ui::detail::gHoverTextD68AE8 = kLegacyEngravingClose5868EC;
     }
     if (character_select::detail::Sub_503990(&buttons[0]) != 0) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyGiveReceiveModeC8AA98 != 0 ? kLegacyReceiveChoice585A40 : kLegacyGiveHint588A58);
+        ui::detail::gHoverTextD68AE8 = gLegacyGiveReceiveModeC8AA98 != 0 ? kLegacyReceiveChoice585A40 : kLegacyGiveHint588A58;
     }
     if (character_select::detail::Sub_503990(&buttons[1]) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyGiveReceiveCancelHint588A4C;
@@ -6478,8 +6396,8 @@ try {
     constexpr std::array<std::array<std::int32_t, 4>, 4> tabs {{
         {14, 64, 134, 82}, {151, 64, 271, 82}, {289, 64, 409, 82}, {426, 64, 546, 82},
     }};
-    const std::array<const char*, 4> hints {kLegacyStorageItemTab589214Utf8View.c_str(), kLegacyStoragePetTab589200Utf8View.c_str(),
-        kLegacyStorageDepositTab5891F8Utf8View.c_str(), kLegacyStorageWithdrawTab5891F0Utf8View.c_str()};
+    const std::array<const wchar_t*, 4> hints {kLegacyStorageItemTab589214, kLegacyStoragePetTab589200,
+        kLegacyStorageDepositTab5891F8, kLegacyStorageWithdrawTab5891F0};
     const std::int32_t state = Sub_503160(opened, &gLegacyStoragePanel582B70, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -6639,18 +6557,18 @@ try {
     const std::int32_t style = gLegacyStorageSplitModeCA0AA8 != 0 ? 1 : 0;
     Sub_5035E0(&confirm, 212, 1, gValueD69768, style);
     Sub_5035E0(&cancel, 212, 1, gValueD69768, style);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyStoragePanel582B70) != 0) {
-        hint = kLegacyLogout553FD0Utf8View.c_str();
+        hint = kLegacyLogout553FD0;
     } else if (hovered >= 0) {
         hint = hints[hovered];
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-        hint = kLegacyStorageConfirm5891C4Utf8View.c_str();
+        hint = kLegacyStorageConfirm5891C4;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
-        hint = kLegacyStorageCancel5891BCUtf8View.c_str();
+        hint = kLegacyStorageCancel5891BC;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyStoragePanel582B70, 1);
 }
@@ -8940,7 +8858,7 @@ try {
         } else {
             const bool selectable = item->itemType != 47 && item->count <= 0
                 && usedHovered != gLegacySpecialUseItemC8A96C;
-            hint = cg::text::ToUtf16(selectable ? kLegacyEngravingSelect5895C0Utf8View.c_str() : kLegacyEngravingReject5895ACUtf8View.c_str());
+            hint = selectable ? kLegacyEngravingSelect5895C0 : kLegacyEngravingReject5895AC;
         }
     } else {
         hint = cg::text::ToUtf16(Sub_503590(&gLegacyEngravingPanel582FD8) != 0
@@ -9207,7 +9125,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
             hint += L"[han]";
         }
     } else if (Sub_503590(&gLegacyMailGiftPanel583168) != 0) {
-        hint = cg::text::ToUtf16(kLegacyLogout553FD0Utf8View.c_str());
+        hint = kLegacyLogout553FD0;
     } else {
         const std::int32_t selected = gLegacyMailGiftSelectedCC1A2C;
         if (selected >= 0 && selected == hovered) {
@@ -10227,11 +10145,11 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
             hint += L"[han]";
         }
     } else if (Sub_503590(&gLegacyGuildGiftPanel58E950) != 0) {
-        hint = cg::text::ToUtf16(kLegacyGuildClose58F248);
+        hint = kLegacyGuildClose58F248;
     } else {
         const std::int32_t selected = gLegacyGuildGiftSelected1050DA8;
         if (selected >= 0 && selected == hovered) {
-            hint = cg::text::ToUtf16(kLegacyGuildGift58F224);
+            hint = kLegacyGuildGift58F224;
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyGuildGiftPanel58E950, 1);
@@ -10350,7 +10268,7 @@ try {
     Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
     Sub_5035E0(&buttons[1], 212, 1, gValueD69768, 0);
     render::DrawInputText_4568A0(&input::gInputContext1050B80);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGuildComposePanel58EA18) != 0) {
         hint = kLegacyGuildClose58F248;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
@@ -10359,7 +10277,7 @@ try {
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGuildComposePanel58EA18, 1);
 }
@@ -10430,7 +10348,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
             static_cast<std::int16_t>(valueY), 2, 1, color, buffer, 0, 0));
     }
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGuildPetPanel58EAE0) != 0) {
         hint = kLegacyGuildClose58F248;
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
@@ -10439,7 +10357,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         hint = kLegacyGuildPetHint58F2B4;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGuildPetPanel58EAE0, 1);
 }
@@ -10569,7 +10487,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGuildReadPanel58EBA8) != 0) {
         hint = kLegacyGuildClose58F248;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0
@@ -10581,7 +10499,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGuildReadPanel58EBA8, 1);
 }
@@ -10732,7 +10650,7 @@ try {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
     render::DrawInputText_4568A0(&input::gInputContext1051348);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGuildNormalPanel58EC70) != 0) {
         hint = kLegacyGuildClose58F248;
     } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0
@@ -10750,7 +10668,7 @@ try {
             ? kLegacyGuildUnselect58F310 : kLegacyGuildSend58F2EC;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildNormalPanel58EC70, 1));
 }
@@ -10783,7 +10701,7 @@ std::uint32_t Sub_52F460(const std::int32_t opened)
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGuildDeliveryPanel58ED38) != 0) {
         hint = kLegacyGuildClose58F248;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
@@ -10794,7 +10712,7 @@ std::uint32_t Sub_52F460(const std::int32_t opened)
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGuildDeliveryPanel58ED38, 1);
 }
@@ -10848,14 +10766,14 @@ try {
     drawAt(kLegacyGuildDeleteEnd58F3AC, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
     Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((confirmState & 0x40u) != 0) {
         hint = kLegacyGuildDeleteHint58F3A0;
     } else if ((cancelState & 0x40u) != 0) {
         hint = kLegacyGuildKeepHint58F38C;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGuildDeletePanel58EE00, 0);
 }
@@ -11128,7 +11046,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     Sub_5035E0(&details, 212, 1, gValueD69768, 0);
     Sub_5035E0(&contacts, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     // 原530A33查询5857D0人物面板；五公共按钮提示沿绘制前缓存状态。
     if (Sub_503590(&gLegacyProfilePanel5857D0) != 0) {
         hint = kLegacyGuildClose58F248;
@@ -11150,7 +11068,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         hint = kLegacyGuildRank58F410;
     }
     if (hint != nullptr) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildContactPanel58EF90, 1));
 }
@@ -11298,7 +11216,7 @@ try {
             bool changeClicked = (changeStates[0] & 1) != 0;
             if (changeClicked) {
                 input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
-                if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildName10514BC()).c_str()) != 0) {
+                if (input::ContextText(*context) != cg::text::FromGbkWide(BorrowGuildName10514BC())) {
                     const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 128);
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511250(socket, 2, cg::text::FromUtf16(escapedText).c_str()));
@@ -11309,7 +11227,7 @@ try {
                 changeClicked = (changeStates[1] & 1) != 0;
                 if (changeClicked) {
                     input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
-                    if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildSecondText10514E5()).c_str()) != 0) {
+                    if (input::ContextText(*context) != cg::text::FromGbkWide(BorrowGuildSecondText10514E5())) {
                         const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 128);
                         const auto socket = platform::gConnectionSocket;
                         static_cast<void>(network::Sub_511250(socket, 3, cg::text::FromUtf16(escapedText).c_str()));
@@ -11473,19 +11391,19 @@ try {
         ui::detail::gHoverTextD68AE8;
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         if ((changeStates[0] & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildNameEdit58F550);
+            hint = kLegacyGuildNameEdit58F550;
         } else if ((changeStates[1] & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildSecondEdit58F534);
+            hint = kLegacyGuildSecondEdit58F534;
         } else if ((changeStates[2] & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildRankEdit58F518);
+            hint = kLegacyGuildRankEdit58F518;
         }
     }
     if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
-        hint = cg::text::ToUtf16(kLegacyGuildPage58F2D4);
+        hint = kLegacyGuildPage58F2D4;
     }
     for (const std::int32_t rowState : rowStates) {
         if ((rowState & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildRankSelect58F4FC);
+            hint = kLegacyGuildRankSelect58F4FC;
             break;
         }
     }
@@ -11495,7 +11413,7 @@ try {
             if ((permissionStates[group][row] & 0x40) != 0) {
                 const std::int32_t index = row + 5 * hintPage;
                 if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
-                    hint = cg::text::ToUtf16(group == 0 ? kLegacyGuildPermissionFirst58F4E4 : kLegacyGuildPermissionSecond58F4D0);
+                    hint = group == 0 ? kLegacyGuildPermissionFirst58F4E4 : kLegacyGuildPermissionSecond58F4D0;
                     break;
                 }
             }
@@ -11653,18 +11571,18 @@ try {
     std::wstring& hint =
         ui::detail::gHoverTextD68AE8;
     if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
-        hint = cg::text::ToUtf16(kLegacyGuildPage58F2D4);
+        hint = kLegacyGuildPage58F2D4;
     }
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         if ((removeState & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildRankRemove58F568);
+            hint = kLegacyGuildRankRemove58F568;
         }
         if ((changeState & 0x40) != 0) {
-            hint = cg::text::ToUtf16(kLegacyGuildRank58F410);
+            hint = kLegacyGuildRank58F410;
         }
         for (const std::int32_t rowState : rowStates) {
             if ((rowState & 0x40) != 0) {
-                hint = cg::text::ToUtf16(kLegacyGuildRankSelect58F4FC);
+                hint = kLegacyGuildRankSelect58F4FC;
                 break;
             }
         }
@@ -11990,19 +11908,19 @@ try {
         drawAt(ui::detail::BorrowGatherResultSuffixCB1E1C(), 10, 114, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractGbkTextLine(
-                buffer, 256, ui::detail::BorrowGatherResultDetailsCC190C(), row, 28) != 0) {
+        std::wstring line;
+        if (input::ExtractTextLine(line, ui::detail::BorrowGatherResultDetailsCC190C(), row, 28) != 0) {
             const std::int32_t top = gLegacyGatherResultPanel583A38.y;
             const std::int32_t lineY = top + 20 * row + 237;
             const std::int32_t left = gLegacyGatherResultPanel583A38.x;
             static_cast<void>(DrawText(static_cast<std::int16_t>(left + 10),
-                static_cast<std::int16_t>(lineY), 2, 0, 0, buffer, 0, 0));
+                static_cast<std::int16_t>(lineY), 2, 0, 0, line, 0, 0));
         }
     }
     if (Sub_503590(&gLegacyGatherResultPanel583A38) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyGatherRepeat583AFC == 1 ? kLegacyGatherStop589848 : kLegacyGatherStart58983C);
+        ui::detail::gHoverTextD68AE8 = gLegacyGatherRepeat583AFC == 1 ? kLegacyGatherStop589848 : kLegacyGatherStart58983C;
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyGatherResultPanel583A38, 1);
@@ -12114,9 +12032,9 @@ try {
     drawAt(cg::text::FromGbk(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 90 - targetWidth / 2, 91, 0);
     drawAt(ui::detail::BorrowLegacySkillSummaryCC18CC(), 10, 114, 0, 4);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractGbkTextLine(
-                buffer, 128, ui::detail::BorrowLegacySkillDetailsCB0FDC(), row, 28) != 0) {
-            drawAt(buffer, 10, 237 + 20 * row, 0);
+        std::wstring line;
+        if (input::ExtractTextLine(line, ui::detail::BorrowLegacySkillDetailsCB0FDC(), row, 28) != 0) {
+            drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
     if (Sub_503590(&gLegacySkillResultPanel583BC8) != 0) {
@@ -12389,7 +12307,7 @@ try {
         world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel;
     // 原满级分支仍格式化一次，只替换最终绘制文本。
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
-    drawAt(belowMaximum ? buffer : kLegacyGatherLimit589858, 198, 62, 1);
+    drawAt(belowMaximum ? cg::text::ToUtf16(buffer) : kLegacyGatherLimit589858, 198, 62, 1);
     if (gLegacyItemWorkSelection584394 >= 0) {
         const std::int32_t itemWidth = TextMeasure(cg::text::FromGbk(gLegacyItemWorkNameCC40D8.data()).c_str(), 0);
         drawAt(cg::text::FromGbk(gLegacyItemWorkNameCC40D8.data()).c_str(), 136 - itemWidth / 2, 91, 0);
@@ -12400,9 +12318,9 @@ try {
     }
     drawAt(ui::detail::BorrowLegacyItemWorkSuffixD2DADC(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractGbkTextLine(
-                buffer, 256, ui::detail::BorrowLegacyItemWorkDetailsD2DB00(), row, 28) != 0) {
-            drawAt(buffer, 10, 237 + 20 * row, 0);
+        std::wstring line;
+        if (input::ExtractTextLine(line, ui::detail::BorrowLegacyItemWorkDetailsD2DB00(), row, 28) != 0) {
+            drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -12516,9 +12434,9 @@ try {
     static_cast<void>(DrawGraphic(left + 192, top + 184, 212, image, 0, &descriptor));
     drawAt(ui::detail::BorrowLegacyCraftSuffixD672B4(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractGbkTextLine(
-                buffer, 256, ui::detail::BorrowLegacyCraftDetailsD2E92C(), row, 28) != 0) {
-            drawAt(buffer, 10, 237 + 20 * row, 0);
+        std::wstring line;
+        if (input::ExtractTextLine(line, ui::detail::BorrowLegacyCraftDetailsD2E92C(), row, 28) != 0) {
+            drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -12526,8 +12444,8 @@ try {
         ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(skillId == 255 || skillId == 606 || skillId == 2026
-                ? kLegacyCraftAdd589FC8 : kLegacyCraftChoose589FD8);
+        ui::detail::gHoverTextD68AE8 = skillId == 255 || skillId == 606 || skillId == 2026
+                ? kLegacyCraftAdd589FC8 : kLegacyCraftChoose589FD8;
     }
     return Sub_503440(&gLegacyCraftResultPanel5843A0, 1);
 }
@@ -12572,7 +12490,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
     bool submit = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0
         && (world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
-        if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
+        if (input::Sub_45E770(input::ContextText(*gLegacyItemWorkInputD67CE4)) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
             trimmed = input::ContextText(*gLegacyItemWorkInputD67CE4);
@@ -12591,7 +12509,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
         static_cast<void>(std::erase(trimmed, L'　'));
         if (trimmed.empty()) {
             static_cast<void>(audio::Sub_504180(82));
-        } else if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
+        } else if (input::Sub_45E770(input::ContextText(*gLegacyItemWorkInputD67CE4)) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
             submit = true;
@@ -13454,11 +13372,11 @@ try {
         const std::int32_t buttonState = QueryPanelButtonState(&confirm);
         const std::int32_t hintPhase = gLegacyCraftPhaseD67D00;
         if ((buttonState & 0x40) != 0 && hintPhase < 4) {
-            ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010);
+            ui::detail::gHoverTextD68AE8 = markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010;
         } else if (hovered >= 0) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item->used != 0 && hintPhase < 4 && !writeTaggedHint(item)) {
-                ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC);
+                ui::detail::gHoverTextD68AE8 = gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC;
             }
         }
     }
@@ -13678,7 +13596,7 @@ try {
     if (Sub_503590(&gLegacyCraftExecutionPanel584530) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&execute) & 0x40) != 0) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyCraftExecute58A0A8 : kLegacyCraftMissing58A098);
+        ui::detail::gHoverTextD68AE8 = ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyCraftExecute58A0A8 : kLegacyCraftMissing58A098;
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyCraftBack58A084;
     }
@@ -13937,7 +13855,7 @@ try {
         hint = kLegacySkillClose55331C;
     }
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0 && gLegacyGemPhaseD68A8C <= 4) {
-        hint = cg::text::ToUtf16(markedCount > 0 ? kLegacyGemRegister58AC3CUtf8View.c_str() : kLegacyGemNone58AC28Utf8View.c_str());
+        hint = markedCount > 0 ? kLegacyGemRegister58AC3C : kLegacyGemNone58AC28;
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item->used != 0) {
@@ -13953,7 +13871,7 @@ try {
             } else {
                 const bool selectable = world::detail::Sub_505040(hovered + 8) != 0
                     || world::detail::Sub_5050B0(hovered + 8) != 0;
-                hint = cg::text::ToUtf16(selectable ? kLegacyGemSelect58AC00Utf8View.c_str() : kLegacyGemReject58ABECUtf8View.c_str());
+                hint = selectable ? kLegacyGemSelect58AC00 : kLegacyGemReject58ABEC;
             }
         }
     }
@@ -14138,7 +14056,7 @@ try {
     if (Sub_503590(&gLegacyGemExecutionPanel58AB28) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     } else if ((QueryPanelButtonState(&execute) & 0x40) != 0) {
-        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyGemExecute58ACB0 : kLegacyGemMissing58AC7C);
+        ui::detail::gHoverTextD68AE8 = ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyGemExecute58ACB0 : kLegacyGemMissing58AC7C;
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyGemBack5871F0;
     }
@@ -14293,7 +14211,7 @@ try {
     } else if (hoveredRecipe >= 0) {
         const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[hoveredRecipe];
         if (recipe->itemId >= 0) {
-            ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(recipe->value0C == 1 ? kLegacyRecipeSelect58A0D0 : kLegacyRecipeUnavailable58A0B8);
+            ui::detail::gHoverTextD68AE8 = recipe->value0C == 1 ? kLegacyRecipeSelect58A0D0 : kLegacyRecipeUnavailable58A0B8;
         }
     }
     return Sub_503440(&gLegacyCraftRecipePanel5845F8, 1);
@@ -15584,17 +15502,21 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         }
     } else if (!gLegacyBlacklistInput5939B8->empty()) {
         std::wstring message;
-        if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0) {
-            const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
-            cg::text::FormatTo(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8, gLegacyBlacklistInput5939B8->utf8().c_str());
+        if (blacklist::ContainsBlacklistRecord_4013D0(input::ContextText(*gLegacyBlacklistInput5939B8)) != 0) {
+            const bool removed = blacklist::RemoveBlacklistRecord_4012F0(input::ContextText(*gLegacyBlacklistInput5939B8)) != 0;
+            message = removed
+                ? std::format(kLegacyBlacklistText5532EC, input::ContextText(*gLegacyBlacklistInput5939B8))
+                : std::format(kLegacyBlacklistText5532D8, input::ContextText(*gLegacyBlacklistInput5939B8));
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
                 world::detail::Sub_44B050(kLegacyBlacklistText553294Utf8View.c_str(), 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
-            const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
-            cg::text::FormatTo(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0, gLegacyBlacklistInput5939B8->utf8().c_str());
+            const bool added = blacklist::AddBlacklistRecord_401270(input::ContextText(*gLegacyBlacklistInput5939B8)) != 0;
+            message = added
+                ? std::format(kLegacyBlacklistText5532C4, input::ContextText(*gLegacyBlacklistInput5939B8))
+                : std::format(kLegacyBlacklistText5532B0, input::ContextText(*gLegacyBlacklistInput5939B8));
         }
         gLegacyBlacklistInput5939B8->clearText();
         gLegacyBlacklistInput5939B8->totalByteLength = 0;
@@ -16999,7 +16921,7 @@ try {
         const std::uint32_t now = platform::ReadTickCount32();
         if (gLegacyProfileEditTickD68864 + 500u < now) {
             const input::InputContext* const context = gLegacyProfileInputD6885C;
-            if (std::strcmp(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)).c_str(), context->utf8().c_str()) != 0) {
+            if (cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2)) != input::ContextText(*context)) {
                 const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 128);
                 static_cast<void>(network::Sub_512360(platform::gConnectionSocket, cg::text::FromUtf16(escapedText).c_str()));
             }

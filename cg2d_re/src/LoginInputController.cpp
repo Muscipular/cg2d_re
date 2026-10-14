@@ -161,8 +161,8 @@ std::int32_t ProcessCapability4Input_464E30()
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && gInputContext9A5960.length() != 0
                 && gInputContext9A5678.length() != 0
-                && !input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())
-                && !input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())) {
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5960))
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5678))) {
                 const std::int32_t accountByteLength =
                     gInputContext9A5960.totalByteLength;
                 const std::int32_t passwordByteLength =
@@ -278,8 +278,8 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
     if ((firstControlState & 1) != 0 && mode == 0) {
         if (gInputContext9A5960.length() == 0
             || gInputContext9A5678.length() == 0
-            || input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())
-            || input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())) {
+            || input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5678))
+            || input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5960))) {
             result = -1;
         } else {
             const std::int32_t firstLength =
@@ -314,8 +314,8 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && gInputContext9A5960.length() != 0
                 && gInputContext9A5678.length() != 0
-                && !input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())
-                && !input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())) {
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5960))
+                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5678))) {
                 const std::int32_t firstLength =
                     gInputContext9A5960.totalByteLength;
                 const std::int32_t secondLength =

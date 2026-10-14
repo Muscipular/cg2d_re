@@ -6,11 +6,6 @@
 #include "cg/Input.hpp"
 
 namespace cg::ui::detail {
-const std::string opaqueLegacyText42 = cg::text::FromLegacyDisplay("\x83\x4A\x83\x65\x83\x53\x3F");
-
-const std::string opaqueLegacyText41 = cg::text::FromLegacyDisplay("\x83\x4A\x83\x65\x83\x53\x3F");
-
-const std::string opaqueLegacyText39 = cg::text::FromLegacyDisplay("MASSAGE789\xB2" "123456789\xC6" "123456789\xBB" "123456789\xD6" "123456789");
 
 namespace {
 
@@ -234,12 +229,8 @@ WindowGraphicData gWindowGraphic56F7F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56F808 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F808。
 WindowGraphicData gWindowGraphic56F820 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F820。
 WindowGraphicData gWindowGraphic56F838 {0x3BAA3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F838。
-constexpr char kWindow55Rank585ED8Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F";
-const std::string kWindow55Rank585ED8Utf8 = cg::text::FromLegacyDisplay(kWindow55Rank585ED8Raw);
-const char* const kWindow55Rank585ED8 = kWindow55Rank585ED8Utf8.c_str(); // 原常量参考：0x00585ED8。
-constexpr char kWindow55Member585ECCRaw[] = "\x91\xCE\x8F\xDB\x96\xBC\x91\x4F";
-const std::string kWindow55Member585ECCUtf8 = cg::text::FromLegacyDisplay(kWindow55Member585ECCRaw);
-const char* const kWindow55Member585ECC = kWindow55Member585ECCUtf8.c_str(); // 原常量参考：0x00585ECC。
+constexpr wchar_t kWindow55Rank585ED8[] = L"家族稱號"; // 原常量参考：0x00585ED8。
+constexpr wchar_t kWindow55Member585ECC[] = L"成員名稱"; // 原常量参考：0x00585ECC。
 WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow55Rank585ED8}; // 原全局：0x0056F850。
 WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow55Member585ECC}; // 原全局：0x0056F858。
 std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
@@ -369,9 +360,7 @@ WindowGraphicData gWindowGraphic5658C0 {0x3BAF7, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic565908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565908。
 WindowGraphicData gWindowGraphic565920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565920。
 constexpr wchar_t kPetPage58600C[] = L"1/5"; // 原常量参考：0x0058600C。
-constexpr char kPetTechnique586004Raw[] = "\xA7\xF0\x92\xB0";
-const std::string kPetTechnique586004Utf8 = cg::text::FromLegacyDisplay(kPetTechnique586004Raw);
-const char* const kPetTechnique586004 = kPetTechnique586004Utf8.c_str(); // 原常量参考：0x00586004。
+constexpr wchar_t kPetTechnique586004[] = L"技能"; // 原常量参考：0x00586004。
 constexpr wchar_t kPetTechniqueDescription585FF4[] = L"進行攻擊"; // 原常量参考：0x00585FF4。
 WindowTextPrototype gWindowText565950 { // 原全局：0x00565950。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
@@ -873,9 +862,7 @@ WindowGraphicData gWindowGraphic562C10 {98140, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原�
 WindowGraphicData gWindowGraphic562C28 {98143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C28。
 WindowGraphicData gWindowGraphic562C40 {98146, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C40。
 WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C58。
-constexpr char kWindowPlaceholder586054Raw[] = "\x81\x48\x81\x48\x81\x48\x81\x48";
-const std::string kWindowPlaceholder586054Utf8 = cg::text::FromLegacyDisplay(kWindowPlaceholder586054Raw);
-const char* const kWindowPlaceholder586054 = kWindowPlaceholder586054Utf8.c_str(); // 原常量参考：0x00586054。
+constexpr wchar_t kWindowPlaceholder586054[] = L"？？？？"; // 原常量参考：0x00586054。
 WindowTextPrototype gWindowText562C70 { // 原全局：0x00562C70。
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
 };
@@ -1199,8 +1186,8 @@ WindowGraphicData gWindowGraphic576F08 {30000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原�
 WindowGraphicData gWindowGraphic576F20 {245042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F20。
 WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F38。
 WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F50。
-const char* const kWindow56Message585D98 = // 原常量参考：0x00585D98。
-    opaqueLegacyText39.c_str();
+constexpr wchar_t kWindow56Message585D98[] = // 原常量参考：0x00585D98。
+    L"請選擇臉部、眼睛及嘴巴。";
 constexpr wchar_t kWindow56Class585D90[] = L"臉部"; // 原常量参考：0x00585D90。
 constexpr wchar_t kWindow56Fifth585D88[] = L"眼睛"; // 原常量参考：0x00585D88。
 constexpr wchar_t kWindow56Ones585D80[] = L"嘴巴"; // 原常量参考：0x00585D80。
@@ -1330,9 +1317,7 @@ WindowGraphicData gWindowGraphic577218 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic577248 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577248。
 WindowGraphicData gWindowGraphic577260 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577260。
 WindowGraphicData gWindowGraphic577278 {0x3C386, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577278。
-constexpr char kWindow59Placeholder585D78Raw[] = "\x3F\x82\xA2\x82\xC4\x82\xDE";
-const std::string kWindow59Placeholder585D78Utf8 = cg::text::FromLegacyDisplay(kWindow59Placeholder585D78Raw);
-const char* const kWindow59Placeholder585D78 = kWindow59Placeholder585D78Utf8.c_str(); // 原常量参考：0x00585D78。
+constexpr wchar_t kWindow59Placeholder585D78[] = L"物品"; // 原常量参考：0x00585D78。
 WindowTextPrototype gWindowText577290 { // 原全局：0x00577290。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow59Placeholder585D78,
 };
@@ -1343,7 +1328,7 @@ WindowGraphicData gWindowGraphic577758 {0x3C119, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic577770 {0x3BB3D, 0, 0, 0, 0, 0x8FFFFFFFu}; // 原全局：0x00577770。
 WindowGraphicData gWindowGraphic577788 {0x3C11A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577788。
 WindowTextPrototype gWindowText5777A0 { // 原全局：0x005777A0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, opaqueLegacyText41.c_str(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"類別",
 };
 
 WindowGraphicData gWindowGraphic578C00 {0x3C11B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C00。
@@ -1353,17 +1338,10 @@ WindowGraphicData gWindowGraphic578C48 {0x3C11D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic578C60 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C60。
 WindowGraphicData gWindowGraphic578C78 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C78。
 WindowGraphicData gWindowGraphic578C90 {0x3C120, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00578C90。
-constexpr char kWindowTextBytes585D70Raw[] = "\x83\x4A\x83\x65\x83\x53\x3F";
-const char* const kWindowTextBytes585D70 = opaqueLegacyText42.c_str(); // 原常量参考：0x00585D70。
-constexpr char kWindowTextBytes585D64Raw[] = "\x3F\x83\x62\x83\x5A\x81\x5B\x83\x57";
-const std::string kWindowTextBytes585D64Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D64Raw);
-const char* const kWindowTextBytes585D64 = kWindowTextBytes585D64Utf8.c_str(); // 原常量参考：0x00585D64。
-constexpr char kWindowTextBytes585D5CRaw[] = "\x82\xC8\x82\xDC\x82\xA6";
-const std::string kWindowTextBytes585D5CUtf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D5CRaw);
-const char* const kWindowTextBytes585D5C = kWindowTextBytes585D5CUtf8.c_str(); // 原常量参考：0x00585D5C。
-constexpr char kWindowTextBytes585D54Raw[] = "\x3F\x8D\xF5\x95\xB6\x3F";
-const std::string kWindowTextBytes585D54Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D54Raw);
-const char* const kWindowTextBytes585D54 = kWindowTextBytes585D54Utf8.c_str(); // 原常量参考：0x00585D54。
+constexpr wchar_t kWindowTextBytes585D70[] = L"類別"; // 原常量参考：0x00585D70。
+constexpr wchar_t kWindowTextBytes585D64[] = L"訊息"; // 原常量参考：0x00585D64。
+constexpr wchar_t kWindowTextBytes585D5C[] = L"名稱"; // 原常量参考：0x00585D5C。
+constexpr wchar_t kWindowTextBytes585D54[] = L"介紹內容"; // 原常量参考：0x00585D54。
 WindowTextPrototype gWindowText578CA8 { // 原全局：0x00578CA8。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D70,
 };
@@ -1383,30 +1361,14 @@ WindowGraphicData gWindowGraphic579638 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic579650 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00579650。
 WindowGraphicData gWindowGraphic579698 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579698。
 WindowGraphicData gWindowGraphic5796B0 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005796B0。
-constexpr char kWindowTextBytes585D4CRaw[] = "\x96\xBC\x91\x4F";
-const std::string kWindowTextBytes585D4CUtf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D4CRaw);
-const char* const kWindowTextBytes585D4C = kWindowTextBytes585D4CUtf8.c_str(); // 原常量参考：0x00585D4C。
-constexpr char kWindowTextBytes585D44Raw[] = "\x3F\x83\x78\x3F";
-const std::string kWindowTextBytes585D44Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D44Raw);
-const char* const kWindowTextBytes585D44 = kWindowTextBytes585D44Utf8.c_str(); // 原常量参考：0x00585D44。
-constexpr char kWindowTextBytes585D38Raw[] = "\x82\xBD\x82\xA2\x82\xC6\x82\xE9";
-const std::string kWindowTextBytes585D38Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D38Raw);
-const char* const kWindowTextBytes585D38 = kWindowTextBytes585D38Utf8.c_str(); // 原常量参考：0x00585D38。
-constexpr char kWindowTextBytes585D28Raw[] = "\x82\xB5\x82\xE5\x82\xAD\x82\xAC\x82\xE5\x82\xA4";
-const std::string kWindowTextBytes585D28Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D28Raw);
-const char* const kWindowTextBytes585D28 = kWindowTextBytes585D28Utf8.c_str(); // 原常量参考：0x00585D28。
-constexpr char kWindowTextBytes585D20Raw[] = "\x82\xAC\x82\xE9\x82\xC7";
-const std::string kWindowTextBytes585D20Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D20Raw);
-const char* const kWindowTextBytes585D20 = kWindowTextBytes585D20Utf8.c_str(); // 原常量参考：0x00585D20。
-constexpr char kWindowTextBytes585D10Raw[] = "\x82\xB9\x82\xE9";
-const std::string kWindowTextBytes585D10Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D10Raw);
-const char* const kWindowTextBytes585D10 = kWindowTextBytes585D10Utf8.c_str(); // 原常量参考：0x00585D10。
-constexpr char kWindowTextBytes585D08Raw[] = "\x82\xCE\x82\xA2";
-const std::string kWindowTextBytes585D08Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D08Raw);
-const char* const kWindowTextBytes585D08 = kWindowTextBytes585D08Utf8.c_str(); // 原常量参考：0x00585D08。
-constexpr char kWindowTextBytes585D00Raw[] = "\x3F\x82\xCE\x82\xA4\x82\xC6";
-const std::string kWindowTextBytes585D00Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585D00Raw);
-const char* const kWindowTextBytes585D00 = kWindowTextBytes585D00Utf8.c_str(); // 原常量参考：0x00585D00。
+constexpr wchar_t kWindowTextBytes585D4C[] = L"姓名"; // 原常量参考：0x00585D4C。
+constexpr wchar_t kWindowTextBytes585D44[] = L"等級"; // 原常量参考：0x00585D44。
+constexpr wchar_t kWindowTextBytes585D38[] = L"稱號"; // 原常量参考：0x00585D38。
+constexpr wchar_t kWindowTextBytes585D28[] = L"職業"; // 原常量参考：0x00585D28。
+constexpr wchar_t kWindowTextBytes585D20[] = L"家族"; // 原常量参考：0x00585D20。
+constexpr wchar_t kWindowTextBytes585D10[] = L"出售"; // 原常量参考：0x00585D10。
+constexpr wchar_t kWindowTextBytes585D08[] = L"購買"; // 原常量参考：0x00585D08。
+constexpr wchar_t kWindowTextBytes585D00[] = L"自我介紹"; // 原常量参考：0x00585D00。
 WindowTextPrototype gWindowText5796C8 { // 原全局：0x005796C8。
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D4C,
 };
@@ -1437,9 +1399,7 @@ WindowGraphicData gWindowGraphic579A00 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // �
 WindowGraphicData gWindowGraphic579A78 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579A78。
 WindowGraphicData gWindowGraphic579AA8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579AA8。
 WindowGraphicData gWindowGraphic579B08 {0x3C123, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579B08。
-constexpr char kWindowTextBytes585CF4Raw[] = "\x82\xC4\x82\xB7\x82\xC6\x82\xB3\x82\xF1";
-const std::string kWindowTextBytes585CF4Utf8 = cg::text::FromLegacyDisplay(kWindowTextBytes585CF4Raw);
-const char* const kWindowTextBytes585CF4 = kWindowTextBytes585CF4Utf8.c_str(); // 原常量参考：0x00585CF4。
+constexpr wchar_t kWindowTextBytes585CF4[] = L"收件人"; // 原常量参考：0x00585CF4。
 WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585CF4,
 };

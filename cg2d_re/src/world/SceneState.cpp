@@ -69,7 +69,6 @@ constexpr wchar_t kBattleStartHint5541CC[] = L"等待戰鬥開始。"; // 原常
 constexpr wchar_t kBattleTurnHint5541BC[] = L"等待回合結束。"; // 原常量参考：0x005541BC。
 constexpr wchar_t kBattleInputHint5541A0[] = L"等待其他玩家的輸入指令。"; // 原常量参考：0x005541A0。
 constexpr wchar_t kBattleExitHint554194[] = L"結束觀戰。"; // 原常量参考：0x00554194。
-const std::string kBattleExitHint554194Utf8View = cg::text::FromUtf16(kBattleExitHint554194); // 旧窄接口只读兼容视图。
 constexpr char kBattleExitRequest554190[] = "U"; // 原常量参考：0x00554190。
 constexpr wchar_t kBattleExitText554184[] = L"觀戰結束"; // 原常量参考：0x00554184。
 
@@ -3148,7 +3147,7 @@ void Sub_50CAE0(
         } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[GP]")))) == 0) {
             stripPrefix(4);
         }
-        if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) != 0) {
+        if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
             return;
         }
         if (color < 0) {
@@ -7448,7 +7447,6 @@ void DrawBattleScene_43CBB0()
         const std::int32_t y = GetYobiActionField34(action);
         const std::int32_t x = GetYobiActionField30(action);
         if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
-            constexpr std::size_t wordBytes = (kBattleExitHint554194Utf8View.size() + 1) & ~std::size_t{3};
             ui::detail::gHoverTextD68AE8 = kBattleExitHint554194;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
                 &platform::BorrowLegacyMouseStateStorage()->edgeButtons);

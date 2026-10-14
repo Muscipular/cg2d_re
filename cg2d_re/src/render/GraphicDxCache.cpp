@@ -516,11 +516,8 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
             gTextureScanIndex = 0;
         }
         if (scan == scanStart) {
-            // 原 58D348 消息字节及 52253F 路径；不足时不清除部分链或补写尾 next。
-            char message[256];
-            std::sprintf(message,
-                cg::text::FromLegacyDisplay("\x83\x54\x81\x5B\x83\x74\x83\x46\x83\x58\x95\x73"
-                "\x91\xAB\x82\xC5\x82\xB7\x81\x42%d\n").c_str(), scan);
+            // 原 58D348 消息及 52253F 路径；不足时不清除部分链或补写尾 next。
+            const std::wstring message = L"圖形表面不足。" + std::to_wstring(scan) + L'\n';
             platform::WriteLegacyDebugString(message);
             return;
         }

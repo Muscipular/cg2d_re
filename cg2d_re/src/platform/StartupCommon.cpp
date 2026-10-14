@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include <string>
 #include "LegacyFormat.hpp"
 
 #include "cg/platform/Startup.hpp"
@@ -60,6 +61,12 @@ void FreeGlobalMemory(void* const memory)
 void WriteLegacyDebugString(const char* const message)
 {
     ::OutputDebugStringA(message);
+}
+
+void WriteLegacyDebugString(const std::wstring_view message)
+{
+    const std::wstring terminated(message);
+    ::OutputDebugStringW(terminated.c_str());
 }
 
 } // namespace cg::platform

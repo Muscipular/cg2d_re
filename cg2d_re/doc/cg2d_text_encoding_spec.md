@@ -141,3 +141,17 @@ GBK不支持U+2027 `‧`，五处处理中提示改用U+00B7 `·`，保留双字
 ## 2026-10-10 ETE01：文本转义生产端取样
 
 [ETE01完整原根](cg2d_text_escape_sampling_spec.md#text-escape-source-state)/[原码与映射](cg2d_text_escape_sampling_spec.md#evidence-archive-20261011)覆盖52D1B0转义生产/52D2D0包装，共108条310B/三页、两E8/两目标/11跳两RET；112入向内部1/外111仅来源。恢复非地址S32表计数、已读首BYTE持有/后继与索引及计数更新序、匹配字母早退前读取/两写后更新索引三组。原四对BYTE映射、固定入口长度和两S32索引、原容量/调整长度门槛与截断、末NUL/同destination返回保持，不切换编码或加保护。正确包装和InputContext文本便利适配保持，不新增原根/通知/成功值或owner；UTE01四根和所有其它源保。两个新语义/F、INPUT/UIRUNTIME/NETWORK各两成员、三限定S零I/九任务open；全外调用、文本生产消费/容量与alias-owner寿命、SDK/机器ABI/真实截断和字符消息画面运行待。
+
+<a id="gbk-readable-literals-20261014"></a>
+## 2026-10-14：可读GBK字面量方案（GLT01，待确定范围）
+
+用户要求kModeChangeText等静态文字直接采用字面量，不以转义字符拼写正文。已核现有kModeChangeText的18B GBK正文为“正在改變描繪模式。”；拟改为：
+
+```cpp
+static constexpr char kModeChangeText[] = "正在改變描繪模式。";
+```
+
+源码继续UTF-8，相关目标普通窄字面量执行字符集采用GBK（MSVC /source-charset:utf-8、/execution-charset:.936）；当前/utf-8同时指定UTF-8源／执行字符集，不能仅替换拼写。带引号、反斜杠或换行的可读文本采用C++原始字符串字面量。已有UTF-8提示显式保留UTF-8，沿原char接口适配，不能随普通字面量改成GBK。
+范围选择待用户回复：统一处理已有证据确认的同类GBK静态界面文字，或仅kModeChangeText；非Big5／混合／日文字节按既有证据保留，不能按可解码就猜为GBK。保留原地址注释、繁体文字、格式占位、正文与NUL字节、sizeof／缓冲容量及全部消费者，不改变显示、协议、资源或输入编码边界，不新增依赖或运行时转码。
+实施前后逐组静态核对CP936编码回读与完整字节／容量，仅必要静态及台账文本汇总；不编译、测试、运行或计算摘要，既有编译／画面／整体门禁保持。当前仅记录方案，尚未修改源码或CMake。
+MSVC选项依据：[执行字符集](https://learn.microsoft.com/en-us/cpp/build/reference/execution-charset-set-execution-character-set?view=msvc-170)、[/utf-8](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)。

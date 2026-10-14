@@ -1462,7 +1462,7 @@ extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gValueD67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
-extern std::array<char, 256> gStallMessageC8A978; // 原全局：0x00C8A978。 摆摊结果提示，4D0230消费同一文本。
+extern std::wstring gStallMessageC8A978; // 原全局：0x00C8A978。 摆摊结果提示，4D0230消费同一文本。
 extern std::array<char, 17> gStallNameD67BE4; // 原全局：0x00D67BE4。 原strncpy16及D67BF4终止字节。
 extern std::uint8_t gStallPendingD67C31; // 原全局：0x00D67C31。 请求与回复共用等待标记。
 extern std::int32_t gStallMessageModeD67C34; // 原全局：0x00D67C34。
@@ -1476,7 +1476,7 @@ void Sub_4CE930(std::int32_t result); // 购买结果：浏览记录和两并行
 // 原函数：0x004CF8A0。
 void Sub_4CF8A0(world::detail::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
 // 原函数：0x004CECB0。
-std::int32_t Sub_4CECB0(); // 选择索引直接查询后发购买请求，返回提示字节数或原负值。
+std::int32_t Sub_4CECB0(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
 // 原函数：0x004CD420。
 std::int32_t Sub_4CD420(std::int32_t index, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
 // 原函数：0x004CDE00。

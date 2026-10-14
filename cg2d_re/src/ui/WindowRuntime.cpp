@@ -66,7 +66,7 @@ std::array<WindowState, kWindowCount> gWindowStates {}; // 原全局：0x00C9A9B
 WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
 WindowState* gCurrentWindowState = nullptr; // 原全局：0x00CF4684。
 std::uint8_t gValueD67BE0 = 0; // 原全局：0x00D67BE0。
-std::array<char, 256> gStallMessageC8A978 {}; // 原全局：0x00C8A978。
+std::wstring gStallMessageC8A978 {}; // 原全局：0x00C8A978。
 std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
 std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
 std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
@@ -1099,10 +1099,8 @@ constexpr wchar_t kBlacklistClearConfirm5886E4[] = // 原常量参考：0x005886
 )" L" CTRL鍵再選擇「是」)";
 constexpr wchar_t kBlacklistCleared588754[] = // 原常量参考：0x00588754。
     L"已刪除所有的黑名單。";
-const std::string kBlacklistCleared588754Utf8View = cg::text::FromUtf16(kBlacklistCleared588754); // 旧窄接口只读兼容视图。
 constexpr wchar_t kBlacklistEmpty588738[] = // 原常量参考：0x00588738。
     L"黑名單並沒有內容可刪除。";
-const std::string kBlacklistEmpty588738Utf8View = cg::text::FromUtf16(kBlacklistEmpty588738); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLogViewerUpHint5885EC[] = // 原常量参考：0x005885EC。
     L"往上查看內容。";
 constexpr wchar_t kLogViewerDownHint5885DC[] = // 原常量参考：0x005885DC。
@@ -2722,7 +2720,7 @@ std::int32_t Sub_4CFE70()
     if (!gStallDescriptionInput581360.input.context->empty()) {
         std::strcpy(login::detail::GetCurrentSavedStallDescriptionFF4D28(), description);
     }
-    std::strcpy(gStallMessageC8A978.data(), "擺攤請求中");
+    gStallMessageC8A978 = L"擺攤請求中";
     WindowInstance* const window = gCurrentWindow;
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
@@ -2741,12 +2739,12 @@ std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
     const std::uint32_t color = 0xFFFFFFFFu;
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
-    const std::int32_t width = login::detail::TextMeasure(gStallMessageC8A978.data(), 0);
+    const std::int32_t width = login::detail::TextMeasure(gStallMessageC8A978, 0);
     WindowInstance* window = gCurrentWindow;
     const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
     const auto textX = static_cast<std::int16_t>(window->x + (window->width - width) / 2);
     static_cast<void>(render::DrawText_456780(
-        textX, textY, 4, 0, 0, gStallMessageC8A978.data(), 0, 0));
+        textX, textY, 4, 0, 0, gStallMessageC8A978, 0, 0));
     if (mode == 1) {
         window = gCurrentWindow;
         const std::int32_t centerY = window->height / 2 + window->y;
@@ -4225,13 +4223,12 @@ std::int32_t Sub_4CECB0()
     gStallPendingD67C31 = 1;
     static_cast<void>(network::Sub_5121E0(socket, value));
     constexpr wchar_t message[] = L"購買請求中";
-const std::string messageUtf8View = cg::text::FromUtf16(message); // 旧窄接口只读兼容视图。
-    const auto bytes = static_cast<std::int32_t>(std::strlen(messageUtf8View.c_str()) + 1);
+    const auto length = static_cast<std::int32_t>(std::size(message));
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
-    std::memcpy(gStallMessageC8A978.data(), messageUtf8View.c_str(), bytes);
+    gStallMessageC8A978 = message;
     gCurrentWindow->elements[0].visible = 1;
-    return bytes;
+    return length;
 }
 
 // 原函数：0x004CD420。
@@ -4272,22 +4269,22 @@ void Sub_4CDE00()
 void Sub_4CE700(const std::int32_t result)
 {
     if (result != 0) {
-        const char* message;
+        const wchar_t* message;
         switch (result) {
         case 1:
-            message = "已經有人在此擺攤";
+            message = L"已經有人在此擺攤";
             break;
         case 3:
-            message = "兩次擺攤時間間隔過短";
+            message = L"兩次擺攤時間間隔過短";
             break;
         case 4:
-            message = "這個子星最大攤位數已滿";
+            message = L"這個子星最大攤位數已滿";
             break;
         default:
-            message = "擺攤失敗";
+            message = L"擺攤失敗";
             break;
         }
-        std::strcpy(gStallMessageC8A978.data(), message);
+        gStallMessageC8A978 = message;
         WindowInstance* const window = gWindowStates[67].window;
         world::detail::ClearPlayerActionFlags(0x1000u);
         gStallMessageModeD67C34 = 1;
@@ -4300,7 +4297,7 @@ void Sub_4CE700(const std::int32_t result)
         return;
     }
     char name[33];
-    cg::text::StoreGbk(name, sizeof(name), "無名店舖");
+    cg::text::StoreGbk(name, sizeof(name), L"無名店舖");
     world::detail::SetPlayerActionFlags(0x1000u);
     std::memset(name + 9, 0, 24);
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
@@ -4318,7 +4315,7 @@ void Sub_4CE700(const std::int32_t result)
 void Sub_4CE8B0(const std::int32_t result)
 {
     if (result != 0) {
-        std::strcpy(gStallMessageC8A978.data(), "收攤失敗");
+        gStallMessageC8A978 = L"收攤失敗";
     }
     world::detail::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
@@ -4390,23 +4387,23 @@ void Sub_4CE930(const std::int32_t result)
         gStallPendingD67C31 = 0;
         return;
     }
-    constexpr const char* messages[] {
-        "沒有找到老闆",
-        "老闆的攤位已經變更",
-        "您的物品空間已滿",
-        "您的寵物空間已滿",
-        "您的錢不夠",
-        "要買的東西已經售出",
-        "老闆的錢包已滿",
-        "交易失敗代碼8",
-        "交易失敗代碼9",
-        "交易失敗代碼10",
-        "交易失敗代碼11",
-        "交易失敗代碼12",
+    constexpr const wchar_t* messages[] {
+        L"沒有找到老闆",
+        L"老闆的攤位已經變更",
+        L"您的物品空間已滿",
+        L"您的寵物空間已滿",
+        L"您的錢不夠",
+        L"要買的東西已經售出",
+        L"老闆的錢包已滿",
+        L"交易失敗代碼8",
+        L"交易失敗代碼9",
+        L"交易失敗代碼10",
+        L"交易失敗代碼11",
+        L"交易失敗代碼12",
     };
-    const char* const message = result >= 1 && result <= 12
-        ? messages[result - 1] : "購買失敗";
-    std::strcpy(gStallMessageC8A978.data(), message);
+    const wchar_t* const message = result >= 1 && result <= 12
+        ? messages[result - 1] : L"購買失敗";
+    gStallMessageC8A978 = message;
     WindowInstance* const window = gWindowStates[68].window;
     gStallMessageModeD67C34 = 1;
     gStallMessageValueD67C38 = 0;
@@ -10690,12 +10687,9 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
         9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149,
     };
     static constexpr wchar_t noSpace[] = L"物品欄位不足！";
-static const std::string noSpaceUtf8View = cg::text::FromUtf16(noSpace); // 旧窄接口只读兼容视图。
     static constexpr wchar_t noWeapon[] = L"沒有裝備武器！";
-static const std::string noWeaponUtf8View = cg::text::FromUtf16(noWeapon); // 旧窄接口只读兼容视图。
     static constexpr wchar_t unidentified[] =
         L"無法裝備未鑑定物品！";
-static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified); // 旧窄接口只读兼容视图。
     static constexpr wchar_t canEquip[] = L"可裝備此物品。";
     static constexpr wchar_t cannotEquip[] =
         L"無法裝備此物品。";
@@ -11129,12 +11123,9 @@ std::int32_t Sub_49B610(const std::int32_t, const std::int32_t state)
 std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
 {
     static constexpr wchar_t noSpace[] = L"物品欄位不足！";
-static const std::string noSpaceUtf8View = cg::text::FromUtf16(noSpace); // 旧窄接口只读兼容视图。
     static constexpr wchar_t unidentified[] =
         L"無法裝備未鑑定物品！";
-static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified); // 旧窄接口只读兼容视图。
     static constexpr wchar_t noWeapon[] = L"沒有裝備武器！";
-static const std::string noWeaponUtf8View = cg::text::FromUtf16(noWeapon); // 旧窄接口只读兼容视图。
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -25277,8 +25268,8 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
-            std::array<char, 16> requestText;
-            std::sprintf(requestText.data(), "%d", gWindow54ReplacementC8B08C);
+            std::wstring requestText;
+            cg::text::FormatTo(requestText, L"{}", gWindow54ReplacementC8B08C);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -25286,7 +25277,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(requestText.data())));
+                platform::gConnectionSocket, x, y, request, target, 0, requestText));
             gCurrentWindow->state &= ~2u;
             acceptImage = 245324;
             gCurrentWindow->state |= 0x8000u;
@@ -25310,50 +25301,46 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
     }
     static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
-    constexpr char learnFormat588344[] = "學習『%s』";
-    constexpr char petFormat588338[] = "讓『%s』";
+    constexpr wchar_t learnFormat588344[] = L"學習『{}』";
+    constexpr wchar_t petFormat588338[] = L"讓『{}』";
     constexpr wchar_t petMeasure588320[] =
         L"讓『1234567890123456』";
-    constexpr char slotFormat58830C[] =
-        "使用『%s』的位置";
+    constexpr wchar_t slotFormat58830C[] =
+        L"使用『{}』的位置";
     constexpr wchar_t emptySlot5882F4[] =
         L"使用『空欄位』的位置";
-const std::string emptySlot5882F4Utf8View = cg::text::FromUtf16(emptySlot5882F4); // 旧窄接口只读兼容视图。
     constexpr wchar_t learnSuffix5882E8[] = L"來學習。";
-    constexpr char moneyFormat5882D4[] =
-        "所持金　 %7d金幣";
-    constexpr char priceFormat5882C0[] =
-        "購入金額 %7d金幣";
+    constexpr wchar_t moneyFormat5882D4[] =
+        L"所持金　 {:7}金幣";
+    constexpr wchar_t priceFormat5882C0[] =
+        L"購入金額 {:7}金幣";
     constexpr wchar_t question5882B0[] = L"這樣可以嗎？";
-    std::array<char, 768> buffer;
-    std::sprintf(buffer.data(), learnFormat588344,
-        cg::text::FromGbk(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
-    std::int32_t width = login::detail::TextMeasure(buffer.data(), 0);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, learnFormat588344, cg::text::FromGbkWide(gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data()).c_str());
+    std::int32_t width = login::detail::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer.data(), 0, 0));
-    std::sprintf(buffer.data(), petFormat588338,
-        cg::text::FromGbk(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
+        static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer, 0, 0));
+    cg::text::FormatTo(buffer, petFormat588338, cg::text::FromGbkWide(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data()).c_str());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
     width = login::detail::TextMeasure(petMeasure588320, 0);
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer.data(), 0, 0));
+        static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer, 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
-        std::sprintf(buffer.data(), slotFormat58830C, cg::text::FromGbk(slot.name.data()).c_str());
+        cg::text::FormatTo(buffer, slotFormat58830C, cg::text::FromGbkWide(slot.name.data()).c_str());
     } else {
-        std::strcpy(buffer.data(), emptySlot5882F4Utf8View.c_str());
+        buffer = emptySlot5882F4;
     }
-    width = login::detail::TextMeasure(buffer.data(), 0);
+    width = login::detail::TextMeasure(buffer, 0);
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(320 - width / 2), 178, 4, 0, 0, buffer.data(), 0, 0));
+        static_cast<std::int16_t>(320 - width / 2), 178, 4, 0, 0, buffer, 0, 0));
     width = login::detail::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    std::sprintf(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
-    static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer.data(), 0, 0));
-    std::sprintf(buffer.data(), priceFormat5882C0,
-        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
-    static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer.data(), 0, 0));
+    cg::text::FormatTo(buffer, moneyFormat5882D4, world::detail::ReadPlayerValueFC());
+    static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
+    cg::text::FormatTo(buffer, priceFormat5882C0, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));
     static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, question5882B0, 0, 0));
     login::detail::DrawNineGrid_49BE00(
         245300, 160, 110, 320, 240, 226, -1,
@@ -28821,22 +28808,17 @@ std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{ // 原全局：0x0057F
 }};
 constexpr wchar_t kGuildPermissionHint587AA8[] = // 原常量参考：0x00587AA8。
     L"變更此家族稱號所屬的加入權限。";
-const std::string kGuildPermissionHint587AA8Utf8View = cg::text::FromUtf16(kGuildPermissionHint587AA8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kGuildPermissionHint587A88[] = // 原常量参考：0x00587A88。
     L"變更此家族稱號所屬的除名權限。";
-const std::string kGuildPermissionHint587A88Utf8View = cg::text::FromUtf16(kGuildPermissionHint587A88); // 旧窄接口只读兼容视图。
 constexpr wchar_t kGuildPermissionHint587A60[] = // 原常量参考：0x00587A60。
     L"變更此家族稱號所屬的家族獸餵養權限。";
-const std::string kGuildPermissionHint587A60Utf8View = cg::text::FromUtf16(kGuildPermissionHint587A60); // 旧窄接口只读兼容视图。
 constexpr wchar_t kGuildPermissionHint587A38[] = // 原常量参考：0x00587A38。
     L"變更此家族稱號所屬的家族倉庫使用權限。";
-const std::string kGuildPermissionHint587A38Utf8View = cg::text::FromUtf16(kGuildPermissionHint587A38); // 旧窄接口只读兼容视图。
 constexpr wchar_t kGuildPermissionHint587A10[] = // 原常量参考：0x00587A10。
     L"變更此家族稱號所屬的留言板刪除權限。";
-const std::string kGuildPermissionHint587A10Utf8View = cg::text::FromUtf16(kGuildPermissionHint587A10); // 旧窄接口只读兼容视图。
-const char* const kGuildPermissionHints[] {
-    kGuildPermissionHint587AA8Utf8View.c_str(), kGuildPermissionHint587A88Utf8View.c_str(),
-    kGuildPermissionHint587A60Utf8View.c_str(), kGuildPermissionHint587A38Utf8View.c_str(), kGuildPermissionHint587A10Utf8View.c_str(),
+const wchar_t* const kGuildPermissionHints[] {
+    kGuildPermissionHint587AA8, kGuildPermissionHint587A88,
+    kGuildPermissionHint587A60, kGuildPermissionHint587A38, kGuildPermissionHint587A10,
 };
 constexpr wchar_t kGuildNameSubmitHint587AC8[] = // 原常量参考：0x00587AC8。
     L"變更家族名稱。";
@@ -29097,7 +29079,7 @@ std::int32_t Sub_4AEC30(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(kGuildPermissionHints[column]);
+        gHoverTextD68AE8 = kGuildPermissionHints[column];
     }
     if ((state & 2) != 0) {
         const std::int32_t rank = gGuildPageD67B78 + row;
@@ -29721,7 +29703,7 @@ login::YobiAction* Sub_4CD150()
 std::int32_t Sub_4CD1E0(const std::int32_t, const std::int32_t)
 {
     const wchar_t* const message = blacklist::ClearBlacklistRecords_401470() != 0
-        ? kBlacklistCleared588754Utf8View.c_str() : kBlacklistEmpty588738Utf8View.c_str();
+        ? kBlacklistCleared588754 : kBlacklistEmpty588738;
     world::detail::Sub_44B050(message, 4, 3);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
@@ -39057,7 +39039,6 @@ void Sub_4F0200(const char* const text)
     } else if (gSkillTargetKindCF4A10 == 0) {
         constexpr wchar_t message[] =
             L"沒有可變裝的角色！";
-const std::string messageUtf8View = cg::text::FromUtf16(message); // 旧窄接口只读兼容视图。
         world::detail::Sub_44B050(message, 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         static_cast<void>(audio::Sub_5042D0(19));
@@ -40895,66 +40876,48 @@ constexpr wchar_t kStatusNoMail556D14[] = L"現在沒有郵件。"; // 原常量
 constexpr wchar_t kStatusNewMail556D24[] = L"現在有新郵件。"; // 原常量参考：0x00556D24。
 constexpr wchar_t kStatusNoPoints556D34[] = // 原常量参考：0x00556D34。
     L"現在沒有任何的增加點數。";
-const std::string kStatusNoPoints556D34Utf8View = cg::text::FromUtf16(kStatusNoPoints556D34); // 旧窄接口只读兼容视图。
-constexpr char kStatusPlayerPoints556D50[] = // 原常量参考：0x00556D50。
-    "現在有增加點數%d點。";
+constexpr wchar_t kStatusPlayerPoints556D50[] = // 原常量参考：0x00556D50。
+    L"現在有增加點數{}點。";
 constexpr wchar_t kStatusHealthy556D68[] = L"現在十分健康。"; // 原常量参考：0x00556D68。
-constexpr char kStatusPetInjury556D78[] = "現在%s瀕臨死亡。"; // 原常量参考：0x00556D78。
-constexpr char kStatusPetInjury556D8C[] = "現在%s受了重傷。"; // 原常量参考：0x00556D8C。
-constexpr char kStatusPetInjury556DA0[] = "現在%s受到輕傷。"; // 原常量参考：0x00556DA0。
-constexpr char kStatusPetInjury556DB4[] = "現在%s受到擦傷。"; // 原常量参考：0x00556DB4。
+constexpr wchar_t kStatusPetInjury556D78[] = L"現在{}瀕臨死亡。"; // 原常量参考：0x00556D78。
+constexpr wchar_t kStatusPetInjury556D8C[] = L"現在{}受了重傷。"; // 原常量参考：0x00556D8C。
+constexpr wchar_t kStatusPetInjury556DA0[] = L"現在{}受到輕傷。"; // 原常量参考：0x00556DA0。
+constexpr wchar_t kStatusPetInjury556DB4[] = L"現在{}受到擦傷。"; // 原常量参考：0x00556DB4。
 constexpr wchar_t kStatusPlayerInjury556DC8[] = // 原常量参考：0x00556DC8。
     L"現在正面臨死亡邊緣。";
 constexpr wchar_t kStatusPlayerInjury556DE0[] = L"現在受到重傷。"; // 原常量参考：0x00556DE0。
 constexpr wchar_t kStatusPlayerInjury556DF0[] = L"現在受了輕傷。"; // 原常量参考：0x00556DF0。
 constexpr wchar_t kStatusPlayerInjury556E00[] = // 原常量参考：0x00556E00。
     L"現在受了一點小傷。";
-constexpr char kStatusPetPoints586314[] = // 原常量参考：0x00586314。
-    "現在%s擁有%d點的能力點數。";
+constexpr wchar_t kStatusPetPoints586314[] = // 原常量参考：0x00586314。
+    L"現在{}擁有{}點的能力點數。";
 constexpr wchar_t kStatusDuelOff556E14[] = L"現在不能跟別人對戰。"; // 原常量参考：0x00556E14。
-const std::string kStatusDuelOff556E14Utf8View = cg::text::FromUtf16(kStatusDuelOff556E14); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusDuelOn556E2C[] = L"現在可以跟別人對戰。"; // 原常量参考：0x00556E2C。
-const std::string kStatusDuelOn556E2CUtf8View = cg::text::FromUtf16(kStatusDuelOn556E2C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusChatOff556E44[] = L"現在進行普通的聊天。"; // 原常量参考：0x00556E44。
-const std::string kStatusChatOff556E44Utf8View = cg::text::FromUtf16(kStatusChatOff556E44); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusChatOn556E5C[] = L"現在進行小隊的聊天。"; // 原常量参考：0x00556E5C。
-const std::string kStatusChatOn556E5CUtf8View = cg::text::FromUtf16(kStatusChatOn556E5C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusPartyOff556E74[] = // 原常量参考：0x00556E74。
     L"現在禁止別人與自己組隊。";
-const std::string kStatusPartyOff556E74Utf8View = cg::text::FromUtf16(kStatusPartyOff556E74); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusPartyOn556E90[] = // 原常量参考：0x00556E90。
     L"現在允許別人與自己組隊。";
-const std::string kStatusPartyOn556E90Utf8View = cg::text::FromUtf16(kStatusPartyOn556E90); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusCardOff556EAC[] = // 原常量参考：0x00556EAC。
     L"現在禁止別人與自己交換名片。";
-const std::string kStatusCardOff556EACUtf8View = cg::text::FromUtf16(kStatusCardOff556EAC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusCardOn556ECC[] = // 原常量参考：0x00556ECC。
     L"現在允許別人與自己交換名片。";
-const std::string kStatusCardOn556ECCUtf8View = cg::text::FromUtf16(kStatusCardOn556ECC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusTradeOff556EEC[] = // 原常量参考：0x00556EEC。
     L"現在禁止別人與自己交易。";
-const std::string kStatusTradeOff556EECUtf8View = cg::text::FromUtf16(kStatusTradeOff556EEC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusTradeOn556F08[] = // 原常量参考：0x00556F08。
     L"現在允許別人與自己交易。";
-const std::string kStatusTradeOn556F08Utf8View = cg::text::FromUtf16(kStatusTradeOn556F08); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusGuildUnavailable586270[] = L"無法使用家族功能。"; // 原常量参考：0x00586270。
 constexpr wchar_t kStatusGuildOff5862D4[] = // 原常量参考：0x005862D4。
     L"現在禁止別人邀請自己參加家族。";
-const std::string kStatusGuildOff5862D4Utf8View = cg::text::FromUtf16(kStatusGuildOff5862D4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kStatusGuildOn5862F4[] = // 原常量参考：0x005862F4。
     L"現在允許別人邀請自己參加家族。";
-const std::string kStatusGuildOn5862F4Utf8View = cg::text::FromUtf16(kStatusGuildOn5862F4); // 旧窄接口只读兼容视图。
 
 constexpr wchar_t kQuickDuel556C80[] = L"要求進行對戰。"; // 原常量参考：0x00556C80。
-const std::string kQuickDuel556C80Utf8View = cg::text::FromUtf16(kQuickDuel556C80); // 旧窄接口只读兼容视图。
 constexpr wchar_t kQuickWatch556C90[] = L"要求進行觀戰。"; // 原常量参考：0x00556C90。
-const std::string kQuickWatch556C90Utf8View = cg::text::FromUtf16(kQuickWatch556C90); // 旧窄接口只读兼容视图。
 constexpr wchar_t kQuickTeam556CA0[] = L"要求加入冒險隊伍。"; // 原常量参考：0x00556CA0。
-const std::string kQuickTeam556CA0Utf8View = cg::text::FromUtf16(kQuickTeam556CA0); // 旧窄接口只读兼容视图。
 constexpr wchar_t kQuickCard556CB4[] = L"要求交換名片。"; // 原常量参考：0x00556CB4。
-const std::string kQuickCard556CB4Utf8View = cg::text::FromUtf16(kQuickCard556CB4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kQuickTrade556CD8[] = L"要求進行交易。"; // 原常量参考：0x00556CD8。
-const std::string kQuickTrade556CD8Utf8View = cg::text::FromUtf16(kQuickTrade556CD8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kQuickEmote556CE8[] = L"打開情緒動作視窗。"; // 原常量参考：0x00556CE8。
 constexpr wchar_t kQuickMap58625C[] = L"打開小地圖視窗。"; // 原常量参考：0x0058625C。
 constexpr wchar_t kQuickGuild586284[] = L"邀請對方加入自己的家族。"; // 原常量参考：0x00586284。
@@ -41260,9 +41223,9 @@ std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
         return consumed;
     }
     if (index < 5) {
-        const char* const hints[5] {
-            kQuickDuel556C80Utf8View.c_str(), kQuickWatch556C90Utf8View.c_str(), kQuickTeam556CA0Utf8View.c_str(),
-            kQuickCard556CB4Utf8View.c_str(), kQuickTrade556CD8Utf8View.c_str(),
+        const wchar_t* const hints[5] {
+            kQuickDuel556C80, kQuickWatch556C90, kQuickTeam556CA0,
+            kQuickCard556CB4, kQuickTrade556CD8,
         };
         void (*const requests[5])() {
             &world::detail::Sub_470050, &world::detail::Sub_470150,
@@ -41270,7 +41233,7 @@ std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
             &world::detail::Sub_4704A0,
         };
         if (hover) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(hints[index]);
+            gHoverTextD68AE8 = hints[index];
         }
         if ((state & 2) != 0) {
             requests[index]();
@@ -41465,13 +41428,13 @@ std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
     }
     const std::uint8_t options = world::detail::ReadPlayerOptions194LowByte();
     constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
-    const char* const hints[6][2] {
-        {kStatusDuelOff556E14Utf8View.c_str(), kStatusDuelOn556E2CUtf8View.c_str()},
-        {kStatusChatOff556E44Utf8View.c_str(), kStatusChatOn556E5CUtf8View.c_str()},
-        {kStatusPartyOff556E74Utf8View.c_str(), kStatusPartyOn556E90Utf8View.c_str()},
-        {kStatusCardOff556EACUtf8View.c_str(), kStatusCardOn556ECCUtf8View.c_str()},
-        {kStatusTradeOff556EECUtf8View.c_str(), kStatusTradeOn556F08Utf8View.c_str()},
-        {kStatusGuildOff5862D4Utf8View.c_str(), kStatusGuildOn5862F4Utf8View.c_str()},
+    const wchar_t* const hints[6][2] {
+        {kStatusDuelOff556E14, kStatusDuelOn556E2C},
+        {kStatusChatOff556E44, kStatusChatOn556E5C},
+        {kStatusPartyOff556E74, kStatusPartyOn556E90},
+        {kStatusCardOff556EAC, kStatusCardOn556ECC},
+        {kStatusTradeOff556EEC, kStatusTradeOn556F08},
+        {kStatusGuildOff5862D4, kStatusGuildOn5862F4},
     };
     std::int32_t (*const toggleCallbacks[6])() {
         &world::detail::Sub_472F40, &world::detail::Sub_472F70, &world::detail::Sub_472FA0,
@@ -41480,7 +41443,7 @@ std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
     const std::int32_t slot = index - 17;
     const bool enabled = (options & masks[slot]) != 0;
     if (hover) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(hints[slot][enabled ? 1 : 0]);
+        gHoverTextD68AE8 = hints[slot][enabled ? 1 : 0];
     }
     if (enabled) {
         graphic->imageNo = 0x3B92E + slot * 3;
@@ -41523,7 +41486,7 @@ std::int32_t Sub_4731B0(const std::int32_t index)
 std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
-    char buffer[768];
+    std::wstring buffer;
     switch (index) {
     case 13: {
         const std::int32_t candidate = world::detail::Sub_504B10();
@@ -41536,15 +41499,15 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    std::sprintf(buffer, kStatusPetPoints586314, cg::text::FromGbk(name).c_str(), points);
+                    cg::text::FormatTo(buffer, kStatusPetPoints586314, cg::text::FromGbkWide(name).c_str(), points);
                 } else {
                     const std::int32_t points = world::detail::gValueD2F788;
-                    std::sprintf(buffer, kStatusPlayerPoints556D50, points);
+                    cg::text::FormatTo(buffer, kStatusPlayerPoints556D50, points);
                 }
             } else {
-                std::strcpy(buffer, kStatusNoPoints556D34Utf8View.c_str());
+                buffer = kStatusNoPoints556D34;
             }
-            gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+            gHoverTextD68AE8 = buffer;
         }
         if (gLoginWindowRuntime.statusHasPointsD66E24 == 0) {
             return 0;
@@ -41630,7 +41593,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                 const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
-                const char* format;
+                const wchar_t* format;
                 if (petInjury <= 25) {
                     format = kStatusPetInjury556DB4;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
@@ -41643,10 +41606,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     format = critical ? kStatusPetInjury556D78 : kStatusPetInjury556D8C;
                 }
-                std::sprintf(buffer, format, cg::text::FromGbk(name).c_str());
+                cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
                 const std::size_t length = std::strlen(buffer) + 1;
                 const std::size_t bulk = length & ~std::size_t{3};
-                gHoverTextD68AE8 = cg::text::ToUtf16(buffer);
+                gHoverTextD68AE8 = buffer;
                 injury = world::detail::ReadPlayerInjury();
                 static_cast<void>(0);
             }

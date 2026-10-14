@@ -90,12 +90,11 @@ struct TextLine {
 };
 [[nodiscard]] std::vector<TextLine> SplitLines(const InputContext& context);
 void AppendText(std::wstring_view utf16);
-// 窄CRT兼容边界；内部只编辑UTF-16。
-void AppendText(std::string_view utf8);
 [[nodiscard]] std::wstring ContextText(const InputContext& context);
 [[nodiscard]] std::size_t ContextUtf16Offset(const InputContext& context, std::int32_t storedByteOffset);
 void SetVisibleUtf16Offset(InputContext& context, std::size_t utf16Offset);
 
+// 原函数：0x0044A160。
 void LoadInitialText_44A160(std::wstring_view initialText);
 
 // 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
@@ -190,18 +189,6 @@ void InitializeContext_449CF0(
     std::int32_t renderMode,
     std::int32_t fontType,
     std::int32_t color,
-    const char* initialText,
-    std::int32_t maxLine,
-    std::int32_t maxCharPerLine,
-    std::int32_t field14C,
-    std::int32_t encrypt);
-void InitializeContext_449CF0(
-    InputContext* context,
-    std::int32_t field130,
-    std::int32_t field134,
-    std::int32_t renderMode,
-    std::int32_t fontType,
-    std::int32_t color,
     std::wstring_view initialText,
     std::int32_t maxLine,
     std::int32_t maxCharPerLine,
@@ -220,9 +207,7 @@ InputContext* Sub_45D760(
     std::int32_t color, std::int32_t renderMode, std::int32_t fontType);
 
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
-void AppendChar_44ADB0(char character);
-// 原函数：0x0044A160。
-void LoadInitialText_44A160(const char* initialText); // 向当前动态输入逐字追加；旧存储视图单独检查容量。
+void AppendChar_44ADB0(wchar_t character);
 // 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 

@@ -40298,9 +40298,9 @@
         {
           "path": "src/Input.cpp",
           "symbols": [
-            "ClassifyAnsiBoundary_44B1D0"
+            "ClassifyTextBoundary_44B1D0"
           ],
-          "relationship": "已有分类本体及原W32数量边界；本步唯一复制交真实53BEC0，其他正文不改"
+          "relationship": "UWF01：宽字符边界辅助，当前无调用；原函数身份保留，不恢复UTF-8字节算法。"
         }
       ],
       "evidence_documents": [
@@ -40746,10 +40746,10 @@
         {
           "path": "src/Input.cpp",
           "symbols": [
-            "ClassifyAnsiBoundary_44B1D0",
+            "ClassifyTextBoundary_44B1D0",
             "AppendChar_44ADB0"
           ],
-          "relationship": "四处真实std::strncpy表达式对应44B1EC/44AE01/44AE16/44AFF7；原U32计数和前后次序保持"
+          "relationship": "UWF01：宽字符边界辅助，当前无调用；原函数身份保留，不恢复UTF-8字节算法。"
         },
         {
           "path": "src/Input.cpp",
@@ -281755,7 +281755,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第五组静态视图已清零；其余内部文字迁移继续",
+    "phase": "第六组输入窄重载已退休；其余内部文字迁移继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283264,6 +283264,66 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4723D0"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "ClassifyTextBoundary_44B1D0"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "AppendChar_44ADB0"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_449DA0"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "BrowseChatHistory_44A1B0"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44AB60"
+      },
+      {
+        "path": "src/CharacterSelectScene.cpp",
+        "symbol": "Sub_463100"
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "InitializeInputContexts_45C7C0"
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "InitializeCapabilityInput_45F970"
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "InitializeCapability4Input_465320"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4021A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF730"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_530BA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F2130"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4014B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_501FD0"
       }
     ],
     "build_verified": false,

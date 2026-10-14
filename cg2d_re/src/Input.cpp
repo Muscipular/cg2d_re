@@ -447,22 +447,16 @@ char* FindLegacyByte_44B4A0(char* const text, const char* const target)
 namespace {
 
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。
-std::int32_t ClassifyAnsiBoundary_44B1D0(
-    const char* source,
+std::int32_t ClassifyTextBoundary_44B1D0(
+    const std::wstring_view source,
     const std::int32_t count)
 {
-    const std::string_view utf8(source);
-    const std::size_t end = text::Prefix(utf8, static_cast<std::size_t>(count));
-    return static_cast<std::int32_t>(end - text::Previous(utf8, end));
+    const std::wstring_view contents(source);
+    const std::size_t end = text::Prefix(contents, static_cast<std::size_t>(count));
+    return static_cast<std::int32_t>(end - text::Previous(contents, end));
 }
 
 } // namespace
-
-// 原 sub_44A160。
-void LoadInitialText_44A160(const char* const initialText)
-{
-    if (initialText != nullptr && gCurrentInputData != nullptr) { AppendText(text::ToUtf16(initialText)); }
-}
 
 namespace detail {
 
@@ -879,16 +873,16 @@ char RemoveLegacyBytes_52D570(
     return 0;
 }
 
-// 原函数：0x0044ADB0。
-void AppendText(const std::string_view utf8) { AppendText(text::ToUtf16(utf8)); }
+// 原函数：0x0044A160。
 void LoadInitialText_44A160(const std::wstring_view initialText)
 {
     if (gCurrentInputData != nullptr) { AppendText(initialText); }
 }
 
-void AppendChar_44ADB0(const char character)
+// 原函数：0x0044ADB0。
+void AppendChar_44ADB0(const wchar_t character)
 {
-    AppendText(std::string_view(&character, 1));
+    AppendText(std::wstring_view(&character, 1));
 }
 
 // 原函数：0x0044B340。
@@ -1079,44 +1073,7 @@ InputContext* BorrowLegacyPresetContext5F9758(const std::int32_t index) noexcept
     return &*view;
 }
 
-// 原函数：0x00449CF0。
-void InitializeContext_449CF0(
-    InputContext* const context,
-    const std::int32_t field130,
-    const std::int32_t field134,
-    const std::int32_t renderMode,
-    const std::int32_t fontType,
-    const std::int32_t color,
-    const char* const initialText,
-    const std::int32_t maxLine,
-    const std::int32_t maxCharPerLine,
-    const std::int32_t field14C,
-    const std::int32_t encrypt)
-{
-    context->field130 = field130;
-    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
-    context->field140 = color;
-    context->field134 = field134;
-    context->maxCharPerLine = maxCharPerLine;
-    context->field13C = fontType;
-    context->encrypt = encrypt;
-    context->maxLine = maxLine;
-    context->field14C = field14C;
-    context->clearText();
-    context->totalByteLength = 0;
-    context->caretByteOffset = 0;
-    context->field154 = 0;
-    context->field158 = 0;
-
-    if (initialText != nullptr) {
-        InputContext* const savedContext = gCurrentInputData;
-        SetContext_44B330(context);
-        LoadInitialText_44A160(initialText);
-        SetContext_44B330(savedContext);
-    }
-}
-
-// 原0x00449CF0：UTF-16输入原型直接初始化，窄入口仅为局部兼容适配。
+// 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(
     InputContext* const context,
     const std::int32_t field130,
@@ -1301,7 +1258,7 @@ void __cdecl Sub_449DA0()
     std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
     input::gInputContext626AA0.reset();
     input::InitializeContext_449CF0(
-        &input::gInputContext626AA0, 8, 440, 0, 1, 0, nullptr, 1, 78, 0, 0);
+        &input::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
     gInputContext626840 = input::gInputContext626AA0;
 
     for (std::size_t index = 0; index < 19; ++index) {
@@ -1534,7 +1491,7 @@ void BrowseChatHistory_44A1B0()
     initialContext->totalByteLength = 0;
     gCurrentInputData->clearText();
     gCurrentInputData->caretByteOffset = 0;
-    LoadInitialText_44A160(cg::text::FromGbk(gChatHistory621FF8.records[gCursor62683C]).c_str());
+    LoadInitialText_44A160(cg::text::FromGbkWide(gChatHistory621FF8.records[gCursor62683C]).c_str());
     const std::wstring contents = ContextText(*gCurrentInputData);
     const std::size_t width = static_cast<std::size_t>(ui::ReadChatInputByteWidth_4A80E0());
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
@@ -1618,7 +1575,7 @@ void Sub_44AB60()
                || context == &gInputContextCC2080
                || context == &gInputContextD2D828
                || context == &gInputContextCA0180) {
-        AppendChar_44ADB0('\r');
+        AppendChar_44ADB0(L'\r');
         context = gCurrentInputData;
     }
     if (context == &gInputContextC8B1B8) {

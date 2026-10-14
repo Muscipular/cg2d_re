@@ -1901,7 +1901,7 @@ try {
         gLegacyLogStorage593A00.input593E18.totalByteLength = 0;
         gLegacyLogStorage593A00.input593E18.caretByteOffset = 0;
         input::InitializeContext_449CF0(&gLegacyLogStorage593A00.input593E18,
-            inputX, inputY, 2, 0, 0, nullptr, 1, 52, 18, 0);
+            inputX, inputY, 2, 0, 0, {}, 1, 52, 18, 0);
         input::SetContext_44B330(gLegacyLogInput593F8C);
     }
     if (gLegacyLogError593F7C != 0) {
@@ -2030,7 +2030,7 @@ try {
                 const std::int32_t inputY = AddW32(gLegacyLogPanel553440.y, 408);
                 const std::int32_t inputX = AddW32(gLegacyLogPanel553440.x, 21);
                 input::InitializeContext_449CF0(gLegacyLogInput593F8C,
-                    inputX, inputY, 2, 0, 0, nullptr, 1, 52, 18, 0);
+                    inputX, inputY, 2, 0, 0, {}, 1, 52, 18, 0);
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 ui::detail::gLogDisplayGate593F84 = 1;
             } else {
@@ -5213,7 +5213,7 @@ try {
         input::gInputContextCC46E0.caretByteOffset = 0;
         input::gInputContextCC46E0.totalByteLength = 0;
         input::InitializeContext_449CF0(&input::gInputContextCC46E0,
-            inputX, inputY, 2, 0, 0, nullptr, 2, 70, 18, 0);
+            inputX, inputY, 2, 0, 0, {}, 2, 70, 18, 0);
         input::SetContext_44B330(gLegacyMessageInputD67C8C);
     }
     if (ui::detail::Sub_4D3040(2, 2) != 0) {
@@ -11011,9 +11011,8 @@ try {
         gLegacyGuildDetailsInputs1057C7C.fill(nullptr);
         return result;
     }
-    // 原末尾384B为三个128B串区，不能按反编译InputContext解释。
-    char temporary[384];
-    char* const buffer = temporary + 256;
+    // 原末尾384B中的显示／输入临时正文，当前独立动态UTF-16。
+    std::wstring buffer;
     if (gLegacyGuildDetailsInputs1057C7C[0] == nullptr) {
         for (std::int32_t index = 0; index < 3; ++index) {
             gLegacyGuildDetailsInputs1057C7C[index] = &input::gInputContexts1050F18[index];
@@ -11022,7 +11021,7 @@ try {
             gLegacyGuildDetailsInputs1057C7C[index]->caretByteOffset = 0;
             const char* const initial = index == 0 ? BorrowGuildName10514BC()
                 : (index == 1 ? BorrowGuildSecondText10514E5() : input::LegacyText593850());
-            cg::text::Copy(buffer, 256, cg::text::FromGbk(initial));
+            buffer = cg::text::FromGbkWide(initial);
             const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y + 60 * (index + 1);
             input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[index];
             const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x + 13;
@@ -11047,7 +11046,7 @@ try {
         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
         const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
         input::InitializeContext_449CF0(context, inputX + 13, inputY + 60, 2, 0, 0,
-            cg::text::FromGbk(gLegacyGuildNameCache1050DD0.data()).c_str(), 1, 16, 0, 0);
+            cg::text::FromGbkWide(gLegacyGuildNameCache1050DD0.data()), 1, 16, 0, 0);
     }
     if (std::strcmp(gLegacyGuildSecondCache1050E50.data(), BorrowGuildSecondText10514E5()) != 0) {
         const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
@@ -11055,7 +11054,7 @@ try {
         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
         const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
         input::InitializeContext_449CF0(context, inputX + 13, inputY + 120, 2, 0, 0,
-            cg::text::FromGbk(gLegacyGuildSecondCache1050E50.data()).c_str(), 1, 16, 0, 0);
+            cg::text::FromGbkWide(gLegacyGuildSecondCache1050E50.data()), 1, 16, 0, 0);
     }
     const std::int32_t previousState = QueryPanelButtonState(&previous);
     bool pageChanged = false;
@@ -11139,7 +11138,7 @@ try {
                                 input::InputContext* const resetContext = gLegacyGuildDetailsInputs1057C7C[2];
                                 gLegacyGuildDetailsSelected58F15C = -1;
                                 input::InitializeContext_449CF0(resetContext, inputX + 13, inputY + 180,
-                                    2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+                                    2, 0, 0, cg::text::FromGbkWide(input::LegacyText593850()), 1, 16, 0, 0);
                             } else {
                                 std::int32_t emptyRank = 0;
                                 while (emptyRank < 32 && BorrowGuildRankText1051518(emptyRank)[0] != '\0') {
@@ -11155,7 +11154,7 @@ try {
                                     const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
                                     input::InputContext* const resetContext = gLegacyGuildDetailsInputs1057C7C[2];
                                     input::InitializeContext_449CF0(resetContext, inputX + 13, inputY + 180,
-                                        2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+                                        2, 0, 0, cg::text::FromGbkWide(input::LegacyText593850()), 1, 16, 0, 0);
                                 } else {
                                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                                 }
@@ -11238,7 +11237,7 @@ try {
                         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[2];
                         gLegacyGuildDetailsHighlights1050EFC[row] = 1;
                         input::InitializeContext_449CF0(context, inputX + 15, inputY + 182,
-                            2, 0, 0, cg::text::FromGbk(initial).c_str(), 1, 16, 0, 0);
+                            2, 0, 0, cg::text::FromGbkWide(initial), 1, 16, 0, 0);
                     }
                     drawPage = gLegacyGuildDetailsPage1050ED4;
                 }
@@ -11254,7 +11253,7 @@ try {
             const char* const text = BorrowGuildRankText1051518(index);
             const std::int32_t top = gLegacyGuildDetailsPanel58F098.y + 260 + 30 * row;
             const std::int32_t left = gLegacyGuildDetailsPanel58F098.x + 13;
-            static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, cg::text::FromGbk(text).c_str(), 0, 0));
+            static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, cg::text::FromGbkWide(text).c_str(), 0, 0));
             drawPage = gLegacyGuildDetailsPage1050ED4;
         }
     }
@@ -11262,7 +11261,7 @@ try {
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
     const std::int32_t pageCount = gLegacyGuildDetailsPageCount1050ED0;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", page + 1, pageCount);
     const std::int32_t pageY = gLegacyGuildDetailsPanel58F098.y + 225;
     const std::int32_t pageX = gLegacyGuildDetailsPanel58F098.x + 132;
     static_cast<void>(DrawText(Low16(pageX), Low16(pageY), 2, 0, 0, buffer, 0, 0));
@@ -12365,7 +12364,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
         input::gInputContextCB01F8.totalByteLength = 0;
         input::gInputContextCB01F8.caretByteOffset = 0;
         input::InitializeContext_449CF0(&input::gInputContextCB01F8,
-            left + 19, top + 41, 2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+            left + 19, top + 41, 2, 0, 0, cg::text::FromGbkWide(input::LegacyText593850()), 1, 16, 0, 0);
         input::SetContext_44B330(gLegacyItemWorkInputD67CE4);
     }
     std::wstring trimmed;
@@ -15334,7 +15333,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         context->clearText();
         context->totalByteLength = 0;
         context->caretByteOffset = 0;
-        input::InitializeContext_449CF0(context, inputX + 21, inputY + 408, 2, 0, 0, nullptr, 1, 16, 18, 0);
+        input::InitializeContext_449CF0(context, inputX + 21, inputY + 408, 2, 0, 0, {}, 1, 16, 18, 0);
         input::SetContext_44B330(gLegacyBlacklistInput5939B8);
     }
     const wchar_t* const instructions[3] {
@@ -15406,7 +15405,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         const std::int32_t inputY = gLegacyBlacklistPanel5531D0.y;
         const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
         input::InitializeContext_449CF0(gLegacyBlacklistInput5939B8, inputX + 21, inputY + 408,
-            2, 0, 0, nullptr, 1, 16, 18, 0);
+            2, 0, 0, {}, 1, 16, 18, 0);
         world::detail::Sub_44B050(message, 4, 3);
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     }
@@ -16765,10 +16764,10 @@ try {
     std::int32_t clearState = 0;
     std::int32_t hovered = -1;
     std::int32_t hoveredTitle = -1;
-    char buffer[96];
-    char text[128];
+    std::wstring buffer;
+    std::wstring text;
     if (gLegacyProfileInputD6885C == nullptr) {
-        cg::text::Copy(text, sizeof(text), cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)));
+        text = cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2));
         input::gInputContextD2E2E0.clearText();
         input::gInputContextD2E2E0.totalByteLength = 0;
         input::gInputContextD2E2E0.caretByteOffset = 0;
@@ -16884,7 +16883,7 @@ try {
                 color = world::detail::gTitlesFF0508[currentTitle].id == id ? 1 : 0;
             }
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 44),
-                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, cg::text::FromGbk(title->text.data()).c_str(), 0, 0));
+                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, cg::text::FromGbkWide(title->text).c_str(), 0, 0));
             currentTitle = world::detail::ReadPlayerTitleIndex();
             if (currentTitle >= 0) {
                 const std::int32_t currentIndex = row + 8 * gLegacyTitlePageCF49B4;
@@ -16901,7 +16900,7 @@ try {
     render::DrawInputText_4568A0(gLegacyProfileInputD6885C);
     const std::int32_t page = gLegacyTitlePageCF49B4;
     const std::int32_t pages = gLegacyTitlePageCountC8AF80;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pages);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", page + 1, pages);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 166),
         static_cast<std::int16_t>(y + 101), 2, 0, 0, buffer, 0, 0));
     Sub_5035E0(&submit, 212, 1, gValueD69768, 0);

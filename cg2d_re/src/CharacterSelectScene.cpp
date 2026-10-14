@@ -681,7 +681,7 @@ std::uint32_t Sub_463100()
     state::gValue9A5FA4 = 0;
     state::gValue9A5FA0 = 0;
     input::InitializeContext_449CF0(
-        &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, nullptr, 1, 16, 0, 0);
+        &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
     input::SetContext_44B330(&state::gCreationInput9A51E8);
     state::gValue9A5FD4 = 0;
     state::gValue9A50D0 = 0;

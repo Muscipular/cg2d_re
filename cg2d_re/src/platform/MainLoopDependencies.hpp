@@ -105,7 +105,6 @@ std::int32_t CheckWindows_4048E0();
 void Sub_423640();
 // 原函数：0x004587D0。
 int EnumerateWindows_4587D0();
-extern std::uint32_t gRandomSeed; // 原 0x58F870；所有原播种与 rand 调用共享。
 // 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed);
 // 原函数：0x004589D0。

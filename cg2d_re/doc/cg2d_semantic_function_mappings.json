@@ -192389,7 +192389,7 @@
           "symbols": [
             "SeedRandom_53B4BF"
           ],
-          "relationship": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。"
+          "relationship": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
@@ -192401,25 +192401,20 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbols": [
-            "gRandomSeed"
+            "SharedRandomEngine",
+            "LegacyRandomEngine"
           ],
-          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
-        },
-        {
-          "path": "src/platform/MainLoopDependencies.hpp",
-          "symbols": [
-            "gRandomSeed"
-          ],
-          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+          "relationship": "原0x0058F870状态由同一函数内静态标准引擎承接，初值1，不推进序列，无第二份状态或TLS。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
-      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。",
       "verification_level": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
       "shared_random_source_baseline": {
         "spec_id": "BVU01",
@@ -192477,6 +192472,52 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "historical_native_sources_before_lcg01": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "SeedRandom_53B4BF"
+          ],
+          "relationship": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "SeedRandom_53B4BF"
+          ],
+          "relationship": "既有模块依赖声明保持，不新增接口"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+        }
+      ],
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -192498,7 +192539,7 @@
           "symbols": [
             "NextRandom_53B4C9"
           ],
-          "relationship": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。"
+          "relationship": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
@@ -192510,25 +192551,20 @@
         {
           "path": "src/platform/MainLoopSupport.cpp",
           "symbols": [
-            "gRandomSeed"
+            "SharedRandomEngine",
+            "LegacyRandomEngine"
           ],
-          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
-        },
-        {
-          "path": "src/platform/MainLoopDependencies.hpp",
-          "symbols": [
-            "gRandomSeed"
-          ],
-          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+          "relationship": "原0x0058F870状态由同一函数内静态标准引擎承接，初值1，不推进序列，无第二份状态或TLS。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
-      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。",
       "verification_level": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
       "shared_random_source_baseline": {
         "spec_id": "BVU01",
@@ -192586,6 +192622,52 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "historical_native_sources_before_lcg01": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "NextRandom_53B4C9"
+          ],
+          "relationship": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "NextRandom_53B4C9"
+          ],
+          "relationship": "既有模块依赖声明保持，不新增接口"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "原58F870唯一W32 owner，初值1；两写一读原引用对应同源存储"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "gRandomSeed"
+          ],
+          "relationship": "唯一extern声明，非私有CRT/TLS状态"
+        }
+      ],
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {

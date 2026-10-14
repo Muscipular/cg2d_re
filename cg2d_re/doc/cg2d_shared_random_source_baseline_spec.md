@@ -49,3 +49,26 @@
 播种完整写返、一次递推写回后持同结果提取位16..30、区间upper==-1不消费及其它一次同源RNG后普通S32区间/余数保持，原SAR+7FFFH与现有移位后同掩码只输出这十五位。只原合同及源静态，不执行随机样例，不新加保护/异常模拟、CRT/TLS状态或所有权；所有父和消费者时序不外推。
 
 完整机器及派生精确差集、文本汇总/-Check通过。三新原新1802..1804/三adapted F、LOOP178，仅一个限定S；实际语义1805/有效1798、合同1915（52.04%）、F954/E1106。U04/U11/V03/R04仍open；pending18/R7已审467余2594/closed11/全叶0/globalfalse、原差队列及CRT43保持。源码正确不伪实现数量，外部键盘排除/音频暂停保；原格式明文/RPLAN.24及执行限制保持，完整232入向/父和全部共享RNG消费者、SDK/生成机器ABI/正常寿命及运行仍待验，整体SPEC目标继续推进。
+
+<a id="shared-random-standard-engine"></a>
+## 标准线性同余引擎承接（LCG01）
+
+2026-10-14用户明确要求使用std::linear_congruential_engine；按第8条工程委托，保持原序列与消费者，只替换共享随机状态及两基础入口内部实现。
+使用std::linear_congruential_engine<std::uint32_t,0x343FDu,0x269EC3u,0>；模数参数0表示2^32，乘数／增量和32位状态对应原递推。
+初始种子仍1；增量非零，seed(0)按标准保留0，完整U32播种不截位。SeedRandom仍返回传入值且不取数，NextRandom每次仅调用一次引擎，再按(seed>>16)&0x7FFF返回原15位int。
+唯一引擎放在MainLoopSupport.cpp匿名namespace的SharedRandomEngine函数内静态存储；首次播种／取数先构造种子1的引擎，构造不推进序列。
+本机MSVC该构造函数不是constexpr，因此采用函数内静态避免跨TU动态初始化顺序影响LegacyCryptInt全局构造；不引入TLS、第二个seed副本或每个CryptInt独立引擎。
+退休仅有声明与两基础入口读写的gRandomSeed和extern声明，原0x0058F870状态地址注释迁移到实际引擎拥有者；两入口0x0053B4BF／0x0053B4C9注释保留。
+覆盖BVU01保留显式W32变量／extern和LCI07关于gRandomSeed常量初始化的阶段实现，共享序列、原消费者、中央构造顺序和现有重播种时点保持。
+RandomRange及全部业务调用不改，不使用分布器、不新增线程同步或异常策略、不恢复范围外功能。
+标准依据：[C++草案rand.eng.lcong](https://eel.is/c++draft/rand.eng.lcong)；本机已安装MSVC14.50的random头文件静态核对seed、operator()及无模数递推，未编译或执行算法样例。
+同步当前函数提供者定位、既有语义／登记与唯一进度；保原端事实、历史取证和全部验收门禁。仅必要静态及文本汇总，不编译、测试、运行、查产物、计算摘要、引依赖或委派，不打tag。
+
+### LCG01源码与静态结果
+
+两基础入口已接入匿名namespace的同一LegacyRandomEngine／SharedRandomEngine，原gRandomSeed及extern退休，无src／include残留；引擎原U32／343FDH／269EC3H／模2^32参数和种子1保持。
+按标准与本机MSVC头文件静态核对，增量非零使完整播种（含0）保持，构造不推进序列；每次NextRandom只有一次引擎调用，原15位移位／掩码返回逐字保持。
+差异只含random头文件、唯一引擎／状态声明退休及两入口内部替换；RandomRange正文和所有业务消费者未改。原58F870／53B4BF／53B4C9地址注释保留，34处MainLoopSupport当前函数提供者行号同步。
+两条既有语义／两条adapted处置和一条源码证据引用同步，旧gRandomSeed绑定及证据链接存历史；STARTUP／CRT／LOOP三个功能域与C04／U04／U11／V03／R04五开放任务追加引用，3680函数身份／状态和历史／全部门禁保持。
+UTF-8无BOM／LF、唯一状态／播种与取数、源码差异范围、当前定位、完整JSON／历史门禁及本步Git差异静态核对通过；文本汇总器及最终-Check通过3680函数／218导入／3061区间／184叶功能／60任务。
+仅静态，不编译、测试或执行随机样例；不以标准合同推导代替完整消费者时序／运行验收，保留其它用户修改并精确提交，不打tag。

@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <optional>
+#include <random>
 #include <tlhelp32.h>
 
 namespace cg::audio {
@@ -30,6 +31,16 @@ void Sub_52CCA0(); // 原 0x52CCA0；实现在 LegacyAudio.cpp。
 
 namespace cg::platform {
 namespace {
+
+using LegacyRandomEngine =
+    std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>;
+
+// 原0x0058F870：唯一共享W32状态，初始种子1；首次使用初始化不推进序列。
+LegacyRandomEngine& SharedRandomEngine()
+{
+    static LegacyRandomEngine engine{1};
+    return engine;
+}
 
 // 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
 volatile std::uint32_t gKeepAliveBaselineTick = 0; // 原全局：0x0073ED1C。
@@ -252,8 +263,6 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 }
 
 } // namespace
-
-std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
 // 原函数：0x00404120；LCI01启动拥有者替代CRT构造／退出登记。
 ProtectionChecksum1Startup::ProtectionChecksum1Startup()
@@ -686,15 +695,14 @@ void KeepAlive_457AB0()
 // 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 {
-    gRandomSeed = seed;
+    SharedRandomEngine().seed(seed);
     return seed;
 }
 
 // 原函数：0x0053B4C9。
 int NextRandom_53B4C9()
 {
-    const std::uint32_t seed = gRandomSeed * 0x343FDu + 0x269EC3u;
-    gRandomSeed = seed;
+    const std::uint32_t seed = SharedRandomEngine()();
     // 原 sar 后的 0x7FFF 掩码只保留原位 16..30，无符号移位得到相同结果。
     return static_cast<int>((seed >> 16) & 0x7FFFu);
 }

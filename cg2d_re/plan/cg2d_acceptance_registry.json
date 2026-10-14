@@ -319,7 +319,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -516,6 +517,22 @@
         "read_body_changed": false,
         "read_order_changed": false,
         "rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -1310,7 +1327,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1543,6 +1561,22 @@
         "read_body_changed": false,
         "read_order_changed": false,
         "rng_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -1893,7 +1927,8 @@
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
-        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision"
+        "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2042,7 +2077,23 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-decision",
         "doc/cg2d_projection_sampling_return_spec.md#projection-x87-source-state",
         "doc/cg2d_projection_x87_evidence.json"
-      ]
+      ],
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "FUNC-LOGIN",
@@ -52677,6 +52728,39 @@
         "src/platform/MainLoopSupport.cpp#SeedRandom_53B4BF",
         "src/platform/MainLoopSupport.cpp#NextRandom_53B4C9",
         "src/platform/MainLoopSupport.cpp#RandomRange_46FAF0",
+        "src/platform/MainLoopSupport.cpp#SharedRandomEngine",
+        "src/platform/MainLoopDependencies.hpp#SeedRandom_53B4BF",
+        "src/platform/MainLoopDependencies.hpp#NextRandom_53B4C9",
+        "src/platform/MainLoopDependencies.hpp#RandomRange_46FAF0",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/YobiRuntime.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "doc/cg2d_random_range.md",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_shared_random_source_baseline_evidence.json",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+      ],
+      "differences": [
+        {
+          "description": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+          "decision_ref": "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "expected": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "actual": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
+      "historical_artifacts_before_lcg01": [
+        "src/platform/MainLoopSupport.cpp#SeedRandom_53B4BF",
+        "src/platform/MainLoopSupport.cpp#NextRandom_53B4C9",
+        "src/platform/MainLoopSupport.cpp#RandomRange_46FAF0",
         "src/platform/MainLoopSupport.cpp#gRandomSeed",
         "src/platform/MainLoopDependencies.hpp#gRandomSeed",
         "src/platform/MainLoopDependencies.hpp#SeedRandom_53B4BF",
@@ -52695,17 +52779,22 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
       ],
-      "differences": [
-        {
-          "description": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
-          "decision_ref": "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision"
-        }
-      ],
-      "result": "pass",
-      "recorded_on": "2026-10-08",
-      "observation": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
-      "expected": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。",
-      "actual": "BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-SHOP-PREVIEW-FLAG-BOUNDARY-UI-L-062-I-20261008",
@@ -69974,7 +70063,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ]
     },
     {
@@ -71097,7 +71187,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
         "doc/cg2d_msvc_crt_scalar_spec.md#float-private-service-relations-20261012",
         "doc/cg2d_crt_startup_lifecycle_spec.md#private-lifecycle-service-relations-20261012",
-        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012"
+        "doc/cg2d_ui_input_lifecycle_spec.md#mouse-construction-prefix-wiring-20261012",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ]
     },
     {
@@ -72012,7 +72103,8 @@
         "doc/cg2d_map_reply_palette_spec.md#evidence-archive-20261011",
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ]
     },
     {
@@ -72666,7 +72758,8 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ]
     },
     {
@@ -73525,7 +73618,8 @@
         "doc/cg2d_unassigned_range_seventh_batch_evidence.json",
         "doc/cg2d_window_close_front_release_spec.md#window-close-source-state",
         "doc/cg2d_window_close_front_release_spec.md#evidence-archive-20261011",
-        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state"
+        "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ]
     },
     {
@@ -86684,9 +86778,26 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
-      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+      "boundary": "53B4BF播种：同一58F870 W32状态写入完整U32参数并返回该值；不引入私有CRT/TLS/RNG对象或截位。原十CALL仅引用定位，现有七源码播种表达式及全部父保持，不代完整父/范围外键盘接线。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。",
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013B4C9",
@@ -86696,9 +86807,26 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-baseline",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-acceptance",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-source-state",
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
       ],
-      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。"
+      "boundary": "53B4C9取数：一次读取同源W32 seed，乘343FDH加269EC3H并将同一结果写回后返回位16..30；原SAR后7FFFH掩码由现有unsigned移位同掩码表达，返回int保持15位非负值。81普通CALL与12尾跳分列，只原引用定位，不称全消费者/RNG时序或异常等价。 BVU01共享随机源三完整27条75B/三页、一直接目标/零间接/一跳四RET，220普通CALL与12rand尾跳分列；58F870实际装入01000000及两写一读xref有据。既有SeedRandom/NextRandom/RandomRange及单W32 owner/依赖声明、七播种表达式所在源全保持，零代码改动/零新增I；三个新原新1802..1804/三adapted F、LOOP175→178，仅一个限定S。初值/同源播种写返、递推写后持样返回15位和上界-1不消费/其它一次RNG后普通S32区间合同保，RPLAN.24不加保护/异常模拟。只是三primitive及相关源基线，全部232入向/父、所有共享消费者RNG时序、SDK/机器ABI/运行与正常寿命待，暂停音频和范围外键盘不重开；U04/U11/V03/R04仍open，原格式明文和完整门禁保。 LCG01按用户指令用标准linear_congruential_engine承接原58F870唯一共享U32状态，初值1、原参数和完整播种／15位返回保持；函数内静态首次初始化不推进序列。原gRandomSeed／extern退休，未改业务消费和区间正文，仅静态，未编译或运行。",
+      "standard_random_engine_lcg01": {
+        "recorded_on": "2026-10-14",
+        "engine": "std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>",
+        "initial_seed": 1,
+        "modulus_bits": 32,
+        "zero_seed_preserved": true,
+        "storage": "SharedRandomEngine中的唯一函数内静态引擎",
+        "retired_global": "gRandomSeed",
+        "seed_rng_calls": 0,
+        "next_rng_calls": 1,
+        "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
+        "consumer_calls_changed": false,
+        "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0006FAF0",

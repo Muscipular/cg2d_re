@@ -3537,7 +3537,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
             record.fpReduce = fpReduce;
             record.sequence = sequence;
             if (canRebirth == 1) {
-                const std::uint8_t flag = ui::ReadValue5F9754();
+                const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 const std::int32_t value = index + (flag != 0 ? 100 : 0);
                 static_cast<void>(network::Sub_510F50(socket, value));
@@ -3604,7 +3604,7 @@ void Sub_50C580(
         return;
     }
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];
-    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::ReadValue5F9754());
+    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag());
     char name[256];
     char description[256];
     std::int32_t field = 1;
@@ -5948,7 +5948,7 @@ void Sub_455FC0()
     }
     if (ui::detail::gWindowStates[cg::ui::WindowId_TimerNotice].window == nullptr
         && gWindow39Action62B5B8 == nullptr) {
-        gWindow39Action62B5B8 = ui::CreateWindowAnimation_475AA0(
+        gWindow39Action62B5B8 = ui::WindowRuntime_CreateAnimation(
             39, 0, 0, &gWindow39Action62B5B8);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }
@@ -6198,14 +6198,14 @@ void Sub_504A50()
         return;
     }
     if (mode == 1) {
-        static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_BattleResult, 1, 0, nullptr));
+        static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_BattleResult, 1, 0, nullptr));
         if (Sub_4ED670() != 0) {
             static_cast<void>(audio::PlaySe_52C450(64, 320));
         }
         gValueFF0D44 = 0;
         gValueFF0C10 = 0;
     } else if (mode == 2) {
-        static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_DpResult, 1, 0, nullptr));
+        static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_DpResult, 1, 0, nullptr));
         gValueFF0D44 = 0;
         gValueFF0C10 = 0;
     } else {
@@ -6472,7 +6472,7 @@ void DrawNormalScene_51C7D0()
         Sub_455C60();
         Sub_446640();
         Sub_4D3170();
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         login::detail::Sub_43F220();
         static_cast<void>(Sub_518DA0());
         input::SetContext_44B330(&input::gInputContext626AA0);
@@ -6503,7 +6503,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         audio::Sub_52B940();
         Sub_469020();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         RenderInput_4590E0();
@@ -6548,7 +6548,7 @@ void DrawNormalScene_51C7D0()
         gValue58B6D0 = 1;
         static_cast<void>(Sub_51D750());
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount32());
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         gCurrentSceneState = 201;
         [[fallthrough]];
     case 201: {
@@ -6564,7 +6564,7 @@ void DrawNormalScene_51C7D0()
     case 202:
         if (gValueC82210 != 0) {
             platform::gValue73ECC0 = 0;
-            static_cast<void>(ui::RenderWindows_504120());
+            static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             return;
         }
@@ -6629,7 +6629,7 @@ void DrawNormalScene_51C7D0()
         const std::int32_t selector = gate == 1 ? 15 : 17;
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
-            ui::ProcessSceneWindows_503E80();
+            ui::WindowRuntime_ProcessScene();
             gValue62B5B0 = platform::ReadTickCount32();
             const std::uint32_t changeBgm = gValueFF0D58;
             gCurrentSceneState = 20;
@@ -6644,12 +6644,12 @@ void DrawNormalScene_51C7D0()
                 audio::gBgmRequest1050810 = 1;
             }
             static_cast<void>(audio::Sub_5042D0(100));
-            static_cast<void>(ui::RenderWindows_504120());
+            static_cast<void>(ui::WindowRuntime_Render());
         }
         goto inputTail;
     }
     case 250: {
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         Sub_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
@@ -6684,7 +6684,7 @@ void DrawNormalScene_51C7D0()
         cg::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         Sub_44A410();
         Sub_458F00();
@@ -6692,7 +6692,7 @@ void DrawNormalScene_51C7D0()
     case 252: {
         cg::NullSub_509080();
         gValueFF0D74 = 0;
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         gValue62B5B0 = platform::ReadTickCount32();
         Sub_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
@@ -6707,7 +6707,7 @@ void DrawNormalScene_51C7D0()
         Sub_4691D0();
         Sub_469020();
         cg::NullSub_509080();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
         render::gRenderQueueMode103CF10 = 1;
@@ -6721,7 +6721,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_469020();
         cg::NullSub_509080();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         const std::uint32_t changeBgm = gValueFF0D58;
         gValueD67E78 = 0;
         if (changeBgm != 0) {
@@ -6752,7 +6752,7 @@ void DrawNormalScene_51C7D0()
         Sub_455C60();
         Sub_446640();
         Sub_4D3170();
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         login::detail::Sub_43F220();
         static_cast<void>(Sub_518DA0());
         if (gValueFF0D50 == 1) {
@@ -6782,7 +6782,7 @@ void DrawNormalScene_51C7D0()
                 }
                 audio::gBgmRequest1050810 = 1;
             }
-            static_cast<void>(ui::RenderWindows_504120());
+            static_cast<void>(ui::WindowRuntime_Render());
             if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
                 || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
@@ -6867,7 +6867,7 @@ void DrawNormalScene_51C7D0()
         cg::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         Sub_44A410();
         Sub_458F00();
@@ -6898,7 +6898,7 @@ void DrawNormalScene_51C7D0()
         gValueC8A79C = 0;
         gValue58B6D0 = 1;
         static_cast<void>(audio::Sub_5042D0(100));
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         static_cast<void>(login::detail::Sub_43F230());
         Sub_51BEF0();
         platform::RequestRender_457010();
@@ -6911,7 +6911,7 @@ void DrawNormalScene_51C7D0()
     case 4:
         static_cast<void>(Sub_51D750());
         platform::gValue73ECC0 = 2;
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         static_cast<void>(login::detail::Sub_43F230());
         ++gCurrentSceneState;
         goto inputTail;
@@ -7159,7 +7159,7 @@ void DrawBattleScene_43CBB0()
         platform::gValue73ECC0 = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         cg::NullSub_509080();
         ++gCurrentSceneState;
@@ -7174,14 +7174,14 @@ void DrawBattleScene_43CBB0()
             platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
-            static_cast<void>(ui::RenderWindows_504120());
+            static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             Sub_44A410();
             cg::NullSub_509080();
-            ui::ProcessSceneWindows_503E80();
+            ui::WindowRuntime_ProcessScene();
             ++gCurrentSceneState;
         } else {
-            static_cast<void>(ui::RenderWindows_504120());
+            static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
             cg::NullSub_509080();
         }
@@ -7197,7 +7197,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
@@ -7239,7 +7239,7 @@ void DrawBattleScene_43CBB0()
             gBattleSnapshotPetIndex5ABBFC = Sub_43C4B0();
             ui::detail::WindowBattleCommand_SyncActorVitals();
             if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[cg::ui::WindowId_Spectator].window == nullptr) {
-                static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_Spectator, 1, 0, nullptr));
+                static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
             }
             gCurrentSceneState = 3;
@@ -7258,7 +7258,7 @@ void DrawBattleScene_43CBB0()
         Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         if (Sub_43C910() == 1) {
@@ -7279,7 +7279,7 @@ void DrawBattleScene_43CBB0()
         Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         ui::detail::WindowBattleCommand_Dispatch();
@@ -7294,7 +7294,7 @@ void DrawBattleScene_43CBB0()
         Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         Sub_458F40();
@@ -7325,7 +7325,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
-        static_cast<void>(ui::RenderWindows_504120());
+        static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         Sub_458F40();
@@ -7370,7 +7370,7 @@ void DrawBattleScene_43CBB0()
         if (Sub_51FDE0(selector, 8, 0x40000000U) != 1) {
             break;
         }
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         render::ClearSurfaceTransformCache_44D490();
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         YobiClearUp_404D30();
@@ -9044,7 +9044,7 @@ std::uint8_t Sub_46F680()
     if ((platform::BorrowLegacyMouseStateStorage()->mouseY < 456)
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
-                && ui::ReadDragItemIndex_584DA4() < 0)
+                && ui::WindowItemDrag_ReadIndex() < 0)
             || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
         && gValueC8A79C == 0) {
         render::GraphicDescriptor16 descriptor {};
@@ -9062,7 +9062,7 @@ std::uint8_t Sub_46F680()
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::BorrowLegacyMouseStateStorage()->valueD68DB4) < 212
-                && ui::ReadDragItemIndex_584DA4() < 0)
+                && ui::WindowItemDrag_ReadIndex() < 0)
             || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
         gValueC8A778 = 0;
         gValueC8A794 = 0;
@@ -9486,7 +9486,7 @@ std::uint8_t Sub_469C90()
     if ((ReadPlayerActionFlagsByte() & 0x80u) != 0) {
         return static_cast<std::uint8_t>(pendingIsZero);
     }
-    if (gValueC8A7A8 != 0 && ui::ReadValueD67BE0() == 0) {
+    if (gValueC8A7A8 != 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const std::int32_t targetY = gPlayerMoveTargetY;
         const std::int32_t targetX = gPlayerMoveTargetX;
         const std::int32_t objectIndex = Sub_445030(targetX, targetY, 8, 0x1000);
@@ -9506,7 +9506,7 @@ std::uint8_t Sub_469C90()
         }
     }
     if ((gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
-        && gValue62B5AA == 0 && gValueC82220 == 0 && ui::ReadValueD67BE0() == 0) {
+        && gValue62B5AA == 0 && gValueC82220 == 0 && ui::WindowRuntime_ReadUiGate() == 0) {
         const bool forceContinuousMove = gValueC8A778 >= 500u;
         if (forceContinuousMove) {
             gValueC8A79C = 1;
@@ -10547,7 +10547,7 @@ std::int32_t Sub_45EEE0()
         gValue58B6D0 = 1;
         gLogoutTransition9A6E94 = next;
         platform::gLastRenderDt = static_cast<double>(tick);
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         login::detail::Sub_43F230();
     }
     return 0;

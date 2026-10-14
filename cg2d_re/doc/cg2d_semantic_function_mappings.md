@@ -567,7 +567,7 @@ classification_references引用，不复制另一套排除结论。当前九项�
 | 4CA438/4CA443 | 3 | WindowProfileSearch_Update |
 | 4CAF88/4CAF93 | 3 | WindowProfileView_Update |
 | 4C2634/4C26AF | 36 | WindowCrystalShop_ButtonPreviousPage |
-| 4CD240/4CD24A | 2 | StallBrowsePetsStaticInitializer、ConstructStallBrowsePetValues、DestroyStallBrowsePetValues |
+| 4CD240/4CD24A | 2 | StallBrowsePetsStaticInitializer、WindowStall_ConstructBrowsePetValues、WindowStall_DestroyBrowsePetValues |
 
 - 404D00只在指针非空时写独立deathFlag=1，原指针原样返回；现有MarkDeath
   包含原空指针门禁，不做释放、摘链或修改flags。不能将其改成void或取消原检查。
@@ -1344,7 +1344,7 @@ records455增至460，pending_records18、分类引用4保持；新增五记录�
 | 数组 | 原构造/析构caller | 原数量/步长 | 当前函数 |
 | --- | --- | --- | --- |
 | World对象表 | 43D770/43D7A0 | 1000/13CH | ConstructWorldObjects/DestroyWorldObjects |
-| 浏览宠物 | 4CD2A0/4CD280片段，元数据并入4CD250 | 5/5110H | ConstructStallBrowsePetValues/DestroyStallBrowsePetValues |
+| 浏览宠物 | 4CD2A0/4CD280片段，元数据并入4CD250 | 5/5110H | WindowStall_ConstructBrowsePetValues/WindowStall_DestroyBrowsePetValues |
 | 主宠物 | 518530/518560 | 5/5110H | ConstructPetRuntimeValues/DestroyPetRuntimeValues |
 
 World每项正序+0C、+1C构造，析构反序；宠物每项正序+0C..+5C六成员，析构反序。

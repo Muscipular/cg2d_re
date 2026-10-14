@@ -285,7 +285,7 @@ int InitializeClient_4576B0()
     }
     render::gRenderQueueMode103CF10 = 1;
     login::detail::Sub_44B5C0("initGame OK");
-    static_cast<void>(ui::detail::InitializeWindowSystem_4705D0());
+    static_cast<void>(ui::detail::WindowRuntime_Initialize());
     return 1;
 }
 

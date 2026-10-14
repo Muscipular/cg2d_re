@@ -267,7 +267,7 @@ std::int32_t WindowCollapsedStatusBar_ButtonExpand(std::int32_t unused, std::int
 // 原函数：0x00471DD0。
 std::int32_t WindowStatusBar_HandleHover(std::int32_t unused, std::int32_t state); // 仅hover命中消费。
 // 原函数：0x00471DF0。
-std::int32_t WindowStatusBar_HandleEmote(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
+std::int32_t WindowStatusBar_HandleOptionButtons(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
 // 原函数：0x00473080。
 std::int32_t WindowStatusBar_ReadInjuredPetIndex(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
 // 原函数：0x004731B0。
@@ -285,11 +285,11 @@ std::int32_t WindowBattleCommand_ButtonItem(std::int32_t index, std::int32_t sta
 // 原函数：0x00497900。
 std::int32_t WindowBattleCommand_ButtonPet(std::int32_t index, std::int32_t state); // 宠物选择及28窗口关闭。
 // 原函数：0x00497A60。
-std::int32_t WindowBattleCommand_ButtonPetCommand(std::int32_t index, std::int32_t state); // P命令，使用九槽中的槽6。
+std::int32_t WindowBattleCommand_ButtonFormation(std::int32_t index, std::int32_t state); // P命令，使用九槽中的槽6。
 // 原函数：0x00497B80。
 std::int32_t WindowBattleCommand_ButtonEscape(std::int32_t index, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
 // 原函数：0x00497C80。
-std::int32_t WindowBattleCommand_ButtonRiding(std::int32_t index, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
+std::int32_t WindowBattleCommand_ButtonRebirth(std::int32_t index, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
 // 原函数：0x00497E30。
 void WindowBattleCommand_SelectPetSkill(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
 // 原函数：0x00497FF0。
@@ -560,8 +560,8 @@ static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
 static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
 static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
 static_assert(sizeof(ItemUseStatusRecord) == 52);
-const ItemUseStatusRecord& ReadLegacyItemUseStatus(std::int32_t index) noexcept;
-std::int32_t ReadLegacyItemUseStatusCount() noexcept; // 原CC4D44，不固定为六行或复制数量。
+const ItemUseStatusRecord& WindowItemUse_ReadStatus(std::int32_t index) noexcept;
+std::int32_t WindowItemUse_ReadStatusCount() noexcept; // 原CC4D44，不固定为六行或复制数量。
 // 原函数：0x0049F000。names借用GBK名单；49F0A0刷新时直接转为宽正文。
 login::YobiAction* WindowTextTarget_Open(
     const char* const* names, const std::uint8_t* colors,
@@ -793,11 +793,11 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
-const WindowDialogTextLine* BorrowNpcDialogLinesCC24D4() noexcept; // 借用标题及正文，旧/现代对话同源。
-std::int32_t ReadLegacyChoiceImageCC4890() noexcept; // 4A0640生产，旧55/56/57共享预览消费。
-std::int32_t ReadLegacyChoiceImageC9A99C() noexcept; // 4A0790生产，旧74预览消费。
-std::int32_t ReadLegacyShopImageC9A9A0() noexcept; // 4A0140生产，旧62预览借读同源图号。
-std::int32_t ReadLegacyChoiceImageD2EA74() noexcept; // 4A0850生产，旧83预览消费。
+const WindowDialogTextLine* WindowDialog_BorrowNpcLines() noexcept; // 借用标题及正文，旧/现代对话同源。
+std::int32_t WindowShopChoice_ReadSkillImage() noexcept; // 4A0640生产，旧55/56/57共享预览消费。
+std::int32_t WindowShopChoice_ReadExchangeImage() noexcept; // 4A0790生产，旧74预览消费。
+std::int32_t WindowShopChoice_ReadShopImage() noexcept; // 4A0140生产，旧62预览借读同源图号。
+std::int32_t WindowShopChoice_ReadGiveReceiveImage() noexcept; // 4A0850生产，旧83预览消费。
 
 // 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，数值布局保持48B。
 struct WindowConfirmationItem {
@@ -1648,8 +1648,8 @@ extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0; // 原全局：0x00D4
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108; // 原全局：0x00C9C108。
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组首20条C44物品、末W32金额，间隔未冻结。
-std::int32_t ReadLegacyStorageSideD67618() noexcept; // 旧72借读既有存放模式，不复制私有状态。
-const std::byte* BorrowLegacyMessageRecordsD30138() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
+std::int32_t WindowBank_ReadSide() noexcept; // 旧72借读既有存放模式，不复制私有状态。
+const std::byte* WindowMessageBoard_BorrowRecords() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
 extern std::array<char, 20 * 0xC58> gShopItemsCF4FE0; // 原全局：0x00CF4FE0。 买卖共用原字节记录，字段见窗口53 SPEC。
 extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopReplyItemCountCF4B58; // 原全局：0x00CF4B58。 出售回复中实际读取的商品数。
@@ -1808,29 +1808,29 @@ extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
 extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
 extern std::int32_t gSelectedItem57EE0C; // 原全局：0x0057EE0C。 原装载初值-1，窗口51只做单向迁移。
 extern std::uint8_t gSkillPairIndexD67AD8; // 原全局：0x00D67AD8。 配方查询按S8解释。
-std::int32_t ReadSkillRequestD64E13() noexcept; // 旧技能请求读取同源低S8，4FF650实际写者已接。
-void WriteSkillRequestD64E13(std::uint8_t value) noexcept; // 4FF650四原写点共用私有唯一D64E13。
-std::uint32_t ReadSkillExtraDelayCF46C4() noexcept; // 新旧技能面板共用额外时长。
-void WriteSkillExtraDelayCF46C4(std::uint32_t delay) noexcept;
-std::int32_t ReadGatherResultD2D820() noexcept; // 旧选择39借用窗口12同源回复。
-std::int32_t ReadGatherResultImageCF3FF0() noexcept;
-std::wstring_view BorrowGatherResultNameD2DA94() noexcept;
-std::wstring_view BorrowGatherResultSuffixCB1E1C() noexcept;
-std::wstring_view BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
-std::int32_t ReadLegacySkillResultD66E2C() noexcept; // 旧选择37与窗口13共享回复结果。
-std::wstring_view BorrowLegacySkillSummaryCC18CC() noexcept;
-std::wstring_view BorrowLegacySkillDetailsCB0FDC() noexcept;
-std::int32_t ReadLegacyItemWorkResultCB05FC() noexcept;
-std::wstring_view BorrowLegacyItemWorkSuffixD2DADC() noexcept;
-std::wstring_view BorrowLegacyItemWorkDetailsD2DB00() noexcept;
-std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept; // 新旧加工入口与结果回复同源技能类别。
-void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
-std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
-std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
-std::wstring_view BorrowLegacyCraftNameCF46D4() noexcept;
-void WriteLegacyCraftNameCF46D4(std::wstring_view name); // 旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。
-std::wstring_view BorrowLegacyCraftSuffixD672B4() noexcept;
-std::wstring_view BorrowLegacyCraftDetailsD2E92C() noexcept;
+std::int32_t WindowSkill_ReadRequestFlag() noexcept; // 旧技能请求读取同源低S8，4FF650实际写者已接。
+void WindowSkill_WriteRequestFlag(std::uint8_t value) noexcept; // 4FF650四原写点共用私有唯一D64E13。
+std::uint32_t WindowSkill_ReadExtraDelay() noexcept; // 新旧技能面板共用额外时长。
+void WindowSkill_WriteExtraDelay(std::uint32_t delay) noexcept;
+std::int32_t WindowGather_ReadResult() noexcept; // 旧选择39借用窗口12同源回复。
+std::int32_t WindowGather_ReadResultImage() noexcept;
+std::wstring_view WindowGather_BorrowResultName() noexcept;
+std::wstring_view WindowGather_BorrowResultSuffix() noexcept;
+std::wstring_view WindowGather_BorrowResultDetails() noexcept; // 借用NUL文本，不复制到另一结果缓存。
+std::int32_t WindowSkillResult_ReadResult() noexcept; // 旧选择37与窗口13共享回复结果。
+std::wstring_view WindowSkillResult_BorrowSummary() noexcept;
+std::wstring_view WindowSkillResult_BorrowDetails() noexcept;
+std::int32_t WindowCraft_ReadItemWorkResult() noexcept;
+std::wstring_view WindowCraft_BorrowItemWorkSuffix() noexcept;
+std::wstring_view WindowCraft_BorrowItemWorkDetails() noexcept;
+std::int32_t WindowCraft_ReadSkill() noexcept; // 新旧加工入口与结果回复同源技能类别。
+void WindowCraft_WriteSkill(std::int32_t skillId) noexcept;
+std::int32_t WindowCraft_ReadResult() noexcept;
+std::int32_t WindowCraft_ReadResultImage() noexcept;
+std::wstring_view WindowCraft_BorrowResultName() noexcept;
+void WindowCraft_WriteResultName(std::wstring_view name); // 旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。
+std::wstring_view WindowCraft_BorrowResultSuffix() noexcept;
+std::wstring_view WindowCraft_BorrowResultDetails() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原全局：0x005846BC。 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
 extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C; // 原全局：0x00D2D61C。
@@ -1865,7 +1865,7 @@ extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 6> gTradeNumberHints5805FC; // 原全局：0x005805FC。 原字节提示的借用指针表。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
-const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
+const std::byte* WindowDialog_BorrowHealingRecords() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
 // 原LY十条20B记录及分立S32状态的非拥有视图；只借页号/选择写权，不复制名单。
 struct LegacyItemUseTargetView {
     const std::int32_t* count; // CC40CC。
@@ -1874,7 +1874,7 @@ struct LegacyItemUseTargetView {
     std::int32_t* selected; // CB0A48。
     const std::byte* records; // CB0EA8，kind S16/+2名称，步长20。
 };
-LegacyItemUseTargetView BorrowLegacyItemUseTargetView() noexcept;
+LegacyItemUseTargetView WindowItemUse_BorrowTargetView() noexcept;
 
 // 原ND六行分立列的只读非拥有视图；count必须在原循环边界重读，不复制成新记录。
 struct LegacySkillStatusView {
@@ -1889,9 +1889,9 @@ struct LegacySkillStatusView {
     const std::int32_t* kinds; // CA0A78。
     const std::int32_t* targets; // CF3FD0。
 };
-LegacySkillStatusView BorrowLegacySkillStatusView() noexcept; // 借4EF750已有唯一owner，地址拓宽，数值仍S32。
+LegacySkillStatusView WindowSkill_BorrowStatusView() noexcept; // 借4EF750已有唯一owner，地址拓宽，数值仍S32。
 
-std::int32_t ReadLegacyHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
+std::int32_t WindowPet_ReadHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90; // 原全局：0x00CA0A90。
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458; // 原全局：0x00CA0458。
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C; // 原全局：0x00D66E0C。
@@ -2051,17 +2051,17 @@ void WindowItem_RequestPetTransfer(
     std::int32_t unusedWindow, std::int32_t unusedElement,
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
 // 原函数：0x004AAB70。
-void WindowBank_DrawOwnPetSkills(
+void WindowBank_DrawOwnPetTooltip(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x004AB400。
-void WindowBank_DrawStoredPetSkills(
+void WindowBank_DrawStoredPetTooltip(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x0048D540。
-std::int32_t Sub_48D540(
+std::int32_t WindowPet_DrawTooltip(
     std::int16_t x, std::int16_t y, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer, std::uint32_t color);
 // 原函数：0x004EA670。
-std::int32_t WindowItemUse_IsSpecialSkill(std::int32_t index); // 原25600技能检查，返回0/1。
+std::int32_t WindowPet_HasSkill25600(std::int32_t index); // 原25600技能检查，返回0/1。
 // 原函数：0x0048BF30。
 void WindowPetDrag_Handle(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 // 原函数：0x0048C130。
@@ -2122,7 +2122,7 @@ std::int32_t WindowTrade_DrawPetRow(
     std::uint8_t textLayer, std::uint8_t graphicLayer,
     const render::GraphicDescriptor16* descriptor); // 空宠物槽仍画背景。
 // 原函数：0x004B1260。
-std::int32_t WindowTrade_HandleOwnPetRow(
+std::int32_t WindowTrade_HandlePanel(
     WindowInstance* window, std::int32_t index, std::int32_t state,
     const std::int32_t* backgroundImages, std::uint8_t* tab,
     std::int32_t scrollElement, std::int32_t* scrollValue,
@@ -2159,7 +2159,7 @@ std::int32_t WindowTrade_ButtonConfirm(std::int32_t index, std::int32_t state); 
 // 原函数：0x004B09E0。
 std::int32_t WindowTrade_HandleAmountInput(std::int32_t unusedIndex, std::int32_t state); // 交易输入激活/聊天恢复。
 // 原函数：0x004C1FB0。
-std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
+std::int32_t WindowRuntime_ButtonClose(std::int32_t index, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
 // 原函数：0x004FBA30。
 std::int32_t WindowItem_SplitTooltipLines(
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
@@ -2394,7 +2394,7 @@ std::int32_t WindowChat_DragScroll(std::int32_t index, std::int32_t state); // W
 // 原函数：0x004A81D0。
 std::int32_t WindowChat_Scroll(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 // 原函数：0x00477490。
-WindowInstance* FindWindowById_477490(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
+WindowInstance* WindowRuntime_FindById(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
 // 原函数：0x004A7C40。
 void WindowChat_RefreshGeometry(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
 // 原函数：0x004A8140。
@@ -2507,13 +2507,13 @@ void WindowRuntime_ResetOperationReferences(); // 清两借用Yobi槽与计数/�
 // 原函数：0x004C7AD0。
 void WindowRuntime_ResetShortcutFlag(); // 只清CF4AAC。
 // 原函数：0x00475C10。
-void RestoreWindowPositions_475C10(); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
+void WindowRuntime_RestorePositions(); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
 // 原函数：0x004C7AE0。
-void ProcessWindowShortcuts_4C7AE0(); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
+void WindowRuntime_ProcessShortcuts(); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
 // 原函数：0x00470980。
 void WindowRuntime_OpenNormalScene(); // 普通场景完整重开，保持626C14与22/23门禁。
 // 原函数：0x004705D0。
-std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
+std::int32_t WindowRuntime_Initialize(); // 启动UI完整初始化，返回category加载结果。
 // 原函数：0x004923D0。
 std::int32_t WindowRuntime_ResetAlbumState(); // 三个UI数值依序写5/0/0。
 // 原函数：0x004B5A90。
@@ -2583,7 +2583,7 @@ login::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // �
 login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(std::int32_t index); // 公会成员除名确认。
 // 原函数：0x004A3540。
 login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(std::int32_t index); // 迷你邮件联系人删除确认。
-std::int32_t& BorrowLegacyMailDeleteIndexD2DA8C(); // 旧42/后续旧44借同一现代删除索引owner，不复制状态。
+std::int32_t& WindowMail_BorrowDeleteIndex(); // 旧42/后续旧44借同一现代删除索引owner，不复制状态。
 // 原函数：0x004A3600。
 std::int32_t WindowMail_DeleteContact(std::int32_t unusedIndex, std::int32_t unusedState); // FPkR发送、重读清理及保存。
 // 原函数：0x004A3660。
@@ -2830,7 +2830,7 @@ std::int32_t WindowBlacklist_Clear(std::int32_t unusedIndex, std::int32_t unused
 // 原函数：0x004CD220。
 std::int32_t WindowBlacklist_CancelClear(std::int32_t unusedIndex, std::int32_t unusedState);
 // 原函数：0x00470600。
-void InitializeLoginWindows_470600(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
+void WindowRuntime_InitializeLogin(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
 // 原函数：0x004A6DB0。
 std::int32_t WindowChat_ResetScrollRequests(); // 仅重置回看、两调整请求与数量。
 // 原函数：0x0044B170。

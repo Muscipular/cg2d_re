@@ -1419,7 +1419,7 @@ void BrowseChatHistory_44A1B0()
     gCurrentInputData->caretByteOffset = 0;
     LoadInitialText_44A160(cg::text::FromGbkWide(gChatHistory621FF8.records[gCursor62683C]).c_str());
     const std::wstring contents = ContextText(*gCurrentInputData);
-    const std::size_t width = static_cast<std::size_t>(ui::ReadChatInputByteWidth_4A80E0());
+    const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth());
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
     offset = text::Prefix(contents, offset);
     SetVisibleUtf16Offset(*gCurrentInputData, offset);

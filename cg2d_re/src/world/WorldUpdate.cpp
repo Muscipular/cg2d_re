@@ -110,7 +110,7 @@ void Update()
         gValueD67E78 = 0;
         cg::NullSub_509080();
         detail::Sub_518780();
-        ui::ProcessSceneWindows_503E80();
+        ui::WindowRuntime_ProcessScene();
         login::detail::Sub_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
@@ -140,7 +140,7 @@ void Update()
             detail::Sub_519D50();
             detail::Sub_446470();
             login::detail::YobiClearUp_404D30();
-            ui::ProcessSceneWindows_503E80();
+            ui::WindowRuntime_ProcessScene();
             login::detail::Sub_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();

@@ -280,7 +280,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 288 - titleWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 8),
@@ -429,7 +429,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 288 - titleWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));
@@ -564,7 +564,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 288 - titleWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));

@@ -1929,7 +1929,7 @@ void Sub_4758D0(YobiAction* const action)
     const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;
     payload->halfHeight = previousHeight + deltaY;
     if (complete) {
-        static_cast<void>(ui::OpenWindow_471440(std::bit_cast<std::int16_t>(payload->id)));
+        static_cast<void>(ui::WindowRuntime_Open(std::bit_cast<std::int16_t>(payload->id)));
         static_cast<void>(MarkDeath(action));
         YobiAction** const completionSlot = action->windowCompletionSlot1D0;
         if (completionSlot != nullptr) {
@@ -1952,7 +1952,7 @@ YobiAction* Sub_475950(
         if (completionSlot != nullptr) {
             *completionSlot = nullptr;
         }
-        static_cast<void>(ui::OpenWindow_471440(id));
+        static_cast<void>(ui::WindowRuntime_Open(id));
         return nullptr;
     }
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
@@ -2982,10 +2982,10 @@ std::int32_t Sub_440920(
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::ReadPlayerObjectIndex_FDA880()) {
-                ui::CloseWindowsByCategory_472240(3);
+                ui::WindowRuntime_CloseByCategory(3);
                 world::detail::gValue581800 = -1;
                 world::detail::Sub_51BEE0();
-                ui::ApplyObservationInputGate_440ADB();
+                ui::WindowRuntime_ApplyObservationInputGate();
             } else {
                 world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
             }
@@ -35531,9 +35531,9 @@ std::int32_t Sub_4EE670()
         std::uint32_t deadline;
         if (kind == 0) {
             const std::uint32_t tick = start;
-            deadline = ui::detail::ReadSkillExtraDelayCF46C4() + tick + 4500u;
+            deadline = ui::detail::WindowSkill_ReadExtraDelay() + tick + 4500u;
         } else {
-            const std::uint32_t extra = ui::detail::ReadSkillExtraDelayCF46C4();
+            const std::uint32_t extra = ui::detail::WindowSkill_ReadExtraDelay();
             deadline = extra + start + 4500u;
         }
         if (deadline < now) {
@@ -35559,7 +35559,7 @@ std::int32_t Sub_4EE670()
     }
     const std::uint32_t now = platform::ReadTickCount32();
     const std::uint32_t tick = gLegacyGatherTickC8B38C;
-    const std::uint32_t deadline = ui::detail::ReadSkillExtraDelayCF46C4() + tick + 4500u;
+    const std::uint32_t deadline = ui::detail::WindowSkill_ReadExtraDelay() + tick + 4500u;
     if (deadline < now) {
         action = gLegacyGatherActionD67CD8;
         gLegacyGatherPhaseCC3E78 = 3;
@@ -35862,7 +35862,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
     }
     if (Sub_4EE670() != 0) {
         const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
-        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
         const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
         static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, {}));
         const std::uint32_t id = gLegacyGatherPanel583B00.id;

@@ -269,7 +269,7 @@ const cg::world::RippleGateStartup gRippleGateStartup;
 struct WindowNumberSpacingStaticInitializer {
     WindowNumberSpacingStaticInitializer()
     {
-        cg::ui::InitializeLegacyNumberSpacing_477160();
+        cg::ui::WindowNumber_InitializeLegacySpacing();
     }
 };
 

@@ -89,11 +89,11 @@ struct WindowInstance;
 
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。
 // 原函数：0x00471440。
-WindowInstance* OpenWindow_471440(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
+WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。
-login::YobiAction* CreateWindowAnimation_475AA0(
+login::YobiAction* WindowRuntime_CreateAnimation(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     login::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
 
@@ -103,36 +103,38 @@ WindowInstance* WindowStallBrowse_RequestClose(); // 原窗口68的state置0x800
 WindowInstance* WindowOwnStall_RequestClose(); // 原窗口67，同上；不直接关闭或清表。
 // 原函数：0x004AFF00。
 std::int32_t WindowGuildDetails_RequestClose(); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
-std::uint8_t ReadValueD67BE0() noexcept; // 共享UI门禁W8，world只读。
-std::uint8_t ReadValue5F9754() noexcept; // 技能回复与观察进入共用的UI标志。
-std::int32_t ReadDragItemIndex_584DA4() noexcept; // 原S32拖动编号，初值-1。
+std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。
+std::uint8_t WindowRuntime_ReadObservationFlag() noexcept; // 技能回复与观察进入共用的UI标志。
+// 原数据：0x00584DA4。
+std::int32_t WindowItemDrag_ReadIndex() noexcept; // 原S32拖动编号，初值-1。
 // 原函数：0x004A80E0。
-std::int32_t ReadChatInputByteWidth_4A80E0(); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
+std::int32_t WindowChat_ReadInputByteWidth(); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原函数：0x00471270。
-void FreeWindow_471270(WindowInstance* window); // release回调、记录回存、七类元素释放。
+void WindowRuntime_Free(WindowInstance* window); // release回调、记录回存、七类元素释放。
 // 原函数：0x00472160。
-void CloseWindow_472160(WindowInstance* window); // WCR01：同记录地址发布/置bit1再释放，不清表槽。
+void WindowRuntime_Close(WindowInstance* window); // WCR01：同记录地址发布/置bit1再释放，不清表槽。
 // 原函数：0x00472190。
-std::int32_t CloseAllWindows_472190(); // 完整关闭与观察退出请求，返回0或发送结果。
+std::int32_t WindowRuntime_CloseAll(); // 完整关闭与观察退出请求，返回0或发送结果。
 // 原函数：0x00503E80。
-void ProcessSceneWindows_503E80(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
+void WindowRuntime_ProcessScene(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 // 原函数：0x00473F80。
-std::int32_t UpdateWindows_473F80(); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
+std::int32_t WindowRuntime_Update(); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
 // 原函数：0x00504120。
-std::int32_t RenderWindows_504120(); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
+std::int32_t WindowRuntime_Render(); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 // 原函数：0x00472240。
-void CloseWindowsByCategory_472240(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
+void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 // 原函数：0x00476410。
-void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
-void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。
+void WindowDrag_Cancel(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
+// 原代码位置：0x00440ADB。
+void WindowRuntime_ApplyObservationInputGate(); // 同源5F9754及D67B08前八个U8的观察进入写序。
 // 原CRT 553098入口仅尾跳既有初始化，无退出登记。
 // 原函数：0x00477160。
-void InitializeLegacyNumberSpacing_477160();
+void WindowNumber_InitializeLegacySpacing();
 // WND01：477160尾跳的四S32步进生产，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x00477170。
-void InitializeNumberSpacing_477170(); // 477160尾跳的四种数字图片步进业务初始化。
+void WindowNumber_InitializeSpacing(); // 477160尾跳的四种数字图片步进业务初始化。
 // 原CRT 55309C/5530A0：两个拥有者独立构析，不释放静态预览。
 // 各组退出仍清理固定内嵌预览，原登记失败／异常规则沿LCI01由MSVC承接。
 // 原函数：0x004883F0。
@@ -164,11 +166,11 @@ public:
     StallBrowsePetValuesStartup(const StallBrowsePetValuesStartup&) = delete;
     StallBrowsePetValuesStartup& operator=(const StallBrowsePetValuesStartup&) = delete;
 };
-void ConstructStallBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
-void DestroyStallBrowsePetValues(); // 原4CD270退出链，记录与成员都逆序，不释放浏览区。
+void WindowStall_ConstructBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
+void WindowStall_DestroyBrowsePetValues(); // 原4CD270退出链，记录与成员都逆序，不释放浏览区。
 // WDP01：完整分发与字段取样合同，见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
-void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
+void WindowRuntime_DrawCurrent(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
 // 对话BZ回复：三重门禁、关闭/完整路由及对象朝向，socket保持未使用实参。
 // 原函数：0x0050E110。

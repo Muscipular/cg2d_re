@@ -566,16 +566,16 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues",
-            "DestroyStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues",
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues",
-            "DestroyStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues",
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
@@ -601,7 +601,7 @@
           "source_adapter": "detail::PetRuntimeRecord::PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_ConstructBrowsePetValues",
           "argument_role": "constructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         },
@@ -613,7 +613,7 @@
           "source_adapter": "detail::PetRuntimeRecord::~PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_ConstructBrowsePetValues",
           "argument_role": "destructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         },
@@ -625,7 +625,7 @@
           "source_adapter": "detail::PetRuntimeRecord::~PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "DestroyStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_DestroyBrowsePetValues",
           "argument_role": "destructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
@@ -673,8 +673,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues",
-            "DestroyStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues",
+            "WindowStall_DestroyBrowsePetValues"
           ]
         },
         {
@@ -684,8 +684,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues",
-            "DestroyStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues",
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
@@ -708,8 +708,8 @@
           "call_site": "0x4CD2BB",
           "target_entry": "0x53C45E",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "symbol": "WindowStall_ConstructBrowsePetValues",
+          "storage": "detail::WindowStall_BorrowBrowseStorage.pets.data()",
           "count": 5,
           "original_stride": "0x5110",
           "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
@@ -724,8 +724,8 @@
           "call_site": "0x4CD293",
           "target_entry": "0x53C4E0",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "DestroyStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "symbol": "WindowStall_DestroyBrowsePetValues",
+          "storage": "detail::WindowStall_BorrowBrowseStorage.pets.data()",
           "count": 5,
           "original_stride": "0x5110",
           "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
@@ -742,19 +742,19 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DestroyStallBrowsePetValues"
+            "symbol": "WindowStall_DestroyBrowsePetValues"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DestroyStallBrowsePetValues"
+            "symbol": "WindowStall_DestroyBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -777,7 +777,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyStallBrowsePetValues"
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
@@ -920,7 +920,7 @@
           "source_adapter": "detail::PetRuntimeRecord::~PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_ConstructBrowsePetValues",
           "argument_role": "destructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         },
@@ -932,7 +932,7 @@
           "source_adapter": "detail::PetRuntimeRecord::~PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "DestroyStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_DestroyBrowsePetValues",
           "argument_role": "destructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
@@ -954,7 +954,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyStallBrowsePetValues"
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
@@ -991,7 +991,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DestroyStallBrowsePetValues"
+            "symbol": "WindowStall_DestroyBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -1014,7 +1014,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
@@ -1145,7 +1145,7 @@
           "source_adapter": "detail::PetRuntimeRecord::PetRuntimeRecord",
           "source_adapter_file": "src/world/SceneState.cpp",
           "consumer_source": "src/ui/WindowRuntime.cpp",
-          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "consumer_symbol": "WindowStall_ConstructBrowsePetValues",
           "argument_role": "constructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
@@ -1167,7 +1167,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
@@ -1204,7 +1204,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -1234,14 +1234,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ReleaseLegacyFirstItemSelectorAtExit_488420"
+            "WindowInventory_ReleaseSelectorAtExit"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ReleaseLegacyFirstItemSelectorAtExit_488420"
+            "WindowInventory_ReleaseSelectorAtExit"
           ],
           "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
         },
@@ -1286,7 +1286,7 @@
           "parent_entry": "0x4883F0",
           "reference_site": "0x488410",
           "callback_entry": "0x488420",
-          "callback_symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+          "callback_symbol": "WindowInventory_ReleaseSelectorAtExit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
@@ -1301,7 +1301,7 @@
           "native_source": "src/YobiRuntime.cpp",
           "native_symbol": "login::detail::DestroyWindowSelectorPreview",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+          "symbol": "WindowInventory_ReleaseSelectorAtExit",
           "original_this_address": "0xCF3B10",
           "original_preview_offset": "0x78",
           "native_preview_index": 0,
@@ -1373,7 +1373,7 @@
         "jumps": 11,
         "returns": 1,
         "original_incoming": [],
-        "native_signature": "void ReleaseLegacyFirstItemSelectorAtExit_488420()",
+        "native_signature": "void WindowInventory_ReleaseSelectorAtExit()",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -1396,11 +1396,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420"
+            "symbol": "WindowInventory_ReleaseSelectorAtExit"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420"
+            "symbol": "WindowInventory_ReleaseSelectorAtExit"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -9832,20 +9832,20 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "InitializeNumberSpacing_477170"
+            "WindowNumber_InitializeSpacing"
           ]
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "InitializeLegacyNumberSpacing_477160"
+            "WindowNumber_InitializeLegacySpacing"
           ],
           "relationship": "具名数字步进入口仅转同一叶，无新登记/析构"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "InitializeLegacyNumberSpacing_477160"
+            "WindowNumber_InitializeLegacySpacing"
           ],
           "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
         }
@@ -9875,9 +9875,9 @@
           "parent_entry": "0x477160",
           "call_site": "0x477160",
           "target_entry": "0x477170",
-          "target_symbol": "InitializeNumberSpacing_477170",
+          "target_symbol": "WindowNumber_InitializeSpacing",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "InitializeLegacyNumberSpacing_477160",
+          "symbol": "WindowNumber_InitializeLegacySpacing",
           "transfer": "jmp",
           "relationship": "原单jmp目标源码复用；不新加登记、固定返回或析构"
         }
@@ -9936,7 +9936,7 @@
         "current_source": "src/platform/LegacyMouse.cpp",
         "current_initializer_type": "WindowNumberSpacingStaticInitializer",
         "current_initializer_variable": "gWindowNumberSpacingStaticInitializer",
-        "direct_call_symbol": "cg::ui::InitializeLegacyNumberSpacing_477160",
+        "direct_call_symbol": "cg::ui::WindowNumber_InitializeLegacySpacing",
         "expanded_leaf_symbol": null,
         "current_scope": "active_application",
         "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
@@ -9953,11 +9953,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "InitializeNumberSpacing_477170"
+            "symbol": "WindowNumber_InitializeSpacing"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "InitializeLegacyNumberSpacing_477160"
+            "symbol": "WindowNumber_InitializeLegacySpacing"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -13082,7 +13082,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "FirstItemSelectorStartup::FirstItemSelectorStartup FirstItemSelectorStartup::~FirstItemSelectorStartup ConstructLegacyFirstItemSelector_488400 ReleaseLegacyFirstItemSelectorAtExit_488420"
+            "FirstItemSelectorStartup::FirstItemSelectorStartup FirstItemSelectorStartup::~FirstItemSelectorStartup WindowInventory_ConstructSelector WindowInventory_ReleaseSelectorAtExit"
           ],
           "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
@@ -13124,7 +13124,7 @@
           "parent_entry": "0x4883F0",
           "call_site": "0x4883F0",
           "target_entry": "0x488400",
-          "target_symbol": "ConstructLegacyFirstItemSelector_488400",
+          "target_symbol": "WindowInventory_ConstructSelector",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "transfer": "call",
@@ -13139,7 +13139,7 @@
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "transfer": "call",
-          "arguments": "ReleaseLegacyFirstItemSelectorAtExit_488420 整体无参callback",
+          "arguments": "WindowInventory_ReleaseSelectorAtExit 整体无参callback",
           "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
           "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
           "native_target_is_original_source_body": false,
@@ -13151,7 +13151,7 @@
           "parent_entry": "0x4883F0",
           "reference_site": "0x488410",
           "callback_entry": "0x488420",
-          "callback_symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+          "callback_symbol": "WindowInventory_ReleaseSelectorAtExit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
@@ -13274,14 +13274,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructLegacyFirstItemSelector_488400"
+            "WindowInventory_ConstructSelector"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructLegacyFirstItemSelector_488400"
+            "WindowInventory_ConstructSelector"
           ],
           "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
         },
@@ -13325,7 +13325,7 @@
           "target_symbol": "detail::WindowItemSelector_ConstructPreview",
           "target_source": "src/ui/WindowRuntime.cpp",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructLegacyFirstItemSelector_488400",
+          "symbol": "WindowInventory_ConstructSelector",
           "transfer": "jmp",
           "original_this_address": "0xCF3B10",
           "arguments": "&detail::gItemSelectorCF3B10",
@@ -13337,7 +13337,7 @@
           "parent_entry": "0x4883F0",
           "call_site": "0x4883F0",
           "target_entry": "0x488400",
-          "target_symbol": "ConstructLegacyFirstItemSelector_488400",
+          "target_symbol": "WindowInventory_ConstructSelector",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "transfer": "call",
@@ -13353,7 +13353,7 @@
           "native_state": "detail::gItemSelectorCF3B10",
           "native_preview_index": 0,
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructLegacyFirstItemSelector_488400",
+          "symbol": "WindowInventory_ConstructSelector",
           "bridge_source": "src/YobiRuntime.cpp",
           "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
           "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
@@ -13387,7 +13387,7 @@
             "asm": "call    unknown_libname_44; Microsoft VisualC 2-14/net runtime"
           }
         ],
-        "native_signature": "detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()",
+        "native_signature": "detail::WindowItemSelectorState* WindowInventory_ConstructSelector()",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -13410,11 +13410,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructLegacyFirstItemSelector_488400"
+            "symbol": "WindowInventory_ConstructSelector"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructLegacyFirstItemSelector_488400"
+            "symbol": "WindowInventory_ConstructSelector"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -13438,7 +13438,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "SecondItemSelectorStartup::SecondItemSelectorStartup SecondItemSelectorStartup::~SecondItemSelectorStartup ConstructLegacySecondItemSelector_499900 ReleaseLegacySecondItemSelectorAtExit_499920"
+            "SecondItemSelectorStartup::SecondItemSelectorStartup SecondItemSelectorStartup::~SecondItemSelectorStartup WindowBattleItems_ConstructSelector WindowBattleItems_ReleaseSelectorAtExit"
           ],
           "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
@@ -13480,7 +13480,7 @@
           "parent_entry": "0x4998F0",
           "call_site": "0x4998F0",
           "target_entry": "0x499900",
-          "target_symbol": "ConstructLegacySecondItemSelector_499900",
+          "target_symbol": "WindowBattleItems_ConstructSelector",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "transfer": "call",
@@ -13495,7 +13495,7 @@
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "transfer": "call",
-          "arguments": "ReleaseLegacySecondItemSelectorAtExit_499920 整体无参callback",
+          "arguments": "WindowBattleItems_ReleaseSelectorAtExit 整体无参callback",
           "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
           "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
           "native_target_is_original_source_body": false,
@@ -13507,7 +13507,7 @@
           "parent_entry": "0x4998F0",
           "reference_site": "0x499910",
           "callback_entry": "0x499920",
-          "callback_symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+          "callback_symbol": "WindowBattleItems_ReleaseSelectorAtExit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
@@ -13630,14 +13630,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructLegacySecondItemSelector_499900"
+            "WindowBattleItems_ConstructSelector"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructLegacySecondItemSelector_499900"
+            "WindowBattleItems_ConstructSelector"
           ],
           "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
         },
@@ -13681,7 +13681,7 @@
           "target_symbol": "detail::WindowItemSelector_ConstructPreview",
           "target_source": "src/ui/WindowRuntime.cpp",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructLegacySecondItemSelector_499900",
+          "symbol": "WindowBattleItems_ConstructSelector",
           "transfer": "jmp",
           "original_this_address": "0xD2F338",
           "arguments": "&detail::gItemSelectorD2F338",
@@ -13693,7 +13693,7 @@
           "parent_entry": "0x4998F0",
           "call_site": "0x4998F0",
           "target_entry": "0x499900",
-          "target_symbol": "ConstructLegacySecondItemSelector_499900",
+          "target_symbol": "WindowBattleItems_ConstructSelector",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "transfer": "call",
@@ -13709,7 +13709,7 @@
           "native_state": "detail::gItemSelectorD2F338",
           "native_preview_index": 1,
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructLegacySecondItemSelector_499900",
+          "symbol": "WindowBattleItems_ConstructSelector",
           "bridge_source": "src/YobiRuntime.cpp",
           "bridge_symbol": "login::detail::BorrowWindowSelectorPreview",
           "relationship": "原内嵌对象已有x64非拥有引用边界，借唯一静态地址不分配/构造新对象；原端无此额外调用，故不计原数值call"
@@ -13743,7 +13743,7 @@
             "asm": "call    unknown_libname_45; Microsoft VisualC 2-14/net runtime"
           }
         ],
-        "native_signature": "detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()",
+        "native_signature": "detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector()",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -13766,11 +13766,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructLegacySecondItemSelector_499900"
+            "symbol": "WindowBattleItems_ConstructSelector"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructLegacySecondItemSelector_499900"
+            "symbol": "WindowBattleItems_ConstructSelector"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -13808,14 +13808,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ReleaseLegacySecondItemSelectorAtExit_499920"
+            "WindowBattleItems_ReleaseSelectorAtExit"
           ],
           "relationship": "原固定this构造尾调或无参整体退出前缀，原内嵌预览沿已有非拥有静态引用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ReleaseLegacySecondItemSelectorAtExit_499920"
+            "WindowBattleItems_ReleaseSelectorAtExit"
           ],
           "relationship": "SIC01完整原包装/共享退出及固定对象正常合同补证，正确body与旧历史保持"
         },
@@ -13857,7 +13857,7 @@
           "parent_entry": "0x4998F0",
           "reference_site": "0x499910",
           "callback_entry": "0x499920",
-          "callback_symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+          "callback_symbol": "WindowBattleItems_ReleaseSelectorAtExit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
@@ -13872,7 +13872,7 @@
           "native_source": "src/YobiRuntime.cpp",
           "native_symbol": "login::detail::DestroyWindowSelectorPreview",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
+          "symbol": "WindowBattleItems_ReleaseSelectorAtExit",
           "original_this_address": "0xD2F338",
           "original_preview_offset": "0x78",
           "native_preview_index": 1,
@@ -13938,7 +13938,7 @@
         "jumps": 1,
         "returns": 0,
         "original_incoming": [],
-        "native_signature": "void ReleaseLegacySecondItemSelectorAtExit_499920()",
+        "native_signature": "void WindowBattleItems_ReleaseSelectorAtExit()",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -13961,11 +13961,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920"
+            "symbol": "WindowBattleItems_ReleaseSelectorAtExit"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ReleaseLegacySecondItemSelectorAtExit_499920"
+            "symbol": "WindowBattleItems_ReleaseSelectorAtExit"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -22862,7 +22862,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup ConstructStallBrowsePetValues DestroyStallBrowsePetValues"
+            "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup WindowStall_ConstructBrowsePetValues WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "原生类构造／析构复用同组原构造及逆序清理；无手写atexit或第二份载荷。"
         },
@@ -22899,7 +22899,7 @@
           "parent_entry": "0x4CD240",
           "call_site": "0x4CD240",
           "target_entry": "0x4CD250",
-          "target_symbol": "ConstructStallBrowsePetValues",
+          "target_symbol": "WindowStall_ConstructBrowsePetValues",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
           "transfer": "call",
@@ -22913,7 +22913,7 @@
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "StallBrowsePetValuesStartup::StallBrowsePetValuesStartup",
           "transfer": "call",
-          "arguments": "DestroyStallBrowsePetValues 无参callback",
+          "arguments": "WindowStall_DestroyBrowsePetValues 无参callback",
           "original_instruction_owner": "0x4CD250",
           "execution_context": "本入口jmp4CD260后执行既有4CD250登记块，不扩大入口原function_chunks",
           "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
@@ -22927,7 +22927,7 @@
           "parent_entry": "0x4CD240",
           "reference_site": "0x4CD260",
           "callback_entry": "0x4CD270",
-          "callback_symbol": "DestroyStallBrowsePetValues",
+          "callback_symbol": "WindowStall_DestroyBrowsePetValues",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
           "original_instruction_owner": "0x4CD250",
@@ -33523,7 +33523,7 @@
         {
           "reference_site": "0x553098",
           "target_entry": "0x477160",
-          "target_symbol": "cg::ui::InitializeLegacyNumberSpacing_477160",
+          "target_symbol": "cg::ui::WindowNumber_InitializeLegacySpacing",
           "source": "src/ui/WindowRuntime.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
@@ -38413,7 +38413,7 @@
             "WindowMailRead_Refresh",
             "WindowTextList_Open",
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接；本步五父十实际原点由六表达式真实承接，坐标/对话/邮件/双遍生产正文保持"
         },
@@ -38701,7 +38701,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD24D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -38711,7 +38711,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
         },
@@ -38719,7 +38719,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD2FE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -38729,7 +38729,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
         },
@@ -38737,7 +38737,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD555",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -38747,7 +38747,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
         },
@@ -38755,7 +38755,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD607",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -38765,7 +38765,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
         },
@@ -38910,7 +38910,7 @@
             "WindowMailRead_Refresh",
             "WindowTextList_Open",
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接；本步五父十实际原点由六表达式真实承接，坐标/对话/邮件/双遍生产正文保持"
         },
@@ -39154,7 +39154,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD24D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -39164,7 +39164,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
         },
@@ -39172,7 +39172,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD2FE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -39182,7 +39182,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
         },
@@ -39190,7 +39190,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD555",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -39200,7 +39200,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
         },
@@ -39208,7 +39208,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD607",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -39218,7 +39218,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
         },
@@ -39322,7 +39322,7 @@
             "WindowMailRead_Refresh",
             "WindowTextList_Open",
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接；本步五父十实际原点由六表达式真实承接，坐标/对话/邮件/双遍生产正文保持"
         },
@@ -39407,7 +39407,7 @@
             "WindowMailRead_Refresh",
             "WindowTextList_Open",
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接；本步五父十实际原点由六表达式真实承接，坐标/对话/邮件/双遍生产正文保持"
         },
@@ -39467,7 +39467,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "RebuildWindowLines51"
+            "symbol": "WindowTextList_RebuildLines"
           },
           {
             "path": "src/LoginCapability4Modal.cpp",
@@ -50473,7 +50473,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::strtok",
-        "line": 27184,
+        "line": 27187,
         "cpp_calls": 2,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -52128,11 +52128,11 @@
             "WindowSettings_ButtonMusicIncrease",
             "WindowSettings_ButtonSoundDecrease",
             "WindowSettings_ButtonSoundIncrease",
-            "WindowBank_DrawOwnPetSkills",
-            "WindowBank_DrawStoredPetSkills",
+            "WindowBank_DrawOwnPetTooltip",
+            "WindowBank_DrawStoredPetTooltip",
             "WindowTrade_DrawPetRow",
-            "Sub_48D540",
-            "WindowTrade_HandleOwnPetRow",
+            "WindowPet_DrawTooltip",
+            "WindowTrade_HandlePanel",
             "WindowItem_RequestPetTransfer",
             "WindowBattleItems_RefreshMoney",
             "WindowBattleItems_RefreshExtraValue",
@@ -55935,121 +55935,121 @@
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAC3A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACB3",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACF3",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAD2E",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAD70",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AADAB",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AADE6",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE25",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE5A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE8F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB492",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB4FF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB540",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB57B",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB5BD",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB5F8",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB633",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB672",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB6A7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB6DC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4B0F20",
@@ -56115,43 +56115,43 @@
           "parent_entry": "0x48D540",
           "call_site": "0x48D676",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         },
         {
           "parent_entry": "0x48D540",
           "call_site": "0x48D703",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         },
         {
           "parent_entry": "0x48D540",
           "call_site": "0x48D74F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B17FC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B1833",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B186D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B18A4",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x48BB90",
@@ -56584,7 +56584,7 @@
           "call_site": "0x4A0C11",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailGuildStatus"
+          "source_format_symbol": "WindowMail_WriteGuildStatus"
         },
         {
           "parent_entry": "0x4A09E0",
@@ -56598,56 +56598,56 @@
           "call_site": "0x4A0F4D",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A0F6A",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A12D9",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailGuildStatus"
+          "source_format_symbol": "WindowMail_WriteGuildStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A14FA",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A1517",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5B10",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5C23",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5D1C",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
@@ -56661,28 +56661,28 @@
           "call_site": "0x4A5F27",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5FED",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A6450",
           "call_site": "0x4A6856",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowPetMailCompose_HandleSendButtons",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A6450",
           "call_site": "0x4A6A03",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowPetMailCompose_HandleSendButtons",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A6AC0",
@@ -56695,42 +56695,42 @@
           "call_site": "0x470B3E",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x470AC0",
           "call_site": "0x470BB8",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x470AC0",
           "call_site": "0x470C04",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4718F0",
           "call_site": "0x47196E",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4718F0",
           "call_site": "0x4719E8",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4718F0",
           "call_site": "0x471A34",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4D3410",
@@ -59972,11 +59972,11 @@
             "WindowSettings_ButtonMusicIncrease",
             "WindowSettings_ButtonSoundDecrease",
             "WindowSettings_ButtonSoundIncrease",
-            "WindowBank_DrawOwnPetSkills",
-            "WindowBank_DrawStoredPetSkills",
+            "WindowBank_DrawOwnPetTooltip",
+            "WindowBank_DrawStoredPetTooltip",
             "WindowTrade_DrawPetRow",
-            "Sub_48D540",
-            "WindowTrade_HandleOwnPetRow",
+            "WindowPet_DrawTooltip",
+            "WindowTrade_HandlePanel",
             "WindowItem_RequestPetTransfer",
             "WindowBattleItems_RefreshMoney",
             "WindowBattleItems_RefreshExtraValue",
@@ -60690,11 +60690,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBank_DrawOwnPetSkills"
+            "symbol": "WindowBank_DrawOwnPetTooltip"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBank_DrawStoredPetSkills"
+            "symbol": "WindowBank_DrawStoredPetTooltip"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60702,11 +60702,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_48D540"
+            "symbol": "WindowPet_DrawTooltip"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowTrade_HandleOwnPetRow"
+            "symbol": "WindowTrade_HandlePanel"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -61552,10 +61552,10 @@
               "WindowItemSelector_HandlePlayerAttributes",
               "WindowPetSkills_DrawDraggedSkillTooltip",
               "WindowCraft_HandleInventory",
-              "WindowBank_DrawOwnPetSkills",
-              "WindowBank_DrawStoredPetSkills",
+              "WindowBank_DrawOwnPetTooltip",
+              "WindowBank_DrawStoredPetTooltip",
               "WindowTrade_DrawPetRow",
-              "Sub_48D540",
+              "WindowPet_DrawTooltip",
               "WindowTrade_HandleOwnInventory",
               "WindowTrade_HandleSelectedItem",
               "WindowTrade_HandleRemoteItem",
@@ -64161,7 +64161,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
@@ -64236,7 +64236,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "4CD2A0片段以5项及4CD360进入；浏览宠物独立owner，已有C++失败前缀清理；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
@@ -64304,8 +64304,8 @@
           "call_site": "0x4CD2BB",
           "target_entry": "0x53C45E",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "symbol": "WindowStall_ConstructBrowsePetValues",
+          "storage": "detail::WindowStall_BorrowBrowseStorage.pets.data()",
           "count": 5,
           "original_stride": "0x5110",
           "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
@@ -64319,7 +64319,7 @@
       "current_array_consumers_lci06": {
         "world": "ConstructWorldObjects / DestroyWorldObjects → optional<std::array<WorldObjectRecord,1000>>",
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
-        "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
+        "browse": "WindowStall_ConstructBrowsePetValues / WindowStall_DestroyBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
       },
       "historical_array_lifetime_internal_call_connections_before_lci15": [
@@ -64375,7 +64375,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
@@ -64422,7 +64422,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -64455,7 +64455,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyStallBrowsePetValues"
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
@@ -64532,7 +64532,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyStallBrowsePetValues"
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "4CD280片段以5项及4CD2D0进入，保持浏览独立存储；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
@@ -64598,8 +64598,8 @@
           "call_site": "0x4CD293",
           "target_entry": "0x53C4E0",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "DestroyStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "symbol": "WindowStall_DestroyBrowsePetValues",
+          "storage": "detail::WindowStall_BorrowBrowseStorage.pets.data()",
           "count": 5,
           "original_stride": "0x5110",
           "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
@@ -64612,7 +64612,7 @@
       "current_array_consumers_lci06": {
         "world": "ConstructWorldObjects / DestroyWorldObjects → optional<std::array<WorldObjectRecord,1000>>",
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
-        "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
+        "browse": "WindowStall_ConstructBrowsePetValues / WindowStall_DestroyBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
       },
       "historical_array_lifetime_internal_call_connections_before_lci15": [
@@ -64675,7 +64675,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyStallBrowsePetValues"
+            "WindowStall_DestroyBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
@@ -64722,7 +64722,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DestroyStallBrowsePetValues"
+            "symbol": "WindowStall_DestroyBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -64755,7 +64755,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06独立浏览五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
         }
@@ -64834,7 +64834,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "既有完成计数catch按六成员前缀逆序回收后重抛；只关联C++适配；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
@@ -64870,7 +64870,7 @@
       "current_array_consumers_lci06": {
         "world": "ConstructWorldObjects / DestroyWorldObjects → optional<std::array<WorldObjectRecord,1000>>",
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
-        "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
+        "browse": "WindowStall_ConstructBrowsePetValues / WindowStall_DestroyBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
       },
       "historical_array_lifetime_internal_call_connections_before_lci15": [
@@ -64941,7 +64941,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
@@ -64988,7 +64988,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -68187,7 +68187,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ConstructStallBrowsePetValues"
+            "WindowStall_ConstructBrowsePetValues"
           ],
           "relationship": "LCI06独立浏览五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
         }
@@ -68297,7 +68297,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ConstructStallBrowsePetValues"
+            "symbol": "WindowStall_ConstructBrowsePetValues"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -86292,7 +86292,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::malloc",
-        "line": 7937,
+        "line": 7938,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -86827,7 +86827,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::free",
-        "line": 7950,
+        "line": 7951,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -105846,7 +105846,7 @@
           ],
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowChat_DrawInput",
-          "delegated_helper": "ScrollInputAndDraw",
+          "delegated_helper": "WindowInput_ScrollAndDraw",
           "helper_leaf_lexical_call_count": 1
         },
         {
@@ -105856,7 +105856,7 @@
           ],
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowChat_DrawFixedWidthInput",
-          "delegated_helper": "ScrollInputAndDraw",
+          "delegated_helper": "WindowInput_ScrollAndDraw",
           "helper_leaf_lexical_call_count": 1
         },
         {
@@ -106344,7 +106344,7 @@
             ],
             "source": "src/ui/WindowRuntime.cpp",
             "symbol": "WindowChat_DrawInput",
-            "delegated_helper": "ScrollInputAndDraw",
+            "delegated_helper": "WindowInput_ScrollAndDraw",
             "helper_leaf_lexical_call_count": 1
           },
           {
@@ -106354,7 +106354,7 @@
             ],
             "source": "src/ui/WindowRuntime.cpp",
             "symbol": "WindowChat_DrawFixedWidthInput",
-            "delegated_helper": "ScrollInputAndDraw",
+            "delegated_helper": "WindowInput_ScrollAndDraw",
             "helper_leaf_lexical_call_count": 1
           },
           {
@@ -122130,7 +122130,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ]
         }
       ],
@@ -122139,7 +122139,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD24D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -122149,7 +122149,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
         },
@@ -122157,7 +122157,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD2FE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -122167,7 +122167,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
         }
@@ -122194,7 +122194,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD24D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -122204,7 +122204,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
         },
@@ -122212,7 +122212,7 @@
           "parent_entry": "0x4AD180",
           "call_site": "0x4AD2FE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -122222,7 +122222,7 @@
           "entry_symbol": "WindowTextList_Open",
           "source_call_chain": [
             "WindowTextList_Open",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
         }
@@ -122238,7 +122238,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "RebuildWindowLines51"
+            "symbol": "WindowTextList_RebuildLines"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -122260,7 +122260,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ]
         }
       ],
@@ -122269,7 +122269,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD555",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -122279,7 +122279,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
         },
@@ -122287,7 +122287,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD607",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "std::strchr",
           "source_expression": "segment",
@@ -122297,7 +122297,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
         }
@@ -122324,7 +122324,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD555",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -122334,7 +122334,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
         },
@@ -122342,7 +122342,7 @@
           "parent_entry": "0x4AD470",
           "call_site": "0x4AD607",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "RebuildWindowLines51",
+          "symbol": "WindowTextList_RebuildLines",
           "target_entry": "0x53C2F0",
           "target_symbol": "StrChr_53C2F0",
           "source_expression": "segment",
@@ -122352,7 +122352,7 @@
           "entry_symbol": "WindowTextList_ContinueDialog",
           "source_call_chain": [
             "WindowTextList_ContinueDialog",
-            "RebuildWindowLines51"
+            "WindowTextList_RebuildLines"
           ],
           "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
         }
@@ -122368,7 +122368,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "RebuildWindowLines51"
+            "symbol": "WindowTextList_RebuildLines"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -122789,7 +122789,7 @@
         {
           "site": "0x4D1616",
           "fmt": "%d",
-          "arg": "BorrowStallBrowseD046D8Storage.petValuesD2D464[gStallPetPageD67BD0 + row]",
+          "arg": "WindowStall_BorrowBrowseStorage.petValuesD2D464[gStallPetPageD67BD0 + row]",
           "offset": "0xD2D464",
           "format_address": "0x5531A4",
           "format_push_site": "0x4d1610",
@@ -127664,7 +127664,7 @@
           "target_entry": "0x53B304",
           "format_address": "0x5531A4",
           "format_bytes": "256400",
-          "source_expression": "BorrowStallBrowseD046D8Storage.itemValuesD13E74[gStallItemSelection581124 - 20]",
+          "source_expression": "WindowStall_BorrowBrowseStorage.itemValuesD13E74[gStallItemSelection581124 - 20]",
           "argument_widths": [
             "S32"
           ],
@@ -127848,7 +127848,7 @@
           "target_entry": "0x53B304",
           "format_address": "0x5531A4",
           "format_bytes": "256400",
-          "source_expression": "BorrowStallBrowseD046D8Storage.petValuesD2D464[gStallPetSelection581128 - 5]",
+          "source_expression": "WindowStall_BorrowBrowseStorage.petValuesD2D464[gStallPetSelection581128 - 5]",
           "argument_widths": [
             "S32"
           ],
@@ -138905,7 +138905,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WindowBank_DrawOwnPetSkills"
+            "WindowBank_DrawOwnPetTooltip"
           ],
           "relationship": "仅一个私有drawNumber的格式callee接十个真实原点，签名/返回/owner和完整正文保持"
         }
@@ -138959,61 +138959,61 @@
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAC3A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACB3",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AACF3",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAD2E",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAD70",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AADAB",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AADE6",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE25",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE5A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         },
         {
           "parent_entry": "0x4AAB70",
           "call_site": "0x4AAE8F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawOwnPetSkills"
+          "symbol": "WindowBank_DrawOwnPetTooltip"
         }
       ],
       "business_format_points": [
@@ -139266,7 +139266,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBank_DrawOwnPetSkills"
+            "symbol": "WindowBank_DrawOwnPetTooltip"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -139280,7 +139280,7 @@
           {
             "path": "src/ui/WindowRuntime.cpp",
             "symbols": [
-              "WindowBank_DrawOwnPetSkills"
+              "WindowBank_DrawOwnPetTooltip"
             ]
           }
         ],
@@ -139297,7 +139297,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WindowBank_DrawStoredPetSkills"
+            "WindowBank_DrawStoredPetTooltip"
           ],
           "relationship": "仅一个私有drawNumber的格式callee接十个真实原点，签名/返回/owner和完整正文保持"
         }
@@ -139332,61 +139332,61 @@
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB492",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB4FF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB540",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB57B",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB5BD",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB5F8",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB633",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB672",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB6A7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         },
         {
           "parent_entry": "0x4AB400",
           "call_site": "0x4AB6DC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowBank_DrawStoredPetSkills"
+          "symbol": "WindowBank_DrawStoredPetTooltip"
         }
       ],
       "business_format_points": [
@@ -139649,7 +139649,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBank_DrawStoredPetSkills"
+            "symbol": "WindowBank_DrawStoredPetTooltip"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -139663,7 +139663,7 @@
           {
             "path": "src/ui/WindowRuntime.cpp",
             "symbols": [
-              "WindowBank_DrawStoredPetSkills"
+              "WindowBank_DrawStoredPetTooltip"
             ]
           }
         ],
@@ -140069,7 +140069,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_48D540"
+            "WindowPet_DrawTooltip"
           ],
           "relationship": "仅三个/四个格式callee接对应真实原点，完整签名/返回/owner和正文保持"
         }
@@ -140098,19 +140098,19 @@
           "parent_entry": "0x48D540",
           "call_site": "0x48D676",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         },
         {
           "parent_entry": "0x48D540",
           "call_site": "0x48D703",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         },
         {
           "parent_entry": "0x48D540",
           "call_site": "0x48D74F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_48D540"
+          "symbol": "WindowPet_DrawTooltip"
         }
       ],
       "business_format_points": [
@@ -140193,7 +140193,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_48D540"
+            "symbol": "WindowPet_DrawTooltip"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -140207,7 +140207,7 @@
           {
             "path": "src/ui/WindowRuntime.cpp",
             "symbols": [
-              "Sub_48D540"
+              "WindowPet_DrawTooltip"
             ]
           }
         ],
@@ -140224,21 +140224,21 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WindowTrade_HandleOwnPetRow"
+            "WindowTrade_HandlePanel"
           ],
           "relationship": "仅三个/四个格式callee接对应真实原点，完整签名/返回/owner和正文保持"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WindowTrade_HandleOwnPetRow"
+            "WindowTrade_HandlePanel"
           ],
           "relationship": "TQN01完整共享交易面板原根，五组读取对齐/原数值结果和callback保持，格式历史保追加"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
-            "WindowTrade_HandleOwnPetRow"
+            "WindowTrade_HandlePanel"
           ],
           "relationship": "TQN01真实S32/原14参callback声明保持，仅合同注释"
         }
@@ -140282,25 +140282,25 @@
           "parent_entry": "0x4B1260",
           "call_site": "0x4B17FC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B1833",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B186D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         },
         {
           "parent_entry": "0x4B1260",
           "call_site": "0x4B18A4",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "WindowTrade_HandleOwnPetRow"
+          "symbol": "WindowTrade_HandlePanel"
         }
       ],
       "business_format_points": [
@@ -140429,7 +140429,7 @@
             "parent": 4928896
           }
         ],
-        "native_signature": "std::int32_t WindowTrade_HandleOwnPetRow(\n    WindowInstance* const window, const std::int32_t index, const std::int32_t state,\n    const std::int32_t* const backgroundImages, std::uint8_t* const tab,\n    const std::int32_t scrollElement, std::int32_t* const scrollValue,\n    const std::int32_t numericElement, const std::int32_t maximum,\n    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,\n    render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)",
+        "native_signature": "std::int32_t WindowTrade_HandlePanel(\n    WindowInstance* const window, const std::int32_t index, const std::int32_t state,\n    const std::int32_t* const backgroundImages, std::uint8_t* const tab,\n    const std::int32_t scrollElement, std::int32_t* const scrollValue,\n    const std::int32_t numericElement, const std::int32_t maximum,\n    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,\n    render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)",
         "source_patch_group_count": 5,
         "source_changed_point_count": 6,
         "normal_remaining_source_kept": true,
@@ -140447,11 +140447,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowTrade_HandleOwnPetRow"
+            "symbol": "WindowTrade_HandlePanel"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowTrade_HandleOwnPetRow"
+            "symbol": "WindowTrade_HandlePanel"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -145842,7 +145842,7 @@
           "destination_expression": "buffer",
           "destination_capacity": 1024,
           "consumer_text_expression": "gWindow47Runtime.textCC426C.data()",
-          "consumer_symbol": "CreateWindowAnimation_475AA0(47, 1, 0, nullptr)",
+          "consumer_symbol": "WindowRuntime_CreateAnimation(47, 1, 0, nullptr)",
           "relationship": "沿既有删除确认初始化/Sub_4A3600和独立普通联系人F19FB0名字来源，单T*原旧字节格式写未清1024B→含NUL复制同源CC426C→真实窗口47动画T*返回；不合并owner/回调、翻译或添加转义"
         }
       ],
@@ -145920,7 +145920,7 @@
           "destination_expression": "buffer",
           "destination_capacity": 1024,
           "consumer_text_expression": "gWindow47Runtime.textCC426C.data()",
-          "consumer_symbol": "CreateWindowAnimation_475AA0(47, 1, 0, nullptr)",
+          "consumer_symbol": "WindowRuntime_CreateAnimation(47, 1, 0, nullptr)",
           "relationship": "沿既有删除确认初始化/Sub_4A3660和独立公会1051B14既有有序记录名字来源，单T*原旧字节格式写未清1024B→含NUL复制同源CC426C→真实窗口47动画T*返回；不合并owner/回调、翻译或添加转义"
         }
       ],
@@ -145998,7 +145998,7 @@
           "destination_expression": "buffer",
           "destination_capacity": 1024,
           "consumer_text_expression": "gWindow47Runtime.textCC426C.data()",
-          "consumer_symbol": "CreateWindowAnimation_475AA0(47, 1, 0, nullptr)",
+          "consumer_symbol": "WindowRuntime_CreateAnimation(47, 1, 0, nullptr)",
           "relationship": "沿既有删除确认初始化/Sub_4A36B0和独立迷你邮件1075A90名字来源，单T*原旧字节格式写未清1024B→含NUL复制同源CC426C→真实窗口47动画T*返回；不合并owner/回调、翻译或添加转义"
         }
       ],
@@ -146029,8 +146029,8 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowContacts_Refresh",
-            "WriteMailGuildStatus",
-            "WriteMailContactStatus"
+            "WindowMail_WriteGuildStatus",
+            "WindowMail_WriteContactStatus"
           ],
           "relationship": "真实原父独有两视图helper调用；四现callee承接七原点，仅格式标识符改变，所有读取/视图/消费者及返回正文保持"
         }
@@ -146060,7 +146060,7 @@
           "call_site": "0x4A0C11",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailGuildStatus"
+          "source_format_symbol": "WindowMail_WriteGuildStatus"
         },
         {
           "parent_entry": "0x4A09E0",
@@ -146074,35 +146074,35 @@
           "call_site": "0x4A0F4D",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A0F6A",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A12D9",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailGuildStatus"
+          "source_format_symbol": "WindowMail_WriteGuildStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A14FA",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         },
         {
           "parent_entry": "0x4A09E0",
           "call_site": "0x4A1517",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowContacts_Refresh",
-          "source_format_symbol": "WriteMailContactStatus"
+          "source_format_symbol": "WindowMail_WriteContactStatus"
         }
       ],
       "business_format_points": [
@@ -146117,7 +146117,7 @@
             "T*"
           ],
           "source_expression_group": "mail_guild_format_three_view",
-          "source_format_symbol": "WriteMailGuildStatus",
+          "source_format_symbol": "WindowMail_WriteGuildStatus",
           "source_expression": "kMailGuildStatusText56F0AC.prefixes[server], kMailGuildStatusText56F0AC.Suffix(status)",
           "source_format_expression": "kMailStatusFormat5598F0",
           "view": "三行",
@@ -146157,7 +146157,7 @@
             "T*"
           ],
           "source_expression_group": "mail_contact_format_three_view",
-          "source_format_symbol": "WriteMailContactStatus",
+          "source_format_symbol": "WindowMail_WriteContactStatus",
           "source_expression": "prefix, kMailContactStatusText56E9BC.Suffix(status)",
           "source_format_expression": "kMailStatusFormat5598F0",
           "view": "三行",
@@ -146176,7 +146176,7 @@
             "T*"
           ],
           "source_expression_group": "mail_reverse_format_three_view",
-          "source_format_symbol": "WriteMailContactStatus",
+          "source_format_symbol": "WindowMail_WriteContactStatus",
           "source_expression": "prefix",
           "source_format_expression": "kMailReverseFormat587434",
           "view": "三行",
@@ -146196,7 +146196,7 @@
             "T*"
           ],
           "source_expression_group": "mail_guild_format_nine_view",
-          "source_format_symbol": "WriteMailGuildStatus",
+          "source_format_symbol": "WindowMail_WriteGuildStatus",
           "source_expression": "kMailGuildStatusText56F0AC.prefixes[server], kMailGuildStatusText56F0AC.Suffix(status)",
           "source_format_expression": "kMailStatusFormat5598F0",
           "view": "九行",
@@ -146216,7 +146216,7 @@
             "T*"
           ],
           "source_expression_group": "mail_contact_format_nine_view",
-          "source_format_symbol": "WriteMailContactStatus",
+          "source_format_symbol": "WindowMail_WriteContactStatus",
           "source_expression": "prefix, kMailContactStatusText56E9BC.Suffix(status)",
           "source_format_expression": "kMailStatusFormat5598F0",
           "view": "九行",
@@ -146235,7 +146235,7 @@
             "T*"
           ],
           "source_expression_group": "mail_reverse_format_nine_view",
-          "source_format_symbol": "WriteMailContactStatus",
+          "source_format_symbol": "WindowMail_WriteContactStatus",
           "source_expression": "prefix",
           "source_format_expression": "kMailReverseFormat587434",
           "view": "九行",
@@ -146257,11 +146257,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WriteMailGuildStatus"
+            "symbol": "WindowMail_WriteGuildStatus"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WriteMailContactStatus"
+            "symbol": "WindowMail_WriteContactStatus"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -146292,7 +146292,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowMailCompose_HandleRecipients",
-            "FormatMailTimestamp587768"
+            "WindowMail_FormatTimestamp"
           ],
           "relationship": "本父一个命令callee及共用时间helper接六原点，其他完整正文保持"
         }
@@ -146321,21 +146321,21 @@
           "call_site": "0x4A5B10",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5C23",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5D1C",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
@@ -146349,14 +146349,14 @@
           "call_site": "0x4A5F27",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A5970",
           "call_site": "0x4A5FED",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowMailCompose_HandleRecipients",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         }
       ],
       "business_format_points": [
@@ -146374,11 +146374,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "群发groupMode2：发送group+400H后逐200成员匹配",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@groupMode2匹配成员",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@groupMode2匹配成员",
           "original_time_call_site": "0x4A5ADA",
           "original_localtime_call_site": "0x4A5AE4",
           "original_tm_read_order": [
@@ -146407,11 +146407,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "群发groupMode1：指定公会成员key",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@groupMode1",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@groupMode1",
           "original_time_call_site": "0x4A5BED",
           "original_localtime_call_site": "0x4A5BF7",
           "original_tm_read_order": [
@@ -146440,11 +146440,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "群发groupMode0：指定普通联系人",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@groupMode0",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@groupMode0",
           "original_time_call_site": "0x4A5CE6",
           "original_localtime_call_site": "0x4A5CF0",
           "original_tm_read_order": [
@@ -146497,11 +146497,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "单发category1：公会成员key",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@普通/公会单发共用表达式",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@普通/公会单发共用表达式",
           "original_time_call_site": "0x4A5EF1",
           "original_localtime_call_site": "0x4A5EFB",
           "original_tm_read_order": [
@@ -146530,11 +146530,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "单发category0：普通联系人",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@普通/公会单发共用表达式",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@普通/公会单发共用表达式",
           "original_time_call_site": "0x4A5FB7",
           "original_localtime_call_site": "0x4A5FC1",
           "original_tm_read_order": [
@@ -146598,7 +146598,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowPetMailCompose_HandleSendButtons",
-            "FormatMailTimestamp587768"
+            "WindowMail_FormatTimestamp"
           ],
           "relationship": "本父无stdio/正文不变，通过原时间helper接入两个原点"
         }
@@ -146634,14 +146634,14 @@
           "call_site": "0x4A6856",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowPetMailCompose_HandleSendButtons",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         },
         {
           "parent_entry": "0x4A6450",
           "call_site": "0x4A6A03",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowPetMailCompose_HandleSendButtons",
-          "source_format_symbol": "FormatMailTimestamp587768"
+          "source_format_symbol": "WindowMail_FormatTimestamp"
         }
       ],
       "business_format_points": [
@@ -146659,11 +146659,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "宠物邮件category1：公会成员",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@category0/1共用表达式",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@category0/1共用表达式",
           "original_time_call_site": "0x4A6820",
           "original_localtime_call_site": "0x4A682A",
           "original_tm_read_order": [
@@ -146692,11 +146692,11 @@
             "S32"
           ],
           "source_expression_group": "mail_fresh_timestamp_helper",
-          "source_format_symbol": "FormatMailTimestamp587768",
+          "source_format_symbol": "WindowMail_FormatTimestamp",
           "source_expression": "year + 1900, month + 1, day, hour, minute",
           "source_format_expression": "\"%4d/%2d/%2d %02d:%02d\"",
           "branch": "宠物邮件category0：普通联系人",
-          "source_call_expression": "FormatMailTimestamp587768(timestamp)@category0/1共用表达式",
+          "source_call_expression": "WindowMail_FormatTimestamp(timestamp)@category0/1共用表达式",
           "original_time_call_site": "0x4A69CD",
           "original_localtime_call_site": "0x4A69D7",
           "original_tm_read_order": [
@@ -146900,14 +146900,14 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowStatusBar_Refresh",
-            "FormatStatusBarVitals"
+            "WindowStatusBar_FormatVitals"
           ],
           "relationship": "本父无stdio/全文不变，唯一个共用helper四表达式承接两父各三原格式点"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DrawStatusBarTimer"
+            "WindowStatusBar_DrawTimer"
           ],
           "relationship": "TUC01恢复原四位时长消费的小时位/首窗口/坐标取样，共用本机helper无独立原F；两HUD父正文及格式helper保持"
         }
@@ -146940,21 +146940,21 @@
           "call_site": "0x470B3E",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x470AC0",
           "call_site": "0x470BB8",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x470AC0",
           "call_site": "0x470C04",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         }
       ],
       "business_format_points": [
@@ -146967,7 +146967,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -146996,7 +146996,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -147021,7 +147021,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -147077,11 +147077,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "FormatStatusBarVitals"
+            "symbol": "WindowStatusBar_FormatVitals"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DrawStatusBarTimer"
+            "symbol": "WindowStatusBar_DrawTimer"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -147100,14 +147100,14 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowCompactStatusBar_Refresh",
-            "FormatStatusBarVitals"
+            "WindowStatusBar_FormatVitals"
           ],
           "relationship": "本父无stdio/全文不变，唯一个共用helper四表达式承接两父各三原格式点"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DrawStatusBarTimer"
+            "WindowStatusBar_DrawTimer"
           ],
           "relationship": "TUC01恢复原四位时长消费的小时位/首窗口/坐标取样，共用本机helper无独立原F；两HUD父正文及格式helper保持"
         }
@@ -147140,21 +147140,21 @@
           "call_site": "0x47196E",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4718F0",
           "call_site": "0x4719E8",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         },
         {
           "parent_entry": "0x4718F0",
           "call_site": "0x471A34",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowCompactStatusBar_Refresh",
-          "source_format_symbol": "FormatStatusBarVitals"
+          "source_format_symbol": "WindowStatusBar_FormatVitals"
         }
       ],
       "business_format_points": [
@@ -147167,7 +147167,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -147196,7 +147196,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -147221,7 +147221,7 @@
             "S32",
             "S32"
           ],
-          "source_format_symbol": "FormatStatusBarVitals",
+          "source_format_symbol": "WindowStatusBar_FormatVitals",
           "source_format_expression": "kStatusVitalsFormat553FE8",
           "destination_expression": "buffer",
           "destination_capacity": 256,
@@ -147277,11 +147277,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "FormatStatusBarVitals"
+            "symbol": "WindowStatusBar_FormatVitals"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DrawStatusBarTimer"
+            "symbol": "WindowStatusBar_DrawTimer"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -164999,7 +164999,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "expression": "ui::detail::WindowShopChoice_ReadSkillImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -165054,7 +165054,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "expression": "ui::detail::WindowShopChoice_ReadSkillImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -165109,7 +165109,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "expression": "ui::detail::WindowShopChoice_ReadSkillImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -165164,7 +165164,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyShopImageC9A9A0()",
+        "expression": "ui::detail::WindowShopChoice_ReadShopImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -165498,7 +165498,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyChoiceImageC9A99C()",
+        "expression": "ui::detail::WindowShopChoice_ReadExchangeImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -165553,7 +165553,7 @@
         "returns": "原工厂结果，包括空失败"
       },
       "image_dependency": {
-        "expression": "ui::detail::ReadLegacyChoiceImageD2EA74()",
+        "expression": "ui::detail::WindowShopChoice_ReadGiveReceiveImage()",
         "type": "S32",
         "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
       },
@@ -167630,8 +167630,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WriteSkillRequestD64E13",
-            "ReadSkillRequestD64E13"
+            "WindowSkill_WriteRequestFlag",
+            "WindowSkill_ReadRequestFlag"
           ],
           "relationship": "四原U8写点由三源表达式承接类型3/4共写点，沿唯一私有D64E13 owner与旧S8读者"
         }
@@ -176183,7 +176183,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "UpdateWindows_473F80"
+            "WindowRuntime_Update"
           ],
           "relationship": "既有完整根三处访问宽度修复；现代窗口/元素、拖动、快捷键与热键原序保持，504120真实调用未改"
         },
@@ -176197,14 +176197,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "UpdateWindows_473F80"
+            "WindowRuntime_Update"
           ],
           "relationship": "WRS01仅count>0/焦点非零/phase4三判定先于相应共享发布；原WMB低W8与真实callback/共享复读、所有其它正文保持"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "UpdateWindows_473F80"
+            "WindowRuntime_Update"
           ],
           "relationship": "既有真实完整S32返回声明，公开API与owner未改"
         }
@@ -176260,7 +176260,7 @@
         {
           "call_site": "0x4740B8",
           "target_entry": "0x4C7AE0",
-          "source_symbol": "detail::ProcessWindowShortcuts_4C7AE0",
+          "source_symbol": "detail::WindowRuntime_ProcessShortcuts",
           "relationship": "所有窗口处理后执行快捷键"
         },
         {
@@ -176327,11 +176327,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "UpdateWindows_473F80"
+            "symbol": "WindowRuntime_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "UpdateWindows_473F80"
+            "symbol": "WindowRuntime_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -176411,7 +176411,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowRuntime_AdvanceMousePhase",
-            "AppendMouseButtonEvents"
+            "WindowRuntime_AppendMouseEvents"
           ],
           "relationship": "既有唯一正文及共享按钮helper按原正常分支/原宽/调用序登记，本步不改C++"
         }
@@ -176478,7 +176478,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowRuntime_DispatchElementMouse",
-            "AppendMouseButtonEvents"
+            "WindowRuntime_AppendMouseEvents"
           ],
           "relationship": "既有唯一正文及共享按钮helper按原正常分支/原宽/调用序登记，本步不改C++"
         }
@@ -177726,10 +177726,10 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowShopChoice_OpenSkillChoice",
-            "FillChoiceDialogBody",
+            "WindowShopChoice_FillBody",
             "gNpcDialogLinesCC24D4",
             "gChoiceDialogLinesD672D8",
-            "BorrowNpcDialogLinesCC24D4"
+            "WindowDialog_BorrowNpcLines"
           ],
           "relationship": "已有完整生产/每行写后发布同一行T*、同源借用及case16接线保持，不新增正文或镜像"
         },
@@ -177737,7 +177737,7 @@
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
             "WindowDialogTextLine",
-            "BorrowNpcDialogLinesCC24D4",
+            "WindowDialog_BorrowNpcLines",
             "WindowShopChoice_OpenSkillChoice"
           ],
           "relationship": "既有81B行类型/非拥有借用/根声明保持"
@@ -177809,7 +177809,7 @@
           "target_inventory_id": "F:0012CED0",
           "target_entry": "0x52CED0",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "FillChoiceDialogBody",
+          "symbol": "WindowShopChoice_FillBody",
           "arguments": "原4A0640字段3/cap255/未清256B正文；源helper参数3/255"
         }
       ],
@@ -177824,7 +177824,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "FillChoiceDialogBody"
+            "symbol": "WindowShopChoice_FillBody"
           },
           {
             "path": "src/LegacyUiRecord.cpp",
@@ -181124,14 +181124,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "RenderWindows_504120"
+            "WindowRuntime_Render"
           ],
           "relationship": "既有完整转生到期门禁/Y后X和socket明文62、发送后低U8读取/先清标志再pub字节/47A140后现代窗口S32返回，本次正文保持"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "RenderWindows_504120"
+            "WindowRuntime_Render"
           ],
           "relationship": "既有真实完整S32返回声明，公开API与owner未改"
         }
@@ -181252,7 +181252,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "RenderWindows_504120"
+            "symbol": "WindowRuntime_Render"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -197409,7 +197409,7 @@
     {
       "original_entry": "0x00475AA0",
       "inventory_id": "F:00075AA0",
-      "original_role": "CreateWindowAnimation_475AA0",
+      "original_role": "WindowRuntime_CreateAnimation",
       "original_end_exclusive": "0x00475C03",
       "instruction_count": 113,
       "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
@@ -197417,7 +197417,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CreateWindowAnimation_475AA0"
+            "WindowRuntime_CreateAnimation"
           ],
           "relationship": "475AA0窗口动画包装：原型T*先取width/height W32；仅10/11/12/14/27原序消耗RAND(-15,15)后读/写x，RAND(-15,15)后读/写y；x负、y负各RAND(10,20)，x+width>640和y+height>480各按原620-width..640-width及460-height..480-height采样写。六物理RAND，条件独立且保顺序；随后一次借现window，非空只W32关闭请求，之后fresh重读window槽取其x再y；空则状态x再y。原八形参475950(x,y,width,height,id,flags,mode,T**)真实返回，完成槽仅已证非拥有T**拓宽。113条355B/七call两callee/十一jump/一ret，107代码入向只完整登记，未全面验证全部父。"
         }
@@ -197469,7 +197469,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "CreateWindowAnimation_475AA0"
+            "symbol": "WindowRuntime_CreateAnimation"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -216953,15 +216953,15 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0"
+            "WindowRuntime_ProcessShortcuts"
           ],
           "relationship": "BVN01完整快捷根1507条5500B/22页、256直接32目标/零间接224跳5RET及唯一473F80真实父；只现有四个Shift范围/聊天片段恢复先判后共享S32发布，四表达式承接八模式原点，原1..5轮换/聊天回退与计时180、键查询/窗口/动作/RNG/音效和其它正文保持。一个CPP四片段、零新函数/helper/owner/API；单F纳管及公共UI20两个限定I-S，不代完整输入生产/焦点、32callee/寿命、生成EFLAGS/ABI、音频或画面运行，不当旧99路由，原格式明文/音频暂停/RPLAN.24及执行限制保持。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ToggleShortcutWindow",
-            "PlayShortcutEmote",
+            "WindowRuntime_ToggleShortcutWindow",
+            "WindowRuntime_PlayShortcutEmote",
             "kShortcutEmotes"
           ],
           "relationship": "既有窗口切换/动作三调用和十五项顺序归纳正确保持，归纳表不是原端静态键表"
@@ -216969,7 +216969,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "UpdateWindows_473F80"
+            "WindowRuntime_Update"
           ],
           "relationship": "唯一实际现代父4740B8调用，本步复用WRS01原完整父证据，只当前调用保持"
         }
@@ -217041,7 +217041,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "UpdateWindows_473F80"
+            "symbol": "WindowRuntime_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -217080,7 +217080,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217208,7 +217208,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217336,7 +217336,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217464,7 +217464,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217592,7 +217592,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217724,7 +217724,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
+            "WindowRuntime_ProcessShortcuts",
             "WindowShortcutBar_HandleButtons"
           ],
           "relationship": "六请求两实际UI父接线保；BVN完整父复用，另一父仅实际引用/现有callback归纳，不验全父"
@@ -217864,8 +217864,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -217953,7 +217953,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218000,8 +218000,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -218089,7 +218089,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218136,8 +218136,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -218225,7 +218225,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218272,8 +218272,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -218361,7 +218361,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218408,8 +218408,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -218497,7 +218497,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218544,8 +218544,8 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ProcessWindowShortcuts_4C7AE0",
-            "WindowStatusBar_HandleEmote"
+            "WindowRuntime_ProcessShortcuts",
+            "WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "两个实际UI父接线保；BVN完整父复用，471DF0仅六BYTE窗口/六现有callback归纳，不验全父"
         }
@@ -218633,7 +218633,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowStatusBar_HandleEmote"
+            "symbol": "WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -218820,7 +218820,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ClearEmoteSelection"
+            "WindowEmote_ClearSelection"
           ],
           "relationship": "原18B以四W32/一W16清零，现正确helper全体保持，无新原身份"
         }
@@ -218901,7 +218901,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ClearEmoteSelection"
+            "symbol": "WindowEmote_ClearSelection"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -219730,14 +219730,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CloseWindowsByCategory_472240"
+            "WindowRuntime_CloseByCategory"
           ],
           "relationship": "472240：71槽按序跳空，id→类别S8→符号扩展W32与完整mask，命中先pub当前state/flags|2→fresh当前槽实例Free→同槽null；原47227E实际复读保，正确体无改动/无该体新I。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "CloseWindowsByCategory_472240"
+            "WindowRuntime_CloseByCategory"
           ],
           "relationship": "既有公开分类关闭声明保持，原71槽/正常生命周期不添保护或新接口"
         }
@@ -219820,7 +219820,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "CloseWindowsByCategory_472240"
+            "symbol": "WindowRuntime_CloseByCategory"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -219845,7 +219845,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "RestoreWindowPositions_475C10"
+            "WindowRuntime_RestorePositions"
           ],
           "relationship": "475C10：默认X写入口实例、Y写fresh实例；只10首判定先持样，再原默认位置发布，后按持样及11/12/14/27决定随机。原RAND前固定偏移实例/RAND后坐标读、修正后fresh目标、六原区间/width-height/71表和随机消费保；首阶段两文本替换，其余正确体保。"
         }
@@ -220226,14 +220226,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "FreeWindow_471270"
+            "WindowRuntime_Free"
           ],
           "relationship": "471270：release()后fresh id/state，回存x/y、两次原W32旗位/清state.window，先focusId后fresh window.id取消拖动。当前元素/数量按原fresh，1/5先global focused后element data及输入取消后fresh free；2同data样本/经唯一Yobi native边界承接原直接deathFlag=1、后fresh槽free；3固定text指针、后fresh field清null/载荷释放；4/6/7固定data样本，后fresh槽null；最后固定fresh元素数组样本释放→清数组→释放保存实例。六阶段实修，不借MarkDeath额外跳过空action，通用helper不变；无异常模拟/额外保护。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "FreeWindow_471270"
+            "WindowRuntime_Free"
           ],
           "relationship": "既有实际释放/关闭公开声明保持，不增加接口"
         },
@@ -220356,7 +220356,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "FreeWindow_471270"
+            "symbol": "WindowRuntime_Free"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -220381,14 +220381,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CloseAllWindows_472190"
+            "WindowRuntime_CloseAll"
           ],
           "relationship": "472190：71槽按原CloseWindow后清nil，七W32占用清零，BYTE标志0返回0；非0才Y→X→socket MIS62，发送后清BYTE并透传实际S32，不加成功门槛/回滚；当前正确全文保持，无该主体新I，原入向三CALL/四尾跳不混计。"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "CloseAllWindows_472190"
+            "WindowRuntime_CloseAll"
           ],
           "relationship": "既有实际释放/关闭公开声明保持，不增加接口"
         }
@@ -220476,7 +220476,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "CloseAllWindows_472190"
+            "symbol": "WindowRuntime_CloseAll"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -230129,27 +230129,27 @@
     {
       "original_entry": "0x471440",
       "inventory_id": "F:00071440",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：OpenWindow_471440",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：WindowRuntime_Open",
       "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；WPL01完整创建及动画源槽一组三处取样修正，限定S/全依赖owner与运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::OpenWindow_471440"
+            "cg::ui::WindowRuntime_Open"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenWindow_471440"
+            "WindowRuntime_Open"
           ],
           "relationship": "WPL01完整七类创建及动画源槽原交错取样，业务分支/布局与owner保持"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "OpenWindow_471440"
+            "WindowRuntime_Open"
           ],
           "relationship": "WPL01真实公共声明/参数返回保持，仅合同注释"
         },
@@ -230573,8 +230573,8 @@
           }
         ],
         "original_other_references": [],
-        "native_signature": "WindowInstance* OpenWindow_471440(const std::int32_t id)",
-        "native_provider": "src/ui/WindowRuntime.cpp::OpenWindow_471440",
+        "native_signature": "WindowInstance* WindowRuntime_Open(const std::int32_t id)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowRuntime_Open",
         "native_payload_helper": "src/YobiRuntime.cpp::ConfigureWindowElementAction",
         "native_helper_signature": "void ConfigureWindowElementAction(\n    YobiAction* const initialAction, YobiAction*& slot,\n    std::int32_t* const& imageNoSlot)",
         "native_helper_caller_count": 1,
@@ -230595,11 +230595,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::OpenWindow_471440"
+            "symbol": "cg::ui::WindowRuntime_Open"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "OpenWindow_471440"
+            "symbol": "WindowRuntime_Open"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -230610,13 +230610,13 @@
     {
       "original_entry": "0x471df0",
       "inventory_id": "F:00071DF0",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：WindowStatusBar_HandleEmote",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：WindowStatusBar_HandleOptionButtons",
       "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::detail::WindowStatusBar_HandleEmote"
+            "cg::ui::detail::WindowStatusBar_HandleOptionButtons"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
         }
@@ -230650,7 +230650,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::detail::WindowStatusBar_HandleEmote"
+            "symbol": "cg::ui::detail::WindowStatusBar_HandleOptionButtons"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -230695,27 +230695,27 @@
     {
       "original_entry": "0x4729b0",
       "inventory_id": "F:000729B0",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：DrawCurrentWindow_4729B0",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：WindowRuntime_DrawCurrent",
       "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收；WDP01完整父正常合同与六组十三处取样修正，限定S/全依赖owner与运行待",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::DrawCurrentWindow_4729B0"
+            "cg::ui::WindowRuntime_DrawCurrent"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DrawCurrentWindow_4729B0"
+            "WindowRuntime_DrawCurrent"
           ],
           "relationship": "WDP01完整父分发、原低W16和现场取样，现有业务门槛/布局保持"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "DrawCurrentWindow_4729B0"
+            "WindowRuntime_DrawCurrent"
           ],
           "relationship": "WDP01真实公共声明/参数返回保持，仅合同注释"
         },
@@ -231133,8 +231133,8 @@
           }
         ],
         "original_other_references": [],
-        "native_signature": "void DrawCurrentWindow_4729B0()",
-        "native_provider": "src/ui/WindowRuntime.cpp::DrawCurrentWindow_4729B0",
+        "native_signature": "void WindowRuntime_DrawCurrent()",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowRuntime_DrawCurrent",
         "native_draw_mode_helper": "src/YobiRuntime.cpp::ApplyWindowAnimationDrawMode",
         "get_field20_body_kept": true,
         "normal_source_kept": false,
@@ -231153,11 +231153,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::DrawCurrentWindow_4729B0"
+            "symbol": "cg::ui::WindowRuntime_DrawCurrent"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "DrawCurrentWindow_4729B0"
+            "symbol": "WindowRuntime_DrawCurrent"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -235887,13 +235887,13 @@
     {
       "original_entry": "0x503e80",
       "inventory_id": "F:00103E80",
-      "original_role": "CAC19仅原分派数据/当前源定义关联：ProcessSceneWindows_503E80",
+      "original_role": "CAC19仅原分派数据/当前源定义关联：WindowRuntime_ProcessScene",
       "status": "已有真实源码，CAC19补原表/现唯一定义关联；全部原父/依赖/软件门禁未据本批验收",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::ProcessSceneWindows_503E80"
+            "cg::ui::WindowRuntime_ProcessScene"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验完整原父或新增完整F处置。"
         }
@@ -235928,7 +235928,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::ProcessSceneWindows_503E80"
+            "symbol": "cg::ui::WindowRuntime_ProcessScene"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -248682,7 +248682,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "WindowBattleCommand_ButtonRiding"
+            "WindowBattleCommand_ButtonRebirth"
           ],
           "relationship": "既有真实按钮body，仅恢复原取样序/hover持有，命令发送/字段发布/返回及门槛保持"
         },
@@ -248722,8 +248722,8 @@
         "direct_call_count": 5,
         "jump_count": 14,
         "return_count": 3,
-        "native_signature": "std::int32_t WindowBattleCommand_ButtonRiding(const std::int32_t index, const std::int32_t state)",
-        "native_provider": "src/ui/WindowRuntime.cpp::WindowBattleCommand_ButtonRiding",
+        "native_signature": "std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, const std::int32_t state)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowBattleCommand_ButtonRebirth",
         "normal_source_kept": false,
         "generated_machine_reads_verified": false,
         "full_lifecycle_closed": false,
@@ -248736,7 +248736,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBattleCommand_ButtonRiding"
+            "symbol": "WindowBattleCommand_ButtonRebirth"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -248749,7 +248749,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "WindowBattleCommand_ButtonRiding"
+            "symbol": "WindowBattleCommand_ButtonRebirth"
           }
         ],
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
@@ -253729,14 +253729,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "ReadChatInputByteWidth_4A80E0"
+            "WindowChat_ReadInputByteWidth"
           ],
           "relationship": "HBN01完整原根、索引/字段/实际调用与返回对应既有正确正文，仅完整合同关联注释"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "ReadChatInputByteWidth_4A80E0"
+            "WindowChat_ReadInputByteWidth"
           ],
           "relationship": "现有真实公开声明与参数/返回签名保持，仅HBN01关联注释"
         }
@@ -253778,8 +253778,8 @@
         "direct_call_count": 0,
         "jump_count": 0,
         "return_count": 1,
-        "native_signature": "std::int32_t ReadChatInputByteWidth_4A80E0()",
-        "native_provider": "src/ui/WindowRuntime.cpp::ReadChatInputByteWidth_4A80E0",
+        "native_signature": "std::int32_t WindowChat_ReadInputByteWidth()",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_ReadInputByteWidth",
         "normal_source_kept": true,
         "source_patch_group_count": 0,
         "generated_machine_reads_verified": false,
@@ -253793,7 +253793,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ReadChatInputByteWidth_4A80E0"
+            "symbol": "WindowChat_ReadInputByteWidth"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -254464,7 +254464,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowChat_DrawInput",
-            "ScrollInputAndDraw"
+            "WindowInput_ScrollAndDraw"
           ],
           "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
         },
@@ -254516,7 +254516,7 @@
         "return_count": 1,
         "native_signature": "void WindowChat_DrawInput(input::InputContext* const context)",
         "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_DrawInput",
-        "native_shared_helper": "src/ui/WindowRuntime.cpp::ScrollInputAndDraw",
+        "native_shared_helper": "src/ui/WindowRuntime.cpp::WindowInput_ScrollAndDraw",
         "normal_source_kept": false,
         "shared_helper_body_kept": true,
         "source_patch_group_count": 1,
@@ -254536,7 +254536,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ScrollInputAndDraw"
+            "symbol": "WindowInput_ScrollAndDraw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -254562,7 +254562,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowChat_DrawFixedWidthInput",
-            "ScrollInputAndDraw"
+            "WindowInput_ScrollAndDraw"
           ],
           "relationship": "CIG01完整原入口及既有共享CPP抽取；一处宽度取样，其余正文保持"
         },
@@ -254607,7 +254607,7 @@
         "return_count": 1,
         "native_signature": "void WindowChat_DrawFixedWidthInput(input::InputContext* const context)",
         "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_DrawFixedWidthInput",
-        "native_shared_helper": "src/ui/WindowRuntime.cpp::ScrollInputAndDraw",
+        "native_shared_helper": "src/ui/WindowRuntime.cpp::WindowInput_ScrollAndDraw",
         "normal_source_kept": true,
         "shared_helper_body_kept": true,
         "source_patch_group_count": 0,
@@ -254627,7 +254627,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "ScrollInputAndDraw"
+            "symbol": "WindowInput_ScrollAndDraw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -254653,7 +254653,7 @@
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "WindowChat_DrawHistory",
-            "PreviousChatFont"
+            "WindowChat_PreviousFont"
           ],
           "relationship": "CLD01完整日志绘制及既有前项字体别名helper；两处尺寸取样，其余正文保持"
         },
@@ -254698,7 +254698,7 @@
         "return_count": 1,
         "native_signature": "void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)",
         "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_DrawHistory",
-        "native_shared_helper": "src/ui/WindowRuntime.cpp::PreviousChatFont",
+        "native_shared_helper": "src/ui/WindowRuntime.cpp::WindowChat_PreviousFont",
         "normal_source_kept": false,
         "shared_helper_body_kept": true,
         "source_patch_group_count": 2,
@@ -255163,14 +255163,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "InitializeNumberSpacing_477170"
+            "WindowNumber_InitializeSpacing"
           ],
           "relationship": "WND01完整原根/既有正确正文与字节表/初始化接线；仅测宽一处排序和关联注释"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "InitializeNumberSpacing_477170"
+            "WindowNumber_InitializeSpacing"
           ],
           "relationship": "WND01真实声明与参数返回保持，初始化旧注释明确尾跳入口"
         }
@@ -255198,8 +255198,8 @@
         "direct_call_count": 0,
         "jump_count": 0,
         "return_count": 1,
-        "native_signature": "void InitializeNumberSpacing_477170()",
-        "native_provider": "src/ui/WindowRuntime.cpp::InitializeNumberSpacing_477170",
+        "native_signature": "void WindowNumber_InitializeSpacing()",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowNumber_InitializeSpacing",
         "normal_source_kept": true,
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
@@ -255224,7 +255224,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "InitializeNumberSpacing_477170"
+            "symbol": "WindowNumber_InitializeSpacing"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -255484,14 +255484,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CloseWindow_472160"
+            "WindowRuntime_Close"
           ],
           "relationship": "WCR01全局发布和flags置bit1沿同一原记录地址，其余释放与父清槽保持"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "CloseWindow_472160"
+            "WindowRuntime_Close"
           ],
           "relationship": "WCR01真实声明/参数返回保持，仅合同注释"
         }
@@ -255526,8 +255526,8 @@
         "direct_call_count": 1,
         "jump_count": 0,
         "return_count": 1,
-        "native_signature": "void CloseWindow_472160(WindowInstance* const window)",
-        "native_provider": "src/ui/WindowRuntime.cpp::CloseWindow_472160",
+        "native_signature": "void WindowRuntime_Close(WindowInstance* const window)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowRuntime_Close",
         "normal_remaining_source_kept": true,
         "source_patch_group_count": 1,
         "source_changed_point_count": 1,
@@ -255542,7 +255542,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "CloseWindow_472160"
+            "symbol": "WindowRuntime_Close"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -262450,14 +262450,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CancelWindowDrag_476410"
+            "WindowDrag_Cancel"
           ],
           "relationship": "DLP01完整原阶段/字段宽度和写序已核，正确body保持，仅合同注释"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
           "symbols": [
-            "CancelWindowDrag_476410"
+            "WindowDrag_Cancel"
           ],
           "relationship": "DLP01真实声明/参数返回保持，仅合同注释"
         }
@@ -262784,8 +262784,8 @@
         "indirect_call_count": 1,
         "jump_count": 5,
         "return_count": 1,
-        "native_signature": "void CancelWindowDrag_476410()",
-        "native_provider": "src/ui/WindowRuntime.cpp::CancelWindowDrag_476410",
+        "native_signature": "void WindowDrag_Cancel()",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowDrag_Cancel",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_source_body_kept": true,
@@ -262801,7 +262801,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "CancelWindowDrag_476410"
+            "symbol": "WindowDrag_Cancel"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -273204,14 +273204,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4C1FB0"
+            "WindowRuntime_ButtonClose"
           ],
           "relationship": "WCL01完整关闭/前置/返回原根，正确正文保持，只合同注释；不额外释放或业务取消"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
-            "Sub_4C1FB0"
+            "WindowRuntime_ButtonClose"
           ],
           "relationship": "WCL01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
         }
@@ -273419,7 +273419,7 @@
             "parent": null
           }
         ],
-        "native_signature": "std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)",
+        "native_signature": "std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int32_t state)",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -273436,7 +273436,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4C1FB0"
+            "symbol": "WindowRuntime_ButtonClose"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -280947,17 +280947,17 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBank_DrawOwnPetSkills",
+        "symbol": "WindowBank_DrawOwnPetTooltip",
         "line": 6124
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBank_DrawStoredPetSkills",
+        "symbol": "WindowBank_DrawStoredPetTooltip",
         "line": 6171
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_48D540",
+        "symbol": "WindowPet_DrawTooltip",
         "line": 6227
       },
       {
@@ -280983,187 +280983,187 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 7933
+        "line": 7934
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawDescriptionLines",
-        "line": 7979
+        "line": 7980
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawPetTooltip",
-        "line": 8025
+        "line": 8026
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowInventory_Draw",
-        "line": 9046
+        "line": 9047
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 10738
+        "line": 10739
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowInventory_HandleItems",
-        "line": 11448
+        "line": 11449
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItemSelector_HandlePlayerAttributes",
-        "line": 11874
+        "line": 11875
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowInventory_HandleItemSelection",
-        "line": 12027
+        "line": 12028
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 12181
+        "line": 12182
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawDescriptionTooltip",
-        "line": 12224
+        "line": 12225
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawShopTooltip",
-        "line": 12253
+        "line": 12254
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawWorkTooltip",
-        "line": 12299
+        "line": 12300
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawRemotePetSkillRow",
-        "line": 12323
+        "line": 12324
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawRemotePetTooltip",
-        "line": 12350
+        "line": 12351
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawSelectedPetSkillRow",
-        "line": 12443
+        "line": 12444
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawSelectedPetTooltip",
-        "line": 12473
+        "line": 12474
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawOwnPetSkillRow",
-        "line": 12560
+        "line": 12561
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_DrawOwnPetTooltip",
-        "line": 12590
+        "line": 12591
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBank_HandleOwnItems",
-        "line": 13917
+        "line": 13918
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBank_HandleStoredItems",
-        "line": 14097
+        "line": 14098
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItemStorage_HandleOwnItems",
-        "line": 14856
+        "line": 14857
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItemStorage_HandleStoredItems",
-        "line": 15011
+        "line": 15012
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 21168
+        "line": 21171
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowPetSkillChoice_Draw",
-        "line": 22303
+        "line": 22306
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 23628
+        "line": 23631
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalShop_ShowTooltip",
-        "line": 23834
+        "line": 23837
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 24562
+        "line": 24565
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalExchangeShop_ShowTooltip",
-        "line": 24768
+        "line": 24771
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCraft_HandleInventory",
-        "line": 32485
+        "line": 32488
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowSkill_DrawSkillRow",
-        "line": 35542
+        "line": 35545
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowSkill_HandleTechniqueRow",
-        "line": 35714
+        "line": 35717
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowSkill_HandleRecipeRow",
-        "line": 35772
+        "line": 35775
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBattleCommand_Draw",
-        "line": 36260
+        "line": 36263
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBattlePets_Refresh",
-        "line": 37729
+        "line": 37732
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowSkill_DrawPetSkillRow",
-        "line": 37905
+        "line": 37908
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowSkill_DrawRidingSkillRow",
-        "line": 37944
+        "line": 37947
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowPetSkills_DrawDraggedSkillTooltip",
-        "line": 43338
+        "line": 43341
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -281332,12 +281332,12 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowLegacyCraftNameCF46D4",
+        "symbol": "WindowCraft_BorrowResultName",
         "line": 1750
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WriteLegacyCraftNameCF46D4",
+        "symbol": "WindowCraft_WriteResultName",
         "line": 1755
       },
       {
@@ -281387,78 +281387,78 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "DrawItemTooltipLines",
-        "line": 7928
+        "symbol": "WindowItem_DrawTooltipLines",
+        "line": 7929
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 7974
+        "line": 7975
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 7986
+        "line": 7987
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 10757
+        "line": 10758
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowInventory_HandleItems",
-        "line": 11465
+        "line": 11466
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowInventory_HandleEquipment",
-        "line": 11662
+        "line": 11663
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 12193
+        "line": 12194
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowTrade_CopyDisplayItems",
-        "line": 12910
+        "line": 12911
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowShop_ButtonAddAll",
-        "line": 19942
+        "line": 19945
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 21177
+        "line": 21180
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 23635
+        "line": 23638
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 24567
+        "line": 24570
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCraft_Update",
-        "line": 33257
+        "line": 33260
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCraft_ShowRecipeResult",
-        "line": 33739
+        "line": 33742
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCraft_ShowItemWorkResult",
-        "line": 33955
+        "line": 33958
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -281557,7 +281557,7 @@
       },
       {
         "path": "cg2d_re/src/ui/WindowRuntime.cpp",
-        "name": "CreateShopServiceWindow"
+        "name": "WindowShop_CreateService"
       },
       {
         "path": "cg2d_re/src/ui/WindowRuntime.cpp",
@@ -281741,23 +281741,23 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowGatherResultNameD2DA94"
+        "symbol": "WindowGather_BorrowResultName"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowGatherResultSuffixCB1E1C"
+        "symbol": "WindowGather_BorrowResultSuffix"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowLegacySkillSummaryCC18CC"
+        "symbol": "WindowSkillResult_BorrowSummary"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowLegacyItemWorkSuffixD2DADC"
+        "symbol": "WindowCraft_BorrowItemWorkSuffix"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowLegacyCraftSuffixD672B4"
+        "symbol": "WindowCraft_BorrowResultSuffix"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -281821,7 +281821,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WriteMailContactStatus"
+        "symbol": "WindowMail_WriteContactStatus"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282277,7 +282277,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowTrade_HandleOwnPetRow"
+        "symbol": "WindowTrade_HandlePanel"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282473,11 +282473,11 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowMailContactView"
+        "symbol": "WindowMail_BorrowContactView"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "BorrowMailContactView"
+        "symbol": "WindowMail_BorrowContactView"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282509,7 +282509,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "FormatStatusBarVitals"
+        "symbol": "WindowStatusBar_FormatVitals"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282549,7 +282549,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "DrawCurrentWindow_4729B0"
+        "symbol": "WindowRuntime_DrawCurrent"
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -282861,7 +282861,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "SendChoiceDialogReply"
+        "symbol": "WindowShopChoice_SendReply"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283057,7 +283057,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBattleCommand_ButtonPetCommand"
+        "symbol": "WindowBattleCommand_ButtonFormation"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283065,7 +283065,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBattleCommand_ButtonRiding"
+        "symbol": "WindowBattleCommand_ButtonRebirth"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283229,7 +283229,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowStatusBar_HandleEmote"
+        "symbol": "WindowStatusBar_HandleOptionButtons"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283477,7 +283477,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "FillTwoTextLines"
+        "symbol": "WindowRuntime_FillTwoTextLines"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283497,11 +283497,11 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBank_DrawOwnPetSkills"
+        "symbol": "WindowBank_DrawOwnPetTooltip"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "WindowBank_DrawStoredPetSkills"
+        "symbol": "WindowBank_DrawStoredPetTooltip"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283585,7 +283585,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "CreateShopServiceWindow"
+        "symbol": "WindowShop_CreateService"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283625,7 +283625,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "CreateWindow54SkillList"
+        "symbol": "WindowPetSkillChoice_CreateSkillList"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283813,7 +283813,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "OpenWindow_471440"
+        "symbol": "WindowRuntime_Open"
       },
       {
         "path": "src/Input.cpp",
@@ -283869,7 +283869,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_48D540"
+        "symbol": "WindowPet_DrawTooltip"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283921,7 +283921,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "DrawCraftInputNotice"
+        "symbol": "WindowCraft_DrawInputNotice"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -284059,5 +284059,20 @@
     "runtime_verified": false,
     "deployed": false,
     "complete_gates_changed": false
+  },
+  "ui_naming_uin01": {
+    "spec": "doc/cg2d_ui_naming_enum_spec.md",
+    "symbol_map": "doc/cg2d_ui_symbol_rename_map.json",
+    "renamed_symbol_count": 1138,
+    "source_state": "已按窗口类型／职责更名及枚举化；原地址／数值／签名／正文／身份与验收状态保持。",
+    "validation": "反向符号／枚举展开词法、字面量、原地址注释、绑定与当前定位静态核对；未编译、测试或运行。",
+    "ledger_check": {
+      "result": "blocked_existing_history",
+      "missing_history_files": [
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "src/platform/LegacyExternalKeyboardObject.cpp"
+      ],
+      "derived_files_written": false
+    }
   }
 }

@@ -1597,7 +1597,7 @@ WindowElementPrototype gWindowElements55EEC0[2] { // 原全局：0x0055EEC0。
 };
 
 WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF50。
-    {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &WindowMiniMap_RefreshPlayerX},
     {WindowElementType_Text, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &WindowMiniMap_RefreshPlayerY},
     {WindowElementType_Text, 160, 138, 0, 0, 1, {.text = &gWindowText56AF48}, &WindowElement_NoOp},
@@ -1625,7 +1625,7 @@ WindowElementPrototype gWindowElements56B2B8[20] { // 原全局：0x0056B2B8。
     {WindowElementType_Graphic, 29, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B240}, &WindowEmote_ButtonEmote},
     {WindowElementType_Graphic, 29, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B258}, &WindowEmote_ButtonEmote},
     {WindowElementType_Graphic, 29, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B270}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &WindowElement_NoOp},
 };
 
@@ -1658,7 +1658,7 @@ WindowElementPrototype gWindowElements570FD8[2] { // 原全局：0x00570FD8。
 };
 
 WindowElementPrototype gWindowElements57A450[71] { // 原全局：0x0057A450。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic57A310}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic57A310}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic57A388}, &WindowElement_NoOp},
     {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD679B8}, &WindowBlacklist_DragScroll},
     {WindowElementType_Graphic, 206, 31, 11, 11, 1, {.graphic = &gWindowGraphic57A3A0}, &WindowBlacklist_HandleButtons},
@@ -1737,7 +1737,7 @@ WindowElementPrototype gWindowElements57AEC0[25] { // 原全局：0x0057AEC0。
     {WindowElementType_Graphic, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &WindowAdventureLog_HandleNavigation},
     {WindowElementType_Graphic, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &WindowAdventureLog_HandleNavigation},
     {WindowElementType_Text, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &WindowAdventureLog_HandleNavigation},
     {WindowElementType_Graphic, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &WindowAdventureLog_HandleNavigation},
     {WindowElementType_Graphic, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &WindowElement_NoOp},
@@ -1777,12 +1777,12 @@ WindowElementPrototype gWindowElements55F0A0[24] { // 原全局：0x0055F0A0。
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EF00}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 3, 4, 0, 0, 1, {.graphic = &gWindowGraphic55EFF0}, &WindowElement_NoOp},
     {WindowElementType_EventArea, 175, 0, 15, 33, 1, {}, &WindowStatusBar_ButtonCompact},
-    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
-    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
-    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
-    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
-    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
-    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleEmote},
+    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
     {WindowElementType_EventArea, 0, 40, 120, 30, 1, {}, &WindowStatusBar_HandleHover},
 };
 
@@ -1802,7 +1802,7 @@ WindowElementPrototype gWindowElements55F480[2] { // 原全局：0x0055F480。
 };
 
 WindowElementPrototype gWindowElements572F90[37] { // 原全局：0x00572F90。
-    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 239, 88, 11, 11, 1, {.graphic = &gWindowGraphic572E50}, &WindowGroupSelect_HandleScrollButtons},
     {WindowElementType_Graphic, 239, 275, 11, 11, 1, {.graphic = &gWindowGraphic572E80}, &WindowGroupSelect_HandleScrollButtons},
     {WindowElementType_Graphic, 239, 99, 10, 14, 1, {.graphic = &gWindowGraphic572E68}, &WindowElement_NoOp},
@@ -1851,7 +1851,7 @@ WindowElementPrototype gWindowElements56DB38[111] { // 原全局：0x0056DB38。
     {WindowElementType_Graphic, 42, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
     {WindowElementType_Graphic, 42, 33, 0, 0, 1, {.graphic = &gWindowGraphic56D8B0}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 42, 52, 0, 0, 1, {.graphic = &gWindowGraphic56D8E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 218, 353, 39, 24, 1, {.graphic = &gWindowGraphic56DA30}, &WindowContacts_TabCategory},
     {WindowElementType_Graphic, 271, 352, 38, 25, 1, {.graphic = &gWindowGraphic56DA48}, &WindowContacts_TabCategory},
     {WindowElementType_Graphic, 143, 349, 60, 25, 1, {.graphic = &gWindowGraphic56DAD8}, &WindowContacts_TabCategory},
@@ -1988,7 +1988,7 @@ WindowElementPrototype gWindowElements56F860[29] { // 原全局：0x0056F860。
 };
 
 WindowElementPrototype gWindowElements56FD70[21] { // 原全局：0x0056FD70。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 154, 27, 49, 17, 1, {.graphic = &gWindowGraphic56FCA8}, &WindowMailRead_ButtonReply},
     {WindowElementType_Graphic, 15, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCD8}, &WindowMailRead_ButtonPrevious},
     {WindowElementType_Graphic, 77, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCF0}, &WindowMailRead_ButtonNext},
@@ -2012,7 +2012,7 @@ WindowElementPrototype gWindowElements56FD70[21] { // 原全局：0x0056FD70。
 };
 
 WindowElementPrototype gWindowElements5701F8[9] { // 原全局：0x005701F8。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
     {WindowElementType_Input, 22, 70, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
     {WindowElementType_Graphic, 16, 28, 56, 16, 1, {.graphic = &gWindowGraphic570148}, &WindowMailCompose_HandleRecipients},
     {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowMailCompose_HandleRecipients},
@@ -2024,7 +2024,7 @@ WindowElementPrototype gWindowElements5701F8[9] { // 原全局：0x005701F8。
 };
 
 WindowElementPrototype gWindowElements570318[13] { // 原全局：0x00570318。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
     {WindowElementType_Input, 33, 84, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
     {WindowElementType_Graphic, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &WindowPetMailCompose_HandleSendButtons},
     {WindowElementType_Graphic, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowPetMailCompose_HandleSendButtons},
@@ -2078,7 +2078,7 @@ WindowElementPrototype gWindowElements5706D0[34] { // 原全局：0x005706D0。
 
 WindowElementPrototype gWindowElements566810[51] { // 原全局：0x00566810。
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
-    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage},
     {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage},
     {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowElement_NoOp},
@@ -2132,7 +2132,7 @@ WindowElementPrototype gWindowElements566810[51] { // 原全局：0x00566810。
 
 WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x005659C0。
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
-    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage},
     {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage},
@@ -2201,7 +2201,7 @@ WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x005659C0。
 
 WindowElementPrototype gWindowElements566200[46] { // 原全局：0x00566200。
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
-    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage},
     {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage},
@@ -2249,7 +2249,7 @@ WindowElementPrototype gWindowElements566200[46] { // 原全局：0x00566200。
 };
 
 WindowElementPrototype gWindowElements567028[71] { // 原全局：0x00567028。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic566F18}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic566F18}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic566F90}, &WindowElement_NoOp},
     {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD677C0}, &WindowAlbumList_DragScroll},
     {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic566FA8}, &WindowAlbumList_HandleScrollButtons},
@@ -2323,7 +2323,7 @@ WindowElementPrototype gWindowElements567028[71] { // 原全局：0x00567028。
 };
 
 WindowElementPrototype gWindowElements567AE8[82] { // 原全局：0x00567AE8。
-    {WindowElementType_Graphic, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Animation, 186, 135, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage567AE0)}, &WindowElement_NoOp},
     {WindowElementType_Text, 60, 28, 0, 0, 1, {.text = &gWindowText567AB8}, &WindowElement_NoOp},
     {WindowElementType_Text, 214, 28, 0, 0, 1, {.text = &gWindowText567AC0}, &WindowElement_NoOp},
@@ -2568,7 +2568,7 @@ WindowElementPrototype gWindowElements57BB08[43] { // 原全局：0x0057BB08。
 };
 
 WindowElementPrototype gWindowElements577298[32] { // 原全局：0x00577298。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &WindowElement_NoOp},
     {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &WindowOwnProfileCategory_DragScroll},
     {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &WindowOwnProfileCategory_HandleScrollButtons},
@@ -2761,14 +2761,14 @@ WindowElementPrototype gWindowElements5777A8[162] { // 原全局：0x005777A8。
     {WindowElementType_Graphic, 482, 316, 90, 12, 1, {.graphic = &gWindowGraphic577788}, &WindowProfileCategory_SelectCategory},
     {WindowElementType_Graphic, 482, 336, 90, 12, 1, {.graphic = &gWindowGraphic577788}, &WindowProfileCategory_SelectCategory},
     {WindowElementType_Graphic, 482, 356, 90, 12, 1, {.graphic = &gWindowGraphic577788}, &WindowProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic577740}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic577740}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577758}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 15, 30, 0, 0, 1, {.graphic = &gWindowGraphic577770}, &WindowElement_NoOp},
     {WindowElementType_EventArea, 600, 0, 34, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
 };
 
 WindowElementPrototype gWindowElements578CC8[71] { // 原全局：0x00578CC8。
-    {WindowElementType_Graphic, 284, 9, 10, 10, 1, {.graphic = &gWindowGraphic578BE8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 284, 9, 10, 10, 1, {.graphic = &gWindowGraphic578BE8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 120, 30, 0, 0, 1, {.text = &gWindowText578CA8}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 140, 8, 0, 0, 1, {.graphic = &gWindowGraphic578C48}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 190, 367, 55, 20, 1, {.graphic = &gWindowGraphic578C90}, &WindowProfileSearch_HandleSearchButtons},
@@ -2855,7 +2855,7 @@ WindowElementPrototype gWindowElements579710[22] { // 原全局：0x00579710。
     {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5795A8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5795A8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5795A8}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
@@ -2867,7 +2867,7 @@ WindowElementPrototype gWindowElements579710[22] { // 原全局：0x00579710。
 };
 
 WindowElementPrototype gWindowElements579B28[16] { // 原全局：0x00579B28。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput},
     {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send},
     {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
@@ -2898,7 +2898,7 @@ WindowElementPrototype gWindowElements57A070[21] { // 原全局：0x0057A070。
     {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic579F20}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic579F20}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic579F20}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons},
     {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons},
@@ -2915,7 +2915,7 @@ WindowElementPrototype gWindowElements56CCD0[1] { // 原全局：0x0056CCD0。
 
 WindowElementPrototype gWindowElements5630F0[8] { // 原全局：0x005630F0。
     {WindowElementType_Input, 0, 0, 126, 136, 1, {.unusedValue = 0}, &WindowQuantity_HandleInput},
-    {WindowElementType_Graphic, 106, 8, 11, 11, 1, {.graphic = &gWindowGraphic563080}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 106, 8, 11, 11, 1, {.graphic = &gWindowGraphic563080}, &WindowRuntime_ButtonClose},
     {WindowElementType_EventArea, 18, 46, 106, 85, 1, {.unusedValue = 0}, &WindowQuantity_ButtonOk},
     {WindowElementType_Graphic, 92, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630B0}, &WindowQuantity_ButtonIncrease},
     {WindowElementType_Graphic, 105, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630C8}, &WindowQuantity_ButtonDecrease},
@@ -2930,9 +2930,9 @@ WindowElementPrototype gWindowElements56B710[14] { // 原全局：0x0056B710。
     {WindowElementType_Graphic, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonSkill},
     {WindowElementType_Graphic, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &WindowBattleCommand_ButtonItem},
     {WindowElementType_Graphic, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &WindowBattleCommand_ButtonPet},
-    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonPetCommand},
+    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonFormation},
     {WindowElementType_Graphic, 223, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
-    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRiding},
+    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRebirth},
     {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonPetSkills},
     {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
     {WindowElementType_Text, 20, 24, 0, 0, 1, {.text = &gWindowText56B6F8}, &WindowElement_NoOp},
@@ -2976,7 +2976,7 @@ WindowElementPrototype gWindowElements55FD60[73] { // 原全局：0x0055FD60。
     {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic55F780}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 48, 103, 0, 0, 1, {.graphic = &gWindowGraphic55F798}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 60, 104, 0, 0, 1, {.graphic = &gWindowGraphic55F7B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 151, 230, 0, 0, 1, {.graphic = &gWindowGraphic55F7E0}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic55F7F8}, &WindowPlayerProfile_HandleButtons},
     {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic55F810}, &WindowPlayerProfile_HandleButtons},
@@ -3069,7 +3069,7 @@ WindowElementPrototype gWindowElements560840[43] { // 原全局：0x00560840。
     {WindowElementType_Graphic, 94, 80, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
     {WindowElementType_Graphic, 94, 96, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
     {WindowElementType_Graphic, 94, 112, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560680}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560680}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560698}, &WindowPlayerAttributes_HandleButtons},
     {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic5606B0}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic5606C8}, &WindowPlayerAttributes_HandleButtons},
@@ -3097,7 +3097,7 @@ WindowElementPrototype gWindowElements560F50[37] { // 原全局：0x00560F50。
     {WindowElementType_Text, 25, 142, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
     {WindowElementType_Text, 25, 158, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
     {WindowElementType_Text, 25, 174, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DB8}, &WindowPlayerTitles_HandleButtons},
     {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic560DD0}, &WindowPlayerTitles_HandleButtons},
     {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DE8}, &WindowElement_NoOp},
@@ -3137,7 +3137,7 @@ WindowElementPrototype gWindowElements561558[34] { // 原全局：0x00561558。
     {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
     {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5613F0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5613F0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 15, 29, 64, 72, 1, {.graphic = &gWindowGraphic5614F8}, &WindowProfile_HandleButtons},
     {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5613F0}, &WindowElement_NoOp},
     {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic561408}, &WindowProfile_HandleButtons},
@@ -3158,7 +3158,7 @@ WindowElementPrototype gWindowElements561558[34] { // 原全局：0x00561558。
 };
 
 WindowElementPrototype gWindowElements561B78[30] { // 原全局：0x00561B78。
-    {WindowElementType_Graphic, 222, 9, 11, 11, 1, {.graphic = &gWindowGraphic561A40}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 222, 9, 11, 11, 1, {.graphic = &gWindowGraphic561A40}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 82, 12, 0, 0, 1, {.text = &gWindowText561B48}, &WindowElement_NoOp},
     {WindowElementType_Text, 87, 12, 0, 0, 1, {.text = &gWindowText561B68}, &WindowElement_NoOp},
     {WindowElementType_Text, 66, 32, 0, 0, 1, {.text = &gWindowText561B50}, &WindowElement_NoOp},
@@ -3225,7 +3225,7 @@ WindowElementPrototype gWindowElements5620E0[31] { // 原全局：0x005620E0。
 };
 
 WindowElementPrototype gWindowElements562620[15] { // 原全局：0x00562620。
-    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &WindowRuntime_ButtonClose},
     {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
     {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage562618}, &WindowElement_NoOp},
     {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
@@ -3243,7 +3243,7 @@ WindowElementPrototype gWindowElements562620[15] { // 原全局：0x00562620。
 };
 
 WindowElementPrototype gWindowElements562930[14] { // 原全局：0x00562930。
-    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic5628A8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic5628A8}, &WindowRuntime_ButtonClose},
     {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
     {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562928}, &WindowElement_NoOp},
     {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
@@ -3287,7 +3287,7 @@ WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562CD8。
 };
 
 WindowElementPrototype gWindowElements563500[259] { // 原全局：0x00563500。
-    {WindowElementType_Graphic, 302, 8, 11, 11, 1, {.graphic = &gWindowGraphic563298}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 302, 8, 11, 11, 1, {.graphic = &gWindowGraphic563298}, &WindowRuntime_ButtonClose},
     {WindowElementType_Text, 23, 34, 0, 0, 1, {.text = &gWindowText5634D8}, &WindowElement_NoOp},
     {WindowElementType_Text, 156, 34, 0, 0, 1, {.text = &gWindowText5634E0}, &WindowElement_NoOp},
     {WindowElementType_Text, 52, 47, 0, 0, 1, {.text = &gWindowText5634E8}, &WindowElement_NoOp},
@@ -3549,7 +3549,7 @@ WindowElementPrototype gWindowElements563500[259] { // 原全局：0x00563500。
 };
 
 WindowElementPrototype gWindowElements56C800[8] { // 原全局：0x0056C800。
-    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 258, 173, 57, 17, 1, {.graphic = &gWindowGraphic56C7E0}, &WindowBattlePets_ButtonReturn},
     {WindowElementType_EventArea, 15, 28, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
     {WindowElementType_EventArea, 15, 76, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
@@ -3646,7 +3646,7 @@ WindowElementPrototype gWindowElements56C9B8[2] { // 原全局：0x0056C9B8。
 };
 
 WindowElementPrototype gWindowElements56C430[22] { // 原全局：0x0056C430。
-    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose},
     {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber56C420}, &WindowBattleItems_RefreshMoney},
     {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber56C428}, &WindowBattleItems_RefreshExtraValue},
     {WindowElementType_Graphic, 8, 0, 276, 253, 1, {.graphic = &gWindowGraphic56C360}, &WindowBattleItems_HandleInventory},
@@ -3824,7 +3824,7 @@ WindowElementPrototype gWindowElements5735C8[36] { // 原全局：0x005735C8。
 
 WindowElementPrototype gWindowElements573D80[66] { // 原全局：0x00573D80。
     {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic573C88}, &WindowShop_ButtonOk},
     {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonCancel},
     {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonAddAll},
@@ -3943,7 +3943,7 @@ WindowElementPrototype gWindowElements571740[6] { // 原全局：0x00571740。
 
 WindowElementPrototype gWindowElements5719E8[26] { // 原全局：0x005719E8。
     {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowTextList_DrawConfirmation},
-    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &WindowRuntime_ButtonClose},
     {WindowElementType_EventArea, 57, 30, 150, 12, 1, {.unusedValue = 0}, &WindowTextList_EditTitle},
     {WindowElementType_Text, 57, 30, 0, 0, 1, {.text = &gWindowText571998}, &WindowElement_NoOp},
     {WindowElementType_Input, 57, 30, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
@@ -4051,7 +4051,7 @@ WindowElementPrototype gWindowElements571F18[76] { // 原全局：0x00571F18。
 
 WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572AF8。
     {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowTrade_HandleAmountInput},
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &WindowTrade_ButtonPublish},
     {WindowElementType_Graphic, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &WindowTrade_ButtonConfirm},
     {WindowElementType_Graphic, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &WindowTrade_ButtonWithdraw},
@@ -4075,7 +4075,7 @@ WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572AF8。
 // 原5748E8的107项；选择回调由模式刷新发布，不替换初始4B0F10。
 WindowElementPrototype gWindowElements5748E8[107] {
     {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowPetSkillChoice_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic574668}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic574668}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 203, 326, 66, 17, 1, {.graphic = &gWindowGraphic5746F8}, &WindowPetSkillChoice_ButtonLearn},
     {WindowElementType_Graphic, 467, 326, 66, 17, 1, {.graphic = &gWindowGraphic574710}, &WindowPetSkillChoice_ButtonBack},
     {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText5747C0}, &WindowElement_NoOp},
@@ -4186,7 +4186,7 @@ WindowElementPrototype gWindowElements5748E8[107] {
 // 原575988的完整70项，显示缓冲与69更新/绘制保持同源。
 WindowElementPrototype gWindowElements575988[70] {
     {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowCrystalShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5756F0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5756F0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic575888}, &WindowCrystalShop_ButtonOk},
     {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic5758A0}, &WindowCrystalTrade_ButtonCancel},
     {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic5758A0}, &WindowCrystalTrade_DrawButton},
@@ -4260,7 +4260,7 @@ WindowElementPrototype gWindowElements575988[70] {
 // 原576588的完整70项，保留70背包回调的单格命中语义。
 WindowElementPrototype gWindowElements576588[70] {
     {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5762F0}, &Sub_4C1FB0},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5762F0}, &WindowRuntime_ButtonClose},
     {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic576488}, &WindowCrystalExchangeShop_ButtonOk},
     {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_ButtonCancel},
     {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_DrawButton},

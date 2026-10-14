@@ -665,7 +665,7 @@ constexpr wchar_t kLegacyReceiveHint588AE0[] = L"接受物品。"; // 原常量�
 // 旧74/83完全同构的标题及五行正文；每次绘制后仍重读面板坐标。
 void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
 {
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     const std::int32_t titleY = panel->y + 8;
     const std::int32_t titleX = panel->x - width / 2 + 142;
@@ -2402,7 +2402,7 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacyDialogPanelD2D9C8.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     for (std::int32_t index = 0; index < gLegacyDialogLineCountCA043C; ++index) {
         if (!lines[index].text.empty()) {
             const std::int8_t hoverByte = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gValueD69768));
@@ -2439,7 +2439,7 @@ try {
     }
     std::int32_t chosen = -1;
     std::int32_t hovered = -1;
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     for (std::int32_t index = 0, rowOffset = 0; index < gLegacyDialogLineCountCA043C;
          ++index, rowOffset += 20) {
         if (index < gLegacyDialogFirstLineD673D4) {
@@ -2509,7 +2509,7 @@ YobiAction* Sub_4D66E0()
 {
     const std::int32_t y = gLegacySkillChoicePanel581D60.y + 133;
     const std::int32_t x = gLegacySkillChoicePanel581D60.x + 45;
-    const std::int32_t image = ui::detail::ReadLegacyChoiceImageCC4890();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadSkillImage();
     YobiAction* const action = Sub_4D6640(image, x, y);
     gLegacySkillChoiceActionD67C58 = action;
     return action;
@@ -2565,7 +2565,7 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacySkillChoicePanel581D60.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     const std::int32_t titleY = gLegacySkillChoicePanel581D60.y + 8;
     const std::int32_t titleX = gLegacySkillChoicePanel581D60.x - titleWidth / 2 + 142;
@@ -2605,7 +2605,7 @@ YobiAction* Sub_4D6A30()
 {
     const std::int32_t y = gLegacySkillLearningPanel581E28.y + 246;
     const std::int32_t x = gLegacySkillLearningPanel581E28.x + 469;
-    const std::int32_t image = ui::detail::ReadLegacyChoiceImageCC4890();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadSkillImage();
     YobiAction* const action = Sub_4D6640(image, x, y);
     gLegacySkillChoiceActionD67C58 = action;
     return action;
@@ -2658,7 +2658,7 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text, 0);
     const std::int32_t titleY = gLegacySkillLearningPanel581E28.y + 8;
     const std::int32_t titleX = gLegacySkillLearningPanel581E28.x - titleWidth / 2 + 288;
@@ -2726,7 +2726,7 @@ YobiAction* Sub_4D6E70()
 {
     const std::int32_t y = gLegacySkillForgetPanel581EF0.y + 246;
     const std::int32_t x = gLegacySkillForgetPanel581EF0.x + 469;
-    const std::int32_t image = ui::detail::ReadLegacyChoiceImageCC4890();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadSkillImage();
     YobiAction* const action = Sub_4D6640(image, x, y);
     gLegacySkillChoiceActionD67C58 = action;
     return action;
@@ -2806,7 +2806,7 @@ try {
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text, 0);
     drawAt(lines[0].text, 288 - titleWidth / 2, 8);
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -2897,7 +2897,7 @@ try {
         ui::detail::gValue5F9754 = 0;
         return result;
     }
-    const auto rows = ui::detail::BorrowLegacySkillStatusView();
+    const auto rows = ui::detail::WindowSkill_BorrowStatusView();
     std::int32_t hovered = -1;
     for (std::int32_t index = 0; index < *rows.count; ++index) {
         const std::int32_t top = gLegacySkillStatusPanel583C90.y + 20 * index + 74;
@@ -2915,7 +2915,7 @@ try {
         std::strcpy(ui::detail::gSkillTargetNameD2F748.data(), rows.names[hovered].data());
         cg::NullSub_509080(); // 原只ret，传入的缓冲指针不被消费。
         const std::int32_t target = rows.targets[hovered];
-        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
         const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
         const auto socket = platform::gConnectionSocket;
         const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
@@ -2956,7 +2956,7 @@ try {
         const std::int32_t hp = rows.hp[index];
         cg::text::FormatTo(buffer, L"{:4}/{:4} {:4}/{:4}", hp, maxHp, fp, maxFp);
         drawAt(buffer, 296, 76 + 20 * index, 0);
-        const std::int32_t image = ui::detail::ReadLegacyHealthImage(rows.injuries[index]);
+        const std::int32_t image = ui::detail::WindowPet_ReadHealthImage(rows.injuries[index]);
         const std::int32_t imageY = gLegacySkillStatusPanel583C90.y + 20 * index + 84;
         const std::int32_t imageX = gLegacySkillStatusPanel583C90.x + 70;
         static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
@@ -3072,7 +3072,7 @@ try {
                 ui::detail::gSkillTargetNamesCB0550[selected].data());
             cg::NullSub_509080(); // 原C3空叶不消费缓冲指针。
             const std::int32_t target = ui::detail::gSkillSelectedTargetCC4B1C;
-            const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+            const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
             const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
             const auto socket = platform::gConnectionSocket;
             const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
@@ -3191,7 +3191,7 @@ try {
     if (state == 0 || state == 2) {
         return state;
     }
-    const auto rows = ui::detail::BorrowLegacyItemUseTargetView();
+    const auto rows = ui::detail::WindowItemUse_BorrowTargetView();
     const bool manyPages = *rows.pageCount > 1;
     std::int32_t page = *rows.page;
     std::int32_t hovered = -1;
@@ -3343,7 +3343,7 @@ YobiAction* Sub_4D8D70()
 {
     const std::int32_t y = gLegacyShopChoicePanel5822D8.y;
     const std::int32_t x = gLegacyShopChoicePanel5822D8.x;
-    const std::int32_t image = ui::detail::ReadLegacyShopImageC9A9A0();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadShopImage();
     YobiAction* const action = Sub_4F9FF0(image, x + 45, y + 133, 213);
     gLegacyShopChoiceActionD67C68 = action;
     return action;
@@ -3425,7 +3425,7 @@ try {
         }
     }
 
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     const std::int32_t titleY = gLegacyShopChoicePanel5822D8.y + 8;
     const std::int32_t titleX = gLegacyShopChoicePanel5822D8.x - titleWidth / 2 + 142;
@@ -3692,7 +3692,7 @@ try {
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -4090,7 +4090,7 @@ try {
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
     if (gLegacySellLimitMessageCB0A88 != 0) {
@@ -4297,7 +4297,7 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    const std::byte* const records = ui::detail::BorrowLegacyHealingRecordsD672F0();
+    const std::byte* const records = ui::detail::WindowDialog_BorrowHealingRecords();
     std::int32_t hovered = -1;
     for (std::int32_t index = 0; index < 7; ++index) {
         const std::int32_t top = gLegacyHealingPanel5826C0.y + 20 * index + 74;
@@ -4349,7 +4349,7 @@ try {
         drawAt(buffer, 141, 76 + 20 * index, 0);
         cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
         drawAt(buffer, 290, 76 + 20 * index, 0);
-        const std::int32_t image = ui::detail::ReadLegacyHealthImage(ReadRecordW32(record, 4));
+        const std::int32_t image = ui::detail::WindowPet_ReadHealthImage(ReadRecordW32(record, 4));
         const std::int32_t imageY = gLegacyHealingPanel5826C0.y + 20 * index + 84;
         const std::int32_t imageX = gLegacyHealingPanel5826C0.x + 73;
         static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
@@ -4584,7 +4584,7 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
     if (gLegacyRepairMessageD64E14 == 0) {
@@ -4975,7 +4975,7 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
     if (gLegacyIdentifyMessageC9A948 == 0) {
@@ -5256,7 +5256,7 @@ try {
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     } else {
         for (std::int32_t index = 0; index < 4; ++index) {
-            const std::byte* const record = ui::detail::BorrowLegacyMessageRecordsD30138() + index * 0xB0;
+            const std::byte* const record = ui::detail::WindowMessageBoard_BorrowRecords() + index * 0xB0;
             if (record[8] == std::byte{0}) {
                 continue;
             }
@@ -5279,11 +5279,11 @@ try {
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 305 - titleWidth / 2, 9, 0);
     for (std::int32_t index = 0; index < 4; ++index) {
-        const std::byte* const record = ui::detail::BorrowLegacyMessageRecordsD30138() + index * 0xB0;
+        const std::byte* const record = ui::detail::WindowMessageBoard_BorrowRecords() + index * 0xB0;
         const std::int32_t image = ReadRecordW32(record, 0);
         if (image > 999) {
             // 原4DFD4B图标纵坐标借旧68面板，其他文字使用旧73。
@@ -5582,7 +5582,7 @@ try {
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
     }
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -5764,7 +5764,7 @@ YobiAction* Sub_4D4ED0()
 {
     const std::int32_t y = gLegacyExchangePanel581A40.y + 133;
     const std::int32_t x = gLegacyExchangePanel581A40.x + 45;
-    const std::int32_t image = ui::detail::ReadLegacyChoiceImageC9A99C();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadExchangeImage();
     YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
     gLegacyExchangeActionCF4B5C = action;
     return action;
@@ -5844,7 +5844,7 @@ YobiAction* Sub_4D5220()
 {
     const std::int32_t y = gLegacyGiveReceivePanel581B08.y + 133;
     const std::int32_t x = gLegacyGiveReceivePanel581B08.x + 45;
-    const std::int32_t image = ui::detail::ReadLegacyChoiceImageD2EA74();
+    const std::int32_t image = ui::detail::WindowShopChoice_ReadGiveReceiveImage();
     YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
     gLegacyGiveReceiveActionCB2228 = action;
     return action;
@@ -6095,7 +6095,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     cg::text::FormatTo(buffer, L"{:2}", ui::detail::gShopValueD046C4);
     drawAt(buffer, 82, 92, 0);
     drawAt(kLegacyQuantityUnit5889A4, 155, 120, 4);
-    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const auto* const lines = ui::detail::WindowDialog_BorrowNpcLines();
     const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
     drawAt(lines[0].text.data(), 288 - titleWidth / 2, 8, 0);
     if (ui::detail::gShopValueCAFEA4 == 0 && available <= 0) {
@@ -7241,7 +7241,7 @@ std::uint32_t Sub_4E2D90()
     const auto writeDraft = [](const std::int32_t value) {
         gLegacyStorageDepositDraftCC4B58 = value;
     };
-    const std::int32_t side = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t side = ui::detail::WindowBank_ReadSide();
     // 非0/1模式取原var_21C已写几何值，不以默认上限或补零替换。
     std::int32_t maximum = x + 404;
     if (side == 0 || side == 1) {
@@ -7314,7 +7314,7 @@ std::uint32_t Sub_4E2D90()
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
     std::wstring buffer;
-    const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t displaySide = ui::detail::WindowBank_ReadSide();
     const std::int32_t balance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
     cg::text::FormatTo(buffer, L"{:7}", balance);
@@ -7393,7 +7393,7 @@ std::uint32_t Sub_4E3750()
         digits[digit] = {x + 64 + column, y + row, x + 54 + column, y + row - 10,
             20, 20, 0, 23250 + digit};
     }
-    const std::int32_t side = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t side = ui::detail::WindowBank_ReadSide();
     const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
     const std::int32_t money = world::detail::ReadPlayerValueFC();
     std::int32_t maximum = limit - money;
@@ -7460,7 +7460,7 @@ std::uint32_t Sub_4E3750()
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
     static_cast<void>(DrawGraphic(backgroundX, backgroundY, 212, 23344, 0, nullptr));
     drawAt(kLegacyStorageBalance589314, 97, 305, 0);
-    const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t displaySide = ui::detail::WindowBank_ReadSide();
     const std::int32_t currentBalance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
     cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, currentBalance);
@@ -7511,7 +7511,7 @@ try {
         return static_cast<std::uint32_t>(state);
     }
     std::int32_t hovered = -1;
-    for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
+    for (std::int32_t index = 0; index < ui::detail::WindowItemUse_ReadStatusCount(); ++index) {
         const std::int32_t top = gLegacyItemUseStatusPanel582C78.y + 20 * index;
         const std::int32_t left = gLegacyItemUseStatusPanel582C78.x;
         if (Sub_5049A0(left + 44, top + 74, left + 468, top + 94, -1) != 0) {
@@ -7523,7 +7523,7 @@ try {
     const std::int32_t previousState = character_select::detail::Sub_503990(&previous);
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
         const std::int32_t item = gLegacyLastUsedItemCB01EC;
-        const std::int32_t target = ui::detail::ReadLegacyItemUseStatus(hovered).target;
+        const std::int32_t target = ui::detail::WindowItemUse_ReadStatus(hovered).target;
         const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, playerX, playerY, item, target));
@@ -7545,8 +7545,8 @@ try {
     static_cast<void>(DrawText(static_cast<std::int16_t>(headerX),
         static_cast<std::int16_t>(headerY), 2, 0, 0, kLegacyItemUseHeader58932C, 0, 0));
     std::wstring buffer;
-    for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
-        const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
+    for (std::int32_t index = 0; index < ui::detail::WindowItemUse_ReadStatusCount(); ++index) {
+        const auto& record = ui::detail::WindowItemUse_ReadStatus(index);
         cg::text::FormatTo(buffer, L"{:3}", record.level);
         const std::int32_t levelY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
@@ -7567,7 +7567,7 @@ try {
         const std::int32_t valuesX = gLegacyItemUseStatusPanel582C78.x + 296;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valuesX),
             static_cast<std::int16_t>(valuesY), 2, 0, 0, buffer, 0, 0));
-        const std::int32_t image = ui::detail::ReadLegacyHealthImage(record.injury);
+        const std::int32_t image = ui::detail::WindowPet_ReadHealthImage(record.injury);
         const std::int32_t imageY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 84;
         const std::int32_t imageX = gLegacyItemUseStatusPanel582C78.x + 70;
         static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
@@ -9341,7 +9341,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         }
         if ((QueryPanelButtonState(&deletes[row]) & 1) != 0) {
             const std::int32_t selected = world::detail::gContactIndicesFDA608[position];
-            ui::detail::BorrowLegacyMailDeleteIndexD2DA8C() = selected;
+            ui::detail::WindowMail_BorrowDeleteIndex() = selected;
             static_cast<void>(audio::Sub_504180(44));
             break;
         }
@@ -9504,10 +9504,10 @@ try {
     const std::uint8_t confirmState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[0]));
     const std::uint8_t cancelState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[1]));
     if ((confirmState & 1u) != 0) {
-        const std::int32_t index = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+        const std::int32_t index = ui::detail::WindowMail_BorrowDeleteIndex();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_511190(socket, index));
-        const std::int32_t currentIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+        const std::int32_t currentIndex = ui::detail::WindowMail_BorrowDeleteIndex();
         static_cast<void>(world::detail::Sub_5192C0(currentIndex));
         static_cast<void>(world::detail::Sub_519300());
         static_cast<void>(audio::Sub_5042D0(gLegacyMailDeletePanel583618.id));
@@ -9522,9 +9522,9 @@ try {
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
     drawAt(kLegacyMailDeleteLead589714, 84, 38);
-    const std::int32_t measureIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+    const std::int32_t measureIndex = ui::detail::WindowMail_BorrowDeleteIndex();
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(world::detail::gContactsF19FB0[measureIndex].name10.data()).c_str(), 0);
-    const std::int32_t textIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+    const std::int32_t textIndex = ui::detail::WindowMail_BorrowDeleteIndex();
     drawAt(cg::text::FromGbkWide(world::detail::gContactsF19FB0[textIndex].name10.data()).c_str(), 160 - width / 2, 86);
     drawAt(kLegacyMailDeleteEnd589708, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
@@ -11595,7 +11595,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             name = hasUserName ? pet->name6BD.data() : pet->name6AC.data();
         }
         const std::wstring displayName = cg::text::FromGbkWide(name);
-        const std::int32_t injuryImage = ui::detail::ReadLegacyHealthImage(injury);
+        const std::int32_t injuryImage = ui::detail::WindowPet_ReadHealthImage(injury);
         drawImage(injuryImage, 55, row * 24 + 68);
         drawAt(displayName, 71, row * 24 + 57, 0);
         if (result->value02 != 0) {
@@ -11723,7 +11723,7 @@ try {
         action = Sub_4FAAA0(image, left + 86, top + 212);
         gLegacyGatherResultActionD67CD4 = action;
     }
-    Sub_4EF5F0(action, ui::detail::ReadGatherResultD2D820());
+    Sub_4EF5F0(action, ui::detail::WindowGather_ReadResult());
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
     if ((QueryPanelButtonState(&button) & 1) != 0) {
@@ -11739,7 +11739,7 @@ try {
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (gLegacyGatherResultTickCA0AB8 + 2000u < now && gLegacyGatherRepeat583AFC == 1) {
-        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
         const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
         if (world::detail::IsPlayerFpLessThan(cost)) {
@@ -11752,7 +11752,7 @@ try {
             gLegacyGatherRepeat583AFC = 0;
         } else {
             static_cast<void>(audio::Sub_504180(38));
-            ui::detail::WriteSkillExtraDelayCF46C4(0);
+            ui::detail::WindowSkill_WriteExtraDelay(0);
         }
     }
 
@@ -11777,19 +11777,19 @@ try {
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
-    if (ui::detail::ReadGatherResultD2D820() != 0) {
-        const std::int32_t width = TextMeasure(ui::detail::BorrowGatherResultNameD2DA94(), 0);
-        drawAt(ui::detail::BorrowGatherResultNameD2DA94(), 136 - width / 2, 91, 0);
-        const std::int32_t image = ui::detail::ReadGatherResultImageCF3FF0();
+    if (ui::detail::WindowGather_ReadResult() != 0) {
+        const std::int32_t width = TextMeasure(ui::detail::WindowGather_BorrowResultName(), 0);
+        drawAt(ui::detail::WindowGather_BorrowResultName(), 136 - width / 2, 91, 0);
+        const std::int32_t image = ui::detail::WindowGather_ReadResultImage();
         const std::int32_t top = gLegacyGatherResultPanel583A38.y;
         const std::int32_t imageY = top + 184;
         const std::int32_t left = gLegacyGatherResultPanel583A38.x;
         static_cast<void>(DrawGraphic(left + 192, imageY, 213, image, 0, &descriptor));
-        drawAt(ui::detail::BorrowGatherResultSuffixCB1E1C(), 10, 114, 0);
+        drawAt(ui::detail::WindowGather_BorrowResultSuffix(), 10, 114, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
         std::wstring line;
-        if (input::ExtractTextLine(line, ui::detail::BorrowGatherResultDetailsCC190C(), row, 28) != 0) {
+        if (input::ExtractTextLine(line, ui::detail::WindowGather_BorrowResultDetails(), row, 28) != 0) {
             const std::int32_t top = gLegacyGatherResultPanel583A38.y;
             const std::int32_t lineY = top + 20 * row + 237;
             const std::int32_t left = gLegacyGatherResultPanel583A38.x;
@@ -11865,16 +11865,16 @@ try {
         action = Sub_4FAAA0(image, left + 86, top + 212);
         gLegacySkillResultActionD67CDC = action;
     }
-    Sub_4EF5F0(action, ui::detail::ReadLegacySkillResultD66E2C());
+    Sub_4EF5F0(action, ui::detail::WindowSkillResult_ReadResult());
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
     if ((QueryPanelButtonState(&button) & 1) != 0) {
-        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
         const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
         if (world::detail::IsPlayerFpLessThan(cost)) {
             // 原FP比较后重新取等级及两个乘数，不复用第一次计算值。
-            const std::int32_t currentLevel = ui::detail::ReadSkillRequestD64E13();
+            const std::int32_t currentLevel = ui::detail::WindowSkill_ReadRequestFlag();
             gLegacyRequiredFpCC31D8 = world::detail::gSkillsF1BAFC[skill].techniques3C[currentLevel].value7C
                 * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
             static_cast<void>(audio::Sub_504180(34));
@@ -11910,10 +11910,10 @@ try {
     }
     const std::int32_t targetWidth = TextMeasure(cg::text::FromGbkWide(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 0);
     drawAt(cg::text::FromGbkWide(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 90 - targetWidth / 2, 91, 0);
-    drawAt(ui::detail::BorrowLegacySkillSummaryCC18CC(), 10, 114, 0, 4);
+    drawAt(ui::detail::WindowSkillResult_BorrowSummary(), 10, 114, 0, 4);
     for (std::int32_t row = 0; row < 8; ++row) {
         std::wstring line;
-        if (input::ExtractTextLine(line, ui::detail::BorrowLegacySkillDetailsCB0FDC(), row, 28) != 0) {
+        if (input::ExtractTextLine(line, ui::detail::WindowSkillResult_BorrowDetails(), row, 28) != 0) {
             drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
@@ -12161,7 +12161,7 @@ try {
         action = Sub_4FAAA0(image, left + 86, top + 212);
         gLegacyItemWorkResultActionD67CE0 = action;
     }
-    Sub_4EF5F0(action, ui::detail::ReadLegacyItemWorkResultCB05FC());
+    Sub_4EF5F0(action, ui::detail::WindowCraft_ReadItemWorkResult());
     if ((QueryPanelButtonState(&button) & 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyItemWorkResultPanel584140.id));
         static_cast<void>(audio::Sub_504180(31));
@@ -12196,10 +12196,10 @@ try {
         const std::int32_t left = gLegacyItemWorkResultPanel584140.x;
         static_cast<void>(DrawGraphic(left + 192, top + 184, 212, image, 0, &descriptor));
     }
-    drawAt(ui::detail::BorrowLegacyItemWorkSuffixD2DADC(), 10, 114, 0);
+    drawAt(ui::detail::WindowCraft_BorrowItemWorkSuffix(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
         std::wstring line;
-        if (input::ExtractTextLine(line, ui::detail::BorrowLegacyItemWorkDetailsD2DB00(), row, 28) != 0) {
+        if (input::ExtractTextLine(line, ui::detail::WindowCraft_BorrowItemWorkDetails(), row, 28) != 0) {
             drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
@@ -12273,7 +12273,7 @@ try {
         action = Sub_4FAAA0(image, left + 86, top + 212);
         gLegacyCraftResultActionD67CFC = action;
     }
-    Sub_4EF5F0(action, ui::detail::ReadLegacyCraftResultCC46D8());
+    Sub_4EF5F0(action, ui::detail::WindowCraft_ReadResult());
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
     if ((QueryPanelButtonState(&button) & 1) != 0) {
@@ -12306,16 +12306,16 @@ try {
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
-    const std::int32_t itemWidth = TextMeasure(ui::detail::BorrowLegacyCraftNameCF46D4(), 0);
-    drawAt(ui::detail::BorrowLegacyCraftNameCF46D4(), 136 - itemWidth / 2, 91, 0);
-    const std::int32_t image = ui::detail::ReadLegacyCraftImageCF4B60();
+    const std::int32_t itemWidth = TextMeasure(ui::detail::WindowCraft_BorrowResultName(), 0);
+    drawAt(ui::detail::WindowCraft_BorrowResultName(), 136 - itemWidth / 2, 91, 0);
+    const std::int32_t image = ui::detail::WindowCraft_ReadResultImage();
     const std::int32_t top = gLegacyCraftResultPanel5843A0.y;
     const std::int32_t left = gLegacyCraftResultPanel5843A0.x;
     static_cast<void>(DrawGraphic(left + 192, top + 184, 212, image, 0, &descriptor));
-    drawAt(ui::detail::BorrowLegacyCraftSuffixD672B4(), 10, 114, 0);
+    drawAt(ui::detail::WindowCraft_BorrowResultSuffix(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
         std::wstring line;
-        if (input::ExtractTextLine(line, ui::detail::BorrowLegacyCraftDetailsD2E92C(), row, 28) != 0) {
+        if (input::ExtractTextLine(line, ui::detail::WindowCraft_BorrowResultDetails(), row, 28) != 0) {
             drawAt(line, 10, 237 + 20 * row, 0);
         }
     }
@@ -12420,7 +12420,7 @@ std::int32_t Sub_4F24A0()
     }
     NullSub_509080();
     const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
-    const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+    const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request));
     if (!source.empty()) {
@@ -12468,7 +12468,7 @@ std::int32_t Sub_4F2650()
     gLegacyItemWorkSelection584394 = -1;
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
     const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-    ui::detail::WriteLegacyItemWorkSkillD67CF0(skillId);
+    ui::detail::WindowCraft_WriteSkill(skillId);
     if (skillId == 219 || skillId == 2033) {
         gLegacyItemWorkButtonKindD67CF4 = 1;
     } else if (skillId == 220) {
@@ -12487,7 +12487,7 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
         gLegacyItemWorkPhaseCC4220 = 3;
         return 1;
     }
-    const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+    const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
     if (skillId == 219 || skillId == 2033) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8];
         if (item->hasDescription != 0) {
@@ -12611,7 +12611,7 @@ try {
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
     std::int32_t cost = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].level * 10;
-    if (ui::detail::ReadLegacyItemWorkSkillD67CF0() == 220) {
+    if (ui::detail::WindowCraft_ReadSkill() == 220) {
         cost = 10;
     }
     std::wstring buffer;
@@ -12622,7 +12622,7 @@ try {
         const std::uint32_t duration = gLegacyItemWorkDurationCC3EDC;
         const std::uint32_t elapsed = now - start;
         if (elapsed > duration && elapsed > 4000u) {
-            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
             if (skillId == 217 || skillId == 218 || skillId == 2031
                 || skillId == 2032 || skillId == 219 || skillId == 2033) {
                 buffer.clear();
@@ -12631,7 +12631,7 @@ try {
             }
             NullSub_509080();
             const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
-            const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+            const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
             static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, item, buffer));
             const std::int32_t resultItem = gLegacyItemWorkSelection584394;
             gLegacySkillPendingD67C48 = 1;
@@ -12648,7 +12648,7 @@ try {
         } else if (Sub_4F2720(cost, skill) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
             if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
                 gLegacyItemWorkPhaseCC4220 = 7;
             } else if (skillId == 219 || skillId == 2033) {
@@ -12727,7 +12727,7 @@ try {
     const wchar_t* message = nullptr;
     switch (gLegacyItemWorkPhaseCC4220) {
     case 0: {
-        const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+        const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
         if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
             message = kItemWorkText589F54;
         } else if (skillId == 219 || skillId == 2033) {
@@ -12802,7 +12802,7 @@ try {
         const std::int32_t hintPhase = gLegacyItemWorkPhaseCC4220;
         const wchar_t* hint = nullptr;
         if ((buttonState & 0x40) != 0 && (hintPhase < 7 || hintPhase > 9)) {
-            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
             if (skillId == 217 || skillId == 218) {
                 hint = gLegacyItemWorkSelection584394 >= 0 ? kItemWorkText589DAC : kItemWorkText589D98;
             } else if (skillId == 219 || skillId == 2033) {
@@ -12813,7 +12813,7 @@ try {
         } else if (hovered >= 0) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item->used != 0 && (hintPhase < 7 || hintPhase > 9)) {
-                const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+                const std::int32_t skillId = ui::detail::WindowCraft_ReadSkill();
                 if (skillId == 220) {
                     const std::uint16_t flags = item->flags;
                     if ((flags & 0x100u) != 0 && item->itemType != 47) {
@@ -13384,10 +13384,10 @@ try {
                     }
                     NullSub_509080();
                     const std::int32_t nameRecipe = ui::detail::gRecipeIndex5846BC;
-                    ui::detail::WriteLegacyCraftNameCF46D4(
+                    ui::detail::WindowCraft_WriteResultName(
                         cg::text::FromGbkWide(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data()));
                     const std::uintptr_t socket = platform::gConnectionSocket;
-                    const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+                    const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
                     static_cast<void>(network::Sub_511EF0(socket, skill, level, -1, buffer));
                     gLegacySkillPendingD67C48 = 1;
                     gLegacyCraftPhaseD67D00 = 6;
@@ -13869,8 +13869,8 @@ try {
                     }
                     NullSub_509080();
                     const std::int32_t source = ui::detail::gSelectedSlotsCA0A90[0];
-                    ui::detail::WriteLegacyCraftNameCF46D4(world::detail::BorrowPlayerItemsFDA8A4()[source + 8].name);
-                    const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+                    ui::detail::WindowCraft_WriteResultName(world::detail::BorrowPlayerItemsFDA8A4()[source + 8].name);
+                    const std::int32_t level = ui::detail::WindowSkill_ReadRequestFlag();
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511EF0(socket, skill, level, -1, buffer));
                     gLegacyGemPhaseD68A8C = 7;
@@ -14523,7 +14523,7 @@ try {
         static_cast<void>(DrawGraphic(gLegacyPetListPanel584850.x + 163,
             gLegacyPetListPanel584850.y + 91 + 75 * row, 212,
             kLegacyPetTribeImages57CB2C[tribe], 0, nullptr));
-        const std::int32_t injuryImage = ui::detail::ReadLegacyHealthImage(pet.values70[25]);
+        const std::int32_t injuryImage = ui::detail::WindowPet_ReadHealthImage(pet.values70[25]);
         static_cast<void>(DrawGraphic(gLegacyPetListPanel584850.x + 258,
             gLegacyPetListPanel584850.y + 45 + 75 * row, 212, injuryImage, 0, nullptr));
         for (std::int32_t element = 0; element < 4; ++element) {
@@ -14911,7 +14911,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
         static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
-    const std::int32_t healthImage = ui::detail::ReadLegacyHealthImage(pet.values70[25]);
+    const std::int32_t healthImage = ui::detail::WindowPet_ReadHealthImage(pet.values70[25]);
     const std::int32_t healthY = gLegacyPetDetailPanel584918.y + 222;
     const std::int32_t healthX = gLegacyPetDetailPanel584918.x + 184;
     static_cast<void>(DrawGraphic(healthX, healthY, 212, healthImage, 0, nullptr));
@@ -16111,7 +16111,7 @@ try {
         if ((clicks & 1u) != 0 && kind >= 1 && kind <= 4) {
             handled = true;
             if (kind == 4 || kind == 3) {
-                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                ui::detail::WindowSkill_WriteRequestFlag(static_cast<std::uint8_t>(hovered));
                 const std::int32_t fp = initialSkill.techniques3C[hovered].value7C;
                 const std::int32_t reduction = initialSkill.fpReduce;
                 const std::int32_t cost = std::bit_cast<std::int32_t>(
@@ -16126,10 +16126,10 @@ try {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         static_cast<void>(audio::Sub_504180(38));
-                        ui::detail::WriteSkillExtraDelayCF46C4(2000);
+                        ui::detail::WindowSkill_WriteExtraDelay(2000);
                     }
                 } else if (insufficient) {
-                    const std::int32_t request = ui::detail::ReadSkillRequestD64E13();
+                    const std::int32_t request = ui::detail::WindowSkill_ReadRequestFlag();
                     const std::int32_t newFp = initialSkill.techniques3C[request].value7C;
                     const std::int32_t newReduction = initialSkill.fpReduce;
                     gLegacyRequiredFpCC31D8 = std::bit_cast<std::int32_t>(
@@ -16142,12 +16142,12 @@ try {
                 }
             } else if (kind == 2) {
                 const std::uint32_t id = gLegacySkillDetail585640.id;
-                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                ui::detail::WindowSkill_WriteRequestFlag(static_cast<std::uint8_t>(hovered));
                 static_cast<void>(audio::Sub_5042D0(id));
                 static_cast<void>(audio::Sub_504180(31));
             } else {
                 const std::uint32_t id = gLegacySkillDetail585640.id;
-                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                ui::detail::WindowSkill_WriteRequestFlag(static_cast<std::uint8_t>(hovered));
                 gLegacyRecipePageD67D0C = 0;
                 static_cast<void>(audio::Sub_5042D0(id));
                 const std::int32_t skillId = initialSkill.skillId;
@@ -16612,7 +16612,7 @@ try {
     static_cast<void>(DrawGraphic(portraitX + 40, portraitY + portraitOffsetY,
         212, portrait, 0, &descriptor));
     const std::int32_t injuryOffsetY = versionY(129, 146);
-    const std::int32_t injuryImage = ui::detail::ReadLegacyHealthImage(world::detail::ReadPlayerInjury());
+    const std::int32_t injuryImage = ui::detail::WindowPet_ReadHealthImage(world::detail::ReadPlayerInjury());
     const std::int32_t injuryY = gLegacyProfilePanel5857D0.y;
     const std::int32_t injuryX = gLegacyProfilePanel5857D0.x;
     static_cast<void>(DrawGraphic(injuryX + 183, injuryY + injuryOffsetY, 212, injuryImage, 0, nullptr));

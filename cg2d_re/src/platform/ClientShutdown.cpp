@@ -32,7 +32,7 @@ std::int32_t Sub_4705F0()
 {
     static_cast<void>(ui::detail::WindowRuntime_SaveSettings());
     world::detail::Sub_5186A0();
-    return ui::CloseAllWindows_472190();
+    return ui::WindowRuntime_CloseAll();
 }
 } // namespace shutdown_detail
 

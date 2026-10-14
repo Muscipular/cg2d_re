@@ -557,15 +557,15 @@ classification_references引用，不复制另一套排除结论。当前九项�
 | 43D7A0/43D7BA | 6 | DestroyWorldObjects、WorldObjectsStaticInitializer |
 | 44B250/44B25E | 7 | Sub_44A580、Sub_44AA90、Sub_476740、RenderInput_4590E0、Sub_4A7590、Sub_4A7640 |
 | 44B600/44B606 | 2 | Sub_493CB0 |
-| 470A9F/470AAA | 3 | Sub_470A80 |
-| 47752C/477537 | 3 | Sub_4774C0 |
-| 48C1CF/48C1DA | 3 | Sub_48C1B0 |
-| 493DF9/493E04 | 3 | Sub_493DB0 |
-| 4AC1EC/4AC1F7 | 3 | Sub_4AC1B0 |
-| 4C94D6/4C94E1 | 3 | Sub_4C94B0 |
-| 4C9F08/4C9F13 | 3 | Sub_4C9EE0 |
-| 4CA438/4CA443 | 3 | Sub_4CA410 |
-| 4CAF88/4CAF93 | 3 | Sub_4CAF60 |
+| 470A9F/470AAA | 3 | WindowStatusBar_Update |
+| 47752C/477537 | 3 | WindowPlayerTitles_Update |
+| 48C1CF/48C1DA | 3 | WindowPetList_Update |
+| 493DF9/493E04 | 3 | WindowSettings_Draw |
+| 4AC1EC/4AC1F7 | 3 | WindowItemStorage_Draw |
+| 4C94D6/4C94E1 | 3 | WindowOwnProfileCategory_Update |
+| 4C9F08/4C9F13 | 3 | WindowProfileCategory_Update |
+| 4CA438/4CA443 | 3 | WindowProfileSearch_Update |
+| 4CAF88/4CAF93 | 3 | WindowProfileView_Update |
 | 4C2634/4C26AF | 36 | Sub_4C2630 |
 | 4CD240/4CD24A | 2 | StallBrowsePetsStaticInitializer、ConstructStallBrowsePetValues、DestroyStallBrowsePetValues |
 

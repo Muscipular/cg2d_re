@@ -5945,7 +5945,7 @@ void Sub_455FC0()
         gValue62B5B0 = 0;
         return;
     }
-    if (ui::detail::gWindowStates[39].window == nullptr
+    if (ui::detail::gWindowStates[cg::ui::WindowId_TimerNotice].window == nullptr
         && gWindow39Action62B5B8 == nullptr) {
         gWindow39Action62B5B8 = ui::CreateWindowAnimation_475AA0(
             39, 0, 0, &gWindow39Action62B5B8);
@@ -6197,14 +6197,14 @@ void Sub_504A50()
         return;
     }
     if (mode == 1) {
-        static_cast<void>(ui::CreateWindowAnimation_475AA0(30, 1, 0, nullptr));
+        static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_BattleResult, 1, 0, nullptr));
         if (Sub_4ED670() != 0) {
             static_cast<void>(audio::PlaySe_52C450(64, 320));
         }
         gValueFF0D44 = 0;
         gValueFF0C10 = 0;
     } else if (mode == 2) {
-        static_cast<void>(ui::CreateWindowAnimation_475AA0(31, 1, 0, nullptr));
+        static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_DpResult, 1, 0, nullptr));
         gValueFF0D44 = 0;
         gValueFF0C10 = 0;
     } else {
@@ -7237,8 +7237,8 @@ void DrawBattleScene_43CBB0()
             }
             gBattleSnapshotPetIndex5ABBFC = Sub_43C4B0();
             ui::detail::Sub_4965D0();
-            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[29].window == nullptr) {
-                static_cast<void>(ui::CreateWindowAnimation_475AA0(29, 1, 0, nullptr));
+            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[cg::ui::WindowId_Spectator].window == nullptr) {
+                static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
             }
             gCurrentSceneState = 3;

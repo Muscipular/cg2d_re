@@ -13,9 +13,9 @@
 | window id | 54 |
 | 原型地址 | `54EC90` |
 | 元素表 / 数量 | `gWindowElements5748E8` / 107 |
-| update | `Sub_4BF7C0` |
-| draw | `Sub_4BF950` |
-| release | `Sub_4BD500` |
+| update | `WindowPetSkillChoice_Update` |
+| draw | `WindowPetSkillChoice_Draw` |
+| release | `WindowPetSkillChoice_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

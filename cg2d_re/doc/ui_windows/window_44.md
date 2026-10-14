@@ -13,9 +13,9 @@
 | window id | 44 |
 | 原型地址 | `54E8D0` |
 | 元素表 / 数量 | `gWindowElements56CDB0` / 19 |
-| update | `Sub_49E8F0` |
-| draw | `Sub_49EAA0` |
-| release | `ReleaseWindow_4A4210` |
+| update | `WindowTradeTarget_Update` |
+| draw | `WindowTradeTarget_Draw` |
+| release | `WindowRuntime_ReleaseDefault` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

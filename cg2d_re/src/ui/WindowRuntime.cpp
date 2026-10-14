@@ -1831,7 +1831,8 @@ std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
 }
 
 // WCL01：原4A4210完整两条只返回1；窗口release适配/存档共用，实际资源回收由FreeWindow执行。
-std::int32_t Sub_4A4210(const std::int32_t) noexcept
+// 原函数：0x004A4210。
+std::int32_t WindowRuntime_ReturnOne(const std::int32_t) noexcept
 {
     return 1;
 }
@@ -1896,7 +1897,7 @@ std::int32_t Sub_4F4630(const std::int32_t itemId)
 // 原函数：0x004B0000。
 void Sub_4B0000(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[43].window == nullptr) {
+    if (gWindowStates[WindowId_Trade].window == nullptr) {
         return;
     }
     for (std::uint8_t& slot : gTradeItemSlotsCF3AE8) {
@@ -1954,7 +1955,7 @@ std::int32_t Sub_47DC20(const std::int32_t index)
 // 原函数：0x0047DCD0。
 void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[11].window == nullptr) {
+    if (gWindowStates[WindowId_Craft].window == nullptr) {
         return;
     }
     const std::int32_t firstSlot = first - 8;
@@ -2012,7 +2013,7 @@ void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
 // 原函数：0x004AD060。
 void Sub_4AD060(const std::int32_t first, const std::int32_t second)
 {
-    if (gWindowStates[51].window != nullptr && gSelectedItem57EE0C == first) {
+    if (gWindowStates[WindowId_TextList].window != nullptr && gSelectedItem57EE0C == first) {
         gSelectedItem57EE0C = second;
     }
 }
@@ -3677,7 +3678,7 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004CD4F0。
-std::int32_t Sub_4CD4F0(const std::int32_t value)
+std::int32_t WindowStall_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const initial = gCurrentWindow;
@@ -3877,7 +3878,7 @@ std::int32_t Sub_4D2170(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004CDB10。
-std::int32_t Sub_4CDB10(const std::int32_t)
+std::int32_t WindowStall_Draw(const std::int32_t)
 {
     if (gStallOwn58111C != 0) {
         {
@@ -4007,7 +4008,7 @@ void Sub_4CED60(
             world::detail::Sub_44B050(L"瀏覽的攤位正在忙，請稍後再試", 4, 0);
             break;
         }
-        WindowInstance* const window = gWindowStates[68].window;
+        WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -4177,7 +4178,7 @@ void Sub_4CED60(
         world::detail::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), 10);
     }
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    static_cast<void>(CreateWindowAnimation_475AA0(68, 1, 0, nullptr));
+    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_StallBrowse, 1, 0, nullptr));
 }
 
 // 原函数：0x004CF8A0。
@@ -4253,7 +4254,7 @@ std::int32_t Sub_4CD420(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x004CDE00。
-void Sub_4CDE00()
+void WindowStall_Release()
 {
     if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
         static_cast<void>(network::Sub_512160(platform::gConnectionSocket));
@@ -4281,7 +4282,7 @@ void Sub_4CE700(const std::int32_t result)
             break;
         }
         gStallMessageC8A978 = message;
-        WindowInstance* const window = gWindowStates[67].window;
+        WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
         world::detail::ClearPlayerActionFlags(0x1000u);
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -4299,7 +4300,7 @@ void Sub_4CE700(const std::int32_t result)
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
-    WindowInstance* const window = gWindowStates[67].window;
+    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
     std::strcpy(world::detail::BorrowPlayerStallName(), name);
     if (window != nullptr) {
         window->elements[0].visible = 0;
@@ -4316,7 +4317,7 @@ void Sub_4CE8B0(const std::int32_t result)
     world::detail::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
     gValueD67BE0 = 0;
-    WindowInstance* const window = gWindowStates[67].window;
+    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
     if (result != 0) {
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -4376,7 +4377,7 @@ void Sub_4CE930(const std::int32_t result)
                 gStallItemPageD67BC8 = page - 1;
             }
         }
-        WindowInstance* const window = gWindowStates[68].window;
+        WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
         if (window != nullptr) {
             window->elements[0].visible = 0;
         }
@@ -4400,7 +4401,7 @@ void Sub_4CE930(const std::int32_t result)
     const wchar_t* const message = result >= 1 && result <= 12
         ? messages[result - 1] : L"購買失敗";
     gStallMessageC8A978 = message;
-    WindowInstance* const window = gWindowStates[68].window;
+    WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
     gStallMessageModeD67C34 = 1;
     gStallMessageValueD67C38 = 0;
     if (window != nullptr) {
@@ -4434,12 +4435,12 @@ void Sub_4C9C70()
 
 // 原函数：0x004C94B0。
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
-std::int32_t Sub_4C94B0(const std::int32_t value)
+std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 {
     if (value == -1) {
         gProfileScrollCA0444 = 0;
     }
-    if (gWindowStates[58].window == nullptr) {
+    if (gWindowStates[WindowId_OwnProfile].window == nullptr) {
         gCurrentWindow->state |= 0x8000u;
     }
     Sub_4C9C70();
@@ -4695,7 +4696,7 @@ void Sub_4C9F20()
 
 // 原函数：0x004C9EE0。
 // 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
-std::int32_t Sub_4C9EE0(const std::int32_t value)
+std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 {
     if (value == -1) {
         Sub_4C9F20();
@@ -4707,7 +4708,7 @@ std::int32_t Sub_4C9EE0(const std::int32_t value)
 }
 
 // 原函数：0x004CA300。
-void Sub_4CA300()
+void WindowProfileCategory_Release()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(Sub_4CB9B0(2));
@@ -4829,7 +4830,7 @@ std::uint32_t Sub_4CA450()
 
 // 原函数：0x004CA410。
 // 关联原入口：0x004CA438（共享尾已并入本函数正文）。
-std::int32_t Sub_4CA410(const std::int32_t value)
+std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 {
     if (value == -1) {
         Sub_4CA500();
@@ -4842,7 +4843,7 @@ std::int32_t Sub_4CA410(const std::int32_t value)
 }
 
 // 原函数：0x004CAB60。
-void Sub_4CAB60()
+void WindowProfileSearch_Release()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(Sub_4CB9B0(3));
@@ -4940,7 +4941,7 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
             platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;
     }
-    if (gWindowStates[62].window != nullptr) {
+    if (gWindowStates[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::ReadViewedProfile105ECE0().value00;
         if (key == world::detail::ReadProfileSearch105C398().records[position].value104) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246058;
@@ -4984,7 +4985,7 @@ std::uint32_t Sub_4CAFA0()
 
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
-std::int32_t Sub_4CAF60(const std::int32_t)
+std::int32_t WindowProfileView_Update(const std::int32_t)
 {
     if (Sub_4D3040(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -5004,7 +5005,7 @@ WindowInstance* Sub_4CB9B0(const std::int32_t index)
 }
 
 // 原函数：0x004CB530。
-void Sub_4CB530()
+void WindowProfileView_Release()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(Sub_4CB9B0(4));
@@ -5033,7 +5034,7 @@ std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
             gMiniMailCompose105F508.target = profile.value00;
             std::strcpy(gMiniMailCompose105F508.name.data(), profile.text08.data());
             std::strcpy(gMiniMailCompose105F508.text104.data(), input::LegacyText593850());
-            static_cast<void>(OpenWindow_471440(63));
+            static_cast<void>(OpenWindow_471440(WindowId_MiniMail));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -5062,7 +5063,7 @@ void Sub_4CB5D0()
 }
 
 // 原函数：0x004CB550。
-std::int32_t Sub_4CB550(const std::int32_t value)
+std::int32_t WindowMiniMail_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t mode =
@@ -5204,7 +5205,7 @@ std::uint32_t Sub_4CB9F0()
 }
 
 // 原函数：0x004CB9E0。
-std::int32_t Sub_4CB9E0(const std::int32_t)
+std::int32_t WindowProfileReply_Update(const std::int32_t)
 {
     static_cast<void>(Sub_4CB9F0());
     return 1;
@@ -5282,15 +5283,15 @@ std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
         const std::int32_t category = index - 23;
         if ((state & 2) != 0) {
             // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
-            if (gWindowStates[9].window != nullptr) {
-                gWindowStates[59].flags |= 0x8000u;
+            if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
+                gWindowStates[WindowId_OwnProfileCategory].flags |= 0x8000u;
             }
             gProfileCategory1085DA0 = category;
-            static_cast<void>(CreateWindowAnimation_475AA0(59, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_OwnProfileCategory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             consumed = 1;
         }
-        if (gWindowStates[59].window != nullptr && gProfileCategory1085DA0 == category) {
+        if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;
         }
         return consumed;
@@ -5361,7 +5362,7 @@ std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
 login::YobiAction* Sub_4B0110()
 {
     gTradeValueD67B80 = 0;
-    login::YobiAction* const action = CreateWindowAnimation_475AA0(43, 1, 0, nullptr);
+    login::YobiAction* const action = CreateWindowAnimation_475AA0(WindowId_Trade, 1, 0, nullptr);
     gTradeWindowActionD67B7C = action;
     return action;
 }
@@ -5484,32 +5485,33 @@ WindowInstance* Sub_48A830(
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
     const std::int32_t initialValue, const WindowValueCallback callback)
 {
-    if (gWindowStates[42].window != nullptr) {
-        gWindowStates[42].window->state &= ~std::uint32_t{0x8000};
+    if (gWindowStates[WindowId_Quantity].window != nullptr) {
+        gWindowStates[WindowId_Quantity].window->state &= ~std::uint32_t{0x8000};
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        gWindowStates[42].window = OpenWindow_471440(42);
+        gWindowStates[WindowId_Quantity].window = OpenWindow_471440(WindowId_Quantity);
     }
-    static_cast<WindowGraphicData*>(gWindowStates[42].window->elements[6].data)->imageNo = imageNo;
-    WindowInstance* const stateWindow = gWindowStates[42].window;
-    gWindowStates[42].value10 = static_cast<std::uint32_t>(maximum);
-    gWindowStates[42].value14 = static_cast<std::uint32_t>(value14);
-    gWindowStates[42].userState.callback = callback;
+    static_cast<WindowGraphicData*>(gWindowStates[WindowId_Quantity].window->elements[6].data)->imageNo = imageNo;
+    WindowInstance* const stateWindow = gWindowStates[WindowId_Quantity].window;
+    gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);
+    gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(value14);
+    gWindowStates[WindowId_Quantity].userState.callback = callback;
     stateWindow->elements[2].state = static_cast<std::uint32_t>(initialValue);
-    WindowInstance* const result = gWindowStates[42].window;
-    gWindowStates[42].value20 = static_cast<std::uint32_t>(sourceWindow);
-    gWindowStates[42].value24 = static_cast<std::uint32_t>(sourceElement);
+    WindowInstance* const result = gWindowStates[WindowId_Quantity].window;
+    gWindowStates[WindowId_Quantity].value20 = static_cast<std::uint32_t>(sourceWindow);
+    gWindowStates[WindowId_Quantity].value24 = static_cast<std::uint32_t>(sourceElement);
     return result;
 }
 
 // QVC01：原48A8C0完整15条；仅-1重置上限/参数/callback与当前元素2，然后激活输入，总返回1。
-std::int32_t Sub_48A8C0(const std::int32_t value)
+// 原函数：0x0048A8C0。
+std::int32_t WindowQuantity_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
-        gWindowStates[42].value10 = 999999999;
-        gWindowStates[42].value14 = 0;
-        gWindowStates[42].userState.callback = nullptr;
+        gWindowStates[WindowId_Quantity].value10 = 999999999;
+        gWindowStates[WindowId_Quantity].value14 = 0;
+        gWindowStates[WindowId_Quantity].userState.callback = nullptr;
         window->elements[2].state = 0;
         static_cast<void>(Sub_48A900(0, 2));
     }
@@ -5534,18 +5536,18 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
 {
     const input::InputContext* const currentInput = input::gCurrentInputData;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
-        &gWindowStates[42].actionFlags1C)[0]
+        &gWindowStates[WindowId_Quantity].actionFlags1C)[0]
         | (currentInput == &input::gInputContextCB0878 ? 2u : 0u);
-    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[42].value14);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value14);
     WindowInstance* const numericWindow = gCurrentWindow;
     const std::uint8_t numeric = Sub_474550(
         numericWindow, index, state, value14,
         223, gNumberWindowHints57DC9C.data(), flags, 0xFFFFFFFFu);
     WindowInstance* window = gCurrentWindow;
-    std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[42].value10);
+    std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
     if (std::bit_cast<std::int32_t>(window->elements[index].state) > maximum) {
         window->elements[index].state = static_cast<std::uint32_t>(maximum);
-        maximum = std::bit_cast<std::int32_t>(gWindowStates[42].value10);
+        maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
         window = gCurrentWindow;
     }
     std::int32_t result = 0;
@@ -5557,7 +5559,7 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
         result = 1;
     }
     if ((numeric & 2u) != 0) {
-        const WindowValueCallback callback = gWindowStates[42].userState.callback;
+        const WindowValueCallback callback = gWindowStates[WindowId_Quantity].userState.callback;
         if (callback != nullptr) {
             callback(std::bit_cast<std::int32_t>(window->elements[index].state));
             window = gCurrentWindow;
@@ -5580,7 +5582,7 @@ std::int32_t Sub_48AA60(const std::int32_t index, const std::int32_t state)
         gHoverTextD68AE8 = L"增加顯示數量。";
     }
     if ((state & 2) != 0) {
-        const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[42].value10);
+        const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
         const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[2].state);
         if (value < maximum) {
             window->elements[2].state = static_cast<std::uint32_t>(value + 1);
@@ -5652,9 +5654,9 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
     if (source < 8) {
         return source;
     }
-    WindowState* windowState = &gWindowStates[41];
+    WindowState* windowState = &gWindowStates[WindowId_Bank];
     if (windowState->window == nullptr) {
-        windowState = &gWindowStates[38];
+        windowState = &gWindowStates[WindowId_ItemStorage];
         if (windowState->window == nullptr) {
             return source;
         }
@@ -5756,14 +5758,14 @@ void Sub_48BB90(
         static_cast<void>(network::Sub_511BC0(platform::gConnectionSocket, source, target));
         return;
     }
-    if (gWindowStates[41].window == nullptr) {
+    if (gWindowStates[WindowId_Bank].window == nullptr) {
         return;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"P|{}|{}", source, target);
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
-    const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
-    const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+    const auto userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
+    const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
@@ -5798,10 +5800,10 @@ std::int32_t Sub_4B0090(const std::int32_t index)
 }
 
 // 原函数：0x004B0200。
-void Sub_4B0200()
+void WindowTrade_Release()
 {
-    WindowInstance* const window = gWindowStates[42].window;
-    if (window != nullptr && gWindowStates[42].value20 == 43) {
+    WindowInstance* const window = gWindowStates[WindowId_Quantity].window;
+    if (window != nullptr && gWindowStates[WindowId_Quantity].value20 == 43) {
         window->state |= 0x8000u;
     }
     if (gTradeValueD67B80 == 0) {
@@ -5819,7 +5821,7 @@ void Sub_4B0200()
 }
 
 // 原函数：0x004B0290。
-std::int32_t Sub_4B0290(const std::int32_t value)
+std::int32_t WindowTrade_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const initialWindow = gCurrentWindow;
@@ -5995,7 +5997,7 @@ std::int32_t Sub_4B0290(const std::int32_t value)
 }
 
 // 原函数：0x004B08D0。
-std::int32_t Sub_4B08D0(const std::int32_t)
+std::int32_t WindowTrade_Draw(const std::int32_t)
 {
     std::int32_t preview = gTradePreviewCC2E64;
     if (preview >= 0) {
@@ -7774,7 +7776,7 @@ std::int32_t Sub_4B09E0(const std::int32_t, const std::int32_t state)
 {
     if (gTradeValueD6742C == 2) {
         if ((state & 2) != 0) {
-            WindowInstance* const window = gWindowStates[43].window;
+            WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(Sub_476570(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&input::gInputContextCC21E8);
             gFocusedElementDataD45F94 = window->elements[0].data;
@@ -8833,8 +8835,8 @@ std::int32_t Sub_4888C0(const char* const text)
     const unsigned char previous = occupancy[selected];
     gSelectedItemCB0A44 = selected;
     occupancy[selected] = static_cast<unsigned char>(previous + 1);
-    gWindowStates[14].window->elements[4].mouseCallback = Sub_489F00;
-    gWindowStates[14].window->elements[17].mouseCallback = Sub_48A6C0;
+    gWindowStates[WindowId_Inventory].window->elements[4].mouseCallback = Sub_489F00;
+    gWindowStates[WindowId_Inventory].window->elements[17].mouseCallback = Sub_48A6C0;
     gItemSelectionModeCC40D4 = 2;
     static_cast<void>(Sub_475DA0(1, 0, nullptr));
     return Sub_4763B0(14, 0);
@@ -8904,18 +8906,18 @@ std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x00488510。
-void Sub_488510()
+void WindowInventory_Release()
 {
-    WindowInstance* const quantityWindow = gWindowStates[42].window;
-    if (quantityWindow != nullptr && gWindowStates[42].value20 == 14) {
+    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 14) {
         quantityWindow->state |= 0x8000u;
     }
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 1 || mode == 2) {
-        WindowInstance* const window = gWindowStates[14].window;
+        WindowInstance* const window = gWindowStates[WindowId_Inventory].window;
         gItemSelectionModeCC40D4 = 0;
         window->elements[4].mouseCallback = Sub_488FB0;
-        gWindowStates[14].window->elements[17].mouseCallback = Sub_489760;
+        gWindowStates[WindowId_Inventory].window->elements[17].mouseCallback = Sub_489760;
         const std::int32_t selected = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
@@ -8928,14 +8930,14 @@ void Sub_488510()
 }
 
 // 原函数：0x00488990。
-std::int32_t Sub_488990(const std::int32_t value)
+std::int32_t WindowInventory_Update(const std::int32_t value)
 {
     std::int32_t selected;
     if (value == -1) {
         Sub_4C6EC0(&gItemSelectorCF3B10, 0);
         WindowInstance* const window = gCurrentWindow;
         gItemSelectorCF3B10.initialized3E8 = 0;
-        gWindowStates[14].value14 = 0;
+        gWindowStates[WindowId_Inventory].value14 = 0;
         gItemSelectionModeCC40D4 = 0;
         window->elements[4].mouseCallback = Sub_488FB0;
         selected = -1;
@@ -8970,20 +8972,20 @@ std::int32_t Sub_488990(const std::int32_t value)
         static_cast<void>(Sub_4763E0());
     }
 updateSelector:
-    WindowInstance* const quantityWindow = gWindowStates[42].window;
-    gWindowStates[14].value10 = 0xFFFFFFFFu;
+    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
+    gWindowStates[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
-        && gWindowStates[42].value20 == 14 && gWindowStates[42].value24 == 1) {
+        && gWindowStates[WindowId_Quantity].value20 == 14 && gWindowStates[WindowId_Quantity].value24 == 1) {
         const std::int32_t amount = world::detail::ReadPlayerValueFC();
-        gWindowStates[42].value10 = static_cast<std::uint32_t>(amount);
-        gWindowStates[42].value14 = static_cast<std::uint32_t>(amount);
+        gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+        gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
     Sub_4C7A90(&gItemSelectorCF3B10);
     return 1;
 }
 
 // 原函数：0x00488B10。
-std::int32_t Sub_488B10(const std::int32_t)
+std::int32_t WindowInventory_Draw(const std::int32_t)
 {
     static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
         L"選好想蓋印的物品，", L"單點滑鼠左鍵，", L"可蓋下印記。", L"單點滑鼠右鍵即結束。",
@@ -8993,9 +8995,9 @@ std::int32_t Sub_488B10(const std::int32_t)
     };
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
-        const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[14].value10);
+        const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value10);
         if (selected >= 0) {
-            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
+            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
             static_cast<void>(Sub_48B1A0(selected, page));
         }
     } else if (mode == 1 || mode == 2) {
@@ -9063,8 +9065,8 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
         gHoverTextD68AE8 = L"想放錢在地面時使用此按鍵。";
     }
     if ((state & 2) != 0) {
-        if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
-            && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+        if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
+            && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             const std::int32_t amount = world::detail::ReadPlayerValueFC();
@@ -9073,18 +9075,18 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
         }
         consumed = 1;
     }
-    if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
-        && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+    if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
+        && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
         const std::int32_t amount = world::detail::ReadPlayerValueFC();
-        gWindowStates[42].value10 = static_cast<std::uint32_t>(amount);
-        gWindowStates[42].value14 = static_cast<std::uint32_t>(amount);
+        gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+        gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
     graphic->imageNo = 244291;
     if ((state & 1) != 0) {
         graphic->imageNo = 244293;
     }
-    if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
-        && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+    if (gWindowStates[WindowId_Quantity].window != nullptr && gWindowStates[WindowId_Quantity].value20 == 14
+        && gWindowStates[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
         graphic->imageNo = 244292;
     }
     return consumed;
@@ -9111,7 +9113,7 @@ void Sub_49C4D0()
         image.imageNo = 0;
     }
     gMessageDialogImageCountD67B30 = 0;
-    WindowInstance* const window = gWindowStates[36].window;
+    WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
         for (std::int32_t index = 8; index < 18; ++index) {
             window->elements[index].visible = 0;
@@ -9134,7 +9136,7 @@ void Sub_49C510(
     image.x = x;
     image.y = y;
     image.used = used;
-    WindowInstance* const window = gWindowStates[36].window;
+    WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
         WindowElement* const element = window->elements + count + 8;
         login::detail::SetYobiActionField2A8(
@@ -9169,9 +9171,9 @@ login::YobiAction* Sub_49C600(
     gMessageDialog.firstSelectableLine = firstSelectableLine;
     gMessageDialog.inputY = inputY;
     gMessageDialog.inputCount = inputCount;
-    gWindowStates[37].y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    gWindowStates[WindowId_DialogCreate].y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
     gMessageDialog.inputCapacity = inputCapacity;
-    gWindowStates[37].x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    gWindowStates[WindowId_DialogCreate].x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     gMessageDialog.imageNo = imageNo;
     gMessageDialog.distance = distance;
     gMessageDialog.lineCount = lineCount;
@@ -9186,11 +9188,11 @@ login::YobiAction* Sub_49C600(
     if (gMessageDialog.lineCount > maximumLines) {
         gMessageDialog.lineCount = maximumLines;
     }
-    WindowInstance* const first = gWindowStates[36].window;
+    WindowInstance* const first = gWindowStates[WindowId_Dialog].window;
     if (first != nullptr) {
         first->state |= 0x8000u;
     }
-    WindowInstance* const second = gWindowStates[37].window;
+    WindowInstance* const second = gWindowStates[WindowId_DialogCreate].window;
     if (second != nullptr) {
         second->state |= 0x8000u;
     }
@@ -9198,7 +9200,7 @@ login::YobiAction* Sub_49C600(
 }
 
 // 原函数：0x0049C710。
-std::int32_t Sub_49C710(const std::int32_t value)
+std::int32_t WindowDialog_Update(const std::int32_t value)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
@@ -9293,7 +9295,7 @@ std::int32_t Sub_49C710(const std::int32_t value)
 }
 
 // 原函数：0x0049CAD0。
-std::int32_t Sub_49CAD0(const std::int32_t)
+std::int32_t WindowDialog_Draw(const std::int32_t)
 {
     WindowInstance* window = gCurrentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (window->state & 0x8000u) != 0) {
@@ -9419,7 +9421,7 @@ std::int32_t Sub_49CAD0(const std::int32_t)
 }
 
 // 原函数：0x0049CDF0。
-void Sub_49CDF0()
+void WindowDialog_Release()
 {
     if (gMessageDialog.closeCallbackPending != 0) {
         const WindowDialogReplyCallback reply = gMessageDialog.reply;
@@ -9755,13 +9757,13 @@ void Sub_49D2E0(
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(Sub_4D3020(x, y));
             static_cast<void>(Sub_4B6970(value, text));
-            static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MessageBoard, 1, 0, nullptr));
             break;
         }
         case 23:
         case 33:
             if (Sub_4A84A0(text) != 0) {
-                if (gWindowStates[41].window != nullptr) {
+                if (gWindowStates[WindowId_Bank].window != nullptr) {
                     break;
                 }
                 created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
@@ -9769,13 +9771,13 @@ void Sub_49D2E0(
                     break;
                 }
             }
-            if (gWindowStates[41].window == nullptr) {
+            if (gWindowStates[WindowId_Bank].window == nullptr) {
                 enterNewType = true;
             }
             break;
         case 34:
             if (Sub_4A84A0(text) != 0) {
-                if (gWindowStates[38].window != nullptr) {
+                if (gWindowStates[WindowId_ItemStorage].window != nullptr) {
                     break;
                 }
                 created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
@@ -9783,12 +9785,12 @@ void Sub_49D2E0(
                     break;
                 }
             }
-            if (gWindowStates[38].window == nullptr) {
+            if (gWindowStates[WindowId_ItemStorage].window == nullptr) {
                 enterNewType = true;
             }
             break;
         case 32:
-            if (gWindowStates[51].window == nullptr) {
+            if (gWindowStates[WindowId_TextList].window == nullptr) {
                 enterNewType = true;
             } else {
                 Sub_4AD470(text);
@@ -9847,17 +9849,17 @@ void Sub_49D2E0(
         return;
     case 21:
         static_cast<void>(Sub_4B6970(value, text));
-        static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MessageBoard, 1, 0, nullptr));
         return;
     case 22:
         static_cast<void>(Sub_4B7EE0(text));
         return;
     case 23:
     case 33:
-        if (Sub_4A84A0(text) != 0 && gWindowStates[41].window == nullptr) {
+        if (Sub_4A84A0(text) != 0 && gWindowStates[WindowId_Bank].window == nullptr) {
             created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
         }
-        if (created == nullptr && gWindowStates[41].window == nullptr) {
+        if (created == nullptr && gWindowStates[WindowId_Bank].window == nullptr) {
             world::detail::gValue581800 = -1;
         }
         return;
@@ -9890,10 +9892,10 @@ void Sub_49D2E0(
         static_cast<void>(Sub_4AD180(request, target, text));
         return;
     case 34:
-        if (Sub_4A84A0(text) != 0 && gWindowStates[38].window == nullptr) {
+        if (Sub_4A84A0(text) != 0 && gWindowStates[WindowId_ItemStorage].window == nullptr) {
             created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
         }
-        if (created == nullptr && gWindowStates[38].window == nullptr) {
+        if (created == nullptr && gWindowStates[WindowId_ItemStorage].window == nullptr) {
             world::detail::gValue581800 = -1;
         }
         return;
@@ -9958,15 +9960,15 @@ void Sub_49D8F0(
     switch (type) {
     case 38:
         world::detail::Sub_4C9E40(value, text);
-        static_cast<void>(CreateWindowAnimation_475AA0(60, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_ProfileCategory, 1, 0, nullptr));
         return;
     case 39:
         world::detail::Sub_4CA330(value, text);
-        static_cast<void>(CreateWindowAnimation_475AA0(61, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_ProfileSearch, 1, 0, nullptr));
         return;
     case 40:
         static_cast<void>(world::detail::Sub_4CAC60(value, text));
-        static_cast<void>(CreateWindowAnimation_475AA0(62, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_ProfileView, 1, 0, nullptr));
         return;
     default:
         return;
@@ -10207,7 +10209,7 @@ login::YobiAction* Sub_49FCA0(
     for (std::uint8_t row = 0; row < lineCount; ++row) { gChoiceDialog.lines.push_back(*lines[row]); }
     gChoiceDialog.imageNo = imageNo;
     gChoiceDialog.choiceCount = choiceCount;
-    WindowInstance* const previous = gWindowStates[52].window;
+    WindowInstance* const previous = gWindowStates[WindowId_ShopChoice].window;
     gChoiceDialog.lineCount = lineCount;
     gChoiceDialog.choices.clear();
     for (std::uint8_t row = 0; row < choiceCount; ++row) { gChoiceDialog.choices.push_back(choices[row]); }
@@ -10218,11 +10220,11 @@ login::YobiAction* Sub_49FCA0(
         previous->state |= 0x8000u;
         gChoiceDialog.closeEnabled = 0;
     }
-    return CreateWindowAnimation_475AA0(52, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_ShopChoice, 1, 0, nullptr);
 }
 
 // 原函数：0x0049FD20。
-std::int32_t Sub_49FD20(const std::int32_t value)
+std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
@@ -10248,7 +10250,7 @@ std::int32_t Sub_49FD20(const std::int32_t value)
 }
 
 // 原函数：0x0049FE40。
-std::int32_t Sub_49FE40(const std::int32_t)
+std::int32_t WindowShopChoice_Draw(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
@@ -10282,7 +10284,7 @@ std::int32_t Sub_49FE40(const std::int32_t)
 }
 
 // 原函数：0x0049FF70。
-void Sub_49FF70()
+void WindowShopChoice_Release()
 {
     if (gChoiceDialog.closeEnabled != 0 && world::detail::gValue581800 == gChoiceDialog.type) {
         world::detail::gValue581800 = -1;
@@ -10609,7 +10611,7 @@ std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x00499990。
-std::int32_t Sub_499990(const std::int32_t value)
+std::int32_t WindowBattleItems_Update(const std::int32_t value)
 {
     if (value == -1) {
         Sub_4C6EC0(&gItemSelectorD2F338, 1);
@@ -10622,7 +10624,7 @@ std::int32_t Sub_499990(const std::int32_t value)
 }
 
 // 原函数：0x004999D0。
-std::int32_t Sub_4999D0(const std::int32_t)
+std::int32_t WindowBattleItems_Draw(const std::int32_t)
 {
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
@@ -11434,7 +11436,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         gCurrentWindow->state |= 0x2000u;
     }
     if (gInventoryHover57DA2C != hovered) {
-        gWindowStates[14].value14 = 0;
+        gWindowStates[WindowId_Inventory].value14 = 0;
     }
     gInventoryHover57DA2C = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
@@ -11485,12 +11487,12 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
         }
         if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
-                gWindowStates[14].value14 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[14].value14 = 0;
+                    gWindowStates[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -11521,7 +11523,7 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
             223, login::detail::gValueD69768, 0);
         const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item.used != 0) {
-            gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered + 8);
+            gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
@@ -11668,7 +11670,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
         }
     }
     if (gEquipmentHover57DA68 != hovered) {
-        gWindowStates[14].value14 = 0;
+        gWindowStates[WindowId_Inventory].value14 = 0;
     }
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
     gEquipmentHover57DA68 = hovered;
@@ -11724,11 +11726,11 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
         }
         if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (item->used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
                 ++page;
-                gWindowStates[14].value14 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= item->pages) {
-                    gWindowStates[14].value14 = 0;
+                    gWindowStates[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -11753,7 +11755,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
         if (item->used != 0) {
-            gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered);
+            gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item->name + L"[kok]";
             } else if ((item->flags & 0x200u) != 0) {
@@ -12798,7 +12800,7 @@ login::YobiAction* Sub_49E800(
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(Sub_4D3020(x, y));
-    return CreateWindowAnimation_475AA0(44, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_TradeTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x004E4E80。
@@ -12908,11 +12910,11 @@ void Sub_4E52B0(const std::int32_t side)
 WindowInstance* Sub_4A83A0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState)
 {
-    gWindowStates[41].value10 = static_cast<std::uint32_t>(kind);
-    WindowInstance* const window = OpenWindow_471440(41);
-    gWindowStates[41].window = window;
-    gWindowStates[41].value14 = static_cast<std::uint32_t>(value14);
-    gWindowStates[41].userState.value = static_cast<std::uint32_t>(userState);
+    gWindowStates[WindowId_Bank].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = OpenWindow_471440(WindowId_Bank);
+    gWindowStates[WindowId_Bank].window = window;
+    gWindowStates[WindowId_Bank].value14 = static_cast<std::uint32_t>(value14);
+    gWindowStates[WindowId_Bank].userState.value = static_cast<std::uint32_t>(userState);
     return window;
 }
 
@@ -12921,11 +12923,11 @@ WindowInstance* Sub_4AC0C0(
     const std::int32_t kind, const std::int32_t value14,
     const std::int32_t userState, const std::int32_t)
 {
-    gWindowStates[38].value10 = static_cast<std::uint32_t>(kind);
-    WindowInstance* const window = OpenWindow_471440(38);
-    gWindowStates[38].window = window;
-    gWindowStates[38].value14 = static_cast<std::uint32_t>(value14);
-    gWindowStates[38].userState.value = static_cast<std::uint32_t>(userState);
+    gWindowStates[WindowId_ItemStorage].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = OpenWindow_471440(WindowId_ItemStorage);
+    gWindowStates[WindowId_ItemStorage].window = window;
+    gWindowStates[WindowId_ItemStorage].value14 = static_cast<std::uint32_t>(value14);
+    gWindowStates[WindowId_ItemStorage].userState.value = static_cast<std::uint32_t>(userState);
     return window;
 }
 
@@ -12980,7 +12982,7 @@ login::YobiAction* Sub_4AD180(
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     RebuildWindowLines51(buffer.data());
-    return CreateWindowAnimation_475AA0(51, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_TextList, 1, 0, nullptr);
 }
 
 // 原函数：0x004AD470。
@@ -12991,7 +12993,7 @@ void Sub_4AD470(const char* const text)
         return;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    WindowInstance* const window = gWindowStates[51].window;
+    WindowInstance* const window = gWindowStates[WindowId_TextList].window;
     gWindowTitleCC4118 = cg::text::FromGbkWide(buffer.data());
     auto* const title = static_cast<WindowTextData*>(window->elements[3].data);
     title->text = gWindowTitleCC4118;
@@ -12999,14 +13001,14 @@ void Sub_4AD470(const char* const text)
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     RebuildWindowLines51(buffer.data());
-    WindowInstance* const updatedWindow = gWindowStates[51].window;
+    WindowInstance* const updatedWindow = gWindowStates[WindowId_TextList].window;
     if (updatedWindow != nullptr) {
         static_cast<void>(Sub_4AD0F0(updatedWindow));
     }
 }
 
 // 原函数：0x004AD780。
-void Sub_4AD780()
+void WindowTextList_Release()
 {
     Sub_4AD090();
     if (gSelectedItem57EE0C >= 0) {
@@ -13031,7 +13033,7 @@ void Sub_4AD780()
 }
 
 // 原函数：0x004AD800。
-std::int32_t Sub_4AD800(const std::int32_t value)
+std::int32_t WindowTextList_Update(const std::int32_t value)
 {
     if (value == -1) {
         gSelectedItem57EE0C = -1;
@@ -13087,7 +13089,7 @@ std::int32_t Sub_4AD800(const std::int32_t value)
 }
 
 // 原函数：0x004AD9F0。
-std::int32_t Sub_4AD9F0(const std::int32_t)
+std::int32_t WindowTextList_Draw(const std::int32_t)
 {
     gCurrentWindow->elements[14].visible = 1;
     if (gWindowLineCountD67B74 - 9 <= 0) {
@@ -13457,25 +13459,25 @@ std::int32_t Sub_4AE5B0(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004A83D0。
-void Sub_4A83D0()
+void WindowBank_Release()
 {
-    const std::uint32_t kind = gWindowStates[41].value10;
+    const std::uint32_t kind = gWindowStates[WindowId_Bank].value10;
     if ((kind == 0 && world::detail::gValue581800 == 23)
         || (kind == 1 && world::detail::gValue581800 == 33)) {
         world::detail::gValue581800 = -1;
     }
     std::wstring buffer;
     buffer = input::EscapeTextAndNotify(L"C", 255);
-    const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
-    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+    const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
     const std::int32_t y =
         world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
-    WindowInstance* const numberWindow = gWindowStates[42].window;
-    if (numberWindow != nullptr && gWindowStates[42].value20 == 41) {
+    WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
+    if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {
@@ -13484,18 +13486,18 @@ void Sub_4A83D0()
 }
 
 // 原函数：0x004A9020。
-std::int32_t Sub_4A9020(const std::int32_t value)
+std::int32_t WindowBank_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[36].data);
-        title->imageNo = gStorageTitleImages54F4E8[gWindowStates[41].value10];
+        title->imageNo = gStorageTitleImages54F4E8[gWindowStates[WindowId_Bank].value10];
         WindowInstance* const initialWindow = gCurrentWindow;
-        gWindowStates[41].value28 = 0;
-        gWindowStates[41].value24 = 0;
+        gWindowStates[WindowId_Bank].value28 = 0;
+        gWindowStates[WindowId_Bank].value24 = 0;
         auto* const ownPanel = static_cast<WindowGraphicData*>(initialWindow->elements[34].data);
         ownPanel->imageNo = 243143;
         auto* const otherPanel = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
-        otherPanel->imageNo = gStoragePanelImages54F4F0[gWindowStates[41].value10];
+        otherPanel->imageNo = gStoragePanelImages54F4F0[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t index = 14; index < 34; ++index) {
             gCurrentWindow->elements[index].visible = 0;
         }
@@ -13505,21 +13507,22 @@ std::int32_t Sub_4A9020(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[41].value10 == 0 && world::detail::gValue581800 != 23) {
+    if (gWindowStates[WindowId_Bank].value10 == 0 && world::detail::gValue581800 != 23) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (gWindowStates[41].value10 == 1 && world::detail::gValue581800 != 33) {
+    if (gWindowStates[WindowId_Bank].value10 == 1 && world::detail::gValue581800 != 33) {
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     gStorageValueCC4218 = 0;
-    gWindowStates[41].actionFlags1C = 0xFFFFFFFFu;
+    gWindowStates[WindowId_Bank].actionFlags1C = 0xFFFFFFFFu;
     return 1;
 }
 
 // SPD01：原4A9160完整114条；两滚动flags只读BYTE，金额/预览/鼠标RNG原序及所有绘制返回1保持。
-std::int32_t Sub_4A9160(const std::int32_t)
+// 原函数：0x004A9160。
+std::int32_t WindowBank_Draw(const std::int32_t)
 {
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
@@ -13528,21 +13531,21 @@ std::int32_t Sub_4A9160(const std::int32_t)
     WindowElement* elements = gCurrentWindow->elements;
     const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);
     if ((*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u) != 0) {
-        gWindowStates[41].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));
+        gWindowStates[WindowId_Bank].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));
     }
     elements = gCurrentWindow->elements;
     const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);
     if ((*reinterpret_cast<const unsigned char*>(&secondScroll->flags) & 1u) != 0) {
-        gWindowStates[41].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));
+        gWindowStates[WindowId_Bank].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));
     }
-    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
+    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].actionFlags1C);
     if (preview >= 0) {
         if (preview >= 200) {
-            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
+            gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
             const bool left = (platform::BorrowLegacyMouseStateStorage()->mouseX < 320);
             const std::int32_t x = left ? 413 : 0;
             const std::int32_t index =
-                std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
+                std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].actionFlags1C);
             if (index < 100) {
                 static_cast<void>(Sub_4B3BF0(x, 0, index));
             } else {
@@ -13551,7 +13554,7 @@ std::int32_t Sub_4A9160(const std::int32_t)
                 static_cast<void>(Sub_4B4140(x, 0, externalIndex));
             }
         } else {
-            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);
+            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
             if (preview >= 100) {
                 static_cast<void>(Sub_48B350(preview - 100, page));
             } else {
@@ -13564,13 +13567,13 @@ std::int32_t Sub_4A9160(const std::int32_t)
 }
 
 // 原函数：0x004AC0F0。
-void Sub_4AC0F0()
+void WindowItemStorage_Release()
 {
     if (world::detail::gValue581800 == 34) {
         world::detail::gValue581800 = -1;
     }
-    WindowInstance* const numberWindow = gWindowStates[42].window;
-    if (numberWindow != nullptr && gWindowStates[42].value20 == 41) {
+    WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
+    if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {
@@ -13579,7 +13582,7 @@ void Sub_4AC0F0()
 }
 
 // 原函数：0x004AC140。
-std::int32_t Sub_4AC140(const std::int32_t)
+std::int32_t WindowItemStorage_Update(const std::int32_t)
 {
     if (Sub_4D3040(1, 1) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -13589,16 +13592,17 @@ std::int32_t Sub_4AC140(const std::int32_t)
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    gWindowStates[38].actionFlags1C = 0xFFFFFFFFu;
+    gWindowStates[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
     return 1;
 }
 
 // SPD01：原4AC1B0完整19条及4AC1EC三条共享尾；页数/内外物品预览分派后绘制并返回1。
-std::int32_t Sub_4AC1B0(const std::int32_t)
+// 原函数：0x004AC1B0。
+std::int32_t WindowItemStorage_Draw(const std::int32_t)
 {
-    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[38].actionFlags1C);
+    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].actionFlags1C);
     if (preview >= 0) {
-        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);
+        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
         if (preview < 100) {
             static_cast<void>(Sub_48B1A0(preview, page));
         } else {
@@ -13620,7 +13624,7 @@ std::int32_t Sub_4A92D0(const std::int32_t, const std::int32_t state)
         return 0;
     }
     if ((state & 2) != 0) {
-        WindowInstance* const window = gWindowStates[41].window;
+        WindowInstance* const window = gWindowStates[WindowId_Bank].window;
         static_cast<void>(Sub_476570(&gStorageInputPrototype57EBA0, 0, -100, 0));
         input::SetContext_44B330(&input::gInputContextCA0018);
         gFocusedElementDataD45F94 = window->elements[0].data;
@@ -13704,7 +13708,7 @@ std::int32_t Sub_4A95A0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243143 ? 55 : 51, 320));
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243143;
         auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
-        external->imageNo = gStoragePanelImages54F4F0[gWindowStates[41].value10];
+        external->imageNo = gStoragePanelImages54F4F0[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
         }
@@ -13734,7 +13738,7 @@ std::int32_t Sub_4A96D0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243145 ? 55 : 51, 320));
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243145;
         auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
-        external->imageNo = gStoragePetImages54F4F8[gWindowStates[41].value10];
+        external->imageNo = gStoragePetImages54F4F8[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
         }
@@ -13766,7 +13770,7 @@ std::int32_t Sub_4A9820(const std::int32_t index, const std::int32_t state)
         static_cast<void>(audio::PlaySe_52C450(window->elements[30].visible != 0 ? 55 : 51, 320));
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
         auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
-        external->imageNo = gStorageMoneyImages54F500[gWindowStates[41].value10];
+        external->imageNo = gStorageMoneyImages54F500[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
         }
@@ -13800,7 +13804,7 @@ std::int32_t Sub_4A9990(const std::int32_t index, const std::int32_t state)
         static_cast<void>(audio::PlaySe_52C450(window->elements[31].visible != 0 ? 55 : 51, 320));
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
         auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
-        external->imageNo = gStorageMoneyImages54F500[gWindowStates[41].value10];
+        external->imageNo = gStorageMoneyImages54F500[gWindowStates[WindowId_Bank].value10];
         for (std::int32_t element = 14; element < 34; ++element) {
             gCurrentWindow->elements[element].visible = 0;
         }
@@ -13892,7 +13896,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         hovered = -1;
     }
     if (gBankOwnHover57EDCC != hovered) {
-        gWindowStates[41].value20 = 0;
+        gWindowStates[WindowId_Bank].value20 = 0;
     }
     gBankOwnHover57EDCC = hovered;
     if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
@@ -13923,12 +13927,12 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
         if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
-                gWindowStates[41].value20 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[41].value20 = 0;
+                    gWindowStates[WindowId_Bank].value20 = 0;
                 }
             }
             consumed = 1;
@@ -13957,7 +13961,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
         if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
+            gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (Sub_475D60() == 2 && Sub_475D90() >= 100) {
                 ++gStorageValueCC4218;
             }
@@ -14070,7 +14074,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         }
     }
     if (gBankExternalHover57EDD0 != hovered) {
-        gWindowStates[41].value20 = 0;
+        gWindowStates[WindowId_Bank].value20 = 0;
     }
     gBankExternalHover57EDD0 = hovered;
     if (hovered >= 0 && (platform::BorrowLegacyMouseStateStorage()->edgeButtons & 0x10u) != 0) {
@@ -14108,13 +14112,13 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
                 std::int32_t pages;
                 std::memcpy(&pages, record + 0xC3C, sizeof(pages));
                 ++page;
-                gWindowStates[41].value20 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[41].value20 = 0;
+                    gWindowStates[WindowId_Bank].value20 = 0;
                 }
             }
             consumed = 1;
@@ -14153,7 +14157,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         std::uint16_t used;
         std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
         if (used != 0) {
-            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
+            gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -14269,7 +14273,7 @@ std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004AAEC0。
 std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
 {
-    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[index + scroll - 14].index);
     std::int32_t consumed = 0;
@@ -14281,15 +14285,15 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
             const std::int32_t source = Sub_475D90();
             if (source < 100 && Sub_475D40() == 41 && Sub_475D50() == index) {
                 const std::int32_t firstPosition = Sub_48BC60(source);
-                const std::int32_t firstScroll = std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                const std::int32_t firstScroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
                 if (firstPosition - firstScroll >= 0) {
                     const std::int32_t secondPosition = Sub_48BC60(source);
                     const std::int32_t secondScroll =
-                        std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                        std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
                     if (secondPosition - secondScroll < 3) {
                         const std::int32_t position = Sub_48BC60(source);
                         const std::int32_t currentScroll =
-                            std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                            std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
                         const std::int32_t elementIndex = 14 - currentScroll + position;
                         const WindowInstance* const window = gCurrentWindow;
                         const std::int32_t y = window->y;
@@ -14317,7 +14321,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
         const std::int32_t source = Sub_475D90();
         if (source != petIndex) {
             bool allowed = true;
-            if (gWindowStates[41].value10 == 1 && petIndex < 5 && source >= 100) {
+            if (gWindowStates[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
                 const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
@@ -14361,7 +14365,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
             }
             if (target < 5) {
                 bool allowed = true;
-                if (gWindowStates[41].value10 == 1 && petIndex < 5) {
+                if (gWindowStates[WindowId_Bank].value10 == 1 && petIndex < 5) {
                     const std::int32_t itemSlots = pet.values6D8[0];
                     bool empty = true;
                     for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -14392,7 +14396,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
         const std::uint32_t imageNo = login::detail::gValueD69768;
         Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
         if (pet.used != 0) {
-            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
+            gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
         }
     }
     if ((events & 0x20u) != 0) {
@@ -14416,7 +14420,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004AB710。
 std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
 {
-    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value28);
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value28);
     const std::int32_t petIndex = scroll + index - 17;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
@@ -14429,7 +14433,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
         const std::int32_t source = Sub_475D90();
         if (source != petIndex + 100) {
             bool allowed = true;
-            if (gWindowStates[41].value10 == 1 && source < 5) {
+            if (gWindowStates[WindowId_Bank].value10 == 1 && source < 5) {
                 const auto& sourcePet = (*world::detail::BorrowPetRuntimeF633F8Storage())[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
@@ -14479,8 +14483,8 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
                 cg::text::FormatTo(buffer, L"P|{}|{}", petIndex + 100, target);
                 const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
                 const std::int32_t userState =
-                    std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
-                const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+                    std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
+                const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
                 const std::int32_t y =
                     world::detail::BorrowPlayerYStorage()->value();
                 const std::int32_t x =
@@ -14508,7 +14512,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             const std::int32_t slot = source - 100;
             if (Sub_475D40() == 41 && Sub_475D50() == index) {
                 const std::int32_t currentScroll =
-                    std::bit_cast<std::int32_t>(gWindowStates[41].value28);
+                    std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value28);
                 const std::int32_t row = slot - currentScroll;
                 if (row >= 0 && row < 3) {
                     const WindowInstance* const window = gCurrentWindow;
@@ -14530,7 +14534,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
         if (used != 0) {
             const std::uint32_t imageNo = login::detail::gValueD69768;
             Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
-            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
+            gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
         }
     }
     if ((events & 0x20u) != 0) {
@@ -14554,7 +14558,7 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
     std::int32_t maximum;
     std::uint8_t result;
     if (index == 30) {
-        const std::uint32_t kind = gWindowStates[41].value10;
+        const std::uint32_t kind = gWindowStates[WindowId_Bank].value10;
         if (kind == 0 || kind == 1) {
             const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
             if (side == 0 || side == 1) {
@@ -14613,8 +14617,8 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
             cg::text::FormatTo(buffer, index == 30 ? L"G|{}" : L"D|{}", value);
             const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
             const std::int32_t userState =
-                std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
-            const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+                std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].userState.value);
+            const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value14);
             const std::int32_t y =
                 world::detail::BorrowPlayerYStorage()->value();
             const std::int32_t x =
@@ -14816,7 +14820,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         hovered = -1;
     }
     if (gStorageOwnHover57EE04 != hovered) {
-        gWindowStates[38].value20 = 0;
+        gWindowStates[WindowId_ItemStorage].value20 = 0;
     }
     gStorageOwnHover57EE04 = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
@@ -14829,12 +14833,12 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         }
         if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 2u) != 0) {
             if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
                 const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
                 ++page;
-                gWindowStates[38].value20 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[38].value20 = 0;
+                    gWindowStates[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -14863,7 +14867,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
         if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-            gWindowStates[38].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
+            gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -14976,7 +14980,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         }
     }
     if (gStorageExternalHover57EE08 != hovered) {
-        gWindowStates[38].value20 = 0;
+        gWindowStates[WindowId_ItemStorage].value20 = 0;
     }
     gStorageExternalHover57EE08 = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
@@ -14994,13 +14998,13 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
                 std::int32_t pages;
                 std::memcpy(&pages, record + 0xC3C, sizeof(pages));
                 ++page;
-                gWindowStates[38].value20 = static_cast<std::uint32_t>(page);
+                gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    gWindowStates[38].value20 = 0;
+                    gWindowStates[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -15039,7 +15043,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         std::uint16_t used;
         std::memcpy(&used, gItemDetailStorageCC4D58.data() + hovered * 0xC44, sizeof(used));
         if (used != 0) {
-            gWindowStates[38].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
+            gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -15415,8 +15419,8 @@ std::int32_t Sub_4C9240()
     gChatHeightUnitsC9A938 = 4;
     gValueCF4690 = 0;
     gValueCA0440 = 0;
-    gWindowStates[33].marker50 = 0;
-    gWindowStates[34].marker50 = 0;
+    gWindowStates[WindowId_MiniMap].marker50 = 0;
+    gWindowStates[WindowId_Emote].marker50 = 0;
     gValueD67B38 = 0;
     return 0;
 }
@@ -15489,9 +15493,9 @@ std::int32_t Sub_4C9170()
     const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
     gValueCA0440 = valueCA0440;
     const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
-    gWindowStates[33].marker50 = static_cast<std::uint32_t>(marker33);
+    gWindowStates[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
     const std::int32_t valueD67B38 = gWindowSavedDataD40B30.records[21].value08;
-    gWindowStates[34].marker50 = static_cast<std::uint32_t>(marker34);
+    gWindowStates[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
     gValueD67B38 = valueD67B38;
     return 1;
 }
@@ -15563,12 +15567,12 @@ std::uint32_t Sub_4C92D0()
     gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
     const std::uint32_t actorBars = world::detail::gActorBarsEnabled5AC490;
     gWindowSavedDataD40B30.records[35].value0C = height;
-    const std::uint32_t marker33 = gWindowStates[33].marker50;
+    const std::uint32_t marker33 = gWindowStates[WindowId_MiniMap].marker50;
     gWindowSavedDataD40B30.records[35].value10 = mode;
     const std::int32_t valueCA0440 = gValueCA0440;
     gWindowSavedDataD40B30.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
     gWindowSavedDataD40B30.records[1].value0C = actorBars == 1 ? 1 : 0;
-    const std::uint32_t marker34 = gWindowStates[34].marker50;
+    const std::uint32_t marker34 = gWindowStates[WindowId_Emote].marker50;
     gWindowSavedDataD40B30.records[4].value08 = valueCA0440;
     const std::int32_t valueD67B38 = gValueD67B38;
     gWindowSavedDataD40B30.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
@@ -15632,7 +15636,7 @@ void Sub_4722E0()
 WindowInstance* Sub_4A53D0()
 {
     gLoginWindowRuntime.prefixD2F0B8.value26C = 1;
-    return OpenWindow_471440(22);
+    return OpenWindow_471440(WindowId_MailCompose);
 }
 
 // 原函数：0x004722F0。
@@ -15647,23 +15651,23 @@ void Sub_4722F0()
         case 22:
         case 23:
         case 40:
-            if (gWindowStates[21].marker50 != 0) {
-                static_cast<void>(OpenWindow_471440(21));
-                gWindowStates[21].marker50 = 0;
+            if (gWindowStates[WindowId_Contacts].marker50 != 0) {
+                static_cast<void>(OpenWindow_471440(WindowId_Contacts));
+                gWindowStates[WindowId_Contacts].marker50 = 0;
             }
-            if (gWindowStates[40].marker50 != 0) {
+            if (gWindowStates[WindowId_MailRead].marker50 != 0) {
                 const std::int32_t position = world::detail::gValueD046D4;
-                static_cast<void>(OpenWindow_471440(40));
+                static_cast<void>(OpenWindow_471440(WindowId_MailRead));
                 world::detail::gValueD046D4 = position;
-                gWindowStates[40].marker50 = 0;
+                gWindowStates[WindowId_MailRead].marker50 = 0;
             }
-            if (gWindowStates[22].marker50 != 0) {
+            if (gWindowStates[WindowId_MailCompose].marker50 != 0) {
                 static_cast<void>(Sub_4A53D0());
-                gWindowStates[22].marker50 = 0;
+                gWindowStates[WindowId_MailCompose].marker50 = 0;
             }
-            if (gWindowStates[23].marker50 != 0) {
-                static_cast<void>(OpenWindow_471440(23));
-                gWindowStates[23].marker50 = 0;
+            if (gWindowStates[WindowId_PetMailCompose].marker50 != 0) {
+                static_cast<void>(OpenWindow_471440(WindowId_PetMailCompose));
+                gWindowStates[WindowId_PetMailCompose].marker50 = 0;
             }
             break;
         case 33:
@@ -15840,14 +15844,14 @@ void ProcessWindowShortcuts_4C7AE0()
                 }
             }
             if (!found) {
-                static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PlayerProfile, 1, 0, nullptr));
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
             if (world::gCurrentSceneType == 10) {
                 Sub_497000();
             } else {
-                WindowInstance* const window = gWindowStates[10].window;
+                WindowInstance* const window = gWindowStates[WindowId_Skill].window;
                 if (window == nullptr) {
                     static_cast<void>(Sub_47A490());
                 } else {
@@ -16084,36 +16088,36 @@ void ResetWindowReferences()
 
 void OpenConfiguredMainWindows()
 {
-    static_cast<void>(OpenWindow_471440(6));
+    static_cast<void>(OpenWindow_471440(WindowId_BottomBar));
     switch (gValueCF4690) {
     case 0:
-        static_cast<void>(OpenWindow_471440(1));
+        static_cast<void>(OpenWindow_471440(WindowId_StatusBar));
         break;
     case 1:
-        static_cast<void>(OpenWindow_471440(2));
+        static_cast<void>(OpenWindow_471440(WindowId_CompactStatusBar));
         break;
     case 2:
-        static_cast<void>(OpenWindow_471440(3));
+        static_cast<void>(OpenWindow_471440(WindowId_CollapsedStatusBar));
         break;
     default:
         break;
     }
     switch (gValueCA0440) {
     case 0:
-        static_cast<void>(OpenWindow_471440(4));
+        static_cast<void>(OpenWindow_471440(WindowId_ShortcutBar));
         break;
     case 1:
-        static_cast<void>(OpenWindow_471440(5));
+        static_cast<void>(OpenWindow_471440(WindowId_CollapsedShortcutBar));
         break;
     default:
         break;
     }
     switch (gChatWindowModeD66E04) {
     case 0:
-        static_cast<void>(OpenWindow_471440(35));
+        static_cast<void>(OpenWindow_471440(WindowId_Chat));
         break;
     case 1:
-        static_cast<void>(OpenWindow_471440(57));
+        static_cast<void>(OpenWindow_471440(WindowId_CompactChat));
         break;
     default:
         break;
@@ -16138,38 +16142,38 @@ void OpenBattleSceneWindows_471170()
 {
     ResetWindowReferences();
     Sub_4722E0();
-    static_cast<void>(OpenWindow_471440(6));
-    static_cast<void>(OpenWindow_471440(2));
+    static_cast<void>(OpenWindow_471440(WindowId_BottomBar));
+    static_cast<void>(OpenWindow_471440(WindowId_CompactStatusBar));
     switch (gChatWindowModeD66E04) {
     case 0:
-        static_cast<void>(OpenWindow_471440(35));
+        static_cast<void>(OpenWindow_471440(WindowId_Chat));
         break;
     case 1:
-        static_cast<void>(OpenWindow_471440(57));
+        static_cast<void>(OpenWindow_471440(WindowId_CompactChat));
         break;
     default:
         break;
     }
-    if (gWindowStates[21].marker50 != 0) {
-        static_cast<void>(OpenWindow_471440(21));
-        gWindowStates[21].marker50 = 0;
+    if (gWindowStates[WindowId_Contacts].marker50 != 0) {
+        static_cast<void>(OpenWindow_471440(WindowId_Contacts));
+        gWindowStates[WindowId_Contacts].marker50 = 0;
     }
-    if (gWindowStates[40].marker50 != 0) {
+    if (gWindowStates[WindowId_MailRead].marker50 != 0) {
         const std::int32_t position = world::detail::gValueD046D4;
-        static_cast<void>(OpenWindow_471440(40));
+        static_cast<void>(OpenWindow_471440(WindowId_MailRead));
         world::detail::gValueD046D4 = position;
-        gWindowStates[40].marker50 = 0;
+        gWindowStates[WindowId_MailRead].marker50 = 0;
     }
-    if (gWindowStates[22].marker50 != 0 || gWindowStates[23].marker50 != 0) {
-        static_cast<void>(OpenWindow_471440(22));
-        gWindowStates[22].marker50 = 0;
-        gWindowStates[23].marker50 = 0;
+    if (gWindowStates[WindowId_MailCompose].marker50 != 0 || gWindowStates[WindowId_PetMailCompose].marker50 != 0) {
+        static_cast<void>(OpenWindow_471440(WindowId_MailCompose));
+        gWindowStates[WindowId_MailCompose].marker50 = 0;
+        gWindowStates[WindowId_PetMailCompose].marker50 = 0;
     }
     Sub_479610();
-    WindowInstance* const window22 = gWindowStates[22].window;
+    WindowInstance* const window22 = gWindowStates[WindowId_MailCompose].window;
     gPreviewActionD67B84 = nullptr;
     input::gValueC9A96C = 1;
-    if (window22 == nullptr && gWindowStates[23].window == nullptr) {
+    if (window22 == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(Sub_4A7B00());
     }
 }
@@ -16200,7 +16204,7 @@ void Sub_470980()
     if (inputGate == 0) {
         input::gValueC9A96C = 1;
     }
-    if (gWindowStates[22].window == nullptr && gWindowStates[23].window == nullptr) {
+    if (gWindowStates[WindowId_MailCompose].window == nullptr && gWindowStates[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(Sub_4A7B00());
     }
 }
@@ -16292,7 +16296,7 @@ void* Sub_492C80()
 }
 
 // 原函数：0x004923F0。
-std::int32_t Sub_4923F0(const std::int32_t value)
+std::int32_t WindowAlbumList_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueC8A95C = 0;
@@ -16316,9 +16320,9 @@ std::int32_t Sub_492430(const std::int32_t index, const std::int32_t state)
         const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         if (records[(scroll + index - 58) * 0x80] != std::byte{0}) {
-            if (gWindowStates[20].window == nullptr) {
+            if (gWindowStates[WindowId_AlbumDetail].window == nullptr) {
                 gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
-                static_cast<void>(CreateWindowAnimation_475AA0(20, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_AlbumDetail, 1, 0, nullptr));
                 return 1;
             }
             gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
@@ -16596,7 +16600,7 @@ void Sub_492F70()
 }
 
 // 原函数：0x00492410。
-std::int32_t Sub_492410(const std::int32_t value)
+std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueCF4A00 = 5;
@@ -16715,7 +16719,7 @@ constexpr wchar_t kSettingsRenderMode586F90[] = L"目前的描繪功能。"; // 
 // 原函数：0x00493A70。
 void Sub_493A70(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[24].window;
+    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
     window->elements[27].x = offset + 16;
     WindowElement* const elements = window->elements;
     const std::int32_t x = elements[27].x;
@@ -16734,7 +16738,7 @@ void Sub_493A70(const std::int32_t offset)
 // 原函数：0x00493AF0。
 void Sub_493AF0(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[24].window;
+    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
     window->elements[28].x = offset + 16;
     WindowElement* const elements = window->elements;
     const std::int32_t x = elements[28].x;
@@ -16754,7 +16758,7 @@ void Sub_493AF0(const std::int32_t offset)
 // 原函数：0x00493B70。
 void Sub_493B70(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[24].window;
+    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
     window->elements[29].x = offset + 16;
     WindowElement* const elements = window->elements;
     const std::int32_t x = elements[29].x;
@@ -16788,7 +16792,7 @@ void Sub_493B70(const std::int32_t offset)
 // 原函数：0x00493CB0。
 void Sub_493CB0(const std::int32_t offset)
 {
-    WindowInstance* const window = gWindowStates[24].window;
+    WindowInstance* const window = gWindowStates[WindowId_Settings].window;
     window->elements[30].x = offset + 16;
     WindowElement* const elements = window->elements;
     const std::int32_t x = elements[30].x;
@@ -16811,7 +16815,7 @@ void Sub_493CB0(const std::int32_t offset)
 }
 
 // 原函数：0x00493D60。
-std::int32_t Sub_493D60(const std::int32_t value)
+std::int32_t WindowSettings_Update(const std::int32_t value)
 {
     if (value == -1) {
         for (std::int32_t index = 8; index <= 30; ++index) {
@@ -16825,7 +16829,7 @@ std::int32_t Sub_493D60(const std::int32_t value)
 
 // 原函数：0x00493DB0。
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
-std::int32_t Sub_493DB0(const std::int32_t)
+std::int32_t WindowSettings_Draw(const std::int32_t)
 {
     const std::int8_t panel = gSettingsPanelCC4234;
     if (panel >= 0) {
@@ -16847,7 +16851,7 @@ std::int32_t Sub_493DB0(const std::int32_t)
 }
 
 // 原函数：0x00493E10。
-void Sub_493E10()
+void WindowSettings_Release()
 {
     static_cast<void>(login::detail::Sub_520470());
     static_cast<void>(login::detail::Sub_520590());
@@ -17055,16 +17059,16 @@ std::int32_t Sub_4944A0(const std::int32_t index, const std::int32_t state)
         gHoverTextD68AE8 = kSettingsHotkeys586E34;
     }
     if ((state & 2) != 0) {
-        WindowInstance* const hotkeys = gWindowStates[25].window;
+        WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
         if (hotkeys != nullptr) {
             hotkeys->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         } else {
-            static_cast<void>(CreateWindowAnimation_475AA0(25, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Hotkeys, 1, 0, nullptr));
         }
         consumed = 1;
     }
-    if (gWindowStates[25].window != nullptr) {
+    if (gWindowStates[WindowId_Hotkeys].window != nullptr) {
         graphic->imageNo = 0x3B8CB;
     }
     return consumed;
@@ -17634,16 +17638,16 @@ constexpr wchar_t kHotkeyPresets587008[] = L"登錄常用句。"; // 原常量�
 } // namespace
 
 // 原函数：0x00495130。
-std::int32_t Sub_495130(const std::int32_t value)
+std::int32_t WindowHotkeys_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
-        gWindowStates[25].value14 = 0;
+        gWindowStates[WindowId_Hotkeys].value14 = 0;
         WindowElement* const elements = window->elements;
         const std::int32_t height = elements[2].height;
         const std::int32_t y = elements[3].y;
         elements[2].y = y - (height >> 1);
-        const std::uint32_t category = gWindowStates[25].value10;
+        const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
         gHotkeySelectedCC4B20 = -1;
         const WindowElementCallback callback = category == 3 ? &Sub_495C20 : &Sub_4B0F10;
         for (std::int32_t index = 9; index <= 18; ++index) {
@@ -17654,32 +17658,32 @@ std::int32_t Sub_495130(const std::int32_t value)
 }
 
 // 原函数：0x004951C0。
-std::int32_t Sub_4951C0(const std::int32_t)
+std::int32_t WindowHotkeys_Draw(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const mouse = static_cast<WindowMouseData*>(elements[3].data);
     elements[2].visible = 1;
     const std::int32_t mode = gValueCF4AAC;
-    const std::uint32_t category = gWindowStates[25].value10;
+    const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
     const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
     if (maximum <= 0) {
         gCurrentWindow->elements[2].visible = 0;
     }
     if ((mouse->flags & 1) != 0) {
-        const std::uint32_t currentCategory = gWindowStates[25].value10;
+        const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gValueCF4AAC;
         const std::int32_t currentMaximum =
             kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
-        gWindowStates[25].value14 = static_cast<std::uint32_t>(
+        gWindowStates[WindowId_Hotkeys].value14 = static_cast<std::uint32_t>(
             Sub_474270(&gCurrentWindow->elements[3], currentMaximum));
     }
 
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int8_t marker = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(login::detail::gValueD69768));
-        const std::uint32_t currentCategory = gWindowStates[25].value10;
+        const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gValueCF4AAC;
-        const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[25].value14);
+        const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
         const wchar_t* const text = kHotkeyTextTables56AECC[currentCategory + currentMode * 4][scroll + row];
         WindowInstance* const window = gCurrentWindow;
         const std::int16_t y = static_cast<std::int16_t>(window->y);
@@ -17689,9 +17693,9 @@ std::int32_t Sub_4951C0(const std::int32_t)
             static_cast<std::int16_t>(y + row * 16 + 58), 3, 8, 0, text, 0, marker));
     }
 
-    if (gWindowStates[25].value10 == 3) {
+    if (gWindowStates[WindowId_Hotkeys].value10 == 3) {
         for (std::int32_t row = 0; row < 10; ++row) {
-            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[25].value14);
+            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
             const std::int8_t selected = gHotkeySelectedCC4B20;
             const std::int32_t recordIndex = scroll + row;
             if (recordIndex == selected) {
@@ -17714,7 +17718,7 @@ std::int32_t Sub_4951C0(const std::int32_t)
         }
         const std::int8_t selected = gHotkeySelectedCC4B20;
         if (selected >= 0) {
-            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[25].value14);
+            const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Hotkeys].value14);
             if (scroll > selected || selected >= scroll + 10) {
                 static_cast<void>(Sub_476570(&gHotkeyInputPrototype57DF48, 0, -100, 2));
             }
@@ -18120,7 +18124,7 @@ void Sub_4B5A90()
 }
 
 // 原函数：0x004B5AD0。
-std::int32_t Sub_4B5AD0(const std::int32_t value)
+std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 {
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();
@@ -18139,7 +18143,7 @@ std::int32_t Sub_4B5AD0(const std::int32_t value)
 }
 
 // 原函数：0x004B5B50。
-void Sub_4B5B50()
+void WindowMessageBoard_Release()
 {
     if (world::detail::gValue581800 == 21) {
         world::detail::gValue581800 = -1;
@@ -18414,7 +18418,7 @@ void Sub_4B6C50(
     descriptor.bytes[13] = 4;
     if (message != 0) {
         if (message == 2 || message == 4) {
-            WindowInstance* const target = gWindowStates[53].window;
+            WindowInstance* const target = gWindowStates[WindowId_Shop].window;
             WindowInstance* const previous = gCurrentWindow;
             gCurrentWindow = target;
             Sub_4BC150();
@@ -18491,7 +18495,7 @@ void Sub_4BC150()
 }
 
 // 原函数：0x004B6DC0。
-void Sub_4B6DC0()
+void WindowShop_Release()
 {
     if (gShopDialogTypeCC3EC8 == world::detail::gValue581800) {
         world::detail::gValue581800 = -1;
@@ -18554,7 +18558,7 @@ login::YobiAction* Sub_4B6E00(const char* const text)
     const std::int32_t dialogType = world::detail::gValue581800;
     gValueD2D608 = -1;
     gShopDialogTypeCC3EC8 = dialogType;
-    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B70D0。
@@ -18646,7 +18650,7 @@ login::YobiAction* Sub_4B70D0(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
-    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B74E0。
@@ -18709,7 +18713,7 @@ login::YobiAction* Sub_4B74E0(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
-    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B77E0。
@@ -18762,7 +18766,7 @@ login::YobiAction* Sub_4B77E0(const char* const text)
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
-    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Shop, 1, 0, nullptr);
 }
 
 namespace {
@@ -18857,7 +18861,7 @@ login::YobiAction* CreateShopServiceWindow(
         ++occupancy[slot];
     }
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
-    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Shop, 1, 0, nullptr);
 }
 
 } // namespace
@@ -19281,7 +19285,7 @@ void Sub_4B92C0()
 }
 
 // 原函数：0x004B9310。
-std::int32_t Sub_4B9310(const std::int32_t value)
+std::int32_t WindowShop_Update(const std::int32_t value)
 {
     if (value == -1) {
         gShopScrollCC488C = 0;
@@ -21402,7 +21406,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
 }
 
 // 原函数：0x004BD500。
-void Sub_4BD500()
+void WindowPetSkillChoice_Release()
 {
     if (gWindow54LifecycleD67434 != 2
         && gWindow54DialogTypeCB2224 == world::detail::gValue581800) {
@@ -21442,7 +21446,7 @@ login::YobiAction* Sub_4BD540(const char* const text)
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
     gWindow54ModeC8AF64 = 0;
-    return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_PetSkillChoice, 1, 0, nullptr);
 }
 
 // 原函数：0x004BD680。
@@ -21487,7 +21491,7 @@ login::YobiAction* Sub_4BD680(const char* const text)
     gWindow54ModeC8AF64 = 1;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
-    return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_PetSkillChoice, 1, 0, nullptr);
 }
 
 // 两原创建仅模式值不同，保留原窗快照和生命周期标记的分支次序。
@@ -21531,7 +21535,7 @@ static login::YobiAction* CreateWindow54SkillList(
         }
         ++gWindow54ValueCB01E8;
     }
-    WindowInstance* const window = gWindowStates[54].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ModeC8AF64 = mode;
     if (window != nullptr) {
@@ -21545,7 +21549,7 @@ static login::YobiAction* CreateWindow54SkillList(
     } else {
         gWindow54LifecycleD67434 = 0;
     }
-    return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_PetSkillChoice, 1, 0, nullptr);
 }
 
 // 原函数：0x004BD810。
@@ -21563,7 +21567,7 @@ login::YobiAction* Sub_4BDAD0(const char* const text)
 // 原函数：0x004BDD90。
 void Sub_4BDD90(const char* const text)
 {
-    if (gWindowStates[54].window == nullptr) {
+    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
@@ -21597,7 +21601,7 @@ void Sub_4BDD90(const char* const text)
             option.allowed = 1;
         }
     }
-    WindowInstance* const window = gWindowStates[54].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
     gWindow54TribeCA0B2C = -1;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
@@ -21609,7 +21613,7 @@ void Sub_4BDD90(const char* const text)
 // 原函数：0x004BDF70。
 void Sub_4BDF70(const char* const text)
 {
-    if (gWindowStates[54].window == nullptr) {
+    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
@@ -21648,7 +21652,7 @@ void Sub_4BDF70(const char* const text)
             option.allowed = 1;
         }
     }
-    WindowInstance* const window = gWindowStates[54].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
     gWindow54ModeC8AF64 = 13;
@@ -21659,7 +21663,7 @@ void Sub_4BDF70(const char* const text)
 // 原函数：0x004BE200。
 void Sub_4BE200(const char* const text)
 {
-    if (gWindowStates[54].window == nullptr) {
+    if (gWindowStates[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 1536> buffer;
@@ -21697,7 +21701,7 @@ void Sub_4BE200(const char* const text)
                 slot.description[row].data(), 29, buffer.data(), row, 28));
         }
     }
-    WindowInstance* const window = gWindowStates[54].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetSkillChoice].window;
     gWindow54ValueCB01E4 = 0;
     gWindow54ValueCB01E8 = 0;
     gWindow54ModeC8AF64 = 4;
@@ -22137,7 +22141,7 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
 }
 
 // 原函数：0x004BF7C0。
-std::int32_t Sub_4BF7C0(const std::int32_t value)
+std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
         gCurrentWindow->elements[0].visible = 0;
@@ -22181,7 +22185,7 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
 }
 
 // 原函数：0x004BF950。
-std::int32_t Sub_4BF950(const std::int32_t unused)
+std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     WindowInstance* window = gCurrentWindow;
@@ -22789,7 +22793,7 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x004C1390。
-void Sub_4C1390()
+void WindowCrystalShop_Release()
 {
     const std::int32_t type = gWindow69DialogTypeD2D810;
     if (type == world::detail::gValue581800) {
@@ -22862,7 +22866,7 @@ login::YobiAction* Sub_4C13B0(const char* const text)
     const std::int32_t type = world::detail::gValue581800;
     gValueD2D608 = -1;
     gWindow69DialogTypeD2D810 = type;
-    return CreateWindowAnimation_475AA0(69, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_CrystalShop, 1, 0, nullptr);
 }
 
 // 原函数：0x004C1700。
@@ -23000,7 +23004,7 @@ void Sub_4C1BC0()
 }
 
 // 原函数：0x004C1C50。
-std::int32_t Sub_4C1C50(const std::int32_t value)
+std::int32_t WindowCrystalShop_Update(const std::int32_t value)
 {
     WindowInstance* const entryWindow = gCurrentWindow;
     if (value == -1) {
@@ -23063,7 +23067,7 @@ std::int32_t Sub_4C1C50(const std::int32_t value)
 }
 
 // 原函数：0x004C1EC0。
-std::int32_t Sub_4C1EC0(const std::int32_t unused)
+std::int32_t WindowCrystalShop_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     const WindowInstance* const window = gCurrentWindow;
@@ -23742,7 +23746,7 @@ std::int32_t Sub_4C33B0(
 }
 
 // 原函数：0x004C3530。
-void Sub_4C3530()
+void WindowCrystalExchangeShop_Release()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
     if (type == world::detail::gValue581800) {
@@ -23809,7 +23813,7 @@ login::YobiAction* Sub_4C3550(const char* const text)
     const std::int32_t type = world::detail::gValue581800;
     gValueD2D608 = -1;
     gWindow70DialogTypeD45D6C = type;
-    return CreateWindowAnimation_475AA0(70, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_CrystalExchangeShop, 1, 0, nullptr);
 }
 
 // 原函数：0x004C39A0。
@@ -23947,7 +23951,7 @@ void Sub_4C3E70()
 }
 
 // 原函数：0x004C3F00。
-std::int32_t Sub_4C3F00(const std::int32_t value)
+std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
 {
     WindowInstance* const entryWindow = gCurrentWindow;
     if (value == -1) {
@@ -24011,7 +24015,7 @@ std::int32_t Sub_4C3F00(const std::int32_t value)
 }
 
 // 原函数：0x004C4180。
-std::int32_t Sub_4C4180(const std::int32_t unused)
+std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     const WindowInstance* const window = gCurrentWindow;
@@ -24692,11 +24696,11 @@ login::YobiAction* Sub_4C5790(
             message, 46, buffer.data(), row, 45));
         gWindow56Texts580870.messages[row] = cg::text::FromGbkWide(message);
     }
-    return CreateWindowAnimation_475AA0(56, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Appearance, 1, 0, nullptr);
 }
 
 // 原函数：0x004C5850。
-std::int32_t Sub_4C5850(const std::int32_t value)
+std::int32_t WindowAppearance_Update(const std::int32_t value)
 {
     if (value != -1) {
         return 1;
@@ -24766,7 +24770,7 @@ std::int32_t Sub_4C5850(const std::int32_t value)
 }
 
 // 原函数：0x004C5B70。
-std::int32_t Sub_4C5B70(const std::int32_t unused)
+std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     if (Sub_4D3040(2, 2) != 0 || world::detail::gValue581800 != gWindow56DialogTypeCB1DE0) {
@@ -24784,7 +24788,7 @@ std::int32_t Sub_4C5B70(const std::int32_t unused)
 }
 
 // 原函数：0x004C5C00。
-void Sub_4C5C00()
+void WindowAppearance_Release()
 {
     if (world::detail::gValue581800 == gWindow56DialogTypeCB1DE0) {
         world::detail::gValue581800 = -1;
@@ -25313,7 +25317,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
 }
 
 // 原函数：0x004B99D0。
-std::int32_t Sub_4B99D0(const std::int32_t unused)
+std::int32_t WindowShop_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     const WindowInstance* const window = gCurrentWindow;
@@ -25681,7 +25685,7 @@ void SetMailUnreadGraphic(const std::int32_t index)
 } // namespace
 
 // 原函数：0x004A0970。
-std::int32_t Sub_4A0970(const std::int32_t value)
+std::int32_t WindowContacts_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -25696,7 +25700,7 @@ std::int32_t Sub_4A0970(const std::int32_t value)
 }
 
 // 原函数：0x004A09B0。
-std::int32_t Sub_4A09B0(const std::int32_t value)
+std::int32_t WindowContacts_Draw(const std::int32_t value)
 {
     static_cast<void>(Sub_4A3820(value));
     static_cast<void>(Sub_4A32B0());
@@ -26188,14 +26192,14 @@ std::int32_t Sub_4A2610(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B542;
-        WindowInstance* const window = gWindowStates[49].window;
+        WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         } else {
             gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
             gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
-            static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailCompose, 1, 0, nullptr));
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -26260,7 +26264,7 @@ std::int32_t Sub_4A2BD0(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B9E6;
-        static_cast<void>(CreateWindowAnimation_475AA0(48, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_GuildDetails, 1, 0, nullptr));
         consumed = 1;
     }
     if ((state & 8) != 0) {
@@ -26355,7 +26359,7 @@ void Sub_4A38C0(const std::int32_t index)
     const std::int32_t currentIndex = gLoginWindowRuntime.mailIndicesC9FCE4[currentPosition + row];
     gLoginWindowRuntime.mailMemberKeyD45F88 = login::detail::gOrderedRecords1051B14[currentIndex].value0C;
     gLoginWindowRuntime.mailRankCF4A14 = login::detail::gOrderedRecords1051B14[memberIndex].value00 - 1;
-    static_cast<void>(OpenWindow_471440(55));
+    static_cast<void>(OpenWindow_471440(WindowId_GuildRank));
 }
 
 // 原函数：0x004A2B00。
@@ -26384,7 +26388,7 @@ std::int32_t Sub_4A2B00(const std::int32_t index, const std::int32_t state)
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailCategoryD67B64 = category;
         gLoginWindowRuntime.mailCategoryCC4D50 = category;
-        static_cast<void>(CreateWindowAnimation_475AA0(40, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailRead, 1, 0, nullptr));
         consumed = 1;
     }
     if ((state & 8) != 0) {
@@ -26565,7 +26569,7 @@ std::int32_t Sub_4A3C70(const std::int32_t index, const std::int32_t state)
     gLoginWindowRuntime.prefixD2F0B8.value00 = category;
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(nineRows ? 3 : 0) + category];
     gLoginWindowRuntime.prefixD2F0B8.value04 = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
-    static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailCompose, 1, 0, nullptr));
     return 1;
 }
 
@@ -26612,7 +26616,7 @@ login::YobiAction* Sub_4A33C0(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3600);
     gWindow47Runtime.textCC426C = std::format(kMailDeleteContactFormat58759C, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
-    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3480。
@@ -26620,7 +26624,7 @@ login::YobiAction* Sub_4A3480(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3660);
     gWindow47Runtime.textCC426C = std::format(kMailDeleteGuildFormat5875F4, cg::text::FromGbkWide(login::detail::gOrderedRecords1051B14[index].text18).c_str());
-    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3540。
@@ -26628,7 +26632,7 @@ login::YobiAction* Sub_4A3540(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A36B0);
     gWindow47Runtime.textCC426C = std::format(kMailDeleteMiniFormat587654, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
-    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 std::int32_t& BorrowLegacyMailDeleteIndexD2DA8C()
@@ -26645,8 +26649,8 @@ std::int32_t Sub_4A3600(const std::int32_t, const std::int32_t)
     static_cast<void>(world::detail::Sub_5192C0(currentIndex));
     static_cast<void>(world::detail::Sub_519300());
     static_cast<void>(world::detail::Sub_519550());
-    if (gWindowStates[21].window == nullptr) {
-        static_cast<void>(CreateWindowAnimation_475AA0(21, 1, 0, nullptr));
+    if (gWindowStates[WindowId_Contacts].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Contacts, 1, 0, nullptr));
     }
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
@@ -26683,14 +26687,14 @@ std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
 // 原函数：0x004A3760。
 std::int32_t Sub_4A3760(const std::int32_t, const std::int32_t)
 {
-    if (gWindowStates[21].window == nullptr) {
-        static_cast<void>(CreateWindowAnimation_475AA0(21, 1, 0, nullptr));
+    if (gWindowStates[WindowId_Contacts].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Contacts, 1, 0, nullptr));
     }
     return 1;
 }
 
 // 原函数：0x004AE5F0。
-std::int32_t Sub_4AE5F0(const std::int32_t value)
+std::int32_t WindowConfirmation_Update(const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(Sub_4AE9C0());
@@ -26742,7 +26746,7 @@ std::int32_t Sub_4AE850(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004AE8C0。
 WindowInstance* Sub_4AE8C0()
 {
-    WindowInstance* const window = gWindowStates[47].window;
+    WindowInstance* const window = gWindowStates[WindowId_Confirmation].window;
     window->state |= 0x8000u;
     return window;
 }
@@ -26802,7 +26806,7 @@ std::int32_t Sub_4AEA10(std::wstring& destination, const std::wstring_view text)
 }
 
 // 原函数：0x004A4180。
-std::int32_t Sub_4A4180(const std::int32_t value)
+std::int32_t WindowGuildRank_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.mailRankScrollCA0474 = 0;
@@ -26811,7 +26815,7 @@ std::int32_t Sub_4A4180(const std::int32_t value)
 }
 
 // 原函数：0x004A41A0。
-std::int32_t Sub_4A41A0(const std::int32_t)
+std::int32_t WindowGuildRank_Draw(const std::int32_t)
 {
     static_cast<void>(Sub_4A4540());
     DrawCurrentWindow_4729B0();
@@ -27005,7 +27009,7 @@ void FormatMailTimestamp587768(char* const destination)
 } // namespace
 
 // 原函数：0x004A4620。
-std::int32_t Sub_4A4620(const std::int32_t value)
+std::int32_t WindowMailRead_Update(const std::int32_t value)
 {
     if (value == -1) {
         Sub_4A48A0();
@@ -27018,7 +27022,7 @@ std::int32_t Sub_4A4620(const std::int32_t value)
 }
 
 // 原函数：0x004A4650。
-std::int32_t Sub_4A4650(const std::int32_t)
+std::int32_t WindowMailRead_Draw(const std::int32_t)
 {
     static_cast<void>(Sub_4A49B0());
     DrawCurrentWindow_4729B0();
@@ -27105,7 +27109,7 @@ std::int32_t Sub_4A47C0(const std::int32_t index, const std::int32_t state)
             gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
             occupancy[oldSlot] = value;
         }
-        static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailCompose, 1, 0, nullptr));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
@@ -27323,11 +27327,11 @@ std::int32_t Sub_4A4FC0(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004A53F0。
-std::int32_t Sub_4A53F0(const std::int32_t value)
+std::int32_t WindowMailCompose_Update(const std::int32_t value)
 {
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
-            WindowInstance* const window = gWindowStates[49].window;
+            WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
             }
@@ -27335,9 +27339,9 @@ std::int32_t Sub_4A53F0(const std::int32_t value)
             if (gLoginWindowRuntime.prefixD2F0B8.value26C != 0) {
                 gLoginWindowRuntime.mailGroupCC1A30.initialize = 1;
             }
-            static_cast<void>(CreateWindowAnimation_475AA0(49, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_GroupSelect, 1, 0, nullptr));
         }
-        WindowInstance* const petWindow = gWindowStates[23].window;
+        WindowInstance* const petWindow = gWindowStates[WindowId_PetMailCompose].window;
         if (petWindow != nullptr) {
             petWindow->state |= 0x8000u;
             const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
@@ -27410,7 +27414,7 @@ std::int32_t Sub_4A53F0(const std::int32_t value)
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
     static_cast<void>(Sub_4A6160());
-    WindowInstance* const groupWindow = gWindowStates[49].window;
+    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }
@@ -27418,7 +27422,7 @@ std::int32_t Sub_4A53F0(const std::int32_t value)
 }
 
 // 原函数：0x004A5650。
-void Sub_4A5650()
+void WindowMailCompose_Release()
 {
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
@@ -27440,7 +27444,7 @@ void Sub_4A5650()
         gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
         occupancy[oldSlot] = count;
     }
-    WindowInstance* const groupWindow = gWindowStates[49].window;
+    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
     if (groupWindow != nullptr) {
         groupWindow->state |= 0x8000u;
     }
@@ -27489,8 +27493,8 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
         if ((state & 2) != 0) {
             cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
                 gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(input::gInputContextD66CA8));
-            static_cast<void>(CreateWindowAnimation_475AA0(23, 1, 0, nullptr));
-            static_cast<void>(CreateWindowAnimation_475AA0(14, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PetMailCompose, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Inventory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -27675,10 +27679,10 @@ std::uint8_t Sub_4A6160()
 }
 
 // 原函数：0x004A56F0。
-std::int32_t Sub_4A56F0(const std::int32_t value)
+std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 {
     if (value == -1) {
-        WindowInstance* const normalWindow = gWindowStates[22].window;
+        WindowInstance* const normalWindow = gWindowStates[WindowId_MailCompose].window;
         if (normalWindow != nullptr) {
             normalWindow->state |= 0x8000u;
         }
@@ -27736,7 +27740,7 @@ std::int32_t Sub_4A56F0(const std::int32_t value)
         gCurrentWindow->state |= 0x8000u;
     }
     static_cast<void>(Sub_4A6AC0());
-    WindowInstance* const groupWindow = gWindowStates[49].window;
+    WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }
@@ -27847,7 +27851,7 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
         if ((state & 2) != 0) {
             if (index == 2) {
                 gCurrentWindow->state |= 0x8000u;
-                static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailCompose, 1, 0, nullptr));
             } else if (index == 8) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08 - 1;
                 gLoginWindowRuntime.prefixD2F0B8.value08 = position;
@@ -28001,7 +28005,7 @@ std::uint8_t Sub_4A6AC0()
 }
 
 // 原函数：0x004B4B00。
-std::int32_t Sub_4B4B00(const std::int32_t value)
+std::int32_t WindowGroupSelect_Update(const std::int32_t value)
 {
     if (value == -1) {
         if (gLoginWindowRuntime.mailGroupCC1A30.initialize == 0) {
@@ -28014,23 +28018,23 @@ std::int32_t Sub_4B4B00(const std::int32_t value)
         gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
         return 1;
     }
-    if (gWindowStates[22].window == nullptr) {
-        gWindowStates[49].window->state |= 0x8000u;
+    if (gWindowStates[WindowId_MailCompose].window == nullptr) {
+        gWindowStates[WindowId_GroupSelect].window->state |= 0x8000u;
     }
     return 1;
 }
 
 // 原函数：0x004B4B70。
-void Sub_4B4B70()
+void WindowGroupSelect_Release()
 {
-    WindowInstance* const window = gWindowStates[22].window;
+    WindowInstance* const window = gWindowStates[WindowId_MailCompose].window;
     if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
         window->state |= 0x8000u;
     }
 }
 
 // 原函数：0x004B4B90。
-std::int32_t Sub_4B4B90(const std::int32_t value)
+std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
 {
     static_cast<void>(Sub_4B4DF0(value));
     Sub_4B4E20();
@@ -28796,7 +28800,7 @@ constexpr wchar_t kGuildCloseHint5868EC[] = L"關閉此視窗"; // 原常量参�
 } // namespace
 
 // 原函数：0x004AEAE0。
-std::int32_t Sub_4AEAE0(const std::int32_t value)
+std::int32_t WindowGuildDetails_Update(const std::int32_t value)
 {
     if (value == -1) {
         gGuildPageD67B78 = 0;
@@ -28823,7 +28827,7 @@ std::int32_t Sub_4AEAE0(const std::int32_t value)
 }
 
 // 原函数：0x004AEC10。
-std::int32_t Sub_4AEC10(const std::int32_t value)
+std::int32_t WindowGuildDetails_Draw(const std::int32_t value)
 {
     Sub_4AFAE0(value);
     Sub_4AF180();
@@ -29196,7 +29200,7 @@ std::int32_t Sub_4AF100(const std::int32_t index, const std::int32_t state)
     }
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B539;
-        gWindowStates[48].window->state = 0x8000;
+        gWindowStates[WindowId_GuildDetails].window->state = 0x8000;
         return 1;
     }
     return 0;
@@ -29470,7 +29474,7 @@ void Sub_4CCED0()
 }
 
 // 原函数：0x004CC6C0。
-std::int32_t Sub_4CC6C0(const std::int32_t value)
+std::int32_t WindowBlacklist_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueD2E444 = 0;
@@ -29659,7 +29663,7 @@ login::YobiAction* Sub_4CD150()
     gWindow47Runtime.actionsCC4254[0] = &Sub_4CD1E0;
     gWindow47Runtime.actionsCC4254[1] = &Sub_4CD220;
     gWindow47Runtime.textCC426C = kBlacklistClearConfirm5886E4;
-    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004CD1E0。
@@ -29675,8 +29679,8 @@ std::int32_t Sub_4CD1E0(const std::int32_t, const std::int32_t)
 // 原函数：0x004CD220。
 std::int32_t Sub_4CD220(const std::int32_t, const std::int32_t)
 {
-    if (gWindowStates[65].window == nullptr) {
-        static_cast<void>(CreateWindowAnimation_475AA0(65, 1, 0, nullptr));
+    if (gWindowStates[WindowId_Blacklist].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Blacklist, 1, 0, nullptr));
     }
     return 1;
 }
@@ -29786,7 +29790,7 @@ void Sub_4CC340()
 }
 
 // 原函数：0x004CBD90。
-std::int32_t Sub_4CBD90(const std::int32_t value)
+std::int32_t WindowAdventureLog_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueD67BB0 = 0;
@@ -29926,10 +29930,10 @@ void InitializeLoginWindows_470600()
         world::detail::Sub_533950();
     }
     static_cast<void>(Sub_4A0940());
-    gWindowStates[21].marker50 = 0;
-    gWindowStates[22].marker50 = 0;
-    gWindowStates[23].marker50 = 0;
-    gWindowStates[40].marker50 = 0;
+    gWindowStates[WindowId_Contacts].marker50 = 0;
+    gWindowStates[WindowId_MailCompose].marker50 = 0;
+    gWindowStates[WindowId_PetMailCompose].marker50 = 0;
+    gWindowStates[WindowId_MailRead].marker50 = 0;
     static_cast<void>(Sub_4CC6A0());
     Sub_4CBD30();
     gLoginWindowRuntime.valueD67618 = 0;
@@ -29962,20 +29966,20 @@ WindowInstance* Sub_4A8330()
 {
     WindowInstance* result;
     if (gChatWindowModeD66E04 == 0) {
-        WindowInstance* const window = gWindowStates[35].window;
+        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         if (window == nullptr) {
             return nullptr;
         }
         window->state |= 0x8000u;
-        result = OpenWindow_471440(57);
+        result = OpenWindow_471440(WindowId_CompactChat);
         gChatWindowModeD66E04 = 1;
     } else {
-        WindowInstance* const window = gWindowStates[57].window;
+        WindowInstance* const window = gWindowStates[WindowId_CompactChat].window;
         if (window == nullptr) {
             return nullptr;
         }
         window->state |= 0x8000u;
-        result = OpenWindow_471440(35);
+        result = OpenWindow_471440(WindowId_Chat);
         gChatWindowModeD66E04 = 0;
     }
     input::gValue626C14 = 0;
@@ -29999,7 +30003,7 @@ WindowInstance* FindWindowById_477490(const std::int32_t id)
 // 原函数：0x004A8140。
 void Sub_4A8140()
 {
-    WindowInstance* const window = FindWindowById_477490(35);
+    WindowInstance* const window = FindWindowById_477490(WindowId_Chat);
     if (window == nullptr) {
         return;
     }
@@ -30042,22 +30046,22 @@ void Sub_4A7C40()
     gChatWidthUnitsC9A930 = width;
     if (width > 37) {
         const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
-        WindowInstance* const window = gWindowStates[35].window;
+        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 12;
         window->x += 26 * fontWidth;
     }
     if (gChatWidthUnitsC9A930 < 12) {
         const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
-        WindowInstance* const window = gWindowStates[35].window;
+        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         gChatWidthUnitsC9A930 = 37;
         window->x -= 26 * fontWidth;
     }
     if (gChatWidthRequestC9A934 == 1) {
-        WindowInstance* const window = gWindowStates[35].window;
+        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         window->x -= render::gFontMetrics[9].doubleWidth;
     }
     if (gChatWidthRequestC9A934 == -1) {
-        WindowInstance* const window = gWindowStates[35].window;
+        WindowInstance* const window = gWindowStates[WindowId_Chat].window;
         window->x += render::gFontMetrics[9].doubleWidth;
     }
     const std::int32_t currentWidth = gChatWidthUnitsC9A930;
@@ -30164,7 +30168,7 @@ void Sub_4A7C40()
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
 // 原函数：0x004A6DD0。
-std::int32_t Sub_4A6DD0(const std::int32_t value)
+std::int32_t WindowChat_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
@@ -30434,7 +30438,7 @@ std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
                 }
             }
         }
-        WindowElement* const focusedElements = gWindowStates[35].window->elements;
+        WindowElement* const focusedElements = gWindowStates[WindowId_Chat].window->elements;
         WindowInstance* const current = gCurrentWindow;
         gFocusedElementDataD45F94 = focusedElements[0].data;
         static_cast<WindowInputData*>(current->elements[0].data)->context =
@@ -30449,7 +30453,7 @@ std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004A8240。
-std::int32_t Sub_4A8240(const std::int32_t value)
+std::int32_t WindowCompactChat_Update(const std::int32_t value)
 {
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t y = window->y;
@@ -30470,7 +30474,7 @@ std::int32_t Sub_4A8240(const std::int32_t value)
 
 // CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A82C0。
-std::int32_t Sub_4A82C0(const std::int32_t)
+std::int32_t WindowChat_Draw(const std::int32_t)
 {
     if (input::gValueC9A96C != 0) {
         DrawCurrentWindow_4729B0();
@@ -30497,7 +30501,7 @@ std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    if (window != gWindows[0] || (state & 0x21) == 0) {
+    if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
         return 0;
     }
     const std::int32_t count = world::detail::gCountC9A944;
@@ -30753,14 +30757,14 @@ std::int32_t Sub_477460(const std::wstring_view text, const std::int8_t style)
 }
 
 // 原函数：0x0046FBC0。
-std::int32_t Sub_46FBC0(const std::int32_t)
+std::int32_t WindowRuntime_DrawDefault(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     return 1;
 }
 
 // 原函数：0x0049E750。
-std::int32_t Sub_49E750(const std::int32_t value)
+std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
@@ -30785,14 +30789,14 @@ void Sub_43C950()
 {
     using namespace world::detail;
     if ((gBattlePlayerFlags5ABCAC & 3u) != 0
-        && gBattleEntryNoticeAction5ABFB8 == nullptr && gWindowStates[32].window == nullptr) {
-        gBattleEntryNoticeAction5ABFB8 = CreateWindowAnimation_475AA0(32, 1, 0, nullptr);
+        && gBattleEntryNoticeAction5ABFB8 == nullptr && gWindowStates[WindowId_BattleStateNotice].window == nullptr) {
+        gBattleEntryNoticeAction5ABFB8 = CreateWindowAnimation_475AA0(WindowId_BattleStateNotice, 1, 0, nullptr);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }
 }
 
 // 原函数：0x0049BD40。
-std::int32_t Sub_49BD40(const std::int32_t)
+std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     world::detail::gBattleEntryNoticeAction5ABFB8 = nullptr;
@@ -30813,7 +30817,7 @@ std::int32_t Sub_49BD40(const std::int32_t)
 }
 
 // 原函数：0x0049BDB0。
-std::int32_t Sub_49BDB0(const std::int32_t)
+std::int32_t WindowRuntime_DrawCompactFrame(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     WindowInstance* const window = gCurrentWindow;
@@ -30937,7 +30941,7 @@ login::YobiAction* CreateCraftWindow()
             window->state |= 0x8000u;
         }
     }
-    return CreateWindowAnimation_475AA0(11, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Craft, 1, 0, nullptr);
 }
 
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
@@ -32319,7 +32323,7 @@ std::int32_t Sub_4830B0(const std::int32_t index, const std::int32_t state)
         gHoverTextD68AE8 = L"關閉此視窗";
     }
     if ((state & 2) != 0) {
-        gWindowStates[11].window->state |= 0x8000u;
+        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     graphic->imageNo = 0x3B565;
@@ -32750,7 +32754,7 @@ std::int32_t Sub_485160(const std::int32_t index, const std::int32_t state)
         gHoverTextD68AE8 = L"關閉這個視窗。";
     }
     if ((state & 2) != 0) {
-        gWindowStates[11].window->state |= 0x8000u;
+        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
     }
@@ -33097,7 +33101,7 @@ std::int32_t Sub_47D5B0()
 }
 
 // 原函数：0x004810A0。
-std::int32_t Sub_4810A0(const std::int32_t value)
+std::int32_t WindowCraft_Update(const std::int32_t value)
 {
     const auto initializeMode = [](const std::uint8_t mode) {
         switch (mode) {
@@ -33153,7 +33157,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
         }
     }
     if (Sub_4D3040(1, 1) != 0) {
-        gWindowStates[11].window->state |= 0x8000u;
+        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     bool matchingCrystal = false;
@@ -33412,10 +33416,10 @@ std::int32_t Sub_4810A0(const std::int32_t value)
 }
 
 // 原函数：0x00481010。
-void Sub_481010()
+void WindowCraft_Release()
 {
-    WindowInstance* const quantityWindow = gWindowStates[42].window;
-    if (quantityWindow != nullptr && gWindowStates[42].value20 == 11) {
+    WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
     gValueD67B00 = 0;
@@ -33436,7 +33440,7 @@ void Sub_481010()
 }
 
 // 原函数：0x00482000。
-std::int32_t Sub_482000(const std::int32_t)
+std::int32_t WindowCraft_Draw(const std::int32_t)
 {
     login::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action;
@@ -33668,7 +33672,7 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
 // 原函数：0x0047EBE0。
 WindowAnimationData* Sub_47EBE0()
 {
-    WindowInstance* const window = gWindowStates[11].window;
+    WindowInstance* const window = gWindowStates[WindowId_Craft].window;
     return window != nullptr ? Sub_47E5E0(window) : nullptr;
 }
 
@@ -33894,7 +33898,7 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
 // 原函数：0x0047FAC0。
 WindowAnimationData* Sub_47FAC0()
 {
-    WindowInstance* const window = gWindowStates[11].window;
+    WindowInstance* const window = gWindowStates[WindowId_Craft].window;
     return window != nullptr ? Sub_47F3D0(window) : nullptr;
 }
 
@@ -34028,10 +34032,11 @@ login::YobiAction* Sub_4854A0(const std::int32_t skill, const std::int32_t level
             window->state |= 0x8000u;
         }
     }
-    return CreateWindowAnimation_475AA0(12, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Gather, 1, 0, nullptr);
 }
 
-void Sub_485690()
+// 原函数：0x00485690。
+void WindowGather_Release()
 {
     Sub_479660();
     const std::uint8_t mode = gWindow12ModeCC3E80;
@@ -34039,7 +34044,7 @@ void Sub_485690()
         Sub_4796E0();
     }
     const std::uint8_t previousReferences = gValueD67AFD;
-    WindowInstance* const window = gWindowStates[12].window;
+    WindowInstance* const window = gWindowStates[WindowId_Gather].window;
     gValueD67AFD = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
     // 原4856C1..4856CD：W8减后发布，分支消费同一结果。
@@ -34254,7 +34259,7 @@ WindowAnimationData* Sub_485AF0(WindowInstance* const window)
 // 原函数：0x00486020。
 WindowAnimationData* Sub_486020()
 {
-    WindowInstance* const window = gWindowStates[12].window;
+    WindowInstance* const window = gWindowStates[WindowId_Gather].window;
     return window != nullptr ? Sub_485AF0(window) : nullptr;
 }
 
@@ -34316,7 +34321,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
 }
 
 // 原函数：0x00486040。
-std::int32_t Sub_486040(const std::int32_t value)
+std::int32_t WindowGather_Update(const std::int32_t value)
 {
     if (value == -1) {
         gWindowActionD2E928 = nullptr;
@@ -34678,7 +34683,7 @@ login::YobiAction* Sub_4875E0()
     const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
     const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
     gValueD67AFD = references;
-    WindowInstance* const previous = gWindowStates[11].window;
+    WindowInstance* const previous = gWindowStates[WindowId_Craft].window;
     gValueD67AFE = skillReferences;
     if (previous != nullptr) {
         previous->state |= 0x8000u;
@@ -34689,11 +34694,11 @@ login::YobiAction* Sub_4875E0()
             window->state |= 0x8000u;
         }
     }
-    return CreateWindowAnimation_475AA0(13, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_SkillResult, 1, 0, nullptr);
 }
 
 // 原函数：0x00487660。
-void Sub_487660()
+void WindowSkillResult_Release()
 {
     Sub_479660();
     const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
@@ -34703,7 +34708,7 @@ void Sub_487660()
     if (skillReferences == 0 && world::detail::Sub_51BEC0() == 13) {
         static_cast<void>(world::detail::Sub_51BE50(0));
     }
-    gWindowStates[13].window->state |= 0x8000u;
+    gWindowStates[WindowId_SkillResult].window->state |= 0x8000u;
 }
 
 WindowAnimationData* Sub_4876B0(WindowInstance* const window)
@@ -34775,7 +34780,7 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
 }
 
 // 原函数：0x00487AE0。
-std::int32_t Sub_487AE0(const std::int32_t value)
+std::int32_t WindowSkillResult_Update(const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(Sub_4876B0(gCurrentWindow));
@@ -34795,7 +34800,7 @@ std::int32_t Sub_487AE0(const std::int32_t value)
 }
 
 // 原函数：0x00487B80。
-std::int32_t Sub_487B80(const std::int32_t)
+std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
     login::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
@@ -35635,7 +35640,8 @@ void Sub_479C80(WindowInstance* const window, const std::int32_t pairIndex)
     }
 }
 
-void Sub_47B0E0()
+// 原函数：0x0047B0E0。
+void WindowSkill_Release()
 {
     const std::int32_t mode = gSkillWindowModeD672AC;
     if (mode == 1 || mode == 2) {
@@ -35886,17 +35892,17 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
 void Sub_4966B0(
     const std::int32_t mode, const std::int16_t x, const std::int16_t y)
 {
-    gWindowStates[26].actionFlags1C =
-        (gWindowStates[26].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
-    WindowInstance* const window = gWindowStates[26].window;
+    gWindowStates[WindowId_BattleCommand].actionFlags1C =
+        (gWindowStates[WindowId_BattleCommand].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
+    WindowInstance* const window = gWindowStates[WindowId_BattleCommand].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     } else {
-        gWindowStates[26].window = OpenWindow_471440(26);
+        gWindowStates[WindowId_BattleCommand].window = OpenWindow_471440(WindowId_BattleCommand);
     }
-    WindowElement* const elements = gWindowStates[26].window->elements;
+    WindowElement* const elements = gWindowStates[WindowId_BattleCommand].window->elements;
     const auto currentMode = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
     auto* const graphic = static_cast<WindowGraphicData*>(elements[13].data);
     switch (currentMode) {
     case 0:
@@ -35904,25 +35910,25 @@ void Sub_4966B0(
     case 2:
         graphic->imageNo = 0x3B9C0 + currentMode;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[26].window->elements[index].visible = 1;
+            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 1;
         }
-        gWindowStates[26].window->elements[8].visible = 0;
-        gWindowStates[26].window->elements[9].visible = 0;
-        gWindowStates[26].window->elements[10].visible = 0;
-        gWindowStates[26].window->elements[11].visible = 0;
-        gWindowStates[26].window->elements[12].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 0;
         break;
     case 3: {
         graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[26].window->elements[index].visible = 0;
+            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 0;
         }
-        gWindowStates[26].window->elements[8].visible = 1;
-        gWindowStates[26].window->elements[8].x = 216;
-        gWindowStates[26].window->elements[9].visible = 0;
-        gWindowStates[26].window->elements[10].visible = 1;
-        gWindowStates[26].window->elements[11].visible = 1;
-        gWindowStates[26].window->elements[12].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[8].x = 216;
+        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 0;
+        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
         const std::int32_t namePosition = world::detail::GetBattlePetPosition_405B40(
             world::detail::gBattleCurrentPosition5ABCA4);
         const login::YobiAction* const action = world::detail::gBattleEntries59E980[namePosition];
@@ -35930,7 +35936,7 @@ void Sub_4966B0(
         if (name[0] == '\0') {
             name = login::detail::BorrowYobiNameC4(action);
         }
-        static_cast<WindowTextData*>(gWindowStates[26].window->elements[10].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
         const std::int32_t maximumPosition = world::detail::GetBattlePetPosition_405B40(
             world::detail::gBattleCurrentPosition5ABCA4);
         const std::int32_t maximum = login::detail::ReadYobiActionMaxFpOnce(
@@ -35939,103 +35945,103 @@ void Sub_4966B0(
             world::detail::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
+        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     case 4: {
         graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[26].window->elements[index].visible = 0;
+            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 0;
         }
-        gWindowStates[26].window->elements[8].visible = 1;
-        gWindowStates[26].window->elements[8].x = 146;
-        gWindowStates[26].window->elements[9].visible = 1;
-        gWindowStates[26].window->elements[10].visible = 1;
-        gWindowStates[26].window->elements[11].visible = 1;
-        gWindowStates[26].window->elements[12].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[8].x = 146;
+        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
+        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
         const std::int32_t namePosition = world::detail::gBattleCurrentPosition5ABCA4;
         const char* const name = login::detail::BorrowYobiNameC4(
             world::detail::gBattleEntries59E980[namePosition]);
-        static_cast<WindowTextData*>(gWindowStates[26].window->elements[10].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
         const std::int32_t maximumPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maximum = login::detail::ReadYobiActionMaxFpOnce(
             world::detail::gBattleEntries59E980[maximumPosition]);
         const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
+        cg::text::FormatTo(static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[11].data)->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     default:
         break;
     }
-    WindowInstance* const positionedWindow = gWindowStates[26].window;
-    gWindowStates[26].x = x;
-    gWindowStates[26].y = y;
-    gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(std::int32_t {-153});
-    gWindowStates[26].value14 = 17;
+    WindowInstance* const positionedWindow = gWindowStates[WindowId_BattleCommand].window;
+    gWindowStates[WindowId_BattleCommand].x = x;
+    gWindowStates[WindowId_BattleCommand].y = y;
+    gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(std::int32_t {-153});
+    gWindowStates[WindowId_BattleCommand].value14 = 17;
     positionedWindow->x = x;
-    const std::int32_t baseY = gWindowStates[26].y;
-    const auto offset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
-    gWindowStates[26].window->y = baseY + offset;
-    gWindowStates[26].userState.value = 1;
+    const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
+    const auto offset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
+    gWindowStates[WindowId_BattleCommand].window->y = baseY + offset;
+    gWindowStates[WindowId_BattleCommand].userState.value = 1;
 }
 
 // 原函数：0x00496B90。
-std::int32_t Sub_496B90(const std::int32_t value)
+std::int32_t WindowBattleCommand_Update(const std::int32_t value)
 {
     if (value == -1) {
-        gWindowStates[26].value10 = 0;
-        gWindowStates[26].value14 = 0;
-        gWindowStates[26].userState.value = 0;
+        gWindowStates[WindowId_BattleCommand].value10 = 0;
+        gWindowStates[WindowId_BattleCommand].value14 = 0;
+        gWindowStates[WindowId_BattleCommand].userState.value = 0;
         gBattleSkillTargetPendingD303F8 = 0;
         gBattleItemTargetFlagCC4D40 = 0;
         return 1;
     }
-    const std::uint32_t phase = gWindowStates[26].userState.value;
+    const std::uint32_t phase = gWindowStates[WindowId_BattleCommand].userState.value;
     if (phase == 1) {
-        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
-        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[26].value14);
+        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
+        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14);
         const std::int32_t offset = oldOffset + velocity;
-        gWindowStates[26].value14 = std::bit_cast<std::uint32_t>(velocity - 1);
-        const std::int32_t baseY = gWindowStates[26].y;
-        gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(offset);
+        gWindowStates[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(velocity - 1);
+        const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
+        gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
         gCurrentWindow->y = baseY + offset;
-        if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) <= 0) {
-            gWindowStates[26].value14 = 0;
-            gWindowStates[26].userState.value = 0;
+        if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) <= 0) {
+            gWindowStates[WindowId_BattleCommand].value14 = 0;
+            gWindowStates[WindowId_BattleCommand].userState.value = 0;
         }
     } else if (phase == 2) {
-        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[26].value14);
-        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
+        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14);
+        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10);
         const std::int32_t nextVelocity = velocity + 1;
-        gWindowStates[26].value14 = std::bit_cast<std::uint32_t>(nextVelocity);
+        gWindowStates[WindowId_BattleCommand].value14 = std::bit_cast<std::uint32_t>(nextVelocity);
         const std::int32_t offset = oldOffset - nextVelocity;
-        const std::int32_t baseY = gWindowStates[26].y;
-        gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(offset);
+        const std::int32_t baseY = gWindowStates[WindowId_BattleCommand].y;
+        gWindowStates[WindowId_BattleCommand].value10 = std::bit_cast<std::uint32_t>(offset);
         gCurrentWindow->y = baseY + offset;
-        if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) >= 17) {
-            gWindowStates[26].value14 = 17;
-            gWindowStates[26].window->state |= 0x8000u;
-            gWindowStates[26].userState.value = 3;
+        if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) >= 17) {
+            gWindowStates[WindowId_BattleCommand].value14 = 17;
+            gWindowStates[WindowId_BattleCommand].window->state |= 0x8000u;
+            gWindowStates[WindowId_BattleCommand].userState.value = 3;
         }
-        WindowInstance* window = gWindowStates[10].window;
+        WindowInstance* window = gWindowStates[WindowId_Skill].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
-        window = gWindowStates[27].window;
+        window = gWindowStates[WindowId_BattleItems].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
-        window = gWindowStates[28].window;
+        window = gWindowStates[WindowId_BattlePets].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
-    auto mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+    auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     if (mode != 3 && mode != 4) {
         gCurrentWindow->elements[7].visible = 1;
-        mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+        mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     }
     if (mode == 2) {
         gCurrentWindow->elements[2].visible = 1;
@@ -36053,10 +36059,10 @@ std::int32_t Sub_496B90(const std::int32_t value)
 }
 
 // 原函数：0x00496D50。
-std::int32_t Sub_496D50(const std::int32_t)
+std::int32_t WindowBattleCommand_Draw(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
-    const auto mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+    const auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
         const char* name;
         if (world::detail::gValue553F84 < 0) {
@@ -36066,9 +36072,9 @@ std::int32_t Sub_496D50(const std::int32_t)
             const std::int32_t technique = world::detail::gValue553F84;
             name = (*world::detail::BorrowPetRuntimeF633F8Storage())[pet].techniquesD8[technique].name.data();
         }
-        static_cast<WindowTextData*>(gWindowStates[26].window->elements[12].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[12].data)->text = cg::text::FromGbkWide(name);
     }
-    if (gWindowStates[26].userState.value == 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
         for (; first < 20; ++first) {
             const login::YobiAction* const action = world::detail::gBattleEntries59E980[first];
@@ -36118,25 +36124,25 @@ std::int32_t Sub_496D50(const std::int32_t)
 // 原函数：0x00496AE0。
 void Sub_496AE0()
 {
-    if (gWindowStates[26].window == nullptr) {
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr) {
         return;
     }
-    if (std::bit_cast<std::int32_t>(gWindowStates[26].value10) > 0) {
-        gWindowStates[26].value10 = 0;
+    if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value10) > 0) {
+        gWindowStates[WindowId_BattleCommand].value10 = 0;
     }
-    if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) < 0) {
-        gWindowStates[26].value14 = 0;
+    if (std::bit_cast<std::int32_t>(gWindowStates[WindowId_BattleCommand].value14) < 0) {
+        gWindowStates[WindowId_BattleCommand].value14 = 0;
     }
-    WindowInstance* window = gWindowStates[10].window;
-    gWindowStates[26].userState.value = 2;
+    WindowInstance* window = gWindowStates[WindowId_Skill].window;
+    gWindowStates[WindowId_BattleCommand].userState.value = 2;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[27].window;
+    window = gWindowStates[WindowId_BattleItems].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[28].window;
+    window = gWindowStates[WindowId_BattlePets].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -36161,15 +36167,15 @@ void Sub_496AE0()
 void Sub_496F10()
 {
     world::detail::gBattleSelectionModes5ABC7C.fill(0);
-    WindowInstance* window = gWindowStates[10].window;
+    WindowInstance* window = gWindowStates[WindowId_Skill].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[27].window;
+    window = gWindowStates[WindowId_BattleItems].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    window = gWindowStates[28].window;
+    window = gWindowStates[WindowId_BattlePets].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -36194,7 +36200,7 @@ void Sub_496F10()
 std::int32_t Sub_4972B0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9C4;
         if (world::detail::gBattleSelectionModes5ABC7C[0] != 0) {
             graphic->imageNo = 0x3B9C5;
@@ -36232,7 +36238,7 @@ std::int32_t Sub_4972B0(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_4973C0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D0;
         if (world::detail::gBattleSelectionModes5ABC7C[1] != 0) {
             graphic->imageNo = 0x3B9D1;
@@ -36273,7 +36279,7 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B9D4;
         return 0;
     }
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D3;
         if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
             graphic->imageNo = 0x3B9D4;
@@ -36295,12 +36301,12 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
             world::detail::gBattleItemTargetPending5ABCC4 = 0;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             gBattleValueCB054C = 0;
-            gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+            gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(WindowId_BattleItems, 1, 0, nullptr);
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
         &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
-        gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+        gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(WindowId_BattleItems, 1, 0, nullptr);
         gBattleItemTargetFlagCC4D40 = 0;
         login::detail::FlushBattleEntries_43C060();
     }
@@ -36311,7 +36317,7 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
     if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
         graphic->imageNo = 0x3B9D4;
     }
-    if (gWindowStates[27].window != nullptr) {
+    if (gWindowStates[WindowId_BattleItems].window != nullptr) {
         gBattleItemWindowActionD2F790 = nullptr;
     } else if (gBattleItemWindowActionD2F790 == nullptr && gBattleItemTargetFlagCC4D40 == 0) {
         world::detail::gBattleSelectionModes5ABC7C[3] = 0;
@@ -36327,7 +36333,7 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B9CB;
         return 0;
     }
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9CA;
         if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
             graphic->imageNo = 0x3B9CB;
@@ -36347,12 +36353,12 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
             login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
             world::detail::gBattleCommandAction5ABC00 = nullptr;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
+            gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(WindowId_BattlePets, 1, 0, nullptr);
             consumed = 1;
         }
     } else if ((*reinterpret_cast<const std::uint8_t*>(
         &platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 2u) != 0) {
-        WindowInstance* const window = gWindowStates[28].window;
+        WindowInstance* const window = gWindowStates[WindowId_BattlePets].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -36364,7 +36370,7 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
     if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
         graphic->imageNo = 0x3B9CB;
     }
-    if (gWindowStates[28].window != nullptr) {
+    if (gWindowStates[WindowId_BattlePets].window != nullptr) {
         gBattlePetWindowActionD2D60C = nullptr;
     } else if (gBattlePetWindowActionD2D60C == nullptr) {
         world::detail::gBattleSelectionModes5ABC7C[4] = 0;
@@ -36380,7 +36386,7 @@ std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B9D7;
         return 0;
     }
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D6;
         if (world::detail::gBattleSelectionModes5ABC7C[6] != 0) {
             graphic->imageNo = 0x3B9D7;
@@ -36417,7 +36423,7 @@ std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
 std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D9;
         if (world::detail::gBattleSelectionModes5ABC7C[7] != 0) {
             graphic->imageNo = 0x3B9DA;
@@ -36464,7 +36470,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     element->visible = 1;
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9CD;
         if (world::detail::gBattleSelectionModes5ABC7C[8] != 0) {
             graphic->imageNo = 0x3B9CE;
@@ -36514,13 +36520,13 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
 // 原函数：0x00496FB0。
 std::int32_t Sub_496FB0()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -36531,13 +36537,13 @@ std::int32_t Sub_496FB0()
 // 原函数：0x004970B0。
 std::int32_t Sub_4970B0()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -36548,13 +36554,13 @@ std::int32_t Sub_4970B0()
 // 原函数：0x00497100。
 void Sub_497100()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
@@ -36569,19 +36575,19 @@ void Sub_497100()
     world::detail::gBattleItemTargetPending5ABCC4 = 0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gBattleValueCB054C = 0;
-    gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+    gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(WindowId_BattleItems, 1, 0, nullptr);
 }
 
 // 原函数：0x004971C0。
 std::int32_t Sub_4971C0()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return 0;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0) {
         return 0;
@@ -36592,13 +36598,13 @@ std::int32_t Sub_4971C0()
 // 原函数：0x00497210。
 void Sub_497210()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
@@ -36611,19 +36617,19 @@ void Sub_497210()
     login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
     world::detail::gBattleCommandAction5ABC00 = nullptr;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
+    gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(WindowId_BattlePets, 1, 0, nullptr);
 }
 
 // 原函数：0x00497000。
 void Sub_497000()
 {
-    if (gWindowStates[26].window == nullptr
-        || gWindowStates[26].userState.value != 0
+    if (gWindowStates[WindowId_BattleCommand].window == nullptr
+        || gWindowStates[WindowId_BattleCommand].userState.value != 0
         || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[2] != 0) {
@@ -36681,7 +36687,7 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B9C8;
         return 0;
     }
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9C7;
         if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {
             graphic->imageNo = 0x3B9C8;
@@ -36714,7 +36720,7 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
                 world::detail::gBattleSelectedSkill5ABB5C, &Sub_4974C0);
             gBattleSkillTargetPendingD303F8 = 0;
             login::detail::FlushBattleEntries_43C060();
-        } else if (gWindowStates[10].window != nullptr) {
+        } else if (gWindowStates[WindowId_Skill].window != nullptr) {
             if (Sub_47A5C0() != 0) {
                 world::detail::gBattleSelectionModes5ABC7C[2] = 0;
             }
@@ -36729,7 +36735,7 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
     if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {
         graphic->imageNo = 0x3B9C8;
     }
-    if (gWindowStates[10].window != nullptr) {
+    if (gWindowStates[WindowId_Skill].window != nullptr) {
         gBattleSkillWindowActionCC1A10 = nullptr;
     } else if (gBattleSkillWindowActionCC1A10 == nullptr && gBattleSkillTargetPendingD303F8 == 0) {
         world::detail::gBattleSelectionModes5ABC7C[2] = 0;
@@ -36842,12 +36848,12 @@ void Sub_497FF0(const std::int32_t technique)
 std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
-    if (gWindowStates[26].userState.value != 0) {
+    if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         return 0;
     }
     std::int32_t consumed = 0;
     const std::int32_t entryState = state;
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     const std::int32_t hover = entryState & 1;
     if (hover != 0 && window != nullptr) {
         gHoverTextD68AE8 = L"關閉技能視窗。";
@@ -36864,7 +36870,7 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
         } else {
             login::detail::FlushBattleEntries_43C060();
             const std::uint8_t actionState =
-                reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C)[0];
+                reinterpret_cast<const std::uint8_t*>(&gWindowStates[WindowId_BattleCommand].actionFlags1C)[0];
             world::detail::gBattlePetCommandPhase553F88 = 1;
             const bool riding = actionState == 4;
             world::detail::gValue553F84 = -1;
@@ -36877,9 +36883,9 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
     if (hover != 0) {
         graphic->imageNo = 0x3B9C9;
     }
-    if (gWindowStates[10].window != nullptr || gBattlePetSkillWindowActionCC423C != nullptr) {
+    if (gWindowStates[WindowId_Skill].window != nullptr || gBattlePetSkillWindowActionCC423C != nullptr) {
         graphic->imageNo = 0x3B9C8;
-        if (gWindowStates[10].window != nullptr) {
+        if (gWindowStates[WindowId_Skill].window != nullptr) {
             gBattlePetSkillWindowActionCC423C = nullptr;
         }
     }
@@ -37052,10 +37058,10 @@ void Sub_498520()
             static_cast<void>(Sub_47A4C0(&Sub_4974C0));
             break;
         case 3:
-            static_cast<void>(CreateWindowAnimation_475AA0(27, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_BattleItems, 1, 0, nullptr));
             break;
         case 4:
-            static_cast<void>(CreateWindowAnimation_475AA0(28, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_BattlePets, 1, 0, nullptr));
             break;
         default:
             break;
@@ -37121,7 +37127,7 @@ void Sub_498520()
         break;
     }
     case 2:
-        if (gWindowStates[26].userState.value == 3) {
+        if (gWindowStates[WindowId_BattleCommand].userState.value == 3) {
             const std::int32_t count = gBattleSkillActionCount5ABBF4;
             gBattlePlayerActionState5ABC74 = 0;
             if (count == 1) {
@@ -37257,7 +37263,7 @@ void Sub_498520()
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::BorrowLegacyMouseStateStorage()->edgeButtons)[0];
                 static_cast<void>(0);
                 if ((clicks & 1u) != 0) {
-                    WindowInstance* const window = gWindowStates[10].window;
+                    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
                     if (window != nullptr) {
                         window->state |= 0x8000u;
                     }
@@ -37337,7 +37343,7 @@ void Sub_498520()
         break;
     }
     case 5:
-        if (gWindowStates[26].userState.value == 3) {
+        if (gWindowStates[WindowId_BattleCommand].userState.value == 3) {
             login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
             if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr && gBattlePetActionCount5ABBBC < 2) {
                 gBattlePlayerActionState5ABC74 = 0;
@@ -37479,7 +37485,7 @@ void Sub_4965D0()
 }
 
 // 原函数：0x0049B630。
-std::int32_t Sub_49B630(const std::int32_t)
+std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
     gCurrentWindow->elements[1].visible = 0;
     if (world::detail::Sub_43C4B0() != -1) {
@@ -37657,14 +37663,14 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
 // 原函数：0x0047A490。
 login::YobiAction* Sub_47A490()
 {
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     const bool hasWindow = window != nullptr;
     gSkillSelectionCallbackCC4230 = nullptr;
     gSkillWindowModeD672AC = 0;
     if (hasWindow) {
         window->state &= ~0x8000u;
     }
-    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A4C0。
@@ -37672,11 +37678,11 @@ login::YobiAction* Sub_47A4C0(const SkillWindowSelectionCallback callback)
 {
     gSkillWindowModeD672AC = 3;
     gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A500。
@@ -37684,13 +37690,13 @@ login::YobiAction* Sub_47A500(
     const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
 {
     gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     gSkillWindowModeD672AC = 4;
     gSkillWindowIndexD2EA60 = skillIndex;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047CB00。
@@ -37993,11 +37999,11 @@ login::YobiAction* Sub_47A540(const WindowValueCallback callback)
 {
     gSkillWindowModeD672AC = 5;
     gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A580。
@@ -38005,11 +38011,11 @@ login::YobiAction* Sub_47A580(const WindowValueCallback callback)
 {
     gSkillWindowModeD672AC = 6;
     gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047B110。
@@ -38061,7 +38067,7 @@ std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
 // 原函数：0x0047A5C0。
 std::int32_t Sub_47A5C0()
 {
-    WindowInstance* const window = gWindowStates[10].window;
+    WindowInstance* const window = gWindowStates[WindowId_Skill].window;
     if (window == nullptr) {
         return 0;
     }
@@ -38196,7 +38202,7 @@ std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x0047A620。
-std::int32_t Sub_47A620(const std::int32_t value)
+std::int32_t WindowSkill_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t mode = gSkillWindowModeD672AC;
@@ -38251,7 +38257,7 @@ std::int32_t Sub_47A620(const std::int32_t value)
 }
 
 // 原函数：0x0047A7A0。
-std::int32_t Sub_47A7A0(const std::int32_t)
+std::int32_t WindowSkill_Draw(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const auto* const mouse = static_cast<const WindowMouseData*>(elements[11].data);
@@ -38608,7 +38614,7 @@ std::int32_t Sub_47C3A0(const std::int32_t index, const std::int32_t state)
             allowed = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
             if (allowed) {
                 bool create;
-                if (gWindowStates[11].window != nullptr) {
+                if (gWindowStates[WindowId_Craft].window != nullptr) {
                     create = gCraftSkillIndexCC2368 != skill
                         || gCraftRequestValueD30400 != gSkillRecipeLevelC8B1B4
                         || gCraftRecipeIndexD2D638 != recipe;
@@ -38630,7 +38636,7 @@ std::int32_t Sub_47C3A0(const std::int32_t index, const std::int32_t state)
     if (clicked) {
         visualState = 1;
     }
-    if (gWindowStates[11].window != nullptr
+    if (gWindowStates[WindowId_Craft].window != nullptr
         && gCraftSkillIndexCC2368 == gSkillWindowIndexD2EA60
         && gCraftRequestValueD30400 == gSkillRecipeLevelC8B1B4
         && gCraftRecipeIndexD2D638 == recipe) {
@@ -38701,7 +38707,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
                         fail();
                         return;
                     }
-                    if (gWindowStates[12].window != nullptr) {
+                    if (gWindowStates[WindowId_Gather].window != nullptr) {
                         const std::int32_t current = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
                         const std::int32_t skill = gSkillWindowIndexD2EA60;
                         if (current != skill || gUsingSkillLevelCA0AC4 != technique) {
@@ -38731,7 +38737,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
                         fail();
                         return;
                     }
-                    if (gWindowStates[11].window != nullptr) {
+                    if (gWindowStates[WindowId_Craft].window != nullptr) {
                         const std::int32_t skill = gSkillWindowIndexD2EA60;
                         if (gCraftSkillIndexCC2368 != skill || gCraftRequestValueD30400 != technique) {
                             gWindowActionCA0174 = Sub_47D780(skill, technique);
@@ -38809,7 +38815,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
 // 原函数：0x0047A140。
 void Sub_47A140()
 {
-    if (gWindowStates[10].window == nullptr || gSkillWindowModeD672AC != 2) {
+    if (gWindowStates[WindowId_Skill].window == nullptr || gSkillWindowModeD672AC != 2) {
         return;
     }
     const std::int32_t index = gSkillWindowIndexD2EA60;
@@ -39049,7 +39055,7 @@ login::YobiAction* Sub_48AF00()
         gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
         gItemUseTargetCountCC40CC, Sub_48AEA0);
     if (result == nullptr) {
-        WindowInstance* const window = gWindowStates[45].window;
+        WindowInstance* const window = gWindowStates[WindowId_TextTarget].window;
         if (window == nullptr || (window->state & 0x8000u) != 0) {
             const std::int32_t previous = gSelectedItemCB1DF4;
             gSelectedItemCB1DF4 = -1;
@@ -39165,7 +39171,7 @@ login::YobiAction* Sub_48B0A0()
         Sub_49F760(gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, Sub_48B010);
     bool retainReference = result != nullptr;
     if (!retainReference) {
-        WindowInstance* const window = gWindowStates[46].window;
+        WindowInstance* const window = gWindowStates[WindowId_AttributeTarget].window;
         retainReference = window != nullptr && (window->state & 0x8000u) == 0;
     }
     if (retainReference) {
@@ -39275,11 +39281,11 @@ login::YobiAction* Sub_49F000(
     gTextChoiceColorsCB1E18 = colors;
     gTextChoiceCountCC4CE4 = count;
     gTextChoicePendingC9A974 = callback;
-    return CreateWindowAnimation_475AA0(45, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_TextTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x0049F040。
-void Sub_49F040()
+void WindowTextTarget_Release()
 {
     const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
     if (callback != nullptr) {
@@ -39288,7 +39294,7 @@ void Sub_49F040()
 }
 
 // 原函数：0x0049F060。
-std::int32_t Sub_49F060(const std::int32_t value)
+std::int32_t WindowTextTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
         gTextChoiceOffsetD2D9C0 = 0;
@@ -39321,7 +39327,7 @@ void Sub_49F0A0(const std::int32_t offset)
 }
 
 // 原函数：0x0049F1A0。
-std::int32_t Sub_49F1A0(const std::int32_t)
+std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -39543,11 +39549,11 @@ login::YobiAction* Sub_49F760(
     gStatusChoiceRecordsCB03D0 = records;
     gStatusChoiceCountCC2364 = count;
     gStatusChoiceCallbackCF47D4 = callback;
-    return CreateWindowAnimation_475AA0(46, 1, 0, nullptr);
+    return CreateWindowAnimation_475AA0(WindowId_AttributeTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x0049F790。
-void Sub_49F790()
+void WindowAttributeTarget_Release()
 {
     const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
     if (callback != nullptr) {
@@ -39556,7 +39562,7 @@ void Sub_49F790()
 }
 
 // 原函数：0x0049F7B0。
-std::int32_t Sub_49F7B0(const std::int32_t value)
+std::int32_t WindowAttributeTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
         Sub_49F7E0(gStatusChoiceOffsetD671D4);
@@ -39637,7 +39643,7 @@ std::int32_t Sub_4990F0(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x004991C0。
-std::int32_t Sub_4991C0(const std::int32_t value)
+std::int32_t WindowBattleResult_Update(const std::int32_t value)
 {
     if (value == -1) {
         const auto& results = world::detail::BorrowBattleResults();
@@ -39754,7 +39760,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
 }
 
 // 原函数：0x004996C0。
-std::int32_t Sub_4996C0(const std::int32_t)
+std::int32_t WindowBattleResult_Draw(const std::int32_t)
 {
     render::GraphicDescriptor16 descriptor {};
     descriptor.bytes[8] = 0xFF;
@@ -39789,7 +39795,7 @@ std::int32_t Sub_499750(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x00499790。
-std::int32_t Sub_499790(const std::int32_t value)
+std::int32_t WindowDpResult_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::uint32_t now = platform::ReadTickCount32();
@@ -39830,7 +39836,7 @@ std::int32_t Sub_499880(const std::int32_t index, const std::int32_t state)
 }
 
 // 原函数：0x00499830。
-std::int32_t Sub_499830(const std::int32_t)
+std::int32_t WindowRuntime_DrawLargeFrame(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     WindowInstance* const window = gCurrentWindow;
@@ -39944,7 +39950,7 @@ void Sub_49E990(const std::int32_t offset)
 }
 
 // 原函数：0x0049E8F0。
-std::int32_t Sub_49E8F0(const std::int32_t value)
+std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
@@ -39962,7 +39968,7 @@ std::int32_t Sub_49E8F0(const std::int32_t value)
 }
 
 // 原函数：0x0049EAA0。
-std::int32_t Sub_49EAA0(const std::int32_t)
+std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 {
     gCurrentWindow->elements[0].visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
@@ -40519,18 +40525,18 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
         if ((state & 1) != 0) {
             consumed = 1;
         }
-        WindowInstance* first = gWindowStates[7].window;
+        WindowInstance* first = gWindowStates[WindowId_PlayerProfile].window;
         WindowInstance* second;
         WindowInstance* third;
         // 短路命中后重取9/8/7；未命中时三个局部均已由条件赋值。
         if (first != nullptr
-            || (second = gWindowStates[8].window) != nullptr
-            || gWindowStates[58].window != nullptr
-            || (third = gWindowStates[9].window) != nullptr) {
+            || (second = gWindowStates[WindowId_PlayerAttributes].window) != nullptr
+            || gWindowStates[WindowId_OwnProfile].window != nullptr
+            || (third = gWindowStates[WindowId_PlayerTitles].window) != nullptr) {
             graphic->imageNo = 0x3B95E;
-            third = gWindowStates[9].window;
-            second = gWindowStates[8].window;
-            first = gWindowStates[7].window;
+            third = gWindowStates[WindowId_PlayerTitles].window;
+            second = gWindowStates[WindowId_PlayerAttributes].window;
+            first = gWindowStates[WindowId_PlayerProfile].window;
         }
         if ((state & 2) == 0) {
             return consumed;
@@ -40541,51 +40547,51 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
         if (first != nullptr || second != nullptr) {
             if (first != nullptr) {
                 first->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[7].window;
+                WindowInstance* const current = gWindowStates[WindowId_PlayerProfile].window;
                 savedX = current->x;
                 savedY = current->y;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
-                second = gWindowStates[8].window;
+                second = gWindowStates[WindowId_PlayerAttributes].window;
             }
             if (second != nullptr) {
                 second->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[8].window;
+                WindowInstance* const current = gWindowStates[WindowId_PlayerAttributes].window;
                 savedX = current->x;
                 savedY = current->y;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
-            third = gWindowStates[9].window;
-        } else if (gWindowStates[58].window != nullptr) {
+            third = gWindowStates[WindowId_PlayerTitles].window;
+        } else if (gWindowStates[WindowId_OwnProfile].window != nullptr) {
             // 原47397A在仅58路径用完整state暂存坐标，后续关闭仍可覆盖。
             savedX = state;
             savedY = state;
         } else if (third == nullptr) {
-            static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PlayerProfile, 1, 0, nullptr));
             return 1;
         }
         if (third != nullptr) {
             third->state |= 0x8000u;
-            WindowInstance* const current = gWindowStates[9].window;
+            WindowInstance* const current = gWindowStates[WindowId_PlayerTitles].window;
             savedX = current->x;
             savedY = current->y;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
-        WindowInstance* const last = gWindowStates[58].window;
+        WindowInstance* const last = gWindowStates[WindowId_OwnProfile].window;
         if (last != nullptr) {
             last->state |= 0x8000u;
-            WindowInstance* const current = gWindowStates[58].window;
+            WindowInstance* const current = gWindowStates[WindowId_OwnProfile].window;
             savedX = current->x;
             savedY = current->y;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
-        gWindowStates[7].y = savedY;
-        gWindowStates[8].y = savedY;
-        gWindowStates[9].y = savedY;
-        gWindowStates[58].y = savedY;
-        gWindowStates[7].x = savedX;
-        gWindowStates[8].x = savedX;
-        gWindowStates[9].x = savedX;
-        gWindowStates[58].x = savedX;
+        gWindowStates[WindowId_PlayerProfile].y = savedY;
+        gWindowStates[WindowId_PlayerAttributes].y = savedY;
+        gWindowStates[WindowId_PlayerTitles].y = savedY;
+        gWindowStates[WindowId_OwnProfile].y = savedY;
+        gWindowStates[WindowId_PlayerProfile].x = savedX;
+        gWindowStates[WindowId_PlayerAttributes].x = savedX;
+        gWindowStates[WindowId_PlayerTitles].x = savedX;
+        gWindowStates[WindowId_OwnProfile].x = savedX;
         return 1;
     }
     case 2: {
@@ -40595,7 +40601,7 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[10].window != nullptr) {
+            if (gWindowStates[WindowId_Skill].window != nullptr) {
                 graphic->imageNo = 0x3B961;
             }
         } else {
@@ -40608,7 +40614,7 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 2) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[10].window;
+                WindowInstance* const window = gWindowStates[WindowId_Skill].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -40629,7 +40635,7 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[14].window != nullptr) {
+            if (gWindowStates[WindowId_Inventory].window != nullptr) {
                 graphic->imageNo = 0x3B964;
             }
         } else {
@@ -40642,12 +40648,12 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 2) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[14].window;
+                WindowInstance* const window = gWindowStates[WindowId_Inventory].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 } else {
-                    static_cast<void>(CreateWindowAnimation_475AA0(14, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Inventory, 1, 0, nullptr));
                 }
             } else {
                 Sub_497100();
@@ -40663,7 +40669,7 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
-            if (gWindowStates[15].window != nullptr) {
+            if (gWindowStates[WindowId_PetList].window != nullptr) {
                 graphic->imageNo = 0x3B967;
             }
         } else {
@@ -40676,12 +40682,12 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 2) != 0) {
             if (world::gCurrentSceneType != 10) {
-                WindowInstance* const window = gWindowStates[15].window;
+                WindowInstance* const window = gWindowStates[WindowId_PetList].window;
                 if (window != nullptr) {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 } else {
-                    static_cast<void>(CreateWindowAnimation_475AA0(15, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PetList, 1, 0, nullptr));
                 }
             } else {
                 Sub_497210();
@@ -40919,7 +40925,7 @@ void ClearEmoteSelection()
 } // namespace
 
 // 原函数：0x0046FBA0。
-std::int32_t Sub_46FBA0(const std::int32_t)
+std::int32_t WindowShortcutBar_Update(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
         gCurrentWindow->state |= 0x8000u;
@@ -40935,7 +40941,7 @@ std::int32_t Sub_46FBD0(const std::int32_t, const std::int32_t state)
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
-    static_cast<void>(OpenWindow_471440(5));
+    static_cast<void>(OpenWindow_471440(WindowId_CollapsedShortcutBar));
     gValueCA0440 = 1;
     return 1;
 }
@@ -40947,13 +40953,13 @@ std::int32_t Sub_46FC10(const std::int32_t, const std::int32_t state)
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
-    static_cast<void>(OpenWindow_471440(4));
+    static_cast<void>(OpenWindow_471440(WindowId_ShortcutBar));
     gValueCA0440 = 0;
     return 1;
 }
 
 // 原函数：0x00495D70。
-std::int32_t Sub_495D70(const std::int32_t value)
+std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
@@ -41023,23 +41029,23 @@ login::YobiAction* Sub_495F00(
     const std::uint32_t flags, const std::uint32_t mode,
     login::YobiAction** const completionSlot)
 {
-    WindowInstance* const window = gWindowStates[33].window;
+    WindowInstance* const window = gWindowStates[WindowId_MiniMap].window;
     std::int32_t x;
     std::int32_t y;
     if (window != nullptr) {
         window->state |= 0x8000u;
-        WindowInstance* const current = gWindowStates[33].window;
+        WindowInstance* const current = gWindowStates[WindowId_MiniMap].window;
         x = current->x;
         y = current->y;
     } else {
-        x = gWindowStates[33].x;
-        y = gWindowStates[33].y;
+        x = gWindowStates[WindowId_MiniMap].x;
+        y = gWindowStates[WindowId_MiniMap].y;
     }
     return login::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
 }
 
 // 原函数：0x00495F50。
-std::int32_t Sub_495F50(const std::int32_t)
+std::int32_t WindowEmote_Update(const std::int32_t)
 {
     if (Sub_4D3040(1, 1) != 0) {
         static_cast<void>(Sub_495FC0());
@@ -41097,16 +41103,16 @@ std::int32_t Sub_495FE0(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004708A0。
 std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* window = gWindowStates[34].window;
+    WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B921;
-        window = gWindowStates[34].window;
+        window = gWindowStates[WindowId_Emote].window;
     }
     if ((state & 2) == 0) {
         return 0;
     }
     if (window == nullptr) {
-        static_cast<void>(CreateWindowAnimation_475AA0(34, 1, 0, nullptr));
+        static_cast<void>(CreateWindowAnimation_475AA0(WindowId_Emote, 1, 0, nullptr));
     } else {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -41117,10 +41123,10 @@ std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)
 // 原函数：0x00470910。
 std::int32_t Sub_470910(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* window = gWindowStates[33].window;
+    WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B924;
-        window = gWindowStates[33].window;
+        window = gWindowStates[WindowId_MiniMap].window;
     }
     if ((state & 2) == 0) {
         return 0;
@@ -41157,11 +41163,11 @@ std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
         if (world::gCurrentSceneType != 10) {
             const std::uint32_t now = platform::ReadTickCount32();
             if (gWindowActionTick62B5AC + 500u < now) {
-                WindowInstance* const window = gWindowStates[67].window;
+                WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
                 if (window == nullptr) {
                     static_cast<void>(Sub_4CD3E0());
                     static_cast<void>(audio::PlaySe_52C450(56, 320));
-                    static_cast<void>(CreateWindowAnimation_475AA0(67, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_OwnStall, 1, 0, nullptr));
                 } else {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -41231,18 +41237,18 @@ std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
 
 // 原函数：0x00470A80。
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
-std::int32_t Sub_470A80(const std::int32_t)
+std::int32_t WindowStatusBar_Update(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
         gCurrentWindow->state |= 0x8000u;
-        static_cast<void>(OpenWindow_471440(2));
+        static_cast<void>(OpenWindow_471440(WindowId_CompactStatusBar));
     }
     Sub_470AC0();
     return 1;
 }
 
 // 原函数：0x00470AB0。
-std::int32_t Sub_470AB0(const std::int32_t)
+std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
 {
     Sub_4718F0();
     return 1;
@@ -41327,7 +41333,7 @@ std::int32_t Sub_471CD0(const std::int32_t, const std::int32_t state)
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
-    static_cast<void>(OpenWindow_471440(2));
+    static_cast<void>(OpenWindow_471440(WindowId_CompactStatusBar));
     gValueCF4690 = 1;
     return 1;
 }
@@ -41339,7 +41345,7 @@ std::int32_t Sub_471D10(const std::int32_t, const std::int32_t state)
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     gCurrentWindow->state |= 0x8000u;
-    static_cast<void>(OpenWindow_471440(3));
+    static_cast<void>(OpenWindow_471440(WindowId_CollapsedStatusBar));
     gValueCF4690 = 2;
     return 1;
 }
@@ -41353,10 +41359,10 @@ std::int32_t Sub_471D60(const std::int32_t, const std::int32_t state)
     const std::int32_t scene = world::gCurrentSceneType;
     gCurrentWindow->state |= 0x8000u;
     if (scene == 10) {
-        static_cast<void>(OpenWindow_471440(2));
+        static_cast<void>(OpenWindow_471440(WindowId_CompactStatusBar));
         gValueCF4690 = 1;
     } else {
-        static_cast<void>(OpenWindow_471440(1));
+        static_cast<void>(OpenWindow_471440(WindowId_StatusBar));
         gValueCF4690 = 0;
     }
     return 1;
@@ -41478,26 +41484,26 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 2) != 0) {
             if (candidate <= 4) {
-                WindowInstance* const details = gWindowStates[16].window;
+                WindowInstance* const details = gWindowStates[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = candidate;
                 if (details != nullptr) {
                     details->state |= 0x8000u;
                 }
-                WindowInstance* const skills = gWindowStates[18].window;
+                WindowInstance* const skills = gWindowStates[WindowId_PetSkills].window;
                 if (skills != nullptr) {
                     skills->state |= 0x8000u;
                 }
-                static_cast<void>(CreateWindowAnimation_475AA0(17, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PetAttributes, 1, 0, nullptr));
             } else {
-                WindowInstance* const profile = gWindowStates[7].window;
+                WindowInstance* const profile = gWindowStates[WindowId_PlayerProfile].window;
                 if (profile != nullptr) {
                     profile->state |= 0x8000u;
                 }
-                WindowInstance* const titles = gWindowStates[9].window;
+                WindowInstance* const titles = gWindowStates[WindowId_PlayerTitles].window;
                 if (titles != nullptr) {
                     titles->state |= 0x8000u;
                 }
-                static_cast<void>(CreateWindowAnimation_475AA0(8, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PlayerAttributes, 1, 0, nullptr));
             }
             consumed = 1;
         }
@@ -41529,7 +41535,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                 gLoginWindowRuntime.mailCategoryD67B64 = category;
                 world::detail::gValueCF4FC0 = mailIndex;
                 gLoginWindowRuntime.mailCategoryCC4D50 = category;
-                static_cast<void>(CreateWindowAnimation_475AA0(40, 1, 0, nullptr));
+                static_cast<void>(CreateWindowAnimation_475AA0(WindowId_MailRead, 1, 0, nullptr));
             }
             consumed = 1;
         }
@@ -41598,27 +41604,27 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
         if ((state & 2) != 0) {
             if (target != -1) {
                 if (target == 0) {
-                    WindowInstance* const attributes = gWindowStates[8].window;
+                    WindowInstance* const attributes = gWindowStates[WindowId_PlayerAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const titles = gWindowStates[9].window;
+                    WindowInstance* const titles = gWindowStates[WindowId_PlayerTitles].window;
                     if (titles != nullptr) {
                         titles->state |= 0x8000u;
                     }
-                    static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PlayerProfile, 1, 0, nullptr));
                 } else {
-                    WindowInstance* const attributes = gWindowStates[17].window;
+                    WindowInstance* const attributes = gWindowStates[WindowId_PetAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const skills = gWindowStates[18].window;
+                    WindowInstance* const skills = gWindowStates[WindowId_PetSkills].window;
                     if (skills != nullptr) {
                         skills->state |= 0x8000u;
                     }
                     gLoginWindowRuntime.selectedPetCC3E5C = Sub_4731B0(petIndex);
                     gLoginWindowRuntime.valueD673D0 = 5;
-                    static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PetDetail, 1, 0, nullptr));
                 }
             }
             consumed = 1;
@@ -41632,7 +41638,8 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
 
 // 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
-std::int32_t Sub_4731E0(const std::int32_t)
+// 原函数：0x004731E0。
+std::int32_t WindowBottomBar_Update(const std::int32_t)
 {
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
@@ -41947,23 +41954,23 @@ void Sub_474FB0()
 }
 
 // 原函数：0x00474540。
-std::int32_t Sub_474540(const std::int32_t)
+std::int32_t WindowPlayerProfile_Update(const std::int32_t)
 {
     Sub_474FB0();
     return 1;
 }
 
 // 原函数：0x00474310。
-void Sub_474310()
+void WindowPlayerProfile_Release()
 {
-    WindowInstance* const window = gWindowStates[7].window;
+    WindowInstance* const window = gWindowStates[WindowId_PlayerProfile].window;
     if (window != nullptr) {
-        gWindowStates[8].x = window->x;
-        gWindowStates[8].y = window->y;
-        gWindowStates[9].x = window->x;
-        gWindowStates[9].y = window->y;
-        gWindowStates[58].x = window->x;
-        gWindowStates[58].y = window->y;
+        gWindowStates[WindowId_PlayerAttributes].x = window->x;
+        gWindowStates[WindowId_PlayerAttributes].y = window->y;
+        gWindowStates[WindowId_PlayerTitles].x = window->x;
+        gWindowStates[WindowId_PlayerTitles].y = window->y;
+        gWindowStates[WindowId_OwnProfile].x = window->x;
+        gWindowStates[WindowId_OwnProfile].y = window->y;
     }
 }
 
@@ -42123,23 +42130,23 @@ void Sub_4767E0()
 }
 
 // 原函数：0x00475DF0。
-std::int32_t Sub_475DF0(const std::int32_t)
+std::int32_t WindowPlayerAttributes_Update(const std::int32_t)
 {
     Sub_4767E0();
     return 1;
 }
 
 // 原函数：0x00474360。
-void Sub_474360()
+void WindowPlayerAttributes_Release()
 {
-    WindowInstance* const window = gWindowStates[8].window;
+    WindowInstance* const window = gWindowStates[WindowId_PlayerAttributes].window;
     if (window != nullptr) {
-        gWindowStates[7].x = window->x;
-        gWindowStates[7].y = window->y;
-        gWindowStates[9].x = window->x;
-        gWindowStates[9].y = window->y;
-        gWindowStates[58].x = window->x;
-        gWindowStates[58].y = window->y;
+        gWindowStates[WindowId_PlayerProfile].x = window->x;
+        gWindowStates[WindowId_PlayerProfile].y = window->y;
+        gWindowStates[WindowId_PlayerTitles].x = window->x;
+        gWindowStates[WindowId_PlayerTitles].y = window->y;
+        gWindowStates[WindowId_OwnProfile].x = window->x;
+        gWindowStates[WindowId_OwnProfile].y = window->y;
     }
 }
 
@@ -42219,11 +42226,11 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
             const std::int16_t selected = petIndex(row);
             const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             if (pet.used != 0) {
-                WindowInstance* const detailsWindow = gWindowStates[16].window;
+                WindowInstance* const detailsWindow = gWindowStates[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
                 gLoginWindowRuntime.valueD673D0 = 5;
-                if (detailsWindow != nullptr || gWindowStates[17].window != nullptr
-                    || gWindowStates[18].window != nullptr) {
+                if (detailsWindow != nullptr || gWindowStates[WindowId_PetAttributes].window != nullptr
+                    || gWindowStates[WindowId_PetSkills].window != nullptr) {
                     const char* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::size_t length = std::strlen(name) + 1;
@@ -42234,7 +42241,7 @@ std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
                     const std::int32_t x = window->x;
                     static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
                 } else {
-                    static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
+                    static_cast<void>(CreateWindowAnimation_475AA0(WindowId_PetDetail, 1, 0, nullptr));
                 }
             }
             static_cast<void>(Sub_4763E0());
@@ -42582,7 +42589,7 @@ void Sub_48C920()
 
 // 原函数：0x0048C1B0。
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
-std::int32_t Sub_48C1B0(const std::int32_t value)
+std::int32_t WindowPetList_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valuesD2EAA0[0] = 0;
@@ -42813,7 +42820,7 @@ std::uint32_t Sub_48F8F0()
 
 // 窗口16主更新，入口-1负责共享详情拖动槽的初始化。
 // 原函数：0x0048D9A0。
-std::int32_t Sub_48D9A0(const std::int32_t value)
+std::int32_t WindowPetDetail_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -42970,7 +42977,7 @@ std::uint32_t Sub_490780()
 
 // 窗口17初始化仅采样名称/序号并发声，不代替窗口16的拖动槽初始化。
 // 原函数：0x0048DAB0。
-std::int32_t Sub_48DAB0(const std::int32_t value)
+std::int32_t WindowPetAttributes_Update(const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(Sub_492350());
@@ -43127,7 +43134,7 @@ std::int32_t Sub_4920F0()
 }
 
 // 原函数：0x0048DBB0。
-std::int32_t Sub_48DBB0(const std::int32_t value)
+std::int32_t WindowPetSkills_Update(const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(Sub_492350());
@@ -43161,7 +43168,7 @@ std::int32_t Sub_48DBB0(const std::int32_t value)
 }
 
 // 原函数：0x0048DCB0。
-std::int32_t Sub_48DCB0(const std::int32_t)
+std::int32_t WindowPetSkills_Draw(const std::int32_t)
 {
     static_cast<void>(Sub_4920F0());
     DrawCurrentWindow_4729B0();
@@ -43169,38 +43176,38 @@ std::int32_t Sub_48DCB0(const std::int32_t)
 }
 
 // 原函数：0x0048DCC0。
-void Sub_48DCC0()
+void WindowPetDetail_Release()
 {
-    WindowInstance* const window = gWindowStates[16].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetDetail].window;
     if (window != nullptr) {
-        gWindowStates[17].x = window->x;
-        gWindowStates[17].y = window->y;
-        gWindowStates[18].x = window->x;
-        gWindowStates[18].y = window->y;
+        gWindowStates[WindowId_PetAttributes].x = window->x;
+        gWindowStates[WindowId_PetAttributes].y = window->y;
+        gWindowStates[WindowId_PetSkills].x = window->x;
+        gWindowStates[WindowId_PetSkills].y = window->y;
     }
 }
 
 // 原函数：0x0048DD00。
-void Sub_48DD00()
+void WindowPetAttributes_Release()
 {
-    WindowInstance* const window = gWindowStates[17].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetAttributes].window;
     if (window != nullptr) {
-        gWindowStates[16].x = window->x;
-        gWindowStates[16].y = window->y;
-        gWindowStates[18].x = window->x;
-        gWindowStates[18].y = window->y;
+        gWindowStates[WindowId_PetDetail].x = window->x;
+        gWindowStates[WindowId_PetDetail].y = window->y;
+        gWindowStates[WindowId_PetSkills].x = window->x;
+        gWindowStates[WindowId_PetSkills].y = window->y;
     }
 }
 
 // 原函数：0x0048DD40。
-void Sub_48DD40()
+void WindowPetSkills_Release()
 {
-    WindowInstance* const window = gWindowStates[18].window;
+    WindowInstance* const window = gWindowStates[WindowId_PetSkills].window;
     if (window != nullptr) {
-        gWindowStates[16].x = window->x;
-        gWindowStates[16].y = window->y;
-        gWindowStates[17].x = window->x;
-        gWindowStates[17].y = window->y;
+        gWindowStates[WindowId_PetDetail].x = window->x;
+        gWindowStates[WindowId_PetDetail].y = window->y;
+        gWindowStates[WindowId_PetAttributes].x = window->x;
+        gWindowStates[WindowId_PetAttributes].y = window->y;
     }
 }
 
@@ -43332,7 +43339,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
-                static_cast<void>(Sub_48DBB0(-1));
+                static_cast<void>(WindowPetSkills_Update(-1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
             }
@@ -43468,7 +43475,7 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
-            static_cast<void>(Sub_48D9A0(-1));
+            static_cast<void>(WindowPetDetail_Update(-1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -43610,7 +43617,7 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
-            static_cast<void>(Sub_48DAB0(-1));
+            static_cast<void>(WindowPetAttributes_Update(-1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -44181,23 +44188,23 @@ void Sub_478A10()
 }
 
 // 原函数：0x00478320。
-std::int32_t Sub_478320(const std::int32_t)
+std::int32_t WindowOwnProfile_Update(const std::int32_t)
 {
     Sub_478A10();
     return 1;
 }
 
 // 原函数：0x004744F0。
-void Sub_4744F0()
+void WindowOwnProfile_Release()
 {
-    if (gWindowStates[9].window != nullptr) {
-        WindowInstance* const window = gWindowStates[58].window;
-        gWindowStates[7].x = window->x;
-        gWindowStates[7].y = window->y;
-        gWindowStates[8].x = window->x;
-        gWindowStates[8].y = window->y;
-        gWindowStates[9].x = window->x;
-        gWindowStates[9].y = window->y;
+    if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
+        WindowInstance* const window = gWindowStates[WindowId_OwnProfile].window;
+        gWindowStates[WindowId_PlayerProfile].x = window->x;
+        gWindowStates[WindowId_PlayerProfile].y = window->y;
+        gWindowStates[WindowId_PlayerAttributes].x = window->x;
+        gWindowStates[WindowId_PlayerAttributes].y = window->y;
+        gWindowStates[WindowId_PlayerTitles].x = window->x;
+        gWindowStates[WindowId_PlayerTitles].y = window->y;
     }
 }
 
@@ -44302,7 +44309,8 @@ void Sub_478010()
 }
 
 // 原4774C0及47752C公共尾，IDA分段不改变同一主更新的正常出口。
-std::int32_t Sub_4774C0(const std::int32_t value)
+// 原函数：0x004774C0。
+std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     if (value == -1) {
         const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
@@ -44321,16 +44329,16 @@ std::int32_t Sub_4774C0(const std::int32_t value)
 }
 
 // 原函数：0x004744A0。
-void Sub_4744A0()
+void WindowPlayerTitles_Release()
 {
-    WindowInstance* const window = gWindowStates[9].window;
+    WindowInstance* const window = gWindowStates[WindowId_PlayerTitles].window;
     if (window != nullptr) {
-        gWindowStates[7].x = window->x;
-        gWindowStates[7].y = window->y;
-        gWindowStates[8].x = window->x;
-        gWindowStates[8].y = window->y;
-        gWindowStates[58].x = window->x;
-        gWindowStates[58].y = window->y;
+        gWindowStates[WindowId_PlayerProfile].x = window->x;
+        gWindowStates[WindowId_PlayerProfile].y = window->y;
+        gWindowStates[WindowId_PlayerAttributes].x = window->x;
+        gWindowStates[WindowId_PlayerAttributes].y = window->y;
+        gWindowStates[WindowId_OwnProfile].x = window->x;
+        gWindowStates[WindowId_OwnProfile].y = window->y;
     }
 }
 
@@ -44466,7 +44474,7 @@ void Sub_473560(const std::int32_t index)
             events = AppendMouseButtonEvents(1);
             WindowInstance* const currentWindow = gCurrentWindow;
             WindowElement* const currentElement = &currentWindow->elements[index];
-            if (currentElement->type == 4) {
+            if (currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = static_cast<WindowMouseData*>(currentElement->data);
                 data->deltaX = (platform::BorrowLegacyMouseStateStorage()->mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
                 WindowInstance* const yWindow = gCurrentWindow;
@@ -44636,21 +44644,21 @@ std::int32_t Sub_4A7B00()
 {
     const std::int32_t mode = gChatWindowModeD66E04;
     if (mode == 1) {
-        WindowInstance* const window = gWindowStates[57].window;
+        WindowInstance* const window = gWindowStates[WindowId_CompactChat].window;
         if (window == nullptr) {
             return 0;
         }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(Sub_476570(&gChatInputPrototype57E970, x, y, 3));
-        gFocusedElementDataD45F94 = gWindowStates[57].window->elements[0].data;
+        gFocusedElementDataD45F94 = gWindowStates[WindowId_CompactChat].window->elements[0].data;
         input::SetContext_44B330(&input::gInputContext626AA0);
         return 1;
     }
     if (mode != 0) {
         return 0;
     }
-    WindowInstance* const window = gWindowStates[35].window;
+    WindowInstance* const window = gWindowStates[WindowId_Chat].window;
     if (window == nullptr) {
         return 0;
     }
@@ -44658,7 +44666,7 @@ std::int32_t Sub_4A7B00()
     const std::int32_t x = window->x;
     if (Sub_476570(&gChatInputPrototype57E970, x, y, 3) == 0) {
         for (;;) {
-            WindowInstance* const currentWindow = gWindowStates[35].window;
+            WindowInstance* const currentWindow = gWindowStates[WindowId_Chat].window;
             gChatInputPrototype57E970.input.context = &input::gInputContext626AA0;
             gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
             gChatInputPrototype57E970.x = 8;
@@ -44678,7 +44686,7 @@ std::int32_t Sub_4A7B00()
             }
         }
     }
-    gFocusedElementDataD45F94 = gWindowStates[35].window->elements[0].data;
+    gFocusedElementDataD45F94 = gWindowStates[WindowId_Chat].window->elements[0].data;
     input::SetContext_44B330(&input::gInputContext626AA0);
     return 1;
 }
@@ -44806,7 +44814,7 @@ std::int32_t RenderWindows_504120()
 // 原函数：0x005342E0。
 WindowInstance* Sub_5342E0()
 {
-    return OpenWindow_471440(64);
+    return OpenWindow_471440(WindowId_ProfileReply);
 }
 
 // WPL01：七类载荷创建/owner与动画现场源槽，见doc/cg2d_window_payload_creation_spec.md。
@@ -44868,7 +44876,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
             element->height = source->height;
             element->visible = source->visible;
             switch (element->type) {
-            case 1: {
+            case WindowElementType_Graphic: {
                 auto* const data = static_cast<WindowGraphicData*>(
                     std::calloc(1, sizeof(WindowGraphicData)));
                 if (data != nullptr) {
@@ -44883,7 +44891,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 element->data = data;
                 break;
             }
-            case 2: {
+            case WindowElementType_Animation: {
                 auto* const data = static_cast<WindowAnimationData*>(
                     std::calloc(1, sizeof(WindowAnimationData)));
                 if (data != nullptr) {
@@ -44896,7 +44904,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 element->data = data;
                 break;
             }
-            case 3: {
+            case WindowElementType_Text: {
                 auto* const data = new (std::nothrow) WindowTextData{};
                 if (data != nullptr) {
                     const WindowTextPrototype* const original = source->source.text;
@@ -44910,7 +44918,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 element->data = data;
                 break;
             }
-            case 4: {
+            case WindowElementType_MouseArea: {
                 auto* const data = static_cast<WindowMouseData*>(
                     std::calloc(1, sizeof(WindowMouseData)));
                 if (data != nullptr) {
@@ -44919,13 +44927,13 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 element->data = data;
                 break;
             }
-            case 5:
+            case WindowElementType_Input:
                 element->data = std::calloc(1, sizeof(WindowInputData));
                 break;
-            case 6:
+            case WindowElementType_InputCaret:
                 element->data = std::calloc(1, sizeof(std::uint32_t));
                 break;
-            case 7: {
+            case WindowElementType_Number: {
                 auto* const data = static_cast<WindowNumberData*>(
                     std::calloc(1, sizeof(WindowNumberData)));
                 if (data != nullptr) {
@@ -45276,7 +45284,7 @@ void Sub_50E570(const std::uintptr_t, const std::int32_t value)
     if (value == 1) {
         detail::gTradeValueCC4224 = 2;
     } else if (value == 0 || value == 2) {
-        WindowInstance* const window = detail::gWindowStates[43].window;
+        WindowInstance* const window = detail::gWindowStates[WindowId_Trade].window;
         detail::gTradeValueD67B80 = 1;
         if (window != nullptr) {
             window->state |= 0x8000u;
@@ -45400,7 +45408,7 @@ std::int32_t ReadDragItemIndex_584DA4() noexcept
 // 原函数：0x004CD3E0。
 WindowInstance* Sub_4CD3E0()
 {
-    WindowInstance* const window = detail::gWindowStates[68].window;
+    WindowInstance* const window = detail::gWindowStates[WindowId_StallBrowse].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -45410,7 +45418,7 @@ WindowInstance* Sub_4CD3E0()
 // 原函数：0x004CD400。
 WindowInstance* Sub_4CD400()
 {
-    WindowInstance* const window = detail::gWindowStates[67].window;
+    WindowInstance* const window = detail::gWindowStates[WindowId_OwnStall].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -45419,7 +45427,7 @@ WindowInstance* Sub_4CD400()
 
 std::int32_t Sub_4AFF00()
 {
-    WindowInstance* const window = detail::gWindowStates[48].window;
+    WindowInstance* const window = detail::gWindowStates[WindowId_GuildDetails].window;
     if (window == nullptr) {
         return 0;
     }
@@ -45470,8 +45478,8 @@ void FreeWindow_471270(WindowInstance* const window)
     for (std::int32_t index = 0; index < window->elementCount; ++index) {
         WindowElement* const element = &window->elements[index];
         switch (element->type) {
-        case 1:
-        case 5: {
+        case WindowElementType_Graphic:
+        case WindowElementType_Input: {
             void* const focusedData = gFocusedElementDataD45F94;
             void* const elementData = element->data;
             if (elementData == focusedData) {
@@ -45483,7 +45491,7 @@ void FreeWindow_471270(WindowInstance* const window)
             }
             break;
         }
-        case 2: {
+        case WindowElementType_Animation: {
             const auto* const data = static_cast<const WindowAnimationData*>(element->data);
             if (data != nullptr) {
                 login::detail::MarkDeathUnchecked(data->action);
@@ -45492,15 +45500,15 @@ void FreeWindow_471270(WindowInstance* const window)
             }
             break;
         }
-        case 3: {
+        case WindowElementType_Text: {
             auto* const data = static_cast<WindowTextData*>(element->data);
             delete data; // 原0x0047134F：UTL02正文随原生析构释放。
             window->elements[index].data = nullptr;
             break;
         }
-        case 4:
-        case 6:
-        case 7: {
+        case WindowElementType_MouseArea:
+        case WindowElementType_InputCaret:
+        case WindowElementType_Number: {
             void* const data = element->data;
             if (data != nullptr) {
                 std::free(data);
@@ -45661,7 +45669,7 @@ void DrawCurrentWindow_4729B0()
             const std::int32_t elementY = element->y;
             const std::int32_t y = windowY + elementY;
             switch (element->type) {
-            case 1: {
+            case WindowElementType_Graphic: {
                 const auto* const data = static_cast<const WindowGraphicData*>(element->data);
                 const std::int32_t entryImageNo = data->imageNo;
                 if (entryImageNo == 0) {
@@ -45724,7 +45732,7 @@ void DrawCurrentWindow_4729B0()
                     drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
                 break;
             }
-            case 2: {
+            case WindowElementType_Animation: {
                 const auto* const data = static_cast<const WindowAnimationData*>(element->data);
                 const std::uint32_t stop = data->value04;
                 login::YobiAction* const action = data->action;
@@ -45747,7 +45755,7 @@ void DrawCurrentWindow_4729B0()
                     drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
                 break;
             }
-            case 3: {
+            case WindowElementType_Text: {
                 const auto* const data = static_cast<const WindowTextData*>(element->data);
                 const std::wstring& text = data->text;
 
@@ -45764,7 +45772,7 @@ void DrawCurrentWindow_4729B0()
 
                 break;
             }
-            case 5: {
+            case WindowElementType_Input: {
                 const auto* const data = static_cast<const WindowInputData*>(element->data);
                 if (data == gFocusedElementDataD45F94) {
                     if (input::gCurrentInputData == &input::gInputContext626AA0) {
@@ -45777,10 +45785,10 @@ void DrawCurrentWindow_4729B0()
                 }
                 break;
             }
-            case 6:
+            case WindowElementType_InputCaret:
                 Sub_4A7750(x + 5, y);
                 break;
-            case 7: {
+            case WindowElementType_Number: {
                 const auto* const data = static_cast<const WindowNumberData*>(element->data);
                 if (data != nullptr) {
                     const std::uint8_t flags = data->flags;

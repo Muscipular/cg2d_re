@@ -22535,7 +22535,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_470A80"
+            "WindowStatusBar_Update"
           ]
         }
       ],
@@ -22554,7 +22554,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_470A80"
+            "symbol": "WindowStatusBar_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -22573,7 +22573,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4774C0"
+            "WindowPlayerTitles_Update"
           ]
         }
       ],
@@ -22592,7 +22592,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4774C0"
+            "symbol": "WindowPlayerTitles_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -22611,7 +22611,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_48C1B0"
+            "WindowPetList_Update"
           ]
         }
       ],
@@ -22630,7 +22630,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_48C1B0"
+            "symbol": "WindowPetList_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -22649,7 +22649,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_493DB0"
+            "WindowSettings_Draw"
           ]
         }
       ],
@@ -22670,13 +22670,13 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4AC1B0"
+            "WindowItemStorage_Draw"
           ]
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4AC1B0"
+            "WindowItemStorage_Draw"
           ],
           "relationship": "SPD01公共三条尾与父两个控制边完整对照；既有CPP合并绘图/return1保持，无独立假叶"
         }
@@ -22720,7 +22720,7 @@
             "parent": 4899248
           }
         ],
-        "native_signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+        "native_signature": "std::int32_t WindowItemStorage_Draw(const std::int32_t)",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -22743,7 +22743,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4C94B0"
+            "WindowOwnProfileCategory_Update"
           ]
         }
       ],
@@ -22764,7 +22764,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4C9EE0"
+            "WindowProfileCategory_Update"
           ]
         }
       ],
@@ -22785,7 +22785,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CA410"
+            "WindowProfileSearch_Update"
           ]
         }
       ],
@@ -22806,7 +22806,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CAF60"
+            "WindowProfileView_Update"
           ]
         }
       ],
@@ -36558,7 +36558,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4731E0"
+            "WindowBottomBar_Update"
           ],
           "relationship": "窗口6两实际查han/kok点，原原型main回调保持，未扩大显示/清理验收"
         },
@@ -37128,7 +37128,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732B7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "std::strstr",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -37142,7 +37142,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732F7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "std::strstr",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -37523,7 +37523,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4731E0"
+            "WindowBottomBar_Update"
           ],
           "relationship": "窗口6两实际查han/kok点，原原型main回调保持，未扩大显示/清理验收"
         },
@@ -38063,7 +38063,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732B7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -38077,7 +38077,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732F7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -38249,7 +38249,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4731E0"
+            "WindowBottomBar_Update"
           ],
           "relationship": "窗口6两实际查han/kok点，原原型main回调保持，未扩大显示/清理验收"
         },
@@ -38305,7 +38305,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4731E0"
+            "symbol": "WindowBottomBar_Update"
           },
           {
             "path": "src/render/GraphicHitTest.cpp",
@@ -40738,7 +40738,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CD4F0",
+            "WindowStall_Update",
             "Sub_4CED60",
             "Sub_4CFE70"
           ],
@@ -40910,7 +40910,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CD4F0",
+            "WindowStall_Update",
             "Sub_4CED60",
             "Sub_4CFE70"
           ],
@@ -40970,7 +40970,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CD4F0",
+            "WindowStall_Update",
             "Sub_4CED60",
             "Sub_4CFE70"
           ],
@@ -41024,7 +41024,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4CD4F0"
+            "symbol": "WindowStall_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -50473,7 +50473,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::strtok",
-        "line": 27151,
+        "line": 27155,
         "cpp_calls": 2,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -52023,9 +52023,9 @@
             "Sub_4C2FA0",
             "Sub_4C4CB0",
             "Sub_4C50C0",
-            "Sub_4C1C50",
+            "WindowCrystalShop_Update",
             "Sub_4C21B0",
-            "Sub_4C3F00",
+            "WindowCrystalExchangeShop_Update",
             "Sub_4C43C0",
             "Sub_4C5C30",
             "Sub_4C5F80",
@@ -52042,7 +52042,7 @@
             "Sub_4BE3F0",
             "Sub_4BEF30",
             "Sub_4BF620",
-            "Sub_4BF7C0",
+            "WindowPetSkillChoice_Update",
             "Sub_4BC230",
             "Sub_4BC660",
             "Sub_4BD100",
@@ -52070,7 +52070,7 @@
             "Sub_4B9090",
             "Sub_4B9110",
             "Sub_4B9270",
-            "Sub_4B9310",
+            "WindowShop_Update",
             "Sub_4B9B10",
             "Sub_4B9F40",
             "Sub_4C1700",
@@ -52078,8 +52078,8 @@
             "Sub_4A9B00",
             "Sub_4ABB20",
             "Sub_474FB0",
-            "Sub_47A7A0",
-            "Sub_4810A0",
+            "WindowSkill_Draw",
+            "WindowCraft_Update",
             "Sub_492F70",
             "Sub_498520",
             "Sub_499C30",
@@ -52096,7 +52096,7 @@
             "Sub_488FB0",
             "Sub_48C920",
             "Sub_4AB710",
-            "Sub_499790",
+            "WindowDpResult_Update",
             "Sub_4723D0",
             "Sub_4A49B0",
             "Sub_4AAEC0",
@@ -52106,9 +52106,9 @@
             "Sub_489F00",
             "Sub_4C75A0",
             "Sub_4982C0",
-            "Sub_4991C0",
+            "WindowBattleResult_Update",
             "Sub_49AC40",
-            "Sub_4B0290",
+            "WindowTrade_Update",
             "Sub_4F1800",
             "Sub_4740F0",
             "Sub_4767E0",
@@ -52152,7 +52152,7 @@
             "Sub_4B4680",
             "Sub_4ADF40",
             "Sub_4AE170",
-            "Sub_4A9160",
+            "WindowBank_Draw",
             "Sub_4A9D10",
             "Sub_4AA3D0",
             "Sub_4AC290",
@@ -53630,7 +53630,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CDAEF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0"
+          "symbol": "WindowStall_Update"
         },
         {
           "parent_entry": "0x4CFE70",
@@ -53948,7 +53948,7 @@
           "parent_entry": "0x4C1C50",
           "call_site": "0x4C1E9D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4C1C50"
+          "symbol": "WindowCrystalShop_Update"
         },
         {
           "parent_entry": "0x4C21B0",
@@ -53966,7 +53966,7 @@
           "parent_entry": "0x4C3F00",
           "call_site": "0x4C4156",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4C3F00"
+          "symbol": "WindowCrystalExchangeShop_Update"
         },
         {
           "parent_entry": "0x4C43C0",
@@ -54146,7 +54146,7 @@
           "parent_entry": "0x4BF7C0",
           "call_site": "0x4BF903",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4BF7C0"
+          "symbol": "WindowPetSkillChoice_Update"
         },
         {
           "parent_entry": "0x4BC230",
@@ -54464,19 +54464,19 @@
           "parent_entry": "0x4B9310",
           "call_site": "0x4B98AF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         },
         {
           "parent_entry": "0x4B9310",
           "call_site": "0x4B9946",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         },
         {
           "parent_entry": "0x4B9310",
           "call_site": "0x4B9991",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         },
         {
           "parent_entry": "0x4B9B10",
@@ -54710,97 +54710,97 @@
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A96F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A991",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A9ED",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AB65",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47ACAC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AD60",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AD82",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47ADDE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AF0D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47B009",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481681",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x4816B0",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481717",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x4819B1",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481B04",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481CBB",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x492F70",
@@ -55443,13 +55443,13 @@
           "parent_entry": "0x499790",
           "call_site": "0x4997C7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_499790"
+          "symbol": "WindowDpResult_Update"
         },
         {
           "parent_entry": "0x499790",
           "call_site": "0x4997ED",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_499790"
+          "symbol": "WindowDpResult_Update"
         },
         {
           "parent_entry": "0x4723D0",
@@ -55593,13 +55593,13 @@
           "parent_entry": "0x4991C0",
           "call_site": "0x4993E9",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4991C0"
+          "symbol": "WindowBattleResult_Update"
         },
         {
           "parent_entry": "0x4991C0",
           "call_site": "0x499513",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4991C0"
+          "symbol": "WindowBattleResult_Update"
         },
         {
           "parent_entry": "0x49AC40",
@@ -55617,13 +55617,13 @@
           "parent_entry": "0x4B0290",
           "call_site": "0x4B045F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B0290"
+          "symbol": "WindowTrade_Update"
         },
         {
           "parent_entry": "0x4B0290",
           "call_site": "0x4B04B5",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B0290"
+          "symbol": "WindowTrade_Update"
         },
         {
           "parent_entry": "0x4F1800",
@@ -56385,7 +56385,7 @@
           "parent_entry": "0x4A9160",
           "call_site": "0x4A9175",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4A9160"
+          "symbol": "WindowBank_Draw"
         },
         {
           "parent_entry": "0x4A9D10",
@@ -59867,9 +59867,9 @@
             "Sub_4C2FA0",
             "Sub_4C4CB0",
             "Sub_4C50C0",
-            "Sub_4C1C50",
+            "WindowCrystalShop_Update",
             "Sub_4C21B0",
-            "Sub_4C3F00",
+            "WindowCrystalExchangeShop_Update",
             "Sub_4C43C0",
             "Sub_4C5C30",
             "Sub_4C5F80",
@@ -59886,7 +59886,7 @@
             "Sub_4BE3F0",
             "Sub_4BEF30",
             "Sub_4BF620",
-            "Sub_4BF7C0",
+            "WindowPetSkillChoice_Update",
             "Sub_4BC230",
             "Sub_4BC660",
             "Sub_4BD100",
@@ -59914,7 +59914,7 @@
             "Sub_4B9090",
             "Sub_4B9110",
             "Sub_4B9270",
-            "Sub_4B9310",
+            "WindowShop_Update",
             "Sub_4B9B10",
             "Sub_4B9F40",
             "Sub_4C1700",
@@ -59922,8 +59922,8 @@
             "Sub_4A9B00",
             "Sub_4ABB20",
             "Sub_474FB0",
-            "Sub_47A7A0",
-            "Sub_4810A0",
+            "WindowSkill_Draw",
+            "WindowCraft_Update",
             "Sub_492F70",
             "Sub_498520",
             "Sub_499C30",
@@ -59940,7 +59940,7 @@
             "Sub_488FB0",
             "Sub_48C920",
             "Sub_4AB710",
-            "Sub_499790",
+            "WindowDpResult_Update",
             "Sub_4723D0",
             "Sub_4A49B0",
             "Sub_4AAEC0",
@@ -59950,9 +59950,9 @@
             "Sub_489F00",
             "Sub_4C75A0",
             "Sub_4982C0",
-            "Sub_4991C0",
+            "WindowBattleResult_Update",
             "Sub_49AC40",
-            "Sub_4B0290",
+            "WindowTrade_Update",
             "Sub_4F1800",
             "Sub_4740F0",
             "Sub_4767E0",
@@ -59996,7 +59996,7 @@
             "Sub_4B4680",
             "Sub_4ADF40",
             "Sub_4AE170",
-            "Sub_4A9160",
+            "WindowBank_Draw",
             "Sub_4A9D10",
             "Sub_4AA3D0",
             "Sub_4AC290",
@@ -60334,7 +60334,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4C1C50"
+            "symbol": "WindowCrystalShop_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60342,7 +60342,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4C3F00"
+            "symbol": "WindowCrystalExchangeShop_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60406,7 +60406,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4BF7C0"
+            "symbol": "WindowPetSkillChoice_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60474,7 +60474,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4B9310"
+            "symbol": "WindowShop_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60502,11 +60502,11 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_47A7A0"
+            "symbol": "WindowSkill_Draw"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4810A0"
+            "symbol": "WindowCraft_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60574,7 +60574,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_499790"
+            "symbol": "WindowDpResult_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60614,7 +60614,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4991C0"
+            "symbol": "WindowBattleResult_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60622,7 +60622,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4B0290"
+            "symbol": "WindowTrade_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -60778,7 +60778,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4A9160"
+            "symbol": "WindowBank_Draw"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -61281,7 +61281,7 @@
           "Sub_4A5970",
           "Sub_4A6450",
           "Sub_482270",
-          "Sub_4810A0",
+          "WindowCraft_Update",
           "Sub_47B9B0",
           "Sub_4D7470"
         ],
@@ -61379,7 +61379,7 @@
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4810A0"
+            "symbol": "WindowCraft_Update"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
@@ -86292,7 +86292,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::malloc",
-        "line": 7921,
+        "line": 7923,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -86827,7 +86827,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::free",
-        "line": 7934,
+        "line": 7936,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -104054,7 +104054,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4CD4F0"
+            "WindowStall_Update"
           ]
         }
       ],
@@ -104079,7 +104079,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CD73A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53BEC0",
           "target_symbol": "std::strncpy",
           "count_value": 56,
@@ -104090,7 +104090,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CD840",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53BEC0",
           "target_symbol": "std::strncpy",
           "count_value": 16,
@@ -104103,7 +104103,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CDAEF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53B304",
           "target_symbol": "std::sprintf"
         }
@@ -104149,7 +104149,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CDAEF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53B304",
           "target_symbol": "FormatLegacyString_53B304"
         }
@@ -104159,7 +104159,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CD73A",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53BEC0",
           "target_symbol": "StrNCpy_53BEC0",
           "count_value": 56,
@@ -104170,7 +104170,7 @@
           "parent_entry": "0x4CD4F0",
           "call_site": "0x4CD840",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4CD4F0",
+          "symbol": "WindowStall_Update",
           "target_entry": "0x53BEC0",
           "target_symbol": "StrNCpy_53BEC0",
           "count_value": 16,
@@ -104185,7 +104185,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4CD4F0"
+            "symbol": "WindowStall_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -105829,7 +105829,7 @@
             "0x49ccad"
           ],
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_49CAD0"
+          "symbol": "WindowDialog_Draw"
         },
         {
           "parent_entry": "0x4a58e0",
@@ -106327,7 +106327,7 @@
               "0x49ccad"
             ],
             "source": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_49CAD0"
+            "symbol": "WindowDialog_Draw"
           },
           {
             "parent_entry": "0x4a58e0",
@@ -120289,7 +120289,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4731E0"
+            "WindowBottomBar_Update"
           ]
         },
         {
@@ -120309,7 +120309,7 @@
         {
           "path": "src/ui/WindowPrototypeDependencies.hpp",
           "symbols": [
-            "Sub_4731E0"
+            "WindowBottomBar_Update"
           ],
           "relationship": "HWT01原型main真实声明/参数返回保持，仅合同注释"
         },
@@ -120326,7 +120326,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732B7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "std::strstr",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -120340,7 +120340,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732F7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "std::strstr",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -120369,7 +120369,7 @@
         "bytes": "e0314700",
         "target_entry": "0x4731E0",
         "source": "src/ui/WindowPrototypes.cpp",
-        "target_symbol": "Sub_4731E0"
+        "target_symbol": "WindowBottomBar_Update"
       },
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
@@ -120396,8 +120396,8 @@
         "indirect_import_call_count": 1,
         "jump_count": 10,
         "return_count": 1,
-        "native_signature": "std::int32_t Sub_4731E0(const std::int32_t)",
-        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4731E0",
+        "native_signature": "std::int32_t WindowBottomBar_Update(const std::int32_t)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowBottomBar_Update",
         "source_patch_group_count": 1,
         "source_changed_point_count": 2,
         "normal_remaining_source_kept": true,
@@ -120422,7 +120422,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732B7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -120436,7 +120436,7 @@
           "parent_entry": "0x4731E0",
           "call_site": "0x4732F7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4731E0",
+          "symbol": "WindowBottomBar_Update",
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "source_expression": "gHoverTextD68AE8.data()",
@@ -120454,7 +120454,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4731E0"
+            "symbol": "WindowBottomBar_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -124187,7 +124187,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4C1C50"
+            "WindowCrystalShop_Update"
           ],
           "relationship": "仅本父格式callee接真实53B304，原共享owner/生产及其余正文不变"
         }
@@ -124215,7 +124215,7 @@
           "parent_entry": "0x4C1C50",
           "call_site": "0x4C1E9D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4C1C50"
+          "symbol": "WindowCrystalShop_Update"
         }
       ],
       "business_format_points": [
@@ -124245,7 +124245,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4C1C50"
+            "symbol": "WindowCrystalShop_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -124358,7 +124358,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4C3F00"
+            "WindowCrystalExchangeShop_Update"
           ],
           "relationship": "仅本父格式callee接真实53B304，原共享owner/生产及其余正文不变"
         }
@@ -124386,7 +124386,7 @@
           "parent_entry": "0x4C3F00",
           "call_site": "0x4C4156",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4C3F00"
+          "symbol": "WindowCrystalExchangeShop_Update"
         }
       ],
       "business_format_points": [
@@ -124416,7 +124416,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4C3F00"
+            "symbol": "WindowCrystalExchangeShop_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -126128,7 +126128,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4BF7C0"
+            "WindowPetSkillChoice_Update"
           ],
           "relationship": "仅本父格式callee接真实53B304，既有签名/owner/其他正文不变"
         }
@@ -126160,7 +126160,7 @@
           "parent_entry": "0x4BF7C0",
           "call_site": "0x4BF903",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4BF7C0"
+          "symbol": "WindowPetSkillChoice_Update"
         }
       ],
       "business_format_points": [
@@ -126199,7 +126199,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4BF7C0"
+            "symbol": "WindowPetSkillChoice_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -128796,7 +128796,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4B9310"
+            "WindowShop_Update"
           ],
           "relationship": "仅3现格式callee接真实53B304，承接3原点，其余正文/依赖不变"
         }
@@ -128828,19 +128828,19 @@
           "parent_entry": "0x4B9310",
           "call_site": "0x4B98AF",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         },
         {
           "parent_entry": "0x4B9310",
           "call_site": "0x4B9946",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         },
         {
           "parent_entry": "0x4B9310",
           "call_site": "0x4B9991",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B9310"
+          "symbol": "WindowShop_Update"
         }
       ],
       "business_format_points": [
@@ -128906,7 +128906,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4B9310"
+            "symbol": "WindowShop_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -130270,7 +130270,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_47A7A0"
+            "WindowSkill_Draw"
           ],
           "relationship": "六现callee承接十原53B304点，保留分支共享及其余正文"
         }
@@ -130297,61 +130297,61 @@
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A96F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A991",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47A9ED",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AB65",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47ACAC",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AD60",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AD82",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47ADDE",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47AF0D",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         },
         {
           "parent_entry": "0x47A7A0",
           "call_site": "0x47B009",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_47A7A0"
+          "symbol": "WindowSkill_Draw"
         }
       ],
       "business_format_points": [
@@ -130536,7 +130536,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_47A7A0"
+            "symbol": "WindowSkill_Draw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -130554,7 +130554,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4810A0"
+            "WindowCraft_Update"
           ],
           "relationship": "仅六现格式callee接六原53B304点，其余正文不变"
         }
@@ -130587,37 +130587,37 @@
           "parent_entry": "0x4810A0",
           "call_site": "0x481681",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x4816B0",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481717",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x4819B1",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481B04",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         },
         {
           "parent_entry": "0x4810A0",
           "call_site": "0x481CBB",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4810A0"
+          "symbol": "WindowCraft_Update"
         }
       ],
       "business_format_points": [
@@ -130720,7 +130720,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4810A0"
+            "symbol": "WindowCraft_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -130730,7 +130730,7 @@
       "unicode_utf16_followup_review": {
         "recorded_on": "2026-10-14",
         "source_symbols": [
-          "Sub_4810A0"
+          "WindowCraft_Update"
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
@@ -130741,7 +130741,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4810A0"
+            "symbol": "WindowCraft_Update"
           }
         ],
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
@@ -134585,7 +134585,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_499790"
+            "WindowDpResult_Update"
           ],
           "relationship": "仅两格式callee接两原点，保留既有DP结果正文/共享计时与来源消费顺序"
         }
@@ -134612,13 +134612,13 @@
           "parent_entry": "0x499790",
           "call_site": "0x4997C7",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_499790"
+          "symbol": "WindowDpResult_Update"
         },
         {
           "parent_entry": "0x499790",
           "call_site": "0x4997ED",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_499790"
+          "symbol": "WindowDpResult_Update"
         }
       ],
       "business_format_points": [
@@ -134659,7 +134659,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_499790"
+            "symbol": "WindowDpResult_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -136075,7 +136075,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4991C0"
+            "WindowBattleResult_Update"
           ],
           "relationship": "仅两经验显示格式callee接原点，保留结果借用/门槛/实例文本/计时正文"
         }
@@ -136102,13 +136102,13 @@
           "parent_entry": "0x4991C0",
           "call_site": "0x4993E9",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4991C0"
+          "symbol": "WindowBattleResult_Update"
         },
         {
           "parent_entry": "0x4991C0",
           "call_site": "0x499513",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4991C0"
+          "symbol": "WindowBattleResult_Update"
         }
       ],
       "business_format_points": [
@@ -136149,7 +136149,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4991C0"
+            "symbol": "WindowBattleResult_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -136349,7 +136349,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4B0290"
+            "WindowTrade_Update"
           ],
           "relationship": "仅两姓名对齐callee接原点，保留借用/窗口快照及完整交易更新正文"
         }
@@ -136381,13 +136381,13 @@
           "parent_entry": "0x4B0290",
           "call_site": "0x4B045F",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B0290"
+          "symbol": "WindowTrade_Update"
         },
         {
           "parent_entry": "0x4B0290",
           "call_site": "0x4B04B5",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4B0290"
+          "symbol": "WindowTrade_Update"
         }
       ],
       "business_format_points": [
@@ -136439,7 +136439,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4B0290"
+            "symbol": "WindowTrade_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -142630,14 +142630,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4A9160"
+            "WindowBank_Draw"
           ],
           "relationship": "仅一格式callee接一原点，后取窗口载荷及全部滚动/预览/绘图正文保持"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4A9160"
+            "WindowBank_Draw"
           ],
           "relationship": "SPD01完整窗口41滚动/预览分发，旧数量格式历史保，两个BYTE读取对齐"
         }
@@ -142669,7 +142669,7 @@
           "parent_entry": "0x4A9160",
           "call_site": "0x4A9175",
           "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "Sub_4A9160"
+          "symbol": "WindowBank_Draw"
         }
       ],
       "business_format_points": [
@@ -142722,7 +142722,7 @@
             "code": false
           }
         ],
-        "native_signature": "std::int32_t Sub_4A9160(const std::int32_t)",
+        "native_signature": "std::int32_t WindowBank_Draw(const std::int32_t)",
         "source_patch_group_count": 2,
         "source_changed_point_count": 2,
         "normal_remaining_source_kept": true,
@@ -142740,11 +142740,11 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4A9160"
+            "symbol": "WindowBank_Draw"
           },
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4A9160"
+            "symbol": "WindowBank_Draw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -197874,7 +197874,7 @@
     {
       "original_entry": "0x0047A620",
       "inventory_id": "F:0007A620",
-      "original_role": "Sub_47A620",
+      "original_role": "WindowSkill_Update",
       "original_end_exclusive": "0x0047A776",
       "instruction_count": 92,
       "status": "BQO01四完整收尾/初始化/返回/滚动正常源，三体九片段恢复窗口取序/三槽借用/hover缓存与两W8/两高度W32顺序；原分支和闭合请求保持，完整生产/owner寿命/运行未验",
@@ -197882,7 +197882,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_47A620"
+            "WindowSkill_Update"
           ],
           "relationship": "47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。"
         }
@@ -197934,7 +197934,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_47A620"
+            "symbol": "WindowSkill_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -198577,7 +198577,7 @@
       "original_entry": "0x47b0e0",
       "inventory_id": null,
       "original_entry_kind": "bounded_code_without_ida_function",
-      "original_role": "Sub_47B0E0",
+      "original_role": "WindowSkill_Release",
       "original_end_exclusive": "0x47b10e",
       "instruction_count": 12,
       "status": "BQQ01两真实关闭回调完整代码区间正常源纳管，一制造体两片段恢复W8旧值/窗口借用/发布序与减后held谓词，原void弃返适配正确；完整生产/窗口与owner寿命/运行未验",
@@ -198585,7 +198585,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_47B0E0"
+            "WindowSkill_Release"
           ],
           "relationship": "窗口10关闭：一次W32 mode取样1或2才479660；调用后fresh W32 mode=2才4796E0及D67AFD W8减；其它mode直接结束。原EAX=1由实际release调用弃返，现void正确保。"
         }
@@ -198669,7 +198669,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_47B0E0"
+            "symbol": "WindowSkill_Release"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -198681,7 +198681,7 @@
       "original_entry": "0x485690",
       "inventory_id": null,
       "original_entry_kind": "bounded_code_without_ida_function",
-      "original_role": "Sub_485690",
+      "original_role": "WindowGather_Release",
       "original_end_exclusive": "0x4856f3",
       "instruction_count": 30,
       "status": "BQQ01两真实关闭回调完整代码区间正常源纳管，一制造体两片段恢复W8旧值/窗口借用/发布序与减后held谓词，原void弃返适配正确；完整生产/窗口与owner寿命/运行未验",
@@ -198689,7 +198689,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_485690"
+            "WindowGather_Release"
           ],
           "relationship": "窗口12关闭：479660→fresh CC3E80 W8 mode1/2才4796E0；D67AFD旧W8→window12非拥有T*→减后W8发布→window.state W32|8000；D67AFE减后W8先发布/同held谓词为0才51BEC0，S32 state5..7或16才51BE50(0)且弃S8返回；原EAX=1 release弃返。"
         }
@@ -198783,7 +198783,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_485690"
+            "symbol": "WindowGather_Release"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -232386,13 +232386,13 @@
     {
       "original_entry": "0x486040",
       "inventory_id": "F:00086040",
-      "original_role": "CAC08仅原分派数据/当前源定义关联：Sub_486040",
+      "original_role": "CAC08仅原分派数据/当前源定义关联：WindowGather_Update",
       "status": "已有真实源码，CAC08补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::detail::Sub_486040"
+            "cg::ui::detail::WindowGather_Update"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重新核全部原父或登记完整F处置。"
         }
@@ -232426,7 +232426,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::detail::Sub_486040"
+            "symbol": "cg::ui::detail::WindowGather_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -234632,13 +234632,13 @@
     {
       "original_entry": "0x4bf950",
       "inventory_id": "F:000BF950",
-      "original_role": "CAC18仅原分派数据/当前源定义关联：Sub_4BF950",
+      "original_role": "CAC18仅原分派数据/当前源定义关联：WindowPetSkillChoice_Draw",
       "status": "已有真实源码，CAC18补原表/当前源关联；完整父正文、所有依赖及软件门禁未据本批验收",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "cg::ui::detail::Sub_4BF950"
+            "cg::ui::detail::WindowPetSkillChoice_Draw"
           ],
           "relationship": "当前带函数体唯一定义确认源身份；本批只原分派数据/取用窗关联，不重验全部原父或登记完整F处置。"
         }
@@ -234673,7 +234673,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "cg::ui::detail::Sub_4BF950"
+            "symbol": "cg::ui::detail::WindowPetSkillChoice_Draw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -254054,14 +254054,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4A6DD0"
+            "WindowChat_Update"
           ],
           "relationship": "CWC01完整原根与真实窗口/输入/滑块接线，既有正确body保持，仅关联注释"
         },
         {
           "path": "src/ui/WindowPrototypeDependencies.hpp",
           "symbols": [
-            "Sub_4A6DD0"
+            "WindowChat_Update"
           ],
           "relationship": "CWC01真实内部声明/参数返回与原型边界保持，仅完整合同关联注释"
         }
@@ -254089,8 +254089,8 @@
         "direct_call_count": 5,
         "jump_count": 3,
         "return_count": 2,
-        "native_signature": "std::int32_t Sub_4A6DD0(const std::int32_t value)",
-        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A6DD0",
+        "native_signature": "std::int32_t WindowChat_Update(const std::int32_t value)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_Update",
         "normal_source_kept": true,
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
@@ -254105,7 +254105,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4A6DD0"
+            "symbol": "WindowChat_Update"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -254387,14 +254387,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4A82C0"
+            "WindowChat_Draw"
           ],
           "relationship": "CFD01完整原根与真实原型绑定，正确正文保持，仅关联注释"
         },
         {
           "path": "src/ui/WindowPrototypeDependencies.hpp",
           "symbols": [
-            "Sub_4A82C0"
+            "WindowChat_Draw"
           ],
           "relationship": "CFD01真实内部声明和原参数返回保持，仅合同关联注释"
         }
@@ -254422,8 +254422,8 @@
         "direct_call_count": 1,
         "jump_count": 1,
         "return_count": 1,
-        "native_signature": "std::int32_t Sub_4A82C0(const std::int32_t)",
-        "native_provider": "src/ui/WindowRuntime.cpp::Sub_4A82C0",
+        "native_signature": "std::int32_t WindowChat_Draw(const std::int32_t)",
+        "native_provider": "src/ui/WindowRuntime.cpp::WindowChat_Draw",
         "normal_source_kept": true,
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
@@ -254438,7 +254438,7 @@
         "touched_sources": [
           {
             "path": "src/ui/WindowRuntime.cpp",
-            "symbol": "Sub_4A82C0"
+            "symbol": "WindowChat_Draw"
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
@@ -272811,14 +272811,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_48A8C0"
+            "WindowQuantity_Update"
           ],
           "relationship": "QVC01完整原根/字段读取和原callback发布核对，低BYTE及取样序对齐，正确正文保持"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
-            "Sub_48A8C0"
+            "WindowQuantity_Update"
           ],
           "relationship": "QVC01真实S32/void参数返回声明保持，仅合同注释；原结果分界具名，不记全机器ABI等价"
         }
@@ -272848,7 +272848,7 @@
         "jumps": 1,
         "returns": 1,
         "original_incoming": [],
-        "native_signature": "std::int32_t Sub_48A8C0(const std::int32_t value)",
+        "native_signature": "std::int32_t WindowQuantity_Update(const std::int32_t value)",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -273461,14 +273461,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4A4210"
+            "WindowRuntime_ReturnOne"
           ],
           "relationship": "WCL01完整关闭/前置/返回原根，正确正文保持，只合同注释；不额外释放或业务取消"
         },
         {
           "path": "src/ui/WindowRuntimeState.hpp",
           "symbols": [
-            "Sub_4A4210"
+            "WindowRuntime_ReturnOne"
           ],
           "relationship": "WCL01既有真实声明保持，仅合同注释；原生非拥有callback/返回边界具名"
         }
@@ -273728,7 +273728,7 @@
             "parent": null
           }
         ],
-        "native_signature": "std::int32_t Sub_4A4210(const std::int32_t) noexcept",
+        "native_signature": "std::int32_t WindowRuntime_ReturnOne(const std::int32_t) noexcept",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -277419,7 +277419,7 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4AC1B0"
+            "WindowItemStorage_Draw"
           ],
           "relationship": "SPD01完整预览/描述消费原根，正确正文和真实调用/返回保持，仅合同注释"
         }
@@ -277457,7 +277457,7 @@
             "code": false
           }
         ],
-        "native_signature": "std::int32_t Sub_4AC1B0(const std::int32_t)",
+        "native_signature": "std::int32_t WindowItemStorage_Draw(const std::int32_t)",
         "source_patch_group_count": 0,
         "source_changed_point_count": 0,
         "normal_remaining_source_kept": true,
@@ -280933,237 +280933,237 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4D0990",
-        "line": 2831
+        "line": 2832
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4D0A80",
-        "line": 2857
+        "line": 2858
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4CDB10",
-        "line": 3940
+        "symbol": "WindowStall_Draw",
+        "line": 3941
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4AAB70",
-        "line": 6110
+        "line": 6112
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4AB400",
-        "line": 6157
+        "line": 6159
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48D540",
-        "line": 6213
+        "line": 6215
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B0F20",
-        "line": 6291
+        "line": 6293
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B1940",
-        "line": 6676
+        "line": 6678
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B2730",
-        "line": 7137
+        "line": 7139
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B3610",
-        "line": 7520
+        "line": 7522
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B810",
-        "line": 7917
+        "line": 7919
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B930",
-        "line": 7963
+        "line": 7965
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B450",
-        "line": 8009
+        "line": 8011
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_488B10",
-        "line": 9030
+        "symbol": "WindowInventory_Draw",
+        "line": 9032
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_499C30",
-        "line": 10718
+        "line": 10720
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_488FB0",
-        "line": 11428
+        "line": 11430
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C75A0",
-        "line": 11854
+        "line": 11856
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_489F00",
-        "line": 12007
+        "line": 12009
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B1A0",
-        "line": 12160
+        "line": 12162
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B350",
-        "line": 12203
+        "line": 12205
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B560",
-        "line": 12232
+        "line": 12234
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B750",
-        "line": 12278
+        "line": 12280
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B4070",
-        "line": 12302
+        "line": 12304
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B4140",
-        "line": 12329
+        "line": 12331
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B45A0",
-        "line": 12422
+        "line": 12424
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B4680",
-        "line": 12452
+        "line": 12454
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B3B00",
-        "line": 12539
+        "line": 12541
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B3BF0",
-        "line": 12569
+        "line": 12571
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4A9D10",
-        "line": 13894
+        "line": 13898
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4AA3D0",
-        "line": 14073
+        "line": 14077
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4AC290",
-        "line": 14831
+        "line": 14835
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4AC890",
-        "line": 14985
+        "line": 14989
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4BC660",
-        "line": 21136
+        "line": 21140
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4BF950",
-        "line": 22271
+        "symbol": "WindowPetSkillChoice_Draw",
+        "line": 22275
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C2B20",
-        "line": 23596
+        "line": 23600
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C33B0",
-        "line": 23802
+        "line": 23806
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C4CB0",
-        "line": 24530
+        "line": 24534
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C54D0",
-        "line": 24736
+        "line": 24740
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_483150",
-        "line": 32450
+        "line": 32454
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47B6C0",
-        "line": 35504
+        "line": 35509
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47B9B0",
-        "line": 35675
+        "line": 35681
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47C240",
-        "line": 35733
+        "line": 35739
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_496D50",
-        "line": 36221
+        "symbol": "WindowBattleCommand_Draw",
+        "line": 36227
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_49B670",
-        "line": 37690
+        "line": 37696
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47CB00",
-        "line": 37866
+        "line": 37872
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47CE70",
-        "line": 37905
+        "line": 37911
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4920F0",
-        "line": 43286
+        "line": 43293
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -281343,122 +281343,122 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4E54E0",
-        "line": 2140
+        "line": 2141
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4D04A0",
-        "line": 3218
+        "line": 3219
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4D2840",
-        "line": 3572
+        "line": 3573
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4CDB10",
-        "line": 3934
+        "symbol": "WindowStall_Draw",
+        "line": 3935
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4CED60",
-        "line": 4044
+        "line": 4045
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4CF8A0",
-        "line": 4241
+        "line": 4242
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4CE930",
-        "line": 4390
+        "line": 4391
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B1940",
-        "line": 6674
+        "line": 6676
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4B2730",
-        "line": 7133
+        "line": 7135
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "DrawItemTooltipLines",
-        "line": 7912
+        "line": 7914
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B810",
-        "line": 7958
+        "line": 7960
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B810",
-        "line": 7970
+        "line": 7972
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_499C30",
-        "line": 10737
+        "line": 10739
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_488FB0",
-        "line": 11445
+        "line": 11447
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_489760",
-        "line": 11642
+        "line": 11644
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_48B1A0",
-        "line": 12172
+        "line": 12174
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4E0100",
-        "line": 12889
+        "line": 12891
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4BAA50",
-        "line": 19911
+        "line": 19915
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4BC660",
-        "line": 21145
+        "line": 21149
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C2B20",
-        "line": 23603
+        "line": 23607
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4C4CB0",
-        "line": 24535
+        "line": 24539
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4810A0",
-        "line": 33221
+        "symbol": "WindowCraft_Update",
+        "line": 33225
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47E5E0",
-        "line": 33703
+        "line": 33707
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_47F3D0",
-        "line": 33919
+        "line": 33923
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -281897,7 +281897,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_486040"
+        "symbol": "WindowGather_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -281917,7 +281917,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_47A7A0"
+        "symbol": "WindowSkill_Draw"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -281933,11 +281933,11 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4991C0"
+        "symbol": "WindowBattleResult_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_499790"
+        "symbol": "WindowDpResult_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282269,7 +282269,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4CD4F0"
+        "symbol": "WindowStall_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282381,7 +282381,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4B9310"
+        "symbol": "WindowShop_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282425,7 +282425,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4BF7C0"
+        "symbol": "WindowPetSkillChoice_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282441,7 +282441,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4C1C50"
+        "symbol": "WindowCrystalShop_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282461,7 +282461,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4C3F00"
+        "symbol": "WindowCrystalExchangeShop_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282933,7 +282933,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4AD780"
+        "symbol": "WindowTextList_Release"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -282945,7 +282945,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4A83D0"
+        "symbol": "WindowBank_Release"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283041,11 +283041,11 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4810A0"
+        "symbol": "WindowCraft_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_486040"
+        "symbol": "WindowGather_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283489,11 +283489,11 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4CD4F0"
+        "symbol": "WindowStall_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4B0290"
+        "symbol": "WindowTrade_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283665,7 +283665,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_49E750"
+        "symbol": "WindowTimerNotice_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283677,7 +283677,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_495D70"
+        "symbol": "WindowMiniMap_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283693,7 +283693,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4CD4F0"
+        "symbol": "WindowStall_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283705,7 +283705,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_47A7A0"
+        "symbol": "WindowSkill_Draw"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283749,7 +283749,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4A9160"
+        "symbol": "WindowBank_Draw"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -283773,7 +283773,7 @@
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
-        "symbol": "Sub_4C5850"
+        "symbol": "WindowAppearance_Update"
       },
       {
         "path": "src/ui/WindowRuntime.cpp",

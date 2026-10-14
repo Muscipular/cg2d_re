@@ -8,6 +8,82 @@ struct YobiAction;
 
 namespace cg::ui {
 
+// 现代窗口编号；原57C130／C8B094／C9A9B0按此索引，不能用于旧选择编号。
+enum WindowId : std::int32_t {
+    WindowId_None = 0, // 无窗口。
+    WindowId_StatusBar = 1, // 窗口1：状态栏与提示按钮。
+    WindowId_CompactStatusBar = 2, // 窗口2：紧凑状态栏。
+    WindowId_CollapsedStatusBar = 3, // 窗口3：折叠状态栏。
+    WindowId_ShortcutBar = 4, // 窗口4：快捷交互栏。
+    WindowId_CollapsedShortcutBar = 5, // 窗口5：折叠快捷交互栏。
+    WindowId_BottomBar = 6, // 窗口6：底栏与悬停描述。
+    WindowId_PlayerProfile = 7, // 窗口7：玩家资料。
+    WindowId_PlayerAttributes = 8, // 窗口8：玩家明细。
+    WindowId_PlayerTitles = 9, // 窗口9：玩家称号。
+    WindowId_Skill = 10, // 窗口10：技能、技术与宠物技能。
+    WindowId_Craft = 11, // 窗口11：制造与物品加工。
+    WindowId_Gather = 12, // 窗口12：窗口12操作与结果。
+    WindowId_SkillResult = 13, // 窗口13：窗口13操作与结果。
+    WindowId_Inventory = 14, // 窗口14：库存与装备。
+    WindowId_PetList = 15, // 窗口15：宠物列表。
+    WindowId_PetDetail = 16, // 窗口16：宠物详情。
+    WindowId_PetAttributes = 17, // 窗口17：宠物详细属性。
+    WindowId_PetSkills = 18, // 窗口18：宠物技能详情。
+    WindowId_AlbumList = 19, // 窗口19：图鉴列表。
+    WindowId_AlbumDetail = 20, // 窗口20：图鉴详情。
+    WindowId_Contacts = 21, // 窗口21：联系人与邮件列表。
+    WindowId_MailCompose = 22, // 窗口22：发信。
+    WindowId_PetMailCompose = 23, // 窗口23：宠物邮件。
+    WindowId_Settings = 24, // 窗口24：设置。
+    WindowId_Hotkeys = 25, // 窗口25：快捷键列表与预设文本编辑。
+    WindowId_BattleCommand = 26, // 窗口26：战斗命令。
+    WindowId_BattleItems = 27, // 窗口27：战斗物品。
+    WindowId_BattlePets = 28, // 窗口28：战斗宠物切换。
+    WindowId_Spectator = 29, // 窗口29：观战结束。
+    WindowId_BattleResult = 30, // 窗口30：战斗结果。
+    WindowId_DpResult = 31, // 窗口31：DP结果。
+    WindowId_BattleStateNotice = 32, // 窗口32运行期明细。
+    WindowId_MiniMap = 33, // 窗口33：小地图。
+    WindowId_Emote = 34, // 窗口34：情绪动作。
+    WindowId_Chat = 35, // 窗口35：可调聊天窗口。
+    WindowId_Dialog = 36, // 窗口36：通用对话共享实例。
+    WindowId_DialogCreate = 37, // 窗口37：通用对话创建入口。
+    WindowId_ItemStorage = 38, // 窗口38：外部物品存放。
+    WindowId_TimerNotice = 39, // 窗口39：计时提示。
+    WindowId_MailRead = 40, // 窗口40：读信。
+    WindowId_Bank = 41, // 窗口41：物品与宠物存放。
+    WindowId_Quantity = 42, // 窗口42：数量输入。
+    WindowId_Trade = 43, // 窗口43：交易。
+    WindowId_TradeTarget = 44, // 窗口44：交易目标选择。
+    WindowId_TextTarget = 45, // 窗口45：文本目标选择。
+    WindowId_AttributeTarget = 46, // 窗口46：属性目标选择。
+    WindowId_Confirmation = 47, // 窗口47：通用确认。
+    WindowId_GuildDetails = 48, // 窗口48：公会详情与职级编辑。
+    WindowId_GroupSelect = 49, // 窗口49：群组选人。
+    WindowId_MessageBoard = 50, // 窗口50：四记录对话。
+    WindowId_TextList = 51, // 窗口51：文本列表。
+    WindowId_ShopChoice = 52, // 窗口52：商店选择。
+    WindowId_Shop = 53, // 窗口53：商品买卖。
+    WindowId_PetSkillChoice = 54, // 窗口54：宠物与技能选择。
+    WindowId_GuildRank = 55, // 窗口55：公会职级选择。
+    WindowId_Appearance = 56, // 窗口56：外观选择。
+    WindowId_CompactChat = 57, // 窗口57：简化聊天窗口。
+    WindowId_OwnProfile = 58, // 窗口58：自身资料。
+    WindowId_OwnProfileCategory = 59, // 窗口59：自身资料分类选择。
+    WindowId_ProfileCategory = 60, // 窗口60：资料分类选择。
+    WindowId_ProfileSearch = 61, // 窗口61：资料搜索结果。
+    WindowId_ProfileView = 62, // 窗口62：查看资料。
+    WindowId_MiniMail = 63, // 窗口63：迷你发信。
+    WindowId_ProfileReply = 64, // 窗口64：资料回复展示。
+    WindowId_Blacklist = 65, // 窗口65：黑名单管理。
+    WindowId_AdventureLog = 66, // 窗口66：冒险者日志。
+    WindowId_OwnStall = 67, // 窗口67：自身摊位。
+    WindowId_StallBrowse = 68, // 窗口68：浏览摊位。
+    WindowId_CrystalShop = 69, // 窗口69：晶石商店69。
+    WindowId_CrystalExchangeShop = 70, // 窗口70：晶石商店70。
+};
+static_assert(sizeof(WindowId) == sizeof(std::int32_t));
+
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;
 

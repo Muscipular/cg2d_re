@@ -13,9 +13,9 @@
 | window id | 46 |
 | 原型地址 | `54E930` |
 | 元素表 / 数量 | `gWindowElements56D3E8` / 34 |
-| update | `Sub_49F7B0` |
-| draw | `Sub_499830` |
-| release | `Sub_49F790` |
+| update | `WindowAttributeTarget_Update` |
+| draw | `WindowRuntime_DrawLargeFrame` |
+| release | `WindowAttributeTarget_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

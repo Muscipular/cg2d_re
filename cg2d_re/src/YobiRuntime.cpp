@@ -2037,11 +2037,11 @@ YobiAction* Sub_48AC60(
     const std::int32_t initialValue, const ui::WindowValueCallback callback,
     const std::uint32_t flags, const std::uint32_t mode, const std::uint32_t actionFlags)
 {
-    ui::detail::gWindowStates[42].actionFlags1C = actionFlags;
+    ui::detail::gWindowStates[cg::ui::WindowId_Quantity].actionFlags1C = actionFlags;
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
-    if (ui::detail::gWindowStates[42].window != nullptr) {
-        ui::detail::gWindowStates[42].window->state |= 0x8000u;
+    if (ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window != nullptr) {
+        ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (action == nullptr) {
@@ -2049,16 +2049,16 @@ YobiAction* Sub_48AC60(
             sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
         return nullptr;
     }
-    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[42];
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Quantity];
     const auto windowFlags = reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[42].flags)[0];
+        &ui::detail::gWindowStates[cg::ui::WindowId_Quantity].flags)[0];
     std::int32_t x = prototype->defaultX;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
     if ((windowFlags & 1u) != 0) {
-        x = ui::detail::gWindowStates[42].x;
-        y = ui::detail::gWindowStates[42].y;
+        x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
+        y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
     }
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
     action->callback = Sub_48ABC0;
@@ -2139,16 +2139,16 @@ YobiAction* Sub_4ABEF0(
         static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
         return nullptr;
     }
-    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[41];
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[41].flags) & 1u) != 0;
+        &ui::detail::gWindowStates[cg::ui::WindowId_Bank].flags) & 1u) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
     const std::int32_t height = prototype->height;
     if (savedPosition) {
-        x = ui::detail::gWindowStates[41].x;
-        y = ui::detail::gWindowStates[41].y;
+        x = ui::detail::gWindowStates[cg::ui::WindowId_Bank].x;
+        y = ui::detail::gWindowStates[cg::ui::WindowId_Bank].y;
     }
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
     action->flags |= 6u;
@@ -2228,16 +2228,16 @@ YobiAction* Sub_4ACE80(
         static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
         return nullptr;
     }
-    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[38];
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_ItemStorage];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[38].flags) & 1u) != 0;
+        &ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].flags) & 1u) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
     const std::int32_t height = prototype->height;
     if (savedPosition) {
-        x = ui::detail::gWindowStates[38].x;
-        y = ui::detail::gWindowStates[38].y;
+        x = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].x;
+        y = ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].y;
     }
     auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
     action->flags |= 6u;

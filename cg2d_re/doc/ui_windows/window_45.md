@@ -13,9 +13,9 @@
 | window id | 45 |
 | 原型地址 | `54E900` |
 | 元素表 / 数量 | `gWindowElements56D0B0` / 19 |
-| update | `Sub_49F060` |
-| draw | `Sub_49F1A0` |
-| release | `Sub_49F040` |
+| update | `WindowTextTarget_Update` |
+| draw | `WindowTextTarget_Draw` |
+| release | `WindowTextTarget_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

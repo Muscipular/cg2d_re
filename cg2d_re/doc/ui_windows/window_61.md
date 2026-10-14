@@ -13,9 +13,9 @@
 | window id | 61 |
 | 原型地址 | `54EDC0` |
 | 元素表 / 数量 | `gWindowElements578CC8` / 71 |
-| update | `Sub_4CA410` |
-| draw | `Sub_46FBC0` |
-| release | `Sub_4CAB60` |
+| update | `WindowProfileSearch_Update` |
+| draw | `WindowRuntime_DrawDefault` |
+| release | `WindowProfileSearch_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

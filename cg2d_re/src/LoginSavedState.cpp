@@ -700,7 +700,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
 // 存档无参调用适配；原4A4210不读取参数，共用窗口侧真实实现。
 std::int32_t ReturnOne_4A4210() noexcept
 {
-    return cg::ui::detail::Sub_4A4210(0);
+    return cg::ui::detail::WindowRuntime_ReturnOne(0);
 }
 
 // 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。

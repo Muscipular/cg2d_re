@@ -13,9 +13,9 @@
 | window id | 69 |
 | 原型地址 | `54ECC0` |
 | 元素表 / 数量 | `gWindowElements575988` / 70 |
-| update | `Sub_4C1C50` |
-| draw | `Sub_4C1EC0` |
-| release | `Sub_4C1390` |
+| update | `WindowCrystalShop_Update` |
+| draw | `WindowCrystalShop_Draw` |
+| release | `WindowCrystalShop_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

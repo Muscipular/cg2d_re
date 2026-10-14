@@ -987,3 +987,5 @@ windows-msvc-x64-debug默认构建返回0，三库及cg2d_re_client.exe目标通
 ## 2026-10-15 cg2d_re UI 命名与枚举整理
 
 已整理 UIN01 SPEC，用户授权直接执行；保留原地址注释，按现代窗口类型和函数作用命名，窗口 ID／控件类型保原值枚举化。详细进度见 cg2d_re/plan/cg2d_full_reconstruction_progress.md；尚未修改源码，不编译、测试或运行。
+
+cg2d_re UIN01：第一步完成现代主回调按窗口类型改名、WindowId／WindowElementType枚举、原型及创建／绘制／释放的类型常量，外部调用与当前定位同步。原地址注释保留／补齐；逆向展开枚举并还原符号后正文词法一致，仅静态核对，继续元素及辅助函数。

@@ -29,6 +29,19 @@ struct MiniMailContactRecord;
 
 namespace cg::ui {
 
+// 原控件type的S32编号；创建、绘制、输入及释放共用同一类型。
+enum WindowElementType : std::int32_t {
+    WindowElementType_EventArea = 0, // 事件区域。
+    WindowElementType_Graphic = 1, // 图片载荷。
+    WindowElementType_Animation = 2, // 动画载荷。
+    WindowElementType_Text = 3, // 文本载荷。
+    WindowElementType_MouseArea = 4, // 鼠标区域／滚动载荷。
+    WindowElementType_Input = 5, // 输入上下文。
+    WindowElementType_InputCaret = 6, // 输入光标。
+    WindowElementType_Number = 7, // 数字图片文本。
+};
+static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
+
 using WindowCallback = std::int32_t (*)(std::int32_t value);
 using WindowReleaseCallback = void (*)();
 using WindowElementCallback = std::int32_t (*)(std::int32_t index, std::int32_t state);
@@ -83,7 +96,7 @@ struct WindowMouseData {
 
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
 struct WindowElement {
-    std::int32_t type; // 原成员偏移：+0x00。
+    WindowElementType type; // 原成员偏移：+0x00；原S32控件类型。
     std::uint32_t state; // 原成员偏移：+0x04。
     std::int32_t x; // 原成员偏移：+0x08。
     std::int32_t y; // 原成员偏移：+0x0C。
@@ -193,9 +206,9 @@ login::YobiAction* Sub_47A580(WindowValueCallback callback); // 设置CC4D14并�
 // 原函数：0x004966B0。
 void Sub_4966B0(std::int32_t mode, std::int16_t x, std::int16_t y); // 窗口26五模式创建/配置及入场偏移。
 // 原函数：0x00496B90。
-std::int32_t Sub_496B90(std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
+std::int32_t WindowBattleCommand_Update(std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
 // 原函数：0x00496D50。
-std::int32_t Sub_496D50(std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
+std::int32_t WindowBattleCommand_Draw(std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
 // 原函数：0x00496AE0。
 void Sub_496AE0(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
 // 原函数：0x00496F10。
@@ -290,7 +303,7 @@ void Sub_496570(); // 五宠物四项CryptInt快照，唯一CF4B78数组生产�
 // 原函数：0x004965D0。
 void Sub_4965D0(); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
 // 原函数：0x0049B630。
-std::int32_t Sub_49B630(std::int32_t unused); // 窗口28归还按钮显隐。
+std::int32_t WindowBattlePets_Update(std::int32_t unused); // 窗口28归还按钮显隐。
 // 原函数：0x0049BA10。
 std::int32_t Sub_49BA10(std::int32_t index, std::int32_t state); // 窗口28宠物归还M|FF。
 // 原函数：0x0049BB00。
@@ -544,13 +557,13 @@ login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);
 // 原函数：0x0049F040。
-void Sub_49F040();
+void WindowTextTarget_Release();
 // 原函数：0x0049F060。
-std::int32_t Sub_49F060(std::int32_t value);
+std::int32_t WindowTextTarget_Update(std::int32_t value);
 // 原函数：0x0049F0A0。
 void Sub_49F0A0(std::int32_t offset); // 刷新五行，未用行复制593850但保留颜色。
 // 原函数：0x0049F1A0。
-std::int32_t Sub_49F1A0(std::int32_t value);
+std::int32_t WindowTextTarget_Draw(std::int32_t value);
 // 原函数：0x0049F260。
 std::int32_t Sub_49F260(std::int32_t index, std::int32_t state);
 // 原函数：0x0049F310。
@@ -587,13 +600,13 @@ login::YobiAction* Sub_49F760(
     const WindowStatusChoiceRecord* records, std::int32_t count,
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x0049F790。
-void Sub_49F790();
+void WindowAttributeTarget_Release();
 // 原函数：0x0049F7B0。
-std::int32_t Sub_49F7B0(std::int32_t value);
+std::int32_t WindowAttributeTarget_Update(std::int32_t value);
 // 原函数：0x0049F7E0。
 void Sub_49F7E0(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
 // 原函数：0x00499830。
-std::int32_t Sub_499830(std::int32_t value); // 31/46共用绘制与九宫格尾。
+std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘制与九宫格尾。
 // 原函数：0x00499880。
 std::int32_t Sub_499880(std::int32_t index, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
 // 原函数：0x004990F0。
@@ -1234,7 +1247,7 @@ union WindowElementPrototypeSource {
 };
 
 struct WindowElementPrototype {
-    std::int32_t type; // 原成员偏移：+0x00。
+    WindowElementType type; // 原成员偏移：+0x00；原S32控件类型。
     std::int32_t x; // 原成员偏移：+0x04。
     std::int32_t y; // 原成员偏移：+0x08。
     std::int32_t width; // 原成员偏移：+0x0C。
@@ -1328,12 +1341,12 @@ void Sub_493B70(std::int32_t offset); // 设置窗口音量侧栏，两同源数
 // 原函数：0x00493CB0。
 void Sub_493CB0(std::int32_t offset); // 设置窗口显示侧栏，读取当前模式S8。
 // 原函数：0x00493D60。
-std::int32_t Sub_493D60(std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
+std::int32_t WindowSettings_Update(std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
 // 原函数：0x00493DB0。
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
-std::int32_t Sub_493DB0(std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
+std::int32_t WindowSettings_Draw(std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
 // 原函数：0x00493E10。
-void Sub_493E10(); // 设置写回/持久化后播放关闭音效。
+void WindowSettings_Release(); // 设置写回/持久化后播放关闭音效。
 // 原函数：0x00493EE0。
 std::int32_t Sub_493EE0(std::int32_t index, std::int32_t state); // 登出侧栏开关。
 // 原函数：0x00494000。
@@ -1372,9 +1385,9 @@ std::int32_t Sub_494F30(std::int32_t index, std::int32_t state); // 554644切换
 std::int32_t Sub_495000(std::int32_t index, std::int32_t state); // 低U8切换后写W16扫描线设置。
 std::int32_t Sub_4950D0(std::int32_t index, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
 // 原函数：0x00495130。
-std::int32_t Sub_495130(std::int32_t value); // 窗口25初始化，按分类绑定十行回调。
+std::int32_t WindowHotkeys_Update(std::int32_t value); // 窗口25初始化，按分类绑定十行回调。
 // 原函数：0x004951C0。
-std::int32_t Sub_4951C0(std::int32_t value); // 窗口25说明/预设文本绘制及编辑焦点收尾。
+std::int32_t WindowHotkeys_Draw(std::int32_t value); // 窗口25说明/预设文本绘制及编辑焦点收尾。
 // 原函数：0x004953B0。
 std::int32_t Sub_4953B0(std::int32_t index, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
 // 原函数：0x00495450。
@@ -1478,13 +1491,13 @@ std::int32_t Sub_4CECB0(); // 选择索引直接查询后发购买请求，返�
 // 原函数：0x004CD420。
 std::int32_t Sub_4CD420(std::int32_t index, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
 // 原函数：0x004CDE00。
-void Sub_4CDE00(); // 67/68共用释放，条件发送后无条件SE57。
+void WindowStall_Release(); // 67/68共用释放，条件发送后无条件SE57。
 // 原函数：0x004CDB10。
-std::int32_t Sub_4CDB10(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
+std::int32_t WindowStall_Draw(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
 // 原函数：0x004D27C0。
 std::int32_t Sub_4D27C0(std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
 // 原函数：0x004CD4F0。
-std::int32_t Sub_4CD4F0(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
+std::int32_t WindowStall_Update(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
 std::int32_t Sub_4D2080(std::int32_t unusedIndex, std::int32_t state); // 固定元素8说明编辑，hover不消费。
 std::int32_t Sub_4D2170(std::int32_t unusedIndex, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
 extern std::wstring gStallMoneyText57B440; // 原全局：0x0057B440。 原可变金额串，止于下一数字原型57B450。
@@ -1884,17 +1897,17 @@ std::int32_t Sub_4D3020(std::int32_t x, std::int32_t y); // 同源坐标依序�
 std::int32_t Sub_4D3040(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
-std::int32_t Sub_4CAF60(std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
+std::int32_t WindowProfileView_Update(std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
 // 原函数：0x004CAFA0。
 std::uint32_t Sub_4CAFA0(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
 // 原函数：0x004CB530。
-void Sub_4CB530(); // 先清对话类型，再标记关联窗口63。
+void WindowProfileView_Release(); // 先清对话类型，再标记关联窗口63。
 // 原函数：0x004CB9B0。
 WindowInstance* Sub_4CB9B0(std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
 // 原函数：0x004CB2F0。
 std::int32_t Sub_4CB2F0(std::int32_t index, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
 // 原函数：0x004CB550。
-std::int32_t Sub_4CB550(std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
+std::int32_t WindowMiniMail_Update(std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
 // 原函数：0x004CB5D0。
 void Sub_4CB5D0(); // 同源收件人与八位费用刷新，原混合返回无人消费。
 // 原函数：0x004CB6A0。
@@ -1913,25 +1926,25 @@ std::int32_t Sub_4C9B80(std::int32_t index, std::int32_t state); // WSP01：原�
 // 原函数：0x004C9BE0。
 std::int32_t Sub_4C9BE0(std::int32_t unusedIndex, std::int32_t state); // 三模式滚轮，恒返0。
 // 原函数：0x004CB9E0。
-std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
+std::int32_t WindowProfileReply_Update(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 // 原函数：0x004CB9F0。
 std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
 // 原函数：0x004C9EE0。
 // 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
-std::int32_t Sub_4C9EE0(std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
+std::int32_t WindowProfileCategory_Update(std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
 // 原函数：0x004C9F20。
 void Sub_4C9F20(); // 固定32/32/15项分类的显隐、文本和选择颜色。
 // 原函数：0x004CA1A0。
 std::int32_t Sub_4CA1A0(std::int32_t index, std::int32_t state); // 分类点击发送后复制共享默认关键词。
 // 原函数：0x004CA300。
-void Sub_4CA300(); // 先清对话类型，再标记61/62/63。
+void WindowProfileCategory_Release(); // 先清对话类型，再标记61/62/63。
 // 原函数：0x004CB430。
 std::int32_t Sub_4CB430(std::int32_t index); // 只读selected10C门禁，不检查used。
 // 原函数：0x004CB4A0。
 std::int32_t Sub_4CB4A0(std::int32_t index, std::int32_t* group, std::int32_t* value);
 // 原函数：0x004CA410。
 // 关联原入口：0x004CA438（共享尾已并入本函数正文）。
-std::int32_t Sub_4CA410(std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
+std::int32_t WindowProfileSearch_Update(std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
 // 原函数：0x004CA450。
 std::uint32_t Sub_4CA450(); // 活动输入与关键词显示互斥，返回含NUL的UTF-16码元数。
 // 原函数：0x004CA500。
@@ -1941,7 +1954,7 @@ std::int32_t Sub_4CA6F0(std::int32_t index, std::int32_t state); // 搜索/上�
 // 原函数：0x004CA9C0。
 std::int32_t Sub_4CA9C0(std::int32_t index, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
 // 原函数：0x004CAB60。
-void Sub_4CAB60(); // 先清对话类型，再标记62/63。
+void WindowProfileSearch_Release(); // 先清对话类型，再标记62/63。
 // 原函数：0x004CAB90。
 std::int32_t Sub_4CAB90(std::int32_t unusedIndex, std::int32_t state); // 固定元素7关键词编辑入口。
 // 原函数：0x004B0110。
@@ -1959,11 +1972,11 @@ std::int32_t Sub_4AFF70(std::int32_t index); // 释放物品选择，再减同�
 // 原函数：0x004B0090。
 std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记。
 // 原函数：0x004B0200。
-void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
+void WindowTrade_Release(); // 窗口43释放回调，原返回值弃用。
 // 原函数：0x004B0290。
-std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
+std::int32_t WindowTrade_Update(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 // 原函数：0x004B08D0。
-std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+std::int32_t WindowTrade_Draw(std::int32_t unused); // 四类提示后绘制完整当前窗口。
 // 原函数：0x004AFF30。
 std::int32_t Sub_4AFF30(std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
 // 原函数：0x004AFFB0。
@@ -1996,7 +2009,7 @@ WindowInstance* Sub_48A830(
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
     WindowValueCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
 // 原函数：0x0048A8C0。
-std::int32_t Sub_48A8C0(std::int32_t value); // QVC01：-1初始化后总返回1。
+std::int32_t WindowQuantity_Update(std::int32_t value); // QVC01：-1初始化后总返回1。
 // 原函数：0x0048A900。
 std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state); // QVC01：输入bit2切换/焦点发布，返回0。
 // 原函数：0x0048A950。
@@ -2230,9 +2243,9 @@ login::YobiAction* Sub_4E4E80(const char* text); // 选择表绑定真实交易�
 // 原函数：0x0049E990。
 void Sub_49E990(std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
 // 原函数：0x0049E8F0。
-std::int32_t Sub_49E8F0(std::int32_t value); // 窗口44初始化与移动关闭。
+std::int32_t WindowTradeTarget_Update(std::int32_t value); // 窗口44初始化与移动关闭。
 // 原函数：0x0049EAA0。
-std::int32_t Sub_49EAA0(std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
+std::int32_t WindowTradeTarget_Draw(std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
 // 原函数：0x0049EB50。
 std::int32_t Sub_49EB50(std::int32_t index, std::int32_t state); // 上一行。
 // 原函数：0x0049EC00。
@@ -2282,7 +2295,7 @@ void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交�
 // 原函数：0x004B0F10。
 std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // WSB01：原完整零返回事件回调。
 // 原函数：0x004A4210。
-std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
+std::int32_t WindowRuntime_ReturnOne(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
 // 原函数：0x004B0000。
 void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 // 原函数：0x0047DCD0。
@@ -2301,11 +2314,11 @@ login::YobiAction* Sub_4AD180(
 // 原函数：0x004AD470。
 void Sub_4AD470(const char* text); // 同类对话续接，唯一caller不消费原混合返回。
 // 原函数：0x004AD780。
-void Sub_4AD780(); // 51释放回调：行表、物品标记、条件关闭请求。
+void WindowTextList_Release(); // 51释放回调：行表、物品标记、条件关闭请求。
 // 原函数：0x004AD800。
-std::int32_t Sub_4AD800(std::int32_t value); // 51初始化、移动关闭及权限可见性。
+std::int32_t WindowTextList_Update(std::int32_t value); // 51初始化、移动关闭及权限可见性。
 // 原函数：0x004AD9F0。
-std::int32_t Sub_4AD9F0(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
+std::int32_t WindowTextList_Draw(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
 // 原函数：0x004ADAA0。
 std::int32_t Sub_4ADAA0(std::int32_t index, std::int32_t unused); // 51模态提示及固定确认按钮。
 // 原函数：0x004ADBD0。
@@ -2378,11 +2391,11 @@ void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目�
 // 原函数：0x004A7750。
 void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 // 原函数：0x0046FBC0。
-std::int32_t Sub_46FBC0(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
+std::int32_t WindowRuntime_DrawDefault(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
 // 原函数：0x0049E750。
-std::int32_t Sub_49E750(std::int32_t value); // 窗口39文本居中/到时关闭请求。
+std::int32_t WindowTimerNotice_Update(std::int32_t value); // 窗口39文本居中/到时关闭请求。
 // 原函数：0x0049BDB0。
-std::int32_t Sub_49BDB0(std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
+std::int32_t WindowRuntime_DrawCompactFrame(std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
 // 原函数：0x00472F00。
 std::int32_t Sub_472F00(
     std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
@@ -2502,9 +2515,9 @@ std::int32_t Sub_4742B0(); // 只清CF4E50/54。
 std::int32_t Sub_4A0940(); // D67B40七槽交错清零。
 extern WindowElementPrototype gWindowElements56DB38[111]; // 原全局：0x0056DB38。 窗口21完整元素及原型坐标唯一来源。
 // 原函数：0x004A0970。
-std::int32_t Sub_4A0970(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
+std::int32_t WindowContacts_Update(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
 // 原函数：0x004A09B0。
-std::int32_t Sub_4A09B0(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
+std::int32_t WindowContacts_Draw(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
 // 原函数：0x004A09E0。
 std::int32_t Sub_4A09E0(); // 三行/九行联系人完整内容刷新，不调用公共Draw。
 // 原函数：0x004A1690。
@@ -2556,7 +2569,7 @@ std::int32_t Sub_4A36B0(std::int32_t unusedIndex, std::int32_t unusedState); // 
 // 原函数：0x004A3760。
 std::int32_t Sub_4A3760(std::int32_t unusedIndex, std::int32_t unusedState); // 取消时必要重开窗口21。
 // 原函数：0x004AE5F0。
-std::int32_t Sub_4AE5F0(std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
+std::int32_t WindowConfirmation_Update(std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
 // 原函数：0x004AE620。
 std::int32_t Sub_4AE620(std::int32_t index, std::int32_t state); // CTRL确认，动作槽0。
 // 原函数：0x004AE690。
@@ -2578,9 +2591,9 @@ std::int32_t Sub_4AE9C0(); // 六按钮逐项显隐，原最终偏移216。
 // 原函数：0x004AEA10。
 std::int32_t Sub_4AEA10(std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
 // 原函数：0x004A4180。
-std::int32_t Sub_4A4180(std::int32_t value); // 窗口55只初始化滚动位置。
+std::int32_t WindowGuildRank_Update(std::int32_t value); // 窗口55只初始化滚动位置。
 // 原函数：0x004A41A0。
-std::int32_t Sub_4A41A0(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
+std::int32_t WindowGuildRank_Draw(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
 // 原函数：0x004A4220。
 std::int32_t Sub_4A4220(std::int32_t index, std::int32_t state); // 职级行选择及当前选择图号。
 // 原函数：0x004A42C0。
@@ -2594,9 +2607,9 @@ std::uint32_t Sub_4A4540(); // 十行职级/成员姓名刷新，返回含NUL姓
 // 原函数：0x004A45E0。
 std::int32_t Sub_4A45E0(std::int32_t unused, std::int32_t state); // 非零滚轮推进，恒返回0。
 // 原函数：0x004A4620。
-std::int32_t Sub_4A4620(std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
+std::int32_t WindowMailRead_Update(std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
 // 原函数：0x004A4650。
-std::int32_t Sub_4A4650(std::int32_t unused); // 刷新清当前未读，再公共绘制。
+std::int32_t WindowMailRead_Draw(std::int32_t unused); // 刷新清当前未读，再公共绘制。
 // 原函数：0x004A4660。
 std::int32_t Sub_4A4660(std::int32_t index, std::int32_t state); // 上一封，负页跳9。
 // 原函数：0x004A4710。
@@ -2610,9 +2623,9 @@ std::uint32_t Sub_4A49B0(); // 三类邮件十行、姓名、时间和页码，�
 // 原函数：0x004A4FC0。
 std::int32_t Sub_4A4FC0(std::int32_t unused, std::int32_t state); // 悬停双图，区分三类头像采样序。
 // 原函数：0x004A53F0。
-std::int32_t Sub_4A53F0(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
+std::int32_t WindowMailCompose_Update(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
 // 原函数：0x004A5650。
-void Sub_4A5650(); // 22/23共享释放：保存草稿、释放占用、关闭49。
+void WindowMailCompose_Release(); // 22/23共享释放：保存草稿、释放占用、关闭49。
 // 原函数：0x004A58E0。
 std::int32_t Sub_4A58E0(std::int32_t unused, std::int32_t state); // 输入聚焦及非当前输入补绘。
 // 原函数：0x004A5970。
@@ -2620,7 +2633,7 @@ std::int32_t Sub_4A5970(std::int32_t index, std::int32_t state); // 宠物邮件
 // 原函数：0x004A6160。
 std::uint8_t Sub_4A6160(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
 // 原函数：0x004A56F0。
-std::int32_t Sub_4A56F0(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
+std::int32_t WindowPetMailCompose_Update(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
 // 原函数：0x004A6300。
 std::int32_t Sub_4A6300(std::int32_t index, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
 // 原函数：0x004A6450。
@@ -2640,11 +2653,11 @@ extern WindowTextPrototype gWindowText572F78; // 原全局：0x00572F78。 49三
 extern WindowTextPrototype gWindowText572F80; // 原全局：0x00572F80。
 extern WindowTextPrototype gWindowText572F88; // 原全局：0x00572F88。
 // 原函数：0x004B4B00。
-std::int32_t Sub_4B4B00(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
+std::int32_t WindowGroupSelect_Update(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
 // 原函数：0x004B4B70。
-void Sub_4B4B70(); // 释放时仅关闭仍处于群发方式的22。
+void WindowGroupSelect_Release(); // 释放时仅关闭仍处于群发方式的22。
 // 原函数：0x004B4B90。
-std::int32_t Sub_4B4B90(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
+std::int32_t WindowGroupSelect_Draw(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
 // 原函数：0x004B4BB0。
 std::int32_t Sub_4B4BB0(std::int32_t index, std::int32_t state); // 前后翻七行，仅hover消费。
 // 原函数：0x004B4CA0。

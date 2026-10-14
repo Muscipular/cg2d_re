@@ -13,9 +13,9 @@
 | window id | 12 |
 | 原型地址 | `54E480` |
 | 元素表 / 数量 | `gWindowElements562620` / 15 |
-| update | `Sub_486040` |
-| draw | `Sub_46FBC0` |
-| release | `Sub_485690` |
+| update | `WindowGather_Update` |
+| draw | `WindowRuntime_DrawDefault` |
+| release | `WindowGather_Release` |
 
 当前元素及三主回调已有本体/绑定；这不表示完整上游、输入、显示或实际收发已验收。
 

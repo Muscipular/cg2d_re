@@ -1,0 +1,938 @@
+{
+  "schema_version": 1,
+  "spec": "doc/cg2d_ui_naming_enum_spec.md",
+  "scope": "UI 函数符号整理；保留原地址、签名、正文、绑定及验收状态。",
+  "records": [
+    {
+      "old_symbol": "Sub_470A80",
+      "new_symbol": "WindowStatusBar_Update",
+      "original_entry": "0x00470A80",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_470AB0",
+      "new_symbol": "WindowCompactStatusBar_Update",
+      "original_entry": "0x00470AB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4731E0",
+      "new_symbol": "WindowBottomBar_Update",
+      "original_entry": "0x004731E0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_474540",
+      "new_symbol": "WindowPlayerProfile_Update",
+      "original_entry": "0x00474540",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_474310",
+      "new_symbol": "WindowPlayerProfile_Release",
+      "original_entry": "0x00474310",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_475DF0",
+      "new_symbol": "WindowPlayerAttributes_Update",
+      "original_entry": "0x00475DF0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_474360",
+      "new_symbol": "WindowPlayerAttributes_Release",
+      "original_entry": "0x00474360",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4774C0",
+      "new_symbol": "WindowPlayerTitles_Update",
+      "original_entry": "0x004774C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4744A0",
+      "new_symbol": "WindowPlayerTitles_Release",
+      "original_entry": "0x004744A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_47A620",
+      "new_symbol": "WindowSkill_Update",
+      "original_entry": "0x0047A620",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_47A7A0",
+      "new_symbol": "WindowSkill_Draw",
+      "original_entry": "0x0047A7A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_47B0E0",
+      "new_symbol": "WindowSkill_Release",
+      "original_entry": "0x0047B0E0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4810A0",
+      "new_symbol": "WindowCraft_Update",
+      "original_entry": "0x004810A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_482000",
+      "new_symbol": "WindowCraft_Draw",
+      "original_entry": "0x00482000",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_481010",
+      "new_symbol": "WindowCraft_Release",
+      "original_entry": "0x00481010",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_486040",
+      "new_symbol": "WindowGather_Update",
+      "original_entry": "0x00486040",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_485690",
+      "new_symbol": "WindowGather_Release",
+      "original_entry": "0x00485690",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_487AE0",
+      "new_symbol": "WindowSkillResult_Update",
+      "original_entry": "0x00487AE0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_487B80",
+      "new_symbol": "WindowSkillResult_Draw",
+      "original_entry": "0x00487B80",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_487660",
+      "new_symbol": "WindowSkillResult_Release",
+      "original_entry": "0x00487660",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_488990",
+      "new_symbol": "WindowInventory_Update",
+      "original_entry": "0x00488990",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_488B10",
+      "new_symbol": "WindowInventory_Draw",
+      "original_entry": "0x00488B10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_488510",
+      "new_symbol": "WindowInventory_Release",
+      "original_entry": "0x00488510",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48C1B0",
+      "new_symbol": "WindowPetList_Update",
+      "original_entry": "0x0048C1B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48D9A0",
+      "new_symbol": "WindowPetDetail_Update",
+      "original_entry": "0x0048D9A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DCC0",
+      "new_symbol": "WindowPetDetail_Release",
+      "original_entry": "0x0048DCC0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DAB0",
+      "new_symbol": "WindowPetAttributes_Update",
+      "original_entry": "0x0048DAB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DD00",
+      "new_symbol": "WindowPetAttributes_Release",
+      "original_entry": "0x0048DD00",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DBB0",
+      "new_symbol": "WindowPetSkills_Update",
+      "original_entry": "0x0048DBB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DCB0",
+      "new_symbol": "WindowPetSkills_Draw",
+      "original_entry": "0x0048DCB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48DD40",
+      "new_symbol": "WindowPetSkills_Release",
+      "original_entry": "0x0048DD40",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4923F0",
+      "new_symbol": "WindowAlbumList_Update",
+      "original_entry": "0x004923F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_492410",
+      "new_symbol": "WindowAlbumDetail_Update",
+      "original_entry": "0x00492410",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A0970",
+      "new_symbol": "WindowContacts_Update",
+      "original_entry": "0x004A0970",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A09B0",
+      "new_symbol": "WindowContacts_Draw",
+      "original_entry": "0x004A09B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A53F0",
+      "new_symbol": "WindowMailCompose_Update",
+      "original_entry": "0x004A53F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A56F0",
+      "new_symbol": "WindowPetMailCompose_Update",
+      "original_entry": "0x004A56F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_493D60",
+      "new_symbol": "WindowSettings_Update",
+      "original_entry": "0x00493D60",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_493DB0",
+      "new_symbol": "WindowSettings_Draw",
+      "original_entry": "0x00493DB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_493E10",
+      "new_symbol": "WindowSettings_Release",
+      "original_entry": "0x00493E10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_495130",
+      "new_symbol": "WindowHotkeys_Update",
+      "original_entry": "0x00495130",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4951C0",
+      "new_symbol": "WindowHotkeys_Draw",
+      "original_entry": "0x004951C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_496B90",
+      "new_symbol": "WindowBattleCommand_Update",
+      "original_entry": "0x00496B90",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_496D50",
+      "new_symbol": "WindowBattleCommand_Draw",
+      "original_entry": "0x00496D50",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_499990",
+      "new_symbol": "WindowBattleItems_Update",
+      "original_entry": "0x00499990",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4999D0",
+      "new_symbol": "WindowBattleItems_Draw",
+      "original_entry": "0x004999D0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49B630",
+      "new_symbol": "WindowBattlePets_Update",
+      "original_entry": "0x0049B630",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4991C0",
+      "new_symbol": "WindowBattleResult_Update",
+      "original_entry": "0x004991C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4996C0",
+      "new_symbol": "WindowBattleResult_Draw",
+      "original_entry": "0x004996C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_499790",
+      "new_symbol": "WindowDpResult_Update",
+      "original_entry": "0x00499790",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49BD40",
+      "new_symbol": "WindowBattleStateNotice_Update",
+      "original_entry": "0x0049BD40",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_495D70",
+      "new_symbol": "WindowMiniMap_Update",
+      "original_entry": "0x00495D70",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_495F50",
+      "new_symbol": "WindowEmote_Update",
+      "original_entry": "0x00495F50",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A6DD0",
+      "new_symbol": "WindowChat_Update",
+      "original_entry": "0x004A6DD0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49C710",
+      "new_symbol": "WindowDialog_Update",
+      "original_entry": "0x0049C710",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49CAD0",
+      "new_symbol": "WindowDialog_Draw",
+      "original_entry": "0x0049CAD0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49CDF0",
+      "new_symbol": "WindowDialog_Release",
+      "original_entry": "0x0049CDF0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AC140",
+      "new_symbol": "WindowItemStorage_Update",
+      "original_entry": "0x004AC140",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AC1B0",
+      "new_symbol": "WindowItemStorage_Draw",
+      "original_entry": "0x004AC1B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AC0F0",
+      "new_symbol": "WindowItemStorage_Release",
+      "original_entry": "0x004AC0F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49E750",
+      "new_symbol": "WindowTimerNotice_Update",
+      "original_entry": "0x0049E750",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A4620",
+      "new_symbol": "WindowMailRead_Update",
+      "original_entry": "0x004A4620",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A4650",
+      "new_symbol": "WindowMailRead_Draw",
+      "original_entry": "0x004A4650",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A9020",
+      "new_symbol": "WindowBank_Update",
+      "original_entry": "0x004A9020",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A9160",
+      "new_symbol": "WindowBank_Draw",
+      "original_entry": "0x004A9160",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A83D0",
+      "new_symbol": "WindowBank_Release",
+      "original_entry": "0x004A83D0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_48A8C0",
+      "new_symbol": "WindowQuantity_Update",
+      "original_entry": "0x0048A8C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B0290",
+      "new_symbol": "WindowTrade_Update",
+      "original_entry": "0x004B0290",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B08D0",
+      "new_symbol": "WindowTrade_Draw",
+      "original_entry": "0x004B08D0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B0200",
+      "new_symbol": "WindowTrade_Release",
+      "original_entry": "0x004B0200",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49E8F0",
+      "new_symbol": "WindowTradeTarget_Update",
+      "original_entry": "0x0049E8F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49EAA0",
+      "new_symbol": "WindowTradeTarget_Draw",
+      "original_entry": "0x0049EAA0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49F060",
+      "new_symbol": "WindowTextTarget_Update",
+      "original_entry": "0x0049F060",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49F1A0",
+      "new_symbol": "WindowTextTarget_Draw",
+      "original_entry": "0x0049F1A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49F040",
+      "new_symbol": "WindowTextTarget_Release",
+      "original_entry": "0x0049F040",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49F7B0",
+      "new_symbol": "WindowAttributeTarget_Update",
+      "original_entry": "0x0049F7B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49F790",
+      "new_symbol": "WindowAttributeTarget_Release",
+      "original_entry": "0x0049F790",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AE5F0",
+      "new_symbol": "WindowConfirmation_Update",
+      "original_entry": "0x004AE5F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AEAE0",
+      "new_symbol": "WindowGuildDetails_Update",
+      "original_entry": "0x004AEAE0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AEC10",
+      "new_symbol": "WindowGuildDetails_Draw",
+      "original_entry": "0x004AEC10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B4B00",
+      "new_symbol": "WindowGroupSelect_Update",
+      "original_entry": "0x004B4B00",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B4B90",
+      "new_symbol": "WindowGroupSelect_Draw",
+      "original_entry": "0x004B4B90",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B4B70",
+      "new_symbol": "WindowGroupSelect_Release",
+      "original_entry": "0x004B4B70",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B5AD0",
+      "new_symbol": "WindowMessageBoard_Update",
+      "original_entry": "0x004B5AD0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B5B50",
+      "new_symbol": "WindowMessageBoard_Release",
+      "original_entry": "0x004B5B50",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AD800",
+      "new_symbol": "WindowTextList_Update",
+      "original_entry": "0x004AD800",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AD9F0",
+      "new_symbol": "WindowTextList_Draw",
+      "original_entry": "0x004AD9F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4AD780",
+      "new_symbol": "WindowTextList_Release",
+      "original_entry": "0x004AD780",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49FD20",
+      "new_symbol": "WindowShopChoice_Update",
+      "original_entry": "0x0049FD20",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49FE40",
+      "new_symbol": "WindowShopChoice_Draw",
+      "original_entry": "0x0049FE40",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49FF70",
+      "new_symbol": "WindowShopChoice_Release",
+      "original_entry": "0x0049FF70",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B9310",
+      "new_symbol": "WindowShop_Update",
+      "original_entry": "0x004B9310",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B99D0",
+      "new_symbol": "WindowShop_Draw",
+      "original_entry": "0x004B99D0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4B6DC0",
+      "new_symbol": "WindowShop_Release",
+      "original_entry": "0x004B6DC0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4BF7C0",
+      "new_symbol": "WindowPetSkillChoice_Update",
+      "original_entry": "0x004BF7C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4BF950",
+      "new_symbol": "WindowPetSkillChoice_Draw",
+      "original_entry": "0x004BF950",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4BD500",
+      "new_symbol": "WindowPetSkillChoice_Release",
+      "original_entry": "0x004BD500",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A4180",
+      "new_symbol": "WindowGuildRank_Update",
+      "original_entry": "0x004A4180",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A41A0",
+      "new_symbol": "WindowGuildRank_Draw",
+      "original_entry": "0x004A41A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C5850",
+      "new_symbol": "WindowAppearance_Update",
+      "original_entry": "0x004C5850",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C5B70",
+      "new_symbol": "WindowAppearance_Draw",
+      "original_entry": "0x004C5B70",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C5C00",
+      "new_symbol": "WindowAppearance_Release",
+      "original_entry": "0x004C5C00",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A8240",
+      "new_symbol": "WindowCompactChat_Update",
+      "original_entry": "0x004A8240",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_478320",
+      "new_symbol": "WindowOwnProfile_Update",
+      "original_entry": "0x00478320",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4744F0",
+      "new_symbol": "WindowOwnProfile_Release",
+      "original_entry": "0x004744F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C94B0",
+      "new_symbol": "WindowOwnProfileCategory_Update",
+      "original_entry": "0x004C94B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C9EE0",
+      "new_symbol": "WindowProfileCategory_Update",
+      "original_entry": "0x004C9EE0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CA300",
+      "new_symbol": "WindowProfileCategory_Release",
+      "original_entry": "0x004CA300",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CA410",
+      "new_symbol": "WindowProfileSearch_Update",
+      "original_entry": "0x004CA410",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CAB60",
+      "new_symbol": "WindowProfileSearch_Release",
+      "original_entry": "0x004CAB60",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CAF60",
+      "new_symbol": "WindowProfileView_Update",
+      "original_entry": "0x004CAF60",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CB530",
+      "new_symbol": "WindowProfileView_Release",
+      "original_entry": "0x004CB530",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CB550",
+      "new_symbol": "WindowMiniMail_Update",
+      "original_entry": "0x004CB550",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CB9E0",
+      "new_symbol": "WindowProfileReply_Update",
+      "original_entry": "0x004CB9E0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CC6C0",
+      "new_symbol": "WindowBlacklist_Update",
+      "original_entry": "0x004CC6C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CBD90",
+      "new_symbol": "WindowAdventureLog_Update",
+      "original_entry": "0x004CBD90",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C1C50",
+      "new_symbol": "WindowCrystalShop_Update",
+      "original_entry": "0x004C1C50",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C1EC0",
+      "new_symbol": "WindowCrystalShop_Draw",
+      "original_entry": "0x004C1EC0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C1390",
+      "new_symbol": "WindowCrystalShop_Release",
+      "original_entry": "0x004C1390",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C3F00",
+      "new_symbol": "WindowCrystalExchangeShop_Update",
+      "original_entry": "0x004C3F00",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C4180",
+      "new_symbol": "WindowCrystalExchangeShop_Draw",
+      "original_entry": "0x004C4180",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4C3530",
+      "new_symbol": "WindowCrystalExchangeShop_Release",
+      "original_entry": "0x004C3530",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_46FBC0",
+      "new_symbol": "WindowRuntime_DrawDefault",
+      "original_entry": "0x0046FBC0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A4210",
+      "new_symbol": "WindowRuntime_ReturnOne",
+      "original_entry": "0x004A4210",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "ReleaseWindow_4A4210",
+      "new_symbol": "WindowRuntime_ReleaseDefault",
+      "original_entry": "0x004A4210",
+      "source": "src/ui/WindowPrototypes.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_46FBA0",
+      "new_symbol": "WindowShortcutBar_Update",
+      "original_entry": "0x0046FBA0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A5650",
+      "new_symbol": "WindowMailCompose_Release",
+      "original_entry": "0x004A5650",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_49BDB0",
+      "new_symbol": "WindowRuntime_DrawCompactFrame",
+      "original_entry": "0x0049BDB0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_499830",
+      "new_symbol": "WindowRuntime_DrawLargeFrame",
+      "original_entry": "0x00499830",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4A82C0",
+      "new_symbol": "WindowChat_Draw",
+      "original_entry": "0x004A82C0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CD4F0",
+      "new_symbol": "WindowStall_Update",
+      "original_entry": "0x004CD4F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CDB10",
+      "new_symbol": "WindowStall_Draw",
+      "original_entry": "0x004CDB10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    },
+    {
+      "old_symbol": "Sub_4CDE00",
+      "new_symbol": "WindowStall_Release",
+      "original_entry": "0x004CDE00",
+      "source": "src/ui/WindowRuntime.cpp",
+      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。"
+    }
+  ]
+}

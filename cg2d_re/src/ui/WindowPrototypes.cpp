@@ -38,8 +38,8 @@ WindowGraphicData gWindowGraphic55F020 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic55F038 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F038。
 WindowGraphicData gWindowGraphic55F050 {0x3B92A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F050。
 WindowGraphicData gWindowGraphic55F068 {0x3B92C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F068。
-WindowNumberData gWindowNumber55F090 {gStatusHpTextD40B18.data(), 10, 0, 0, 0}; // 原全局：0x0055F090。
-WindowNumberData gWindowNumber55F098 {gStatusFpTextD45D50.data(), 10, 0, 0, 0}; // 原全局：0x0055F098。
+WindowNumberData gWindowNumber55F090 {&gStatusHpTextD40B18, 10, 0, 0, 0}; // 原全局：0x0055F090。
+WindowNumberData gWindowNumber55F098 {&gStatusFpTextD45D50, 10, 0, 0, 0}; // 原全局：0x0055F098。
 std::uint32_t gWindowMouseFlagsD67650 = 0; // 原全局：0x00D67650。
 
 WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AEF0。
@@ -375,16 +375,16 @@ WindowTextPrototype gWindowText5659A0 { // 原全局：0x005659A0。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTechniqueDescription585FF4,
 };
 WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
-    {gPetTechniqueCostsD66C34[0].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[1].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[2].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[3].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[4].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[5].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[6].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[7].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[8].data(), 0, 0, 0, 0},
-    {gPetTechniqueCostsD66C34[9].data(), 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[0], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[1], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[2], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[3], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[4], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[5], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[6], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[7], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[8], 0, 0, 0, 0},
+    {&gPetTechniqueCostsD66C34[9], 0, 0, 0, 0},
 };
 
 WindowGraphicData gWindowGraphic563388 {0x3B5D6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563388。
@@ -497,8 +497,8 @@ WindowGraphicData gWindowGraphic568948 {0x3B5E5, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic568960 {0x3B5E8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568960。
 WindowGraphicData gWindowGraphic568978 {0x3B5EB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568978。
 WindowGraphicData gWindowGraphic568990 {0x3B5EE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568990。
-WindowNumberData gWindowNumber5689B8 {gSettingsEffectTextD2EA64.data(), 0, 3, 0, 0}; // 原全局：0x005689B8。
-WindowNumberData gWindowNumber5689C0 {gSettingsMusicTextD3041C.data(), 0, 3, 0, 0}; // 原全局：0x005689C0。
+WindowNumberData gWindowNumber5689B8 {&gSettingsEffectTextD2EA64, 0, 3, 0, 0}; // 原全局：0x005689B8。
+WindowNumberData gWindowNumber5689C0 {&gSettingsMusicTextD3041C, 0, 3, 0, 0}; // 原全局：0x005689C0。
 WindowGraphicData gWindowGraphic568E70 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568E70。
 WindowGraphicData gWindowGraphic568E88 {0x3B902, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568E88。
 WindowGraphicData gWindowGraphic568EA0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568EA0。
@@ -870,8 +870,8 @@ WindowTextPrototype gWindowText562C78 { // 原全局：0x00562C78。
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowPlaceholder586054,
 };
 std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
-WindowNumberData gWindowNumber562CB0 {gInventoryMoneyTextCB086C.data(), 10, 3, 1, 0}; // 原全局：0x00562CB0。
-WindowNumberData gWindowNumber562CB8 {gInventoryValueTextCC3ECC.data(), 10, 3, 1, 0}; // 原全局：0x00562CB8。
+WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
+WindowNumberData gWindowNumber562CB8 {&gInventoryValueTextCC3ECC, 10, 3, 1, 0}; // 原全局：0x00562CB8。
 
 WindowGraphicData gWindowGraphic56C348 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C348。
 WindowGraphicData gWindowGraphic56C360 {0x3BA42, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C360。
@@ -882,8 +882,8 @@ WindowGraphicData gWindowGraphic56C3C0 {0x17F5C, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56C3D8 {0x17F5F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3D8。
 WindowGraphicData gWindowGraphic56C3F0 {0x3BA49, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3F0。
 std::int32_t gWindowAnimationImage56C418 = 100000; // 原全局：0x0056C418。
-WindowNumberData gWindowNumber56C420 {gBattleMoneyTextCF469C.data(), 10, 3, 1, 0}; // 原全局：0x0056C420。
-WindowNumberData gWindowNumber56C428 {gBattleValueTextC8A960.data(), 10, 3, 1, 0}; // 原全局：0x0056C428。
+WindowNumberData gWindowNumber56C420 {&gBattleMoneyTextCF469C, 10, 3, 1, 0}; // 原全局：0x0056C420。
+WindowNumberData gWindowNumber56C428 {&gBattleValueTextC8A960, 10, 3, 1, 0}; // 原全局：0x0056C428。
 
 WindowGraphicData gWindowGraphic56C9F8 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C9F8。
 WindowGraphicData gWindowGraphic56CA10 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA10。
@@ -986,19 +986,19 @@ WindowTextPrototype gWindowText573D08 { // 原全局：0x00573D08。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopUnavailable585DD8,
 };
 std::int32_t gWindowAnimationImage573D10 = 100000; // 原全局：0x00573D10。
-WindowNumberData gWindowNumber573D18 {gShopMoneyTextCC1A00.data(), 0, 3, 1, 0}; // 原全局：0x00573D18。
-WindowNumberData gWindowNumber573D20 {gShopValueTextCF4A28.data(), 0, 3, 1, 0}; // 原全局：0x00573D20。
-WindowNumberData gWindowNumber573D28 {gShopTotalTextCC4B2C.data(), 0, 3, 1, 0}; // 原全局：0x00573D28。
-WindowNumberData gWindowNumber573D30 {gShopPriceTextsD673EC.data(), 0, 3, 1, 0}; // 原全局：0x00573D30。
-WindowNumberData gWindowNumber573D38 {gShopPriceTextsD673EC.data() + 11, 0, 3, 1, 0}; // 原全局：0x00573D38。
-WindowNumberData gWindowNumber573D40 {gShopPriceTextsD673EC.data() + 22, 0, 3, 1, 0}; // 原全局：0x00573D40。
-WindowNumberData gWindowNumber573D48 {gShopPriceTextsD673EC.data() + 33, 0, 3, 1, 0}; // 原全局：0x00573D48。
-WindowNumberData gWindowNumber573D50 {gShopPriceTextsD673EC.data() + 44, 0, 3, 1, 0}; // 原全局：0x00573D50。
-WindowNumberData gWindowNumber573D58 {gShopCountTextsD2D988.data(), 0, 3, 1, 0}; // 原全局：0x00573D58。
-WindowNumberData gWindowNumber573D60 {gShopCountTextsD2D988.data() + 11, 0, 3, 1, 0}; // 原全局：0x00573D60。
-WindowNumberData gWindowNumber573D68 {gShopCountTextsD2D988.data() + 22, 0, 3, 1, 0}; // 原全局：0x00573D68。
-WindowNumberData gWindowNumber573D70 {gShopCountTextsD2D988.data() + 33, 0, 3, 1, 0}; // 原全局：0x00573D70。
-WindowNumberData gWindowNumber573D78 {gShopCountTextsD2D988.data() + 44, 0, 3, 1, 0}; // 原全局：0x00573D78。
+WindowNumberData gWindowNumber573D18 {&gShopMoneyTextCC1A00, 0, 3, 1, 0}; // 原全局：0x00573D18。
+WindowNumberData gWindowNumber573D20 {&gShopValueTextCF4A28, 0, 3, 1, 0}; // 原全局：0x00573D20。
+WindowNumberData gWindowNumber573D28 {&gShopTotalTextCC4B2C, 0, 3, 1, 0}; // 原全局：0x00573D28。
+WindowNumberData gWindowNumber573D30 {&gShopPriceTextsD673EC[0], 0, 3, 1, 0}; // 原全局：0x00573D30。
+WindowNumberData gWindowNumber573D38 {&gShopPriceTextsD673EC[1], 0, 3, 1, 0}; // 原全局：0x00573D38。
+WindowNumberData gWindowNumber573D40 {&gShopPriceTextsD673EC[2], 0, 3, 1, 0}; // 原全局：0x00573D40。
+WindowNumberData gWindowNumber573D48 {&gShopPriceTextsD673EC[3], 0, 3, 1, 0}; // 原全局：0x00573D48。
+WindowNumberData gWindowNumber573D50 {&gShopPriceTextsD673EC[4], 0, 3, 1, 0}; // 原全局：0x00573D50。
+WindowNumberData gWindowNumber573D58 {&gShopCountTextsD2D988[0], 0, 3, 1, 0}; // 原全局：0x00573D58。
+WindowNumberData gWindowNumber573D60 {&gShopCountTextsD2D988[1], 0, 3, 1, 0}; // 原全局：0x00573D60。
+WindowNumberData gWindowNumber573D68 {&gShopCountTextsD2D988[2], 0, 3, 1, 0}; // 原全局：0x00573D68。
+WindowNumberData gWindowNumber573D70 {&gShopCountTextsD2D988[3], 0, 3, 1, 0}; // 原全局：0x00573D70。
+WindowNumberData gWindowNumber573D78 {&gShopCountTextsD2D988[4], 0, 3, 1, 0}; // 原全局：0x00573D78。
 WindowGraphicData gWindowGraphicD678E0 {}; // 原全局：0x00D678E0。
 static_assert(sizeof(WindowGraphicData) == 0x18);
 static_assert(offsetof(WindowGraphicData, height) == 0x10);
@@ -1050,38 +1050,38 @@ WindowTextPrototype gWindowText5747D8 { // 原全局：0x005747D8。
     {std::byte{0x8A}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindow54Zero585DF4,
 };
 std::int32_t gWindowAnimationImage5747E0 = 100000; // 原全局：0x005747E0。
-WindowNumberData gWindowNumber5747E8 {gWindow54MoneyTextC9A9A4.data(), 0, 3, 1, 0}; // 原全局：0x005747E8。
-WindowNumberData gWindowNumber5747F0 {gWindow54AmountTextD45F78.data(), 0, 3, 1, 0}; // 原全局：0x005747F0。
-WindowNumberData gWindowNumber5747F8 {gWindow54SkillValueTextsCF4978.data(), 0, 0, 1, 0}; // 原全局：0x005747F8。
-WindowNumberData gWindowNumber574800 {gWindow54SkillValueTextsCF4978.data() + 11, 0, 0, 1, 0}; // 原全局：0x00574800。
-WindowNumberData gWindowNumber574808 {gWindow54SkillValueTextsCF4978.data() + 22, 0, 0, 1, 0}; // 原全局：0x00574808。
-WindowNumberData gWindowNumber574810 {gWindow54SkillValueTextsCF4978.data() + 33, 0, 0, 1, 0}; // 原全局：0x00574810。
-WindowNumberData gWindowNumber574818 {gWindow54SkillValueTextsCF4978.data() + 44, 0, 0, 1, 0}; // 原全局：0x00574818。
-WindowNumberData gWindowNumber574820 {gWindow54SkillPriceTextsCF493C.data(), 0, 3, 1, 0}; // 原全局：0x00574820。
-WindowNumberData gWindowNumber574828 {gWindow54SkillPriceTextsCF493C.data() + 11, 0, 3, 1, 0}; // 原全局：0x00574828。
-WindowNumberData gWindowNumber574830 {gWindow54SkillPriceTextsCF493C.data() + 22, 0, 3, 1, 0}; // 原全局：0x00574830。
-WindowNumberData gWindowNumber574838 {gWindow54SkillPriceTextsCF493C.data() + 33, 0, 3, 1, 0}; // 原全局：0x00574838。
-WindowNumberData gWindowNumber574840 {gWindow54SkillPriceTextsCF493C.data() + 44, 0, 3, 1, 0}; // 原全局：0x00574840。
-WindowNumberData gWindowNumber574848 {gWindow54ValueTextsCB035C.data(), 0, 0, 1, 0}; // 原全局：0x00574848。
-WindowNumberData gWindowNumber574850 {gWindow54ValueTextsCB035C.data() + 11, 0, 0, 1, 0}; // 原全局：0x00574850。
-WindowNumberData gWindowNumber574858 {gWindow54ValueTextsCB035C.data() + 22, 0, 0, 1, 0}; // 原全局：0x00574858。
-WindowNumberData gWindowNumber574860 {gWindow54ValueTextsCB035C.data() + 33, 0, 0, 1, 0}; // 原全局：0x00574860。
-WindowNumberData gWindowNumber574868 {gWindow54ValueTextsCB035C.data() + 44, 0, 0, 1, 0}; // 原全局：0x00574868。
-WindowNumberData gWindowNumber574870 {gWindow54ValueTextsCB035C.data() + 55, 0, 0, 1, 0}; // 原全局：0x00574870。
-WindowNumberData gWindowNumber574878 {gWindow54ValueTextsCB035C.data() + 66, 0, 0, 1, 0}; // 原全局：0x00574878。
-WindowNumberData gWindowNumber574880 {gWindow54ValueTextsCB035C.data() + 77, 0, 0, 1, 0}; // 原全局：0x00574880。
-WindowNumberData gWindowNumber574888 {gWindow54ValueTextsCB035C.data() + 88, 0, 0, 1, 0}; // 原全局：0x00574888。
-WindowNumberData gWindowNumber574890 {gWindow54ValueTextsCB035C.data() + 99, 0, 0, 1, 0}; // 原全局：0x00574890。
-WindowNumberData gWindowNumber574898 {gWindow54ValueTextsC8B318.data(), 0, 0, 1, 0}; // 原全局：0x00574898。
-WindowNumberData gWindowNumber5748A0 {gWindow54ValueTextsC8B318.data() + 11, 0, 0, 1, 0}; // 原全局：0x005748A0。
-WindowNumberData gWindowNumber5748A8 {gWindow54ValueTextsC8B318.data() + 22, 0, 0, 1, 0}; // 原全局：0x005748A8。
-WindowNumberData gWindowNumber5748B0 {gWindow54ValueTextsC8B318.data() + 33, 0, 0, 1, 0}; // 原全局：0x005748B0。
-WindowNumberData gWindowNumber5748B8 {gWindow54ValueTextsC8B318.data() + 44, 0, 0, 1, 0}; // 原全局：0x005748B8。
-WindowNumberData gWindowNumber5748C0 {gWindow54ValueTextsC8B318.data() + 55, 0, 0, 1, 0}; // 原全局：0x005748C0。
-WindowNumberData gWindowNumber5748C8 {gWindow54ValueTextsC8B318.data() + 66, 0, 0, 1, 0}; // 原全局：0x005748C8。
-WindowNumberData gWindowNumber5748D0 {gWindow54ValueTextsC8B318.data() + 77, 0, 0, 1, 0}; // 原全局：0x005748D0。
-WindowNumberData gWindowNumber5748D8 {gWindow54ValueTextsC8B318.data() + 88, 0, 0, 1, 0}; // 原全局：0x005748D8。
-WindowNumberData gWindowNumber5748E0 {gWindow54ValueTextsC8B318.data() + 99, 0, 0, 1, 0}; // 原全局：0x005748E0。
+WindowNumberData gWindowNumber5747E8 {&gWindow54MoneyTextC9A9A4, 0, 3, 1, 0}; // 原全局：0x005747E8。
+WindowNumberData gWindowNumber5747F0 {&gWindow54AmountTextD45F78, 0, 3, 1, 0}; // 原全局：0x005747F0。
+WindowNumberData gWindowNumber5747F8 {&gWindow54SkillValueTextsCF4978[0], 0, 0, 1, 0}; // 原全局：0x005747F8。
+WindowNumberData gWindowNumber574800 {&gWindow54SkillValueTextsCF4978[1], 0, 0, 1, 0}; // 原全局：0x00574800。
+WindowNumberData gWindowNumber574808 {&gWindow54SkillValueTextsCF4978[2], 0, 0, 1, 0}; // 原全局：0x00574808。
+WindowNumberData gWindowNumber574810 {&gWindow54SkillValueTextsCF4978[3], 0, 0, 1, 0}; // 原全局：0x00574810。
+WindowNumberData gWindowNumber574818 {&gWindow54SkillValueTextsCF4978[4], 0, 0, 1, 0}; // 原全局：0x00574818。
+WindowNumberData gWindowNumber574820 {&gWindow54SkillPriceTextsCF493C[0], 0, 3, 1, 0}; // 原全局：0x00574820。
+WindowNumberData gWindowNumber574828 {&gWindow54SkillPriceTextsCF493C[1], 0, 3, 1, 0}; // 原全局：0x00574828。
+WindowNumberData gWindowNumber574830 {&gWindow54SkillPriceTextsCF493C[2], 0, 3, 1, 0}; // 原全局：0x00574830。
+WindowNumberData gWindowNumber574838 {&gWindow54SkillPriceTextsCF493C[3], 0, 3, 1, 0}; // 原全局：0x00574838。
+WindowNumberData gWindowNumber574840 {&gWindow54SkillPriceTextsCF493C[4], 0, 3, 1, 0}; // 原全局：0x00574840。
+WindowNumberData gWindowNumber574848 {&gWindow54ValueTextsCB035C[0], 0, 0, 1, 0}; // 原全局：0x00574848。
+WindowNumberData gWindowNumber574850 {&gWindow54ValueTextsCB035C[1], 0, 0, 1, 0}; // 原全局：0x00574850。
+WindowNumberData gWindowNumber574858 {&gWindow54ValueTextsCB035C[2], 0, 0, 1, 0}; // 原全局：0x00574858。
+WindowNumberData gWindowNumber574860 {&gWindow54ValueTextsCB035C[3], 0, 0, 1, 0}; // 原全局：0x00574860。
+WindowNumberData gWindowNumber574868 {&gWindow54ValueTextsCB035C[4], 0, 0, 1, 0}; // 原全局：0x00574868。
+WindowNumberData gWindowNumber574870 {&gWindow54ValueTextsCB035C[5], 0, 0, 1, 0}; // 原全局：0x00574870。
+WindowNumberData gWindowNumber574878 {&gWindow54ValueTextsCB035C[6], 0, 0, 1, 0}; // 原全局：0x00574878。
+WindowNumberData gWindowNumber574880 {&gWindow54ValueTextsCB035C[7], 0, 0, 1, 0}; // 原全局：0x00574880。
+WindowNumberData gWindowNumber574888 {&gWindow54ValueTextsCB035C[8], 0, 0, 1, 0}; // 原全局：0x00574888。
+WindowNumberData gWindowNumber574890 {&gWindow54ValueTextsCB035C[9], 0, 0, 1, 0}; // 原全局：0x00574890。
+WindowNumberData gWindowNumber574898 {&gWindow54ValueTextsC8B318[0], 0, 0, 1, 0}; // 原全局：0x00574898。
+WindowNumberData gWindowNumber5748A0 {&gWindow54ValueTextsC8B318[1], 0, 0, 1, 0}; // 原全局：0x005748A0。
+WindowNumberData gWindowNumber5748A8 {&gWindow54ValueTextsC8B318[2], 0, 0, 1, 0}; // 原全局：0x005748A8。
+WindowNumberData gWindowNumber5748B0 {&gWindow54ValueTextsC8B318[3], 0, 0, 1, 0}; // 原全局：0x005748B0。
+WindowNumberData gWindowNumber5748B8 {&gWindow54ValueTextsC8B318[4], 0, 0, 1, 0}; // 原全局：0x005748B8。
+WindowNumberData gWindowNumber5748C0 {&gWindow54ValueTextsC8B318[5], 0, 0, 1, 0}; // 原全局：0x005748C0。
+WindowNumberData gWindowNumber5748C8 {&gWindow54ValueTextsC8B318[6], 0, 0, 1, 0}; // 原全局：0x005748C8。
+WindowNumberData gWindowNumber5748D0 {&gWindow54ValueTextsC8B318[7], 0, 0, 1, 0}; // 原全局：0x005748D0。
+WindowNumberData gWindowNumber5748D8 {&gWindow54ValueTextsC8B318[8], 0, 0, 1, 0}; // 原全局：0x005748D8。
+WindowNumberData gWindowNumber5748E0 {&gWindow54ValueTextsC8B318[9], 0, 0, 1, 0}; // 原全局：0x005748E0。
 std::uint32_t gWindowMouseFlagsD67900 = 0; // 原全局：0x00D67900。
 
 WindowGraphicData gWindowGraphic5756F0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005756F0。
@@ -1119,18 +1119,18 @@ WindowTextPrototype gWindowText575910 { // 原全局：0x00575910。
     {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowShopRemaining585DCC,
 };
 std::int32_t gWindowAnimationImage575918 = 100000; // 原全局：0x00575918。
-WindowNumberData gWindowNumber575920 {gWindow69BalanceTextD2E448.data(), 10, 3, 1, 0}; // 原全局：0x00575920。
-WindowNumberData gWindowNumber575930 {gWindow69TotalTextCC48B0.data(), 0, 3, 1, 0}; // 原全局：0x00575930。
-WindowNumberData gWindowNumber575938 {gWindow69PriceTextsD2D7CC.data(), 10, 3, 1, 0}; // 原全局：0x00575938。
-WindowNumberData gWindowNumber575940 {gWindow69PriceTextsD2D7CC.data() + 11, 10, 3, 1, 0}; // 原全局：0x00575940。
-WindowNumberData gWindowNumber575948 {gWindow69PriceTextsD2D7CC.data() + 22, 10, 3, 1, 0}; // 原全局：0x00575948。
-WindowNumberData gWindowNumber575950 {gWindow69PriceTextsD2D7CC.data() + 33, 10, 3, 1, 0}; // 原全局：0x00575950。
-WindowNumberData gWindowNumber575958 {gWindow69PriceTextsD2D7CC.data() + 44, 10, 3, 1, 0}; // 原全局：0x00575958。
-WindowNumberData gWindowNumber575960 {gWindow69CountTextsD2EA24.data(), 0, 3, 1, 0}; // 原全局：0x00575960。
-WindowNumberData gWindowNumber575968 {gWindow69CountTextsD2EA24.data() + 11, 0, 3, 1, 0}; // 原全局：0x00575968。
-WindowNumberData gWindowNumber575970 {gWindow69CountTextsD2EA24.data() + 22, 0, 3, 1, 0}; // 原全局：0x00575970。
-WindowNumberData gWindowNumber575978 {gWindow69CountTextsD2EA24.data() + 33, 0, 3, 1, 0}; // 原全局：0x00575978。
-WindowNumberData gWindowNumber575980 {gWindow69CountTextsD2EA24.data() + 44, 0, 3, 1, 0}; // 原全局：0x00575980。
+WindowNumberData gWindowNumber575920 {&gWindow69BalanceTextD2E448, 10, 3, 1, 0}; // 原全局：0x00575920。
+WindowNumberData gWindowNumber575930 {&gWindow69TotalTextCC48B0, 0, 3, 1, 0}; // 原全局：0x00575930。
+WindowNumberData gWindowNumber575938 {&gWindow69PriceTextsD2D7CC[0], 10, 3, 1, 0}; // 原全局：0x00575938。
+WindowNumberData gWindowNumber575940 {&gWindow69PriceTextsD2D7CC[1], 10, 3, 1, 0}; // 原全局：0x00575940。
+WindowNumberData gWindowNumber575948 {&gWindow69PriceTextsD2D7CC[2], 10, 3, 1, 0}; // 原全局：0x00575948。
+WindowNumberData gWindowNumber575950 {&gWindow69PriceTextsD2D7CC[3], 10, 3, 1, 0}; // 原全局：0x00575950。
+WindowNumberData gWindowNumber575958 {&gWindow69PriceTextsD2D7CC[4], 10, 3, 1, 0}; // 原全局：0x00575958。
+WindowNumberData gWindowNumber575960 {&gWindow69CountTextsD2EA24[0], 0, 3, 1, 0}; // 原全局：0x00575960。
+WindowNumberData gWindowNumber575968 {&gWindow69CountTextsD2EA24[1], 0, 3, 1, 0}; // 原全局：0x00575968。
+WindowNumberData gWindowNumber575970 {&gWindow69CountTextsD2EA24[2], 0, 3, 1, 0}; // 原全局：0x00575970。
+WindowNumberData gWindowNumber575978 {&gWindow69CountTextsD2EA24[3], 0, 3, 1, 0}; // 原全局：0x00575978。
+WindowNumberData gWindowNumber575980 {&gWindow69CountTextsD2EA24[4], 0, 3, 1, 0}; // 原全局：0x00575980。
 std::uint32_t gWindowMouseFlagsD67910 = 0; // 原全局：0x00D67910。
 
 WindowGraphicData gWindowGraphic5762F0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005762F0。
@@ -1167,18 +1167,18 @@ WindowTextPrototype gWindowText576510 { // 原全局：0x00576510。
     {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowShopRemaining585DCC,
 };
 std::int32_t gWindowAnimationImage576518 = 100000; // 原全局：0x00576518。
-WindowNumberData gWindowNumber576520 {gWindow70BalanceTextCF3F14.data(), 10, 3, 1, 0}; // 原全局：0x00576520。
-WindowNumberData gWindowNumber576530 {gWindow70TotalTextD2D804.data(), 0, 3, 1, 0}; // 原全局：0x00576530。
-WindowNumberData gWindowNumber576538 {gWindow70PriceTextsCF49C4.data(), 10, 3, 1, 0}; // 原全局：0x00576538。
-WindowNumberData gWindowNumber576540 {gWindow70PriceTextsCF49C4.data() + 11, 10, 3, 1, 0}; // 原全局：0x00576540。
-WindowNumberData gWindowNumber576548 {gWindow70PriceTextsCF49C4.data() + 22, 10, 3, 1, 0}; // 原全局：0x00576548。
-WindowNumberData gWindowNumber576550 {gWindow70PriceTextsCF49C4.data() + 33, 10, 3, 1, 0}; // 原全局：0x00576550。
-WindowNumberData gWindowNumber576558 {gWindow70PriceTextsCF49C4.data() + 44, 10, 3, 1, 0}; // 原全局：0x00576558。
-WindowNumberData gWindowNumber576560 {gWindow70CountTextsCC4848.data(), 0, 3, 1, 0}; // 原全局：0x00576560。
-WindowNumberData gWindowNumber576568 {gWindow70CountTextsCC4848.data() + 11, 0, 3, 1, 0}; // 原全局：0x00576568。
-WindowNumberData gWindowNumber576570 {gWindow70CountTextsCC4848.data() + 22, 0, 3, 1, 0}; // 原全局：0x00576570。
-WindowNumberData gWindowNumber576578 {gWindow70CountTextsCC4848.data() + 33, 0, 3, 1, 0}; // 原全局：0x00576578。
-WindowNumberData gWindowNumber576580 {gWindow70CountTextsCC4848.data() + 44, 0, 3, 1, 0}; // 原全局：0x00576580。
+WindowNumberData gWindowNumber576520 {&gWindow70BalanceTextCF3F14, 10, 3, 1, 0}; // 原全局：0x00576520。
+WindowNumberData gWindowNumber576530 {&gWindow70TotalTextD2D804, 0, 3, 1, 0}; // 原全局：0x00576530。
+WindowNumberData gWindowNumber576538 {&gWindow70PriceTextsCF49C4[0], 10, 3, 1, 0}; // 原全局：0x00576538。
+WindowNumberData gWindowNumber576540 {&gWindow70PriceTextsCF49C4[1], 10, 3, 1, 0}; // 原全局：0x00576540。
+WindowNumberData gWindowNumber576548 {&gWindow70PriceTextsCF49C4[2], 10, 3, 1, 0}; // 原全局：0x00576548。
+WindowNumberData gWindowNumber576550 {&gWindow70PriceTextsCF49C4[3], 10, 3, 1, 0}; // 原全局：0x00576550。
+WindowNumberData gWindowNumber576558 {&gWindow70PriceTextsCF49C4[4], 10, 3, 1, 0}; // 原全局：0x00576558。
+WindowNumberData gWindowNumber576560 {&gWindow70CountTextsCC4848[0], 0, 3, 1, 0}; // 原全局：0x00576560。
+WindowNumberData gWindowNumber576568 {&gWindow70CountTextsCC4848[1], 0, 3, 1, 0}; // 原全局：0x00576568。
+WindowNumberData gWindowNumber576570 {&gWindow70CountTextsCC4848[2], 0, 3, 1, 0}; // 原全局：0x00576570。
+WindowNumberData gWindowNumber576578 {&gWindow70CountTextsCC4848[3], 0, 3, 1, 0}; // 原全局：0x00576578。
+WindowNumberData gWindowNumber576580 {&gWindow70CountTextsCC4848[4], 0, 3, 1, 0}; // 原全局：0x00576580。
 std::uint32_t gWindowMouseFlagsD67920 = 0; // 原全局：0x00D67920。
 
 WindowGraphicData gWindowGraphic576EF0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576EF0。
@@ -1201,7 +1201,7 @@ WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic563098 {244309, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563098。
 WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005630B0。
 WindowGraphicData gWindowGraphic5630C8 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005630C8。
-WindowNumberData gWindowNumber5630E8 {gNumberWindowTextCC4D1C.data(), 10, 3, 1, 0}; // 原全局：0x005630E8。
+WindowNumberData gWindowNumber5630E8 {&gNumberWindowTextCC4D1C, 10, 3, 1, 0}; // 原全局：0x005630E8。
 
 WindowGraphicData gWindowGraphic571018 {244390, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571018。
 WindowGraphicData gWindowGraphic571030 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571030。
@@ -1218,8 +1218,8 @@ WindowGraphicData gWindowGraphic571120 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
 };
-WindowNumberData gWindowNumber571150 {gStorageAmountTextsCB1DF8.data(), 0, 3, 1, 0}; // 原全局：0x00571150。
-WindowNumberData gWindowNumber571158 {gStorageAmountTextsCB1DF8.data() + 11, 0, 3, 1, 0}; // 原全局：0x00571158。
+WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
+WindowNumberData gWindowNumber571158 {&gStorageAmountTextsCB1DF8[1], 0, 3, 1, 0}; // 原全局：0x00571158。
 std::uint32_t gWindowMouseFlagsD67880 = 0; // 原全局：0x00D67880。
 std::uint32_t gWindowMouseFlagsD6788C = 0; // 原全局：0x00D6788C。
 
@@ -1461,7 +1461,7 @@ WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
     "請輸入店舖描述",
 };
-WindowNumberData gWindowNumber57B450 {gStallMoneyText57B440.data(), 0, 3, 1, 0}; // 原全局：0x0057B450。
+WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
 std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B458。
 std::uint32_t gWindowMouseFlagsD67A10 = 0; // 原全局：0x00D67A10。
 

@@ -545,15 +545,18 @@ constexpr wchar_t kLegacyBuyStopHint588E24[] = L"不買。"; // 原常量参考�
 constexpr char kLegacyBuySummary588E4C[] = // 原常量参考：0x00588E4C。
     "持有金額  %7d 金幣  購買金額  %7d 金幣";
 
-// 原CC1A0C是现有商店文本区尾部别名，不能另建页号副本。
+// 原CC1A0C／CF4A34／CC4B58：旧文本跨度尾部独立S32状态；文字宽化后各保唯一owner。
+std::int32_t gLegacyBuyPageCC1A0C {};
+std::int32_t gLegacyStorageTabCF4A34 {};
+std::int32_t gLegacyStorageDepositDraftCC4B58 {};
 std::int32_t ReadLegacyBuyPageCC1A0C()
 {
-    return ReadRecordW32(ui::detail::gShopMoneyTextCC1A00.data(), 12);
+    return gLegacyBuyPageCC1A0C;
 }
 
 void WriteLegacyBuyPageCC1A0C(const std::int32_t page)
 {
-    std::memcpy(ui::detail::gShopMoneyTextCC1A00.data() + 12, &page, sizeof(page));
+    gLegacyBuyPageCC1A0C = page;
 }
 
 char* BorrowLegacyShopItemCF4FE0(const std::int32_t index)
@@ -6358,7 +6361,7 @@ try {
         const std::int32_t left = gLegacyStoragePanel582B70.x;
         if (Sub_5049A0(left + tabs[tab][0], top + tabs[tab][1],
                 left + tabs[tab][2], top + tabs[tab][3], -1) != 0
-            && ReadRecordW32(ui::detail::gShopValueTextCF4A28.data(), 12) != tab) {
+            && gLegacyStorageTabCF4A34 != tab) {
             hovered = tab;
             break;
         }
@@ -6408,11 +6411,11 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else if (hovered >= 0 && (gValueD68D9C & 1) != 0) {
-        std::memcpy(ui::detail::gShopValueTextCF4A28.data() + 12, &hovered, sizeof(hovered));
+        gLegacyStorageTabCF4A34 = hovered;
         input::SetContext_44B330(hovered == 2 || hovered == 3 ? nullptr : &input::gInputContext626AA0);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    const auto update = pages[ReadRecordW32(ui::detail::gShopValueTextCF4A28.data(), 12)];
+    const auto update = pages[gLegacyStorageTabCF4A34];
     if (update != nullptr) {
         static_cast<void>(update());
     }
@@ -7282,10 +7285,10 @@ std::uint32_t Sub_4E2D90()
             20, 20, 0, 23250 + digit};
     }
     const auto readDraft = [] {
-        return ReadRecordW32(ui::detail::gShopTotalTextCC4B2C.data(), 44);
+        return gLegacyStorageDepositDraftCC4B58;
     };
     const auto writeDraft = [](const std::int32_t value) {
-        std::memcpy(ui::detail::gShopTotalTextCC4B2C.data() + 44, &value, sizeof(value));
+        gLegacyStorageDepositDraftCC4B58 = value;
     };
     const std::int32_t side = ui::detail::ReadLegacyStorageSideD67618();
     // 非0/1模式取原var_21C已写几何值，不以默认上限或补零替换。
@@ -14240,7 +14243,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
     const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
@@ -14254,7 +14257,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
             SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);
             ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);
         }
-        std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
+        cg::text::FormatTo(buffer, L"{:03}", ReadRecordW32(selectedRecord(), 4));
         drawAt(buffer, 46, 170, 1);
         const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(reinterpret_cast<const char*>(selectedRecord() + 0x34)), 0);
         const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
@@ -14270,10 +14273,10 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         const std::int32_t secondX = gLegacyAlbumDetailPanel5846C0.x + 98;
         static_cast<void>(DrawGraphic(secondX, secondY, 213, secondImage, 0, nullptr));
         const auto tribe = std::bit_cast<std::int8_t>(selectedRecord()[3]);
-        std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);
+        buffer = ui::detail::gTribeNames57CB54[tribe];
         const std::int32_t tribeWidth = TextMeasure(buffer, 1);
         drawAt(buffer, 215 - tribeWidth / 2, 193, 1);
-        std::sprintf(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
+        cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(selectedRecord(), 0x30));
         drawAt(buffer, 195, 325, 1);
         for (std::int32_t rating = 0; rating < 5; ++rating) {
             const std::byte* const ratingRecord = selectedRecord();
@@ -14308,7 +14311,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumSelectionC8AF7C;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
-    std::sprintf(buffer, "%3d/%3d", current + 1, count);
+    cg::text::FormatTo(buffer, L"{:3}/{:3}", current + 1, count);
     drawAt(buffer, 150, 411, 1);
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);
@@ -14914,32 +14917,32 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
-    char buffer[768];
-    std::sprintf(buffer, "%3d", pet.value08);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", pet.value08);
     drawAt(buffer, 62, 44);
-    std::sprintf(buffer, "%9d", pet.values0C[4].value());
+    cg::text::FormatTo(buffer, L"{:9}", pet.values0C[4].value());
     drawAt(buffer, 55, 66);
     if (pet.value08 < 130) {
-        std::sprintf(buffer, "%9d", pet.values0C[5].value());
+        cg::text::FormatTo(buffer, L"{:9}", pet.values0C[5].value());
         drawAt(buffer, 55, 89);
     } else {
         drawAt(kLegacyPetLevelLimit58A214, 55, 89);
     }
     const std::int32_t maxHp = pet.values0C[1].value();
     const std::int32_t hp = pet.values0C[0].value();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawAt(buffer, 55, 113);
     const std::int32_t maxFp = pet.values0C[3].value();
     const std::int32_t fp = pet.values0C[2].value();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawAt(buffer, 55, 136);
     for (std::int32_t field = 0; field < 6; ++field) {
-        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
+        cg::text::FormatTo(buffer, L"{:3}", pet.values70[5 + field]);
         drawAt(buffer, 62, 159 + 23 * field);
     }
-    std::sprintf(buffer, "%2d", pet.value6A4);
+    cg::text::FormatTo(buffer, L"{:2}", pet.value6A4);
     drawAt(buffer, 70, 297);
-    std::strcpy(buffer, ui::detail::gTribeNames57CB54[std::bit_cast<std::int16_t>(pet.value04)]);
+    buffer = ui::detail::gTribeNames57CB54[std::bit_cast<std::int16_t>(pet.value04)];
     const std::int32_t width = TextMeasure(buffer, 1);
     drawAt(buffer, 218 - width / 2, 239);
     for (std::int32_t element = 0; element < 4; ++element) {
@@ -14954,7 +14957,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    std::sprintf(buffer, "%d/%d", position + 1, count);
+    cg::text::FormatTo(buffer, L"{}/{}", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 382;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),

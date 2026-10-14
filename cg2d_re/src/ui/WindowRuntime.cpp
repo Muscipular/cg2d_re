@@ -71,7 +71,7 @@ std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
 std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
 std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
 std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
-std::array<char, 16> gStallMoneyText57B440 {'0', '1', '2', '3', '4', '5', '6', '7'}; // 原全局：0x0057B440。
+std::wstring gStallMoneyText57B440 {L"01234567"}; // 原全局：0x0057B440。
 std::int32_t gDragItemIndex584DA4 = -1; // 原全局：0x00584DA4。
 std::int32_t gDragImageNoD67D24 = 0; // 原全局：0x00D67D24。
 std::int32_t gItemDragXCC4880 = 0; // 原全局：0x00CC4880。
@@ -162,12 +162,13 @@ std::int32_t gShopTooltipPageD67B8C = 0; // 原全局：0x00D67B8C。
 std::int32_t gShopTotalD2DAFC = 0; // 原全局：0x00D2DAFC。
 std::int32_t gShopValueC8AF74 = 0; // 原全局：0x00C8AF74。
 std::int32_t gShopScrollCC488C = 0; // 原全局：0x00CC488C。
-std::array<char, 55> gShopPriceTextsD673EC {}; // 原全局：0x00D673EC。
-std::array<char, 55> gShopCountTextsD2D988 {}; // 原全局：0x00D2D988。
-std::array<char, 48> gShopTotalTextCC4B2C {}; // 原全局：0x00CC4B2C。
-std::array<char, 16> gShopMoneyTextCC1A00 {}; // 原全局：0x00CC1A00。
+std::array<std::wstring, 5> gShopPriceTextsD673EC {}; // 原全局：0x00D673EC。
+std::uint16_t gShopPriceTailD67420 {}; // 原D673EC+0x34：第五行价格末两位的非文本别名。
+std::array<std::wstring, 5> gShopCountTextsD2D988 {}; // 原全局：0x00D2D988。
+std::wstring gShopTotalTextCC4B2C {}; // 原全局：0x00CC4B2C。
+std::wstring gShopMoneyTextCC1A00 {}; // 原全局：0x00CC1A00。
 std::int32_t gShopAvailableCF4A24 = 0; // 原全局：0x00CF4A24。
-std::array<char, 20> gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
+std::wstring gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
 std::array<std::int32_t, 5> gShopRowKeysC9A954 {}; // 原全局：0x00C9A954。
 std::uint8_t gShopDragFlagD67B90 = 0; // 原全局：0x00D67B90。
 std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。
@@ -194,11 +195,11 @@ std::int32_t gWindow54SkillScrollCC31F4 = 0; // 原全局：0x00CC31F4。
 std::int32_t gWindow54MessageC9FCE0 = 0; // 原全局：0x00C9FCE0。
 std::int32_t gWindow54HoverD2DAD8 = 0; // 原全局：0x00D2DAD8。
 std::int32_t gWindow54SelectedD2DC04 = 0; // 原全局：0x00D2DC04。
-std::array<char, 12> gWindow54AmountTextD45F78 {}; // 原全局：0x00D45F78。
-std::array<char, 110> gWindow54ValueTextsCB035C {}; // 原全局：0x00CB035C。
-std::array<char, 110> gWindow54ValueTextsC8B318 {}; // 原全局：0x00C8B318。
-std::array<char, 55> gWindow54SkillValueTextsCF4978 {}; // 原全局：0x00CF4978。
-std::array<char, 55> gWindow54SkillPriceTextsCF493C {}; // 原全局：0x00CF493C。
+std::wstring gWindow54AmountTextD45F78 {}; // 原全局：0x00D45F78。
+std::array<std::wstring, 10> gWindow54ValueTextsCB035C {}; // 原全局：0x00CB035C。
+std::array<std::wstring, 10> gWindow54ValueTextsC8B318 {}; // 原全局：0x00C8B318。
+std::array<std::wstring, 5> gWindow54SkillValueTextsCF4978 {}; // 原全局：0x00CF4978。
+std::array<std::wstring, 5> gWindow54SkillPriceTextsCF493C {}; // 原全局：0x00CF493C。
 std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。
 std::array<std::int8_t, 5> gWindow54PetMapCF4AB0 {}; // 原全局：0x00CF4AB0。
 std::int32_t gWindow54TribeCA0B2C = 0; // 原全局：0x00CA0B2C。
@@ -207,7 +208,7 @@ std::int32_t gWindow54PetScrollCC31DC = 0; // 原全局：0x00CC31DC。
 std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。
 std::int32_t gWindow54ReplacementC8B08C = 0; // 原全局：0x00C8B08C。
 std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {}; // 原全局：0x00CC4D04。
-std::array<char, 12> gWindow54MoneyTextC9A9A4 {}; // 原全局：0x00C9A9A4。
+std::wstring gWindow54MoneyTextC9A9A4 {}; // 原全局：0x00C9A9A4。
 std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230 {}; // 原全局：0x00CB2230。
 std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {}; // 原全局：0x00D30428。
 std::int32_t gWindow69ValueD67B98 = 0; // 原全局：0x00D67B98。
@@ -229,12 +230,12 @@ std::int32_t gWindow69TotalD45E70 = 0; // 原全局：0x00D45E70。
 std::int32_t gWindow70TotalCB0F74 = 0; // 原全局：0x00CB0F74。
 std::int32_t gWindow69SlotsCA0AC8 = 0; // 原全局：0x00CA0AC8。
 std::int32_t gWindow70SlotsCF4E44 = 0; // 原全局：0x00CF4E44。
-std::array<char, 55> gWindow69PriceTextsD2D7CC {}; // 原全局：0x00D2D7CC。
-std::array<char, 55> gWindow70PriceTextsCF49C4 {}; // 原全局：0x00CF49C4。
-std::array<char, 55> gWindow69CountTextsD2EA24 {}; // 原全局：0x00D2EA24。
-std::array<char, 55> gWindow70CountTextsCC4848 {}; // 原全局：0x00CC4848。
-std::array<char, 12> gWindow69TotalTextCC48B0 {}; // 原全局：0x00CC48B0。
-std::array<char, 12> gWindow70TotalTextD2D804 {}; // 原全局：0x00D2D804。
+std::array<std::wstring, 5> gWindow69PriceTextsD2D7CC {}; // 原全局：0x00D2D7CC。
+std::array<std::wstring, 5> gWindow70PriceTextsCF49C4 {}; // 原全局：0x00CF49C4。
+std::array<std::wstring, 5> gWindow69CountTextsD2EA24 {}; // 原全局：0x00D2EA24。
+std::array<std::wstring, 5> gWindow70CountTextsCC4848 {}; // 原全局：0x00CC4848。
+std::wstring gWindow69TotalTextCC48B0 {}; // 原全局：0x00CC48B0。
+std::wstring gWindow70TotalTextD2D804 {}; // 原全局：0x00D2D804。
 std::int32_t gWindow69Tooltip580850 = -1; // 原全局：0x00580850。
 std::int32_t gWindow70Tooltip580860 = -1; // 原全局：0x00580860。
 std::int32_t gWindow69Message580854 = -1; // 原全局：0x00580854。
@@ -243,8 +244,8 @@ std::int32_t gWindow69TooltipPageD67B94 = 0; // 原全局：0x00D67B94。
 std::int32_t gWindow70TooltipPageD67BA0 = 0; // 原全局：0x00D67BA0。
 std::int32_t gWindow69InventoryHover58085C = -2; // 原全局：0x0058085C。
 std::int32_t gWindow70InventoryHover58086C = -2; // 原全局：0x0058086C。
-std::array<char, 12> gWindow69BalanceTextD2E448 {}; // 原全局：0x00D2E448。
-std::array<char, 12> gWindow70BalanceTextCF3F14 {}; // 原全局：0x00CF3F14。
+std::wstring gWindow69BalanceTextD2E448 {}; // 原全局：0x00D2E448。
+std::wstring gWindow70BalanceTextCF3F14 {}; // 原全局：0x00CF3F14。
 WindowValueCallback gWindow69ConfirmCallbackCF4E48 = nullptr; // 原全局：0x00CF4E48。
 WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr; // 原全局：0x00CF4AA4。
 std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458 {}; // 原全局：0x00D2E458。
@@ -281,7 +282,7 @@ const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321}; //
 const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323}; // 原全局：0x0054F4F8。
 const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322}; // 原全局：0x0054F500。
 std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：0x00D67B68。
-std::array<char, 22> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
+std::array<std::wstring, 2> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
 // 窗口51拥有行表/行文本；其他载荷仅复制或借用，不另建文本owner。
 std::vector<std::wstring> gWindowLinesD67B70; // 原全局：0x00D67B70。
 std::int32_t gWindowLineCountD67B74 = 0; // 原全局：0x00D67B74。
@@ -313,8 +314,8 @@ std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
 WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原全局：0x00CB1E14。
 std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
 std::wstring gHoverTextD68AE8 {}; // 原全局：0x00D68AE8。
-std::array<char, 24> gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
-std::array<char, 28> gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
+std::wstring gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
+std::wstring gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
 std::int32_t gHoverObjectValueD68AC8 = 0; // 原全局：0x00D68AC8。
 std::wstring gHoverTitleD68BF4 {}; // 原全局：0x00D68BF4。
 std::int32_t gHoverTitleValueD69748 = 0; // 原全局：0x00D69748。
@@ -349,7 +350,7 @@ std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
 std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
 std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
 std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
-std::array<char, 12> gNumberWindowTextCC4D1C {}; // 原全局：0x00CC4D1C。
+std::wstring gNumberWindowTextCC4D1C {}; // 原全局：0x00CC4D1C。
 std::int32_t gTradeScrollCF3B0C = 0; // 原全局：0x00CF3B0C。
 std::int32_t gTradeScrollCC4C90 = 0; // 原全局：0x00CC4C90。
 std::int32_t gTradeScrollD67430 = 0; // 原全局：0x00D67430。
@@ -417,22 +418,21 @@ const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0
 static constexpr wchar_t kStoragePetEquipmentWarning587900[] = // 原常量参考：0x00587900。
     L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。";
 static constexpr wchar_t kTribeUnopened585C50[] = L"未開放"; // 原常量参考：0x00585C50。
-static const std::string kTribeUnopened585C50Utf8View = cg::text::FromUtf16(kTribeUnopened585C50); // 旧窄接口只读兼容视图。
-const std::array<const char*, 20> gTribeNames57CB54 {{ // 原全局：0x0057CB54。
-    "人形系",
-    "龍系",
-    "不死系",
-    "飛行系",
-    "昆蟲系",
-    "植物系",
-    "野獸系",
-    "特殊系",
-    "金屬系",
-    "邪魔系",
-    "神族",
-    "精靈族",
-    kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(),
-    kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(), kTribeUnopened585C50Utf8View.c_str(),
+const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057CB54。
+    L"人形系",
+    L"龍系",
+    L"不死系",
+    L"飛行系",
+    L"昆蟲系",
+    L"植物系",
+    L"野獸系",
+    L"特殊系",
+    L"金屬系",
+    L"邪魔系",
+    L"神族",
+    L"精靈族",
+    kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
+    kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
 }};
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
@@ -449,14 +449,14 @@ static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。
 std::uint8_t gValue57DA28 = 0xFF; // 原全局：0x0057DA28。
 std::int32_t gInventoryHover57DA2C = -2; // 原全局：0x0057DA2C。
 std::int32_t gEquipmentHover57DA68 = -2; // 原全局：0x0057DA68。
-std::array<char, 12> gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
-std::array<char, 12> gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
+std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
+std::wstring gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
 std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
 std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。
 std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
 static std::int32_t gBattleBackpackHover57E430 = -2; // 原全局：0x0057E430。
-std::array<char, 12> gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
-std::array<char, 12> gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
+std::wstring gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
+std::wstring gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
 std::uint8_t gValue57E42C = 0xFF; // 原全局：0x0057E42C。
 const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
 const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180}; // 原全局：0x0054F5A4。
@@ -469,8 +469,8 @@ std::int32_t gValueD67B38 = 0; // 原全局：0x00D67B38。
 std::int8_t gSettingsPanelCC4234 = 0; // 原全局：0x00CC4234。
 std::int32_t gSettingsOffsetCA02DC = 0; // 原全局：0x00CA02DC。
 std::int32_t gSettingsStepD2D610 = 0; // 原全局：0x00D2D610。
-std::array<char, 12> gSettingsMusicTextD3041C {}; // 原全局：0x00D3041C。
-std::array<char, 12> gSettingsEffectTextD2EA64 {}; // 原全局：0x00D2EA64。
+std::wstring gSettingsMusicTextD3041C {}; // 原全局：0x00D3041C。
+std::wstring gSettingsEffectTextD2EA64 {}; // 原全局：0x00D2EA64。
 std::int8_t gHotkeySelectedCC4B20 = 0; // 原全局：0x00CC4B20。
 WindowInputPrototype gHotkeyInputPrototype57DF48 { // 原全局：0x0057DF48。
     {{nullptr}, WindowInputReferenceKind::Context},
@@ -1750,8 +1750,7 @@ WindowInputPrototype gPetNameInputPrototype57DCF8 { // 原全局：0x0057DCF8。
     {{&input::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
     66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
-std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34 {}; // 原全局：0x00D66C34。
-static_assert(sizeof(gPetTechniqueCostsD66C34) == 110);
+std::array<std::wstring, 10> gPetTechniqueCostsD66C34 {}; // 原全局：0x00D66C34。
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
@@ -2890,8 +2889,8 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
     if (pet->used == 0) {
         return 0;
     }
-    char buffer[96];
-    std::sprintf(buffer, "%s", cg::text::FromGbk(pet->name6AC.data()).c_str());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(pet->name6AC.data()).c_str());
     {
         WindowInstance* const window = gCurrentWindow;
         const auto x = static_cast<std::int16_t>(window->x + 77);
@@ -2906,34 +2905,34 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(render::DrawText_456780(
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
-    std::sprintf(buffer, "%4d", pet->values0C[1].value());
+    cg::text::FormatTo(buffer, L"{:4}", pet->values0C[1].value());
     drawText(227, 58);
-    std::sprintf(buffer, "%3d", pet->value08);
+    cg::text::FormatTo(buffer, L"{:3}", pet->value08);
     drawText(53, 75);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
     if (tribe >= 0 && tribe < 20) {
-        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+        cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
-        buffer[0] = '\0';
+        buffer.clear();
     }
     drawText(120, 75);
-    std::sprintf(buffer, "%4d", pet->values0C[3].value());
+    cg::text::FormatTo(buffer, L"{:4}", pet->values0C[3].value());
     drawText(227, 75);
-    std::sprintf(buffer, "%3d", pet->values70[0]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[0]);
     drawText(117, 93);
-    std::sprintf(buffer, "%3d", pet->values70[1]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[1]);
     drawText(176, 93);
-    std::sprintf(buffer, "%3d", pet->values70[2]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[2]);
     drawText(234, 93);
-    std::sprintf(buffer, "%3d", pet->value6A4);
+    cg::text::FormatTo(buffer, L"{:3}", pet->value6A4);
     drawText(53, 111);
-    std::sprintf(buffer, "%3d", pet->values70[3]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[3]);
     drawText(117, 111);
-    std::sprintf(buffer, "%3d", pet->values70[4]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[4]);
     drawText(176, 111);
-    std::sprintf(buffer, "%3d", pet->values70[10]);
+    cg::text::FormatTo(buffer, L"{:3}", pet->values70[10]);
     drawText(234, 111);
-    std::sprintf(buffer, "%3d", pet->lvFlag6C);
+    cg::text::FormatTo(buffer, L"{:3}", pet->lvFlag6C);
     drawText(91, 129);
     std::int32_t consumed = 0;
     if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
@@ -2986,10 +2985,10 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
     const bool priceOwn = gStallOwn58111C != 0;
     std::int32_t price;
     if (priceOwn) {
-        std::sprintf(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
+        cg::text::FormatTo(buffer, L"{}", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
         price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
     } else {
-        std::sprintf(buffer, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
+        cg::text::FormatTo(buffer, L"{}", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
         price = BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetPageD67BD0 + row];
     }
     std::int8_t priceColor = 0;
@@ -3069,31 +3068,31 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
         }
         return 0;
     }
-    char buffer[96];
+    std::wstring buffer;
     const auto drawText = [&](const std::int32_t dx, const std::int32_t dy) {
         WindowInstance* const window = gCurrentWindow;
         const auto y = static_cast<std::int16_t>(window->y + row * 50 + dy);
         const auto x = static_cast<std::int16_t>(window->x + dx);
         static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
     };
-    std::sprintf(buffer, "%s", cg::text::FromGbk(initialPet->name6AC.data()).c_str());
+    cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(initialPet->name6AC.data()).c_str());
     drawText(298, 132);
-    std::sprintf(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
+    cg::text::FormatTo(buffer, L"{:3}", (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
     const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[1].value();
     const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[0].value();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
     const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[3].value();
     const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].values0C[2].value();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
         (*world::detail::BorrowPetRuntimeF633F8Storage())[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
-        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+        cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
-        buffer[0] = '\0';
+        buffer.clear();
     }
     drawText(396, 146);
     constexpr std::array<std::array<std::int32_t, 2>, 4> barPositions {{
@@ -3214,7 +3213,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
             gStallDescriptionPageD67C3C = 0;
         }
     }
-    char buffer[60];
+    std::wstring buffer;
     for (std::int32_t line = 0; line < 2; ++line) {
         std::wstring nameLine;
         static_cast<void>(input::ExtractTextLine(nameLine, item->name, line, 10));
@@ -3278,7 +3277,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     } else {
         price = BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
-    std::sprintf(buffer, "%d", price);
+    cg::text::FormatTo(buffer, L"{}", price);
     std::int8_t priceColor = 0;
     if (price >= 10000) {
         if (price < 100000) {
@@ -3298,8 +3297,8 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     }
     const std::int32_t count = item->count;
     if (count > 0) {
-        char countBuffer[20];
-        std::sprintf(countBuffer, "%3d", count);
+        std::wstring countBuffer;
+        cg::text::FormatTo(countBuffer, L"{:3}", count);
         WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
@@ -3516,8 +3515,8 @@ std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(
             x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
     }
-    char buffer[60];
-    std::sprintf(buffer, "%d", gStallPriceD67C40);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", gStallPriceD67C40);
     Sub_4771B0(x + 105, y + 29, buffer, 3, 0, 1, 227);
     static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
     return state & 1;
@@ -3581,8 +3580,8 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             cancelLeft, cancelTop, 227, kStallPurchaseButtonImages54EF28[1][imageState],
             0, 1, 0, &descriptor));
     }
-    char buffer[60];
-    char details[96];
+    std::wstring buffer;
+    std::wstring details;
     if (gStallModeD67BDC == 0) {
         auto* const item = BorrowStallBrowseD046D8Storage()->items.data() + (gStallItemSelection581124 - 20);
         if (login::detail::Sub_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
@@ -3617,11 +3616,11 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, nameLine, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        std::sprintf(buffer, "%d", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
+        cg::text::FormatTo(buffer, L"{}", BorrowStallBrowseD046D8Storage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
         Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(details, "%3d", count);
+            cg::text::FormatTo(details, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 43), static_cast<std::int16_t>(y + 90),
                 4, 1, 1, details, 0, 0));
@@ -3645,38 +3644,38 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
                 4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
         };
-        std::sprintf(details, "%s", cg::text::FromGbk(pet->name6AC.data()).c_str());
+        cg::text::FormatTo(details, L"{}", cg::text::FromGbkWide(pet->name6AC.data()).c_str());
         drawPetText(75, 61);
-        std::sprintf(details, "%4d", pet->values0C[1].value());
+        cg::text::FormatTo(details, L"{:4}", pet->values0C[1].value());
         drawPetText(225, 61);
-        std::sprintf(details, "%3d", pet->value08);
+        cg::text::FormatTo(details, L"{:3}", pet->value08);
         drawPetText(51, 78);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
         if (tribe >= 0 && tribe < 20) {
-            std::sprintf(details, "%s", gTribeNames57CB54[tribe]);
+            cg::text::FormatTo(details, L"{}", gTribeNames57CB54[tribe]);
         } else {
-            details[0] = '\0';
+            details.clear();
         }
         drawPetText(118, 78);
-        std::sprintf(details, "%4d", pet->values0C[3].value());
+        cg::text::FormatTo(details, L"{:4}", pet->values0C[3].value());
         drawPetText(225, 78);
-        std::sprintf(details, "%3d", pet->values70[0]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[0]);
         drawPetText(115, 96);
-        std::sprintf(details, "%3d", pet->values70[1]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[1]);
         drawPetText(174, 96);
-        std::sprintf(details, "%3d", pet->values70[2]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[2]);
         drawPetText(232, 96);
-        std::sprintf(details, "%3d", pet->value6A4);
+        cg::text::FormatTo(details, L"{:3}", pet->value6A4);
         drawPetText(51, 114);
-        std::sprintf(details, "%3d", pet->values70[3]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[3]);
         drawPetText(115, 114);
-        std::sprintf(details, "%3d", pet->values70[4]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[4]);
         drawPetText(174, 114);
-        std::sprintf(details, "%3d", pet->values70[10]);
+        cg::text::FormatTo(details, L"{:3}", pet->values70[10]);
         drawPetText(232, 114);
-        std::sprintf(details, "%3d", pet->lvFlag6C);
+        cg::text::FormatTo(details, L"{:3}", pet->lvFlag6C);
         drawPetText(89, 132);
-        std::sprintf(details, "%d", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128 - 5]);
+        cg::text::FormatTo(details, L"{}", BorrowStallBrowseD046D8Storage()->petValuesD2D464[gStallPetSelection581128 - 5]);
         Sub_4771B0(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
@@ -3829,7 +3828,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
         }
         gStallHover581120 = -1;
     }
-    std::sprintf(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::detail::ReadPlayerValueFC());
     return 1;
 }
 
@@ -5581,8 +5580,7 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
         result = 1;
     }
-    std::sprintf(gNumberWindowTextCC4D1C.data(), "%9d",
-        std::bit_cast<std::int32_t>(window->elements[index].state));
+    cg::text::FormatTo(gNumberWindowTextCC4D1C, L"{:9}", std::bit_cast<std::int32_t>(window->elements[index].state));
     return result;
 }
 
@@ -6419,16 +6417,16 @@ std::int32_t Sub_4B1260(
         window->elements[scrollElement].visible = 1;
         window->elements[scrollElement - 1].visible = 1;
     }
-    char buffer[156];
+    std::wstring buffer;
     if (*tab == 2) {
-        std::sprintf(buffer, "%9d", displayAmount);
+        cg::text::FormatTo(buffer, L"{:9}", displayAmount);
         Sub_4771B0(x + 179, y + 88, buffer, 3, 0, 1, 223);
     }
-    std::sprintf(buffer, "%3d", itemCount);
+    cg::text::FormatTo(buffer, L"{:3}", itemCount);
     Sub_4771B0(x + 71, y + 258, buffer, 3, 0, 1, 223);
-    std::sprintf(buffer, "%3d", petCount);
+    cg::text::FormatTo(buffer, L"{:3}", petCount);
     Sub_4771B0(x + 156, y + 258, buffer, 3, 0, 1, 223);
-    std::sprintf(buffer, "%10d", amount);
+    cg::text::FormatTo(buffer, L"{:10}", amount);
     Sub_4771B0(x + 241, y + 258, buffer, 3, 0, 1, 223);
     imageNo = backgroundImages[std::bit_cast<std::int8_t>(*tab)];
     static_cast<void>(render::DrawGraphic3_520970(
@@ -9108,14 +9106,14 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
 // 原函数：0x00488E60。
 std::int32_t Sub_488E60(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00488E80。
 std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
@@ -10573,14 +10571,14 @@ std::int32_t Sub_499970(const std::int32_t, const std::int32_t state)
 // 原函数：0x00499B00。
 std::int32_t Sub_499B00(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00499B20。
 std::int32_t Sub_499B20(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
@@ -14660,15 +14658,13 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
     }
     if (index == 30) {
-        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d",
-            std::bit_cast<std::int32_t>(window->elements[30].state));
+        cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", std::bit_cast<std::int32_t>(window->elements[30].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
+        cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", gStorageLastAmountsD67B68[side]);
     } else if (index == 31) {
-        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
-            std::bit_cast<std::int32_t>(window->elements[31].state));
+        cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", std::bit_cast<std::int32_t>(window->elements[31].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
+        cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", gStorageLastAmountsD67B68[side]);
     }
     return 0;
 }
@@ -14676,34 +14672,34 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004A9B00。
 std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
 {
-    std::array<char, 60> buffer;
+    std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
         if (world::detail::BorrowPlayerItemsFDA8A4()[index].used != 0) {
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    cg::text::FormatTo(buffer, L"{:3}", count);
     WindowInstance* window = gCurrentWindow;
     std::int32_t y = window->y + 285;
     std::int32_t x = window->x + 357;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         if ((*world::detail::BorrowPetRuntimeF633F8Storage())[index].used != 0) {
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    cg::text::FormatTo(buffer, L"{:3}", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 442;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
-    std::sprintf(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
+    cg::text::FormatTo(buffer, L"{:10}", world::detail::ReadPlayerValueFC());
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 527;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         std::uint16_t used;
@@ -14712,11 +14708,11 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    cg::text::FormatTo(buffer, L"{:3}", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 85;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         std::uint16_t used;
@@ -14725,20 +14721,20 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    cg::text::FormatTo(buffer, L"{:3}", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 170;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
     const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
     std::int32_t amount;
     std::memcpy(&amount,
         gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
-    std::sprintf(buffer.data(), "%10d", amount);
+    cg::text::FormatTo(buffer, L"{:10}", amount);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 255;
-    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    Sub_4771B0(x, y, buffer, 3, 0, 1, 223);
     return 0;
 }
 
@@ -16554,10 +16550,9 @@ void Sub_492F70()
         WindowInstance* const tribeWindow = gCurrentWindow;
         const auto tribe = std::bit_cast<std::int8_t>(tribeRecord[3]);
         WindowElement* const tribeElements = tribeWindow->elements;
-        const char* const tribeName = gTribeNames57CB54[tribe];
+        const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
-        const std::size_t tribeLength = std::strlen(tribeName) + 1;
-        tribeData->text = cg::text::ToUtf16(tribeName);
+        tribeData->text = tribeName;
         buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
@@ -16805,12 +16800,12 @@ void Sub_493B70(const std::int32_t offset)
         return;
     }
     window->elements[13].visible = 1;
-    const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+    const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C, 3);
     window->elements[13].x = ((37 - musicWidth) >> 1) + offset + 69;
     window->elements[14].visible = 1;
     window->elements[15].visible = 1;
     window->elements[16].visible = 1;
-    const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+    const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64, 3);
     window->elements[16].x = ((37 - effectWidth) >> 1) + offset + 69;
     window->elements[17].visible = 1;
     window->elements[18].visible = 1;
@@ -16998,12 +16993,12 @@ std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
             gCurrentWindow->elements[17].visible = 1;
             gCurrentWindow->elements[18].visible = 1;
             gCurrentWindow->elements[29].visible = 1;
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
-            const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
+            const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C, 3);
             gCurrentWindow->elements[13].x =
                 ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
-            const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
+            const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64, 3);
             gCurrentWindow->elements[16].x =
                 ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
         }
@@ -17271,8 +17266,8 @@ std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
-            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
+            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -17308,8 +17303,8 @@ std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
-            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
+            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -17345,8 +17340,8 @@ std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
-            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
+            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -17382,8 +17377,8 @@ std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
-            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
+            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -18921,8 +18916,8 @@ void Sub_4B8310()
 {
     std::array<char, 300> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
-        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
-        priceText[0] = '\0';
+        std::wstring& priceText = gShopPriceTextsD673EC[row];
+        priceText.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
@@ -18932,7 +18927,11 @@ void Sub_4B8310()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        cg::text::FormatTo(priceText, L"{:10}", price);
+        if (row == 4) {
+            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+                | static_cast<std::uint16_t>(priceText[9] << 8);
+        }
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -18975,13 +18974,13 @@ void Sub_4B8670()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t scroll = gShopScrollCC488C;
-        char* const text = gShopCountTextsD2D988.data() + row * 11;
-        text[0] = '\0';
+        std::wstring& text = gShopCountTextsD2D988[row];
+        text.clear();
         const char* const record = gShopItemsCF4FE0.data() + (scroll + row) * 0xC58;
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            cg::text::FormatTo(text, L"{:2}", selected);
         }
     }
 }
@@ -19002,7 +19001,7 @@ void Sub_4B86C0()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
     const std::int32_t currentTotal = gShopTotalD2DAFC;
     const std::int32_t money = world::detail::ReadPlayerValueFC();
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
@@ -19035,8 +19034,8 @@ void Sub_4B8780()
 {
     std::array<char, 300> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
-        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
-        priceText[0] = '\0';
+        std::wstring& priceText = gShopPriceTextsD673EC[row];
+        priceText.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
@@ -19048,7 +19047,11 @@ void Sub_4B8780()
         const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        cg::text::FormatTo(priceText, L"{:10}", price);
+        if (row == 4) {
+            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+                | static_cast<std::uint16_t>(priceText[9] << 8);
+        }
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::uint32_t flags;
@@ -19096,8 +19099,8 @@ void Sub_4B8780()
 void Sub_4B8B10()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
-        char* const text = gShopCountTextsD2D988.data() + row * 11;
-        text[0] = '\0';
+        std::wstring& text = gShopCountTextsD2D988[row];
+        text.clear();
         gCurrentWindow->elements[row + 42].visible = 0;
         gCurrentWindow->elements[row + 47].visible = 0;
         std::int32_t index = std::bit_cast<std::int8_t>(
@@ -19106,7 +19109,7 @@ void Sub_4B8B10()
             const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            cg::text::FormatTo(text, L"{:2}", selected);
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t maximum;
@@ -19136,7 +19139,7 @@ void Sub_4B8BE0()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
 }
 
@@ -19162,8 +19165,8 @@ void Sub_4B8C90()
 {
     std::array<char, 300> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
-        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
-        priceText[0] = '\0';
+        std::wstring& priceText = gShopPriceTextsD673EC[row];
+        priceText.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         gCurrentWindow->elements[row + 27].visible = 0;
@@ -19173,7 +19176,11 @@ void Sub_4B8C90()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        cg::text::FormatTo(priceText, L"{:10}", price);
+        if (row == 4) {
+            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+                | static_cast<std::uint16_t>(priceText[9] << 8);
+        }
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -19218,15 +19225,15 @@ void Sub_4B8C90()
 void Sub_4B8FF0()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
-        char* const text = gShopCountTextsD2D988.data() + row * 11;
-        text[0] = '\0';
+        std::wstring& text = gShopCountTextsD2D988[row];
+        text.clear();
         gCurrentWindow->elements[row + 42].visible = 0;
         gCurrentWindow->elements[row + 47].visible = 0;
         const char* const record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            cg::text::FormatTo(text, L"{:2}", selected);
             gCurrentWindow->elements[row + 42].visible = 1;
             gCurrentWindow->elements[row + 47].visible = 1;
         }
@@ -19249,7 +19256,7 @@ void Sub_4B9090()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopValueTextCF4A28.data(), "%10d", total);
+    cg::text::FormatTo(gShopValueTextCF4A28, L"{:10}", total);
 }
 
 // 原函数：0x004B90E0。
@@ -19273,7 +19280,7 @@ void Sub_4B9110()
 {
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
-    std::sprintf(gShopPriceTextsD673EC.data(), "%10d", price);
+    cg::text::FormatTo(gShopPriceTextsD673EC[0], L"{:10}", price);
     FillTwoTextLines(static_cast<WindowTextData*>(gCurrentWindow->elements[17].data),
         static_cast<WindowTextData*>(gCurrentWindow->elements[22].data), cg::text::FromGbk(gShopDetailCC3210.data()));
 }
@@ -19281,8 +19288,8 @@ void Sub_4B9110()
 // 原函数：0x004B9270。
 void Sub_4B9270()
 {
-    std::sprintf(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
-    std::sprintf(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
+    cg::text::FormatTo(gShopCountTextsD2D988[0], L"{:2}", gShopValueD046C4);
+    cg::text::FormatTo(gShopValueTextCF4A28, L"{:10}", gShopValueD046C4);
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC2C, sizeof(price));
     gShopTotalD2DAFC = price * gShopValueD046C4;
@@ -19453,7 +19460,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
             break;
         }
     }
-    std::sprintf(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gShopMoneyTextCC1A00, L"{:10}", world::detail::ReadPlayerValueFC());
     if (gMaterialOccupancyCC4894[20] == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::detail::ReadPlayerValueFC();
@@ -19473,7 +19480,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         gShopAvailableCF4A24 = total;
         if (total != previous) {
             Sub_4B8C90();
-            std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
+            cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", gShopAvailableCF4A24);
         }
     }
     if (gShopMessage580848 >= 0) {
@@ -19488,7 +19495,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         } else {
             std::memcpy(&amount, gShopDetailCC3210.data() + 0xC24, sizeof(amount));
         }
-        std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", amount);
+        cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", amount);
     }
     return 1;
 }
@@ -21388,7 +21395,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
     }
     static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
-    char buffer[156];
+    std::wstring buffer;
     for (std::int32_t column = 0; column < 4; ++column) {
         const std::int32_t x = 18 + column * 152;
         for (std::int32_t row = 0; row < 5; ++row) {
@@ -21399,9 +21406,9 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer, "%2d X %2d", factor, item.quantity);
+                    cg::text::FormatTo(buffer, L"{:2} X {:2}", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer, "X %2d", item.quantity);
+                    cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -21411,7 +21418,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
-                    4, 12, nameColor, cg::text::FromGbk(item.name.data()).c_str(), 0, nameFrame));
+                    4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
             }
             static_cast<void>(login::detail::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
@@ -21421,7 +21428,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
     static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gConfirmationLineCB1210, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
-            std::sprintf(buffer, "%d", amount.value);
+            cg::text::FormatTo(buffer, L"{}", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer, 0, 4, 1, 226);
@@ -21784,7 +21791,7 @@ void Sub_4BE3F0(WindowInstance* const window)
     window->elements[33].visible = 1;
     cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[33].data)->text, L"所需的技能欄位數量：{:2}欄", gWindow54ValueCC2E68);
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
+    cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4B0F10;
     }
@@ -21859,7 +21866,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4C0910;
     }
@@ -21889,7 +21896,7 @@ void Sub_4BE930(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
             std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
@@ -21907,13 +21914,13 @@ void Sub_4BE930(WindowInstance* const window)
         static_cast<WindowTextData*>(window->elements[row + 44].data)->text.clear();
         const world::detail::PetRuntimeRecord& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
         const bool used = pet.used != 0;
-        gWindow54ValueTextsCB035C[row * 11] = '\0';
-        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        gWindow54ValueTextsCB035C[row].clear();
+        gWindow54ValueTextsC8B318[row].clear();
         if (used) {
             const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(name);
             const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
-            static_cast<WindowTextData*>(window->elements[row + 44].data)->text = cg::text::ToUtf16(gTribeNames57CB54[tribe]);
+            static_cast<WindowTextData*>(window->elements[row + 44].data)->text = gTribeNames57CB54[tribe];
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
@@ -21943,8 +21950,7 @@ void Sub_4BEC20(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
-        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         const world::detail::PetPairRecord& pair = world::detail::gPetPairsDE0B08[row];
         if (pair.used != 0) {
@@ -21975,14 +21981,14 @@ void Sub_4BEC20(WindowInstance* const window)
         window->elements[row + 59].visible = 1;
         static_cast<WindowTextData*>(window->elements[row + 34].data)->text.clear();
         static_cast<WindowTextData*>(window->elements[row + 44].data)->text.clear();
-        gWindow54ValueTextsCB035C[row * 11] = '\0';
-        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        gWindow54ValueTextsCB035C[row].clear();
+        gWindow54ValueTextsC8B318[row].clear();
         if (selected >= 0 && gWindow54PetOptionsD67448[selected].used != 0) {
             const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
             static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(option.name.data());
             const std::int32_t tribe = option.tribe;
             if (tribe >= 0) {
-                static_cast<WindowTextData*>(window->elements[row + 44].data)->text = cg::text::ToUtf16(gTribeNames57CB54[tribe]);
+                static_cast<WindowTextData*>(window->elements[row + 44].data)->text = gTribeNames57CB54[tribe];
             }
         }
     }
@@ -22020,16 +22026,15 @@ void Sub_4BEF30(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
-        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         window->elements[row + 69].visible = 1;
         window->elements[row + 69].mouseCallback = &Sub_4C0A50;
         static_cast<WindowTextData*>(window->elements[row + 34].data)->text.clear();
         window->elements[row + 44].visible = 0;
         const bool usedOption = gWindow54PetOptionsD67448[row].used != 0;
-        gWindow54ValueTextsCB035C[row * 11] = '\0';
-        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        gWindow54ValueTextsCB035C[row].clear();
+        gWindow54ValueTextsC8B318[row].clear();
         if (usedOption) {
             static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(gWindow54PetOptionsD67448[row].name.data());
         }
@@ -22056,8 +22061,8 @@ void Sub_4BF160(
         window->elements[row + 34].visible = 0;
         window->elements[row + 49].visible = 0;
         window->elements[row + 59].visible = 0;
-        gWindow54ValueTextsCB035C[row * 11] = '\0';
-        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        gWindow54ValueTextsCB035C[row].clear();
+        gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
             window->elements[row + 69].visible = 1;
             const world::detail::SkillPairRecord& pair = world::detail::gSkillPairsF63370[scroll + row];
@@ -22068,9 +22073,9 @@ void Sub_4BF160(
                 window->elements[row + 59].visible = 1;
                 const world::detail::SkillRuntimeRecord& skill = world::detail::gSkillsF1BAFC[index];
                 static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(skill.name.data());
-                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
+                cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
+                cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", requiredSlots);
             }
         }
     }
@@ -22088,8 +22093,8 @@ void Sub_4BF2E0(
         window->elements[row + 34].visible = 0;
         window->elements[row + 49].visible = 0;
         window->elements[row + 59].visible = 0;
-        gWindow54ValueTextsCB035C[row * 11] = '\0';
-        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        gWindow54ValueTextsCB035C[row].clear();
+        gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
             window->elements[row + 69].visible = 1;
             const std::int32_t selected = gWindow54SkillMapCC4D04[scroll + row];
@@ -22098,10 +22103,8 @@ void Sub_4BF2E0(
                 window->elements[row + 49].visible = 1;
                 window->elements[row + 59].visible = 1;
                 static_cast<WindowTextData*>(window->elements[row + 34].data)->text = gWindow54NamesC8AAA0[selected].text;
-                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
-                    gWindow54ValuesCB01A4[selected]);
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
-                    gWindow54ValuesCB09D8[selected]);
+                cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", gWindow54ValuesCB01A4[selected]);
+                cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", gWindow54ValuesCB09D8[selected]);
             }
         }
     }
@@ -22133,13 +22136,13 @@ void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
             window->elements[row + 99].mouseCallback = &Sub_4C0EA0;
         }
         static_cast<WindowTextData*>(window->elements[row + 79].data)->text.clear();
-        gWindow54SkillValueTextsCF4978[row * 11] = '\0';
-        gWindow54SkillPriceTextsCF493C[row * 11] = '\0';
+        gWindow54SkillValueTextsCF4978[row].clear();
+        gWindow54SkillPriceTextsCF493C[row].clear();
         // 原存在性检查不加scroll，显示内容仍取分页后的记录。
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
             static_cast<WindowTextData*>(window->elements[row + 79].data)->text = cg::text::FromGbkWide(record.name.data());
-            std::sprintf(gWindow54SkillValueTextsCF4978.data() + row * 11, "%5d", record.value04);
-            std::sprintf(gWindow54SkillPriceTextsCF493C.data() + row * 11, "%10d", record.price);
+            cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
+            cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
             const std::int32_t money = world::detail::ReadPlayerValueFC();
             const std::int32_t price = record.price;
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =
@@ -22161,11 +22164,11 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
             window->elements[row + 69].mouseCallback = &Sub_4C0BF0;
             static_cast<WindowTextData*>(window->elements[row + 34].data)->text.clear();
             const bool used = slot.used != 0;
-            gWindow54ValueTextsCB035C[row * 11] = '\0';
-            gWindow54ValueTextsC8B318[row * 11] = '\0';
+            gWindow54ValueTextsCB035C[row].clear();
+            gWindow54ValueTextsC8B318[row].clear();
             if (used) {
                 static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(slot.name.data());
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
+                cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:3}", slot.value04);
             }
             ++row;
         } while (row < gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll);
@@ -22218,7 +22221,7 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
-    std::sprintf(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::detail::ReadPlayerValueFC());
     if (gWindow54MessageC9FCE0 >= 0) {
         gWindow54MessageC9FCE0 = -1;
     }
@@ -22933,8 +22936,8 @@ void Sub_4C17B0()
     std::array<char, 300> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         WindowInstance* const initial = gCurrentWindow;
-        char* const price = gWindow69PriceTextsD2D7CC.data() + row * 11;
-        price[0] = '\0';
+        std::wstring& price = gWindow69PriceTextsD2D7CC[row];
+        price.clear();
         static_cast<WindowTextData*>(initial->elements[row + 16].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text.clear();
         gCurrentWindow->elements[row + 26].visible = 0;
@@ -22942,7 +22945,7 @@ void Sub_4C17B0()
         if (item->used == 0) {
             continue;
         }
-        std::sprintf(price, "%10d", item->valueC24);
+        cg::text::FormatTo(price, L"{:10}", item->valueC24);
         item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
         if ((item->flags & 0x100u) != 0) {
             cg::text::Copy(buffer.data(), buffer.size(), cg::text::FromGbk(item->tips.data()));
@@ -22974,11 +22977,11 @@ void Sub_4C1AA0()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t scroll = gWindow69ScrollD2D604;
-        char* const text = gWindow69CountTextsD2EA24.data() + row * 11;
-        text[0] = '\0';
+        std::wstring& text = gWindow69CountTextsD2EA24[row];
+        text.clear();
         const WindowCrystalItem& item = gWindow69ItemsCB2230[scroll + row];
         if (item.used != 0) {
-            std::sprintf(text, "%2d", item.selectedCount);
+            cg::text::FormatTo(text, L"{:2}", item.selectedCount);
         }
     }
 }
@@ -22995,7 +22998,7 @@ void Sub_4C1B00()
         }
     }
     gWindow69TotalD45E70 = total;
-    std::sprintf(gWindow69TotalTextCC48B0.data(), "%10d", total);
+    cg::text::FormatTo(gWindow69TotalTextCC48B0, L"{:10}", total);
     const std::int32_t currentTotal = gWindow69TotalD45E70;
     const std::int32_t owned = world::detail::ReadPlayerValue15BCC();
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -23102,7 +23105,7 @@ std::int32_t Sub_4C1C50(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow69ScrollD2D604 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    std::sprintf(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    cg::text::FormatTo(gWindow69BalanceTextD2E448, L"{:10}", world::detail::ReadPlayerValue15BCC());
     if (gWindow69Message580854 >= 0) {
         gWindow69Message580854 = -1;
     }
@@ -23708,7 +23711,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
     }
     static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
-    std::array<char, 156> buffer;
+    std::wstring buffer;
     for (std::int32_t column = 0; column < 4; ++column) {
         const std::int32_t x = 18 + column * 152;
         for (std::int32_t row = 0; row < 5; ++row) {
@@ -23719,19 +23722,19 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    cg::text::FormatTo(buffer, L"{:2} X {:2}", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                    cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
-                    4, 12, 0, buffer.data(), 0, countFrame));
+                    4, 12, 0, buffer, 0, countFrame));
                 const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
-                    4, 12, nameColor, cg::text::FromGbk(item.name.data()).c_str(), 0, nameFrame));
+                    4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
             }
             static_cast<void>(login::detail::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
@@ -23741,10 +23744,10 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
     static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow69ConfirmQuestionCC3F04, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
         if (amount.visible != 0) {
-            std::sprintf(buffer.data(), "%d", amount.value);
+            cg::text::FormatTo(buffer, L"{}", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
-            Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
+            Sub_4771B0(x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
     login::detail::DrawNineGrid_49BE00(
@@ -23883,8 +23886,8 @@ void Sub_4C3A50()
     std::array<char, 300> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         WindowInstance* const initial = gCurrentWindow;
-        char* const price = gWindow70PriceTextsCF49C4.data() + row * 11;
-        price[0] = '\0';
+        std::wstring& price = gWindow70PriceTextsCF49C4[row];
+        price.clear();
         static_cast<WindowTextData*>(initial->elements[row + 16].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text.clear();
         gCurrentWindow->elements[row + 26].visible = 0;
@@ -23892,7 +23895,7 @@ void Sub_4C3A50()
         if (item->used == 0) {
             continue;
         }
-        std::sprintf(price, "%10d", item->valueC24);
+        cg::text::FormatTo(price, L"{:10}", item->valueC24);
         item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if ((item->flags & 0x100u) != 0) {
             cg::text::Copy(buffer.data(), buffer.size(), cg::text::FromGbk(item->tips.data()));
@@ -23924,11 +23927,11 @@ void Sub_4C3D40()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t scroll = gWindow70ScrollCC4B68;
-        char* const text = gWindow70CountTextsCC4848.data() + row * 11;
-        text[0] = '\0';
+        std::wstring& text = gWindow70CountTextsCC4848[row];
+        text.clear();
         const WindowCrystalItem& item = gWindow70ItemsD30428[scroll + row];
         if (item.used != 0) {
-            std::sprintf(text, "%2d", item.selectedCount);
+            cg::text::FormatTo(text, L"{:2}", item.selectedCount);
         }
     }
 }
@@ -23945,7 +23948,7 @@ void Sub_4C3DA0()
         }
     }
     gWindow70TotalCB0F74 = total;
-    std::sprintf(gWindow70TotalTextD2D804.data(), "%10d", total);
+    cg::text::FormatTo(gWindow70TotalTextD2D804, L"{:10}", total);
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -24053,7 +24056,7 @@ std::int32_t Sub_4C3F00(const std::int32_t value)
         gWindow70ScrollCC4B68 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
-    std::sprintf(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
+    cg::text::FormatTo(gWindow70BalanceTextCF3F14, L"{:10}", owned);
     if (gWindow70Message580864 >= 0) {
         gWindow70Message580864 = -1;
     }
@@ -24640,7 +24643,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
     }
     static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
     static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
-    std::array<char, 156> buffer;
+    std::wstring buffer;
     for (std::int32_t column = 0; column < 4; ++column) {
         const std::int32_t x = 18 + column * 152;
         for (std::int32_t row = 0; row < 5; ++row) {
@@ -24651,19 +24654,19 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    cg::text::FormatTo(buffer, L"{:2} X {:2}", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                    cg::text::FormatTo(buffer, L"X {:2}", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
-                    4, 12, 0, buffer.data(), 0, countFrame));
+                    4, 12, 0, buffer, 0, countFrame));
                 const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
                 static_cast<void>(render::DrawText_456780(
                     static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
-                    4, 12, nameColor, cg::text::FromGbk(item.name.data()).c_str(), 0, nameFrame));
+                    4, 12, nameColor, cg::text::FromGbkWide(item.name.data()).c_str(), 0, nameFrame));
             }
             static_cast<void>(login::detail::DrawGraphic(
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
@@ -24673,10 +24676,10 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
     static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow70ConfirmQuestionCF4ABC, 0, static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow70ConfirmAmountsD2E290) {
         if (amount.visible != 0) {
-            std::sprintf(buffer.data(), "%d", amount.value);
+            cg::text::FormatTo(buffer, L"{}", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
-            Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
+            Sub_4771B0(x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
     login::detail::DrawNineGrid_49BE00(
@@ -25092,7 +25095,7 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
     // 原4C0A97：候选-1先读D67420的U16，别名为商店价格文本D673EC+34。
     std::uint16_t used;
     if (selected == -1) {
-        std::memcpy(&used, gShopPriceTextsD673EC.data() + 0x34, sizeof(used));
+        used = gShopPriceTailD67420;
     } else {
         used = gWindow54PetOptionsD67448[selected].used;
     }
@@ -30736,7 +30739,7 @@ void Sub_4A7750(const std::int32_t x, const std::int32_t y)
 // WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x004771B0。
 void Sub_4771B0(
-    const std::int32_t x, const std::int32_t y, const char* const text,
+    const std::int32_t x, const std::int32_t y, const std::wstring_view text,
     const std::int8_t style, const std::int8_t color,
     const std::uint8_t flags, const std::uint8_t layer)
 {
@@ -30762,17 +30765,17 @@ void Sub_4771B0(
         drawY = kNumberOffsets54F278[style * 3 + 2] + y;
     }
 
-    const auto drawByte = [&](const char character) {
+    const auto drawCharacter = [&](const wchar_t character) {
         std::int32_t imageNo;
-        if (character >= '0' && character <= '9') {
-            imageNo = kNumberDigitImages54F0D8[style * 13 + color] + character - '0';
+        if (character >= L'0' && character <= L'9') {
+            imageNo = kNumberDigitImages54F0D8[style * 13 + color] + character - L'0';
         } else {
             std::int32_t symbol;
             switch (character) {
-            case '+': symbol = 0; break;
-            case '-': symbol = 1; break;
-            case ':': symbol = 2; break;
-            case '/': symbol = 3; break;
+            case L'+': symbol = 0; break;
+            case L'-': symbol = 1; break;
+            case L':': symbol = 2; break;
+            case L'/': symbol = 3; break;
             default: return;
             }
             imageNo = kNumberSymbolImages54F1A8[style * 13 + color] + symbol;
@@ -30781,30 +30784,24 @@ void Sub_4771B0(
             drawX, drawY, layer, imageNo, 0, &descriptor));
     };
 
-    const char* cursor = text;
     if (reverse) {
-        while (*cursor != '\0') {
-            ++cursor;
-        }
-        while (cursor != text) {
-            --cursor;
-            drawByte(*cursor);
+        for (auto cursor = text.rbegin(); cursor != text.rend(); ++cursor) {
+            drawCharacter(*cursor);
             drawX += step;
         }
     } else {
-        while (*cursor != '\0') {
-            drawByte(*cursor);
+        for (const wchar_t character : text) {
+            drawCharacter(character);
             drawX += step;
-            ++cursor;
         }
     }
 }
 
 // WND01：运行步进乘长度后取扣宽，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x00477460。
-std::int32_t Sub_477460(const char* const text, const std::int8_t style)
+std::int32_t Sub_477460(const std::wstring_view text, const std::int8_t style)
 {
-    const auto length = static_cast<std::int32_t>(std::strlen(text));
+    const auto length = static_cast<std::int32_t>(text.size());
     if (length <= 0) {
         return 0;
     }
@@ -35421,12 +35418,12 @@ void Sub_47B6C0(
     const std::int8_t nameColor = enabled != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(skill->name.data()).c_str(), 0, 0));
-    char buffer[60];
-    std::sprintf(buffer, "%2d", skill->level);
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(skill->name.data()).c_str(), 0, 0));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:2}", skill->level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
-    std::sprintf(buffer, "%2d", requiredSlots);
+    cg::text::FormatTo(buffer, L"{:2}", requiredSlots);
     Sub_4771B0(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
@@ -35607,17 +35604,17 @@ void Sub_47B9B0(
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(name).c_str(), 0, 0));
-    char buffer[60];
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(name).c_str(), 0, 0));
+    std::wstring buffer;
     const std::int32_t level =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
-    std::sprintf(buffer, "%2d", level);
+    cg::text::FormatTo(buffer, L"{:2}", level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-        std::sprintf(buffer, "%3d", cost);
+        cg::text::FormatTo(buffer, L"{:3}", cost);
         Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     } else {
         static_cast<void>(render::DrawText_456780(
@@ -35649,11 +35646,11 @@ void Sub_47C240(
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(row->name.data()).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(row->name.data()).c_str(), 0, 0));
     const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
-    char buffer[60];
-    std::sprintf(buffer, "%3d", cost);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", cost);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
@@ -37794,9 +37791,9 @@ void Sub_47CB00(
     }
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(record->name.data()).c_str(), 0, 0));
-    char buffer[60];
-    std::sprintf(buffer, "%3d", record->fp);
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
@@ -37831,9 +37828,9 @@ void Sub_47CE70(
     }
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(record->name.data()).c_str(), 0, 0));
-    char buffer[60];
-    std::sprintf(buffer, "%3d", record->fp);
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbkWide(record->name.data()).c_str(), 0, 0));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, static_cast<std::uint8_t>(graphicLayer), kPetSkillImages54F454[visualState], 0, &descriptor));
@@ -40816,11 +40813,11 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
 
 namespace {
 
-constexpr char kStatusVitalsFormat553FE8[] = "%4d/%4d"; // 原常量参考：0x00553FE8。
+constexpr wchar_t kStatusVitalsFormat553FE8[] = L"{:4}/{:4}"; // 原常量参考：0x00553FE8。
 constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556}); // 原常量参考：0x0054F638。
 
 // 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
-void FormatStatusBarVitals(char* const buffer)
+void FormatStatusBarVitals(std::wstring& buffer)
 {
     login::YobiAction* battlePlayer = nullptr;
     if (world::gCurrentSceneType == 10) {
@@ -40833,22 +40830,22 @@ void FormatStatusBarVitals(char* const buffer)
         const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
-        std::strcpy(gStatusHpTextD40B18.data(), buffer);
+        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
             login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
         const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
-        std::strcpy(gStatusHpTextD40B18.data(), buffer);
+        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
         const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     }
 }
 
@@ -41342,11 +41339,10 @@ std::int32_t Sub_470AB0(const std::int32_t)
 void Sub_470AC0()
 {
     render::GraphicDescriptor16 descriptor {};
-    char buffer[768];
+    std::wstring buffer;
     FormatStatusBarVitals(buffer);
-    const std::size_t fpLength = std::strlen(buffer) + 1;
     WindowInstance* const timeWindow = gCurrentWindow;
-    std::memcpy(gStatusFpTextD45D50.data(), buffer, fpLength);
+    gStatusFpTextD45D50 = buffer;
     WindowElement* const elements = timeWindow->elements;
     const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
     auto* const timeGraphic = static_cast<WindowGraphicData*>(elements[15].data);
@@ -41404,9 +41400,9 @@ void Sub_470AC0()
 void Sub_4718F0()
 {
     render::GraphicDescriptor16 descriptor {};
-    char buffer[768];
+    std::wstring buffer;
     FormatStatusBarVitals(buffer);
-    std::strcpy(gStatusFpTextD45D50.data(), buffer);
+    gStatusFpTextD45D50 = buffer;
     DrawStatusBarTimer(2, &descriptor);
 }
 
@@ -41960,10 +41956,9 @@ void Sub_474FB0()
     WindowInstance* const tribeWindow = gCurrentWindow;
     const std::int16_t tribeIndex = world::detail::ReadPlayerTribe();
     WindowElement* const tribeElements = tribeWindow->elements;
-    const char* const tribe = gTribeNames57CB54[tribeIndex];
+    const wchar_t* const tribe = gTribeNames57CB54[tribeIndex];
     auto* const tribeData = static_cast<WindowTextData*>(tribeElements[8].data);
-    const std::size_t tribeLength = std::strlen(tribe) + 1;
-    tribeData->text = cg::text::ToUtf16(tribe);
+    tribeData->text = tribe;
 
     std::sprintf(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
@@ -42640,10 +42635,9 @@ void Sub_48C920()
         const std::int16_t tribe =
             std::bit_cast<std::int16_t>((*world::detail::BorrowPetRuntimeF633F8Storage())[tribeIndex].value04);
         WindowElement* const tribeElements = tribeWindow->elements;
-        const char* const tribeName = gTribeNames57CB54[tribe];
+        const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[textBase + 4].data);
-        const std::size_t tribeLength = std::strlen(tribeName) + 1;
-        tribeData->text = cg::text::ToUtf16(tribeName);
+        tribeData->text = tribeName;
 
         const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[petIndex()];
         if (state >= 0 && state <= 3) {
@@ -42822,9 +42816,9 @@ std::uint32_t Sub_48F8F0()
         WindowInstance* const tribeWindow = gCurrentWindow;
         const auto tribe = std::bit_cast<std::int16_t>(tribePet.value04);
         WindowElement* const tribeElements = tribeWindow->elements;
-        const char* const tribeName = gTribeNames57CB54[tribe];
+        const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[14].data);
-        tribeData->text = cg::text::ToUtf16(tribeName);
+        tribeData->text = tribeName;
         buffer = std::format(L"{:>3}", selectedPet().values70[10]);
         static_cast<void>(copyTextBeforeScan(15, buffer));
         buffer = std::format(L"{:>2}", selectedPet().value6A4);
@@ -43104,7 +43098,7 @@ WindowElement* Sub_491AA0()
         return (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
     };
     const auto& initialPet = selectedPet();
-    char buffer[768];
+    std::wstring buffer;
     if (initialPet.used != 0) {
         const bool customName = initialPet.name6BD[0] != '\0';
         input::InputContext* const activeInput = input::gCurrentInputData;
@@ -43158,8 +43152,8 @@ WindowElement* Sub_491AA0()
                 data->text = cg::text::FromGbkWide(techniqueName);
                 gCurrentWindow->elements[23 + row].visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[row].fp;
-                std::sprintf(buffer, "%3d", fp);
-                std::strcpy(gPetTechniqueCostsD66C34[row].data(), buffer);
+                cg::text::FormatTo(buffer, L"{:3}", fp);
+                gPetTechniqueCostsD66C34[row] = buffer;
             }
         }
     } else {
@@ -43170,9 +43164,9 @@ WindowElement* Sub_491AA0()
             gCurrentWindow->elements[23 + row].visible = 0;
         }
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    cg::text::FormatTo(buffer, L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     auto* const page = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
-    page->text = cg::text::ToUtf16(buffer);
+    page->text = buffer;
     gCurrentWindow->elements[33].visible = 0;
     gCurrentWindow->elements[34].visible = 0;
     WindowElement* const result = gCurrentWindow->elements;
@@ -45880,7 +45874,7 @@ void DrawCurrentWindow_4729B0()
                     const std::uint8_t flags = data->flags;
                     const std::int8_t color = std::bit_cast<std::int8_t>(data->color);
                     const std::int8_t style = data->style;
-                    const char* const text = data->text;
+                    const std::wstring& text = *data->text;
                     Sub_4771B0(x, y, text, style, color, flags, 0xDF);
                 }
                 break;

@@ -74667,11 +74667,13 @@
         "src/LoginScene.cpp",
         "src/LoginMessage.cpp",
         "src/platform/MainLoopSupport.cpp",
-        "src/world/WorldUpdate.cpp"
+        "src/world/WorldUpdate.cpp",
+        "src/ui/WindowPrototypes.cpp",
+        "src/ui/WindowRuntimeState.hpp"
       ],
       "observation": "用户要求内部文字只保留wchar／wstring；原兼容层有GBK消息和前缀混入UTF-8消费者。",
       "expected": "第一组生产者、宽格式化／显示借用和聊天GBK保存边界成组配对；业务字段、原地址及读取发布序保持。",
-      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。 第二组完成标题、窗口类名、系统窗口标题匹配和登录／断线／退出提示的宽文本链；删除登录消息窄重载。13函数／辅助及334处定位静态核对，尚未编译或运行，剩余显示／输入／发送接口继续迁移。",
+      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。 第二组完成标题、窗口类名、系统窗口标题匹配和登录／断线／退出提示的宽文本链；删除登录消息窄重载。13函数／辅助及334处定位静态核对，尚未编译或运行，剩余显示／输入／发送接口继续迁移。 第三组完成31组数值文字所有者、type7稳定借用、数字绘制／测宽及全部调用配对，种族名称表与消费者迁宽。84函数／辅助和1336处定位更新，非文本尾部别名独立保原数值与更新序。",
       "differences": [
         {
           "description": "内部格式／提示及部分结果owner直接UTF-16，退休本组UTF-8过渡；实际GBK记录保持。",
@@ -74698,11 +74700,13 @@
         "src/LoginScene.cpp",
         "src/LoginMessage.cpp",
         "src/platform/MainLoopSupport.cpp",
-        "src/world/WorldUpdate.cpp"
+        "src/world/WorldUpdate.cpp",
+        "src/ui/WindowPrototypes.cpp",
+        "src/ui/WindowRuntimeState.hpp"
       ],
       "observation": "用户要求内部文字只保留wchar／wstring；原兼容层有GBK消息和前缀混入UTF-8消费者。",
       "expected": "第一组生产者、宽格式化／显示借用和聊天GBK保存边界成组配对；业务字段、原地址及读取发布序保持。",
-      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。 第二组完成标题、窗口类名、系统窗口标题匹配和登录／断线／退出提示的宽文本链；删除登录消息窄重载。13函数／辅助及334处定位静态核对，尚未编译或运行，剩余显示／输入／发送接口继续迁移。",
+      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。 第二组完成标题、窗口类名、系统窗口标题匹配和登录／断线／退出提示的宽文本链；删除登录消息窄重载。13函数／辅助及334处定位静态核对，尚未编译或运行，剩余显示／输入／发送接口继续迁移。 第三组完成31组数值文字所有者、type7稳定借用、数字绘制／测宽及全部调用配对，种族名称表与消费者迁宽。84函数／辅助和1336处定位更新，非文本尾部别名独立保原数值与更新序。",
       "differences": [
         {
           "description": "内部格式／提示及部分结果owner直接UTF-16，退休本组UTF-8过渡；实际GBK记录保持。",

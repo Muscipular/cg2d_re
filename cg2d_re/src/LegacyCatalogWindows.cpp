@@ -306,7 +306,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         }
         const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(gLegacyPetSkillCatalogCA0478[index].name.data()).c_str(), 0);
         const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
-        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()Width / 2),
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
         std::sprintf(buffer, "%4d", value);

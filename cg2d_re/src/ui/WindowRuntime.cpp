@@ -5198,18 +5198,20 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
         return consumed;
     }
     char name[256];
-    char text[1024];
+    std::wstring text;
+    std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
     char escapedName[256];
     char escapedText[1024];
-    char combined[1024];
+    std::wstring combined;
     char packet[1024];
     cg::text::Copy(name, sizeof(name), cg::text::FromGbk(gMiniMailCompose105F508.name.data()));
-    std::strcpy(text, input::gInputContextCA0180.utf8().c_str());
+    text = input::ContextText(input::gInputContextCA0180);
+    cg::text::StoreGbk(storedText.data(), storedText.size(), text);
     input::EscapeLegacyText_52D1B0(name, escapedName, 256);
-    input::EscapeLegacyText_52D1B0(text, escapedText, 1024);
-    std::sprintf(
+    input::EscapeLegacyText_52D1B0(cg::text::FromUtf16(text).c_str(), escapedText, 1024);
+    cg::text::FormatTo(
         combined, "%d|%s|%s|%d", gMiniMailCompose105F508.target, escapedName, escapedText, 0);
-    input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
+    input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
@@ -5235,7 +5237,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
         char timestamp[64];
         std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
             year + 1900, month + 1, day, hour, minute);
-        world::detail::Sub_5343C0(contact, 1, timestamp, cg::text::ToGbk(text).c_str());
+        world::detail::Sub_5343C0(contact, 1, timestamp, storedText.data());
     }
     static_cast<void>(Sub_4CB9B0(3));
     static_cast<void>(Sub_4CB9B0(4));
@@ -10410,7 +10412,7 @@ std::int32_t Sub_49FFA0(const std::int32_t, const std::int32_t state)
             static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
             static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
             static_cast<std::uint16_t>(y + 14), 223, login::detail::gValueD69768, 0);
-        gHoverTextD68AE8 = cg::text::ToUtf16(cg::text::FromUtf16(gChoiceDialog.hints[index]));
+        gHoverTextD68AE8 = gChoiceDialog.hints[index];
         if ((platform::BorrowLegacyMouseStateStorage()->edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {
@@ -18367,8 +18369,8 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         }
         input::InputContext* const context = gWindow50InputPrototype580618.input.context;
         if (!context->empty()) {
-            std::strcpy(text, context->utf8().c_str());
-            input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 256);
+            const std::string sourceUtf8View = context->utf8();
+            input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), escaped, 256);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -27679,7 +27681,8 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
     }
     char timestamp[64];
     char packet[1024];
-    char combined[1024];
+    std::wstring combined;
+    std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
     char escapedName[256];
     char escapedText[1024];
     bool closeAfterSend = false;
@@ -27692,8 +27695,9 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                     || gLoginWindowRuntime.mailGroupCC1A30.count <= 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
-                    std::strcpy(combined, input::gInputContextD66CA8.utf8().c_str());
-                    input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                    combined = input::ContextText(input::gInputContextD66CA8);
+                    cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
+                    input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
                     for (std::int32_t row = 0; row < gLoginWindowRuntime.mailGroupCC1A30.count; ++row) {
                         if (gLoginWindowRuntime.mailGroupCC1A30.selected[row] != 1) {
                             continue;
@@ -27703,7 +27707,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                             const std::uintptr_t socket = platform::gConnectionSocket;
                             static_cast<void>(network::Sub_510FA0(socket, contact, packet, 0));
                             FormatMailTimestamp587768(timestamp);
-                            world::detail::Sub_5191C0(contact, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
+                            world::detail::Sub_5191C0(contact, 1, timestamp, storedText.data());
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
@@ -27711,7 +27715,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                             static_cast<void>(network::Sub_511480(socket, key, packet, 0));
                             FormatMailTimestamp587768(timestamp);
                             static_cast<void>(world::detail::Sub_519370(
-                                key, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str()));
+                                key, 1, timestamp, storedText.data()));
                         } else {
                             const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
@@ -27723,7 +27727,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                                     FormatMailTimestamp587768(timestamp);
                                     const std::int32_t key = login::detail::gOrderedRecords1051B14[member].value0C;
                                     static_cast<void>(world::detail::Sub_519370(
-                                        key, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str()));
+                                        key, 1, timestamp, storedText.data()));
                                 }
                             }
                         }
@@ -27745,14 +27749,15 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 const std::int32_t contact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
                 const std::int32_t key = record.key04;
+                cg::text::StoreGbk(storedText.data(), storedText.size(), input::ContextText(input::gInputContextD66CA8));
                 input::EscapeLegacyText_52D1B0(cg::text::FromGbk(record.name10.data()).c_str(), escapedName, 256);
                 input::EscapeLegacyText_52D1B0(input::gInputContextD66CA8.utf8().c_str(), escapedText, 1024);
-                std::sprintf(combined, "%d|%s|%s", key, escapedName, escapedText);
-                input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                cg::text::FormatTo(combined, "%d|%s|%s", key, escapedName, escapedText);
+                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
                 static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
-                world::detail::Sub_5343C0(currentContact, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
+                world::detail::Sub_5343C0(currentContact, 1, timestamp, storedText.data());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;
             } else {
@@ -27760,13 +27765,15 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
                     target = login::detail::gOrderedRecords1051B14[member].value0C;
-                    std::strcpy(combined, input::gInputContextD66CA8.utf8().c_str());
+                    combined = input::ContextText(input::gInputContextD66CA8);
+                    cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 } else {
                     const std::size_t length = input::gInputContextD66CA8.length() + 1;
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
-                    std::strcpy(combined, input::gInputContextD66CA8.utf8().c_str());
+                    combined = input::ContextText(input::gInputContextD66CA8);
+                    cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 }
-                input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
                     static_cast<void>(network::Sub_511480(socket, target, packet, 0));
@@ -27776,9 +27783,9 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
                     static_cast<void>(world::detail::Sub_519370(
-                        target, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str()));
+                        target, 1, timestamp, storedText.data()));
                 } else {
-                    world::detail::Sub_5191C0(target, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
+                    world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
                 }
                 static_cast<void>(world::detail::Sub_519300());
                 static_cast<void>(world::detail::Sub_519550());
@@ -28067,20 +28074,22 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
                 allowed = Sub_4A6D50(pet) == 0;
             }
             if (allowed) {
-                char text[600];
+                std::wstring text;
+                std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
                 char packet[600];
                 char timestamp[64];
                 std::int32_t target;
                 if (category == 1) {
                     const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
                     target = login::detail::gOrderedRecords1051B14[member].value0C;
-                    std::strcpy(text, input::gInputContextD66CA8.utf8().c_str());
+                    text = input::ContextText(input::gInputContextD66CA8);
                 } else {
                     const std::size_t length = input::gInputContextD66CA8.length() + 1;
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
-                    std::strcpy(text, input::gInputContextD66CA8.utf8().c_str());
+                    text = input::ContextText(input::gInputContextD66CA8);
                 }
-                input::EscapeLegacyTextAndNotify_52D2D0(text, packet, 600);
+                cg::text::StoreGbk(storedText.data(), storedText.size(), text);
+                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(text).c_str(), packet, 600);
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
@@ -28093,9 +28102,9 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
                     static_cast<void>(world::detail::Sub_519370(
-                        target, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str()));
+                        target, 1, timestamp, storedText.data()));
                 } else {
-                    world::detail::Sub_5191C0(target, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
+                    world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
                 }
                 static_cast<void>(world::detail::Sub_519300());
                 static_cast<void>(world::detail::Sub_519550());
@@ -29096,9 +29105,9 @@ void Sub_4AF250()
             Sub_4AFA00(row + 2);
             WindowInstance* const current = gCurrentWindow;
             // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
-            const std::string sourceUtf8View = gGuildInputs57F040[row].input.context->utf8();
-        const char* const source = sourceUtf8View.c_str();
-            std::strcpy(static_cast<WindowTextData*>(current->elements[row + 11].data)->utf8().c_str(), source);
+            static_cast<WindowTextData*>(
+                current->elements[row + 11].data)->text =
+                input::ContextText(*gGuildInputs57F040[row].input.context);
         }
         window = gCurrentWindow;
         const std::int32_t rank = gGuildPageD67B78 + row;
@@ -32322,12 +32331,12 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
-            char trimmed[288];
-            char buffer[768];
+            std::string trimmed; // 旧窄字符删除接口的局部可写视图。
+            std::wstring buffer;
             const auto trimInput = [&] {
-                std::strcpy(trimmed, input::gInputContextD2DE70.utf8().c_str());
-                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
-                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, cg::text::FromGbk("\x81\x40").c_str()));
+                trimmed = input::gInputContextD2DE70.utf8();
+                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed.data(), " "));
+                static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed.data(), cg::text::FromGbk("\x81\x40").c_str()));
             };
             bool send = false;
             std::int32_t notice = -1;
@@ -32337,7 +32346,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                     notice = 0;
                 } else {
                     trimInput();
-                    if (std::strlen(trimmed) == 0
+                    if (std::strlen(trimmed.c_str()) == 0
                         && input::gInputContextD2DE70.length() != 0) {
                         notice = 1;
                     } else {
@@ -32346,7 +32355,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 }
             } else if (!input::gInputContextD2DE70.empty()) {
                 trimInput();
-                if (std::strlen(trimmed) == 0) {
+                if (std::strlen(trimmed.c_str()) == 0) {
                     notice = 1;
                 } else if (input::Sub_45E770(input::gInputContextD2DE70.utf8().c_str()) == 1) {
                     notice = 0;
@@ -32362,9 +32371,9 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
                 if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-                    std::strcpy(buffer, input::gInputContextD2DE70.utf8().c_str());
+                    buffer = input::ContextText(input::gInputContextD2DE70);
                 } else {
-                    buffer[0] = '\0';
+                    buffer.clear();
                 }
                 NullSub_509080();
                 std::int32_t offset = 0;
@@ -32378,7 +32387,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 const std::int32_t selected = gSelectedItemD460C0;
                 const std::int32_t skill = gCraftSkillIndexCC2368;
                 static_cast<void>(network::Sub_511EF0(
-                    platform::gConnectionSocket, skill + offset, request, selected, buffer));
+                    platform::gConnectionSocket, skill + offset, request, selected, cg::text::FromUtf16(buffer).c_str()));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
                 if (current == &input::gInputContextD2DE70) {
@@ -33428,6 +33437,8 @@ std::int32_t Sub_4810A0(const std::int32_t value)
         }
     }
     char buffer[768];
+    std::string inputUtf8View;
+    const char* requestText = buffer;
     char temporary[256];
     const auto expired = [] {
         const std::uint32_t tick = platform::ReadTickCount32();
@@ -33456,7 +33467,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             skill = gCraftSkillIndexCC2368;
         }
         static_cast<void>(network::Sub_511EF0(
-            platform::gConnectionSocket, skill + offset, request, target, buffer));
+            platform::gConnectionSocket, skill + offset, request, target, requestText));
     };
     bool hideControls = false;
     if (gSelectionModeD2D650 == 1 && expired()) {
@@ -33483,7 +33494,8 @@ std::int32_t Sub_4810A0(const std::int32_t value)
         hideControls = true;
     } else if (gSelectionModeD2D650 == 4 && expired()) {
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            std::strcpy(buffer, input::gInputContextD2DE70.utf8().c_str());
+            inputUtf8View = input::gInputContextD2DE70.utf8();
+            requestText = inputUtf8View.c_str();
         } else {
             buffer[0] = '\0';
         }
@@ -35775,7 +35787,7 @@ void Sub_47B9B0(
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
-        static_cast<std::uint8_t>(textLayer), 12, cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()Color, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, cg::text::FromGbk(name).c_str(), 0, 0));
     char buffer[60];
     const std::int32_t level =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
@@ -43511,18 +43523,17 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char buffer[1536];
+            char escaped[256];
             const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-        const char* const text = textUtf8View.c_str();
-            std::memcpy(buffer, text, std::strlen(text) + 1);
-            input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 256);
+            input::EscapeLegacyTextAndNotify_52D2D0(
+                textUtf8View.c_str(), escaped, sizeof(escaped));
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, buffer + 256));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (buffer[0] == '\0') {
+            if (textUtf8View.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
@@ -43658,18 +43669,17 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char buffer[1536];
+            char escaped[256];
             const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-        const char* const text = textUtf8View.c_str();
-            std::memcpy(buffer, text, std::strlen(text) + 1);
-            input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 256);
+            input::EscapeLegacyTextAndNotify_52D2D0(
+                textUtf8View.c_str(), escaped, sizeof(escaped));
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, buffer + 256));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (buffer[0] == '\0') {
+            if (textUtf8View.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
@@ -43803,18 +43813,17 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char buffer[1536];
+            char escaped[256];
             const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-        const char* const text = textUtf8View.c_str();
-            std::memcpy(buffer, text, std::strlen(text) + 1);
-            input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 256);
+            input::EscapeLegacyTextAndNotify_52D2D0(
+                textUtf8View.c_str(), escaped, sizeof(escaped));
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, buffer + 256));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (buffer[0] == '\0') {
+            if (textUtf8View.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);

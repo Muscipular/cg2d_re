@@ -4344,10 +4344,10 @@ try {
             const std::int32_t flags = ReadRecordW32(item, 0xC40);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC44);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
             }
         }
     }
@@ -4837,10 +4837,10 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
             const std::int32_t flags = ReadRecordW32(item, 0xC30);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC34);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
             }
         }
     }
@@ -5228,10 +5228,10 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
             const std::int32_t flags = ReadRecordW32(item, 0xC30);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC34);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
             }
         }
     }
@@ -7233,11 +7233,11 @@ try {
             const std::int32_t flags = ReadRecordW32(record, 0xC40);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x0C);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
                 result = 0;
             } else if ((flags & 0x200) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC29);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
                 result = 0;
             } else {
                 hint = kLegacyStorageTake589268;
@@ -7252,11 +7252,11 @@ try {
             const std::int32_t flags = ReadRecordW32(record, 0xC40);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x0C);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
                 result = 0;
             } else if ((flags & 0x200) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC29);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
                 result = 0;
             } else {
                 const std::int16_t selection = ReadLegacyStorageW16(record, 2);
@@ -8458,10 +8458,10 @@ std::int32_t Sub_4E7FC0()
             const std::int32_t flags = ReadRecordW32(record, 0xC34);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x10);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else if ((flags & 0x200) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC38);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
             } else {
                 ui::detail::gHoverTextD68AE8 = kLegacyTradeRemoteItem5894DC;
             }
@@ -8650,10 +8650,10 @@ try {
             const std::int32_t flags = ReadRecordW32(record, 0xC34);
             if ((flags & 0x100) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x10);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+                ui::detail::gHoverTextD68AE8 += L"[kok]";
             } else if ((flags & 0x200) != 0) {
                 ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC38);
-                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+                ui::detail::gHoverTextD68AE8 += L"[han]";
             } else {
                 const std::int16_t selection = ReadLegacyTradeW16(record, 2);
                 const wchar_t* const hint = selection > 0 ? kLegacyTradeSelected589554
@@ -8929,23 +8929,23 @@ try {
     }
     // 原4E9621无悬停非负门禁；异常索引按RPLAN.24，不引入替代物品。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
-            std::strcat(hint, "[kok]");
+            hint = cg::text::FromGbkWide(item->name.data());
+            hint += L"[kok]";
         } else if ((flags & 0x200u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
-            std::strcat(hint, "[han]");
+            hint = cg::text::FromGbkWide(item->memo.data());
+            hint += L"[han]";
         } else {
             const bool selectable = item->itemType != 47 && item->count <= 0
                 && usedHovered != gLegacySpecialUseItemC8A96C;
-            std::strcpy(hint, selectable ? kLegacyEngravingSelect5895C0Utf8View.c_str() : kLegacyEngravingReject5895ACUtf8View.c_str());
+            hint = cg::text::ToUtf16(selectable ? kLegacyEngravingSelect5895C0Utf8View.c_str() : kLegacyEngravingReject5895ACUtf8View.c_str());
         }
     } else {
-        std::strcpy(hint, Sub_503590(&gLegacyEngravingPanel582FD8) != 0
+        hint = cg::text::ToUtf16(Sub_503590(&gLegacyEngravingPanel582FD8) != 0
             ? kLegacyEngravingClose5868ECUtf8View.c_str() : kLegacyEngravingChoose589594Utf8View.c_str());
     }
     const std::uint32_t result = Sub_503440(&gLegacyEngravingPanel582FD8, 1);
@@ -9197,23 +9197,23 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     }
     // 原4E9FD8直接访问同源Items[hovered]，按RPLAN.24不补记录或保护。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
-            std::strcat(hint, "[kok]");
+            hint = cg::text::FromGbkWide(item->name.data());
+            hint += L"[kok]";
         } else if ((flags & 0x200u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
-            std::strcat(hint, "[han]");
+            hint = cg::text::FromGbkWide(item->memo.data());
+            hint += L"[han]";
         }
     } else if (Sub_503590(&gLegacyMailGiftPanel583168) != 0) {
-        std::strcpy(hint, kLegacyLogout553FD0Utf8View.c_str());
+        hint = cg::text::ToUtf16(kLegacyLogout553FD0Utf8View.c_str());
     } else {
         const std::int32_t selected = gLegacyMailGiftSelectedCC1A2C;
         if (selected >= 0 && selected == hovered) {
-            std::strcpy(hint, kLegacyMailGift58960CUtf8View.c_str());
+            hint = kLegacyMailGift58960C;
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyMailGiftPanel583168, 1);
@@ -9224,8 +9224,8 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
 // 原函数：0x004EA130。
 void Sub_4EA130()
 {
-    char preserved[400];
-    std::strcpy(preserved, input::gInputContextCB03F0.utf8().c_str());
+    const std::wstring preserved =
+        input::ContextText(input::gInputContextCB03F0);
     const std::int32_t y = gLegacyMailComposePanel583230.y;
     const std::int32_t x = gLegacyMailComposePanel583230.x;
     input::InitializeContext_449CF0(&input::gInputContextCB03F0,
@@ -9269,17 +9269,19 @@ try {
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
-            char source[512];
-            std::strcpy(source, input::gInputContextCB03F0.utf8().c_str());
+            const std::wstring source =
+                input::ContextText(input::gInputContextCB03F0);
+            std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
+            cg::text::StoreGbk(storedText.data(), storedText.size(), source);
             char escaped[600];
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(source).c_str(), escaped, 600));
             const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
             const std::int32_t value = gLegacyMailValueCC2E60;
             const std::int32_t contact = gLegacyMailContactCC4228;
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_5110B0(socket, contact, value, gift, escaped, 0));
             const std::int32_t savedContact = gLegacyMailContactCC4228;
-            world::detail::Sub_5191C0(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContextCB03F0.text).c_str());
+            world::detail::Sub_5191C0(savedContact, 1, timestamp, storedText.data());
             static_cast<void>(world::detail::Sub_519300());
             static_cast<void>(world::detail::Sub_519550());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -9302,7 +9304,7 @@ try {
     const char* const contactName = world::detail::gContactsF19FB0[textContact].name10.data();
     const std::int32_t contactNameY = gLegacyMailComposePanel583230.y + 62;
     const std::int32_t contactNameX = gLegacyMailComposePanel583230.x - contactWidth / 2 + 176;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(contactName).c_str()).c_str()X),
+    static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
         static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
     if (gift > 0) {
@@ -9326,7 +9328,7 @@ try {
         const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyMailComposePanel583230.y + 152;
         const std::int32_t nameX = gLegacyMailComposePanel583230.x - width / 2 + 136;
-        static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
             static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
@@ -9889,8 +9891,8 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
 // 原函数：0x004EB120。
 std::int32_t Sub_4EB120()
 {
-    char preserved[400];
-    std::strcpy(preserved, input::gInputContextD66CA8.utf8().c_str());
+    const std::wstring preserved =
+        input::ContextText(input::gInputContextD66CA8);
     const std::int32_t y = gLegacyMailNormalPanel583488.y;
     const std::int32_t x = gLegacyMailNormalPanel583488.x;
     input::InitializeContext_449CF0(&input::gInputContextD66CA8,
@@ -9958,17 +9960,19 @@ try {
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
-            char source[512];
-            std::strcpy(source, input::gInputContextD66CA8.utf8().c_str());
+            const std::wstring source =
+                input::ContextText(input::gInputContextD66CA8);
+            std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
+            cg::text::StoreGbk(storedText.data(), storedText.size(), source);
             char escaped[600];
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(source).c_str(), escaped, 600));
             for (std::int32_t position = 0; position < 60; ++position) {
                 const std::int32_t contact = world::detail::gContactIndicesFDA608[position];
                 if (gLegacyMailSelectedFlagsCB0AA8[contact] != 0) {
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_510FA0(socket, contact, escaped, 0));
                     const std::int32_t savedContact = world::detail::gContactIndicesFDA608[position];
-                    world::detail::Sub_5191C0(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
+                    world::detail::Sub_5191C0(savedContact, 1, timestamp, storedText.data());
                 }
             }
             static_cast<void>(world::detail::Sub_519300());
@@ -10215,23 +10219,23 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     }
     // 原52DB08直接访问Items[hovered]，按RPLAN.24不补记录或新增非负门禁。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
-            std::strcat(hint, "[kok]");
+            hint = cg::text::FromGbkWide(item->name.data());
+            hint += L"[kok]";
         } else if ((flags & 0x200u) != 0) {
-            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
-            std::strcat(hint, "[han]");
+            hint = cg::text::FromGbkWide(item->memo.data());
+            hint += L"[han]";
         }
     } else if (Sub_503590(&gLegacyGuildGiftPanel58E950) != 0) {
-        std::strcpy(hint, kLegacyGuildClose58F248);
+        hint = cg::text::ToUtf16(kLegacyGuildClose58F248);
     } else {
         const std::int32_t selected = gLegacyGuildGiftSelected1050DA8;
         if (selected >= 0 && selected == hovered) {
-            std::strcpy(hint, kLegacyGuildGift58F224);
+            hint = cg::text::ToUtf16(kLegacyGuildGift58F224);
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyGuildGiftPanel58E950, 1);
@@ -10242,8 +10246,8 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
 // 原函数：0x0052DC60。
 void Sub_52DC60()
 {
-    char preserved[400];
-    std::strcpy(preserved, input::gInputContext1050B80.utf8().c_str());
+    const std::wstring preserved =
+        input::ContextText(input::gInputContext1050B80);
     const std::int32_t y = gLegacyGuildComposePanel58EA18.y;
     const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
     input::InitializeContext_449CF0(&input::gInputContext1050B80,
@@ -10287,17 +10291,19 @@ try {
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
-            char source[512];
-            std::strcpy(source, input::gInputContext1050B80.utf8().c_str());
+            const std::wstring source =
+                input::ContextText(input::gInputContext1050B80);
+            std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
+            cg::text::StoreGbk(storedText.data(), storedText.size(), source);
             char escaped[600];
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(source).c_str(), escaped, 600));
             const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
             const std::int32_t value = gLegacyGuildPetIndex1050DB0;
             const std::int32_t contact = gLegacyGuildMailTarget1050DCC;
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_5110B0(socket, contact, value, gift, escaped, 0));
             const std::int32_t savedContact = gLegacyGuildMailTarget1050DCC;
-            static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContext1050B80.text).c_str()));
+            static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, storedText.data()));
             static_cast<void>(world::detail::Sub_519300());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             static_cast<void>(audio::Sub_504180(94));
@@ -10319,7 +10325,7 @@ try {
     const char* const contactName = gOrderedRecords1051B14[textContact].text18;
     const std::int32_t contactNameY = gLegacyGuildComposePanel58EA18.y + 62;
     const std::int32_t contactNameX = gLegacyGuildComposePanel58EA18.x - contactWidth / 2 + 176;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(contactName).c_str()).c_str()X),
+    static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
         static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
     if (gift > 0) {
@@ -10343,7 +10349,7 @@ try {
         const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyGuildComposePanel58EA18.y + 152;
         const std::int32_t nameX = gLegacyGuildComposePanel58EA18.x - width / 2 + 136;
-        static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
             static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
@@ -10588,8 +10594,8 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
 // 原函数：0x0052ECB0。
 std::int32_t Sub_52ECB0()
 {
-    char preserved[400];
-    std::strcpy(preserved, input::gInputContext1051348.utf8().c_str());
+    const std::wstring preserved =
+        input::ContextText(input::gInputContext1051348);
     const std::int32_t y = gLegacyGuildNormalPanel58EC70.y;
     const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
     input::InitializeContext_449CF0(&input::gInputContext1051348,
@@ -10657,17 +10663,19 @@ try {
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
-            char source[512];
-            std::strcpy(source, input::gInputContext1051348.utf8().c_str());
+            const std::wstring source =
+                input::ContextText(input::gInputContext1051348);
+            std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
+            cg::text::StoreGbk(storedText.data(), storedText.size(), source);
             char escaped[600];
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(source).c_str(), escaped, 600));
             for (std::int32_t position = 0; position < 200; ++position) {
                 const std::int32_t contact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
                 if (gLegacyGuildSelectedFlags1050CDC[contact] != 0) {
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511480(socket, contact, escaped, 0));
                     const std::int32_t savedContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-                    static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContext1051348.text).c_str()));
+                    static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, storedText.data()));
                 }
             }
             static_cast<void>(world::detail::Sub_519550());
@@ -11299,8 +11307,8 @@ try {
             if (changeClicked) {
                 input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
                 if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildName10514BC()).c_str()) != 0) {
-                    std::strcpy(second, context->utf8().c_str());
-                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(second, first, 128));
+                    const std::string sourceUtf8View = context->utf8();
+                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), first, 128));
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511250(socket, 2, first));
                     static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -11311,8 +11319,8 @@ try {
                 if (changeClicked) {
                     input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
                     if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildSecondText10514E5()).c_str()) != 0) {
-                        std::strcpy(first, context->utf8().c_str());
-                        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                        const std::string sourceUtf8View = context->utf8();
+                        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), second, 128));
                         const auto socket = platform::gConnectionSocket;
                         static_cast<void>(network::Sub_511250(socket, 3, second));
                         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -11328,8 +11336,8 @@ try {
                                 ++selectedRow;
                             }
                             if (selectedRow < 5) {
-                                std::strcpy(first, context->utf8().c_str());
-                                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                                const std::string sourceUtf8View = context->utf8();
+                                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), second, 128));
                                 const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
                                 const std::int32_t index = selectedRow + 5 * page;
                                 const std::int32_t flags = ReadGuildRankFlags1051514(index);
@@ -11349,8 +11357,8 @@ try {
                                     ++emptyRank;
                                 }
                                 if (emptyRank < 32) {
-                                    std::strcpy(first, context->utf8().c_str());
-                                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                                    const std::string sourceUtf8View = context->utf8();
+                                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), second, 128));
                                     const auto socket = platform::gConnectionSocket;
                                     const std::int32_t flags = ReadGuildRankFlags1051514(emptyRank);
                                     static_cast<void>(network::Sub_5112C0(socket, -1, flags, second));
@@ -11381,7 +11389,7 @@ try {
                     const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
                     const std::int32_t index = row + 5 * page;
                     if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
-                        cg::text::Copy(first, sizeof(first), cg::text::FromGbk(BorrowGuildRankText1051518(index)));
+                        cg::text::Copy(first, 128, cg::text::FromGbk(BorrowGuildRankText1051518(index)));
                         BorrowGuildRankFlags1051514(index) ^= (1 << group);
                         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
                         const std::int32_t sendPage = gLegacyGuildDetailsPage1050ED4;
@@ -11474,23 +11482,23 @@ try {
     for (input::InputContext* const context : gLegacyGuildDetailsInputs1057C7C) {
         render::DrawInputText_4568A0(context);
     }
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         if ((changeStates[0] & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildNameEdit58F550);
+            hint = cg::text::ToUtf16(kLegacyGuildNameEdit58F550);
         } else if ((changeStates[1] & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildSecondEdit58F534);
+            hint = cg::text::ToUtf16(kLegacyGuildSecondEdit58F534);
         } else if ((changeStates[2] & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildRankEdit58F518);
+            hint = cg::text::ToUtf16(kLegacyGuildRankEdit58F518);
         }
     }
     if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
-        std::strcpy(hint, kLegacyGuildPage58F2D4);
+        hint = cg::text::ToUtf16(kLegacyGuildPage58F2D4);
     }
     for (const std::int32_t rowState : rowStates) {
         if ((rowState & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildRankSelect58F4FC);
+            hint = cg::text::ToUtf16(kLegacyGuildRankSelect58F4FC);
             break;
         }
     }
@@ -11500,7 +11508,7 @@ try {
             if ((permissionStates[group][row] & 0x40) != 0) {
                 const std::int32_t index = row + 5 * hintPage;
                 if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
-                    std::strcpy(hint, group == 0 ? kLegacyGuildPermissionFirst58F4E4 : kLegacyGuildPermissionSecond58F4D0);
+                    hint = cg::text::ToUtf16(group == 0 ? kLegacyGuildPermissionFirst58F4E4 : kLegacyGuildPermissionSecond58F4D0);
                     break;
                 }
             }
@@ -11655,21 +11663,21 @@ try {
         Sub_5035E0(&remove, 212, 1, gValueD69768, 0);
         Sub_5035E0(&change, 212, 1, gValueD69768, 0);
     }
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
-        std::strcpy(hint, kLegacyGuildPage58F2D4);
+        hint = cg::text::ToUtf16(kLegacyGuildPage58F2D4);
     }
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         if ((removeState & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildRankRemove58F568);
+            hint = cg::text::ToUtf16(kLegacyGuildRankRemove58F568);
         }
         if ((changeState & 0x40) != 0) {
-            std::strcpy(hint, kLegacyGuildRank58F410);
+            hint = cg::text::ToUtf16(kLegacyGuildRank58F410);
         }
         for (const std::int32_t rowState : rowStates) {
             if ((rowState & 0x40) != 0) {
-                std::strcpy(hint, kLegacyGuildRankSelect58F4FC);
+                hint = cg::text::ToUtf16(kLegacyGuildRankSelect58F4FC);
                 break;
             }
         }
@@ -12573,17 +12581,17 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
             left + 19, top + 41, 2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
         input::SetContext_44B330(gLegacyItemWorkInputD67CE4);
     }
-    char trimmed[32];
+    std::wstring trimmed;
     bool submit = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0
         && (world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
         if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
-            std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->utf8().c_str());
-            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
-            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "　"));
-            if (std::strlen(trimmed) == 0 && gLegacyItemWorkInputD67CE4->length() != 0) {
+            trimmed = input::ContextText(*gLegacyItemWorkInputD67CE4);
+            static_cast<void>(std::erase(trimmed, L' '));
+            static_cast<void>(std::erase(trimmed, L'　'));
+            if (trimmed.empty() && gLegacyItemWorkInputD67CE4->length() != 0) {
                 static_cast<void>(audio::Sub_504180(82));
             } else {
                 submit = true;
@@ -12591,10 +12599,10 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
         }
     } else if ((QueryPanelButtonState(&confirm) & 1) != 0
                && gLegacyItemWorkInputD67CE4->length() != 0) {
-        std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->utf8().c_str());
-        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
-        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "　"));
-        if (std::strlen(trimmed) == 0) {
+        trimmed = input::ContextText(*gLegacyItemWorkInputD67CE4);
+        static_cast<void>(std::erase(trimmed, L' '));
+        static_cast<void>(std::erase(trimmed, L'　'));
+        if (trimmed.empty()) {
             static_cast<void>(audio::Sub_504180(82));
         } else if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
             static_cast<void>(audio::Sub_504180(81));
@@ -12984,7 +12992,7 @@ try {
     }
     const auto writeTaggedHint = [](const world::detail::PlayerItemRecord* const item, const bool name) {
         ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(name ? item->name.data() : item->memo.data());
-        std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), name ? "[kok]" : "[han]");
+        ui::detail::gHoverTextD68AE8 += name ? L"[kok]" : L"[han]";
     };
     if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
@@ -13440,12 +13448,12 @@ try {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
             ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->name.data());
-            std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
+            ui::detail::gHoverTextD68AE8 += L"[kok]";
             return true;
         }
         if ((flags & 0x200u) != 0) {
             ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->memo.data());
-            std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
+            ui::detail::gHoverTextD68AE8 += L"[han]";
             return true;
         }
         return false;
@@ -13936,29 +13944,29 @@ try {
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, 0, buffer, 0, 0));
     }
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (Sub_503590(&gLegacyGemMaterialsPanel58AA60) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
+        hint = kLegacySkillClose55331C;
     }
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0 && gLegacyGemPhaseD68A8C <= 4) {
-        std::strcpy(hint, markedCount > 0 ? kLegacyGemRegister58AC3CUtf8View.c_str() : kLegacyGemNone58AC28Utf8View.c_str());
+        hint = cg::text::ToUtf16(markedCount > 0 ? kLegacyGemRegister58AC3CUtf8View.c_str() : kLegacyGemNone58AC28Utf8View.c_str());
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item->used != 0) {
             const std::uint16_t flags = item->flags;
             if ((flags & 0x100u) != 0) {
-                cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
-                std::strcat(hint, "[kok]");
+                hint = cg::text::FromGbkWide(item->name.data());
+                hint += L"[kok]";
             } else if ((flags & 0x200u) != 0) {
-                cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
-                std::strcat(hint, "[han]");
+                hint = cg::text::FromGbkWide(item->memo.data());
+                hint += L"[han]";
             } else if (ui::detail::gItemMarksD68A90[hovered] != 0) {
-                std::strcpy(hint, kLegacyGemSelected58AC10Utf8View.c_str());
+                hint = kLegacyGemSelected58AC10;
             } else {
                 const bool selectable = world::detail::Sub_505040(hovered + 8) != 0
                     || world::detail::Sub_5050B0(hovered + 8) != 0;
-                std::strcpy(hint, selectable ? kLegacyGemSelect58AC00Utf8View.c_str() : kLegacyGemReject58ABECUtf8View.c_str());
+                hint = cg::text::ToUtf16(selectable ? kLegacyGemSelect58AC00Utf8View.c_str() : kLegacyGemReject58ABECUtf8View.c_str());
             }
         }
     }
@@ -14107,7 +14115,7 @@ try {
     const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     const std::int32_t nameY = gLegacyGemExecutionPanel58AB28.y + 37;
     const std::int32_t nameX = gLegacyGemExecutionPanel58AB28.x + 137 - width / 2;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
         static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     const std::int32_t reduce = world::detail::gSkillsF1BAFC[skill].fpReduce;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].techniques3C[0].value7C;
@@ -15579,19 +15587,19 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
     }
     render::DrawInputText_4568A0(gLegacyBlacklistInput5939B8);
     Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (Sub_503590(&gLegacyBlacklistPanel5531D0) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
+        hint = kLegacySkillClose55331C;
     } else if ((QueryPanelButtonState(&confirm) & 1) == 0 && (platform::gKeyStates[13] & 4u) == 0) {
         if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-            std::strcpy(hint, kLegacyBlacklistText553304Utf8View.c_str());
+            hint = kLegacyBlacklistText553304;
         }
     } else if (!gLegacyBlacklistInput5939B8->empty()) {
-        char message[384];
+        std::wstring message;
         if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0) {
             const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
-            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8, gLegacyBlacklistInput5939B8->utf8().c_str());
+            cg::text::FormatTo(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8, gLegacyBlacklistInput5939B8->utf8().c_str());
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
                 world::detail::Sub_44B050(kLegacyBlacklistText553294Utf8View.c_str(), 4, 3);
@@ -15599,7 +15607,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
             const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
-            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0, gLegacyBlacklistInput5939B8->utf8().c_str());
+            cg::text::FormatTo(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0, gLegacyBlacklistInput5939B8->utf8().c_str());
         }
         gLegacyBlacklistInput5939B8->clearText();
         gLegacyBlacklistInput5939B8->totalByteLength = 0;
@@ -15608,7 +15616,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
         input::InitializeContext_449CF0(gLegacyBlacklistInput5939B8, inputX + 21, inputY + 408,
             2, 0, 0, nullptr, 1, 16, 18, 0);
-        world::detail::Sub_44B050(message, 4, 3);
+        world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
@@ -15685,20 +15693,20 @@ std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
         render::DrawInputText_4568A0(input::BorrowLegacyPresetContext5F9758(index + 26 * currentPage));
     }
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
-    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
-    const char* const hint = hintUtf8View.c_str();
+    std::wstring& hint =
+        ui::detail::gHoverTextD68AE8;
     if (Sub_503590(&gLegacyPresetPanel5850C8) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
+        hint = kLegacySkillClose55331C;
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-        std::strcpy(hint, kLegacyPresetConfirm58A6C0Utf8View.c_str());
+        hint = kLegacyPresetConfirm58A6C0;
     } else if (hovered >= 0) {
         const std::int8_t currentPage = gLegacyPresetPanel5850C8.selected;
         if (currentPage == 0) {
-            std::sprintf(hint, kLegacyPresetNormal58A6A8, hovered + 1);
+            cg::text::FormatTo(hint, kLegacyPresetNormal58A6A8, hovered + 1);
         } else if (currentPage == 1) {
-            std::sprintf(hint, kLegacyPresetCtrl58A68C, hovered + 1);
+            cg::text::FormatTo(hint, kLegacyPresetCtrl58A68C, hovered + 1);
         } else if (currentPage == 2) {
-            std::sprintf(hint, kLegacyPresetShift58A66C, hovered + 1);
+            cg::text::FormatTo(hint, kLegacyPresetShift58A66C, hovered + 1);
         }
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyPresetPanel5850C8, 1));
@@ -15767,10 +15775,10 @@ try {
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
     auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
-    char buffer[768];
+    std::wstring buffer;
     if (gLegacyPetRenameInputD67D1C == nullptr) {
         const std::int32_t top = gLegacyPetRenamePanel5849E0.y;
-        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(pet.name6BD.data()));
+        buffer = cg::text::FromGbkWide(pet.name6BD.data());
         const std::int32_t left = gLegacyPetRenamePanel5849E0.x;
         gLegacyPetRenameInputD67D1C = &input::gInputContextD2DFD0;
         input::gInputContextD2DFD0.clearText();
@@ -15781,11 +15789,11 @@ try {
         input::SetContext_44B330(gLegacyPetRenameInputD67D1C);
     }
     if ((QueryPanelButtonState(&confirm) & 1) != 0) {
-        if (std::strcmp(pet.name6BD.data(), gLegacyPetRenameInputD67D1C->utf8().c_str()) != 0) {
-            std::strcpy(buffer, gLegacyPetRenameInputD67D1C->utf8().c_str());
+        if (cg::text::FromGbkWide(pet.name6BD.data()) != input::ContextText(*gLegacyPetRenameInputD67D1C)) {
+            buffer = input::ContextText(*gLegacyPetRenameInputD67D1C);
             NullSub_509080();
             const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::Sub_5125B0(socket, index, buffer));
+            static_cast<void>(network::Sub_5125B0(socket, index, cg::text::FromUtf16(buffer).c_str()));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
         }
         static_cast<void>(audio::Sub_5042D0(gLegacyPetRenamePanel5849E0.id));
@@ -17006,8 +17014,8 @@ try {
         if (gLegacyProfileEditTickD68864 + 500u < now) {
             const input::InputContext* const context = gLegacyProfileInputD6885C;
             if (std::strcmp(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)).c_str(), context->utf8().c_str()) != 0) {
-                std::strcpy(text, context->utf8().c_str());
-                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 128));
+                const std::string sourceUtf8View = context->utf8();
+                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), escaped, 128));
                 static_cast<void>(network::Sub_512360(platform::gConnectionSocket, escaped));
             }
             gLegacyProfileEditTickD68864 = platform::ReadTickCount32();

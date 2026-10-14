@@ -11594,5 +11594,239 @@
     "returned_borrow_discarded_at_all_call_sites": true,
     "temporary_owner_covers_call": true,
     "build_verified": false
+  },
+  "followup_review": {
+    "recorded_on": "2026-10-14",
+    "scanned_cpp_files": 207,
+    "direct_readonly_hover_writes_fixed": 17,
+    "readonly_hover_alias_groups_fixed": 8,
+    "readonly_hover_alias_operations_fixed": 43,
+    "obsolete_window_text_write_fixed": 1,
+    "damaged_identifiers_fixed": 7,
+    "direct_unbounded_input_copies_removed": 26,
+    "pet_rename_memcpy_copies_removed": 3,
+    "mail_submission_preflight_roots": 7,
+    "mail_gbk_field_capacity_including_nul": 300,
+    "source_functions": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4DAA40",
+        "line": 4098
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4DC7E0",
+        "line": 4605
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4DDFC0",
+        "line": 4995
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4E2030",
+        "line": 7044
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4E7FC0",
+        "line": 8434
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4E83D0",
+        "line": 8534
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4E92A0",
+        "line": 8833
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4E9C80",
+        "line": 9105
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4EA130",
+        "line": 9225
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4EA1B0",
+        "line": 9237
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4EB120",
+        "line": 9892
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4EB1C0",
+        "line": 9908
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_52D7B0",
+        "line": 10127
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_52DC60",
+        "line": 10247
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_52DCE0",
+        "line": 10259
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_52ECB0",
+        "line": 10595
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_52ED50",
+        "line": 10611
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_530BA0",
+        "line": 11176
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_532450",
+        "line": 11534
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4F2130",
+        "line": 12553
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4F2A30",
+        "line": 12761
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4F4790",
+        "line": 13266
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_505170",
+        "line": 13744
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_505C20",
+        "line": 14022
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4014B0",
+        "line": 15524
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4FD6A0",
+        "line": 15634
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_4FA050",
+        "line": 15756
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "name": "Sub_501FD0",
+        "line": 16963
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4CB6A0",
+        "line": 5177
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_49FFA0",
+        "line": 10397
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4B5C30",
+        "line": 18305
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4A5970",
+        "line": 27646
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4A6450",
+        "line": 28006
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4AF250",
+        "line": 29041
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_482270",
+        "line": 32160
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_4810A0",
+        "line": 33299
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_47B9B0",
+        "line": 35756
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_48ECA0",
+        "line": 43507
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_48DD80",
+        "line": 43653
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "name": "Sub_48E430",
+        "line": 43797
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "name": "Sub_4D7470",
+        "line": 206
+      }
+    ],
+    "semantic_records_updated": 29,
+    "verification": "仅源码/类型及调用生命周期/容量、UTF-8和差异检查；未编译/测试/运行",
+    "remaining": "所有路径完整SDK/编译/运行验收未完成；既有窄转义输出局部容量仍保留",
+    "source_functions_count": 41,
+    "static_checks": {
+      "readonly_c_str_write_patterns_clear": true,
+      "damaged_identifier_patterns_clear": true,
+      "modified_cpp_delimiters_balanced": true,
+      "source_encoding_utf8_lf_no_bom": true,
+      "original_address_comments_preserved": true,
+      "function_table_identity_status_preserved": true,
+      "git_diff_check": true,
+      "traceability_check": true
+    }
   }
 }

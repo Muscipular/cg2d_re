@@ -59564,6 +59564,37 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4E92A0",
+          "Sub_4E9C80",
+          "Sub_4EA1B0",
+          "Sub_4EB1C0",
+          "Sub_52D7B0",
+          "Sub_52DCE0",
+          "Sub_52ED50",
+          "Sub_530BA0",
+          "Sub_532450",
+          "Sub_4F2A30",
+          "Sub_4F4790",
+          "Sub_505170",
+          "Sub_505C20",
+          "Sub_4014B0",
+          "Sub_4FD6A0",
+          "Sub_501FD0",
+          "Sub_4CB6A0",
+          "Sub_4B5C30",
+          "Sub_4A5970",
+          "Sub_4A6450",
+          "Sub_482270",
+          "Sub_4810A0",
+          "Sub_47B9B0",
+          "Sub_4D7470"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -96667,6 +96698,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4DAA40"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -97165,6 +97204,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4DC7E0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -97554,6 +97601,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4DDFC0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -99547,6 +99602,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4E2030"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -102151,6 +102214,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4F2A30"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -123682,6 +123753,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4CB6A0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -127177,6 +127256,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4810A0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -134532,6 +134619,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_482270"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -139252,6 +139347,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4B5C30"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -140131,6 +140234,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_47B9B0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -142155,6 +142266,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4A5970"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -142304,6 +142423,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4A6450"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -143744,6 +143871,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4D7470"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -145745,6 +145880,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4E92A0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -145958,6 +146101,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4E9C80"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -146079,6 +146230,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4EA1B0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -146488,6 +146647,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4EB1C0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -146580,6 +146747,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_52D7B0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -146693,6 +146868,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_52DCE0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -146996,6 +147179,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_52ED50"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -147176,6 +147367,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_530BA0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -147251,6 +147450,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_532450"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -148432,6 +148639,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4F4790"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -151220,6 +151435,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4FD6A0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -153373,6 +153596,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_501FD0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -153820,6 +154051,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_505170"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -153993,6 +154232,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_505C20"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {
@@ -154154,6 +154401,14 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_utf16_followup_review": {
+        "recorded_on": "2026-10-14",
+        "source_symbols": [
+          "Sub_4014B0"
+        ],
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
       }
     },
     {

@@ -190388,6 +190388,11 @@
       "UI-L-099"
     ],
     "complete_gates_changed": false,
-    "login_save_const_correction": "两写入口及辅助const char*参数/返回配对，七调用owner/弃返静态核对；未编译"
+    "login_save_const_correction": "两写入口及辅助const char*参数/返回配对，七调用owner/弃返静态核对；未编译",
+    "followup_review": {
+      "source_evidence": "doc/cg2d_unicode_utf16_evidence.json",
+      "scope": "只读指针写入、替换残留、动态输入暂存及邮件提交容量修正",
+      "full_gates_changed": false
+    }
   }
 }

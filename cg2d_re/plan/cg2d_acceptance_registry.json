@@ -3452,7 +3452,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
-        "doc/cg2d_target_choice_gbk_crash_20261015.md"
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -5170,7 +5171,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
-        "doc/cg2d_target_choice_gbk_crash_20261015.md"
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -74575,6 +74577,50 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-WMP01-FUNC-TEXT-S-20261015",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+      "implementation_reference": "src/platform/LegacyWindow.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "include/cg/platform/LegacyWindow.hpp",
+        "src/platform/LegacyWindow.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/GraphicInfo.cpp"
+      ],
+      "observation": "两窄消息别名退休，11个外部调用直接接宽正文；两数值提示std::format生成wstring，三个光标调用和一个退出消息直用系统API。",
+      "expected": "保原状态／标志／返回／顺序及ShowWideMessage的NUL结尾副本，公开接口无Win32类型。",
+      "actual": "消息来源、保留窗口适配正文、退休引用与源码／身份静态核对；未构建或运行，完整台账限制单列进度。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-WMP01-FUNC-UIRUNTIME-S-20261015",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+      "implementation_reference": "src/platform/LegacyWindow.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "include/cg/platform/LegacyWindow.hpp",
+        "src/platform/LegacyWindow.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/GraphicInfo.cpp"
+      ],
+      "observation": "两窄消息别名退休，11个外部调用直接接宽正文；两数值提示std::format生成wstring，三个光标调用和一个退出消息直用系统API。",
+      "expected": "保原状态／标志／返回／顺序及ShowWideMessage的NUL结尾副本，公开接口无Win32类型。",
+      "actual": "消息来源、保留窗口适配正文、退休引用与源码／身份静态核对；未构建或运行，完整台账限制单列进度。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [
@@ -75667,7 +75713,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
-        "doc/cg2d_target_choice_gbk_crash_20261015.md"
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ]
     },
     {
@@ -75948,7 +75995,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
-        "doc/cg2d_target_choice_gbk_crash_20261015.md"
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ]
     },
     {
@@ -78397,7 +78445,8 @@
         "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015",
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ]
     },
     {

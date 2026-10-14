@@ -7,6 +7,8 @@
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>
+#include <format>
+#include <string>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053CB78；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
@@ -149,11 +151,10 @@ std::int32_t GraphicInit_459960(
     }
     gGraphicRequiredCount = static_cast<std::int32_t>(totalInfoBytes / 40u + 10u);
     if (gGraphicRequiredCount >= gMaxGraphicCount) {
-        char message[256];
-        std::sprintf(message, "MAX_GRAPHICS=%d,Need=%d",
+        const std::wstring message = std::format(L"MAX_GRAPHICS={},Need={}",
             gMaxGraphicCount, gGraphicRequiredCount);
-        platform::ShowLegacyMessage(
-            message, "sprmgr: MAX_GRAPHICS 不夠。", 0);
+        platform::ShowWideMessage(
+            message, L"sprmgr: MAX_GRAPHICS 不夠。", 0);
         return failAndCloseData(9);
     }
 

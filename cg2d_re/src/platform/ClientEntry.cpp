@@ -302,7 +302,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     // 原代码不检查 ERROR_ALREADY_EXISTS，也不在 WinMain 中释放该句柄。
     gStartupMutex = reinterpret_cast<std::uintptr_t>(CreateMutexA(nullptr, TRUE, "XZYDRaEvyPQC"));
     if (const_cast<char*>(std::strstr(gCommandLine, "updated")) == nullptr) {
-        ShowUtf8Message("請由「線上遊戲領航員」啟動", "確認", 0x10);
+        ShowWideMessage(L"請由「線上遊戲領航員」啟動", L"確認", 0x10);
         return 0;
     }
 

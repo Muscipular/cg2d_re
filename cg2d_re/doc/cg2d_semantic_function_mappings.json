@@ -9012,7 +9012,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "原非空整范围有快速清树路径，否则逐节点删除；实际GraphicInit调用为清整树，现有clear承接，不释放借用的GraphicInfo。",
       "unicode_utf16_utl02": {
@@ -9028,6 +9029,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -9093,7 +9098,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "原分配24B节点、复制键值、按S32键挂接并平衡；现由emplace承接首次记录，节点指针拓宽而mapNo保持S32。",
       "unicode_utf16_utl02": {
@@ -9109,6 +9115,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -9153,7 +9163,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "用于父入口唯一插入检查中的前驱移动；当前emplace与此前去重vector共同保留首见记录，不单独暴露旧迭代器。",
       "unicode_utf16_utl02": {
@@ -9169,6 +9180,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -9213,7 +9228,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "原叶只递归处理超过16元素的分区，小分区由459960内联插入排序收尾；std::sort替代整个父排序阶段，不宣称与该叶独立输出相同。比较为S32，返回残值被父入口弃用。",
       "unicode_utf16_utl02": {
@@ -9229,6 +9245,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -9367,7 +9387,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "五个直接callsite均在end插入一项：459E07图号、518B37相册请求编号、522A38解压块指针、522AF1/522B7E调色板mapNo。分别由有类型vector的push_back承接，只有解压块元素拓宽为指针；不模拟原容量增长与分配失败时机。",
       "unicode_utf16_utl02": {
@@ -9383,6 +9404,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -18589,7 +18614,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。BRS01后由唯一WIN32客户端承载，历史客户端已链接；CAC11已接资源实例提供者，本次改动未构建/链接/运行，当前安装资源与IDB匹配/像素/热点/全部成功失败及原新启动仍待验。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。 CAC11资源module为进程寿命，LoadIcon/LoadCursor共享句柄由SDK/进程承载，不在窗类/SetCursor仍借用时卸载；路径/映射失败使用当前instance，原加载失败与后续流程保持，不制造替代资源/新退出门槛。当前磁盘同名EXE不代选定IDA原基线，不关闭G05/全资源权限匹配或正常寿命/SDK-ABI/运行。",
       "original_end_exclusive": "0x4659ED",
@@ -18857,6 +18883,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -21796,7 +21826,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "unicode_utf16_utl02": {
         "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
@@ -21811,6 +21842,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -21852,7 +21887,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "unicode_utf16_utl02": {
         "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
@@ -21867,6 +21903,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -28201,7 +28241,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "原目的非空时顺序读写两W32并返回原目的，空目的直接返回；45AF97/523D57用于图形与DBF树节点键值。既有emplace、try_emplace及记录指针赋值承接父链键值职责，S32键保持，已证GraphicInfo*/uint8_t*用原生指针。其余四caller属已排除键盘树，不整体排除本叶；不声称独立空目的/重叠输入、内存ABI或分配失败等价。",
       "unicode_utf16_utl02": {
@@ -28217,6 +28258,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -28663,7 +28708,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "inbound_evidence": [
@@ -28771,6 +28817,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -29339,7 +29389,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -29456,6 +29507,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -29480,7 +29535,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -29595,6 +29651,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -29619,7 +29679,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 5,
       "function_chunks": [
@@ -29750,6 +29811,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -29771,7 +29836,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 2,
       "function_chunks": [
@@ -29888,6 +29954,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -29912,7 +29982,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 4,
       "function_chunks": [
@@ -30039,6 +30110,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -30456,7 +30531,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01a": {
@@ -30552,6 +30628,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -30848,7 +30928,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -30937,6 +31018,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -30986,7 +31071,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -31075,6 +31161,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31134,7 +31224,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -31245,6 +31336,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31300,7 +31395,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -31410,6 +31506,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31468,7 +31568,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -31605,6 +31706,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31654,7 +31759,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -31743,6 +31849,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31792,7 +31902,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -31881,6 +31992,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -31930,7 +32045,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -32019,6 +32135,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -32073,7 +32193,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01b": {
@@ -32172,6 +32293,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -32931,7 +33056,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
       "verification_level": "当前源/消费者/类型/关闭/SDK声明限定静态核对；原证据保持，未编译/运行",
@@ -35058,6 +35184,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -36501,7 +36631,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "original_direct_reference_count": 53,
@@ -38252,6 +38383,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -41364,7 +41499,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 8,
       "function_chunks": [
@@ -41538,6 +41674,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -41564,7 +41704,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -41669,6 +41810,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -41690,7 +41835,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 2,
       "function_chunks": [
@@ -41807,6 +41953,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -41830,7 +41980,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 5,
       "function_chunks": [
@@ -41967,6 +42118,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -41988,7 +42143,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -42101,6 +42257,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -42122,7 +42282,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -42235,6 +42396,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -49565,7 +49730,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -49658,6 +49824,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -50977,7 +51147,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -51108,6 +51279,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -51220,7 +51395,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "function_chunks": [
@@ -51327,6 +51503,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -51377,7 +51557,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "function_chunks": [
@@ -51492,6 +51673,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -51542,7 +51727,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "function_chunks": [
@@ -51645,6 +51831,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -51698,7 +51888,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "function_chunks": [
@@ -51809,6 +52000,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -52267,7 +52462,8 @@
         "doc/cg2d_io_unicode_boundary_spec.md",
         "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
         "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
-        "doc/cg2d_target_choice_gbk_crash_20261015.md"
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。 DCF01当前直接MSVC／标准库调用，原缓冲／格式／容量／变参和返回消费保持；有界九处依用户选择::_snprintf，旧包装退休，历史原语与完整门禁保留。",
       "function_chunks": [
@@ -61495,6 +61691,10 @@
         "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
         "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
         "verification": "源码静态核对，未构建或运行"
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -63090,7 +63290,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -63255,6 +63456,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -68631,7 +68836,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -68730,6 +68936,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -68866,7 +69076,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -68951,6 +69162,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -68982,7 +69197,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -69072,6 +69288,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -69100,7 +69320,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -69186,6 +69407,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -69379,7 +69604,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -69483,6 +69709,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79149,7 +79379,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -79237,6 +79468,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79298,7 +79533,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -79386,6 +79622,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79447,7 +79687,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -79535,6 +79776,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79600,7 +79845,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -79688,6 +79934,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79753,7 +80003,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01c5": {
@@ -79841,6 +80092,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -79905,7 +80160,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01b": {
@@ -80002,6 +80258,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80066,7 +80326,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "previous_mapping_before_mc01b": {
@@ -80163,6 +80424,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80196,7 +80461,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "sources": [
         {
@@ -80273,6 +80539,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80306,7 +80576,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "sources": [
         {
@@ -80404,6 +80675,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80437,7 +80712,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "sources": [
         {
@@ -80535,6 +80811,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80568,7 +80848,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "sources": [
         {
@@ -80666,6 +80947,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -80702,7 +80987,8 @@
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "sources": [
         {
@@ -80803,6 +81089,10 @@
         "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
         "old_wrapper_calls": 0,
         "existing_terminate_body_unchanged": true
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -82084,7 +82374,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "function_chunks": [
@@ -82201,6 +82492,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -90550,10 +90845,15 @@
       },
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
-      "boundary": "rb失败仅退出消息0/返-1，不清三缓冲；成功才各清5202B，四次弃用getc后四W32头读取，保留既有短头兼容补零。原裁剪/起点/跨度及copyHeight>0门槛，三平面逐行seek/read后关闭返0；元素长度为U32的2*copyWidth，偏移S32/BEGIN0。短读不回滚前缀/已清后缀，不新增宽度/容量拒绝；完整CRT/地图内容/运行未验。"
+      "boundary": "rb失败仅退出消息0/返-1，不清三缓冲；成功才各清5202B，四次弃用getc后四W32头读取，保留既有短头兼容补零。原裁剪/起点/跨度及copyHeight>0门槛，三平面逐行seek/read后关闭返0；元素长度为U32的2*copyWidth，偏移S32/BEGIN0。短读不回滚前缀/已清后缀，不新增宽度/容量拒绝；完整CRT/地图内容/运行未验。",
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
+      }
     },
     {
       "original_entry": "0x46C840",
@@ -91625,7 +91925,8 @@
         "doc/cg2d_graphic_record_production_lookup_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "verification_level": "BOK01完整634条/1996B/8页/21call-96内部分支/7ret，13补丁；原普通入向1引用/1父分列，宿主容器仅本处正常值/引用合同；局部静态、未运行",
       "boundary": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。；仅本根正常局部，原native地址及W32/W16/W8布局保；全部callee/caller-主表生产内容/owner-ABI/PC53/画面与完整门禁待，音频暂停",
@@ -92076,6 +92377,10 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -161538,7 +161843,8 @@
       "evidence_documents": [
         "doc/cg2d_main_loop.md",
         "doc/cg2d_stdio_contract.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "verification_level": "253条统计仅读28存档错误邻指令；原call/U8零扩展/原字节与源码仅callee静态对齐，余225条/原依赖和caller不重验，未执行。",
       "boundary": "原U8存档错误码零扩展W32后S32/%d消费，未清1024B消息→原MessageBox旗标/标题→返回0；不提前读码、不改变初始化/失败清理/游标和其他依赖、父RNG或音频暂停，不用本点代替初始化验收。仅callee及已有内部声明头，原失败MessageBox/返回与正常初始化所有正文不动，未启动客户端/恢复存档或下探原文件；原父及CRT/完整运行/总PLAN未闭合。",
@@ -161554,6 +161860,10 @@
         "evidence_refs": [
           "plan/cg2d_full_reconstruction_progress.md"
         ]
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -161953,7 +162263,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -162051,6 +162362,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -162109,7 +162424,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
       "verification_level": "限定真实消费者/SDK声明与职责、业务源码与原身份/台账静态核对；不代库ABI/正常业务结果/完整生命周期运行",
@@ -162209,6 +162525,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -162246,7 +162566,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "implemented_instruction_fragments": [
         {
@@ -162383,6 +162704,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -165541,7 +165866,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "首尾哨兵真实分配/连接，不增加重复初始化或退出登记；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YSS01第二分配后先取start再发布end/写初start.prev，前向start→end/反向end→start读后写链接；尾priority前取result，graphicIndex仍当次end目标/返回保存result。两独立std::calloc(1,sizeof原生YobiAction))/原低W8 priority和S32 -1、其它写序/无失败保护及未知字段保持。完整所有父/callee/应用/链别名与owner寿命/SDK运行未验。",
       "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YSS01追加三完整59条225B/22type17call13父及四初始化源片段精确重放，限哨兵取样/字段和未改清场/终止分工与实际应用调用者，不代所有父/callee/owner寿命/实际ABI/SDK/场景运行",
@@ -165615,6 +165941,10 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -174854,7 +175184,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "function_chunks": [
         {
@@ -174949,6 +175280,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -201703,7 +202038,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。 BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
@@ -201772,6 +202108,10 @@
         "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -237002,7 +237342,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages"
       ],
       "boundary": "原53DECD尾片段/code_identity和数值身份保持，当前53DEAB只真实std::_Exit(255)；此源码为私有退出职责关联，不称旧间接跳转尾体/机器ABI等价或造新F。旧hook/参数动作保历史，运行未验。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
       "verification_level": "本批三尾部10条12B及原邻父/现限定角色静态，不作完整实现/接线或运行通过。",
@@ -237086,6 +237427,10 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "wide_messages_wmp01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+        "description": "消息入口统一UTF-16，数值提示直接wstring；光标／退出消息纯整数转发改系统调用，既有状态／参数／顺序保持。"
       }
     },
     {
@@ -281364,5 +281709,39 @@
     "retired_wrapper_count": 24,
     "unused_wrapper_count": 12,
     "validation": "仅必要静态，未编译／运行。"
+  },
+  "wide_messages_wmp01": {
+    "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#wide-window-messages",
+    "retired_symbols": [
+      "ShowLegacyMessage",
+      "ShowUtf8Message",
+      "ShowLegacyCursor",
+      "PostLegacyQuitMessage"
+    ],
+    "changed_functions": {
+      "cg2d_re/src/platform/LegacyWindow.cpp": [],
+      "cg2d_re/src/platform/ClientInitialization.cpp": [
+        "InitializeClient_4576B0"
+      ],
+      "cg2d_re/src/platform/ClientEntry.cpp": [
+        "WinMain"
+      ],
+      "cg2d_re/src/GraphicInfo.cpp": [
+        "GraphicInit_459960"
+      ],
+      "cg2d_re/src/DisplaySettings.cpp": [
+        "Sub_4FEAC0"
+      ],
+      "cg2d_re/src/LoginCapability4Scene.cpp": [
+        "Sub_464840"
+      ],
+      "cg2d_re/src/world/SceneState.cpp": [
+        "Sub_468C40"
+      ]
+    },
+    "message_calls": 11,
+    "cursor_calls": 3,
+    "quit_calls": 1,
+    "validation": "必要源码静态检查，未编译或运行。"
   }
 }

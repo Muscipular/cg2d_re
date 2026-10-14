@@ -1,3 +1,4 @@
+#include "platform/StartupNative.hpp"
 #include "cg/DisplaySettings.hpp"
 
 #include "LoginMessageDependencies.hpp"
@@ -195,7 +196,7 @@ std::int32_t Sub_4FEAC0()
 {
     const std::int32_t show = platform::gValueD67AE4 == 0 ? 1 : 0;
     platform::gValueD67AE4 = static_cast<std::uint32_t>(show);
-    static_cast<void>(platform::ShowLegacyCursor(show));
+    static_cast<void>(::ShowCursor(show));
     static_cast<void>(PlaySe(51, 320, 240));
     return 0;
 }

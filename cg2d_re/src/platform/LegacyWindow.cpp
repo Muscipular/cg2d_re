@@ -12,30 +12,11 @@ namespace cg::platform {
 
 std::uintptr_t gLegacyWindow = 0; // 原全局：0x009A6F34。
 
-int ShowLegacyMessage(const char* text, const char* caption, std::uint32_t flags)
-{
-    return ShowUtf8Message(text, caption, flags);
-}
-
-int ShowUtf8Message(const char* text, const char* caption, std::uint32_t flags)
-{
-    const std::wstring wideText = cg::text::ToUtf16(text);
-    const std::wstring wideCaption = cg::text::ToUtf16(caption);
-    return MessageBoxW(reinterpret_cast<HWND>(gLegacyWindow), wideText.c_str(), wideCaption.c_str(), flags);
-}
-
 int ShowWideMessage(const std::wstring_view text, const std::wstring_view caption, const std::uint32_t flags)
 {
     const std::wstring ownedText(text);
     const std::wstring ownedCaption(caption);
     return MessageBoxW(reinterpret_cast<HWND>(gLegacyWindow), ownedText.c_str(), ownedCaption.c_str(), flags);
-}
-
-
-
-std::int32_t ShowLegacyCursor(const std::int32_t show)
-{
-    return static_cast<std::int32_t>(::ShowCursor(show));
 }
 
 std::int32_t SetLegacyWindowText(const std::uintptr_t window, const char* const text)
@@ -55,11 +36,6 @@ std::int32_t PostLegacyWindowMessage(
         static_cast<UINT>(message),
         static_cast<WPARAM>(wParam),
         static_cast<LPARAM>(lParam)));
-}
-
-void PostLegacyQuitMessage(const std::int32_t exitCode)
-{
-    ::PostQuitMessage(exitCode);
 }
 
 std::intptr_t ExecuteLegacyShell(

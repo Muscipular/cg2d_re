@@ -1,3 +1,4 @@
+#include "platform/StartupNative.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -212,7 +213,7 @@ std::int32_t Sub_464840()
         login::detail::RestoreCapability4CurrentSavedRecord();
         const std::uint32_t currentShow = platform::gValueD67AE4;
         if (currentShow != previousShow) {
-            static_cast<void>(platform::ShowLegacyCursor(
+            static_cast<void>(::ShowCursor(
                 std::bit_cast<std::int32_t>(currentShow)));
         }
         return world::SetCurrentSceneType(2);

@@ -1,3 +1,4 @@
+#include "../platform/StartupNative.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -5221,7 +5222,7 @@ std::int32_t __cdecl Sub_468C40(
     platform::LegacyFile* const file =
         std::fopen(path, kMapReadMode);
     if (file == nullptr) {
-        platform::PostLegacyQuitMessage(0);
+        ::PostQuitMessage(0);
         return -1;
     }
 

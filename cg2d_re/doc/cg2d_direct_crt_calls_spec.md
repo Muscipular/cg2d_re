@@ -117,3 +117,14 @@ DLI01／DRT01静态结果：三处描述符调用、唯一终止包装零调用�
 - 本步只做必要静态核对，不编译、测试、运行或计算摘要。消息框宽接口及光标等Window包装按下一单项继续。
 
 DSI01静态结果：250调用／19文件仅callee、所需数值转换和CRT地址导入注释变化；词法括号、退休引用、身份／门禁、编码／JSON和差异检查通过。常量实参值已落在目标范围时省略冗余cast。39条语义／38条退休实现定位已同步；完整台账仍仅因另行暂存删除的两个外部键盘历史附件失败，未生成派生文件。未构建、测试或运行。
+
+<a id="wide-window-messages"></a>
+## 消息框宽接口与纯整数转发清理（WMP01，2026-10-15）
+
+用户明确要求ShowLegacyMessage／ShowUtf8Message改用wstring／wchar，并继续去除ShowLegacyCursor等纯包装。统一消息调用为既有ShowWideMessage(std::wstring_view, std::wstring_view, uint32_t)，删除两层窄消息别名；启动提示常量直接为宽字面量，两个数值提示使用std::format生成wstring，保窗口／标志／返回与失败顺序。ShowWideMessage保留拥有的NUL结尾临时字符串再调用MessageBoxW，不引入悬空指针或假定任意view以NUL结尾。
+
+ShowLegacyCursor三个调用、PostLegacyQuitMessage一个调用改为直接Win32 API，参数及原消费保持；对应实现／声明退休，不新增包装。Win32声明只在相关CPP经既有StartupNative导入，公开业务接口不引入Win32类型。SetLegacyWindowText、PostLegacyWindowMessage、ExecuteLegacyShell继续承担原生窗口／参数类型转换，当前正文保持；不扩本次范围到标题生成或ShellExecute编码变更。
+
+保原函数／全局地址注释，新增处仅引用已有函数及系统API，不编造原函数地址。只做必要静态核对，完整构建／运行及其它历史文件删除造成的台账限制如实记录。
+
+WMP01静态结果：11个消息调用、10个宽常量、两处wstring格式化及四个直接系统调用已核对；四个退休符号无残留，保留窗口适配全文保持。八源码／头词法、原地址／身份／状态及编码／JSON／差异检查通过，69条语义与370处定位同步。完整台账仍仅报两份已删除外部键盘历史附件缺失，未生成派生文件；本次不宣构建、测试或运行通过。

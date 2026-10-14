@@ -32,7 +32,7 @@
 #include <limits>
 #include <new>
 #include <utility>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cerrno> // 原CRT接口：0x01085FE0、0x0053C654；原参数／返回合同由直接调用承接。
 #include <direct.h>
 
@@ -472,11 +472,11 @@ void TakeScreenshot_453760()
         const std::int32_t day = calendar->day;
         const std::int32_t year = calendar->yearMinus1900;
         std::sprintf(path, kScreenshotPath556714, year % 100, month + 1, day, sequence);
-        platform::LegacyFile* const probe = platform::OpenLegacyStream_53B2F1(path, kScreenshotReadMode554908);
+        platform::LegacyFile* const probe = std::fopen(path, kScreenshotReadMode554908);
         if (probe == nullptr) {
             break;
         }
-        static_cast<void>(platform::CloseLegacyStream_53B1D0(probe));
+        static_cast<void>(std::fclose(probe));
     }
     if (sequence >= 1000) {
         char message[1280];

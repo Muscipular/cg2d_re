@@ -15,7 +15,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。
 #include <cstdlib>
 #include <cstring> // 原CRT接口：0x0053BEC0、0x0053BFC0、0x0054AB30、0x0053CF50；原参数／返回合同由直接调用承接。
 #include <optional>
@@ -587,11 +587,11 @@ int ReleaseProtection_4042B0()
 // 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0()
 {
-    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1("systemlog.txt", "w");
+    platform::LegacyFile* const file = std::fopen("systemlog.txt", "w");
     if (file == nullptr) {
         return 0;
     }
-    return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
+    return static_cast<std::uint32_t>(std::fclose(file));
 }
 
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。

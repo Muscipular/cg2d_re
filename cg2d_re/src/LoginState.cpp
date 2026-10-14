@@ -23,7 +23,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 namespace {
 
@@ -98,13 +98,13 @@ namespace detail {
 // 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
 std::uint32_t Sub_44B5C0(const char* text)
 {
-    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1("systemlog.txt", "a");
+    platform::LegacyFile* const file = std::fopen("systemlog.txt", "a");
     if (file == nullptr) {
         return 0;
     }
 
     static_cast<void>(std::fprintf(file, "%s\n", text));
-    return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
+    return static_cast<std::uint32_t>(std::fclose(file));
 }
 
 // 原函数：0x00508360。

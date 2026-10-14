@@ -42,7 +42,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstddef>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B226、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053D21D；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0、0x0053D26E、0x0053BEC0、0x0053C649、0x0053C0A9、0x0053C3AC；原参数／返回合同由直接调用承接。
 #include <fcntl.h>
@@ -15583,7 +15583,7 @@ std::int32_t Sub_4C9060()
 {
     static_cast<void>(Sub_4C9240());
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1("data\\WinSaveDate", "rb+");
+        std::fopen("data\\WinSaveDate", "rb+");
     if (stream == nullptr) {
         static_cast<void>(Sub_4C9240());
         return 0;
@@ -15598,20 +15598,20 @@ std::int32_t Sub_4C9060()
         static_cast<void>(::_close(descriptor));
         // 原4C90B8/4C90D4均读取flags低U8，只有20H是错误。
         if (std::ferror(stream) == 0) {
-            static_cast<void>(platform::ReadLegacyStream_53BCCD(
-                &gWindowSavedDataD40B30, 1, 0x521C, stream));
+            static_cast<void>(static_cast<std::uint32_t>(std::fread(
+                &gWindowSavedDataD40B30, 1, 0x521C, stream)));
             if (std::ferror(stream) == 0) {
                 if (gWindowSavedDataD40B30.version != 0x13
                     || Sub_4C93A0() == 1 || Sub_4C9170() == 0) {
                     static_cast<void>(Sub_4C9240());
                 }
-                static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+                static_cast<void>(std::fclose(stream));
                 return 1;
             }
         }
     }
     static_cast<void>(Sub_4C9240());
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(std::fclose(stream));
     return 0;
 }
 
@@ -15662,12 +15662,12 @@ std::uint32_t Sub_4C92D0()
 std::int32_t Sub_4C9130()
 {
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1("data\\WinSaveDate", "wb+");
+        std::fopen("data\\WinSaveDate", "wb+");
     if (stream != nullptr) {
         static_cast<void>(Sub_4C92D0());
-        static_cast<void>(platform::WriteLegacyStream_53C680(
-            &gWindowSavedDataD40B30, 1, 0x521C, stream));
-        static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+        static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
+            &gWindowSavedDataD40B30, 1, 0x521C, stream)));
+        static_cast<void>(std::fclose(stream));
     }
     return 1;
 }
@@ -29822,7 +29822,7 @@ void Sub_4CC540()
 {
     platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
     if (previous != nullptr) {
-        static_cast<void>(platform::CloseLegacyStream_53B1D0(previous));
+        static_cast<void>(std::fclose(previous));
     }
     const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
     platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
@@ -29833,15 +29833,15 @@ void Sub_4CC540()
     char path[256];
     std::sprintf(path, kLogViewerPathFormat553514,
         kLogViewerDirectory554658, world::detail::gLogFileName554648);
-    platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, kLogViewerReadMode553510);
+    platform::LegacyFile* current = std::fopen(path, kLogViewerReadMode553510);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
         return;
     }
     gLoginWindowRuntime.logViewerErrorD67BBC = 0;
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(current));
-    current = platform::OpenLegacyStream_53B2F1(path, kLogViewerAppendMode55350C);
+    static_cast<void>(std::fclose(current));
+    current = std::fopen(path, kLogViewerAppendMode55350C);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
@@ -29851,7 +29851,7 @@ void Sub_4CC540()
     gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
     while (std::feof(current) == 0) {
         char buffer[3000] {};
-        static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
+        static_cast<void>(std::fgets(buffer, 1000, current));
         const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
         gLoginWindowRuntime.logViewerMaximumD67BB4 += static_cast<std::int32_t>(lines.size()) - 1;
         const std::int32_t count = gLoginWindowRuntime.logViewerMaximumD67BB4;
@@ -29873,8 +29873,8 @@ void Sub_4CC340()
     const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
     gLoginWindowRuntime.valueD67BB0 = Sub_474270(&window->elements[1], maximum);
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
-        static_cast<void>(platform::SeekLegacyStream_53BC41(gLoginWindowRuntime.logViewerFileD67BB8, 0, 0));
-        while (platform::ReadLegacyStreamLine_53B226(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
+        static_cast<void>(std::fseek(gLoginWindowRuntime.logViewerFileD67BB8, 0, 0));
+        while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
             const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::gFontMetrics[0].sWidth);
             rows.insert(rows.end(), lines.begin(), lines.end());
         }
@@ -29954,7 +29954,7 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
         if ((state & 0x400) != 0) {
             platform::LegacyFile* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
             if (stream != nullptr) {
-                static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+                static_cast<void>(std::fclose(stream));
                 // MC01-B：随后重载会处理该槽，已关闭FILE不得再交fclose。
                 gLoginWindowRuntime.logViewerFileD67BB8 = nullptr;
             }

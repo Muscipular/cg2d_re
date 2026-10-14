@@ -42,7 +42,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstddef>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053C680、0x0053C8B3、0x0053CFDC；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053C654、0x0053BFC0、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
 #include <new>
@@ -1193,7 +1193,7 @@ void Sub_5186A0()
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "wb");
+        std::fopen(path, "wb");
     if (stream == nullptr) {
         platform::FreeLegacyByteBuffer(encoded);
         return;
@@ -1205,14 +1205,14 @@ void Sub_5186A0()
         snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
     const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
     const std::uint32_t written =
-        platform::WriteLegacyStream_53C680(encoded, 1, count, stream);
+        static_cast<std::uint32_t>(std::fwrite(encoded, 1, static_cast<std::uint32_t>(count), stream));
     // 原51873D在写后重新读取编码长度，再以U32比较。
     const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);
     if (written < expectedCount) {
         platform::FreeLegacyByteBuffer(encoded);
         return;
     }
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(std::fclose(stream));
     platform::FreeLegacyByteBuffer(encoded);
 }
 
@@ -1227,20 +1227,20 @@ void Sub_518780()
     std::sprintf(
         path, "%s\\%s", platform::gDataPath, "album.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "rb");
+        std::fopen(path, "rb");
     if (stream == nullptr) {
         Sub_5186A0();
     } else {
         const std::uint32_t count =
-            platform::ReadLegacyStream_53BCCD(encoded, 1, 4, stream);
+            static_cast<std::uint32_t>(std::fread(encoded, 1, 4, stream));
         // 原5187EA/5187F0读取flags低U8并测试20H错误位。
         if (std::ferror(stream) != 0) {
-            static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+            static_cast<void>(std::fclose(stream));
             platform::FreeLegacyByteBuffer(encoded);
             platform::FreeLegacyByteBuffer(decoded);
             return;
         }
-        static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+        static_cast<void>(std::fclose(stream));
         std::int32_t decodedBytes;
         static_cast<void>(login::detail::DecodeSavedBytes(
             encoded, static_cast<std::int32_t>(count), 0, decoded, &decodedBytes));
@@ -4867,7 +4867,7 @@ std::int32_t __cdecl Sub_468570(
     char path[256];
     Sub_468520(path, a2, a1, a3);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kMapReadMode);
+        std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         ::_mkdir(kMapPathPrefix);
         char directory[256];
@@ -4882,23 +4882,23 @@ std::int32_t __cdecl Sub_468570(
         return Sub_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
     }
 
-    platform::SeekLegacyStream_53BC41(file, 0, 0);
+    std::fseek(file, 0, 0);
     char label[4];
-    label[0] = static_cast<char>(platform::ReadLegacyStreamByte_53C8B3(file));
-    label[1] = static_cast<char>(platform::ReadLegacyStreamByte_53C8B3(file));
-    label[2] = static_cast<char>(platform::ReadLegacyStreamByte_53C8B3(file));
+    label[0] = static_cast<char>(std::fgetc(file));
+    label[1] = static_cast<char>(std::fgetc(file));
+    label[2] = static_cast<char>(std::fgetc(file));
     label[3] = '\0';
     const std::uint8_t version = static_cast<std::uint8_t>(
-        platform::ReadLegacyStreamByte_53C8B3(file));
+        std::fgetc(file));
     std::int32_t oldSixth = 0;
     std::int32_t oldSeventh = 0;
     std::int32_t oldFourth = 0;
     std::int32_t oldFifth = 0;
-    platform::ReadLegacyStream_53BCCD(&oldSixth, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&oldSeventh, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&oldFourth, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&oldFifth, 4, 1, file);
-    platform::CloseLegacyStream_53B1D0(file);
+    static_cast<std::uint32_t>(std::fread(&oldSixth, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&oldSeventh, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&oldFourth, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&oldFifth, 4, 1, file));
+    std::fclose(file);
 
     if (a6 != oldSixth || a7 != oldSeventh
         || a4 != oldFourth || a5 != oldFifth
@@ -4918,27 +4918,27 @@ std::int32_t __cdecl Sub_4687B0(
     const std::int32_t width)
 {
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kMapCreateMode);
+        std::fopen(path, kMapCreateMode);
     if (file == nullptr) {
         return -1;
     }
-    platform::WriteLegacyStreamByte_53CFDC('M', file);
-    platform::WriteLegacyStreamByte_53CFDC('A', file);
-    platform::WriteLegacyStreamByte_53CFDC('P', file);
-    platform::WriteLegacyStreamByte_53CFDC(1, file);
-    platform::WriteLegacyStream_53C680(&first, 4, 1, file);
-    platform::WriteLegacyStream_53C680(&second, 4, 1, file);
-    platform::WriteLegacyStream_53C680(&height, 4, 1, file);
-    platform::WriteLegacyStream_53C680(&width, 4, 1, file);
+    std::fputc('M', file);
+    std::fputc('A', file);
+    std::fputc('P', file);
+    std::fputc(1, file);
+    static_cast<std::uint32_t>(std::fwrite(&first, 4, 1, file));
+    static_cast<std::uint32_t>(std::fwrite(&second, 4, 1, file));
+    static_cast<std::uint32_t>(std::fwrite(&height, 4, 1, file));
+    static_cast<std::uint32_t>(std::fwrite(&width, 4, 1, file));
     const std::uint32_t zero = 0;
     for (std::int32_t plane = 0; plane < 3; ++plane) {
         for (std::int32_t row = 0; row < height; ++row) {
             for (std::int32_t column = 0; column < width; ++column) {
-                platform::WriteLegacyStream_53C680(&zero, 2, 1, file);
+                static_cast<std::uint32_t>(std::fwrite(&zero, 2, 1, file));
             }
         }
     }
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     return 0;
 }
 
@@ -4953,22 +4953,22 @@ std::int32_t __cdecl Sub_4688A0(
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kMapUpdateMode);
+        std::fopen(path, kMapUpdateMode);
     if (file == nullptr) {
         return -1;
     }
 
     for (int i = 0; i < 4; ++i) {
-        platform::ReadLegacyStreamByte_53C8B3(file);
+        std::fgetc(file);
     }
     std::int32_t ignoredFirst = 0;
     std::int32_t ignoredSecond = 0;
     std::int32_t fileWidth = 0;
     std::int32_t fileHeight = 0;
-    platform::ReadLegacyStream_53BCCD(&ignoredFirst, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&ignoredSecond, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&fileWidth, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&fileHeight, 4, 1, file);
+    static_cast<std::uint32_t>(std::fread(&ignoredFirst, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&ignoredSecond, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&fileWidth, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&fileHeight, 4, 1, file));
 
     const std::int32_t destinationWidth = xEnd - xStart;
     const std::int32_t sourceX = std::max(xStart, 0);
@@ -4991,10 +4991,10 @@ std::int32_t __cdecl Sub_4688A0(
                 const std::int32_t fileRow =
                     20 + plane * planeBytes
                     + 2 * (sourceStart + row * fileWidth);
-                platform::SeekLegacyStream_53BC41(file, fileRow, 0);
-                platform::WriteLegacyStream_53C680(
+                std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
+                static_cast<std::uint32_t>(std::fwrite(
                     planes[plane] + destinationStart + row * destinationWidth,
-                    rowBytes, 1, file);
+                    static_cast<std::uint32_t>(rowBytes), 1, file));
             }
         }
 
@@ -5016,11 +5016,11 @@ std::int32_t __cdecl Sub_4688A0(
             const std::int32_t fileRow =
                 20 + 2 * planeBytes
                 + 2 * (sourceStart + row * fileWidth);
-            platform::SeekLegacyStream_53BC41(file, fileRow, 0);
-            platform::WriteLegacyStream_53C680(inputRow, rowBytes, 1, file);
+            std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
+            static_cast<std::uint32_t>(std::fwrite(inputRow, static_cast<std::uint32_t>(rowBytes), 1, file));
         }
     }
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     return 0;
 }
 
@@ -5219,7 +5219,7 @@ std::int32_t __cdecl Sub_468C40(
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kMapReadMode);
+        std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         platform::PostLegacyQuitMessage(0);
         return -1;
@@ -5229,17 +5229,17 @@ std::int32_t __cdecl Sub_468C40(
     std::memset(obj, 0, kMapBufferCells * sizeof(std::uint16_t));
     std::memset(hit, 0, kMapBufferCells * sizeof(std::uint16_t));
     for (int i = 0; i < 4; ++i) {
-        platform::ReadLegacyStreamByte_53C8B3(file);
+        std::fgetc(file);
     }
 
     std::int32_t ignoredFirst = 0;
     std::int32_t ignoredSecond = 0;
     std::int32_t fileWidth = 0;
     std::int32_t fileHeight = 0;
-    platform::ReadLegacyStream_53BCCD(&ignoredFirst, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&ignoredSecond, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&fileWidth, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&fileHeight, 4, 1, file);
+    static_cast<std::uint32_t>(std::fread(&ignoredFirst, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&ignoredSecond, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&fileWidth, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&fileHeight, 4, 1, file));
 
     const std::int32_t destinationWidth = xEnd - xStart;
     const std::int32_t sourceX = std::max(xStart, 0);
@@ -5258,16 +5258,16 @@ std::int32_t __cdecl Sub_468C40(
                 const std::int32_t fileRow =
                     20 + plane * planeBytes
                     + 2 * ((sourceY + row) * fileWidth + sourceX);
-                platform::SeekLegacyStream_53BC41(file, fileRow, 0);
+                std::fseek(file, static_cast<std::int32_t>(fileRow), 0);
                 const std::int32_t destinationRow =
                     destinationStart + row * destinationWidth;
-                platform::ReadLegacyStream_53BCCD(
+                static_cast<std::uint32_t>(std::fread(
                     planes[plane] + destinationRow,
-                    static_cast<std::uint32_t>(2 * copyWidth), 1, file);
+                    static_cast<std::uint32_t>(static_cast<std::uint32_t>(2 * copyWidth)), 1, file));
             }
         }
     }
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     return 0;
 }
 
@@ -5321,7 +5321,7 @@ std::int32_t Sub_46C840(
     char path[256];
     Sub_468520(path, mapId, gValue9E0434, floor);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kMapReadMode);
+        std::fopen(path, kMapReadMode);
     if (file == nullptr) {
         return 0;
     }
@@ -5329,12 +5329,12 @@ std::int32_t Sub_46C840(
     std::array<std::uint16_t, kAutoMapWindowCells> tile {};
     std::array<std::uint16_t, kAutoMapWindowCells> object {};
     std::array<std::uint16_t, kAutoMapWindowCells> hit {};
-    platform::SeekLegacyStream_53BC41(file, 12, 0);
+    std::fseek(file, 12, 0);
     // 原头读取不检查返回，未写字节不套用其他地图函数的补零特例。
     std::int32_t fileWidth;
     std::int32_t fileHeight;
-    platform::ReadLegacyStream_53BCCD(&fileWidth, 4, 1, file);
-    platform::ReadLegacyStream_53BCCD(&fileHeight, 4, 1, file);
+    static_cast<std::uint32_t>(std::fread(&fileWidth, 4, 1, file));
+    static_cast<std::uint32_t>(std::fread(&fileHeight, 4, 1, file));
 
     const std::int32_t sizeIndex = gAutoMapWindowIndex55DA90;
     const std::int32_t windowWidth = gAutoMapWindowSizes55DA94[sizeIndex].width;
@@ -5373,9 +5373,9 @@ std::int32_t Sub_46C840(
         if (copyHeight > 0) {
             std::uint16_t* target = planes[plane] + destinationStart;
             for (std::int32_t row = 0; row < copyHeight; ++row) {
-                platform::SeekLegacyStream_53BC41(file, planeOffset + 2 * sourceCell, 0);
-                platform::ReadLegacyStream_53BCCD(target,
-                    static_cast<std::uint32_t>(2 * copyWidth), 1, file);
+                std::fseek(file, static_cast<std::int32_t>(planeOffset + 2 * sourceCell), 0);
+                static_cast<std::uint32_t>(std::fread(target,
+                    static_cast<std::uint32_t>(static_cast<std::uint32_t>(2 * copyWidth)), 1, file));
                 sourceCell += fileWidth;
                 target += windowWidth;
             }
@@ -5384,7 +5384,7 @@ std::int32_t Sub_46C840(
             planeOffset += 2 * fileWidth * fileHeight;
         }
     }
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
 
     if (gValue9DAD68 == 1) {
         const std::int32_t index = gAutoMapWindowIndex55DA90;
@@ -5528,7 +5528,7 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
     std::sprintf(
         path, kCutPath55DE50, selected);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
+        std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(kCutMessage55DE3C, kCutCaption5536B8, 0x10);
         const std::int32_t response =
@@ -5539,23 +5539,23 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
         return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
     }
 
-    platform::ReadLegacyStream_53BCCD(&gCutData9FB948, 12, 1, file);
+    static_cast<std::uint32_t>(std::fread(&gCutData9FB948, 12, 1, file));
     const std::int32_t count0A = static_cast<std::int32_t>(gCutData9FB948.count0A);
     const std::int32_t count08 = static_cast<std::int32_t>(gCutData9FB948.count08);
     const std::int32_t count06 = static_cast<std::int32_t>(gCutData9FB948.count06);
     const std::int32_t count = count0A + count08 + count06;
     for (std::int32_t index = 0; index < count; ++index) {
         CutRecord9FB954& record = gCutData9FB948.records[index];
-        platform::ReadLegacyStream_53BCCD(&record.value00, 4, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value04, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value06, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value08, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value0A, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value0C, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value0E, 2, 1, file);
-        platform::ReadLegacyStream_53BCCD(&record.value10, 2, 1, file);
+        static_cast<std::uint32_t>(std::fread(&record.value00, 4, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value04, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value06, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value08, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value0A, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value0C, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value0E, 2, 1, file));
+        static_cast<std::uint32_t>(std::fread(&record.value10, 2, 1, file));
     }
-    return platform::CloseLegacyStream_53B1D0(file);
+    return std::fclose(file);
 }
 
 // 原 [0x46DC90,0x46DD35)；失败保留表，成功单次读取并返回完整关闭结果。
@@ -5565,7 +5565,7 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
     std::sprintf(
         path, kAutPath55DE7C, selected);
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
+        std::fopen(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowWideMessage(kAutMessage55DE68, kCutCaption5536B8, 0x10);
         const std::int32_t response =
@@ -5576,8 +5576,8 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
         return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
     }
 
-    platform::ReadLegacyStream_53BCCD(gAutDataAF10D8, 1, 477603, file);
-    return platform::CloseLegacyStream_53B1D0(file);
+    static_cast<std::uint32_t>(std::fread(gAutDataAF10D8, 1, 477603, file));
+    return std::fclose(file);
 }
 
 // 原 [0x468200,0x46828D)：四次独立读取玩家坐标，裁剪后发布两个跨度。

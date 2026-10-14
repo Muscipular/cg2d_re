@@ -42643,18 +42643,11 @@
           "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
         },
         {
-          "path": "include/cg/platform/LegacyTime.hpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "std::strlen"
+            "std::fputs"
           ],
-          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
-        },
-        {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "WriteLegacyStreamString_53B356"
-          ],
-          "relationship": "原53B35F真实U32长度先于临时缓冲/写流"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "src/platform/StartupCommon.cpp",
@@ -42693,7 +42686,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。；MC01-C2旧浮点库/格式slot/计数BYTE桥消费仅属历史；现共享服务/业务代码不变，两真实读取的来源按当前模块，原未生产值不补。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "original_direct_reference_count": 24,
@@ -42998,6 +42992,47 @@
         "runtime_verified": false,
         "retired_interface": "StrLen_53F9E0",
         "cpp_calls": 0
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "std::strlen"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "std::strlen"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamString_53B356"
+          ],
+          "relationship": "原53B35F真实U32长度先于临时缓冲/写流"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "std::sscanf"
+          ],
+          "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "std::vfprintf"
+          ],
+          "relationship": "Z空源/浮点两表达式承接原53EF59一长度点"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -43230,16 +43265,16 @@
       "original_direct_reference_count": 96,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "CloseLegacyStream_53B1D0"
+            "std::fclose"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "CloseLegacyStream_53B1D0"
+            "std::fclose"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -43252,7 +43287,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -44205,6 +44241,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "CloseLegacyStream_53B1D0"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "CloseLegacyStream_53B1D0"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -44216,16 +44272,16 @@
       "original_direct_reference_count": 8,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "ReadLegacyStreamLine_53B226"
+            "std::fgets"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "ReadLegacyStreamLine_53B226"
+            "std::fgets"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -44235,7 +44291,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -44323,6 +44380,26 @@
         "record_index": 393,
         "original_entry": "0x53B226",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamLine_53B226"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStreamLine_53B226"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -44334,16 +44411,16 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "RewindLegacyStream_53B27D"
+            "std::rewind"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "RewindLegacyStream_53B27D"
+            "std::rewind"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -44353,7 +44430,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -44395,6 +44473,26 @@
         "record_index": 394,
         "original_entry": "0x53B27D",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "RewindLegacyStream_53B27D"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "RewindLegacyStream_53B27D"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -44406,18 +44504,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "OpenSharedLegacyStream_53B2D1"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "OpenSharedLegacyStream_53B2D1"
+            "::_fsopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -44425,7 +44516,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -44459,6 +44551,26 @@
         "record_index": 395,
         "original_entry": "0x53B2D1",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenSharedLegacyStream_53B2D1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "OpenSharedLegacyStream_53B2D1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -44470,16 +44582,16 @@
       "original_direct_reference_count": 67,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -44489,7 +44601,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -45161,6 +45274,26 @@
         "record_index": 396,
         "original_entry": "0x53B2F1",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -45172,16 +45305,16 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "WriteLegacyStreamString_53B356"
+            "std::fputs"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "WriteLegacyStreamString_53B356"
+            "std::fputs"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -45191,7 +45324,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -45269,7 +45403,27 @@
           "result_width": "U32",
           "relationship": "先取U32长度，再真实临时缓冲/写流(1,length)/结束缓冲，written比较及返回保持"
         }
-      ]
+      ],
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamString_53B356"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamString_53B356"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
+      }
     },
     {
       "original_entry": "0x53BB02",
@@ -45280,16 +45434,16 @@
       "original_direct_reference_count": 5,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Input.cpp",
           "symbols": [
-            "FlushLegacyStream_53BB02"
+            "std::fflush"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "FlushLegacyStream_53BB02"
+            "std::fflush"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -45302,7 +45456,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -45382,6 +45537,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FlushLegacyStream_53BB02"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "FlushLegacyStream_53BB02"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -45393,16 +45568,16 @@
       "original_direct_reference_count": 25,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "SeekLegacyStream_53BC41"
+            "std::fseek"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "SeekLegacyStream_53BC41"
+            "std::fseek"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -45415,7 +45590,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -45677,6 +45853,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SeekLegacyStream_53BC41"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SeekLegacyStream_53BC41"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -45688,16 +45884,16 @@
       "original_direct_reference_count": 55,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "ReadLegacyStream_53BCCD"
+            "std::fread"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "ReadLegacyStream_53BCCD"
+            "std::fread"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -45707,7 +45903,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -46289,6 +46486,26 @@
         "record_index": 400,
         "original_entry": "0x53BCCD",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStream_53BCCD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStream_53BCCD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -46300,16 +46517,16 @@
       "original_direct_reference_count": 29,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Input.cpp",
           "symbols": [
-            "WriteLegacyStream_53C680"
+            "std::fwrite"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "WriteLegacyStream_53C680"
+            "std::fwrite"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -46322,7 +46539,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -46648,6 +46866,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStream_53C680"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStream_53C680"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -46659,16 +46897,16 @@
       "original_direct_reference_count": 39,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Palette.cpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -46684,7 +46922,8 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
-        "doc/cg2d_msvc_crt_residual_evidence.json"
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。；MC01-C6只退休无消费549147的旧回读关联，现fgetc与业务参数/返回消费保持。",
       "function_chunks": [
@@ -47041,6 +47280,26 @@
         "evidence": "doc/cg2d_msvc_crt_residual_evidence.json",
         "shared_provider_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47052,16 +47311,16 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "TellLegacyStream_53CB78"
+            "std::ftell"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "TellLegacyStream_53CB78"
+            "std::ftell"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -47071,7 +47330,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47117,6 +47377,26 @@
         "record_index": 403,
         "original_entry": "0x53CB78",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "TellLegacyStream_53CB78"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "TellLegacyStream_53CB78"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47128,16 +47408,16 @@
       "original_direct_reference_count": 6,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/world/SceneState.cpp",
           "symbols": [
-            "WriteLegacyStreamByte_53CFDC"
+            "std::fputc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "WriteLegacyStreamByte_53CFDC"
+            "std::fputc"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
         }
@@ -47150,7 +47430,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -47251,6 +47532,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamByte_53CFDC"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamByte_53CFDC"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47262,11 +47563,11 @@
       "original_direct_reference_count": 9,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Input.cpp",
           "symbols": [
-            "FlushLegacyStream_53BB02"
+            "std::fflush"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47274,7 +47575,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47340,6 +47642,19 @@
         "record_index": 405,
         "original_entry": "0x53BB3D",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FlushLegacyStream_53BB02"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47351,11 +47666,11 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47363,7 +47678,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47401,6 +47717,19 @@
         "record_index": 406,
         "original_entry": "0x53F38F",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47412,11 +47741,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47424,7 +47753,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47458,6 +47788,19 @@
         "record_index": 407,
         "original_entry": "0x53F848",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47469,11 +47812,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47481,7 +47824,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47515,6 +47859,19 @@
         "record_index": 408,
         "original_entry": "0x53F6D8",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47526,11 +47883,11 @@
       "original_direct_reference_count": 6,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Palette.cpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47538,7 +47895,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47592,6 +47950,19 @@
         "record_index": 409,
         "original_entry": "0x53F3BA",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47603,11 +47974,11 @@
       "original_direct_reference_count": 7,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47615,7 +47986,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47673,6 +48045,19 @@
         "record_index": 410,
         "original_entry": "0x53F8C0",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -47836,11 +48221,11 @@
       "original_direct_reference_count": 6,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -47848,7 +48233,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47902,6 +48288,19 @@
         "record_index": 413,
         "original_entry": "0x544815",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -48802,18 +49201,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "FlushAllLegacyStreams_53BB99"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "FlushAllLegacyStreams_53BB99"
+            "::_flushall"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -48822,7 +49214,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48856,6 +49249,26 @@
         "record_index": 422,
         "original_entry": "0x53BB99",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FlushAllLegacyStreams_53BB99"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "FlushAllLegacyStreams_53BB99"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -48867,11 +49280,11 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "FlushAllLegacyStreams_53BB99"
+            "::_flushall"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -48880,7 +49293,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48918,6 +49332,19 @@
         "record_index": 423,
         "original_entry": "0x53BBA2",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FlushAllLegacyStreams_53BB99"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -48929,18 +49356,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "CloseAllLegacyStreams_5446AD"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "CloseAllLegacyStreams_5446AD"
+            "::_fcloseall"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -48949,7 +49369,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48983,6 +49404,26 @@
         "record_index": 424,
         "original_entry": "0x5446AD",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "CloseAllLegacyStreams_5446AD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "CloseAllLegacyStreams_5446AD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -48994,11 +49435,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Blacklist.cpp",
           "symbols": [
-            "OpenLegacyStream_53B2F1"
+            "std::fopen"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -49014,7 +49455,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
-        "doc/cg2d_msvc_crt_heap_evidence.json"
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。",
       "function_chunks": [
@@ -49083,7 +49525,20 @@
           "source_table_symbol": "gLegacyCInitializationTable55316C",
           "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
         }
-      ]
+      ],
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "OpenLegacyStream_53B2F1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
+      }
     },
     {
       "original_entry": "0x53EA4A",
@@ -69594,16 +70049,16 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "GetLegacyStreamPosition_54ACB7"
+            "std::fgetpos"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "GetLegacyStreamPosition_54ACB7",
+            "std::fgetpos",
             "LegacyFilePosition"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
@@ -69617,7 +70072,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "native_reference": {
@@ -69665,6 +70121,27 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "GetLegacyStreamPosition_54ACB7"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "GetLegacyStreamPosition_54ACB7",
+            "LegacyFilePosition"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -69683,16 +70160,16 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "SetLegacyStreamPosition_54ACD9"
+            "std::fsetpos"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "SetLegacyStreamPosition_54ACD9",
+            "std::fsetpos",
             "LegacyFilePosition"
           ],
           "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
@@ -69706,7 +70183,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -69748,6 +70226,27 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SetLegacyStreamPosition_54ACD9"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SetLegacyStreamPosition_54ACD9",
+            "LegacyFilePosition"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -69770,18 +70269,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "SetLegacyStreamBuffer_54ACF1"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "SetLegacyStreamBuffer_54ACF1"
+            "std::setvbuf"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -69792,7 +70284,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "native_reference": {
@@ -69840,6 +70333,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SetLegacyStreamBuffer_54ACF1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SetLegacyStreamBuffer_54ACF1"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -69862,18 +70375,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "WriteLegacyStreamWide_54AD92"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "WriteLegacyStreamWide_54AD92"
+            "std::fputwc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -69884,7 +70390,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -69926,6 +70433,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamWide_54AD92"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamWide_54AD92"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -69944,18 +70471,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "UnreadLegacyStreamWide_54AE87"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "UnreadLegacyStreamWide_54AE87"
+            "std::ungetwc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -69966,7 +70486,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -70008,6 +70529,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamWide_54AE87"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamWide_54AE87"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70026,18 +70567,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "ReadLegacyStreamWide_54AF70"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "ReadLegacyStreamWide_54AF70"
+            "std::fgetwc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -70048,7 +70582,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -70090,6 +70625,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamWide_54AF70"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStreamWide_54AF70"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70112,18 +70667,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "TellLegacyStream64_54B239"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "TellLegacyStream64_54B239"
+            "::_ftelli64"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -70131,7 +70679,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -70152,6 +70701,26 @@
         "record_index": 542,
         "original_entry": "0x54B239",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "TellLegacyStream64_54B239"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "TellLegacyStream64_54B239"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70170,18 +70739,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "SeekLegacyStream64_54B3C0"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "SeekLegacyStream64_54B3C0"
+            "::_fseeki64"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -70189,7 +70751,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -70210,6 +70773,26 @@
         "record_index": 543,
         "original_entry": "0x54B3C0",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SeekLegacyStream64_54B3C0"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SeekLegacyStream64_54B3C0"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70228,11 +70811,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "WriteLegacyStreamWide_54AD92"
+            "std::fputwc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -70240,7 +70823,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -70261,6 +70845,19 @@
         "record_index": 544,
         "original_entry": "0x54B450",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamWide_54AD92"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70279,11 +70876,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Palette.cpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -70291,7 +70888,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -70312,6 +70910,19 @@
         "record_index": 545,
         "original_entry": "0x54B574",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -70572,18 +71183,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
-          "symbols": [
-            "UnreadLegacyStreamByte_54463F"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "UnreadLegacyStreamByte_54463F"
+            "std::ungetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
         }
       ],
       "evidence_documents": [
@@ -70594,7 +71198,8 @@
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-cpp-source-state-20261010",
-        "doc/cg2d_msvc_crt_cpp_evidence.json"
+        "doc/cg2d_msvc_crt_cpp_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C1所列旧C++库消费者及其接线仅属历史，剩余实际服务/业务代码不变；不据本组扩大完整共享函数处置或门禁。",
       "function_chunks": [
@@ -70636,6 +71241,26 @@
         "retired_source_group": "doc/cg2d_msvc_crt_cpp_evidence.json#/retired_paths",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -73026,18 +73651,24 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "UnreadLegacyStreamByte_54463F",
-            "ReadLegacyStreamByte_53C8B3"
+            "std::ungetc"
           ],
-          "relationship": "现真实MSVC单BYTE服务/FILE职责关联；不称一次ungetc/fgetc实现原多BYTE549147或旧回读算法"
+          "relationship": "DSI01：标准库导入提供者，旧包装无CPP消费者；不增加业务调用或认为原内部路径已运行验收。"
+        },
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "std::fgetc"
+          ],
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         },
         {
           "path": "include/cg/platform/LegacyStdio.hpp",
           "symbols": [
-            "UnreadLegacyStreamByte_54463F",
-            "ReadLegacyStreamByte_53C8B3"
+            "std::ungetc",
+            "std::fgetc"
           ],
           "relationship": "当前实际FILE接口；原549147声明/本体已退休"
         }
@@ -73052,7 +73683,8 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
-        "doc/cg2d_msvc_crt_residual_evidence.json"
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户直接MSVC要求；C1旧filebuf消费者已退休，src/include549147仅定义/声明，无当前调用。本步删除其多BYTE反向unget/失败回读算法，不造同名空体或改真实单BYTE服务/业务。原身份/机器参数/所有事实与前态保固定历史，未知原调用/alias及完整业务owner/FILE结果/SDK/运行仍待；不作范围排除或原体等价。",
       "original_parameter_contract": {
@@ -73099,6 +73731,28 @@
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
         "evidence": "doc/cg2d_msvc_crt_residual_evidence.json",
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F",
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "现真实MSVC单BYTE服务/FILE职责关联；不称一次ungetc/fgetc实现原多BYTE549147或旧回读算法"
+        },
+        {
+          "path": "include/cg/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F",
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "当前实际FILE接口；原549147声明/本体已退休"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -80296,11 +80950,11 @@
       "original_direct_reference_count": 18,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Palette.cpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -80308,7 +80962,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -80404,6 +81059,19 @@
         "record_index": 661,
         "original_entry": "0x53E950",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -80517,11 +81185,11 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyStdio.cpp",
+          "path": "src/Palette.cpp",
           "symbols": [
-            "ReadLegacyStreamByte_53C8B3"
+            "std::fgetc"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DSI01：实际消费者直接调用宿主标准库，定宽参数／返回适配留在调用点；内部库职责仅作宿主承接关系。"
         }
       ],
       "evidence_documents": [
@@ -80529,7 +81197,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -80561,6 +81230,19 @@
         "record_index": 663,
         "original_entry": "0x53E981",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dsi01": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamByte_53C8B3"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_stdio_dsi01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "note": "纯转发或无消费者包装退休，原调用／参数／返回与FILE对象保持；旧来源仅保历史。"
       }
     },
     {
@@ -280654,5 +281336,33 @@
     "legacy_prefix_consumers": 40,
     "verification": "离线匹配转储及PDB、精确源码差异、词法与接口来源静态核对；未构建／测试／运行",
     "all_io_migrated": false
+  },
+  "direct_stdio_dsi01": {
+    "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+    "call_count": 250,
+    "consumer_files": [
+      "src/Blacklist.cpp",
+      "src/GraphicInfo.cpp",
+      "src/GraphicAlloc.cpp",
+      "src/AnimationRuntime.cpp",
+      "src/AnimationCleanup.cpp",
+      "src/GraphicRead.cpp",
+      "src/Input.cpp",
+      "src/LegacyUiRecord.cpp",
+      "src/LoginSavedState.cpp",
+      "src/LoginState.cpp",
+      "src/Palette.cpp",
+      "src/network/NetworkRuntime.cpp",
+      "src/ResourcePaths.cpp",
+      "src/render/SdlPresenter.cpp",
+      "src/platform/ClientEntry.cpp",
+      "src/world/MailState.cpp",
+      "src/world/SceneState.cpp",
+      "src/ui/WindowRuntime.cpp",
+      "src/platform/MainLoopSupport.cpp"
+    ],
+    "retired_wrapper_count": 24,
+    "unused_wrapper_count": 12,
+    "validation": "仅必要静态，未编译／运行。"
   }
 }

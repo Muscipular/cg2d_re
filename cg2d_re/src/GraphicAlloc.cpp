@@ -1,3 +1,4 @@
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。
 #include "cg/GraphicAlloc.hpp"
 
 #include "platform/LegacyStdio.hpp"
@@ -20,9 +21,9 @@ std::uint32_t gValueCC3E68 = 0; // 原全局：0x00CC3E68。
 std::int32_t GraphicAlloc_4574E0()
 {
     for (const char* path : gGraphicInfoPaths) {
-        platform::LegacyFile* file = platform::OpenLegacyStream_53B2F1(path, "rb");
+        platform::LegacyFile* file = std::fopen(path, "rb");
         if (file != nullptr) {
-            platform::CloseLegacyStream_53B1D0(file);
+            std::fclose(file);
         }
     }
 

@@ -10,7 +10,7 @@
 
 #include <dbghelp.h>
 #include <mmsystem.h>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B226、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cwchar>
 #include <string>
@@ -283,18 +283,18 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         std::memset(fileName, 0, sizeof(fileName));
         std::int32_t total = 0;
         std::sprintf(fileName, "%s", ".\\data\\argument.ini");
-        LegacyFile* file = OpenLegacyStream_53B2F1(fileName, "r");
+        LegacyFile* file = std::fopen(fileName, "r");
         if (file != nullptr) {
             do {
                 std::memset(line, 0, 1025);
-                ReadLegacyStreamLine_53B226(line, 1024, file);
+                std::fgets(line, 1024, file);
                 total += static_cast<std::int32_t>(std::strlen(line));
                 if (total >= 4096) {
                     break;
                 }
                 std::strcat(fileCommandLine, line);
             } while (std::feof(file) == 0);
-            CloseLegacyStream_53B1D0(file);
+            std::fclose(file);
         }
         gCommandLine = fileCommandLine;
     }

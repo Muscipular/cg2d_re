@@ -7,7 +7,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053CB78；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -105,7 +105,7 @@ std::int32_t GraphicInit_459960(
     const auto failAndCloseData = [](const std::int32_t slot) {
         for (platform::LegacyFile*& file : gGraphicFiles) {
             if (file != nullptr) {
-                platform::CloseLegacyStream_53B1D0(file);
+                std::fclose(file);
                 file = nullptr;
             }
         }
@@ -120,7 +120,7 @@ std::int32_t GraphicInit_459960(
 
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         std::strcpy(gGraphicCachedPaths[slot], graphicPaths[slot]);
-        gGraphicFiles[slot] = platform::OpenLegacyStream_53B2F1(gGraphicCachedPaths[slot], "rb");
+        gGraphicFiles[slot] = std::fopen(gGraphicCachedPaths[slot], "rb");
         if (gGraphicFiles[slot] == nullptr
             && (slot == 0 || slot == 3 || slot == 6 || slot == 7 || slot == 8)) {
             return failAndCloseData(slot);
@@ -130,11 +130,11 @@ std::int32_t GraphicInit_459960(
     std::uint32_t totalInfoBytes = 0;
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         std::strcpy(gGraphicInfoCachedPaths[slot], graphicInfoPaths[slot]);
-        gGraphicInfoFile = platform::OpenLegacyStream_53B2F1(gGraphicInfoCachedPaths[slot], "rb");
+        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
         if (gGraphicInfoFile != nullptr) {
-            platform::SeekLegacyStream_53BC41(gGraphicInfoFile, 0, 2);
-            totalInfoBytes += static_cast<std::uint32_t>(platform::TellLegacyStream_53CB78(gGraphicInfoFile));
-            platform::CloseLegacyStream_53B1D0(gGraphicInfoFile);
+            std::fseek(gGraphicInfoFile, 0, 2);
+            totalInfoBytes += static_cast<std::uint32_t>(static_cast<std::int32_t>(std::ftell(gGraphicInfoFile)));
+            std::fclose(gGraphicInfoFile);
         } else {
             if (slot == 0) {
                 return 1;
@@ -173,7 +173,7 @@ std::int32_t GraphicInit_459960(
     std::int32_t base = 0;
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         gGraphicStartIndices[slot] = base;
-        gGraphicInfoFile = platform::OpenLegacyStream_53B2F1(gGraphicInfoCachedPaths[slot], "rb");
+        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
         if (gGraphicInfoFile == nullptr) {
             if (slot == 0) {
                 return 1;
@@ -188,7 +188,7 @@ std::int32_t GraphicInit_459960(
         }
         // 原459CCE/459F1D只检查EOF；宿主用feof读取，短读仍消费同一记录。
         while (std::feof(gGraphicInfoFile) == 0) {
-            platform::ReadLegacyStream_53BCCD(&record, 0x28, 1, gGraphicInfoFile);
+            static_cast<std::uint32_t>(std::fread(&record, 0x28, 1, gGraphicInfoFile));
             const std::uint32_t sequenceNo = record.seqNo;
             GraphicInfo* recordTable = gGraphicInfo;
             ++processed;
@@ -237,7 +237,7 @@ std::int32_t GraphicInit_459960(
             }
         }
         std::sort(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end());
-        platform::CloseLegacyStream_53B1D0(gGraphicInfoFile);
+        std::fclose(gGraphicInfoFile);
         base = processed;
     }
     return 0;

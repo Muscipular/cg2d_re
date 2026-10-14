@@ -12,7 +12,7 @@
 
 #include <bit>
 #include <cstring>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
 namespace {
@@ -25,7 +25,7 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
 {
     constexpr std::int32_t kSlots[] {0, 1, 6};
     for (std::int32_t index = 0; index < 3; ++index) {
-        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(paths[kSlots[index]], "rb");
+        platform::LegacyFile* const file = std::fopen(paths[kSlots[index]], "rb");
         if (file == nullptr) {
             if (index == 0) {
                 return false;
@@ -37,7 +37,7 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
         if (result >= 0) {
             times[index] = value;
         }
-        platform::CloseLegacyStream_53B1D0(file);
+        std::fclose(file);
         if (result < 0 && index == 0) {
             return false;
         }
@@ -59,29 +59,29 @@ std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(fileName, "rb");
+    platform::LegacyFile* const file = std::fopen(fileName, "rb");
     if (file == nullptr) {
         return 0;
     }
     std::uint16_t version;
-    if (platform::ReadLegacyStream_53BCCD(&version, 2, 1, file) != 1 || version != 2) {
-        platform::CloseLegacyStream_53B1D0(file);
+    if (static_cast<std::uint32_t>(std::fread(&version, 2, 1, file)) != 1 || version != 2) {
+        std::fclose(file);
         return 0;
     }
     for (const std::int32_t expected : times) {
         std::int32_t stored;
-        if (platform::ReadLegacyStream_53BCCD(&stored, 4, 1, file) != 1 || stored != expected) {
-            platform::CloseLegacyStream_53B1D0(file);
+        if (static_cast<std::uint32_t>(std::fread(&stored, 4, 1, file)) != 1 || stored != expected) {
+            std::fclose(file);
             return 0;
         }
     }
     std::uint32_t sentinel;
-    if (platform::ReadLegacyStream_53BCCD(&sentinel, 4, 1, file) != 1 || sentinel != 0
-        || platform::ReadLegacyStream_53BCCD(gAutoMapColors927F48, 0x7A120u, 1, file) != 1) {
-        platform::CloseLegacyStream_53B1D0(file);
+    if (static_cast<std::uint32_t>(std::fread(&sentinel, 4, 1, file)) != 1 || sentinel != 0
+        || static_cast<std::uint32_t>(std::fread(gAutoMapColors927F48, 0x7A120u, 1, file)) != 1) {
+        std::fclose(file);
         return 0;
     }
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     return 1;
 }
 
@@ -92,19 +92,19 @@ std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(fileName, "wb");
+    platform::LegacyFile* const file = std::fopen(fileName, "wb");
     if (file == nullptr) {
         return 0;
     }
     const std::uint16_t version = 2;
     const std::uint32_t sentinel = 0;
-    platform::WriteLegacyStream_53C680(&version, 2, 1, file);
+    static_cast<std::uint32_t>(std::fwrite(&version, 2, 1, file));
     for (const std::int32_t time : times) {
-        platform::WriteLegacyStream_53C680(&time, 4, 1, file);
+        static_cast<std::uint32_t>(std::fwrite(&time, 4, 1, file));
     }
-    platform::WriteLegacyStream_53C680(&sentinel, 4, 1, file);
-    platform::WriteLegacyStream_53C680(gAutoMapColors927F48, 0x7A120u, 1, file);
-    platform::CloseLegacyStream_53B1D0(file);
+    static_cast<std::uint32_t>(std::fwrite(&sentinel, 4, 1, file));
+    static_cast<std::uint32_t>(std::fwrite(gAutoMapColors927F48, 0x7A120u, 1, file));
+    std::fclose(file);
     return 1;
 }
 

@@ -90,6 +90,11 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 简化商店命令读取并修正取消项范围([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # DSI01：标准文件流包装退休；仅历史附件可读取上一包装清理提交中的前态。
+    if (-not $exists -and $relativePath -ceq 'src/platform/LegacyStdio.cpp' -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 删除描述符和运行时终止的冗余包装([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

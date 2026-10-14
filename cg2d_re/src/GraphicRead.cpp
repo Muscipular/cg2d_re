@@ -18,7 +18,7 @@
 #include <new>
 #include <type_traits>
 #include <vector>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::resource {
 
@@ -236,13 +236,13 @@ void LoadIndependentPaletteIndex_522900()
     std::sprintf(
         fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
     platform::LegacyFile* const file =
-        platform::OpenLegacyStream_53B2F1(fileName, "rb");
+        std::fopen(fileName, "rb");
     if (file == nullptr) {
         return;
     }
-    platform::ReadLegacyStream_53BCCD(
+    static_cast<std::uint32_t>(std::fread(
         &BorrowPaletteDbfState().header, 1,
-        static_cast<std::uint32_t>(sizeof(PaletteDbfHeader)), file);
+        static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(PaletteDbfHeader))), file));
     const std::uint32_t magic = BorrowPaletteDbfState().header.magic;
     const std::uint32_t expectedMagic = gPaletteDbfMagic58D360;
     if (magic != expectedMagic) {
@@ -253,8 +253,8 @@ void LoadIndependentPaletteIndex_522900()
         platform::AllocateLegacyByteBuffer(BorrowPaletteDbfState().header.compressedLength));
     auto* decoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(BorrowPaletteDbfState().header.decodedLength));
-    platform::ReadLegacyStream_53BCCD(
-        compressed, 1, BorrowPaletteDbfState().header.compressedLength, file);
+    static_cast<std::uint32_t>(std::fread(
+        compressed, 1, static_cast<std::uint32_t>(BorrowPaletteDbfState().header.compressedLength), file));
     static_cast<void>(DecompressDbf_53AF90(
         compressed, static_cast<std::int32_t>(BorrowPaletteDbfState().header.compressedLength),
         decoded, &BorrowPaletteDbfState().header.decodedLength));
@@ -277,7 +277,7 @@ void LoadIndependentPaletteIndex_522900()
     }
     BorrowPaletteDbfState().count = readWord(decoded);
     BorrowPaletteDbfState().stride = readWord(decoded + 4);
-    platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
 
     BorrowPaletteDbfState().current = BorrowPaletteDbfState().records.begin();
     while (BorrowPaletteDbfState().current != BorrowPaletteDbfState().records.end()) {
@@ -590,10 +590,10 @@ int ReadGraphicDataByIndex(
     }
 
     // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
-    platform::SeekLegacyStream_53BC41(file, info.offset, 0);
+    std::fseek(file, static_cast<std::int32_t>(info.offset), 0);
     platform::LegacyFile* const readFile = gGraphicFiles[fileIndex];
     const std::uint32_t sourceLength = info.length;
-    if (platform::ReadLegacyStream_53BCCD(gGraphicReadBuffer, sourceLength, 1, readFile) != 1) {
+    if (static_cast<std::uint32_t>(std::fread(gGraphicReadBuffer, static_cast<std::uint32_t>(sourceLength), 1, readFile)) != 1) {
         return 0;
     }
 
@@ -669,7 +669,7 @@ void CloseGraphicFiles()
     }
     for (platform::LegacyFile*& file : gGraphicFiles) {
         if (file != nullptr) {
-            platform::CloseLegacyStream_53B1D0(file);
+            std::fclose(file);
             file = nullptr;
         }
     }

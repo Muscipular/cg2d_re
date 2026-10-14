@@ -21,7 +21,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
@@ -245,20 +245,20 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
         "save.dat");
 
     cg::platform::LegacyFile* const file =
-        cg::platform::OpenLegacyStream_53B2F1(path, "rb+");
+        std::fopen(path, "rb+");
     if (file == nullptr) {
         return 0;
     }
 
     const std::uint32_t bytesRead =
-        cg::platform::ReadLegacyStream_53BCCD(encoded, 1, 0xA20, file);
+        static_cast<std::uint32_t>(std::fread(encoded, 1, 0xA20, file));
     // 原532F3F/532F45只读取flags低U8并测试20H错误位。
     if (std::ferror(file) != 0) {
-        cg::platform::CloseLegacyStream_53B1D0(file);
+        std::fclose(file);
         return 0;
     }
 
-    cg::platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     (void)DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
@@ -370,21 +370,21 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
         0xA20);
 
     cg::platform::LegacyFile* const file =
-        cg::platform::OpenLegacyStream_53B2F1(fileName, "wb+");
+        std::fopen(fileName, "wb+");
     if (file == nullptr) {
         return 0;
     }
 
-    const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
+    const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
         encoded,
         1,
-        static_cast<std::uint32_t>(encodedBytes),
-        file);
+        static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+        file));
     if (bytesWritten < static_cast<std::uint32_t>(encodedBytes)) {
         return 0;
     }
 
-    cg::platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     return 1;
 }
 
@@ -498,17 +498,17 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
             gSavedState.paths[index].text,
             "save.dat");
         cg::platform::LegacyFile* const file =
-            cg::platform::OpenLegacyStream_53B2F1(path, "rb+");
+            std::fopen(path, "rb+");
         if (file != nullptr) {
-            cg::platform::CloseLegacyStream_53B1D0(file);
+            std::fclose(file);
             return 0;
         }
     }
 
     cg::platform::LegacyFile* const legacyFile =
-        cg::platform::OpenLegacyStream_53B2F1("data\\save.dat", "rb+");
+        std::fopen("data\\save.dat", "rb+");
     if (legacyFile != nullptr) {
-        cg::platform::CloseLegacyStream_53B1D0(legacyFile);
+        std::fclose(legacyFile);
         return 1;
     }
     return 2;
@@ -652,19 +652,19 @@ std::int32_t PersistCurrentSavedRecord_520200()
         "save.dat");
 
     cg::platform::LegacyFile* const file =
-        cg::platform::OpenLegacyStream_53B2F1(path, "wb+");
+        std::fopen(path, "wb+");
     std::int32_t result = file != nullptr ? 1 : 0;
-    const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
+    const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
         encoded,
         1,
-        static_cast<std::uint32_t>(encodedBytes),
-        file);
+        static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+        file));
     const std::uint32_t expectedBytes =
         static_cast<std::uint32_t>(encodedBytes);
     if (bytesWritten < expectedBytes) {
         result = 0;
     }
-    cg::platform::CloseLegacyStream_53B1D0(file);
+    std::fclose(file);
     (void)StoreCurrentRecordToSelectedPhysical_533700();
     return result;
 }
@@ -1276,23 +1276,23 @@ void Sub_533730()
             "save.dat");
 
         cg::platform::LegacyFile* const file =
-            cg::platform::OpenLegacyStream_53B2F1(path, "wb+");
+            std::fopen(path, "wb+");
         if (file == nullptr) {
             return;
         }
 
-        const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
+        const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
             encoded,
             1,
-            static_cast<std::uint32_t>(encodedBytes),
-            file);
+            static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+            file));
         const std::uint32_t expectedBytes =
             static_cast<std::uint32_t>(encodedBytes);
         if (bytesWritten < expectedBytes) {
-            cg::platform::CloseLegacyStream_53B1D0(file);
+            std::fclose(file);
             return;
         }
-        cg::platform::CloseLegacyStream_53B1D0(file);
+        std::fclose(file);
     }
 }
 

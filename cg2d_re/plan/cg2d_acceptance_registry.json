@@ -1363,7 +1363,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -74554,6 +74555,26 @@
       "differences": [],
       "result": "pass",
       "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-DSI01-CRT-S-20261015",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+      "implementation_reference": "include/cg/platform/LegacyStdio.hpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls",
+        "include/cg/platform/LegacyStdio.hpp",
+        "CMakeLists.txt"
+      ],
+      "observation": "24个包装退休，12个活动入口共250处直接调用，另12个无消费者。",
+      "expected": "保FILE类型别名、U32读写参数／结果及S32偏移，原参数／错误／关闭顺序保持。",
+      "actual": "逐处callee与必要转换、引用和类型／源位置静态核对；完整台账受另行暂存删除历史附件影响，未编译或运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [
@@ -74782,7 +74803,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ]
     },
     {
@@ -76846,7 +76868,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ]
     },
     {
@@ -78373,7 +78396,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015",
         "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-stdio-calls"
       ]
     },
     {

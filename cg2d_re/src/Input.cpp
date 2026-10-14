@@ -26,7 +26,7 @@
 #include <algorithm>
 #include <string>
 #include <system_error>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BB02、0x0053BC41、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
@@ -1282,18 +1282,18 @@ std::int32_t Sub_44A090()
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const readStream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryReadMode);
+    platform::LegacyFile* const readStream = std::fopen(path, kChatHistoryReadMode);
     if (readStream != nullptr) {
         const std::uint32_t count =
-            platform::ReadLegacyStream_53BCCD(&gChatHistory621FF8, 0x4844, 1, readStream);
-        platform::CloseLegacyStream_53B1D0(readStream);
+            static_cast<std::uint32_t>(std::fread(&gChatHistory621FF8, 0x4844, 1, readStream));
+        std::fclose(readStream);
         return count >= 1 ? 1 : 0;
     }
 
-    platform::LegacyFile* const writeStream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryWriteMode);
+    platform::LegacyFile* const writeStream = std::fopen(path, kChatHistoryWriteMode);
     if (writeStream != nullptr) {
-        platform::WriteLegacyStream_53C680(&gChatHistory621FF8, 0x4844, 1, writeStream);
-        platform::CloseLegacyStream_53B1D0(writeStream);
+        static_cast<std::uint32_t>(std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream));
+        std::fclose(writeStream);
     }
     gCursor62683C = 63;
     return 0;
@@ -1306,20 +1306,20 @@ std::int32_t Sub_449FA0(const std::int32_t index)
     std::sprintf(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    platform::LegacyFile* const stream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryUpdateMode);
+    platform::LegacyFile* const stream = std::fopen(path, kChatHistoryUpdateMode);
     if (stream == nullptr) {
         return 0;
     }
 
-    platform::SeekLegacyStream_53BC41(stream, index * 0x121, 0);
-    if (platform::WriteLegacyStream_53C680(gChatHistory621FF8.records[index], 0x121, 1, stream) < 1) {
-        platform::CloseLegacyStream_53B1D0(stream);
+    std::fseek(stream, static_cast<std::int32_t>(index * 0x121), 0);
+    if (static_cast<std::uint32_t>(std::fwrite(gChatHistory621FF8.records[index], 0x121, 1, stream)) < 1) {
+        std::fclose(stream);
         return 0;
     }
 
-    platform::SeekLegacyStream_53BC41(stream, 0x4840, 0);
-    const std::uint32_t written = platform::WriteLegacyStream_53C680(&index, sizeof(index), 1, stream);
-    platform::CloseLegacyStream_53B1D0(stream);
+    std::fseek(stream, 0x4840, 0);
+    const std::uint32_t written = static_cast<std::uint32_t>(std::fwrite(&index, static_cast<std::uint32_t>(sizeof(index)), 1, stream));
+    std::fclose(stream);
     return written >= 1 ? 1 : 0;
 }
 
@@ -1370,12 +1370,12 @@ void __cdecl Sub_449DA0()
         gLogFileName554648);
 
     platform::LegacyFile* const readStream =
-        platform::OpenLegacyStream_53B2F1(gLogPath62699C, kReadMode_554908);
+        std::fopen(gLogPath62699C, kReadMode_554908);
     gLogStream626C1C = readStream;
     platform::LegacyFile* gate;
     if (readStream == nullptr) {
         platform::LegacyFile* const appendStream =
-            platform::OpenLegacyStream_53B2F1(gLogPath62699C, kAppendMode_554904);
+            std::fopen(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
         std::fprintf(appendStream, kFirstSeparator_5548CC.data());
 
@@ -1389,9 +1389,9 @@ void __cdecl Sub_449DA0()
         std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
         gate = gLogStream626C1C;
     } else {
-        platform::CloseLegacyStream_53B1D0(readStream);
+        std::fclose(readStream);
         platform::LegacyFile* const appendStream =
-            platform::OpenLegacyStream_53B2F1(gLogPath62699C, kAppendMode_554904);
+            std::fopen(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
         gate = appendStream;
     }
@@ -1412,7 +1412,7 @@ void __cdecl Sub_449DA0()
             sessionHour, sessionMinute, sessionSecond);
         std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
     }
-    platform::FlushLegacyStream_53BB02(gLogStream626C1C);
+    std::fflush(gLogStream626C1C);
 }
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
@@ -1487,8 +1487,8 @@ void Sub_44B050(
             gLogStream626C1C,
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, gRecords5FB7F8[index].text);
-        platform::CloseLegacyStream_53B1D0(gLogStream626C1C);
-        platform::LegacyFile* const newStream = platform::OpenLegacyStream_53B2F1(gLogPath62699C, "a");
+        std::fclose(gLogStream626C1C);
+        platform::LegacyFile* const newStream = std::fopen(gLogPath62699C, "a");
         index = gWriteIndex626C08;
         gLogStream626C1C = newStream;
     }

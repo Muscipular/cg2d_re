@@ -10,7 +10,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring> // 原CRT接口：0x0053CF50；原参数／返回合同由直接调用承接。
 #include <cstdint>
@@ -108,7 +108,7 @@ std::int32_t AnimeInit_45BB20(
         }
         for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
             if (file != nullptr) {
-                platform::CloseLegacyStream_53B1D0(file);
+                std::fclose(file);
                 file = nullptr;
             }
         }
@@ -116,7 +116,7 @@ std::int32_t AnimeInit_45BB20(
     };
 
     for (std::int32_t slot = 0; slot < 9; ++slot) {
-        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(localInfoPaths[slot], "rb");
+        platform::LegacyFile* const file = std::fopen(localInfoPaths[slot], "rb");
         if (file == nullptr) {
             if (slot == 0 || slot == 8) {
                 return 2;
@@ -125,14 +125,14 @@ std::int32_t AnimeInit_45BB20(
         }
         for (;;) {
             // 原容量检查在 fread 之后、EOF 之前；读取槽跨轮复用且不补短读。
-            platform::ReadLegacyStream_53BCCD(&info, 0x0Cu, 1, file);
+            static_cast<std::uint32_t>(std::fread(&info, 0x0Cu, 1, file));
             if (uniqueCount >= gMaxAnimateCount9A4A4C) {
-                platform::CloseLegacyStream_53B1D0(file);
+                std::fclose(file);
                 return 3;
             }
             if (std::feof(file) != 0) {
                 filePresent[slot] = 1;
-                platform::CloseLegacyStream_53B1D0(file);
+                std::fclose(file);
                 break;
             }
             const std::uint32_t key = info.animeNo - 100000u;
@@ -156,7 +156,7 @@ std::int32_t AnimeInit_45BB20(
                 char message[256];
                 std::sprintf(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
                 platform::ShowWideMessage(cg::text::ToUtf16(message), kAnimeSizeErrorCaption, 0);
-                platform::CloseLegacyStream_53B1D0(file);
+                std::fclose(file);
                 return cleanupFailure(5);
             }
         }
@@ -166,7 +166,7 @@ std::int32_t AnimeInit_45BB20(
     detail::gAnimateFiles9A3A20.fill(nullptr);
     for (std::size_t slot = 0; slot < 9; ++slot) {
         if (filePresent[slot] == 1) {
-            detail::gAnimateFiles9A3A20[slot] = platform::OpenLegacyStream_53B2F1(localDataPaths[slot], "rb");
+            detail::gAnimateFiles9A3A20[slot] = std::fopen(localDataPaths[slot], "rb");
             if (detail::gAnimateFiles9A3A20[slot] == nullptr && (slot == 0 || slot == 8)) {
                 return cleanupFailure(2);
             }
@@ -253,8 +253,8 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
         return 0;
     }
     platform::LegacyFile*& file = detail::gAnimateFiles9A3A20[fileIndex];
-    platform::SeekLegacyStream_53BC41(file,
-        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset), 0);
+    std::fseek(file,
+        static_cast<std::int32_t>(static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset)), 0);
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
     if (gAnimateRecords9A4A58[index].count == 0) {
         return 0;
@@ -280,7 +280,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     std::uint16_t buffer[1000];
     for (std::int32_t actionIndex = 0;
          actionIndex < gAnimateRecords9A4A58[index].count; ++actionIndex) {
-        platform::ReadLegacyStream_53BCCD(buffer, gAnimateRecords9A4A58[index].flag >= 1 ? 20 : 12, 1, file);
+        static_cast<std::uint32_t>(std::fread(buffer, static_cast<std::uint32_t>(gAnimateRecords9A4A58[index].flag >= 1 ? 20 : 12), 1, file));
         auto* const action = static_cast<detail::ActionEntry*>(
             gAnimateRecords9A4A58[index].actionList) + actionIndex;
         action->frames = nullptr;
@@ -318,7 +318,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
             return 0;
         }
         slot->value04 += 12u * action->frameCount;
-        platform::ReadLegacyStream_53BCCD(buffer, 10u * action->frameCount, 1, file);
+        static_cast<std::uint32_t>(std::fread(buffer, static_cast<std::uint32_t>(10u * action->frameCount), 1, file));
         for (std::uint32_t frameIndex = 0; frameIndex < action->frameCount; ++frameIndex) {
             const std::uint16_t* const source = buffer + frameIndex * 5;
             static_cast<detail::FrameEntry*>(action->frames)[frameIndex].graphicIndex = source[0];
@@ -360,15 +360,15 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
         return 0;
     }
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
-    platform::SeekLegacyStream_53BC41(file,
-        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset), 0);
+    std::fseek(file,
+        static_cast<std::int32_t>(static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset)), 0);
     gAnimateRecords9A4A58[index].coordinates = static_cast<detail::CoordinateEntry*>(
         std::malloc(sizeof(detail::CoordinateEntry) * gAnimateRecords9A4A58[index].coordinateCount));
     if (gAnimateRecords9A4A58[index].coordinates == nullptr) {
         return 0;
     }
     detail::CoordinateEntry buffer[1000];
-    platform::ReadLegacyStream_53BCCD(buffer, 8, gAnimateRecords9A4A58[index].coordinateCount, file);
+    static_cast<std::uint32_t>(std::fread(buffer, 8, static_cast<std::uint32_t>(gAnimateRecords9A4A58[index].coordinateCount), file));
     for (std::int32_t coordinate = 0;
          coordinate < gAnimateRecords9A4A58[index].coordinateCount; ++coordinate) {
         auto* const destination = static_cast<detail::CoordinateEntry*>(
@@ -405,18 +405,18 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
 std::int32_t CoordLoad_45BF60(
     platform::LegacyFile** const outputFile, const char* const dataPath, const char* const infoPath)
 {
-    *outputFile = platform::OpenLegacyStream_53B2F1(dataPath, "rb");
+    *outputFile = std::fopen(dataPath, "rb");
     if (*outputFile == nullptr) {
         return 0;
     }
-    platform::LegacyFile* const infoFile = platform::OpenLegacyStream_53B2F1(infoPath, "rb");
+    platform::LegacyFile* const infoFile = std::fopen(infoPath, "rb");
     if (infoFile == nullptr) {
         return 0;
     }
 
     // 原 fread 覆盖路径参数低字节；未读到字节时保留实际地址低位，不补零。
     auto version = static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(dataPath));
-    platform::ReadLegacyStream_53BCCD(&version, 1, 1, infoFile);
+    static_cast<std::uint32_t>(std::fread(&version, 1, 1, infoFile));
     if (version != 1) {
         return 0;
     }
@@ -424,15 +424,15 @@ std::int32_t CoordLoad_45BF60(
     std::uint32_t record[2];
     std::uint16_t count;
     while (std::feof(infoFile) == 0) {
-        platform::ReadLegacyStream_53BCCD(record, 4, 2, infoFile);
-        platform::ReadLegacyStream_53BCCD(&count, 2, 1, infoFile);
+        static_cast<std::uint32_t>(std::fread(record, 4, 2, infoFile));
+        static_cast<std::uint32_t>(std::fread(&count, 2, 1, infoFile));
         const std::int32_t index = GetIndex_45B400(record[0] - 100000u);
         if (index >= 0) {
             gAnimateRecords9A4A58[index].coordinateOffset = record[1];
             gAnimateRecords9A4A58[index].coordinateCount = count;
         }
     }
-    platform::CloseLegacyStream_53B1D0(infoFile);
+    std::fclose(infoFile);
     return 1;
 }
 

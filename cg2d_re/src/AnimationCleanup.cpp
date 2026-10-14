@@ -1,3 +1,4 @@
+#include <cstdio> // 原CRT：0x0053B1D0；直接沿MSVC文件流。
 #include "cg/AnimationRuntime.hpp"
 
 #include "AnimationRuntimeState.hpp"
@@ -149,7 +150,7 @@ std::int32_t AnimeUnload_45BEF0()
     for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
         platform::LegacyFile* const current = file;
         if (current != nullptr) {
-            platform::CloseLegacyStream_53B1D0(current);
+            std::fclose(current);
             file = nullptr;
         }
     }
@@ -161,7 +162,7 @@ std::int32_t Sub_45BF20()
 {
     for (std::size_t slot = 0; slot < detail::gFileCloseFlags9A29D0.size(); ++slot) {
         if (detail::gFileCloseFlags9A29D0[slot] != 0) {
-            platform::CloseLegacyStream_53B1D0(detail::gAnimateFiles9A3A20[slot]);
+            std::fclose(detail::gAnimateFiles9A3A20[slot]);
             // MC01-B：释放已关闭FILE的owner引用，后续总清理不得重复关闭。
             detail::gAnimateFiles9A3A20[slot] = nullptr;
             detail::gFileCloseFlags9A29D0[slot] = 0;

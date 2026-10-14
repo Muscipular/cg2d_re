@@ -21,7 +21,7 @@
 #include <array>
 #include <bit>
 #include <cstddef>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BCCD、0x0053C680；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
 namespace cg::world::detail {
@@ -1281,13 +1281,13 @@ std::int32_t Sub_5348A0()
     std::sprintf(
         path, "bin\\%s", "category.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "wb+");
+        std::fopen(path, "wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::WriteLegacyStream_53C680(
-        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream));
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
+        &gCategory105FA10, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gCategory105FA10))), 1, stream)));
+    static_cast<void>(std::fclose(stream));
     return 1;
 }
 
@@ -1298,13 +1298,13 @@ std::int32_t Sub_534910()
     std::sprintf(
         path, "bin\\%s", "category.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "rb+");
+        std::fopen(path, "rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::ReadLegacyStream_53BCCD(
-        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream));
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(static_cast<std::uint32_t>(std::fread(
+        &gCategory105FA10, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gCategory105FA10))), 1, stream)));
+    static_cast<void>(std::fclose(stream));
     return 1;
 }
 
@@ -1345,13 +1345,13 @@ std::int32_t Sub_534770()
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "wb+");
+        std::fopen(path, "wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::WriteLegacyStream_53C680(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream));
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
+        gProfiles1074938.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gProfiles1074938))), 1, stream)));
+    static_cast<void>(std::fclose(stream));
     return 1;
 }
 
@@ -1362,13 +1362,13 @@ std::int32_t Sub_5347F0()
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "rb+");
+        std::fopen(path, "rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::ReadLegacyStream_53BCCD(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream));
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(static_cast<std::uint32_t>(std::fread(
+        gProfiles1074938.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gProfiles1074938))), 1, stream)));
+    static_cast<void>(std::fclose(stream));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
@@ -1383,24 +1383,24 @@ std::int32_t Sub_518CB0()
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
     platform::LegacyFile* stream =
-        platform::OpenLegacyStream_53B2F1(path, "rb");
+        std::fopen(path, "rb");
     if (stream == nullptr) {
         return Sub_519300();
     }
-    static_cast<void>(platform::ReadLegacyStream_53BCCD(
-        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(gMailStorageF7CA08.size()), stream));
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
+    static_cast<void>(static_cast<std::uint32_t>(std::fread(
+        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(static_cast<std::uint32_t>(gMailStorageF7CA08.size())), stream)));
+    static_cast<void>(std::fclose(stream));
 
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    stream = platform::OpenLegacyStream_53B2F1(path, "rb");
+    stream = std::fopen(path, "rb");
     if (stream == nullptr) {
         return Sub_519550();
     }
-    static_cast<void>(platform::ReadLegacyStream_53BCCD(
+    static_cast<void>(static_cast<std::uint32_t>(std::fread(
         gGuildMailStorageDE0B30.data(), 1,
-        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));
-    return platform::CloseLegacyStream_53B1D0(stream);
+        static_cast<std::uint32_t>(static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size())), stream)));
+    return std::fclose(stream);
 }
 
 // 原函数：0x00519300。
@@ -1410,13 +1410,13 @@ std::int32_t Sub_519300()
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "wb");
+        std::fopen(path, "wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::WriteLegacyStream_53C680(
-        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(gMailStorageF7CA08.size()), stream));
-    return platform::CloseLegacyStream_53B1D0(stream);
+    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
+        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(static_cast<std::uint32_t>(gMailStorageF7CA08.size())), stream)));
+    return std::fclose(stream);
 }
 
 // GMR01：原128B路径/完整两角色139480写/写弃返→关闭S32结果，当前MSVC FILE域保。
@@ -1427,14 +1427,14 @@ std::int32_t Sub_519550()
     std::sprintf(
         path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
     platform::LegacyFile* const stream =
-        platform::OpenLegacyStream_53B2F1(path, "wb");
+        std::fopen(path, "wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(platform::WriteLegacyStream_53C680(
+    static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
         gGuildMailStorageDE0B30.data(), 1,
-        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));
-    return platform::CloseLegacyStream_53B1D0(stream);
+        static_cast<std::uint32_t>(static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size())), stream)));
+    return std::fclose(stream);
 }
 
 // 原函数：0x00519290。

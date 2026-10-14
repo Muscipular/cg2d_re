@@ -35,7 +35,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D、0x0053BC0F；直接沿MSVC CRT。
+#include <cstdio> // 原CRT：0x0053B1D0、0x0053B226、0x0053B2F1、0x0053BB02、0x0053BC41；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053D21D、0x0053BC0F；直接沿MSVC CRT。
 #include <cstring> // 原CRT接口：0x0053BEC0；原参数／返回合同由直接调用承接。
 #include <string>
 #include <format>
@@ -1906,15 +1906,15 @@ std::int32_t ReloadLegacyLog_402020()
         "chat_%02d%02d%02d.txt", year % 100, AddW32(month, 1), day);
     std::sprintf(path, "%s\\%s", "Log",
         world::detail::gLogFileName554648);
-    platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, "rt");
+    platform::LegacyFile* current = std::fopen(path, "rt");
     gLegacyLogFile593F78 = current;
     if (current == nullptr) {
         gLegacyLogError593F7C = 1;
         return 0;
     }
     gLegacyLogError593F7C = 0;
-    static_cast<void>(platform::CloseLegacyStream_53B1D0(current));
-    current = platform::OpenLegacyStream_53B2F1(path, "a+t");
+    static_cast<void>(std::fclose(current));
+    current = std::fopen(path, "a+t");
     gLegacyLogFile593F78 = current;
     if (current == nullptr) {
         gLegacyLogError593F7C = 1;
@@ -1923,7 +1923,7 @@ std::int32_t ReloadLegacyLog_402020()
     ui::detail::gLogDisplayGate593F84 = 1;
     gLegacyLogLineCount593F80 = 0;
     while (std::feof(current) == 0) {
-        static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
+        static_cast<void>(std::fgets(buffer, 1000, current));
         const auto length = static_cast<std::int32_t>(std::strlen(buffer));
         if (length > 65) {
             gLegacyLogLineCount593F80 = AddW32(gLegacyLogLineCount593F80, (length - 1) / 65);
@@ -1959,7 +1959,7 @@ try {
     }
     if (state == 2) {
         if (gLegacyLogFile593F78 != nullptr) {
-            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+            static_cast<void>(std::fclose(gLegacyLogFile593F78));
             gLegacyLogFile593F78 = nullptr;
         }
         std::uintptr_t result = static_cast<std::uint32_t>(
@@ -1992,10 +1992,10 @@ try {
             2, 0, 0, kLegacyLogFailure55358C, 0, 0));
     } else {
         if (ui::detail::gLogDisplayGate593F84 == 1) {
-            static_cast<void>(platform::SeekLegacyStream_53BC41(gLegacyLogFile593F78, 0, 0));
+            static_cast<void>(std::fseek(gLegacyLogFile593F78, 0, 0));
             std::int32_t skipped = 0;
             while (skipped < AddW32(15 * gLegacyLogPage553508, -15)) {
-                static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, gLegacyLogFile593F78));
+                static_cast<void>(std::fgets(buffer, 1000, gLegacyLogFile593F78));
                 auto length = static_cast<std::int32_t>(std::strlen(buffer));
                 while (length > 65) {
                     skipped = AddW32(skipped, 1);
@@ -2012,7 +2012,7 @@ try {
             std::int32_t row = 0;
             for (;;) {
                 std::int32_t column = 0;
-                char* const readResult = platform::ReadLegacyStreamLine_53B226(buffer, 1000, current);
+                char* const readResult = std::fgets(buffer, 1000, current);
                 current = gLegacyLogFile593F78;
                 if (readResult == nullptr) {
                     if (std::feof(current) != 0) {
@@ -2095,7 +2095,7 @@ try {
             }
         } else if ((QueryPanelButtonState(&write) & 1) != 0 || (platform::gKeyStates[13] & 2u) != 0) {
             if (!gLegacyLogInput593F8C->empty()) {
-                static_cast<void>(platform::SeekLegacyStream_53BC41(gLegacyLogFile593F78, 0, 2));
+                static_cast<void>(std::fseek(gLegacyLogFile593F78, 0, 2));
                 platform::LegacyTm53B8C6* const time = gLegacyLogCalendar593F88;
                 const std::string storedInput = cg::text::ToGbk(input::ContextText(*gLegacyLogInput593F8C));
                 const char* const inputText = storedInput.c_str();
@@ -2104,7 +2104,7 @@ try {
                 const std::int32_t hours = time->hours;
                 std::fprintf(gLegacyLogFile593F78, kLegacyLogWriteFormat5535A0,
                     hours, minutes, seconds, inputText);
-                static_cast<void>(platform::FlushLegacyStream_53BB02(gLegacyLogFile593F78));
+                static_cast<void>(std::fflush(gLegacyLogFile593F78));
                 gLegacyLogInput593F8C->clearText();
                 gLegacyLogInput593F8C->totalByteLength = 0;
                 gLegacyLogInput593F8C->caretByteOffset = 0;
@@ -2126,7 +2126,7 @@ try {
     }
     if ((QueryPanelButtonState(&beforeDay) & 1) != 0) {
         if (gLegacyLogFile593F78 != nullptr) {
-            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+            static_cast<void>(std::fclose(gLegacyLogFile593F78));
         }
         platform::LegacyTm53B8C6* time = gLegacyLogCalendar593F88;
         if (time->day == 1) {
@@ -2145,7 +2145,7 @@ try {
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     } else if ((QueryPanelButtonState(&afterDay) & 1) != 0) {
         if (gLegacyLogFile593F78 != nullptr) {
-            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+            static_cast<void>(std::fclose(gLegacyLogFile593F78));
         }
         platform::LegacyTm53B8C6* time = gLegacyLogCalendar593F88;
         if (time->day != 32) {

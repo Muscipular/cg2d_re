@@ -327,6 +327,8 @@ void __cdecl Sub_4464D0()
 } // namespace detail
 
 // 原函数：0x0043D770。
+// 原0x0053C45E：数组构造由std::array/C++承接。
+// 原0x0053C560、0x005405F5：旧数组展开／筛选入口退休，当前沿MSVC异常机制。
 void ConstructWorldObjects()
 {
     // 原0x0043D7C0：千项两成员依次构造；完成前缀清理由C++承接。
@@ -334,6 +336,7 @@ void ConstructWorldObjects()
 }
 
 // 原函数：0x0043D7A0。
+// 原0x0053C4E0：同一数组由std::array/C++自动逆序析构。
 void DestroyWorldObjects()
 {
     // 原0x0043D810：元素及其1C/0C成员自动逆序析构。

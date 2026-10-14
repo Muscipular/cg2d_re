@@ -525,8 +525,8 @@
 | 477 | 0x0043CB10 | `sub_43CB10` | 有正文 | `src/world/MapSceneDrawing.cpp:336 — Sub_43CB10` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 478 | 0x0043CBB0 | `World::DrawBattleScene` | 有正文 | `src/world/SceneState.cpp:7083 — DrawBattleScene_43CBB0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 479 | 0x0043D760 | `sub_43D760` | 有承接 | `src/platform/LegacyMouse.cpp:52 — WorldObjectsStaticInitializer构造／析构` | 世界表原位置构造，退出由拥有者析构承接；手写atexit退休，登记结果／机器ABI不承诺等价；运行未验 |
-| 480 | 0x0043D770 | `sub_43D770` | 有正文 | `src/world/WorldObjectState.cpp:330 — ConstructWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
-| 481 | 0x0043D7A0 | `sub_43D7A0` | 有正文 | `src/world/WorldObjectState.cpp:337 — DestroyWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 480 | 0x0043D770 | `sub_43D770` | 有正文 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
+| 481 | 0x0043D7A0 | `sub_43D7A0` | 有正文 | `src/world/WorldObjectState.cpp:340 — DestroyWorldObjects` | 当前重命名定义与原入口身份已定位；完整业务／接线／运行未验 |
 | 482 | 0x0043D7C0 | `sub_43D7C0` | 有承接 | `src/world/WorldObjectState.hpp:19 — WorldObjectRecord::WorldObjectRecord` | 两CryptInt成员按声明序自动构造；千项同一optional数组；C++完成前缀清理承接；运行未验 |
 | 483 | 0x0043D810 | `sub_43D810` | 有承接 | `src/world/WorldObjectState.hpp:21 — WorldObjectRecord::~WorldObjectRecord` | 成员1C→0C及数组元素自动逆序析构，退休手工适配；原SEH／完整运行未验 |
 | 484 | 0x0043D860 | `sub_43D860` | 有正文 | `src/YobiRuntime.cpp:35995 — Sub_43D860` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -3246,9 +3246,9 @@
 | 3198 | 0x0053C3AC | `_malloc` | 有承接 | `src/platform/LegacyTime.cpp:58 — Malloc_53C3AC` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3199 | 0x0053C3BE | `__nh_malloc` | 有承接 | `src/platform/LegacyMemory.cpp:55 — AllocateLegacyByteBuffer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3200 | 0x0053C3EA | `sub_53C3EA` | 有承接 | `src/platform/LegacyMemory.cpp:57 — std::malloc(byteCount)` | 原仅__nh_malloc调用并转旧两池／HeapAlloc；实际std::malloc整体承接分配及已批库内策略，不复刻模式，业务／owner／运行未验 |
-| 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:44 — ConstructLegacyArray_53C45E` | 原CRT数组服务身份与既有正文保留；LCI06三业务数组消费者已改原生成员／std::array，当前CPP不再调用这些helper；SDK／完整运行未验 |
-| 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:67 — DestroyLegacyArray_53C4E0` | 原CRT数组服务身份与既有正文保留；LCI06三业务数组消费者已改原生成员／std::array，当前CPP不再调用这些helper；SDK／完整运行未验 |
-| 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:23 — UnwindLegacyArray_53C560` | 原CRT数组服务身份与既有正文保留；LCI06三业务数组消费者已改原生成员／std::array，当前CPP不再调用这些helper；SDK／完整运行未验 |
+| 3201 | 0x0053C45E | `??_L@YGXPAXIHP6EX0@Z1@Z` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
+| 3202 | 0x0053C4E0 | `??_M@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/world/WorldObjectState.cpp:340 — DestroyWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
+| 3203 | 0x0053C560 | `?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
 | 3204 | 0x0053C5BE | `_atol` | 有承接 | `src/platform/LegacyTime.cpp:39 — Atol_53C5BE` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3205 | 0x0053C649 | `_atoi` | 有承接 | `src/platform/LegacyTime.cpp:52 — Atoi_53C649` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
 | 3206 | 0x0053C654 | `__mkdir` | 有承接 | `src/platform/LegacyTime.cpp:137 — CreateLegacyDirectory_53C654` | 实际包装委托 MSVC／标准库；按已批准 CRT 宿主边界承接，完整调用方验收未验 |
@@ -3332,7 +3332,7 @@
 | 3284 | 0x00540452 | `?FindHandlerForForeignException@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@HH1@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3285 | 0x005404FA | `?TypeMatch@@YAHPBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_ThrowInfo@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3286 | 0x00540557 | `___FrameUnwindToState` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
-| 3287 | 0x005405F5 | `unknown_libname_49` | 有承接 | `src/platform/LegacyRuntimeExit.cpp:12 — FilterLegacyArrayUnwindException_5405F5` | 原CRT数组服务身份与既有正文保留；LCI06三业务数组消费者已改原生成员／std::array，当前CPP不再调用这些helper；SDK／完整运行未验 |
+| 3287 | 0x005405F5 | `unknown_libname_49` | 有承接 | `src/world/WorldObjectState.cpp:332 — ConstructWorldObjects` | LCI15无调用的CRT数组helper／筛选已删除；std::array构析／前缀清理／终止沿C++／MSVC，原身份保留；硬件SEH／完整运行未验 |
 | 3288 | 0x0054060B | `?CatchIt@@YAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PAXPBU_s_FuncInfo@@PBU_s_HandlerType@@PBU_s_CatchableType@@PBU_s_TryBlockMapEntry@@H1E@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3289 | 0x00540686 | `?CallCatchBlock@@YAPAXPAUEHExceptionRecord@@PAUEHRegistrationNode@@PAU_CONTEXT@@PBU_s_FuncInfo@@PAXHK@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |
 | 3290 | 0x00540792 | `?ExFilterRethrow@@YAHPAU_EXCEPTION_POINTERS@@@Z` | 有承接 | `src/platform/LegacyMouse.cpp:90 — NarrowStandardStreamsStaticInitializer；src/platform/LegacyMouse.cpp:111 — WideStandardStreamsStaticInitializer` | 原库内／编译器支撑入口；当前实际 MSVC 服务或标准流／locale 使用边界承接，无旧私有包装；不记机器 ABI 或运行已验 |

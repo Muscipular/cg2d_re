@@ -598,39 +598,6 @@
         "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
       ],
       "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
-      "array_lifetime_consumer_call_connections": [
-        {
-          "parent_entry": "0x4CD250",
-          "call_site": "0x4CD2BB",
-          "target_entry": "0x53C45E",
-          "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "ConstructStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
-          "count": 5,
-          "original_stride": "0x5110",
-          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
-          "constructor": "0x4CD360",
-          "destructor": "0x4CD2D0",
-          "original_fragment_entry": "0x4CD2A0",
-          "target_symbol": "platform::ConstructLegacyArray_53C45E",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        },
-        {
-          "parent_entry": "0x4CD250",
-          "call_site": "0x4CD293",
-          "target_entry": "0x53C4E0",
-          "source": "src/ui/WindowRuntime.cpp",
-          "symbol": "DestroyStallBrowsePetValues",
-          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
-          "count": 5,
-          "original_stride": "0x5110",
-          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
-          "destructor": "0x4CD2D0",
-          "original_fragment_entry": "0x4CD280",
-          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        }
-      ],
       "array_lifetime_consumer_callback_references": [
         {
           "parent_entry": "0x4CD250",
@@ -740,7 +707,40 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
-      }
+      },
+      "historical_array_lifetime_consumer_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "target_entry": "0x53C45E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "ConstructStallBrowsePetValues",
+          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD2A0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD293",
+          "target_entry": "0x53C4E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "DestroyStallBrowsePetValues",
+          "storage": "detail::BorrowStallBrowseD046D8Storage.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD280",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ]
     },
     {
       "original_entry": "0x4CD2D0",
@@ -12649,23 +12649,6 @@
           "relationship": "原518530实际源码沿既有五记录构造循环，不声称53C45E/EH独立本体或运行已验"
         }
       ],
-      "array_lifetime_consumer_call_connections": [
-        {
-          "parent_entry": "0x518530",
-          "call_site": "0x518546",
-          "target_entry": "0x53C45E",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "ConstructPetRuntimeValues",
-          "storage": "detail::BorrowPetRuntimeF633F8Storage.data()",
-          "count": 5,
-          "original_stride": "0x5110",
-          "native_stride": "sizeof(detail::PetRuntimeRecord)",
-          "constructor": "0x4CD360",
-          "destructor": "0x4CD2D0",
-          "target_symbol": "platform::ConstructLegacyArray_53C45E",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        }
-      ],
       "array_lifetime_consumer_callback_references": [
         {
           "parent_entry": "0x518530",
@@ -12726,7 +12709,24 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
-      }
+      },
+      "historical_array_lifetime_consumer_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "target_entry": "0x53C45E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructPetRuntimeValues",
+          "storage": "detail::BorrowPetRuntimeF633F8Storage.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ]
     },
     {
       "original_entry": "0x518560",
@@ -12777,22 +12777,6 @@
           "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
         }
       ],
-      "array_lifetime_consumer_call_connections": [
-        {
-          "parent_entry": "0x518560",
-          "call_site": "0x518571",
-          "target_entry": "0x53C4E0",
-          "source": "src/world/SceneState.cpp",
-          "symbol": "DestroyPetRuntimeValues",
-          "storage": "detail::BorrowPetRuntimeF633F8Storage.data()",
-          "count": 5,
-          "original_stride": "0x5110",
-          "native_stride": "sizeof(detail::PetRuntimeRecord)",
-          "destructor": "0x4CD2D0",
-          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        }
-      ],
       "array_lifetime_consumer_callback_references": [
         {
           "parent_entry": "0x518560",
@@ -12841,7 +12825,23 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
-      }
+      },
+      "historical_array_lifetime_consumer_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x518560",
+          "call_site": "0x518571",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyPetRuntimeValues",
+          "storage": "detail::BorrowPetRuntimeF633F8Storage.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ]
     },
     {
       "original_entry": "0x4883F0",
@@ -20427,23 +20427,6 @@
           "relationship": "真实构造正常路径源码调用，唯一数组/2000次原随机消费保持；不声称53C45E本体或SEH已验"
         }
       ],
-      "array_lifetime_consumer_call_connections": [
-        {
-          "parent_entry": "0x43D770",
-          "call_site": "0x43D789",
-          "target_entry": "0x53C45E",
-          "source": "src/world/WorldObjectState.cpp",
-          "symbol": "ConstructWorldObjects",
-          "storage": "detail::BorrowWorldObjectsStorage.data()",
-          "count": 1000,
-          "original_stride": "0x13C",
-          "native_stride": "sizeof(detail::WorldObjectRecord)",
-          "constructor": "0x43D7C0",
-          "destructor": "0x43D810",
-          "target_symbol": "platform::ConstructLegacyArray_53C45E",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        }
-      ],
       "array_lifetime_consumer_callback_references": [
         {
           "parent_entry": "0x43D770",
@@ -20509,7 +20492,24 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
-      }
+      },
+      "historical_array_lifetime_consumer_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "target_entry": "0x53C45E",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructWorldObjects",
+          "storage": "detail::BorrowWorldObjectsStorage.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "constructor": "0x43D7C0",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ]
     },
     {
       "original_entry": "0x43D7A0",
@@ -20567,22 +20567,6 @@
           "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
         }
       ],
-      "array_lifetime_consumer_call_connections": [
-        {
-          "parent_entry": "0x43D7A0",
-          "call_site": "0x43D7B4",
-          "target_entry": "0x53C4E0",
-          "source": "src/world/WorldObjectState.cpp",
-          "symbol": "DestroyWorldObjects",
-          "storage": "detail::BorrowWorldObjectsStorage.data()",
-          "count": 1000,
-          "original_stride": "0x13C",
-          "native_stride": "sizeof(detail::WorldObjectRecord)",
-          "destructor": "0x43D810",
-          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
-          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
-        }
-      ],
       "array_lifetime_consumer_callback_references": [
         {
           "parent_entry": "0x43D7A0",
@@ -20636,7 +20620,23 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
-      }
+      },
+      "historical_array_lifetime_consumer_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x43D7A0",
+          "call_site": "0x43D7B4",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyWorldObjects",
+          "storage": "detail::BorrowWorldObjectsStorage.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ]
     },
     {
       "original_entry": "0x44B250",
@@ -35803,13 +35803,6 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "FilterLegacyArrayUnwindException_5405F5"
-          ],
-          "relationship": "MC01-C3实际业务std::atexit/致命分配失败/数组二次异常消费或宿主入口；旧private退出/诊断/filter关系只历史，不是当前原体定义。"
-        },
-        {
           "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
             "TerminateLegacyRuntime_540A5C"
@@ -35852,7 +35845,30 @@
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
-      }
+      },
+      "historical_native_sources_before_lci15": [
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "FilterLegacyArrayUnwindException_5405F5"
+          ],
+          "relationship": "MC01-C3实际业务std::atexit/致命分配失败/数组二次异常消费或宿主入口；旧private退出/诊断/filter关系只历史，不是当前原体定义。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "MC01-C3真实MSVC std::terminate()薄适配；故障参数/255或terminate消费保持，旧诊断/钩子/信号表不使用。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "准确noreturn声明；不是固定返回/空业务体。"
+        }
+      ]
     },
     {
       "original_entry": "0x548143",
@@ -42074,19 +42090,6 @@
         "symbol": "__acrt_initialize_stdio",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "crt_c_initializer_incoming_bindings": [
-        {
-          "table": "0x55316C",
-          "index": 2,
-          "reference_site": "0x553174",
-          "target_entry": "0x53E9A5",
-          "target_symbol": "InitializeLegacyStdio_53E9A5",
-          "native_adapter": null,
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "source_table_symbol": "gLegacyCInitializationTable55316C",
-          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
-        }
-      ],
       "current_provider": {
         "decision": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "path": "src/platform/LegacyStdio.cpp",
@@ -42121,7 +42124,20 @@
         "evidence": "doc/cg2d_msvc_crt_heap_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
-      }
+      },
+      "historical_crt_c_initializer_incoming_bindings_before_lci15": [
+        {
+          "table": "0x55316C",
+          "index": 2,
+          "reference_site": "0x553174",
+          "target_entry": "0x53E9A5",
+          "target_symbol": "InitializeLegacyStdio_53E9A5",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
+      ]
     },
     {
       "original_entry": "0x53EA4A",
@@ -53065,21 +53081,6 @@
             "ConstructStallBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "ConstructLegacyArray_53C45E"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.hpp",
-          "symbols": [
-            "ConstructLegacyArray_53C45E",
-            "LegacyArrayElementCallback"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
       ],
       "evidence_documents": [
@@ -53092,9 +53093,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
-      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。",
+      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。 LCI15按用户要求删除无消费者的旧数组服务／筛选文件，原身份保留、当前改指同一std::array／C++原生构析，前缀清理和终止沿宿主MSVC；不宣称硬件SEH／原机器ABI或完整运行等价。",
       "function_chunks": [
         {
           "start": "0x53C45E",
@@ -53102,47 +53104,15 @@
         }
       ],
       "native_provider": {
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "symbol": "ConstructLegacyArray_53C45E",
-        "source_body_implemented": true,
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "ConstructWorldObjects",
+        "kind": "cpp_std_array_lifecycle",
+        "source_body_implemented": false,
+        "source_lifecycle_adapted": true,
+        "old_helper_or_filter_body_active": false,
         "runtime_verified": false
       },
       "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
-      "array_lifetime_internal_call_connections": [
-        {
-          "parent_entry": "0x53C45E",
-          "call_site": "0x53C4DA",
-          "target_entry": "0x53C560",
-          "target_symbol": "UnwindLegacyArray_53C560",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "ConstructLegacyArray_53C45E",
-          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
-          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
-        }
-      ],
-      "array_lifetime_indirect_call_connections": [
-        {
-          "parent_entry": "0x53C45E",
-          "call_site": "0x53C499",
-          "parameter": "constructor",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "ConstructLegacyArray_53C45E",
-          "arguments": "current 非拥有元素地址，返回不消费",
-          "relationship": "调用成功返回后才前移地址/增加完成数"
-        }
-      ],
-      "array_lifetime_scope_connections": [
-        {
-          "parent_entry": "0x53C45E",
-          "scope_table": "0x54F930",
-          "previous_level": -1,
-          "filter_entry": null,
-          "finally_entry": "0x53C4C8",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "ConstructLegacyArray_53C45E",
-          "native": "__try/__finally，complete W32初0/正常末1，未完成传当前/成功数"
-        }
-      ],
       "array_lifetime_consumer_call_connections": [],
       "msvc_exit_retired_consumers": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
@@ -53265,6 +53235,99 @@
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
         "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
+      },
+      "historical_array_lifetime_internal_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C4DA",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
+          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
+        }
+      ],
+      "historical_array_lifetime_indirect_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C499",
+          "parameter": "constructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "current 非拥有元素地址，返回不消费",
+          "relationship": "调用成功返回后才前移地址/增加完成数"
+        }
+      ],
+      "historical_array_lifetime_scope_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C45E",
+          "scope_table": "0x54F930",
+          "previous_level": -1,
+          "filter_entry": null,
+          "finally_entry": "0x53C4C8",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "native": "__try/__finally，complete W32初0/正常末1，未完成传当前/成功数"
+        }
+      ],
+      "historical_native_sources_before_lci15": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "ConstructLegacyArray_53C45E"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "ConstructLegacyArray_53C45E",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        }
+      ],
+      "historical_native_provider_before_lci15": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "ConstructLegacyArray_53C45E",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -53295,21 +53358,6 @@
             "DestroyStallBrowsePetValues"
           ],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "DestroyLegacyArray_53C4E0"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.hpp",
-          "symbols": [
-            "DestroyLegacyArray_53C4E0",
-            "LegacyArrayElementCallback"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         }
       ],
       "evidence_documents": [
@@ -53324,9 +53372,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
-      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。",
+      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。 LCI15按用户要求删除无消费者的旧数组服务／筛选文件，原身份保留、当前改指同一std::array／C++原生构析，前缀清理和终止沿宿主MSVC；不宣称硬件SEH／原机器ABI或完整运行等价。",
       "function_chunks": [
         {
           "start": "0x53C4E0",
@@ -53334,55 +53383,16 @@
         }
       ],
       "native_provider": {
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "symbol": "DestroyLegacyArray_53C4E0",
-        "source_body_implemented": true,
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "DestroyWorldObjects",
+        "kind": "cpp_std_array_lifecycle",
+        "source_body_implemented": false,
+        "source_lifecycle_adapted": true,
+        "old_helper_or_filter_body_active": false,
         "runtime_verified": false
       },
       "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶；ACI01两完整原根77条/222B、三析构父/两展开入向及本步四类六处限定静态；未构建/测试/运行/摘要",
-      "array_lifetime_internal_call_connections": [
-        {
-          "parent_entry": "0x53C4E0",
-          "call_site": "0x53C55A",
-          "target_entry": "0x53C560",
-          "target_symbol": "UnwindLegacyArray_53C560",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "DestroyLegacyArray_53C4E0",
-          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
-          "relationship": "原共享finally继续前缀清理，不重试失败析构"
-        }
-      ],
-      "array_lifetime_indirect_call_connections": [
-        {
-          "parent_entry": "0x53C4E0",
-          "call_site": "0x53C522",
-          "parameter": "destructor",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "DestroyLegacyArray_53C4E0",
-          "arguments": "先递减数量/地址后的current，返回不消费",
-          "relationship": "失败时current/剩余数直接交原展开"
-        }
-      ],
-      "array_lifetime_scope_connections": [
-        {
-          "parent_entry": "0x53C4E0",
-          "scope_table": "0x54F940",
-          "previous_level": -1,
-          "filter_entry": null,
-          "finally_entry": "0x53C548",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "DestroyLegacyArray_53C4E0",
-          "native": "__try/__finally，W32乘积算尾；未完成传失败当前/递减后数"
-        }
-      ],
       "array_lifetime_consumer_call_connections": [],
-      "array_counter_contract": {
-        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "quantity": "S32 remaining直接递减/判负/finally传递",
-        "end_offset": "U32 elementBytes * elementCount",
-        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
-      },
       "msvc_exit_retired_consumers": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "retired_private_role_historical": true,
@@ -53501,6 +53511,106 @@
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
         "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
+      },
+      "historical_array_lifetime_internal_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C55A",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
+          "relationship": "原共享finally继续前缀清理，不重试失败析构"
+        }
+      ],
+      "historical_array_lifetime_indirect_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C522",
+          "parameter": "destructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "先递减数量/地址后的current，返回不消费",
+          "relationship": "失败时current/剩余数直接交原展开"
+        }
+      ],
+      "historical_array_lifetime_scope_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C4E0",
+          "scope_table": "0x54F940",
+          "previous_level": -1,
+          "filter_entry": null,
+          "finally_entry": "0x53C548",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "native": "__try/__finally，W32乘积算尾；未完成传失败当前/递减后数"
+        }
+      ],
+      "historical_array_counter_contract_before_lci15": {
+        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "quantity": "S32 remaining直接递减/判负/finally传递",
+        "end_offset": "U32 elementBytes * elementCount",
+        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
+      },
+      "historical_native_sources_before_lci15": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "DestroyWorldObjects"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyPetRuntimeValues"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DestroyStallBrowsePetValues"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "DestroyLegacyArray_53C4E0"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "DestroyLegacyArray_53C4E0",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        }
+      ],
+      "historical_native_provider_before_lci15": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "DestroyLegacyArray_53C4E0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -53512,26 +53622,25 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects"
+          ],
+          "relationship": "LCI15现有std::array原生构造及完成前缀清理由C++／MSVC承接，不再调用旧数组helper；异常ABI与完整运行未验。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ],
+          "relationship": "LCI06玩家五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
+        },
+        {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "ConstructStallBrowsePetValues"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "UnwindLegacyArray_53C560"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.hpp",
-          "symbols": [
-            "UnwindLegacyArray_53C560",
-            "LegacyArrayElementCallback"
-          ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI06独立浏览五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
         }
       ],
       "evidence_documents": [
@@ -53544,9 +53653,10 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
-      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。",
+      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。 LCI15按用户要求删除无消费者的旧数组服务／筛选文件，原身份保留、当前改指同一std::array／C++原生构析，前缀清理和终止沿宿主MSVC；不宣称硬件SEH／原机器ABI或完整运行等价。",
       "function_chunks": [
         {
           "start": "0x53C560",
@@ -53554,69 +53664,15 @@
         }
       ],
       "native_provider": {
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "symbol": "UnwindLegacyArray_53C560",
-        "source_body_implemented": true,
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "ConstructWorldObjects",
+        "kind": "cpp_std_array_lifecycle",
+        "source_body_implemented": false,
+        "source_lifecycle_adapted": true,
+        "old_helper_or_filter_body_active": false,
         "runtime_verified": false
       },
       "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶；ACI01两完整原根77条/222B、三析构父/两展开入向及本步四类六处限定静态；未构建/测试/运行/摘要",
-      "array_lifetime_internal_call_connections": [
-        {
-          "parent_entry": "0x53C560",
-          "call_site": "0x53C59F",
-          "target_entry": "0x5405F5",
-          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "UnwindLegacyArray_53C560",
-          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
-          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
-        }
-      ],
-      "array_lifetime_indirect_call_connections": [
-        {
-          "parent_entry": "0x53C560",
-          "call_site": "0x53C597",
-          "parameter": "destructor",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "UnwindLegacyArray_53C560",
-          "arguments": "同一前缀先递减数量/地址后的current",
-          "relationship": "原析构异常筛选，仅C++代码终止，其他SEH继续搜索"
-        }
-      ],
-      "array_lifetime_scope_connections": [
-        {
-          "parent_entry": "0x53C560",
-          "scope_table": "0x54F950",
-          "previous_level": -1,
-          "filter_entry": "0x53C59C",
-          "handler_entry": "0x53C5A6",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "UnwindLegacyArray_53C560",
-          "native": "__try/__except，真实5405F5筛选，原处理仅本帧恢复/尾声"
-        }
-      ],
-      "array_lifetime_parent_call_connections": [
-        {
-          "parent_entry": "0x53C45E",
-          "call_site": "0x53C4DA",
-          "target_entry": "0x53C560",
-          "target_symbol": "UnwindLegacyArray_53C560",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "ConstructLegacyArray_53C45E",
-          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
-          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
-        },
-        {
-          "parent_entry": "0x53C4E0",
-          "call_site": "0x53C55A",
-          "target_entry": "0x53C560",
-          "target_symbol": "UnwindLegacyArray_53C560",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "DestroyLegacyArray_53C4E0",
-          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
-          "relationship": "原共享finally继续前缀清理，不重试失败析构"
-        }
-      ],
       "array_lifetime_consumer_call_connections": [],
       "array_lifetime_member_cleanup_sources": [
         {
@@ -53636,13 +53692,6 @@
           "symbol": "detail::PetRuntimeRecord::~PetRuntimeRecord"
         }
       ],
-      "array_counter_contract": {
-        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "quantity": "S32 remaining直接递减/判负/finally传递",
-        "end_offset": "U32 elementBytes * elementCount",
-        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
-      },
       "msvc_exit_retired_consumers": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "retired_private_role_historical": true,
@@ -53703,6 +53752,114 @@
         "pets": "ConstructPetRuntimeValues / DestroyPetRuntimeValues → optional<std::array<PetRuntimeRecord,5>>",
         "browse": "ConstructStallBrowsePetValues / DestroyStallBrowsePetValues → optional<StallBrowseData>",
         "old_helper_calls_in_current_cpp": 0
+      },
+      "historical_array_lifetime_internal_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C59F",
+          "target_entry": "0x5405F5",
+          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
+          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
+        }
+      ],
+      "historical_array_lifetime_indirect_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C597",
+          "parameter": "destructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "同一前缀先递减数量/地址后的current",
+          "relationship": "原析构异常筛选，仅C++代码终止，其他SEH继续搜索"
+        }
+      ],
+      "historical_array_lifetime_scope_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C560",
+          "scope_table": "0x54F950",
+          "previous_level": -1,
+          "filter_entry": "0x53C59C",
+          "handler_entry": "0x53C5A6",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "native": "__try/__except，真实5405F5筛选，原处理仅本帧恢复/尾声"
+        }
+      ],
+      "historical_array_lifetime_parent_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C4DA",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
+          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
+        },
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C55A",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
+          "relationship": "原共享finally继续前缀清理，不重试失败析构"
+        }
+      ],
+      "historical_array_counter_contract_before_lci15": {
+        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "quantity": "S32 remaining直接递减/判负/finally传递",
+        "end_offset": "U32 elementBytes * elementCount",
+        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
+      },
+      "historical_native_sources_before_lci15": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "UnwindLegacyArray_53C560"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "UnwindLegacyArray_53C560",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+        }
+      ],
+      "historical_native_provider_before_lci15": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "UnwindLegacyArray_53C560",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -56836,20 +56993,35 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "path": "src/world/WorldObjectState.cpp",
           "symbols": [
-            "FilterLegacyArrayUnwindException_5405F5"
+            "ConstructWorldObjects"
           ],
-          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+          "relationship": "LCI15现有std::array原生构造及完成前缀清理由C++／MSVC承接，不再调用旧数组helper；异常ABI与完整运行未验。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ],
+          "relationship": "LCI06玩家五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues"
+          ],
+          "relationship": "LCI06独立浏览五宠物数组继续原emplace／reset和原生成员构析，旧数组helper退休。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
-      "boundary": "读取异常代码，非E06D7363返回0，命中尾跳已登记540A5C终止入口；不可改为普通catch后继续或重抛。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。",
+      "boundary": "读取异常代码，非E06D7363返回0，命中尾跳已登记540A5C终止入口；不可改为普通catch后继续或重抛。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；MC01-C3四数组/筛选正文逐字保持，下游540A5C改真实std::terminate；原S32/U32、callback/完成剩余前缀/顺序和SEH传播不变，全部实际SDK/业务/运行未验。 LCI15按用户要求删除无消费者的旧数组服务／筛选文件，原身份保留、当前改指同一std::array／C++原生构析，前缀清理和终止沿宿主MSVC；不宣称硬件SEH／原机器ABI或完整运行等价。",
       "function_chunks": [
         {
           "start": "0x5405F5",
@@ -56857,36 +57029,14 @@
         }
       ],
       "native_provider": {
-        "source": "src/platform/LegacyRuntimeExit.cpp",
-        "symbol": "FilterLegacyArrayUnwindException_5405F5",
-        "source_body_implemented": true,
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "ConstructWorldObjects",
+        "kind": "cpp_std_array_lifecycle",
+        "source_body_implemented": false,
+        "source_lifecycle_adapted": true,
+        "old_helper_or_filter_body_active": false,
         "runtime_verified": false
       },
-      "array_lifetime_internal_call_connections": [
-        {
-          "parent_entry": "0x5405F5",
-          "call_site": "0x540606",
-          "target_entry": "0x540A5C",
-          "target_symbol": "TerminateLegacyRuntime_540A5C",
-          "target_source": "src/platform/LegacyRuntimeError.cpp",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "FilterLegacyArrayUnwindException_5405F5",
-          "arguments": "仅ExceptionCode == E06D7363时无参真实终止",
-          "relationship": "原尾跳终止本体，其他代码return0继续搜索，不用宿主std::terminate"
-        }
-      ],
-      "array_lifetime_parent_call_connections": [
-        {
-          "parent_entry": "0x53C560",
-          "call_site": "0x53C59F",
-          "target_entry": "0x5405F5",
-          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
-          "source": "src/platform/LegacyRuntimeExit.cpp",
-          "symbol": "UnwindLegacyArray_53C560",
-          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
-          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
-        }
-      ],
       "msvc_exit_retired_consumers": {
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "retired_private_role_historical": true,
@@ -56904,6 +57054,60 @@
         "evidence": "doc/cg2d_msvc_crt_exit_evidence.json",
         "business_fields_bytes_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_array_lifetime_internal_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x5405F5",
+          "call_site": "0x540606",
+          "target_entry": "0x540A5C",
+          "target_symbol": "TerminateLegacyRuntime_540A5C",
+          "target_source": "src/platform/LegacyRuntimeError.cpp",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "arguments": "仅ExceptionCode == E06D7363时无参真实终止",
+          "relationship": "原尾跳终止本体，其他代码return0继续搜索，不用宿主std::terminate"
+        }
+      ],
+      "historical_array_lifetime_parent_call_connections_before_lci15": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C59F",
+          "target_entry": "0x5405F5",
+          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
+          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
+        }
+      ],
+      "historical_native_sources_before_lci15": [
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "FilterLegacyArrayUnwindException_5405F5"
+          ],
+          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+        }
+      ],
+      "historical_native_provider_before_lci15": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "FilterLegacyArrayUnwindException_5405F5",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {

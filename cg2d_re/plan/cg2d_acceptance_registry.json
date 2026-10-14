@@ -320,7 +320,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -533,6 +534,20 @@
         "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
         "consumer_calls_changed": false,
         "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -1328,7 +1343,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1577,6 +1593,20 @@
         "return_expression": "static_cast<int>((seed >> 16) & 0x7FFFu)",
         "consumer_calls_changed": false,
         "random_range_body_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -14794,13 +14824,7 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
-        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
-        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -14816,7 +14840,35 @@
       "recorded_on": "2026-10-05",
       "observation": "仅退出表整块的分配/扩容/容量同域切换",
       "expected": "三真实host提供者、原U32/new-mode/handler/上层正常失败和四实际表达式同域，无旧块头",
-      "actual": "三provider/四替换已实施，_msize实际容量，无影子容量或原mode3调用"
+      "actual": "三provider/四替换已实施，_msize实际容量，无影子容量或原mode3调用",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_exit_table_heap_migration_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
+        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
+        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-EXIT-TABLE-HEAP-W-20261005",
@@ -14832,13 +14884,7 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
-        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
-        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -14854,7 +14900,35 @@
       "recorded_on": "2026-10-05",
       "observation": "仅53B40A包装、553170C5适配及退出首末真实消费保持",
       "expected": "同一首末/表，32/4原生槽、扩容失败保旧块，逆序/quick/callable不变，无双退出登记",
-      "actual": "包装/C5/退出正文保持，完整启动/62父/重入/计算alias和生命周期未验"
+      "actual": "包装/C5/退出正文保持，完整启动/62父/重入/计算alias和生命周期未验",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_exit_table_heap_migration_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
+        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
+        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-EXIT-TABLE-HEAP-S-20261005",
@@ -14870,13 +14944,7 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
-        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
-        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
-        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
-        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -14892,7 +14960,35 @@
       "recorded_on": "2026-10-05",
       "observation": "仅46完整变化根/79辅助体、原首末refs与六限定CPP补丁",
       "expected": "原边界/操作数及6补丁外全文/旧语义政策保持，两根adapted标明private差异",
-      "actual": "原体与6补丁归档，现仅局部静态；SDK/机器ABI/运行及故障等价未验"
+      "actual": "原体与6补丁归档，现仅局部静态；SDK/机器ABI/运行及故障等价未验",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-acceptance",
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_exit_table_heap_migration_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#AllocateLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#ResizeLegacyExitTableStorage",
+        "src/platform/LegacyRuntimeExit.cpp#GetLegacyExitTableStorageCapacity",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyExitCallback_53B399",
+        "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTable_53B418",
+        "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
+        "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-STANDARD-STREAM-EXIT-I-20261005",
@@ -17099,7 +17195,7 @@
         "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
         "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
         "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
-        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17111,7 +17207,33 @@
       "recorded_on": "2026-10-05",
       "observation": "一CPP三片段接实际heap/lowio及普通stdio，无新增影子状态/销毁",
       "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
-      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-PREFIX-IO-W-20261005",
@@ -17131,7 +17253,7 @@
         "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
         "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
         "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
-        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17143,7 +17265,33 @@
       "recorded_on": "2026-10-05",
       "observation": "已有共享堆/描述符表真实生产在原C表投影和同TU应用序之前，登记早于后项，普通callback发布callable=0后刷新",
       "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
-      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-PREFIX-IO-S-20261005",
@@ -17163,7 +17311,7 @@
         "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
         "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
         "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
-        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17175,7 +17323,33 @@
       "recorded_on": "2026-10-05",
       "observation": "仅本步三源码片段/四语义补充/新引用和台账限定静态",
       "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
-      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-STDIO-INIT-I-20261005",
@@ -17287,9 +17461,7 @@
         "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_array_counter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
-        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
-        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17301,7 +17473,31 @@
       "recorded_on": "2026-10-05",
       "observation": "一CPP四类片段/六处，两S32数量/判负与直接传剩余数；W32尺寸乘积用普通表达式",
       "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
-      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-ARRAY-COUNTER-W-20261005",
@@ -17317,9 +17513,7 @@
         "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_array_counter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
-        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
-        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17331,7 +17525,31 @@
       "recorded_on": "2026-10-05",
       "observation": "原先递减数量/地址再析构、complete门禁/未完成前缀、SEH/筛选及三组实际父保持",
       "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
-      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-ARRAY-COUNTER-S-20261005",
@@ -17347,9 +17565,7 @@
         "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_array_counter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
-        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
-        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17361,7 +17577,31 @@
       "recorded_on": "2026-10-05",
       "observation": "两原根/必要算术原点、限定源码/两语义和处置/台账及新增引用静态",
       "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
-      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-FILTER-I-20261005",
@@ -17377,12 +17617,9 @@
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
         "doc/cg2d_hosted_exception_filter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
-        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
-        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
-        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
         "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
-        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17394,7 +17631,34 @@
       "recorded_on": "2026-10-05",
       "observation": "两CPP五限定片段：当前x64参数数4，真实安装和两真实收尾",
       "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
-      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-FILTER-W-20261005",
@@ -17410,12 +17674,9 @@
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
         "doc/cg2d_hosted_exception_filter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
-        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
-        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
-        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
         "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
-        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17427,7 +17688,34 @@
       "recorded_on": "2026-10-05",
       "observation": "546CAE后/应用前安装；既有同一宿主退出callback保持先登记，app→stdio→console→恢复filter顺序",
       "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
-      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-FILTER-S-20261005",
@@ -17443,12 +17731,9 @@
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
         "doc/cg2d_hosted_exception_filter_evidence.json",
-        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
-        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
-        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
-        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
         "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
-        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -17460,7 +17745,34 @@
       "recorded_on": "2026-10-05",
       "observation": "四原根/必要数据槽及本机SDK参数合同、两源/四语义/处置与限定引用静态",
       "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
-      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-SHOP-CHOICE-BODY-I-20261005",
@@ -38956,12 +39268,12 @@
         "CMakeLists.txt",
         "src/platform/ClientEntry.cpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
         "src/render/SdlPresenter.cpp",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_hosted_stdio_init_spec.md",
-        "CMakePresets.json"
+        "CMakePresets.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -38973,7 +39285,37 @@
       "recorded_on": "2026-10-07",
       "observation": "原仅三STATIC，真实WinMain已存在，无可执行目标",
       "expected": "唯一WIN32客户端目标/ClientEntry归属及startup-render依赖，无私有入口或重复初始化",
-      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
+      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-acceptance",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_hosted_client_executable_target_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/render/SdlPresenter.cpp",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "CMakePresets.json"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-HOSTED-CLIENT-TARGET-S-20261007",
@@ -38992,12 +39334,12 @@
         "CMakeLists.txt",
         "src/platform/ClientEntry.cpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
         "src/render/SdlPresenter.cpp",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_hosted_stdio_init_spec.md",
-        "CMakePresets.json"
+        "CMakePresets.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "differences": [
         {
@@ -39009,7 +39351,37 @@
       "recorded_on": "2026-10-07",
       "observation": "原仅三STATIC，真实WinMain已存在，无可执行目标",
       "expected": "唯一WIN32客户端目标/ClientEntry归属及startup-render依赖，无私有入口或重复初始化",
-      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
+      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-acceptance",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_hosted_client_executable_target_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/render/SdlPresenter.cpp",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "CMakePresets.json"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-VERSION-ZERO-PREFIX-OWNER-I-20261007",
@@ -59399,8 +59771,6 @@
         "src/platform/LegacyLowIo.cpp",
         "src/platform/LegacyLowIo.hpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
-        "src/platform/LegacyRuntimeExit.hpp",
         "src/platform/LegacyScan.cpp",
         "src/platform/LegacyStdio.cpp",
         "src/platform/LegacyStdio.hpp",
@@ -59408,7 +59778,8 @@
         "src/ui/WindowRuntime.cpp",
         "src/world/WorldUpdateDependencies.hpp",
         "src/world/SceneState.cpp",
-        "include/cg/platform/LegacyStdio.hpp"
+        "include/cg/platform/LegacyStdio.hpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "核33实际服务/32新迁移、规范std::FILE别名、全部字段消费/前置声明/标准流/EOF和错误、库表/旧入口退休、ctime/fpos定宽与关闭owner。",
       "expected": "全部MSVC FILE/描述符同域，真实标准服务/返回，无旧缓冲表或私有初始化假体；已证关闭后的引用不再交宿主fclose，业务参数/字节/格式/RNG保持。",
@@ -59420,17 +59791,8 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-09"
-    },
-    {
-      "id": "E-MSVC-CRT-FILE-FUNC-CRT-S-20261009",
-      "feature_id": "FUNC-CRT",
-      "gate": "S",
-      "epoch": "2026-10-04.1",
-      "baseline_reference": "MC01用户MSVC指令及本组前态固定快照 cg2d-re-msvc-crt-file-history-20261009；现已证FILE/描述符/流消费者",
-      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-file-20261009",
-      "method": "static",
-      "artifacts": [
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_lci15": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
         "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
@@ -59463,6 +59825,61 @@
         "src/world/SceneState.cpp",
         "include/cg/platform/LegacyStdio.hpp"
       ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "id": "E-MSVC-CRT-FILE-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户MSVC指令及本组前态固定快照 cg2d-re-msvc-crt-file-history-20261009；现已证FILE/描述符/流消费者",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-file-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
       "observation": "核33实际服务/32新迁移、规范std::FILE别名、全部字段消费/前置声明/标准流/EOF和错误、库表/旧入口退休、ctime/fpos定宽与关闭owner。",
       "expected": "全部MSVC FILE/描述符同域，真实标准服务/返回，无旧缓冲表或私有初始化假体；已证关闭后的引用不再交宿主fclose，业务参数/字节/格式/RNG保持。",
       "actual": "33实际提供者、39私有定义退休（共享calloc只移stdio消费者），旧进程入口源和C表退出当前链；日历/time32及所有资源/业务字段保持，唯一规范公共头/私有转引。限定静态通过，完整CRT/owner/业务/SDK与运行门禁仍开放。",
@@ -59473,7 +59890,54 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-09"
+      "recorded_on": "2026-10-09",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "CMakeLists.txt",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "src/AnimationCleanup.cpp",
+        "src/AnimationRuntime.cpp",
+        "src/AnimationRuntimeState.hpp",
+        "src/Blacklist.cpp",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSavedState.cpp",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyFileBuffer.cpp",
+        "src/platform/LegacyFileBuffer.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyIos.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyLowIo.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyRuntimeExit.hpp",
+        "src/platform/LegacyScan.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/platform/LegacyStdio.hpp",
+        "src/platform/LegacyTime.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "include/cg/platform/LegacyStdio.hpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-CPP-FUNC-CRT-I-20261010",
@@ -59548,12 +60012,12 @@
         "src/platform/LegacyMultibyte.cpp",
         "src/platform/LegacyMultibyte.hpp",
         "src/platform/LegacyStringCompareState.hpp",
-        "src/platform/LegacyRuntimeExit.cpp",
         "src/platform/MainLoopSupport.cpp",
         "src/platform/MapEffectMath.cpp",
         "src/platform/LegacyAudioMath.cpp",
         "CMakeLists.txt",
-        "plan/measure_cg2d.ps1"
+        "plan/measure_cg2d.ps1",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "核四CPP/三头及全部导出/数据/引用、旧格式slot/trap/三个U64辅助，两真实读取消费者及MainLoop除法、标准数学源/现接口保持。",
       "expected": "数值格式/转换/旧环境与错误私有核归MSVC，不保第二套gate/table/对象；两实际intrinsic读宽度/序/借用保持，声明定义同源，业务参数/格式/字段/RNG及所有适用门禁不变。",
@@ -59565,7 +60029,37 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyAudioMath.cpp",
+        "CMakeLists.txt",
+        "plan/measure_cg2d.ps1"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-NUMERIC-FUNC-CRT-S-20261010",
@@ -59584,12 +60078,12 @@
         "src/platform/LegacyMultibyte.cpp",
         "src/platform/LegacyMultibyte.hpp",
         "src/platform/LegacyStringCompareState.hpp",
-        "src/platform/LegacyRuntimeExit.cpp",
         "src/platform/MainLoopSupport.cpp",
         "src/platform/MapEffectMath.cpp",
         "src/platform/LegacyAudioMath.cpp",
         "CMakeLists.txt",
-        "plan/measure_cg2d.ps1"
+        "plan/measure_cg2d.ps1",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "核四CPP/三头及全部导出/数据/引用、旧格式slot/trap/三个U64辅助，两真实读取消费者及MainLoop除法、标准数学源/现接口保持。",
       "expected": "数值格式/转换/旧环境与错误私有核归MSVC，不保第二套gate/table/对象；两实际intrinsic读宽度/序/借用保持，声明定义同源，业务参数/格式/字段/RNG及所有适用门禁不变。",
@@ -59601,7 +60095,37 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/MainLoopSupport.cpp",
+        "src/platform/MapEffectMath.cpp",
+        "src/platform/LegacyAudioMath.cpp",
+        "CMakeLists.txt",
+        "plan/measure_cg2d.ps1"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-EXIT-FUNC-CRT-I-20261010",
@@ -59616,8 +60140,6 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "CMakeLists.txt",
-        "src/platform/LegacyRuntimeExit.cpp",
-        "src/platform/LegacyRuntimeExit.hpp",
         "src/platform/LegacyRuntimeError.cpp",
         "src/platform/LegacyRuntimeError.hpp",
         "src/platform/LegacyMouse.cpp",
@@ -59625,7 +60147,8 @@
         "src/platform/CommandOptions.cpp",
         "src/world/WorldObjectState.cpp",
         "src/world/SceneState.cpp",
-        "src/ui/WindowRuntime.cpp"
+        "src/ui/WindowRuntime.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "核private导出/槽的实际消费者、MSVC初始filter/终止服务、两致命入口255及三失败参数9/9/8与heap28、四数组正文/真实业务回调顺序、旧层退休和当前来源。",
       "expected": "实际CRT入口/compiler管理私有退出/信号/filter/stdio；三真实API、数组/业务回调不降为fake或第二套表；_Exit诊断差异具名，业务宽度/资源/顺序/RNG保持。",
@@ -59649,17 +60172,8 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
-    },
-    {
-      "id": "E-MSVC-CRT-EXIT-FUNC-CRT-S-20261010",
-      "feature_id": "FUNC-CRT",
-      "gate": "S",
-      "epoch": "2026-10-04.1",
-      "baseline_reference": "MC01用户CRT直接MSVC/C3决议；迁移前完整源/数据快照 cg2d-re-msvc-crt-exit-history-20261010",
-      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-exit-20261010",
-      "method": "static",
-      "artifacts": [
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
         "doc/cg2d_msvc_crt_exit_evidence.json",
@@ -59675,6 +60189,44 @@
         "src/world/SceneState.cpp",
         "src/ui/WindowRuntime.cpp"
       ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "id": "E-MSVC-CRT-EXIT-FUNC-CRT-S-20261010",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "MC01用户CRT直接MSVC/C3决议；迁移前完整源/数据快照 cg2d-re-msvc-crt-exit-history-20261010",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-exit-20261010",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/CommandOptions.cpp",
+        "src/world/WorldObjectState.cpp",
+        "src/world/SceneState.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
       "observation": "核private导出/槽的实际消费者、MSVC初始filter/终止服务、两致命入口255及三失败参数9/9/8与heap28、四数组正文/真实业务回调顺序、旧层退休和当前来源。",
       "expected": "实际CRT入口/compiler管理私有退出/信号/filter/stdio；三真实API、数组/业务回调不降为fake或第二套表；_Exit诊断差异具名，业务宽度/资源/顺序/RNG保持。",
       "actual": "退休25定义/2信号文件，三MSVC适配真实_Exit255或terminate，四数组源码逐字保持；21 privateF host/3终止适配，62当前语义对齐及所有真实业务std::atexit保留。限定静态；旧MessageBox/R600x/钩子不继续解析，完整运行未验。",
@@ -59697,7 +60249,37 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyRuntimeExit.hpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/CommandOptions.cpp",
+        "src/world/WorldObjectState.cpp",
+        "src/world/SceneState.cpp",
+        "src/ui/WindowRuntime.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-HEAP-FUNC-CRT-I-20261010",
@@ -59719,8 +60301,8 @@
         "src/platform/LegacyRuntimeError.hpp",
         "plan/measure_cg2d.ps1",
         "src/platform/CommandOptions.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
-        "src/platform/LegacyTime.cpp"
+        "src/platform/LegacyTime.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "三公开接口无当前src/include业务调用；旧模式/handler仅库内使用，唯一heap初始化/28支路退休。核实际SDK服务、旧源退出、业务及数据来源逐字守恒。",
       "expected": "真实calloc/realloc/_msize；MSVC管理数量/零/容量/new-mode与初始化，不造旧handler/模式/成功初始化器，公共Malloc/Free及所有业务owner保持。",
@@ -59736,7 +60318,36 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/LegacyMemory.cpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/CommandOptions.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyTime.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-HEAP-FUNC-CRT-S-20261010",
@@ -59758,8 +60369,8 @@
         "src/platform/LegacyRuntimeError.hpp",
         "plan/measure_cg2d.ps1",
         "src/platform/CommandOptions.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
-        "src/platform/LegacyTime.cpp"
+        "src/platform/LegacyTime.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "三公开接口无当前src/include业务调用；旧模式/handler仅库内使用，唯一heap初始化/28支路退休。核实际SDK服务、旧源退出、业务及数据来源逐字守恒。",
       "expected": "真实calloc/realloc/_msize；MSVC管理数量/零/容量/new-mode与初始化，不造旧handler/模式/成功初始化器，公共Malloc/Free及所有业务owner保持。",
@@ -59775,7 +60386,36 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-heap-source-state-20261010",
+        "doc/cg2d_msvc_crt_heap_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/LegacyMemory.cpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/CommandOptions.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyTime.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-MULTIBYTE-FUNC-CRT-I-20261010",
@@ -59800,7 +60440,7 @@
         "src/platform/LegacyRuntimeError.hpp",
         "plan/measure_cg2d.ps1",
         "src/platform/ClientEntry.cpp",
-        "src/platform/LegacyRuntimeExit.cpp"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "全src/include核旧ctype/多字节状态、私有argv/环境及导出当前消费者；Input两ASCII非零分类有真实调用，其余只库内或旧前置。",
       "expected": "两标准分类真实MSVC、业务Input/应用命令解析/WinMain/数组/登记保持；旧库表/重复初始化/专用失败无影子或空体。",
@@ -59816,7 +60456,38 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "CMakeLists.txt",
+        "src/Input.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/CommandOptions.cpp",
+        "include/cg/platform/CommandOptions.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyRuntimeExit.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-MULTIBYTE-FUNC-CRT-S-20261010",
@@ -59841,7 +60512,7 @@
         "src/platform/LegacyRuntimeError.hpp",
         "plan/measure_cg2d.ps1",
         "src/platform/ClientEntry.cpp",
-        "src/platform/LegacyRuntimeExit.cpp"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "全src/include核旧ctype/多字节状态、私有argv/环境及导出当前消费者；Input两ASCII非零分类有真实调用，其余只库内或旧前置。",
       "expected": "两标准分类真实MSVC、业务Input/应用命令解析/WinMain/数组/登记保持；旧库表/重复初始化/专用失败无影子或空体。",
@@ -59857,7 +60528,38 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "CMakeLists.txt",
+        "src/Input.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/CommandOptions.cpp",
+        "include/cg/platform/CommandOptions.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyRuntimeExit.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-RESIDUAL-FUNC-CRT-S-20261010",
@@ -59874,8 +60576,8 @@
         "src/platform/LegacyStdio.cpp",
         "include/cg/platform/LegacyStdio.hpp",
         "src/platform/LegacyMouse.cpp",
-        "src/platform/LegacyRuntimeExit.cpp",
-        "src/platform/LegacyFormat.cpp"
+        "src/platform/LegacyFormat.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ],
       "observation": "核当前549147只有定义/声明，旧filebuf已退休；精确删原多BYTE回退，其余stdio/真实业务源码不变。排序仅记录已证比较关系冲突，未改代码/不计通过。",
       "expected": "无私有多BYTE回退或同名空体；实际单BYTE MSVC服务/FILE/业务参数与owner保持，原证据与SDK/运行未验边界保留。",
@@ -59887,7 +60589,31 @@
         }
       ],
       "result": "pass",
-      "recorded_on": "2026-10-10"
+      "recorded_on": "2026-10-10",
+      "historical_artifacts_before_lci15": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-residual-source-state-20261010",
+        "doc/cg2d_msvc_crt_residual_evidence.json",
+        "src/platform/LegacyStdio.cpp",
+        "include/cg/platform/LegacyStdio.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/platform/LegacyFormat.cpp"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-MSVC-CRT-SORT-CONSISTENT-FUNC-CRT-I-20261010",
@@ -70064,7 +70790,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-implicit-tail-padding",
         "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
       ]
     },
     {
@@ -76872,8 +77599,23 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
-      ]
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C560",
@@ -76881,8 +77623,23 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision"
-      ]
+        "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "array_services_retired_lci15": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
+        "retired_files": [
+          "src/platform/LegacyRuntimeExit.cpp",
+          "src/platform/LegacyRuntimeExit.hpp"
+        ],
+        "native_lifecycle_changed": false,
+        "consumer_calls_changed": false,
+        "old_seh_filter_active": false,
+        "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0014503A",

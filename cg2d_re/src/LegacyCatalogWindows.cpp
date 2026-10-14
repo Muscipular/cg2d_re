@@ -143,7 +143,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
         gLegacyTradeTargetSelectionCC4D48 = selected;
         static_cast<void>(network::Sub_511FF0(socket, selected));
         const char* const name = gLegacyTradeTargetNamesCB1D1C[gLegacyTradeTargetSelectionCC4D48].data();
-        static_cast<void>(ui::detail::Sub_4E5620(name));
+        static_cast<void>(ui::detail::WindowTrade_ReceiveStart(name));
     } else if ((cancelState & 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyTradeTargetPanel582E08.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -227,7 +227,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
     if (previewAction != nullptr) {
         SetYobiActionFlag2(previewAction, false);
     }
-    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+    if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -387,7 +387,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
     if (previewAction != nullptr) {
         SetYobiActionFlag2(previewAction, false);
     }
-    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+    if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -530,7 +530,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     if (previewAction != nullptr) {
         SetYobiActionFlag2(previewAction, false);
     }
-    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+    if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -667,7 +667,7 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         }
         return static_cast<std::uint32_t>(result);
     }
-    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+    if (ui::detail::WindowProfile_CheckDistance(2, 2) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

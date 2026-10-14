@@ -2023,7 +2023,7 @@ void Sub_48ABC0(YobiAction* const action)
         const std::int32_t sourceElement = action->nameY;
         const std::int32_t maximum = action->field1D0;
         const std::int32_t sourceWindow = action->nameX;
-        static_cast<void>(ui::detail::Sub_48A830(
+        static_cast<void>(ui::detail::WindowQuantity_Open(
             sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
         static_cast<void>(MarkDeath(action));
     }
@@ -2045,7 +2045,7 @@ YobiAction* Sub_48AC60(
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (action == nullptr) {
-        static_cast<void>(ui::detail::Sub_48A830(
+        static_cast<void>(ui::detail::WindowQuantity_Open(
             sourceWindow, sourceElement, imageNo, maximum, value14, initialValue, callback));
         return nullptr;
     }
@@ -2122,7 +2122,7 @@ void Sub_4ABE60(YobiAction* const action)
         const std::int32_t value14 =
             action->mapX1E0.value();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
-        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
+        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
@@ -2136,7 +2136,7 @@ YobiAction* Sub_4ABEF0(
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
     if (action == nullptr) {
-        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
+        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
@@ -2211,7 +2211,7 @@ void Sub_4ACDF0(YobiAction* const action)
         const std::int32_t value14 =
             action->mapX1E0.value();
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
-        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
+        static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
@@ -2225,7 +2225,7 @@ YobiAction* Sub_4ACE80(
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
     if (action == nullptr) {
-        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
+        static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_ItemStorage];
@@ -21812,7 +21812,7 @@ void InitializeBattleScene_4383F0()
     gYobiScreenOffsetRising = 0;
     gYobiScreenOffsetAmplitude = 0;
     gYobiUpdateGateMode = 0;
-    ui::detail::Sub_496570();
+    ui::detail::WindowBattleCommand_SnapshotPetVitals();
 }
 
 // 原函数：0x00438290。
@@ -32504,7 +32504,7 @@ void UpdateBattleAction223_413FE0(YobiAction* const action)
         return;
     }
     if (position == -2 && gBattleSnapshotPetIndex5ABBFC >= 0) {
-        ui::detail::Sub_4965D0();
+        ui::detail::WindowBattleCommand_SyncActorVitals();
         gBattleSnapshotPetIndex5ABBFC = -1;
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -35438,7 +35438,7 @@ std::int32_t Sub_4EE130()
 {
     const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
-    static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
+    static_cast<void>(ui::detail::WindowProfile_SaveOrigin(playerX, playerY));
     const std::int32_t y = gLegacyGatherPanel583B00.y + 132;
     const std::int32_t x = gLegacyGatherPanel583B00.x + 136;
     const std::int32_t playerImage = world::detail::ReadPlayerImageNo();
@@ -35856,7 +35856,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
             action->flags &= ~2u;
         }
     }
-    if (ui::detail::Sub_4D3040(1, 1) != 0) {
+    if (ui::detail::WindowProfile_CheckDistance(1, 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyGatherPanel583B00.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

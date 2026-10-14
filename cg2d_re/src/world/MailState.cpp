@@ -1267,7 +1267,7 @@ void Sub_50F450(
     if (third != -1) {
         record.entries410[2].value04 = third;
     }
-    static_cast<void>(ui::Sub_5342E0());
+    static_cast<void>(ui::WindowProfileReply_Open());
 }
 
 // 原函数：0x005348A0。

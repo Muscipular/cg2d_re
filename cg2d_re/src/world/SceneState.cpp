@@ -432,9 +432,10 @@ std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全�
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
 // 46AA00的无参调用适配；原4B0F10不读参数，共用UI回调的真实零返回实现。
-std::int32_t Sub_4B0F10()
+// 原函数：0x004B0F10。
+std::int32_t WindowElement_NoOp()
 {
-    return ui::detail::Sub_4B0F10(0, 0);
+    return ui::detail::WindowElement_NoOp(0, 0);
 }
 
 // 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。
@@ -3796,7 +3797,7 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
     char memo[256];
     char description[768];
     for (std::int32_t index = 0; index < 28; ++index) {
-        static_cast<void>(ui::detail::Sub_4FB920(index));
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
         const std::int32_t nameField = 2 + index * 13;
         network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
@@ -3807,7 +3808,7 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
             ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
         }
         if (index >= 8) {
-            ui::detail::Sub_4E54E0(1, index - 8);
+            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
         }
     }
 }
@@ -3823,7 +3824,7 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
     char description[768];
     std::int32_t field = 1;
     std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-    static_cast<void>(ui::detail::Sub_4FB920(index));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
     std::int32_t status =
         network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     while (status != 1) {
@@ -3834,12 +3835,12 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
             ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
         }
         if (index >= 8) {
-            ui::detail::Sub_4E54E0(1, index - 8);
-            ui::detail::Sub_4E0100(1, index - 8);
+            ui::detail::WindowTrade_CopyOwnItem(1, index - 8);
+            ui::detail::WindowTrade_CopyDisplayItems(1, index - 8);
         }
         field += 14;
         index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        static_cast<void>(ui::detail::Sub_4FB920(index));
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
         status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     }
 }
@@ -3861,7 +3862,7 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     if (second < 8) {
         right->flags |= 0x80u;
     }
-    ui::detail::Sub_48BA60(first, second);
+    ui::detail::WindowItemDrag_RemapHover(first, second);
 }
 
 // 原函数：0x0051B5F0。
@@ -3888,10 +3889,10 @@ void Sub_50C900(
         return;
     }
     Sub_51B530(first, second);
-    static_cast<void>(ui::detail::Sub_4FB920(first));
-    static_cast<void>(ui::detail::Sub_4FB920(second));
-    ui::detail::Sub_4E5DA0(1, first, second);
-    ui::detail::Sub_4E1840(1, first, second);
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
+    ui::detail::WindowTrade_SwapRemoteItems(1, first, second);
+    ui::detail::WindowTrade_SwapDisplayItems(1, first, second);
 }
 
 // 原函数：0x0051B630。
@@ -7236,7 +7237,7 @@ void DrawBattleScene_43CBB0()
                 } while (index < 20);
             }
             gBattleSnapshotPetIndex5ABBFC = Sub_43C4B0();
-            ui::detail::Sub_4965D0();
+            ui::detail::WindowBattleCommand_SyncActorVitals();
             if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[cg::ui::WindowId_Spectator].window == nullptr) {
                 static_cast<void>(ui::CreateWindowAnimation_475AA0(cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -7249,7 +7250,7 @@ void DrawBattleScene_43CBB0()
         break;
     }
     case 3:
-        ui::detail::Sub_43C950();
+        ui::detail::WindowBattleStateNotice_Open();
         input::ProcessKeyInput_4596D0();
         static_cast<void>(YobiUpdateAll_404C50());
         static_cast<void>(SortBattleActions_405C30());
@@ -7281,7 +7282,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(ui::RenderWindows_504120());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        ui::detail::Sub_498520();
+        ui::detail::WindowBattleCommand_Dispatch();
         RenderChara_521F20();
         Sub_458F40();
         break;
@@ -7825,7 +7826,7 @@ std::int32_t __cdecl Sub_46AA00()
             gValueC82236 = 1;
             break;
         }
-        if (Sub_4B0F10() != 0) {
+        if (WindowElement_NoOp() != 0) {
             result = 1;
             const std::int32_t nextStep = step + 1;
             gValueC82230 = 1;
@@ -9490,8 +9491,8 @@ std::uint8_t Sub_469C90()
         const std::int32_t targetX = gPlayerMoveTargetX;
         const std::int32_t objectIndex = Sub_445030(targetX, targetY, 8, 0x1000);
         if (objectIndex >= 0) {
-            static_cast<void>(ui::Sub_4CD3E0());
-            static_cast<void>(ui::Sub_4CD400());
+            static_cast<void>(ui::WindowStallBrowse_RequestClose());
+            static_cast<void>(ui::WindowOwnStall_RequestClose());
             static_cast<void>(network::Sub_512190(platform::gConnectionSocket, objectIndex));
         }
         Sub_46B370();
@@ -9608,7 +9609,7 @@ std::uint16_t Sub_469FC0()
                         if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
                             static_cast<void>(Sub_46AA00());
                         }
-                        static_cast<void>(ui::Sub_4CD3E0());
+                        static_cast<void>(ui::WindowStallBrowse_RequestClose());
                         static_cast<void>(Sub_46AC10());
                     }
                     return std::bit_cast<std::int16_t>(gValueC82202);

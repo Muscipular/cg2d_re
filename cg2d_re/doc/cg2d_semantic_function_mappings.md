@@ -555,8 +555,8 @@ classification_references引用，不复制另一套排除结论。当前九项�
 | 404D00/404D10 | 5 | MarkDeath |
 | 43D770/43D78F | 7 | ConstructWorldObjects、WorldObjectsStaticInitializer |
 | 43D7A0/43D7BA | 6 | DestroyWorldObjects、WorldObjectsStaticInitializer |
-| 44B250/44B25E | 7 | Sub_44A580、Sub_44AA90、Sub_476740、RenderInput_4590E0、Sub_4A7590、Sub_4A7640 |
-| 44B600/44B606 | 2 | Sub_493CB0 |
+| 44B250/44B25E | 7 | Sub_44A580、Sub_44AA90、Sub_476740、RenderInput_4590E0、WindowChat_DrawInput、WindowChat_DrawFixedWidthInput |
+| 44B600/44B606 | 2 | WindowSettings_RefreshDisplayPanel |
 | 470A9F/470AAA | 3 | WindowStatusBar_Update |
 | 47752C/477537 | 3 | WindowPlayerTitles_Update |
 | 48C1CF/48C1DA | 3 | WindowPetList_Update |
@@ -566,7 +566,7 @@ classification_references引用，不复制另一套排除结论。当前九项�
 | 4C9F08/4C9F13 | 3 | WindowProfileCategory_Update |
 | 4CA438/4CA443 | 3 | WindowProfileSearch_Update |
 | 4CAF88/4CAF93 | 3 | WindowProfileView_Update |
-| 4C2634/4C26AF | 36 | Sub_4C2630 |
+| 4C2634/4C26AF | 36 | WindowCrystalShop_ButtonPreviousPage |
 | 4CD240/4CD24A | 2 | StallBrowsePetsStaticInitializer、ConstructStallBrowsePetValues、DestroyStallBrowsePetValues |
 
 - 404D00只在指针非空时写独立deathFlag=1，原指针原样返回；现有MarkDeath

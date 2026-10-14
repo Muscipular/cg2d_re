@@ -256,14 +256,14 @@ void Sub_50F280(const std::uintptr_t, const std::int32_t key)
     ResetGuildRuntimeFields();
     static_cast<void>(world::detail::Sub_5194C0());
     static_cast<void>(world::detail::Sub_519550());
-    static_cast<void>(ui::Sub_4AFF00());
+    static_cast<void>(ui::WindowGuildDetails_RequestClose());
 }
 
 // 原函数：0x00532D80。
 std::int32_t Sub_532D80()
 {
     ResetGuildRuntimeFields();
-    return ui::Sub_4AFF00();
+    return ui::WindowGuildDetails_RequestClose();
 }
 
 // 原函数：0x0052FB60。

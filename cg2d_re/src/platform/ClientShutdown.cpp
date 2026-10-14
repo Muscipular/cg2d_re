@@ -30,7 +30,7 @@ int Sub_454EE0();
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
 std::int32_t Sub_4705F0()
 {
-    static_cast<void>(ui::detail::Sub_4C9130());
+    static_cast<void>(ui::detail::WindowRuntime_SaveSettings());
     world::detail::Sub_5186A0();
     return ui::CloseAllWindows_472190();
 }

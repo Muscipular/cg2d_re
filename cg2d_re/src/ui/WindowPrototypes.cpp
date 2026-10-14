@@ -122,7 +122,7 @@ WindowGraphicData gWindowGraphic57AE68 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE80。
 WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE98。
 WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, world::detail::gLogFileName554648,
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648),
 };
 WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
@@ -1105,7 +1105,7 @@ WindowGraphicData gWindowGraphic575888 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5758A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758A0。
 WindowGraphicData gWindowGraphic5758B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758B8。
 WindowGraphicData gWindowGraphic5758D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005758D0。
-constexpr char kWindowShopRemaining585DCC[] = "剩餘 %2d 個"; // 原常量参考：0x00585DCC。
+constexpr wchar_t kWindowShopRemaining585DCC[] = L"剩餘 %2d 個"; // 原常量参考：0x00585DCC。
 WindowTextPrototype gWindowText5758F8 { // 原全局：0x005758F8。
     {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
 };

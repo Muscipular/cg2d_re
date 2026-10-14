@@ -552,7 +552,7 @@ bool IsRejectedInputText_404060(const std::wstring_view text)
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
     const std::int32_t length = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(std::strlen(legacyText)));
-    if (const_cast<char*>(std::strstr(legacyText, cg::text::ToGbk("　").c_str())) != nullptr) {
+    if (const_cast<char*>(std::strstr(legacyText, cg::text::ToGbk(L"　").c_str())) != nullptr) {
         return true;
     }
     if (length == 0) {
@@ -1097,8 +1097,8 @@ constexpr auto kFirstSeparator_5548CC = [] { // 原常量参考：0x005548CC。
     return text;
 }();
 
-constexpr char kDateTitle_55488C[] = // 原常量参考：0x0055488C。
-    R"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
+constexpr wchar_t kDateTitle_55488C[] = // 原常量参考：0x0055488C。
+    LR"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
 )";
 
 constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
@@ -1113,8 +1113,8 @@ constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
     return text;
 }();
 
-constexpr char kSessionTime_554820[] = // 原常量参考：0x00554820。
-    R"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
+constexpr wchar_t kSessionTime_554820[] = // 原常量参考：0x00554820。
+    LR"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
 )";
 
 constexpr auto kAfterSession_5547DC = [] { // 原常量参考：0x005547DC。

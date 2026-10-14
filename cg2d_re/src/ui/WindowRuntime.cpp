@@ -383,37 +383,37 @@ const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{ // 
     {243206, 243207, 243208},
     {243209, 243210, 243211},
 }};
-const std::array<const char*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
-    "指定金額。",
-    "指定提領金額。",
-    "指定金額數量。",
-    "減少一個位數。",
-    "指定全部金額。",
-    "把指定金額歸零。",
+const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
+    L"指定金額。",
+    L"指定提領金額。",
+    L"指定金額數量。",
+    L"減少一個位數。",
+    L"指定全部金額。",
+    L"把指定金額歸零。",
 }};
-const std::array<const char*, 6> gNumberWindowHints57DC9C {{ // 原全局：0x0057DC9C。
-    "指定金額。",
-    "將指定物金額放地上。",
-    "請指定金額。",
-    "減少一位數。",
-    "指定全額。",
-    "將指定金額歸零。",
+const std::array<const wchar_t*, 6> gNumberWindowHints57DC9C {{ // 原全局：0x0057DC9C。
+    L"指定金額。",
+    L"將指定物金額放地上。",
+    L"請指定金額。",
+    L"減少一位數。",
+    L"指定全額。",
+    L"將指定金額歸零。",
 }};
-const std::array<const char*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
-    "指定金額。",
-    "指定存入金額。",
-    "請指定金額。",
-    "減少一個位數。",
-    "指定全部金額。",
-    "把指定金額歸零。",
+const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
+    L"指定金額。",
+    L"指定存入金額。",
+    L"請指定金額。",
+    L"減少一個位數。",
+    L"指定全部金額。",
+    L"把指定金額歸零。",
 }};
-const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
-    "指定金額。",
-    "指定提領金額。",
-    "指定金額數量。",
-    "減少一個位數。",
-    "指定全部金額。",
-    "把指定金額歸零。",
+const std::array<const wchar_t*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
+    L"指定金額。",
+    L"指定提領金額。",
+    L"指定金額數量。",
+    L"減少一個位數。",
+    L"指定全部金額。",
+    L"把指定金額歸零。",
 }};
 static constexpr wchar_t kStoragePetEquipmentWarning587900[] = // 原常量参考：0x00587900。
     L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。";
@@ -874,17 +874,15 @@ WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0�
     {{&input::gInputContextCA0180}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
-constexpr char kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
-    "使用迷你郵件發信需要花費魔幣%dG";
+constexpr wchar_t kMiniMailCostHint588588[] = // 原常量参考：0x00588588。
+    L"使用迷你郵件發信需要花費魔幣{}G";
 
-// 原580870..580900，保留加载时已有的姓名与两行正文原字节。
+// 原580870..580900：解析后的姓名与两行正文，GBK字节容量仅约束输入边界。
 struct Window56TextStorage {
-    char name[52];
-    char messages[2][46];
+    std::wstring name;
+    std::array<std::wstring, 2> messages;
 };
-static_assert(offsetof(Window56TextStorage, messages) == 0x34);
-static_assert(sizeof(Window56TextStorage) == 0x90);
-Window56TextStorage gWindow56Texts580870 {"NPCNAME", {"MESSAGE", "MESSAGE"}}; // 原全局：0x00580870。
+Window56TextStorage gWindow56Texts580870 {L"NPCNAME", {L"MESSAGE", L"MESSAGE"}}; // 原全局：0x00580870。
 std::int32_t gWindow56DialogTypeCB1DE0 = 0; // 原全局：0x00CB1DE0。
 std::int32_t gWindow56RequestCF49C0 = 0; // 原全局：0x00CF49C0。 创建保留，确认请求实际读取共享对话参数。
 std::int32_t gWindow56TargetC8AF60 = 0; // 原全局：0x00C8AF60。
@@ -4884,17 +4882,17 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     constexpr std::array<std::int32_t, 3> normalImages {246048, 243030, 243033};
     constexpr std::array<std::int32_t, 3> hoverImages {246047, 243032, 243035};
     constexpr std::array<std::int32_t, 3> commands {1, 16, 32};
-    constexpr const char* hints[] {
-        "使用關鍵字檢索",
-        "上一頁",
-        "下一頁",
+    constexpr const wchar_t* hints[] {
+        L"使用關鍵字檢索",
+        L"上一頁",
+        L"下一頁",
     };
     const std::int32_t position = index - 3;
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImages[position];
-        gHoverTextD68AE8 = cg::text::ToUtf16(hints[position]);
+        gHoverTextD68AE8 = hints[position];
         consumed = 1;
     } else {
         graphic->imageNo = normalImages[position];
@@ -5021,9 +5019,9 @@ std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244253;
-        char hint[768];
-        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
-        gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        std::wstring hint;
+        cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244251;
@@ -5116,9 +5114,9 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 244253;
-        char hint[768];
-        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
-        gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+        std::wstring hint;
+        cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
         graphic->imageNo = 244251;
@@ -5220,9 +5218,9 @@ std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
     case 17: {
         const bool visible = world::detail::SelectedProfileValue04() != 0;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(visible
-                ? "不公開玩家簡介"
-                : "公開玩家簡介");
+            gHoverTextD68AE8 = visible
+                ? L"不公開玩家簡介"
+                : L"公開玩家簡介";
             consumed = 1;
         }
         if ((state & 2) != 0) {
@@ -5238,16 +5236,16 @@ std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
     case 20:
     case 21: {
         constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};
-        constexpr const char* hints[] {
-            "切換成玩家狀態視窗。",
-            "切換成玩家明細視窗。",
-            "切換成玩家稱號視窗。",
+        constexpr const wchar_t* hints[] {
+            L"切換成玩家狀態視窗。",
+            L"切換成玩家明細視窗。",
+            L"切換成玩家稱號視窗。",
         };
         const std::int32_t position = index - 19;
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = images[position] + 2;
-            gHoverTextD68AE8 = cg::text::ToUtf16(hints[position]);
+            gHoverTextD68AE8 = hints[position];
             consumed = 1;
         } else {
             graphic->imageNo = images[position];
@@ -7627,7 +7625,7 @@ bool Sub_4B1900(
 // NPI01：原474550完整540条；元素X/Y先坐标，四绘制按原descriptor/图号先后取样，逐键CryptInt/优先级及AL结果保。
 std::uint8_t Sub_474550(
     WindowInstance* const window, const std::int32_t index, const std::int32_t state,
-    const std::int32_t maximum, const std::uint8_t layer, const char* const* const hints,
+    const std::int32_t maximum, const std::uint8_t layer, const wchar_t* const* const hints,
     const std::uint8_t flags, const std::uint32_t color)
 {
     WindowElement* const elements = window->elements;
@@ -7656,7 +7654,7 @@ std::uint8_t Sub_474550(
             const std::int32_t left = x + column * 24;
             std::int32_t imageState = 0;
             if (hit(left, bottom - 19, left + 21, bottom)) {
-                gHoverTextD68AE8 = cg::text::ToUtf16(hints[0]);
+                gHoverTextD68AE8 = hints[0];
                 imageState = (state & 8) != 0 ? 1 : 2;
                 if ((state & 2) != 0) {
                     selected = digit;
@@ -7670,7 +7668,7 @@ std::uint8_t Sub_474550(
     }
     std::int32_t imageState = 0;
     if (hit(x, y + 58, x + 21, y + 77)) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(hints[0]);
+        gHoverTextD68AE8 = hints[0];
         imageState = (state & 8) != 0 ? 1 : 2;
         if ((state & 2) != 0) {
             selected = 0;
@@ -7683,14 +7681,14 @@ std::uint8_t Sub_474550(
     imageState = 0;
     if (hit(x + 48, y + 58, x + 69, y + 77)) {
         if ((flags & 1u) != 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(hints[1]);
+            gHoverTextD68AE8 = hints[1];
             imageState = (state & 8) != 0 ? 1 : 2;
             if ((state & 2) != 0) {
                 selected = 13;
             }
         } else {
             const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
-            gHoverTextD68AE8 = cg::text::ToUtf16(hints[value > 0 ? 1 : 2]);
+            gHoverTextD68AE8 = hints[value > 0 ? 1 : 2];
             imageState = (state & 8) != 0 ? 1 : 2;
             const std::int32_t current = std::bit_cast<std::int32_t>(window->elements[index].state);
             if (current > 0) {
@@ -7714,7 +7712,7 @@ std::uint8_t Sub_474550(
         const std::int32_t centerY = y + 28 + row * 20;
         imageState = 0;
         if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(hints[row + 3]);
+            gHoverTextD68AE8 = hints[row + 3];
             imageState = (state & 8) != 0 ? 1 : 2;
             if ((state & 2) != 0) {
                 selected = row + 10;
@@ -8579,18 +8577,18 @@ bool Sub_4C7380(
     if (hovered) {
         const std::int32_t page = state->value60;
         if (page == 0) {
-            gHoverTextD68AE8 = cg::text::ToUtf16(tab == 0
-                ? "開啟裝備視窗。"
-                : "開啟寵物裝備。");
+            gHoverTextD68AE8 = tab == 0
+                ? L"開啟裝備視窗。"
+                : L"開啟寵物裝備。";
         } else if (page > 1 && page <= 3) {
             if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
-                gHoverTextD68AE8 = cg::text::ToUtf16(tab == 0
-                    ? "關閉裝備視窗。"
-                    : "關閉寵物裝備。");
+                gHoverTextD68AE8 = tab == 0
+                    ? L"關閉裝備視窗。"
+                    : L"關閉寵物裝備。";
             } else {
-                gHoverTextD68AE8 = cg::text::ToUtf16(tab == 0
-                    ? "切換到身上裝備。"
-                    : "切換寵物裝備。");
+                gHoverTextD68AE8 = tab == 0
+                    ? L"切換到身上裝備。"
+                    : L"切換寵物裝備。";
             }
         }
     }
@@ -10086,14 +10084,14 @@ std::int32_t Sub_49E1D0(
     if (button != 0) {
         gHoverTextD68AE8 = L"不治療了。";
     }
-    std::array<char, 192> buffer;
+    std::wstring buffer;
     for (std::int32_t index = 0; index < 7; ++index) {
         if (gHealingDialogRecordsD672F0[index].level != 0) {
-            std::sprintf(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
+            cg::text::FormatTo(buffer, L"{:7} G", gHealingDialogRecordsD672F0[index].cost);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
-                3, 0, 0, buffer.data(), 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
+                3, 0, 0, buffer, 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
             if (index < 6) {
                 const std::int32_t imageIndex = Sub_519680(gHealingDialogRecordsD672F0[index].health);
                 static_cast<void>(login::detail::DrawGraphic(
@@ -10102,12 +10100,11 @@ std::int32_t Sub_49E1D0(
             }
         }
     }
-    std::sprintf(buffer.data(), "               所持金 %7d 金幣",
-        world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"               所持金 {:7} 金幣", world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),
-        3, 0, 0, buffer.data(), 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
+        3, 0, 0, buffer, 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
     if (row >= visibleLines) {
         row = -1;
     }
@@ -10117,17 +10114,17 @@ std::int32_t Sub_49E1D0(
     }
     const std::int32_t first = gDialogReply.firstLine;
     if (row >= first && row <= 8) {
-        const char* text;
+        const wchar_t* text;
         if (row == 8) {
             text = gHealingDialogHealthD2DC00 != 0
-                ? "請求治療所有受傷的人物。"
-                : "沒有受傷的人物。";
+                ? L"請求治療所有受傷的人物。"
+                : L"沒有受傷的人物。";
         } else {
             text = gHealingDialogRecordsD672F0[row - first].health != 0
-                ? "請求治療此人物的傷勢。"
-                : "此人物沒有受傷。";
+                ? L"請求治療此人物的傷勢。"
+                : L"此人物沒有受傷。";
         }
-        gHoverTextD68AE8 = cg::text::ToUtf16(text);
+        gHoverTextD68AE8 = text;
     }
     return 0;
 }
@@ -11568,23 +11565,23 @@ std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)
 // 原函数：0x00489760。
 std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
 {
-    static constexpr const char* playerHints[] {
-        "裝備頭部防具的位置。",
-        "裝備身體防具的位置。",
-        "裝備武器跟盾的位置。",
-        "裝備武器跟盾的位置。",
-        "裝備腳部防具的位置。",
-        "裝備裝飾品的位置。",
-        "裝備裝飾品的位置。",
-        "裝備水晶的位置。",
+    static constexpr const wchar_t* playerHints[] {
+        L"裝備頭部防具的位置。",
+        L"裝備身體防具的位置。",
+        L"裝備武器跟盾的位置。",
+        L"裝備武器跟盾的位置。",
+        L"裝備腳部防具的位置。",
+        L"裝備裝飾品的位置。",
+        L"裝備裝飾品的位置。",
+        L"裝備水晶的位置。",
     };
-    static constexpr const char* petHints[] {
-        "裝備晶石的位置。",
-        "裝備防具的位置。",
-        "裝備項圈的位置。",
-        "裝備飾品的位置。",
-        "裝備飾品的位置。",
-        "裝備飾品的位置。",
+    static constexpr const wchar_t* petHints[] {
+        L"裝備晶石的位置。",
+        L"裝備防具的位置。",
+        L"裝備項圈的位置。",
+        L"裝備飾品的位置。",
+        L"裝備飾品的位置。",
+        L"裝備飾品的位置。",
     };
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -11655,7 +11652,7 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
     auto* const item = items + hovered;
     const std::int32_t hitIndex = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(gValue57DA28 != 0 ? petHints[hovered] : playerHints[hovered]);
+        gHoverTextD68AE8 = gValue57DA28 != 0 ? petHints[hovered] : playerHints[hovered];
     }
     if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() >= 100) {
         hovered = -1;
@@ -13524,10 +13521,10 @@ std::int32_t Sub_4A9020(const std::int32_t value)
 // SPD01：原4A9160完整114条；两滚动flags只读BYTE，金额/预览/鼠标RNG原序及所有绘制返回1保持。
 std::int32_t Sub_4A9160(const std::int32_t)
 {
-    std::array<char, 48> buffer;
-    std::sprintf(buffer.data(), "%10d", gStorageValueCC4218);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
     auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
-    text->text = cg::text::ToUtf16(buffer.data());
+    text->text = buffer;
     WindowElement* elements = gCurrentWindow->elements;
     const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);
     if ((*reinterpret_cast<const unsigned char*>(&firstScroll->flags) & 1u) != 0) {
@@ -18292,7 +18289,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004B62A0。
 void Sub_4B62A0()
 {
-    std::array<char, 768> buffer;
+    std::wstring buffer;
     for (std::int32_t index = 0; index < 4; ++index) {
         const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
         const std::int32_t first = 2 + index * 7;
@@ -18314,10 +18311,9 @@ void Sub_4B62A0()
             std::memcpy(&month, bytes + 16, sizeof(month));
             std::int32_t year;
             std::memcpy(&year, bytes + 20, sizeof(year));
-            std::sprintf(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
-                year + 1900, month + 1, day, hour, minute);
+            cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
             auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
-            date->text = cg::text::ToUtf16(buffer.data());
+            date->text = buffer;
         } else {
             gCurrentWindow->elements[first + 2].visible = 0;
         }
@@ -18773,7 +18769,7 @@ namespace {
 
 // 4B7AB0/4B7EE0同一七字段流程；只区分模式字节和第二行原字节提示。
 login::YobiAction* CreateShopServiceWindow(
-    const char* const text, const char mode, const char* const prompt)
+    const char* const text, const char mode, const std::wstring_view prompt)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894[20] = mode;
@@ -18784,7 +18780,7 @@ login::YobiAction* CreateShopServiceWindow(
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
     gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
     gNpcDialogLinesCC24D4[1].text = L"歡迎光臨。";
-    gNpcDialogLinesCC24D4[2].text = cg::text::ToUtf16(prompt);
+    gNpcDialogLinesCC24D4[2].text = prompt;
     gNpcDialogLinesCC24D4[3].text = cg::text::FromGbkWide(input::LegacyText593850());
     gNpcDialogLinesCC24D4[4].text = cg::text::FromGbkWide(input::LegacyText593850());
     gNpcDialogLinesCC24D4[5].text = L"你身上的錢不夠！";
@@ -18870,14 +18866,14 @@ login::YobiAction* CreateShopServiceWindow(
 login::YobiAction* Sub_4B7AB0(const char* const text)
 {
     return CreateShopServiceWindow(
-        text, 4, "你想鑑定什麼物品呢？");
+        text, 4, L"你想鑑定什麼物品呢？");
 }
 
 // 原函数：0x004B7EE0。
 login::YobiAction* Sub_4B7EE0(const char* const text)
 {
     return CreateShopServiceWindow(
-        text, 5, "你想修理什麼物品呢？");
+        text, 5, L"你想修理什麼物品呢？");
 }
 
 // 原函数：0x004B8310。
@@ -19863,27 +19859,23 @@ std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
         if (!available) {
             gHoverTextD68AE8 = L"沒有可登錄的物品";
         } else {
-            const char* hint = nullptr;
             switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
             case 0:
             case 2:
             case 3:
-                hint = input::LegacyText593850();
+                gHoverTextD68AE8 = cg::text::FromGbkWide(input::LegacyText593850());
                 break;
             case 1:
-                hint = "登錄所有可賣的物品";
+                gHoverTextD68AE8 = L"登錄所有可賣的物品";
                 break;
             case 4:
-                hint = "登錄所有可鑑定的物品";
+                gHoverTextD68AE8 = L"登錄所有可鑑定的物品";
                 break;
             case 5:
-                hint = "登錄所有可修理的物品";
+                gHoverTextD68AE8 = L"登錄所有可修理的物品";
                 break;
             default:
                 break;
-            }
-            if (hint != nullptr) {
-                gHoverTextD68AE8 = cg::text::ToUtf16(hint);
             }
         }
     }
@@ -24686,15 +24678,19 @@ login::YobiAction* Sub_4C5790(
     gWindow56RequestCF49C0 = request;
     gWindow56TargetC8AF60 = target;
     gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char name[52];
     static_cast<void>(network::ExtractDelimitedField_52CED0(
-        text, '|', 2, 16, gWindow56Texts580870.name));
-    input::UnescapeLegacyTextAndNotify_52D2F0(gWindow56Texts580870.name);
+        text, '|', 2, 16, name));
+    input::UnescapeLegacyTextAndNotify_52D2F0(name);
+    gWindow56Texts580870.name = cg::text::FromGbkWide(name);
     std::array<char, 3072> buffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 1023, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 2; ++row) {
+        char message[46];
         static_cast<void>(input::ExtractLegacyLine_503AB0(
-            gWindow56Texts580870.messages[row], 46, buffer.data(), row, 45));
+            message, 46, buffer.data(), row, 45));
+        gWindow56Texts580870.messages[row] = cg::text::FromGbkWide(message);
     }
     return CreateWindowAnimation_475AA0(56, 1, 0, nullptr);
 }
@@ -24731,8 +24727,8 @@ std::int32_t Sub_4C5850(const std::int32_t value)
         gWindow56MinimumCB0F80 = 0;
         gWindow56MaximumC8A958 = 0;
     }
-    static_cast<WindowTextData*>(gCurrentWindow->elements[13].data)->text = cg::text::ToUtf16(gWindow56Texts580870.messages[0]);
-    static_cast<WindowTextData*>(gCurrentWindow->elements[14].data)->text = cg::text::ToUtf16(gWindow56Texts580870.messages[1]);
+    static_cast<WindowTextData*>(gCurrentWindow->elements[13].data)->text = gWindow56Texts580870.messages[0];
+    static_cast<WindowTextData*>(gCurrentWindow->elements[14].data)->text = gWindow56Texts580870.messages[1];
     for (std::int32_t index = 3; index <= 5; ++index) {
         gCurrentWindow->elements[index].visible = 0;
     }
@@ -25584,7 +25580,7 @@ constexpr std::array<std::uint8_t, 16> kMailStatusColors56F09C { // 原常量参
 };
 constexpr wchar_t kMailOffline58743C[] = L"離線"; // 原常量参考：0x0058743C。
 constexpr wchar_t kMailStatusFormat5598F0[] = L"{}{}"; // 原常量参考：0x005598F0。
-constexpr char kMailNumberFormat553FCC[] = "%3d"; // 原常量参考：0x00553FCC。
+constexpr wchar_t kMailNumberFormat553FCC[] = L"{:3}"; // 原常量参考：0x00553FCC。
 constexpr wchar_t kMailReverseFormat587434[] = L"逆-{}"; // 原常量参考：0x00587434。
 
 // 只借各原字段；公会记录的+8前缀不强转为另一种C++记录。
@@ -25761,7 +25757,7 @@ std::int32_t Sub_4A09E0()
         // 原类别未覆盖时沿用未定义/旧借用；正常三类每行只绑定指针，不缓存字段值。
         MailContactView record;
         std::int32_t privileged;
-        char numberText[240];
+        std::wstring numberText;
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
@@ -25809,9 +25805,9 @@ std::int32_t Sub_4A09E0()
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
             nameData->text = cg::text::FromGbkWide(record.name);
-            std::sprintf(numberText, kMailNumberFormat553FCC, *record.number);
+            cg::text::FormatTo(numberText, kMailNumberFormat553FCC, *record.number);
             auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
-            numberData->text = cg::text::ToUtf16(numberText);
+            numberData->text = numberText;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
             case 2: {
@@ -28271,9 +28267,9 @@ std::int32_t Sub_4B5550(const std::int32_t index, const std::int32_t state)
     graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
     std::int32_t result = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(selected == 1
-            ? "對方的郵件寄過來了。"
-            : "準備寄送郵件給對方。");
+        gHoverTextD68AE8 = selected == 1
+            ? L"對方的郵件寄過來了。"
+            : L"準備寄送郵件給對方。";
         result = 1;
     }
     if ((state & 2) != 0) {
@@ -29896,7 +29892,7 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
             }
             Sub_4CC540();
             auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
-            title->text = cg::text::ToUtf16(world::detail::gLogFileName554648);
+            title->text = cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
             gLoginWindowRuntime.valueD67BB0 = 0;
@@ -39943,7 +39939,7 @@ void Sub_49E990(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9 + line].data);
-        data->text = cg::text::ToUtf16(gWindowListNamesCF3F20[offset + line].data());
+        data->text = cg::text::FromGbkWide(gWindowListNamesCF3F20[offset + line].data());
     }
 }
 
@@ -40886,25 +40882,25 @@ constexpr wchar_t kQuickMap58625C[] = L"打開小地圖視窗。"; // 原常量�
 constexpr wchar_t kQuickGuild586284[] = L"邀請對方加入自己的家族。"; // 原常量参考：0x00586284。
 constexpr wchar_t kQuickStall5862A0[] = L"進行擺攤"; // 原常量参考：0x005862A0。
 
-constexpr const char* kEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
-    "做「坐下」這個動作。",
-    "做「揮手」這個動作。",
-    "做「點頭」這個動作。",
-    "做「高興」這個動作。",
-    "做「憤怒」這個動作。",
-    "做「悲傷」這個動作。",
-    "做「投擲」這個動作。",
-    "做「出剪刀」這個動作。",
-    "做「出布」這個動作。",
-    "做「站立」這個動作。",
-    "做「走路」這個動作。",
-    "做「倒下」這個動作。",
-    "做「攻擊」這個動作。",
-    "做「防禦」這個動作。",
-    "做「受傷」這個動作。",
-    "做「魔法」這個動作。",
-    "做「移動中」這個動作。",
-    "做「出石頭」這個動作。",
+constexpr const wchar_t* kEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
+    L"做「坐下」這個動作。",
+    L"做「揮手」這個動作。",
+    L"做「點頭」這個動作。",
+    L"做「高興」這個動作。",
+    L"做「憤怒」這個動作。",
+    L"做「悲傷」這個動作。",
+    L"做「投擲」這個動作。",
+    L"做「出剪刀」這個動作。",
+    L"做「出布」這個動作。",
+    L"做「站立」這個動作。",
+    L"做「走路」這個動作。",
+    L"做「倒下」這個動作。",
+    L"做「攻擊」這個動作。",
+    L"做「防禦」這個動作。",
+    L"做「受傷」這個動作。",
+    L"做「魔法」這個動作。",
+    L"做「移動中」這個動作。",
+    L"做「出石頭」這個動作。",
 };
 constexpr std::int32_t kEmoteButtonActions[18] {
     0, 2, 4, 6, 8, 10, 12, 14, 16, 1, 3, 5, 7, 9, 11, 13, 15, 17,
@@ -41087,7 +41083,7 @@ std::int32_t Sub_495FE0(const std::int32_t index, const std::int32_t state)
         return consumed;
     }
     if (hover) {
-        gHoverTextD68AE8 = cg::text::ToUtf16(kEmoteHints5871B0[index]);
+        gHoverTextD68AE8 = kEmoteHints5871B0[index];
     }
     if ((state & 2) != 0) {
         world::detail::Sub_4FA8E0(kEmoteButtonActions[index]);
@@ -41825,11 +41821,11 @@ void Sub_474FB0()
     const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
-    char buffer[768];
-    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
-    const std::size_t levelLength = std::strlen(buffer) + 1;
-    levelData->text = cg::text::ToUtf16(buffer);
+    const std::size_t levelLength = buffer.size() + 1;
+    levelData->text = buffer;
 
     WindowElement* const jobElements = gCurrentWindow->elements;
     const char* const job = world::detail::BorrowPlayerJobName();
@@ -41878,40 +41874,40 @@ void Sub_474FB0()
     auto* const tribeData = static_cast<WindowTextData*>(tribeElements[8].data);
     tribeData->text = tribe;
 
-    std::sprintf(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
+    cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerExperienceOnce());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const std::size_t experienceLength = std::strlen(buffer) + 1;
-    experienceData->text = cg::text::ToUtf16(buffer);
+    const std::size_t experienceLength = buffer.size() + 1;
+    experienceData->text = buffer;
 
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
-    const std::size_t hpLength = std::strlen(buffer) + 1;
-    hpData->text = cg::text::ToUtf16(buffer);
+    const std::size_t hpLength = buffer.size() + 1;
+    hpData->text = buffer;
 
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
-    const std::size_t fpLength = std::strlen(buffer) + 1;
-    fpData->text = cg::text::ToUtf16(buffer);
+    const std::size_t fpLength = buffer.size() + 1;
+    fpData->text = buffer;
 
-    const char* nextExperience;
+    std::wstring_view nextExperience;
     if (world::detail::IsPlayerNextExperienceEqual(-1)) {
-        nextExperience = "        -";
+        nextExperience = L"        -";
     } else {
-        std::sprintf(buffer, "%9d", world::detail::ReadPlayerNextExperienceOnce());
+        cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerNextExperienceOnce());
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
-    const std::size_t nextLength = std::strlen(nextExperience) + 1;
-    nextData->text = cg::text::ToUtf16(nextExperience);
+    const std::size_t nextLength = nextExperience.size() + 1;
+    nextData->text = nextExperience;
 
-    std::sprintf(buffer, "%9d", world::detail::ReadPlayerDuelPoint());
+    cg::text::FormatTo(buffer, L"{:9}", world::detail::ReadPlayerDuelPoint());
     auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
-    const std::size_t duelLength = std::strlen(buffer) + 1;
-    duelData->text = cg::text::ToUtf16(buffer);
+    const std::size_t duelLength = buffer.size() + 1;
+    duelData->text = buffer;
 
     if (world::detail::ReadPlayerValue1A0() == 1) {
         gCurrentWindow->elements[22].x = 227;
@@ -41937,11 +41933,11 @@ void Sub_474FB0()
 
     const std::int32_t penalty = world::detail::ReadPlayerPenalty();
     if (penalty > 0) {
-        std::sprintf(buffer, "x%d", penalty);
+        cg::text::FormatTo(buffer, L"x{}", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;
-        const std::size_t penaltyLength = std::strlen(buffer) + 1;
+        const std::size_t penaltyLength = buffer.size() + 1;
         auto* const penaltyData = static_cast<WindowTextData*>(penaltyElements[2].data);
-        penaltyData->text = cg::text::ToUtf16(buffer);
+        penaltyData->text = buffer;
         gCurrentWindow->elements[2].visible = 1;
         gCurrentWindow->elements[16].visible = 1;
     } else {
@@ -42070,35 +42066,35 @@ void Sub_4767E0()
     const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
-    char buffer[768];
+    std::wstring buffer;
     const auto writeNumber = [&buffer](
-        const std::int32_t index, const std::int32_t value, const char* const format) {
-        std::sprintf(buffer, format, value);
+        const std::int32_t index, const std::int32_t value, const std::wstring_view format) {
+        cg::text::FormatTo(buffer, format, value);
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-        const std::size_t length = std::strlen(buffer) + 1;
-        text->text = cg::text::ToUtf16(buffer);
+        const std::size_t length = buffer.size() + 1;
+        text->text = buffer;
     };
-    writeNumber(1, world::detail::ReadPlayerLevel(), "%3d");
-    writeNumber(2, world::detail::gValueD2F788, "%5d");
+    writeNumber(1, world::detail::ReadPlayerLevel(), L"{:3}");
+    writeNumber(2, world::detail::gValueD2F788, L"{:5}");
     for (std::int32_t index = 0; index < 5; ++index) {
-        writeNumber(index + 3, world::detail::ReadPlayerValue78(index), "%5d");
+        writeNumber(index + 3, world::detail::ReadPlayerValue78(index), L"{:5}");
     }
     for (std::int32_t index = 8; index < 11; ++index) {
-        writeNumber(index, world::detail::ReadPlayerValue78(index), "%5d");
+        writeNumber(index, world::detail::ReadPlayerValue78(index), L"{:5}");
     }
-    writeNumber(11, world::detail::ReadPlayerValueB0(0), "%5d");
+    writeNumber(11, world::detail::ReadPlayerValueB0(0), L"{:5}");
     for (std::int32_t index = 11; index < 14; ++index) {
-        writeNumber(index + 1, world::detail::ReadPlayerValue78(index), "%5d");
+        writeNumber(index + 1, world::detail::ReadPlayerValue78(index), L"{:5}");
     }
-    writeNumber(15, world::detail::ReadPlayerValueB0(1), "%5d");
+    writeNumber(15, world::detail::ReadPlayerValueB0(1), L"{:5}");
     for (std::int32_t index = 0; index < 6; ++index) {
-        writeNumber(index + 16, world::detail::ReadPlayerValueBC(index), "%4d");
+        writeNumber(index + 16, world::detail::ReadPlayerValueBC(index), L"{:4}");
     }
     for (std::int32_t index = 0; index < 4; ++index) {
-        writeNumber(index + 22, world::detail::ReadPlayerValueD4(index), "%4d");
+        writeNumber(index + 22, world::detail::ReadPlayerValueD4(index), L"{:4}");
     }
     for (std::int32_t index = 5; index < 8; ++index) {
-        writeNumber(index + 21, world::detail::ReadPlayerValue78(index), "%4d");
+        writeNumber(index + 21, world::detail::ReadPlayerValue78(index), L"{:4}");
     }
 
     const std::int32_t remainingPoints = world::detail::gValueD2F788;
@@ -42474,11 +42470,11 @@ void RefreshPetListAttributeBar(
 void Sub_48C920()
 {
     Sub_48D460();
-    char buffer[768];
+    std::wstring buffer;
     const auto copyNumber = [&buffer](const std::int32_t element) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
-        const std::size_t length = std::strlen(buffer) + 1;
-        data->text = cg::text::ToUtf16(buffer);
+        const std::size_t length = buffer.size() + 1;
+        data->text = buffer;
     };
     const auto setImage = [](const std::int32_t element, const std::int32_t image) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
@@ -42537,15 +42533,15 @@ void Sub_48C920()
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
         static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
             colorState == 3 ? std::byte{7} : std::byte{0};
-        std::sprintf(buffer, "%3d", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
+        cg::text::FormatTo(buffer, L"{:3}", (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].value08);
         copyNumber(textBase + 1);
         const std::int32_t maxHp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[1].value();
         const std::int32_t hp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[0].value();
-        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         copyNumber(textBase + 2);
         const std::int32_t maxFp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[3].value();
         const std::int32_t fp = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex()].values0C[2].value();
-        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
@@ -44116,11 +44112,11 @@ void Sub_478A10()
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
     const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
-    char number[256];
-    std::sprintf(number, "%3d", world::detail::ReadPlayerLevel());
+    std::wstring number;
+    cg::text::FormatTo(number, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
-    const std::size_t levelLength = std::strlen(number) + 1;
-    levelData->text = cg::text::ToUtf16(number);
+    const std::size_t levelLength = number.size() + 1;
+    levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
     const char* const title = world::detail::BorrowPlayerDisplayText(2);
@@ -44262,11 +44258,11 @@ void Sub_478010()
     const std::size_t nameLength = std::strlen(name) + 1;
     nameData->text = cg::text::FromGbkWide(name);
 
-    char buffer[768];
-    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
-    const std::size_t levelLength = std::strlen(buffer) + 1;
-    levelData->text = cg::text::ToUtf16(buffer);
+    const std::size_t levelLength = buffer.size() + 1;
+    levelData->text = buffer;
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
@@ -44619,7 +44615,7 @@ std::uint8_t Sub_476570(
 }
 
 // 原函数：0x004740F0。
-void Sub_4740F0(char* const destination)
+void Sub_4740F0(std::wstring& destination)
 {
     std::int32_t count = 0;
     for (std::size_t position = 0; position < 10; ++position) {
@@ -44632,9 +44628,7 @@ void Sub_4740F0(char* const destination)
             count += requiredSlots;
         }
     }
-    char text[256];
-    std::sprintf(text, "%2d/10", count);
-    std::strcpy(destination, text);
+    cg::text::FormatTo(destination, L"{:2}/10", count);
 }
 
 // 原函数：0x004A7B00。
@@ -44907,9 +44901,9 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 if (data != nullptr) {
                     const WindowTextPrototype* const original = source->source.text;
                     data->text = original->text;
-                    char text[256];
+                    std::wstring text;
                     Sub_4740F0(text);
-                    if (data->text == L"10/10") { data->text = cg::text::ToUtf16(text); }
+                    if (data->text == L"10/10") { data->text = text; }
                     data->bytes00[0] = original->bytes00[0];
                     data->bytes00[1] = original->bytes00[1];
                 }

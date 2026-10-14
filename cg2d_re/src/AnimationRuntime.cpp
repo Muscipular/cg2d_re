@@ -153,9 +153,9 @@ std::int32_t AnimeInit_45BB20(
             pairs[index].fileIndex = static_cast<std::int16_t>(slot);
             indices[key] = index;
             if (count > 10000u) {
-                char message[256];
-                std::sprintf(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
-                platform::ShowWideMessage(cg::text::ToUtf16(message), kAnimeSizeErrorCaption, 0);
+                std::wstring message;
+                cg::text::FormatTo(message, L"i={},animsize={}", slot, static_cast<int>(count));
+                platform::ShowWideMessage(message, kAnimeSizeErrorCaption, 0);
                 std::fclose(file);
                 return cleanupFailure(5);
             }
@@ -354,9 +354,9 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
         return 1;
     }
     if (gAnimateRecords9A4A58[index].coordinateCount > 1000) {
-        char message[256];
-        std::sprintf(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
-        platform::ShowWideMessage(cg::text::ToUtf16(message), L"座標資料數量異常。", 0);
+        std::wstring message;
+        cg::text::FormatTo(message, L"{} / 1000", gAnimateRecords9A4A58[index].coordinateCount);
+        platform::ShowWideMessage(message, L"座標資料數量異常。", 0);
         return 0;
     }
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];

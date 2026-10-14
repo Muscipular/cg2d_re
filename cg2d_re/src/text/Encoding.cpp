@@ -68,12 +68,7 @@ std::string Encode(const std::wstring_view text, const UINT codePage)
 } // namespace
 
 std::wstring ToUtf16(const std::string_view utf8) { return Decode(utf8, CP_UTF8); }
-std::string ToGbk(const std::string_view utf8) {
-    try { return Encode(ToUtf16(utf8), kGbkCodePage); }
-    catch (const std::system_error& error) {
-        throw GbkStorageError(error.code(), "文字无法编码为GBK");
-    }
-}
+
 
 std::wstring FromGbkWide(const std::string_view gbk) { return Decode(gbk, kGbkCodePage, 0); }
 std::wstring FromLegacyDisplayWide(const std::string_view bytes) { return Decode(bytes, CP_ACP, 0); }
@@ -128,14 +123,7 @@ std::size_t Count(const std::wstring_view utf16) noexcept
     return count;
 }
 
-void StoreGbk(char* const destination, const std::size_t capacity, const std::string_view utf8)
-{
-    const std::string stored = ToGbk(utf8);
-    if (stored.size() >= capacity) {
-        throw GbkStorageError(ERROR_INSUFFICIENT_BUFFER, std::system_category(), "文字超过GBK字段容量");
-    }
-    std::char_traits<char>::move(destination, stored.c_str(), stored.size() + 1);
-}
+
 
 
 std::size_t Next(const std::string_view utf8, const std::size_t offset) noexcept

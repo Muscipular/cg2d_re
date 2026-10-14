@@ -12169,7 +12169,7 @@ try {
     }
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-    char buffer[768];
+    std::wstring buffer;
     const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyItemWorkResultPanel584140.y;
@@ -12180,15 +12180,15 @@ try {
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     drawAt(cg::text::FromGbkWide(name).c_str(), 82 - width / 2, 37, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    cg::text::FormatTo(buffer, L"{:2}", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    cg::text::FormatTo(buffer, L"{:8}", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     const bool belowMaximum =
         world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel;
     // 原满级分支仍格式化一次，只替换最终绘制文本。
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
-    drawAt(belowMaximum ? cg::text::ToUtf16(buffer) : kLegacyGatherLimit589858, 198, 62, 1);
+    cg::text::FormatTo(buffer, L"{:8}", world::detail::gSkillsF1BAFC[skill].nextExperience);
+    drawAt(belowMaximum ? buffer : kLegacyGatherLimit589858, 198, 62, 1);
     if (gLegacyItemWorkSelection584394 >= 0) {
         const std::int32_t itemWidth = TextMeasure(gLegacyItemWorkNameCC40D8, 0);
         drawAt(gLegacyItemWorkNameCC40D8, 136 - itemWidth / 2, 91, 0);

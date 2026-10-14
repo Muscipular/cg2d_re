@@ -281725,7 +281725,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第八组窄分行输出／UTF-8编码辅助已退休；旧显示解码入口继续",
+    "phase": "第九组业务直接解码与窄写回退休；绘制／测宽兼容入口继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283714,6 +283714,110 @@
       {
         "path": "src/text/Encoding.cpp",
         "symbol": "Encode"
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "AnimeInit_45BB20"
+      },
+      {
+        "path": "src/AnimationRuntime.cpp",
+        "symbol": "CoordInit_45C150"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CB2F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_478330"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_474550"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C7380"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49E1D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_489760"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A9160"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B62A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B7AB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B7EE0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BAA50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C5790"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C5850"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A09E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B5550"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CBDB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49E990"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_495FE0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4767E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_478A10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_478010"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4740F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "OpenWindow_471440"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "IsRejectedInputText_404060"
       }
     ],
     "build_verified": false,
@@ -283726,7 +283830,10 @@
       "ExtractTextLine(char*,...)",
       "FromGbk",
       "FromLegacyDisplay",
-      "FromUtf16"
+      "FromUtf16",
+      "ToGbk(string_view)",
+      "StoreGbk(string_view)",
+      "WindowTextPrototype(const char*)"
     ]
   }
 }

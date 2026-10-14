@@ -1219,8 +1219,6 @@ struct WindowTextPrototype {
     std::array<std::byte, 4> bytes00; // 原成员偏移：+0x00。
     std::wstring text; // 原成员偏移：+0x04；UTL02拥有UTF-16原型正文。
     WindowTextPrototype() = default;
-    WindowTextPrototype(std::array<std::byte, 4> bytes, const char* utf8)
-        : bytes00(bytes), text(cg::text::ToUtf16(utf8)) {}
     WindowTextPrototype(std::array<std::byte, 4> bytes, std::wstring_view wide)
         : bytes00(bytes), text(wide) {}
 };
@@ -1831,7 +1829,7 @@ extern std::uint16_t gTooltipXCF46C0; // 原全局：0x00CF46C0。 同源低W16�
 extern std::uint16_t gTooltipYCF46CC; // 原全局：0x00CF46CC。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
-extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原全局：0x005805FC。 原字节提示的借用指针表。
+extern const std::array<const wchar_t*, 6> gTradeNumberHints5805FC; // 原全局：0x005805FC。 原字节提示的借用指针表。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
 const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
 // 原LY十条20B记录及分立S32状态的非拥有视图；只借页号/选择写权，不复制名单。
@@ -2110,7 +2108,7 @@ bool Sub_4B1900(
 // 原函数：0x00474550。
 std::uint8_t Sub_474550(
     WindowInstance* window, std::int32_t index, std::int32_t state,
-    std::int32_t maximum, std::uint8_t layer, const char* const* hints,
+    std::int32_t maximum, std::uint8_t layer, const wchar_t* const* hints,
     std::uint8_t flags, std::uint32_t color); // NPI01：数值键/Backspace/四鼠标操作原序，AL返回0/1/3；非Enter/Esc处理器。
 // 原函数：0x004AFFE0。
 std::int32_t Sub_4AFFE0(std::int32_t index); // S8物品槽，负值归-1。
@@ -2369,7 +2367,7 @@ void Sub_4A8140(); // 查显示中的35，按回看比例更新滑块。 // CWC0
 std::int32_t Sub_4A6FC0(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
 extern WindowElementPrototype gWindowElements570CB0[20]; // 原全局：0x00570CB0。 几何更新所读五按钮原型坐标。
 // 原函数：0x004740F0。
-void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
+void Sub_4740F0(std::wstring& destination); // 前10项技能索引的S16槽数，直接宽格式化。
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7590。
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。

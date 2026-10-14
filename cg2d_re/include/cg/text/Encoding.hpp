@@ -18,13 +18,8 @@ public:
     using std::system_error::system_error;
 };
 
-// UTL02：界面内部UTF-16；以下窄接口仅供CRT及既有协议接口的局部UTF-8视图。
+// 尚待退休的窄绘制兼容解码；业务正文已使用UTF-16。
 [[nodiscard]] std::wstring ToUtf16(std::string_view utf8);
-// 仅用于已明确GBK的协议／资源字段，不尝试猜测输入编码。
-// 仅旧A显示来源；保留原系统ACP解释，不据此认定原文编码。
-[[nodiscard]] std::string ToGbk(std::string_view utf8);
-// 整串写回旧GBK字段；超容量与编码失败均抛GbkStorageError，失败前不发布。
-void StoreGbk(char* destination, std::size_t capacity, std::string_view utf8);
 
 // UWF01：格式与实参只接收宽文本，结果直接写入动态UTF-16正文；原0x0053D21D的私有显示缓冲调用由此承接。
 template<typename... Args>
@@ -38,6 +33,7 @@ std::int32_t FormatTo(std::wstring& destination, const std::wstring_view format,
 [[nodiscard]] std::wstring FromGbkWide(std::string_view gbk);
 [[nodiscard]] std::wstring FromLegacyDisplayWide(std::string_view bytes);
 [[nodiscard]] std::string ToGbk(std::wstring_view utf16);
+// 整串写回旧GBK字段；超容量与编码失败均抛GbkStorageError，失败前不发布。
 void StoreGbk(char* destination, std::size_t capacity, std::wstring_view utf16);
 [[nodiscard]] std::size_t Next(std::wstring_view utf16, std::size_t offset) noexcept;
 [[nodiscard]] std::size_t Previous(std::wstring_view utf16, std::size_t offset) noexcept;

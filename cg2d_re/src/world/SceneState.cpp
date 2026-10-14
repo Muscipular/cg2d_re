@@ -3070,16 +3070,15 @@ std::int32_t Sub_50C940(
             return result;
         }
     }
-    char escaped[1024];
-    char packet[1024];
-    input::EscapeInputText_52D2D0(context, escaped, 1024);
-    std::sprintf(packet, "P|%s", escaped);
+    // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，UTF-8视图不限长。
+    const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
+    const std::string packetUtf8View = cg::text::FromUtf16(packet);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
     const std::int32_t y = BorrowPlayerYStorage()->value();
     const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
+    return network::Sub_511900(socket, x, y, packetUtf8View.c_str(), sendColor, range, mode);
 }
 
 void MarkPlayerChatActive() noexcept

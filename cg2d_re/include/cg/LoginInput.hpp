@@ -46,6 +46,10 @@ extern std::uint32_t gValue9A6200;        // 原 0x9A6200，共享 W32，映像�
 // 原 0x559FFC 的三项焦点表；x64 下保留原生指针宽度。
 extern input::InputContext* gInputContextFocusTable[3];
 
+// 登录旧GBK字段成组保存；失败提示并保留当前输入／存档。
+bool SaveInputValues(std::wstring_view first, std::wstring_view second);
+bool SaveCapability4InputSlot();
+
 // 原 sub_5203B0@[0x5203B0,0x5203D6)，写入 0xFF494F 的 51 字节槽。
 const char* WriteInputValueFF494F_5203B0(const char* source);
 // 原 sub_5203E0@[0x5203E0,0x520409)，读取 0xFF494F 的 51 字节槽。

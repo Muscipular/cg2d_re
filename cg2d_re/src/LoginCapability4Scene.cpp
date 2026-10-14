@@ -172,9 +172,9 @@ std::int32_t Sub_464840()
         const std::int32_t result =
             login::ProcessCapability4Input_464E30();
         if (result == 1) {
-            login::detail::Sub_533570(cg::text::ToGbk(input::ContextText(login::gInputContext9A4D20)).c_str(), login::detail::gSelectedSavedSlot105C394);
-            login::detail::Sub_5335B0(cg::text::ToGbk(input::ContextText(login::gInputContext9A5960)).c_str(), login::detail::gSelectedSavedSlot105C394);
-            login::detail::Sub_533640(cg::text::ToGbk(input::ContextText(login::gInputContext9A5678)).c_str(), login::detail::gSelectedSavedSlot105C394);
+            if (!login::SaveCapability4InputSlot()) {
+                return DrawCapability4Base();
+            }
             login::detail::Sub_533730();
             static_cast<void>(login::detail::PlaySe(53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));

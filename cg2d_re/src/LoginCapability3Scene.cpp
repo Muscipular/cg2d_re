@@ -141,8 +141,11 @@ std::int32_t ProcessCapability3InputAndDraw()
     const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
     if (result == 1) {
         cg::NullSub_509080();
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::login::gInputContext9A5678.utf8().c_str()));
-        static_cast<void>(cg::login::WriteInputValueFF4982_520410(cg::login::gInputContext9A5960.utf8().c_str()));
+        if (!cg::login::SaveInputValues(
+                cg::input::ContextText(cg::login::gInputContext9A5678),
+                cg::input::ContextText(cg::login::gInputContext9A5960))) {
+            return DrawCapability3CommonTail();
+        }
         static_cast<void>(cg::login::detail::Sub_520200());
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
         static_cast<void>(cg::render::SelectPalette(30, 30));

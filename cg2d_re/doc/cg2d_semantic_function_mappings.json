@@ -36023,7 +36023,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "original_direct_reference_count": 53,
@@ -37738,6 +37739,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "Sub_50E6E0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -50765,7 +50779,8 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。 DCF01当前直接MSVC／标准库调用，原缓冲／格式／容量／变参和返回消费保持；有界九处依用户选择::_snprintf，旧包装退休，历史原语与完整门禁保留。",
       "function_chunks": [
@@ -59619,6 +59634,79 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CA6F0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CA9C0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CB6A0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4ADF40"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4B5C30"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A5970"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A6450"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D3410"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DF730"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EA1B0"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EB1C0"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52DCE0"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52ED50"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_530BA0"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_501FD0"
+          },
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbol": "Sub_50C940"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -91388,7 +91476,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
       "boundary": "既有完整聊天入行保留S32颜色/字体门槛、分段复制中途流采样；非空才原时间/索引重取→日志行输出→重取共享流关闭→a重开→重取索引→发布volatile流，失败仍发布空。记录字段/索引循环/数量及时间正文未改，81 40旧字节保持，未新增格式/关闭/打开失败门槛。",
@@ -91475,6 +91564,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbol": "Sub_44B050"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -93818,7 +93920,8 @@
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行；本步46统计/17查找邻读取、第二入参/原共享源/命中早返与唯一51662E入向、整份源码仅一标识符静态核对，余29条及完整通知/分派不重验",
       "boundary": "原DA33D8唯一旧文本非空且strstr未命中才以58B0B0在256B未清message格式化，先previous后text；变更提示/原警告/旧文本回写顺序保持。命中早返不回写、空旧文本直接复制，不新增缓冲/截断/保护或重验地址通知算法。 本步50E6FE交真实53BE40，needle仍原第二入参text/源DA33D8 previous，旧串非空先查、命中早返和未命中/旧空复制正文不变；整份NetworkRuntime只一标识符，不补字符串或地址解析。",
@@ -93869,6 +93972,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "Sub_50E6E0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -94856,7 +94972,8 @@
         "doc/cg2d_enter_text_byte_sampling_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "verification_level": "完整175条/唯一入向、两格式点/三个互斥表达式/四格式原字节/分支AL消费、首字节→caret→length/提示→切换→相位及整份源码/JSON限定差异静态核对；未重验其余输入/历史/聊天/黑名单本体/原消费者内部，未执行；BTG01追加完整Enter根及按键父双chunk、两BYTE比较和全部保留项有限静态，原所有格式证据保，未执行。",
       "boundary": "自录无参提示与已有/加入成功/失败全部格式接真实53B304，借用输入文本/玩家名/黑名单owner与256B未清message保持；同一原公共点对应现有两互斥表达式，动态每条路径仍一次。按44AD77/7D/83将源码首字节→length→caret改为原首字节→caret→length，三写后提示，再切626AA0，末相位20；聊天分支独有的length→caret→首字节及IME/历史/发送/多行正文不改，不补未知字段/owner/业务保护，不记完整交互或文件运行已验收。 BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
@@ -94937,6 +95054,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正平台宽消息框声明/参数，不改变原函数身份或完整验收状态"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbol": "Sub_44AB60"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -123441,7 +123571,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅一现表达式承接原index5/4/3按钮32/16/1三个独立格式call，各次动态一次，commands[index-3]不变。1075988关键词先52D1B0容量256，105C398.value04后value00独立S32取样，格式参数group/entry/借用已转义关键词，3x256B未清buffers及整体转义255、target/request-Y-X-512620保持；hover/图号/index门槛与返回不动，不验实际回调槽。",
       "original_incoming": [],
@@ -123534,6 +123665,19 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CA6F0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -123556,7 +123700,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅一格式callee；records[index-48]步0x20C，S32 value104和text04同源，名称先复制到256B name再格式1024B combined并转义到256B packet容量255，target/request-Y-X-512620按钮4及之后窗口62存在门槛与资料key再次独立读取保持。原局部未清、hover/图号/消费返回、原内联扫描复制及其余正文不改。",
       "original_incoming": [],
@@ -123604,6 +123749,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CA9C0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -123699,7 +123857,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅hover费用、发送组包、联系人时间戳三格式callee。index2/空正文门槛、256B名称/escapedName及1024B正文/escapedText/combined/packet均未清；先复制后分别256/1024转义，参数target/escapedName/escapedText/S32常量0后整体转义1023，target/request-Y-X发送按钮8；发送后再次取105F508.target查534370、contact!=-1才time32/localtime指针+4/8/12/16/20原次序S32取样并以year+1900/month+1/day/hour/minute格式64B未清timestamp立即5343C0(contact,1,timestamp,text)。5343C0用原正文而非转义正文，结果不改变4CB9B0(3)/(4)/音效78/输入首字节清0/selection-1/返回时点；完整time/联系人/邮件路由运行不据本步验收，不恢复暂停音频。",
       "original_incoming": [],
@@ -123801,6 +123960,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CB6A0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -138420,7 +138592,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅替换4AE0A1格式callee；S32 index/state、入口固定elements/graphic与原consumed返回保持。编辑可见门槛/bit2短路Enter13、输入复制到唯一CC4118→4A7B00恢复聊天→重取窗口写标题/显隐后，原未清512B起点复制标题，52D2D0到+256/cap255，以借用+256 T*按587984 N|%s写起点，再52D1B0到同区+256/cap255。之后目标CF46AC→请求D672B0→Y→X→最终socket发送并弃返回，原SE51/消费1及非编辑bit2只SE55、末图号/输入身份覆盖完整正文不动；不预清、扩容量、改别名或添键读取/保护。",
       "original_incoming": [],
@@ -138473,6 +138646,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4ADF40"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -139307,7 +139493,8 @@
         "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅一现格式callee接一共用原点；四删除case5/12/19/26的0/1/2/3 S32分别push后汇入4B5E13，现(index-5)/7同样在原bit2门槛内，不计作四原点。保留两S32形参、原返回/hover图与提示、全部switch正文。未清512B源文本+256按既有%d格式，52D2D0到起点/cap255后才取目标D2DE6C→请求CC21E0→Y→X→socket，以button64发送弃返回，再4B6C20关闭并返回1；写入case30的cap256/先复制/发送后重取context清首NUL、翻页空文本与held图号/关闭返回均保持，不改关联方、预清或保护。",
       "original_incoming": [],
@@ -139395,6 +139582,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4B5C30"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -142045,7 +142245,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅时间helper一现callee及本父迷你命令一现callee承接六原点。helper只有本父四处及4A6450一处源码调用，按原分支对应七个时间原点，不伪helper原地址。三个群发分支各逐选中收件人或匹配成员、两个普通/公会单发分支都在发送后各自time→localtime，分钟/小时/日/月/年五S32，以原%4d/%2d/%2d %02d:%02d和年+1900/月+1写未清64B、后读实时Input正文进原本地记录；不提前取样、合并整批时间或改变月份/日期空格补齐。迷你category2 key S32及名字/正文两个T*已分别52D1B0，原%d|%s|%s写未清1024B combined→52D2D0到packet/cap1024→后取socket/GH发送弃返回；仍独立534520时间及之后重取当前联系人，不改同源输入/本地保存与清输入关闭次序。所有index/state/consumed、门槛/群发扫描/提示/图号/失败及全文不动，不预清、保护/钳制、改关联方或恢复音频本体。",
       "original_incoming": [],
@@ -142314,6 +142515,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A5970"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -142342,7 +142556,8 @@
         "doc/cg2d_unassigned_range_sixth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "该本体自身无stdio表达式；沿唯一时间helper一处共用源码调用承接category0/1两个原时间点。原发送宠物/附件后各自time→localtime，五S32/年+1900/月+1及原日期空格补齐格式写未清64B，再用固定联系人/成员和实时Input记本地记录；category0/1两原点不按一处源码调用漏计。600B正文/转义区、两次宠物可用性查询及原拒绝差异、发送后两保存/SE78→重取窗口→清Input/关闭，index2/8/9切换/图号/consumed返回全部本体保持，无新callee或字段修改、不提前采样/缓存时间/校验/预清。",
       "original_incoming": [],
@@ -142471,6 +142686,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A6450"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -143009,7 +143237,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "仅将旧54行选择一处std::sprintf替换为既有原格式接口。保持S32选择差值、仅按钮命中chosen=-1、未清512B/+256/cap255、发送后关闭与条件SE79、后续绘制和完整503440返回。",
       "original_incoming": [],
@@ -143056,6 +143285,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D3410"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -145256,7 +145498,8 @@
         "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只替换两格式标识符；四B0H同源记录/共用384B、删除index S32/+128转义cap127/mode64与继续扫描、每记录时间W32非零同位入53B8C6/失败跳过/分钟至年五S32读取/月年增量/原斜线格式后布局与font1不变。原输入/按钮许可优先级/跨旧68图Y/正文两次抽行/关闭聊天非拥有T*与uintptr_t返回/完整正常尾保持。完整生产/旧路由/真实输入收发画面生命周期/运行未验。",
       "original_incoming": [],
@@ -145369,6 +145612,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DF730"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -146171,7 +146427,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只改时间/赠物数量两个格式接口；发送前五S32时间/未清64B，原正文复制512B/转义600B与cap600、gift/value/contact/socket顺序、发送后重读contact/实时正文写记录/保存/SE/打开42/仅首NUL保持。最初gift>0、绘图后重取gift/count正值128B与原条件刷新nameGift/测名后新textGift、各格式后布局/原关闭50而非本页49/焦点/完整U32返回不变。旧上游/真实分派与完整收发/画面/输入/生命周期/运行未验。",
       "original_incoming": [],
@@ -146278,6 +146535,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EA1B0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -146600,7 +146870,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只换时间和页码两个格式接口。发送前一次time32/localtime五S32按原读序写未清64B，正文512B→独立600B/cap600，60排序项每次发送后新同项联系人及当前正文保存；点选前计数、点击unused也不查后续按钮、四行后独立未清128B页码、新Y/X/font1、关闭真实输入T*/正常W32的uintptr_t混合返回全部保持。原父、旧真实分派与收发/保存/运行仍未验。",
       "original_incoming": [],
@@ -146695,6 +146966,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EB1C0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -146817,7 +147101,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只替换时间与数量两格式接口，发送前time32/localtime五S32/64B/随后512B正文及独立600B cap600转义、发送后新1050DCC/实时正文保存保持；附件严格>0的图后新选择/+C44 S32>0/128B/格式后新布局与仅数绘后刷新nameGift、关闭焦点后86/原94返回页与完整U32不动。旧真实分派/收发保存/父运行未验。",
       "original_incoming": [],
@@ -146916,6 +147201,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52DCE0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -147132,7 +147430,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只换时间与页码两格式接口。发送前一次time32/localtime五S32/64B、实时草稿512B→600B cap600转义一次、200排序项各次发送后新同项联系人/实时正文保存、519550/SE78/开94保持；点选前计数/空成员点击不查后续按钮、同源排序别名与四行后新页+1/50独立128B、Ctrl翻页/原焦点T*与正常W32的uintptr_t混合返回不动。原父/旧真实分派/收发保存/运行仍未验。",
       "original_incoming": [],
@@ -147227,6 +147526,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52ED50"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -147352,7 +147664,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只换一格式接口，五行职级及前后页按钮之后新页号/页数两S32、384B三个128B分区最后+256缓冲/格式后新Y/X/font0保持；三非拥有InputContext T*/初始化/缓存与同源输入、资格/500tick节流/flags与多组协议修改、选择/提示/关闭归还焦点与uintptr_t混合返回全部不动。原父/旧真实路由/运行未闭合。",
       "original_incoming": [],
@@ -147415,6 +147728,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_530BA0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -153580,7 +153906,8 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "只换一格式接口，八行称号/高亮与输入绘后新页码S8/页数S8提升S32、页+1/页数双宽2写未清32B、输入布局/font0保持。原输入借还/两128B工作区/初始化/时钟门槛/协议/删除状态/按钮/提示/返回0等全部其它正文不动。 原父/旧真实路由/数据生产/运行未闭合。",
       "original_incoming": [],
@@ -153644,6 +153971,19 @@
         ],
         "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
         "scope": "修正只读指针写入、标识符替换与动态输入暂存/邮件GBK容量；仅源码静态，未提升验收"
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_501FD0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -156363,7 +156703,8 @@
         "doc/cg2d_chat_send_pipeline_spec.md#evidence-archive-20261011",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "verification_level": "106条统计仅读38格式邻指令；一个真实call/参数采样/新字节、源码一callee静态对应，余68条/入向caller/其他分支与完整父不重验，未执行。 当前CTS01：pass，两完整原根183条653B/四页、23实际E8/11目标/14跳四RET与两FF15 GetTickCount、两入向内部1/外1及原命令/格式/提示容量有据；旧BTG01父只关联发送/清理窗口，真实W16存储/已有BYTE reader两短路现场接线，一组两点/四注释整四文件精确差集，511900正确body与所有其它source/UTE-ETE/BTG01保持",
       "boundary": "既有禁言/接收gate与时间门槛、color4→5保持；借调用者InputContext先52D2D0至未清1024B escaped/cap1024，P|%s写另未清1024B packet；之后新mode/range→独立原401EA0 Y后X→新socket→511900返完整S32，忽略转义返回/原时间回绕/失败及声音调用不改。不添加保护、转码或恢复cipher叶。本次只格式callee及WorldUpdate一已有内部声明头，唯一owner、全部其他正文保持；不恢复音频或加解密，不把局部类型/入向/源登记代替原父、容量全链/CRT及总PLAN验收。 当前CTS01：CTS01两完整聊天发送/六字段封包根183条653B/四页，23实际E8/11目标/14跳四RET，另两FF15 GetTickCount；两入向内部1/外1，BTG01父仅关联发送与清理窗口。原色4→5、gate W32/disabled BYTE/跟随W16/选项BYTE、U32 tick普通previous→tick→新previous→current/1000门槛、受限180000及原0/1写、提示/SE74/320/240/配置零或S32音效返保持。一个逻辑组两点复用现有ReadPlayerOptions194LowByte，恢复原BYTE而非读W16后截，两个原短路现场分别读取；字段W16和全部写方保持，不造reader/API/身份或跨分支缓存。两未清1024区/转义→P|%s→新mode/range→Y/X getter→新socket→六字段，命令uSr及当前明文合同保。每字段先新capacity W32/S32→token→新共享buffer→append弃返，末新buffer/socket→发送S32；511900正确body和全部其它source/UTE-ETE/BTG01保。旧1075格式/字节/来源/接线子记录保历史追加、一新语义/两F，四关联注释；无新函数/struct/类型/布局/owner、分配释放/保护/默认值/补零/钳制/容量限制/回滚或异常模型，发送早返后旧父仍按原清输入，GBK/MSVC/WAV-only不变。全输入与收信gate生产、历史/输入/文本工作区/协议共享buffer全部生产消费及alias-owner寿命、时钟/SDK/机器ABI/数值/优化后读取/并发、真实禁言/连续发送/服务器互通/文字声音画面与全生命周期待，限定S不代完整gates/枚举/六closure/总SPEC§10。",
@@ -156396,6 +156737,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/world/SceneState.cpp",
+            "symbol": "Sub_50C940"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -196634,7 +196988,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。 BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
@@ -196685,6 +197040,19 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LoginCapability3Scene.cpp",
+            "symbol": "ProcessCapability3InputAndDraw"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -196714,7 +197082,8 @@
         "doc/cg2d_capability4_scene_sampling_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。 BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
@@ -196770,6 +197139,19 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LoginCapability4Scene.cpp",
+            "symbol": "Sub_464840"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -196796,7 +197178,8 @@
         "doc/cg2d_login_mode_normal_message_branch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。 BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
       "verification_level": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
@@ -196848,6 +197231,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/LoginModeScene.cpp",
+            "symbol": "ProcessModeScene_45C5A0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -246948,6 +247344,13 @@
             "kEscapePairs58E944"
           ],
           "relationship": "UTE01共用同一实际表，原八BYTE与当前literal保持"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "EscapeText"
+          ],
+          "relationship": "UTL02动态UTF-16转义及GBK容量预检；旧窄入口限ASCII组包，超容量明确失败。"
         }
       ],
       "evidence_documents": [
@@ -246958,7 +247361,8 @@
         "doc/cg2d_text_escape_sampling_spec.md#evidence-archive-20261011",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "ETE01两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET，112入向内部1/外111仅来源；58E944八BYTE四对映射/未匹配原字节保。三逻辑组恢复非地址S32表计数、首BYTE持有/后继与索引及nextWidth/used更新序、匹配字母早退前读取及两BYTE写后索引更新。固定入口长度/两索引S32、原容量与调整长度门槛/截断/末NUL/同destination返回保；正确包装与现有InputContext文本便利适配保持，便利适配不造第三原根。原空操作509080单RET/参数未读已证，不加通知/成功值或扩改签名。六关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量限制/回滚或异常模型；当前GBK/原格式明文/MSVC/WAV-only及UTE01四根/所有其它源保持。全部111外调用、文本生产消费/容量/alias-owner寿命、SDK/机器ABI/数值/优化后读取与实际截断/字符消息画面及全生命周期待；只限定S，枚举/完整gates/六closure/总SPEC§10不变。",
       "verification_level": "pass，两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET、112入向内部1/外111仅来源，原八BYTE表与当前literal有据；整两文件精确重放S32表计数/原首BYTE及后继与更新序/匹配字母早退前读取及两写后更新三组和六注释，包装/便利适配正确body、UTE01四根与所有其它source保持",
@@ -247064,6 +247468,19 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbol": "EscapeLegacyText_52D1B0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -247095,6 +247512,14 @@
             "EscapeInputText_52D2D0"
           ],
           "relationship": "现有公开声明/签名保持，仅ETE01完整合同关联注释"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "EscapeTextAndNotify",
+            "EscapeInputText_52D2D0"
+          ],
+          "relationship": "UTL02动态UTF-16包装；保原空叶，转义结果在GBK提交预算内完整返回。"
         }
       ],
       "evidence_documents": [
@@ -247105,7 +247530,8 @@
         "doc/cg2d_text_escape_sampling_spec.md#evidence-archive-20261011",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014"
       ],
       "boundary": "ETE01两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET，112入向内部1/外111仅来源；58E944八BYTE四对映射/未匹配原字节保。三逻辑组恢复非地址S32表计数、首BYTE持有/后继与索引及nextWidth/used更新序、匹配字母早退前读取及两BYTE写后索引更新。固定入口长度/两索引S32、原容量与调整长度门槛/截断/末NUL/同destination返回保；正确包装与现有InputContext文本便利适配保持，便利适配不造第三原根。原空操作509080单RET/参数未读已证，不加通知/成功值或扩改签名。六关联注释，无新函数/API/类型/布局/owner、保护/默认值/补零/钳制/容量限制/回滚或异常模型；当前GBK/原格式明文/MSVC/WAV-only及UTE01四根/所有其它源保持。全部111外调用、文本生产消费/容量/alias-owner寿命、SDK/机器ABI/数值/优化后读取与实际截断/字符消息画面及全生命周期待；只限定S，枚举/完整gates/六closure/总SPEC§10不变。",
       "verification_level": "pass，两完整原根108条310B/三页、两个实际E8/两个目标/11跳两RET、112入向内部1/外111仅来源，原八BYTE表与当前literal有据；整两文件精确重放S32表计数/原首BYTE及后继与更新序/匹配字母早退前读取及两写后更新三组和六注释，包装/便利适配正确body、UTE01四根与所有其它source保持",
@@ -247853,6 +248279,19 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "unicode_migration_contract_corrections": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+        "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+        "touched_sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbol": "EscapeInputText_52D2D0"
+          }
+        ],
+        "scope": "宽字符串消费、动态转义与GBK提交容量／整组保存的源码修正；原身份、状态和历史门禁保持。",
         "build_verified": false,
         "runtime_verified": false
       }
@@ -275323,5 +275762,37 @@
     "change": "只读source及返回借用同步const char*；七调用均弃返",
     "original_identity_and_states_changed": false,
     "build_verified": false
+  },
+  "unicode_migration_contract_corrections": {
+    "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+    "evidence_ref": "doc/cg2d_unicode_utf16_evidence.json",
+    "login_helper_sources": [
+      {
+        "path": "src/LoginInput.cpp",
+        "symbols": [
+          "SaveInputValues",
+          "WriteStoredInputValue"
+        ],
+        "original_entries": [
+          "0x005203B0",
+          "0x00520410"
+        ],
+        "relationship": "UTL02两项51B保存共同预检与单项整串容量边界；原接口／原地址和函数表身份保持。"
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbols": [
+          "SaveCapability4InputSlot"
+        ],
+        "original_entries": [
+          "0x00533570",
+          "0x005335B0",
+          "0x00533640"
+        ],
+        "relationship": "三个51B字段先全部编码校验，再按原顺序发布，失败不切槽或推进场景。"
+      }
+    ],
+    "build_verified": false,
+    "runtime_verified": false
   }
 }

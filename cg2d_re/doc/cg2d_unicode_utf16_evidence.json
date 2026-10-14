@@ -11386,7 +11386,7 @@
       "additional_ascii_button_arrays": 6,
       "wide_emote_label_entries": 18,
       "wide_emote_hint_entries": 18,
-      "narrow_readonly_compatibility_views": 213,
+      "narrow_readonly_compatibility_views": 212,
       "direct_stall_input_hint_references": 2,
       "preserved_original_address": "0x00586450",
       "view_contract": "由宽常量派生、先定义后借用、同作用域寿命；仅窄CRT/旧只读接口，不作为可写UI正文。",
@@ -11879,6 +11879,262 @@
       "source_encoding_and_diff_checked": true,
       "original_address_comments_preserved": true,
       "traceability_final_check": true
+    }
+  },
+  "migration_contract_corrections": {
+    "recorded_on": "2026-10-14",
+    "decision_ref": "doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014",
+    "source_functions": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D3210",
+        "line": 2573
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D3410",
+        "line": 2635
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF730",
+        "line": 5372
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EA1B0",
+        "line": 9235
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EB1C0",
+        "line": 9905
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52DCE0",
+        "line": 10255
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52ED50",
+        "line": 10606
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_530BA0",
+        "line": 11170
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_501FD0",
+        "line": 16950
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_50E6E0",
+        "line": 943
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA6F0",
+        "line": 4939
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA9C0",
+        "line": 4981
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CB6A0",
+        "line": 5172
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_488B10",
+        "line": 9076
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4ADF40",
+        "line": 13378
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B5C30",
+        "line": 18288
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A36B0",
+        "line": 26824
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A5970",
+        "line": 27626
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A6450",
+        "line": 27983
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFB10",
+        "line": 29408
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFC00",
+        "line": 29431
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFCF0",
+        "line": 29454
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48ECA0",
+        "line": 43473
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48DD80",
+        "line": 43617
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48E430",
+        "line": 43759
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_477710",
+        "line": 44110
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "WriteStoredInputValue",
+        "line": 98
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "SaveInputValues",
+        "line": 127
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "SaveCapability4InputSlot",
+        "line": 144
+      },
+      {
+        "path": "src/LoginInput.cpp",
+        "symbol": "SaveAndSwitchCapability4InputSlot_465740",
+        "line": 565
+      },
+      {
+        "path": "src/LoginCapability4Scene.cpp",
+        "symbol": "Sub_464840",
+        "line": 65
+      },
+      {
+        "path": "src/LoginOuterScene.cpp",
+        "symbol": "ProcessOuterScene_45C2D0",
+        "line": 36
+      },
+      {
+        "path": "src/LoginModeScene.cpp",
+        "symbol": "ProcessModeScene_45C5A0",
+        "line": 32
+      },
+      {
+        "path": "src/LoginCapability3Scene.cpp",
+        "symbol": "ProcessCapability3InputAndDraw",
+        "line": 139
+      },
+      {
+        "path": "src/LoginSavedState.cpp",
+        "symbol": "Sub_533570",
+        "line": 1109
+      },
+      {
+        "path": "src/LoginSavedState.cpp",
+        "symbol": "Sub_5335B0",
+        "line": 1132
+      },
+      {
+        "path": "src/LoginSavedState.cpp",
+        "symbol": "Sub_533640",
+        "line": 1155
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "AppendText",
+        "line": 293
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "EscapeLegacyText_52D1B0",
+        "line": 633
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "EscapeText",
+        "line": 667
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "EscapeTextAndNotify",
+        "line": 677
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "EscapeInputText_52D2D0",
+        "line": 760
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44B050",
+        "line": 1430
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44AB60",
+        "line": 1578
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50C940",
+        "line": 3036
+      }
+    ],
+    "wide_string_empty_checks_fixed": 3,
+    "text_literal_length_assertions_removed": 3,
+    "escape_contract": "界面正文转义改动态UTF-16，原四对业务映射和协议二次转义保留；预算只按最终GBK字节含NUL检查，UTF-8视图不截断。保留的窄转义调用已按来源核为ASCII数字／标记组包，超容量明确失败。",
+    "login_save_contract": "三个51B持久槽、两个51B当前输入字段全部预编码后按原顺序发布；失败不保存、不切槽或推进登录场景。单项旧写入口也检查容量。",
+    "chat_contract": "历史289B／显示记录292B按GBK字节含NUL预检；历史更新前先核聊天转义预算，P|动态组包按原1024B含NUL预算提交。",
+    "semantic_records_updated": 26,
+    "unused_utf8_views_removed": 1,
+    "verification": {
+      "source_review": true,
+      "build": false,
+      "tests": false,
+      "runtime": false,
+      "file_hash": false
+    },
+    "remaining": "SDK类型／编译链接与运行验收未执行；本轮只完成已知审查缺口及真实关联消费者的源码修正。",
+    "function_table_locations_updated": 1616,
+    "static_checks": {
+      "modified_source_delimiters_balanced": true,
+      "source_utf8_lf_no_bom": true,
+      "original_address_comments_preserved": true,
+      "wide_string_narrow_crt_local_scan_no_hits": true,
+      "git_diff_check": true,
+      "function_table_identity_status_preserved": true,
+      "traceability_check": true
     }
   }
 }

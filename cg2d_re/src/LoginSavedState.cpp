@@ -1114,6 +1114,9 @@ void Sub_533570(
         return;
     }
 
+    if (std::strlen(source) >= 51) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
+    }
     for (std::int32_t index = 0; index < 51; ++index) {
         const std::int32_t physicalSlot =
             gSavedState.logicalToPhysical[logicalSlot];
@@ -1134,6 +1137,9 @@ void Sub_5335B0(
         return;
     }
 
+    if (std::strlen(source) >= 51) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
+    }
     for (std::int32_t index = 0; index < 51; ++index) {
         const std::int32_t physicalSlot =
             gSavedState.logicalToPhysical[logicalSlot];
@@ -1154,6 +1160,9 @@ void Sub_533640(
         return;
     }
 
+    if (std::strlen(source) >= 51) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "文字超过登录GBK字段容量");
+    }
     for (std::int32_t index = 0; index < 51; ++index) {
         const std::int32_t physicalSlot =
             gSavedState.logicalToPhysical[logicalSlot];

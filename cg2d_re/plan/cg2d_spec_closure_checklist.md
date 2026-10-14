@@ -207,3 +207,5 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 
 2026-10-14 UTL02遗留复查：修正c_str/const别名写入、标识符误替换、动态输入暂存与邮件300B GBK提交预检，见[当前文本SPEC](../doc/cg2d_text_encoding_spec.md)和[复查证据](../doc/cg2d_unicode_utf16_evidence.json)。仅静态源码修正，原开放任务及完整门禁不升级。
 2026-10-14 UTL02消息框编译反馈：Input错误提示接既有平台宽消息框、Input/SavedState补直接声明，关闭确认和外部键盘三处调用直接传宽常量，退休六个无用窄视图；完整任务状态保持，当前未重新编译。
+
+2026-10-14 UTL02审查缺口修正：按[明确边界](../doc/cg2d_text_encoding_spec.md#unicode-utf16-contract-fixes-20261014)修正宽字符串判空、动态UTF-16转义及GBK容量、登录整组预检／失败留编辑、聊天历史和动态发送组包；三条文字长度断言退休，布局断言保持。源码证据见[Unicode证据](../doc/cg2d_unicode_utf16_evidence.json)，开放任务和完整编译／运行门禁保持。

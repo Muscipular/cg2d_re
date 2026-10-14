@@ -163,7 +163,6 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
 
 constexpr wchar_t kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
     L"您…如此厭惡自己的聲音嗎？";
-const std::string kBlacklistSelfText554938Utf8View = cg::text::FromUtf16(kBlacklistSelfText554938); // 旧窄接口只读兼容视图。
 constexpr char kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
     "%s已在黑名單中";
 constexpr char kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
@@ -317,7 +316,7 @@ void AppendText(const std::wstring_view utf16)
                 return;
             }
         } catch (const std::system_error&) {
-            platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字输入", 0x10U);
+            platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字输入", 0x10U);
             return;
         }
         const auto lines = SplitLines(*context);
@@ -636,24 +635,13 @@ char* EscapeLegacyText_52D1B0(
     char* const destination,
     const std::int32_t capacity)
 {
-    // 动态输入在截取局部兼容视图前验证GBK提交能力，失败保留原编辑正文。
-    static_cast<void>(cg::text::ToGbk(source));
-    const std::string contents(source);
-    std::string escaped;
-    for (std::size_t offset = 0; offset < contents.size();) {
-        const std::size_t next = cg::text::Next(contents, offset);
-        const std::size_t width = next - offset;
-        std::int32_t pair = 0;
-        if (width == 1) {
-            while (pair < 4 && static_cast<std::uint8_t>(contents[offset]) != kEscapePairs58E944[pair * 2]) { ++pair; }
-        } else { pair = 4; }
-        const std::size_t outputWidth = pair == 4 ? width : 2;
-        if (capacity <= 0 || escaped.size() + outputWidth >= static_cast<std::size_t>(capacity)) { break; }
-        if (pair == 4) { escaped.append(contents, offset, width); }
-        else { escaped += '\\'; escaped += static_cast<char>(kEscapePairs58E944[pair * 2 + 1]); }
-        offset = next;
+    // 仅供固定ASCII组包的兼容接口；UTF-16正文使用动态转义入口。
+    const std::wstring escaped = EscapeText(cg::text::ToUtf16(source), capacity > 0 ? static_cast<std::size_t>(capacity) : 0);
+    const std::string utf8 = cg::text::FromUtf16(escaped);
+    if (capacity <= 0 || utf8.size() >= static_cast<std::size_t>(capacity)) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "转义结果超过临时字段容量");
     }
-    if (capacity > 0) { cg::text::Copy(destination, static_cast<std::size_t>(capacity), escaped); }
+    std::memcpy(destination, utf8.c_str(), utf8.size() + 1);
     return destination;
 }
 
@@ -675,9 +663,24 @@ std::wstring EscapeText(const std::wstring_view source)
     return escaped;
 }
 
+// 原0x0052D1B0：容量只约束完整转义结果的GBK字节（含NUL）。
+std::wstring EscapeText(const std::wstring_view source, const std::size_t gbkCapacity)
+{
+    std::wstring escaped = EscapeText(source);
+    if (cg::text::ToGbk(escaped).size() >= gbkCapacity) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "转义结果超过GBK字段容量");
+    }
+    return escaped;
+}
 
+// 原0x0052D2D0：保留空叶调用，随后完整转义，失败不发布。
+std::wstring EscapeTextAndNotify(const std::wstring_view source, const std::size_t gbkCapacity)
+{
+    NullSub_509080();
+    return EscapeText(source, gbkCapacity);
+}
 
-// 原0x0052D1B0的GBK字节算法；仅旧字节域使用，界面转义入口为UTF-8。
+// 原0x0052D1B0的GBK字节算法；仅旧字节域使用，界面转义入口为动态UTF-16。
 char* EscapeGbkText(const char* const source, char* const destination, const std::int32_t capacity)
 {
     const std::int32_t sourceLength =
@@ -754,13 +757,11 @@ char* EscapeLegacyTextAndNotify_52D2D0(
 }
 
 // ETE01：现有InputContext::text便利适配，同一52D2D0原根，不新增原身份。
-char* EscapeInputText_52D2D0(
+std::wstring EscapeInputText_52D2D0(
     const InputContext* const context,
-    char* const destination,
-    const std::int32_t capacity)
+    const std::size_t gbkCapacity)
 {
-    const std::string contents = context->utf8();
-    return EscapeLegacyTextAndNotify_52D2D0(contents.c_str(), destination, capacity);
+    return EscapeTextAndNotify(ContextText(*context), gbkCapacity);
 }
 
 namespace {
@@ -1439,9 +1440,14 @@ void Sub_44B050(
     }
 
     std::string stored;
-    try { stored = cg::text::ToGbk(text); }
+    try {
+        stored = cg::text::ToGbk(text);
+        if (stored.size() >= sizeof(gRecords5FB7F8[0].text)) {
+            throw cg::text::GbkStorageError(122, std::system_category(), "文字超过聊天记录GBK容量");
+        }
+    }
     catch (const std::system_error&) {
-        platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字编码", 0x10U);
+        platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字编码", 0x10U);
         return;
     }
     text = stored.c_str();
@@ -1580,9 +1586,16 @@ void Sub_44AB60()
             return;
         }
         std::string stored;
-        try { stored = cg::text::ToGbk(ContextText(*context)); }
+        try {
+            stored = cg::text::ToGbk(ContextText(*context));
+            if (stored.size() >= sizeof(world::detail::gChatHistory621FF8.records[0])) {
+                throw cg::text::GbkStorageError(122, std::system_category(), "文字超过聊天历史GBK容量");
+            }
+            // 先验证P|之后的转义正文，再发布历史；此预检不调用原通知空叶。
+            static_cast<void>(EscapeText(ContextText(*context), 1022));
+        }
         catch (const std::system_error&) {
-            platform::ShowWideMessage(L"这项文字包含无法保存的字符。", L"文字编码", 0x10U);
+            platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字编码", 0x10U);
             return;
         }
         auto& history = world::detail::gChatHistory621FF8;
@@ -1637,7 +1650,7 @@ void Sub_44AB60()
         context = gCurrentInputData;
     }
     if (context == &gInputContextC8B1B8) {
-        char message[256];
+        std::wstring message;
         const std::string textUtf8View = gInputContextC8B1B8.utf8();
         const char* const text = textUtf8View.c_str();
         const std::string playerText = cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1));
@@ -1658,18 +1671,18 @@ void Sub_44AB60()
             ++comparisonIndex;
         }
         if (targetsSelf) {
-            std::sprintf(message, kBlacklistSelfText554938Utf8View.c_str());
+            message = kBlacklistSelfText554938;
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            std::sprintf(message, kBlacklistExistingFormat554928, text);
+            cg::text::FormatTo(message, kBlacklistExistingFormat554928, text);
         } else {
             const char* const format = blacklist::AddBlacklistRecord_401270(text) != 0
                 ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
-            std::sprintf(message, format, text);
+            cg::text::FormatTo(message, format, text);
         }
         gInputContextC8B1B8.clearText();
         gInputContextC8B1B8.caretByteOffset = 0;
         gInputContextC8B1B8.totalByteLength = 0;
-        world::detail::Sub_44B050(message, 4, 3);
+        world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
         SetContext_44B330(&gInputContext626AA0);
     }
     gValue626C0C = 20;

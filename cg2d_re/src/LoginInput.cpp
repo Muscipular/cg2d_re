@@ -7,9 +7,12 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include <array>
 #include <bit>
+#include <cstring>
 #include <cstddef>
 
 namespace cg::login {
@@ -100,16 +103,8 @@ const char* WriteStoredInputValue(
         return nullptr;
     }
 
-    const std::string stored = cg::text::ToGbk(source);
-    for (std::size_t index = 0; index < kStoredInputValueSize; ++index) {
-        const char* const cursor = stored.c_str() + index;
-        const char value = *cursor;
-        storedValue[index] = value;
-        if (value == '\0') {
-            return source + std::strlen(source);
-        }
-    }
-    return source + cg::text::Prefix(source, cg::text::FromGbk(std::string_view(stored).substr(0, kStoredInputValueSize)).size());
+    cg::text::StoreGbk(storedValue, kStoredInputValueSize, source);
+    return source + std::strlen(source);
 }
 
 char* ReadStoredInputValue(
@@ -127,6 +122,41 @@ char* ReadStoredInputValue(
 }
 
 } // namespace
+
+// 原0x005203B0/0x00520410：两项完整编码后再按原顺序发布，失败不改存档。
+bool SaveInputValues(const std::wstring_view first, const std::wstring_view second)
+{
+    std::array<char, kStoredInputValueSize> firstStored;
+    std::array<char, kStoredInputValueSize> secondStored;
+    try {
+        cg::text::StoreGbk(firstStored.data(), firstStored.size(), first);
+        cg::text::StoreGbk(secondStored.data(), secondStored.size(), second);
+    } catch (const cg::text::GbkStorageError&) {
+        platform::ShowWideMessage(L"文字无法保存为GBK，或超过登录字段容量。", L"文字编码", 0x10U);
+        return false;
+    }
+    std::strcpy(detail::GetCurrentSavedInputValueFF494F(), firstStored.data());
+    std::strcpy(detail::GetCurrentSavedInputValueFF4982(), secondStored.data());
+    return true;
+}
+
+// 原0x00533570/0x005335B0/0x00533640：三个51字节字段先全组校验，再发布。
+bool SaveCapability4InputSlot()
+{
+    std::array<std::array<char, kStoredInputValueSize>, 3> stored;
+    try {
+        cg::text::StoreGbk(stored[0].data(), stored[0].size(), input::ContextText(gInputContext9A4D20));
+        cg::text::StoreGbk(stored[1].data(), stored[1].size(), input::ContextText(gInputContext9A5960));
+        cg::text::StoreGbk(stored[2].data(), stored[2].size(), input::ContextText(gInputContext9A5678));
+    } catch (const cg::text::GbkStorageError&) {
+        platform::ShowWideMessage(L"文字无法保存为GBK，或超过登录字段容量。", L"文字编码", 0x10U);
+        return false;
+    }
+    detail::Sub_533570(stored[0].data(), detail::gSelectedSavedSlot105C394);
+    detail::Sub_5335B0(stored[1].data(), detail::gSelectedSavedSlot105C394);
+    detail::Sub_533640(stored[2].data(), detail::gSelectedSavedSlot105C394);
+    return true;
+}
 
 // 原函数：0x005203B0。
 const char* WriteInputValueFF494F_5203B0(const char* const source)
@@ -535,17 +565,9 @@ void InitializeCapability4Input_465320()
 void SaveAndSwitchCapability4InputSlot_465740(
     const std::int32_t newSlot)
 {
-    const std::int32_t firstSavedSlot =
-        detail::gSelectedSavedSlot105C394;
-    detail::Sub_533570(cg::text::ToGbk(input::ContextText(gInputContext9A4D20)).c_str(), firstSavedSlot);
-
-    const std::int32_t secondSavedSlot =
-        detail::gSelectedSavedSlot105C394;
-    detail::Sub_5335B0(cg::text::ToGbk(input::ContextText(gInputContext9A5960)).c_str(), secondSavedSlot);
-
-    const std::int32_t thirdSavedSlot =
-        detail::gSelectedSavedSlot105C394;
-    detail::Sub_533640(cg::text::ToGbk(input::ContextText(gInputContext9A5678)).c_str(), thirdSavedSlot);
+    if (!SaveCapability4InputSlot()) {
+        return;
+    }
 
     detail::Sub_533730();
     detail::gSelectedSavedSlot105C394 = newSlot;

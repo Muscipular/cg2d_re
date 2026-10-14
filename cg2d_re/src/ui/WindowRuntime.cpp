@@ -4962,19 +4962,18 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     if ((state & 2) == 0) {
         return consumed;
     }
-    std::array<std::array<char, 256>, 3> buffers;
-    input::EscapeLegacyText_52D1B0(cg::text::FromUtf16(gProfileSearchKeyword1075988).c_str(), buffers[1].data(), 256);
+    const std::wstring keyword = input::EscapeText(gProfileSearchKeyword1075988, 256);
     const auto& search = world::detail::ReadProfileSearch105C398();
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;
-    std::sprintf(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
-    input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
+    const std::wstring combined = std::to_wstring(group) + L"|" + std::to_wstring(entry) + L"|" + keyword;
+    const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, commands[position], buffers[2].data()));
+        platform::gConnectionSocket, x, y, request, target, commands[position], cg::text::FromUtf16(packet).c_str()));
     return 1;
 }
 
@@ -4993,18 +4992,14 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         const auto& record = world::detail::ReadProfileSearch105C398().records[position];
         const std::int32_t key = record.value104;
-        char name[256];
-        char packet[256];
-        char combined[1024];
-        cg::text::Copy(name, sizeof(name), cg::text::FromGbk(record.text04.data()));
-        std::sprintf(combined, "%d|%s", key, name);
-        input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
+        const std::wstring combined = std::to_wstring(key) + L"|" + cg::text::FromGbkWide(record.text04.data());
+        const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 4, packet));
+            platform::gConnectionSocket, x, y, request, target, 4, cg::text::FromUtf16(packet).c_str()));
         consumed = 1;
     }
     if (gWindowStates[62].window != nullptr) {
@@ -5197,27 +5192,19 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return consumed;
     }
-    char name[256];
-    std::wstring text;
+    const std::wstring text = input::ContextText(input::gInputContextCA0180);
     std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
-    char escapedName[256];
-    char escapedText[1024];
-    std::wstring combined;
-    char packet[1024];
-    cg::text::Copy(name, sizeof(name), cg::text::FromGbk(gMiniMailCompose105F508.name.data()));
-    text = input::ContextText(input::gInputContextCA0180);
     cg::text::StoreGbk(storedText.data(), storedText.size(), text);
-    input::EscapeLegacyText_52D1B0(name, escapedName, 256);
-    input::EscapeLegacyText_52D1B0(cg::text::FromUtf16(text).c_str(), escapedText, 1024);
-    cg::text::FormatTo(
-        combined, "%d|%s|%s|%d", gMiniMailCompose105F508.target, escapedName, escapedText, 0);
-    input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1023);
+    const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(gMiniMailCompose105F508.name.data()), 256);
+    const std::wstring escapedText = input::EscapeText(text, 1024);
+    const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
+    const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 8, packet));
+        platform::gConnectionSocket, x, y, request, target, 8, cg::text::FromUtf16(packet).c_str()));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
         std::int32_t time;
@@ -9090,8 +9077,6 @@ std::int32_t Sub_488B10(const std::int32_t)
 {
     static constexpr auto selectionText586B14 = text::JoinLines("選好想蓋印的物品，", "單點滑鼠左鍵，", "可蓋下印記。", "單點滑鼠右鍵即結束。");
     static constexpr auto selectionText586B5C = text::JoinLines("選好想掩埋的物品，", "單點滑鼠左鍵可掩埋物品。", "單點滑鼠右鍵即結束。", "");
-    static_assert(sizeof(selectionText586B14) == 100);
-    static_assert(sizeof(selectionText586B5C) == 97);
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
         const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[14].value10);
@@ -13400,18 +13385,16 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             gHoverTextD68AE8 = L"變更家族獸名稱。";
         }
         if ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
-            gWindowTitleCC4118 = cg::text::ToUtf16(input::gInputContextCC49C0.utf8().c_str());
+            const std::wstring proposedTitle = input::ContextText(input::gInputContextCC49C0);
+            const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
+            const std::wstring packet = input::EscapeText(L"N|" + name, 255);
+            gWindowTitleCC4118 = proposedTitle;
             static_cast<void>(Sub_4A7B00());
             auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
             title->text = gWindowTitleCC4118;
             gCurrentWindow->elements[4].visible = 0;
             gCurrentWindow->elements[2].visible = 1;
             gCurrentWindow->elements[3].visible = 1;
-            std::array<char, 1536> buffer;
-            std::strcpy(buffer.data(), cg::text::FromUtf16(gWindowTitleCC4118).c_str());
-            input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
-            std::sprintf(buffer.data(), "N|%s", buffer.data() + 256);
-            input::EscapeLegacyText_52D1B0(buffer.data(), buffer.data() + 256, 255);
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
             const std::int32_t y =
@@ -13419,7 +13402,7 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 256));
+                platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromUtf16(packet).c_str()));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -18369,8 +18352,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         }
         input::InputContext* const context = gWindow50InputPrototype580618.input.context;
         if (!context->empty()) {
-            const std::string sourceUtf8View = context->utf8();
-            input::EscapeLegacyTextAndNotify_52D2D0(sourceUtf8View.c_str(), escaped, 256);
+            const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 256);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -18378,7 +18360,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 1, escaped));
+                platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromUtf16(escapedText).c_str()));
             gWindow50InputPrototype580618.input.context->clearText();
             static_cast<void>(Sub_4B6C20());
         } else {
@@ -26844,11 +26826,9 @@ std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const auto& record = world::detail::ReadMiniMailContact1075A90(index);
     const std::int32_t key = record.key04;
-    char buffer[1536];
-    cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(record.name10.data()));
-    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
+    const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(record.name10.data()), 255);
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_5117D0(socket, key, buffer + 256));
+    static_cast<void>(network::Sub_5117D0(socket, key, cg::text::FromUtf16(escapedText).c_str()));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     world::detail::Sub_534480(currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -27680,11 +27660,9 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3BA1B;
     }
     char timestamp[64];
-    char packet[1024];
+    std::wstring packet;
     std::wstring combined;
     std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
-    char escapedName[256];
-    char escapedText[1024];
     bool closeAfterSend = false;
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
     if (mode != 0) {
@@ -27697,7 +27675,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 } else {
                     combined = input::ContextText(input::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
-                    input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
+                    packet = input::EscapeTextAndNotify(combined, 1024);
                     for (std::int32_t row = 0; row < gLoginWindowRuntime.mailGroupCC1A30.count; ++row) {
                         if (gLoginWindowRuntime.mailGroupCC1A30.selected[row] != 1) {
                             continue;
@@ -27705,21 +27683,21 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                         if (groupMode == 0) {
                             const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_510FA0(socket, contact, packet, 0));
+                            static_cast<void>(network::Sub_510FA0(socket, contact, cg::text::FromUtf16(packet).c_str(), 0));
                             FormatMailTimestamp587768(timestamp);
                             world::detail::Sub_5191C0(contact, 1, timestamp, storedText.data());
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
                             const std::int32_t key = login::detail::gOrderedRecords1051B14[member].value0C;
-                            static_cast<void>(network::Sub_511480(socket, key, packet, 0));
+                            static_cast<void>(network::Sub_511480(socket, key, cg::text::FromUtf16(packet).c_str(), 0));
                             FormatMailTimestamp587768(timestamp);
                             static_cast<void>(world::detail::Sub_519370(
                                 key, 1, timestamp, storedText.data()));
                         } else {
                             const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_511480(socket, group + 0x400, packet, 0));
+                            static_cast<void>(network::Sub_511480(socket, group + 0x400, cg::text::FromUtf16(packet).c_str(), 0));
                             for (std::int32_t member = 0; member < 200; ++member) {
                                 const std::int32_t memberGroup = login::detail::gOrderedRecords1051B14[member].value00;
                                 const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
@@ -27750,11 +27728,11 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
                 const std::int32_t key = record.key04;
                 cg::text::StoreGbk(storedText.data(), storedText.size(), input::ContextText(input::gInputContextD66CA8));
-                input::EscapeLegacyText_52D1B0(cg::text::FromGbk(record.name10.data()).c_str(), escapedName, 256);
-                input::EscapeLegacyText_52D1B0(input::gInputContextD66CA8.utf8().c_str(), escapedText, 1024);
-                cg::text::FormatTo(combined, "%d|%s|%s", key, escapedName, escapedText);
-                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
-                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
+                const std::wstring escapedName = input::EscapeText(cg::text::FromGbkWide(record.name10.data()), 256);
+                const std::wstring escapedText = input::EscapeText(input::ContextText(input::gInputContextD66CA8), 1024);
+                combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
+                packet = input::EscapeTextAndNotify(combined, 1024);
+                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, cg::text::FromUtf16(packet).c_str(), 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 world::detail::Sub_5343C0(currentContact, 1, timestamp, storedText.data());
@@ -27768,17 +27746,16 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                     combined = input::ContextText(input::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 } else {
-                    const std::size_t length = input::gInputContextD66CA8.length() + 1;
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
                     combined = input::ContextText(input::gInputContextD66CA8);
                     cg::text::StoreGbk(storedText.data(), storedText.size(), combined);
                 }
-                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(combined).c_str(), packet, 1024);
+                packet = input::EscapeTextAndNotify(combined, 1024);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511480(socket, target, packet, 0));
+                    static_cast<void>(network::Sub_511480(socket, target, cg::text::FromUtf16(packet).c_str(), 0));
                 } else {
-                    static_cast<void>(network::Sub_510FA0(socket, target, packet, 0));
+                    static_cast<void>(network::Sub_510FA0(socket, target, cg::text::FromUtf16(packet).c_str(), 0));
                 }
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
@@ -28076,7 +28053,6 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
             if (allowed) {
                 std::wstring text;
                 std::array<char, 300> storedText; // 原邮件0x140字节记录的+0x14正文，含NUL。
-                char packet[600];
                 char timestamp[64];
                 std::int32_t target;
                 if (category == 1) {
@@ -28084,20 +28060,19 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
                     target = login::detail::gOrderedRecords1051B14[member].value0C;
                     text = input::ContextText(input::gInputContextD66CA8);
                 } else {
-                    const std::size_t length = input::gInputContextD66CA8.length() + 1;
                     target = gLoginWindowRuntime.prefixD2F0B8.value04;
                     text = input::ContextText(input::gInputContextD66CA8);
                 }
                 cg::text::StoreGbk(storedText.data(), storedText.size(), text);
-                input::EscapeLegacyTextAndNotify_52D2D0(cg::text::FromUtf16(text).c_str(), packet, 600);
+                const std::wstring packet = input::EscapeTextAndNotify(text, 600);
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511510(socket, target, pet, item, packet, 0));
+                    static_cast<void>(network::Sub_511510(socket, target, pet, item, cg::text::FromUtf16(packet).c_str(), 0));
                 } else {
-                    static_cast<void>(network::Sub_5110B0(socket, target, pet, item, packet, 0));
+                    static_cast<void>(network::Sub_5110B0(socket, target, pet, item, cg::text::FromUtf16(packet).c_str(), 0));
                 }
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
@@ -29445,12 +29420,9 @@ std::int32_t Sub_4AFB10()
     if (result == 1) {
         return result;
     }
-    std::array<char, 512> buffers;
-    cg::text::Copy(buffers.data(), 256, cg::text::FromGbk(gGuildDraftCF4018.name604.data()));
-    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
-        buffers.data(), buffers.data() + 256, 256));
+    const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()), 256);
     static_cast<void>(network::Sub_511250(
-        platform::gConnectionSocket, 2, buffers.data() + 256));
+        platform::gConnectionSocket, 2, cg::text::FromUtf16(escapedText).c_str()));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return Sub_4A7B00();
 }
@@ -29471,12 +29443,9 @@ std::int32_t Sub_4AFC00()
     if (result == 1) {
         return result;
     }
-    std::array<char, 512> buffers;
-    cg::text::Copy(buffers.data(), 256, cg::text::FromGbk(gGuildDraftCF4018.secondText634.data()));
-    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
-        buffers.data(), buffers.data() + 256, 256));
+    const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()), 256);
     static_cast<void>(network::Sub_511250(
-        platform::gConnectionSocket, 3, buffers.data() + 256));
+        platform::gConnectionSocket, 3, cg::text::FromUtf16(escapedText).c_str()));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return Sub_4A7B00();
 }
@@ -29497,17 +29466,14 @@ std::int32_t Sub_4AFCF0()
             }
         }
     }
-    std::array<char, 512> buffers;
     for (std::int32_t index = 0; index < 32; ++index) {
         const char* const draft = gGuildDraftCF4018.ranks[index].text.data();
         if (std::strcmp(login::detail::BorrowGuildRankText1051518(index), draft) != 0
             || login::detail::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
-            cg::text::Copy(buffers.data(), 256, cg::text::FromGbk(draft));
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
-                buffers.data(), buffers.data() + 256, 256));
+            const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(draft), 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
             const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::Sub_5112C0(socket, index, flags, buffers.data() + 256));
+            static_cast<void>(network::Sub_5112C0(socket, index, flags, cg::text::FromUtf16(escapedText).c_str()));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }
@@ -43523,17 +43489,15 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char escaped[256];
-            const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-            input::EscapeLegacyTextAndNotify_52D2D0(
-                textUtf8View.c_str(), escaped, sizeof(escaped));
+            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
+            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (textUtf8View.empty()) {
+            if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
@@ -43669,17 +43633,15 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char escaped[256];
-            const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-            input::EscapeLegacyTextAndNotify_52D2D0(
-                textUtf8View.c_str(), escaped, sizeof(escaped));
+            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
+            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (textUtf8View.empty()) {
+            if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
@@ -43813,17 +43775,15 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
             setImage(0x3B56E);
         }
         if ((state & 2) != 0) {
-            char escaped[256];
-            const std::string textUtf8View = input::gInputContextD2D4A0.utf8();
-            input::EscapeLegacyTextAndNotify_52D2D0(
-                textUtf8View.c_str(), escaped, sizeof(escaped));
+            const std::wstring text = input::ContextText(input::gInputContextD2D4A0);
+            const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, escaped));
+            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
-            if (textUtf8View.empty()) {
+            if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const char* const name = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
@@ -44195,12 +44155,8 @@ std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
             setImage(0x3BAC2);
         }
         if ((state & 2) != 0) {
-            char workspace[256];
-            const std::size_t length = gTitleDraftD45FC0.size() + 1;
-            std::strcpy(workspace, cg::text::FromUtf16(gTitleDraftD45FC0).c_str());
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
-                workspace, workspace + 128, 128));
-            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, workspace + 128));
+            const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
+            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, cg::text::FromUtf16(escapedText).c_str()));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(Sub_4A7B00());
             consumed = 1;

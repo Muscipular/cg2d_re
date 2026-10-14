@@ -74,10 +74,9 @@ void ProcessModeScene_45C5A0()
     const std::int32_t result = ProcessLoginInput_45CA20(inputMode);
     if (result == 1) {
         cg::NullSub_509080();
-        static_cast<void>(
-            WriteInputValueFF494F_5203B0(gInputContext9A5960.utf8().c_str()));
-        static_cast<void>(
-            WriteInputValueFF4982_520410(gInputContext9A5678.utf8().c_str()));
+        if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
+            return;
+        }
         static_cast<void>(detail::Sub_520200());
         static_cast<void>(detail::PlaySe(53, 320, 240));
         if (render::gPaletteCapability >= 1) {

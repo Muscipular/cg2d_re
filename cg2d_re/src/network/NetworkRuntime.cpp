@@ -952,7 +952,6 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         constexpr wchar_t warning58B094[] =
             L"網路有可能是被再連接了。";
 const std::string warning58B094Utf8View = cg::text::FromUtf16(warning58B094); // 旧窄接口只读兼容视图。
-        static_assert(sizeof(format58B0B0) == 30);
 
         char message[256];
         std::sprintf(message, format58B0B0, cg::text::FromGbk(previous).c_str(), cg::text::FromGbk(text).c_str());

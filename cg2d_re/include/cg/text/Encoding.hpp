@@ -20,11 +20,8 @@ public:
 
 // UTL02：界面内部UTF-16；以下窄接口仅供CRT及既有协议接口的局部UTF-8视图。
 [[nodiscard]] std::wstring ToUtf16(std::string_view utf8);
-[[nodiscard]] std::string FromUtf16(std::wstring_view utf16);
 // 仅用于已明确GBK的协议／资源字段，不尝试猜测输入编码。
 // 仅旧A显示来源；保留原系统ACP解释，不据此认定原文编码。
-[[nodiscard]] std::string FromLegacyDisplay(std::string_view bytes);
-[[nodiscard]] std::string FromGbk(std::string_view gbk);
 [[nodiscard]] std::string ToGbk(std::string_view utf8);
 // 整串写回旧GBK字段；超容量与编码失败均抛GbkStorageError，失败前不发布。
 void StoreGbk(char* destination, std::size_t capacity, std::string_view utf8);

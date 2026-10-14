@@ -3715,7 +3715,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
         initial->elements[0].visible = 0;
         gCurrentWindow->elements[1].visible = 0;
     }
-    char lineText[96];
+    std::wstring lineText;
     if (gStallOwn58111C != 0) {
         const bool showScroll = gStallModeD67BDC == 1
             ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
@@ -3743,8 +3743,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             gStallDescriptionD67BF8[56] = '\0';
         } else if (std::strlen(gStallDescriptionD67BF8.data()) != 0) {
             for (std::int32_t line = 0; line < 3; ++line) {
-                static_cast<void>(input::ExtractGbkTextLine(
-                    lineText, sizeof(lineText), gStallDescriptionD67BF8.data(), line, 28));
+                static_cast<void>(input::ExtractGbkTextLine(lineText, gStallDescriptionD67BF8.data(), line, 28));
                 WindowInstance* const window = gCurrentWindow;
                 WindowElement* const current = window->elements;
                 const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -3812,8 +3811,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
         static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(BorrowStallBrowseD046D8Storage()->sellerName00.data());
         static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(BorrowStallBrowseD046D8Storage()->stallName11.data());
         for (std::int32_t line = 0; line < 3; ++line) {
-            static_cast<void>(input::ExtractGbkTextLine(
-                lineText, sizeof(lineText), BorrowStallBrowseD046D8Storage()->description22.data(), line, 28));
+            static_cast<void>(input::ExtractGbkTextLine(lineText, BorrowStallBrowseD046D8Storage()->description22.data(), line, 28));
             WindowInstance* const window = gCurrentWindow;
             WindowElement* const current = window->elements;
             const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -4965,27 +4963,25 @@ std::uint32_t Sub_4CAFA0()
             profile.entries410[index].value04;
     }
     static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(profile.text08.data());
-    char number[256];
-    std::sprintf(number, "%3d", profile.value108);
-    static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::ToUtf16(number);
+    std::wstring number;
+    cg::text::FormatTo(number, L"{:3}", profile.value108);
+    static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = number;
     static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = cg::text::FromGbkWide(profile.text110.data());
     static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(profile.text210.data());
     static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(profile.text310.data());
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<WindowTextData*>(gCurrentWindow->elements[index + 6].data)->text = cg::text::FromGbkWide(profile.entries410[index].text08.data());
     }
-    char line[1024];
+    std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<void>(input::ExtractGbkTextLine(
-            line, 1024, profile.text728.data(), index, 28));
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text = cg::text::ToUtf16(line);
+        static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), index, 28));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text = line;
     }
-    static_cast<void>(input::ExtractGbkTextLine(
-        line, 1024, profile.text728.data(), 3, 28));
+    static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), 3, 28));
     std::wstring& destination = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text;
-    const auto bytes = static_cast<std::uint32_t>(std::strlen(line) + 1);
-    destination = cg::text::ToUtf16(line);
-    return bytes;
+    const auto units = static_cast<std::uint32_t>(line.size() + 1);
+    destination = line;
+    return units;
 }
 
 // 原函数：0x004CAF60。
@@ -5188,27 +5184,25 @@ std::uint32_t Sub_4CB9F0()
             profile.entries410[index].value04;
     }
     static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text = cg::text::FromGbkWide(profile.text08.data());
-    char number[256];
-    std::sprintf(number, "%d", profile.value108);
-    static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::ToUtf16(number);
+    std::wstring number;
+    cg::text::FormatTo(number, L"{}", profile.value108);
+    static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = number;
     static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(profile.text110.data());
     static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = cg::text::FromGbkWide(profile.text210.data());
     static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(profile.text310.data());
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<WindowTextData*>(gCurrentWindow->elements[index + 5].data)->text = cg::text::FromGbkWide(profile.entries410[index].text08.data());
     }
-    char line[256];
+    std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
-        static_cast<void>(input::ExtractGbkTextLine(
-            line, 256, profile.text728.data(), index, 28));
-        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = cg::text::ToUtf16(line);
+        static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), index, 28));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text = line;
     }
-    static_cast<void>(input::ExtractGbkTextLine(
-        line, 256, profile.text728.data(), 3, 28));
+    static_cast<void>(input::ExtractGbkTextLine(line, profile.text728.data(), 3, 28));
     std::wstring& destination = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text;
-    const auto bytes = static_cast<std::uint32_t>(std::strlen(line) + 1);
-    destination = cg::text::ToUtf16(line);
-    return bytes;
+    const auto units = static_cast<std::uint32_t>(line.size() + 1);
+    destination = line;
+    return units;
 }
 
 // 原函数：0x004CB9E0。
@@ -38281,9 +38275,9 @@ std::int32_t Sub_47A7A0(const std::int32_t)
     } else {
         position = gSkillWindowScrollD2D648;
     }
-    char buffer[768];
+    std::wstring buffer;
     const auto drawDescription = [&](const char* text, const std::int32_t line, const std::int32_t columns) {
-        if (input::ExtractGbkTextLine(buffer, 256, text, line, columns) != 0) {
+        if (input::ExtractGbkTextLine(buffer, text, line, columns) != 0) {
             const WindowInstance* const window = gCurrentWindow;
             const auto y = static_cast<std::int16_t>(window->y + 208 + 12 * line);
             const auto x = static_cast<std::int16_t>(window->x + 23);
@@ -38324,8 +38318,8 @@ std::int32_t Sub_47A7A0(const std::int32_t)
             }
         }
         const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
-        std::sprintf(buffer, "%2d/%2d", usedSlots, totalSlots);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = cg::text::ToUtf16(buffer);
+        cg::text::FormatTo(buffer, L"{:2}/{:2}", usedSlots, totalSlots);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text = buffer;
         break;
     }
     case 1:
@@ -38349,16 +38343,16 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
             const std::int32_t experience = record->experience;
-            std::sprintf(buffer, "%4d/%4d", experience, next);
+            cg::text::FormatTo(buffer, L"{:4}/{:4}", experience, next);
         } else {
-            std::sprintf(buffer, "%4d/ -- ", record->experience);
+            cg::text::FormatTo(buffer, L"{:4}/ -- ", record->experience);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::ToUtf16(buffer);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = buffer;
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
-        std::sprintf(buffer, "%2d/%2d", level, maximum);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::ToUtf16(buffer);
+        cg::text::FormatTo(buffer, L"{:2}/{:2}", level, maximum);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
                 const std::int32_t hover = gSkillWindowHoverD2F744;
@@ -38384,8 +38378,8 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         const std::int32_t levelIndex = gSkillRecipeLevelC8B1B4;
         static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text = cg::text::FromGbkWide(record->techniques3C[levelIndex].name.data());
         const std::int32_t level = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
-        std::sprintf(buffer, "%5d", level);
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::ToUtf16(buffer);
+        cg::text::FormatTo(buffer, L"{:5}", level);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = buffer;
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
             const std::int32_t hover = gSkillWindowHoverD2F744;
@@ -43764,18 +43758,18 @@ std::int32_t Sub_48F6C0(const std::int32_t index, const std::int32_t state)
         for (std::int32_t line = 0; line < 4; ++line) {
             gCurrentWindow->elements[33 + line].visible = 1;
         }
-        char buffer[768];
+        std::wstring buffer;
         for (std::int32_t line = 0; line < 4; ++line) {
             const auto selected = std::bit_cast<std::int16_t>(
                 world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
             const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[selected];
             const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[index - 37].index);
             const char* const description = pet.techniquesD8[technique].description.data();
-            if (input::ExtractGbkTextLine(buffer, 256, description, line, 26) != 0) {
+            if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
                 auto* const elements = gCurrentWindow->elements;
-                const std::size_t length = std::strlen(buffer) + 1;
+                const std::size_t length = buffer.size() + 1;
                 auto* const data = static_cast<WindowTextData*>(elements[33 + line].data);
-                data->text = cg::text::ToUtf16(buffer);
+                data->text = buffer;
             }
         }
     }

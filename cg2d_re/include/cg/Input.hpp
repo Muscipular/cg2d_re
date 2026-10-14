@@ -234,15 +234,9 @@ char* UnescapeLegacyText_52D150(char* text); // UTE01：原位BYTE取样/固定S
 // 原函数：0x0052D2F0。
 char* UnescapeLegacyTextAndNotify_52D2F0(char* text); // UTE01：反转义/原空操作/同text，非新增通知。
 
-// UTL01：source为UTF-8，输出预算为字节，旧列预算不切开完整Unicode字符。
-// 原0x00503AB0的GBK输入、UTF-8显示输出边界；固定记录仍用原接口。
-std::int32_t ExtractGbkTextLine(
-    char* destination, std::int32_t capacity, const char* source,
-    std::int32_t requestedLine, std::int32_t width);
+// 原0x00503AB0：显示分行只输出动态UTF-16；固定GBK记录保留原字节解析接口。
 std::int32_t ExtractGbkTextLine(std::wstring& destination, const char* source, std::int32_t line, std::int32_t width);
 std::int32_t ExtractTextLine(std::wstring& destination, std::wstring_view source, std::int32_t line, std::int32_t width);
-std::int32_t ExtractTextLine(char* destination, std::int32_t capacity, std::wstring_view source, std::int32_t line, std::int32_t width);
-std::int32_t ExtractTextLine(char* destination, std::int32_t capacity, const char* source, std::int32_t line, std::int32_t width);
 
 // 原503AB0：GBK协议／资源输入边界，转换后按旧逻辑列预算提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
 std::int32_t ExtractLegacyLine_503AB0(

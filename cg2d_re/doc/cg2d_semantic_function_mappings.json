@@ -307,11 +307,6 @@
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
           "path": "src/world/WorldObjectState.hpp",
           "symbols": [
             "detail::WorldObjectRecord::WorldObjectRecord",
@@ -435,11 +430,6 @@
           "symbols": [
             "DestroyWorldObjects"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
@@ -579,11 +569,6 @@
             "ConstructStallBrowsePetValues",
             "DestroyStallBrowsePetValues"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
@@ -794,11 +779,6 @@
           "symbols": [
             "DestroyStallBrowsePetValues"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
@@ -1039,11 +1019,6 @@
           "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
         },
         {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
-        },
-        {
           "path": "src/world/WorldUpdateDependencies.hpp",
           "symbols": [
             "detail::PetRuntimeRecord::PetRuntimeRecord",
@@ -1247,11 +1222,6 @@
           "symbols": [
             "DestroyWindowSelectorPreview"
           ],
-          "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
-        },
-        {
-          "path": "src/platform/LegacyMouse.cpp",
-          "symbols": [],
           "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
         },
         {
@@ -281755,7 +281725,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第七组GBK显示消费已迁宽；剩余窄分行／绘制继续",
+    "phase": "第八组窄分行输出／UTF-8编码辅助已退休；旧显示解码入口继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283712,6 +283682,38 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "Sub_4920F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F5A60"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FF650"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CD4F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CAFA0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CB9F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47A7A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48F6C0"
+      },
+      {
+        "path": "src/text/Encoding.cpp",
+        "symbol": "Encode"
       }
     ],
     "build_verified": false,
@@ -283719,7 +283721,12 @@
     "complete_gates_changed": false,
     "retired_interfaces": [
       "EscapeLegacyText_52D1B0",
-      "EscapeLegacyTextAndNotify_52D2D0"
+      "EscapeLegacyTextAndNotify_52D2D0",
+      "ExtractGbkTextLine(char*,...)",
+      "ExtractTextLine(char*,...)",
+      "FromGbk",
+      "FromLegacyDisplay",
+      "FromUtf16"
     ]
   }
 }

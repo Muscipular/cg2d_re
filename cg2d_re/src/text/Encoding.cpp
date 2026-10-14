@@ -49,9 +49,9 @@ std::string Encode(const std::wstring_view text, const UINT codePage)
         return {};
     }
     const int length = Win32Length(text.size());
-    const DWORD flags = codePage == CP_UTF8 ? WC_ERR_INVALID_CHARS : WC_NO_BEST_FIT_CHARS;
+    const DWORD flags = WC_NO_BEST_FIT_CHARS;
     BOOL replaced = FALSE;
-    BOOL* const replacement = codePage == CP_UTF8 ? nullptr : &replaced;
+    BOOL* const replacement = &replaced;
     const int count = ::WideCharToMultiByte(codePage, flags, text.data(), length, nullptr, 0, nullptr, replacement);
     if (count == 0 || replaced) {
         const DWORD error = replaced ? ERROR_NO_UNICODE_TRANSLATION : ::GetLastError();
@@ -68,9 +68,6 @@ std::string Encode(const std::wstring_view text, const UINT codePage)
 } // namespace
 
 std::wstring ToUtf16(const std::string_view utf8) { return Decode(utf8, CP_UTF8); }
-std::string FromUtf16(const std::wstring_view utf16) { return Encode(utf16, CP_UTF8); }
-std::string FromLegacyDisplay(const std::string_view bytes) { return FromUtf16(Decode(bytes, CP_ACP, 0)); }
-std::string FromGbk(const std::string_view gbk) { return FromUtf16(Decode(gbk, kGbkCodePage, 0)); }
 std::string ToGbk(const std::string_view utf8) {
     try { return Encode(ToUtf16(utf8), kGbkCodePage); }
     catch (const std::system_error& error) {

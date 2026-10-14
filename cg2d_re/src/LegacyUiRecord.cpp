@@ -14025,7 +14025,7 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacyCraftRecipePanel5845F8.id));
         static_cast<void>(audio::Sub_504180(19));
     }
-    char buffer[768];
+    std::wstring buffer;
     const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyCraftRecipePanel5845F8.y;
@@ -14036,11 +14036,11 @@ try {
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     drawAt(cg::text::FromGbkWide(name).c_str(), 85 - width / 2, 35, 0, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    cg::text::FormatTo(buffer, L"{:2}", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 66, 60, 1, 0);
     // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
     const platform::LegacyCryptInt rawFp = world::detail::ReadPlayerFpRawSnapshot();
-    std::sprintf(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
+    cg::text::FormatTo(buffer, L"{:9}", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
     drawAt(buffer, 258, 60, 1, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t recipeIndex = row + 8 * gLegacyRecipePageD67D0C;
@@ -14053,13 +14053,13 @@ try {
             const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
             // 原4F5EB2直接以配对槽号取倍率，不再次通过pair.index映射。
             const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[multiplierSkill].fpReduce / 100;
-            std::sprintf(buffer, "%4d", cost);
+            cg::text::FormatTo(buffer, L"{:4}", cost);
             drawAt(buffer, 295, 92 + 24 * row, 1, color);
         }
     }
     const std::int32_t page = gLegacyRecipePageD67D0C;
     const std::int32_t pageCount = gLegacyRecipePageCountD67D10;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", page + 1, pageCount);
     drawAt(buffer, 87, 350, 1, 0);
     if (hoveredRow >= 0) {
         const std::int32_t recipeIndex = hoveredRow + 8 * gLegacyRecipePageD67D0C;
@@ -14068,7 +14068,7 @@ try {
                 const std::int32_t descriptionRecipe = hoveredRow + 8 * gLegacyRecipePageD67D0C;
                 const char* const description =
                     world::detail::gSkillsF1BAFC[skill].recipes8E8[descriptionRecipe].description.data();
-                if (input::ExtractGbkTextLine(buffer, 256, description, line, 28) != 0) {
+                if (input::ExtractGbkTextLine(buffer, description, line, 28) != 0) {
                     drawAt(buffer, 46, 293 + 20 * line, 0, 0);
                 }
             }
@@ -16024,7 +16024,7 @@ try {
     LegacyPanelButtonRecord back;
     LegacyPanelButtonRecord previous;
     LegacyPanelButtonRecord next;
-    char buffer[768]; // 原格式/说明共用，不扩大第四按钮适配。
+    std::wstring buffer; // 原格式/说明共用，不扩大第四按钮适配。
     if (character_select::state::gPukVersion >= 7
         && world::detail::gSkillsF1BAFC[std::bit_cast<std::int16_t>(
             world::detail::gSkillPairsF63370[std::bit_cast<std::int8_t>(
@@ -16216,7 +16216,7 @@ try {
             const std::int32_t fp = technique.value7C;
             const std::int32_t cost = std::bit_cast<std::int32_t>(
                 static_cast<std::uint32_t>(reduction) * static_cast<std::uint32_t>(fp)) / 100;
-            std::sprintf(buffer, "%4d", cost);
+            cg::text::FormatTo(buffer, L"{:4}", cost);
             static_cast<void>(DrawText(
                 static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 224)),
                 static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 83 + 24 * row)),
@@ -16232,16 +16232,16 @@ try {
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     const std::int32_t maxLevel = skill.maxLevel;
     const std::int32_t level = skill.level;
-    std::sprintf(buffer, "%2d/%2d", level, maxLevel);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", level, maxLevel);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 206)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 36)), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%8d", skill.experience);
+    cg::text::FormatTo(buffer, L"{:8}", skill.experience);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 60)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
     if (skill.level < skill.maxLevel) {
-        std::sprintf(buffer, "%8d", skill.nextExperience);
+        cg::text::FormatTo(buffer, L"{:8}", skill.nextExperience);
         static_cast<void>(DrawText(
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 193)),
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
@@ -16251,14 +16251,14 @@ try {
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, kLegacyGatherLimit589858, 0, 0));
     }
     const std::int32_t page = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8) + 1;
-    std::sprintf(buffer, "%2d/%2d", page, count);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", page, count);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 164)),
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 423)), 2, 1, 0, buffer, 0, 0));
     if (hovered >= 0) {
         const char* const description = skill.techniques3C[hovered].description.data();
         for (std::int32_t line = 0; line < 4; ++line) {
-            if (input::ExtractGbkTextLine(buffer, 256, description, line, 26) != 0) {
+            if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
                 static_cast<void>(DrawText(
                     static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 19)),
                     static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 336 + 18 * line)),

@@ -16882,7 +16882,7 @@ try {
                 color = world::detail::gTitlesFF0508[currentTitle].id == id ? 1 : 0;
             }
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 44),
-                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, cg::text::FromGbkWide(title->text).c_str(), 0, 0));
+                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, cg::text::FromGbkWide(title->text.data()), 0, 0));
             currentTitle = world::detail::ReadPlayerTitleIndex();
             if (currentTitle >= 0) {
                 const std::int32_t currentIndex = row + 8 * gLegacyTitlePageCF49B4;

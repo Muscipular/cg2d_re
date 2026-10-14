@@ -46,13 +46,13 @@ WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AF08。
 WindowGraphicData gWindowGraphic56AF20 {0x3B97B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056AF20。
 WindowTextPrototype gWindowText56AF38 { // 原全局：0x0056AF38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 WindowTextPrototype gWindowText56AF40 { // 原全局：0x0056AF40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 
 WindowGraphicData gWindowGraphic56B0D8 {0x3B985, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B0D8。
@@ -125,7 +125,7 @@ WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
     {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648),
 };
 WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 std::uint32_t gWindowMouseFlagsD679C8 = 0; // 原全局：0x00D679C8。
 
@@ -148,7 +148,7 @@ WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
 };
 
 // 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
-WindowTextPrototype gWindowText56CCC8 {{}, input::LegacyText593850()}; // 原全局：0x0056CCC8。
+WindowTextPrototype gWindowText56CCC8 {{}, cg::text::FromGbkWide(input::LegacyText593850())}; // 原全局：0x0056CCC8。
 
 WindowGraphicData gWindowGraphic561A40 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A40。
 WindowGraphicData gWindowGraphic561A58 {0x3BA24, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A58。
@@ -928,7 +928,7 @@ WindowTextPrototype gWindowText56D3E0 { // 原全局：0x0056D3E0。
 };
 
 WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。
 
@@ -1216,7 +1216,7 @@ WindowGraphicData gWindowGraphic5710F0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原
 WindowGraphicData gWindowGraphic571108 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571108。
 WindowGraphicData gWindowGraphic571120 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571120。
 WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
 WindowNumberData gWindowNumber571158 {&gStorageAmountTextsCB1DF8[1], 0, 3, 1, 0}; // 原全局：0x00571158。
@@ -1280,7 +1280,7 @@ WindowGraphicData gWindowGraphic572988 {0x3BA8C, 0, 0, 0, 0, 0xFFFFFFFFu}; // �
 WindowGraphicData gWindowGraphic5729A0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005729A0。
 WindowGraphicData gWindowGraphic572AD8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572AD8。
 WindowTextPrototype gWindowText572AF0 { // 原全局：0x00572AF0。
-    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
 };
 std::uint32_t gWindowMouseFlagsD678B8 = 0; // 原全局：0x00D678B8。
 std::uint32_t gWindowMouseFlagsD678C4 = 0; // 原全局：0x00D678C4。

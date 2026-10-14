@@ -4716,7 +4716,7 @@ std::uint8_t NetworkLoop_507DF0()
     if (gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
         && gNetworkRuntimeState.active == 1) {
         return static_cast<std::uint8_t>(
-            Sub_512C10(platform::gConnectionSocket, "nr"));
+            Sub_512C10(platform::gConnectionSocket, L"nr"));
     }
     return static_cast<std::uint8_t>(now);
 }

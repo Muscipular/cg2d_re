@@ -281725,7 +281725,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "业务UTF8过渡接口源码迁移完成；仅静态验证，编译／运行未验",
+    "phase": "业务UTF8过渡接口已迁移；UWF02补齐构建遗漏后MSVC x64 Debug编译链接通过，运行未验",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -284000,7 +284000,7 @@
         "symbol": "Sub_4723D0"
       }
     ],
-    "build_verified": false,
+    "build_verified": true,
     "runtime_verified": false,
     "complete_gates_changed": false,
     "retired_interfaces": [
@@ -284032,5 +284032,32 @@
       "SDL_IOFromFile强制UTF-8的瞬时调用边界，不向业务公开",
       "SDK／标准异常诊断遵循库char合同；停用的离线MIDI工具未纳入客户端"
     ]
+  },
+  "wide_only_uwf02": {
+    "decision_ref": "doc/cg2d_wide_only_text_spec.md",
+    "sources": [
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_501FD0",
+        "change": "TitleRecord::text取data()后传GBK解码"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "NetworkLoop_507DF0",
+        "change": "心跳控制文字使用宽字面量，原ASCII协议字节保持"
+      },
+      {
+        "path": "src/ui/WindowPrototypes.cpp",
+        "symbol": "WindowTextPrototype初值",
+        "change": "八处LegacyText593850()明确从GBK解码为宽正文"
+      }
+    ],
+    "configuration": "windows-msvc-x64-debug",
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "client_link_passed": true,
+    "runtime_verified": false,
+    "deployed": false,
+    "complete_gates_changed": false
   }
 }

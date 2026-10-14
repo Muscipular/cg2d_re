@@ -30,7 +30,8 @@ public:
     explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
     explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
     LegacyCryptInt(const LegacyCryptInt&) = default; // 同类原始字段复制，不读取或取RNG。
-    LegacyCryptInt& operator=(const LegacyCryptInt&) = default;
+    // 原0x00438270：仅复制三个载荷字段，保留目标token，不读取或取RNG。
+    LegacyCryptInt& operator=(const LegacyCryptInt& source) noexcept;
 
     LegacyCryptInt& operator=(std::int32_t value); // 原整数临时构造／载荷赋值。
     LegacyCryptInt& operator=(std::uint32_t value); // 只发布三个载荷字段，保留目标token。
@@ -68,9 +69,6 @@ public:
 
     // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
     void SetNorVal_401F50(std::int32_t value);
-
-    // 原0x00438270载荷复制只改+0x04、+0x08、+0x0C，不显式写目标token与尾部padding。
-    void CopyPayload(const LegacyCryptInt* source);
 
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
     std::int32_t Read_401EC0();

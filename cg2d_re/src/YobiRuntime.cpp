@@ -1789,20 +1789,20 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
     destination->text123 = source->text123;
     destination->text144 = source->text144;
     destination->bytes155 = source->bytes155;
-    destination->readiness.CopyPayload(&source->readiness);
-    destination->maxHp.CopyPayload(&source->maxHp);
-    destination->value190.CopyPayload(&source->value190);
-    destination->value1A0.CopyPayload(&source->value1A0);
-    destination->barValue1B0.CopyPayload(&source->barValue1B0);
-    destination->barMaximum1C0.CopyPayload(&source->barMaximum1C0);
+    destination->readiness = source->readiness;
+    destination->maxHp = source->maxHp;
+    destination->value190 = source->value190;
+    destination->value1A0 = source->value1A0;
+    destination->barValue1B0 = source->barValue1B0;
+    destination->barMaximum1C0 = source->barMaximum1C0;
     std::memcpy(&destination->windowCompletionSlot1D0, &source->windowCompletionSlot1D0, sizeof(source->windowCompletionSlot1D0));
     destination->value1D4 = source->value1D4;
     destination->field1D8 = source->field1D8;
     destination->counter1DC = source->counter1DC;
-    destination->mapX1E0.CopyPayload(&source->mapX1E0);
-    destination->mapY1F0.CopyPayload(&source->mapY1F0);
-    destination->mapX200.CopyPayload(&source->mapX200);
-    destination->mapY210.CopyPayload(&source->mapY210);
+    destination->mapX1E0 = source->mapX1E0;
+    destination->mapY1F0 = source->mapY1F0;
+    destination->mapX200 = source->mapX200;
+    destination->mapY210 = source->mapY210;
     destination->pathX220 = source->pathX220;
     destination->pathY248 = source->pathY248;
     destination->field270 = source->field270;
@@ -3025,7 +3025,7 @@ YobiAction* Sub_441DB0(
     action->displayPriority = 10;
     action->flags = 0x34;
 
-    // 本入口的 count/encoded/mask 写序与通用 CopyPayload 不同。
+    // 本入口的 count/encoded/mask 写序与通用 同类operator= 不同。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         target = static_cast<std::int32_t>(value);
@@ -3999,13 +3999,13 @@ YobiAction* PublishPlayerActionIdentity(
 void CopyYobiPlayerHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
-    action->readiness.CopyPayload(source);
+    action->readiness = *source;
 }
 
 void CopyYobiPlayerMaxHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
-    action->maxHp.CopyPayload(source);
+    action->maxHp = *source;
 }
 
 void CopyInitialPlayerActionIdentity(
@@ -4026,9 +4026,9 @@ void CopyInitialPlayerActionIdentity(
     }
     action->field1D0 = *level;
     action = world::detail::ReadPlayerAction();
-    action->readiness.CopyPayload(hp);
+    action->readiness = *hp;
     action = world::detail::ReadPlayerAction();
-    action->maxHp.CopyPayload(maxHp);
+    action->maxHp = *maxHp;
 }
 
 void UpdateMapActorMode(
@@ -5937,10 +5937,10 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 | ((state & 0x40u) != 0 ? 0x20u : 0u));
             for (const world::detail::PetRuntimeRecord& pet : (*world::detail::BorrowPetRuntimeF633F8Storage())) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
-                    action->readiness.CopyPayload(&pet.values0C[0]);
-                    action->maxHp.CopyPayload(&pet.values0C[1]);
-                    action->barValue1B0.CopyPayload(&pet.values0C[2]);
-                    action->barMaximum1C0.CopyPayload(&pet.values0C[3]);
+                    action->readiness = pet.values0C[0];
+                    action->maxHp = pet.values0C[1];
+                    action->barValue1B0 = pet.values0C[2];
+                    action->barMaximum1C0 = pet.values0C[3];
                     drawBars = true;
                     break;
                 }
@@ -7277,7 +7277,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7443,7 +7443,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7613,7 +7613,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                            copyTarget->readiness = copyTarget->maxHp;
                         }
                         const std::int32_t displayIndex = payload->effectRunningC9C;
                         const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -7827,7 +7827,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -8075,7 +8075,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
@@ -16066,10 +16066,10 @@ namespace {
         carrier->first00 = first;
         std::strcpy(existingPayload->rider13C8->nameC4.data(), first->nameC4.data());
         existingPayload->rider13C8->field1D0 = first->field1D0;
-        existingPayload->rider13C8->readiness.CopyPayload(&first->readiness);
-        existingPayload->rider13C8->maxHp.CopyPayload(&first->maxHp);
-        existingPayload->rider13C8->barValue1B0.CopyPayload(&first->barValue1B0);
-        existingPayload->rider13C8->barMaximum1C0.CopyPayload(&first->barMaximum1C0);
+        existingPayload->rider13C8->readiness = first->readiness;
+        existingPayload->rider13C8->maxHp = first->maxHp;
+        existingPayload->rider13C8->barValue1B0 = first->barValue1B0;
+        existingPayload->rider13C8->barMaximum1C0 = first->barMaximum1C0;
         const std::int32_t casterPositionX = gBattleMCasterPosition5AAA64;
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction* const sourceX = gBattleAllEntries59E980[casterPositionX];
@@ -19101,10 +19101,10 @@ namespace {
             YobiAction* const fieldRider = casterPayload->rider13C8;
             const std::int32_t riderField1D0 = first->field1D0;
             fieldRider->field1D0 = riderField1D0;
-            casterPayload->rider13C8->readiness.CopyPayload(&first->readiness);
-            casterPayload->rider13C8->maxHp.CopyPayload(&first->maxHp);
-            casterPayload->rider13C8->barValue1B0.CopyPayload(&first->barValue1B0);
-            casterPayload->rider13C8->barMaximum1C0.CopyPayload(&first->barMaximum1C0);
+            casterPayload->rider13C8->readiness = first->readiness;
+            casterPayload->rider13C8->maxHp = first->maxHp;
+            casterPayload->rider13C8->barValue1B0 = first->barValue1B0;
+            casterPayload->rider13C8->barMaximum1C0 = first->barMaximum1C0;
             const std::int32_t riderXSourcePosition = gBattleMCasterPosition5AAA64;
             YobiAction* const riderX = casterPayload->rider13C8;
             YobiAction* const sourceX = gBattleAllEntries59E980[riderXSourcePosition];
@@ -21974,10 +21974,10 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
 
         std::strcpy(existingPayload->rider13C8->nameC4.data(), firstActor->nameC4.data());
         existingPayload->rider13C8->field1D0 = firstActor->field1D0;
-        existingPayload->rider13C8->readiness.CopyPayload(&firstActor->readiness);
-        existingPayload->rider13C8->maxHp.CopyPayload(&firstActor->maxHp);
-        existingPayload->rider13C8->barValue1B0.CopyPayload(&firstActor->barValue1B0);
-        existingPayload->rider13C8->barMaximum1C0.CopyPayload(&firstActor->barMaximum1C0);
+        existingPayload->rider13C8->readiness = firstActor->readiness;
+        existingPayload->rider13C8->maxHp = firstActor->maxHp;
+        existingPayload->rider13C8->barValue1B0 = firstActor->barValue1B0;
+        existingPayload->rider13C8->barMaximum1C0 = firstActor->barMaximum1C0;
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction** const originalSlot = &gBattleAllEntries59E980[first];
         YobiAction* const sourceX = *originalSlot;
@@ -24577,7 +24577,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                            copyTarget->readiness = copyTarget->maxHp;
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25320,7 +25320,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t numberIndex = payload->effectRunningC9C;
                     const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25767,7 +25767,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                            copyTarget->readiness = copyTarget->maxHp;
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -26517,7 +26517,7 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
     if (cost > 0) {
         (action->barValue1B0 -= static_cast<std::int32_t>(cost));
         if ((action->barValue1B0 < 0)) {
-            // 原405BA8/AF/B2先mask后encoded，不使用写序不同的CopyPayload。
+            // 原405BA8/AF/B2先mask后encoded，不使用写序不同的同类operator=。
             // 现由整数赋值统一三字段发布；一次RNG，目标token／reserved保持。
             action->barValue1B0 = std::int32_t{0};
         }
@@ -27810,7 +27810,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = current.flags;
@@ -28062,7 +28062,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[
                                 payload->effects1C[payload->effectRunningC9C].position];
-                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                            copyTarget->readiness = copyTarget->maxHp;
                         }
                         const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                         const std::uint32_t displayFlags = current.flags;
@@ -28465,7 +28465,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const BattleEntryEffectRecord& current = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = current.flags;
@@ -29184,13 +29184,13 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     case 5:
         (action->readiness += static_cast<std::int32_t>(payload->value1030));
         if ((action->maxHp < action->readiness)) {
-            action->readiness.CopyPayload(&action->maxHp);
+            action->readiness = action->maxHp;
         }
         break;
     case 4:
         (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
         if ((action->barMaximum1C0 < action->barValue1B0)) {
-            action->barValue1B0.CopyPayload(&action->barMaximum1C0);
+            action->barValue1B0 = action->barMaximum1C0;
         }
         break;
     case 3:
@@ -29208,7 +29208,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
             action->readiness = std::int32_t{0};
         }
         if ((action->maxHp < action->readiness)) {
-            action->readiness.CopyPayload(&action->maxHp);
+            action->readiness = action->maxHp;
         }
         break;
     }
@@ -29218,7 +29218,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
             action->barValue1B0 = std::int32_t{0};
         }
         if ((action->barMaximum1C0 < action->barValue1B0)) {
-            action->barValue1B0.CopyPayload(&action->barMaximum1C0);
+            action->barValue1B0 = action->barMaximum1C0;
         }
         break;
     }
@@ -30089,13 +30089,13 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
             case 5:
                 (action->readiness += static_cast<std::int32_t>(payload->value1030));
                 if ((action->maxHp < action->readiness)) {
-                    action->readiness.CopyPayload(&action->maxHp);
+                    action->readiness = action->maxHp;
                 }
                 break;
             case 4:
                 (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
                 if ((action->barMaximum1C0 < action->barValue1B0)) {
-                    action->barValue1B0.CopyPayload(&action->barMaximum1C0);
+                    action->barValue1B0 = action->barMaximum1C0;
                 }
                 break;
             case 3:
@@ -30509,16 +30509,16 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             valueRider->field1D0 = valueSource->field1D0;
             YobiAction* cryptSource = gBattleAllEntries59E980[first];
             YobiAction* cryptRider = payload->rider13C8;
-            cryptRider->readiness.CopyPayload(&cryptSource->readiness);
+            cryptRider->readiness = cryptSource->readiness;
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            cryptRider->maxHp.CopyPayload(&cryptSource->maxHp);
+            cryptRider->maxHp = cryptSource->maxHp;
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            cryptRider->barValue1B0.CopyPayload(&cryptSource->barValue1B0);
+            cryptRider->barValue1B0 = cryptSource->barValue1B0;
             cryptSource = gBattleAllEntries59E980[first];
             cryptRider = payload->rider13C8;
-            cryptRider->barMaximum1C0.CopyPayload(&cryptSource->barMaximum1C0);
+            cryptRider->barMaximum1C0 = cryptSource->barMaximum1C0;
             YobiAction* coordinateSource = gBattleAllEntries59E980[first];
             YobiAction* coordinateRider = payload->rider13C8;
             coordinateRider->x = coordinateSource->x;
@@ -30537,10 +30537,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             action->characterAction = 0;
             action->imageNo = nextImage;
             action->field1D0 = gBattleAllEntries59E980[second]->field1D0;
-            action->readiness.CopyPayload(&gBattleAllEntries59E980[second]->readiness);
-            action->maxHp.CopyPayload(&gBattleAllEntries59E980[second]->maxHp);
-            action->barValue1B0.CopyPayload(&gBattleAllEntries59E980[second]->barValue1B0);
-            action->barMaximum1C0.CopyPayload(&gBattleAllEntries59E980[second]->barMaximum1C0);
+            action->readiness = gBattleAllEntries59E980[second]->readiness;
+            action->maxHp = gBattleAllEntries59E980[second]->maxHp;
+            action->barValue1B0 = gBattleAllEntries59E980[second]->barValue1B0;
+            action->barMaximum1C0 = gBattleAllEntries59E980[second]->barMaximum1C0;
             action->x = gBattleAllEntries59E980[second]->x;
             action->y = gBattleAllEntries59E980[second]->y;
             action->offset40 = gBattleAllEntries59E980[second]->offset40;
@@ -30628,10 +30628,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             std::strcpy(action->nameC4.data(), effect->nameC4.data());
             action->characterAction = 0;
             action->field1D0 = effect->field1D0;
-            action->readiness.CopyPayload(&effect->readiness);
-            action->maxHp.CopyPayload(&effect->maxHp);
-            action->barValue1B0.CopyPayload(&effect->barValue1B0);
-            action->barMaximum1C0.CopyPayload(&effect->barMaximum1C0);
+            action->readiness = effect->readiness;
+            action->maxHp = effect->maxHp;
+            action->barValue1B0 = effect->barValue1B0;
+            action->barMaximum1C0 = effect->barMaximum1C0;
             const std::uint32_t restoredFlags = carrier->flags08;
             payload->stateFE0 = 0;
             payload->flagsFDC = restoredFlags;
@@ -30760,10 +30760,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         ClearBattleRideAttachments(payload);
         std::strcpy(action->nameC4.data(), carrier->second04->nameC4.data());
         action->field1D0 = carrier->second04->field1D0;
-        action->readiness.CopyPayload(&carrier->second04->readiness);
-        action->maxHp.CopyPayload(&carrier->second04->maxHp);
-        action->barValue1B0.CopyPayload(&carrier->second04->barValue1B0);
-        action->barMaximum1C0.CopyPayload(&carrier->second04->barMaximum1C0);
+        action->readiness = carrier->second04->readiness;
+        action->maxHp = carrier->second04->maxHp;
+        action->barValue1B0 = carrier->second04->barValue1B0;
+        action->barMaximum1C0 = carrier->second04->barMaximum1C0;
         action->x = carrier->second04->x;
         action->y = carrier->second04->y;
         Sub_406260(action);
@@ -31112,10 +31112,10 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         YobiAction* const levelRider = payload->rider13C8;
         const std::int32_t level = action->field1D0;
         levelRider->field1D0 = level;
-        payload->rider13C8->readiness.CopyPayload(&action->readiness);
-        payload->rider13C8->maxHp.CopyPayload(&action->maxHp);
-        payload->rider13C8->barValue1B0.CopyPayload(&action->barValue1B0);
-        payload->rider13C8->barMaximum1C0.CopyPayload(&action->barMaximum1C0);
+        payload->rider13C8->readiness = action->readiness;
+        payload->rider13C8->maxHp = action->maxHp;
+        payload->rider13C8->barValue1B0 = action->barValue1B0;
+        payload->rider13C8->barMaximum1C0 = action->barMaximum1C0;
         YobiAction* const copyXRider = payload->rider13C8;
         const std::int32_t sourceX = action->x;
         copyXRider->x = sourceX;
@@ -31376,7 +31376,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
@@ -32394,7 +32394,7 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
             } else {
                 (target->readiness += static_cast<std::int32_t>(payload->effects1C[index].position3));
                 if ((target->readiness > target->maxHp)) {
-                    target->readiness.CopyPayload(&target->maxHp);
+                    target->readiness = target->maxHp;
                 }
                 const std::int32_t numberIndex = payload->effectRunningC9C;
                 const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -32416,7 +32416,7 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
             } else {
                 (target->readiness -= static_cast<std::int32_t>(payload->effects1C[index].position3));
                 if ((target->readiness < 0)) {
-                    // 原413D6A/74/7A清源对象HP而非目标，且先mask后encoded，不能改用CopyPayload。
+                    // 原413D6A/74/7A清源对象HP而非目标，且先mask后encoded，不能改用同类operator=。
                     // 现由整数赋值统一三字段发布；一次RNG，目标token／reserved保持。
                     action->readiness = std::int32_t{0};
                 }
@@ -32607,7 +32607,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
@@ -32810,7 +32810,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const BattleEntryEffectRecord& display = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = display.flags;
@@ -33050,7 +33050,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                     if ((compareTarget->readiness > compareTarget->maxHp)) {
                         YobiAction* const copyTarget = gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position];
-                        copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                        copyTarget->readiness = copyTarget->maxHp;
                     }
                     const BattleEntryEffectRecord& display = payload->effects1C[payload->effectRunningC9C];
                     const std::uint32_t displayFlags = display.flags;
@@ -33316,7 +33316,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                         YobiAction* const compareTarget = gBattleAllEntries59E980[effect.position];
                         if ((compareTarget->readiness > compareTarget->maxHp)) {
                             YobiAction* const copyTarget = gBattleAllEntries59E980[effect.position];
-                            copyTarget->readiness.CopyPayload(&copyTarget->maxHp);
+                            copyTarget->readiness = copyTarget->maxHp;
                         }
                         const std::uint32_t displayFlags = effect.flags;
                         const std::int32_t y = target->y - 80;
@@ -35980,7 +35980,7 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
             continue;
         }
 
-        // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一CopyPayload。
+        // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一同类operator=。
         action->readiness = static_cast<std::int32_t>(hp);
 
         action->maxHp = static_cast<std::int32_t>(maxHp);
@@ -37396,8 +37396,8 @@ void Sub_519EE0()
     const std::int32_t blocked = Sub_469810(x, y);
     login::YobiAction* action = ReadPlayerAction();
     if (blocked != 0) {
-        BorrowPlayerXStorage()->CopyPayload(&action->mapX1E0);
-        BorrowPlayerYStorage()->CopyPayload(&action->mapY1F0);
+        *BorrowPlayerXStorage() = action->mapX1E0;
+        *BorrowPlayerYStorage() = action->mapY1F0;
     }
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
@@ -37406,18 +37406,18 @@ void Sub_519EE0()
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
     action = ReadPlayerAction();
-    action->mapX1E0.CopyPayload(&(*BorrowPlayerXStorage()));
+    action->mapX1E0 = (*BorrowPlayerXStorage());
     action = ReadPlayerAction();
-    action->mapY1F0.CopyPayload(&(*BorrowPlayerYStorage()));
+    action->mapY1F0 = (*BorrowPlayerYStorage());
     action = ReadPlayerAction();
     action->field27C = gValue9EE8FC;
     const std::uint32_t movementY = gValue9EE900;
     action = ReadPlayerAction();
     action->field280 = movementY;
     action = ReadPlayerAction();
-    action->mapX200.CopyPayload(&(*BorrowPlayerSnapshotXStorage()));
+    action->mapX200 = (*BorrowPlayerSnapshotXStorage());
     action = ReadPlayerAction();
-    action->mapY210.CopyPayload(&(*BorrowPlayerSnapshotYStorage()));
+    action->mapY210 = (*BorrowPlayerSnapshotYStorage());
 }
 
 // 原函数：0x00521F20。

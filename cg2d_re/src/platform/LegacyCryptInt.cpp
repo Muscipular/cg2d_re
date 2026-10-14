@@ -62,11 +62,13 @@ void LegacyCryptInt::SetNorVal_401F50(std::int32_t value)
     this->encoded = ToBits(value) ^ this->mask;
 }
 
-void LegacyCryptInt::CopyPayload(const LegacyCryptInt* source)
+// 原0x00438270：三字段载荷赋值，返回目标引用；不解密、不消费RNG。
+LegacyCryptInt& LegacyCryptInt::operator=(const LegacyCryptInt& source) noexcept
 {
-    this->encoded = source->encoded;
-    this->mask = source->mask;
-    this->readCount = source->readCount;
+    this->encoded = source.encoded;
+    this->mask = source.mask;
+    this->readCount = source.readCount;
+    return *this;
 }
 
 // 原函数：0x00401EC0。
@@ -96,7 +98,7 @@ LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
 LegacyCryptInt& LegacyCryptInt::operator=(const std::int32_t value)
 {
     LegacyCryptInt temporary(value);
-    CopyPayload(&temporary);
+    *this = temporary;
     return *this;
 }
 

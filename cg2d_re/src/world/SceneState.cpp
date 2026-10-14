@@ -8816,10 +8816,10 @@ void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
 {
-    hp->CopyPayload(&BorrowPlayerRuntimeStorage()->hp);
-    maxHp->CopyPayload(&BorrowPlayerRuntimeStorage()->maxHp);
-    fp->CopyPayload(&BorrowPlayerRuntimeStorage()->fp);
-    maxFp->CopyPayload(&BorrowPlayerRuntimeStorage()->maxFp);
+    *hp = BorrowPlayerRuntimeStorage()->hp;
+    *maxHp = BorrowPlayerRuntimeStorage()->maxHp;
+    *fp = BorrowPlayerRuntimeStorage()->fp;
+    *maxFp = BorrowPlayerRuntimeStorage()->maxFp;
 }
 
 const char* BorrowTitleText(const std::int32_t index) noexcept

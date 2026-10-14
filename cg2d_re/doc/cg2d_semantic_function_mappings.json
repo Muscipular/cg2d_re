@@ -20258,22 +20258,68 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "LegacyCryptInt::CopyPayload"
+            "LegacyCryptInt::operator=(const LegacyCryptInt&)"
           ]
         },
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
-            "LegacyCryptInt::CopyPayload"
+            "LegacyCryptInt::operator=(const LegacyCryptInt&)"
           ]
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "LegacyCryptInt::operator=(const LegacyCryptInt&)"
+          ],
+          "relationship": "同类赋值明确声明三字段复制、noexcept及返回目标引用，替代原default同类赋值。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment"
       ],
-      "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token/reserved；不读明文、不调用RNG。原返回目标引用，427470内30处调用按既有父合同弃返回，使用void CopyPayload承接；不以此替换count先写等不同内联复制序。"
+      "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token，不读明文、不调用RNG；同类operator=返回目标引用。原438270身份／逐字段／返回引用及427470弃返回消费沿既有事实；原void CopyPayload绑定存为LCI13前历史。83个外部和整数赋值内1个调用接入该重载；不同逐字段次序的其它内联段不合并。完整业务／SDK／机器ABI与运行未验。",
+      "historical_copy_payload_binding_before_lci13": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "LegacyCryptInt::CopyPayload"
+            ]
+          },
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "LegacyCryptInt::CopyPayload"
+            ]
+          }
+        ],
+        "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token/reserved；不读明文、不调用RNG。原返回目标引用，427470内30处调用按既有父合同弃返回，使用void CopyPayload承接；不以此替换count先写等不同内联复制序。"
+      },
+      "copy_assignment_lci13": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-copy-assignment",
+        "signature": "LegacyCryptInt& operator=(const LegacyCryptInt&) noexcept",
+        "retired_interface": "CopyPayload",
+        "external_call_sites": 83,
+        "integer_assignment_internal_call_sites": 1,
+        "field_order": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "destination_token_written": false,
+        "plaintext_reads": 0,
+        "rng_calls": 0,
+        "self_assignment_extra_branch": false,
+        "copy_constructor_changed": false,
+        "raw_restore_changed": false,
+        "integer_assignment_rng_calls": 1,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x404D00",

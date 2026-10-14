@@ -27,7 +27,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
-#include <exception>
+#include <exception> // 原0x00540A5C：MSVC std::terminate；原数组包装已无消费者。
 #include <format>
 #include <limits>
 #include <new>

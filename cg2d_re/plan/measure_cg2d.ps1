@@ -83,6 +83,13 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 格式化与扫描直接使用MSVC CRT([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # DLI01／DRT01：仅退休附件按商店命令清理后的固定前态读取，当前source禁回退。
+    $historicalIoRuntime = @('src/platform/LegacyLowIo.cpp', 'src/platform/LegacyLowIo.hpp',
+        'src/platform/LegacyRuntimeError.cpp', 'src/platform/LegacyRuntimeError.hpp')
+    if (-not $exists -and $relativePath -cin $historicalIoRuntime -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 简化商店命令读取并修正取消项范围([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

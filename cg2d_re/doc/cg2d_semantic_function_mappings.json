@@ -28662,7 +28662,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 1,
       "inbound_evidence": [
@@ -28678,13 +28679,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -28756,6 +28750,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -29323,7 +29338,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -29345,13 +29361,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -29426,6 +29435,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -29449,7 +29479,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -29471,13 +29502,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -29550,6 +29574,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -29573,7 +29618,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 5,
       "function_chunks": [
@@ -29611,13 +29657,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -29690,6 +29729,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -29710,7 +29770,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 2,
       "function_chunks": [
@@ -29736,13 +29797,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -29813,6 +29867,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -29836,7 +29911,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 4,
       "function_chunks": [
@@ -29870,13 +29946,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -29949,6 +30018,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -41599,7 +41689,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 2,
       "function_chunks": [
@@ -41625,13 +41716,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -41702,6 +41786,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -41724,7 +41829,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 5,
       "function_chunks": [
@@ -41763,13 +41869,6 @@
             "WinMain"
           ],
           "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -41847,6 +41946,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -41867,7 +41987,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -41889,13 +42010,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -41966,6 +42080,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -41986,7 +42121,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -42008,13 +42144,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -42085,6 +42214,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -42100,7 +42250,8 @@
         "doc/cg2d_msvc_crt_cpp_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "original_direct_reference_count": 9,
       "function_chunks": [
@@ -42149,18 +42300,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyRuntimeError.cpp",
+          "path": "src/render/SdlPresenter.cpp",
           "symbols": [
-            "TerminateLegacyRuntime_540A5C"
+            "std::terminate"
           ],
-          "relationship": "MC01-C3真实MSVC std::terminate()薄适配；故障参数/255或terminate消费保持，旧诊断/钩子/信号表不使用。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.hpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "准确noreturn声明；不是固定返回/空业务体。"
+          "relationship": "DRT01：exception标准库导入与已有同名宿主服务；旧数组包装无当前调用，未新增业务调用或声称原消费者仍在。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -42214,7 +42358,28 @@
           ],
           "relationship": "准确noreturn声明；不是固定返回/空业务体。"
         }
-      ]
+      ],
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "MC01-C3真实MSVC std::terminate()薄适配；故障参数/255或terminate消费保持，旧诊断/钩子/信号表不使用。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "准确noreturn声明；不是固定返回/空业务体。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
+      }
     },
     {
       "original_entry": "0x548143",
@@ -47748,18 +47913,11 @@
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "CloseLegacyDescriptor_53D30A"
+            "::_close"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
-          "path": "src/platform/LegacyLowIo.hpp",
-          "symbols": [
-            "CloseLegacyDescriptor_53D30A"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：Sub_4C9060直接调用原MSVC提供者，保参数／S32结果及失败／关闭顺序。"
         }
       ],
       "evidence_documents": [
@@ -47767,7 +47925,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47817,6 +47976,26 @@
         "record_index": 414,
         "original_entry": "0x53D30A",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "CloseLegacyDescriptor_53D30A"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "CloseLegacyDescriptor_53D30A"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -47828,18 +48007,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "GetLegacyDescriptorLength_53D3BD"
+            "::_filelength"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
-          "path": "src/platform/LegacyLowIo.hpp",
-          "symbols": [
-            "GetLegacyDescriptorLength_53D3BD"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：Sub_4C9060直接调用原MSVC提供者，保参数／S32结果及失败／关闭顺序。"
         }
       ],
       "evidence_documents": [
@@ -47847,7 +48019,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47889,6 +48062,26 @@
         "record_index": 415,
         "original_entry": "0x53D3BD",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "GetLegacyDescriptorLength_53D3BD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "GetLegacyDescriptorLength_53D3BD"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -47900,18 +48093,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
-        },
-        {
-          "path": "src/platform/LegacyLowIo.hpp",
-          "symbols": [
-            "OpenLegacyDescriptor_53D435"
-          ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：Sub_4C9060直接调用原MSVC提供者，保参数／S32结果及失败／关闭顺序。"
         }
       ],
       "evidence_documents": [
@@ -47919,7 +48105,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -47961,6 +48148,26 @@
         "record_index": 416,
         "original_entry": "0x53D435",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -47972,11 +48179,11 @@
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -47984,7 +48191,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48022,6 +48230,19 @@
         "record_index": 417,
         "original_entry": "0x53D44C",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -48033,11 +48254,11 @@
       "original_direct_reference_count": 18,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -48045,7 +48266,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48147,6 +48369,19 @@
         "record_index": 418,
         "original_entry": "0x53F493",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -48158,11 +48393,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -48170,7 +48405,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48204,6 +48440,19 @@
         "record_index": 419,
         "original_entry": "0x541222",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -48215,11 +48464,11 @@
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -48227,7 +48476,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -48269,6 +48519,19 @@
         "record_index": 420,
         "original_entry": "0x544705",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -48951,11 +49214,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -48972,7 +49235,8 @@
         "doc/cg2d_msvc_crt_exit_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。；MC01-C3旧private退出/诊断/filter消费者仅历史，当前业务/共享服务或std::atexit代码不变；纯CRT FinishHosted回调已退休，不改变真实业务登记/相对序。；MC01-C5只退休旧多字节/argv环境/专用致命入口消费者关联，当前共享或业务提供者/原机器事实保持；旧私有发布/分类/初始化仅历史，不计当前调用。",
       "function_chunks": [
@@ -49061,6 +49325,19 @@
         "evidence": "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "business_bytes_fields_rng_kept": true,
         "full_feature_accepted": false
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49072,11 +49349,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49084,7 +49361,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49118,6 +49396,19 @@
         "record_index": 428,
         "original_entry": "0x543711",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49129,11 +49420,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49141,7 +49432,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49175,6 +49467,19 @@
         "record_index": 429,
         "original_entry": "0x5437A6",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49186,11 +49491,11 @@
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49198,7 +49503,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49232,6 +49538,19 @@
         "record_index": 430,
         "original_entry": "0x54381D",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49243,11 +49562,11 @@
       "original_direct_reference_count": 8,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49255,7 +49574,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49317,6 +49637,19 @@
         "record_index": 431,
         "original_entry": "0x543897",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49328,11 +49661,11 @@
       "original_direct_reference_count": 7,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49340,7 +49673,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49398,6 +49732,19 @@
         "record_index": 432,
         "original_entry": "0x541279",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -49409,11 +49756,11 @@
       "original_direct_reference_count": 4,
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -49421,7 +49768,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -49467,6 +49815,19 @@
         "record_index": 433,
         "original_entry": "0x541426",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -67814,7 +68175,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "function_chunks": [
         {
@@ -67823,13 +68185,6 @@
         }
       ],
       "sources": [
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
-        },
         {
           "path": "src/platform/ClientEntry.cpp",
           "symbols": [
@@ -67899,6 +68254,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "实际std::terminate及宿主VCRuntime承接异常终止，原私有handler／诊断设施不复刻"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "CMake宿主默认MSVC exe入口进入唯一真实WinMain；当前库内启动／诊断／filter由MSVC持有，非WinMain直接实现原私有叶"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -68547,7 +68923,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "function_chunks": [
         {
@@ -68562,13 +68939,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -68637,6 +69007,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -69951,11 +70342,11 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
@@ -69963,7 +70354,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "native_reference": {
@@ -69990,6 +70382,19 @@
         "record_index": 546,
         "original_entry": "0x54B658",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -70008,18 +70413,19 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "function_chunks": [
@@ -70049,6 +70455,19 @@
         "record_index": 547,
         "original_entry": "0x5438D4",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -70071,18 +70490,19 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435"
+            "::_open"
           ],
-          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-file-source-state-20261009",
-        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_file_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "boundary": "按用户CRT直接使用MSVC决议；FILE为实际std::FILE、描述符归本机表，库内缓冲/共享/格式/状态/锁/校验/错误及关闭采用MSVC合同。旧私有算法/静态FILE与继承表及x86入口仅历史，不强转旧布局或造地址调用。实际业务参数/格式串/资源/协议/位宽与返回消费保持；未知原caller、SDK实际链接/owner及运行未验。",
       "native_reference": {
@@ -70109,6 +70529,19 @@
         "record_index": 548,
         "original_entry": "0x5463A3",
         "boundary": "旧完整记录可由固定快照/原索引读取，不内嵌重复历史链"
+      },
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435"
+          ],
+          "relationship": "MC01-B当前MSVC域实际服务/消费者；旧算法和发布细节只作历史，不据此称完整业务/ABI等价"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
       }
     },
     {
@@ -79218,7 +79651,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "sources": [
         {
@@ -79227,13 +79661,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -79302,6 +79729,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -79334,7 +79782,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "sources": [
         {
@@ -79343,13 +79792,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -79418,6 +79860,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -79450,7 +79913,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "sources": [
         {
@@ -79459,13 +79923,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -79534,6 +79991,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -79569,7 +80047,8 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "sources": [
         {
@@ -79578,13 +80057,6 @@
             "WinMain"
           ],
           "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeError.cpp",
-          "symbols": [
-            "TerminateLegacyRuntime_540A5C"
-          ],
-          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
         }
       ],
       "status": "MC01-C3旧private错误/信号/退出设施已交MSVC，三实际终止入口与业务数组/登记保持；SDK/运行未验",
@@ -79656,6 +80128,27 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "historical_sources_before_drt01": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "当前真实MSVC exe入口的业务边界；CRT退出/默认异常/stdio/信号内部由库持有，不称旧私有体被WinMain直接实现。"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ],
+          "relationship": "当前真实MSVC终止/快速退出入口；原内部表/旧Abort/诊断/filter职责host，不造旧调用。"
+        }
+      ],
+      "direct_terminate_drt01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "old_wrapper_calls": 0,
+        "existing_terminate_body_unchanged": true
       }
     },
     {
@@ -87835,7 +88328,8 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "verification_level": "两父85条/4直接入向、十CRT调用及两处flags低U8/20H、双打开/长度发布/返回次序、原路径/mode字节与限定源码差异静态核对；未执行",
       "boundary": "先默认回退再rb+打开，失败再次默认回退返0；成功另以102H/180H原低层描述符打开，成功查询长度先写CC4238再关闭描述符，长度-1也继续。两处flags低U8/20H检查中间读(1,521CH)且忽略项数；无错按版本13H、检查!=1、应用!=0顺序短路，不符默认回退后仍关闭FILE返1；描述符失败/错误位非零默认回退关闭返0。双打开不合并，不借宿主fd/FILE、不把EOF当错误；窗口数据/修补/回退/读取后缀保持，完整CRT与运行未验。",
@@ -87854,7 +88348,11 @@
           "mask": "0x20",
           "relationship": "原FILE+0C；读取后重新采样"
         }
-      ]
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "description": "三处调用直接使用MSVC描述符函数；具名开关与权限值等价，S32长度、失败和关闭顺序保持。"
+      }
     },
     {
       "original_entry": "0x4C9130",
@@ -279171,17 +279669,18 @@
           "relationship": "实际MSVC目录／文件服务及同线程errno／_doserrno访问，不提供同名dosmaperr或影子错误槽"
         },
         {
-          "path": "src/platform/LegacyLowIo.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "OpenLegacyDescriptor_53D435",
-            "CloseLegacyDescriptor_53D30A"
+            "::_open",
+            "::_close"
           ],
-          "relationship": "当前::_open／::_close，错误由同一MSVC服务管理"
+          "relationship": "DLI01：当前MSVC描述符服务使用边界；旧内部职责由宿主库承接，不称这些原入口有新增直接CPP调用。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_msvc_crt_file_spec.md#win32-error-current-service-20261012",
-        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009"
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls"
       ],
       "original_end_exclusive": "0x542FAB",
       "instruction_count": 26,
@@ -279247,7 +279746,56 @@
           ],
           "relationship": "当前::_open／::_close，错误由同一MSVC服务管理"
         }
-      ]
+      ],
+      "historical_sources_before_dli01": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "errno"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "_doserrno"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "::_mkdir"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "::_chdir"
+          ],
+          "relationship": "DCS01直接提供者／CRT导入，原纯转发包装已退休；不新增业务调用，保原类型／宽度和完整门禁。"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "ReadLegacyFileCreationTime32"
+          ],
+          "relationship": "实际MSVC目录／文件服务及同线程errno／_doserrno访问，不提供同名dosmaperr或影子错误槽"
+        },
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "OpenLegacyDescriptor_53D435",
+            "CloseLegacyDescriptor_53D30A"
+          ],
+          "relationship": "当前::_open／::_close，错误由同一MSVC服务管理"
+        }
+      ],
+      "direct_lowio_dli01": {
+        "decision_ref": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "old_wrappers_removed": true
+      }
     },
     {
       "original_entry": "0x46AC90",

@@ -1361,7 +1361,9 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -74512,6 +74514,46 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-DLI01-CRT-S-20261015",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "src/ui/WindowRuntime.cpp",
+        "CMakeLists.txt"
+      ],
+      "observation": "三处描述符操作直接调用MSVC，开关／权限使用经本机UCRT确认的等值名称；S32长度、失败与关闭顺序保持。",
+      "expected": "只有纯转发层、无消费者包装和对应构建项退休，原参数／顺序／地址及当前宿主承接保持。",
+      "actual": "必要源码与旧名引用、参数／返回和当前语义来源静态核对；未编译或运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-DRT01-CRT-S-20261015",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+      "implementation_reference": "src/render/SdlPresenter.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call",
+        "src/render/SdlPresenter.cpp",
+        "CMakeLists.txt"
+      ],
+      "observation": "无消费者的terminate包装退休；现有std::terminate调用和渲染析构条件逐字保持，原地址只补在标准库导入注释。",
+      "expected": "只有纯转发层、无消费者包装和对应构建项退休，原参数／顺序／地址及当前宿主承接保持。",
+      "actual": "必要源码与旧名引用、参数／返回和当前语义来源静态核对；未编译或运行。",
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [
@@ -74738,7 +74780,9 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ]
     },
     {
@@ -76800,7 +76844,9 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ]
     },
     {
@@ -78325,7 +78371,9 @@
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-lowio-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-terminate-call"
       ]
     },
     {

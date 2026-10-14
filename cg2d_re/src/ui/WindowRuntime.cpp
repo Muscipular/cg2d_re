@@ -7,7 +7,6 @@
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/LegacyFormat.hpp"
-#include "../platform/LegacyLowio.hpp"
 #include "../platform/LegacyStdio.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
@@ -15589,12 +15588,14 @@ std::int32_t Sub_4C9060()
         static_cast<void>(Sub_4C9240());
         return 0;
     }
-    const std::int32_t descriptor = platform::OpenLegacyDescriptor_53D435(
-        "data\\WinSaveDate", 0x102u, 0x180u);
+    // 原0x0053D435：同一MSVC描述符的创建／读写及权限。
+    const std::int32_t descriptor = ::_open(
+        "data\\WinSaveDate", _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
     if (descriptor != -1) {
-        gWindowSavedLengthCC4238 =
-            platform::GetLegacyDescriptorLength_53D3BD(descriptor);
-        static_cast<void>(platform::CloseLegacyDescriptor_53D30A(descriptor));
+        // 原0x0053D3BD：保留S32文件长度。
+        gWindowSavedLengthCC4238 = static_cast<std::int32_t>(::_filelength(descriptor));
+        // 原0x0053D30A：关闭上述描述符，原返回值不消费。
+        static_cast<void>(::_close(descriptor));
         // 原4C90B8/4C90D4均读取flags低U8，只有20H是错误。
         if (std::ferror(stream) == 0) {
             static_cast<void>(platform::ReadLegacyStream_53BCCD(

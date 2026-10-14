@@ -66,8 +66,6 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyCryptInt.cpp
     src/platform/LegacyModuleDigest.cpp
     src/platform/LegacyMemory.cpp
-    src/platform/LegacyRuntimeError.cpp
-    src/platform/LegacyLowIo.cpp
     src/platform/LegacyStdio.cpp
     src/platform/LegacyFormat.cpp
     src/platform/LegacyNetworkAdapter.cpp

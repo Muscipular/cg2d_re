@@ -209,17 +209,14 @@ std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
 std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
 std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
-constexpr char kErrorFormat[] =
-    "伺服器連線中斷(%d)";
+constexpr wchar_t kErrorFormat[] =
+    L"伺服器連線中斷({})";
 constexpr wchar_t kTryOtherServer[] =
     L"請嘗試其他的伺服器。";
-const std::string kTryOtherServerUtf8View = cg::text::FromUtf16(kTryOtherServer); // 旧窄接口只读兼容视图。
 constexpr wchar_t kDisconnected[] =
     L"與伺服器的連線被切斷了。";
-const std::string kDisconnectedUtf8View = cg::text::FromUtf16(kDisconnected); // 旧窄接口只读兼容视图。
 constexpr wchar_t kReturnToServerSelect[] =
     L"回到伺服器選擇畫面。";
-const std::string kReturnToServerSelectUtf8View = cg::text::FromUtf16(kReturnToServerSelect); // 旧窄接口只读兼容视图。
 
 
 } // namespace
@@ -288,17 +285,17 @@ std::int32_t Sub_455C90()
         static_cast<std::int16_t>(firstTextY),
         2, 2, 0, gDisconnectText9A4D10, 0, 0));
 
-    const char* secondText;
-    const char* thirdText;
-    char errorText[256];
+    std::wstring_view secondText;
+    std::wstring_view thirdText;
+    std::wstring errorText;
     const bool connectionError = login::gValue593FC0 != 0;
     if (connectionError) {
-        std::sprintf(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
+        cg::text::FormatTo(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
-        thirdText = kTryOtherServerUtf8View.c_str();
+        thirdText = kTryOtherServer;
     } else {
-        secondText = kDisconnectedUtf8View.c_str();
-        thirdText = kReturnToServerSelectUtf8View.c_str();
+        secondText = kDisconnected;
+        thirdText = kReturnToServerSelect;
     }
 
     width = login::detail::TextMeasure(secondText, 0);

@@ -1,5 +1,5 @@
 #include "cg/platform/MainLoop.hpp"
-#include "cg/text/Encoding.hpp"
+#include <string_view>
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 
@@ -15,24 +15,19 @@
 namespace cg::platform {
 namespace {
 
-// 原0x559384、0x55937C、0x559370：当前按 UTF-8 比较 Unicode 标题前缀。
+// 原0x559384、0x55937C、0x559370：直接比较UTF-16标题前缀。
 constexpr wchar_t kPrefix559384[] = L"魔力寶貝";
-const std::string kPrefix559384Utf8View = cg::text::FromUtf16(kPrefix559384); // 旧窄接口只读兼容视图。
 constexpr wchar_t kPrefix55937C[] = L"PC精靈";
-const std::string kPrefix55937CUtf8View = cg::text::FromUtf16(kPrefix55937C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kPrefix559370[] = L" 信息資料 ";
-const std::string kPrefix559370Utf8View = cg::text::FromUtf16(kPrefix559370); // 旧窄接口只读兼容视图。
 
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
 BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
 {
     wchar_t wideTitle[128] {};
-    char title[384];
-    title[0] = static_cast<char>(network::ReadProtocolByte593850());
-    std::memset(title + 1, 0, sizeof(title) - 1);
+    static_cast<void>(network::ReadProtocolByte593850());
     RECT rect; // 原 GetWindowRect 失败后仍读取，未提供默认矩形；风险见证据文档。
     ::GetWindowTextW(window, wideTitle, static_cast<int>(std::size(wideTitle)));
-    cg::text::Copy(title, sizeof(title), cg::text::FromUtf16(wideTitle));
+    const std::wstring_view title(wideTitle);
     ::GetWindowRect(window, &rect);
 
     const std::uint32_t height = static_cast<std::uint32_t>(rect.bottom)
@@ -41,16 +36,16 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         - static_cast<std::uint32_t>(rect.left);
 
     auto* lowFlagByte = reinterpret_cast<unsigned char*>(&gWindowReportFlags);
-    if (std::strncmp(title, kPrefix559384Utf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix559384Utf8View.size() + 1) - 1))) == 0) {
+    if (title.starts_with(kPrefix559384)) {
         *lowFlagByte |= 1u;
     }
-    if (std::strncmp(title, kPrefix55937CUtf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix55937CUtf8View.size() + 1) - 1))) == 0) {
+    if (title.starts_with(kPrefix55937C)) {
         *lowFlagByte |= 2u;
     }
 
     std::uint16_t flags;
     std::memcpy(&flags, &gWindowReportFlags, sizeof(flags));
-    if (std::strncmp(title, kPrefix559370Utf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix559370Utf8View.size() + 1) - 1))) == 0) {
+    if (title.starts_with(kPrefix559370)) {
         flags = static_cast<std::uint16_t>(flags | 4u);
         std::memcpy(&gWindowReportFlags, &flags, sizeof(flags));
     }

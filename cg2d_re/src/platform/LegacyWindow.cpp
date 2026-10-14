@@ -1,5 +1,4 @@
 #include "cg/platform/LegacyWindow.hpp"
-#include "cg/text/Encoding.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -19,9 +18,9 @@ int ShowWideMessage(const std::wstring_view text, const std::wstring_view captio
     return MessageBoxW(reinterpret_cast<HWND>(gLegacyWindow), ownedText.c_str(), ownedCaption.c_str(), flags);
 }
 
-std::int32_t SetLegacyWindowText(const std::uintptr_t window, const char* const text)
+std::int32_t SetLegacyWindowText(const std::uintptr_t window, const std::wstring_view text)
 {
-    const std::wstring wideText = cg::text::ToUtf16(text);
+    const std::wstring wideText(text);
     return static_cast<std::int32_t>(::SetWindowTextW(reinterpret_cast<HWND>(window), wideText.c_str()));
 }
 

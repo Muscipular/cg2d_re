@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。
 #include <cstdlib>
+#include <cwchar>
 #include <cstring> // 原CRT接口：0x0053BEC0、0x0053BFC0、0x0054AB30、0x0053CF50；原参数／返回合同由直接调用承接。
 #include <optional>
 #include <random>
@@ -227,9 +228,8 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
         window,
         wideTitle,
         static_cast<int>(sizeof(wideTitle) / sizeof(wchar_t))));
-    const std::string utf8Title = cg::text::FromUtf16(wideTitle);
-    const char* const title = utf8Title.c_str();
-    const std::uint32_t titleLength = static_cast<std::uint32_t>(std::strlen(title));
+    const wchar_t* const title = wideTitle;
+    const std::uint32_t titleLength = static_cast<std::uint32_t>(std::wcslen(title));
     if (titleLength == 0) {
         return TRUE;
     }
@@ -243,15 +243,15 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
     for (std::int32_t index = 0; index < recordCount; ++index) {
         const ProtectionAuxiliaryRecord& record =
             gProtectionAuxiliaryRecords[index];
-        const std::string recordText = cg::text::FromGbk(record.text);
+        const std::wstring recordText = cg::text::FromGbkWide(record.text);
         const std::uint16_t flag = record.flagA;
         bool matched = false;
         if (flag == 0) {
             const std::uint32_t length = static_cast<std::uint32_t>(recordText.size());
-            matched = ::_strnicmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0;
+            matched = ::_wcsnicmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0;
         } else if (flag == 1) {
             const std::uint32_t length = static_cast<std::uint32_t>(recordText.size());
-            matched = std::strncmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0
+            matched = std::wcsncmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0
                 && static_cast<std::uint32_t>(recordText.size()) == titleLength;
         }
 

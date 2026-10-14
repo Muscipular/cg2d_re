@@ -52,16 +52,15 @@ int InitializeWindow()
                 SWP_FRAMECHANGED);
         }
     } else {
-        const std::wstring className = text::ToUtf16(gWindowClassName);
         HWND window;
         if (gWindowMode) {
             window = CreateWindowExW(
-                0, className.c_str(), className.c_str(), style,
+                0, gWindowClassName, gWindowClassName, style,
                 gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
                 nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
         } else {
             window = CreateWindowExW(
-                0, className.c_str(), className.c_str(), style,
+                0, gWindowClassName, gWindowClassName, style,
                 0, 0, rect.right - rect.left, rect.bottom - rect.top,
                 nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
         }

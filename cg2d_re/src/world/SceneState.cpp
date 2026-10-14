@@ -63,7 +63,7 @@ std::int32_t gValueFF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初�
 std::int32_t gValueFF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
 std::int32_t gValueFF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
 std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
-std::array<char, 0x108> gLogoutText9A5B08 {}; // 原全局：0x009A5B08。 原264B消息区，排他尾9A5C10独立。
+std::wstring gLogoutText9A5B08; // 原全局：0x009A5B08。 动态UTF-16消息，排他尾9A5C10独立。
 login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
 std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 constexpr wchar_t kBattleStartHint5541CC[] = L"等待戰鬥開始。"; // 原常量参考：0x005541CC。
@@ -152,15 +152,11 @@ std::int32_t TruncateTransitionCoordinate(const double value)
 }
 
 constexpr wchar_t kLogoutTimeout55CA18[] = L"處理登出逾時。"; // 原常量参考：0x0055CA18。
-const std::string kLogoutTimeout55CA18Utf8View = cg::text::FromUtf16(kLogoutTimeout55CA18); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLogoutFailure55CA08[] = L"登出處理失敗。"; // 原常量参考：0x0055CA08。
-const std::string kLogoutFailure55CA08Utf8View = cg::text::FromUtf16(kLogoutFailure55CA08); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLogoutMaintenance55CA28[] = // 原常量参考：0x0055CA28。
     LR"(相當抱歉，為了維持良好的遊戲環境
 目前伺服器暫時進行停機維護。
 維護完畢後將重新開機，請稍做等候。)";
-const std::string kLogoutMaintenance55CA28Utf8View = cg::text::FromUtf16(kLogoutMaintenance55CA28); // 旧窄接口只读兼容视图。
-static_assert(sizeof(gLogoutText9A5B08) == 0x108);
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
@@ -11871,19 +11867,18 @@ std::int32_t Sub_45EBB0()
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
-            const std::size_t bytes = std::strlen(kLogoutMaintenance55CA28Utf8View.c_str()) + 1;
             login::detail::gReplyCodeDA3B2E = 0;
-            std::memcpy(gLogoutText9A5B08.data(), kLogoutMaintenance55CA28Utf8View.c_str(), bytes);
+            gLogoutText9A5B08 = kLogoutMaintenance55CA28;
             resetMaintenance = true;
         } else if (result == -1) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            std::strcpy(gLogoutText9A5B08.data(), kLogoutTimeout55CA18Utf8View.c_str());
+            gLogoutText9A5B08 = kLogoutTimeout55CA18;
             resetFailure = true;
         } else if (result == -2) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            std::strcpy(gLogoutText9A5B08.data(), kLogoutFailure55CA08Utf8View.c_str());
+            gLogoutText9A5B08 = kLogoutFailure55CA08;
             resetFailure = true;
         }
     }
@@ -11894,7 +11889,7 @@ std::int32_t Sub_45EBB0()
             login::ResetLoginMessage();
             ++gCurrentSceneState;
         }
-        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(gLogoutText9A5B08.data()) != 0) {
+        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(gLogoutText9A5B08) != 0) {
             SetCurrentSceneType(2);
         }
         resetMaintenance = gCurrentSceneState == 200;
@@ -11905,7 +11900,7 @@ std::int32_t Sub_45EBB0()
     }
     const std::int32_t finalState = gCurrentSceneState;
     if (finalState == 201) {
-        const std::int32_t result = login::UpdateLoginMessage(gLogoutText9A5B08.data());
+        const std::int32_t result = login::UpdateLoginMessage(gLogoutText9A5B08);
         if (result == 0) {
             return result;
         }

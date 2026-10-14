@@ -281755,7 +281755,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第一组源码已落位；完整内部文字迁移继续",
+    "phase": "第二组源码已落位；完整内部文字迁移继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -282224,6 +282224,58 @@
       {
         "path": "src/world/SceneState.cpp",
         "symbol": "Sub_470670"
+      },
+      {
+        "path": "src/LoginScene.cpp",
+        "symbol": "CopyText"
+      },
+      {
+        "path": "src/LoginScene.cpp",
+        "symbol": "SetBaseWindowTitle"
+      },
+      {
+        "path": "src/LoginScene.cpp",
+        "symbol": "CategoryTitle"
+      },
+      {
+        "path": "src/LoginScene.cpp",
+        "symbol": "SetServerWindowTitle"
+      },
+      {
+        "path": "src/LoginScene.cpp",
+        "symbol": "ProcessScene_45FEA0"
+      },
+      {
+        "path": "src/platform/LegacyWindow.cpp",
+        "symbol": "SetLegacyWindowText"
+      },
+      {
+        "path": "src/platform/ClientEntry.cpp",
+        "symbol": "WinMain"
+      },
+      {
+        "path": "src/platform/WindowLifecycle.cpp",
+        "symbol": "InitializeWindow"
+      },
+      {
+        "path": "src/platform/MainLoopWindowEnumeration.cpp",
+        "symbol": "EnumerateWindowsCallback_458840"
+      },
+      {
+        "path": "src/platform/MainLoopSupport.cpp",
+        "symbol": "CheckWindowsCallback_404940"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_45EBB0"
+      },
+      {
+        "path": "src/world/WorldUpdate.cpp",
+        "symbol": "Sub_455C90"
+      },
+      {
+        "path": "src/LoginMessage.cpp",
+        "symbol": "UpdateLoginMessage"
       }
     ],
     "build_verified": false,

@@ -329,8 +329,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gValue9A6F44 = 0;
         gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         gWindowClass.lpszMenuName = nullptr;
-        static const std::wstring className = cg::text::ToUtf16(gWindowClassName);
-        gWindowClass.lpszClassName = className.c_str();
+        gWindowClass.lpszClassName = gWindowClassName;
         if (RegisterClassW(&gWindowClass) == 0) {
             return 0;
         }

@@ -12,7 +12,7 @@ extern std::uintptr_t gLegacyWindow;
 int ShowWideMessage(std::wstring_view text, std::wstring_view caption, std::uint32_t flags);
 
 // 原SetWindowTextA的标题边界：UTF-8转UTF-16后调用SetWindowTextW，保原生宽度窗口引用。
-std::int32_t SetLegacyWindowText(std::uintptr_t window, const char* text);
+std::int32_t SetLegacyWindowText(std::uintptr_t window, std::wstring_view text);
 
 // 原 PostMessageA 边界：保留 HWND/WPARAM/LPARAM 的原生宽度与 BOOL 返回值。
 std::int32_t PostLegacyWindowMessage(

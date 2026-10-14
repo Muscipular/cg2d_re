@@ -22,15 +22,14 @@
 #include <cstdint>
 #include <cstdlib> // 原CRT接口：0x0053C649；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <format>
 #include <cstring>
 
 namespace {
 
-// 原559384窗口标题正文8B；当前GBK文字由SetWindowTextA消费。
+// 原559384窗口标题正文8B；当前宽正文由SetWindowTextW消费。
 constexpr wchar_t kWindowName[] = L"魔力寶貝";
-const std::string kWindowNameUtf8View = cg::text::FromUtf16(kWindowName); // 旧窄接口只读兼容视图。
 constexpr wchar_t kVersion[] = L"7.1.00";
-const std::string kVersionUtf8View = cg::text::FromUtf16(kVersion); // 旧窄接口只读兼容视图。
 constexpr char kPasswordExpiredUrl[] = "http://www.softstar.com.tw/Game/Index.aspx";
 
 // 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。
@@ -155,46 +154,46 @@ constexpr wchar_t kPasswordExpiredMessage[] =
 點擊確定，將前往SOFTSTAR網頁。
 )";
 
-// 原559958起25个64B槽的NUL前正文；当前静态中文采用GBK，索引仍由CategoryTitle承接。
-constexpr std::array<const char*, 25> kCategoryTitles {
-    "卡蓮", // 0x559958 卡蓮
-    "金牛座", // 0x559998 金牛座
-    "雙子座", // 0x5599D8 雙子座
-    "香港", // 0x559A18 香港
-    "獅子座", // 0x559A58 獅子座
-    "處女座", // 0x559A98 處女座
-    "天秤座", // 0x559AD8 天秤座
-    "歌姬", // 0x559B18 歌姬
-    "櫻之舞", // 0x559B58 櫻之舞
-    "摩羯座", // 0x559B98 摩羯座
-    "水瓶座", // 0x559BD8 水瓶座
-    "雙魚座", // 0x559C18 雙魚座
-    "香港", // 0x559C58 香港
-    "測試", // 0x559C98 測試
-    "九龍", // 0x559CD8 九龍
-    "卡蓮", // 0x559D18 卡蓮
-    "金牛座", // 0x559D58 金牛座
-    "露比", // 0x559D98 露比
-    "香港", // 0x559DD8 香港
-    "獅子座", // 0x559E18 獅子座
-    "處女座", // 0x559E58 處女座
-    "露比", // 0x559E98 露比
-    "心美", // 0x559ED8 心美
-    "露比", // 0x559F18 露比
-    "心美", // 0x559F58 心美
+// 原559958起25个64B槽的正文；当前静态中文采用UTF-16，索引仍由CategoryTitle承接。
+constexpr std::array<const wchar_t*, 25> kCategoryTitles {
+    L"卡蓮", // 0x559958 卡蓮
+    L"金牛座", // 0x559998 金牛座
+    L"雙子座", // 0x5599D8 雙子座
+    L"香港", // 0x559A18 香港
+    L"獅子座", // 0x559A58 獅子座
+    L"處女座", // 0x559A98 處女座
+    L"天秤座", // 0x559AD8 天秤座
+    L"歌姬", // 0x559B18 歌姬
+    L"櫻之舞", // 0x559B58 櫻之舞
+    L"摩羯座", // 0x559B98 摩羯座
+    L"水瓶座", // 0x559BD8 水瓶座
+    L"雙魚座", // 0x559C18 雙魚座
+    L"香港", // 0x559C58 香港
+    L"測試", // 0x559C98 測試
+    L"九龍", // 0x559CD8 九龍
+    L"卡蓮", // 0x559D18 卡蓮
+    L"金牛座", // 0x559D58 金牛座
+    L"露比", // 0x559D98 露比
+    L"香港", // 0x559DD8 香港
+    L"獅子座", // 0x559E18 獅子座
+    L"處女座", // 0x559E58 處女座
+    L"露比", // 0x559E98 露比
+    L"心美", // 0x559ED8 心美
+    L"露比", // 0x559F18 露比
+    L"心美", // 0x559F58 心美
 };
 
 // 原 25 项标题表之后，group 25..39 会按 64 字节步长继续读取相邻映像。
 // 这些是各实际地址首个 NUL 前的精确 ASCII 字节，不是正式标题表成员。
-constexpr std::array<const char*, 15> kAdjacentCategoryTitlePrefixes {
-    "I", "", "Z", "\x07V",
-    "d", "d", "d", "d", "d",
-    "x", "x", "x", "x", "x", "x",
+constexpr std::array<const wchar_t*, 15> kAdjacentCategoryTitlePrefixes {
+    L"I", L"", L"Z", L"\x07V",
+    L"d", L"d", L"d", L"d", L"d",
+    L"x", L"x", L"x", L"x", L"x", L"x",
 };
 
-constexpr std::array<const char*, 20> kServerLabels {
-    "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+constexpr std::array<const wchar_t*, 20> kServerLabels {
+    L"I", L"II", L"III", L"IV", L"V", L"VI", L"VII", L"VIII", L"IX", L"X",
+    L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20",
 };
 
 struct LoginUiRecord {
@@ -322,24 +321,19 @@ void CopyText(std::wstring& destination, std::wstring_view source)
     destination = source;
 }
 
-void CopyText(std::wstring& destination, const char* const text)
-{
-    destination = cg::text::ToUtf16(text);
-}
-
 
 void IncrementSceneState()
 {
     ++cg::world::gCurrentSceneState;
 }
 
-void SetBaseWindowTitle(char (&buffer)[256])
+void SetBaseWindowTitle(std::wstring& buffer)
 {
-    std::sprintf(buffer, "%s %s", kWindowNameUtf8View.c_str(), kVersionUtf8View.c_str());
+    buffer = std::format(L"{} {}", kWindowName, kVersion);
     cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
 }
 
-const char* CategoryTitle(std::int32_t categoryIndex)
+const wchar_t* CategoryTitle(std::int32_t categoryIndex)
 {
     if (categoryIndex < static_cast<std::int32_t>(kCategoryTitles.size())) {
         return kCategoryTitles[static_cast<std::size_t>(categoryIndex)];
@@ -350,27 +344,25 @@ const char* CategoryTitle(std::int32_t categoryIndex)
 }
 
 void SetServerWindowTitle(
-    char (&buffer)[256],
+    std::wstring& buffer,
     std::int32_t serverIndex,
     std::int32_t page,
     std::int32_t slot)
 {
-    const char* const category = CategoryTitle(serverIndex / 20);
-    const char* const server =
+    const wchar_t* const category = CategoryTitle(serverIndex / 20);
+    const wchar_t* const server =
         kServerLabels[static_cast<std::size_t>(page * 10 + slot)];
-    std::sprintf(
-        buffer,
-        "%s %s [%s %s]",
-        kWindowNameUtf8View.c_str(),
-        kVersionUtf8View.c_str(),
+    buffer = std::format(
+        L"{} {} [{} {}]",
+        kWindowName,
+        kVersion,
         category,
         server);
     if (slot == 9) {
-        std::sprintf(
-            buffer,
-            "%s %s [逆 %s]", // 原55CD18，特殊标题中的“逆”保留两字节。
-            kWindowNameUtf8View.c_str(),
-            kVersionUtf8View.c_str(),
+        buffer = std::format(
+            L"{} {} [逆 {}]", // 原55CD18，特殊标题保留“逆”。
+            kWindowName,
+            kVersion,
             category);
     }
     cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
@@ -453,7 +445,7 @@ std::int32_t GetServerAddressInfo_507D90(
 std::int32_t ProcessScene_45FEA0()
 {
     std::int32_t interactiveTail = 0;
-    char title[256];
+    std::wstring title;
 
     if (world::gCurrentSceneState == 0) {
         world::gCurrentSceneState = 1;
@@ -647,8 +639,8 @@ std::int32_t ProcessScene_45FEA0()
                     CopyText(gValue9A620C[7], kMachineCode1);
                     CopyText(gValue9A620C[8], kMachineCode2);
                     CopyText(gValue9A620C[9], kMachineCode3);
-                    CopyText(gValue9A620C[10], " ");
-                    CopyText(gValue9A620C[11], " ");
+                    CopyText(gValue9A620C[10], L" ");
+                    CopyText(gValue9A620C[11], L" ");
                     gValueDA3B24 = 0;
                     break;
                 case 22:

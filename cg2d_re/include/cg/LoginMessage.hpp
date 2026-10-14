@@ -17,6 +17,5 @@ void ResetLoginMessage();
 // 原 sub_45CE10@0x45CE10。
 // UTL02：原生入口接收UTF-16；旧窄入口仅转换局部UTF-8视图。
 std::int32_t UpdateLoginMessage(std::wstring_view text);
-std::int32_t UpdateLoginMessage(const char* text);
 
 } // namespace cg::login

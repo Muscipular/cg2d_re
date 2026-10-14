@@ -2305,3 +2305,6 @@ UTF-8无BOM／LF、调用／类型、四适配／无旧接口、原身份／历�
 按用户kModeChangeText等不要转义字符的要求，记录[GLT01](../doc/cg2d_text_encoding_spec.md#gbk-readable-literals-20261014)。原提示18B GBK文字已核为“正在改變描繪模式。”；当前/utf-8使直接中文字面量生成UTF-8，需同步明确执行字符集。
 建议UTF-8源码／GBK普通窄字面量，已有UTF-8提示显式保持；已有已批准GBK清单及非Big5／混合字节例外用作范围证据，保原地址／正文／NUL／sizeof／格式参数和业务。
 待用户选择统一同类静态界面文字或仅kModeChangeText；当前仅方案记录，未修改源码或CMake，未编译、测试、运行或计算摘要。
+
+223补充：用户已确认统一同类文字，随后询问Unicode及Unicode绘制；GLT01编码方案转为待裁决的[UTL01](../doc/cg2d_text_encoding_spec.md#unicode-ui-source-20261014)，先不实施GBK字面量改动。
+已静态核到TextOutA／CreateFontA、三处双字节测宽、A系窗口／IME，以及TextPendingRecord的255B整串复制；Unicode必须成组处理绘制、度量、输入索引、容量与旧编码边界。方案明确内部UTF-8／Win32 UTF-16及协议／资源原GBK边界，原文字／地址／字体／历史门禁保留；完整Unicode范围待用户选择，未改源码、CMake或验收状态。

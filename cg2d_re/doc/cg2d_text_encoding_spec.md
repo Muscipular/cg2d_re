@@ -155,3 +155,17 @@ static constexpr char kModeChangeText[] = "正在改變描繪模式。";
 范围选择待用户回复：统一处理已有证据确认的同类GBK静态界面文字，或仅kModeChangeText；非Big5／混合／日文字节按既有证据保留，不能按可解码就猜为GBK。保留原地址注释、繁体文字、格式占位、正文与NUL字节、sizeof／缓冲容量及全部消费者，不改变显示、协议、资源或输入编码边界，不新增依赖或运行时转码。
 实施前后逐组静态核对CP936编码回读与完整字节／容量，仅必要静态及台账文本汇总；不编译、测试、运行或计算摘要，既有编译／画面／整体门禁保持。当前仅记录方案，尚未修改源码或CMake。
 MSVC选项依据：[执行字符集](https://learn.microsoft.com/en-us/cpp/build/reference/execution-charset-set-execution-character-set?view=msvc-170)、[/utf-8](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)。
+
+<a id="unicode-ui-source-20261014"></a>
+## 2026-10-14：Unicode界面迁移方案（UTL01，待范围确认）
+
+用户已确认同类静态界面文字统一处理，随后提出Unicode及绘制也采用Unicode；GLT01的GBK字面量方案暂停实施，尚未改源码或CMake。本方案建议内部UTF-8、Win32文字边界UTF-16，保留当前/utf-8；正文使用直接或原始字符串字面量，不用十六进制转义拼写已确认文字。
+
+1. 依据现有GBK迁移证据将已确认静态界面文字还原为Unicode文字，保繁体、格式占位、原地址注释与字体宋体；既有UTF-8提示继续UTF-8。非Big5／混合字节不猜编码，按既有来源逐项明确转换或保留其旧编码边界。
+2. Font.cpp现TextOutA改为TextOutW，字体创建采用CreateFontW；UTF-8转UTF-16在Win32调用边界完成。沿CPU文本DC、既有队列顺序、颜色、阴影、坐标和surface生命周期，不更换渲染后端或引外部依赖。
+3. 绘制、测宽、换行、截取及光标必须同步采用Unicode字符边界，不能继续用高bit判为两字节。以实际字体的W文字度量为依据；由旧单／双字节固定宽度改为Unicode文字度量的布局差异须明确记录。
+4. 现TextPendingRecord::text为255B，DrawText／DrawText2直接按strlen+1复制；UTF-8扩长不能继续沿旧sizeof或固定GBK长度。迁移内部文本owner与必要调用，保留原字段偏移作注释／历史；固定协议与资源字节域不随UI文本扩宽，逐项核容量、终止符、长度单位和寿命。
+5. 若确认完整Unicode界面范围，窗口注册／创建／默认消息处理及IME同步采用W接口；输入缓冲、组合串、属性／光标索引、删除及候选文字统一明确UTF-8字节与UTF-16索引转换，不混接A／W字符消息。
+6. 网络协议、资源和存档按已确认原GBK字节合同在边界转码，不改变格式／字段容量／外部数据；不将字面量自动改变视为整个边界迁移完成。
+
+范围待用户答复：是否将当前静态字面量任务扩展为上述完整Unicode界面迁移，或仍只改变GBK字面量拼写。获确认后先沿具体生产／消费／owner落实全部必要调整，保原端事实及具名差异；仅必要静态与文本汇总，不编译、测试、运行、查产物或计算摘要。当前只完成源码边界分析与方案记录，未声称已实现或运行通过。

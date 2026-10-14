@@ -3,8 +3,6 @@
 #include "MainLoopDependencies.hpp"
 
 #include <bit>
-#include <cstdlib>
-#include <new>
 
 namespace cg::platform {
 
@@ -39,6 +37,7 @@ LegacyCryptInt::LegacyCryptInt(const std::int32_t value)
 }
 
 // 原0x00401CF0 CryptInt_delete@[0x401CF0,0x401CF7)：析构只恢复原token。
+// 原0x00401CA0：销毁部分并入析构；动态释放由标准delete表达式承接。
 LegacyCryptInt::~LegacyCryptInt()
 {
     legacyVftToken = kLegacyCryptIntVftToken;
@@ -58,20 +57,6 @@ void LegacyCryptInt::RestoreRaw(const RawPayload& raw) noexcept
     for (std::size_t index = 0; index < 3; ++index) {
         reserved[index] = raw.reserved[index];
     }
-}
-
-void* LegacyCryptInt::operator new(const std::size_t size)
-{
-    if (void* storage = std::malloc(size)) {
-        return storage;
-    }
-    throw std::bad_alloc();
-}
-
-// 原0x00401CA0：delete先析构再free；栈／成员由原生析构结束寿命。
-void LegacyCryptInt::operator delete(void* const storage) noexcept
-{
-    std::free(storage);
 }
 
 // 原函数：0x00401F50。

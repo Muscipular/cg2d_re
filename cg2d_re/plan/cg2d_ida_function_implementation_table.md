@@ -13,6 +13,8 @@
 
 > 2026-10-14 [LCI07](../doc/cg2d_cryptint_class_spec.md#cryptint-direct-global-definition)：首项5939C8／5939D8在原中央位置直接定义初始化，三原入口仍有承接；退休本组optional及StartupValues。源定位同步，原身份／数量／门禁保持，仅静态核对。
 
+> 2026-10-14 [LCI08](../doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads)：无当前动态消费者的CryptInt类专用分配重载退休，原401CA0销毁引用归入析构、动态释放沿默认MSVC。受影响源码定位同步，3680入口身份／状态与验收门禁保持，仅静态核对。
+
 | 状态 | 实际入口数 |
 |---|---:|
 | 有正文 | 2865 |
@@ -47,37 +49,37 @@
 | 13 | 0x00401C10 | `sub_401C10` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | LCI07在原中央位置直接定义两值，默认构造各一次RNG并自动逆序析构；原地址保持；仅静态核对，编译／运行未验 |
 | 14 | 0x00401C20 | `unknown_libname_1` | 有承接 | `src/platform/LegacyMouse.cpp:39 — gStartupValue5939C8 / gStartupValue5939D8` | 原401C20两值正序构造由全局定义处默认构造承接；原中央位置与两次RNG序保持；SDK退出／完整运行未验 |
 | 15 | 0x00401C50 | `unknown_libname_2` | 有承接 | `src/platform/LegacyMouse.cpp:40 — gStartupValue5939D8 / gStartupValue5939C8逆序析构` | 原401C50逆序退出由同一中央两值的原生全局析构承接；MSVC自动登记；完整运行未验 |
-| 16 | 0x00401C70 | `sub_401C70` | 有正文 | `src/platform/LegacyCryptInt.cpp:27 — LegacyCryptInt::LegacyCryptInt()` | 零值默认构造委托整数0构造，仍一次共享RNG；原16B／偏移保持；布局／运行未验 |
-| 17 | 0x00401CA0 | `sub_401CA0` | 有承接 | `src/platform/LegacyCryptInt.cpp:72 — LegacyCryptInt::~LegacyCryptInt / operator delete` | 原401CA0由析构＋CRT free承接，销毁／释放沿原生调用形式；原flags／返回ABI不再提供；运行未验 |
-| 18 | 0x00401CC0 | `CryptInt_Init` | 有正文 | `src/platform/LegacyCryptInt.cpp:33 — LegacyCryptInt::LegacyCryptInt(int32_t)` | 整数构造接原发布顺序和一次RNG；保reserved不写；完整运行未验 |
-| 19 | 0x00401CF0 | `CryptInt_delete` | 有正文 | `src/platform/LegacyCryptInt.cpp:42 — LegacyCryptInt::~LegacyCryptInt` | 原生析构只恢复token；栈／成员／动态存储实际寿命已迁移；运行未验 |
-| 20 | 0x00401D00 | `CryptInt::eq` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建==` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 16 | 0x00401C70 | `sub_401C70` | 有正文 | `src/platform/LegacyCryptInt.cpp:25 — LegacyCryptInt::LegacyCryptInt()` | 零值默认构造委托整数0构造，仍一次共享RNG；原16B／偏移保持；布局／运行未验 |
+| 17 | 0x00401CA0 | `sub_401CA0` | 有承接 | `src/platform/LegacyCryptInt.cpp:41 — LegacyCryptInt::~LegacyCryptInt；释放由默认MSVC delete承接` | LCI08无动态消费者，类专用分配重载退休；原401CA0销毁注释归入析构，未来动态释放沿默认MSVC；原flags／返回ABI保历史，运行未验 |
+| 18 | 0x00401CC0 | `CryptInt_Init` | 有正文 | `src/platform/LegacyCryptInt.cpp:31 — LegacyCryptInt::LegacyCryptInt(int32_t)` | 整数构造接原发布顺序和一次RNG；保reserved不写；完整运行未验 |
+| 19 | 0x00401CF0 | `CryptInt_delete` | 有正文 | `src/platform/LegacyCryptInt.cpp:41 — LegacyCryptInt::~LegacyCryptInt` | 原生析构只恢复token；栈／成员／动态存储实际寿命已迁移；运行未验 |
+| 20 | 0x00401D00 | `CryptInt::eq` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建==` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 21 | 0x00401D10 | `sub_401D10` | 有承接 | `src/YobiRuntime.cpp:34383 — Read_401EC0(&action->mapY1F0) != floor` | != 比较内联；共享 Read_401EC0，不重建包装；完整业务／运行未验 |
-| 22 | 0x00401D20 | `CryptInt::neq` | 有正文 | `src/platform/LegacyCryptInt.cpp:217 — cg::platform::operator!=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 23 | 0x00401D40 | `sub_401D40` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 24 | 0x00401D50 | `sub_401D50` | 有正文 | `src/platform/LegacyCryptInt.cpp:224 — cg::platform::operator>` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 25 | 0x00401D70 | `CryptInt::gte` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建>=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 26 | 0x00401D80 | `sub_401D80` | 有正文 | `src/platform/LegacyCryptInt.cpp:231 — cg::platform::operator>=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 27 | 0x00401DA0 | `CryptInt::Lte` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建<=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 28 | 0x00401DB0 | `CryptInt::lt` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建<` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 29 | 0x00401DC0 | `sub_401DC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:238 — cg::platform::operator<` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 30 | 0x00401DE0 | `sub_401DE0` | 有正文 | `src/platform/LegacyCryptInt.cpp:178 — LegacyCryptInt::operator++` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 22 | 0x00401D20 | `CryptInt::neq` | 有正文 | `src/platform/LegacyCryptInt.cpp:202 — cg::platform::operator!=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 23 | 0x00401D40 | `sub_401D40` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 24 | 0x00401D50 | `sub_401D50` | 有正文 | `src/platform/LegacyCryptInt.cpp:209 — cg::platform::operator>` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 25 | 0x00401D70 | `CryptInt::gte` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建>=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 26 | 0x00401D80 | `sub_401D80` | 有正文 | `src/platform/LegacyCryptInt.cpp:216 — cg::platform::operator>=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 27 | 0x00401DA0 | `CryptInt::Lte` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建<=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 28 | 0x00401DB0 | `CryptInt::lt` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建<` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 29 | 0x00401DC0 | `sub_401DC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:223 — cg::platform::operator<` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 30 | 0x00401DE0 | `sub_401DE0` | 有正文 | `src/platform/LegacyCryptInt.cpp:163 — LegacyCryptInt::operator++` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 31 | 0x00401E00 | `sub_401E00` | 有承接 | `src/YobiRuntime.cpp:3439 — Sub_446B50` | S16 加值在实际坐标计算中内联；共享 Read_401EC0；完整业务／运行未验 |
-| 32 | 0x00401E10 | `CryptInt::add` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建+` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 33 | 0x00401E20 | `sub_401E20` | 有正文 | `src/platform/LegacyCryptInt.cpp:148 — LegacyCryptInt::operator+=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 34 | 0x00401E40 | `sub_401E40` | 有正文 | `src/platform/LegacyCryptInt.cpp:163 — LegacyCryptInt::operator-=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 35 | 0x00401E60 | `CryptInt::dec` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建-` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 36 | 0x00401E70 | `CryptInt::dec_0` | 有正文 | `src/platform/LegacyCryptInt.cpp:199 — cg::platform::operator-` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 37 | 0x00401E90 | `CryptInt::mul` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建*` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 38 | 0x00401EA0 | `CryptInt::GetVal` | 有承接 | `src/platform/LegacyCryptInt.cpp:92 — LegacyCryptInt::Read_401EC0` | 原入口为跳转到 401EC0；共用同一读取正文；完整业务／运行未验 |
+| 32 | 0x00401E10 | `CryptInt::add` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建+` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 33 | 0x00401E20 | `sub_401E20` | 有正文 | `src/platform/LegacyCryptInt.cpp:133 — LegacyCryptInt::operator+=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 34 | 0x00401E40 | `sub_401E40` | 有正文 | `src/platform/LegacyCryptInt.cpp:148 — LegacyCryptInt::operator-=` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 35 | 0x00401E60 | `CryptInt::dec` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建-` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 36 | 0x00401E70 | `CryptInt::dec_0` | 有正文 | `src/platform/LegacyCryptInt.cpp:184 — cg::platform::operator-` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 37 | 0x00401E90 | `CryptInt::mul` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建*` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 38 | 0x00401EA0 | `CryptInt::GetVal` | 有承接 | `src/platform/LegacyCryptInt.cpp:77 — LegacyCryptInt::Read_401EC0` | 原入口为跳转到 401EC0；共用同一读取正文；完整业务／运行未验 |
 | 39 | 0x00401EB0 | `sub_401EB0` | 有承接 | `src/YobiRuntime.cpp:5398 — Sub_4424B0` | 原读取后 fild 转换；当前实际读取后转 float／double；完整业务／运行未验 |
-| 40 | 0x00401EC0 | `sub_401EC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:92 — LegacyCryptInt::Read_401EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 41 | 0x00401F50 | `CryptInt::SetNorVal` | 有正文 | `src/platform/LegacyCryptInt.cpp:78 — LegacyCryptInt::SetNorVal_401F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 40 | 0x00401EC0 | `sub_401EC0` | 有正文 | `src/platform/LegacyCryptInt.cpp:77 — LegacyCryptInt::Read_401EC0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 41 | 0x00401F50 | `CryptInt::SetNorVal` | 有正文 | `src/platform/LegacyCryptInt.cpp:63 — LegacyCryptInt::SetNorVal_401F50` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 42 | 0x00401F60 | `sub_401F60` | 有承接 | `src/YobiRuntime.cpp:34383 — Read_401EC0(&action->mapY1F0) != floor` | 标量与读取结果 != 在消费者中内联；完整业务／运行未验 |
-| 43 | 0x00401F80 | `CryptInt::gt` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 44 | 0x00401FA0 | `sub_401FA0` | 有正文 | `src/platform/LegacyCryptInt.cpp:110 — LegacyCryptInt::IntLessCryptRaw_401FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 45 | 0x00401FC0 | `CrypyInt::lte` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建<=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
-| 46 | 0x00401FE0 | `CryptInt::Dec2` | 有承接 | `src/platform/LegacyCryptInt.cpp:137 — LegacyCryptInt::operator std::int32_t + S32内建-` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 43 | 0x00401F80 | `CryptInt::gt` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建>` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 44 | 0x00401FA0 | `sub_401FA0` | 有正文 | `src/platform/LegacyCryptInt.cpp:95 — LegacyCryptInt::IntLessCryptRaw_401FA0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 45 | 0x00401FC0 | `CrypyInt::lte` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建<=` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
+| 46 | 0x00401FE0 | `CryptInt::Dec2` | 有承接 | `src/platform/LegacyCryptInt.cpp:122 — LegacyCryptInt::operator std::int32_t + S32内建-` | LCI03／LCI04经单次转换与内建operator承接原S32运算；完整业务／接线／运行未验 |
 | 47 | 0x00402000 | `sub_402000` | 有承接 | `src/YobiRuntime.cpp:36948 — Equal_401D00(&action->mapX200, x)` | 原标量 == 读取值；当前共享 Equal_401D00；完整业务／运行未验 |
 | 48 | 0x00402020 | `sub_402020` | 有正文 | `src/LegacyUiRecord.cpp:1827 — ReloadLegacyLog_402020` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 49 | 0x004021A0 | `sub_4021A0` | 有正文 | `src/LegacyUiRecord.cpp:1879 — Sub_4021A0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
@@ -447,7 +449,7 @@
 | 413 | 0x00427470 | `Yobi::BattleSceneUpdate` | 有正文 | `src/YobiRuntime.cpp:22006 — UpdateBattleEvent_427470` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 414 | 0x00438230 | `sub_438230` | 有承接 | `src/YobiRuntime.cpp:20086 — targetPayload->value13D8 != 1 \|\| targetPayload->value13DC != statusType` | 原 type=1 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
 | 415 | 0x00438250 | `sub_438250` | 有承接 | `src/YobiRuntime.cpp:20430 — targetPayload->value13D8 != 3 \|\| targetPayload->value13DC != type` | 原 type=3 且 value 匹配；当前战斗 M 消费内联；完整业务／运行未验 |
-| 416 | 0x00438270 | `sub_438270` | 有承接 | `src/platform/LegacyCryptInt.cpp:83 — LegacyCryptInt::CopyPayload` | 原载荷逐字段复制；共享实际 CopyPayload；完整业务／运行未验 |
+| 416 | 0x00438270 | `sub_438270` | 有承接 | `src/platform/LegacyCryptInt.cpp:68 — LegacyCryptInt::CopyPayload` | 原载荷逐字段复制；共享实际 CopyPayload；完整业务／运行未验 |
 | 417 | 0x00438290 | `YobiBattleChara::new` | 有正文 | `src/YobiRuntime.cpp:22161 — NewBattleActor_438290` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 418 | 0x004383B0 | `sub_4383B0` | 有正文 | `src/YobiRuntime.cpp:22129 — NewBattleScene_4383B0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 419 | 0x004383F0 | `sub_4383F0` | 有正文 | `src/YobiRuntime.cpp:22145 — InitializeBattleScene_4383F0` | 实际非占位正文已定位；完整业务／接线／运行未验 |

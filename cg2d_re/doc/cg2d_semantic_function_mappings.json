@@ -246201,17 +246201,17 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
-            "cg::platform::LegacyCryptInt::operator delete"
+            "cg::platform::LegacyCryptInt::~LegacyCryptInt"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "LCI08：原401CA0销毁部分及地址注释归入原生析构；无当前动态消费者，类专用operator new/delete退休。"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "cg::platform::LegacyCryptInt",
-            "LegacyCryptInt::operator delete"
+            "LegacyCryptInt::~LegacyCryptInt"
           ],
-          "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          "relationship": "原生构造／析构与固定16B布局保持；未来动态分配／释放沿默认MSVC new/delete，不把malloc/free加入对象寿命正文。"
         }
       ],
       "evidence_documents": [
@@ -246221,14 +246221,15 @@
         "doc/cg2d_heap_malloc_unification_spec.md#heap-malloc-source-state",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
         "doc/cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision",
-        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current"
+        "doc/cg2d_legacy_cryptint.md#cryptint-native-lifecycle-current",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads"
       ],
-      "boundary": "先恢复令牌，flags bit0置位才同域std::free；两路返回原地址，释放后不恢复对象或所有权。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
-      "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。",
-      "native_signature": "LegacyCryptInt::~LegacyCryptInt(); static void LegacyCryptInt::operator delete(void*) noexcept",
+      "boundary": "原401CA0的flags bit0／原地址返回／显式free合同保留在阶段历史；当前销毁由~LegacyCryptInt恢复token，动态释放沿标准delete表达式及默认MSVC服务。类专用分配／释放重载无当前消费者，按用户要求退休。原机器ABI、未知间接消费者及完整SDK／寿命运行未验，不改其他对象的分配域或RNG。",
+      "verification_level": "LCI08：当前src／include静态搜索仅有重载声明／定义，无该类动态分配、智能指针拥有或派生类型；退休重载并归并原401CA0注释。仅源码／地址／台账静态核对，未编译或运行。",
+      "native_signature": "LegacyCryptInt::~LegacyCryptInt()",
       "native_provider": {
         "source": "src/platform/LegacyCryptInt.cpp",
-        "symbol": "LegacyCryptInt::operator delete",
+        "symbol": "LegacyCryptInt::~LegacyCryptInt",
         "source_body_implemented": true,
         "runtime_verified": false
       },
@@ -246260,6 +246261,47 @@
         "runtime_verified": false,
         "cryptint_default_construction_rng_calls": 1,
         "cryptint_raw_construction_rng_calls": 0
+      },
+      "historical_allocation_binding_before_lci08": {
+        "sources": [
+          {
+            "path": "src/platform/LegacyCryptInt.cpp",
+            "symbols": [
+              "cg::platform::LegacyCryptInt::operator delete"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          },
+          {
+            "path": "include/cg/platform/LegacyCryptInt.hpp",
+            "symbols": [
+              "cg::platform::LegacyCryptInt",
+              "LegacyCryptInt::operator delete"
+            ],
+            "relationship": "LCI06当前对应源码／原生生命周期承接；原路径关联与取证保持为历史，当前源码按同一实际活动对象接线。原C++／STL退出与异常机制承接，不声称原ABI或完整运行等价。"
+          }
+        ],
+        "native_signature": "LegacyCryptInt::~LegacyCryptInt(); static void LegacyCryptInt::operator delete(void*) noexcept",
+        "native_provider": {
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "LegacyCryptInt::operator delete",
+          "source_body_implemented": true,
+          "runtime_verified": false
+        },
+        "boundary": "先恢复令牌，flags bit0置位才同域std::free；两路返回原地址，释放后不恢复对象或所有权。 原机器thiscall/虚表身份按既有显式原生接口适配；全部未知间接消费者、返回消费与正常寿命未闭。不新增保护/默认值或第二RNG/分配域，RPLAN.24及内部载体与网络明文边界保持。",
+        "verification_level": "当前同一IDA只读五完整根共43条125B、六实际CALL目标；当前声明/定义和字段/返回/同域释放源码定位。只新增合同/身份，不编译、测试、运行、检查产物或计算摘要，不冒称完整SDK/ABI验收。"
+      },
+      "native_lifecycle_lci08": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
+        "unused_class_allocation_overloads_removed": true,
+        "current_cpp_dynamic_consumers": 0,
+        "destroy_source": "src/platform/LegacyCryptInt.cpp",
+        "destroy_symbol": "LegacyCryptInt::~LegacyCryptInt",
+        "allocation_provider": "默认MSVC C++ new/delete；原专用malloc/free重载合同由本步覆盖。",
+        "destructor_body_changed": false,
+        "native_object_bytes": 16,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {

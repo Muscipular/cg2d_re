@@ -13,6 +13,7 @@ public:
     // 原0x00401C70：默认构造零值，只消费一次RNG。
     LegacyCryptInt();
     // 原0x00401CF0：结束对象寿命，只恢复原token。
+    // 原0x00401CA0销毁部分归入析构；动态释放沿标准delete表达式。
     ~LegacyCryptInt();
 
     // 原字节载荷无读取副作用；用于calloc零填充与既有原始快照。
@@ -26,9 +27,6 @@ public:
     explicit LegacyCryptInt(const RawPayload& raw) noexcept; // 不消费RNG。
     void RestoreRaw(const RawPayload& raw) noexcept; // 恢复全部16B字段，不改变寿命。
 
-    // 原0x00401CA0的释放分支由delete表达式承接；分配／释放统一CRT。
-    static void* operator new(std::size_t size);
-    static void operator delete(void* storage) noexcept;
     explicit LegacyCryptInt(std::int32_t value); // 原401CC0：一次RNG构造。
     explicit LegacyCryptInt(std::uint32_t value); // 同一W32位模式构造。
     LegacyCryptInt(const LegacyCryptInt&) = default; // 同类原始字段复制，不读取或取RNG。

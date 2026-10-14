@@ -314,7 +314,8 @@ BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正�
 ## 2026-10-14 原生生命周期当前承接
 
 按[LCI06](cg2d_cryptint_class_spec.md#cryptint-native-lifecycle-decision)，401C70／401CC0已分别由默认／整数构造承接，
-401CF0由~LegacyCryptInt承接，401CA0由析构及配套CRT operator delete承接。原flags／返回寄存器合同保留为原端事实，当前接口采用原生寿命及delete表达式。
+401CF0由~LegacyCryptInt承接；401CA0销毁引用按[LCI08](cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads)归入析构，未来动态释放沿默认MSVC delete。
+类专用operator new/delete无当前消费者，已退休；原flags／返回寄存器／显式free合同保留为原端事实，当前接口采用原生寿命及delete表达式。
 旧显式构销符号和手工成员／数组循环已退休；首项5939C8／5939D8按[LCI07](cg2d_cryptint_class_spec.md#cryptint-direct-global-definition)在中央位置直接定义初始化，自动逆序析构；其余延后值由同一std::optional存储在原位置构造和销毁，
 原16B／字段偏移、读取／RNG和特殊401FA0完整返回合同保持。RawPayload只承接既有原始零字节状态，不取RNG。
 本文此前的原端取证与显式接口阶段资料均保留历史；当前源码映射沿全量函数实现表，未构建、测试或运行。

@@ -1428,7 +1428,7 @@ std::int32_t Sub_4A76E0()
 
 // 原 sub_44B050@[0x44B050,0x44B170)。
 void Sub_44B050(
-    const char* text,
+    const std::wstring_view message,
     const std::int32_t color,
     const std::int32_t fontType)
 {
@@ -1441,7 +1441,7 @@ void Sub_44B050(
 
     std::string stored;
     try {
-        stored = cg::text::ToGbk(text);
+        stored = cg::text::ToGbk(message);
         if (stored.size() >= sizeof(gRecords5FB7F8[0].text)) {
             throw cg::text::GbkStorageError(122, std::system_category(), "文字超过聊天记录GBK容量");
         }
@@ -1450,7 +1450,7 @@ void Sub_44B050(
         platform::ShowWideMessage(L"这项文字无法保存为GBK，或超过字段容量。", L"文字编码", 0x10U);
         return;
     }
-    text = stored.c_str();
+    const char* const text = stored.c_str();
     std::int32_t index = gWriteIndex626C08;
     char* const destination = gRecords5FB7F8[index].text;
     const std::size_t length = std::strlen(text) + 1;
@@ -1666,7 +1666,7 @@ void Sub_44AB60()
         gInputContextC8B1B8.clearText();
         gInputContextC8B1B8.caretByteOffset = 0;
         gInputContextC8B1B8.totalByteLength = 0;
-        world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
+        world::detail::Sub_44B050(message, 4, 3);
         SetContext_44B330(&gInputContext626AA0);
     }
     gValue626C0C = 20;

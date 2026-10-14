@@ -281752,5 +281752,482 @@
     "cursor_calls": 3,
     "quit_calls": 1,
     "validation": "必要源码静态检查，未编译或运行。"
+  },
+  "wide_only_uwf01": {
+    "decision_ref": "doc/cg2d_wide_only_text_spec.md",
+    "phase": "第一组源码已落位；完整内部文字迁移继续",
+    "changed_sources": [
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "Sub_43BAA0"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleAction104_40DC90"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "DescribeHoveredYobi_507140"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowGatherResultNameD2DA94"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowGatherResultSuffixCB1E1C"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowLegacySkillSummaryCC18CC"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowLegacyItemWorkSuffixD2DADC"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "BorrowLegacyCraftSuffixD672B4"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CFCA0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CED60"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C69B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499C30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49AC40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AAEC0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AB710"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_492C80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_492F70"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B9F40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BE3F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BE600"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BEF30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C1700"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C39A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "WriteMailContactStatus"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A33C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A3480"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A3540"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AE8D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AEA10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AEE00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CC6E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CD150"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CD1E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CC340"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_483150"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4847C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47E5E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4F39F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47F3D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4F1800"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_485AF0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4ED6B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_486040"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4876B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4EEA40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47C570"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4966B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47A7A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47BC00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4F0200"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49F7E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4991C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499790"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_473840"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_495E60"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_495EB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_474FB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48C1E0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F0CD0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F0E20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DC290"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DC7E0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DDFC0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D55C0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E0D10"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E1B10"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E2030"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E28F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E2D90"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E3750"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E6E10"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E7380"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E82F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E8AD0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E9C80"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EA690"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EC240"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EAAA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52D7B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52E240"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52E650"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52F670"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52FD60"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_532450"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4ECE00"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4ED020"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EDB20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F6CA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F9B10"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4014B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FF650"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FC430"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FCBA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FDA00"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FDE20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FE4A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FEB10"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FF030"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FF350"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_5029B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_5030A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_503160"
+      },
+      {
+        "path": "src/LoginState.cpp",
+        "symbol": "Sub_508360"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44B050"
+      },
+      {
+        "path": "src/Input.cpp",
+        "symbol": "Sub_44AB60"
+      },
+      {
+        "path": "src/world/MailState.cpp",
+        "symbol": "Sub_50DC70"
+      },
+      {
+        "path": "src/world/MailState.cpp",
+        "symbol": "Sub_50F7F0"
+      },
+      {
+        "path": "src/world/MailState.cpp",
+        "symbol": "Sub_50F9E0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_50CF20"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_50E6E0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_50F190"
+      },
+      {
+        "path": "src/render/SdlPresenter.cpp",
+        "symbol": "TakeScreenshot_453760"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50CE10"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50C940"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50CAE0"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_4704A0"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_470670"
+      }
+    ],
+    "build_verified": false,
+    "runtime_verified": false,
+    "complete_gates_changed": false
   }
 }

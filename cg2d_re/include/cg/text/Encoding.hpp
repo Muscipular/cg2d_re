@@ -3,7 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+#include <format>
 #include <stdexcept>
 #include <vector>
 #include <string>
@@ -29,17 +29,12 @@ public:
 // 整串写回旧GBK字段；超容量与编码失败均抛GbkStorageError，失败前不发布。
 void StoreGbk(char* destination, std::size_t capacity, std::string_view utf8);
 
-// 窄CRT格式化的局部兼容视图；最终控件只持有动态UTF-16，不使用旧固定文本容量。
+// UWF01：格式与实参只接收宽文本，结果直接写入动态UTF-16正文。
 template<typename... Args>
-std::int32_t FormatTo(std::wstring& destination, const char* format, Args... args)
+std::int32_t FormatTo(std::wstring& destination, const std::wstring_view format, Args&&... args)
 {
-    const int count = std::snprintf(nullptr, 0, format, args...);
-    if (count < 0) { throw std::runtime_error("文字格式化失败"); }
-    std::vector<char> buffer(static_cast<std::size_t>(count) + 1);
-    const int written = std::snprintf(buffer.data(), buffer.size(), format, args...);
-    if (written < 0) { throw std::runtime_error("文字格式化失败"); }
-    destination = ToUtf16(std::string_view(buffer.data(), static_cast<std::size_t>(written)));
-    return written;
+    destination = std::vformat(format, std::make_wformat_args(args...));
+    return static_cast<std::int32_t>(destination.size());
 }
 
 // UTL02：界面权威正文为动态UTF-16；窄字符串只在明确兼容边界转换。

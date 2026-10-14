@@ -81,7 +81,7 @@ struct LegacyPanelTabRecord {
     std::int32_t y; // 原成员偏移：+0x08。
     std::int32_t width; // 原成员偏移：+0x0C。
     std::int32_t height; // 原成员偏移：+0x10。
-    const char* hint; // 原成员偏移：+0x14。
+    const wchar_t* hint; // 原成员偏移：+0x14。
 };
 
 // 原503160/503440共用196B记录；新端不使用原偏移遍历指针字段。
@@ -105,7 +105,7 @@ struct LegacyPanelTextButtonRecord {
     std::int32_t (*callback)(); // 原成员偏移：+0x1C。
     std::uint8_t color; // 原成员偏移：+0x20。
     std::array<std::byte, 3> reserved21; // 原成员偏移：+0x21。
-    const char* hint; // 原成员偏移：+0x24。
+    const wchar_t* hint; // 原成员偏移：+0x24。
 };
 
 static_assert(sizeof(LegacyPanelButtonRecord) == 32);

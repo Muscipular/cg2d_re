@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string_view>
+
 #include <cstdint>
 
 namespace cg::network::detail {
@@ -131,6 +133,6 @@ extern std::int32_t gValueFF0D08; // 原全局：0x00FF0D08。
 extern std::uint16_t gValueFF0D34; // 原全局：0x00FF0D34。
 
 // 原 World::AppendMsgToCharWindow@0x44B050：复用已有聊天窗口入口。
-void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
+void Sub_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
 
 } // namespace cg::world::detail

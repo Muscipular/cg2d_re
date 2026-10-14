@@ -776,11 +776,8 @@ void Sub_50CF20(
 
     constexpr wchar_t kMessage[] =
         L"失敗了！";
-const std::string kMessageUtf8View = cg::text::FromUtf16(kMessage); // 旧窄接口只读兼容视图。
 
-    char buffer[256];
-    std::sprintf(buffer, kMessageUtf8View.c_str());
-    world::detail::Sub_44B050(buffer, 4, 3);
+    world::detail::Sub_44B050(kMessage, 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
@@ -947,16 +944,15 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         if (const_cast<char*>(std::strstr(previous, text)) != nullptr) {
             return;
         }
-        constexpr char format58B0B0[] =
-            "IP 位址由[%s]變成[%s]。";
+        constexpr wchar_t format58B0B0[] =
+            L"IP 位址由[{}]變成[{}]。";
         constexpr wchar_t warning58B094[] =
             L"網路有可能是被再連接了。";
-const std::string warning58B094Utf8View = cg::text::FromUtf16(warning58B094); // 旧窄接口只读兼容视图。
 
-        char message[256];
-        std::sprintf(message, format58B0B0, cg::text::FromGbk(previous).c_str(), cg::text::FromGbk(text).c_str());
+        std::wstring message;
+        cg::text::FormatTo(message, format58B0B0, cg::text::FromGbkWide(previous).c_str(), cg::text::FromGbkWide(text).c_str());
         world::detail::Sub_44B050(message, 4, 3);
-        world::detail::Sub_44B050(warning58B094Utf8View.c_str(), 4, 3);
+        world::detail::Sub_44B050(warning58B094, 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -1012,13 +1008,13 @@ void Sub_50F190(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
-    constexpr char kGuildMailFormat58B0EC[] =
-        "您收到來自家族 %s 的信件～";
-    constexpr char kGuildPetMailFormat58B0C8[] =
-        "您收到來自家族成員 %s 的寵物信件～";
+    constexpr wchar_t kGuildMailFormat58B0EC[] =
+        L"您收到來自家族 {} 的信件～";
+    constexpr wchar_t kGuildPetMailFormat58B0C8[] =
+        L"您收到來自家族成員 {} 的寵物信件～";
 
     char name[32];
-    char message[256];
+    std::wstring message;
     char text[300];
     static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));
     static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));
@@ -1028,9 +1024,7 @@ void Sub_50F190(
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
         (login::detail::gOrderedRecords1051B14.data() + index)->text18;
-    std::sprintf(
-        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,
-        cg::text::FromGbk(recordName).c_str());
+    cg::text::FormatTo(message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8, cg::text::FromGbkWide(recordName).c_str());
     static_cast<void>(world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::detail::Sub_44B050(message, 4, 3);

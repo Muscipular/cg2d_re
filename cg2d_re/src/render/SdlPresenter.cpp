@@ -64,7 +64,6 @@ constexpr wchar_t kScreenshotBitmapFailure55661C[] = L"畫面儲存失敗(G2)。
 constexpr wchar_t kScreenshotDcFailure556640[] = L"畫面儲存失敗(G1)。({})"; // 原常量参考：0x00556640。
 constexpr wchar_t kScreenshotLimit5566F4[] = // 原常量参考：0x005566F4。
     L"今天已經不能存取更多的畫面了。";
-const std::string kScreenshotLimit5566F4Utf8View = cg::text::FromUtf16(kScreenshotLimit5566F4); // 旧窄接口只读兼容视图。
 constexpr char kScreenshotPath556714[] = "screenshot\\CG%02d%02d%02d_%03d.bmp"; // 原常量参考：0x00556714。
 constexpr char kScreenshotDirectory556738[] = "screenshot"; // 原常量参考：0x00556738。
 constexpr char kScreenshotReadMode554908[] = "r"; // 原常量参考：0x00554908。
@@ -479,9 +478,7 @@ void TakeScreenshot_453760()
         static_cast<void>(std::fclose(probe));
     }
     if (sequence >= 1000) {
-        char message[1280];
-        std::sprintf(message, kScreenshotLimit5566F4Utf8View.c_str());
-        world::detail::Sub_44B050(message, 4, 3);
+        world::detail::Sub_44B050(kScreenshotLimit5566F4, 4, 3);
         return;
     }
     if (GetLegacyTextureState().pixelBitCount == 32) {
@@ -535,7 +532,7 @@ void TakeScreenshot_453760()
             }
         }
     }
-    world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
+    world::detail::Sub_44B050(message, 4, 3);
     std::free(pixels);
 }
 

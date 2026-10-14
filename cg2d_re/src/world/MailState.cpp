@@ -137,12 +137,12 @@ static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
 static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
 CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
-constexpr char kReceivedMailFormat58B07C[] = // 原常量参考：0x0058B07C。
-    "收到從%s寄來的郵件！";
-constexpr char kReceivedPetMailFormat58B064[] = // 原常量参考：0x0058B064。
-    "由%s送來了寵物郵件！";
-constexpr char kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
-    "提示！您收到來自 %s 的迷你郵件～";
+constexpr wchar_t kReceivedMailFormat58B07C[] = // 原常量参考：0x0058B07C。
+    L"收到從{}寄來的郵件！";
+constexpr wchar_t kReceivedPetMailFormat58B064[] = // 原常量参考：0x0058B064。
+    L"由{}送來了寵物郵件！";
+constexpr wchar_t kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
+    L"提示！您收到來自 {} 的迷你郵件～";
 
 constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
 constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
@@ -641,16 +641,14 @@ void Sub_50DC70(
 {
     char name[32];
     char text[300];
-    char message[256];
+    std::wstring message;
     network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 299, text);
     const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5191C0(index, 0, name, text);
     const char* const contactName = gContactsF19FB0[index].name10.data();
-    std::sprintf(
-        message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064,
-        cg::text::FromGbk(contactName).c_str());
+    cg::text::FormatTo(message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064, cg::text::FromGbkWide(contactName).c_str());
     static_cast<void>(Sub_519300());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == index) {
@@ -775,14 +773,12 @@ void Sub_50F7F0(
     }
     char name[32];
     char text[512];
-    char message[256];
+    std::wstring message;
     network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5343C0(index, 0, name, text);
-    std::sprintf(
-        message, kReceivedMiniMailFormat58B108,
-        cg::text::FromGbk(gMiniMailRuntime.contacts[index].name10.data()).c_str());
+    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(gMiniMailRuntime.contacts[index].name10.data()).c_str());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == key) {
         const std::int32_t position = gValueD046D4;
@@ -831,7 +827,7 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
     char timestamp[256];
     char text[1024];
-    char message[256];
+    std::wstring message;
     network::ExtractDelimitedField_52CED0(payload, '|', 8, 255, timestamp);
     input::UnescapeLegacyTextAndNotify_52D2F0(timestamp);
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 1023, text);
@@ -844,7 +840,7 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     }
     Sub_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    std::sprintf(message, kReceivedMiniMailFormat58B108, cg::text::FromGbk(record.name10.data()).c_str());
+    cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(record.name10.data()).c_str());
     Sub_44B050(message, 4, 3);
 }
 

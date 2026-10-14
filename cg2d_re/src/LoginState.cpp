@@ -43,8 +43,8 @@ constexpr wchar_t kServerInfoFailureMessage[] =
     L"伺服器的名稱不正確。";
 constexpr wchar_t kSocketFailureMessage[] =
     L"網路通訊協定（TCP）錯誤。";
-constexpr char kServerAddressFailureFormat[] =
-    "無法取得伺服器的 IP 位址。(%s)";
+constexpr wchar_t kServerAddressFailureFormat[] =
+    L"無法取得伺服器的 IP 位址。({})";
 constexpr wchar_t kConnectFailureMessage[] =
     L"無法開始處理與伺服器的連接。";
 constexpr wchar_t kConnectExceptionMessage[] =
@@ -159,7 +159,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(cg::text::FormatTo(gRequestMessage, kServerAddressFailureFormat, serverAddress));
+                static_cast<void>(cg::text::FormatTo(gRequestMessage, kServerAddressFailureFormat, cg::text::FromGbkWide(serverAddress)));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -4;

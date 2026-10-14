@@ -221,3 +221,5 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 2026-10-15 TUE02：按[目标列表GBK边界](../doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015)修复窗口45技能／物品共用刷新及同源旧前缀控件消费，共41处转换；[匹配转储证据](../doc/cg2d_target_choice_gbk_crash_20261015.md)确认原GBK名称误入CP_UTF8。新增TEXT／UIRUNTIME限定S，27函数／辅助静态核对，U10／V03保持open；本次未重编或运行，完整I/O模型迁宽仍待。
 
 2026-10-15 TUE03：按[制造结果混合编码诊断与修复](../doc/cg2d_craft_result_gbk_crash_20261015.md)，4F39F0丢失项字段解转义后直接转宽，采用动态宽格式化并保原GBK行宽28门槛。六行限定静态核对通过，U04／U10／V03／V04及完整窗口门禁保持open；未重新编译或运行。
+
+2026-10-15 UWF01：按[内部宽文本方案](../doc/cg2d_wide_only_text_spec.md)推进第一组格式／聊天／结果及旧提示迁移；完整迁移继续，U04／U10／V03／V04保持open，当前仅限定静态证据。

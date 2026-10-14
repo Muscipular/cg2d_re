@@ -226,10 +226,8 @@ constexpr std::array<std::int32_t, 14> kWatchBattleMapFloors556C48 {
 };
 constexpr wchar_t kTradeNoTarget556CC4[] = // 原常量参考：0x00556CC4。
     L"沒有可交易的對象！";
-const std::string kTradeNoTarget556CC4Utf8View = cg::text::FromUtf16(kTradeNoTarget556CC4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kGuildInviteDenied5862AC[] = // 原常量参考：0x005862AC。
     LR"(您沒有家族唷，所以不能邀請對方捏...^^")";
-const std::string kGuildInviteDenied5862ACUtf8View = cg::text::FromUtf16(kGuildInviteDenied5862AC); // 旧窄接口只读兼容视图。
 static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
 
 constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
@@ -358,10 +356,8 @@ std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
 std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 constexpr wchar_t kChatDisabledText58AFEC[] = // 原常量参考：0x0058AFEC。
     L"目前禁言中";
-const std::string kChatDisabledText58AFECUtf8View = cg::text::FromUtf16(kChatDisabledText58AFEC); // 旧窄接口只读兼容视图。
 constexpr wchar_t kChatRepeatedText58B000[] = // 原常量参考：0x0058B000。
     L"重複發言，禁言三分鐘";
-const std::string kChatRepeatedText58B000Utf8View = cg::text::FromUtf16(kChatRepeatedText58B000); // 旧窄接口只读兼容视图。
 
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
@@ -2970,7 +2966,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
         std::strncpy(source, message + 5, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(source))));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
-    Sub_44B050(cg::text::FromGbk(source).c_str(), 4, 3);
+    Sub_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
     const std::int32_t soundEnabled = platform::gValue554644;
     if (soundEnabled != 0) {
         return audio::PlaySe_52C450(74, 320);
@@ -3053,7 +3049,7 @@ std::int32_t Sub_50C940(
             gChatDisabledDA3B4C = 0;
         } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
-            Sub_44B050(kChatDisabledText58AFECUtf8View.c_str(), 4, 3);
+            Sub_44B050(kChatDisabledText58AFEC, 4, 3);
             const std::int32_t sound = platform::gValue554644;
             if (sound != 0) {
                 return audio::PlaySe_52C450(74, 320);
@@ -3066,7 +3062,7 @@ std::int32_t Sub_50C940(
         const std::uint32_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < 1000u) {
-            Sub_44B050(kChatRepeatedText58B000Utf8View.c_str(), 4, 3);
+            Sub_44B050(kChatRepeatedText58B000, 4, 3);
             std::int32_t result = platform::gValue554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
@@ -3177,7 +3173,7 @@ void Sub_50CAE0(
             ++comparisonIndex;
         }
         if (!sameAsSharedText) {
-            Sub_44B050(cg::text::FromGbk(source).c_str(), drawColor, drawFont);
+            Sub_44B050(cg::text::FromGbkWide(source).c_str(), drawColor, drawFont);
         }
     }
     if (platform::gValue554644 != 0) {
@@ -9281,7 +9277,7 @@ void Sub_4704A0()
         ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
     if (gValueFF0D36 != 1 && first != 1 && second != 1) {
-        Sub_44B050(kTradeNoTarget556CC4Utf8View.c_str(), 4, 0);
+        Sub_44B050(kTradeNoTarget556CC4, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9318,7 +9314,7 @@ void Sub_470670()
     }
     const std::int32_t rank = login::detail::ReadGuildTextIndex10514B0();
     if ((login::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        Sub_44B050(kGuildInviteDenied5862ACUtf8View.c_str(), 4, 0);
+        Sub_44B050(kGuildInviteDenied5862AC, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }

@@ -374,13 +374,9 @@ LegacyPanelRecord gLegacyTextNoticePanel583FB0 { // 原全局：0x00583FB0。
     130, 180, 336, 96, 82, {}, {}, 0, 0, {}, {},
 };
 constexpr wchar_t kLegacyTextNotice589C24[] = LR"(包含 \ 和 | 。 )"; // 原常量参考：0x00589C24。
-const std::string kLegacyTextNotice589C24Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C24); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyTextNotice589C08[] = LR"(刻印不能使用 \ 和 | 的字。)"; // 原常量参考：0x00589C08。
-const std::string kLegacyTextNotice589C08Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C08); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyTextNotice589C4C[] = L"不包括空白以外的文字。"; // 原常量参考：0x00589C4C。
-const std::string kLegacyTextNotice589C4CUtf8View = cg::text::FromUtf16(kLegacyTextNotice589C4C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyTextNotice589C34[] = L"刻印名不能是空白的。"; // 原常量参考：0x00589C34。
-const std::string kLegacyTextNotice589C34Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C34); // 旧窄接口只读兼容视图。
 
 LegacyPanelRecord gLegacyBuyPanel5823A0 { // 原全局：0x005823A0。
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -414,8 +410,8 @@ LegacyPanelRecord gLegacyHealingPanel5826C0 { // 原全局：0x005826C0。
 };
 constexpr wchar_t kLegacyHealingPrompt588FF8[] = L"請選擇治療對象"; // 原常量参考：0x00588FF8。
 constexpr wchar_t kLegacyHealingHeader588FD0[] = L"健康 等級     姓   名        所需花費"; // 原常量参考：0x00588FD0。
-constexpr char kLegacyHealingTotal588FA8[] = "全部一起治療     %8d 金幣"; // 原常量参考：0x00588FA8。
-constexpr char kLegacyHealingGold588F94[] = "持有金額 %7d 金幣"; // 原常量参考：0x00588F94。
+constexpr wchar_t kLegacyHealingTotal588FA8[] = L"全部一起治療     {:8} 金幣"; // 原常量参考：0x00588FA8。
+constexpr wchar_t kLegacyHealingGold588F94[] = L"持有金額 {:7} 金幣"; // 原常量参考：0x00588F94。
 constexpr wchar_t kLegacyHealingCancel588F34[] = L"取消治療。"; // 原常量参考：0x00588F34。
 constexpr wchar_t kLegacyHealingOne588F40[] = L"治療這個角色的傷。"; // 原常量参考：0x00588F40。
 constexpr wchar_t kLegacyHealingHealthy588F54[] = L"這個角色並沒有受傷。"; // 原常量参考：0x00588F54。
@@ -722,11 +718,8 @@ constexpr wchar_t kLegacyPetOpenDetails586D0C[] = L"打開此寵物的能力視�
 constexpr wchar_t kLegacyPetChooseState58A12C[] = L"指定寵物的狀態。"; // 原常量参考：0x0058A12C。
 
 constexpr wchar_t kLegacyPetBasicTab585958[] = L"切換至此寵物的能力視窗。"; // 原常量参考：0x00585958。
-const std::string kLegacyPetBasicTab585958Utf8View = cg::text::FromUtf16(kLegacyPetBasicTab585958); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyPetAttributeTab58593C[] = L"切換至此寵物的詳細視窗。"; // 原常量参考：0x0058593C。
-const std::string kLegacyPetAttributeTab58593CUtf8View = cg::text::FromUtf16(kLegacyPetAttributeTab58593C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyPetSkillTab585920[] = L"切換至此寵物的技能視窗。"; // 原常量参考：0x00585920。
-const std::string kLegacyPetSkillTab585920Utf8View = cg::text::FromUtf16(kLegacyPetSkillTab585920); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyPetBack58A204[] = L"回到寵物視窗。"; // 原常量参考：0x0058A204。
 constexpr wchar_t kLegacyPetRename586D38[] = L"變更寵物名字。"; // 原常量参考：0x00586D38。
 constexpr wchar_t kLegacyPetLevelLimit58A214[] = L"   ---   "; // 原常量参考：0x0058A214。
@@ -735,9 +728,9 @@ constexpr wchar_t kLegacyPetToughness58A260[] = L"將點數分配至防禦。"; 
 constexpr wchar_t kLegacyPetMagic58A238[] = L"將點數分配至魔法。"; // 原常量参考：0x0058A238。
 LegacyPanelRecord gLegacyPetDetailPanel584918 { // 原全局：0x00584918。
     0, 0, 272, 438, 21, {22800, 22810, 22824, 0, 0},
-    {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958Utf8View.c_str()},
-      {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593CUtf8View.c_str()},
-      {1, 187, 415, 78, 17, kLegacyPetSkillTab585920Utf8View.c_str()}, {}, {}}},
+    {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958},
+      {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593C},
+      {1, 187, 415, 78, 17, kLegacyPetSkillTab585920}, {}, {}}},
     0, 0, {}, {},
 };
 std::int32_t gLegacyPetSelectionD67ADC = 0; // 原全局：0x00D67ADC。 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
@@ -895,7 +888,7 @@ YobiAction* gLegacyStoragePetActionD67C90 = nullptr; // 原全局：0x00D67C90�
 constexpr wchar_t kLegacyStorageNoMoney58906C[] = L"你的錢不夠！"; // 原常量参考：0x0058906C。
 constexpr wchar_t kLegacyStorageFee589284[] = L"手續費"; // 原常量参考：0x00589284。
 constexpr wchar_t kLegacyStorageGold589278[] = L"持有金額"; // 原常量参考：0x00589278。
-constexpr char kLegacyStorageAmount588FC4[] = "%7d 金幣"; // 原常量参考：0x00588FC4。
+constexpr wchar_t kLegacyStorageAmount588FC4[] = L"{:7} 金幣"; // 原常量参考：0x00588FC4。
 constexpr wchar_t kLegacyStorageTake589268[] = L"取出此物品。"; // 原常量参考：0x00589268。
 constexpr wchar_t kLegacyStorageFull589230[] = L"無法再存放物品。"; // 原常量参考：0x00589230。
 constexpr wchar_t kLegacyStorageCanPut589244[] = L"此物品可以存放。"; // 原常量参考：0x00589244。
@@ -947,9 +940,7 @@ LegacyPanelRecord gLegacySkillDetail585640 { // 原全局：0x00585640。
     0, 0, 272, 448, 19, {22770, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 constexpr wchar_t kLegacySkillDetailNoFp58A9D4[] = L"魔法不足。"; // 原常量参考：0x0058A9D4。
-const std::string kLegacySkillDetailNoFp58A9D4Utf8View = cg::text::FromUtf16(kLegacySkillDetailNoFp58A9D4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySkillDetailNoSpace58A9C4[] = L"物品欄滿了。"; // 原常量参考：0x0058A9C4。
-const std::string kLegacySkillDetailNoSpace58A9C4Utf8View = cg::text::FromUtf16(kLegacySkillDetailNoSpace58A9C4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySkillDetailHiddenFp58A9BC[] = L"????"; // 原常量参考：0x0058A9BC。
 constexpr wchar_t kLegacySkillDetailUse58A9AC[] = L"使用這個技能。"; // 原常量参考：0x0058A9AC。
 constexpr wchar_t kLegacySkillDetailBack554088[] = L"回到技能視窗。"; // 原常量参考：0x00554088。
@@ -974,13 +965,10 @@ constexpr wchar_t kLegacyAttributeHint58A9E0[] = // 原常量参考：0x0058A9E0
     L"將點數分配至魔力。";
 constexpr wchar_t kLegacyProfileTab5858D8[] = // 原常量参考：0x005858D8。
     L"切換成玩家狀態視窗。";
-const std::string kLegacyProfileTab5858D8Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858D8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyProfileTab5858C0[] = // 原常量参考：0x005858C0。
     L"切換成玩家明細視窗。";
-const std::string kLegacyProfileTab5858C0Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858C0); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyProfileTab5858A8[] = // 原常量参考：0x005858A8。
     L"切換成玩家稱號視窗。";
-const std::string kLegacyProfileTab5858A8Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858A8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyProfileRear586344[] = // 原常量参考：0x00586344。
     L"把戰鬥時的位置變更為後排。";
 constexpr wchar_t kLegacyProfileFront586360[] = // 原常量参考：0x00586360。
@@ -998,8 +986,8 @@ std::int8_t gLegacyTitleDeleteCF4678 = 0; // 原全局：0x00CF4678。
 LegacyPanelRecord gLegacyMapPanelD68868 {}; // 原全局：0x00D68868。
 std::int32_t gLegacyMapDefaultX57CB24 = 392; // 原全局：0x0057CB24。
 std::int32_t gLegacyMapDefaultYD67AD4 = 0; // 原全局：0x00D67AD4。
-constexpr char kLegacyMapEast58AA54[] = "東 %3d"; // 原常量参考：0x0058AA54。
-constexpr char kLegacyMapSouth58AA4C[] = "南 %3d"; // 原常量参考：0x0058AA4C。
+constexpr wchar_t kLegacyMapEast58AA54[] = L"東 {:3}"; // 原常量参考：0x0058AA54。
+constexpr wchar_t kLegacyMapSouth58AA4C[] = L"南 {:3}"; // 原常量参考：0x0058AA4C。
 LegacyPanelRecord gLegacyPointResultPanel5838A8 { // 原全局：0x005838A8。
     236, 152, 168, 152, 41, {23385, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1018,7 +1006,6 @@ YobiAction* gLegacyGatherResultActionD67CD4 = nullptr; // 原全局：0x00D67CD4
 constexpr wchar_t kLegacyGatherNoFp5864F0[] = L"魔力不足。"; // 原常量参考：0x005864F0。
 const std::string kLegacyGatherNoFp5864F0Utf8View = cg::text::FromUtf16(kLegacyGatherNoFp5864F0); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGatherNoSpace589868[] = L"物品欄已滿。"; // 原常量参考：0x00589868。
-const std::string kLegacyGatherNoSpace589868Utf8View = cg::text::FromUtf16(kLegacyGatherNoSpace589868); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGatherLimit589858[] = L"   --   "; // 原常量参考：0x00589858。
 constexpr wchar_t kLegacyGatherStop589848[] = L"將再執行一次。"; // 原常量参考：0x00589848。
 constexpr wchar_t kLegacyGatherStart58983C[] = L"再執行一次"; // 原常量参考：0x0058983C。
@@ -1231,7 +1218,6 @@ std::int32_t gLegacyMailGiftSelectedCC1A2C = 0; // 原全局：0x00CC1A2C。
 std::int32_t gLegacyMailGiftColumnD2D498 = 0; // 原全局：0x00D2D498。
 std::int32_t gLegacyMailGiftRowCC3E6C = 0; // 原全局：0x00CC3E6C。
 constexpr wchar_t kLegacyMailGift58960C[] = L"將此物品送給名片上的好友。"; // 原常量参考：0x0058960C。
-const std::string kLegacyMailGift58960CUtf8View = cg::text::FromUtf16(kLegacyMailGift58960C); // 旧窄接口只读兼容视图。
 // 旧49联系人/协议值唯一承载；分别由旧42联系人发布与旧48邮件宠物选择生产。
 LegacyPanelRecord gLegacyMailComposePanel583230 { // 原全局：0x00583230。
     0, 0, 272, 438, 49, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1330,7 +1316,6 @@ LegacyPanelRecord gLegacyGuildDeletePanel58EE00 { // 原全局：0x0058EE00。
 constexpr wchar_t kLegacyGuildDeleteYes58F3EC[] = L"是"; // 原常量参考：0x0058F3EC。
 constexpr wchar_t kLegacyGuildDeleteNo58F3E4[] = L"否"; // 原常量参考：0x0058F3E4。
 constexpr wchar_t kLegacyGuildDeleteDenied58F3C8[] = L"你沒有剔除家族成員的權限"; // 原常量参考：0x0058F3C8。
-const std::string kLegacyGuildDeleteDenied58F3C8Utf8View = cg::text::FromUtf16(kLegacyGuildDeleteDenied58F3C8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGuildDeleteLead58F3B8[] = L"從家族名簿中"; // 原常量参考：0x0058F3B8。
 constexpr wchar_t kLegacyGuildDeleteEnd58F3AC[] = L"刪除此成員"; // 原常量参考：0x0058F3AC。
 constexpr wchar_t kLegacyGuildDeleteHint58F3A0[] = L"確認刪除。"; // 原常量参考：0x0058F3A0。
@@ -1381,7 +1366,6 @@ std::array<std::int32_t, 8> gLegacyGuildRankHighlights1050ED8 {}; // 原全局�
 std::uint32_t gLegacyGuildRankTick1057C90 = 0; // 原全局：0x01057C90。
 std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 原全局：0x01050F14。 旧95/96共享资格，532430按本人职级是否0生产。
 constexpr wchar_t kLegacyGuildRankRequired58F584[] = L"請選擇家族稱號"; // 原常量参考：0x0058F584。
-const std::string kLegacyGuildRankRequired58F584Utf8View = cg::text::FromUtf16(kLegacyGuildRankRequired58F584); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGuildRankRemove58F568[] = L"移除家族稱號。"; // 原常量参考：0x0058F568。
 constexpr wchar_t kLegacyGuildRankSelect58F4FC[] = L"選擇家族稱號。"; // 原常量参考：0x0058F4FC。
 LegacyPanelRecord gLegacyGuildDetailsPanel58F098 { // 原全局：0x0058F098。
@@ -1451,11 +1435,9 @@ constexpr wchar_t kLegacyBlacklistText553370[] = L"滑鼠框框對準要移除�
 const std::string kLegacyBlacklistText553370Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553370); // 旧窄接口只读兼容视图。
 constexpr char kLegacyBlacklistText55332C[] = "----------------------目前共有%2d人在黑名單中---------------------"; // 原常量参考：0x0055332C。
 constexpr wchar_t kLegacyBlacklistText553304[] = L"新增／移除黑名單的內容"; // 原常量参考：0x00553304。
-const std::string kLegacyBlacklistText553304Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553304); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyBlacklistText5532EC[] = L"已將{}從黑名單中移除"; // 原常量参考：0x005532EC。
 constexpr wchar_t kLegacyBlacklistText5532D8[] = L"從黑名單移除{}失敗"; // 原常量参考：0x005532D8。
 constexpr wchar_t kLegacyBlacklistText553294[] = L"你的黑名單已滿，無法再加入"; // 原常量参考：0x00553294。
-const std::string kLegacyBlacklistText553294Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553294); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyBlacklistText5532C4[] = L"已將{}加入黑名單"; // 原常量参考：0x005532C4。
 constexpr wchar_t kLegacyBlacklistText5532B0[] = L"{}加入黑名單失敗"; // 原常量参考：0x005532B0。
 LegacyPanelRecord gLegacyBlacklistPanel5531D0 { // 原全局：0x005531D0。
@@ -1463,21 +1445,17 @@ LegacyPanelRecord gLegacyBlacklistPanel5531D0 { // 原全局：0x005531D0。
 };
 input::InputContext* gLegacyBlacklistInput5939B8 = nullptr; // 原全局：0x005939B8。 旧99借用槽，独立于当前输入焦点。
 constexpr wchar_t kLegacyPresetConfirm58A6C0[] = L"結束設定常用句。"; // 原常量参考：0x0058A6C0。
-const std::string kLegacyPresetConfirm58A6C0Utf8View = cg::text::FromUtf16(kLegacyPresetConfirm58A6C0); // 旧窄接口只读兼容视图。
-constexpr char kLegacyPresetCtrl58A68C[] = "將Ctrl+Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A68C。
-constexpr char kLegacyPresetShift58A66C[] = "將Shift+Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A66C。
-constexpr char kLegacyPresetNormal58A6A8[] = "將Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A6A8。
+constexpr wchar_t kLegacyPresetCtrl58A68C[] = L"將Ctrl+Ｆ{}鍵設定為常用句。"; // 原常量参考：0x0058A68C。
+constexpr wchar_t kLegacyPresetShift58A66C[] = L"將Shift+Ｆ{}鍵設定為常用句。"; // 原常量参考：0x0058A66C。
+constexpr wchar_t kLegacyPresetNormal58A6A8[] = L"將Ｆ{}鍵設定為常用句。"; // 原常量参考：0x0058A6A8。
 constexpr wchar_t kLegacyPresetTab585910[] = L"切換到第一頁。"; // 原常量参考：0x00585910。
-const std::string kLegacyPresetTab585910Utf8View = cg::text::FromUtf16(kLegacyPresetTab585910); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyPresetTab585900[] = L"切換到第二頁。"; // 原常量参考：0x00585900。
-const std::string kLegacyPresetTab585900Utf8View = cg::text::FromUtf16(kLegacyPresetTab585900); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyPresetTab5858F0[] = L"切換到第三頁。"; // 原常量参考：0x005858F0。
-const std::string kLegacyPresetTab5858F0Utf8View = cg::text::FromUtf16(kLegacyPresetTab5858F0); // 旧窄接口只读兼容视图。
 LegacyPanelRecord gLegacyPresetPanel5850C8 { // 原全局：0x005850C8。
     0, 0, 272, 438, 6, {22950, 22951, 22952, 0, 0},
-    {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910Utf8View.c_str()},
-      {22954, 110, 43, 52, 18, kLegacyPresetTab585900Utf8View.c_str()},
-      {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0Utf8View.c_str()}, {}, {}}},
+    {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910},
+      {22954, 110, 43, 52, 18, kLegacyPresetTab585900},
+      {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0}, {}, {}}},
     0, 0, {}, {},
 };
 std::int32_t gLegacyPresetRowD30408 = 0; // 原全局：0x00D30408。 页号直接借面板selected，只有行号是独立S32。
@@ -1518,7 +1496,6 @@ const std::string kLegacyGemWorking58AC58Utf8View = cg::text::FromUtf16(kLegacyG
 constexpr wchar_t kLegacyGemNone58AC28[] = L"沒有選擇到素材。"; // 原常量参考：0x0058AC28。
 constexpr wchar_t kLegacyGemRegister58AC3C[] = L"將選到的道具登錄為素材。"; // 原常量参考：0x0058AC3C。
 constexpr wchar_t kLegacyGemSelected58AC10[] = L"這個道具已經被選擇。"; // 原常量参考：0x0058AC10。
-const std::string kLegacyGemSelected58AC10Utf8View = cg::text::FromUtf16(kLegacyGemSelected58AC10); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyGemSelect58AC00[] = L"選擇這個道具。"; // 原常量参考：0x0058AC00。
 constexpr wchar_t kLegacyGemReject58ABEC[] = L"無法選擇這個道具。"; // 原常量参考：0x0058ABEC。
 constexpr wchar_t kLegacyCraftAdd589FC8[] = L"回到追加視窗。"; // 原常量参考：0x00589FC8。
@@ -1547,28 +1524,20 @@ LegacyPanelRecord gLegacySettingsMenu584E70 { // 原全局：0x00584E70。
 std::array<LegacyPanelTextButtonRecord, 8> gLegacySettingsButtonsD67D38 {}; // 原全局：0x00D67D38。
 constexpr wchar_t kLegacySettingsText58A4A4[] = L"登       出"; // 原常量参考：0x0058A4A4。
 constexpr wchar_t kLegacySettingsHint586DE8[] = L"登出伺服器。"; // 原常量参考：0x00586DE8。
-const std::string kLegacySettingsHint586DE8Utf8View = cg::text::FromUtf16(kLegacySettingsHint586DE8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A498[] = L"聊 天 設 定"; // 原常量参考：0x0058A498。
 constexpr wchar_t kLegacySettingsHint58A484[] = L"設定聊天的選項。"; // 原常量参考：0x0058A484。
-const std::string kLegacySettingsHint58A484Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A484); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A478[] = L"音 樂 設 定"; // 原常量参考：0x0058A478。
 constexpr wchar_t kLegacySettingsHint58A460[] = L"設定背景音樂的選項。"; // 原常量参考：0x0058A460。
-const std::string kLegacySettingsHint58A460Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A460); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A454[] = L"音 效 設 定"; // 原常量参考：0x0058A454。
 constexpr wchar_t kLegacySettingsHint58A440[] = L"設定音效的選項。"; // 原常量参考：0x0058A440。
-const std::string kLegacySettingsHint58A440Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A440); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A434[] = L"滑 鼠 設 定"; // 原常量参考：0x0058A434。
 constexpr wchar_t kLegacySettingsHint58A420[] = L"設定滑鼠的選項。"; // 原常量参考：0x0058A420。
-const std::string kLegacySettingsHint58A420Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A420); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A414[] = L"鍵 盤 熱 鍵"; // 原常量参考：0x0058A414。
 constexpr wchar_t kLegacySettingsHint58A400[] = L"鍵盤熱鍵的說明。"; // 原常量参考：0x0058A400。
-const std::string kLegacySettingsHint58A400Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A400); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A3F4[] = L"繪 圖 設 定"; // 原常量参考：0x0058A3F4。
 constexpr wchar_t kLegacySettingsHint58A3E4[] = L"設定繪圖模式。"; // 原常量参考：0x0058A3E4。
-const std::string kLegacySettingsHint58A3E4Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A3E4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacySettingsText58A3D8[] = L"設定按鈕"; // 原常量参考：0x0058A3D8。
 constexpr wchar_t kLegacySettingsHint58A3C8[] = L"進行按鈕設定"; // 原常量参考：0x0058A3C8。
-const std::string kLegacySettingsHint58A3C8Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A3C8); // 旧窄接口只读兼容视图。
 
 LegacyPanelRecord gLegacyChatSettings585000 { // 原全局：0x00585000。
     0, 0, 192, 304, 5, {22960, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1583,17 +1552,14 @@ constexpr wchar_t kLegacyChat58A560[] = L"文字顏色設定"; // 原常量参�
 constexpr wchar_t kLegacyChat58A554[] = L"目前顏色"; // 原常量参考：0x0058A554。
 constexpr wchar_t kLegacyChat58A54C[] = L"<變更>"; // 原常量参考：0x0058A54C。
 constexpr wchar_t kLegacyChat5877B4[] = L"變更文字的顏色。"; // 原常量参考：0x005877B4。
-const std::string kLegacyChat5877B4Utf8View = cg::text::FromUtf16(kLegacyChat5877B4); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyChat58A540[] = L"常用句設定"; // 原常量参考：0x0058A540。
 constexpr wchar_t kLegacyChat58A538[] = L"<設定>"; // 原常量参考：0x0058A538。
 constexpr wchar_t kLegacyChat58A524[] = L"打開常用句視窗。"; // 原常量参考：0x0058A524。
-const std::string kLegacyChat58A524Utf8View = cg::text::FromUtf16(kLegacyChat58A524); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyChat58A514[] = L"設定聊天音效"; // 原常量参考：0x0058A514。
 constexpr wchar_t kLegacyChat58A508[] = L"範圍設定"; // 原常量参考：0x0058A508。
 constexpr wchar_t kLegacyChat58A500[] = L"現在"; // 原常量参考：0x0058A500。
 constexpr wchar_t kLegacyChat58A4F8[] = L" 上一頁"; // 原常量参考：0x0058A4F8。
 constexpr wchar_t kLegacyChat58A4E8[] = L"回到系統視窗。"; // 原常量参考：0x0058A4E8。
-const std::string kLegacyChat58A4E8Utf8View = cg::text::FromUtf16(kLegacyChat58A4E8); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyChat58A668[] = L"開"; // 原常量参考：0x0058A668。
 const std::string kLegacyChat58A668Utf8View = cg::text::FromUtf16(kLegacyChat58A668); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyChat58A664[] = L"關"; // 原常量参考：0x0058A664。
@@ -1642,7 +1608,6 @@ constexpr wchar_t kLegacyMouse58A7A0[] = L"設定物品的移動"; // 原常量�
 constexpr wchar_t kLegacyMouse58A790[] = L"調整滑鼠速度"; // 原常量参考：0x0058A790。
 constexpr wchar_t kLegacyMouse58A784[] = L"目前速度"; // 原常量参考：0x0058A784。
 constexpr wchar_t kLegacyMouse58A774[] = L"到系統視窗。"; // 原常量参考：0x0058A774。
-const std::string kLegacyMouse58A774Utf8View = cg::text::FromUtf16(kLegacyMouse58A774); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyMouse58A838[] = L"正常"; // 原常量参考：0x0058A838。
 const std::string kLegacyMouse58A838Utf8View = cg::text::FromUtf16(kLegacyMouse58A838); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyMouse58A830[] = L"平滑"; // 原常量参考：0x0058A830。
@@ -1712,7 +1677,6 @@ std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {}; // �
 constexpr wchar_t kLegacyButton58A914[] = L"按鈕設定"; // 原常量参考：0x0058A914。
 constexpr wchar_t kLegacyButton58A4BC[] = L"回上一頁"; // 原常量参考：0x0058A4BC。
 constexpr wchar_t kLegacyButton58A904[] = L"回到系統選單。"; // 原常量参考：0x0058A904。
-const std::string kLegacyButton58A904Utf8View = cg::text::FromUtf16(kLegacyButton58A904); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyButton58A97C[] = L"聊天文字大小"; // 原常量参考：0x0058A97C。
 const std::string kLegacyButton58A97CUtf8View = cg::text::FromUtf16(kLegacyButton58A97C); // 旧窄接口只读兼容视图。
 constexpr wchar_t kLegacyButton58A970[] = L"聊天範圍"; // 原常量参考：0x0058A970。
@@ -1882,9 +1846,9 @@ std::uint32_t Sub_501F60()
 
 LegacyPanelRecord gLegacyProfilePanel5857D0 { // 原全局：0x005857D0。
     0, 0, 272, 438, 2, {22501, 22515, 22980, 0, 0},
-    {{{1, 7, 416, 77, 16, kLegacyProfileTab5858D8Utf8View.c_str()},
-      {1, 97, 416, 77, 16, kLegacyProfileTab5858C0Utf8View.c_str()},
-      {1, 187, 416, 77, 16, kLegacyProfileTab5858A8Utf8View.c_str()}, {}, {}}},
+    {{{1, 7, 416, 77, 16, kLegacyProfileTab5858D8},
+      {1, 97, 416, 77, 16, kLegacyProfileTab5858C0},
+      {1, 187, 416, 77, 16, kLegacyProfileTab5858A8}, {}, {}}},
     0, 0, {}, {},
 };
 
@@ -3369,14 +3333,14 @@ std::uint32_t Sub_4F0CD0(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583EE8.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[768];
-    std::sprintf(buffer, kLegacyTextNotice589C24Utf8View.c_str());
+    std::wstring buffer;
+    buffer = kLegacyTextNotice589C24;
     const std::int32_t firstY = gLegacyTextNoticePanel583EE8.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原D2F798额外变参不被无25H的格式消费；不制造未知值或默认owner。
-    std::sprintf(buffer, kLegacyTextNotice589C08Utf8View.c_str());
+    buffer = kLegacyTextNotice589C08;
     const std::int32_t secondY = gLegacyTextNoticePanel583EE8.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -3402,14 +3366,14 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583FB0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[768];
-    std::sprintf(buffer, kLegacyTextNotice589C4CUtf8View.c_str());
+    std::wstring buffer;
+    buffer = kLegacyTextNotice589C4C;
     const std::int32_t firstY = gLegacyTextNoticePanel583FB0.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原CF3B08额外变参不被固定格式消费；仅消去无可观察结果的普通读。
-    std::sprintf(buffer, kLegacyTextNotice589C34Utf8View.c_str());
+    buffer = kLegacyTextNotice589C34;
     const std::int32_t secondY = gLegacyTextNoticePanel583FB0.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -4389,11 +4353,11 @@ try {
         }
     }
     const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
-    char buffer[384];
+    std::wstring buffer;
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         char escaped[16];
-        std::sprintf(buffer, "%d", hovered + 1);
-        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+        const std::string request = std::to_string(hovered + 1);
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(request.c_str(), escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
@@ -4423,11 +4387,11 @@ try {
         if (level <= 0) {
             continue;
         }
-        std::sprintf(buffer, "%3d", level);
+        cg::text::FormatTo(buffer, L"{:3}", level);
         drawAt(buffer, 100, 76 + 20 * index, 0);
-        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(reinterpret_cast<const char*>(record + 12))));
+        buffer = std::format(L"{:<16}", cg::text::FromGbkWide(reinterpret_cast<const char*>(record + 12)));
         drawAt(buffer, 141, 76 + 20 * index, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
+        cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
         drawAt(buffer, 290, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(ReadRecordW32(record, 4));
         const std::int32_t imageY = gLegacyHealingPanel5826C0.y + 20 * index + 84;
@@ -4438,9 +4402,9 @@ try {
         totalCost += cost;
         totalHealth += health;
     }
-    std::sprintf(buffer, kLegacyHealingTotal588FA8, totalCost);
+    cg::text::FormatTo(buffer, kLegacyHealingTotal588FA8, totalCost);
     drawAt(buffer, 114, 196, 0);
-    std::sprintf(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 151, 224, 0);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
     const wchar_t* hint = nullptr;
@@ -4644,7 +4608,7 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyRepairItemCE4548(row + 10 * gLegacyRepairPageCF4A08);
         if (item[0] == 0) {
@@ -4657,9 +4621,9 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         const std::int32_t left = gLegacyRepairPanel582788.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        cg::text::FormatTo(buffer, L"{:7}", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4673,13 +4637,13 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
     } else if (gLegacyRepairMessageD64E14 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    std::sprintf(buffer, "%7d", gLegacyRepairTotalD460C4);
+    cg::text::FormatTo(buffer, L"{:7}", gLegacyRepairTotalD460C4);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyRepairPageCF4A08;
     const std::int32_t pageCount = gLegacyRepairPageCountCC4B24;
-    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    cg::text::FormatTo(buffer, L"{}/{}", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -5035,7 +4999,7 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyIdentifyItemC8B390(row + 10 * gLegacyIdentifyPageCC3F00);
         if (item[0] == 0) {
@@ -5048,9 +5012,9 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         const std::int32_t left = gLegacyIdentifyPanel582918.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        cg::text::FormatTo(buffer, L"{:7}", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -5064,13 +5028,13 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
     } else if (gLegacyIdentifyMessageC9A948 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    std::sprintf(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
+    cg::text::FormatTo(buffer, L"{:7}", gLegacyIdentifyTotalCB1E3C);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyIdentifyPageCC3F00;
     const std::int32_t pageCount = gLegacyIdentifyPageCountC9A950;
-    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    cg::text::FormatTo(buffer, L"{}/{}", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -6170,10 +6134,10 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     const std::int32_t imageY = gLegacyGiveReceiveQuantityPanel581BD0.y + 116;
     const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
     static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
-    char buffer[384];
-    std::sprintf(buffer, "%7d", value(0xC34));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:7}", value(0xC34));
     drawAt(buffer, 87, 120, 0);
-    std::sprintf(buffer, "%2d", ui::detail::gShopValueD046C4);
+    cg::text::FormatTo(buffer, L"{:2}", ui::detail::gShopValueD046C4);
     drawAt(buffer, 82, 92, 0);
     drawAt(kLegacyQuantityUnit5889A4, 155, 120, 4);
     const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
@@ -6186,13 +6150,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         const std::int32_t group = ui::detail::gShopValueD672D4;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    std::sprintf(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
+    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
-    std::sprintf(buffer, "%7d", ui::detail::gShopValueD046C4);
+    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gShopValueD046C4);
     drawAt(buffer, 463, 338, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
-    std::sprintf(buffer, "1/1");
+    buffer = L"1/1";
     drawAt(buffer, 168, 43, 0);
     Sub_5035E0(&increase, 213, 1, gValueD69768, 0);
     Sub_5035E0(&decrease, 213, 1, gValueD69768, 0);
@@ -6606,7 +6570,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
         return 0;
     }
     const auto& grid = kLegacyStorageGrid582C34[side];
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             char* const record = BorrowLegacyStorageItem(side, column + 5 * row);
@@ -6640,7 +6604,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    cg::text::FormatTo(buffer, L"{:3}", count);
                     const std::int32_t countY = gLegacyStoragePanel582B70.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyStoragePanel582B70.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -6870,24 +6834,24 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
     const char* const name = record + 0x142;
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name), 0);
     drawAt(cg::text::FromGbkWide(name), 136 - width / 2, 5, 0);
-    char buffer[384];
-    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
+        cg::text::FormatTo(buffer, L"{:3}", ReadRecordW32(record, 0x20 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x44));
+    cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(record, 0x44));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -7087,17 +7051,17 @@ try {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x),
             static_cast<std::int16_t>(y), 2, font, 0, text, 0, 0));
     };
-    char buffer[192];
+    std::wstring buffer;
     const std::int32_t message = gLegacyStorageMessageD67C98;
     if (message == 1) {
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
@@ -7248,17 +7212,17 @@ std::uint32_t Sub_4E28F0()
         static_cast<void>(DrawText(static_cast<std::int16_t>(x),
             static_cast<std::int16_t>(y), 2, font, 0, text, 0, 0));
     };
-    char buffer[192];
+    std::wstring buffer;
     const std::int32_t message = gLegacyStoragePetMessageD67CA4;
     if (message == 1) {
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
@@ -7395,15 +7359,15 @@ std::uint32_t Sub_4E2D90()
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[192];
+    std::wstring buffer;
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t balance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    std::sprintf(buffer, "%7d", balance);
+    cg::text::FormatTo(buffer, L"{:7}", balance);
     drawAt(buffer, 146, 150, 0);
-    std::sprintf(buffer, "%7d", maximum);
+    cg::text::FormatTo(buffer, L"{:7}", maximum);
     drawAt(buffer, 421, 118, 0);
-    std::sprintf(buffer, "%7d", readDraft());
+    cg::text::FormatTo(buffer, L"{:7}", readDraft());
     drawAt(buffer, 421, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7420,11 +7384,11 @@ std::uint32_t Sub_4E2D90()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const wchar_t* hint;
     std::uint32_t result = 0;
@@ -7524,12 +7488,12 @@ std::uint32_t Sub_4E3750()
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[192];
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 423, 151, 0);
-    std::sprintf(buffer, "%7d", maximum);
+    cg::text::FormatTo(buffer, L"{:7}", maximum);
     drawAt(buffer, 143, 118, 0);
-    std::sprintf(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
+    cg::text::FormatTo(buffer, L"{:7}", gLegacyStorageWithdrawDraftD2EA98);
     drawAt(buffer, 143, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7545,10 +7509,10 @@ std::uint32_t Sub_4E3750()
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t currentBalance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, currentBalance);
+    cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, currentBalance);
     drawAt(buffer, 139, 306, 1);
     drawAt(kLegacyStorageFee589284, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+    cg::text::FormatTo(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
     drawAt(buffer, 417, 306, 1);
     const wchar_t* hint;
     std::uint32_t result = 0;
@@ -8008,7 +7972,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
         return 0;
     }
     const auto& grid = kLegacyTradeGrid582ECC[side];
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             char* const record = BorrowLegacyTradeItem(side, column + 5 * row);
@@ -8042,7 +8006,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    cg::text::FormatTo(buffer, L"{:3}", count);
                     const std::int32_t countY = gLegacyTradePanel582F00.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyTradePanel582F00.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8163,24 +8127,24 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
     const char* const name = record + 0x5D8;
     const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name), 0);
     drawAt(cg::text::FromGbkWide(name), 136 - width / 2, 5, 0);
-    char buffer[384];
-    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x38 + 4 * attribute));
+        cg::text::FormatTo(buffer, L"{:3}", ReadRecordW32(record, 0x38 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x5C));
+    cg::text::FormatTo(buffer, L"{:2}", ReadRecordW32(record, 0x5C));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -8399,8 +8363,8 @@ std::int32_t Sub_4E82F0()
     if (Sub_5049A0(x + 115, y + 146, x + 235, y + 170, -1) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyTradeRemoteMoney58950C;
     }
-    char buffer[96];
-    std::sprintf(buffer, "%7d", ui::detail::gTradeValueCF4688);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gTradeValueCF4688);
     const std::int32_t textY = gLegacyTradePanel582F00.y + 150;
     const std::int32_t textX = gLegacyTradePanel582F00.x + 146;
     static_cast<void>(DrawText(static_cast<std::int16_t>(textX),
@@ -8666,10 +8630,10 @@ std::int32_t Sub_4E8AD0()
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
-    char buffer[384];
-    std::sprintf(buffer, "%7d", money);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:7}", money);
     drawAt(buffer, 118);
-    std::sprintf(buffer, "%7d", ui::detail::gTradeValueD046D0);
+    cg::text::FormatTo(buffer, L"{:7}", ui::detail::gTradeValueD046D0);
     drawAt(buffer, 158);
     for (auto& digit : digits) {
         Sub_5035E0(&digit, 213, 1, gValueD69768, 0);
@@ -9034,7 +8998,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyMailGiftPageCC2E58 ^= 1;
     }
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -9045,7 +9009,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    cg::text::FormatTo(buffer, L"{:3}", count);
                     const std::int32_t countY = gLegacyMailGiftPanel583168.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyMailGiftPanel583168.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -9269,7 +9233,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
             212, image, 0);
     }
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
@@ -9278,7 +9242,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         }
         const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
         const std::int8_t color = availability[row] != 0 ? 0 : 7;
-        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
+        buffer = cg::text::FromGbkWide(name);
         const std::int32_t width = TextMeasure(buffer, 0);
         const std::int32_t nameY = gLegacyMailPetPanel5832F8.y + 43 + 28 * row;
         const std::int32_t nameX = gLegacyMailPetPanel5832F8.x - width / 2 + 90;
@@ -9286,7 +9250,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
             static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
         // 原4EA912实际F63400，即宠物+08；不借反编译lv名改成+6C。
         const std::int32_t value = pet->value08;
-        std::sprintf(buffer, "%3d", value);
+        cg::text::FormatTo(buffer, L"{:3}", value);
         const std::int32_t valueY = gLegacyMailPetPanel5832F8.y + 45 + 28 * row;
         const std::int32_t valueX = gLegacyMailPetPanel5832F8.x + 226;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
@@ -9459,7 +9423,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 1, color, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         const std::int32_t page = std::bit_cast<std::int32_t>(world::detail::gValueCB0354);
         const std::int32_t position = row + 4 * page;
@@ -9488,21 +9452,21 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, nullptr));
         const std::int32_t valueContact = world::detail::gContactIndicesFDA608[position];
         const std::int32_t value = world::detail::gContactsF19FB0[valueContact].value08;
-        std::sprintf(buffer, "%3d", value);
+        cg::text::FormatTo(buffer, L"{:3}", value);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
-        drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 77, 68 + 90 * row, color);
+        drawAt(cg::text::FromGbkWide(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 77, 68 + 90 * row, color);
         const std::int32_t memoContact = world::detail::gContactIndicesFDA608[position];
         const char* const memo = world::detail::gContactsF19FB0[memoContact].text21.data();
         if (memo[0] != '\0') {
-            drawAt(cg::text::FromGbk(memo).c_str(), 77, 91 + 90 * row, color);
+            drawAt(cg::text::FromGbkWide(memo).c_str(), 77, 91 + 90 * row, color);
         }
         Sub_5035E0(&sends[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&reads[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&deletes[row], 212, 1, gValueD69768, 0);
     }
     const std::int32_t page = std::bit_cast<std::int32_t>(world::detail::gValueCB0354);
-    std::sprintf(buffer, "%2d/%2d", page + 1, 15);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", page + 1, 15);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&edit, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
@@ -9715,18 +9679,18 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, color, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     const std::int32_t valueContact = world::detail::gValueCF4FC0;
-    std::sprintf(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
+    cg::text::FormatTo(buffer, L"{:3}", world::detail::gContactsF19FB0[valueContact].value08);
     drawAt(buffer, 134, 49, 1, 0);
     const std::int32_t measuredNameContact = world::detail::gValueCF4FC0;
-    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measuredNameContact].name10.data()).c_str(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(world::detail::gContactsF19FB0[measuredNameContact].name10.data()).c_str(), 0);
     const std::int32_t nameContact = world::detail::gValueCF4FC0;
-    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 162 - nameWidth / 2, 70, 0, 0);
+    drawAt(cg::text::FromGbkWide(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 162 - nameWidth / 2, 70, 0, 0);
     const std::int32_t measuredMemoContact = world::detail::gValueCF4FC0;
-    const std::int32_t memoWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measuredMemoContact].text21.data()).c_str(), 0);
+    const std::int32_t memoWidth = TextMeasure(cg::text::FromGbkWide(world::detail::gContactsF19FB0[measuredMemoContact].text21.data()).c_str(), 0);
     const std::int32_t memoContact = world::detail::gValueCF4FC0;
-    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[memoContact].text21.data()).c_str(), 162 - memoWidth / 2, 93, 0, 0);
+    drawAt(cg::text::FromGbkWide(world::detail::gContactsF19FB0[memoContact].text21.data()).c_str(), 162 - memoWidth / 2, 93, 0, 0);
     const std::int16_t titleSelected = login::gSelectedCharacterIndex;
     const std::int32_t titleContact = world::detail::gValueCF4FC0;
     const std::int32_t titlePage = world::detail::gValueD046D4;
@@ -9742,10 +9706,10 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         const std::int32_t rowPage = world::detail::gValueD046D4;
         const char* const body = world::detail::BorrowMailMessageF7CA08(rowSelected, rowContact, rowPage).text14;
         // 原4EAF4D不检查分行结果，十次均绘制；颜色只在正文循环前取样。
-        static_cast<void>(input::ExtractGbkTextLine(buffer, 128, body, row, 28));
+        static_cast<void>(input::ExtractGbkTextLine(buffer, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
-    std::sprintf(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", world::detail::gValueD046D4 + 1, 10);
     drawAt(buffer, 56, 403, 1, 0);
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -10054,7 +10018,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyGuildGiftPage1050DAC ^= 1;
     }
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -10065,7 +10029,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    cg::text::FormatTo(buffer, L"{:3}", count);
                     const std::int32_t countY = gLegacyGuildGiftPanel58E950.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyGuildGiftPanel58E950.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -10288,7 +10252,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
             212, image, 0);
     }
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
@@ -10297,7 +10261,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         }
         const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
         const std::int8_t color = availability[row] != 0 ? 0 : 7;
-        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
+        buffer = cg::text::FromGbkWide(name);
         const std::int32_t width = TextMeasure(buffer, 0);
         const std::int32_t nameY = gLegacyGuildPetPanel58EAE0.y + 43 + 28 * row;
         const std::int32_t nameX = gLegacyGuildPetPanel58EAE0.x - width / 2 + 90;
@@ -10305,7 +10269,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
             static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
         // 原52E4C2操作数F63400为宠物+08，不按反编译lv名称改到+6C。
         const std::int32_t value = pet->value08;
-        std::sprintf(buffer, "%3d", value);
+        cg::text::FormatTo(buffer, L"{:3}", value);
         const std::int32_t valueY = gLegacyGuildPetPanel58EAE0.y + 45 + 28 * row;
         const std::int32_t valueX = gLegacyGuildPetPanel58EAE0.x + 226;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
@@ -10416,15 +10380,15 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, color, text, 0, 0));
     };
-    char buffer[384];
-    std::sprintf(buffer, "%3d", member->value10);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:3}", member->value10);
     drawAt(buffer, 134, 49, 1, 0);
     const char* const memberName = member->text18;
     const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(memberName), 0);
     drawAt(cg::text::FromGbkWide(memberName), 162 - nameWidth / 2, 70, 0, 0);
     const std::int32_t rankWidth = TextMeasure(cg::text::FromGbkWide(BorrowGuildRankText1051518(member->value00)), 0);
     const char* const rankName = BorrowGuildRankText1051518(member->value00);
-    drawAt(cg::text::FromGbk(rankName).c_str(), 162 - rankWidth / 2, 93, 0, 0);
+    drawAt(cg::text::FromGbkWide(rankName).c_str(), 162 - rankWidth / 2, 93, 0, 0);
     const std::int16_t titleSelected = login::gSelectedCharacterIndex;
     const std::int32_t titleContact = gLegacyGuildReadTarget1050DB4;
     const std::int32_t titlePage = gLegacyGuildReadPage1050EF8;
@@ -10443,10 +10407,10 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         const std::int32_t rowContact = gLegacyGuildReadTarget1050DB4;
         const char* const body = world::detail::BorrowGuildMailMessageDE0B30(rowSelected, rowContact, rowPage).text14;
         // 原52EAE1不检查分行结果，十次均绘制；颜色只在正文循环前取样。
-        static_cast<void>(input::ExtractGbkTextLine(buffer, 128, body, row, 28));
+        static_cast<void>(input::ExtractGbkTextLine(buffer, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
-    std::sprintf(buffer, "%2d/%2d", gLegacyGuildReadPage1050EF8 + 1, 10);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", gLegacyGuildReadPage1050EF8 + 1, 10);
     drawAt(buffer, 56, 403, 1, 0);
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -10710,7 +10674,7 @@ try {
             static_cast<void>(audio::Sub_5042D0(gLegacyGuildDeletePanel58EE00.id));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
         } else {
-            world::detail::Sub_44B050(kLegacyGuildDeleteDenied58F3C8Utf8View.c_str(), 4, 0);
+            world::detail::Sub_44B050(kLegacyGuildDeleteDenied58F3C8, 4, 0);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((cancelState & 1u) != 0) {
@@ -10968,7 +10932,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 1, color, text, 0, 0));
     };
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 4; ++row) {
         const std::int32_t page = gLegacyGuildPage1050B78;
         const std::int32_t position = row + 4 * page;
@@ -10989,21 +10953,21 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         const std::int32_t statusX = gLegacyGuildContactPanel58EF90.x + 105;
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, &descriptor));
         const std::int32_t valueIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-        std::sprintf(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
+        cg::text::FormatTo(buffer, L"{:3}", gOrderedRecords1051B14[valueIndex].value10);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-        drawAt(cg::text::FromGbk(gOrderedRecords1051B14[nameIndex].text18).c_str(), 77, 68 + 90 * row, color);
+        drawAt(cg::text::FromGbkWide(gOrderedRecords1051B14[nameIndex].text18).c_str(), 77, 68 + 90 * row, color);
         const std::int32_t rankIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         const char* const rank = BorrowGuildRankText1051518(gOrderedRecords1051B14[rankIndex].value00);
         if (rank[0] != '\0') {
-            drawAt(cg::text::FromGbk(rank).c_str(), 77, 91 + 90 * row, color);
+            drawAt(cg::text::FromGbkWide(rank).c_str(), 77, 91 + 90 * row, color);
         }
         Sub_5035E0(&sends[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&reads[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&removes[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&ranks[row], 212, 1, gValueD69768, 0);
     }
-    std::sprintf(buffer, "%2d/%2d", gLegacyGuildPage1050B78 + 1, 50);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", gLegacyGuildPage1050B78 + 1, 50);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&sort, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
@@ -11485,7 +11449,7 @@ try {
                         const std::int32_t rank = gLegacyGuildRankSelected1051338;
                         if (rank == -1) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
-                            world::detail::Sub_44B050(kLegacyGuildRankRequired58F584Utf8View.c_str(), 4, 0);
+                            world::detail::Sub_44B050(kLegacyGuildRankRequired58F584, 4, 0);
                         } else {
                             const auto socket = platform::gConnectionSocket;
                             const std::int32_t target = gLegacyGuildRankTarget1057C70;
@@ -11592,13 +11556,13 @@ std::uint32_t Sub_4ECE00(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }
-    char buffer[384];
-    std::sprintf(buffer, "%+9d", world::detail::gValueFF0D04);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:+9}", world::detail::gValueFF0D04);
     const std::int32_t deltaY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t deltaX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(deltaX + 69),
         static_cast<std::int16_t>(deltaY + 44), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%9d", world::detail::gValueFF0D08);
+    cg::text::FormatTo(buffer, L"{:9}", world::detail::gValueFF0D08);
     const std::int32_t totalY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t totalX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(totalX + 69),
@@ -11646,7 +11610,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }
-    char buffer[384];
+    std::wstring buffer;
     const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color = 0) {
         const std::int32_t top = gLegacyBattleResultPanel583970.y;
@@ -11691,7 +11655,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         if (level >= 130) {
             drawAt(kLegacyResultLimit5897D4, 267, row * 24 + 59, 1);
         } else {
-            std::sprintf(buffer, "%+6d", result->value04);
+            cg::text::FormatTo(buffer, L"{:+6}", result->value04);
             drawAt(buffer, 267, row * 24 + 59, 1);
         }
     }
@@ -11699,8 +11663,8 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
     for (std::int32_t row = 0; row < 3; ++row) {
         const char* const text = names[row].data();
         if (std::strlen(text) != 0) {
-            const std::int32_t width = TextMeasure(cg::text::FromGbk(text).c_str(), 0);
-            drawAt(cg::text::FromGbk(text).c_str(), 164 - width / 2, row * 24 + 186, 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbkWide(text).c_str(), 0);
+            drawAt(cg::text::FromGbkWide(text).c_str(), 164 - width / 2, row * 24 + 186, 0);
         }
     }
     const auto& skillResults = world::detail::BorrowBattleSkillResults();
@@ -11714,20 +11678,20 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         }
         const world::detail::SkillRuntimeRecord* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
         if (skill->canRebirth == 0) {
-            drawAt(cg::text::FromGbk(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0);
+            drawAt(cg::text::FromGbkWide(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0);
             const std::int32_t level = skill->level;
             const std::int32_t maxLevel = skill->maxLevel;
             if (level >= maxLevel) {
                 drawAt(kLegacyResultLimit5897D4, 554, visibleRow * 24 + 57, 1);
             } else {
-                std::sprintf(buffer, "%+6d", skillResults[skillIndex].value04);
+                cg::text::FormatTo(buffer, L"{:+6}", skillResults[skillIndex].value04);
                 drawAt(buffer, 554, visibleRow * 24 + 57, 1);
             }
             if (skillResults[skillIndex].value00 != 0) {
                 drawImage(23382, 531, visibleRow * 24 + 65);
             }
         } else {
-            drawAt(cg::text::FromGbk(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0, 7);
+            drawAt(cg::text::FromGbkWide(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0, 7);
             drawAt(kLegacyResultLimit5897D4, 554, visibleRow * 24 + 57, 1, 7);
         }
         drawImage(23381, 469, visibleRow * 24 + 64);
@@ -11827,11 +11791,11 @@ try {
         const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
         if (world::detail::IsPlayerFpLessThan(cost)) {
-            world::detail::Sub_44B050(kLegacyGatherNoFp5864F0Utf8View.c_str(), 4, 3);
+            world::detail::Sub_44B050(kLegacyGatherNoFp5864F0, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             gLegacyGatherRepeat583AFC = 0;
         } else if (world::detail::Sub_518C60() <= 0) {
-            world::detail::Sub_44B050(kLegacyGatherNoSpace589868Utf8View.c_str(), 4, 3);
+            world::detail::Sub_44B050(kLegacyGatherNoSpace589868, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             gLegacyGatherRepeat583AFC = 0;
         } else {
@@ -11862,8 +11826,8 @@ try {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
     if (ui::detail::ReadGatherResultD2D820() != 0) {
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(ui::detail::BorrowGatherResultNameD2DA94()).c_str(), 0);
-        drawAt(cg::text::FromGbk(ui::detail::BorrowGatherResultNameD2DA94()).c_str(), 136 - width / 2, 91, 0);
+        const std::int32_t width = TextMeasure(ui::detail::BorrowGatherResultNameD2DA94(), 0);
+        drawAt(ui::detail::BorrowGatherResultNameD2DA94(), 136 - width / 2, 91, 0);
         const std::int32_t image = ui::detail::ReadGatherResultImageCF3FF0();
         const std::int32_t top = gLegacyGatherResultPanel583A38.y;
         const std::int32_t imageY = top + 184;
@@ -14444,26 +14408,26 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < 15; ++row) {
         const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
         const std::int32_t index = row + 15 * gLegacyAlbumPageC8B1B0;
         const std::byte* const record = records + index * 0x80;
         if (record[0] != std::byte{0}) {
-            std::sprintf(buffer, "%03d", ReadRecordW32(record, 4));
+            cg::text::FormatTo(buffer, L"{:03}", ReadRecordW32(record, 4));
             const std::int32_t numberY = gLegacyAlbumListPanel584788.y + 24 * row + 42;
             const std::int32_t numberX = gLegacyAlbumListPanel584788.x + 46;
             static_cast<void>(DrawText(static_cast<std::int16_t>(numberX),
                 static_cast<std::int16_t>(numberY), 2, 1, 0, buffer, 0, 0));
             const std::byte* const measureRecords = world::detail::BorrowSelectedAlbumRecords();
             const std::int32_t width = TextMeasure(
-                cg::text::FromGbk(reinterpret_cast<const char*>(measureRecords + index * 0x80 + 0x34)).c_str(), 0);
+                cg::text::FromGbkWide(reinterpret_cast<const char*>(measureRecords + index * 0x80 + 0x34)).c_str(), 0);
             const std::byte* const nameRecords = world::detail::BorrowSelectedAlbumRecords();
             const std::int32_t nameY = gLegacyAlbumListPanel584788.y + 24 * row + 40;
             const char* const name = reinterpret_cast<const char*>(nameRecords + index * 0x80 + 0x34);
             const std::int32_t nameX = gLegacyAlbumListPanel584788.x - width / 2 + 154;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
             const std::byte* const flagRecords = world::detail::BorrowSelectedAlbumRecords();
             if (flagRecords[index * 0x80 + 0x7F] != std::byte{0}) {
                 const std::int32_t markY = gLegacyAlbumListPanel584788.y + 48 + 24 * row;
@@ -14474,7 +14438,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumPageC8B1B0;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueCC3E68);
-    std::sprintf(buffer, "%2d/%2d", current + 1, count);
+    cg::text::FormatTo(buffer, L"{:2}/{:2}", current + 1, count);
     const std::int32_t pageY = gLegacyAlbumListPanel584788.y + 406;
     const std::int32_t pageX = gLegacyAlbumListPanel584788.x + 115;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -15163,15 +15127,15 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         }
     }
     static_cast<void>(HandleLegacyPetNavigation(&back, &previous, &next));
-    char buffer[768];
+    std::wstring buffer;
     for (std::int32_t row = 0; row < slots; ++row) {
         const auto& pair = pet.techniquePairs650[row];
         if (pair.used != 0) {
             const auto skill = std::bit_cast<std::int16_t>(pair.index);
             const auto& technique = pet.techniquesD8[skill];
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 39),
-                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, cg::text::FromGbk(technique.name.data()).c_str(), 0, 0));
-            std::sprintf(buffer, "%4d", technique.fp);
+                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, cg::text::FromGbkWide(technique.name.data()).c_str(), 0, 0));
+            cg::text::FormatTo(buffer, L"{:4}", technique.fp);
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 211),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 1, 0, buffer, 0, 0));
         }
@@ -15181,7 +15145,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         const auto skill = std::bit_cast<std::int16_t>(pet.techniquePairs650[hovered].index);
         const char* const description = pet.techniquesD8[skill].description.data();
         for (std::int32_t line = 0; line < 4; ++line) {
-            if (input::ExtractGbkTextLine(buffer, 256, description, line, 26) != 0) {
+            if (input::ExtractGbkTextLine(buffer, description, line, 26) != 0) {
                 static_cast<void>(DrawText(static_cast<std::int16_t>(x + 19),
                     static_cast<std::int16_t>(y + 294 + 19 * line), 2, 0, 0, buffer, 0, 0));
             }
@@ -15189,7 +15153,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    std::sprintf(buffer, "%d/%d", position + 1, count);
+    cg::text::FormatTo(buffer, L"{}/{}", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 386;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -15473,7 +15437,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
                 : std::format(kLegacyBlacklistText5532D8, input::ContextText(*gLegacyBlacklistInput5939B8));
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
-                world::detail::Sub_44B050(kLegacyBlacklistText553294Utf8View.c_str(), 4, 3);
+                world::detail::Sub_44B050(kLegacyBlacklistText553294, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
@@ -15489,7 +15453,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
         input::InitializeContext_449CF0(gLegacyBlacklistInput5939B8, inputX + 21, inputY + 408,
             2, 0, 0, nullptr, 1, 16, 18, 0);
-        world::detail::Sub_44B050(cg::text::FromUtf16(message).c_str(), 4, 3);
+        world::detail::Sub_44B050(message, 4, 3);
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
@@ -16203,10 +16167,10 @@ try {
                 const bool insufficient = world::detail::IsPlayerFpLessThan(cost);
                 if (kind == 4) {
                     if (insufficient) {
-                        world::detail::Sub_44B050(kLegacySkillDetailNoFp58A9D4Utf8View.c_str(), 4, 3);
+                        world::detail::Sub_44B050(kLegacySkillDetailNoFp58A9D4, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else if (world::detail::Sub_518C60() <= 0) {
-                        world::detail::Sub_44B050(kLegacySkillDetailNoSpace58A9C4Utf8View.c_str(), 4, 3);
+                        world::detail::Sub_44B050(kLegacySkillDetailNoSpace58A9C4, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         static_cast<void>(audio::Sub_504180(38));
@@ -17047,7 +17011,7 @@ std::int32_t Sub_4FC430()
     buttons[0].color = 0;
     buttons[0].reserved21[0] = std::byte {1};
     buttons[0].reserved21[1] = std::byte {0xF9};
-    buttons[0].hint = kLegacySettingsHint586DE8Utf8View.c_str();
+    buttons[0].hint = kLegacySettingsHint586DE8;
     buttons[1].label.textX = x + 45;
     buttons[1].label.left = x + 27;
     buttons[1].label.width = 136;
@@ -17057,7 +17021,7 @@ std::int32_t Sub_4FC430()
     buttons[1].color = 0;
     buttons[1].reserved21[0] = std::byte {1};
     buttons[1].reserved21[1] = std::byte {0xF9};
-    buttons[1].hint = kLegacySettingsHint58A484Utf8View.c_str();
+    buttons[1].hint = kLegacySettingsHint58A484;
     buttons[2].label.textX = x + 45;
     buttons[2].label.left = x + 27;
     buttons[2].label.width = 136;
@@ -17067,7 +17031,7 @@ std::int32_t Sub_4FC430()
     buttons[2].color = 0;
     buttons[2].reserved21[0] = std::byte {1};
     buttons[2].reserved21[1] = std::byte {0xF9};
-    buttons[2].hint = kLegacySettingsHint58A460Utf8View.c_str();
+    buttons[2].hint = kLegacySettingsHint58A460;
     buttons[3].label.textX = x + 45;
     buttons[3].label.left = x + 27;
     buttons[3].label.width = 136;
@@ -17077,7 +17041,7 @@ std::int32_t Sub_4FC430()
     buttons[3].color = 0;
     buttons[3].reserved21[0] = std::byte {1};
     buttons[3].reserved21[1] = std::byte {0xF9};
-    buttons[3].hint = kLegacySettingsHint58A440Utf8View.c_str();
+    buttons[3].hint = kLegacySettingsHint58A440;
     buttons[4].label.textX = x + 45;
     buttons[4].label.left = x + 27;
     buttons[4].label.width = 136;
@@ -17087,7 +17051,7 @@ std::int32_t Sub_4FC430()
     buttons[4].color = 0;
     buttons[4].reserved21[0] = std::byte {1};
     buttons[4].reserved21[1] = std::byte {0xF9};
-    buttons[4].hint = kLegacySettingsHint58A420Utf8View.c_str();
+    buttons[4].hint = kLegacySettingsHint58A420;
     buttons[5].label.textX = x + 45;
     buttons[5].label.textY = y + 200;
     buttons[5].label.left = x + 27;
@@ -17109,13 +17073,13 @@ std::int32_t Sub_4FC430()
     buttons[5].callback = &Sub_4FC890;
     buttons[5].color = 0;
     buttons[5].reserved21[0] = std::byte {1};
-    buttons[5].hint = kLegacySettingsHint58A400Utf8View.c_str();
+    buttons[5].hint = kLegacySettingsHint58A400;
     buttons[6].label.left = x + 27;
     buttons[6].label.text = kLegacySettingsText58A3F4;
     buttons[6].callback = &Sub_4FC8B0;
     buttons[6].color = 0;
     buttons[6].reserved21[0] = std::byte {1};
-    buttons[6].hint = kLegacySettingsHint58A3E4Utf8View.c_str();
+    buttons[6].hint = kLegacySettingsHint58A3E4;
     buttons[7].label.textY = y + 260;
     buttons[7].label.left = x + 27;
     buttons[7].label.top = y + 260;
@@ -17123,7 +17087,7 @@ std::int32_t Sub_4FC430()
     buttons[7].callback = &Sub_4FC8D0;
     buttons[7].color = 0;
     buttons[7].reserved21[0] = std::byte {1};
-    buttons[7].hint = kLegacySettingsHint58A3C8Utf8View.c_str();
+    buttons[7].hint = kLegacySettingsHint58A3C8;
     return y + 260;
 }
 
@@ -17326,7 +17290,7 @@ std::int32_t Sub_4FCBA0()
     records[7].color = 0;
     records[7].reserved21[0] = std::byte {1};
     records[7].reserved21[1] = std::byte {0xF9};
-    records[7].hint = kLegacyChat5877B4Utf8View.c_str();
+    records[7].hint = kLegacyChat5877B4;
     records[8].label.textX = x + 20;
     records[8].label.left = 0;
     records[8].label.top = 0;
@@ -17346,7 +17310,7 @@ std::int32_t Sub_4FCBA0()
     records[9].color = 0;
     records[9].reserved21[0] = std::byte {1};
     records[9].reserved21[1] = std::byte {0xF9};
-    records[9].hint = kLegacyChat58A524Utf8View.c_str();
+    records[9].hint = kLegacyChat58A524;
     records[10].label.textX = x + 20;
     records[10].label.left = 0;
     records[10].label.top = 0;
@@ -17441,7 +17405,7 @@ std::int32_t Sub_4FCBA0()
     records[17].color = 0;
     records[17].reserved21[0] = std::byte {1};
     records[17].reserved21[1] = std::byte {0xF9};
-    records[17].hint = kLegacyChat58A4E8Utf8View.c_str();
+    records[17].hint = kLegacyChat58A4E8;
     return 0;
 }
 
@@ -17579,7 +17543,7 @@ std::int32_t Sub_4FDA00()
     records[4].color = 0;
     records[4].reserved21[0] = std::byte {0x01};
     records[4].reserved21[1] = std::byte {0xF9};
-    records[4].hint = kLegacyChat58A4E8Utf8View.c_str();
+    records[4].hint = kLegacyChat58A4E8;
     return 0;
 }
 
@@ -17739,7 +17703,7 @@ std::int32_t Sub_4FDE20()
     records[7].callback = &Sub_4FE3E0;
     records[7].color = 0;
     records[7].reserved21[0] = std::byte {0x01};
-    records[7].hint = kLegacyChat58A4E8Utf8View.c_str();
+    records[7].hint = kLegacyChat58A4E8;
     return 0;
 }
 
@@ -17947,7 +17911,7 @@ std::int32_t Sub_4FE4A0()
     records[10].color = 0;
     records[10].reserved21[0] = std::byte {1};
     records[10].reserved21[1] = std::byte {0xF9};
-    records[10].hint = kLegacyMouse58A774Utf8View.c_str();
+    records[10].hint = kLegacyMouse58A774;
     return 0;
 }
 
@@ -18182,7 +18146,7 @@ std::int32_t Sub_4FEB10()
     records[12].color = 0;
     records[12].reserved21[0] = std::byte {1};
     records[12].reserved21[1] = std::byte {0xF9};
-    records[12].hint = kLegacyChat58A4E8Utf8View.c_str();
+    records[12].hint = kLegacyChat58A4E8;
     return 0;
 }
 
@@ -18276,7 +18240,7 @@ std::int32_t Sub_4FF030()
     records[3].color = 0;
     records[3].reserved21[0] = std::byte {1};
     records[3].reserved21[1] = std::byte {0xF9};
-    records[3].hint = kLegacyChat58A4E8Utf8View.c_str();
+    records[3].hint = kLegacyChat58A4E8;
     return 0;
 }
 
@@ -18384,7 +18348,7 @@ std::int32_t Sub_4FF350()
     records[3].color = 0;
     records[3].reserved21[0] = std::byte {1};
     records[3].reserved21[1] = std::byte {0xF9};
-    records[3].hint = kLegacyButton58A904Utf8View.c_str();
+    records[3].hint = kLegacyButton58A904;
     return 0;
 }
 
@@ -18470,20 +18434,20 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     if (state == 0 || state == 2) {
         return static_cast<std::uint32_t>(state);
     }
-    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::ReadText9DAD30()).c_str(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(world::ReadText9DAD30()).c_str(), 0);
     const std::int32_t nameY = gLegacyMapPanelD68868.y;
     const std::int32_t nameX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX - nameWidth / 2 + 124),
-        static_cast<std::int16_t>(nameY + 36), 2, 0, 0, cg::text::FromGbk(world::ReadText9DAD30()).c_str(), 0, 0));
-    char buffer[768];
+        static_cast<std::int16_t>(nameY + 36), 2, 0, 0, cg::text::FromGbkWide(world::ReadText9DAD30()).c_str(), 0, 0));
+    std::wstring buffer;
     const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
-    std::sprintf(buffer, kLegacyMapEast58AA54, playerX);
+    cg::text::FormatTo(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
     const std::int32_t eastX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
         static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
     const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
-    std::sprintf(buffer, kLegacyMapSouth58AA4C, playerY);
+    cg::text::FormatTo(buffer, kLegacyMapSouth58AA4C, playerY);
     const std::int32_t southY = gLegacyMapPanelD68868.y;
     const std::int32_t southX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(southX + 133),
@@ -18710,9 +18674,9 @@ std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::i
         LegacyPanelTextButtonRecord* const record = &records[index];
         const std::int32_t state = character_select::detail::Sub_503990(&record->label);
         if ((state & 0x40) != 0) {
-            const char* const hint = record->hint;
+            const wchar_t* const hint = record->hint;
             if (hint != nullptr) {
-                ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+                ui::detail::gHoverTextD68AE8 = hint;
             }
         }
         if ((state & 0x10) != 0) {
@@ -18816,9 +18780,9 @@ std::int32_t Sub_503160(
             if (Sub_5049A0(panelX + tabX, panelY + tabY, tabRight, bottom, -1) != 0
                 && tab->image != 0) {
                 panel->hovered = static_cast<std::int8_t>(tabIndex);
-                const char* const hint = tab->hint;
+                const wchar_t* const hint = tab->hint;
                 if (hint != nullptr) {
-                    ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
+                    ui::detail::gHoverTextD68AE8 = hint;
                 }
                 if ((gValueD68D9C & 1u) != 0) {
                     panel->selected = static_cast<std::int8_t>(tabIndex);

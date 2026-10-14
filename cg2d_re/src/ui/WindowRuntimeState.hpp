@@ -1782,14 +1782,14 @@ std::uint32_t ReadSkillExtraDelayCF46C4() noexcept; // 新旧技能面板共用�
 void WriteSkillExtraDelayCF46C4(std::uint32_t delay) noexcept;
 std::int32_t ReadGatherResultD2D820() noexcept; // 旧选择39借用窗口12同源回复。
 std::int32_t ReadGatherResultImageCF3FF0() noexcept;
-const char* BorrowGatherResultNameD2DA94() noexcept;
-const char* BorrowGatherResultSuffixCB1E1C() noexcept;
+std::wstring_view BorrowGatherResultNameD2DA94() noexcept;
+std::wstring_view BorrowGatherResultSuffixCB1E1C() noexcept;
 std::wstring_view BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
 std::int32_t ReadLegacySkillResultD66E2C() noexcept; // 旧选择37与窗口13共享回复结果。
-const char* BorrowLegacySkillSummaryCC18CC() noexcept;
+std::wstring_view BorrowLegacySkillSummaryCC18CC() noexcept;
 std::wstring_view BorrowLegacySkillDetailsCB0FDC() noexcept;
 std::int32_t ReadLegacyItemWorkResultCB05FC() noexcept;
-const char* BorrowLegacyItemWorkSuffixD2DADC() noexcept;
+std::wstring_view BorrowLegacyItemWorkSuffixD2DADC() noexcept;
 std::wstring_view BorrowLegacyItemWorkDetailsD2DB00() noexcept;
 std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept; // 新旧加工入口与结果回复同源技能类别。
 void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
@@ -1797,7 +1797,7 @@ std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
 std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
 std::wstring_view BorrowLegacyCraftNameCF46D4() noexcept;
 void WriteLegacyCraftNameCF46D4(std::wstring_view name); // 旧26发送前复制结果名称；原0x00CF46D4现持动态UTF-16。
-const char* BorrowLegacyCraftSuffixD672B4() noexcept;
+std::wstring_view BorrowLegacyCraftSuffixD672B4() noexcept;
 std::wstring_view BorrowLegacyCraftDetailsD2E92C() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原全局：0x005846BC。 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
@@ -2574,11 +2574,11 @@ std::int32_t Sub_4AE850(std::int32_t index, std::int32_t state); // 动作槽5�
 // 原函数：0x004AE8C0。
 WindowInstance* Sub_4AE8C0(); // 固定窗口47标关闭，返回同一实例。
 // 原函数：0x004AE8D0。
-char* Sub_4AE8D0(); // 十一文本清理与原字节LF分行刷新。
+wchar_t* Sub_4AE8D0(); // 十一文本清理与宽字符LF分行刷新。
 // 原函数：0x004AE9C0。
 std::int32_t Sub_4AE9C0(); // 六按钮逐项显隐，原最终偏移216。
 // 原函数：0x004AEA10。
-std::int32_t Sub_4AEA10(char* destination, const char* text); // 按字节长度与宽度单位补空格。
+std::int32_t Sub_4AEA10(std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
 // 原函数：0x004A4180。
 std::int32_t Sub_4A4180(std::int32_t value); // 窗口55只初始化滚动位置。
 // 原函数：0x004A41A0。

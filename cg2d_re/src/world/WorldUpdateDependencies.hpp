@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string_view>
+
 #include "cg/platform/LegacyStdio.hpp"
 
 #include "MailState.hpp"
@@ -420,7 +422,7 @@ void __cdecl Sub_46DC60(); // 原 [0x46DC60,0x46DC85)，先整块清零再逐项
 std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD35)，.aut 加载器。
 
 // 原函数：0x0044B050。
-void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
+void Sub_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
 // 原函数：0x004A76E0。
 std::int32_t Sub_4A76E0();
 

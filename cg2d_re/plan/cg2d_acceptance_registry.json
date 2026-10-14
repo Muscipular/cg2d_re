@@ -74649,6 +74649,60 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-UWF01-TEXT-S-20261015",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_wide_only_text_spec.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_wide_only_text_spec.md",
+        "src/Input.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/text/Encoding.hpp",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "用户要求内部文字只保留wchar／wstring；原兼容层有GBK消息和前缀混入UTF-8消费者。",
+      "expected": "第一组生产者、宽格式化／显示借用和聊天GBK保存边界成组配对；业务字段、原地址及读取发布序保持。",
+      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。",
+      "differences": [
+        {
+          "description": "内部格式／提示及部分结果owner直接UTF-16，退休本组UTF-8过渡；实际GBK记录保持。",
+          "decision_ref": "doc/cg2d_wide_only_text_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-UWF01-UIRUNTIME-S-20261015",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_wide_only_text_spec.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_wide_only_text_spec.md",
+        "src/Input.cpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/text/Encoding.hpp",
+        "plan/cg2d_ida_function_implementation_table.md"
+      ],
+      "observation": "用户要求内部文字只保留wchar／wstring；原兼容层有GBK消息和前缀混入UTF-8消费者。",
+      "expected": "第一组生产者、宽格式化／显示借用和聊天GBK保存边界成组配对；业务字段、原地址及读取发布序保持。",
+      "actual": "第一组117函数／辅助与2049处定位静态核对；宽格式常量未残留窄sprintf消费。96兼容视图及其余重载仍待，未编译或运行。",
+      "differences": [
+        {
+          "description": "内部格式／提示及部分结果owner直接UTF-16，退休本组UTF-8过渡；实际GBK记录保持。",
+          "decision_ref": "doc/cg2d_wide_only_text_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [

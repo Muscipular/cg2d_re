@@ -67,8 +67,6 @@ public:
     friend bool operator<(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
     friend bool operator<=(LegacyCryptInt& lhs, LegacyCryptInt& rhs);
 
-    // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
-    void SetNorVal_401F50(std::int32_t value);
 
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
     std::int32_t value();
@@ -86,6 +84,8 @@ private:
     static std::int32_t FromBits(std::uint32_t value);
     // 沿共享NextRandom一次取mask，构造与读计数刷新共用。
     static std::uint32_t NextMask();
+    // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
+    void SetNorVal_401F50(std::int32_t value);
 };
 static_assert(sizeof(LegacyCryptInt) == 16);
 static_assert(std::is_standard_layout_v<LegacyCryptInt>);

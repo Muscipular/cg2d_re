@@ -9345,7 +9345,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     payload->x00 = static_cast<std::int32_t>(target->offset40) + offsetX;
     payload->y04 = static_cast<std::int32_t>(target->offset44) + offsetY;
     TurnBattleToward_406190(action, target, 0, 0.0F);
-    const std::int32_t randomAngle = platform::NextRandom_53B4C9() % 90;
+    const std::int32_t randomAngle = platform::Rand16() % 90;
     const std::int32_t angle = static_cast<std::int32_t>(
         static_cast<double>(randomAngle) + action->angle50 + 135.0) % 360;
     action->angle50 = static_cast<float>(angle);
@@ -11251,8 +11251,8 @@ YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_
 void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
 {
     if ((static_cast<std::uint8_t>(action->phase) & 7u) == 0) {
-        const std::int32_t y = platform::NextRandom_53B4C9() % 480;
-        const std::int32_t x = platform::NextRandom_53B4C9() % 640;
+        const std::int32_t y = platform::Rand16() % 480;
+        const std::int32_t x = platform::Rand16() % 640;
         static_cast<void>(NewBattleScreenEffect_421610(x, y));
     }
     const std::int32_t phase = action->phase - 1;
@@ -15762,7 +15762,7 @@ namespace {
     if (mode == 1) {
         entrance = 2;
     } else if (mode == 2) {
-        entrance = static_cast<std::int8_t>((platform::NextRandom_53B4C9() & 1) + 1);
+        entrance = static_cast<std::int8_t>((platform::Rand16() & 1) + 1);
         static_cast<void>(NewBattleScreenEmitter_421700(150));
     }
     gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -31454,7 +31454,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         static_cast<void>(AdvanceBattleEffect_439470(action));
     }
-    const std::int32_t imageNo = (platform::NextRandom_53B4C9() & 1) != 0 ? 110006 : 110004;
+    const std::int32_t imageNo = (platform::Rand16() & 1) != 0 ? 110006 : 110004;
     static_cast<void>(NewBattlePositionEffect_41E680(action, imageNo));
     return PlayFrame_517DA0(action, 0);
 }
@@ -31969,7 +31969,7 @@ YobiAction* UpdateBattleAction210_412F70(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
     }
     static_cast<void>(PlayFrame_517DA0(action, 0));
-    const std::int32_t imageNo = 110004 + (platform::NextRandom_53B4C9() & 3);
+    const std::int32_t imageNo = 110004 + (platform::Rand16() & 3);
     return NewBattlePositionEffect_41E680(action, imageNo);
 }
 

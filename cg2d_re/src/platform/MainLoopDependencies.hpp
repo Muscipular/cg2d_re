@@ -110,7 +110,7 @@ std::uint32_t SeedRandom_53B4BF(std::uint32_t seed);
 // 原函数：0x004589D0。
 std::uint64_t ReadSystemSeconds_4589D0();
 // 原函数：0x0053B4C9。
-int NextRandom_53B4C9();
+int Rand16();
 // 原 0x46FAF0：按有符号上下界生成随机值。
 std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper);
 // 原函数：0x00458A10。

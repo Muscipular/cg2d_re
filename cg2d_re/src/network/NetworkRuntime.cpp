@@ -2423,7 +2423,7 @@ std::int32_t Sub_510B80(
             const std::int32_t seconds = platform::ReadLegacyTime32_53BA26(nullptr);
             static_cast<void>(
                 platform::SeedRandom_53B4BF(std::bit_cast<std::uint32_t>(seconds)));
-            selected = platform::NextRandom_53B4C9() % spaces;
+            selected = platform::Rand16() % spaces;
             if (selected == 0) {
                 selected = 1;
             }

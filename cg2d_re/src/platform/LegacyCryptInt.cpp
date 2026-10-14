@@ -18,7 +18,7 @@ std::int32_t LegacyCryptInt::FromBits(std::uint32_t value)
 
 std::uint32_t LegacyCryptInt::NextMask()
 {
-    return ToBits(static_cast<std::int32_t>(NextRandom_53B4C9()));
+    return ToBits(static_cast<std::int32_t>(Rand16()));
 }
 
 // 原0x00401C70 sub_401C70@[0x401C70,0x401C92)：零值默认构造复用有值构造，RNG一次。

@@ -16214,7 +16214,7 @@ void ProcessWindowShortcuts_4C7AE0()
                 }
             }
             if ((platform::gKeyStates[0xDC] & 4u) != 0) {
-                const std::int32_t remainder = platform::NextRandom_53B4C9() % 3;
+                const std::int32_t remainder = platform::Rand16() % 3;
                 if (remainder == 0) {
                     PlayShortcutEmote(14, 7);
                 } else if (remainder == 1) {
@@ -31520,7 +31520,7 @@ WindowAnimationData* Sub_47E1B0(WindowInstance* const window)
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     SetCraftWorkingAction(window);
-    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t skill = gCraftSkillIndexCC2368;
     const std::int32_t recipe = gCraftRecipeIndexD2D638;
     const std::int32_t level = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
@@ -31579,7 +31579,7 @@ WindowAnimationData* Sub_47EF00(WindowInstance* const window)
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     SetCraftWorkingAction(window);
-    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
     const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
@@ -31617,7 +31617,7 @@ WindowAnimationData* Sub_4801B0(WindowInstance* const window)
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     SetCraftWorkingAction(window);
-    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
     const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
@@ -31689,7 +31689,7 @@ WindowAnimationData* Sub_480C20(WindowInstance* const window)
     window->elements[26].visible = 0;
     window->elements[27].visible = 0;
     SetCraftWorkingAction(window, false);
-    const auto duration = static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 6 + 5) * 1000u;
+    const auto duration = static_cast<std::uint32_t>(platform::Rand16() % 6 + 5) * 1000u;
     WindowAnimationData* const result = FinishCraftWait(window, duration);
     gSelectionModeD2D650 = 10;
     return result;

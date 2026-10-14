@@ -200,7 +200,7 @@ int MainLoop()
             const std::uint64_t systemTime = ReadSystemSeconds_4589D0();
             gLastSystemTime.low = static_cast<std::uint32_t>(systemTime);
             gLastSystemTime.high = static_cast<std::uint32_t>(systemTime >> 32);
-            seconds = NextRandom_53B4C9() % 200 + 1100;
+            seconds = Rand16() % 200 + 1100;
             gPeriodicReportSeconds = static_cast<std::uint32_t>(seconds);
         } else {
             bool resetSystemTime = false;
@@ -228,7 +228,7 @@ int MainLoop()
             continue;
         }
         Report_512CA0(gConnectionSocket, 101);
-        const std::int32_t remainder = NextRandom_53B4C9() % 200;
+        const std::int32_t remainder = Rand16() % 200;
         gPeriodicReportSeconds += static_cast<std::uint32_t>(remainder);
     }
 }

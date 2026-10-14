@@ -122,7 +122,7 @@ std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
     const std::int32_t divisor =
         std::bit_cast<std::int32_t>(divisorBits);
     const std::int32_t remainder =
-        static_cast<std::int32_t>(NextRandom_53B4C9()) % divisor;
+        static_cast<std::int32_t>(Rand16()) % divisor;
     return std::bit_cast<std::uint32_t>(remainder) + lowerBits;
 }
 
@@ -651,7 +651,7 @@ std::int32_t CheckWindows_4048E0()
     const std::uint32_t tick = ReadTickCount32();
     static_cast<void>(SeedRandom_53B4BF(tick));
     const std::int32_t randomizedCounter =
-        static_cast<std::int32_t>(NextRandom_53B4C9()) % 300;
+        static_cast<std::int32_t>(Rand16()) % 300;
     gValue593FD0 = std::bit_cast<std::uint32_t>(randomizedCounter);
     static_cast<void>(EnumWindows(CheckWindowsCallback_404940, 0));
 
@@ -700,7 +700,7 @@ std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 }
 
 // 原函数：0x0053B4C9。
-int NextRandom_53B4C9()
+int Rand16()
 {
     const std::uint32_t seed = SharedRandomEngine()();
     // 原 sar 后的 0x7FFF 掩码只保留原位 16..30，无符号移位得到相同结果。
@@ -714,7 +714,7 @@ std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
         return 0;
     }
 
-    const std::int32_t random = NextRandom_53B4C9();
+    const std::int32_t random = Rand16();
     const std::int32_t divisor = upper - lower + 1;
     return random % divisor + lower;
 }

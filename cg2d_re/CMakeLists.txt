@@ -6,12 +6,6 @@ if(NOT WIN32 OR NOT CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     message(FATAL_ERROR "cg2d_re 仅支持 Windows/MSVC/x64 配置。")
 endif()
 
-# 指针大小不足以排除 ARM64，必须同时确认编译器目标架构。
-if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8
-    OR NOT CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
-    message(FATAL_ERROR "cg2d_re 要求 8 字节指针且编译器目标架构为 x64。")
-endif()
-
 enable_language(RC)
 
 set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"

@@ -1139,7 +1139,7 @@ std::uint32_t CopyWorldProjectionState_468FF0()
 // 原 [46FB20,46FB45)：仅消费一次共享 RAND，生产表时不重置消费游标。
 std::int32_t InitializeRotationTable_46FB20()
 {
-    std::int32_t index = platform::NextRandom_53B4C9() % 100;
+    std::int32_t index = platform::Rand16() % 100;
     for (std::int32_t value = 0; value < 100; ++value) {
         gRotationTableC8A7B0[static_cast<std::size_t>(index)] = value;
         ++index;
@@ -1666,11 +1666,11 @@ MapEffectRecord* CreateMapEffectKind1AtZero()
         return nullptr;
     }
     WriteMapEffectHalf(*record, 0x3C, 1);
-    const std::int32_t randomX = platform::NextRandom_53B4C9();
+    const std::int32_t randomX = platform::Rand16();
     WriteMapEffectWord(*record, 4, 0);
     WriteMapEffectWord(
         *record, 0, static_cast<std::uint32_t>(randomX % 840 - 200));
-    const std::int32_t randomSpeed = platform::NextRandom_53B4C9();
+    const std::int32_t randomSpeed = platform::Rand16();
     WriteMapEffectWord(*record, 0x0C, 9);
     WriteMapEffectWord(
         *record, 8, static_cast<std::uint32_t>(randomSpeed % 2 + 2));
@@ -1698,26 +1698,26 @@ MapEffectRecord* CreateMapEffectKind2AtZero()
         return nullptr;
     }
     WriteMapEffectHalf(*record, 0x3C, 2);
-    const std::int32_t randomX = platform::NextRandom_53B4C9();
+    const std::int32_t randomX = platform::Rand16();
     WriteMapEffectWord(*record, 4, 0);
     WriteMapEffectWord(
         *record, 0, static_cast<std::uint32_t>(randomX % 940 - 200));
     WriteMapEffectHalf(
         *record, 0x40,
-        static_cast<std::uint16_t>(platform::NextRandom_53B4C9() % 2));
-    const std::int32_t direction = platform::NextRandom_53B4C9() % 2;
+        static_cast<std::uint16_t>(platform::Rand16() % 2));
+    const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0) {
         WriteMapEffectWord(
             *record, 8,
-            static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 2));
+            static_cast<std::uint32_t>(platform::Rand16() % 2));
         WriteMapEffectWord(
             *record, 0x0C,
-            static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 2 + 3));
+            static_cast<std::uint32_t>(platform::Rand16() % 2 + 3));
     } else if (direction == 1) {
         WriteMapEffectWord(*record, 8, 1);
         WriteMapEffectWord(
             *record, 0x0C,
-            static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 2 + 4));
+            static_cast<std::uint32_t>(platform::Rand16() % 2 + 4));
     }
     return record;
 }
@@ -1742,15 +1742,15 @@ void CreateMapEffectKind4()
         return;
     }
     WriteMapEffectHalf(*record, 0x3C, 4);
-    const std::int32_t randomX = platform::NextRandom_53B4C9();
+    const std::int32_t randomX = platform::Rand16();
     WriteMapEffectWord(*record, 4, 0);
     WriteMapEffectWord(
         *record, 0, static_cast<std::uint32_t>(randomX % 1240 - 100));
     WriteMapEffectHalf(
         *record, 0x40,
-        static_cast<std::uint16_t>(platform::NextRandom_53B4C9() % 4));
+        static_cast<std::uint16_t>(platform::Rand16() % 4));
     WriteMapEffectWord(*record, 0x30, 4);
-    const std::int32_t direction = platform::NextRandom_53B4C9() % 2;
+    const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0 || direction == 1) {
         WriteMapEffectWord(*record, 8, 0xFFFFFFFFu);
         WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(direction + 2));
@@ -2080,7 +2080,7 @@ void Sub_46ED50()
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
         if (ReadMapEffectHalf(*record, 0x3C) == 4) {
-            const std::int32_t randomX = platform::NextRandom_53B4C9() % 3;
+            const std::int32_t randomX = platform::Rand16() % 3;
             const std::int32_t oldX =
                 std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
             const std::int32_t velocityX =
@@ -2089,7 +2089,7 @@ void Sub_46ED50()
                 *record, 0,
                 std::bit_cast<std::uint32_t>(oldX + velocityX + (randomX - 1)));
 
-            const std::int32_t randomY = platform::NextRandom_53B4C9() % 3;
+            const std::int32_t randomY = platform::Rand16() % 3;
             const std::int32_t velocityY =
                 std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
             const std::int32_t oldY =
@@ -2101,12 +2101,12 @@ void Sub_46ED50()
             if (std::bit_cast<std::int32_t>(remaining) <= 0) {
                 WriteMapEffectHalf(
                     *record, 0x3E,
-                    static_cast<std::uint16_t>(platform::NextRandom_53B4C9() % 3));
+                    static_cast<std::uint16_t>(platform::Rand16() % 3));
                 WriteMapEffectWord(
                     *record, 0x28,
-                    static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 8 + 1));
+                    static_cast<std::uint32_t>(platform::Rand16() % 8 + 1));
                 const std::uint32_t nextVelocityY =
-                    static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 8 + 1);
+                    static_cast<std::uint32_t>(platform::Rand16() % 8 + 1);
                 WriteMapEffectWord(*record, 0x30, 4);
                 WriteMapEffectWord(*record, 0x2C, nextVelocityY);
             } else {
@@ -2339,13 +2339,13 @@ void Sub_46F1D0()
         if (divisor == 0) {
             divisor = 1;
         }
-        if (platform::NextRandom_53B4C9() % divisor != 0) {
+        if (platform::Rand16() % divisor != 0) {
             return;
         }
-        const std::int32_t graphicIndex = platform::NextRandom_53B4C9() % 3;
+        const std::int32_t graphicIndex = platform::Rand16() % 3;
         const std::int32_t recordSpeed =
-            platform::NextRandom_53B4C9() % 1000 + minimumSpeed;
-        const std::int32_t phase = platform::NextRandom_53B4C9();
+            platform::Rand16() % 1000 + minimumSpeed;
+        const std::int32_t phase = platform::Rand16();
         Sub_46F090(kind, motion.horizontalSign, motion.verticalSign,
             phase, recordSpeed, graphicIndex);
     };

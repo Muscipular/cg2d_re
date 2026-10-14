@@ -13004,13 +13004,12 @@
         "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
         "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
         "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
       ],
       "blockers": [
-        "SCP01完整本体已落位；独立模式真实生产、低两位零的未写第二命令与旧外层路由仍未证，不评原栈等价",
-        "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合",
-        "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
-        "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
+        "C9A94C真实生产与旧外层路由仍待证；低两位零的第二按钮已按用户选择取消，不再模拟未写命令。",
+        "成员枚举、完整父／间接路由／生命周期及运行门禁未闭合。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -13029,6 +13028,16 @@
         "build_verified": false,
         "runtime_verified": false,
         "shared_text_provider_migrated": true
+      },
+      "historical_blockers_before_bwt02": [
+        "SCP01完整本体已落位；独立模式真实生产、低两位零的未写第二命令与旧外层路由仍未证，不评原栈等价",
+        "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合",
+        "BVV01修复旧62商店选择4D8DA0对opaque YobiAction::flags的直接访问及D67C68重复读取；原4D8EA1/A6/A8/AA四指令13B一次持样/判空/清W32 bit1，经现有SetYobiActionFlag2(previewAction,false)承接，无额外action判空或新接口。一个CPP一个片段，其它完整父体、预览生产叶、Yobi helper/头、模式/命令/格式/原字节及原格式明文保持。复用SCP01完整321条1080B根与原表/八字节合同，不重新取全根或外推真实外路由；已有1226/Fmixed及pending6/18保持，UI-L-062两个成员不重计，只两限定I/S。模式真实生产、低两位零的第二命令及旧路由/完整画面运行仍按原事实和验收处理，不填值或模拟原栈，未宣编译/链接/运行或故障等价通过；音频暂停/RPLAN.24及完整门禁保。",
+        "BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
+      ],
+      "shop_command_direct_read_bwt02": {
+        "decision_ref": "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015",
+        "observation": "BWT02按用户确认，mode低两位零只显示／点击／悬停取消项；其余保持完整mode==3三项、否则两项。已赋值commands[row]直接交std::sprintf，删除唯一W32读取包装及专用intrinsic依赖，原0x004D8F5B注释移至实际读取。"
       }
     },
     {
@@ -74476,6 +74485,33 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-BWT02-UI-L-062-S-20261015",
+      "feature_id": "UI-L-062",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+      "implementation_reference": "src/LegacyUiRecord.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015",
+        "src/LegacyUiRecord.cpp",
+        "src/LegacyPanelRuntime.hpp",
+        "src/platform/LegacyFormat.cpp",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "observation": "BWT02按用户确认，mode低两位零只显示／点击／悬停取消项；其余保持完整mode==3三项、否则两项。已赋值commands[row]直接交std::sprintf，删除唯一W32读取包装及专用intrinsic依赖，原0x004D8F5B注释移至实际读取。",
+      "expected": "只消费已生成命令；普通模式的分支／发送／关闭顺序保持，原地址注释可追踪。",
+      "actual": "直接读值、局部SHOP_BUY／SHOP_SELL标志及单项取消分支完成静态核对；包装调用／声明／实现引用清零，230处定位逐条比对通过。其它函数正文、模式单次读取、原身份／状态／门禁保持；未编译或运行。",
+      "differences": [
+        {
+          "description": "低两位零仅显示取消并使用其悬停提示，停止复现未写第二命令的栈内容。",
+          "decision_ref": "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [
@@ -77898,7 +77934,8 @@
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
       ]
     },
     {
@@ -78287,7 +78324,8 @@
         "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
       ]
     },
     {
@@ -79147,7 +79185,8 @@
         "doc/cg2d_msvc_crt_numeric_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-exit-source-state-20261010",
-        "doc/cg2d_msvc_crt_exit_evidence.json"
+        "doc/cg2d_msvc_crt_exit_evidence.json",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
       ]
     },
     {
@@ -79155,7 +79194,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state"
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015"
       ]
     },
     {

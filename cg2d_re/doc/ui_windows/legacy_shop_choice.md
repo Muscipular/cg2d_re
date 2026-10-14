@@ -79,3 +79,7 @@ SCP01是历史本体落位记录，本次只纠正当前预览字段访问与重
 [合同](../cg2d_shop_command_read_spec.md#shop-command-read-decision)、[原完整父/当前命令窗口和源前后态](../cg2d_shop_command_read_evidence.json)。原4D8F5B读取的一个W32现在由实际ASM叶承载，CPP仅传&commands[row]，实际S32返回再给原%d；不再由CPP直接求值未生产命令整数。
 
 三个原S32槽/低位写1-2/末3与mode==3三行否则两行、原命中/提示/预览和转义明文发送均保持，不补值、删行、加保护或模拟原栈。C9A94C实际生产/未写第二命令原值和旧外层仍须原证；P07及完整页验收保持open。
+
+## BWT02：直接命令读取（2026-10-15）
+
+按用户最新确认及[专项SPEC](../cg2d_shop_command_read_spec.md#shop-command-direct-read-20261015)，低两位零时仅显示已生成的取消项，点击／绘制／悬停共用有效项范围；其它模式保原判断。读取改为commands[row]，删除Cg2dReadLegacyShopCommandW32，原0x004D8F5B注释保留。此前不删第二按钮及保留原生读取包装的约束由本节覆盖；模式生产／旧路由和完整运行验收仍未闭合。

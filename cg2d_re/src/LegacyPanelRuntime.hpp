@@ -66,7 +66,7 @@ extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 原全局：0x00D45F74�
 extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 原全局：0x00C8AF70。 旧58发布相对行，旧59/60/61共用。
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 原全局：0x00D2E818。 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 原全局：0x00C8A94C。 旧59发送后发布的候选下标，旧60/61消费。
-extern std::int32_t gLegacyShopChoiceModeC9A94C; // 原全局：0x00C9A94C。 旧62独立S32模式，生产/未写第二命令仍待事实。
+extern std::int32_t gLegacyShopChoiceModeC9A94C; // 原全局：0x00C9A94C。 旧62独立S32模式，运行时生产仍待事实；低两位零仅显示取消。
 
 // 名单容量/定义/生产仍待；总数/页数已有真实PE填零初值存储，不推运行时生产。
 extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[]; // 原全局：0x00CB1D1C。

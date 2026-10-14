@@ -3439,7 +3439,7 @@ try {
         {x + 137, y + 190, x + 112, y + 190, 136, 18, kLegacyShopSellInitial588DC4},
         {x + 137, y + 216, x + 112, y + 216, 136, 18, kLegacyShopStopInitial588DB8},
     }};
-    // 原三个W32只按低位分支/取消写入；低两位全零的第二命令未写，不能补默认值。
+    // 原三个W32按低位分支/取消写入；点击和提示仅消费本次已生成的命令。
     std::array<std::int32_t, 3> commands;
     char buffer[48];
     char escaped[16];
@@ -3465,15 +3465,21 @@ try {
         static_cast<void>(audio::Sub_5042D0(gLegacyShopChoicePanel5822D8.id));
     }
 
+    // 原0x00C9A94C：模式低两位分别表示买／卖。
+    enum ShopModeFlag : std::int32_t {
+        SHOP_BUY = 1 << 0,
+        SHOP_SELL = 1 << 1,
+    };
     const std::int32_t mode = gLegacyShopChoiceModeC9A94C;
-    const std::int32_t count = mode == 3 ? 3 : 2;
+    const std::int32_t count = (mode & (SHOP_BUY | SHOP_SELL)) == 0
+        ? 1 : (mode == (SHOP_BUY | SHOP_SELL) ? 3 : 2);
     std::int32_t next = 0;
-    if ((mode & 1) != 0) {
+    if ((mode & SHOP_BUY) != 0) {
         options[0].text = kLegacyShopBuy588DAC;
         commands[0] = 1;
         next = 1;
     }
-    if ((mode & 2) != 0) {
+    if ((mode & SHOP_SELL) != 0) {
         commands[next] = 2;
         options[next].text = kLegacyShopSell588DA0;
         ++next;
@@ -3483,8 +3489,8 @@ try {
     for (std::int32_t row = 0; row < count; ++row) {
         if ((character_select::detail::Sub_503990(&options[row]) & 1) != 0) {
             if (row <= 1) {
-                std::sprintf(buffer, "%d",
-                    platform::Cg2dReadLegacyShopCommandW32(&commands[row]));
+                // 原0x004D8F5B：读取本次已生成的S32命令并格式化。
+                std::sprintf(buffer, "%d", commands[row]);
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -3524,6 +3530,12 @@ try {
         } else if ((character_select::detail::Sub_503990(&options[1]) & 0x40) != 0) {
             hint = kLegacyShopSellHint588D70;
         } else if ((character_select::detail::Sub_503990(&options[2]) & 0x40) != 0) {
+            hint = kLegacyTradeCancel5889AC;
+        }
+    } else if (count == 1) {
+        if (Sub_503590(&gLegacyShopChoicePanel5822D8) != 0) {
+            hint = kLegacyLogout553FD0;
+        } else if ((character_select::detail::Sub_503990(&options[0]) & 0x40) != 0) {
             hint = kLegacyTradeCancel5889AC;
         }
     } else {

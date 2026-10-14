@@ -7,10 +7,6 @@
 url = "http://127.0.0.1:13337/mcp"
 enabled = true
 
-[mcp_servers.codebase-memory-mcp]
-command = "C:/Users/Muscipular/.local/bin/codebase-memory-mcp.exe"
-enabled = true
-
 # --- Example: STDIO transport ---
 # [mcp_servers.docs]
 # enabled = true                       # optional; default true

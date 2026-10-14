@@ -145,13 +145,12 @@ std::int32_t ProcessCharacterSlot_461B30(
             0,
             9,
             color,
-            cg::text::FromGbk(name).c_str(),
+            cg::text::FromGbkWide(name).c_str(),
             0,
             0);
 
-        char buffer[256];
-        std::sprintf(
-            buffer, "%4d", ReadRecordInt16(record, kValue12Offset));
+        std::wstring buffer;
+        cg::text::FormatTo(buffer, L"{:4}", ReadRecordInt16(record, kValue12Offset));
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
@@ -165,7 +164,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         if (value14 >= 10000) {
             value14 = 9999;
         }
-        std::sprintf(buffer, "%4d", value14);
+        cg::text::FormatTo(buffer, L"{:4}", value14);
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[2].x),
             static_cast<std::int16_t>(coordinates[2].y),
@@ -177,7 +176,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         const char* const text54 =
             reinterpret_cast<const char*>(record.data() + kText54Offset);
-        std::sprintf(buffer, "%s", cg::text::FromGbk(text54).c_str());
+        cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text54).c_str());
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),

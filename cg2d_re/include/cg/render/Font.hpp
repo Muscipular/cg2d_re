@@ -46,8 +46,6 @@ public:
         std::int32_t fontType,
         std::int32_t maxBytes);
 
-    // UTF-8完整字符分行，像素预算沿同一字体；返回拥有的正文副本。
-    [[nodiscard]] static std::vector<std::string> split(std::string_view text, std::int32_t fontType, std::int32_t width);
 };
 
 static_assert(sizeof(FontMetrics) == 0x14);

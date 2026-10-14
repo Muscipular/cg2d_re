@@ -6112,8 +6112,8 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             }
         }
         if (text != nullptr) {
-            char buffer[256];
-            std::sprintf(buffer, "%s", cg::text::FromGbk(text).c_str());
+            std::wstring buffer;
+            cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text).c_str());
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
@@ -33541,12 +33541,12 @@ void Sub_43CA80()
         const YobiAction* const action = gBattleEntries59E980[index];
         const char* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 1);
         const std::int32_t x = gBattleEntries59E980[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-            0, 1, color, cg::text::FromGbk(name).c_str(), 0));
+            0, 1, color, cg::text::FromGbkWide(name).c_str(), 0));
     }
 }
 
@@ -34964,7 +34964,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::text::FormatTo(gHoverTextD68AE8, kTitle58AD44, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
             const char* const title = graphic->reference.action->text144.data();
             if (std::strlen(title) != 0) {
-                gHoverTitleD68BF4 = cg::text::ToUtf16(std::format("{:<16}", cg::text::FromGbk(title)));
+                gHoverTitleD68BF4 = std::format(L"{:<16}", cg::text::FromGbkWide(title));
                 gHoverTitleValueD69748 = 4;
             }
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;

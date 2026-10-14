@@ -892,9 +892,9 @@ using WindowDialogFrameCallback = std::int32_t (*)(
 using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
 // 原函数：0x0049FCA0。
 login::YobiAction* Sub_49FCA0(
-    const char* title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
-    const char* const* choices, std::uint8_t choiceCount,
-    const char* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
+    std::wstring_view title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
+    const wchar_t* const* choices, std::uint8_t choiceCount,
+    const wchar_t* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
 // 原函数：0x0049FFA0。
 std::int32_t Sub_49FFA0(std::int32_t unusedIndex, std::int32_t state);
 // 原函数：0x004A00C0。

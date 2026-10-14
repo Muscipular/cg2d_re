@@ -1979,7 +1979,7 @@ try {
             static_cast<void>(DrawText(
                 static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 10)),
                 static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 40 + 20 * row)),
-                2, 0, 0, cg::text::FromGbk(gLegacyLogStorage593A00.rows.data() + 65 * row).c_str(), 0, 0));
+                2, 0, 0, cg::text::FromGbkWide(gLegacyLogStorage593A00.rows.data() + 65 * row).c_str(), 0, 0));
         }
         std::sprintf(buffer, "%3d / %3d",
             gLegacyLogPage553508, gLegacyLogPageCount553504);
@@ -2908,9 +2908,9 @@ try {
     }
     const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
     const std::int32_t previousState = character_select::detail::Sub_503990(&previous);
-    char buffer[384];
+    std::wstring buffer;
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
-        buffer[0] = '\0';
+        buffer.clear();
         std::strcpy(ui::detail::gSkillTargetNameD2F748.data(), rows.names[hovered].data());
         cg::NullSub_509080(); // 原只ret，传入的缓冲指针不被消费。
         const std::int32_t target = rows.targets[hovered];
@@ -2918,7 +2918,7 @@ try {
         const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
         const auto socket = platform::gConnectionSocket;
         const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-        static_cast<void>(network::Sub_511EF0(socket, skill, level, target, cg::text::FromGbkWide(buffer)));
+        static_cast<void>(network::Sub_511EF0(socket, skill, level, target, buffer));
         static_cast<void>(audio::Sub_5042D0(gLegacySkillStatusPanel583C90.id));
         static_cast<void>(audio::PlaySe_52C450(78, 320));
         gLegacySkillPendingD67C48 = 1;
@@ -2943,9 +2943,9 @@ try {
     drawAt(kLegacySkillStatusPrompt589B58, 172, 24, 4);
     drawAt(kLegacySkillStatusHeader589B2C, 44, 50, 0);
     for (std::int32_t index = 0; index < *rows.count; ++index) {
-        std::sprintf(buffer, "%3d", rows.levels[index]);
+        cg::text::FormatTo(buffer, L"{:3}", rows.levels[index]);
         drawAt(buffer, 107, 76 + 20 * index, 0);
-        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(rows.names[index].data())));
+        buffer = std::format(L"{:<16}", cg::text::FromGbkWide(rows.names[index].data()));
         const std::int8_t color = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(colors[rows.kinds[index]]));
         drawAt(buffer, 143, 76 + 20 * index, color);
@@ -2953,7 +2953,7 @@ try {
         const std::int32_t fp = rows.fp[index];
         const std::int32_t maxHp = rows.maxHp[index];
         const std::int32_t hp = rows.hp[index];
-        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4} {:4}/{:4}", hp, maxHp, fp, maxFp);
         drawAt(buffer, 296, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(rows.injuries[index]);
         const std::int32_t imageY = gLegacySkillStatusPanel583C90.y + 20 * index + 84;
@@ -3853,7 +3853,7 @@ try {
             const std::int32_t nameX = gLegacyBuyConfirmPanel582468.x + dx + 24;
             const std::int32_t nameY = gLegacyBuyConfirmPanel582468.y + dy + 34;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(item + 1).c_str(), 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(item + 1).c_str(), 0, 0));
             cg::text::FormatTo(buffer, L"x{:2}", ReadRecordW32(item, 0xC28));
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
@@ -4750,7 +4750,7 @@ try {
             const std::int32_t nameY = gLegacyRepairConfirmPanel582850.y + dy + 34;
             const std::int32_t nameX = gLegacyRepairConfirmPanel582850.x + dx + 24;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
             ++shown;
         }
     }
@@ -5141,7 +5141,7 @@ try {
             const std::int32_t nameY = gLegacyIdentifyConfirmPanel5829E0.y + dy + 34;
             const std::int32_t nameX = gLegacyIdentifyConfirmPanel5829E0.x + dx + 24;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
             ++shown;
         }
     }
@@ -5645,9 +5645,9 @@ void Sub_4D4960(const std::int32_t x, const std::int32_t y,
     if (item.used == 0) {
         return;
     }
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(item.name.data()).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(item.name.data()).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(item.name.data()).c_str(), 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbkWide(item.name.data()).c_str(), 0, 0));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item.descriptions[8 * page + row].data();
         if (std::strlen(line) != 0) {
@@ -5726,7 +5726,7 @@ try {
         if (item.used != 0 && item.selected != 0) {
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
-            drawAt(cg::text::FromGbk(item.name.data()).c_str(), dx + 24, dy + 34);
+            drawAt(cg::text::FromGbkWide(item.name.data()).c_str(), dx + 24, dy + 34);
             cg::text::FormatTo(buffer, L"x{:2}", item.selected);
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
@@ -6165,9 +6165,9 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
 std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
     const char* const name = ui::detail::gShopDetailCC3210.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     const char* const description = ui::detail::gShopDetailCC3210.data() + 0x1D + 768 * page;
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = description + 96 * row;
@@ -6417,11 +6417,11 @@ try {
         DrawGraphicHover(Low16(left + tabs[hovered][0]), Low16(top + tabs[hovered][1]),
             Low16(left + tabs[hovered][2]), Low16(top + tabs[hovered][3]), 214, color, 0);
     }
-    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
     const std::int32_t nameY = gLegacyStoragePanel582B70.y + 9;
     const std::int32_t nameX = gLegacyStoragePanel582B70.x - nameWidth / 2 + 431;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX), static_cast<std::int16_t>(nameY),
-        2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
+        2, 0, 0, cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
     const auto drawCount = [&buffer](const std::int32_t value, const std::wstring_view format,
         const std::int32_t offsetX, const std::uint8_t color) {
         cg::text::FormatTo(buffer, format, value);
@@ -6740,11 +6740,11 @@ void Sub_4E19E0(const std::int32_t side)
                     Low16(y + 16), 213, 251, 0);
             }
             const char* const name = record + 0x142;
-            const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
             const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
             const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0] - width / 2 + 72;
             static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
         }
         if (ReadLegacyStorageW16(record, 2) < 0) {
             const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet + 8;
@@ -6824,15 +6824,15 @@ std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
         const char* const text = record + 0x48 + 25 * skill;
         if (std::strlen(text) != 0) {
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 75),
-                static_cast<std::int16_t>(y + 22 * row + 29), 4, 0, 0, cg::text::FromGbk(text).c_str(), 0, 0));
+                static_cast<std::int16_t>(y + 22 * row + 29), 4, 0, 0, cg::text::FromGbkWide(text).c_str(), 0, 0));
             static_cast<void>(DrawGraphic(x + 137, y + 22 * row + 38, 223, 23281, 0, nullptr));
             ++row;
         }
     }
     const char* const name = record + 0x142;
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 240),
         static_cast<std::int16_t>(y + 9), 4, 1, 0, "2/2", 0, 0));
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
@@ -7544,15 +7544,15 @@ try {
     const std::int32_t headerX = gLegacyItemUseStatusPanel582C78.x + 44;
     static_cast<void>(DrawText(static_cast<std::int16_t>(headerX),
         static_cast<std::int16_t>(headerY), 2, 0, 0, kLegacyItemUseHeader58932C, 0, 0));
-    char buffer[384];
+    std::wstring buffer;
     for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
         const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
-        std::sprintf(buffer, "%3d", record.level);
+        cg::text::FormatTo(buffer, L"{:3}", record.level);
         const std::int32_t levelY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelX),
             static_cast<std::int16_t>(levelY), 2, 0, 0, buffer, 0, 0));
-        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(record.name.data())));
+        buffer = std::format(L"{:<16}", cg::text::FromGbkWide(record.name.data()));
         const std::uint8_t color = static_cast<std::uint8_t>(colors[record.kind]);
         const std::int32_t nameY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t nameX = gLegacyItemUseStatusPanel582C78.x + 143;
@@ -7562,7 +7562,7 @@ try {
         const std::int32_t fp = record.fp;
         const std::int32_t maxHp = record.maxHp;
         const std::int32_t hp = record.hp;
-        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4} {:4}/{:4}", hp, maxHp, fp, maxFp);
         const std::int32_t valuesY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t valuesX = gLegacyItemUseStatusPanel582C78.x + 296;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valuesX),
@@ -7799,16 +7799,16 @@ try {
     if (localHovered >= 0) {
         drawTab(localTabs[localHovered]);
     }
-    const std::int32_t remoteWidth = TextMeasure(cg::text::FromGbk(ui::detail::gTradeNameD2D654.data()).c_str(), 0);
+    const std::int32_t remoteWidth = TextMeasure(cg::text::FromGbkWide(ui::detail::gTradeNameD2D654.data()).c_str(), 0);
     const std::int32_t remoteY = gLegacyTradePanel582F00.y + 9;
     const std::int32_t remoteX = gLegacyTradePanel582F00.x - remoteWidth / 2 + 131;
     static_cast<void>(DrawText(static_cast<std::int16_t>(remoteX), static_cast<std::int16_t>(remoteY),
-        2, 0, 0, cg::text::FromGbk(ui::detail::gTradeNameD2D654.data()).c_str(), 0, 0));
-    const std::int32_t localWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
+        2, 0, 0, cg::text::FromGbkWide(ui::detail::gTradeNameD2D654.data()).c_str(), 0, 0));
+    const std::int32_t localWidth = TextMeasure(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
     const std::int32_t localY = gLegacyTradePanel582F00.y + 9;
     const std::int32_t localX = gLegacyTradePanel582F00.x - localWidth / 2 + 431;
     static_cast<void>(DrawText(static_cast<std::int16_t>(localX), static_cast<std::int16_t>(localY),
-        2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
+        2, 0, 0, cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
     char buffer[384];
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX) {
@@ -8015,11 +8015,11 @@ void Sub_4E71A0(const std::int32_t side)
                     Low16(y + 16), 213, 251, 0);
             }
             const char* const name = record + 0x5D8;
-            const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
             const std::int32_t y = gLegacyTradePanel582F00.y + origin[1] + 22 * pet;
             const std::int32_t x = gLegacyTradePanel582F00.x + origin[0] - width / 2 + 72;
             static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
         }
     }
 }
@@ -8117,14 +8117,14 @@ std::int32_t Sub_4E7740(const std::int32_t x, const std::int32_t y,
         const char* const entry = record + 0x60 + skill * 0x8C;
         if (ReadLegacyTradeW16(entry, 0) != 0) {
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 75),
-                static_cast<std::int16_t>(y + 22 * skill + 29), 4, 0, 0, cg::text::FromGbk(entry + 6).c_str(), 0, 0));
+                static_cast<std::int16_t>(y + 22 * skill + 29), 4, 0, 0, cg::text::FromGbkWide(entry + 6).c_str(), 0, 0));
         }
         static_cast<void>(DrawGraphic(x + 137, y + 22 * skill + 38, 223, 23281, 0, nullptr));
     }
     const char* const name = record + 0x5D8;
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 240),
         static_cast<std::int16_t>(y + 9), 4, 1, 0, "2/2", 0, 0));
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
@@ -9096,13 +9096,13 @@ try {
     const std::int32_t contactX = gLegacyMailComposePanel583230.x + 52;
     static_cast<void>(DrawGraphic(contactX, contactY, 212, contactImage, 0, &descriptor));
     const std::int32_t measureContact = gLegacyMailContactCC4228;
-    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measureContact].name10.data()).c_str(), 0);
+    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbkWide(world::detail::gContactsF19FB0[measureContact].name10.data()).c_str(), 0);
     const std::int32_t textContact = gLegacyMailContactCC4228;
     const char* const contactName = world::detail::gContactsF19FB0[textContact].name10.data();
     const std::int32_t contactNameY = gLegacyMailComposePanel583230.y + 62;
     const std::int32_t contactNameX = gLegacyMailComposePanel583230.x - contactWidth / 2 + 176;
     static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
-        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
+        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbkWide(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyMailComposePanel583230.y + 120;
@@ -9524,9 +9524,9 @@ try {
     };
     drawAt(kLegacyMailDeleteLead589714, 84, 38);
     const std::int32_t measureIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measureIndex].name10.data()).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(world::detail::gContactsF19FB0[measureIndex].name10.data()).c_str(), 0);
     const std::int32_t textIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
-    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[textIndex].name10.data()).c_str(), 160 - width / 2, 86);
+    drawAt(cg::text::FromGbkWide(world::detail::gContactsF19FB0[textIndex].name10.data()).c_str(), 160 - width / 2, 86);
     drawAt(kLegacyMailDeleteEnd589708, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
     Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
@@ -9811,13 +9811,13 @@ try {
         }
         const std::int8_t color = gLegacyMailSelectedFlagsCB0AA8[contact] != 0
             ? 1 : (record->value02 != 0 ? 0 : 7);
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(record->name10.data()).c_str(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(record->name10.data()).c_str(), 0);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
         const char* const name = world::detail::gContactsF19FB0[nameContact].name10.data();
         const std::int32_t top = gLegacyMailNormalPanel583488.y + 40 + 27 * row;
         const std::int32_t left = gLegacyMailNormalPanel583488.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
-            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
+            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
     }
     char pageText[128];
     std::sprintf(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
@@ -10115,13 +10115,13 @@ try {
     const std::int32_t contactX = gLegacyGuildComposePanel58EA18.x + 52;
     static_cast<void>(DrawGraphic(contactX, contactY, 212, contactImage, 0, &descriptor));
     const std::int32_t measureContact = gLegacyGuildMailTarget1050DCC;
-    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbk(gOrderedRecords1051B14[measureContact].text18).c_str(), 0);
+    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbkWide(gOrderedRecords1051B14[measureContact].text18).c_str(), 0);
     const std::int32_t textContact = gLegacyGuildMailTarget1050DCC;
     const char* const contactName = gOrderedRecords1051B14[textContact].text18;
     const std::int32_t contactNameY = gLegacyGuildComposePanel58EA18.y + 62;
     const std::int32_t contactNameX = gLegacyGuildComposePanel58EA18.x - contactWidth / 2 + 176;
     static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
-        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
+        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbkWide(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyGuildComposePanel58EA18.y + 120;
@@ -10514,13 +10514,13 @@ try {
         }
         const std::int8_t color = gLegacyGuildSelectedFlags1050CDC[contact] != 0
             ? 1 : (record->value0A != 0 ? 0 : 7);
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(record->text18).c_str(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(record->text18).c_str(), 0);
         const std::int32_t nameContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         const char* const name = gOrderedRecords1051B14[nameContact].text18;
         const std::int32_t top = gLegacyGuildNormalPanel58EC70.y + 40 + 27 * row;
         const std::int32_t left = gLegacyGuildNormalPanel58EC70.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
-            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
+            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
     }
     char pageText[128];
     std::sprintf(pageText, "%2d/%2d", gLegacyGuildComposePage1051330 + 1, 50);
@@ -10642,9 +10642,9 @@ try {
     };
     drawAt(kLegacyGuildDeleteLead58F3B8, 84, 38);
     const std::int32_t measureTarget = gLegacyGuildDeleteTarget105132C;
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(gOrderedRecords1051B14[measureTarget].text18).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(gOrderedRecords1051B14[measureTarget].text18).c_str(), 0);
     const std::int32_t textTarget = gLegacyGuildDeleteTarget105132C;
-    drawAt(cg::text::FromGbk(gOrderedRecords1051B14[textTarget].text18).c_str(), 160 - width / 2, 86);
+    drawAt(cg::text::FromGbkWide(gOrderedRecords1051B14[textTarget].text18).c_str(), 160 - width / 2, 86);
     drawAt(kLegacyGuildDeleteEnd58F3AC, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
     Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
@@ -11427,16 +11427,16 @@ try {
         static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, text, 0, 0));
     };
     const std::int32_t nameTarget = gLegacyGuildRankTarget1057C70;
-    drawAt(cg::text::FromGbk(gOrderedRecords1051B14[nameTarget].text18).c_str(), 30, 8, 0);
+    drawAt(cg::text::FromGbkWide(gOrderedRecords1051B14[nameTarget].text18).c_str(), 30, 8, 0);
     const std::int32_t rankTarget = gLegacyGuildRankTarget1057C70;
     const std::int32_t currentRank = gOrderedRecords1051B14[rankTarget].value00;
     if (currentRank != -1) {
-        drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(currentRank)).c_str(), 8, 58, 0);
+        drawAt(cg::text::FromGbkWide(BorrowGuildRankText1051518(currentRank)).c_str(), 8, 58, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t page = gLegacyGuildRankPage1051334;
         const std::int8_t color = gLegacyGuildRankHighlights1050ED8[row] != 0 ? 1 : 0;
-        drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(row + 8 * page)).c_str(), 41, 133 + 30 * row, color);
+        drawAt(cg::text::FromGbkWide(BorrowGuildRankText1051518(row + 8 * page)).c_str(), 41, 133 + 30 * row, color);
     }
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
@@ -11766,8 +11766,8 @@ try {
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(skillName).c_str(), 0);
-    drawAt(cg::text::FromGbk(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbkWide(skillName).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -11897,8 +11897,8 @@ try {
             static_cast<std::int16_t>(top + offsetY), 2, font, color, text, 0, 0));
     };
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(skillName).c_str(), 0);
-    drawAt(cg::text::FromGbk(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbkWide(skillName).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -11909,8 +11909,8 @@ try {
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
-    const std::int32_t targetWidth = TextMeasure(cg::text::FromGbk(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 0);
-    drawAt(cg::text::FromGbk(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 90 - targetWidth / 2, 91, 0);
+    const std::int32_t targetWidth = TextMeasure(cg::text::FromGbkWide(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 90 - targetWidth / 2, 91, 0);
     drawAt(ui::detail::BorrowLegacySkillSummaryCC18CC(), 10, 114, 0, 4);
     for (std::int32_t row = 0; row < 8; ++row) {
         std::wstring line;
@@ -12178,8 +12178,8 @@ try {
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-    drawAt(cg::text::FromGbk(name).c_str(), 82 - width / 2, 37, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(name).c_str(), 82 - width / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -12295,8 +12295,8 @@ try {
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-    drawAt(cg::text::FromGbk(name).c_str(), 82 - width / 2, 37, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(name).c_str(), 82 - width / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -13431,9 +13431,9 @@ try {
     };
     const std::int32_t measuredRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t width =
-        TextMeasure(cg::text::FromGbk(world::detail::gSkillsF1BAFC[skill].recipes8E8[measuredRecipe].name.data()).c_str(), 0);
+        TextMeasure(cg::text::FromGbkWide(world::detail::gSkillsF1BAFC[skill].recipes8E8[measuredRecipe].name.data()).c_str(), 0);
     const std::int32_t nameRecipe = ui::detail::gRecipeIndex5846BC;
-    drawAt(cg::text::FromGbk(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data()).c_str(), 137 - width / 2, 37, 0);
+    drawAt(cg::text::FromGbkWide(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data()).c_str(), 137 - width / 2, 37, 0);
     const std::int32_t costRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
     const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
@@ -13443,7 +13443,7 @@ try {
     for (std::int32_t material = 4; material >= 0; --material) {
         const auto* const item = &world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material];
         if (item->itemId >= 0) {
-            drawAt(cg::text::FromGbk(item->name.data()).c_str(), 11, 65 + 24 * material, 0);
+            drawAt(cg::text::FromGbkWide(item->name.data()).c_str(), 11, 65 + 24 * material, 0);
             materialRecipe = ui::detail::gRecipeIndex5846BC;
             const std::int32_t count =
                 world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material].count;
@@ -13898,11 +13898,11 @@ try {
         }
     }
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     const std::int32_t nameY = gLegacyGemExecutionPanel58AB28.y + 37;
     const std::int32_t nameX = gLegacyGemExecutionPanel58AB28.x + 137 - width / 2;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     const std::int32_t reduce = world::detail::gSkillsF1BAFC[skill].fpReduce;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].techniques3C[0].value7C;
     std::sprintf(buffer, "%4d", fp * reduce / 100);
@@ -14034,8 +14034,8 @@ try {
             static_cast<std::int16_t>(top + offsetY), 2, font, color, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
-    drawAt(cg::text::FromGbk(name).c_str(), 85 - width / 2, 35, 0, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
+    drawAt(cg::text::FromGbkWide(name).c_str(), 85 - width / 2, 35, 0, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 66, 60, 1, 0);
     // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
@@ -14047,7 +14047,7 @@ try {
         const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
         if (recipe->itemId >= 0) {
             const std::int8_t color = recipe->value0C == 0 ? 7 : 0;
-            drawAt(cg::text::FromGbk(recipe->name.data()).c_str(), 11, 90 + 24 * row, 0, color);
+            drawAt(cg::text::FromGbkWide(recipe->name.data()).c_str(), 11, 90 + 24 * row, 0, color);
             const std::int32_t costRecipe = row + 8 * gLegacyRecipePageD67D0C;
             const std::int32_t multiplierSkill = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
             const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
@@ -14500,10 +14500,10 @@ try {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 36 + 75 * row),
-            2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+            2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
         std::sprintf(buffer, "%3d", pet.value08);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
@@ -14810,11 +14810,11 @@ std::uintptr_t Sub_4F83B0(const std::int32_t opened)
     if (std::strlen(name) == 0) {
         name = pet.name6AC.data();
     }
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     const std::int32_t y = gLegacyPetDetailPanel584918.y + 9;
     const std::int32_t x = gLegacyPetDetailPanel584918.x - width / 2 + 116;
     static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-        static_cast<std::int16_t>(y), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(y), 2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     if (Sub_503590(&gLegacyPetDetailPanel584918) != 0) {
         ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     }
@@ -15367,7 +15367,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
             const std::int32_t nameY = gLegacyBlacklistPanel5531D0.y;
             const std::int32_t nameX = gLegacyBlacklistPanel5531D0.x;
             DrawText(Low16(nameX + 148 * column + 10), Low16(nameY + 15 * row + 115),
-                2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0);
+                2, 1, 0, cg::text::FromGbkWide(name).c_str(), 0, 0);
             ++row;
         }
     }
@@ -15595,7 +15595,7 @@ try {
     const std::int32_t nameY = gLegacyPetRenamePanel5849E0.y + 51;
     const std::int32_t nameX = gLegacyPetRenamePanel5849E0.x + 94;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(pet.name6BD.data()).c_str(), 0, 0));
+        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbkWide(pet.name6BD.data()).c_str(), 0, 0));
     render::DrawInputText_4568A0(gLegacyPetRenameInputD67D1C);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     Sub_5035E0(&cancel, 212, 1, gValueD69768, 0);
@@ -16204,7 +16204,7 @@ try {
         static_cast<void>(DrawText(
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 36)),
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 81 + 24 * row)),
-            2, 0, color, cg::text::FromGbk(technique.name.data()).c_str(), 0, 0));
+            2, 0, color, cg::text::FromGbkWide(technique.name.data()).c_str(), 0, 0));
         const std::int32_t kind = skill.canRebirth;
         if (kind == 1 || kind == 2) {
             static_cast<void>(DrawText(
@@ -16226,10 +16226,10 @@ try {
         static_cast<void>(DrawGraphic(AddW32(x, 136), AddW32(x, 90 + 24 * row), 212, 22761, 0, nullptr));
     }
     const char* const name = skill.name.data();
-    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbkWide(name).c_str(), 0);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 86 - width / 2)),
-        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, cg::text::FromGbkWide(name).c_str(), 0, 0));
     const std::int32_t maxLevel = skill.maxLevel;
     const std::int32_t level = skill.level;
     std::sprintf(buffer, "%2d/%2d", level, maxLevel);
@@ -16351,12 +16351,12 @@ try {
         }
     }
     char buffer[384];
-    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbkWide(world::detail::BorrowPlayerJobName()).c_str(), 0);
     const std::int32_t nameTop = gLegacySkillList585708.y;
     const std::int32_t nameLeft = gLegacySkillList585708.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameLeft - nameWidth / 2 + 147),
         static_cast<std::int16_t>(nameTop + 45), 2, 0, 0,
-        cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 0, 0));
+        cg::text::FromGbkWide(world::detail::BorrowPlayerJobName()).c_str(), 0, 0));
     for (std::int32_t row = 0; row < 15; ++row) {
         const world::detail::SkillPairRecord* const pair = &world::detail::gSkillPairsF63370[row];
         if (pair->used == 0) {
@@ -16369,7 +16369,7 @@ try {
         const std::int32_t skillLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(skillLeft + 30),
             static_cast<std::int16_t>(skillTop + row * 29 + 120), 2, 0, 0,
-            cg::text::FromGbk(skill->name.data()).c_str(), 0, 0));
+            cg::text::FromGbkWide(skill->name.data()).c_str(), 0, 0));
         std::sprintf(buffer, "%2d", skill->level);
         const std::int32_t levelTop = gLegacySkillList585708.y;
         const std::int32_t levelLeft = gLegacySkillList585708.x;
@@ -16456,11 +16456,11 @@ std::uintptr_t Sub_5006F0(const std::int32_t opened)
         selected = gLegacyProfilePanel5857D0.selected;
     }
     if (selected < 2) {
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
         const std::int32_t y = gLegacyProfilePanel5857D0.y;
         const std::int32_t x = gLegacyProfilePanel5857D0.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 116),
-            static_cast<std::int16_t>(y + 9), 2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
+            static_cast<std::int16_t>(y + 9), 2, 0, 0, cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
         selected = gLegacyProfilePanel5857D0.selected;
     }
     if (gLegacyProfilePreviousPage585894 != selected) {
@@ -16536,31 +16536,31 @@ try {
     drawNumber(world::detail::ReadPlayerDuelPoint(), 185, 145, 162, "%9d");
     const std::int32_t title = world::detail::ReadPlayerTitleIndex();
     if (title >= 0) {
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::gTitlesFF0508[title].text.data()).c_str(), 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(world::detail::gTitlesFF0508[title].text.data()).c_str(), 1);
         const std::int32_t titleY = versionY(75, 68);
         const std::int32_t currentTitle = world::detail::ReadPlayerTitleIndex();
-        drawAt(cg::text::FromGbk(world::detail::gTitlesFF0508[currentTitle].text.data()).c_str(), 198 - width / 2, titleY);
+        drawAt(cg::text::FromGbkWide(world::detail::gTitlesFF0508[currentTitle].text.data()).c_str(), 198 - width / 2, titleY);
     }
     const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
     if (std::strlen(ownTitle) != 0) {
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(ownTitle).c_str(), 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(ownTitle).c_str(), 1);
         const std::int32_t titleY = versionY(98, 91);
-        drawAt(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)).c_str(), 198 - width / 2, titleY);
+        drawAt(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2)).c_str(), 198 - width / 2, titleY);
     }
     if (character_select::state::gPukVersion >= 7) {
         const std::int32_t rankIndex = ReadGuildTextIndex10514B0();
         const char* const rank = BorrowGuildRankText1051518(rankIndex);
         if (std::strlen(rank) != 0) {
-            const std::int32_t width = TextMeasure(cg::text::FromGbk(rank).c_str(), 1);
+            const std::int32_t width = TextMeasure(cg::text::FromGbkWide(rank).c_str(), 1);
             const std::int32_t currentRank = ReadGuildTextIndex10514B0();
-            drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(currentRank)).c_str(), 198 - width / 2, 114);
+            drawAt(cg::text::FromGbkWide(BorrowGuildRankText1051518(currentRank)).c_str(), 198 - width / 2, 114);
         }
     }
     const char* const job = world::detail::BorrowPlayerJobName();
     if (std::strlen(job) != 0) {
-        const std::int32_t width = TextMeasure(cg::text::FromGbk(job).c_str(), 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbkWide(job).c_str(), 1);
         const std::int32_t jobY = versionY(52, 45);
-        drawAt(cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 198 - width / 2, jobY);
+        drawAt(cg::text::FromGbkWide(world::detail::BorrowPlayerJobName()).c_str(), 198 - width / 2, jobY);
     }
     drawNumber(world::detail::ReadPlayerLevel(), 62, 122, 140, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();

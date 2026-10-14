@@ -259,24 +259,7 @@ std::int32_t Font::measure(
     return measure(wide, fontType, static_cast<std::int32_t>(wide.size()));
 }
 
-std::vector<std::string> Font::split(const std::string_view text, const std::int32_t fontType, const std::int32_t width)
-{
-    const std::string contents(text);
-    std::vector<std::string> lines;
-    std::size_t start = 0;
-    do {
-        std::size_t end = start;
-        while (end < contents.size() && contents[end] != '\r' && contents[end] != '\n') {
-            const std::size_t next = cg::text::Next(contents, end);
-            if (end > start && width > 0 && measure(contents.c_str() + start, fontType, static_cast<std::int32_t>(next - start)) > width) { break; }
-            end = next;
-        }
-        lines.emplace_back(contents.substr(start, end - start));
-        start = end < contents.size() && (contents[end] == '\r' || contents[end] == '\n') ? end + 1 : end;
-    } while (start < contents.size());
-    if (!contents.empty() && (contents.back() == '\r' || contents.back() == '\n')) { lines.emplace_back(); }
-    return lines;
-}
+
 
 std::vector<std::wstring> Font::split(const std::wstring_view text, const std::int32_t fontType, const std::int32_t width)
 {

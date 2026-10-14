@@ -29,7 +29,7 @@ public:
 // 整串写回旧GBK字段；超容量与编码失败均抛GbkStorageError，失败前不发布。
 void StoreGbk(char* destination, std::size_t capacity, std::string_view utf8);
 
-// UWF01：格式与实参只接收宽文本，结果直接写入动态UTF-16正文。
+// UWF01：格式与实参只接收宽文本，结果直接写入动态UTF-16正文；原0x0053D21D的私有显示缓冲调用由此承接。
 template<typename... Args>
 std::int32_t FormatTo(std::wstring& destination, const std::wstring_view format, Args&&... args)
 {

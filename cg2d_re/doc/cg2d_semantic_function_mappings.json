@@ -61706,18 +61706,18 @@
       "original_direct_reference_count": 9,
       "sources": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "MC01-A当前直接MSVC服务或必要定宽/借用适配，不再使用旧CRT算法"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -63506,13 +63506,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -63618,13 +63618,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -63727,13 +63727,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -81610,13 +81610,13 @@
       },
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -81717,13 +81717,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -81822,13 +81822,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -81927,13 +81927,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82035,13 +82035,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82145,13 +82145,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82251,13 +82251,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82537,13 +82537,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82651,13 +82651,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82757,13 +82757,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82861,13 +82861,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -82997,13 +82997,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83105,13 +83105,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83217,13 +83217,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83325,13 +83325,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83435,13 +83435,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83563,13 +83563,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83667,13 +83667,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83776,13 +83776,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83894,13 +83894,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -83998,13 +83998,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84102,13 +84102,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84206,13 +84206,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84318,13 +84318,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84426,13 +84426,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84534,13 +84534,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -84650,13 +84650,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -85096,13 +85096,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -85204,13 +85204,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -85528,13 +85528,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -85862,13 +85862,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -85966,13 +85966,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222302,13 +222302,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222406,13 +222406,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222511,13 +222511,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222617,13 +222617,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222723,13 +222723,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -222990,13 +222990,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223096,13 +223096,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223202,13 +223202,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223308,13 +223308,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223414,13 +223414,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223520,13 +223520,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223626,13 +223626,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223732,13 +223732,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223838,13 +223838,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -223944,13 +223944,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224050,13 +224050,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224156,13 +224156,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224262,13 +224262,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224368,13 +224368,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224474,13 +224474,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224580,13 +224580,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224686,13 +224686,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224792,13 +224792,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -224898,13 +224898,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225012,13 +225012,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225118,13 +225118,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225224,13 +225224,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225330,13 +225330,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225436,13 +225436,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225542,13 +225542,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225648,13 +225648,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225754,13 +225754,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225860,13 +225860,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -225966,13 +225966,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226072,13 +226072,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226178,13 +226178,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226284,13 +226284,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226390,13 +226390,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226496,13 +226496,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226602,13 +226602,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -226708,13 +226708,13 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -237482,13 +237482,13 @@
       },
       "sources": [
         {
-          "path": "src/platform/LegacyFormat.hpp",
+          "path": "include/cg/text/Encoding.hpp",
           "symbols": [
             "std::vfprintf",
             "std::sprintf",
-            "::_snprintf"
+            "FormatTo"
           ],
-          "relationship": "现格式入口实际委托MSVC；浮点转换/数字算法、旧CPU探测/私有环境/错误支撑由MSVC库/compiler持有，不造原私有函数或跳板。 DCF01旧包装／扫描单元退休，当前由<cstdio>导入真实MSVC CRT提供者；不冒充新增CPP业务调用。"
+          "relationship": "UWF01：原私有有界窄显示调用全部退休，动态宽格式化承接；GBK存档／协议容量保持，见wide-only SPEC。"
         },
         {
           "path": "src/platform/MapEffectMath.cpp",
@@ -281755,7 +281755,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第六组输入窄重载已退休；其余内部文字迁移继续",
+    "phase": "第七组GBK显示消费已迁宽；剩余窄分行／绘制继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -283324,6 +283324,394 @@
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_501FD0"
+      },
+      {
+        "path": "src/CharacterSelectSlot.cpp",
+        "symbol": "ProcessCharacterSlot_461B30"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4E4EA0"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D7470"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D7C20"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D8230"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4021A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EFB70"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DA580"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DDB20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF300"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D4960"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D4A50"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D61E0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E0380"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E19E0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E1EE0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E4460"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E5E40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E71A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E7740"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EA1B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EBAA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EB1C0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52DCE0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52ED50"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52F670"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_532450"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EDB20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EF0F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F1C40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F3ED0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F51D0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505C20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F5A60"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F7150"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F83B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4014B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FA050"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FF650"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_500370"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_5006F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_5008C0"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "Sub_442F70"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "Sub_43CA80"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "DescribeHoveredYobi_507140"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "FillTwoTextLines"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D0990"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4D0A80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CD4F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B0290"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AAB70"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AB400"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B0F20"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B3610"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49E400"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49FCA0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0140"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0300"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A04A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0640"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0790"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0850"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C75A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B4140"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B4680"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B3B00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B3BF0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B5C30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B6E00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B70D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B74E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B77E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "CreateShopServiceWindow"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B8310"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B8780"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B8C90"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B9110"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B9F40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BA950"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BC230"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BD540"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BD680"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "CreateWindow54SkillList"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BDD90"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BDF70"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BE200"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C13B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C17B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C3550"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C3A50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A49B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A7750"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49E750"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47DF50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_498520"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_495D70"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4920F0"
       }
     ],
     "build_verified": false,

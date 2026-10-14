@@ -2471,7 +2471,7 @@ try {
     const std::int32_t buttonMask = Sub_4D31C0();
     if (buttonMask != 0) {
         const std::wstring source = world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11
-            ? input::ContextText(*gLegacyDialogInputD67C4C) : cg::text::ToUtf16(input::LegacyText593850());
+            ? input::ContextText(*gLegacyDialogInputD67C4C) : cg::text::FromGbkWide(input::LegacyText593850());
         const std::wstring escapedText = input::EscapeTextAndNotify(source, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -5924,7 +5924,7 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
 try {
     const std::int32_t x = gLegacyGiveReceivePanel581B08.x;
     const std::int32_t y = gLegacyGiveReceivePanel581B08.y;
-    const std::wstring buttonText = cg::text::ToUtf16(input::LegacyText593850());
+    const std::wstring buttonText = cg::text::FromGbkWide(input::LegacyText593850());
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
         {x + 122, y + 164, x + 112, y + 164, 124, 18, buttonText.c_str()},
         {x + 122, y + 190, x + 112, y + 190, 124, 18, kLegacyGiveReceiveCancel588A70},

@@ -38282,7 +38282,9 @@
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
-        "doc/cg2d_tooltip_gbk_crash_20261014.md"
+        "doc/cg2d_tooltip_gbk_crash_20261014.md",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。；MC01-C4只退休旧堆模式/handler/初始化消费者或无现消费别名，当前真实公共/共享/业务提供者与原机器基线保持；旧数量/失败策略只历史。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "original_direct_reference_count": 25,
@@ -39306,6 +39308,18 @@
           }
         ],
         "verification": "仅静态源码；未构建、测试或运行，原函数身份及实现状态保持。"
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A49B0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -49488,7 +49502,9 @@
         "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。 DCS01当前直接调用原MSVC／标准库提供者，保原U32转换／返回类型和char*借用，原包装退休，时间仍32位；仅静态，完整门禁未提升。",
       "verification_level": "当前源码和已安装SDK声明限定静态核对；原指令事实保留，未编译/运行或计算摘要",
@@ -49587,6 +49603,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4AE8D0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -51415,7 +51443,9 @@
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
         "doc/cg2d_tooltip_gbk_crash_20261014.md",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "按用户CRT直接使用MSVC决议由真实UCRT服务承接；原字节/逐指令本体与库内全局状态只作历史。现接口及业务字段宽度/实际参数和返回消费保持；CRT locale/错误/内部读取、TLS、格式/容量与失败机制采用本机合同。FILE/lowio及C++剩余整组迁移继续，完整业务及运行未验。 DCF01当前直接MSVC／标准库调用，原缓冲／格式／容量／变参和返回消费保持；有界九处依用户选择::_snprintf，旧包装退休，历史原语与完整门禁保留。",
       "function_chunks": [
@@ -60583,6 +60613,66 @@
           "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
         ],
         "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BE600"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BE930"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BEC20"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4876B0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_485AF0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47E5E0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47F3D0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_49F7E0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A49B0"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_482270"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_49E400"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A09E0"
+          },
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D5250"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -120366,7 +120456,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "verification_level": "本步原466条统计/51查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余415条/所有上游与完整父不重验，未构建或执行；本步原466统计/196格式-参数-消费邻窗（含与既有查找邻窗相交的原上下文，不累加成新全覆盖），另270本步不读；六原真实点/三现callee分组、两既有格式字节、T*/S32及来源/消费/返回和整份源三标识符限定静态核对；原4A4650一call入向及三search点记录保持，未重验其核心/完整绑定、未构建执行",
       "boundary": "现三个邮件分类借用同一owner视图，原三分类斜线点由一个buffer表达式承接；格式后查2FH，命中+1、失配既有空文本供时间槽。未读/逐次kind与正文重取/十行字段/全部复制、格式、图号和返回正文逐字保持，不扩大owner或完整邮件/画面验收。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。 本步三现格式callee接六原53B304点：三类别时间共一表达式，公会与普通/迷你两姓名原点共一表达式，页码一原点；4A4B2C跳4A4F22证明普通/迷你姓名共享call，不按类别或现表达式数错计。2048B未清同源buffer，消息未读+0先清→借text02 T*格式→既有斜线查找/元素16，公会无槽空文本路径保持；kind与正文每行独立重采样、十行消费者不合并。姓名原owner T*、公会先前成员查询结果及普通/迷你尾重读联系人、格式后重取元素15保持；姓名复制后重读页号+1 S32和固定S32 10→%2d/%2d→重新取元素14/含NUL长度U32复制并返回；类别外W32(category-2)不改。仅换三标识符，不增预清/保护/缓存，不改关联方或既有字符查找，不据此验收完整邮件/父路由/布局/画面或运行。",
@@ -120549,6 +120641,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A49B0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -123563,7 +123667,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "原S32 usedSlots/第一次totalSlots以%2d/%2d写元素5借用text，之后第二次独立读totalSlots计算余槽；D45F78现12B前缀的%10d仍写0。累计S8 reqSlot、映射/发布与全部既有正文保持。 仅本父格式callee差异，现void签名不变，不按行数扩大引用，不新添容量/保护/补值，不据此完成完整数据生产/父路由/CRT/失败/运行。",
       "original_incoming": [
@@ -123635,6 +123741,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BE600"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -123657,7 +123775,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "原4BE939清0的EBX经%10d写同一D45F78现12B前缀；金额来源/时点及后续候选映射/可见/回调和全部既有正文保持。 仅本父格式callee差异，现void签名不变，不按行数扩大引用，不新添容量/保护/补值，不据此完成完整数据生产/父路由/CRT/失败/运行。",
       "original_incoming": [
@@ -123723,6 +123843,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BE930"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -123745,7 +123877,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "原当次所选报价S32经%10d写同一D45F78现12B前缀；模式/候选映射/字段发布及全部既有正文保持，不合并其他零值路径。 仅本父格式callee差异，现void签名不变，不按行数扩大引用，不新添容量/保护/补值，不据此完成完整数据生产/父路由/CRT/失败/运行。",
       "original_incoming": [
@@ -123801,6 +123935,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4BEC20"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -129871,7 +130017,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅十一现std::sprintf标识符承接十二原53B304点：kind0/1原两个目标头格式共一现表达式，其余原点独立。保留原window参数T*及WindowAnimationData*返回、各元素4/5/6直接借用原text、目标名T*和S32数值/分类/结果，第七字段条件/未知分类旧文本及音频暂停边界不变。元素7原首字节置NUL后依endurance→dexterity→intelligence三个非0门槛，256B未清buffer分别格式/内联追加，不归一化原字节或容量。value04=1、动作5/10、47D170后重读结果并47D220动作6/8-方向5、真实T*返回及所有正文保持，内联扫描复制追加不增加其他CRT入口。4876B0仍为非IDA函数的已证[4876B0,487AD2)代码标签范围，inventory_id=null，不伪造函数ID或改函数目录；只读原23B纠正错位并补487879实际call，不改数据库。完整窗口13/结果生产/父链/CRT和运行不据本步验收。",
       "original_incoming": [
@@ -130154,6 +130302,18 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4876B0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -130419,7 +130579,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅五现std::sprintf标识符承接四原53B304点，485CAF升级%s借原常量T*与经验S32两表达式共享一原call。原window参数T*/WindowAnimationData*返回、元素6直接借用text、元素7先首NUL再S32三非0增量按endurance→dexterity→intelligence原序格式/内联追加、256B未清buffer保持；窗口12增量格式为字面+%d，不与窗口13%+d归一。原U8 mode/4796E0与可见、结果/失败-1、动作与图号重取、U32 tick共享写者、47D170后C8A970门槛和47D220实际T*返回/全部正文及音频暂停边界不动，不新增清理/保护，不改关联函数，完整窗口/结果/父链/运行未据本步验收。",
       "original_incoming": [
@@ -130544,6 +130706,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_485AF0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -130803,7 +130977,9 @@
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅四现std::sprintf标识符接四原53B304点；window参数T*/WindowAnimationData*返回，未升级才元素11经验S32格式，升级仍原内联复制；元素12先首字节NUL，再按endurance→dexterity→intelligence三非0门槛S32值格式到256B未清buffer并沿原内联追加，字面+%d不改。制造经验及三增量均取原制造回复字段；原六材料回收/名称来源/成功失败与伤病/图号/可见及鼠标callback保持。原动作/图号重复读取、47D170→C8A970门槛与47D220真实T*→gSelectionModeD2D650=2→返回last、全部正文/关联函数及音频暂停边界不动，不加清理/钳制/补值，完整制作/物品作业/窗口11/父路由及运行未据本步验收。",
       "original_incoming": [
@@ -130939,6 +131115,18 @@
           "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
         ],
         "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47E5E0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -130967,7 +131155,9 @@
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅四现std::sprintf标识符接四原53B304点；window参数T*/WindowAnimationData*返回，未升级才元素11经验S32格式，升级仍原内联复制；元素12先首字节NUL，再按endurance→dexterity→intelligence三非0门槛S32值格式到256B未清buffer并沿原内联追加，字面+%d不改。物品作业三个显示值为CF46B4/CB0A14/D30418，但门槛仍D2F328/CA0448/CB0F84制造回复，不能合并为一来源；技能220/原消息未知分支、选中物品指针/图号与可见保持。原动作/图号重复读取、47D170→C8A970门槛与47D220真实T*→gSelectionModeD2D650=5→返回last、全部正文/关联函数及音频暂停边界不动，不加清理/钳制/补值，完整制作/物品作业/窗口11/父路由及运行未据本步验收。",
       "original_incoming": [
@@ -131114,6 +131304,18 @@
           "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
         ],
         "verification": "静态源码，未编译／测试／运行，原身份和完整功能门禁保持。"
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47F3D0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -131992,7 +132194,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅三现std::sprintf标识符接三原53B304点，void/S32 offset签名和全部正文保持。最多六行且offset+row<count，原先隐藏图标/三文本首NUL，name非空才借原T*名称格式到row+10；十一空格%s后重新读record低U8 color/显图标、原injury读取/519680消费，随后重取level S32写row+22。level格式后再借record，S32 maxFp→fp→maxHp→hp取样，按hp/maxHp fp/maxFp输出至row+28，二十八空格/四%6d与原两个比值间空格保持。目标text均沿原当前窗口/元素读取；原空name路径及剩余行清理/色彩与可见/窗口和record owner不动，不新建局部buffer或改变容量、索引/字段宽度，不加清理/保护或改关联函数，完整窗口46/状态记录生产/父链/画面与运行未据本步验收。",
       "original_incoming": [
@@ -132082,6 +132286,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_49F7E0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -136740,7 +136956,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅替换482420格式callee。S8模式3且单选有效、技能非220路径保持：先以先前selected槽level*10比较FP，再独立重取gSelectedItemD460C0等级，按S32 level*10及58678C的21空格/原魔力%3d写当前窗口元素11；FP不足仍格式化，不以enabled加门禁。格式后重新读技能与物品，资格快照/悬停/点击/等待/发送/焦点/原返回及关联方正文保持；不缓存单选等级、改乘积位宽、补保护或恢复暂停功能。",
       "original_incoming": [],
@@ -136819,6 +137037,18 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_482270"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -139807,7 +140037,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "四既有格式callee接49E591/49E5C7/49E617/49E658，另将49E68E原空格式的首NUL折叠恢复为FormatLegacyString_53B304(buffer.data(), \"\")；D68A7C沿窗口37已确认PE虚拟零/仅读String1空格式合同，当前IDA未加载/无文件偏移，不把get_byte=255当原字节。其余多参/YobiAction*真实返回/未用buttons、解析六组和七记录首字段清零/32B记录及原累计/名称+256分区/16B名称门槛与???、未清512B、共享81B行表均保持。标题/英文表头/各非零level S32与name T*列表/完整治疗/空行分别按原格式后含NUL复制0/1/2..7/8/9；第10行仍借同源593850，发布firstLine2/原19参创建与两真实回调保持。不复用593850作空格式、不新预清或改变已确认row=-1适配/关联方。",
       "original_incoming": [
@@ -139947,6 +140179,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_49E400"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -144326,7 +144570,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "仅三现定义的四个格式callee承接4A09E0七原点；两私有helper仅该父的两视图调用，不伪helper原地址或独立语义父。公会helper一%s%s现表达式对应两原点，保持server S32>=25仅减25一次、56F0AC前缀与全对象638H+status*8后缀借T*拼接，格式后取D6784C[1]色U8；status0原离线copy后重读当前公会状态取色，三行status-1门槛与九行直接调用差异保持。联系人helper两现表达式对应四原点；初始S16 -1直接返回、0离线copy后重读原记录状态取色；其他状态借56E9BC前缀/后缀%s%s，之后再读record状态为10才以固定同一prefix/原逆-%s覆盖原text，再写在线颜色，不提前快照或刷新prefix。三行另名称复制后绑定record.number的S32/%3d写未清240B，格式后才取数字载荷复制含NUL；九行无数字格式。各text沿既有载荷分配，三源记录的非拥有视图/图形/名字/状态取得先后/权限/未读/闪烁/排序/空行及真实108/3672返回全部正文不動；不合并helper调用、表别名或视图时点，不预清、钳制、添校验/容量或改变关联方。",
       "original_incoming": [
@@ -144551,6 +144797,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A09E0"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -148040,7 +148298,9 @@
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
         "doc/cg2d_unicode_utf16_evidence.json",
         "doc/cg2d_build_acceptance_spec.md#unicode-build-fixes-20261014",
-        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-readable-placeholders-20261014",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "只改选择一格式接口；两文字按钮按序逐项查询，命中choice+1 S32写未清16B→独立16B/cap15转义→原target/request/Y/X/socket/mode0发送，先SE79再重读id关闭，不break或提前return。取消也发2、原提示覆盖/非拥有预览T*关闭返回与uintptr_t完整正常尾不变；C8AA98非零生产及旧路由未闭合。",
       "original_incoming": [],
@@ -148102,6 +148362,18 @@
         "scope": "UCB01编译类型／接口修正、UTL03中文宽文案和UTF-16直接传递；覆盖本次关联源的旧窄适配描述，原身份、历史状态与完整业务验收保持。",
         "build_verified": true,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D5250"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -230455,7 +230727,9 @@
         "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
       "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
@@ -230483,6 +230757,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "cg::ui::detail::Sub_47EC00"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -230506,7 +230792,9 @@
         "doc/cg2d_unassigned_range_fifth_batch_evidence.json",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "boundary": "原F来自既有库存及实际取表父；数据完整用途与源码已存在分开，未重捕获/重验所有原签名、字段、分支、callee、间接alias、生产或正常owner寿命、机器ABI与运行。",
       "verification_level": "仅本批完整X/实际guard-BYTE-JMP邻窗、全部W32目标code/owner、当前带函数体定义；源码不改，不构建/测试/运行/摘要。",
@@ -230534,6 +230822,18 @@
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
         "build_verified": false,
         "runtime_verified": false
+      },
+      "target_choice_gbk_boundary_20261015": {
+        "scope": "仅已确认GBK来源的控件赋值解码接线；原身份、状态及完整运行门禁保持。",
+        "affected_sources": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "cg::ui::detail::Sub_47EF00"
+          }
+        ],
+        "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "verification": "源码静态核对，未构建或运行"
       }
     },
     {
@@ -279640,5 +279940,123 @@
     ],
     "all_io_migrated": false,
     "runtime_verified": false
+  },
+  "target_choice_gbk_boundary_20261015": {
+    "decision": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+    "evidence": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+    "changed_functions": [
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_49E400"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4B70D0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "CreateShopServiceWindow"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4BE600"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4BE930"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4BEC20"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4A09E0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4AE8D0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4A49B0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47E1B0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47EF00"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4801B0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_480600"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_480C20"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47FF20"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_482270"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47EC00"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47E5E0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_47F3D0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_485700"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_485890"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_485AF0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_4876B0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_49F0A0"
+      },
+      {
+        "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+        "name": "Sub_49F7E0"
+      },
+      {
+        "path": "cg2d_re/src/LegacyUiRecord.cpp",
+        "name": "Sub_4D3210"
+      },
+      {
+        "path": "cg2d_re/src/LegacyUiRecord.cpp",
+        "name": "Sub_4D5250"
+      }
+    ],
+    "changed_decoding_expressions": 41,
+    "legacy_prefix_consumers": 40,
+    "verification": "离线匹配转储及PDB、精确源码差异、词法与接口来源静态核对；未构建／测试／运行",
+    "all_io_migrated": false
   }
 }

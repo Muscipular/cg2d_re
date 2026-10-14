@@ -3447,7 +3447,9 @@
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
         "doc/cg2d_tooltip_gbk_crash_20261014.md",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -5163,7 +5165,9 @@
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
         "doc/cg2d_tooltip_gbk_crash_20261014.md",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ],
       "blockers": [
         "CAB30八已有窗口绘制身份补到本域64成员，17点20宽度警告已修；19原相关调用332条955B/消费字段、整CPP差集及Debug有据。窗口仍23/其它未重编44项已见警告，枚举/旧99路由/所有父-callee/正常寿命/ABI/画面与运行未验。",
@@ -74418,6 +74422,60 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-14"
+    },
+    {
+      "id": "E-TUE02-TEXT-S-20261015",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "observation": "匹配Age7转储确认技能目标名单GBK四字节误入CP_UTF8，Decode报1113；物品名单共用相同刷新入口。",
+      "expected": "已证GBK名称／旧前缀进入宽控件时显式解码；回调、原记录、索引／颜色及取样发布顺序保持。",
+      "actual": "41处转换、27个函数／辅助完成精确差异及词法来源静态核对；邮件时间栏按UTF-8正文与GBK回退分别处理。原地址与行号保持，未编译或运行。",
+      "differences": [
+        {
+          "description": "明确GBK消费直接转UTF-16，取消错误的UTF-8解释；目标记录完整迁宽仍按NIO01后续推进。",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-TUE02-UIRUNTIME-S-20261015",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_target_choice_gbk_crash_20261015.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md",
+        "src/ui/WindowRuntime.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "observation": "匹配Age7转储确认技能目标名单GBK四字节误入CP_UTF8，Decode报1113；物品名单共用相同刷新入口。",
+      "expected": "已证GBK名称／旧前缀进入宽控件时显式解码；回调、原记录、索引／颜色及取样发布顺序保持。",
+      "actual": "41处转换、27个函数／辅助完成精确差异及词法来源静态核对；邮件时间栏按UTF-8正文与GBK回退分别处理。原地址与行号保持，未编译或运行。",
+      "differences": [
+        {
+          "description": "明确GBK消费直接转UTF-16，取消错误的UTF-8解释；目标记录完整迁宽仍按NIO01后续推进。",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
     }
   ],
   "task_acceptance": [
@@ -75505,7 +75563,9 @@
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
         "doc/cg2d_tooltip_gbk_crash_20261014.md",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ]
     },
     {
@@ -75784,7 +75844,9 @@
         "doc/cg2d_text_encoding_spec.md#tooltip-gbk-wide-boundary-20261014",
         "doc/cg2d_tooltip_gbk_crash_20261014.md",
         "doc/cg2d_io_unicode_boundary_spec.md",
-        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state"
+        "doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state",
+        "doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015",
+        "doc/cg2d_target_choice_gbk_crash_20261015.md"
       ]
     },
     {

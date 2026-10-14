@@ -125,7 +125,7 @@ struct WindowInstance {
 namespace detail {
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
-using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
+using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text); // text借用原GBK名称，取消／关闭时可为nullptr。
 // CC4230原回调实际接收技能和等级两个S32，47C7B2/47C7B3压栈，返回不用。
 using SkillWindowSelectionCallback = void (*)(std::int32_t skillIndex, std::int32_t technique);
 // 原函数：0x004EF710。
@@ -539,7 +539,7 @@ static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
 static_assert(sizeof(ItemUseStatusRecord) == 52);
 const ItemUseStatusRecord& ReadLegacyItemUseStatus(std::int32_t index) noexcept;
 std::int32_t ReadLegacyItemUseStatusCount() noexcept; // 原CC4D44，不固定为六行或复制数量。
-// 原函数：0x0049F000。
+// 原函数：0x0049F000。names借用GBK名单；49F0A0刷新时直接转为宽正文。
 login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);

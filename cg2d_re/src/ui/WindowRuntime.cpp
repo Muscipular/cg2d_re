@@ -534,7 +534,7 @@ std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
 static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
 
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
-const char* const* gTextChoiceNamesD30130 = nullptr; // 原全局：0x00D30130。
+const char* const* gTextChoiceNamesD30130 = nullptr; // 借用原GBK名单，窗口正文在49F0A0转为UTF-16。 // 原全局：0x00D30130。
 const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
 std::int32_t gTextChoiceCountCC4CE4 = 0; // 原全局：0x00CC4CE4。
 WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr; // 原全局：0x00C9A974。
@@ -10249,7 +10249,7 @@ login::YobiAction* Sub_49E400(
     gDialogLinesCB1398[8].text = cg::text::ToUtf16(buffer.data());
     std::sprintf(buffer.data(), ""); // 原String1@D68A7C虚拟零空格式，不借用593850。
     gDialogLinesCB1398[9].text = cg::text::ToUtf16(buffer.data());
-    gDialogLinesCB1398[10].text = cg::text::ToUtf16(input::LegacyText593850());
+    gDialogLinesCB1398[10].text = cg::text::FromGbkWide(input::LegacyText593850());
     gDialogReply.firstLine = 2;
     const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
     const std::int32_t first = gDialogReply.firstLine;
@@ -18662,9 +18662,9 @@ login::YobiAction* Sub_4B70D0(const char* const text)
     }
     gNpcDialogLinesCC24D4[5].text = L"　無法再持有";
     gNpcDialogLinesCC24D4[6].text = L"　更高的金額了";
-    gNpcDialogLinesCC24D4[7].text = cg::text::ToUtf16(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopReplyItemCountCF4B58 = 0;
-    gNpcDialogLinesCC24D4[8].text = cg::text::ToUtf16(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopItemsCF4FE0.fill(0);
     std::int32_t field = 4;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -18870,13 +18870,13 @@ login::YobiAction* CreateShopServiceWindow(
     gNpcDialogLinesCC24D4[0].text = cg::text::ToUtf16(title);
     gNpcDialogLinesCC24D4[1].text = L"歡迎光臨。";
     gNpcDialogLinesCC24D4[2].text = cg::text::ToUtf16(prompt);
-    gNpcDialogLinesCC24D4[3].text = cg::text::ToUtf16(input::LegacyText593850());
-    gNpcDialogLinesCC24D4[4].text = cg::text::ToUtf16(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[3].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[4].text = cg::text::FromGbkWide(input::LegacyText593850());
     gNpcDialogLinesCC24D4[5].text = L"你身上的錢不夠！";
-    gNpcDialogLinesCC24D4[6].text = cg::text::ToUtf16(input::LegacyText593850());
-    gNpcDialogLinesCC24D4[7].text = cg::text::ToUtf16(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[6].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopReplyItemCountCF4B58 = 0;
-    gNpcDialogLinesCC24D4[8].text = cg::text::ToUtf16(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
     gShopItemsCF4FE0.fill(0);
     std::int32_t field = 3;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -21897,9 +21897,9 @@ void Sub_4BE600(WindowInstance* const window)
     window->elements[24].visible = 0;
     static_cast<WindowTextData*>(window->elements[25].data)->text = L"請選擇";
     static_cast<WindowTextData*>(window->elements[26].data)->text = L"想遺忘的技能";
-    static_cast<WindowTextData*>(window->elements[27].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[27].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     static_cast<WindowTextData*>(window->elements[28].data)->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
-    static_cast<WindowTextData*>(window->elements[29].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[29].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     static_cast<WindowTextData*>(window->elements[30].data)->text = L"　一旦遺忘技能後";
     static_cast<WindowTextData*>(window->elements[31].data)->text = L"　就不能再恢復原狀了。";
     static_cast<WindowTextData*>(window->elements[32].data)->text = L"　請特別注意。";
@@ -21929,7 +21929,7 @@ void Sub_4BE930(WindowInstance* const window)
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
     }
@@ -21983,7 +21983,7 @@ void Sub_4BEC20(WindowInstance* const window)
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
     }
@@ -25890,7 +25890,7 @@ std::int32_t Sub_4A09E0()
                 gCurrentWindow->elements[27 + row * 8].visible = 0;
                 for (std::int32_t index = textIndex; index < textIndex + 5; ++index) {
                     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-                    data->text = cg::text::ToUtf16(input::LegacyText593850());
+                    data->text = cg::text::FromGbkWide(input::LegacyText593850());
                 }
                 continue;
             }
@@ -26009,7 +26009,7 @@ std::int32_t Sub_4A09E0()
             gCurrentWindow->elements[54 + row * 5].visible = 0;
             for (std::int32_t index = textIndex; index < textIndex + 2; ++index) {
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-                data->text = cg::text::ToUtf16(input::LegacyText593850());
+                data->text = cg::text::FromGbkWide(input::LegacyText593850());
             }
             continue;
         }
@@ -26860,7 +26860,7 @@ char* Sub_4AE8D0()
 {
     for (std::int32_t index = 0; index < 11; ++index) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-        data->text = cg::text::ToUtf16(input::LegacyText593850());
+        data->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     char text[1024];
     char line[1024];
@@ -27309,10 +27309,10 @@ std::uint32_t Sub_4A49B0()
     };
     if (category == 1 && mailSlot == -1) {
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
-        time->text = cg::text::ToUtf16(input::LegacyText593850());
+        time->text = cg::text::FromGbkWide(input::LegacyText593850());
         for (std::int32_t row = 0; row < 10; ++row) {
             auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
-            line->text = cg::text::ToUtf16(input::LegacyText593850());
+            line->text = cg::text::FromGbkWide(input::LegacyText593850());
         }
     } else {
         const MailMessageView message = borrowCurrent();
@@ -27320,7 +27320,7 @@ std::uint32_t Sub_4A49B0()
         std::sprintf(buffer, "%s", cg::text::FromGbk(message.text02).c_str());
         const char* const slash = const_cast<char*>(std::strchr(buffer, '/'));
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
-        time->text = cg::text::ToUtf16(slash != nullptr ? slash + 1 : input::LegacyText593850());
+        time->text = slash != nullptr ? cg::text::ToUtf16(slash + 1) : cg::text::FromGbkWide(input::LegacyText593850());
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *borrowCurrent().kind01;
             auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
@@ -31112,7 +31112,7 @@ WindowAnimationData* Sub_47E1B0(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftWorking5865C4;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -31166,7 +31166,7 @@ WindowAnimationData* Sub_47EF00(WindowInstance* const window)
         static_cast<WindowTextData*>(window->elements[9].data)->text = hint;
     }
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -31206,7 +31206,7 @@ WindowAnimationData* Sub_4801B0(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftPacking586830;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -31242,7 +31242,7 @@ void Sub_480600(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftDecorating586848;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -31277,7 +31277,7 @@ WindowAnimationData* Sub_480C20(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftRefining5866C4;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -31449,7 +31449,7 @@ WindowAnimationData* Sub_47FF20(WindowInstance* const window)
     static_cast<WindowTextData*>(window->elements[10].data)->text = kCraftFood5867FC;
     static_cast<WindowTextData*>(window->elements[11].data)->text = kCraftWood5867DC;
     static_cast<WindowTextData*>(window->elements[12].data)->text = kCraftCloth5867BC;
-    static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     PrepareCraftMaterialElements(window);
     static_cast<void>(Sub_47D170(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -32107,7 +32107,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
         const std::int32_t selected = gSelectedItemD460C0;
         if (selected < 0) {
             element->visible = 0;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
             return 0;
         }
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
@@ -32369,8 +32369,8 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = kCraftNameCost5868A8;
         }
         if (gSelectionModeD2D650 == 5) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::ToUtf16(input::LegacyText593850());
-            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
         }
     } else {
         static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = kCraftCannotItem586894;
@@ -33139,7 +33139,7 @@ WindowAnimationData* Sub_47EC00(WindowInstance* const window)
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3A;
     static_cast<WindowTextData*>(window->elements[10].data)->text = L"　請選擇。";
     for (std::int32_t index = 11; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     for (std::int32_t index = 15; index <= 20; ++index) {
@@ -33742,7 +33742,7 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
         std::sprintf(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
         increments.append(cg::text::ToUtf16(buffer));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : cg::text::FromGbkWide(input::LegacyText593850());
     const std::int32_t imageResult = gCraftResultCC46D8;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -33972,7 +33972,7 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
         std::sprintf(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
         increments.append(cg::text::ToUtf16(buffer));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : cg::text::ToUtf16(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : cg::text::FromGbkWide(input::LegacyText593850());
     const std::int32_t imageResult = gItemWorkResultCB05FC;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -34204,7 +34204,7 @@ WindowAnimationData* Sub_485700(WindowInstance* const window)
     }
     gWindow12ModeCC3E80 = 0;
     for (std::int32_t index = 4; index <= 7; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     for (std::int32_t index = 4; index <= 10; ++index) {
         window->elements[index].visible = 0;
@@ -34238,7 +34238,7 @@ WindowAnimationData* Sub_485890(WindowInstance* const window)
         gSkillPetImageCB0A18 = imageNo;
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
         window->elements[index].visible = 0;
@@ -34342,7 +34342,7 @@ WindowAnimationData* Sub_485AF0(WindowInstance* const window)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
         static_cast<WindowTextData*>(window->elements[4].data)->text = kWindow12Failure5869C4;
-        static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
         static_cast<void>(audio::PlaySe_52C450(58, 320));
         gWindow12ValueCF3FF0 = -1;
     }
@@ -34893,7 +34893,7 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586A34, cg::text::FromGbk(gSkillTargetNameD2F748.data()).c_str());
                 const std::int32_t value = gWindow13ValueD2DBF0;
                 static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? kWindow13Text586A1C
-                    : value == 2 ? kWindow13Text586A0C : cg::text::ToUtf16(input::LegacyText593850());
+                    : value == 2 ? kWindow13Text586A0C : cg::text::FromGbkWide(input::LegacyText593850());
             }
             break;
         default:
@@ -39479,7 +39479,7 @@ void Sub_49F0A0(const std::int32_t offset)
     for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
         if (names != nullptr) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
-            text->text = cg::text::ToUtf16(names[offset + row]);
+            text->text = cg::text::FromGbkWide(names[offset + row]);
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->bytes00[0] =
                 static_cast<std::byte>(color);
@@ -39487,7 +39487,7 @@ void Sub_49F0A0(const std::int32_t offset)
         }
     }
     for (; row < 5; ++row) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
 }
 
@@ -39766,9 +39766,9 @@ void Sub_49F7E0(const std::int32_t offset)
     }
     for (; row < 6; ++row) {
         gCurrentWindow->elements[row + 4].visible = 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text = cg::text::ToUtf16(input::LegacyText593850());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text = cg::text::ToUtf16(input::LegacyText593850());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text = cg::text::ToUtf16(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
 }
 

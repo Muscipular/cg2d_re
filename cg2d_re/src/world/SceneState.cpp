@@ -3255,15 +3255,7 @@ std::int32_t Sub_509650(
         if ((flags & mask) != 0) {
             const std::int32_t parsed =
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(parsed));
-            const std::uint32_t maskValue = temporary->mask;
-            const std::uint32_t encodedValue = temporary->encoded;
-            const std::uint8_t readCountValue = temporary->readCount;
-            target->mask = maskValue;
-            target->encoded = encodedValue;
-            target->readCount = readCountValue;
-            temporary.reset();
+            *target = static_cast<std::int32_t>(parsed);
             ++field;
         }
     };
@@ -5658,24 +5650,9 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 {
     static_cast<void>(Sub_46CEC0());
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(x));
-    const std::uint32_t xTemporaryEncoded = temporary->encoded;
-    const std::uint32_t xTemporaryMask = temporary->mask;
-    const std::uint8_t xTemporaryReadCount = temporary->readCount;
-    BorrowPlayerXStorage()->encoded = xTemporaryEncoded;
-    BorrowPlayerXStorage()->mask = xTemporaryMask;
-    BorrowPlayerXStorage()->readCount = xTemporaryReadCount;
-    temporary.reset();
+    *BorrowPlayerXStorage() = static_cast<std::int32_t>(x);
 
-    temporary.emplace(static_cast<std::int32_t>(y));
-    const std::uint8_t yTemporaryReadCount = temporary->readCount;
-    const std::uint32_t yTemporaryEncoded = temporary->encoded;
-    const std::uint32_t yTemporaryMask = temporary->mask;
-    BorrowPlayerYStorage()->readCount = yTemporaryReadCount;
-    BorrowPlayerYStorage()->encoded = yTemporaryEncoded;
-    BorrowPlayerYStorage()->mask = yTemporaryMask;
-    temporary.reset();
+    *BorrowPlayerYStorage() = static_cast<std::int32_t>(y);
 
     static_cast<void>(Sub_46CEE0());
     const double currentX =
@@ -5704,41 +5681,13 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     gValue9EE900 = 0;
     gValue9DAD78 = 0x3F800000u;
 
-    temporary.emplace(static_cast<std::int32_t>(-1));
-    const std::uint8_t reset8D0ReadCount = temporary->readCount;
-    const std::uint32_t reset8D0Encoded = temporary->encoded;
-    const std::uint32_t reset8D0Mask = temporary->mask;
-    BorrowValue9EE8D0Storage()->readCount = reset8D0ReadCount;
-    BorrowValue9EE8D0Storage()->encoded = reset8D0Encoded;
-    BorrowValue9EE8D0Storage()->mask = reset8D0Mask;
-    temporary.reset();
+    *BorrowValue9EE8D0Storage() = std::int32_t{-1};
 
-    temporary.emplace(static_cast<std::int32_t>(-1));
-    const std::uint8_t reset8E0ReadCount = temporary->readCount;
-    const std::uint32_t reset8E0Encoded = temporary->encoded;
-    const std::uint32_t reset8E0Mask = temporary->mask;
-    BorrowValue9EE8E0Storage()->readCount = reset8E0ReadCount;
-    BorrowValue9EE8E0Storage()->encoded = reset8E0Encoded;
-    BorrowValue9EE8E0Storage()->mask = reset8E0Mask;
-    temporary.reset();
+    *BorrowValue9EE8E0Storage() = std::int32_t{-1};
 
-    temporary.emplace(static_cast<std::int32_t>(-1));
-    const std::uint32_t resetC27FF8Encoded = temporary->encoded;
-    const std::uint32_t resetC27FF8Mask = temporary->mask;
-    const std::uint8_t resetC27FF8ReadCount = temporary->readCount;
-    BorrowValueC27FF8Storage()->encoded = resetC27FF8Encoded;
-    BorrowValueC27FF8Storage()->mask = resetC27FF8Mask;
-    BorrowValueC27FF8Storage()->readCount = resetC27FF8ReadCount;
-    temporary.reset();
+    *BorrowValueC27FF8Storage() = std::int32_t{-1};
 
-    temporary.emplace(static_cast<std::int32_t>(-1));
-    const std::uint8_t resetC27FE8ReadCount = temporary->readCount;
-    const std::uint32_t resetC27FE8Encoded = temporary->encoded;
-    const std::uint32_t resetC27FE8Mask = temporary->mask;
-    BorrowValueC27FE8Storage()->readCount = resetC27FE8ReadCount;
-    BorrowValueC27FE8Storage()->encoded = resetC27FE8Encoded;
-    BorrowValueC27FE8Storage()->mask = resetC27FE8Mask;
-    temporary.reset();
+    *BorrowValueC27FE8Storage() = std::int32_t{-1};
 
     const std::uint32_t xBits = gWorldCurrentXBits;
     const std::uint32_t finalYBits = gWorldCurrentYBits;
@@ -5763,14 +5712,7 @@ std::int32_t* Sub_467F30()
     BorrowValue9EE8D0Storage()->readCount = firstReadCount;
 
     std::optional<platform::LegacyCryptInt> second;
-    second.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t secondMask = second->mask;
-    const std::uint32_t secondEncoded = second->encoded;
-    const std::uint8_t secondReadCount = second->readCount;
-    BorrowValue9EE8E0Storage()->mask = secondMask;
-    BorrowValue9EE8E0Storage()->encoded = secondEncoded;
-    BorrowValue9EE8E0Storage()->readCount = secondReadCount;
-    second.reset();
+    *BorrowValue9EE8E0Storage() = std::int32_t{0};
     first.reset();
 
     second.emplace(static_cast<std::int32_t>(0));
@@ -5781,14 +5723,7 @@ std::int32_t* Sub_467F30()
     BorrowValueC27FF8Storage()->encoded = thirdEncoded;
     BorrowValueC27FF8Storage()->readCount = thirdReadCount;
 
-    first.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t fourthMask = first->mask;
-    const std::uint32_t fourthEncoded = first->encoded;
-    const std::uint8_t fourthReadCount = first->readCount;
-    BorrowValueC27FE8Storage()->mask = fourthMask;
-    BorrowValueC27FE8Storage()->encoded = fourthEncoded;
-    BorrowValueC27FE8Storage()->readCount = fourthReadCount;
-    first.reset();
+    *BorrowValueC27FE8Storage() = std::int32_t{0};
     second.reset();
 
     gValue9A4B94 = 3;
@@ -5807,34 +5742,12 @@ std::int32_t* Sub_467F30()
     BorrowValueC821E8Storage()->readCount = first->readCount;
     first.reset();
 
-    first.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t sixthMask = first->mask;
-    const std::uint32_t sixthEncoded = first->encoded;
-    const std::uint8_t sixthReadCount = first->readCount;
-    BorrowValue9E03C0Storage()->mask = sixthMask;
-    BorrowValue9E03C0Storage()->encoded = sixthEncoded;
-    BorrowValue9E03C0Storage()->readCount = sixthReadCount;
-    first.reset();
+    *BorrowValue9E03C0Storage() = std::int32_t{0};
 
-    first.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t seventhMask = first->mask;
-    const std::uint32_t seventhEncoded = first->encoded;
-    const std::uint8_t seventhReadCount = first->readCount;
-    BorrowValueC821D8Storage()->mask = seventhMask;
-    BorrowValueC821D8Storage()->encoded = seventhEncoded;
-    BorrowValueC821D8Storage()->readCount = seventhReadCount;
-    first.reset();
+    *BorrowValueC821D8Storage() = std::int32_t{0};
 
     // 原末次改用独立var_1C，保留第三临时对象。
-    std::optional<platform::LegacyCryptInt> ripple;
-    ripple.emplace(static_cast<std::int32_t>(0));
-    const std::uint32_t eighthMask = ripple->mask;
-    const std::uint32_t eighthEncoded = ripple->encoded;
-    const std::uint8_t eighthReadCount = ripple->readCount;
-    BorrowRippleGateStorage()->mask = eighthMask;
-    BorrowRippleGateStorage()->encoded = eighthEncoded;
-    BorrowRippleGateStorage()->readCount = eighthReadCount;
-    ripple.reset();
+    *BorrowRippleGateStorage() = std::int32_t{0};
 
     gValue9A86D8 = 0;
     gValue9FB92E = 0;
@@ -6005,26 +5918,13 @@ std::int32_t __cdecl Sub_469290(
 // 原 [0x4691D0,0x469239)：两个 -1 临时对象各自构造、复制、析构。
 void __cdecl Sub_4691D0()
 {
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(-1));
     // 原第一组先读齐两个 W32 和 BYTE 计数，再依原序发布。
-    const std::uint32_t firstMask = temporary->mask;
-    const std::uint32_t firstEncoded = temporary->encoded;
-    const std::uint8_t firstReadCount = temporary->readCount;
-    BorrowValue9EE8D0Storage()->mask = firstMask;
-    BorrowValue9EE8D0Storage()->encoded = firstEncoded;
-    BorrowValue9EE8D0Storage()->readCount = firstReadCount;
-    temporary.reset();
+    // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
+    *BorrowValue9EE8D0Storage() = std::int32_t{-1};
 
-    temporary.emplace(static_cast<std::int32_t>(-1));
     // 原第二组先读齐两个 W32 和 BYTE 计数，再依原序发布。
-    const std::uint32_t secondMask = temporary->mask;
-    const std::uint32_t secondEncoded = temporary->encoded;
-    const std::uint8_t secondReadCount = temporary->readCount;
-    BorrowValue9EE8E0Storage()->mask = secondMask;
-    BorrowValue9EE8E0Storage()->encoded = secondEncoded;
-    BorrowValue9EE8E0Storage()->readCount = secondReadCount;
-    temporary.reset();
+    // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
+    *BorrowValue9EE8E0Storage() = std::int32_t{-1};
 }
 
 // 原函数：0x005093C0。
@@ -6122,24 +6022,9 @@ void Sub_50D120(
         BorrowValueC821E8Storage()->encoded = encoded;
         BorrowValueC821E8Storage()->readCount = readCount;
 
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t zeroMask = temporary->mask;
-        const std::uint32_t zeroEncoded = temporary->encoded;
-        const std::uint8_t zeroReadCount = temporary->readCount;
-        BorrowValueC821D8Storage()->mask = zeroMask;
-        BorrowValueC821D8Storage()->encoded = zeroEncoded;
-        BorrowValueC821D8Storage()->readCount = zeroReadCount;
-        temporary.reset();
+        *BorrowValueC821D8Storage() = std::int32_t{0};
 
-        temporary.emplace(static_cast<std::int32_t>(1));
-        const std::uint32_t enabledMask = temporary->mask;
-        const std::uint32_t enabledEncoded = temporary->encoded;
-        const std::uint8_t enabledReadCount = temporary->readCount;
-        BorrowRippleGateStorage()->mask = enabledMask;
-        BorrowRippleGateStorage()->encoded = enabledEncoded;
-        BorrowRippleGateStorage()->readCount = enabledReadCount;
-        temporary.reset();
+        *BorrowRippleGateStorage() = std::int32_t{1};
 
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
@@ -6148,14 +6033,7 @@ void Sub_50D120(
         login::detail::YobiClearUp_404D30();
         Sub_446610();
 
-        temporary.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t disabledMask = temporary->mask;
-        const std::uint32_t disabledEncoded = temporary->encoded;
-        const std::uint8_t disabledReadCount = temporary->readCount;
-        BorrowRippleGateStorage()->mask = disabledMask;
-        BorrowRippleGateStorage()->encoded = disabledEncoded;
-        BorrowRippleGateStorage()->readCount = disabledReadCount;
-        temporary.reset();
+        *BorrowRippleGateStorage() = std::int32_t{0};
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -6198,15 +6076,7 @@ void Sub_50D120(
         gBattleFirstTurnPending5ABC6C = 1;
         return;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(0));
-    const std::uint8_t exitReadCount = temporary->readCount;
-    const std::uint32_t exitEncoded = temporary->encoded;
-    const std::uint32_t exitMask = temporary->mask;
-    BorrowValueC821D8Storage()->readCount = exitReadCount;
-    BorrowValueC821D8Storage()->encoded = exitEncoded;
-    BorrowValueC821D8Storage()->mask = exitMask;
-    temporary.reset();
+    *BorrowValueC821D8Storage() = std::int32_t{0};
     gValueFF03D8 = 0;
     gValueF7CA04 = 0;
 }
@@ -7067,24 +6937,8 @@ void DrawNormalScene_51C7D0()
         BorrowValueC821E8Storage()->mask = mask;
         BorrowValueC821E8Storage()->encoded = encoded;
         BorrowValueC821E8Storage()->readCount = readCount;
-        std::optional<platform::LegacyCryptInt> zero;
-        zero.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t zeroMask = zero->mask;
-        const std::uint32_t zeroEncoded = zero->encoded;
-        const std::uint8_t zeroReadCount = zero->readCount;
-        BorrowValueC821D8Storage()->mask = zeroMask;
-        BorrowValueC821D8Storage()->encoded = zeroEncoded;
-        BorrowValueC821D8Storage()->readCount = zeroReadCount;
-        zero.reset();
-        std::optional<platform::LegacyCryptInt> one;
-        one.emplace(static_cast<std::int32_t>(1));
-        const std::uint32_t oneMask = one->mask;
-        const std::uint32_t oneEncoded = one->encoded;
-        const std::uint8_t oneReadCount = one->readCount;
-        BorrowRippleGateStorage()->mask = oneMask;
-        BorrowRippleGateStorage()->encoded = oneEncoded;
-        BorrowRippleGateStorage()->readCount = oneReadCount;
-        one.reset();
+        *BorrowValueC821D8Storage() = std::int32_t{0};
+        *BorrowRippleGateStorage() = std::int32_t{1};
         gValue9FB92E = 0;
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
@@ -7568,15 +7422,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
         YobiClearUp_404D30();
         Sub_446610();
-        std::optional<platform::LegacyCryptInt> zero;
-        zero.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t zeroMask = zero->mask;
-        const std::uint32_t zeroEncoded = zero->encoded;
-        const std::uint8_t zeroReadCount = zero->readCount;
-        BorrowRippleGateStorage()->mask = zeroMask;
-        BorrowRippleGateStorage()->encoded = zeroEncoded;
-        BorrowRippleGateStorage()->readCount = zeroReadCount;
-        zero.reset();
+        *BorrowRippleGateStorage() = std::int32_t{0};
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
     }
@@ -7602,24 +7448,8 @@ void DrawBattleScene_43CBB0()
         clearBattleEffects();
         YobiClearUp_404D30();
         Sub_446610();
-        std::optional<platform::LegacyCryptInt> rippleZero;
-        rippleZero.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t rippleZeroMask = rippleZero->mask;
-        const std::uint32_t rippleZeroEncoded = rippleZero->encoded;
-        const std::uint8_t rippleZeroReadCount = rippleZero->readCount;
-        BorrowRippleGateStorage()->mask = rippleZeroMask;
-        BorrowRippleGateStorage()->encoded = rippleZeroEncoded;
-        BorrowRippleGateStorage()->readCount = rippleZeroReadCount;
-        rippleZero.reset();
-        std::optional<platform::LegacyCryptInt> transitionZero;
-        transitionZero.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t transitionZeroMask = transitionZero->mask;
-        const std::uint32_t transitionZeroEncoded = transitionZero->encoded;
-        const std::uint8_t transitionZeroReadCount = transitionZero->readCount;
-        BorrowValue73ECD0Storage()->mask = transitionZeroMask;
-        BorrowValue73ECD0Storage()->encoded = transitionZeroEncoded;
-        BorrowValue73ECD0Storage()->readCount = transitionZeroReadCount;
-        transitionZero.reset();
+        *BorrowRippleGateStorage() = std::int32_t{0};
+        *BorrowValue73ECD0Storage() = std::int32_t{0};
         static_cast<void>(SetPendingSceneType(7));
         return;
     }
@@ -9747,23 +9577,8 @@ std::uint8_t Sub_469C90()
                     const std::uint32_t sampledTick = platform::ReadTickCount32();
                     const std::int32_t targetX = gPlayerMoveTargetX;
                     gValue55DDAC = sampledTick;
-                    std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(targetX));
-                    const std::uint32_t maskX = temporary->mask;
-                    const std::uint32_t encodedX = temporary->encoded;
-                    const std::uint8_t readCountX = temporary->readCount;
-                    BorrowValue9A7F88Storage()->mask = maskX;
-                    BorrowValue9A7F88Storage()->encoded = encodedX;
-                    BorrowValue9A7F88Storage()->readCount = readCountX;
-                    temporary.reset();
-                    temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetY));
-                    const std::uint32_t encodedY = temporary->encoded;
-                    const std::uint32_t maskY = temporary->mask;
-                    const std::uint8_t readCountY = temporary->readCount;
-                    BorrowValue9A7F98Storage()->encoded = encodedY;
-                    BorrowValue9A7F98Storage()->mask = maskY;
-                    BorrowValue9A7F98Storage()->readCount = readCountY;
-                    temporary.reset();
+                    *BorrowValue9A7F88Storage() = static_cast<std::int32_t>(targetX);
+                    *BorrowValue9A7F98Storage() = static_cast<std::int32_t>(gPlayerMoveTargetY);
                     gValueC821FC = 1;
                 }
                 if ((static_cast<std::int32_t>(gPlayerMoveTargetX) - (*BorrowPlayerXStorage())) != 0
@@ -9785,23 +9600,8 @@ std::uint8_t Sub_469C90()
             if (gValue55DDAC + 250u <= now) {
                 // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
                 gValue55DDAC = platform::ReadTickCount32();
-                std::optional<platform::LegacyCryptInt> temporary;
-                temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetX));
-                const std::uint32_t encodedX = temporary->encoded;
-                const std::uint32_t maskX = temporary->mask;
-                const std::uint8_t readCountX = temporary->readCount;
-                BorrowValue9A7F88Storage()->encoded = encodedX;
-                BorrowValue9A7F88Storage()->mask = maskX;
-                BorrowValue9A7F88Storage()->readCount = readCountX;
-                temporary.reset();
-                temporary.emplace(static_cast<std::int32_t>(gPlayerMoveTargetY));
-                const std::uint8_t readCountY = temporary->readCount;
-                const std::uint32_t encodedY = temporary->encoded;
-                const std::uint32_t maskY = temporary->mask;
-                BorrowValue9A7F98Storage()->readCount = readCountY;
-                BorrowValue9A7F98Storage()->encoded = encodedY;
-                BorrowValue9A7F98Storage()->mask = maskY;
-                temporary.reset();
+                *BorrowValue9A7F88Storage() = static_cast<std::int32_t>(gPlayerMoveTargetX);
+                *BorrowValue9A7F98Storage() = static_cast<std::int32_t>(gPlayerMoveTargetY);
                 gValueC821FC = 1;
             }
         }
@@ -9914,23 +9714,8 @@ std::uint16_t Sub_469FC0()
 void Sub_46A410(
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(x));
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint32_t maskX = temporary->mask;
-    const std::uint8_t readCountX = temporary->readCount;
-    BorrowPlayerSnapshotXStorage()->encoded = encodedX;
-    BorrowPlayerSnapshotXStorage()->mask = maskX;
-    BorrowPlayerSnapshotXStorage()->readCount = readCountX;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(y));
-    const std::uint8_t readCountY = temporary->readCount;
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint32_t maskY = temporary->mask;
-    BorrowPlayerSnapshotYStorage()->readCount = readCountY;
-    BorrowPlayerSnapshotYStorage()->encoded = encodedY;
-    BorrowPlayerSnapshotYStorage()->mask = maskY;
-    temporary.reset();
+    *BorrowPlayerSnapshotXStorage() = static_cast<std::int32_t>(x);
+    *BorrowPlayerSnapshotYStorage() = static_cast<std::int32_t>(y);
 
     const std::int32_t pixelX =
         ((*BorrowPlayerSnapshotXStorage()) * 64);
@@ -10025,28 +9810,13 @@ void Sub_46A700()
         gValue9EE8FC = 0;
         gValue9EE900 = 0;
         gValueC8222E = 1;
-        std::optional<platform::LegacyCryptInt> temporary;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
-        temporary.emplace(static_cast<std::int32_t>(x));
-        const std::uint32_t maskX = temporary->mask;
-        const std::uint32_t encodedX = temporary->encoded;
-        const std::uint8_t readCountX = temporary->readCount;
-        BorrowPlayerXStorage()->mask = maskX;
-        BorrowPlayerXStorage()->encoded = encodedX;
-        BorrowPlayerXStorage()->readCount = readCountX;
-        temporary.reset();
+        *BorrowPlayerXStorage() = static_cast<std::int32_t>(x);
 
         const std::uint32_t currentYBits = gWorldCurrentYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
-        temporary.emplace(static_cast<std::int32_t>(y));
-        const std::uint32_t maskY = temporary->mask;
-        const std::uint32_t encodedY = temporary->encoded;
-        const std::uint8_t readCountY = temporary->readCount;
-        BorrowPlayerYStorage()->mask = maskY;
-        BorrowPlayerYStorage()->encoded = encodedY;
-        BorrowPlayerYStorage()->readCount = readCountY;
-        temporary.reset();
+        *BorrowPlayerYStorage() = static_cast<std::int32_t>(y);
 
         const std::int32_t count = BorrowPlayerRuntimeStorage()->value174;
         if (count > 0) {
@@ -11124,15 +10894,7 @@ std::int32_t Sub_51D790(
     } else {
         return 1;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
-    const std::uint8_t readCount = temporary->readCount;
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint32_t mask = temporary->mask;
-    BorrowValue73ECD0Storage()->readCount = readCount;
-    BorrowValue73ECD0Storage()->encoded = encoded;
-    BorrowValue73ECD0Storage()->mask = mask;
-    temporary.reset();
+    *BorrowValue73ECD0Storage() = static_cast<std::int32_t>(nextState);
     return 1;
 }
 
@@ -11573,15 +11335,7 @@ std::int32_t Sub_51E0D0(
         gReverseTransitionPhase58B6D4 = -1;
         return 1;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint32_t mask = temporary->mask;
-    const std::uint8_t readCount = temporary->readCount;
-    BorrowValue73ECD0Storage()->encoded = encoded;
-    BorrowValue73ECD0Storage()->mask = mask;
-    BorrowValue73ECD0Storage()->readCount = readCount;
-    temporary.reset();
+    *BorrowValue73ECD0Storage() = static_cast<std::int32_t>(nextState);
     gReverseTransitionPhase58B6D4 = -1;
     return 1;
 }
@@ -11738,15 +11492,7 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
         gQuadrantTransitionPhase58B6D8 = -1;
         return 1;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
-    const std::uint32_t mask = temporary->mask;
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint8_t readCount = temporary->readCount;
-    BorrowValue73ECD0Storage()->mask = mask;
-    BorrowValue73ECD0Storage()->encoded = encoded;
-    BorrowValue73ECD0Storage()->readCount = readCount;
-    temporary.reset();
+    *BorrowValue73ECD0Storage() = static_cast<std::int32_t>(nextState);
     gQuadrantTransitionPhase58B6D8 = -1;
     return 1;
 }
@@ -11922,15 +11668,7 @@ std::int32_t Sub_51EF80(
         gTileTransitionPhase58B6DC = -1;
         return 1;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
-    const std::uint8_t readCount = temporary->readCount;
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint32_t mask = temporary->mask;
-    BorrowValue73ECD0Storage()->readCount = readCount;
-    BorrowValue73ECD0Storage()->encoded = encoded;
-    BorrowValue73ECD0Storage()->mask = mask;
-    temporary.reset();
+    *BorrowValue73ECD0Storage() = static_cast<std::int32_t>(nextState);
     gTileTransitionPhase58B6DC = -1;
     return 1;
 }
@@ -11992,15 +11730,7 @@ std::int32_t Sub_51F610(const std::int32_t value)
         gImageTransitionInitializedFF4910 = 0;
         return 1;
     }
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(nextState));
-    const std::uint32_t mask = temporary->mask;
-    const std::uint32_t encoded = temporary->encoded;
-    const std::uint8_t readCount = temporary->readCount;
-    BorrowValue73ECD0Storage()->mask = mask;
-    BorrowValue73ECD0Storage()->encoded = encoded;
-    BorrowValue73ECD0Storage()->readCount = readCount;
-    temporary.reset();
+    *BorrowValue73ECD0Storage() = static_cast<std::int32_t>(nextState);
     gImageTransitionInitializedFF4910 = 0;
     return 1;
 }

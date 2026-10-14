@@ -205,23 +205,8 @@ std::int32_t Sub_445A60(
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value40 = value40;
     record.level2C = level;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint8_t xReadCount = temporary->readCount;
-    const std::uint32_t xEncoded = temporary->encoded;
-    const std::uint32_t xMask = temporary->mask;
-    record.coordinate0C.readCount = xReadCount;
-    record.coordinate0C.encoded = xEncoded;
-    record.coordinate0C.mask = xMask;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint32_t yMask = temporary->mask;
-    const std::uint32_t yEncoded = temporary->encoded;
-    const std::uint8_t yReadCount = temporary->readCount;
-    record.coordinate1C.mask = yMask;
-    record.coordinate1C.encoded = yEncoded;
-    record.coordinate1C.readCount = yReadCount;
-    temporary.reset();
+    record.coordinate0C = static_cast<std::int32_t>(mapX);
+    record.coordinate1C = static_cast<std::int32_t>(mapY);
     record.direction = direction;
     // 原两处只写+42低W8；+43高字节与其他清理入口仍共享同一W16。
     if (flag1 != 0) {

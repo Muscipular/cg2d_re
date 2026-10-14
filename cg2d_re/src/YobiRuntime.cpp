@@ -2179,23 +2179,8 @@ YobiAction* Sub_4ABEF0(
     payload->width = width;
     payload->height = height;
     payload->id = static_cast<std::uint16_t>(kind);
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(value14));
-    const std::uint8_t value14ReadCount = temporary->readCount;
-    const std::uint32_t value14Encoded = temporary->encoded;
-    const std::uint32_t value14Mask = temporary->mask;
-    action->mapX1E0.readCount = value14ReadCount;
-    action->mapX1E0.encoded = value14Encoded;
-    action->mapX1E0.mask = value14Mask;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(userState));
-    const std::uint32_t userStateMask = temporary->mask;
-    const std::uint32_t userStateEncoded = temporary->encoded;
-    const std::uint8_t userStateReadCount = temporary->readCount;
-    action->mapY1F0.mask = userStateMask;
-    action->mapY1F0.encoded = userStateEncoded;
-    action->mapY1F0.readCount = userStateReadCount;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(value14);
+    action->mapY1F0 = static_cast<std::int32_t>(userState);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
     if (lowMode == 0) {
@@ -2284,23 +2269,8 @@ YobiAction* Sub_4ACE80(
     payload->height = height;
     payload->id = static_cast<std::uint16_t>(kind);
     action->phase = phase;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(value14));
-    const std::uint32_t value14Encoded = temporary->encoded;
-    const std::uint32_t value14Mask = temporary->mask;
-    const std::uint8_t value14ReadCount = temporary->readCount;
-    action->mapX1E0.encoded = value14Encoded;
-    action->mapX1E0.mask = value14Mask;
-    action->mapX1E0.readCount = value14ReadCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(userState));
-    const std::uint8_t userStateReadCount = temporary->readCount;
-    const std::uint32_t userStateEncoded = temporary->encoded;
-    const std::uint32_t userStateMask = temporary->mask;
-    action->mapY1F0.readCount = userStateReadCount;
-    action->mapY1F0.encoded = userStateEncoded;
-    action->mapY1F0.mask = userStateMask;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(value14);
+    action->mapY1F0 = static_cast<std::int32_t>(userState);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
     if (lowMode == 0) {
@@ -2349,15 +2319,7 @@ YobiAction* Sub_43F330(
     action->flags = 0x20u;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t mask = temporary->mask;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint8_t readCount = temporary->readCount;
-        target.mask = mask;
-        target.encoded = encoded;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -2370,15 +2332,7 @@ YobiAction* Sub_43F330(
     action->worldX = static_cast<float>(scaledX);
     action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(value170));
-    const std::uint8_t readCount = temporary->readCount;
-    const std::uint32_t mask = temporary->mask;
-    const std::uint32_t encoded = temporary->encoded;
-    action->readiness.readCount = readCount;
-    action->readiness.mask = mask;
-    action->readiness.encoded = encoded;
-    temporary.reset();
+    action->readiness = static_cast<std::int32_t>(value170);
     action->phase = 1;
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -2410,15 +2364,7 @@ YobiAction* Sub_43FEB0(
     action->flags = 0x20u;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint8_t readCount = temporary->readCount;
-        const std::uint32_t mask = temporary->mask;
-        const std::uint32_t encoded = temporary->encoded;
-        target.readCount = readCount;
-        target.mask = mask;
-        target.encoded = encoded;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -3091,15 +3037,7 @@ YobiAction* Sub_441DB0(
     // 本入口的 count/encoded/mask 写序与通用 CopyPayload 不同。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint8_t readCount = temporary->readCount;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        target.readCount = readCount;
-        target.encoded = encoded;
-        target.mask = mask;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -3143,17 +3081,9 @@ YobiAction* Sub_448040(
     action->characterAction = 0;
     action->displayPriority = 10;
     action->flags = 0x200034u;
-    std::optional<platform::LegacyCryptInt> temporary;
-    const auto assignCoordinate = [&temporary](
+    const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint8_t readCount = temporary->readCount;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        target.readCount = readCount;
-        target.encoded = encoded;
-        target.mask = mask;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -4392,15 +4322,7 @@ void Sub_442AB0(
     // 本入口以mask开头，既不同于通用赋值，也不同于441DB0的count优先顺序。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t mask = temporary->mask;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint8_t readCount = temporary->readCount;
-        target.mask = mask;
-        target.encoded = encoded;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX1E0, targetX);
     assignCoordinate(action->mapY1F0, targetY);
@@ -4525,15 +4447,7 @@ double Sub_442110(
     // 本入口先取齐encoded/mask/readCount，再按该顺序发布；不同于4422F0。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        const std::uint8_t readCount = temporary->readCount;
-        target.encoded = encoded;
-        target.mask = mask;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, targetX);
     assignCoordinate(action->mapY210, targetY);
@@ -4569,23 +4483,8 @@ void Sub_4422F0(
     action->field280 = std::bit_cast<std::uint32_t>(
         static_cast<float>(rate * direction.y * 4.0F * percent));
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(targetX));
-    const std::uint32_t maskX = temporary->mask;
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint8_t readCountX = temporary->readCount;
-    action->mapX200.mask = maskX;
-    action->mapX200.encoded = encodedX;
-    action->mapX200.readCount = readCountX;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(targetY));
-    const std::uint32_t maskY = temporary->mask;
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint8_t readCountY = temporary->readCount;
-    action->mapY210.mask = maskY;
-    action->mapY210.encoded = encodedY;
-    action->mapY210.readCount = readCountY;
-    temporary.reset();
+    action->mapX200 = static_cast<std::int32_t>(targetX);
+    action->mapY210 = static_cast<std::int32_t>(targetY);
     if (direction.x < 0.0F || direction.x > 0.0F
         || direction.y < 0.0F || direction.y > 0.0F) {
         action->direction = static_cast<std::int32_t>(
@@ -5472,27 +5371,12 @@ void Sub_4424B0(YobiAction* const action)
     }
 
     // 此入口先写count，不使用encoded优先的通用operator=(int32_t)。
-    std::optional<platform::LegacyCryptInt> temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint8_t readCountX = temporary->readCount;
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint32_t maskX = temporary->mask;
-    action->mapX1E0.readCount = readCountX;
-    action->mapX1E0.encoded = encodedX;
-    action->mapX1E0.mask = maskX;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint8_t readCountY = temporary->readCount;
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint32_t maskY = temporary->mask;
-    action->mapY1F0.readCount = readCountY;
-    action->mapY1F0.encoded = encodedY;
-    action->mapY1F0.mask = maskY;
-    temporary.reset();
+    action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
 // 原函数：0x00442730。
@@ -5542,27 +5426,12 @@ void Sub_442730(YobiAction* const action)
         Sub_43EFC0(action, 1, 0);
     }
 
-    std::optional<platform::LegacyCryptInt> temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint8_t readCountX = temporary->readCount;
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint32_t maskX = temporary->mask;
-    action->mapX1E0.readCount = readCountX;
-    action->mapX1E0.encoded = encodedX;
-    action->mapX1E0.mask = maskX;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint8_t readCountY = temporary->readCount;
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint32_t maskY = temporary->mask;
-    action->mapY1F0.readCount = readCountY;
-    action->mapY1F0.encoded = encodedY;
-    action->mapY1F0.mask = maskY;
-    temporary.reset();
+    action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
 // 原函数：0x004428F0。
@@ -5616,27 +5485,12 @@ void Sub_4428F0(YobiAction* const action)
     }
 
     // 倍率入口与442730不同：mask→encoded→count，不提前复制目标载荷。
-    std::optional<platform::LegacyCryptInt> temporary;
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint32_t maskX = temporary->mask;
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint8_t readCountX = temporary->readCount;
-    action->mapX1E0.mask = maskX;
-    action->mapX1E0.encoded = encodedX;
-    action->mapX1E0.readCount = readCountX;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(mapX);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint32_t maskY = temporary->mask;
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint8_t readCountY = temporary->readCount;
-    action->mapY1F0.mask = maskY;
-    action->mapY1F0.encoded = encodedY;
-    action->mapY1F0.readCount = readCountY;
-    temporary.reset();
+    action->mapY1F0 = static_cast<std::int32_t>(mapY);
 }
 
 // WLR01：玩家519D50、单项删除4462E0与整表4464D0共用八槽/text清理；正确正文保持。
@@ -5681,40 +5535,11 @@ YobiAction* Sub_46DE50(
     action->direction = 0;
     action->displayPriority = 10;
     action->flags = 0x30;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint32_t mapX200Encoded = temporary->encoded;
-    const std::uint32_t mapX200Mask = temporary->mask;
-    const std::uint8_t mapX200ReadCount = temporary->readCount;
-    action->mapX200.encoded = mapX200Encoded;
-    action->mapX200.mask = mapX200Mask;
-    action->mapX200.readCount = mapX200ReadCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint32_t mapY210Encoded = temporary->encoded;
-    const std::uint32_t mapY210Mask = temporary->mask;
-    const std::uint8_t mapY210ReadCount = temporary->readCount;
-    action->mapY210.encoded = mapY210Encoded;
-    action->mapY210.mask = mapY210Mask;
-    action->mapY210.readCount = mapY210ReadCount;
-    temporary.reset();
+    action->mapX200 = static_cast<std::int32_t>(mapX);
+    action->mapY210 = static_cast<std::int32_t>(mapY);
     action->field270 = 0;
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint32_t mapX1E0Encoded = temporary->encoded;
-    const std::uint32_t mapX1E0Mask = temporary->mask;
-    const std::uint8_t mapX1E0ReadCount = temporary->readCount;
-    action->mapX1E0.encoded = mapX1E0Encoded;
-    action->mapX1E0.mask = mapX1E0Mask;
-    action->mapX1E0.readCount = mapX1E0ReadCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint32_t mapY1F0Encoded = temporary->encoded;
-    const std::uint32_t mapY1F0Mask = temporary->mask;
-    const std::uint8_t mapY1F0ReadCount = temporary->readCount;
-    action->mapY1F0.encoded = mapY1F0Encoded;
-    action->mapY1F0.mask = mapY1F0Mask;
-    action->mapY1F0.readCount = mapY1F0ReadCount;
-    temporary.reset();
+    action->mapX1E0 = static_cast<std::int32_t>(mapX);
+    action->mapY1F0 = static_cast<std::int32_t>(mapY);
     const double scaledX = static_cast<double>(mapX) * 64.0f;
     action->field27C = 0;
     action->field280 = 0;
@@ -5941,15 +5766,7 @@ YobiAction* Sub_444000(
     // 原四次各先读取临时 encoded/mask/count，再按同序发布目标。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        const std::uint8_t readCount = temporary->readCount;
-        target.encoded = encoded;
-        target.mask = mask;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(action->mapX200, mapX);
     assignCoordinate(action->mapY210, mapY);
@@ -10399,15 +10216,7 @@ std::int32_t NewBattleNumber_41F1A0(
         }
         action->callback = UpdateBattleNumber_41F110;
         action->displayPriority = 0xCF;
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]))));
-        const std::uint8_t characterReadCount = temporary->readCount;
-        const std::uint32_t characterEncoded = temporary->encoded;
-        const std::uint32_t characterMask = temporary->mask;
-        action->mapX1E0.readCount = characterReadCount;
-        action->mapX1E0.encoded = characterEncoded;
-        action->mapX1E0.mask = characterMask;
-        temporary.reset();
+        action->mapX1E0 = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
@@ -10482,15 +10291,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         }
         action->callback = UpdateBattleNumber_41F110;
         action->displayPriority = 0xCF;
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]))));
-        const std::uint32_t characterEncoded = temporary->encoded;
-        const std::uint32_t characterMask = temporary->mask;
-        const std::uint8_t characterReadCount = temporary->readCount;
-        action->mapX1E0.encoded = characterEncoded;
-        action->mapX1E0.mask = characterMask;
-        action->mapX1E0.readCount = characterReadCount;
-        temporary.reset();
+        action->mapX1E0 = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         action->imageNo = 0;
         action->value54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
@@ -25039,15 +24840,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             auto* const fp = &action->barValue1B0;
                             ((*fp) -= static_cast<std::int32_t>(effect.position3));
                             if (((*fp) < 0)) {
-                                std::optional<platform::LegacyCryptInt> temporary;
-                                temporary.emplace(static_cast<std::int32_t>(0));
-                                const std::uint32_t temporaryMask = temporary->mask;
-                                const std::uint32_t temporaryEncoded = temporary->encoded;
-                                const std::uint8_t temporaryCount = temporary->readCount;
-                                fp->mask = temporaryMask;
-                                fp->encoded = temporaryEncoded;
-                                fp->readCount = temporaryCount;
-                                temporary.reset();
+                                *fp = std::int32_t{0};
                             }
                             const std::int32_t numberIndex = payload->effectRunningC9C;
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -25088,15 +24881,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         auto* const hp = &action->readiness;
                         ((*hp) -= static_cast<std::int32_t>(effect.position3));
                         if (((*hp) < 0)) {
-                            std::optional<platform::LegacyCryptInt> temporary;
-                            temporary.emplace(static_cast<std::int32_t>(0));
-                            const std::uint8_t temporaryCount = temporary->readCount;
-                            const std::uint32_t temporaryEncoded = temporary->encoded;
-                            const std::uint32_t temporaryMask = temporary->mask;
-                            hp->readCount = temporaryCount;
-                            hp->encoded = temporaryEncoded;
-                            hp->mask = temporaryMask;
-                            temporary.reset();
+                            *hp = std::int32_t{0};
                         }
                         const std::int32_t numberIndex = payload->effectRunningC9C;
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
@@ -29640,15 +29425,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     case 6:
         (action->readiness -= static_cast<std::int32_t>(payload->value1030));
         if ((action->readiness < 0)) {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(0));
-            const std::uint32_t encoded = temporary->encoded;
-            const std::uint32_t mask = temporary->mask;
-            const std::uint8_t readCount = temporary->readCount;
-            action->readiness.encoded = encoded;
-            action->readiness.mask = mask;
-            action->readiness.readCount = readCount;
-            temporary.reset();
+            action->readiness = std::int32_t{0};
         }
         break;
     case 5:
@@ -29666,15 +29443,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     case 3:
         (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
         if ((0 > action->barValue1B0)) {
-            std::optional<platform::LegacyCryptInt> temporary;
-            temporary.emplace(static_cast<std::int32_t>(0));
-            const std::uint32_t encoded = temporary->encoded;
-            const std::uint32_t mask = temporary->mask;
-            const std::uint8_t readCount = temporary->readCount;
-            action->barValue1B0.encoded = encoded;
-            action->barValue1B0.mask = mask;
-            action->barValue1B0.readCount = readCount;
-            temporary.reset();
+            action->barValue1B0 = std::int32_t{0};
         }
         break;
     case 0:
@@ -29691,14 +29460,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         action->readiness.mask = mask;
         temporary.reset();
         if ((0 > action->readiness)) {
-            temporary.emplace(static_cast<std::int32_t>(0));
-            const std::uint8_t zeroReadCount = temporary->readCount;
-            const std::uint32_t zeroEncoded = temporary->encoded;
-            const std::uint32_t zeroMask = temporary->mask;
-            action->readiness.readCount = zeroReadCount;
-            action->readiness.encoded = zeroEncoded;
-            action->readiness.mask = zeroMask;
-            temporary.reset();
+            action->readiness = std::int32_t{0};
         }
         if ((action->maxHp < action->readiness)) {
             action->readiness.CopyPayload(&action->maxHp);
@@ -29716,14 +29478,7 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         action->barValue1B0.readCount = readCount;
         temporary.reset();
         if ((0 > action->barValue1B0)) {
-            temporary.emplace(static_cast<std::int32_t>(0));
-            const std::uint32_t zeroMask = temporary->mask;
-            const std::uint32_t zeroEncoded = temporary->encoded;
-            const std::uint8_t zeroReadCount = temporary->readCount;
-            action->barValue1B0.mask = zeroMask;
-            action->barValue1B0.encoded = zeroEncoded;
-            action->barValue1B0.readCount = zeroReadCount;
-            temporary.reset();
+            action->barValue1B0 = std::int32_t{0};
         }
         if ((action->barMaximum1C0 < action->barValue1B0)) {
             action->barValue1B0.CopyPayload(&action->barMaximum1C0);
@@ -30591,15 +30346,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
             case 6:
                 (action->readiness -= static_cast<std::int32_t>(payload->value1030));
                 if ((action->readiness < 0)) {
-                    std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
-                    const std::uint32_t mask = temporary->mask;
-                    const std::uint32_t encoded = temporary->encoded;
-                    const std::uint8_t readCount = temporary->readCount;
-                    action->readiness.mask = mask;
-                    action->readiness.encoded = encoded;
-                    action->readiness.readCount = readCount;
-                    temporary.reset();
+                    action->readiness = std::int32_t{0};
                 }
                 break;
             case 5:
@@ -30617,15 +30364,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
             case 3:
                 (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
                 if ((0 > action->barValue1B0)) {
-                    std::optional<platform::LegacyCryptInt> temporary;
-                    temporary.emplace(static_cast<std::int32_t>(0));
-                    const std::uint32_t mask = temporary->mask;
-                    const std::uint32_t encoded = temporary->encoded;
-                    const std::uint8_t readCount = temporary->readCount;
-                    action->barValue1B0.mask = mask;
-                    action->barValue1B0.encoded = encoded;
-                    action->barValue1B0.readCount = readCount;
-                    temporary.reset();
+                    action->barValue1B0 = std::int32_t{0};
                 }
                 break;
             default:
@@ -31919,16 +31658,9 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                 } else {
                     (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
                     if ((action->readiness < 0)) {
-                        std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(static_cast<std::int32_t>(0));
                         // 原416655..416671先齐读，再按mask、encoded、readCount发布。
-                        const std::uint32_t mask = temporary->mask;
-                        const std::uint32_t encoded = temporary->encoded;
-                        const std::uint8_t readCount = temporary->readCount;
-                        action->readiness.mask = mask;
-                        action->readiness.encoded = encoded;
-                        action->readiness.readCount = readCount;
-                        temporary.reset();
+                        // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
+                        action->readiness = std::int32_t{0};
                     }
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
@@ -33165,16 +32897,9 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                 } else {
                     (action->readiness -= static_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].position3));
                     if ((action->readiness < 0)) {
-                        std::optional<platform::LegacyCryptInt> temporary;
-                        temporary.emplace(static_cast<std::int32_t>(0));
                         // 原4171EA..417206先齐读encoded、mask、readCount，再写源HP。
-                        const std::uint32_t encoded = temporary->encoded;
-                        const std::uint32_t mask = temporary->mask;
-                        const std::uint8_t readCount = temporary->readCount;
-                        action->readiness.encoded = encoded;
-                        action->readiness.mask = mask;
-                        action->readiness.readCount = readCount;
-                        temporary.reset();
+                        // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
+                        action->readiness = std::int32_t{0};
                     }
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
@@ -33733,23 +33458,8 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
 // 原函数：0x0040B180。
 void UpdateBattleAction251_40B180(YobiAction* const action)
 {
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(1));
-    const std::uint32_t hpMask = temporary->mask;
-    const std::uint32_t hpEncoded = temporary->encoded;
-    const std::uint8_t hpCount = temporary->readCount;
-    action->readiness.mask = hpMask;
-    action->readiness.encoded = hpEncoded;
-    action->readiness.readCount = hpCount;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(1));
-    const std::uint32_t fpMask = temporary->mask;
-    const std::uint32_t fpEncoded = temporary->encoded;
-    const std::uint8_t fpCount = temporary->readCount;
-    action->barValue1B0.mask = fpMask;
-    action->barValue1B0.encoded = fpEncoded;
-    action->barValue1B0.readCount = fpCount;
-    temporary.reset();
+    action->readiness = std::int32_t{1};
+    action->barValue1B0 = std::int32_t{1};
     AdvanceBattleCastState_439340(action);
 }
 
@@ -37397,23 +37107,8 @@ void Sub_445350(
     record.imageNo = static_cast<std::uint32_t>(imageNo);
     record.value40 = static_cast<std::uint16_t>(value40);
     record.level2C = level;
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(mapX));
-    const std::uint8_t firstReadCount = temporary->readCount;
-    const std::uint32_t firstEncoded = temporary->encoded;
-    const std::uint32_t firstMask = temporary->mask;
-    record.coordinate0C.readCount = firstReadCount;
-    record.coordinate0C.encoded = firstEncoded;
-    record.coordinate0C.mask = firstMask;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(mapY));
-    const std::uint32_t secondMask = temporary->mask;
-    const std::uint32_t secondEncoded = temporary->encoded;
-    const std::uint8_t secondReadCount = temporary->readCount;
-    record.coordinate1C.mask = secondMask;
-    record.coordinate1C.encoded = secondEncoded;
-    record.coordinate1C.readCount = secondReadCount;
-    temporary.reset();
+    record.coordinate0C = static_cast<std::int32_t>(mapX);
+    record.coordinate1C = static_cast<std::int32_t>(mapY);
     record.direction = selectedDirection;
     if (flag1 != 0) {
         *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x40u;
@@ -37553,15 +37248,7 @@ void Sub_445D20(
     // 原445D20两段均先取mask/encoded/count，再按同序发布；不改共享operator=(int32_t)。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t mask = temporary->mask;
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint8_t readCount = temporary->readCount;
-        target.mask = mask;
-        target.encoded = encoded;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(record.coordinate0C, mapX);
     assignCoordinate(record.coordinate1C, mapY);
@@ -37621,15 +37308,7 @@ void Sub_445F40(
     record.value4C = value4C;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(value));
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        const std::uint8_t readCount = temporary->readCount;
-        target.encoded = encoded;
-        target.mask = mask;
-        target.readCount = readCount;
-        temporary.reset();
+        target = static_cast<std::int32_t>(value);
     };
     assignCoordinate(record.coordinate0C, mapX);
     assignCoordinate(record.coordinate1C, mapY);
@@ -37950,23 +37629,8 @@ void MovePlayerOneStep_46B1B0(
             payload->action2C, previousX, previousY, speed, rate));
     }
 
-    std::optional<platform::LegacyCryptInt> temporary;
-    temporary.emplace(static_cast<std::int32_t>(x));
-    const std::uint32_t maskX = temporary->mask;
-    const std::uint32_t encodedX = temporary->encoded;
-    const std::uint8_t readCountX = temporary->readCount;
-    BorrowPlayerSnapshotXStorage()->mask = maskX;
-    BorrowPlayerSnapshotXStorage()->encoded = encodedX;
-    BorrowPlayerSnapshotXStorage()->readCount = readCountX;
-    temporary.reset();
-    temporary.emplace(static_cast<std::int32_t>(y));
-    const std::uint32_t encodedY = temporary->encoded;
-    const std::uint32_t maskY = temporary->mask;
-    const std::uint8_t readCountY = temporary->readCount;
-    BorrowPlayerSnapshotYStorage()->encoded = encodedY;
-    BorrowPlayerSnapshotYStorage()->mask = maskY;
-    BorrowPlayerSnapshotYStorage()->readCount = readCountY;
-    temporary.reset();
+    *BorrowPlayerSnapshotXStorage() = static_cast<std::int32_t>(x);
+    *BorrowPlayerSnapshotYStorage() = static_cast<std::int32_t>(y);
 
     const std::int32_t pixelX =
         ((*BorrowPlayerSnapshotXStorage()) * 64);

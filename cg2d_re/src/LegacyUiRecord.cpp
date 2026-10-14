@@ -35,7 +35,6 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
-#include <optional>
 #include <string>
 
 namespace {
@@ -16847,15 +16846,7 @@ std::uint32_t Sub_4FC8F0(const std::int32_t opened)
         return static_cast<std::uint32_t>(state);
     }
     if ((character_select::detail::Sub_503990(&server) & 1) != 0) {
-        std::optional<platform::LegacyCryptInt> temporary;
-        temporary.emplace(static_cast<std::int32_t>(0));
-        const std::uint32_t encoded = temporary->encoded;
-        const std::uint32_t mask = temporary->mask;
-        const std::uint8_t readCount = temporary->readCount;
-        world::detail::BorrowValue73ECD0Storage()->encoded = encoded;
-        world::detail::BorrowValue73ECD0Storage()->mask = mask;
-        world::detail::BorrowValue73ECD0Storage()->readCount = readCount;
-        temporary.reset();
+        *world::detail::BorrowValue73ECD0Storage() = std::int32_t{0};
         static_cast<void>(world::SetPendingSceneType(7));
         static_cast<void>(PlaySe(60, 320, 240));
     } else if ((character_select::detail::Sub_503990(&town) & 1) != 0) {

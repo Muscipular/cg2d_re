@@ -20200,9 +20200,28 @@
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
-      "boundary": "单次读取S32后fild返回浮点，不是先转F32。当前12个父入口28处原调用由各父单次Read及对应浮点表达式承接；F32落点按父合同保留，不把独立S32转换映射当作后续x87精度、舍入和完整路径验收。"
+      "boundary": "单次读取S32后fild返回浮点，不是先转F32。当前12个父入口28处原调用由各父单次Read及对应浮点表达式承接；F32落点按父合同保留，不把独立S32转换映射当作后续x87精度、舍入和完整路径验收。",
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x438270",
@@ -31325,7 +31344,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -31381,6 +31401,24 @@
         "retired_group_reference": "doc/cg2d_msvc_crt_numeric_evidence.json#/retired_paths",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "full_feature_accepted": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -31394,7 +31432,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -31450,6 +31489,24 @@
         "retired_group_reference": "doc/cg2d_msvc_crt_numeric_evidence.json#/retired_paths",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "full_feature_accepted": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -31465,7 +31522,8 @@
         "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-source-state-20261010",
-        "doc/cg2d_msvc_crt_numeric_evidence.json"
+        "doc/cg2d_msvc_crt_numeric_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -31522,6 +31580,24 @@
         "retired_group_reference": "doc/cg2d_msvc_crt_numeric_evidence.json#/retired_paths",
         "decision_ref": "doc/cg2d_crt_host_migration_spec.md#msvc-crt-numeric-decision-20261010",
         "full_feature_accepted": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -134756,7 +134832,8 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_battle_time_default_measure_evidence.json"
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "BOI01完整191条687B/3页/11call-14内部跳转/一ret-4补丁；不代全部callee-父/consumer-owner/运行",
       "boundary": "地址native非拥有，字节S8与S32/F32-F64-W32/W8/W16保；仅正常两根局部I/S，全部父/第二数字构造者/测宽-资源-字载荷绘制consumer与回收/ABI-PC53-运行未验。",
@@ -134831,6 +134908,24 @@
         "full_original_function_re_reviewed": false,
         "full_runtime_verified": false,
         "invalidated_evidence_id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006"
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -134918,7 +135013,8 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_battle_time_default_measure_evidence.json"
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "BOJ01完整156条560B/2页/11call-12内部跳转/一ret/3补丁；仅正常局部静态、全部生产消费/owner未运行",
       "boundary": "地址native非拥有、原字节/数值宽度保；仅本步完整Time/Default与Number局部原call，不代全部callee/caller-宽度/资源/字载荷消费/回收owner-PC53及运行。",
@@ -134969,6 +135065,24 @@
             "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
           }
         ]
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -152963,10 +153077,29 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_chara_producer_evidence.json"
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
-      "boundary": "43F330四坐标按原先读mask/encoded/W8 count、同序发布，field270 W16位于第二/第三组之间；readiness改先读W8 count/mask/encoded并同序发布。各组仍一次原构造/析构、参数/目标及随机消费保持，当前五组共五对。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
+      "boundary": "43F330四坐标按原先读mask/encoded/W8 count、同序发布，field270 W16位于第二/第三组之间；readiness改先读W8 count/mask/encoded并同序发布。各组仍一次原构造/析构、参数/目标及随机消费保持，当前五组共五对。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。",
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x43feb0",
@@ -153008,10 +153141,29 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_chara_producer_evidence.json"
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
-      "boundary": "43FEB0四坐标的原局部lambda按W8 count/mask/encoded读后同序发布；四目标顺序、field270 W16、同值参数和四对原构造析构/随机消费保持。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
+      "boundary": "43FEB0四坐标的原局部lambda按W8 count/mask/encoded读后同序发布；四目标顺序、field270 W16、同值参数和四对原构造析构/随机消费保持。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。",
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x440b70",
@@ -153569,10 +153721,29 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
-        "doc/cg2d_actor_coordinate_producer_evidence.json"
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "两完整212条829B/12type17call8父及两个源片段，临时三取样先于三发布/原字段宽度和真实四组构析有限静态；完整父实参/所有callee/对象寿命/运行未验",
-      "boundary": "441DB0既有局部lambda先取U8count/encoded/mask三值再按同序发布，四目标间清field270低W16、原sizeof载荷/真实4417E0回调/失败空/字段和投影及指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。"
+      "boundary": "441DB0既有局部lambda先取U8count/encoded/mask三值再按同序发布，四目标间清field270低W16、原sizeof载荷/真实4417E0回调/失败空/字段和投影及指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。",
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x444000",
@@ -153630,10 +153801,29 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
-        "doc/cg2d_actor_coordinate_producer_evidence.json"
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "两完整212条829B/12type17call8父及两个源片段，临时三取样先于三发布/原字段宽度和真实四组构析有限静态；完整父实参/所有callee/对象寿命/运行未验",
-      "boundary": "444000从通用赋值承接转入口私有lambda，先取encoded/mask/U8count三值再按同序发布，mapX200/mapY210/mapX1E0/mapY1F0四次原序构析；零载荷/失败空/无新回调或completionSlot、原投影和指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。"
+      "boundary": "444000从通用赋值承接转入口私有lambda，先取encoded/mask/U8count三值再按同序发布，mapX200/mapY210/mapX1E0/mapY1F0四次原序构析；零载荷/失败空/无新回调或completionSlot、原投影和指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。",
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x519d50",
@@ -156957,7 +157147,8 @@
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fourth-batch-source-state",
-        "doc/cg2d_unassigned_range_fourth_batch_evidence.json"
+        "doc/cg2d_unassigned_range_fourth_batch_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "verification_level": "BMF01完整741条2889B/51C71C普通call父51C430/134出向、三直接表22槽88B与十五逻辑十八处有限静态；两根共850条3188B十二指令页三引用页及十八逻辑二十二处。不验五父全文/全部资源owner或ABI/PC53/画面运行。",
       "boundary": "完整0..9状态/default公共尾和完成/初始化/清理/转场/明文退出接线纳管；状态7与9次序和43BED0差异、三载体构造析构和token/reserved、原两音频调用系暂停范围保持。根内memcpy W16读取lambda仅现代承载，不新增F/X身份或公共HP getter，不加保护/回绕/owner，不以静态通过提升完整门禁。",
@@ -156996,6 +157187,24 @@
           "X:0003D6F9-0003D760"
         ],
         "boundary": "只追加本批完整原X分派数据用途，不重验/修改原父全部正文、字段、调用、owner寿命、机器或运行；原source/status/旧证据保持。"
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 3,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -165071,7 +165280,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
-        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "动作156：flagsFDC原W32读取，清60才PlayFrame(action,0)弃返；其后fresh取一次effect1060，phase W32==3才MarkDeath该同一非拥有指针→清effect1060→439340。保持原无额外空保护的业务前提，不提前跨PlayFrame缓存、不改变owner或位宽。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
       "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
@@ -165098,6 +165308,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 4,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -166000,7 +166228,8 @@
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。",
       "verification_level": "七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。",
@@ -166028,6 +166257,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -167460,7 +167707,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
-        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
       "verification_level": "五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
@@ -167489,6 +167737,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -167668,7 +167934,8 @@
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-acceptance",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
-        "doc/cg2d_battle_bounce_reflection_sampling_evidence.json"
+        "doc/cg2d_battle_bounce_reflection_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "237入口/预效果：固定payload，characterAction3/speed10/frameRate100；initial FF0<16才Move，调用后FF0再<16才fresh current.position/共享目标Distance<20，否则直接处理。近距或计时已达16才fresh同index.position先借共享目标T*、flags W32后、targetPayload后缓存；Turn(target,action,1,0)→targetSkill=-1，fresh ownPosition/共享attacker写target+10，cached flags发布target FE4，fresh ownPosition ApplyFlags(position,action)。cached bit8 target.phase31；否则100/flash0声210(x)→flash1/phase31，flash非0只共同尾。其它C000清且fresh current.amount!=0：target x10/y14 S32→offsets F32；2000反伤bit2给source110008，RAND(0,2)+110001给target图→Rebirth(action,target)后source FE4=2000，cached bit20才sourceFDC|2/gate1/alive1（无232的skill404/406条件）；非2000路径100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20，再bit2给target110008，另RAND(0,2)+110001和Rebirth，bit20激活target。所有flags初始W32快照及BL/BH寄存器消费保持，不能照相似体新增条件。 237恢复/反伤/扣减：8000只439340(target)；4000先439340(target)，10000000 fresh当前共享目标图22459；否则amount先position/共享目标后AddHP，fresh共享目标GreaterHP/max，超过原上限再fresh目标普通CopyPayload encoded/mask/count交替；恢复数显index→cached targetY→sameindex.amount→targetX/type5/style2/cached flags，bit2 target图22454→Attribute(action,target)。2000分支先439340(action)再439340(target)，10000000当前图22459；否则fresh amount扣source HP，<0 Construct0后encoded W32/mask W32/count W8三齐读，再按同序写source→Destroy；反伤数显index→sourceY→amount→sourceX/type6/style2/flags，bit2 source图22454，Attribute仍(action,target)，41724A/41723A跳原共享417153/41715B物理点，不新call。普通扣减10000000当前图22459；否则fresh current.amount=0给当前目标22331，非0先amount后position/共享目标扣HP，fresh共享目标Less0才Construct0消费RNG。原4172E8读index后4172EE先读temporary.encoded，再4172F5 position/4172F9共享目标，encoded发布后mask/count交替，再Destroy；顺序与232不同。普通数显index→cached targetY→amount→targetX/type6/style2/flags，bit2 target22454→Attribute(action,target)，最终439340(target)。HP/图标/Attribute接收者、独立RNG/普通上限复制/共享调用尾保持。 237共同尾：处理分支cached bit8清且fresh current.amount!=0才按cached targetPayload当前FDC W32的bit1求14*(bit+1)写source FD0。cached bit2000清且fresh source FF0<16才phase5；随后439470(action)弃返。共同尾fresh previousFF0后++发布，previous>=16才439340(action)→FF0=0，最后PlayFrame(action,0)返回。未近路径同样进入共同计时/帧尾，保原两次FF0阈值读/处理前后调用消费、状态与别名，不新增RNG或数学异常/回绕模型。 四完整原根834条2947B/十三页、62call/26入口/86普通内部jump/八ret，四404DB0唯一入向12邻窗/35B和十实际F32常数。只233三阶段/234三阶段/237五阶段共十一源码片段：初始FDC/FCC先取后算、四实际内存低W8、下边界两次角度读、三数显index先Y、两归零各自原序。正常旧值一致，不称数值/并发或机器故障；236正确体/父弃返边界、S16宽度共享getter/原业务边界、原W32寄存器旗位/HP图标接收者/独立RNG/普通上限CopyPayload、真实同步帧循环/原调用尾和返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
       "verification_level": "四完整原根834条2947B/十三页、62call/26入口/86普通内部jump/八ret，四404DB0唯一入向12邻窗/35B和十实际F32常数。只233三阶段/234三阶段/237五阶段共十一源码片段：初始FDC/FCC先取后算、四实际内存低W8、下边界两次角度读、三数显index先Y、两归零各自原序。正常旧值一致，不称数值/并发或机器故障；236正确体/父弃返边界、S16宽度共享getter/原业务边界、原W32寄存器旗位/HP图标接收者/独立RNG/普通上限CopyPayload、真实同步帧循环/原调用尾和返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
@@ -167697,6 +167964,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -168432,7 +168717,8 @@
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
       "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
@@ -168462,6 +168748,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -172375,7 +172679,8 @@
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
-        "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+        "doc/cg2d_battle_entry_result_producer_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "50D120完整战斗入口/退出：禁用门禁、D67E78强制清理链/既有四数值载体construct-destroy及RNG消费、三次mask-encoded-W8 count读齐再pub与非正type count-encoded-mask独立序恢复；正type2/3/其它谓词先pub/真实W32-W16写序/背景参数读取、四1000H队列只首字节清零/pending1保，跨字段FDA88A通过现ReadPlayerFlags18A一次4B借读恢复；音频暂停/原fresh socket与明文回复保。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
       "verification_level": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
@@ -172409,6 +172714,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 4,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -172911,7 +173234,8 @@
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
-        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
       "verification_level": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
@@ -172950,6 +173274,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 5,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -173095,7 +173437,8 @@
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision",
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-acceptance",
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state",
-        "doc/cg2d_normal_scene_controller_callee_order_evidence.json"
+        "doc/cg2d_normal_scene_controller_callee_order_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "完整736条3191B/十一页，219call（207direct/62callee、九Tick与三表面indirect）/54jump/14RET，唯一WorldUpdate51C430@51C63C。原253值/23压缩目标/22具名状态与default、同帧fallthrough/goto/5及30等待、地图/输入/窗口/队列/计时和已批表面替换保持。六真实空509080原点恢复，仍空返回不新业务；状态3两tuple mask-encoded-W8先读齐再pub、两独立zero/one原2construct2destroy/RNG及目标vft-padding保，前组已有staging不改。音频现接线保持/仍暂停，不新验全部62provider/SDK或像素运行。 BSA01两完整主地图根924条3782B/十四页，226CALL含214direct/66callee与十二indirect（九Tick三原表面），61jump/十五RET；父唯一WorldUpdate51C63C、初始化两父51C820/51CF84。源SceneState控制器八片段恢复205/251/252三点及3共六空509080，沿既有RET空叶不造业务；两数值tuple mask-encoded-W8先读齐再pub，两独立zero/one原2construct2destroy和RNG/目的vft-padding保。其余22状态/253值23目标/default、同帧/5-30阈值/地图输入窗口/队列表面计时/非拥有引用/音频全文保持；初始化原dir→Y→X→image/三文本两分隔/HP-maxHP与五petmap首匹配/五W16清已有正确正文保，只補完整基线。两真实X362B为目标表92/值表253和17真NOP，五连续part、两本父data引用/无code入向、前RET后真入口，只mapped用途。两F1580/1581 normal equivalent/MAP66→68/语义1582有效1575/文档1693/3680（46.01%）/分类714/E820/R7 288余2773。无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和所有完整门禁保，U09/U11仅current/refs仍open。原正常值正确不称运行故障；所有callee/正常owner-alias寿命/资源像素/主地图/SDK-ABI与互通运行R8未验；原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
       "verification_level": "BSA01两完整主地图根924条3782B/十四页，226CALL含214direct/66callee与十二indirect（九Tick三原表面），61jump/十五RET；父唯一WorldUpdate51C63C、初始化两父51C820/51CF84。源SceneState控制器八片段恢复205/251/252三点及3共六空509080，沿既有RET空叶不造业务；两数值tuple mask-encoded-W8先读齐再pub，两独立zero/one原2construct2destroy和RNG/目的vft-padding保。其余22状态/253值23目标/default、同帧/5-30阈值/地图输入窗口/队列表面计时/非拥有引用/音频全文保持；初始化原dir→Y→X→image/三文本两分隔/HP-maxHP与五petmap首匹配/五W16清已有正确正文保，只補完整基线。两真实X362B为目标表92/值表253和17真NOP，五连续part、两本父data引用/无code入向、前RET后真入口，只mapped用途。两F1580/1581 normal equivalent/MAP66→68/语义1582有效1575/文档1693/3680（46.01%）/分类714/E820/R7 288余2773。无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和所有完整门禁保，U09/U11仅current/refs仍open。原正常值正确不称运行故障；所有callee/正常owner-alias寿命/资源像素/主地图/SDK-ABI与互通运行R8未验；原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
@@ -173138,6 +173481,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -175145,7 +175506,8 @@
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
-        "doc/cg2d_logout_reply_sampling_evidence.json"
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
       "verification_level": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
@@ -175184,6 +175546,24 @@
         "full_original_parent_or_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/LoginRequest.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -178664,7 +179044,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
-        "doc/cg2d_actor_path_append_sampling_evidence.json"
+        "doc/cg2d_actor_path_append_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
       "verification_level": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
@@ -178704,6 +179085,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -178733,7 +179132,8 @@
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
       "verification_level": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
@@ -178777,6 +179177,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -178806,7 +179224,8 @@
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
       "verification_level": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
@@ -178850,6 +179269,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -178951,7 +179388,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_update_sampling_evidence.json"
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
       "verification_level": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
@@ -178994,6 +179432,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179023,7 +179479,8 @@
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_evidence.json"
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
       "verification_level": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
@@ -179066,6 +179523,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179095,7 +179570,8 @@
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_evidence.json"
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
       "verification_level": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
@@ -179138,6 +179614,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179312,7 +179806,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
-        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
       "verification_level": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
@@ -179358,6 +179853,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179387,7 +179900,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
-        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
       "verification_level": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
@@ -179433,6 +179947,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179678,7 +180210,8 @@
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_move_control_sampling_evidence.json"
+        "doc/cg2d_player_move_control_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
       "verification_level": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
@@ -179721,6 +180254,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 4,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -179822,7 +180373,8 @@
         "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
         "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-acceptance",
         "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
-        "doc/cg2d_player_single_step_sampling_evidence.json"
+        "doc/cg2d_player_single_step_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
       "verification_level": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
@@ -179889,6 +180441,24 @@
         "full_numeric_or_x87_rounding_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -180608,7 +181178,8 @@
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
-        "doc/cg2d_coordinate_reset_sampling_evidence.json"
+        "doc/cg2d_coordinate_reset_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
       "verification_level": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
@@ -180655,6 +181226,24 @@
         "full_numeric_or_x87_rounding_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 6,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -181140,7 +181729,8 @@
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_action_coordinate_sampling_evidence.json"
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
       "verification_level": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
@@ -181184,6 +181774,24 @@
         "full_numeric_or_x87_rounding_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 4,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -182580,7 +183188,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_reply_reset_sampling_evidence.json"
+        "doc/cg2d_map_reply_reset_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验。原socket首参数不消费，现nativeuintptr动作视图保，不造fixedsuccess或全ABI等价；509090原EAX不作新业务返回，512E40该局部回调后明确xorEAX0返回。其余reset后窗只记录实际返回流，不称所有父弃返。两根纳LOOP/MAP，509090另NETWORK；I仅LOOP/MAP实修两片段，S三域，完整门禁保持。网络原格式兼容且仅明文，两加解密叶仍排除；内部LegacyCryptInt不是网络加解密，音频暂停与RPLAN.24保持。",
       "verification_level": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
@@ -182627,6 +183236,24 @@
         "full_plaintext_interop_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183388,7 +184015,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中ResetLegacyMousePosition_506890：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183457,6 +184085,24 @@
         "source_body_flag_changed": false,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183491,7 +184137,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseLeftDown_506900：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183560,6 +184207,24 @@
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183594,7 +184259,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseLeftUp_5069E0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183663,6 +184329,24 @@
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183697,7 +184381,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseLeftDoubleClick_506A90：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183766,6 +184451,24 @@
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183800,7 +184503,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseRightDown_506B50：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183869,6 +184573,24 @@
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -183903,7 +184625,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseRightUp_506C40：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -183972,6 +184695,24 @@
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
         "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -184006,7 +184747,8 @@
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
         "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原八根组中UpdateLegacyMouseRightDoubleClick_506CF0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
       "verification_level": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
@@ -184074,6 +184816,24 @@
         "coordinate_payload_Ctor_Dtor_and_tick_tracker_tail_bodies_kept": true,
         "source_body_flag_changed": true,
         "full_flag_consumers_verified": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/platform/LegacyMouse.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -185982,7 +186742,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原216条869B/四页；四RECT64B、步长低S8零取4、共享触发/phase和两方向坐标原写序/非对称写0边界保持；清屏后四块逐次fresh借Temp/Y/X低S16/同RECT复制，完成后CryptInt2→3或3→4，三字段mask/encoded/count取齐后同序发布/Dtor再phase=-1/真实0或1保持。原两个caller多压未消费0实参不新增新端接口，case18/19传mode0/1/value并透传结果；原内部CryptInt保而非网络加解密，完整父/alias/像素/ABI运行未验",
       "verification_level": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
@@ -186032,6 +186793,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -186245,7 +187024,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原425条1653B/七页；先一次RAND再float位解释/ftol低S32与原<1取1、低S8零取1、共享触发/四状态初始化；候选仅原拒绝路径重抽，计数/速度/Y读写阶段与两遍状态2→1的不同RECT生产/低S16坐标/native消费、完成CryptInt count/encoded/mask齐采同序发布/析构/phase和0/1正确保。既有初始化助手和64元素同owner，完整父/callee/alias寿命/ABI像素运行未验",
       "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
@@ -186302,6 +187082,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -186338,7 +187136,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原168条591B/三页；共享触发/初始化、960个x→y偏移同owner、逆序源620→0/464→0和每块fresh比例、两个有符号乘积/向零除64/232与310偏移直接全S32 native提交，绘后fresh比例加value/方向阈值、CryptInt mask/encoded/count齐采同序发布/析构/复位与0/1正确保。controller先低S8零取-1或1，原多余零实参不消费，新端一个S32参数保；完整父/callee/alias/ABI像素运行未验",
       "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
@@ -186395,6 +187194,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -186622,7 +187439,8 @@
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_evidence.json"
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原570条2320B/九页；51D793完整W32触发持样早于四S32 RECT。已有根一个prefix恢复先持样/后矩形及同持样判定，原完成状态/四槽清零与完整余体、现九模式/数组owner/借用低S16复制/完成发布及正常返回保持；控制父九实际mode0–8/value/payload/结果透传保。I-S只取样实修/接口及用途，完整数值分支/精度/像素/其余callee/alias寿命/ABI运行未验；Sub_51D790原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现4聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行",
       "verification_level": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
@@ -186759,6 +187577,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -186800,7 +187636,8 @@
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_evidence.json"
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验；Sub_51E0D0原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现3聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行",
       "verification_level": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
@@ -186937,6 +187774,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -206880,7 +207735,8 @@
         "doc/cg2d_battle_frame_hit_spec.md#battle-frame-hit-decision",
         "doc/cg2d_battle_frame_hit_spec.md#battle-frame-hit-acceptance",
         "doc/cg2d_battle_frame_hit_spec.md#battle-frame-hit-source-state",
-        "doc/cg2d_battle_frame_hit_evidence.json"
+        "doc/cg2d_battle_frame_hit_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "完整1371条4955B正常根与case14；固定payload/caster/target、先选图和两互斥RNG再查目标，高帧/普通视觉及8000/4000/2000/普通HP-FP、免疫/零额/特殊技能、14-28命中当帧减1与FD4>=11/播放==1后fresh重读保。四共享归零index/encoded先目标、两自身三字段先读齐/原pub序、十二fresh BYTE和普通视觉soundEvent-X恢复；通用CopyPayload/最大HP封顶/两坐标序及其余源不变。零新函数/API/保护/额外RNG，全父-callee/alias/owner/SDK正常失败/数值与声音画面未验，RPLAN.24/MC01和门禁保。",
       "verification_level": "完整1371条4955B/22页、96directCALL/23callee/206跳两RET、case14 11B/原20B表与互斥RNG；一CPP十九片段/两注释，其余源守恒，限定I/S，不运行命中/数值/计时。",
@@ -206897,6 +207753,24 @@
         "source_patch_group_count": 19,
         "new_functions": 0,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -214148,7 +215022,8 @@
         "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-decision",
         "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-acceptance",
         "doc/cg2d_map_object_production_sampling_spec.md#map-object-production-source-state",
-        "doc/cg2d_map_object_production_sampling_spec.md#evidence-archive-20261011"
+        "doc/cg2d_map_object_production_sampling_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "MOP01已有445350完整正常对象生产/更新纳管，五组恢复两坐标BYTE/W32/W32与W32/W32/BYTE先齐取再各自发布、四256B文本槽及记录/action跨阶段原复用；一CPP/一头关联注释。原两Construct/Destroy与RNG、低BYTEflags42/完整flags114及action重取、两阶段九解析/九Unescape/各原字节门槛和原type3特例/正常失败保持，零新函数/API/布局/owner/容量限制/保护/默认值/补零或异常模型。唯一十三参入向及十callee真实提供者有据，四旧语义/其它源守恒，其余六callee无独立语义不称新验；不代完整唯一父/输入/所有生产/传递callee/容量/alias/owner/SDK/机器ABI/声音画面/运行，原完整政策和总SPEC§10不降。",
       "verification_level": "完整543条1797B/九页、28E8十目标/31跳一RET；唯一50B894入向/父局部十三push、九字段/九Unescape与四原缓冲关系，五源组/整CPP和头精确重放，仅必要静态。",
@@ -214176,6 +215051,24 @@
         "normal_previous_values_wrong": false,
         "runtime_verified": false,
         "full_lifecycle_closed": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -214678,7 +215571,8 @@
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
-        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011"
+        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
       "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
@@ -214704,6 +215598,24 @@
         "normal_source_kept": false,
         "remaining_body_kept": true,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/WorldObjectState.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -214737,7 +215649,8 @@
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
-        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011"
+        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
       "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
@@ -214763,6 +215676,24 @@
         "normal_source_kept": false,
         "remaining_body_kept": true,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -214796,7 +215727,8 @@
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-decision",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-acceptance",
         "doc/cg2d_world_object_record_producers_spec.md#world-object-record-producers-source-state",
-        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011"
+        "doc/cg2d_world_object_record_producers_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "WOP01三个已有真实记录生产根局部恢复六组CryptInt三成员先取齐再发布，保持各入口/两轴原读取与写入序、构造/销毁及RNG消费；明确445A60三个独立未初始化文本缓冲100/300/200与原ordinal1/2/3，保解析容量/通知/长度门槛和含NUL字节。共享CryptInt工具和全部其它消费者保持；两个当前父及原正常/失败/字段宽度/借用/创建pub无回滚、category/flags与专用附加字段保持。三实际入向短窗/两父非完整父，九callee仅当前绑定，六旧语义保持/三无独立身份不伪称完整叶或新增已验。完整生产/输入/正常失败/容量/alias/owner/SDK/机器ABI/声音画面/运行待，总SPEC§10不降；RPLAN.24不加保护、默认值、补零、钳制、输入限制、异常模型或回滚。",
       "verification_level": "三完整516条1738B/十页、27E8九callee/22跳五RET、三实际入向/两父及三短窗；六组读取宽度/原绝对目标及发布序、两种局部lambda展开、三文本槽和原四字节名字常量；整两CPP/一头唯一差异重放及全部其它源/工具/结构/父保持，仅必要静态。",
@@ -214822,6 +215754,24 @@
         "normal_source_kept": false,
         "remaining_body_kept": true,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },
@@ -243590,7 +244540,8 @@
         "doc/cg2d_player_attribute_money_reply_spec.md#player-money-decision",
         "doc/cg2d_player_attribute_money_reply_spec.md#player-money-acceptance",
         "doc/cg2d_player_attribute_money_reply_spec.md#player-money-source-state",
-        "doc/cg2d_player_attribute_money_reply_spec.md#evidence-archive-20261011"
+        "doc/cg2d_player_attribute_money_reply_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "MPR01仅aPc主属性回复509650完整444条1350B/七页与UU附加属性回复509BA0完整232条655B/四页；合676条2005B/十一页、70E8六目标/60跳两RET。两根同9A6E0C W32门槛，主根非零按原S32位模式返回gate，附加根void原残留EAX门槛返回只副作用；当前dispatcher的两个TryDispatchReply<T>接同原命令/文本字段/LF明文并丢callback数值，原512E40两CALL后都XOR EAX,EAX，只局部接线/后邻不记完整dispatcher或机器ABI。flags由payload第1项原Base62，字段2起，仅对应(flags&(bit|1))非零才消费/推进，bit0表示全量而不是任何字段强制默认值；不改字段次序或插无掩码字段。主根六CryptInt依次hp/maxHp/fp/maxFp/value58/value68，掩码3/5/9/11H/2001H/4001H，每项真实ParseInteger→ConstructFromInt→临时mask W32/encoded W32/readCount BYTE依次先取样→按同序目标发布→Destroy→field++，保RNG次数/顺序，不复制vft/reserved或省构造；只现parseCrypt lambda一处加三局部样本，六原点同合同、不新造原F/helper。八values78[0..7] masks20..1000，后十二level/values78[8..13]/valueB8/valuesE4[0..3] masks8000..4000000；gold/valueFC门槛8000001H在两文字处理前持样，先gold/field++，titleIndex100门槛10000001H，然后name/ownTitle两256B未清局部Extract(cap255)→Unescape→strlen<=16才复制原17B目标，太长保旧值但field仍++，原失败提取由现既有提取器边界承接，不加校验/清零。末用同gold门槛再Parse当前field到value15BCC并真实S32透传，未命中返0，gold只变化或仅尾命中时不合并/缺字段回退。附加根firstTargets12S32顺序valuesD4[0..3]/valuesBC[0..5]/value104/valueF4，mask2..1000；2001H只原value00低W16，四middle F8/08/17C/16C从4000..20000，40001H先写walkSpeed，<=0原修正100再写，原action非空才同一次T*经既有SetYobiWalkSpeed直接S32发布+284，不新保护/钳制；last五valuesB0[0..1]/values15BD0[0..2]从80000..800000，三原FF02D0/D4/D8上限不新增限制。所有未命中字段保旧、字段推进/取值失败边界与复制/发布序保持；当前Money getters/UI存取丢钱共借同一PlayerRuntimeSlots，类型/七提供者/SetYobi声明、五既有读取消费源与七语义记录及两个当前路由行保持。两新F两adapted、NETWORK/UI各两成员/YOBI一、三限定S零I八open；完整玩家/名字/数值/资源初始化生产与所有其它消费、shared player/action/textbuf alias-owner寿命、SDK/生成读取和机器ABI、完整回复/互通与实际显示操作运行待。仅一共用取样片段/四注释，附加正确正文保持，不增加输入/容量/索引/空保护、补零/默认/回滚、异常溢出模型、字段/类型/API/helper/owner或新协议；MSVC/WAV-only/明文及全部完整门禁保持，整体未完成。",
       "verification_level": "pass，两连续完整根676条2005B/十一页、70E8六目标/60跳两RET，两入CALL后原XOR归零/当前aPc-UU路由；六临时CryptInt组三读先三写及31/23项掩码/推进、金额共用尾gate/两文字长度/步速与W16及三上限有据；两整源一共用片段/四注释、附加正确正文/两类型七提供者与一声明、五读取消费源/七旧语义和两路由保持；全玩家/回复生产消费与owner/SDK、生成取样/机器ABI及互通运行待",
@@ -243661,6 +244612,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "原gate S32或尾字段真实S32/未命中0，dispatcher后清EAX；全机器ABI待"
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/world/SceneState.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -244584,7 +245553,8 @@
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
-        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011"
+        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
       "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
@@ -244658,6 +245628,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "真实action指针或原失败同步开41后空指针；SRD01父消费已核/完整ABI待"
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -244694,7 +245682,8 @@
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-decision",
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-acceptance",
         "doc/cg2d_storage_opening_actions_spec.md#storage-opening-source-state",
-        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011"
+        "doc/cg2d_storage_opening_actions_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "boundary": "SOA01四完整原根：4ABEF0(154条462B/三页)、4ACE80(158条474B/三页)、4ABE60(51条134B/一页)、4ACDF0(53条138B/一页)，共416条1208B/八页、24E8九唯一目标/12跳八RET。两creator原五CALL均同49D2E0（41三点/38两点），callback各仅一个creator MOV offset发布；这里只证明本族及来源，不据单引用宣不可变或完整动态调度。四新F四adapted，UI-YOBI各四成员，两限定S零I八open。原动作priority3/payload size24H，现sizeof(WindowOpeningPayload)承接已存在纯标量36B struct；其id/counter W16，width/height/centerX-centerY/halfWidth-halfHeight/value1C S32、flag20 W16及bytes22未写域保，本四根value1C仅清S32零，不当完成槽指针或拓宽到uintptr_t，不据本族冻结所有其它族用途。NewAction/MarkDeath当前真实manager及通用MSVC分配族复用，不新增影子owner或接口。\n两creator先声56/X320（原三参中的Y240仍沿已核音频接口）→真实NewYobiAction(priority3,size36)，失败原各三/四S32参数直接Sub4A83A0(kind,value14,userState)或4AC0C0(kind,value14,userState,phase)，弃开窗callee结果，返回空action，故SRD01检查created空后仍fresh window的原因有完整本族原证；不将同步fallback成功伪成action成功指针。成功后一次prototype41/38指针，savedPosition只读原flags低BYTE；原先defaultY→width→defaultX→height S32取样，命中保存位才原x→y覆盖，不移窗口保存flag到helper或合宽字段。action/payload非拥有原指针保，action flags W32 OR6→callback真实指针→displayPriority BYTE DF，payload value1C S32零→flag20 W16零，入flags只低BYTE bit1命中写flag20=1；action x/y S32、payload width/height S32及kind低W16按原发布，38另phase S32在首CryptInt构造前发布。\n四临时CryptInt原encoded在+4、mask在+8、readCount BYTE+C，不交换语义字段。先Construct(value14)/RNG，再一次取全三临时字段后按原顺序发布mapX，Destroy；再Construct(userState)/RNG，取全三字段后按原序发布mapY，Destroy。41的X读/写序count→encoded→mask，Y序mask→encoded→count；38的X序encoded→mask→count，Y序count→encoded→mask。原source三读先于任何target三写，现恢复四组先取临时后发布，写序本来正确不交换；vftToken/reserved不复制或补零，不改变构造/析构或随机次数。counter末清W16零，mode仅低BYTE：0原宽/高除2加pos发布centerX-Y→action deltaX0→fresh centerY算deltaY/10→fresh centerX算halfWidth；1原centerX新算值持寄存器，发布centerX-Y后用持值算deltaX/10，再fresh centerY算deltaY/10，本步恢复持值不重读centerX；原不在mode1写halfWidth、其它mode不写centers/deltas及本族不写halfHeight，保既有真实allocator的清零，不在creator补默认或新钳制。两个返回真实新action指针/失败空，不改callee/源协议参数。\n两callback正确body全部保，只注释：先held payload，S32 halfHeight→centerY→halfWidth→centerX，现Hover传低W16矩形/层D4/image0/step0，图后fresh deltaX→previousHalfWidth→previousHalfHeight，发布halfWidth增量，再fresh deltaY，先按counter低S16>=10比较，再halfHeight发布，原完成与末递增不同阶段不能互换。完成41先Read(mapY)userState再Read(mapX)value14，再kind低S16→4A83A0；38先持phase S32，之后同Y→X→kind→4AC0C0。开窗副作用后MarkDeath，再末counter W16++，不立即free/重复开窗守卫或按指针变化重取payload；原callback残留EAX随阶段不同，现void只保副作用，全部machine callback ABI待。两callback并不消费本族value1C/flag20，不为其添加完成槽、保护或私有状态。原dispatcher是否每帧及全manager释放/初始队列owner待完整闭环，本族callback发布与实际执行/回收验收分别记录。\n两creator合八组八处：两个saved BYTE、四Crypt先取后发布、两个mode1持centerX；四定义/两既有声明六注释，无公头decl的两个callback不新增接口。两整源精确回放/两正确callback、五类型/九真实provider/一个SRD01父/两个prototype行及五旧语义保持，结构字段宽度及原正常失败/读取发布保持；不据本族重验所有provider或关真实调度/owner/SDK/生成读取及完整ABI/画面运行。MSVC/WAV-only/原命令字段LF明文与所有完整门禁保，不引新helper/类型/字段/API/owner、空/容量/index保护、补零/新默认/钳制/回滚或异常模型，整体未完成。",
       "verification_level": "pass，四完整原根416条1208B/八页、24E8九目标/12跳八RET及五CALL/两code-offset来源；两整源精确回放八组八处六注释、两正确callback/五类型九提供者一父两prototype行五旧语义保持；只源码合同，生成读取/全manager owner/ABI/运行待",
@@ -244755,6 +245744,24 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "result_boundary": "真实action指针或原失败同步开38后空指针；SRD01父消费已核/完整ABI待"
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 2,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -246533,7 +247540,8 @@
       "evidence_documents": [
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-baseline",
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-decision",
-        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state"
+        "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment"
       ],
       "native_provider": {
         "path": "src/YobiRuntime.cpp",
@@ -246571,6 +247579,24 @@
         "payload_layout_changed": false,
         "full_original_normal_body_read": true,
         "full_lifecycle_closed": false,
+        "runtime_verified": false
+      },
+      "integer_assignment_lci09": {
+        "decision": "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
+        "source": "src/YobiRuntime.cpp",
+        "current_integer_assignment_groups": 1,
+        "provider": "LegacyCryptInt::operator=(std::int32_t)",
+        "rng_calls_per_group": 1,
+        "target_fields_written": [
+          "encoded",
+          "mask",
+          "readCount"
+        ],
+        "target_token_and_reserved_written": false,
+        "source_store_order": "局部三字段次序统一为CopyPayload；无中间业务观察，完成后按原序继续。",
+        "startup_and_exit_changed": false,
+        "static_source_checked": true,
+        "build_verified": false,
         "runtime_verified": false
       }
     },

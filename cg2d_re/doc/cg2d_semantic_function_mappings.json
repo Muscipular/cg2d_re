@@ -133987,7 +133987,7 @@
           "symbols": [
             "Sub_4F39F0"
           ],
-          "relationship": "仅三现callee承接六原点，appendValue四原点共一表达式，其余正文不变"
+          "relationship": "TUE03：保留数值／升级格式点；丢失项在GBK字段解转义后转宽，以std::format和动态wstring承接，原业务顺序保持。"
         }
       ],
       "evidence_documents": [
@@ -133995,7 +133995,9 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_text_encoding_spec.md#craft-result-gbk-boundary-20261015",
+        "doc/cg2d_craft_result_gbk_crash_20261015.md"
       ],
       "boundary": "仅三现std::sprintf标识符承接六原53B304点，appendValue四独立原点共一现格式表达式；S32 result/借原text T*与WindowAnimationData*返回保持。先清D2E92C详情再发布result/依序解析八字段，失败图号0与原suffix保持；两个256B未清buffer/lostItem分开，后六字段在index<6且lines<8下按255提取/解转义，空串即break，非空借buffer T*格式lostItem并按<28补LF/追加/++lines，末伤病非0/lines<8只追加原文本不新增格式。数值%+d，原<28才补LF/原经验>0、升级和三增量非0且当前lines<8；升级原LF、追加→++lines→既有SE64顺序/尾创建实际T*返回及全部正文和音频暂停边界不动，不加清理/钳制/默认或猜详情固定容量，不改解析/提取/通知/创建关联函数，完整结果/父路由/窗口及运行未据本步验收。",
       "original_incoming": [
@@ -134157,6 +134159,13 @@
           }
         ],
         "scope": "当前Unicode正文、接口、编码边界或原生文字拥有者的局部源码变更；原身份/状态/历史保留，不作完整原新等价通过。",
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "craft_result_gbk_boundary_20261015": {
+        "decision_ref": "doc/cg2d_text_encoding_spec.md#craft-result-gbk-boundary-20261015",
+        "evidence_ref": "doc/cg2d_craft_result_gbk_crash_20261015.md",
+        "scope": "覆盖上方历史256B lostItem及三现sprintf描述中的丢失项：当前FromGbkWide后动态宽格式化，strlen原字段+9仍按GBK字节补LF；原身份／状态和其它分支保持。",
         "build_verified": false,
         "runtime_verified": false
       }

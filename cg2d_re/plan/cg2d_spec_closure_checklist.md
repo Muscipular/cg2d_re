@@ -219,3 +219,5 @@ R01／R04／U09／U10／G01／V03／V04只追加证据引用，仍open。508360�
 2026-10-14 NIO01：用户已确认网络／文件解析边界UTF-16方案，首个物品模块见[当前实现](../doc/cg2d_io_unicode_boundary_spec.md#nio01-items-source-state)。玩家／宠物装备／摆摊物品、相关生命周期及结果名称成组迁宽，新增TEXT／UIRUNTIME／NETWORK各一限定S；其余原字节模块和全部运行门禁仍待，任务保持open。
 
 2026-10-15 TUE02：按[目标列表GBK边界](../doc/cg2d_text_encoding_spec.md#target-choice-gbk-boundary-20261015)修复窗口45技能／物品共用刷新及同源旧前缀控件消费，共41处转换；[匹配转储证据](../doc/cg2d_target_choice_gbk_crash_20261015.md)确认原GBK名称误入CP_UTF8。新增TEXT／UIRUNTIME限定S，27函数／辅助静态核对，U10／V03保持open；本次未重编或运行，完整I/O模型迁宽仍待。
+
+2026-10-15 TUE03：按[制造结果混合编码诊断与修复](../doc/cg2d_craft_result_gbk_crash_20261015.md)，4F39F0丢失项字段解转义后直接转宽，采用动态宽格式化并保原GBK行宽28门槛。六行限定静态核对通过，U04／U10／V03／V04及完整窗口门禁保持open；未重新编译或运行。

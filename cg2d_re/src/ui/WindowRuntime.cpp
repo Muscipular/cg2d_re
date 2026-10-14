@@ -649,7 +649,7 @@ constexpr char kCraftDexterity5897FC[] = "靈巧 %+d"; // 原常量参考：0x00
 constexpr char kCraftIntelligence5897F0[] = "智力 %+d"; // 原常量参考：0x005897F0。
 constexpr wchar_t kCraftInjury589CD4[] = LR"(受傷了！
 )"; // 原常量参考：0x00589CD4。
-constexpr char kCraftLostItem589F9C[] = "%s 失去了！"; // 原常量参考：0x00589F9C。
+constexpr wchar_t kCraftLostItem589F9C[] = L"{} 失去了！"; // 原常量参考：0x00589F9C。
 
 std::int32_t gItemWorkResultCB05FC = 0; // 原全局：0x00CB05FC。
 std::int32_t gItemWorkExperienceC8A950 = 0; // 原全局：0x00C8A950。
@@ -33822,7 +33822,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         std::strcpy(gCraftResultSuffixD672B4.data(), kCraftFailure589FA8Utf8View.c_str());
     }
     char buffer[768];
-    char lostItem[256];
+    std::wstring lostItem;
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
         std::sprintf(buffer, format, value);
@@ -33856,11 +33856,11 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         if (std::strlen(buffer) == 0) {
             break;
         }
-        std::sprintf(lostItem, kCraftLostItem589F9C, buffer);
-        if (std::strlen(lostItem) < 28) {
-            std::strcat(lostItem, "\n");
+        lostItem = std::format(kCraftLostItem589F9C, cg::text::FromGbkWide(buffer));
+        if (std::strlen(buffer) + 9 < 28) { // 原GBK行宽：名称字节数 + 空格1B +「失去了！」8B。
+            lostItem += L'\n';
         }
-        gCraftResultDetailsD2E92C += cg::text::ToUtf16(lostItem);
+        gCraftResultDetailsD2E92C += lostItem;
         ++lines;
     }
     if (gCraftInjuryD2EA78 != 0 && lines < 8) {

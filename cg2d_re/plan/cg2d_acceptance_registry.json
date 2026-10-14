@@ -7626,7 +7626,8 @@
         "doc/ui_windows/window_11.md",
         "doc/cg2d_unassigned_range_classification_spec.md#range-fifth-batch-baseline",
         "doc/cg2d_text_encoding_spec.md#unicode-utf16-source-state-20261014",
-        "doc/cg2d_unicode_utf16_evidence.json"
+        "doc/cg2d_unicode_utf16_evidence.json",
+        "doc/cg2d_craft_result_gbk_crash_20261015.md"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -7638,7 +7639,8 @@
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [
-        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014"
+        "doc/cg2d_text_encoding_spec.md#unicode-utf16-dynamic-20261014",
+        "doc/cg2d_text_encoding_spec.md#craft-result-gbk-boundary-20261015"
       ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档",
@@ -74619,6 +74621,32 @@
       "expected": "保原状态／标志／返回／顺序及ShowWideMessage的NUL结尾副本，公开接口无Win32类型。",
       "actual": "消息来源、保留窗口适配正文、退休引用与源码／身份静态核对；未构建或运行，完整台账限制单列进度。",
       "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-15"
+    },
+    {
+      "id": "E-TUE03-UI-M-011-S-20261015",
+      "feature_id": "UI-M-011",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_craft_result_gbk_crash_20261015.md",
+      "implementation_reference": "src/ui/WindowRuntime.cpp",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#craft-result-gbk-boundary-20261015",
+        "doc/cg2d_craft_result_gbk_crash_20261015.md",
+        "doc/ui_windows/window_11.md",
+        "src/ui/WindowRuntime.cpp"
+      ],
+      "observation": "匹配Age8转储确认4F39F0将GBK字段与UTF-8提示混拼后按UTF-8解码，错误1113。",
+      "expected": "字段解转义后直接转宽，以动态UTF-16格式化；保原GBK行宽28、六项／八段门槛、空字段终止及调用顺序。",
+      "actual": "仅六行源码差异，字段FromGbkWide后std::format宽常量；原名称字节数加后缀9B保持LF门槛。反向差异及地址／行号核对通过，未编译或运行。",
+      "differences": [
+        {
+          "description": "丢失项采用动态wstring并在解析边界解码GBK，消除混合编码与固定格式化数组；保持原行宽条件。",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#craft-result-gbk-boundary-20261015"
+        }
+      ],
       "result": "pass",
       "recorded_on": "2026-10-15"
     }

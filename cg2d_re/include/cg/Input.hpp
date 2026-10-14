@@ -239,13 +239,6 @@ std::wstring EscapeText(std::wstring_view source);
 // 容量为转义后GBK字节数（含NUL），正文和返回值仍为动态UTF-16。
 std::wstring EscapeText(std::wstring_view source, std::size_t gbkCapacity);
 std::wstring EscapeTextAndNotify(std::wstring_view source, std::size_t gbkCapacity);
-// 固定ASCII组包的窄适配；容量为字节含NUL，超容量整串拒绝。
-char* EscapeLegacyText_52D1B0(
-    const char* source, char* destination, std::int32_t capacity); // ETE01原根，UTL02替代旧截断。
-
-// 原 sub_52D2D0 实际透传字符地址；玩家短称号不具有完整 InputContext 布局。
-char* EscapeLegacyTextAndNotify_52D2D0(
-    const char* source, char* destination, std::int32_t capacity); // ETE01原空叶／同destination返回保持。
 // 输入上下文的动态UTF-16转义边界，GBK容量在提交前检查。
 // 原函数：0x0052D2D0。
 std::wstring EscapeInputText_52D2D0(

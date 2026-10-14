@@ -70,7 +70,7 @@ constexpr wchar_t kBattleStartHint5541CC[] = L"等待戰鬥開始。"; // 原常
 constexpr wchar_t kBattleTurnHint5541BC[] = L"等待回合結束。"; // 原常量参考：0x005541BC。
 constexpr wchar_t kBattleInputHint5541A0[] = L"等待其他玩家的輸入指令。"; // 原常量参考：0x005541A0。
 constexpr wchar_t kBattleExitHint554194[] = L"結束觀戰。"; // 原常量参考：0x00554194。
-constexpr char kBattleExitRequest554190[] = "U"; // 原常量参考：0x00554190。
+constexpr wchar_t kBattleExitRequest554190[] = L"U"; // 原常量参考：0x00554190。
 constexpr wchar_t kBattleExitText554184[] = L"觀戰結束"; // 原常量参考：0x00554184。
 
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
@@ -3067,15 +3067,14 @@ std::int32_t Sub_50C940(
             return result;
         }
     }
-    // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，UTF-8视图不限长。
+    // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
     const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
-    const std::string packetUtf8View = cg::text::FromUtf16(packet);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
     const std::int32_t y = BorrowPlayerYStorage()->value();
     const std::int32_t x = BorrowPlayerXStorage()->value();
     const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::Sub_511900(socket, x, y, packetUtf8View.c_str(), sendColor, range, mode);
+    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
 
 void MarkPlayerChatActive() noexcept
@@ -8506,7 +8505,7 @@ std::int32_t __cdecl Sub_50C8D0(
 {
     const std::int32_t fourth = std::bit_cast<std::int32_t>(gValue9EE8F8);
     return network::Sub_510570(
-        platform::gConnectionSocket, x, y, text, fourth);
+        platform::gConnectionSocket, x, y, cg::text::FromGbkWide(text), fourth);
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。

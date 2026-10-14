@@ -240,10 +240,10 @@ std::int32_t Sub_508360()
             std::strcpy(gValueDA38DC, accountCopy);
             const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
-                gValueDA3A1C,
-                cg::text::FromGbk(accountCopy).c_str(),
-                cg::text::FromGbk(gValueDA3A5C).c_str(),
-                adapterId);
+                cg::text::FromGbkWide(gValueDA3A1C),
+                cg::text::FromGbkWide(accountCopy),
+                cg::text::FromGbkWide(gValueDA3A5C),
+                cg::text::FromGbkWide(adapterId));
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
             gRequestStatus = 1;

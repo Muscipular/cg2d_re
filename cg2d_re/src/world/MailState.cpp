@@ -970,8 +970,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
         const std::uintptr_t socket = platform::gConnectionSocket;
         return network::Sub_511640(
-            socket, first, cg::text::FromGbk(escaped[0].data()).c_str(), second, cg::text::FromGbk(escaped[1].data()).c_str(),
-            third, cg::text::FromGbk(escaped[2].data()).c_str(), cg::text::FromGbk(escaped[3].data()).c_str());
+            socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
+            third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data()));
     }
 
     const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
@@ -979,8 +979,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::Sub_511640(
-        socket, first, cg::text::FromGbk(escaped[0].data()).c_str(), second, cg::text::FromGbk(escaped[1].data()).c_str(),
-        third, cg::text::FromGbk(escaped[2].data()).c_str(), cg::text::FromGbk(escaped[3].data()).c_str()));
+        socket, first, cg::text::FromGbkWide(escaped[0].data()), second, cg::text::FromGbkWide(escaped[1].data()),
+        third, cg::text::FromGbkWide(escaped[2].data()), cg::text::FromGbkWide(escaped[3].data())));
 
     const std::int16_t selected = login::gSelectedCharacterIndex;
     ProfileRuntimeRecord& target = gProfiles1074938[selected];

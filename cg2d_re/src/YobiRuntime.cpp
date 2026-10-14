@@ -35866,7 +35866,7 @@ std::uintptr_t Sub_4EE380(const std::int32_t opened)
         char text[16];
         text[0] = '\0';
         const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-        static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, text));
+        static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, cg::text::FromGbkWide(text)));
         const std::uint32_t id = gLegacyGatherPanel583B00.id;
         gLegacySkillPendingD67C48 = 1;
         static_cast<void>(audio::Sub_5042D0(id));

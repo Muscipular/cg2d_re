@@ -48,7 +48,7 @@ std::uint32_t StartCharacterCreationRequest()
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterCreationReplyCode = 0;
     network::Sub_5128C0(
-        socket, selected, cg::text::FromGbk(character_select::state::gCreationNameFF0D18.data()).c_str(),
+        socket, selected, cg::text::FromGbkWide(character_select::state::gCreationNameFF0D18.data()),
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
     gRequestStatus = 1;

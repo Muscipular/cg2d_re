@@ -1414,7 +1414,7 @@ std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
 }
 
 // 原函数：0x00517160。
-std::uint8_t* FormatProtocolTextToken_517160(const char* const text)
+std::uint8_t* FormatProtocolTextToken_517160(const std::wstring_view text)
 {
     static constexpr char kSpace[] {' ', '\0'};
 
@@ -1605,10 +1605,10 @@ std::int32_t ParseDelimitedBase62_52D0D0(
 }
 
 // 原函数：0x005171F0。
-std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
+std::uint8_t* EscapeProtocolText_5171F0(const std::wstring_view text)
 {
-    // UTL02：界面窄入口为局部UTF-8视图，转义在UTF-16中进行，落入原GBK组包区。
-    const std::wstring contents = cg::text::ToUtf16(text);
+    // UWF01：正文直接以UTF-16转义，仅在写入原协议缓冲时编码GBK。
+    const std::wstring_view contents = text;
     std::wstring escaped;
     for (std::size_t offset = 0; offset < contents.size();) {
         const std::size_t next = cg::text::Next(contents, offset);
@@ -1770,7 +1770,7 @@ std::int32_t Report_512CA0(
 // 原函数：0x00512C10。
 std::int32_t Sub_512C10(
     const std::uintptr_t socket,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Or"));
@@ -1938,7 +1938,7 @@ std::int32_t Sub_512DF0(
 std::int32_t Sub_512D30(
     const std::uintptr_t socket,
     const std::int32_t version,
-    const char* const payload)
+    const std::wstring_view payload)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Xoee"));
@@ -1990,7 +1990,7 @@ std::int32_t Sub_510570(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
-    const char* const text,
+    const std::wstring_view text,
     const std::int32_t fourth)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2094,10 +2094,10 @@ std::int32_t Sub_512AB0(
 // NLD01／原512800：摘要、账号、口令、适配器四轮独立采容量，转义后重读输出缓冲。
 std::int32_t Sub_512800(
     const std::uintptr_t socket,
-    const char* const executableDigest,
-    const char* const account,
-    const char* const password,
-    const char* const adapterId)
+    const std::wstring_view executableDigest,
+    const std::wstring_view account,
+    const std::wstring_view password,
+    const std::wstring_view adapterId)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "JFVf"));
@@ -2146,7 +2146,7 @@ std::int32_t Sub_512800(
 std::int32_t Sub_5128C0(
     const std::uintptr_t socket,
     const std::int32_t field1,
-    const char* const field2,
+    const std::wstring_view field2,
     const std::int32_t field3,
     const std::int32_t field4,
     const std::int32_t field5,
@@ -2478,7 +2478,7 @@ std::int32_t Sub_511190(
 
 // 原函数：0x00511250。
 std::int32_t Sub_511250(
-    const std::uintptr_t socket, const std::int32_t kind, const char* const text)
+    const std::uintptr_t socket, const std::int32_t kind, const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Ufm"));
@@ -2503,7 +2503,7 @@ std::int32_t Sub_5112C0(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "GY"));
@@ -2711,7 +2711,7 @@ std::int32_t Sub_511430(
 // 原[510FA0,51102E)：三次采容量与格式化后的输出地址重取独立。
 std::int32_t Sub_510FA0(
     const std::uintptr_t socket, const std::int32_t first,
-    const char* const text, const std::int32_t third)
+    const std::wstring_view text, const std::int32_t third)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "CV"));
@@ -2738,7 +2738,7 @@ std::int32_t Sub_510FA0(
 std::int32_t Sub_511480(
     const std::uintptr_t socket,
     const std::int32_t first,
-    const char* const text,
+    const std::wstring_view text,
     const std::int32_t third)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2776,7 +2776,7 @@ std::int32_t Sub_511480(
 // 原[5110B0,511184)：五字段各自采容量，格式化后重取输出地址。
 std::int32_t Sub_5110B0(
     const std::uintptr_t socket, const std::int32_t first, const std::int32_t second,
-    const std::int32_t third, const char* const text, const std::int32_t fifth)
+    const std::int32_t third, const std::wstring_view text, const std::int32_t fifth)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "rMsv"));
@@ -2815,7 +2815,7 @@ std::int32_t Sub_511510(
     const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
-    const char* const text,
+    const std::wstring_view text,
     const std::int32_t fifth)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -2891,12 +2891,12 @@ std::int32_t Sub_5115F0(
 std::int32_t Sub_511640(
     const std::uintptr_t socket,
     const std::int32_t field1,
-    const char* const text2,
+    const std::wstring_view text2,
     const std::int32_t field3,
-    const char* const text4,
+    const std::wstring_view text4,
     const std::int32_t field5,
-    const char* const text6,
-    const char* const text7)
+    const std::wstring_view text6,
+    const std::wstring_view text7)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Ot"));
@@ -2996,7 +2996,7 @@ std::int32_t Sub_511760(
 std::int32_t Sub_5117D0(
     const std::uintptr_t socket,
     const std::int32_t value,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "wD"));
@@ -3025,7 +3025,7 @@ std::int32_t Sub_5117D0(
 // 原 [0x511840,0x5118AB)：文本、整数各自采容量并在格式化后重读输出缓冲。
 std::int32_t Sub_511840(
     const std::uintptr_t socket,
-    const char* const text,
+    const std::wstring_view text,
     const std::int32_t value)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -3079,7 +3079,7 @@ std::int32_t Sub_511900(
     const std::uintptr_t socket,
     const std::int32_t first,
     const std::int32_t second,
-    const char* const text,
+    const std::wstring_view text,
     const std::int32_t fourth,
     const std::int32_t fifth,
     const std::int32_t sixth)
@@ -3464,7 +3464,7 @@ std::int32_t Sub_511EF0(
     const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "sM"));
@@ -3525,8 +3525,8 @@ std::int32_t Sub_511FF0(
 // 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
 std::int32_t Sub_512040(
     const std::uintptr_t socket,
-    const char* const first,
-    const char* const second,
+    const std::wstring_view first,
+    const std::wstring_view second,
     const std::int32_t third)
 {
     static_cast<void>(BuildProtocolCommand_517510(
@@ -3564,9 +3564,9 @@ std::int32_t Sub_512040(
 // 原 [0x5120D0,0x51215E)：三段文本各自采容量、格式化后重读输出缓冲。
 std::int32_t Sub_5120D0(
     const std::uintptr_t socket,
-    const char* const first,
-    const char* const second,
-    const char* const third)
+    const std::wstring_view first,
+    const std::wstring_view second,
+    const std::wstring_view third)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "ylGN"));
@@ -3733,7 +3733,7 @@ std::int32_t Sub_512310(
 // 原 [0x512360,0x5123A8)：转义前采容量，追加与发送各自重读缓冲。
 std::int32_t Sub_512360(
     const std::uintptr_t socket,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "ACwB"));
@@ -3903,7 +3903,7 @@ std::int32_t Sub_5124E0(
 std::int32_t Sub_5125B0(
     const std::uintptr_t socket,
     const std::int32_t value,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "ycX"));
@@ -3938,7 +3938,7 @@ std::int32_t Sub_512620(
     const std::int32_t third,
     const std::int32_t fourth,
     const std::int32_t fifth,
-    const char* const text)
+    const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "xD"));
@@ -4135,7 +4135,7 @@ std::int32_t SendIuEPacket_516D70(const std::uintptr_t socket)
 
 // 原函数：0x005109B0。
 std::int32_t SendBattlePacket_5109B0(
-    const std::uintptr_t socket, const char* const text)
+    const std::uintptr_t socket, const std::wstring_view text)
 {
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Rg"));

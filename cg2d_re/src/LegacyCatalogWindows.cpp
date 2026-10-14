@@ -252,11 +252,11 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             gLegacyPetSkillCatalogMessageD2E818 = 2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            char buffer[48];
-            char escaped[16];
+            std::wstring buffer;
+            std::wstring escaped;
             gLegacyPetSkillCatalogSelectionC8AF70 = hovered;
-            std::sprintf(buffer, "%d", index);
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+            cg::text::FormatTo(buffer, L"{}", index);
+            escaped = input::EscapeTextAndNotify(buffer, 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
@@ -292,11 +292,11 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 59 + 20 * row),
             2, 0, 0, text, 0, 0));
     }
-    char buffer[768];
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%d/%d", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);
+    cg::text::FormatTo(buffer, L"{}/{}", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 172),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 44), 2, 0, 0, buffer, 0, 0));
     for (std::int32_t row = 0; row < 8; ++row) {
@@ -309,14 +309,14 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
-        std::sprintf(buffer, "%4d", value);
+        cg::text::FormatTo(buffer, L"{:4}", value);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, 0, buffer, 0, 0));
         const std::int32_t page = gLegacyPetSkillCatalogPageD45F74;
         const std::int32_t gold = world::detail::ReadPlayerValueFC();
         const std::int32_t price = gLegacyPetSkillCatalogCA0478[row + 8 * page].price08;
         const std::uint8_t color = gold >= price ? 0 : 6;
-        std::sprintf(buffer, "%7d", price);
+        cg::text::FormatTo(buffer, L"{:7}", price);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 261),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, color, buffer, 0, 0));
     }
@@ -405,10 +405,10 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         }
     }
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
-        char buffer[48];
-        char escaped[16];
-        std::sprintf(buffer, "%d", hovered);
-        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+        std::wstring buffer;
+        std::wstring escaped;
+        cg::text::FormatTo(buffer, L"{}", hovered);
+        escaped = input::EscapeTextAndNotify(buffer, 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t playerY = world::detail::BorrowPlayerYStorage()->value();
@@ -426,7 +426,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
-            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));
+            socket, playerX, playerY, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillPetPanel582080.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -441,15 +441,15 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 96 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, cg::text::FromGbk(skillName).c_str(), 0, 0));
-    char buffer[192];
+    std::wstring buffer;
     const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
-    std::sprintf(buffer, "%4d", skillValue);
+    cg::text::FormatTo(buffer, L"{:4}", skillValue);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 202),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 1, 0, buffer, 0, 0));
     const std::int32_t price = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;
-    std::sprintf(buffer, "%7d", price);
+    cg::text::FormatTo(buffer, L"{:7}", price);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 260),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 46), 2, 0, 0, buffer, 0, 0));
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -462,7 +462,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 147 - width / 2),
             static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 133 + 40 * row),
             2, 0, color, cg::text::FromGbk(option.name.data()).c_str(), 0, 0));
-        std::sprintf(buffer, "%3d", option.value04);
+        cg::text::FormatTo(buffer, L"{:3}", option.value04);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 272),
             static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 135 + 40 * row), 2, 1, color, buffer, 0, 0));
     }
@@ -471,7 +471,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
             static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 59 + 20 * row),
             2, 0, 0, lines[row + 1].text.data(), 0, 0));
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    cg::text::FormatTo(buffer, L"{:7}", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 286), 2, 0, 0, buffer, 0, 0));
     if (hovered >= 0) {
@@ -561,7 +561,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
-            socket, playerX, playerY, request, target, 2, input::LegacyText593850()));
+            socket, playerX, playerY, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillSlotsPanel582148.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -681,7 +681,7 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(
-            socket, playerX, playerY, request, target, 0, requestText));
+            socket, playerX, playerY, request, target, 0, cg::text::FromGbkWide(requestText)));
         static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillConfirmPanel582210.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     } else if ((character_select::detail::Sub_503990(&decline) & 1) != 0) {

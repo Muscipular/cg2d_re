@@ -147,8 +147,7 @@ using cg::network::Sub_512D30;
 
 // BRT01：原9A5C10正常只读首NUL；新端1B owner静态存活，由创建/升级共享。
 // 1B是已证读足迹对应容量，不冒称原未使用预留尾部长度。
-extern const char gVersionPayload9A5C10[1];
-static_assert(sizeof(gVersionPayload9A5C10) == 1);
+extern const wchar_t gVersionPayload9A5C10[1];
 
 // 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。
 // 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。

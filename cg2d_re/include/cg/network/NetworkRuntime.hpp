@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string_view>
 
 namespace cg::network {
 
@@ -47,7 +48,7 @@ std::int32_t AppendProtocolText_5170D0(
 std::uint8_t* FormatProtocolIntegerToken_517120(std::int32_t value);
 
 // 原 sub_517160@[0x517160,0x517186)：转义协议文本并追加 ASCII 空格。
-std::uint8_t* FormatProtocolTextToken_517160(const char* text);
+std::uint8_t* FormatProtocolTextToken_517160(std::wstring_view text);
 
 // 原 sub_517190@[0x517190,0x5171A3)：空指针返回 0，否则委派协议整数解析。
 std::int32_t ParseProtocolInteger_517190(const char* text);
@@ -84,7 +85,7 @@ std::int32_t ParseDelimitedBase62_52D0D0(
 
 // 原 sub_5171F0@[0x5171F0,0x5172CE)：向共享缓冲逐字节转义协议文本。
 // UTL02：参数为局部UTF-8视图，返回原协议GBK文本token，容量不足/不可编码抛GbkStorageError。
-std::uint8_t* EscapeProtocolText_5171F0(const char* text);
+std::uint8_t* EscapeProtocolText_5171F0(std::wstring_view text);
 
 // 原 sub_5172D0@[0x5172D0,0x5173A6)：向共享缓冲逐字节反转义协议文本。
 std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
@@ -103,14 +104,14 @@ std::int32_t Report_512CA0(
     std::int32_t value);
 
 // 原 sub_512C10@[0x512C10,0x512C58)：构造 Or 文本命令并透传发送返回。
-std::int32_t Sub_512C10(std::uintptr_t socket, const char* text);
+std::int32_t Sub_512C10(std::uintptr_t socket, std::wstring_view text);
 
 // 原 sub_512DF0@[0x512DF0,0x512E38)：构造 CCL 计时命令并透传发送返回。
 std::int32_t Sub_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
 
 // 原 sub_512D30@[0x512D30,0x512D9B)：依序追加版本整数与文本，发送 Xoee。
 std::int32_t Sub_512D30(
-    std::uintptr_t socket, std::int32_t version, const char* payload);
+    std::uintptr_t socket, std::int32_t version, std::wstring_view payload);
 
 // 原 sub_512DA0@[0x512DA0,0x512DE8)：追加单个整数并发送 IPy。
 std::int32_t Sub_512DA0(std::uintptr_t socket, std::int32_t value);
@@ -129,7 +130,7 @@ std::int32_t Sub_512AB0(std::uintptr_t socket, std::int32_t registNumber);
 std::int32_t Sub_5128C0(
     std::uintptr_t socket,
     std::int32_t field1,
-    const char* field2,
+    std::wstring_view field2,
     std::int32_t field3,
     std::int32_t field4,
     std::int32_t field5,
@@ -156,7 +157,7 @@ std::int32_t Sub_510570(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
-    const char* text,
+    std::wstring_view text,
     std::int32_t fourth);
 
 // 原 sub_510710@[0x510710,0x510807)：六整数依序追加并发送 UUN。
@@ -199,10 +200,10 @@ std::int32_t Sub_5111E0(
 // NLD01／原512800：摘要、账号、口令、适配器四文本原序发送JFVf，末发送S32透传。
 std::int32_t Sub_512800(
     std::uintptr_t socket,
-    const char* executableDigest,
-    const char* account,
-    const char* password,
-    const char* adapterId);
+    std::wstring_view executableDigest,
+    std::wstring_view account,
+    std::wstring_view password,
+    std::wstring_view adapterId);
 
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。
 std::int32_t Sub_511030(
@@ -214,14 +215,14 @@ std::int32_t Sub_511190(std::uintptr_t socket, std::int32_t value);
 
 // 原511250：Ufm公会文本变更，容量/输出各自重取，返回真实发送结果。
 std::int32_t Sub_511250(
-    std::uintptr_t socket, std::int32_t kind, const char* text);
+    std::uintptr_t socket, std::int32_t kind, std::wstring_view text);
 
 // 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
 std::int32_t Sub_5112C0(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
-    const char* text);
+    std::wstring_view text);
 
 // 原 sub_511350@[0x511350,0x5113BB)：追加两个 W32 整数并发送 uHb。
 std::int32_t Sub_511350(
@@ -240,25 +241,25 @@ std::int32_t Sub_511430(std::uintptr_t socket, std::int32_t value);
 
 // 原510FA0：CV按整数/文本/整数分段采容量并发送，不共用uId命令头。
 std::int32_t Sub_510FA0(
-    std::uintptr_t socket, std::int32_t first, const char* text, std::int32_t third);
+    std::uintptr_t socket, std::int32_t first, std::wstring_view text, std::int32_t third);
 // 原 sub_511480@[0x511480,0x51150E)：依次追加整数、原字节文本和整数并发送 uId。
 std::int32_t Sub_511480(
     std::uintptr_t socket,
     std::int32_t first,
-    const char* text,
+    std::wstring_view text,
     std::int32_t third);
 
 // 原5110B0：普通宠物邮件rMsv，三整数/文本/末整数各自采容量并发送。
 std::int32_t Sub_5110B0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second,
-    std::int32_t third, const char* text, std::int32_t fifth);
+    std::int32_t third, std::wstring_view text, std::int32_t fifth);
 // 原 sub_511510@[0x511510,0x5115E4)：三整数、原字节文本、末整数发送 PfqV。
 std::int32_t Sub_511510(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
     std::int32_t third,
-    const char* text,
+    std::wstring_view text,
     std::int32_t fifth);
 
 // 原 sub_5115F0@[0x5115F0,0x511638)：追加 W32 整数并发送 HoW。
@@ -268,12 +269,12 @@ std::int32_t Sub_5115F0(std::uintptr_t socket, std::int32_t value);
 std::int32_t Sub_511640(
     std::uintptr_t socket,
     std::int32_t field1,
-    const char* text2,
+    std::wstring_view text2,
     std::int32_t field3,
-    const char* text4,
+    std::wstring_view text4,
     std::int32_t field5,
-    const char* text6,
-    const char* text7);
+    std::wstring_view text6,
+    std::wstring_view text7);
 
 // 原 sub_511760@[0x511760,0x5117CB)：构造 TLKH、追加两个整数并发送。
 std::int32_t Sub_511760(
@@ -285,12 +286,12 @@ std::int32_t Sub_511760(
 std::int32_t Sub_5117D0(
     std::uintptr_t socket,
     std::int32_t value,
-    const char* text);
+    std::wstring_view text);
 
 // 原 sub_511840@[0x511840,0x5118AB)：构造 GH、追加原字节文本与整数并发送。
 std::int32_t Sub_511840(
     std::uintptr_t socket,
-    const char* text,
+    std::wstring_view text,
     std::int32_t value);
 
 // 原 sub_5118B0@[0x5118B0,0x5118F8)：构造 lz、追加单整数并发送。
@@ -301,7 +302,7 @@ std::int32_t Sub_511900(
     std::uintptr_t socket,
     std::int32_t first,
     std::int32_t second,
-    const char* text,
+    std::wstring_view text,
     std::int32_t fourth,
     std::int32_t fifth,
     std::int32_t sixth); // CTS01：见聊天发送完整合同。
@@ -366,7 +367,7 @@ std::int32_t Sub_511EF0(
     std::int32_t first,
     std::int32_t second,
     std::int32_t third,
-    const char* text);
+    std::wstring_view text);
 
 // 原 sub_511FF0@[0x511FF0,0x512038)：构造 QeuC、追加选择编号并发送。
 std::int32_t Sub_511FF0(std::uintptr_t socket, std::int32_t index);
@@ -374,16 +375,16 @@ std::int32_t Sub_511FF0(std::uintptr_t socket, std::int32_t index);
 // 原 sub_512040@[0x512040,0x5120CE)：构造 aiAb、追加两段文本及整数并发送。
 std::int32_t Sub_512040(
     std::uintptr_t socket,
-    const char* first,
-    const char* second,
+    std::wstring_view first,
+    std::wstring_view second,
     std::int32_t third);
 
 // 原 sub_5120D0@[0x5120D0,0x51215E)：构造 ylGN、追加三段文本并发送。
 std::int32_t Sub_5120D0(
     std::uintptr_t socket,
-    const char* first,
-    const char* second,
-    const char* third);
+    std::wstring_view first,
+    std::wstring_view second,
+    std::wstring_view third);
 
 // 原 sub_512160@[0x512160,0x512185)：构造 JMh 并直接发送。
 std::int32_t Sub_512160(std::uintptr_t socket);
@@ -404,7 +405,7 @@ std::int32_t Sub_5122C0(std::uintptr_t socket, std::int32_t value);
 std::int32_t Sub_512310(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_512360@[0x512360,0x5123A8)：构造 ACwB、追加原字节文本并发送。
-std::int32_t Sub_512360(std::uintptr_t socket, const char* text);
+std::int32_t Sub_512360(std::uintptr_t socket, std::wstring_view text);
 
 // 原 sub_5123B0@[0x5123B0,0x5123F8)：构造 IHw、追加一个整数并发送。
 std::int32_t Sub_5123B0(std::uintptr_t socket, std::int32_t value);
@@ -430,7 +431,7 @@ std::int32_t Sub_5124E0(
 
 // 原 sub_5125B0@[0x5125B0,0x51261B)：构造 ycX、追加整数及原字节文本并发送。
 std::int32_t Sub_5125B0(
-    std::uintptr_t socket, std::int32_t value, const char* text);
+    std::uintptr_t socket, std::int32_t value, std::wstring_view text);
 
 // 原 sub_512620@[0x512620,0x512717)：构造 xD、追加五整数与原字节文本并发送。
 std::int32_t Sub_512620(
@@ -440,7 +441,7 @@ std::int32_t Sub_512620(
     std::int32_t third,
     std::int32_t fourth,
     std::int32_t fifth,
-    const char* text); // SDM01：xD五整数+文本，六容量/输出独立取样，真实S32结果透传。
+    std::wstring_view text); // SDM01：xD五整数+文本，六容量/输出独立取样，真实S32结果透传。
 
 // 原 [0x510F50,0x510F98)：构造fS、追加一个整数，技能回复使用共享连接调用。
 std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);
@@ -458,7 +459,7 @@ std::int32_t Sub_510DA0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount); // MDR01：woz三个S32/三容量和输出取样，真实S32发送结果透传。
 
 // 原5109B0：Rg战斗请求，转义一项原字节文本并透传发送结果。
-std::int32_t SendBattlePacket_5109B0(std::uintptr_t socket, const char* text);
+std::int32_t SendBattlePacket_5109B0(std::uintptr_t socket, std::wstring_view text);
 
 // 原516D70：构造无载荷iuE后重取共享缓冲发送，透传发送返回。
 std::int32_t SendIuEPacket_516D70(std::uintptr_t socket);

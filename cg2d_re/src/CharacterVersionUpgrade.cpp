@@ -16,7 +16,7 @@ namespace cg::character_select {
 // BRT01：原未装载零前缀，两发送路径只读首NUL；1B为已证正常读足迹。
 // 原未使用预留尾部不猜容量，完整合同见版本正文SPEC。
 namespace detail {
-const char gVersionPayload9A5C10[1] {}; // 原全局：0x009A5C10。
+const wchar_t gVersionPayload9A5C10[1] {}; // 原全局：0x009A5C10。
 } // namespace detail
 
 namespace {
@@ -30,7 +30,7 @@ constexpr wchar_t kUpgradeFailedText[] =
     L"版本升級失敗。";
 constexpr wchar_t kCannotUpgradeText[] =
     L"無法更新版本。";
-constexpr char kLegacyVersionRequest[] = "abcdefg"; // 原 0x55C910。
+constexpr wchar_t kLegacyVersionRequest[] = L"abcdefg"; // 原 0x55C910。
 
 
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。

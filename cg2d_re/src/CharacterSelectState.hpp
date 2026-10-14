@@ -12,8 +12,8 @@ class InputContext;
 namespace cg::character_select::state {
 
 // 两个角色选择场景共享的原版本载荷，不建立第二份语义存储。
-inline constexpr char kVersion20[] = "20031229_20"; // 原 0x55C80C。
-inline constexpr char kVersion30[] = "20031229_30"; // 原 0x55C800。
+inline constexpr wchar_t kVersion20[] = L"20031229_20"; // 原 0x55C80C。
+inline constexpr wchar_t kVersion30[] = L"20031229_30"; // 原 0x55C800。
 
 // 跨角色选择相关函数共享的原存储；保持唯一实例供后续真实依赖接入。
 extern std::uint8_t gPukVersion; // 原 0x9A6E1C，R/W8。

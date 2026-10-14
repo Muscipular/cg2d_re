@@ -252389,16 +252389,16 @@
         {
           "path": "src/Input.cpp",
           "symbols": [
-            "EscapeLegacyText_52D1B0"
+            "EscapeText"
           ],
-          "relationship": "ETE01完整原根对应实际提供者；恢复S32表计数和原BYTE读取/写入与计数更新序"
+          "relationship": "UWF01：窄兼容入口退休，当前直接消费UTF-16，保原转义表／空叶顺序并在GBK边界检查容量；原字节实现另由EscapeGbkText承接。"
         },
         {
           "path": "include/cg/Input.hpp",
           "symbols": [
-            "EscapeLegacyText_52D1B0"
+            "EscapeText"
           ],
-          "relationship": "现有公开声明/签名保持，仅ETE01完整合同关联注释"
+          "relationship": "UWF01：窄兼容入口退休，当前直接消费UTF-16，保原转义表／空叶顺序并在GBK边界检查容量；原字节实现另由EscapeGbkText承接。"
         },
         {
           "path": "src/Input.cpp",
@@ -252562,18 +252562,18 @@
         {
           "path": "src/Input.cpp",
           "symbols": [
-            "EscapeLegacyTextAndNotify_52D2D0",
+            "EscapeTextAndNotify",
             "EscapeInputText_52D2D0"
           ],
-          "relationship": "ETE01完整原根对应实际提供者；正确包装及现有文本便利适配正文保持，仅关联注释，不新增原根"
+          "relationship": "UWF01：窄兼容入口退休，当前直接消费UTF-16，保原转义表／空叶顺序并在GBK边界检查容量；原字节实现另由EscapeGbkText承接。"
         },
         {
           "path": "include/cg/Input.hpp",
           "symbols": [
-            "EscapeLegacyTextAndNotify_52D2D0",
+            "EscapeTextAndNotify",
             "EscapeInputText_52D2D0"
           ],
-          "relationship": "现有公开声明/签名保持，仅ETE01完整合同关联注释"
+          "relationship": "UWF01：窄兼容入口退休，当前直接消费UTF-16，保原转义表／空叶顺序并在GBK边界检查容量；原字节实现另由EscapeGbkText承接。"
         },
         {
           "path": "src/Input.cpp",
@@ -281755,7 +281755,7 @@
   },
   "wide_only_uwf01": {
     "decision_ref": "doc/cg2d_wide_only_text_spec.md",
-    "phase": "第三组源码已落位；完整内部文字迁移继续",
+    "phase": "第四组源码已落位；完整内部文字迁移继续",
     "changed_sources": [
       {
         "path": "src/YobiRuntime.cpp",
@@ -282612,10 +282612,554 @@
       {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_45EFD0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "FormatProtocolTextToken_517160"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "EscapeProtocolText_5171F0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512C10"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512D30"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_510570"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512800"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5128C0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511250"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5112C0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_510FA0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511480"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5110B0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511510"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511640"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5117D0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511840"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511900"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_511EF0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512040"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5120D0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512360"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5125B0"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_512620"
+      },
+      {
+        "path": "src/network/NetworkRuntime.cpp",
+        "symbol": "SendBattlePacket_5109B0"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50C940"
+      },
+      {
+        "path": "src/world/SceneState.cpp",
+        "symbol": "Sub_50C8D0"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D7470"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D7C20"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D8230"
+      },
+      {
+        "path": "src/LegacyCatalogWindows.cpp",
+        "symbol": "Sub_4D88C0"
+      },
+      {
+        "path": "src/CharacterCreationRequest.cpp",
+        "symbol": "StartCharacterCreationRequest"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D3210"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D3410"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6710"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6A60"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6EA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EFB70"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F0460"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D8DA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D9220"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DA580"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DAA40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DBD30"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DC290"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DDB20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF300"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4DF730"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D36F0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D4A50"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D4F00"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D5250"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D62A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E0380"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E5E40"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4E97E0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EA1B0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4EB1C0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52DCE0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_52ED50"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_530BA0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F24A0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F2A30"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F51D0"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_505C20"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4FA050"
+      },
+      {
+        "path": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_501FD0"
+      },
+      {
+        "path": "src/LoginState.cpp",
+        "symbol": "Sub_508360"
+      },
+      {
+        "path": "src/YobiRuntime.cpp",
+        "symbol": "Sub_4EE380"
+      },
+      {
+        "path": "src/world/MailState.cpp",
+        "symbol": "Sub_533C80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "SendChoiceDialogReply"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CFE70"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA1A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA6F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CA9C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4CB6A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4885A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48BB90"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49DA30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A00C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0280"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0420"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A05C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A0700"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_499C30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49AC40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_489F00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B0A50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AD780"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4ADF40"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AE170"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A83D0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AB710"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4ABB20"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B5C30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4B9B10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BA950"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BFBC0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4BFCB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C2060"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C2460"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C4270"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C5C30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C5F80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C0910"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C0A50"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C0CB0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4C0F20"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A36B0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A5970"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4A6450"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFB10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFC00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4AFCF0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_482270"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4810A0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_486040"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4872E0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4973C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497A60"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497B80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497C80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4974C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497E30"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_497FF0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_498520"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4982C0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49BA10"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_49BB00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_47BC00"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_487020"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_4990F0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48ECA0"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48DD80"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_48E430"
+      },
+      {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbol": "Sub_477710"
       }
     ],
     "build_verified": false,
     "runtime_verified": false,
-    "complete_gates_changed": false
+    "complete_gates_changed": false,
+    "retired_interfaces": [
+      "EscapeLegacyText_52D1B0",
+      "EscapeLegacyTextAndNotify_52D2D0"
+    ]
   }
 }

@@ -628,24 +628,7 @@ std::int32_t Sub_45E770(const std::wstring_view text)
     return 0;
 }
 
-// 原 [0x52D1B0,0x52D2C6)：原字节表按输入/转义字母交错存放。
-// ETE01：原首BYTE持有/后继与索引更新序，转义字母早退前读取，两写后更新索引。
-char* EscapeLegacyText_52D1B0(
-    const char* const source,
-    char* const destination,
-    const std::int32_t capacity)
-{
-    // 仅供固定ASCII组包的兼容接口；UTF-16正文使用动态转义入口。
-    const std::wstring escaped = EscapeText(cg::text::ToUtf16(source), capacity > 0 ? static_cast<std::size_t>(capacity) : 0);
-    const std::string utf8 = cg::text::FromUtf16(escaped);
-    if (capacity <= 0 || utf8.size() >= static_cast<std::size_t>(capacity)) {
-        throw cg::text::GbkStorageError(122, std::system_category(), "转义结果超过临时字段容量");
-    }
-    std::memcpy(destination, utf8.c_str(), utf8.size() + 1);
-    return destination;
-}
-
-// 原0x0052D1B0：界面UTF-16动态转义；旧协议容量由提交边界检查。
+// 原 [0x52D1B0,0x52D2C6)：动态UTF-16转义；原字节转义表保持，旧协议容量由提交边界检查。
 std::wstring EscapeText(const std::wstring_view source)
 {
     std::wstring escaped;
@@ -745,18 +728,7 @@ char* EscapeGbkText(const char* const source, char* const destination, const std
 }
 
 
-// 原 [0x52D2D0,0x52D2F0)：空叶不消费上下文，后继完整透传缓冲指针。
-// ETE01：真实空操作未读source，先空操作再转义并透传destination，正确正文保持。
-char* EscapeLegacyTextAndNotify_52D2D0(
-    const char* const source,
-    char* const destination,
-    const std::int32_t capacity)
-{
-    NullSub_509080();
-    return EscapeLegacyText_52D1B0(source, destination, capacity);
-}
-
-// ETE01：现有InputContext::text便利适配，同一52D2D0原根，不新增原身份。
+// 原 [0x52D2D0,0x52D2F0)：输入上下文的动态UTF-16适配，空叶及转义顺序由EscapeTextAndNotify保持。
 std::wstring EscapeInputText_52D2D0(
     const InputContext* const context,
     const std::size_t gbkCapacity)

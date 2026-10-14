@@ -1291,16 +1291,16 @@ void FillChoiceDialogBody(
 }
 
 // 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
-std::int32_t SendChoiceDialogReply(char* const buffer)
+std::int32_t SendChoiceDialogReply(const std::wstring_view buffer)
 {
-    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 16, 15);
+    const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
         world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
-    return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, buffer + 16);
+    return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 
 // 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
@@ -2644,16 +2644,16 @@ std::int32_t Sub_4CF940(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004CFE70。
 std::int32_t Sub_4CFE70()
 {
-    char buffer[36];
+    std::wstring buffer;
     char name[33] {};
-    cg::text::StoreGbk(name, sizeof(name), "無名店舖");
+    cg::text::StoreGbk(name, sizeof(name), L"無名店舖");
     char description[113] {};
-    cg::text::StoreGbk(description, sizeof(description), "老闆沒什麼可介紹的");
-    char offers[276];
+    cg::text::StoreGbk(description, sizeof(description), L"老闆沒什麼可介紹的");
+    std::wstring offers;
     char escaped[276];
-    offers[0] = input::LegacyText593850()[0];
+    const auto initial = static_cast<unsigned char>(input::LegacyText593850()[0]);
+    offers.assign(initial == 0 ? 0 : 1, initial);
     std::int32_t count = gStallItemCountD67BCC;
-    std::memset(offers + 1, 0, sizeof(offers) - 1);
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
         if (count > 0) {
@@ -2666,13 +2666,13 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                std::sprintf(buffer, "%d|", gStallItemOffersD671D8[index].value);
-                std::strcat(offers, buffer);
+                cg::text::FormatTo(buffer, L"{}|", gStallItemOffersD671D8[index].value);
+                offers += buffer;
                 count = gStallItemCountD67BCC;
             }
         }
         if (index == count) {
-            std::strcat(offers, "0|");
+            offers += L"0|";
         }
     }
     count = gStallPetCountD67BD4;
@@ -2688,19 +2688,17 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                std::sprintf(buffer, "%d|", gStallPetOffersCC3E98[index].value);
-                std::strcat(offers, buffer);
+                cg::text::FormatTo(buffer, L"{}|", gStallPetOffersCC3E98[index].value);
+                offers += buffer;
                 count = gStallPetCountD67BD4;
             }
         }
         if (index == count) {
-            std::strcat(offers, "0|");
+            offers += L"0|";
         }
     }
-    input::EscapeLegacyTextAndNotify_52D2D0(offers, escaped, 275);
-    std::strncpy(offers, escaped, static_cast<std::uint32_t>(275));
+    offers = input::EscapeTextAndNotify(offers, 275);
     const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
-    offers[275] = '\0';
     if (nameLength != 0) {
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
@@ -2717,7 +2715,7 @@ std::int32_t Sub_4CFE70()
     std::strncpy(description, escaped, static_cast<std::uint32_t>(112));
     const std::uintptr_t socket = platform::gConnectionSocket;
     description[112] = '\0';
-    static_cast<void>(network::Sub_5120D0(socket, cg::text::FromGbk(name).c_str(), cg::text::FromGbk(description).c_str(), offers));
+    static_cast<void>(network::Sub_5120D0(socket, cg::text::FromGbkWide(name), cg::text::FromGbkWide(description), offers));
     if (!gStallNameInput581130.input.context->empty()) {
         std::strcpy(login::detail::GetCurrentSavedStallNameFF4D18(), name);
     }
@@ -4770,15 +4768,15 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
     std::int32_t group;
     std::int32_t value;
     if (Sub_4CB4A0(index, &group, &value) != 0) {
-        std::array<std::array<char, 256>, 2> buffers;
-        std::sprintf(buffers[0].data(), "%d|%d|", group, value);
-        input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
+        std::array<std::wstring, 2> buffers;
+        cg::text::FormatTo(buffers[0], L"{}|{}|", group, value);
+        buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, buffers[1].data()));
+            platform::gConnectionSocket, x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();
     }
     return 1;
@@ -4920,7 +4918,7 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, commands[position], cg::text::FromUtf16(packet).c_str()));
+        platform::gConnectionSocket, x, y, request, target, commands[position], packet));
     return 1;
 }
 
@@ -4946,7 +4944,7 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
         const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 4, cg::text::FromUtf16(packet).c_str()));
+            platform::gConnectionSocket, x, y, request, target, 4, packet));
         consumed = 1;
     }
     if (gWindowStates[62].window != nullptr) {
@@ -5151,7 +5149,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 8, cg::text::FromUtf16(packet).c_str()));
+        platform::gConnectionSocket, x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
         std::int32_t time;
@@ -5672,15 +5670,15 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
             return source;
         }
     }
-    char buffer[1152];
-    std::sprintf(buffer, "I|%d|%d|%d", source, target, amount);
-    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"I|{}|{}|{}", source, target, amount);
+    const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     return network::Sub_512620(
-        platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
+        platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply);
 }
 
 // IMT01：原97条，Ctrl BYTE/反转开关与count/used门槛、直接source先target/拆分target先source；正确正文保。
@@ -5772,15 +5770,15 @@ void Sub_48BB90(
     if (gWindowStates[41].window == nullptr) {
         return;
     }
-    char buffer[1152];
-    std::sprintf(buffer, "P|%d|%d", source, target);
-    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"P|{}|{}", source, target);
+    const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128));
+        platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
 }
 
 // 原函数：0x004AFF70。
@@ -9645,7 +9643,7 @@ std::int32_t Sub_49DA30(
         const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
         if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, button,
-                cg::text::FromUtf16(reply).c_str()) < 0) { return 0; }
+                reply) < 0) { return 0; }
         world::detail::gValue581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -9658,7 +9656,7 @@ std::int32_t Sub_49DA30(
         const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
         const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
         if (network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0,
-                cg::text::FromUtf16(reply).c_str()) < 0) { return 0; }
+                reply) < 0) { return 0; }
         world::detail::gValue581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
@@ -10342,9 +10340,9 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
     if (index < 0 || index > 1) {
         return index;
     }
-    std::array<char, 96> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
-    input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 16, 15);
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
+    const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
@@ -10352,7 +10350,7 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     return network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 16);
+        platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
 static_assert(std::is_same_v<decltype(&Sub_4A00C0), WindowChoiceCallback>);
 
@@ -10403,9 +10401,9 @@ std::int32_t Sub_4A0280(const std::int32_t index)
     if (index < 0 || index > 1) {
         return index;
     }
-    std::array<char, 96> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
-    return SendChoiceDialogReply(buffer.data());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
+    return SendChoiceDialogReply(buffer);
 }
 
 // 原函数：0x004A0420。
@@ -10414,9 +10412,9 @@ std::int32_t Sub_4A0420(const std::int32_t index)
     if (index < 0 || index > 1) {
         return index;
     }
-    std::array<char, 96> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
-    return SendChoiceDialogReply(buffer.data());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
+    return SendChoiceDialogReply(buffer);
 }
 
 // 原函数：0x004A05C0。
@@ -10425,9 +10423,9 @@ std::int32_t Sub_4A05C0(const std::int32_t index)
     if (index < 0 || index > 1) {
         return index;
     }
-    std::array<char, 96> buffer;
-    std::sprintf(buffer.data(), "%d", index + 1);
-    return SendChoiceDialogReply(buffer.data());
+    std::wstring buffer;
+    cg::text::FormatTo(buffer, L"{}", index + 1);
+    return SendChoiceDialogReply(buffer);
 }
 
 // 原函数：0x004A0700。
@@ -10436,9 +10434,9 @@ std::int32_t Sub_4A0700(const std::int32_t index)
     if (index != 0) {
         return index;
     }
-    std::array<char, 96> buffer;
-    std::strcpy(buffer.data(), "1");
-    return SendChoiceDialogReply(buffer.data());
+    std::wstring buffer;
+    buffer = L"1";
+    return SendChoiceDialogReply(buffer);
 }
 static_assert(std::is_same_v<decltype(&Sub_4A0280), WindowChoiceCallback>);
 static_assert(std::is_same_v<decltype(&Sub_4A0420), WindowChoiceCallback>);
@@ -10832,7 +10830,7 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
                 world::detail::gBattleSelectionModes5ABC7C[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(network::SendBattlePacket_5109B0(
-                    platform::gConnectionSocket, buffer.data()));
+                    platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                 world::detail::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
@@ -10929,7 +10927,7 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
                         world::detail::gBattleSelectionModes5ABC7C[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(network::SendBattlePacket_5109B0(
-                            platform::gConnectionSocket, buffer.data()));
+                            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                         world::detail::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -10962,7 +10960,7 @@ static const std::string unidentifiedUtf8View = cg::text::FromUtf16(unidentified
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, buffer.data()));
+                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     login::detail::FlushBattleEntries_43C060();
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -11220,7 +11218,7 @@ static const std::string noWeaponUtf8View = cg::text::FromUtf16(noWeapon); // �
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, buffer.data()));
+                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -11291,7 +11289,7 @@ static const std::string noWeaponUtf8View = cg::text::FromUtf16(noWeapon); // �
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, buffer.data()));
+                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
@@ -12035,8 +12033,8 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         static_cast<void>(Sub_4763E0());
     };
-    std::array<char, 768> buffer;
-    std::array<char, 16> escaped;
+    std::wstring buffer;
+    std::wstring escaped;
     if (hovered >= 0 && (events & 2u) != 0) {
         if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
             const std::uint8_t mode = gItemSelectionModeCC40D4;
@@ -12045,8 +12043,8 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(network::Sub_511D60(
                     platform::gConnectionSocket, hovered + 8, selected));
             } else if (mode == 2) {
-                std::sprintf(buffer.data(), "%d", hovered + 8);
-                input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), escaped.data(), 15);
+                cg::text::FormatTo(buffer, L"{}", hovered + 8);
+                escaped = input::EscapeTextAndNotify(buffer, 15);
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
                 const std::int32_t y =
@@ -12054,7 +12052,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 const std::int32_t x =
                     world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_512620(
-                    platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+                    platform::gConnectionSocket, x, y, request, target, 0, escaped));
                 leaveSelection();
             }
         }
@@ -12108,11 +12106,11 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            cg::text::FormatTo(buffer, L"{:3}", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer.data(), 0, 0));
+                3, 1, 1, buffer, 0, 0));
         }
     }
     return consumed;
@@ -12670,7 +12668,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
         std::strncpy(petCopy.data(), petSource.data(), static_cast<std::uint32_t>(1024));
         const std::int32_t amount = gTradeValueD046D0;
         static_cast<void>(network::Sub_512040(
-            platform::gConnectionSocket, itemCopy.data(), petCopy.data(), amount));
+            platform::gConnectionSocket, cg::text::FromGbkWide(itemCopy.data()), cg::text::FromGbkWide(petCopy.data()), amount));
         WindowInstance* const window = gCurrentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;
@@ -13053,7 +13051,7 @@ void Sub_4AD780()
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, "C"));
+            platform::gConnectionSocket, x, y, request, target, 0, L"C"));
     }
     world::detail::gValue581800 = -1;
 }
@@ -13318,7 +13316,7 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromUtf16(packet).c_str()));
+                platform::gConnectionSocket, x, y, request, target, 0, packet));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -13353,7 +13351,7 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, buffer.data()));
+            platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(buffer.data())));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
@@ -13492,8 +13490,8 @@ void Sub_4A83D0()
         || (kind == 1 && world::detail::gValue581800 == 33)) {
         world::detail::gValue581800 = -1;
     }
-    std::array<char, 768> buffer;
-    input::EscapeLegacyTextAndNotify_52D2D0("C", buffer.data(), 255);
+    std::wstring buffer;
+    buffer = input::EscapeTextAndNotify(L"C", 255);
     const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
     const std::int32_t y =
@@ -13501,7 +13499,7 @@ void Sub_4A83D0()
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data()));
+        platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[42].window;
     if (numberWindow != nullptr && gWindowStates[42].value20 == 41) {
         numberWindow->state |= 0x8000u;
@@ -14448,7 +14446,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
     const std::int32_t petIndex = scroll + index - 17;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    std::array<char, 1536> buffer;
+    std::wstring buffer;
     if ((events & 0x60u) != 0 && Sub_475D60() != 3) {
         consumed = 1;
         events &= 0x9Fu;
@@ -14504,8 +14502,8 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             if (position < 5) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
                     world::detail::gPetPairsDE0B08[position].index);
-                std::sprintf(buffer.data(), "P|%d|%d", petIndex + 100, target);
-                input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
+                cg::text::FormatTo(buffer, L"P|{}|{}", petIndex + 100, target);
+                const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
                 const std::int32_t userState =
                     std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
                 const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
@@ -14514,7 +14512,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
                 const std::int32_t x =
                     world::detail::BorrowPlayerXStorage()->value();
                 static_cast<void>(network::Sub_512620(
-                    platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 256));
+                    platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             }
         }
         consumed = 1;
@@ -14636,10 +14634,10 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
     }
     if ((result & 2u) != 0) {
         if (index == 30 || index == 31) {
-            std::array<char, 1152> buffer;
+            std::wstring buffer;
             const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
-            std::sprintf(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
-            input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 128, 255);
+            cg::text::FormatTo(buffer, index == 30 ? L"G|{}" : L"D|{}", value);
+            const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
             const std::int32_t userState =
                 std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
             const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
@@ -14648,7 +14646,7 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 128));
+                platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
             window = gCurrentWindow;
             const std::int32_t confirmed = std::bit_cast<std::int32_t>(window->elements[index].state);
             const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
@@ -18197,9 +18195,8 @@ std::int32_t Sub_4B5B70(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004B5C30。
 std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
 {
-    std::array<char, 1536> buffer;
-    char* const escaped = buffer.data();
-    char* const text = buffer.data() + 256;
+    std::wstring escaped;
+    std::wstring text;
     std::int32_t consumed = 0;
     switch (index) {
     case 0:
@@ -18235,8 +18232,8 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         if ((state & 2) == 0) {
             return consumed;
         }
-        std::sprintf(text, "%d", (index - 5) / 7);
-        input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 255);
+        cg::text::FormatTo(text, L"{}", (index - 5) / 7);
+        escaped = input::EscapeTextAndNotify(text, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -18270,7 +18267,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromUtf16(escapedText).c_str()));
+                platform::gConnectionSocket, x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
             static_cast<void>(Sub_4B6C20());
         } else {
@@ -18295,7 +18292,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         if ((state & 2) != 0) {
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            escaped[0] = '\0';
+            escaped.clear();
             const std::int32_t y =
                 world::detail::BorrowPlayerYStorage()->value();
             const std::int32_t x =
@@ -19510,14 +19507,13 @@ void Sub_4B9B10(const std::int32_t selection)
     if (mode < 0 || mode > 5) {
         return;
     }
-    char fragment[32];
-    std::array<char, 512> textBuffer;
-    char* const text = textBuffer.data();
-    char* const escaped = text + 256;
+    std::wstring fragment;
+    std::wstring text;
+    std::wstring escaped;
     if (mode == 3) {
-        std::sprintf(text, "1|%d", gShopValueD046C4);
+        cg::text::FormatTo(text, L"1|{}", gShopValueD046C4);
     } else {
-        text[0] = '\0';
+        text.clear();
         std::int32_t count = 0;
         for (std::int32_t index = 0; index < 20; ++index) {
             const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
@@ -19530,24 +19526,24 @@ void Sub_4B9B10(const std::int32_t selection)
                 continue;
             }
             if (count > 0) {
-                std::strcat(text, "|");
+                text += L"|";
             }
             if (mode == 4 || mode == 5) {
                 std::int32_t inventoryIndex;
                 std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
-                std::sprintf(fragment, "%d", inventoryIndex);
+                cg::text::FormatTo(fragment, L"{}", inventoryIndex);
             } else {
                 std::int32_t itemIndex = index;
                 if (mode == 1) {
                     std::memcpy(&itemIndex, record + 0xC2C, sizeof(itemIndex));
                 }
-                std::sprintf(fragment, "%d|%d", itemIndex, selected);
+                cg::text::FormatTo(fragment, L"{}|{}", itemIndex, selected);
             }
-            std::strcat(text, fragment);
+            text += fragment;
             ++count;
         }
     }
-    input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, mode == 3 ? 256 : 255);
+    escaped = input::EscapeTextAndNotify(text, mode == 3 ? 256 : 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
@@ -19850,7 +19846,7 @@ std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
+            platform::gConnectionSocket, x, y, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
@@ -22325,8 +22321,8 @@ std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         if (gWindow54ModeC8AF64 == 0) {
-            std::array<char, 16> escaped;
-            input::EscapeLegacyTextAndNotify_52D2D0("1", escaped.data(), 15);
+            std::wstring escaped;
+            escaped = input::EscapeTextAndNotify(L"1", 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -22334,7 +22330,7 @@ std::int32_t Sub_4BFBC0(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+                platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
@@ -22378,8 +22374,8 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         switch (mode) {
         case 0: {
-            std::array<char, 16> escaped;
-            input::EscapeLegacyTextAndNotify_52D2D0("2", escaped.data(), 15);
+            std::wstring escaped;
+            escaped = input::EscapeTextAndNotify(L"2", 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -22387,15 +22383,15 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+                platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             break;
         }
         case 1: {
-            std::array<char, 16> text;
-            std::array<char, 16> escaped;
-            std::sprintf(text.data(), "%d", 99);
-            input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
+            std::wstring text;
+            std::wstring escaped;
+            cg::text::FormatTo(text, L"{}", 99);
+            escaped = input::EscapeTextAndNotify(text, 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -22403,7 +22399,7 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+                platform::gConnectionSocket, x, y, request, target, 0, escaped));
             gCurrentWindow->state |= 0x8000u;
             break;
         }
@@ -22416,7 +22412,7 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
         case 13: {
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const char* const text = input::LegacyText593850();
+            const std::wstring text = cg::text::FromGbkWide(input::LegacyText593850());
             const std::int32_t y =
                 world::detail::BorrowPlayerYStorage()->value();
             const std::int32_t x =
@@ -23153,10 +23149,10 @@ void Sub_4C2060(const std::int32_t value)
     if (static_cast<std::uint8_t>(value) != 0) {
         return;
     }
-    std::array<char, 32> fragment;
-    std::array<char, 256> text;
-    std::array<char, 256> escaped;
-    text[0] = '\0';
+    std::wstring fragment;
+    std::wstring text;
+    std::wstring escaped;
+    text.clear();
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         const WindowCrystalItem& item = gWindow69ItemsCB2230[index];
@@ -23164,15 +23160,15 @@ void Sub_4C2060(const std::int32_t value)
             const std::int32_t quantity = item.selectedCount;
             if (quantity != 0) {
                 if (count > 0) {
-                    std::strcat(text.data(), "|");
+                    text += L"|";
                 }
-                std::sprintf(fragment.data(), "%d|%d", index, quantity);
-                std::strcat(text.data(), fragment.data());
+                cg::text::FormatTo(fragment, L"{}|{}", index, quantity);
+                text += fragment;
                 ++count;
             }
         }
     }
-    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    escaped = input::EscapeTextAndNotify(text, 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
@@ -23180,7 +23176,7 @@ void Sub_4C2060(const std::int32_t value)
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+        platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
 }
 
@@ -23292,7 +23288,7 @@ std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
+            platform::gConnectionSocket, x, y, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
@@ -24104,10 +24100,10 @@ void Sub_4C4270(const std::int32_t value)
     if (static_cast<std::uint8_t>(value) != 0) {
         return;
     }
-    std::array<char, 32> fragment;
-    std::array<char, 256> text;
-    std::array<char, 256> escaped;
-    text[0] = '\0';
+    std::wstring fragment;
+    std::wstring text;
+    std::wstring escaped;
+    text.clear();
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
         const WindowCrystalItem& item = gWindow70ItemsD30428[index];
@@ -24115,15 +24111,15 @@ void Sub_4C4270(const std::int32_t value)
             const std::int32_t quantity = item.selectedCount;
             if (quantity != 0) {
                 if (count > 0) {
-                    std::strcat(text.data(), "|");
+                    text += L"|";
                 }
-                std::sprintf(fragment.data(), "%d|%d", index, quantity);
-                std::strcat(text.data(), fragment.data());
+                cg::text::FormatTo(fragment, L"{}|{}", index, quantity);
+                text += fragment;
                 ++count;
             }
         }
     }
-    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    escaped = input::EscapeTextAndNotify(text, 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
@@ -24131,7 +24127,7 @@ void Sub_4C4270(const std::int32_t value)
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 1, escaped.data()));
+        platform::gConnectionSocket, x, y, request, target, 1, escaped));
     gCurrentWindow->state |= 0x8000u;
 }
 
@@ -24864,7 +24860,7 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 1, buffer.data()));
+            platform::gConnectionSocket, x, y, request, target, 1, cg::text::FromGbkWide(buffer.data())));
         gCurrentWindow->state |= 0x8000u;
         consumed = 1;
     }
@@ -24994,10 +24990,10 @@ std::int32_t Sub_4C5F80(
         }
         return 1;
     }
-    std::array<char, 256> text;
-    std::array<char, 256> escaped;
-    std::sprintf(text.data(), "%d", gImageDialogImageD2F7AC);
-    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    std::wstring text;
+    std::wstring escaped;
+    cg::text::FormatTo(text, L"{}", gImageDialogImageD2F7AC);
+    escaped = input::EscapeTextAndNotify(text, 255);
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;
     const std::int32_t y =
@@ -25005,7 +25001,7 @@ std::int32_t Sub_4C5F80(
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, button, escaped.data()));
+        platform::gConnectionSocket, x, y, request, target, button, escaped));
     world::detail::gValue581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -25058,10 +25054,10 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        std::array<char, 16> text;
-        std::array<char, 16> escaped;
-        std::sprintf(text.data(), "%d", selected + 1);
-        input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
+        std::wstring text;
+        std::wstring escaped;
+        cg::text::FormatTo(text, L"{}", selected + 1);
+        escaped = input::EscapeTextAndNotify(text, 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -25069,7 +25065,7 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+            platform::gConnectionSocket, x, y, request, target, 0, escaped));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -25127,10 +25123,10 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         gWindow54PetChoiceC8AA90 = selected;
-        std::array<char, 16> text;
-        std::array<char, 16> escaped;
-        std::sprintf(text.data(), "%d", selected);
-        input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
+        std::wstring text;
+        std::wstring escaped;
+        cg::text::FormatTo(text, L"{}", selected);
+        escaped = input::EscapeTextAndNotify(text, 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -25138,7 +25134,7 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
         const std::int32_t x =
             world::detail::BorrowPlayerXStorage()->value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+            platform::gConnectionSocket, x, y, request, target, 0, escaped));
         world::detail::gValue581800 = -2;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -25228,10 +25224,10 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
         return 1;
     }
     gWindow54SelectedD2DC04 = selected;
-    std::array<char, 16> text;
-    std::array<char, 16> escaped;
-    std::sprintf(text.data(), "%d", selected);
-    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
+    std::wstring text;
+    std::wstring escaped;
+    cg::text::FormatTo(text, L"{}", selected);
+    escaped = input::EscapeTextAndNotify(text, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
     const std::int32_t y =
@@ -25239,7 +25235,7 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     const std::int32_t x =
         world::detail::BorrowPlayerXStorage()->value();
     static_cast<void>(network::Sub_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+        platform::gConnectionSocket, x, y, request, target, 0, escaped));
     world::detail::gValue581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
@@ -25290,7 +25286,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
             const std::int32_t x =
                 world::detail::BorrowPlayerXStorage()->value();
             static_cast<void>(network::Sub_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, requestText.data()));
+                platform::gConnectionSocket, x, y, request, target, 0, cg::text::FromGbkWide(requestText.data())));
             gCurrentWindow->state &= ~2u;
             acceptImage = 245324;
             gCurrentWindow->state |= 0x8000u;
@@ -26727,7 +26723,7 @@ std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
     const std::int32_t key = record.key04;
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(record.name10.data()), 255);
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_5117D0(socket, key, cg::text::FromUtf16(escapedText).c_str()));
+    static_cast<void>(network::Sub_5117D0(socket, key, escapedText));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     world::detail::Sub_534480(currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -27585,21 +27581,21 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                         if (groupMode == 0) {
                             const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_510FA0(socket, contact, cg::text::FromUtf16(packet).c_str(), 0));
+                            static_cast<void>(network::Sub_510FA0(socket, contact, packet, 0));
                             FormatMailTimestamp587768(timestamp);
                             world::detail::Sub_5191C0(contact, 1, timestamp, storedText.data());
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
                             const std::int32_t key = login::detail::gOrderedRecords1051B14[member].value0C;
-                            static_cast<void>(network::Sub_511480(socket, key, cg::text::FromUtf16(packet).c_str(), 0));
+                            static_cast<void>(network::Sub_511480(socket, key, packet, 0));
                             FormatMailTimestamp587768(timestamp);
                             static_cast<void>(world::detail::Sub_519370(
                                 key, 1, timestamp, storedText.data()));
                         } else {
                             const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
-                            static_cast<void>(network::Sub_511480(socket, group + 0x400, cg::text::FromUtf16(packet).c_str(), 0));
+                            static_cast<void>(network::Sub_511480(socket, group + 0x400, packet, 0));
                             for (std::int32_t member = 0; member < 200; ++member) {
                                 const std::int32_t memberGroup = login::detail::gOrderedRecords1051B14[member].value00;
                                 const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
@@ -27634,7 +27630,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 const std::wstring escapedText = input::EscapeText(input::ContextText(input::gInputContextD66CA8), 1024);
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
-                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, cg::text::FromUtf16(packet).c_str(), 0));
+                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 world::detail::Sub_5343C0(currentContact, 1, timestamp, storedText.data());
@@ -27655,9 +27651,9 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 packet = input::EscapeTextAndNotify(combined, 1024);
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511480(socket, target, cg::text::FromUtf16(packet).c_str(), 0));
+                    static_cast<void>(network::Sub_511480(socket, target, packet, 0));
                 } else {
-                    static_cast<void>(network::Sub_510FA0(socket, target, cg::text::FromUtf16(packet).c_str(), 0));
+                    static_cast<void>(network::Sub_510FA0(socket, target, packet, 0));
                 }
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
@@ -27972,9 +27968,9 @@ std::int32_t Sub_4A6450(const std::int32_t index, const std::int32_t state)
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
                 const std::uintptr_t socket = platform::gConnectionSocket;
                 if (category == 1) {
-                    static_cast<void>(network::Sub_511510(socket, target, pet, item, cg::text::FromUtf16(packet).c_str(), 0));
+                    static_cast<void>(network::Sub_511510(socket, target, pet, item, packet, 0));
                 } else {
-                    static_cast<void>(network::Sub_5110B0(socket, target, pet, item, cg::text::FromUtf16(packet).c_str(), 0));
+                    static_cast<void>(network::Sub_5110B0(socket, target, pet, item, packet, 0));
                 }
                 FormatMailTimestamp587768(timestamp);
                 if (category == 1) {
@@ -29323,7 +29319,7 @@ std::int32_t Sub_4AFB10()
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()), 256);
     static_cast<void>(network::Sub_511250(
-        platform::gConnectionSocket, 2, cg::text::FromUtf16(escapedText).c_str()));
+        platform::gConnectionSocket, 2, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return Sub_4A7B00();
 }
@@ -29346,7 +29342,7 @@ std::int32_t Sub_4AFC00()
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()), 256);
     static_cast<void>(network::Sub_511250(
-        platform::gConnectionSocket, 3, cg::text::FromUtf16(escapedText).c_str()));
+        platform::gConnectionSocket, 3, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return Sub_4A7B00();
 }
@@ -29374,7 +29370,7 @@ std::int32_t Sub_4AFCF0()
             const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(draft), 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
             const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::Sub_5112C0(socket, index, flags, cg::text::FromUtf16(escapedText).c_str()));
+            static_cast<void>(network::Sub_5112C0(socket, index, flags, escapedText));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }
@@ -32251,7 +32247,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
                 const std::int32_t selected = gSelectedItemD460C0;
                 const std::int32_t skill = gCraftSkillIndexCC2368;
                 static_cast<void>(network::Sub_511EF0(
-                    platform::gConnectionSocket, skill + offset, request, selected, cg::text::FromUtf16(buffer).c_str()));
+                    platform::gConnectionSocket, skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
                 if (current == &input::gInputContextD2DE70) {
@@ -33296,10 +33292,9 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             }
         }
     }
-    char buffer[768];
-    std::string inputUtf8View;
-    const char* requestText = buffer;
-    char temporary[256];
+    std::wstring buffer;
+    const std::wstring& requestText = buffer;
+    std::wstring temporary;
     const auto expired = [] {
         const std::uint32_t tick = platform::ReadTickCount32();
         return gCraftDeadlineCF3B04 <= tick;
@@ -33333,19 +33328,19 @@ std::int32_t Sub_4810A0(const std::int32_t value)
     if (gSelectionModeD2D650 == 1 && expired()) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        cg::text::FormatTo(buffer, L"{}", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                std::sprintf(temporary, "|%d", slot + 8);
-                std::strcat(buffer, temporary);
+                cg::text::FormatTo(temporary, L"|{}", slot + 8);
+                buffer += temporary;
             }
         }
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] < 0) {
-                std::sprintf(temporary, "|%d", slot + 8);
-                std::strcat(buffer, temporary);
+                cg::text::FormatTo(temporary, L"|{}", slot + 8);
+                buffer += temporary;
             }
         }
         NullSub_509080();
@@ -33354,10 +33349,9 @@ std::int32_t Sub_4810A0(const std::int32_t value)
         hideControls = true;
     } else if (gSelectionModeD2D650 == 4 && expired()) {
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            inputUtf8View = cg::text::FromUtf16(input::ContextText(input::gInputContextD2DE70));
-            requestText = inputUtf8View.c_str();
+            buffer = input::ContextText(input::gInputContextD2DE70);
         } else {
-            buffer[0] = '\0';
+            buffer.clear();
         }
         NullSub_509080();
         sendRequest(false, true);
@@ -33382,7 +33376,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     ordinarySlot = slot + 8;
                 }
             }
-            std::sprintf(buffer, "%d|%d", ordinarySlot, specialSlot);
+            cg::text::FormatTo(buffer, L"{}|{}", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
             const std::wstring& name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name;
@@ -33404,7 +33398,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     break;
                 }
             }
-            std::sprintf(buffer, "%d", selected);
+            cg::text::FormatTo(buffer, L"{}", selected);
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
@@ -33412,15 +33406,13 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             hideControls = true;
         } else if (mode == 13 && expired()) {
             const char initial = input::LegacyText593850()[0];
-            buffer[0] = initial;
-            temporary[0] = initial;
-            std::memset(buffer + 1, 0, sizeof(buffer) - 1);
-            std::memset(temporary + 1, 0, sizeof(temporary) - 1);
+            buffer.assign(initial == 0 ? 0 : 1, static_cast<unsigned char>(initial));
+            temporary = buffer;
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
                 if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                    std::sprintf(temporary, "%d|", slot + 8);
-                    std::strcat(buffer, temporary);
+                    cg::text::FormatTo(temporary, L"{}|", slot + 8);
+                    buffer += temporary;
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
                         gCraftNameCF46D4 = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].name;
@@ -34498,7 +34490,7 @@ std::int32_t Sub_486040(const std::int32_t value)
                 skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             }
             static_cast<void>(network::Sub_511EF0(
-                platform::gConnectionSocket, skill, level, -1, input::LegacyText593850()));
+                platform::gConnectionSocket, skill, level, -1, cg::text::FromGbkWide(input::LegacyText593850())));
             gWindow12PetImageCB10CC = Sub_4799D0();
             gWindow12CrystalLevelCC3E90 = Sub_479860();
             gWindow12ModeCC3E80 = 2;
@@ -35203,7 +35195,7 @@ std::int32_t Sub_4872E0(const std::int32_t index, const char*)
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     const std::int32_t skill = gUsingSkillIndexD2F32C;
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_511EF0(socket, skill + offset, level, target, extra));
+    static_cast<void>(network::Sub_511EF0(socket, skill + offset, level, target, cg::text::FromGbkWide(extra)));
     return 0;
 }
 
@@ -36311,7 +36303,7 @@ std::int32_t Sub_4973C0(const std::int32_t index, const std::int32_t state)
         world::detail::gBattleSelectionModes5ABC7C[1] = 1;
         world::detail::gBattleSelectionMode5ABC70 = 0;
         login::detail::FlushBattleEntries_43C060();
-        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "G"));
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"G"));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;
         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -36459,7 +36451,7 @@ std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
         world::detail::gBattleSelectionMode5ABC70 = 6;
         world::detail::gBattleSelectionModes5ABC7C[6] = 1;
         login::detail::FlushBattleEntries_43C060();
-        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "P"));
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"P"));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;
         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -36496,7 +36488,7 @@ std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
         world::detail::gBattleSelectionModes5ABC7C[7] = 1;
         world::detail::gBattleSelectionMode5ABC70 = 0;
         login::detail::FlushBattleEntries_43C060();
-        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "E"));
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"E"));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;
         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -36557,7 +36549,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
             world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4];
         const char* const command =
             *login::detail::BorrowBattleRebirthSlot106C(current) != nullptr ? "R|0" : "R|1";
-        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, command));
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(command)));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;
         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -36725,7 +36717,7 @@ void Sub_4974C0(const std::int32_t skillIndex, const std::int32_t technique)
         static_cast<std::uint32_t>(currentTechnique),
         static_cast<std::uint32_t>(currentPosition));
     static_cast<void>(network::SendBattlePacket_5109B0(
-        platform::gConnectionSocket, buffer.data()));
+        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
     login::detail::FlushBattleEntries_43C060();
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     const std::int32_t count = world::detail::gBattleSkillActionCount5ABBF4;
@@ -36808,7 +36800,7 @@ void Sub_497E30(const std::int32_t technique)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         if (world::detail::gBattleCurrentPosition5ABCA4 < 20) {
             static_cast<void>(network::SendBattlePacket_5109B0(
-                platform::gConnectionSocket, "W|FF"));
+                platform::gConnectionSocket, L"W|FF"));
         }
         login::detail::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -36839,7 +36831,7 @@ void Sub_497E30(const std::int32_t technique)
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
         static_cast<void>(network::SendBattlePacket_5109B0(
-            platform::gConnectionSocket, buffer.data()));
+            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
         login::detail::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         const std::int32_t count = world::detail::gBattlePetActionCount5ABBBC;
@@ -36861,7 +36853,7 @@ void Sub_497FF0(const std::int32_t technique)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         if (world::detail::gBattleCurrentPosition5ABCA4 < 20) {
             static_cast<void>(network::SendBattlePacket_5109B0(
-                platform::gConnectionSocket, "W|FF"));
+                platform::gConnectionSocket, L"W|FF"));
         }
         login::detail::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -36887,7 +36879,7 @@ void Sub_497FF0(const std::int32_t technique)
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
         static_cast<void>(network::SendBattlePacket_5109B0(
-            platform::gConnectionSocket, buffer.data()));
+            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
         login::detail::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         const std::int32_t count = world::detail::gBattlePetActionCount5ABBBC;
@@ -37002,13 +36994,13 @@ void Sub_498520()
             login::YobiAction* const player = gBattleEntries59E980[position];
             if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
                 if ((reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0] & 8u) != 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                     const std::int32_t petCount = gBattlePetActionCount5ABBBC;
                     const std::uint32_t flags = gBattlePlayerFlags5ABCAC;
                     const bool skipPlayer = (flags & 0x20000u) != 0;
                     gBattlePetActionCount5ABBBC = petCount + 1;
                     if (skipPlayer) {
-                        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                         const std::int32_t count = gBattleSkillActionCount5ABBF4;
                         world::gCurrentSceneState = 5;
                         gBattleSkillActionCount5ABBF4 = count + 1;
@@ -37064,7 +37056,7 @@ void Sub_498520()
         std::uint32_t flags = gBattlePlayerFlags5ABCAC;
         if ((flags & 4u) != 0) {
             if (position < 20) {
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                 position = gBattleCurrentPosition5ABCA4;
                 flags = gBattlePlayerFlags5ABCAC;
             }
@@ -37074,7 +37066,7 @@ void Sub_498520()
                 gBattleCommandState5ABC3C = 3;
             } else if ((flags & 0x10u) != 0) {
                 if (position < 20) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                 }
                 const std::int32_t nextCount = gBattleSkillActionCount5ABBF4;
                 world::gCurrentSceneState = 5;
@@ -37167,7 +37159,7 @@ void Sub_498520()
                     break;
                 }
                 if (send) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     login::detail::FlushBattleEntries_43C060();
                     gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -37234,7 +37226,7 @@ void Sub_498520()
         }
         if ((flags & 8u) != 0) {
             if (gBattleCurrentPosition5ABCA4 < 20) {
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
             }
             ++gBattlePetActionCount5ABBBC;
             world::gCurrentSceneState = 5;
@@ -37277,7 +37269,7 @@ void Sub_498520()
                 const std::int32_t technique = gValue553F84;
                 std::sprintf(buffer.data(), "W|%X|%X",
                     static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                 login::detail::FlushBattleEntries_43C060();
                 gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -37440,29 +37432,29 @@ void Sub_4982C0()
         login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
         bool finish = false;
         if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
             finish = true;
         } else {
             std::uint8_t flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
             const std::int32_t skillCount = gBattleSkillActionCount5ABBF4;
             if ((flags & 0x20u) != 0) {
                 if (skillCount == 0 && (flags & 4u) == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                     finish = true;
                 }
                 if (gBattlePetActionCount5ABBBC == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
                     finish = true;
                 }
             } else if (skillCount != 0 || (flags & 4u) == 0) {
                 if (skillCount == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                     flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
                     finish = true;
                 }
                 if (gBattleSkillActionCount5ABBF4 == 1 && (flags & 4u) == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                     finish = true;
                 }
             }
@@ -37567,7 +37559,7 @@ std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
         if (world::detail::Sub_43C4B0() != -1) {
             std::array<char, 768> buffer;
             std::sprintf(buffer.data(), "M|%X", 255u);
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
             gCurrentWindow->state |= 0x8000u;
             world::detail::gBattlePlayerActionState5ABC74 = 1;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -37708,7 +37700,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
                     std::array<char, 768> buffer;
                     std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
                     static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, buffer.data()));
+                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
                     gCurrentWindow->state |= 0x8000u;
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -38852,7 +38844,7 @@ std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511EF0(
-                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, input::LegacyText593850()));
+                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, cg::text::FromGbkWide(input::LegacyText593850())));
                     return;
                 }
                 default:
@@ -38957,7 +38949,7 @@ std::int32_t Sub_487020(const std::int32_t index, const char* const text)
             skill = gUsingSkillIndexD2F32C;
         }
         static_cast<void>(network::Sub_511EF0(
-            platform::gConnectionSocket, skill, level, index, extra));
+            platform::gConnectionSocket, skill, level, index, cg::text::FromGbkWide(extra)));
     }
     gSkillTargetPendingC8AF5F = 1;
     return 0;
@@ -39699,7 +39691,7 @@ std::int32_t Sub_4990F0(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "U"));
+    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"U"));
     world::gCurrentSceneState = 7;
     return 1;
 }
@@ -43326,7 +43318,7 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
             if (text.empty()) {
@@ -43470,7 +43462,7 @@ std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
             if (text.empty()) {
@@ -43612,7 +43604,7 @@ std::int32_t Sub_48E430(const std::int32_t index, const std::int32_t state)
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::Sub_5125B0(socket, pet, cg::text::FromUtf16(escapedText).c_str()));
+            static_cast<void>(network::Sub_5125B0(socket, pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             Sub_4A7B00();
             if (text.empty()) {
@@ -43984,7 +43976,7 @@ std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
         }
         if ((state & 2) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
-            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, cg::text::FromUtf16(escapedText).c_str()));
+            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(Sub_4A7B00());
             consumed = 1;

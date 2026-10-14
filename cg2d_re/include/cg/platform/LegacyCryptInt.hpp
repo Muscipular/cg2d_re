@@ -36,7 +36,8 @@ public:
     LegacyCryptInt& operator=(std::uint32_t value); // 保留目标token与reserved。
 
     // 每次转换单读并消费原计数／刷新；标量两侧算术、比较沿C++整数提升。
-    // 原标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FC0。
+    // 原标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FA0、0x00401FC0。
+    // 原401FA0的八个已知调用只消费AL；整数左侧<沿单次转换与内建比较。
     // 原标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
     operator std::int32_t();
     explicit operator std::uint32_t();
@@ -74,9 +75,6 @@ public:
     // 原0x00401EC0@[0x401EC0,0x401F45)，原0x00401EA0跳转共用读取正文；读取会改计数／mask。
     std::int32_t Read_401EC0();
 
-    // 原0x00401FA0：右对象单读，S32 lhs<rhs覆盖AL，高24位保留读取值。
-    std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs);
-
     std::uint32_t legacyVftToken; // 原成员偏移：+0x00。
     std::uint32_t encoded; // 原成员偏移：+0x04。
     std::uint32_t mask; // 原成员偏移：+0x08。
@@ -84,7 +82,7 @@ public:
     std::uint8_t reserved[3]; // 原成员偏移：+0x0D。
 
 private:
-    // 明文转原W32位模式，供encoded异或与原返回高位使用。
+    // 明文转原W32位模式，供encoded异或与mask位模式转换使用。
     static std::uint32_t ToBits(std::int32_t value);
     // 解码后的W32位模式恢复为有符号明文。
     static std::int32_t FromBits(std::uint32_t value);

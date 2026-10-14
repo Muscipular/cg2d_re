@@ -5162,9 +5162,7 @@ void Sub_4417E0(YobiAction* const action)
             if (!outside) {
                 const std::int32_t upperX =
                     ((*world::detail::BorrowPlayerXStorage()) + 16);
-                outside = static_cast<std::uint8_t>(
-                    action->mapX1E0.IntLessCryptRaw_401FA0(
-                        upperX)) != 0;
+                outside = (upperX < action->mapX1E0);
             }
             if (!outside) {
                 const std::int32_t lowerY =
@@ -5174,9 +5172,7 @@ void Sub_4417E0(YobiAction* const action)
             if (!outside) {
                 const std::int32_t upperY =
                     ((*world::detail::BorrowPlayerYStorage()) + 16);
-                outside = static_cast<std::uint8_t>(
-                    action->mapY1F0.IntLessCryptRaw_401FA0(
-                        upperY)) != 0;
+                outside = (upperY < action->mapY1F0);
             }
             if (outside) {
                 world::detail::Sub_4462E0((*world::detail::BorrowWorldObjectsStorage())[

@@ -9415,17 +9415,22 @@
     {
       "original_entry": "0x401FA0",
       "inventory_id": "F:00001FA0",
-      "status": "BSB01补具名原体/完整W32高24位与低AL结果及八原点接线；历史内联基线保留，机器ABI和整体运行未验",
+      "status": "BSB01补具名原体/完整W32高24位与低AL结果及八原点接线；历史内联基线保留，机器ABI和整体运行未验；LCI-FA0当前使用普通布尔比较，Raw阶段实现保历史",
       "original_role": "整数小于CryptInt",
       "sources": [
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
             "LegacyCryptInt::Read_401EC0",
+            "cg::platform::LegacyCryptInt::operator std::int32_t"
+          ],
+          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+          "historical_symbols_before_lci_fa0": [
+            "LegacyCryptInt::Read_401EC0",
             "cg::platform::LegacyCryptInt::operator std::int32_t",
             "LegacyCryptInt::IntLessCryptRaw_401FA0"
           ],
-          "relationship": "BSB01当前具名原401FA0：一次Read_401EC0，S32左整数<右载体，保高24位只替换AL；其余旧读取/比较符号保历史与现有其它源使用；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
+          "historical_relationship_before_lci_fa0": "BSB01当前具名原401FA0：一次Read_401EC0，S32左整数<右载体，保高24位只替换AL；其余旧读取/比较符号保历史与现有其它源使用；LCI03当前普通比较已收敛为operator，单次读取与旧S32形参边界保持，同类先右后左。"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -9452,9 +9457,13 @@
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
+            "LegacyCryptInt::operator std::int32_t"
+          ],
+          "relationship": "LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+          "historical_symbols_before_lci_fa0": [
             "LegacyCryptInt::IntLessCryptRaw_401FA0"
           ],
-          "relationship": "既有数字载体库内声明，S32左值/原生非拥有右对象，uint32原返回位型"
+          "historical_relationship_before_lci_fa0": "既有数字载体库内声明，S32左值/原生非拥有右对象，uint32原返回位型"
         }
       ],
       "evidence_documents": [
@@ -9466,12 +9475,13 @@
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
         "doc/cg2d_integer_left_compare_dispatch_evidence.json",
         "doc/cg2d_cryptint_class_spec.md#cryptint-class-merge",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-comparison-operators",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
-      "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "original_end_exclusive": "0x401fb1",
       "instruction_count": 5,
-      "verification_level": "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "verification_level": "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "integer_left_compare_dispatch": {
         "spec_id": "BSB01",
         "evidence_refs": [
@@ -9506,6 +9516,21 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "current_source_uses_builtin_bool_comparison": true,
+        "single_right_read_kept": true,
+        "signed_int32_comparison_kept": true,
+        "short_circuit_order_kept": true,
+        "raw_interface_retired": true,
+        "full_w32_return_preserved_in_current_source": false,
+        "full_w32_return_retained_as_bsb01_history": true,
+        "known_source_call_count": 8,
+        "runtime_verified": false
       }
     },
     {
@@ -153623,7 +153648,7 @@
     {
       "original_entry": "0x4417e0",
       "inventory_id": "F:000417E0",
-      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验；BSB01仅两个整数左侧比较原点接具名401FA0，回调其它正文保持；BTY01恢复三BYTE读取，新Byte getter承接私有玩家槽，Word/其他W16-W32合同保持，整回调/寿命/运行未验",
+      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验；BSB01仅两个整数左侧比较原点接具名401FA0，回调其它正文保持；BTY01恢复三BYTE读取，新Byte getter承接私有玩家槽，Word/其他W16-W32合同保持，整回调/寿命/运行未验；LCI-FA0当前使用普通布尔比较，Raw阶段实现保历史",
       "original_end_exclusive": "0x441dab",
       "instruction_count": 466,
       "original_direct_reference_count": 1,
@@ -153675,10 +153700,11 @@
         "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision",
         "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-acceptance",
         "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
-        "doc/cg2d_actor_update_byte_reads_evidence.json"
+        "doc/cg2d_actor_update_byte_reads_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
-      "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验；BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
-      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
+      "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验；BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "integer_left_compare_dispatch": {
         "spec_id": "BSB01",
         "evidence_refs": [
@@ -153728,6 +153754,21 @@
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "current_source_uses_builtin_bool_comparison": true,
+        "single_right_read_kept": true,
+        "signed_int32_comparison_kept": true,
+        "short_circuit_order_kept": true,
+        "raw_interface_retired": true,
+        "full_w32_return_preserved_in_current_source": false,
+        "full_w32_return_retained_as_bsb01_history": true,
+        "known_source_call_count": 2,
+        "runtime_verified": false
       }
     },
     {
@@ -173748,7 +173789,7 @@
       "original_role": "ProcessCapability4Input_464E30",
       "original_end_exclusive": "0x46531e",
       "instruction_count": 350,
-      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验 BSG01两普通提交按各自原序取齐两个+12C S32后result1/两NUL，单源两片段，仅补局部来源/静态，不增身份或完整门禁。",
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验 BSG01两普通提交按各自原序取齐两个+12C S32后result1/两NUL，单源两片段，仅补局部来源/静态，不增身份或完整门禁。；LCI-FA0当前使用普通布尔比较，Raw阶段实现保历史",
       "sources": [
         {
           "path": "src/LoginInputController.cpp",
@@ -173771,10 +173812,11 @@
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-acceptance",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
-        "doc/cg2d_capability4_submit_length_sampling_evidence.json"
+        "doc/cg2d_capability4_submit_length_sampling_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
-      "boundary": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
-      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "boundary": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "capability4_input_normal_arithmetic": {
         "spec_id": "BSC01",
         "evidence_refs": [
@@ -173840,6 +173882,21 @@
         "full_original_parent_or_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "current_source_uses_builtin_bool_comparison": true,
+        "single_right_read_kept": true,
+        "signed_int32_comparison_kept": true,
+        "short_circuit_order_kept": true,
+        "raw_interface_retired": true,
+        "full_w32_return_preserved_in_current_source": false,
+        "full_w32_return_retained_as_bsb01_history": true,
+        "known_source_call_count": 4,
+        "runtime_verified": false
       }
     },
     {
@@ -173848,7 +173905,7 @@
       "original_role": "ProcessCapability4SavedSlotSelector_465430",
       "original_end_exclusive": "0x46573d",
       "instruction_count": 262,
-      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验",
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验；LCI-FA0当前使用普通布尔比较，Raw阶段实现保历史",
       "sources": [
         {
           "path": "src/LoginInput.cpp",
@@ -173865,10 +173922,11 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
-      "boundary": "完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
-      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "boundary": "完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
       "capability4_input_normal_arithmetic": {
         "spec_id": "BSC01",
         "evidence_refs": [
@@ -173899,6 +173957,21 @@
         "full_eax_result_or_alias_domain_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "current_source_uses_builtin_bool_comparison": true,
+        "single_right_read_kept": true,
+        "signed_int32_comparison_kept": true,
+        "short_circuit_order_kept": true,
+        "raw_interface_retired": true,
+        "full_w32_return_preserved_in_current_source": false,
+        "full_w32_return_retained_as_bsb01_history": true,
+        "known_source_call_count": 2,
+        "runtime_verified": false
       }
     },
     {

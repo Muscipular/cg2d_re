@@ -91,14 +91,6 @@ std::int32_t LegacyCryptInt::Read_401EC0()
     return FromBits(this->encoded ^ this->mask);
 }
 
-// 原函数：0x00401FA0。
-std::uint32_t LegacyCryptInt::IntLessCryptRaw_401FA0(const std::int32_t lhs)
-{
-    const std::int32_t right = Read_401EC0();
-    return (ToBits(right) & 0xFFFFFF00U)
-        | static_cast<std::uint32_t>(lhs < right);
-}
-
 LegacyCryptInt::LegacyCryptInt(const std::uint32_t value)
     : LegacyCryptInt(std::bit_cast<std::int32_t>(value))
 {
@@ -117,7 +109,8 @@ LegacyCryptInt& LegacyCryptInt::operator=(const std::uint32_t value)
 }
 
 // 原函数：0x00401EA0、0x00401EC0；两种转换各执行一次有副作用的读取。
-// 原S32标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FC0。
+// 原S32标量比较：0x00401D00、0x00401D40、0x00401D70、0x00401DA0、0x00401DB0、0x00401F80、0x00401FA0、0x00401FC0。
+// 原401FA0的八个已知调用只消费AL；整数左侧<由单次转换与内建比较承接。
 // 原S32标量算术：0x00401E10、0x00401E60、0x00401E90、0x00401FE0；通过转换与内建operator承接。
 LegacyCryptInt::operator std::int32_t()
 {

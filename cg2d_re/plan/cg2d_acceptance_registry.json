@@ -315,7 +315,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -458,6 +459,17 @@
         "startup_and_exit_changed": false,
         "class_bodies_and_layout_changed": false,
         "build_verified": false,
+        "runtime_verified": false
+      },
+      "cryptint_integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "known_bool_consumers": 8,
+        "raw_interface_retired": true,
+        "single_read_and_short_circuit_order_kept": true,
+        "full_w32_return_as_bsb01_history": true,
         "runtime_verified": false
       }
     },
@@ -1247,7 +1259,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1426,6 +1439,17 @@
         "startup_and_exit_changed": false,
         "class_bodies_and_layout_changed": false,
         "build_verified": false,
+        "runtime_verified": false
+      },
+      "cryptint_integer_left_bool_comparison_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "evidence_refs": [
+          "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
+        ],
+        "known_bool_consumers": 8,
+        "raw_interface_retired": true,
+        "single_read_and_short_circuit_order_kept": true,
+        "full_w32_return_as_bsb01_history": true,
         "runtime_verified": false
       }
     },
@@ -69852,7 +69876,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-allocation-overloads",
         "doc/cg2d_cryptint_class_spec.md#cryptint-runtime-integer-assignment",
         "doc/cg2d_cryptint_class_spec.md#cryptint-46ac90-integer-assignment",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-additional-integer-assignment",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ]
     },
     {
@@ -71505,7 +71530,8 @@
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
-        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ]
     },
     {
@@ -71888,7 +71914,8 @@
         "doc/cg2d_map_reply_palette_spec.md#map-reply-palette-source-state",
         "doc/cg2d_map_reply_palette_spec.md#evidence-archive-20261011",
         "doc/cg2d_palette_capability_selection_spec.md#palette-capability-source-state",
-        "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011"
+        "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ]
     },
     {
@@ -72541,7 +72568,8 @@
         "doc/cg2d_map_transition_reply_spec.md#map-transition-reply-source-state",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-baseline",
         "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-decision",
-        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state"
+        "doc/cg2d_login_connect_dependencies_spec.md#login-connect-dependencies-source-state",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ]
     },
     {
@@ -83298,9 +83326,19 @@
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_integer_left_compare_dispatch_evidence.json"
+        "doc/cg2d_integer_left_compare_dispatch_evidence.json",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison"
       ],
-      "boundary": "具名原入口/原S32比较与单读，保完整W32高24位和AL；原8点只取低W8，x64非拥有对象/源码ABI承接，未知机器ABI与别名未验。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+      "boundary": "具名原入口/原S32比较与单读，保完整W32高24位和AL；原8点只取低W8，x64非拥有对象/源码ABI承接，未知机器ABI与别名未验。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 LCI-FA0当前八处整数左侧比较仅需布尔结果，改为S32 lhs<LegacyCryptInt，经隐式int32转换单次Read_401EC0；同一对象、原方向和短路保持，Raw接口退休，高24位仅保BSB01历史，不扩未知机器ABI或完整流程验收。",
+      "current_provider_lci_fa0": {
+        "spec_id": "LCI-FA0",
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "LegacyCryptInt::operator std::int32_t + S32 lhs<右值内建比较",
+        "known_bool_consumers": 8,
+        "raw_interface_retired": true,
+        "full_w32_result_kept_as_history_only": true,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00064E30",

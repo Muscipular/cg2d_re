@@ -564,13 +564,9 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
     do {
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
-        if (static_cast<std::uint8_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseX.IntLessCryptRaw_401FA0(
-                    geometry.x)) != 0
+        if ((geometry.x < platform::BorrowLegacyMouseStateStorage()->mouseX)
             && (platform::BorrowLegacyMouseStateStorage()->mouseX < static_cast<std::int32_t>(AddW32(geometry.x, geometry.width)))
-            && static_cast<std::uint8_t>(
-                platform::BorrowLegacyMouseStateStorage()->mouseY.IntLessCryptRaw_401FA0(
-                    geometry.y)) != 0
+            && (geometry.y < platform::BorrowLegacyMouseStateStorage()->mouseY)
             && (platform::BorrowLegacyMouseStateStorage()->mouseY < static_cast<std::int32_t>(AddW32(geometry.y, geometry.height)))) {
             const std::uint8_t click =
                 static_cast<std::uint8_t>(detail::gValueD68D9C);

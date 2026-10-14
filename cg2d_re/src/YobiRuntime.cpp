@@ -1,4 +1,5 @@
 #include "cg/YobiRuntime.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "LoginMessageDependencies.hpp"
 #include "LegacyPanelRuntime.hpp"
@@ -36,6 +37,7 @@
 
 #include <algorithm>
 #include <array>
+#include <new>
 #include <bit>
 #include <cmath>
 #include <cstddef>
@@ -262,14 +264,14 @@ constexpr std::uint8_t kModalDisplayPriority = 0xD4;
 constexpr std::uint8_t kSpriteBatch = 0;
 constexpr std::uint8_t kModalLayer = 0xD4;
 
-constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
-constexpr char kActionAllocationText[] = "GetAction Erorr!!";
-constexpr char kActionAllocationCaption[] = "GetAction Erorr";
-constexpr char kActionPayloadText[] =
-    "\xD3\x9B\x91\x9B\xF3\x77\xC8\xDD\xC1\xBF\xB2\xBB\xD7\xE3\xA3\xA1" "pAct";
-constexpr char kYobiAllocationText[] =
-    "\xD3\x9B\x91\x9B\xF3\x77\xC8\xDD\xC1\xBF\xB2\xBB\xD7\xE3\xA3\xA1" "yobi";
-constexpr char kYobiAllocationCaption[] = "GetYobi Erorr";
+constexpr wchar_t kConfirmCaption[] = L"確認";
+constexpr wchar_t kActionAllocationText[] = L"GetAction Erorr!!";
+constexpr wchar_t kActionAllocationCaption[] = L"GetAction Erorr";
+constexpr wchar_t kActionPayloadText[] =
+    L"記憶體容量不足！pAct";
+constexpr wchar_t kYobiAllocationText[] =
+    L"記憶體容量不足！yobi";
+constexpr wchar_t kYobiAllocationCaption[] = L"GetYobi Erorr";
 
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
 std::int32_t gDuration5AC4B8 = 0; // 原全局：0x005AC4B8。
@@ -548,9 +550,9 @@ constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 { // 原常�
 std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 // BCVI01：现1025个S32位置槽的映像覆盖区为零；114按效果索引存位置编号。
 std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 {}; // 原全局：0x0059E9D8。
-constexpr char kBattleInspectFailure5539BC[] = "\x9F\x6F\xB7\xA8\xD5\x7B\xB2\xE9\xB3\xF6 %s \xB5\xC4\xC7\xE9\x88\xF3"; // 原常量参考：0x005539BC。
-constexpr char kBattleInspectHp5539E8[] = "%s \xB5\xC4\xC9\xFA\xC3\xFC\x9E\xE9 %d / %d"; // 原常量参考：0x005539E8。
-constexpr char kBattleInspectFp5539D4[] = "%s \xB5\xC4\xC4\xA7\xC1\xA6\x9E\xE9 %d / %d"; // 原常量参考：0x005539D4。
+constexpr char kBattleInspectFailure5539BC[] = "無法調查出 %s 的情報"; // 原常量参考：0x005539BC。
+constexpr char kBattleInspectHp5539E8[] = "%s 的生命為 %d / %d"; // 原常量参考：0x005539E8。
+constexpr char kBattleInspectFp5539D4[] = "%s 的魔力為 %d / %d"; // 原常量参考：0x005539D4。
 YobiAction* gBattleFactoryEffect59F9E8 = nullptr; // 原全局：0x0059F9E8。
 
 // 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
@@ -815,7 +817,7 @@ struct MapActorPayload {
     YobiAction* action10; // 原成员偏移：+0x10。
     std::uint32_t chatDeadline14; // 原成员偏移：+0x14。
     std::int32_t value18; // 原+18，445D20发布协议数值value50。
-    char* text1C; // 原成员偏移：+0x1C。
+    std::array<std::wstring, 2>* text1C; // 原+0x1C；UTL02拥有两行动态UTF-16正文，载荷仍为指针。
     std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
     std::int32_t textLength24; // 原成员偏移：+0x24。
     std::int32_t font28; // 原成员偏移：+0x28。
@@ -1667,14 +1669,8 @@ YobiAction* NewYobiAction_404AE0(
     auto* const action = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     if (action == nullptr) {
-        platform::ShowLegacyMessage(
-            kActionAllocationText,
-            kConfirmCaption,
-            0);
-        platform::ShowLegacyMessage(
-            kActionPayloadText,
-            kActionAllocationCaption,
-            0);
+        platform::ShowWideMessage(kActionAllocationText, kConfirmCaption, 0);
+        platform::ShowWideMessage(kActionPayloadText, kActionAllocationCaption, 0);
         return nullptr;
     }
 
@@ -1686,10 +1682,7 @@ YobiAction* NewYobiAction_404AE0(
         if (missingPayload) {
             std::destroy_at(action);
             std::free(action);
-            platform::ShowLegacyMessage(
-                kYobiAllocationText,
-                kYobiAllocationCaption,
-                0);
+            platform::ShowWideMessage(kYobiAllocationText, kYobiAllocationCaption, 0);
             return nullptr;
         }
         std::memset(payload, 0, payloadSize);
@@ -5501,9 +5494,9 @@ void ClearMapActorAttachments(YobiAction* const action)
             *slot = nullptr;
         }
     }
-    char* const text = payload->text1C;
+    auto* const text = payload->text1C;
     if (text != nullptr) {
-        std::free(text);
+        delete text;
         payload->text1C = nullptr;
     }
 }
@@ -6022,12 +6015,12 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     if ((flags & 0x2000u) != 0) {
         const std::uint32_t now = platform::ReadTickCount32();
-        const char* drawableText = nullptr;
+        const std::array<std::wstring, 2>* drawableText = nullptr;
         if (payload->chatDeadline14 <= now) {
-            char* const expiredText = payload->text1C;
+            auto* const expiredText = payload->text1C;
             flags &= 0xDFFFu;
             if (expiredText != nullptr) {
-                std::free(expiredText);
+                delete expiredText;
                 payload->text1C = nullptr;
             }
         } else if (gChatBubbles554338 != 0 && (action->flags & 0x180u) != 0
@@ -6036,20 +6029,20 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             stateIndex = payload->textLength24;
             if (stateIndex != 0) {
                 const std::int32_t firstMeasureFont = payload->font28;
-                std::int32_t width = TextMeasure(drawableText, firstMeasureFont);
+                std::int32_t width = TextMeasure((*drawableText)[0], firstMeasureFont);
                 const std::int32_t height = Sub_4417A0(action->imageNo);
                 std::int32_t y = height + action->y - 32;
                 const std::int32_t metricFont = payload->font28;
                 const std::int32_t bottom =
                     render::gFontMetrics[metricFont].doubleHeight + y + 8;
-                if (stateIndex > 40) {
-                    const char* const secondMeasureText = payload->text1C + 41;
+                if (!(*payload->text1C)[1].empty()) {
+                    const std::wstring& secondMeasureText = (*payload->text1C)[1];
                     const std::int32_t secondWidth =
                         TextMeasure(secondMeasureText, metricFont);
                     if (width < secondWidth) {
                         width = secondWidth;
                     }
-                    const char* const text = payload->text1C + 41;
+                    const std::wstring& text = (*payload->text1C)[1];
                     const auto color = std::bit_cast<std::int8_t>(
                         *reinterpret_cast<const std::uint8_t*>(&payload->color20));
                     const auto font = std::bit_cast<std::int8_t>(
@@ -6063,7 +6056,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                     y -= render::gFontMetrics[payload->font28].doubleHeight;
                 }
                 const std::int32_t halfWidth = width / 2;
-                const char* const text = payload->text1C;
+                const std::wstring& text = (*payload->text1C)[0];
                 const auto color = std::bit_cast<std::int8_t>(
                     *reinterpret_cast<const std::uint8_t*>(&payload->color20));
                 const auto font = std::bit_cast<std::int8_t>(
@@ -6119,7 +6112,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         }
         if (text != nullptr) {
             char buffer[256];
-            std::sprintf(buffer, "%s", text);
+            std::sprintf(buffer, "%s", cg::text::FromGbk(text).c_str());
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
@@ -27887,17 +27880,17 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
                     std::memcpy(arguments.data() + 4, &target->maxHp, sizeof(platform::LegacyCryptInt));
                     const char* const name = target->nameC4.data();
                     std::memcpy(arguments.data(), &target->readiness, sizeof(platform::LegacyCryptInt));
-                    std::sprintf(message, kBattleInspectHp5539E8, name,
+                    std::sprintf(message, kBattleInspectHp5539E8, cg::text::FromGbk(name).c_str(),
                         std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                     std::memcpy(arguments.data() + 4, &target->barMaximum1C0, sizeof(platform::LegacyCryptInt));
                     std::memcpy(arguments.data(), &target->barValue1B0, sizeof(platform::LegacyCryptInt));
-                    std::sprintf(message, kBattleInspectFp5539D4, name,
+                    std::sprintf(message, kBattleInspectFp5539D4, cg::text::FromGbk(name).c_str(),
                         std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::detail::Sub_44B050(message, 4, 3);
                 }
             } else {
-                std::sprintf(message, kBattleInspectFailure5539BC, target->nameC4.data());
+                std::sprintf(message, kBattleInspectFailure5539BC, cg::text::FromGbk(target->nameC4.data()).c_str());
                 world::detail::Sub_44B050(message, 4, 3);
             }
             static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -33549,12 +33542,12 @@ void Sub_43CA80()
         const YobiAction* const action = gBattleEntries59E980[index];
         const char* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
-        const std::int32_t width = TextMeasure(name, 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 1);
         const std::int32_t x = gBattleEntries59E980[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-            0, 1, color, name, 0));
+            0, 1, color, cg::text::FromGbk(name).c_str(), 0));
     }
 }
 
@@ -34926,17 +34919,18 @@ std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 {
     constexpr char kFull58AD04[] =
-        "\xB5\xC8\xBC\x89 %-3d %-16s  \xC9\xFA\xC3\xFC %4d/%-4d  \xC4\xA7\xC1\xA6 %4d/%-4d";
-    constexpr char kLevel58AD5C[] = "\xB5\xC8\xBC\x89 %-3d %-16s";
-    constexpr char kTitle58AD44[] = "\xB5\xC8\xBC\x89 %-3d %-16s [%-16s]";
-    constexpr char kFullBlacklist553294[] =
-        "\xC4\xE3\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xD1\x9D\x4D\xA3\xAC\x9F\x6F\xB7\xA8\xD4\xD9\xBC\xD3\xC8\xEB";
-    constexpr char kAddFailed5532B0[] = "%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
-    constexpr char kAdded5532C4[] = "\xD2\xD1\x8C\xA2%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
-    constexpr char kRemoveFailed5532D8[] = "\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD%s\xCA\xA7\x94\xA1";
-    constexpr char kRemoved5532EC[] = "\xD2\xD1\x8C\xA2%s\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\xD2\xC6\xB3\xFD";
-    constexpr char kAlready554928[] = "%s\xD2\xD1\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
-    constexpr char kAbsent58AD34[] = "%s\xB2\xBB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
+        "等級 %-3d %-16s  生命 %4d/%-4d  魔力 %4d/%-4d";
+    constexpr char kLevel58AD5C[] = "等級 %-3d %-16s";
+    constexpr char kTitle58AD44[] = "等級 %-3d %-16s [%-16s]";
+    constexpr wchar_t kFullBlacklist553294[] =
+        L"你的黑名單已滿，無法再加入";
+const std::string kFullBlacklist553294Utf8View = cg::text::FromUtf16(kFullBlacklist553294); // 旧窄接口只读兼容视图。
+    constexpr char kAddFailed5532B0[] = "%s加入黑名單失敗";
+    constexpr char kAdded5532C4[] = "已將%s加入黑名單";
+    constexpr char kRemoveFailed5532D8[] = "從黑名單移除%s失敗";
+    constexpr char kRemoved5532EC[] = "已將%s從黑名單中移除";
+    constexpr char kAlready554928[] = "%s已在黑名單中";
+    constexpr char kAbsent58AD34[] = "%s不在黑名單中";
     using namespace ui::detail;
     using namespace world::detail;
 
@@ -34960,28 +34954,25 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t fp = ReadPlayerFpOnce();
             const std::int32_t maxHp = ReadPlayerMaxHpOnce();
             const std::int32_t hp = ReadPlayerHpOnce();
-            std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
-                fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
+            cg::text::FormatTo(gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
-            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
-                fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
+            cg::text::FormatTo(gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str(), cg::text::FromGbk(fixed->titleE1.data()).c_str());
         } else if ((flags & 0x100u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            std::sprintf(gHoverTextD68AE8.data(), kTitle58AD44,
-                fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
+            cg::text::FormatTo(gHoverTextD68AE8, kTitle58AD44, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str(), cg::text::FromGbk(fixed->titleE1.data()).c_str());
             const char* const title = graphic->reference.action->text144.data();
             if (std::strlen(title) != 0) {
-                std::sprintf(gHoverTitleD68BF4.data(), "%-16s", title);
+                gHoverTitleD68BF4 = cg::text::ToUtf16(std::format("{:<16}", cg::text::FromGbk(title)));
                 gHoverTitleValueD69748 = 4;
             }
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
             if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
                 if (blacklist::GetBlacklistCount_401190() >= 72) {
-                    Sub_44B050(kFullBlacklist553294, 4, 3);
+                    Sub_44B050(kFullBlacklist553294Utf8View.c_str(), 4, 3);
                     return;
                 }
                 const char* const name = graphic->reference.action->nameC4.data();
@@ -34989,13 +34980,13 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 char message[128];
-                if (blacklist::ContainsBlacklistRecord_4013D0(name) == 0) {
+                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) == 0) {
                     const std::int8_t added = blacklist::AddBlacklistRecord_401270(
-                        graphic->reference.action->nameC4.data());
+                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                     std::sprintf(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0,
-                        graphic->reference.action->nameC4.data());
+                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    std::sprintf(message, kAlready554928, graphic->reference.action->nameC4.data());
+                    std::sprintf(message, kAlready554928, cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
@@ -35004,13 +34995,13 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     return;
                 }
                 char message[128];
-                if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+                if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) != 0) {
                     const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(
-                        graphic->reference.action->nameC4.data());
+                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                     std::sprintf(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8,
-                        graphic->reference.action->nameC4.data());
+                        cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 } else {
-                    std::sprintf(message, kAbsent58AD34, graphic->reference.action->nameC4.data());
+                    std::sprintf(message, kAbsent58AD34, cg::text::FromGbk(graphic->reference.action->nameC4.data()).c_str());
                 }
                 Sub_44B050(message, 4, 3);
             }
@@ -35019,23 +35010,23 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             if (*name == '\0') {
                 name = action->nameC4.data();
             }
-            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C, action->field1D0, name);
+            cg::text::FormatTo(gHoverTextD68AE8, kLevel58AD5C, action->field1D0, cg::text::FromGbk(name).c_str());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x400u) != 0) {
             gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = static_cast<MapActorPayload*>(fixed->payload)->value18;
             if (count > 0) {
-                std::sprintf(gHoverTextD68AE8.data(), "%s(%d)", fixed->nameC4.data(), count);
+                cg::text::FormatTo(gHoverTextD68AE8, "%s(%d)", cg::text::FromGbk(fixed->nameC4.data()).c_str(), count);
             } else {
-                std::sprintf(gHoverTextD68AE8.data(), "%s", fixed->nameC4.data());
+                cg::text::FormatTo(gHoverTextD68AE8, "%s", cg::text::FromGbk(fixed->nameC4.data()).c_str());
             }
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x800u) != 0) {
-            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+            cg::text::FormatTo(gHoverTextD68AE8, "%s", cg::text::FromGbk(action->nameC4.data()).c_str());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x1000u) != 0) {
-            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+            cg::text::FormatTo(gHoverTextD68AE8, "%s", cg::text::FromGbk(action->nameC4.data()).c_str());
         }
         return;
     }
@@ -35054,8 +35045,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             gHoverObjectValueD68AC8 = companion;
         } else {
             if ((action->flags & 0x02000000u) == 0) {
-                std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
-                    action->field1D0, action->nameC4.data());
+                cg::text::FormatTo(gHoverTextD68AE8, kLevel58AD5C, action->field1D0, cg::text::FromGbk(action->nameC4.data()).c_str());
             }
             return;
         }
@@ -35066,8 +35056,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             gHoverObjectValueD68AC8 = companion;
             YobiAction* const fixed = graphic->reference.action;
-            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
-                fixed->field1D0, fixed->nameC4.data());
+            cg::text::FormatTo(gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str());
             return;
         }
         if ((action->flags & 0x02000000u) != 0) {
@@ -35081,8 +35070,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             gHoverObjectValueD68AC8 = companion;
         }
         YobiAction* const fixed = graphic->reference.action;
-        std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
-            fixed->field1D0, fixed->nameC4.data());
+        cg::text::FormatTo(gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str());
         return;
     }
 
@@ -35092,8 +35080,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     const std::int32_t fp = graphic->reference.action->barValue1B0.value();
     const std::int32_t maxHp = graphic->reference.action->maxHp.value();
     const std::int32_t hp = graphic->reference.action->readiness.value();
-    std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
-        fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
+    cg::text::FormatTo(gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbk(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
 }
 
 void ClearYobiActionCallback(YobiAction* const action)
@@ -35814,9 +35801,9 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
 std::uintptr_t Sub_4EE380(const std::int32_t opened)
 {
     const char* const texts[] {
-        "\xB7\xA5\xC4\xBE\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
-        "\xB4\xF2\xAB\x43\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
-        "\xCD\xDA\xBE\xF2\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
+        "伐木中···",
+        "打獵中···",
+        "挖掘中···",
     };
     constexpr std::int8_t imageOffsets[] {-2, -1, 0};
     const std::int32_t result = Sub_503160(
@@ -35905,54 +35892,36 @@ namespace cg::world::detail {
 
 namespace {
 
-constexpr char kChatFamilyPrefix554580[] = "[\xBC\xD2\xD7\xE5]"; // 原常量参考：0x00554580。
-static_assert(sizeof(kChatFamilyPrefix554580) == 7);
+constexpr wchar_t kChatFamilyPrefix554580[] = L"[家族]"; // 原常量参考：0x00554580。
 
 void AllocateActorChatText(
     login::detail::MapActorPayload* const payload, const char* const name,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
+    // 原聊天源和姓名为GBK；只在气泡私有拥有者处转成动态UTF-16。
     std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
-    if (text[0] == '[' && text[1] == 'G' && text[2] == 'P' && text[3] == ']') {
-        offset += 4;
-    } else if (std::strncmp(text, "[MIC]", static_cast<std::uint32_t>(5)) == 0) {
-        offset += 5;
-    } else if (std::strncmp(text, kChatFamilyPrefix554580, static_cast<std::uint32_t>(6)) == 0) {
-        offset += 6;
-    }
+    const std::string familyPrefix = cg::text::ToGbk(kChatFamilyPrefix554580);
+    if (std::strncmp(text, "[GP]", 4) == 0) { offset += 4; }
+    else if (std::strncmp(text, "[MIC]", 5) == 0) { offset += 5; }
+    else if (std::strncmp(text, familyPrefix.c_str(), familyPrefix.size()) == 0) { offset += static_cast<std::int32_t>(familyPrefix.size()); }
     const std::int32_t remaining = length - offset;
-    const std::uint32_t allocationSize = static_cast<std::uint32_t>(remaining + 3);
-    char* const allocation =
-        static_cast<char*>(std::malloc(static_cast<std::size_t>(allocationSize)));
+    const std::wstring contents = cg::text::FromGbkWide(std::string_view(text + offset, static_cast<std::size_t>(remaining)));
+    const std::int32_t width = render::gFontMetrics[font].sWidth * 40;
+    std::size_t split = 0;
+    while (split < contents.size()) {
+        const std::size_t next = cg::text::Next(contents, split);
+        if (split != 0 && render::Font::measure(contents.c_str(), font, static_cast<std::int32_t>(next)) > width) { break; }
+        split = next;
+    }
+    auto* const allocation = new (std::nothrow) std::array<std::wstring, 2>{};
     payload->text1C = allocation;
-    if (allocation == nullptr) {
-        return;
-    }
+    if (allocation == nullptr) { return; }
     payload->color20 = color;
-    payload->textLength24 = remaining;
+    payload->textLength24 = remaining; // 保留原阶段后续使用的GBK数量／别名。
     payload->font28 = font;
-    if (remaining <= 40) {
-        for (std::int32_t index = 0; index < remaining; ++index) {
-            char* const destination = payload->text1C;
-            const char sourceByte = text[offset + index];
-            destination[index] = sourceByte;
-        }
-        payload->text1C[remaining] = '\0';
-        return;
-    }
-    const char* const body = text + offset;
-    if (input::ClassifyChatSplit_44B570(body, 40) == 2) {
-        std::memcpy(payload->text1C, body, 40);
-        payload->text1C[40] = '\0';
-        std::memcpy(payload->text1C + 41, body + 40, static_cast<std::size_t>(remaining - 40));
-        payload->text1C[remaining + 1] = '\0';
-    } else {
-        std::memcpy(payload->text1C, body, 39);
-        payload->text1C[39] = '\0';
-        std::memcpy(payload->text1C + 41, body + 39, static_cast<std::size_t>(remaining - 39));
-        payload->text1C[remaining + 2] = '\0';
-    }
+    (*allocation)[0] = contents.substr(0, split);
+    (*allocation)[1] = contents.substr(split);
 }
 
 } // namespace
@@ -36041,9 +36010,9 @@ void Sub_442DC0(
     const std::uint32_t tick = platform::ReadTickCount32();
     payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
     Sub_43D860(action);
-    char* const previousText = payload->text1C;
+    auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
-        std::free(previousText);
+        delete previousText;
         payload->text1C = nullptr;
     }
     AllocateActorChatText(payload, action->nameC4.data(), text, color, font, length);
@@ -36062,9 +36031,9 @@ void Sub_51A6A0(
     auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
     const std::uint32_t tick = platform::ReadTickCount32();
     payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
-    char* const previousText = payload->text1C;
+    auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
-        std::free(previousText);
+        delete previousText;
         payload->text1C = nullptr;
     }
     AllocateActorChatText(payload, ReadPlayerAction()->nameC4.data(), text, color, font, length);

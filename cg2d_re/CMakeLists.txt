@@ -13,6 +13,7 @@ set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
 find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)
 
 add_library(cg2d_re_core STATIC
+    src/text/Encoding.cpp
     src/ResourceNames.cpp
     src/ResourcePaths.cpp
     src/GraphicDecode.cpp

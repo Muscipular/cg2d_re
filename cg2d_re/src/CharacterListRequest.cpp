@@ -1,4 +1,5 @@
 #include "cg/CharacterListRequest.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "cg/LoginRequest.hpp"
 #include "cg/Input.hpp"
@@ -14,7 +15,7 @@ namespace {
 
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。
-constexpr char kRequestTimeoutMessage[] = "\xC8\xA1\xB5\xC3\xBD\xC7\xC9\xAB\xC1\xD0\xB1\xED\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kRequestTimeoutMessage[] = L"取得角色列表逾時。";
 constexpr char kOutOfServiceResult[] = "OUTOFSERVICE";
 constexpr char kInvalidCharacterName[] = "???";
 constexpr std::size_t kOuterTokenCapacity = 1024;
@@ -23,10 +24,6 @@ constexpr std::size_t kJobTokenCapacity = 64;
 static_assert(cg::login::CharacterRecordCount == 2);
 static_assert(sizeof(cg::login::CharacterRecordBytes) == 0x94);
 static_assert(sizeof(cg::login::CharacterRecordArray) == 2 * 0x94);
-static_assert(sizeof(kRequestTimeoutMessage) == 19);
-static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
-static_assert(sizeof(kOutOfServiceResult) == 13);
-static_assert(sizeof(kInvalidCharacterName) == 4);
 static_assert(0x54 + kJobTokenCapacity == cg::login::CharacterRecordSize);
 
 std::int32_t CompareUnsignedBytes(const char* left, const char* right)
@@ -183,8 +180,7 @@ std::int32_t PollCharacterListRequest()
         return 0;
     }
 
-    static_cast<void>(std::sprintf(
-        gRequestMessage, kRequestTimeoutMessage));
+    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
     return -1;
 }
 

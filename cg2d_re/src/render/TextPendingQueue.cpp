@@ -1,4 +1,5 @@
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -11,37 +12,6 @@
 #include <cstring>
 
 namespace cg::render {
-namespace {
-
-// 三个原绘制入口均按W32前移；无符号入口在余W8阶段前读取链尾。
-void CopyTextWords(
-    char*& destination,
-    const char*& source,
-    const std::uint32_t byteCount) noexcept
-{
-    for (std::uint32_t index = 0; index < (byteCount >> 2U); ++index) {
-        std::uint32_t word;
-        std::memcpy(&word, source, sizeof(word));
-        std::memcpy(destination, &word, sizeof(word));
-        source += sizeof(word);
-        destination += sizeof(word);
-    }
-}
-
-void CopyTextRemainder(
-    char* destination,
-    const char* source,
-    const std::uint32_t byteCount) noexcept
-{
-    for (std::uint32_t index = 0; index < (byteCount & 3U); ++index) {
-        *destination = *source;
-        ++source;
-        ++destination;
-    }
-}
-
-} // namespace
-
 std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords {}; // 原全局：0x0062ECB8。
 std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{ // 原全局：0x00558F50。
     {0xD2, {}},
@@ -113,10 +83,21 @@ std::int32_t DrawText3_456560(
     const std::int16_t y,
     const std::int8_t renderMode,
     const std::int8_t color,
-    const char* const text,
+    const std::wstring_view text,
     const std::int8_t value7)
 {
     return DrawText2_456670(x, y, renderMode, 0, color, text, value7);
+}
+
+std::int32_t DrawText3_456560(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int8_t renderMode,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7)
+{
+    return DrawText3_456560(x, y, renderMode, color, cg::text::ToUtf16(text), value7);
 }
 
 // 原函数：0x00456670。
@@ -126,7 +107,7 @@ std::int32_t DrawText2_456670(
     const std::int8_t renderMode,
     const std::int8_t fontType,
     const std::int8_t color,
-    const char* const text,
+    const std::wstring_view text,
     const std::int8_t value7)
 {
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
@@ -146,12 +127,7 @@ std::int32_t DrawText2_456670(
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = 0xF9;
 
-    const std::uint32_t copyCount =
-        static_cast<std::uint32_t>(std::strlen(text)) + 1U;
-    const char* source = text;
-    char* destination = entry.text;
-    CopyTextWords(destination, source, copyCount);
-    CopyTextRemainder(destination, source, copyCount);
+    entry.text = text; // UTL02：记录持有完整UTF-16正文。
     const std::size_t queueIndex =
         static_cast<std::size_t>(static_cast<std::int32_t>(renderMode));
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
@@ -180,6 +156,18 @@ std::int32_t DrawText2_456670(
     return result;
 }
 
+std::int32_t DrawText2_456670(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int8_t renderMode,
+    const std::int8_t fontType,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7)
+{
+    return DrawText2_456670(x, y, renderMode, fontType, color, cg::text::ToUtf16(text), value7);
+}
+
 // 原函数：0x00456780。
 std::int32_t DrawText_456780(
     const std::int16_t x,
@@ -187,7 +175,7 @@ std::int32_t DrawText_456780(
     const std::uint8_t renderMode,
     const std::int8_t fontType,
     const std::int8_t color,
-    const char* const text,
+    const std::wstring_view text,
     const std::int8_t value7,
     const std::int8_t marker)
 {
@@ -208,14 +196,9 @@ std::int32_t DrawText_456780(
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = std::bit_cast<std::uint8_t>(marker);
 
-    const std::uint32_t copyCount =
-        static_cast<std::uint32_t>(std::strlen(text)) + 1U;
-    const char* source = text;
-    char* destination = entry.text;
-    CopyTextWords(destination, source, copyCount);
+    entry.text = text; // UTL02：记录持有完整UTF-16正文。
     const std::size_t queueIndex = static_cast<std::size_t>(renderMode);
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
-    CopyTextRemainder(destination, source, copyCount);
     entry.nextToken = 0;
 
     const std::uint32_t currentToken = initialCountBits + 1U;
@@ -239,6 +222,19 @@ std::int32_t DrawText_456780(
     gGraphicCache4Queue[queueIndex] = resultBits + 1U;
     platform::gPendingGraphicCount2 = resultBits + 1U;
     return result;
+}
+
+std::int32_t DrawText_456780(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::uint8_t renderMode,
+    const std::int8_t fontType,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7,
+    const std::int8_t marker)
+{
+    return DrawText_456780(x, y, renderMode, fontType, color, cg::text::ToUtf16(text), value7, marker);
 }
 
 } // namespace cg::render

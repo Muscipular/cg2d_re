@@ -30,7 +30,7 @@ struct CharacterModalUiRecord {
     std::int32_t top; // 原成员偏移：+0x0C。
     std::int32_t width; // 原成员偏移：+0x10。
     std::int32_t height; // 原成员偏移：+0x14。
-    const char* text; // 原成员偏移：+0x18。
+    const wchar_t* text; // 原成员偏移：+0x18；只借用UTF-16静态正文。
 };
 
 static_assert(offsetof(CharacterModalUiRecord, textX) == 0x00);

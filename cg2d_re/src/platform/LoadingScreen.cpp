@@ -22,9 +22,8 @@ namespace {
 
 // 原 [73ED28,73ED38)，跨次调用保留；只有 phase 0 执行原初始化写入。
 render::GraphicDescriptor16 gLoadingDescriptor{};
-constexpr char kLoadingMessage[] =
-    "\x9B\x5D\xD3\xD0\xB0\xB4\xD5\xD5\xD5\xFD\xB3\xA3"
-    "\xB3\xCC\xD0\xF2\xB0\xB2\xD1\x62";
+constexpr wchar_t kLoadingMessage[] =
+    L"沒有按照正常程序安裝";
 
 } // namespace
 

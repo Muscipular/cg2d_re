@@ -1,4 +1,5 @@
 #include "cg/CharacterSelectScene.hpp"
+#include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
@@ -10,23 +11,17 @@ namespace cg::character_select {
 namespace {
 
 // 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。
-constexpr char kConfirmText[] = "\x20\x20\xB4\x5F\x20\x20\xB6\xA8\x20";
-static_assert(sizeof(kConfirmText) == 10);
+constexpr wchar_t kConfirmText[] = L"  確  定 ";
 // 原55C8C8「  取  消 」；9B正文，字面量隐式追加NUL。
-constexpr char kCancelText[] = "\x20\x20\xC8\xA1\x20\x20\xCF\xFB\x20";
-static_assert(sizeof(kCancelText) == 10);
+constexpr wchar_t kCancelText[] = L"  取  消 ";
 // 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。
-constexpr char kWarningTitle[] = "\xA3\xAA\xA3\xAA\xA3\xAA\x20\xBE\xAF\x20\x20\xB8\xE6\x20\xA3\xAA\xA3\xAA\xA3\xAA";
-static_assert(sizeof(kWarningTitle) == 21);
+constexpr wchar_t kWarningTitle[] = L"＊＊＊ 警  告 ＊＊＊";
 // 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。
-constexpr char kDeletionCannotRecoverLine1[] = "\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xC8\xCB\xCE\xEF\xD2\xBB\xBD\x9B\x84\x68\xB3\xFD";
-static_assert(sizeof(kDeletionCannotRecoverLine1) == 21);
+constexpr wchar_t kDeletionCannotRecoverLine1[] = L"所選擇的人物一經刪除";
 // 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。
-constexpr char kDeletionCannotRecoverLine2[] = "\x8C\xA2\x9F\x6F\xB7\xA8\xBB\xD6\x8F\xCD";
-static_assert(sizeof(kDeletionCannotRecoverLine2) == 11);
+constexpr wchar_t kDeletionCannotRecoverLine2[] = L"將無法恢復";
 // 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。
-constexpr char kDeletionQuestion[] = "\xB4\x5F\xB6\xA8\xD2\xAA\x84\x68\xB3\xFD\x86\xE1\xA3\xBF";
-static_assert(sizeof(kDeletionQuestion) == 15);
+constexpr wchar_t kDeletionQuestion[] = L"確定要刪除嗎？";
 
 } // namespace
 
@@ -34,7 +29,7 @@ static_assert(sizeof(kDeletionQuestion) == 15);
 std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t x,
     std::int32_t y,
-    const char* text,
+    std::wstring_view text,
     std::int8_t color,
     std::int32_t width,
     std::int32_t height)
@@ -137,7 +132,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 std::int32_t ProcessDefaultConfirmationDialog_45E090(
     std::int32_t x,
     std::int32_t y,
-    const char* text,
+    std::wstring_view text,
     std::int8_t color)
 {
     return ProcessConfirmationDialog_45DEE0(x, y, text, color, 0, 0);
@@ -220,10 +215,10 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         std::uint8_t{214});
 
     const std::int32_t left = x - 192;
-    char textBuffer[256];
+    std::wstring textBuffer;
     std::int32_t textWidth;
 
-    std::strcpy(textBuffer, kWarningTitle);
+    textBuffer = kWarningTitle;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -235,7 +230,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    std::strcpy(textBuffer, kDeletionCannotRecoverLine1);
+    textBuffer = kDeletionCannotRecoverLine1;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -247,7 +242,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    std::strcpy(textBuffer, kDeletionCannotRecoverLine2);
+    textBuffer = kDeletionCannotRecoverLine2;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),
@@ -259,7 +254,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         0,
         0);
 
-    std::strcpy(textBuffer, kDeletionQuestion);
+    textBuffer = kDeletionQuestion;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(left + (384 - textWidth) / 2),

@@ -1,4 +1,6 @@
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/text/Encoding.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 
 #include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyStdio.hpp"
@@ -39,6 +41,7 @@
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
 #include <string>
+#include <system_error>
 #include <tuple>
 #include <type_traits>
 #include <utility>
@@ -771,11 +774,12 @@ void Sub_50CF20(
         return;
     }
 
-    constexpr char kMessage[] =
-        "\xCA\xA7\x94\xA1\xC1\xCB\xA3\xA1";
-    static_assert(sizeof(kMessage) == 9);
+    constexpr wchar_t kMessage[] =
+        L"失敗了！";
+const std::string kMessageUtf8View = cg::text::FromUtf16(kMessage); // 旧窄接口只读兼容视图。
+
     char buffer[256];
-    std::sprintf(buffer, kMessage);
+    std::sprintf(buffer, kMessageUtf8View.c_str());
     world::detail::Sub_44B050(buffer, 4, 3);
 }
 
@@ -944,17 +948,16 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
             return;
         }
         constexpr char format58B0B0[] =
-            "IP " "\xCE\xBB\xD6\xB7\xD3\xC9" "[%s]"
-            "\xD7\x83\xB3\xC9" "[%s]" "\xA1\xA3";
-        constexpr char warning58B094[] =
-            "\xBE\x57\xC2\xB7\xD3\xD0\xBF\xC9\xC4\xDC\xCA\xC7"
-            "\xB1\xBB\xD4\xD9\xDF\x42\xBD\xD3\xC1\xCB\xA1\xA3";
-        static_assert(sizeof(format58B0B0) == 24);
-        static_assert(sizeof(warning58B094) == 25);
+            "IP 位址由[%s]變成[%s]。";
+        constexpr wchar_t warning58B094[] =
+            L"網路有可能是被再連接了。";
+const std::string warning58B094Utf8View = cg::text::FromUtf16(warning58B094); // 旧窄接口只读兼容视图。
+        static_assert(sizeof(format58B0B0) == 30);
+
         char message[256];
-        std::sprintf(message, format58B0B0, previous, text);
+        std::sprintf(message, format58B0B0, cg::text::FromGbk(previous).c_str(), cg::text::FromGbk(text).c_str());
         world::detail::Sub_44B050(message, 4, 3);
-        world::detail::Sub_44B050(warning58B094, 4, 3);
+        world::detail::Sub_44B050(warning58B094Utf8View.c_str(), 4, 3);
     }
     std::strcpy(previous, text);
 }
@@ -1011,12 +1014,9 @@ void Sub_50F190(
     const char* const payload, const std::int32_t)
 {
     constexpr char kGuildMailFormat58B0EC[] =
-        "\xC4\xFA\xCA\xD5\xB5\xBD\x81\xED\xD7\xD4\xBC\xD2\xD7\xE5"
-        " %s " "\xB5\xC4\xD0\xC5\xBC\xFE\xA1\xAB";
+        "您收到來自家族 %s 的信件～";
     constexpr char kGuildPetMailFormat58B0C8[] =
-        "\xC4\xFA\xCA\xD5\xB5\xBD\x81\xED\xD7\xD4\xBC\xD2\xD7\xE5"
-        "\xB3\xC9\x86\x54" " %s "
-        "\xB5\xC4\x8C\x99\xCE\xEF\xD0\xC5\xBC\xFE\xA1\xAB";
+        "您收到來自家族成員 %s 的寵物信件～";
 
     char name[32];
     char message[256];
@@ -1031,7 +1031,7 @@ void Sub_50F190(
         (login::detail::gOrderedRecords1051B14.data() + index)->text18;
     std::sprintf(
         message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,
-        recordName);
+        cg::text::FromGbk(recordName).c_str());
     static_cast<void>(world::detail::Sub_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     world::detail::Sub_44B050(message, 4, 3);
@@ -1189,7 +1189,7 @@ std::int32_t AllocateProtocolBuffers_516DA0(
     gNetworkRuntimeState.tripleBuffer58B610 = nullptr;
 
     gNetworkRuntimeState.buffer58B5F0 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(bufferLength)));
+        std::malloc(static_cast<std::size_t>(bufferLength) + 2));
     std::uint8_t* const second = static_cast<std::uint8_t*>(
         std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength)));
     // 原16DF9/16E0A：先取下一请求长度，再发布本次分配结果。
@@ -1376,6 +1376,10 @@ std::int32_t AppendProtocolText_5170D0(
     }
     if (destinationIndex == limit) {
         return capacity;
+    }
+
+    if (std::strlen(destination) + std::strlen(source) >= static_cast<std::size_t>(capacity)) {
+        throw cg::text::GbkStorageError(ERROR_INSUFFICIENT_BUFFER, std::system_category(), "组包超过原GBK协议容量");
     }
 
     std::int32_t sourceIndex = 0;
@@ -1610,67 +1614,24 @@ std::int32_t ParseDelimitedBase62_52D0D0(
 // 原函数：0x005171F0。
 std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
 {
-    gNetworkRuntimeState.buffer58B5F8[0] = 0;
-    if (*text == '\0') {
-        gNetworkRuntimeState.buffer58B5F8[0] = 0;
-        return gNetworkRuntimeState.buffer58B5F8;
+    // UTL02：界面窄入口为局部UTF-8视图，转义在UTF-16中进行，落入原GBK组包区。
+    const std::wstring contents = cg::text::ToUtf16(text);
+    std::wstring escaped;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const std::size_t next = cg::text::Next(contents, offset);
+        const wchar_t unit = contents[offset];
+        if (unit == L'\\' || unit == L' ') { escaped += L'\\'; escaped += unit == L' ' ? L'S' : L'\\'; }
+        else if (unit == L'\n' || unit == L'\r') { escaped += L'\\'; escaped += unit == L'\n' ? L'n' : L'r'; }
+        else { escaped.append(contents, offset, next - offset); }
+        offset = next;
     }
-
-    const auto* cursor = reinterpret_cast<const unsigned char*>(text);
-    std::uint32_t destinationIndex = 0;
-    for (;;) {
-        const unsigned char currentByte = *cursor;
-        if (currentByte >= 0x80U) {
-            std::uint8_t* const firstDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            ++destinationIndex;
-            ++cursor;
-            firstDestination[destinationIndex - 1U] = currentByte;
-            const unsigned char secondByte = *cursor;
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = secondByte;
-        }
-        else if (currentByte == static_cast<unsigned char>('\\')) {
-            std::uint8_t* const firstDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            ++destinationIndex;
-            firstDestination[destinationIndex - 1U] = '\\';
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = '\\';
-        }
-        else if (currentByte == static_cast<unsigned char>(' ')) {
-            std::uint8_t* const firstDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            ++destinationIndex;
-            firstDestination[destinationIndex - 1U] = '\\';
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'S';
-        }
-        else if (currentByte == static_cast<unsigned char>('\n')) {
-            std::uint8_t* const firstDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            ++destinationIndex;
-            firstDestination[destinationIndex - 1U] = '\\';
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'n';
-        }
-        else if (currentByte == static_cast<unsigned char>('\r')) {
-            std::uint8_t* const firstDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            ++destinationIndex;
-            firstDestination[destinationIndex - 1U] = '\\';
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'r';
-        }
-        else {
-            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = currentByte;
-        }
-
-        const unsigned char nextByte = cursor[1];
-        ++destinationIndex;
-        ++cursor;
-        if (nextByte == 0U) {
-            std::uint8_t* const finalDestination =
-                gNetworkRuntimeState.buffer58B5F8;
-            finalDestination[destinationIndex] = 0;
-            return gNetworkRuntimeState.buffer58B5F8;
-        }
+    const std::string stored = cg::text::ToGbk(escaped);
+    // 末尾空格与NUL由517160追加；提交前检查，不在协议边界静默截字。
+    if (stored.size() + 1 >= gNetworkRuntimeState.bufferLength) {
+        throw cg::text::GbkStorageError(ERROR_INSUFFICIENT_BUFFER, std::system_category(), "文字超过GBK协议字段容量");
     }
+    std::memcpy(gNetworkRuntimeState.buffer58B5F8, stored.c_str(), stored.size() + 1);
+    return gNetworkRuntimeState.buffer58B5F8;
 }
 
 // 原函数：0x005172D0。
@@ -1764,6 +1725,7 @@ std::int32_t SendProtocolBuffer_517480(
     const std::uintptr_t socket,
     char* const buffer)
 {
+    // UTL02：5171F0已将各文本token编码为GBK；日志、观察者和回调共用原协议字节。
     if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
         platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(
             gNetworkRuntimeState.sendLogPathDA3B58,

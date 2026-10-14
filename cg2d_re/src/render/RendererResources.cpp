@@ -65,30 +65,22 @@ std::int32_t gRendererBlueOffset = 0; // 原全局：0x0062971C。
 
 namespace {
 
-constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
-constexpr char kDepthError[] =
-    "\xD2\xF2\xCE\x9E\xC4\xBB\xEE\x81\xC9\xAB\xB2\xBB\xCA\xC7\x31\x36"
-    "\x42\x69\x74\xA3\xAC\xEF\x40\xCA\xBE\xAE\x8B\xC3\xE6\x8C\xA2\xB8"
-    "\xC4\x9E\xE9\xC8\xAB\xCE\x9E\xC4\xBB\xEF\x40\xCA\xBE\xA1\xA3";
-constexpr char kBackError[] =
-    "Back Buffer\xAE\x61\xC9\xFA\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kInterfaceError[] =
-    "Direct3D Object\xAE\x61\xC9\xFA\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kMode1Message[] =
-    "\xCF\xC8\xC7\xB0\xD4\x4F\xB6\xA8\xB5\xC4\xAE\x8B\xC3\xE6\xB3\xC9"
-    "\xCF\xF1\xC4\xA3\xCA\xBD\x9F\x6F\xB7\xA8\x86\xA2\x84\xD3\xA1\xA3"
-    "\x0A\x8C\xA2\xD2\xD4\xAE\x8B\xC3\xE6\xB3\xC9\xCF\xF1\xC4\xA3\xCA"
-    "\xBD\x31\x86\xA2\x84\xD3\xA1\xA3";
-constexpr char kMode2Message[] =
-    "\xCF\xC8\xC7\xB0\xD4\x4F\xB6\xA8\xB5\xC4\xAE\x8B\xC3\xE6\xB3\xC9"
-    "\xCF\xF1\xC4\xA3\xCA\xBD\x9F\x6F\xB7\xA8\x86\xA2\x84\xD3\xA1\xA3"
-    "\x0A\x8C\xA2\xD2\xD4\xAE\x8B\xC3\xE6\xB3\xC9\xCF\xF1\xC4\xA3\xCA"
-    "\xBD\x32\x86\xA2\x84\xD3\xA1\xA3";
-constexpr char kMode3Message[] =
-    "\xCF\xC8\xC7\xB0\xD4\x4F\xB6\xA8\xB5\xC4\xAE\x8B\xC3\xE6\xB3\xC9"
-    "\xCF\xF1\xC4\xA3\xCA\xBD\x9F\x6F\xB7\xA8\x86\xA2\x84\xD3\xA1\xA3"
-    "\x0A\x8C\xA2\xD2\xD4\xAE\x8B\xC3\xE6\xB3\xC9\xCF\xF1\xC4\xA3\xCA"
-    "\xBD\x33\x86\xA2\x84\xD3\xA1\xA3";
+constexpr wchar_t kConfirmCaption[] = L"確認";
+constexpr wchar_t kDepthError[] =
+    L"因螢幕顏色不是16Bit，顯示畫面將改為全螢幕顯示。";
+constexpr wchar_t kBackError[] =
+    L"Back Buffer產生失敗。";
+constexpr wchar_t kInterfaceError[] =
+    L"Direct3D Object產生失敗。";
+constexpr wchar_t kMode1Message[] =
+    LR"(先前設定的畫面成像模式無法啟動。
+將以畫面成像模式1啟動。)";
+constexpr wchar_t kMode2Message[] =
+    LR"(先前設定的畫面成像模式無法啟動。
+將以畫面成像模式2啟動。)";
+constexpr wchar_t kMode3Message[] =
+    LR"(先前設定的畫面成像模式無法啟動。
+將以畫面成像模式3啟動。)";
 
 bool CreateRendererTextureInterface() noexcept
 {
@@ -137,7 +129,7 @@ std::int8_t DowngradeRenderer()
     ReleaseRendererTextureInterface();
     gRenderer->textureState.colorKeyEnabled = 0;
     WriteRendererModeFile(true);
-    platform::ShowLegacyMessage(kMode1Message, kConfirmCaption, 0x10);
+    platform::ShowWideMessage(kMode1Message, kConfirmCaption, 0x10);
     platform::gSupportedRenderMode = 1;
     platform::gRendererMode = 1;
     return 0;
@@ -222,12 +214,11 @@ std::int8_t RendererInit_44B630()
     platform::gDeviceBitsPerPixel = ::GetDeviceCaps(dc, BITSPIXEL);
     ::ReleaseDC(reinterpret_cast<HWND>(platform::gLegacyWindow), dc);
     if ((platform::gRendererFlags & 8u) != 0 && platform::gDeviceBitsPerPixel < 16) {
-        platform::ShowLegacyMessage(kDepthError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kDepthError, kConfirmCaption, 0x10);
         return 1;
     }
     if (!AllocateRendererResources()) {
-        platform::ShowLegacyMessage(
-            "GlobalAllocPtr Error ( DIRECT_DRAW )", kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"GlobalAllocPtr Error ( DIRECT_DRAW )", kConfirmCaption, 0x10);
         return 1;
     }
     gRenderer->logicalWidth = kCpuSurfaceWidth;
@@ -235,15 +226,15 @@ std::int8_t RendererInit_44B630()
     gTextureSizeW = 64;
     gTextureSizeH = 48;
     if (!CreateRendererPresenter()) {
-        platform::ShowLegacyMessage("DirectDrawCreateEx Error", kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"DirectDrawCreateEx Error", kConfirmCaption, 0x10);
         return 1;
     }
     if (!SetRendererPresenterFullscreen(platform::gWindowMode == 0)) {
-        platform::ShowLegacyMessage("SetCooperativeLevel Error", kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"SetCooperativeLevel Error", kConfirmCaption, 0x10);
         return 1;
     }
     if (!CreateCpuBackSurface()) {
-        platform::ShowLegacyMessage(kBackError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kBackError, kConfirmCaption, 0x10);
         return 1;
     }
     SDL_Surface* const back = GetCpuBackSdlSurface();
@@ -262,7 +253,7 @@ std::int8_t RendererInit_44B630()
     if (mode <= 1) {
         platform::gSupportedRenderMode = platform::gRendererMode;
         if (mode < 1) {
-            platform::ShowLegacyMessage(kMode1Message, kConfirmCaption, 0x10);
+            platform::ShowWideMessage(kMode1Message, kConfirmCaption, 0x10);
             mode = 1;
             platform::gSupportedRenderMode = 1;
             platform::gRendererMode = 1;
@@ -276,7 +267,7 @@ std::int8_t RendererInit_44B630()
     if (format->Amask != 0 || SDL_ISPIXELFORMAT_FOURCC(back->format)
         || gRenderer->textureState.pixelBitCount
             != static_cast<std::uint32_t>(platform::gDeviceBitsPerPixel)) {
-        platform::ShowLegacyMessage(kMode1Message, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kMode1Message, kConfirmCaption, 0x10);
         platform::gSupportedRenderMode = 1;
         platform::gRendererMode = 1;
         return 0;
@@ -285,7 +276,7 @@ std::int8_t RendererInit_44B630()
         return 0;
     }
     if (!CreateRendererTextureInterface()) {
-        platform::ShowLegacyMessage(kInterfaceError, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kInterfaceError, kConfirmCaption, 0x10);
         return DowngradeRenderer();
     }
     // 保留三个原创建分支；native 均执行实际 CPU 设备分配，不冒称旧硬件 GUID。
@@ -375,10 +366,10 @@ std::int8_t RendererInit_44B630()
         return 0;
     }
     if (platform::gSupportedRenderMode == 3) {
-        platform::ShowLegacyMessage(kMode3Message, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kMode3Message, kConfirmCaption, 0x10);
     }
     if (platform::gSupportedRenderMode == 2) {
-        platform::ShowLegacyMessage(kMode2Message, kConfirmCaption, 0x10);
+        platform::ShowWideMessage(kMode2Message, kConfirmCaption, 0x10);
     }
     WriteRendererModeFile(false);
     platform::gRendererMode = platform::gSupportedRenderMode;

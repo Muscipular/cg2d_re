@@ -153,7 +153,7 @@ std::int32_t GraphicInit_459960(
         std::sprintf(message, "MAX_GRAPHICS=%d,Need=%d",
             gMaxGraphicCount, gGraphicRequiredCount);
         platform::ShowLegacyMessage(
-            message, "sprmgr: MAX_GRAPHICS \xB2\xBB\x89\xF2\xA1\xA3", 0);
+            message, "sprmgr: MAX_GRAPHICS 不夠。", 0);
         return failAndCloseData(9);
     }
 

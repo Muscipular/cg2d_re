@@ -1,4 +1,5 @@
 #include "MailState.hpp"
+#include "cg/text/Encoding.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "../LoginInputDependencies.hpp"
@@ -89,10 +90,8 @@ ProfileRuntimeRecord gCurrentProfile10738E8 {}; // 原全局：0x010738E8。
 ProfileRuntimeRecord gReceivedProfile1074110 {}; // 原全局：0x01074110。
 ProfileRuntimeRecord gViewedProfile105ECE0 {}; // 原全局：0x0105ECE0。
 static_assert(sizeof(gProfiles1074938) == 0x1050);
-constexpr char kProfileDefault58F614[] = "\xCE\xB4\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058F614。
-constexpr char kProfileHidden58F61C[] = "\xB2\xBB\xB9\xAB\xE9\x5F"; // 原常量参考：0x0058F61C。
-static_assert(sizeof(kProfileDefault58F614) == 7);
-static_assert(sizeof(kProfileHidden58F61C) == 7);
+constexpr wchar_t kProfileDefault58F614[] = L"未設定"; // 原常量参考：0x0058F614。
+constexpr wchar_t kProfileHidden58F61C[] = L"不公開"; // 原常量参考：0x0058F61C。
 
 static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
 static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
@@ -139,17 +138,11 @@ static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
 CategoryRuntimeSlots gCategory105FA10 {}; // 原全局：0x0105FA10。
 
 constexpr char kReceivedMailFormat58B07C[] = // 原常量参考：0x0058B07C。
-    "\xCA\xD5\xB5\xBD\x8F\xC4" "%s" "\xBC\xC4\x81\xED\xB5\xC4"
-    "\xE0\x5D\xBC\xFE\xA3\xA1";
+    "收到從%s寄來的郵件！";
 constexpr char kReceivedPetMailFormat58B064[] = // 原常量参考：0x0058B064。
-    "\xD3\xC9" "%s" "\xCB\xCD\x81\xED\xC1\xCB\x8C\x99\xCE\xEF"
-    "\xE0\x5D\xBC\xFE\xA3\xA1";
-static_assert(sizeof(kReceivedMailFormat58B07C) == 21);
-static_assert(sizeof(kReceivedPetMailFormat58B064) == 21);
+    "由%s送來了寵物郵件！";
 constexpr char kReceivedMiniMailFormat58B108[] = // 原常量参考：0x0058B108。
-    "\xCC\xE1\xCA\xBE\xA3\xA1\xC4\xFA\xCA\xD5\xB5\xBD\x81\xED\xD7\xD4"
-    " %s " "\xB5\xC4\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xA1\xAB";
-static_assert(sizeof(kReceivedMiniMailFormat58B108) == 33);
+    "提示！您收到來自 %s 的迷你郵件～";
 
 constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
 constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
@@ -657,7 +650,7 @@ void Sub_50DC70(
     const char* const contactName = gContactsF19FB0[index].name10.data();
     std::sprintf(
         message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064,
-        contactName);
+        cg::text::FromGbk(contactName).c_str());
     static_cast<void>(Sub_519300());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == index) {
@@ -789,7 +782,7 @@ void Sub_50F7F0(
     Sub_5343C0(index, 0, name, text);
     std::sprintf(
         message, kReceivedMiniMailFormat58B108,
-        gMiniMailRuntime.contacts[index].name10.data());
+        cg::text::FromGbk(gMiniMailRuntime.contacts[index].name10.data()).c_str());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == key) {
         const std::int32_t position = gValueD046D4;
@@ -851,7 +844,7 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     }
     Sub_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    std::sprintf(message, kReceivedMiniMailFormat58B108, record.name10.data());
+    std::sprintf(message, kReceivedMiniMailFormat58B108, cg::text::FromGbk(record.name10.data()).c_str());
     Sub_44B050(message, 4, 3);
 }
 
@@ -890,11 +883,11 @@ void Sub_533950()
     for (ProfileEntry& entry : first.entries410) {
         entry.value00 = 0;
         entry.value04 = 0x3C0F0;
-        std::strcpy(entry.text08.data(), kProfileDefault58F614);
+        cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
     }
     // 原533AB5在最后文本复制完成前取S16角色，两次整条复制共用此值。
     const std::int16_t selected = login::gSelectedCharacterIndex;
-    std::strcpy(first.text728.data(), kProfileDefault58F614);
+    cg::text::StoreGbk(first.text728.data(), first.text728.size(), kProfileDefault58F614);
     std::memcpy(&gProfiles1074938[1], &first, sizeof(first));
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
@@ -939,19 +932,20 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     if (mode == 0) {
         for (ProfileEntry& entry : gCurrentProfile10738E8.entries410) {
             if (std::strcmp(entry.text08.data(), input::LegacyText593850()) == 0) {
-                std::strcpy(entry.text08.data(), kProfileDefault58F614);
+                cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
             }
         }
         if (std::strcmp(
                 gCurrentProfile10738E8.text728.data(), input::LegacyText593850()) == 0) {
-            std::strcpy(gCurrentProfile10738E8.text728.data(), kProfileDefault58F614);
+            cg::text::StoreGbk(gCurrentProfile10738E8.text728.data(), gCurrentProfile10738E8.text728.size(), kProfileDefault58F614);
         }
     }
 
     char sourceText[256];
     std::array<std::array<char, 256>, 4> escaped;
     for (std::int32_t index = 0; index < 3; ++index) {
-        const char* source = kProfileHidden58F61C;
+        const std::string hidden = cg::text::ToGbk(kProfileHidden58F61C);
+        const char* source = hidden.c_str();
         if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
             if (mode == 1) {
                 const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -961,7 +955,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
             }
         }
         std::strcpy(sourceText, source);
-        input::EscapeLegacyTextAndNotify_52D2D0(sourceText, escaped[index].data(), 256);
+        cg::NullSub_509080();
+        input::EscapeGbkText(sourceText, escaped[index].data(), 256);
     }
     if (mode == 1) {
         const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -969,7 +964,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     } else {
         std::strcpy(sourceText, gCurrentProfile10738E8.text728.data());
     }
-    input::EscapeLegacyTextAndNotify_52D2D0(sourceText, escaped[3].data(), 256);
+    cg::NullSub_509080();
+    input::EscapeGbkText(sourceText, escaped[3].data(), 256);
 
     if (mode == 1) {
         const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -978,8 +974,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
         const std::uintptr_t socket = platform::gConnectionSocket;
         return network::Sub_511640(
-            socket, first, escaped[0].data(), second, escaped[1].data(),
-            third, escaped[2].data(), escaped[3].data());
+            socket, first, cg::text::FromGbk(escaped[0].data()).c_str(), second, cg::text::FromGbk(escaped[1].data()).c_str(),
+            third, cg::text::FromGbk(escaped[2].data()).c_str(), cg::text::FromGbk(escaped[3].data()).c_str());
     }
 
     const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
@@ -987,8 +983,8 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::Sub_511640(
-        socket, first, escaped[0].data(), second, escaped[1].data(),
-        third, escaped[2].data(), escaped[3].data()));
+        socket, first, cg::text::FromGbk(escaped[0].data()).c_str(), second, cg::text::FromGbk(escaped[1].data()).c_str(),
+        third, cg::text::FromGbk(escaped[2].data()).c_str(), cg::text::FromGbk(escaped[3].data()).c_str()));
 
     const std::int16_t selected = login::gSelectedCharacterIndex;
     ProfileRuntimeRecord& target = gProfiles1074938[selected];
@@ -1327,14 +1323,15 @@ std::int32_t Sub_5345A0(const std::int32_t index)
     for (ProfileEntry& entry : record.entries410) {
         entry.value00 = 0;
         entry.value04 = 246000;
-        std::strcpy(entry.text08.data(), kProfileDefault58F614);
+        cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
     }
     // 原534737在末条文本的movsd与movsb之间读取当前角色，不沿用重置实参。
-    std::memcpy(record.text728.data(), kProfileDefault58F614, 4);
+    const std::string defaultGbk = cg::text::ToGbk(kProfileDefault58F614);
+    std::memcpy(record.text728.data(), defaultGbk.data(), 4);
     const std::int16_t selected = login::gSelectedCharacterIndex;
     std::memcpy(
-        record.text728.data() + 4, kProfileDefault58F614 + 4,
-        sizeof(kProfileDefault58F614) - 4);
+        record.text728.data() + 4, defaultGbk.c_str() + 4,
+        defaultGbk.size() + 1 - 4);
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
         sizeof(gCurrentProfile10738E8));

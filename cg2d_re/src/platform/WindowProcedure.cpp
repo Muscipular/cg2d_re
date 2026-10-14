@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "ImeComposition.hpp"
 #include "MainLoopDependencies.hpp"
@@ -27,11 +28,11 @@ std::uint32_t gCurrentClientWidth = 0; // 原全局：0x009A6F2C。
 std::uint32_t gCurrentClientHeight = 0; // 原全局：0x009A6F30。
 std::uint32_t gWindowResizePhase = 0; // 原全局：0x009A7F68。
 
-char gImeDescription[100] {}; // 原全局：0x0073ED70。
+std::wstring gImeDescription; // 原全局：0x0073ED70。
 std::uintptr_t gImeContext = 0; // 原全局：0x0073EDD8。
 std::uintptr_t gPreviousImeContext = 0; // 原全局：0x0073EDDC。
-char gImeComposition[256] {}; // 原全局：0x0073EDE0。
-std::uint8_t gImeAttributes[256] {}; // 原全局：0x0073EEE0。
+std::wstring gImeComposition; // 原全局：0x0073EDE0。
+std::vector<std::uint8_t> gImeAttributes; // 原全局：0x0073EEE0。
 std::int32_t gImeCompositionCursorPosition = 0;
 std::uint32_t gImeConversionMode = 0; // 原全局：0x0073EFE4。
 std::uint32_t gImeSentenceMode = 0; // 原全局：0x0073EFE8。
@@ -80,10 +81,11 @@ int ReadControlKeyPressFlag_4597C0(const std::int32_t key) noexcept
 namespace {
 
 inline constexpr UINT kResizeWindowFlags = 0x26u;
-inline constexpr char kCloseQuestion[] =
-    "\xBF\xC9\xD2\xD4\xBD\x59\xCA\xF8\xC4\xA7"
-    "\xC1\xA6\x8C\x9A\xD8\x90\x86\xE1\xA3\xBF";
-inline constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
+inline constexpr wchar_t kCloseQuestion[] =
+    L"可以結束魔力寶貝嗎？";
+inline const std::string kCloseQuestionUtf8View = cg::text::FromUtf16(kCloseQuestion); // 旧窄接口只读兼容视图。
+inline constexpr wchar_t kConfirmCaption[] = L"確認";
+inline const std::string kConfirmCaptionUtf8View = cg::text::FromUtf16(kConfirmCaption); // 旧窄接口只读兼容视图。
 
 struct MouseCoordinates {
     std::int32_t x;
@@ -135,7 +137,7 @@ MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
 } // namespace
 
 // 原 WIN_PROC@[0x466DC0,0x467904)。消息载荷先截取原 x86 低 32 位，
-// 默认分支仍把本机原生参数原样交还 DefWindowProcA。
+// 默认分支仍把本机原生参数原样交还 DefWindowProcW。
 LRESULT CALLBACK WindowProcedure(
     HWND window,
     const UINT message,
@@ -214,7 +216,7 @@ LRESULT CALLBACK WindowProcedure(
         }
 
         gWindowResizePhase = 2;
-        const LONG style = GetWindowLongA(window, GWL_STYLE);
+        const LONG style = GetWindowLongW(window, GWL_STYLE);
         RECT rect {};
         if (gWindowMode != 0) {
             SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
@@ -246,7 +248,7 @@ LRESULT CALLBACK WindowProcedure(
             SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[gValue9A6F44]));
             return 1;
         }
-        return DefWindowProcA(window, message, wParam, lParam);
+        return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_NCMOUSEMOVE: {
         const std::uint32_t oldSuppression = BorrowLegacyMouseStateStorage()->drawingSuppression;
@@ -294,24 +296,34 @@ LRESULT CALLBACK WindowProcedure(
             gKeyStates[VK_F10] = static_cast<std::uint8_t>(pressed | 0x10u);
             return 0;
         }
-        return DefWindowProcA(window, message, wParam, lParam);
+        return DefWindowProcW(window, message, wParam, lParam);
 
-    case WM_CHAR:
-        if (static_cast<std::uint8_t>(wParam32) == '\r') {
+    case WM_CHAR: {
+        const wchar_t unit = static_cast<wchar_t>(wParam);
+        if (unit == L'\r' || GetAsyncKeyState(VK_MENU) != 0) {
             return 0;
         }
-        if (GetAsyncKeyState(VK_MENU) != 0) {
+        // W窗口的WM_CHAR按UTF-16码元发送；跨消息组合代理对，不能截成W8。
+        static wchar_t highSurrogate = 0;
+        if (unit >= 0xD800 && unit <= 0xDBFF) {
+            highSurrogate = unit;
             return 0;
         }
-        input::AppendChar_44ADB0(
-            static_cast<char>(static_cast<std::uint8_t>(wParam32)));
+        const wchar_t units[2] {highSurrogate, unit};
+        if (highSurrogate != 0 && unit >= 0xDC00 && unit <= 0xDFFF) {
+            input::AppendText(std::wstring_view(units, 2));
+        } else {
+            input::AppendText(std::wstring_view(&unit, 1));
+        }
+        highSurrogate = 0;
         return 0;
+    }
 
     case WM_IME_STARTCOMPOSITION:
         return 0;
 
     case WM_IME_ENDCOMPOSITION:
-        gImeComposition[0] = '\0';
+        gImeComposition.clear();
         return 0;
 
     case WM_IME_COMPOSITION:
@@ -321,16 +333,16 @@ LRESULT CALLBACK WindowProcedure(
 
     case WM_SYSCOMMAND:
         if (wParam32 == SC_CLOSE && gWindowMode == 1
-            && MessageBoxA(
+            && MessageBoxW(
                 window,
-                kCloseQuestion,
-                kConfirmCaption,
+                kCloseQuestionUtf8View.c_str().c_str(),
+                kConfirmCaptionUtf8View.c_str().c_str(),
                 MB_OKCANCEL) == IDCANCEL) {
             const std::uint32_t tick = ReadTickCount32();
             gLastRenderDt = static_cast<double>(tick);
             return 0;
         }
-        return DefWindowProcA(window, message, wParam, lParam);
+        return DefWindowProcW(window, message, wParam, lParam);
 
     case WM_MOUSEMOVE: {
         const MouseCoordinates coordinates = MapMouseCoordinates(lParam32);
@@ -424,7 +436,7 @@ LRESULT CALLBACK WindowProcedure(
         if (wParam32 == IMN_OPENCANDIDATE
             || wParam32 == IMN_CHANGECANDIDATE) {
             const DWORD requiredSize =
-                ImmGetCandidateListA(context, 0, nullptr, 0);
+                ImmGetCandidateListW(context, 0, nullptr, 0);
             if (gImeCandidateList != nullptr) {
                 std::free(gImeCandidateList);
             }
@@ -439,7 +451,7 @@ LRESULT CALLBACK WindowProcedure(
                     gImeCandidateList = candidates;
                     context = reinterpret_cast<HIMC>(gImeContext);
                 }
-                ImmGetCandidateListA(
+                ImmGetCandidateListW(
                     context,
                     0,
                     reinterpret_cast<LPCANDIDATELIST>(candidates),
@@ -460,7 +472,7 @@ LRESULT CALLBACK WindowProcedure(
 
     case WM_IME_SETCONTEXT: {
         const std::uint32_t filtered = lParam32 & 0x7FFFFFF0u;
-        return DefWindowProcA(
+        return DefWindowProcW(
             window,
             message,
             wParam,
@@ -468,7 +480,7 @@ LRESULT CALLBACK WindowProcedure(
     }
 
     default:
-        return DefWindowProcA(window, message, wParam, lParam);
+        return DefWindowProcW(window, message, wParam, lParam);
     }
 }
 

@@ -13,7 +13,7 @@ std::uintptr_t gInstance = 0; // 原全局：0x009A6F38。
 std::uintptr_t gStartupMutex = 0; // 原全局：0x009A6F3C。
 std::uintptr_t gCursorHandles[11] {}; // 原全局：0x009A6EF8。
 std::int32_t gShowCommand = 0; // 原全局：0x009A6F28。
-char gWindowClassName[9] = "\xC4\xA7\xC1\xA6\x8C\x9A\xD8\x90"; // 原全局：0x00559384。
+char gWindowClassName[13] = "魔力寶貝"; // 原全局：0x00559384。
 std::int32_t gWindowMode = 0; // 原全局：0x009A7F48。
 std::int32_t gWindowWidth = 640; // 原全局：0x0055CE74。
 std::int32_t gWindowHeight = 480; // 原全局：0x0055CE78。

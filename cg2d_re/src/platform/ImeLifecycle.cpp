@@ -18,8 +18,8 @@ namespace cg::platform {
 int InitializeIme_458FD0()
 {
     const std::uintptr_t previousActiveContext = gImeContext;
-    gImeComposition[0] = '\0';
-    gImeAttributes[0] = 0;
+    gImeComposition.clear();
+    gImeAttributes.assign(1, 0);
     gImeState73EFF0 = 0;
     if (previousActiveContext != 0) {
         ShutdownIme_459040();
@@ -38,7 +38,7 @@ int InitializeIme_458FD0()
         currentContext,
         reinterpret_cast<DWORD*>(&gImeConversionMode),
         reinterpret_cast<DWORD*>(&gImeSentenceMode));
-    std::memset(gImeDescription, 0, sizeof(gImeDescription));
+    gImeDescription.clear();
     return 0;
 }
 
@@ -88,14 +88,14 @@ std::int32_t ResetImeOpenStatus_4590A0() noexcept
     return std::bit_cast<std::int32_t>(result);
 }
 
-// HWT01：原4590D0借用唯一100B IME描述，保原可写char*地址和owner。
-char* BorrowImeDescription_4590D0() noexcept
+// UTL02：原0x004590D0借用动态UTF-16描述，owner不变，视图只读。
+std::wstring_view BorrowImeDescription_4590D0() noexcept
 {
     return gImeDescription;
 }
 
 // HWT01：这是4731E0共用尾的窄平台helper；保IME查询、256B未用键表采样和描述借用顺序。
-const char* BorrowWindowImeDescription_4734F0() noexcept
+std::wstring_view BorrowWindowImeDescription_4734F0() noexcept
 {
     static_cast<void>(IsImeKeyboardLayout_459090());
     std::array<BYTE, 256> keyboardState;

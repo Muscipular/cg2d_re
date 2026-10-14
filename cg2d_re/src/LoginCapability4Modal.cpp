@@ -1,4 +1,5 @@
 #include "LoginCapability4Modal.hpp"
+#include <cwchar>
 
 #include "LoginMessageDependencies.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -6,11 +7,12 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <string>
+#include <vector>
 #include <cstring> // 原CRT接口：0x0053C2F0；原参数／返回合同由直接调用承接。
 
 namespace {
 
-constexpr std::size_t kCapability4ModalTextCapacity = 256;
 constexpr std::int32_t kScreenWidth = 640;
 constexpr std::int32_t kScreenHeight = 480;
 
@@ -77,17 +79,15 @@ void ResetCapability4Modal_464440()
 }
 
 // 原函数：0x00464450。
-std::int32_t UpdateCapability4Modal_464450(const char* const text)
+std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
 {
-    char splitText[kCapability4ModalTextCapacity] {};
-    const std::size_t textLength = std::strlen(text);
-    std::memcpy(splitText, text, textLength + 1U);
+    std::wstring splitText(text);
 
     std::int32_t lineCount = 1;
     std::int32_t maximumTextWidth = 0;
-    char* currentLine = splitText;
+    wchar_t* currentLine = splitText.data();
     for (;;) {
-        char* const newline = const_cast<char*>(std::strchr(currentLine, '\n'));
+        wchar_t* const newline = std::wcschr(currentLine, L'\n');
         if (newline == nullptr) {
             const std::int32_t width = TextMeasure(currentLine, 0);
             if (width > maximumTextWidth) {
@@ -96,7 +96,7 @@ std::int32_t UpdateCapability4Modal_464450(const char* const text)
             break;
         }
 
-        *newline = '\0';
+        *newline = L'\0';
         const std::int32_t width = TextMeasure(currentLine, 0);
         if (width > maximumTextWidth) {
             maximumTextWidth = width;
@@ -206,7 +206,7 @@ std::int32_t UpdateCapability4Modal_464450(const char* const text)
 
     const std::int32_t textHorizontalOffset =
         SubtractW32(gCapability4ModalWidth, maximumTextWidth) / 2;
-    char* drawLine = splitText;
+    wchar_t* drawLine = splitText.data();
     std::int32_t lineIndex = 0;
     while (lineIndex < lineCount) {
         const std::int32_t textLineStep = AddW32(gValue558F78, 2);
@@ -227,7 +227,7 @@ std::int32_t UpdateCapability4Modal_464450(const char* const text)
             drawLine,
             0,
             0);
-        drawLine += std::strlen(drawLine) + 1U;
+        drawLine += std::wcslen(drawLine) + 1U;
         lineIndex = AddW32(lineIndex, 1);
     }
 

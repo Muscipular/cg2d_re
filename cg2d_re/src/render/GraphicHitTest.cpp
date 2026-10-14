@@ -42,7 +42,7 @@ constexpr std::array<std::uint8_t, 60> kHoverColors58ACC8 { // 原常量参考�
 // 原5071C6..507242：宽度留给命中后的绘框，四边各自读取CryptInt。
 bool HitQueuedText(const TextPendingRecord& text, std::int32_t& width)
 {
-    width = login::detail::TextMeasure(text.text, text.fontType);
+    width = login::detail::TextMeasure(text.text.c_str(), text.fontType);
     if (!(BorrowLegacyMouseStateStorage()->mouseX <= static_cast<std::int32_t>(text.x + width + 2))) {
         return false;
     }
@@ -292,9 +292,9 @@ void Sub_507140()
             SortTextures_520790();
             if (world::detail::gValueD460C8 == 0 && gValue58589C != 0) {
                 DescribeHoveredYobi_507140(&graphic);
-                if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[han]")) != nullptr) {
+                if (gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
                     gHoverObjectValueD68AC8 = 1;
-                } else if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[kok]")) != nullptr) {
+                } else if (gHoverTextD68AE8.find(L"[kok]") != std::wstring::npos) {
                     gHoverObjectValueD68AC8 = 5;
                 }
             }

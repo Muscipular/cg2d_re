@@ -1,4 +1,5 @@
 #include "cg/world/SceneState.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
@@ -209,22 +210,17 @@ std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
 std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 
 constexpr char kErrorFormat[] =
-    "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x42\xBE\x80\xD6\xD0"
-    "\x94\xE0\x28\x25\x64\x29";
-constexpr char kTryOtherServer[] =
-    "\xD5\x88\x87\x4C\xD4\x87\xC6\xE4\xCB\xFB\xB5\xC4"
-    "\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3";
-constexpr char kDisconnected[] =
-    "\xC5\x63\xCB\xC5\xB7\xFE\xC6\xF7\xB5\xC4\xDF\x42"
-    "\xBE\x80\xB1\xBB\xC7\xD0\x94\xE0\xC1\xCB\xA1\xA3";
-constexpr char kReturnToServerSelect[] =
-    "\xBB\xD8\xB5\xBD\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78"
-    "\x93\xF1\xAE\x8B\xC3\xE6\xA1\xA3";
+    "伺服器連線中斷(%d)";
+constexpr wchar_t kTryOtherServer[] =
+    L"請嘗試其他的伺服器。";
+const std::string kTryOtherServerUtf8View = cg::text::FromUtf16(kTryOtherServer); // 旧窄接口只读兼容视图。
+constexpr wchar_t kDisconnected[] =
+    L"與伺服器的連線被切斷了。";
+const std::string kDisconnectedUtf8View = cg::text::FromUtf16(kDisconnected); // 旧窄接口只读兼容视图。
+constexpr wchar_t kReturnToServerSelect[] =
+    L"回到伺服器選擇畫面。";
+const std::string kReturnToServerSelectUtf8View = cg::text::FromUtf16(kReturnToServerSelect); // 旧窄接口只读兼容视图。
 
-static_assert(sizeof(kErrorFormat) == 19);
-static_assert(sizeof(kTryOtherServer) == 21);
-static_assert(sizeof(kDisconnected) == 25);
-static_assert(sizeof(kReturnToServerSelect) == 21);
 
 } // namespace
 
@@ -299,10 +295,10 @@ std::int32_t Sub_455C90()
     if (connectionError) {
         std::sprintf(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
-        thirdText = kTryOtherServer;
+        thirdText = kTryOtherServerUtf8View.c_str();
     } else {
-        secondText = kDisconnected;
-        thirdText = kReturnToServerSelect;
+        secondText = kDisconnectedUtf8View.c_str();
+        thirdText = kReturnToServerSelectUtf8View.c_str();
     }
 
     width = login::detail::TextMeasure(secondText, 0);

@@ -1,4 +1,6 @@
 #include "cg/Input.hpp"
+#include "cg/text/Encoding.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -16,8 +18,12 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <cstring>
 #include <type_traits>
+#include <algorithm>
+#include <string>
+#include <system_error>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 #include <cctype>
 #include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
@@ -33,6 +39,71 @@ void NullSub_509080() noexcept
 } // namespace cg
 
 namespace cg::input {
+
+InputContext::InputContext(LegacyInputStorage* const legacy) noexcept
+    : legacy_(legacy), x(fields().x),
+      y(fields().y),
+      caretByteOffset(fields().caretByteOffset),
+      totalByteLength(fields().totalByteLength),
+      field130(fields().field130),
+      field134(fields().field134),
+      field138(fields().field138),
+      field13C(fields().field13C),
+      field140(fields().field140),
+      maxLine(fields().maxLine),
+      maxCharPerLine(fields().maxCharPerLine),
+      field14C(fields().field14C),
+      encrypt(fields().encrypt),
+      field154(fields().field154),
+      field158(fields().field158) {}
+InputContext::InputContext() noexcept : InputContext(nullptr) {}
+InputContext::InputContext(LegacyInputStorage& legacy) noexcept : InputContext(&legacy) {}
+InputContext::InputContext(const InputContext& other) : InputContext() { *this = other; }
+InputContext& InputContext::operator=(const InputContext& other)
+{
+    if (this == &other) { return *this; }
+    const std::wstring contents = ContextText(other);
+    setText(contents);
+    x = other.x;
+    y = other.y;
+    const std::size_t caret = ContextUtf16Offset(other, other.caretByteOffset);
+    caretByteOffset = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(std::wstring_view(contents).substr(0, caret)).size() : caret);
+    totalByteLength = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(contents).size() : contents.size());
+    field130 = other.field130;
+    field134 = other.field134;
+    field13C = other.field13C;
+    field140 = other.field140;
+    maxLine = other.maxLine;
+    maxCharPerLine = other.maxCharPerLine;
+    field14C = other.field14C;
+    encrypt = other.encrypt;
+    field154 = other.field154;
+    const std::size_t visible = ContextUtf16Offset(other, other.field158);
+    field158 = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(std::wstring_view(contents).substr(0, visible)).size() : visible);
+    std::memcpy(field138, other.field138, sizeof(field138));
+    return *this;
+}
+bool InputContext::empty() const noexcept
+{
+    return legacy_ != nullptr ? legacy_->text[0] == '\0' : text.empty();
+}
+std::size_t InputContext::length() const { return ContextText(*this).size(); }
+void InputContext::clearText() noexcept
+{
+    if (legacy_ != nullptr) { legacy_->text[0] = '\0'; }
+    text.clear();
+}
+void InputContext::reset() noexcept
+{
+    clearText();
+    fields() = {};
+}
+void InputContext::setText(const std::wstring_view value)
+{
+    if (legacy_ != nullptr) { cg::text::StoreGbk(legacy_->text, sizeof(legacy_->text), value); }
+    else { text.assign(value); }
+}
+std::string InputContext::utf8() const { return cg::text::FromUtf16(ContextText(*this)); }
 
 InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
 InputContext gInputContexts5F9758[24] {}; // 原全局：0x005F9758。
@@ -73,13 +144,12 @@ std::int32_t gValue626C14 = 0; // 原全局：0x00626C14。
 std::int32_t gValue626C20 = 0; // 原全局：0x00626C20。
 std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
 
-static_assert(sizeof(gInputContexts5F9758) == 0x20A0);
 
 namespace {
 
 struct LegacyInput593850 {
     char prefix[8];
-    InputContext context;
+    LegacyInputStorage context;
 };
 
 LegacyInput593850 gLegacyInput593850 {}; // 原全局：0x00593850。
@@ -90,26 +160,181 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
 
-constexpr char kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
-    "\xC4\xFA\xA1\xAD\xC8\xE7\xB4\xCB\x85\x92\x90\xBA\xD7\xD4"
-    "\xBC\xBA\xB5\xC4\xC2\x95\xD2\xF4\x86\xE1\xA3\xBF";
+constexpr wchar_t kBlacklistSelfText554938[] = // 原常量参考：0x00554938。
+    L"您…如此厭惡自己的聲音嗎？";
+const std::string kBlacklistSelfText554938Utf8View = cg::text::FromUtf16(kBlacklistSelfText554938); // 旧窄接口只读兼容视图。
 constexpr char kBlacklistExistingFormat554928[] = // 原常量参考：0x00554928。
-    "%s\xD2\xD1\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
+    "%s已在黑名單中";
 constexpr char kBlacklistAddedFormat5532C4[] = // 原常量参考：0x005532C4。
-    "\xD2\xD1\x8C\xA2%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
+    "已將%s加入黑名單";
 constexpr char kBlacklistFailedFormat5532B0[] = // 原常量参考：0x005532B0。
-    "%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
-static_assert(sizeof(kBlacklistSelfText554938) == 27);
-static_assert(sizeof(kBlacklistExistingFormat554928) == 15);
-static_assert(sizeof(kBlacklistAddedFormat5532C4) == 17);
-static_assert(sizeof(kBlacklistFailedFormat5532B0) == 17);
+    "%s加入黑名單失敗";
 
 std::int8_t SignedByte(const char value)
 {
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
 }
 
+// UTL02：旧预设视图借用同一聊天GBK字节owner；原生上下文使用动态UTF-16。
+bool HasLegacyTextStorage(const InputContext& context) noexcept
+{
+    return context.legacyStorage() != nullptr;
+}
+
+std::size_t StoredOffset(const InputContext& context, const std::wstring_view utf16, const std::size_t offset)
+{
+    const std::size_t prefix = text::Prefix(utf16, offset);
+    return HasLegacyTextStorage(context) ? text::ToGbk(utf16.substr(0, prefix)).size() : prefix;
+}
+
+class EditText final {
+public:
+    explicit EditText(InputContext& value)
+        : context(value), contents(ContextText(value)),
+          caret(ContextUtf16Offset(value, value.caretByteOffset)),
+          visible(ContextUtf16Offset(value, value.field158)) {}
+    bool commit()
+    {
+        context.setText(contents);
+        context.totalByteLength = static_cast<std::int32_t>(HasLegacyTextStorage(context) ? text::ToGbk(contents).size() : contents.size());
+        context.caretByteOffset = static_cast<std::int32_t>(StoredOffset(context, contents, caret));
+        context.field158 = static_cast<std::int32_t>(StoredOffset(context, contents, visible));
+        return true;
+    }
+    InputContext& context;
+    std::wstring contents;
+    std::size_t caret;
+    std::size_t visible;
+};
+
 } // namespace
+
+std::wstring ContextText(const InputContext& context)
+{
+    return HasLegacyTextStorage(context) ? text::FromGbkWide(context.legacyStorage()->text) : context.text;
+}
+
+std::size_t ContextUtf16Offset(const InputContext& context, const std::int32_t storedByteOffset)
+{
+    const std::size_t offset = static_cast<std::size_t>(storedByteOffset);
+    if (HasLegacyTextStorage(context)) {
+        const std::string_view stored(context.legacyStorage()->text);
+        return text::FromGbkWide(stored.substr(0, (std::min)(offset, stored.size()))).size();
+    }
+    return text::Prefix(context.text, offset);
+}
+
+void SetVisibleUtf16Offset(InputContext& context, const std::size_t utf16Offset)
+{
+    const std::wstring utf16 = ContextText(context);
+    context.field158 = static_cast<std::int32_t>(StoredOffset(context, utf16, utf16Offset));
+}
+
+std::vector<TextLine> SplitLines(const InputContext& context)
+{
+    const std::wstring contents = ContextText(context);
+    const std::int32_t widthLimit = context.maxCharPerLine * render::gFontMetrics[static_cast<std::size_t>(context.field13C)].sWidth;
+    std::vector<TextLine> lines;
+    std::size_t start = 0;
+    do {
+        std::size_t end = start;
+        while (end < contents.size() && contents[end] != '\r') {
+            const std::size_t next = text::Next(contents, end);
+            if (widthLimit > 0 && end > start
+                && render::Font::measure(contents.c_str() + start, context.field13C, static_cast<std::int32_t>(next - start)) > widthLimit) {
+                break;
+            }
+            end = next;
+        }
+        const std::size_t nextStart = end < contents.size() && contents[end] == '\r' ? end + 1 : end;
+        lines.push_back({start, end, nextStart});
+        start = nextStart;
+    } while (start < contents.size());
+    if (!contents.empty() && contents.back() == '\r') {
+        lines.push_back({contents.size(), contents.size(), contents.size()});
+    }
+    return lines;
+}
+
+void MoveCaretLine(const std::int32_t direction)
+{
+    InputContext* const context = gCurrentInputData;
+    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+        return;
+    }
+    gValue626C0C = 20;
+    if (context->maxLine <= 1) {
+        return;
+    }
+    EditText edit(*context);
+    const auto lines = SplitLines(*context);
+    std::size_t row = 0;
+    while (row + 1 < lines.size() && edit.caret >= lines[row].nextStart) {
+        ++row;
+    }
+    const auto destination = static_cast<std::ptrdiff_t>(row) + direction;
+    if (destination < 0 || destination >= static_cast<std::ptrdiff_t>(lines.size())) {
+        return;
+    }
+    const std::int32_t columnWidth = render::Font::measure(edit.contents.c_str() + lines[row].start, context->field13C,
+        static_cast<std::int32_t>(edit.caret - lines[row].start));
+    const TextLine& line = lines[static_cast<std::size_t>(destination)];
+    edit.caret = line.start;
+    while (edit.caret < line.end) {
+        const std::size_t next = text::Next(edit.contents, edit.caret);
+        if (render::Font::measure(edit.contents.c_str() + line.start, context->field13C, static_cast<std::int32_t>(next - line.start)) > columnWidth) {
+            break;
+        }
+        edit.caret = next;
+    }
+    static_cast<void>(edit.commit());
+}
+
+void AppendText(const std::wstring_view utf16)
+{
+    const std::wstring source(utf16); // 源可与当前上下文重叠；先取得一次完整Unicode文字。
+    for (std::size_t begin = 0; begin < source.size();) {
+        const std::size_t end = text::Next(source, begin);
+        const std::wstring_view unit(source.data() + begin, end - begin);
+        begin = end;
+        const auto first = static_cast<std::uint16_t>(unit[0]);
+        if (first == 0 || (first <= 0x1F && first != '\r')) {
+            continue;
+        }
+        InputContext* const context = gCurrentInputData;
+        if (context == nullptr) {
+            return;
+        }
+        EditText edit(*context);
+        const std::wstring old = edit.contents;
+        const std::size_t oldCaret = edit.caret;
+        edit.contents.insert(edit.caret, unit);
+        edit.caret += unit.size();
+        try {
+            if (!edit.commit()) {
+                gValue626C28 = 1;
+                return;
+            }
+        } catch (const std::system_error&) {
+            ::MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字输入", MB_OK | MB_ICONERROR);
+            return;
+        }
+        const auto lines = SplitLines(*context);
+        if (context->maxLine > 0 && lines.size() > static_cast<std::size_t>(context->maxLine)) {
+            if (gValue626C20 == 0) {
+                edit.contents.resize(lines[static_cast<std::size_t>(context->maxLine - 1)].end);
+                edit.caret = (std::min)(edit.caret, edit.contents.size());
+                static_cast<void>(edit.commit());
+            } else if (context->caretByteOffset == context->totalByteLength - 1) {
+                edit.contents = old;
+                edit.caret = oldCaret;
+                static_cast<void>(edit.commit());
+                gValue626C28 = 1;
+            }
+        }
+        gValue626C0C = 20;
+    }
+}
 
 const char* LegacyText593850() noexcept
 {
@@ -119,7 +344,8 @@ const char* LegacyText593850() noexcept
 
 InputContext* BorrowLegacyBlacklistContext593858() noexcept
 {
-    return &gLegacyInput593850.context;
+    static InputContext view(gLegacyInput593850.context);
+    return &view;
 }
 
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
@@ -176,17 +402,8 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
 // 原44B570固定扫描40字节；与通常的双字节分类规则不同。
 std::int32_t ClassifyChatSplit_44B570(const char* const text, const std::int32_t)
 {
-    std::int32_t offset = 0;
-    std::int32_t lastPair = 0;
-    do {
-        if (SignedByte(text[offset]) <= 0) {
-            lastPair = offset;
-            offset += 2;
-        } else {
-            ++offset;
-        }
-    } while (offset < 40);
-    return lastPair > 38 ? 0 : 2;
+    const std::string_view utf8(text);
+    return cg::text::Prefix(utf8, 40) == (std::min)(std::size_t{40}, utf8.size()) ? 2 : 0;
 }
 
 // 原 [0x44B440,0x44B49D)：仅 0x81..0x9F 与 0xE0..0xFC 为双字节首字节。
@@ -195,26 +412,12 @@ std::uint8_t ClassifyLegacyBoundary_44B440(
     const char* const text,
     const std::int16_t byteOffset)
 {
-    std::int32_t cursor = 0;
-    while (cursor < byteOffset) {
-        const auto current =
-            static_cast<std::uint8_t>(text[cursor]);
-        if ((current >= 0x81u && current <= 0x9Fu)
-            || (current >= 0xE0u && current <= 0xFCu)) {
-            cursor += 2;
-        } else {
-            ++cursor;
-        }
-    }
-
-    if (cursor != byteOffset) {
+    const std::string_view utf8(text);
+    const std::size_t offset = static_cast<std::size_t>(byteOffset);
+    if (cg::text::Prefix(utf8, offset) != offset) {
         return 2;
     }
-    const auto current =
-        static_cast<std::uint8_t>(text[cursor]);
-    return static_cast<std::uint8_t>(
-        (current >= 0x81u && current <= 0x9Fu)
-        || (current >= 0xE0u && current <= 0xFCu));
+    return offset < utf8.size() && static_cast<unsigned char>(utf8[offset]) >= 0x80 ? 1 : 0;
 }
 
 // 原 [0x44B4A0,0x44B561)：目标首字节经 movsx 后，双字节目标分支对 W8 输入不可达。
@@ -248,28 +451,9 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
     const char* source,
     const std::int32_t count)
 {
-    std::array<char, InputTextCapacity> copied;
-    std::strncpy(copied.data(), source, static_cast<std::uint32_t>(static_cast<std::uint32_t>(count)));
-    copied.data()[count] = '\0';
-
-    std::int32_t result = 0;
-    std::int32_t consumed = 0;
-    const char* current = copied.data();
-    while (consumed < count && *current != '\0') {
-        if (SignedByte(*current) < 0) {
-            if (current[1] == '\0') {
-                return 3;
-            }
-            current += 2;
-            result = 2;
-            consumed += 2;
-        } else {
-            ++current;
-            result = 1;
-            ++consumed;
-        }
-    }
-    return result;
+    const std::string_view utf8(source);
+    const std::size_t end = text::Prefix(utf8, static_cast<std::size_t>(count));
+    return static_cast<std::int32_t>(end - text::Previous(utf8, end));
 }
 
 } // namespace
@@ -277,19 +461,7 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
 // 原 sub_44A160。
 void LoadInitialText_44A160(const char* const initialText)
 {
-    if (gCurrentInputData == nullptr) {
-        return;
-    }
-
-    // 原44A17E/44A18D/44A19E均按S32解释长度及循环门禁。
-    std::int32_t length = static_cast<std::int32_t>(std::strlen(initialText));
-    if (length >= static_cast<std::int32_t>(InputTextCapacity)) {
-        length = static_cast<std::int32_t>(InputTextCapacity - 1);
-    }
-
-    for (std::int32_t index = 0; index < length; ++index) {
-        AppendChar_44ADB0(initialText[index]);
-    }
+    if (initialText != nullptr && gCurrentInputData != nullptr) { AppendText(text::ToUtf16(initialText)); }
 }
 
 namespace detail {
@@ -297,98 +469,7 @@ namespace detail {
 // 原 [0x44A5D0,0x44A7CD)：按 CR 和最大字节宽度扫描行后上移光标。
 void Sub_44A5D0()
 {
-    InputContext* context = gCurrentInputData;
-    if (context == nullptr || platform::gImeComposition[0] != '\0') {
-        return;
-    }
-
-    gValue626C0C = 20;
-    if (context->maxLine <= 1) {
-        return;
-    }
-
-    std::array<std::int32_t, InputTextCapacity> lineLengths;
-    std::int32_t offset = 0;
-    std::int32_t lineCount = 0;
-    std::int32_t targetLine = 0;
-    std::int32_t column = 0;
-    bool foundCaretLine = false;
-
-    while (true) {
-        const std::int32_t start = offset;
-        std::int32_t scanned = 0;
-        bool foundCarriageReturn = false;
-        while (true) {
-            const char current = context->text[start + scanned];
-            if (current == '\0') {
-                break;
-            }
-            if (current == '\r') {
-                offset = start + scanned + 1;
-                lineLengths[lineCount++] = offset - start;
-                foundCarriageReturn = true;
-                break;
-            }
-            ++scanned;
-            if (scanned == context->maxCharPerLine) {
-                break;
-            }
-        }
-
-        if (!foundCarriageReturn) {
-            const std::int32_t maxBytes = context->maxCharPerLine;
-            const std::uint32_t remaining = static_cast<std::uint32_t>(
-                std::strlen(context->text + start));
-            if (remaining < static_cast<std::uint32_t>(maxBytes)) {
-                break;
-            }
-
-            const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + start, maxBytes);
-            context = gCurrentInputData;
-            offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
-            lineLengths[lineCount++] = offset - start;
-        }
-
-        if (!foundCaretLine && context->caretByteOffset < offset) {
-            foundCaretLine = true;
-            targetLine = lineCount - 1;
-            column = context->caretByteOffset - start;
-        }
-    }
-
-    if (!foundCaretLine) {
-        targetLine = lineCount;
-        if (context->maxLine <= lineCount) {
-            --context->caretByteOffset;
-            context = gCurrentInputData;
-        }
-        column = context->caretByteOffset - offset;
-    }
-    if (targetLine <= 0) {
-        return;
-    }
-
-    const std::int32_t previousLength = lineLengths[targetLine - 1];
-    if (previousLength > column) {
-        context->caretByteOffset -= previousLength;
-        context = gCurrentInputData;
-    } else if (context->maxCharPerLine > 0) {
-        std::int32_t stepped = 0;
-        do {
-            --context->caretByteOffset;
-            context = gCurrentInputData;
-            if (context->text[context->caretByteOffset] == '\r') {
-                break;
-            }
-            ++stepped;
-        } while (stepped < context->maxCharPerLine);
-    }
-
-    if (ClassifyAnsiBoundary_44B1D0(
-            context->text, context->caretByteOffset) == 3) {
-        --gCurrentInputData->caretByteOffset;
-    }
+    MoveCaretLine(-1);
 }
 
 // 原 [0x44A540,0x44A580)：未移动时返回上下文指针，移动时返回边界分类。
@@ -398,17 +479,16 @@ std::uintptr_t Sub_44A540()
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
-
-    const std::int32_t caret = context->caretByteOffset;
-    if (caret <= 0) {
+    EditText edit(*context);
+    if (edit.caret == 0) {
         return reinterpret_cast<std::uintptr_t>(context);
     }
-
-    const std::int32_t boundary =
-        ClassifyAnsiBoundary_44B1D0(context->text, caret);
-    context->caretByteOffset -= boundary;
+    const std::size_t next = text::Previous(edit.contents, edit.caret);
+    const std::size_t width = edit.caret - next;
+    edit.caret = next;
+    static_cast<void>(edit.commit());
     gValue626C0C = 20;
-    return static_cast<std::uintptr_t>(boundary);
+    return width;
 }
 
 // 原 [0x44A580,0x44A5C8)：按光标处字节的最高位移动一或两字节。
@@ -418,104 +498,22 @@ std::uintptr_t Sub_44A580()
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return reinterpret_cast<std::uintptr_t>(context);
     }
-
-    const std::int32_t caret = context->caretByteOffset;
-    if (caret >= context->totalByteLength) {
+    EditText edit(*context);
+    if (edit.caret >= edit.contents.size()) {
         return reinterpret_cast<std::uintptr_t>(context);
     }
-
-    const std::int32_t width =
-        (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u
-        ? 2 : 1;
-    context->caretByteOffset += width;
+    const std::size_t next = text::Next(edit.contents, edit.caret);
+    const std::size_t width = next - edit.caret;
+    edit.caret = next;
+    static_cast<void>(edit.commit());
     gValue626C0C = 20;
-    return static_cast<std::uintptr_t>(width);
+    return width;
 }
 
 // 原 [0x44A7D0,0x44A989)：按 CR 和最大字节宽度扫描行后下移光标。
 void Sub_44A7D0()
 {
-    InputContext* context = gCurrentInputData;
-    if (context == nullptr || platform::gImeComposition[0] != '\0') {
-        return;
-    }
-
-    gValue626C0C = 20;
-    if (context->maxLine <= 1) {
-        return;
-    }
-
-    std::array<std::int32_t, InputTextCapacity> lineLengths;
-    std::int32_t offset = 0;
-    std::int32_t lineCount = 0;
-    std::int32_t targetLine = 0;
-    std::int32_t column = 0;
-    bool foundCaretLine = false;
-
-    while (true) {
-        const std::int32_t start = offset;
-        std::int32_t scanned = 0;
-        bool foundCarriageReturn = false;
-        while (true) {
-            const char current = context->text[start + scanned];
-            if (current == '\0') {
-                break;
-            }
-            if (current == '\r') {
-                offset = start + scanned + 1;
-                lineLengths[lineCount++] = offset - start;
-                foundCarriageReturn = true;
-                break;
-            }
-            ++scanned;
-            if (scanned == context->maxCharPerLine) {
-                break;
-            }
-        }
-
-        if (!foundCarriageReturn) {
-            const std::int32_t maxBytes = context->maxCharPerLine;
-            const std::uint32_t remaining = static_cast<std::uint32_t>(
-                std::strlen(context->text + start));
-            if (remaining < static_cast<std::uint32_t>(maxBytes)) {
-                if (!foundCaretLine) {
-                    targetLine = lineCount;
-                    column = context->caretByteOffset - offset;
-                }
-                const std::int32_t terminalLength = static_cast<std::int32_t>(
-                    std::strlen(context->text + offset));
-                lineLengths[lineCount] = terminalLength + 1;
-                break;
-            }
-
-            const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + start, maxBytes);
-            context = gCurrentInputData;
-            offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
-            lineLengths[lineCount++] = offset - start;
-        }
-
-        if (!foundCaretLine && context->caretByteOffset < offset) {
-            foundCaretLine = true;
-            targetLine = lineCount - 1;
-            column = context->caretByteOffset - start;
-        }
-    }
-
-    if (targetLine >= lineCount) {
-        return;
-    }
-
-    const std::int32_t nextLength = lineLengths[targetLine + 1];
-    const std::int32_t delta = column < nextLength
-        ? lineLengths[targetLine]
-        : lineLengths[targetLine] - column + nextLength - 1;
-    context->caretByteOffset += delta;
-    InputContext* const current = gCurrentInputData;
-    if (ClassifyAnsiBoundary_44B1D0(
-            current->text, current->caretByteOffset) == 3) {
-        --gCurrentInputData->caretByteOffset;
-    }
+    MoveCaretLine(1);
 }
 
 // 原 [0x44A990,0x44AA8D)：删除光标前一个旧 ANSI 单元。
@@ -525,26 +523,11 @@ void Sub_44A990()
     if (context == nullptr || context->caretByteOffset <= 0) {
         return;
     }
-
-    const std::int32_t width =
-        ClassifyAnsiBoundary_44B1D0(context->text, context->caretByteOffset);
-    InputContext* const copyContext = gCurrentInputData;
-    const std::int32_t caret = copyContext->caretByteOffset;
-    std::array<char, InputTextCapacity> tail;
-    std::strcpy(tail.data(), copyContext->text + caret);
-    copyContext->text[caret - width] = '\0';
-    std::strcat(gCurrentInputData->text, tail.data());
-
-    gCurrentInputData->totalByteLength -= width;
-    gCurrentInputData->caretByteOffset -= width;
-    InputContext* result = gCurrentInputData;
-    if (result->caretByteOffset < 0) {
-        result->caretByteOffset = 0;
-        result = gCurrentInputData;
-    }
-    if (result->text[0] == '\0') {
-        result->totalByteLength = 0;
-    }
+    EditText edit(*context);
+    const std::size_t previous = text::Previous(edit.contents, edit.caret);
+    edit.contents.erase(previous, edit.caret - previous);
+    edit.caret = previous;
+    static_cast<void>(edit.commit());
     gValue626C0C = 20;
 }
 
@@ -552,39 +535,30 @@ void Sub_44A990()
 InputContext* Sub_44AA90()
 {
     InputContext* const context = gCurrentInputData;
-    if (context == nullptr
-        || context->caretByteOffset >= context->totalByteLength) {
+    if (context == nullptr || context->caretByteOffset >= context->totalByteLength) {
         return context;
     }
-
-    const std::int32_t caret = context->caretByteOffset;
-    const std::int32_t width =
-        (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u
-        ? 2 : 1;
-    InputContext* const copyContext = gCurrentInputData;
-    const std::int32_t copyCaret = copyContext->caretByteOffset;
-    std::array<char, InputTextCapacity> tail;
-    std::strcpy(tail.data(), copyContext->text + copyCaret + width);
-    std::strcpy(copyContext->text + copyCaret, tail.data());
-
-    gCurrentInputData->totalByteLength -= width;
-    InputContext* const result = gCurrentInputData;
-    if (result->text[0] == '\0') {
-        result->totalByteLength = 0;
-    }
+    EditText edit(*context);
+    edit.contents.erase(edit.caret, text::Next(edit.contents, edit.caret) - edit.caret);
+    static_cast<void>(edit.commit());
     gValue626C0C = 20;
-    return result;
+    return context;
 }
 
 } // namespace detail
 
 // 原函数：0x00404060。
-bool IsRejectedInputText_404060(const char* const legacyText)
+bool IsRejectedInputText_404060(const char* legacyText)
 {
+    // UTL01：名称约束仍按原 GBK 字节域判断，界面输入先显式编码。
+    std::string stored;
+    try { stored = cg::text::ToGbk(legacyText); }
+    catch (const std::system_error&) { return true; }
+    legacyText = stored.c_str();
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
     const std::int32_t length = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(std::strlen(legacyText)));
-    if (const_cast<char*>(std::strstr(legacyText, "\xA1\xA1")) != nullptr) {
+    if (const_cast<char*>(std::strstr(legacyText, cg::text::ToGbk("　").c_str())) != nullptr) {
         return true;
     }
     if (length == 0) {
@@ -632,58 +606,24 @@ bool IsRejectedInputText_404060(const char* const legacyText)
 // 原函数：0x00476740。
 std::int32_t Sub_476740(const char* const text)
 {
-    const auto length = static_cast<std::int32_t>(std::strlen(text));
-    if (length == 0) {
-        return 0;
+    const std::string_view contents(text);
+    bool hasText = false;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const std::size_t next = cg::text::Next(contents, offset);
+        const auto unit = contents.substr(offset, next - offset);
+        if (unit == "," || unit == "|" || unit == R"(\)" ) { return 0; }
+        if (unit != " " && unit != "　") { hasText = true; }
+        offset = next;
     }
-    std::int32_t index = 0;
-    do {
-        const auto current = static_cast<std::uint8_t>(text[index]);
-        if ((current & 0x80u) != 0) {
-            index += 2;
-        } else {
-            if (current == ',' || current == '|' || current == '\\') {
-                return 0;
-            }
-            ++index;
-        }
-    } while (index < length);
-
-    const auto secondLength = static_cast<std::int32_t>(std::strlen(text));
-    index = 0;
-    do {
-        const auto current = static_cast<std::uint8_t>(text[index]);
-        if ((current & 0x80u) != 0) {
-            if (current != 0x81u || text[index + 1] != '@') {
-                return 1;
-            }
-            index += 2;
-        } else {
-            if (current != ' ') {
-                return 1;
-            }
-            ++index;
-        }
-    } while (index < secondLength);
-    return 0;
+    return hasText ? 1 : 0;
 }
 
 // 原函数：0x0045E770。
 std::int32_t Sub_45E770(const char* const text)
 {
-    bool trailingByte = false;
-    const char* cursor = text;
-    auto current = static_cast<std::uint8_t>(*cursor);
-    while (current != 0) {
-        if (trailingByte) {
-            trailingByte = false;
-        } else if (current >= 0x81u) {
-            trailingByte = true;
-        } else if (current == '|' || current == '\\') {
-            return 1;
-        }
-        current = static_cast<std::uint8_t>(cursor[1]);
-        ++cursor;
+    const std::string_view contents(text);
+    for (std::size_t offset = 0; offset < contents.size(); offset = cg::text::Next(contents, offset)) {
+        if (contents[offset] == '|' || contents[offset] == '\\') { return 1; }
     }
     return 0;
 }
@@ -694,6 +634,50 @@ char* EscapeLegacyText_52D1B0(
     const char* const source,
     char* const destination,
     const std::int32_t capacity)
+{
+    // 动态输入在截取局部兼容视图前验证GBK提交能力，失败保留原编辑正文。
+    static_cast<void>(cg::text::ToGbk(source));
+    const std::string contents(source);
+    std::string escaped;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const std::size_t next = cg::text::Next(contents, offset);
+        const std::size_t width = next - offset;
+        std::int32_t pair = 0;
+        if (width == 1) {
+            while (pair < 4 && static_cast<std::uint8_t>(contents[offset]) != kEscapePairs58E944[pair * 2]) { ++pair; }
+        } else { pair = 4; }
+        const std::size_t outputWidth = pair == 4 ? width : 2;
+        if (capacity <= 0 || escaped.size() + outputWidth >= static_cast<std::size_t>(capacity)) { break; }
+        if (pair == 4) { escaped.append(contents, offset, width); }
+        else { escaped += '\\'; escaped += static_cast<char>(kEscapePairs58E944[pair * 2 + 1]); }
+        offset = next;
+    }
+    if (capacity > 0) { cg::text::Copy(destination, static_cast<std::size_t>(capacity), escaped); }
+    return destination;
+}
+
+// 原0x0052D1B0：界面UTF-16动态转义；旧协议容量由提交边界检查。
+std::wstring EscapeText(const std::wstring_view source)
+{
+    std::wstring escaped;
+    for (std::size_t offset = 0; offset < source.size();) {
+        const std::size_t next = cg::text::Next(source, offset);
+        std::int32_t pair = 4;
+        if (source[offset] < 0x80) {
+            pair = 0;
+            while (pair < 4 && source[offset] != kEscapePairs58E944[pair * 2]) { ++pair; }
+        }
+        if (pair == 4) { escaped.append(source.substr(offset, next - offset)); }
+        else { escaped += L'\\'; escaped += static_cast<wchar_t>(kEscapePairs58E944[pair * 2 + 1]); }
+        offset = next;
+    }
+    return escaped;
+}
+
+
+
+// 原0x0052D1B0的GBK字节算法；仅旧字节域使用，界面转义入口为UTF-8。
+char* EscapeGbkText(const char* const source, char* const destination, const std::int32_t capacity)
 {
     const std::int32_t sourceLength =
         static_cast<std::int32_t>(std::strlen(source));
@@ -756,6 +740,7 @@ char* EscapeLegacyText_52D1B0(
     return destination;
 }
 
+
 // 原 [0x52D2D0,0x52D2F0)：空叶不消费上下文，后继完整透传缓冲指针。
 // ETE01：真实空操作未读source，先空操作再转义并透传destination，正确正文保持。
 char* EscapeLegacyTextAndNotify_52D2D0(
@@ -773,7 +758,8 @@ char* EscapeInputText_52D2D0(
     char* const destination,
     const std::int32_t capacity)
 {
-    return EscapeLegacyTextAndNotify_52D2D0(context->text, destination, capacity);
+    const std::string contents = context->utf8();
+    return EscapeLegacyTextAndNotify_52D2D0(contents.c_str(), destination, capacity);
 }
 
 namespace {
@@ -902,150 +888,33 @@ char RemoveLegacyBytes_52D570(
     char* const text,
     const char* const excluded)
 {
-    const std::size_t excludedLength = std::strlen(excluded);
-    std::size_t source = 0;
-    std::size_t destination = 0;
-    while (text[source] != '\0') {
-        std::size_t index = 0;
-        while (index < excludedLength && text[source] != excluded[index]) {
-            ++index;
+    const std::string contents(text);
+    const std::string_view skipped(excluded);
+    std::string retained;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const std::size_t next = cg::text::Next(contents, offset);
+        const auto unit = std::string_view(contents).substr(offset, next - offset);
+        bool remove = false;
+        for (std::size_t item = 0; item < skipped.size(); item = cg::text::Next(skipped, item)) {
+            if (unit == skipped.substr(item, cg::text::Next(skipped, item) - item)) { remove = true; break; }
         }
-        if (index == excludedLength) {
-            text[destination++] = text[source];
-        }
-        ++source;
+        if (!remove) { retained.append(unit); }
+        offset = next;
     }
-    text[destination] = '\0';
+    std::memcpy(text, retained.c_str(), retained.size() + 1);
     return 0;
 }
 
 // 原函数：0x0044ADB0。
+void AppendText(const std::string_view utf8) { AppendText(text::ToUtf16(utf8)); }
+void LoadInitialText_44A160(const std::wstring_view initialText)
+{
+    if (gCurrentInputData != nullptr) { AppendText(initialText); }
+}
+
 void AppendChar_44ADB0(const char character)
 {
-    InputContext* context = gCurrentInputData;
-    if (context == nullptr) {
-        return;
-    }
-
-    const std::int8_t signedCharacter = SignedByte(character);
-    if (signedCharacter >= 1
-        && signedCharacter <= 0x1F
-        && signedCharacter != '\r') {
-        return;
-    }
-    std::array<char, InputTextCapacity + 1> tail;
-    std::array<char, InputTextCapacity> oldText;
-    std::strncpy(tail.data(), context->text + context->caretByteOffset, static_cast<std::uint32_t>(static_cast<std::uint32_t>(tail.size())));
-    context = gCurrentInputData;
-    std::strncpy(oldText.data(), context->text, static_cast<std::uint32_t>(static_cast<std::uint32_t>(oldText.size())));
-
-    // 当前对象按原阶段重取，保存/回写次序见doc/cg2d_input_append.md。
-    context = gCurrentInputData;
-    const std::int32_t oldTotalByteLength = context->totalByteLength;
-    const std::int32_t oldCaretByteOffset = context->caretByteOffset;
-    context->text[context->caretByteOffset] = character;
-    context = gCurrentInputData;
-    context->text[context->caretByteOffset + 1] = '\0';
-    context = gCurrentInputData;
-    ++context->totalByteLength;
-    context = gCurrentInputData;
-    ++context->caretByteOffset;
-
-    context = gCurrentInputData;
-    const std::uint32_t insertedLength = static_cast<std::uint32_t>(std::strlen(context->text));
-    const std::uint32_t remainingCapacity =
-        static_cast<std::uint32_t>(InputTextCapacity - 1) - insertedLength;
-    std::strncat(context->text, tail.data(), static_cast<std::uint32_t>(remainingCapacity));
-    context = gCurrentInputData;
-
-    std::int32_t lineStart = 0;
-    std::int32_t lineCount = 0;
-    std::int32_t lineEndedWithCarriageReturn = 0;
-    while (true) {
-        std::int32_t scanned = 0;
-        bool foundCarriageReturn = false;
-        while (true) {
-            const char current = context->text[lineStart + scanned];
-            if (current == '\0') {
-                break;
-            }
-            if (current == '\r') {
-                lineStart += scanned + 1;
-                lineEndedWithCarriageReturn = 1;
-                ++lineCount;
-                foundCarriageReturn = true;
-                break;
-            }
-            const std::int32_t characterBudget = context->maxCharPerLine;
-            ++scanned;
-            if (scanned == characterBudget) {
-                break;
-            }
-        }
-
-        if (!foundCarriageReturn) {
-            const std::int32_t lineBudget = context->maxCharPerLine;
-            const std::uint32_t remainingLength =
-                static_cast<std::uint32_t>(std::strlen(context->text + lineStart));
-            if (remainingLength <= static_cast<std::uint32_t>(lineBudget)) {
-                break;
-            }
-
-            const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + lineStart, lineBudget);
-            context = gCurrentInputData;
-            const bool splitDoubleByte = boundary == 3;
-            const std::int32_t nextLineBudget = context->maxCharPerLine;
-            if (splitDoubleByte) {
-                lineStart = nextLineBudget + lineStart - 1;
-            } else {
-                lineStart += nextLineBudget;
-            }
-            lineEndedWithCarriageReturn = 0;
-            ++lineCount;
-        }
-
-        if (lineCount >= context->maxLine) {
-            break;
-        }
-    }
-
-    const std::int32_t maximumLines = context->maxLine;
-    const std::int32_t overflowControl = gValue626C20;
-    if (lineCount >= maximumLines && overflowControl == 0) {
-        const std::int32_t truncateOffset =
-            lineStart - lineEndedWithCarriageReturn;
-        context->totalByteLength -= static_cast<std::int32_t>(
-            std::strlen(context->text + truncateOffset));
-        context = gCurrentInputData;
-        context->text[truncateOffset] = '\0';
-
-        context = gCurrentInputData;
-        if (ClassifyLastAnsiUnit_44B190(context->text) == 3) {
-            context = gCurrentInputData;
-            --context->totalByteLength;
-            context = gCurrentInputData;
-            context->text[context->totalByteLength] = '\0';
-        }
-        context = gCurrentInputData;
-        const std::int32_t totalByteLength = context->totalByteLength;
-        if (totalByteLength < context->caretByteOffset) {
-            context->caretByteOffset = totalByteLength;
-        }
-    } else if (lineCount >= maximumLines && overflowControl != 0) {
-        const std::int32_t totalByteLength = context->totalByteLength;
-        const std::int32_t caretByteOffset = context->caretByteOffset;
-        if (caretByteOffset == totalByteLength - 1) {
-            std::strncpy(context->text, oldText.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(oldText.size())));
-            context = gCurrentInputData;
-            context->totalByteLength = oldTotalByteLength;
-            context = gCurrentInputData;
-            context->caretByteOffset = oldCaretByteOffset;
-            gValue626C28 = 1;
-        }
-    }
-
-    gValue626C0C = 20;
+    AppendText(std::string_view(&character, 1));
 }
 
 // 原函数：0x0044B340。
@@ -1066,7 +935,7 @@ std::int32_t ProcessPresetHotkeys_44B340()
         }
     }
     if (selected >= 0) {
-        LoadInitialText_44A160(gInputContexts5F9758[selected].text);
+        LoadInitialText_44A160(ContextText(gInputContexts5F9758[selected]).c_str());
         return audio::PlaySe_52C450(51, 320);
     }
     return result;
@@ -1084,6 +953,137 @@ std::int32_t IsCurrentContext_503E40(const InputContext* const context)
     return gCurrentInputData == context ? 1 : 0;
 }
 
+
+// UTL01：按Unicode完整单元保留旧ASCII一列／非ASCII两列预算；容量仍是输出字节。
+// GBK显示边界：原0x00503AB0逻辑列语义，输出完整UTF-8字符。
+std::int32_t ExtractGbkTextLine(
+    char* destination, const std::int32_t capacity, const char* source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    const std::string utf8 = text::FromGbk(source);
+    return ExtractTextLine(destination, capacity, utf8.c_str(), requestedLine, width);
+}
+
+std::int32_t ExtractTextLine(
+    char* destination, const std::int32_t capacity, const char* source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    if (requestedLine < 0 || width <= 0 || capacity <= 0) {
+        return 0;
+    }
+    const std::string contents(source);
+    std::string selected;
+    std::int32_t line = 0;
+    std::int32_t column = 0;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const char current = contents[offset];
+        if (current == '\r' || current == '\n' || current == 1) {
+            if (line == requestedLine) {
+                break;
+            }
+            line = current == 1 ? 8 * (line / 8) + 8 : line + 1;
+            column = 0;
+            ++offset;
+            continue;
+        }
+        const std::size_t next = text::Next(contents, offset);
+        const std::int32_t columns = next - offset == 1 ? 1 : 2;
+        if (column != 0 && column + columns > width) {
+            if (line == requestedLine) {
+                break;
+            }
+            ++line;
+            column = 0;
+            continue;
+        }
+        if (line == requestedLine) {
+            selected.append(contents, offset, next - offset);
+        }
+        offset = next;
+        column += columns;
+        if (column >= width) {
+            if (line == requestedLine) {
+                break;
+            }
+            ++line;
+            column = 0;
+        }
+    }
+    text::Copy(destination, static_cast<std::size_t>(capacity), selected);
+    return 1;
+}
+
+// 仅旧绘制包装的局部UTF-8输出视图，权威分行正文仍为UTF-16。
+std::int32_t ExtractTextLine(
+    char* destination, const std::int32_t capacity, const std::wstring_view source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    std::wstring selected;
+    const std::int32_t result = ExtractTextLine(selected, source, requestedLine, width);
+    if (result != 0 && capacity > 0) { text::Copy(destination, static_cast<std::size_t>(capacity), text::FromUtf16(selected)); }
+    return result;
+}
+
+
+
+// 原0x00503AB0显示分行：动态UTF-16正文，完整代理对及原逻辑列预算。
+std::int32_t ExtractTextLine(
+    std::wstring& destination, const std::wstring_view source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    if (requestedLine < 0 || width <= 0) {
+        return 0;
+    }
+    const std::wstring_view contents(source);
+    std::wstring selected;
+    std::int32_t line = 0;
+    std::int32_t column = 0;
+    for (std::size_t offset = 0; offset < contents.size();) {
+        const wchar_t current = contents[offset];
+        if (current == L'\r' || current == L'\n' || current == 1) {
+            if (line == requestedLine) {
+                break;
+            }
+            line = current == 1 ? 8 * (line / 8) + 8 : line + 1;
+            column = 0;
+            ++offset;
+            continue;
+        }
+        const std::size_t next = text::Next(contents, offset);
+        const std::int32_t columns = current < 0x80 ? 1 : 2;
+        if (column != 0 && column + columns > width) {
+            if (line == requestedLine) {
+                break;
+            }
+            ++line;
+            column = 0;
+            continue;
+        }
+        if (line == requestedLine) {
+            selected.append(contents.substr(offset, next - offset));
+        }
+        offset = next;
+        column += columns;
+        if (column >= width) {
+            if (line == requestedLine) {
+                break;
+            }
+            ++line;
+            column = 0;
+        }
+    }
+    destination = std::move(selected);
+    return 1;
+}
+
+std::int32_t ExtractGbkTextLine(
+    std::wstring& destination, const char* source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    return ExtractTextLine(destination, text::FromGbkWide(source), requestedLine, width);
+}
+
+
 // 原函数：0x00503E60。
 std::int32_t IsChatContext_503E60()
 {
@@ -1092,13 +1092,17 @@ std::int32_t IsChatContext_503E60()
 
 InputContext* BorrowLegacyPresetContext5F9758(const std::int32_t index) noexcept
 {
-    if (index < 24) {
-        return &gInputContexts5F9758[index];
+    if (index < 24) { return &gInputContexts5F9758[index]; }
+    // 原15CH步长只用于GBK存储；适配对象只借原字段，正文每次操作从原owner读取。
+    static_assert(54 * sizeof(LegacyInputStorage) <= sizeof(world::detail::gRecords5FB7F8));
+    static std::array<std::optional<InputContext>, 54> views;
+    auto& view = views[static_cast<std::size_t>(index - 24)];
+    if (!view.has_value()) {
+        auto* const bytes = reinterpret_cast<std::byte*>(world::detail::gRecords5FB7F8);
+        auto* const storage = reinterpret_cast<LegacyInputStorage*>(bytes + static_cast<std::ptrdiff_t>(index - 24) * sizeof(LegacyInputStorage));
+        view.emplace(*storage);
     }
-    // 原5FB7F8紧随24项预设；旧6后续15CH视图必须与真实聊天字节共用，不能复制。
-    static_assert(54 * sizeof(InputContext) <= sizeof(world::detail::gRecords5FB7F8));
-    auto* const chatBytes = reinterpret_cast<std::byte*>(world::detail::gRecords5FB7F8);
-    return reinterpret_cast<InputContext*>(chatBytes + static_cast<std::ptrdiff_t>(index - 24) * sizeof(InputContext));
+    return &*view;
 }
 
 // 原函数：0x00449CF0。
@@ -1124,13 +1128,50 @@ void InitializeContext_449CF0(
     context->encrypt = encrypt;
     context->maxLine = maxLine;
     context->field14C = field14C;
-    context->text[0] = '\0';
+    context->clearText();
     context->totalByteLength = 0;
     context->caretByteOffset = 0;
     context->field154 = 0;
     context->field158 = 0;
 
     if (initialText != nullptr) {
+        InputContext* const savedContext = gCurrentInputData;
+        SetContext_44B330(context);
+        LoadInitialText_44A160(initialText);
+        SetContext_44B330(savedContext);
+    }
+}
+
+// 原0x00449CF0：UTF-16输入原型直接初始化，窄入口仅为局部兼容适配。
+void InitializeContext_449CF0(
+    InputContext* const context,
+    const std::int32_t field130,
+    const std::int32_t field134,
+    const std::int32_t renderMode,
+    const std::int32_t fontType,
+    const std::int32_t color,
+    const std::wstring_view initialText,
+    const std::int32_t maxLine,
+    const std::int32_t maxCharPerLine,
+    const std::int32_t field14C,
+    const std::int32_t encrypt)
+{
+    context->field130 = field130;
+    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field140 = color;
+    context->field134 = field134;
+    context->maxCharPerLine = maxCharPerLine;
+    context->field13C = fontType;
+    context->encrypt = encrypt;
+    context->maxLine = maxLine;
+    context->field14C = field14C;
+    context->clearText();
+    context->totalByteLength = 0;
+    context->caretByteOffset = 0;
+    context->field154 = 0;
+    context->field158 = 0;
+
+    if (!initialText.empty()) {
         InputContext* const savedContext = gCurrentInputData;
         SetContext_44B330(context);
         LoadInitialText_44A160(initialText);
@@ -1163,8 +1204,6 @@ ChatHistory621FF8 gChatHistory621FF8 {}; // 原全局：0x00621FF8。
 std::int32_t gCursor62683C = 0; // 原全局：0x0062683C。
 
 static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
-static_assert(sizeof(gInputContext626840) == 0x15C);
-static_assert(sizeof(gLogFileName554648) == 16);
 static_assert(std::is_standard_layout_v<ChatHistory621FF8>);
 static_assert(std::is_trivially_copyable_v<ChatHistory621FF8>);
 static_assert(sizeof(gChatHistory621FF8.records[0]) == 0x121);
@@ -1200,8 +1239,8 @@ constexpr auto kFirstSeparator_5548CC = [] { // 原常量参考：0x005548CC。
 }();
 
 constexpr char kDateTitle_55488C[] = // 原常量参考：0x0055488C。
-    "        >>  \xC4\xA7 \xC1\xA6 \x8C\x9A \xD8\x90 \xC3\xB0 "
-    "\xEB\x55 \xD5\xDF \xC8\xD5 \xD5\x49 [ %02d/%02d/%02d ]  <<\n";
+    R"(        >>  魔 力 寶 貝 冒 險 者 日 誌 [ %02d/%02d/%02d ]  <<
+)";
 
 constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
     std::array<char, 65> text {};
@@ -1216,7 +1255,8 @@ constexpr auto kBeforeSession_554848 = [] { // 原常量参考：0x00554848。
 }();
 
 constexpr char kSessionTime_554820[] = // 原常量参考：0x00554820。
-    " \xA1\xF6 %02d/%02d/%02d %02d:%02d:%02d \xBC\x6F\xE4\x9B\n";
+    R"( ■ %02d/%02d/%02d %02d:%02d:%02d 紀錄
+)";
 
 constexpr auto kAfterSession_5547DC = [] { // 原常量参考：0x005547DC。
     std::array<char, 65> text {};
@@ -1229,17 +1269,6 @@ constexpr auto kAfterSession_5547DC = [] { // 原常量参考：0x005547DC。
     return text;
 }();
 
-static_assert(sizeof(kLogDirectory_554658) == 4);
-static_assert(sizeof(kFileFormat_55351C) == 22);
-static_assert(sizeof(kPathFormat_553514) == 6);
-static_assert(sizeof(kReadMode_554908) == 2);
-static_assert(sizeof(kAppendMode_554904) == 2);
-static_assert(sizeof(kChatHistoryName554910) == 12);
-static_assert(sizeof(kChatHistoryReadMode) == 3);
-static_assert(sizeof(kChatHistoryWriteMode) == 3);
-static_assert(sizeof(kChatHistoryUpdateMode) == 4);
-static_assert(sizeof(kDateTitle_55488C) == 63);
-static_assert(sizeof(kSessionTime_554820) == 40);
 
 } // namespace
 
@@ -1296,13 +1325,10 @@ std::int32_t Sub_449FA0(const std::int32_t index)
 void __cdecl Sub_449DA0()
 {
     std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
-    std::memset(&input::gInputContext626AA0, 0, sizeof(input::gInputContext626AA0));
+    input::gInputContext626AA0.reset();
     input::InitializeContext_449CF0(
         &input::gInputContext626AA0, 8, 440, 0, 1, 0, nullptr, 1, 78, 0, 0);
-    std::memcpy(
-        &gInputContext626840,
-        &input::gInputContext626AA0,
-        sizeof(gInputContext626840));
+    gInputContext626840 = input::gInputContext626AA0;
 
     for (std::size_t index = 0; index < 19; ++index) {
         gRecords5FB7F8[index].state = 1;
@@ -1356,7 +1382,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t titleYear = readTimeField(0x14);
         std::fprintf(
             gLogStream626C1C,
-            kDateTitle_55488C,
+            cg::text::ToGbk(kDateTitle_55488C).c_str(),
             titleYear % 100, titleMonth + 1, titleDay);
         std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
         gate = gLogStream626C1C;
@@ -1379,7 +1405,7 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionYear = readTimeField(0x14);
         std::fprintf(
             gLogStream626C1C,
-            kSessionTime_554820,
+            cg::text::ToGbk(kSessionTime_554820).c_str(),
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
         std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
@@ -1400,7 +1426,7 @@ std::int32_t Sub_4A76E0()
 
 // 原 sub_44B050@[0x44B050,0x44B170)。
 void Sub_44B050(
-    const char* const text,
+    const char* text,
     const std::int32_t color,
     const std::int32_t fontType)
 {
@@ -1411,6 +1437,13 @@ void Sub_44B050(
         return;
     }
 
+    std::string stored;
+    try { stored = cg::text::ToGbk(text); }
+    catch (const std::system_error&) {
+        MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字编码", MB_OK | MB_ICONERROR);
+        return;
+    }
+    text = stored.c_str();
     std::int32_t index = gWriteIndex626C08;
     char* const destination = gRecords5FB7F8[index].text;
     const std::size_t length = std::strlen(text) + 1;
@@ -1509,7 +1542,7 @@ void BrowseChatHistory_44A1B0()
         if (selected == std::bit_cast<std::int32_t>(gChatHistory621FF8.tail626838)) {
             gCursor62683C = -1;
             initialContext->totalByteLength = 0;
-            gCurrentInputData->text[0] = '\0';
+            gCurrentInputData->clearText();
             gCurrentInputData->caretByteOffset = 0;
             return;
         }
@@ -1520,22 +1553,14 @@ void BrowseChatHistory_44A1B0()
         }
     }
     initialContext->totalByteLength = 0;
-    gCurrentInputData->text[0] = '\0';
+    gCurrentInputData->clearText();
     gCurrentInputData->caretByteOffset = 0;
-    LoadInitialText_44A160(gChatHistory621FF8.records[gCursor62683C]);
-    std::array<char, 256> text;
-    std::strcpy(text.data(), gChatHistory621FF8.records[gCursor62683C]);
-    const auto length = static_cast<std::int32_t>(std::strlen(text.data()));
-    const std::int32_t width = ui::ReadChatInputByteWidth_4A80E0();
-    std::int32_t offset = length - width;
-    if (ClassifyLegacyBoundary_44B440(text.data(),
-            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(offset))) == 2) {
-        ++offset;
-    }
-    if (offset < 0) {
-        offset = 0;
-    }
-    gCurrentInputData->field158 = offset;
+    LoadInitialText_44A160(cg::text::FromGbk(gChatHistory621FF8.records[gCursor62683C]).c_str());
+    const std::wstring contents = ContextText(*gCurrentInputData);
+    const std::size_t width = static_cast<std::size_t>(ui::ReadChatInputByteWidth_4A80E0());
+    std::size_t offset = contents.size() > width ? contents.size() - width : 0;
+    offset = text::Prefix(contents, offset);
+    SetVisibleUtf16Offset(*gCurrentInputData, offset);
 }
 
 } // namespace cg::input
@@ -1553,6 +1578,12 @@ void Sub_44AB60()
         if (context->totalByteLength == 0) {
             return;
         }
+        std::string stored;
+        try { stored = cg::text::ToGbk(ContextText(*context)); }
+        catch (const std::system_error&) {
+            MessageBoxW(nullptr, L"这项文字包含无法保存的字符。", L"文字编码", MB_OK | MB_ICONERROR);
+            return;
+        }
         auto& history = world::detail::gChatHistory621FF8;
         const std::uint32_t oldTail = history.tail626838;
         const std::int32_t oldIndex = std::bit_cast<std::int8_t>(
@@ -1568,7 +1599,7 @@ void Sub_44AB60()
         std::size_t comparisonIndex = 0;
         for (;;) {
             const auto inputByte =
-                static_cast<unsigned char>(context->text[comparisonIndex]);
+                static_cast<unsigned char>(stored[comparisonIndex]);
             const auto previousByte =
                 static_cast<unsigned char>(previousText[comparisonIndex]);
             if (inputByte != previousByte) {
@@ -1583,7 +1614,7 @@ void Sub_44AB60()
         if (sameAsPrevious) {
             history.tail626838 = static_cast<std::uint32_t>(oldIndex);
         } else {
-            std::strcpy(history.records[nextIndex], context->text);
+            std::strcpy(history.records[nextIndex], stored.c_str());
             static_cast<void>(world::detail::Sub_449FA0(
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
@@ -1593,7 +1624,7 @@ void Sub_44AB60()
         static_cast<void>(world::detail::Sub_50C940(context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;
-        gCurrentInputData->text[0] = '\0';
+        gCurrentInputData->clearText();
         context = gCurrentInputData;
     } else if (context == &gInputContextD66CA8
                || context == &gInputContextCB03F0
@@ -1606,8 +1637,10 @@ void Sub_44AB60()
     }
     if (context == &gInputContextC8B1B8) {
         char message[256];
-        const char* const text = gInputContextC8B1B8.text;
-        const char* const playerName = world::detail::BorrowPlayerDisplayText(1);
+        const std::string textUtf8View = gInputContextC8B1B8.utf8();
+        const char* const text = textUtf8View.c_str();
+        const std::string playerText = cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1));
+        const char* const playerName = playerText.c_str();
         bool targetsSelf = false;
         std::size_t comparisonIndex = 0;
         for (;;) {
@@ -1624,7 +1657,7 @@ void Sub_44AB60()
             ++comparisonIndex;
         }
         if (targetsSelf) {
-            std::sprintf(message, kBlacklistSelfText554938);
+            std::sprintf(message, kBlacklistSelfText554938Utf8View.c_str());
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
             std::sprintf(message, kBlacklistExistingFormat554928, text);
         } else {
@@ -1632,7 +1665,7 @@ void Sub_44AB60()
                 ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
             std::sprintf(message, format, text);
         }
-        gInputContextC8B1B8.text[0] = '\0';
+        gInputContextC8B1B8.clearText();
         gInputContextC8B1B8.caretByteOffset = 0;
         gInputContextC8B1B8.totalByteLength = 0;
         world::detail::Sub_44B050(message, 4, 3);

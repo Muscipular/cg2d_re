@@ -6,7 +6,7 @@
 #include <cstdint>
 
 namespace cg::input {
-struct InputContext;
+class InputContext;
 }
 
 namespace cg::character_select::state {

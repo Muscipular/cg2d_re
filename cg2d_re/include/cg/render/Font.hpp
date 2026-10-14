@@ -3,6 +3,9 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace cg::render {
 
@@ -33,11 +36,18 @@ class Font final {
 public:
     Font() = delete;
 
-    // 原 Font::measure@[0x44B2E0,0x44B32A)。maxBytes 是旧编码字节预算。
+    // 原0x0044B2E0：maxUnits为UTF-16码元预算；不截断代理对。
+    [[nodiscard]] static std::int32_t measure(std::wstring_view text, std::int32_t fontType, std::int32_t maxUnits);
+    [[nodiscard]] static std::vector<std::wstring> split(std::wstring_view text, std::int32_t fontType, std::int32_t width);
+
+    // 原 Font::measure@[0x44B2E0,0x44B32A)。UTL01按完整UTF-8前缀与实际UTF-16字体度量；maxBytes为UTF-8字节预算。
     [[nodiscard]] static std::int32_t measure(
         const char* text,
         std::int32_t fontType,
-        std::int32_t maxBytes) noexcept;
+        std::int32_t maxBytes);
+
+    // UTF-8完整字符分行，像素预算沿同一字体；返回拥有的正文副本。
+    [[nodiscard]] static std::vector<std::string> split(std::string_view text, std::int32_t fontType, std::int32_t width);
 };
 
 static_assert(sizeof(FontMetrics) == 0x14);

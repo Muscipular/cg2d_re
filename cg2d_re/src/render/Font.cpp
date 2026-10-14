@@ -1,17 +1,20 @@
 #include "cg/render/Font.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "cg/render/TextPendingQueue.hpp"
 #include "BackTextDrawing.hpp"
 
 #include <bit>
 #include <cstring>
+#include <limits>
+#include <system_error>
 
 namespace cg::render {
 namespace {
 
-// 原 5590E0 字体名按用户要求统一改为 GBK「宋体」；四个族指针共用此名。
-constexpr char kFaceName5590E0[] = "\xCB\xCE\xCC\xE5";
-std::array<const char*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
+// 原0x005590E0：字体仍统一宋体；UTL01使用UTF-16字体名与CreateFontW。
+constexpr wchar_t kFaceName5590E0[] = L"宋体";
+std::array<const wchar_t*, 4> gFaceFamilies558F08 { // 原全局：0x00558F08。
     kFaceName5590E0, kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
 };
 
@@ -39,7 +42,6 @@ std::array<std::int32_t, 8> gDerived5545AC {}; // 原全局：0x005545AC。
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。
 std::array<std::int32_t, 9> gDerived554618 {{0x39}}; // 原全局：0x00554618。
 
-static_assert(sizeof(kFaceName5590E0) == 5);
 static_assert(sizeof(gDerived558F30) == 0x20);
 static_assert(sizeof(gDerived5545AC) == 0x20);
 
@@ -47,11 +49,11 @@ HFONT CreateLegacyFont(
     const std::int32_t height,
     const std::int32_t width,
     const std::int32_t weight,
-    const char* const face)
+    const wchar_t* const face)
 {
-    return ::CreateFontA(
+    return ::CreateFontW(
         height, width, 0, 0, weight, 0, 0, 0,
-        GB2312_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, 0x11, face);
 }
 
@@ -64,10 +66,10 @@ const TextPendingRecord* BorrowTextRecord(const std::uint32_t token)
 void TextOutRecord(
     const HDC dc, const TextPendingRecord& record, const std::int32_t offset)
 {
-    const int length = static_cast<int>(std::strlen(record.text));
+    const std::wstring& wide = record.text;
     const std::int32_t y = record.y + offset;
     const std::int32_t x = record.x + offset;
-    static_cast<void>(::TextOutA(dc, x, y, record.text, length));
+    static_cast<void>(::TextOutW(dc, x, y, wide.data(), static_cast<int>(wide.size())));
 }
 
 } // namespace
@@ -92,7 +94,7 @@ std::array<FontMetrics, kFontTypeCount> gFontMetrics {{ // 原全局：0x00558F6
 // 原 [456190,456528)：旧句柄只删除不清槽，索引 6 不创建新句柄。
 std::int32_t InitializeFont_456190(const std::int32_t family)
 {
-    const std::array<const char*, 3> initialFaces {
+    const std::array<const wchar_t*, 3> initialFaces {
         kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
     };
     for (HFONT handle : gFontHandles558F68) {
@@ -101,7 +103,7 @@ std::int32_t InitializeFont_456190(const std::int32_t family)
         }
     }
 
-    const char* const initialFace = initialFaces[static_cast<std::size_t>(family)];
+    const wchar_t* const initialFace = initialFaces[static_cast<std::size_t>(family)];
     constexpr std::array<std::int32_t, 3> kBoldHeights {16, 14, 20};
     for (std::size_t index = 0; index < kBoldHeights.size(); ++index) {
         gFontHandles558F68[index] =
@@ -121,7 +123,7 @@ std::int32_t InitializeFont_456190(const std::int32_t family)
             metrics.familyIndex = familyIndex;
         }
         const std::int32_t width = index == 7 ? 0 : metrics.sWidth;
-        const char* const face = gFaceFamilies558F08[
+        const wchar_t* const face = gFaceFamilies558F08[
             static_cast<std::size_t>(familyIndex)];
         const std::int32_t height = metrics.fontHeight;
         const std::int32_t weight = index == 7 ? FW_BOLD : FW_NORMAL;
@@ -221,105 +223,105 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
     ReleaseCpuBackTextDc(dc);
 }
 
+// 原函数：0x0044B2E0。UTL02：直接测量UTF-16，不经窄字符中间层。
+std::int32_t Font::measure(const std::wstring_view text, const std::int32_t fontType, const std::int32_t maxUnits)
+{
+    if (maxUnits <= 0 || text.empty()) {
+        return 0;
+    }
+    const std::size_t length = cg::text::Prefix(text, static_cast<std::size_t>(maxUnits));
+    const std::wstring_view wide = text.substr(0, length);
+    const HDC dc = ::CreateCompatibleDC(nullptr);
+    if (dc == nullptr) {
+        throw std::system_error(static_cast<int>(::GetLastError()), std::system_category(), "创建文字度量DC失败");
+    }
+    const HGDIOBJ previous = ::SelectObject(dc, gFontHandles558F68[static_cast<std::size_t>(fontType)]);
+    SIZE extent{};
+    const BOOL measured = ::GetTextExtentPoint32W(dc, wide.data(), static_cast<int>(wide.size()), &extent);
+    const DWORD error = measured ? ERROR_SUCCESS : ::GetLastError();
+    static_cast<void>(::SelectObject(dc, previous));
+    static_cast<void>(::DeleteDC(dc));
+    if (!measured) {
+        throw std::system_error(static_cast<int>(error), std::system_category(), "Unicode文字度量失败");
+    }
+    return extent.cx;
+}
+
 // 原函数：0x0044B2E0。
 std::int32_t Font::measure(
     const char* text,
     std::int32_t fontType,
-    std::int32_t maxBytes) noexcept
+    std::int32_t maxBytes)
 {
-    if (maxBytes <= 0) {
-        return 0;
-    }
-
-    const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
-    std::int32_t totalWidth = 0;
-    std::int32_t consumed = 0;
-    const auto index = static_cast<std::size_t>(fontType);
-
-    for (;;) {
-        const std::uint8_t firstByte = *cursor;
-        if (firstByte == 0) {
-            break;
-        }
-
-        std::int32_t width;
-        if ((firstByte & 0x80U) == 0) {
-            ++cursor;
-            width = gFontMetrics[index].sWidth;
-        } else {
-            cursor += 2;
-            ++consumed;
-            width = gFontMetrics[index].doubleWidth;
-        }
-        totalWidth += width;
-        // 原44B320为两支路共用的最后一次消费计数；高位分支此前另计一次。
-        ++consumed;
-
-        if (consumed >= maxBytes) {
-            break;
-        }
-    }
-
-    return totalWidth;
+    if (maxBytes <= 0 || *text == '\0') { return 0; }
+    const std::string_view utf8(text);
+    const std::wstring wide = cg::text::ToUtf16(utf8.substr(0, cg::text::Prefix(utf8, static_cast<std::size_t>(maxBytes))));
+    return measure(wide, fontType, static_cast<std::int32_t>(wide.size()));
 }
+
+std::vector<std::string> Font::split(const std::string_view text, const std::int32_t fontType, const std::int32_t width)
+{
+    const std::string contents(text);
+    std::vector<std::string> lines;
+    std::size_t start = 0;
+    do {
+        std::size_t end = start;
+        while (end < contents.size() && contents[end] != '\r' && contents[end] != '\n') {
+            const std::size_t next = cg::text::Next(contents, end);
+            if (end > start && width > 0 && measure(contents.c_str() + start, fontType, static_cast<std::int32_t>(next - start)) > width) { break; }
+            end = next;
+        }
+        lines.emplace_back(contents.substr(start, end - start));
+        start = end < contents.size() && (contents[end] == '\r' || contents[end] == '\n') ? end + 1 : end;
+    } while (start < contents.size());
+    if (!contents.empty() && (contents.back() == '\r' || contents.back() == '\n')) { lines.emplace_back(); }
+    return lines;
+}
+
+std::vector<std::wstring> Font::split(const std::wstring_view text, const std::int32_t fontType, const std::int32_t width)
+{
+    const std::wstring contents(text);
+    std::vector<std::wstring> lines;
+    std::size_t start = 0;
+    do {
+        std::size_t end = start;
+        while (end < contents.size() && contents[end] != '\r' && contents[end] != '\n') {
+            const std::size_t next = cg::text::Next(contents, end);
+            if (end > start && width > 0 && measure(contents.c_str() + start, fontType, static_cast<std::int32_t>(next - start)) > width) { break; }
+            end = next;
+        }
+        lines.emplace_back(contents.substr(start, end - start));
+        start = end < contents.size() && (contents[end] == '\r' || contents[end] == '\n') ? end + 1 : end;
+    } while (start < contents.size());
+    if (!contents.empty() && (contents.back() == '\r' || contents.back() == '\n')) { lines.emplace_back(); }
+    return lines;
+}
+
 
 } // namespace cg::render
 
 namespace cg::login::detail {
 
+// 原0x0044B260／0x0044B2A0：动态UTF-16正文直接度量。
+std::int32_t MeasureDefaultText_44B260(const std::wstring_view text)
+{
+    return cg::render::Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
+}
+std::int32_t TextMeasure(const std::wstring_view text, const std::int32_t fontType)
+{
+    return cg::render::Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
+}
+
 // 原函数：0x0044B260。
 std::int32_t MeasureDefaultText_44B260(const char* text)
 {
-    const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
-    std::uint8_t first = *cursor;
-    if (first == 0) {
-        return 0;
-    }
-    const std::int32_t doubleWidth = cg::render::gFontMetrics[0].doubleWidth;
-    const std::int32_t singleWidth = cg::render::gFontMetrics[0].sWidth;
-    std::int32_t width = 0;
-    do {
-        if ((first & 0x80u) != 0) {
-            cursor += 2;
-            width += doubleWidth;
-        } else {
-            ++cursor;
-            width += singleWidth;
-        }
-        first = *cursor;
-    } while (first != 0);
-    return width;
+    return cg::render::Font::measure(text, 0, (std::numeric_limits<std::int32_t>::max)());
 }
 
 // 原 TextMeasure@[0x44B2A0,0x44B2DC)：无字节预算的旧编码文本测宽。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType)
 {
-    const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
-    std::uint8_t firstByte = *cursor;
-    if (firstByte == 0) {
-        return 0;
-    }
-
-    const auto index = static_cast<std::size_t>(fontType);
-    std::int32_t totalWidth = 0;
-    for (;;) {
-        std::int32_t width;
-        if ((firstByte & 0x80U) == 0) {
-            ++cursor;
-            width = cg::render::gFontMetrics[index].sWidth;
-        } else {
-            cursor += 2;
-            width = cg::render::gFontMetrics[index].doubleWidth;
-        }
-
-        firstByte = *cursor;
-        totalWidth += width;
-        if (firstByte == 0) {
-            break;
-        }
-    }
-
-    return totalWidth;
+    return cg::render::Font::measure(text, fontType, (std::numeric_limits<std::int32_t>::max)());
 }
 
 std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight; // 原全局：0x00558F78。

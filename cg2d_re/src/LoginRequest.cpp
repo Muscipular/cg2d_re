@@ -1,4 +1,5 @@
 #include "cg/LoginRequest.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "LoginRequestDependencies.hpp"
 #include "world/WorldUpdateDependencies.hpp"
@@ -20,19 +21,14 @@ constexpr std::size_t kRequestField4COffset = 0x4C;
 constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 0x55C9F8 原文：處理登入逾時。
-constexpr char kRequestTimeoutMessage[] = "\xCC\x8E\xC0\xED\xB5\xC7\xC8\xEB\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kRequestTimeoutMessage[] = L"處理登入逾時。";
 // 0x55CA18 原文：處理登出逾時。
-constexpr char kLogoutTimeoutMessage[] = "\xCC\x8E\xC0\xED\xB5\xC7\xB3\xF6\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kLogoutTimeoutMessage[] = L"處理登出逾時。";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField4COffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField50Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(sizeof(kRequestTimeoutMessage) == 15);
-static_assert(sizeof(kLogoutTimeoutMessage) == 15);
-static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
-static_assert(sizeof(kLogoutTimeoutMessage) <= cg::login::RequestMessageCapacity);
-static_assert(sizeof(kSuccessfulResult) == 11);
 
 } // namespace
 
@@ -46,10 +42,9 @@ std::int32_t gRequestStatus = 0; // 原全局：0x00DA3B34。
 std::uint32_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
 std::uint8_t gRequestPollingEnabled = 0; // 原全局：0x00D9F2C9。
 std::int32_t gRequestOutcomeFlag = 0; // 原全局：0x00DA3B30。
-char gRequestMessage[RequestMessageCapacity] {}; // 原全局：0x00DA34DC。
+std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
 
 static_assert(sizeof(gCharacterRecords) == 0x128);
-static_assert(sizeof(gRequestMessage) == RequestMessageCapacity);
 
 // 原函数：0x0051B3B0。
 std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
@@ -146,8 +141,7 @@ std::int32_t PollLoginRequest()
         return 0;
     }
 
-    static_cast<void>(std::sprintf(
-        gRequestMessage, kRequestTimeoutMessage));
+    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
     return -1;
 }
 
@@ -221,8 +215,7 @@ std::int32_t Sub_508C90()
         return 0;
     }
 
-    static_cast<void>(std::sprintf(
-        gRequestMessage, kLogoutTimeoutMessage));
+    static_cast<void>(gRequestMessage = kLogoutTimeoutMessage);
     return -1;
 }
 

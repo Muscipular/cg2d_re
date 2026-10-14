@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "cg/text/Encoding.hpp"
 #include "LegacyFormat.hpp"
 #include "LegacyStdio.hpp"
 
@@ -149,7 +150,7 @@ public:
 HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 {
     // RT_GROUP_ICON=14；明确A系类型，避免受UNICODE宏影响。
-    if (FindResourceA(instance, MAKEINTRESOURCEA(0x67), MAKEINTRESOURCEA(14)) != nullptr) {
+    if (FindResourceA(instance, MAKEINTRESOURCEW(0x67), MAKEINTRESOURCEW(14)) != nullptr) {
         return instance;
     }
 
@@ -254,7 +255,7 @@ private:
 
 namespace cg::platform {
 
-WNDCLASSA gWindowClass {}; // 原全局：0x009A6ED0。
+WNDCLASSW gWindowClass {}; // 原全局：0x009A6ED0。
 
 } // namespace cg::platform
 
@@ -312,7 +313,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gWindowClass.cbWndExtra = 0;
         gWindowClass.hInstance = instance;
         const HINSTANCE resourceInstance = ResolveWindowResourceInstance(instance);
-        gWindowClass.hIcon = LoadIconA(resourceInstance, MAKEINTRESOURCEA(0x67));
+        gWindowClass.hIcon = LoadIconW(resourceInstance, MAKEINTRESOURCEW(0x67));
 
         // 原步长为 12，共读取 11 个 ID；通过完整对象的字节视图保留最后一条的重叠布局。
         const auto* cursorBytes = reinterpret_cast<const unsigned char*>(&cg::resource::gCursorPathStorage);
@@ -320,7 +321,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
             std::uint16_t resourceId;
             std::memcpy(&resourceId, cursorBytes + slot * 12, sizeof(resourceId));
             gCursorHandles[slot] = reinterpret_cast<std::uintptr_t>(
-                LoadCursorA(resourceInstance, MAKEINTRESOURCEA(resourceId)));
+                LoadCursorW(resourceInstance, MAKEINTRESOURCEW(resourceId)));
         }
 
         gWindowClass.hCursor = nullptr;
@@ -328,8 +329,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         gValue9A6F44 = 0;
         gWindowClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         gWindowClass.lpszMenuName = nullptr;
-        gWindowClass.lpszClassName = gWindowClassName;
-        if (RegisterClassA(&gWindowClass) == 0) {
+        static const std::wstring className = text::ToUtf16(gWindowClassName);
+        gWindowClass.lpszClassName = className.c_str();
+        if (RegisterClassW(&gWindowClass) == 0) {
             return 0;
         }
     }

@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "cg/text/Encoding.hpp"
 #include "MainLoopDependencies.hpp"
 #include "LegacyStdio.hpp"
 #include "LegacyFormat.hpp"
@@ -221,11 +222,13 @@ std::int32_t CheckDebugger_404880()
 // 原函数：0x00404940。
 BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 {
-    char title[128];
-    static_cast<void>(GetWindowTextA(
+    wchar_t wideTitle[128] {};
+    static_cast<void>(GetWindowTextW(
         window,
-        title,
-        static_cast<int>(sizeof(title))));
+        wideTitle,
+        static_cast<int>(sizeof(wideTitle) / sizeof(wchar_t))));
+    const std::string utf8Title = cg::text::FromUtf16(wideTitle);
+    const char* const title = utf8Title.c_str();
     const std::uint32_t titleLength = static_cast<std::uint32_t>(std::strlen(title));
     if (titleLength == 0) {
         return TRUE;
@@ -240,15 +243,16 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
     for (std::int32_t index = 0; index < recordCount; ++index) {
         const ProtectionAuxiliaryRecord& record =
             gProtectionAuxiliaryRecords[index];
+        const std::string recordText = cg::text::FromGbk(record.text);
         const std::uint16_t flag = record.flagA;
         bool matched = false;
         if (flag == 0) {
-            const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
-            matched = ::_strnicmp(title, record.text, static_cast<std::uint32_t>(length)) == 0;
+            const std::uint32_t length = static_cast<std::uint32_t>(recordText.size());
+            matched = ::_strnicmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0;
         } else if (flag == 1) {
-            const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
-            matched = std::strncmp(title, record.text, static_cast<std::uint32_t>(length)) == 0
-                && static_cast<std::uint32_t>(std::strlen(record.text)) == titleLength;
+            const std::uint32_t length = static_cast<std::uint32_t>(recordText.size());
+            matched = std::strncmp(title, recordText.c_str(), static_cast<std::uint32_t>(length)) == 0
+                && static_cast<std::uint32_t>(recordText.size()) == titleLength;
         }
 
         if (matched) {

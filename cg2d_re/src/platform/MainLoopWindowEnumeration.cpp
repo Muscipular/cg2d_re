@@ -1,4 +1,5 @@
 #include "cg/platform/MainLoop.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 
@@ -9,23 +10,29 @@
 #define NOMINMAX
 #include <Windows.h>
 #include <cstdint>
+#include <iterator>
 
 namespace cg::platform {
 namespace {
 
-// 原0x559384、0x55937C、0x559370：当前按字节比较GBK标题前缀。
-constexpr char kPrefix559384[] = "\xC4\xA7\xC1\xA6\x8C\x9A\xD8\x90";
-constexpr char kPrefix55937C[] = "\x50\x43\xBE\xAB\xEC\x60";
-constexpr char kPrefix559370[] = "\x20\xD0\xC5\xCF\xA2\xD9\x59\xC1\xCF\x20";
+// 原0x559384、0x55937C、0x559370：当前按 UTF-8 比较 Unicode 标题前缀。
+constexpr wchar_t kPrefix559384[] = L"魔力寶貝";
+const std::string kPrefix559384Utf8View = cg::text::FromUtf16(kPrefix559384); // 旧窄接口只读兼容视图。
+constexpr wchar_t kPrefix55937C[] = L"PC精靈";
+const std::string kPrefix55937CUtf8View = cg::text::FromUtf16(kPrefix55937C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kPrefix559370[] = L" 信息資料 ";
+const std::string kPrefix559370Utf8View = cg::text::FromUtf16(kPrefix559370); // 旧窄接口只读兼容视图。
 
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
 BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
 {
-    char title[128];
+    wchar_t wideTitle[128] {};
+    char title[384];
     title[0] = static_cast<char>(network::ReadProtocolByte593850());
     std::memset(title + 1, 0, sizeof(title) - 1);
     RECT rect; // 原 GetWindowRect 失败后仍读取，未提供默认矩形；风险见证据文档。
-    ::GetWindowTextA(window, title, static_cast<int>(sizeof(title)));
+    ::GetWindowTextW(window, wideTitle, static_cast<int>(std::size(wideTitle)));
+    cg::text::Copy(title, sizeof(title), cg::text::FromUtf16(wideTitle));
     ::GetWindowRect(window, &rect);
 
     const std::uint32_t height = static_cast<std::uint32_t>(rect.bottom)
@@ -34,16 +41,16 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         - static_cast<std::uint32_t>(rect.left);
 
     auto* lowFlagByte = reinterpret_cast<unsigned char*>(&gWindowReportFlags);
-    if (std::strncmp(title, kPrefix559384, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix559384) - 1))) == 0) {
+    if (std::strncmp(title, kPrefix559384Utf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix559384Utf8View.size() + 1) - 1))) == 0) {
         *lowFlagByte |= 1u;
     }
-    if (std::strncmp(title, kPrefix55937C, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix55937C) - 1))) == 0) {
+    if (std::strncmp(title, kPrefix55937CUtf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix55937CUtf8View.size() + 1) - 1))) == 0) {
         *lowFlagByte |= 2u;
     }
 
     std::uint16_t flags;
     std::memcpy(&flags, &gWindowReportFlags, sizeof(flags));
-    if (std::strncmp(title, kPrefix559370, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix559370) - 1))) == 0) {
+    if (std::strncmp(title, kPrefix559370Utf8View.c_str(), static_cast<std::uint32_t>(static_cast<std::uint32_t>((kPrefix559370Utf8View.size() + 1) - 1))) == 0) {
         flags = static_cast<std::uint16_t>(flags | 4u);
         std::memcpy(&gWindowReportFlags, &flags, sizeof(flags));
     }

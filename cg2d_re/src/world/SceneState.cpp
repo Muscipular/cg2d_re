@@ -1,4 +1,5 @@
 #include "cg/world/SceneState.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../CharacterSelectState.hpp"
@@ -64,12 +65,13 @@ std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB
 std::array<char, 0x108> gLogoutText9A5B08 {}; // 原全局：0x009A5B08。 原264B消息区，排他尾9A5C10独立。
 login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
 std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
-constexpr char kBattleStartHint5541CC[] = "\xB5\xC8\xB4\xFD\x91\xF0\xF4\x59\xE9\x5F\xCA\xBC\xA1\xA3"; // 原常量参考：0x005541CC。
-constexpr char kBattleTurnHint5541BC[] = "\xB5\xC8\xB4\xFD\xBB\xD8\xBA\xCF\xBD\x59\xCA\xF8\xA1\xA3"; // 原常量参考：0x005541BC。
-constexpr char kBattleInputHint5541A0[] = "\xB5\xC8\xB4\xFD\xC6\xE4\xCB\xFB\xCD\xE6\xBC\xD2\xB5\xC4\xDD\x94\xC8\xEB\xD6\xB8\xC1\xEE\xA1\xA3"; // 原常量参考：0x005541A0。
-constexpr char kBattleExitHint554194[] = "\xBD\x59\xCA\xF8\xD3\x5E\x91\xF0\xA1\xA3"; // 原常量参考：0x00554194。
+constexpr wchar_t kBattleStartHint5541CC[] = L"等待戰鬥開始。"; // 原常量参考：0x005541CC。
+constexpr wchar_t kBattleTurnHint5541BC[] = L"等待回合結束。"; // 原常量参考：0x005541BC。
+constexpr wchar_t kBattleInputHint5541A0[] = L"等待其他玩家的輸入指令。"; // 原常量参考：0x005541A0。
+constexpr wchar_t kBattleExitHint554194[] = L"結束觀戰。"; // 原常量参考：0x00554194。
+const std::string kBattleExitHint554194Utf8View = cg::text::FromUtf16(kBattleExitHint554194); // 旧窄接口只读兼容视图。
 constexpr char kBattleExitRequest554190[] = "U"; // 原常量参考：0x00554190。
-constexpr char kBattleExitText554184[] = "\xD3\x5E\x91\xF0\xBD\x59\xCA\xF8"; // 原常量参考：0x00554184。
+constexpr wchar_t kBattleExitText554184[] = L"觀戰結束"; // 原常量参考：0x00554184。
 
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
@@ -149,18 +151,15 @@ std::int32_t TruncateTransitionCoordinate(const double value)
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
 
-constexpr char kLogoutTimeout55CA18[] = "\xCC\x8E\xC0\xED\xB5\xC7\xB3\xF6\xD3\xE2\x95\x72\xA1\xA3"; // 原常量参考：0x0055CA18。
-constexpr char kLogoutFailure55CA08[] = "\xB5\xC7\xB3\xF6\xCC\x8E\xC0\xED\xCA\xA7\x94\xA1\xA1\xA3"; // 原常量参考：0x0055CA08。
-constexpr char kLogoutMaintenance55CA28[] = // 原常量参考：0x0055CA28。
-    "\xCF\xE0\xAE\x94\xB1\xA7\xC7\xB8\xA3\xAC\x9E\xE9\xC1\xCB\xBE\x53"
-    "\xB3\xD6\xC1\xBC\xBA\xC3\xB5\xC4\xDF\x5B\x91\xF2\xAD\x68\xBE\xB3\x0A"
-    "\xC4\xBF\xC7\xB0\xCB\xC5\xB7\xFE\xC6\xF7\x95\xBA\x95\x72\xDF\x4D"
-    "\xD0\xD0\xCD\xA3\x99\x43\xBE\x53\xD7\x6F\xA1\xA3\x0A"
-    "\xBE\x53\xD7\x6F\xCD\xEA\xAE\x85\xE1\xE1\x8C\xA2\xD6\xD8\xD0\xC2"
-    "\xE9\x5F\x99\x43\xA3\xAC\xD5\x88\xC9\xD4\xD7\xF6\xB5\xC8\xBA\xF2\xA1\xA3";
-static_assert(sizeof(kLogoutTimeout55CA18) == 15);
-static_assert(sizeof(kLogoutFailure55CA08) == 15);
-static_assert(sizeof(kLogoutMaintenance55CA28) == 97);
+constexpr wchar_t kLogoutTimeout55CA18[] = L"處理登出逾時。"; // 原常量参考：0x0055CA18。
+const std::string kLogoutTimeout55CA18Utf8View = cg::text::FromUtf16(kLogoutTimeout55CA18); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLogoutFailure55CA08[] = L"登出處理失敗。"; // 原常量参考：0x0055CA08。
+const std::string kLogoutFailure55CA08Utf8View = cg::text::FromUtf16(kLogoutFailure55CA08); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLogoutMaintenance55CA28[] = // 原常量参考：0x0055CA28。
+    LR"(相當抱歉，為了維持良好的遊戲環境
+目前伺服器暫時進行停機維護。
+維護完畢後將重新開機，請稍做等候。)";
+const std::string kLogoutMaintenance55CA28Utf8View = cg::text::FromUtf16(kLogoutMaintenance55CA28); // 旧窄接口只读兼容视图。
 static_assert(sizeof(gLogoutText9A5B08) == 0x108);
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
@@ -225,15 +224,13 @@ constexpr std::array<std::int32_t, 14> kWatchBattleMapFloors556C48 {
     1401, 33221, 43131, 59553, 59972, 59973, 59974,
     59975, 59976, 59977, 59978, 59979, 59980, 59981,
 };
-constexpr char kTradeNoTarget556CC4[] = // 原常量参考：0x00556CC4。
-    "\x9B\x5D\xD3\xD0\xBF\xC9\xBD\xBB\xD2\xD7\xB5\xC4\x8C\xA6\xCF\xF3\xA3\xA1";
-constexpr char kGuildInviteDenied5862AC[] = // 原常量参考：0x005862AC。
-    "\xC4\xFA\x9B\x5D\xD3\xD0\xBC\xD2\xD7\xE5\xE0\xA1\xA3\xAC\xCB\xF9"
-    "\xD2\xD4\xB2\xBB\xC4\xDC\xD1\xFB\xD5\x88\x8C\xA6\xB7\xBD\xC4\xF3"
-    "\x2E\x2E\x2E\x5E\x5E\x22";
+constexpr wchar_t kTradeNoTarget556CC4[] = // 原常量参考：0x00556CC4。
+    L"沒有可交易的對象！";
+const std::string kTradeNoTarget556CC4Utf8View = cg::text::FromUtf16(kTradeNoTarget556CC4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kGuildInviteDenied5862AC[] = // 原常量参考：0x005862AC。
+    LR"(您沒有家族唷，所以不能邀請對方捏...^^")";
+const std::string kGuildInviteDenied5862ACUtf8View = cg::text::FromUtf16(kGuildInviteDenied5862AC); // 旧窄接口只读兼容视图。
 static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
-static_assert(sizeof(kTradeNoTarget556CC4) == 19);
-static_assert(sizeof(kGuildInviteDenied5862AC) == 39);
 
 constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
     11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
@@ -354,13 +351,12 @@ std::uint32_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
 std::uint32_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
 std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
 std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
-constexpr char kChatDisabledText58AFEC[] = // 原常量参考：0x0058AFEC。
-    "\xC4\xBF\xC7\xB0\xBD\xFB\xD1\xD4\xD6\xD0";
-constexpr char kChatRepeatedText58B000[] = // 原常量参考：0x0058B000。
-    "\xD6\xD8\xD1\x7D\xB0\x6C\xD1\xD4\xA3\xAC"
-    "\xBD\xFB\xD1\xD4\xC8\xFD\xB7\xD6\xE7\x8A";
-static_assert(sizeof(kChatDisabledText58AFEC) == 11);
-static_assert(sizeof(kChatRepeatedText58B000) == 21);
+constexpr wchar_t kChatDisabledText58AFEC[] = // 原常量参考：0x0058AFEC。
+    L"目前禁言中";
+const std::string kChatDisabledText58AFECUtf8View = cg::text::FromUtf16(kChatDisabledText58AFEC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kChatRepeatedText58B000[] = // 原常量参考：0x0058B000。
+    L"重複發言，禁言三分鐘";
+const std::string kChatRepeatedText58B000Utf8View = cg::text::FromUtf16(kChatRepeatedText58B000); // 旧窄接口只读兼容视图。
 
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
@@ -449,17 +445,17 @@ constexpr char kCutPath55DE50[] = "bin\\PUK2\\cutdat\\%d.cut"; // 原常量参�
 constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
 
 // 原提示当前采用GBK窄字节；两个正文与各自标题按调用顺序配对。
-constexpr char kCutMessage55DE3C[] = // 原常量参考：0x0055DE3C。
-    "\x63\x75\x74\xB5\xD8\x88\x44\x99\x6E\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kCutCaption5536B8[] = "\xB4\x5F\xD5\x4A"; // 原常量参考：0x005536B8。
-constexpr char kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
-    "\xD2\xAA\x99\x7A\xD2\x95\x46\x41\x51\x86\xE1\xA3\xBF";
-constexpr char kCutCaption55DE30[] = "\x99\x6E\xB0\xB8\xE5\x65\xD5\x60"; // 原常量参考：0x0055DE30。
+constexpr wchar_t kCutMessage55DE3C[] = // 原常量参考：0x0055DE3C。
+    L"cut地圖檔開啟失敗。";
+constexpr wchar_t kCutCaption5536B8[] = L"確認"; // 原常量参考：0x005536B8。
+constexpr wchar_t kCutMessage55DE20[] = // 原常量参考：0x0055DE20。
+    L"要檢視FAQ嗎？";
+constexpr wchar_t kCutCaption55DE30[] = L"檔案錯誤"; // 原常量参考：0x0055DE30。
 
 // 原 0x55DE7C/0x55DE68；.aut 相对路径与打开失败的第一正文。
 constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut"; // 原常量参考：0x0055DE7C。
-constexpr char kAutMessage55DE68[] = // 原常量参考：0x0055DE68。
-    "\x61\x75\x74\xB5\xD8\x88\x44\x99\x6E\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1\xA1\xA3";
+constexpr wchar_t kAutMessage55DE68[] = // 原常量参考：0x0055DE68。
+    L"aut地圖檔開啟失敗。";
 
 // 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
 constexpr char kMapPathPrefix[] = "map";
@@ -516,7 +512,7 @@ constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常量参考
 };
 
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
-char gText55BAE0[8] = "\xB5\xC7\xB3\xF6\xD6\xD0";
+char gText55BAE0[10] = "登出中";
 
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
@@ -546,28 +542,9 @@ std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x0055EA50�
     0x4046800000000000ULL,
 };
 
-static_assert(sizeof(kCutPath55DE50) == 23);
-static_assert(sizeof(kCutReadMode554920) == 3);
-static_assert(sizeof(kCutMessage55DE3C) == 20);
-static_assert(sizeof(kCutCaption5536B8) == 5);
-static_assert(sizeof(kCutMessage55DE20) == 14);
-static_assert(sizeof(kCutCaption55DE30) == 9);
-static_assert(sizeof(kAutPath55DE7C) == 23);
-static_assert(sizeof(kAutMessage55DE68) == 20);
-static_assert(sizeof(kMapPathPrefix) == 4);
-static_assert(sizeof(kMapPathZero) == 13);
-static_assert(sizeof(kMapPathOther) == 16);
-static_assert(sizeof(kMapDirectoryOne) == 6);
-static_assert(sizeof(kMapDirectoryTwo) == 9);
-static_assert(sizeof(kMapCreateMode) == 3);
-static_assert(sizeof(kMapReadMode) == 3);
-static_assert(sizeof(kMapUpdateMode) == 4);
-static_assert(sizeof(kMapHeaderLabel) == 4);
-static_assert(sizeof(kUnknownText554590) == 4);
 static_assert(sizeof(gText9DAD30) == 26);
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
 static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
-static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 static_assert(sizeof(gAngleTableBits55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
@@ -2774,7 +2751,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
             const std::int32_t count = std::atoi(field);
-            std::sprintf(label, "%d \xBD\xF0\x8E\xC5", count);
+            std::sprintf(label, "%d 金幣", count);
             std::int32_t imageNo;
             if (count < 50) {
                 imageNo = 0x6B08;
@@ -2988,7 +2965,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
         std::strncpy(source, message + 5, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(source))));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
-    Sub_44B050(source, 4, 3);
+    Sub_44B050(cg::text::FromGbk(source).c_str(), 4, 3);
     const std::int32_t soundEnabled = platform::gValue554644;
     if (soundEnabled != 0) {
         return audio::PlaySe_52C450(74, 320);
@@ -3071,7 +3048,7 @@ std::int32_t Sub_50C940(
             gChatDisabledDA3B4C = 0;
         } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
-            Sub_44B050(kChatDisabledText58AFEC, 4, 3);
+            Sub_44B050(kChatDisabledText58AFECUtf8View.c_str(), 4, 3);
             const std::int32_t sound = platform::gValue554644;
             if (sound != 0) {
                 return audio::PlaySe_52C450(74, 320);
@@ -3084,7 +3061,7 @@ std::int32_t Sub_50C940(
         const std::uint32_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
         if (tick - previous < 1000u) {
-            Sub_44B050(kChatRepeatedText58B000, 4, 3);
+            Sub_44B050(kChatRepeatedText58B000Utf8View.c_str(), 4, 3);
             std::int32_t result = platform::gValue554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
@@ -3172,7 +3149,7 @@ void Sub_50CAE0(
         } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[GP]")))) == 0) {
             stripPrefix(4);
         }
-        if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+        if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbk(name).c_str()) != 0) {
             return;
         }
         if (color < 0) {
@@ -3196,7 +3173,7 @@ void Sub_50CAE0(
             ++comparisonIndex;
         }
         if (!sameAsSharedText) {
-            Sub_44B050(source, drawColor, drawFont);
+            Sub_44B050(cg::text::FromGbk(source).c_str(), drawColor, drawFont);
         }
     }
     if (platform::gValue554644 != 0) {
@@ -5547,9 +5524,9 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
     if (file == nullptr) {
-        platform::ShowLegacyMessage(kCutMessage55DE3C, kCutCaption5536B8, 0x10);
+        platform::ShowWideMessage(kCutMessage55DE3C, kCutCaption5536B8, 0x10);
         const std::int32_t response =
-            platform::ShowLegacyMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
+            platform::ShowWideMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
         if (response != 1) {
             return response;
         }
@@ -5584,9 +5561,9 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
     if (file == nullptr) {
-        platform::ShowLegacyMessage(kAutMessage55DE68, kCutCaption5536B8, 0x10);
+        platform::ShowWideMessage(kAutMessage55DE68, kCutCaption5536B8, 0x10);
         const std::int32_t response =
-            platform::ShowLegacyMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
+            platform::ShowWideMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
         if (response != 1) {
             return response;
         }
@@ -7225,7 +7202,7 @@ void DrawBattleScene_43CBB0()
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleStartHint5541CC);
+            ui::detail::gHoverTextD68AE8 = kBattleStartHint5541CC;
         }
         const std::int32_t readIndex = gBattleCReadIndex5AAA44;
         if (readIndex != gBattleCWriteIndex5AAA6C) {
@@ -7269,7 +7246,7 @@ void DrawBattleScene_43CBB0()
             gCurrentSceneState = 3;
         }
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleTurnHint5541BC);
+            ui::detail::gHoverTextD68AE8 = kBattleTurnHint5541BC;
         }
         break;
     }
@@ -7338,7 +7315,7 @@ void DrawBattleScene_43CBB0()
             gBattleMScanOffset5A8A3C = 2;
             gCurrentSceneState = 6;
         } else if (Sub_43CA50() >= 2) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleInputHint5541A0);
+            ui::detail::gHoverTextD68AE8 = kBattleInputHint5541A0;
         }
         break;
     }
@@ -7472,13 +7449,12 @@ void DrawBattleScene_43CBB0()
         const std::int32_t y = GetYobiActionField34(action);
         const std::int32_t x = GetYobiActionField30(action);
         if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
-            constexpr std::size_t wordBytes = sizeof(kBattleExitHint554194) & ~std::size_t{3};
-            std::memcpy(ui::detail::gHoverTextD68AE8.data(), kBattleExitHint554194, wordBytes);
+            constexpr std::size_t wordBytes = (kBattleExitHint554194Utf8View.size() + 1) & ~std::size_t{3};
+            ui::detail::gHoverTextD68AE8 = kBattleExitHint554194;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
                 &platform::BorrowLegacyMouseStateStorage()->edgeButtons);
             const bool exitClicked = (clicked & 1U) != 0;
-            std::memcpy(ui::detail::gHoverTextD68AE8.data() + wordBytes,
-                kBattleExitHint554194 + wordBytes, sizeof(kBattleExitHint554194) & 3U);
+            static_cast<void>(0);
             if (exitClicked) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, kBattleExitRequest554190));
@@ -9299,7 +9275,7 @@ void Sub_4704A0()
         ((*BorrowPlayerXStorage()) + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
     if (gValueFF0D36 != 1 && first != 1 && second != 1) {
-        Sub_44B050(kTradeNoTarget556CC4, 4, 0);
+        Sub_44B050(kTradeNoTarget556CC4Utf8View.c_str(), 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9336,7 +9312,7 @@ void Sub_470670()
     }
     const std::int32_t rank = login::detail::ReadGuildTextIndex10514B0();
     if ((login::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        Sub_44B050(kGuildInviteDenied5862AC, 4, 0);
+        Sub_44B050(kGuildInviteDenied5862ACUtf8View.c_str(), 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -9831,15 +9807,18 @@ void Sub_519A80()
 
     char escaped[256];
     char titles[256];
-    input::EscapeLegacyTextAndNotify_52D2D0(
+    cg::NullSub_509080();
+    input::EscapeGbkText(
         BorrowPlayerRuntimeStorage()->ownTitle.data(), escaped, 256);
     std::strcpy(titles, escaped);
     std::strcat(titles, "|");
-    input::EscapeLegacyTextAndNotify_52D2D0(
+    cg::NullSub_509080();
+    input::EscapeGbkText(
         BorrowPlayerRuntimeStorage()->text12A.data(), escaped, 256);
     std::strcat(titles, escaped);
     std::strcat(titles, "|");
-    input::EscapeLegacyTextAndNotify_52D2D0(
+    cg::NullSub_509080();
+    input::EscapeGbkText(
         BorrowPlayerRuntimeStorage()->text14B.data(), escaped, 256);
     std::strcat(titles, escaped);
     const std::int32_t value188 =
@@ -11891,19 +11870,19 @@ std::int32_t Sub_45EBB0()
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
-            const std::size_t bytes = std::strlen(kLogoutMaintenance55CA28) + 1;
+            const std::size_t bytes = std::strlen(kLogoutMaintenance55CA28Utf8View.c_str()) + 1;
             login::detail::gReplyCodeDA3B2E = 0;
-            std::memcpy(gLogoutText9A5B08.data(), kLogoutMaintenance55CA28, bytes);
+            std::memcpy(gLogoutText9A5B08.data(), kLogoutMaintenance55CA28Utf8View.c_str(), bytes);
             resetMaintenance = true;
         } else if (result == -1) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            std::strcpy(gLogoutText9A5B08.data(), kLogoutTimeout55CA18);
+            std::strcpy(gLogoutText9A5B08.data(), kLogoutTimeout55CA18Utf8View.c_str());
             resetFailure = true;
         } else if (result == -2) {
             network::ShutdownNetworkRuntime_5081A0();
             gCurrentSceneState = 100;
-            std::strcpy(gLogoutText9A5B08.data(), kLogoutFailure55CA08);
+            std::strcpy(gLogoutText9A5B08.data(), kLogoutFailure55CA08Utf8View.c_str());
             resetFailure = true;
         }
     }
@@ -11947,9 +11926,7 @@ std::int32_t Sub_45ED90()
 {
     std::int32_t result = 0;
     if (gValue9A6204 == 0) {
-        const std::uint32_t textLength =
-            static_cast<std::uint32_t>(std::strlen(gText55BAE0));
-        const std::uint32_t initialTextWidth = textLength * 9U;
+        const std::uint32_t initialTextWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(gText55BAE0, 0));
         gValue9A6204 = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
@@ -11988,10 +11965,9 @@ std::int32_t Sub_45ED90()
         const std::int32_t rows = gValue9A5674;
         const std::int32_t top = gValue9A61F8;
         const std::int32_t drawY = top + (48 * rows - 16) / 2;
-        const std::int32_t textLength =
-            static_cast<std::int32_t>(std::strlen(gText55BAE0));
+        const std::int32_t textWidth = login::detail::TextMeasure(gText55BAE0, 0);
         const std::int32_t columns = gValue9A594C;
-        const std::int32_t horizontalWidth = (columns * 8 - textLength) * 8;
+        const std::int32_t horizontalWidth = columns * 64 - textWidth;
         const std::int32_t left = gValue9A5AC0;
         const std::int32_t drawX = horizontalWidth / 2 + left;
         static_cast<void>(render::DrawText3_456560(

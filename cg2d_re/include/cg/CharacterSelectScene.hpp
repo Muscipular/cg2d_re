@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string_view>
 
 namespace cg::character_select {
 
@@ -26,7 +27,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00();
 std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t x,
     std::int32_t y,
-    const char* text,
+    std::wstring_view text,
     std::int8_t color,
     std::int32_t width,
     std::int32_t height);
@@ -35,7 +36,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 std::int32_t ProcessDefaultConfirmationDialog_45E090(
     std::int32_t x,
     std::int32_t y,
-    const char* text,
+    std::wstring_view text,
     std::int8_t color);
 
 // 原 sub_45E0C0@[0x45E0C0,0x45E3C1)。

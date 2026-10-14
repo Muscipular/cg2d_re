@@ -221,9 +221,7 @@ int InitPalette32()
             platform::OpenLegacyStream_53B2F1(path, "rb");
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
-            platform::ShowLegacyMessage(
-                "\xD5\x7B\xC9\xAB\xB1\x50\x99\x6E\xB0\xB8\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1",
-                "Error Code = 13", 0x10);
+            platform::ShowWideMessage(L"調色盤檔案開啟失敗", L"Error Code = 13", 0x10);
             return 0;
         }
         for (int i = 16; i < 240; ++i) {
@@ -244,9 +242,7 @@ int InitPalette32()
     gPalette[168].red = 0;
 
     if (!CreateRendererPaletteBinding(gPalette)) {
-        platform::ShowLegacyMessage(
-            "\xBD\xA8\xC1\xA2\xD5\x7B\xC9\xAB\xB1\x50\xCA\xA7\x94\xA1",
-            "Error Code = 15", 0x10);
+        platform::ShowWideMessage(L"建立調色盤失敗", L"Error Code = 15", 0x10);
         return 0;
     }
 
@@ -285,9 +281,7 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
     platform::LegacyFile* file =
         platform::OpenLegacyStream_53B2F1(path, "rb");
     if (file == nullptr) {
-        platform::ShowLegacyMessage(
-            "\x9F\x6F\xB7\xA8\xB4\xF2\xE9\x5F\xC9\xAB\xB1\x50\x99\x6E\xB0\xB8\xA1\xA3",
-            "Error", 0x10);
+        platform::ShowWideMessage(L"無法打開色盤檔案。", L"Error", 0x10);
         return 0;
     }
     for (int i = 16; i < 240; ++i) {

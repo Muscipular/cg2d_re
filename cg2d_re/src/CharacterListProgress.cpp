@@ -1,4 +1,5 @@
 #include "cg/CharacterSelectScene.hpp"
+#include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
 
@@ -11,9 +12,8 @@ namespace cg::character_select {
 namespace {
 
 // 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。
-constexpr char kCharacterListProgressText[] =
-    "\xB5\xC7\xC8\xEB\xB3\xC9\xB9\xA6\xA3\xAC"
-    "\xE9\x5F\xCA\xBC\xD3\x8B\xD9\x4D\xA3\xA1";
+constexpr wchar_t kCharacterListProgressText[] =
+    L"登入成功，開始計費！";
 constexpr std::int32_t kLegacyGlyphWidth = 8;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
@@ -23,14 +23,12 @@ constexpr std::int32_t kTextHeight = 16;
 // sub_45DD50/sub_45DD60 内。
 std::uint16_t gCharacterListProgressStage = 0;
 login::YobiAction* gCharacterListProgressAction = nullptr;
-char gCharacterListProgressText[256] {};
+std::wstring gCharacterListProgressText {};
 std::int32_t gCharacterListProgressColumns = 0;
 std::int32_t gCharacterListProgressRows = 0;
 std::int32_t gCharacterListProgressX = 0;
 std::int32_t gCharacterListProgressY = 0;
 
-static_assert(sizeof(kCharacterListProgressText) == 21);
-static_assert(sizeof(gCharacterListProgressText) == 256);
 
 } // namespace
 
@@ -47,14 +45,11 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     std::int32_t result = 0;
 
     if (stage == 0) {
-        std::memcpy(
-            gCharacterListProgressText,
-            kCharacterListProgressText,
-            sizeof(kCharacterListProgressText));
-        const std::uint32_t textLength =
-            static_cast<std::uint32_t>(std::strlen(gCharacterListProgressText));
+        gCharacterListProgressText = kCharacterListProgressText;
+        const std::uint32_t textWidth =
+            static_cast<std::uint32_t>(login::detail::TextMeasure(gCharacterListProgressText, 0));
         const std::int32_t columns =
-            static_cast<std::int32_t>(((textLength * 8U) >> 6U) + 2U);
+            static_cast<std::int32_t>((textWidth >> 6U) + 2U);
         gCharacterListProgressStage = 1;
         const std::int32_t unscaledX = 10 - columns;
         gCharacterListProgressColumns = columns;
@@ -96,10 +91,9 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         const std::int32_t y = gCharacterListProgressY;
         const std::int32_t textY = verticalHeight / 2 + y;
         const std::int32_t columns = gCharacterListProgressColumns;
-        const std::int32_t textLength =
-            static_cast<std::int32_t>(std::strlen(gCharacterListProgressText));
+        const std::int32_t textWidth = login::detail::TextMeasure(gCharacterListProgressText, 0);
         const std::int32_t horizontalWidth =
-            (columns * kLegacyGlyphWidth - textLength) * kLegacyGlyphWidth;
+            columns * kColumnWidth - textWidth;
         const std::int32_t x = gCharacterListProgressX;
         const std::int32_t textX = horizontalWidth / 2 + x;
         login::detail::DrawText3(

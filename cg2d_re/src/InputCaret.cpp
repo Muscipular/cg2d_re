@@ -13,7 +13,7 @@ namespace cg::world::detail {
 namespace {
 
 // 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
-inline constexpr char kCaretText[] = "|";
+inline constexpr wchar_t kCaretText[] = L"|";
 
 std::int32_t AddW32(
     const std::int32_t left,
@@ -137,13 +137,13 @@ void Sub_44A410()
         if (isIme == 0) {
             DrawBasicCaret();
         } else {
-            const char firstCompositionByte =
+            const wchar_t firstCompositionByte =
                 platform::gImeComposition[0];
             if (firstCompositionByte == '\0') {
                 DrawBasicCaret();
             } else {
                 const std::uint8_t firstAttribute =
-                    platform::gImeAttributes[0];
+                    platform::gImeAttributes.empty() ? 0 : platform::gImeAttributes[0];
                 if (firstAttribute == 0) {
                     DrawImeCaret();
                 }

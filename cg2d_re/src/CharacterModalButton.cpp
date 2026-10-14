@@ -111,7 +111,7 @@ std::int32_t Sub_503A20(
         }
     }
 
-    const char* const text = uiRecord->text;
+    const wchar_t* const text = uiRecord->text;
     const std::int16_t textY = LowInt16(uiRecord->textY);
     const std::int16_t textX = LowInt16(uiRecord->textX);
     return login::detail::DrawText(

@@ -5,10 +5,12 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
+#include <string_view>
 
 namespace cg::input {
 
-struct InputContext;
+class InputContext;
 
 } // namespace cg::input
 
@@ -23,22 +25,11 @@ struct TextPendingRecord {
     std::uint8_t renderMode; // 原成员偏移：+0x06。
     std::uint8_t value7; // 原成员偏移：+0x07。
     std::uint8_t marker; // 原成员偏移：+0x08。
-    char text[255]; // 原成员偏移：+0x09。
+    std::wstring text; // 原+0x09的255B文本域；UTL02动态UTF-16，不保留旧字节容量。
     std::int32_t field108; // 原成员偏移：+0x108。
     std::uint32_t nextToken; // 原成员偏移：+0x10C。
 };
 
-static_assert(sizeof(TextPendingRecord) == 0x110);
-static_assert(offsetof(TextPendingRecord, x) == 0x00);
-static_assert(offsetof(TextPendingRecord, y) == 0x02);
-static_assert(offsetof(TextPendingRecord, color) == 0x04);
-static_assert(offsetof(TextPendingRecord, fontType) == 0x05);
-static_assert(offsetof(TextPendingRecord, renderMode) == 0x06);
-static_assert(offsetof(TextPendingRecord, value7) == 0x07);
-static_assert(offsetof(TextPendingRecord, marker) == 0x08);
-static_assert(offsetof(TextPendingRecord, text) == 0x09);
-static_assert(offsetof(TextPendingRecord, field108) == 0x108);
-static_assert(offsetof(TextPendingRecord, nextToken) == 0x10C);
 
 // 原 fontLayer@0x558F50 的六项四字节记录；本目标只读取低字节 layer。
 struct TextFontLayerRecord {
@@ -74,6 +65,15 @@ std::int32_t DrawText3_456560(
     std::int16_t y,
     std::int8_t renderMode,
     std::int8_t color,
+    std::wstring_view text,
+    std::int8_t value7);
+
+// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
+std::int32_t DrawText3_456560(
+    std::int16_t x,
+    std::int16_t y,
+    std::int8_t renderMode,
+    std::int8_t color,
     const char* text,
     std::int8_t value7);
 
@@ -84,10 +84,31 @@ std::int32_t DrawText2_456670(
     std::int8_t renderMode,
     std::int8_t fontType,
     std::int8_t color,
+    std::wstring_view text,
+    std::int8_t value7);
+
+// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
+std::int32_t DrawText2_456670(
+    std::int16_t x,
+    std::int16_t y,
+    std::int8_t renderMode,
+    std::int8_t fontType,
+    std::int8_t color,
     const char* text,
     std::int8_t value7);
 
 // Renderer::DrawText@[0x456780,0x456891)。
+std::int32_t DrawText_456780(
+    std::int16_t x,
+    std::int16_t y,
+    std::uint8_t renderMode,
+    std::int8_t fontType,
+    std::int8_t color,
+    std::wstring_view text,
+    std::int8_t value7,
+    std::int8_t marker);
+
+// 窄CRT／旧UTF-8界面临时视图适配，队列仅持有UTF-16。
 std::int32_t DrawText_456780(
     std::int16_t x,
     std::int16_t y,

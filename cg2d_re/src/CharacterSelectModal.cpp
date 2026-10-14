@@ -1,4 +1,5 @@
 #include "cg/CharacterSelectScene.hpp"
+#include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
@@ -9,16 +10,11 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kReturnText[] = "\xB7\xB5\xBB\xD8"; // 原地址：0x55CE04
-constexpr char kCannotDeleteFamilyLeader[] = "\x9F\x6F\xB7\xA8\x84\x68\xB3\xFD\xBC\xD2\xD7\xE5\xD8\x93\xD8\x9F\xC8\xCB\xA1\xA3"; // 原地址：0x55CDEC
-constexpr char kDisbandFamilyFirst[] = "\xC8\xF4\xD2\xAA\xBD\xE2\xC9\xA2\xBC\xD2\xD7\xE5\xA3\xAC"; // 原地址：0x55CDDC
-constexpr char kLeaveFamilyFirst[] = "\xD5\x88\xD4\xDA\xCD\xCB\xB3\xF6\xB4\xCB\xBC\xD2\xD7\xE5\xD6\xAE\xE1\xE1\xA3\xAC"; // 原地址：0x55CDC4
-constexpr char kDeleteAfterLeaving[] = "\xD4\xD9\xDF\x4D\xD0\xD0\x84\x68\xB3\xFD\xA1\xA3"; // 原地址：0x55CDB4
-static_assert(sizeof(kReturnText) == 5);
-static_assert(sizeof(kCannotDeleteFamilyLeader) == 21);
-static_assert(sizeof(kDisbandFamilyFirst) == 15);
-static_assert(sizeof(kLeaveFamilyFirst) == 21);
-static_assert(sizeof(kDeleteAfterLeaving) == 13);
+constexpr wchar_t kReturnText[] = L"返回"; // 原地址：0x55CE04
+constexpr wchar_t kCannotDeleteFamilyLeader[] = L"無法刪除家族負責人。"; // 原地址：0x55CDEC
+constexpr wchar_t kDisbandFamilyFirst[] = L"若要解散家族，"; // 原地址：0x55CDDC
+constexpr wchar_t kLeaveFamilyFirst[] = L"請在退出此家族之後，"; // 原地址：0x55CDC4
+constexpr wchar_t kDeleteAfterLeaving[] = L"再進行刪除。"; // 原地址：0x55CDB4
 
 } // namespace
 
@@ -76,10 +72,10 @@ std::int32_t ProcessCharacterModal_462090(
         login::detail::gValueD69768,
         std::uint8_t{214});
 
-    char textBuffer[256];
+    std::wstring textBuffer;
     std::int32_t textWidth;
 
-    std::strcpy(textBuffer, kCannotDeleteFamilyLeader);
+    textBuffer = kCannotDeleteFamilyLeader;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -91,7 +87,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    std::strcpy(textBuffer, kDisbandFamilyFirst);
+    textBuffer = kDisbandFamilyFirst;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -103,7 +99,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    std::strcpy(textBuffer, kLeaveFamilyFirst);
+    textBuffer = kLeaveFamilyFirst;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),
@@ -115,7 +111,7 @@ std::int32_t ProcessCharacterModal_462090(
         0,
         0);
 
-    std::strcpy(textBuffer, kDeleteAfterLeaving);
+    textBuffer = kDeleteAfterLeaving;
     textWidth = login::detail::TextMeasure(textBuffer, 0);
     login::detail::DrawText(
         static_cast<std::int16_t>(x - 192 + (384 - textWidth) / 2),

@@ -1,4 +1,6 @@
 #include <winsock2.h>
+#include <string>
+#include "cg/text/Encoding.hpp"
 #include <ws2tcpip.h>
 
 #include "cg/LoginState.hpp"
@@ -26,42 +28,31 @@
 namespace {
 
 // 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。
-constexpr char kLoginTimeoutMessage[] =
-    "\xCC\x8E\xC0\xED\xB5\xC7\xC8\xEB\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kLoginTimeoutMessage[] =
+    L"處理登入逾時。";
 // 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。
-constexpr char kLoginFailureMessage[] =
-    "\xB5\xC7\xC8\xEB\xCC\x8E\xC0\xED\xCA\xA7\x94\xA1\xA3\xAC"
-    "\xBB\xF2\x94\xE0\xBE\x80\xE1\xE1\xA3\xAC\x94\xB5\xB7\xD6"
-    "\xE7\x8A\x83\xC8\x9F\x6F\xB7\xA8\xB5\xC7\xC8\xEB\xA1\xA3";
+constexpr wchar_t kLoginFailureMessage[] =
+    L"登入處理失敗，或斷線後，數分鐘內無法登入。";
 // 原 0x55BAD8「登入中」正文 6 字节；字符串字面量隐式追加唯一 NUL。
-constexpr char kLoginProgressText[] = "\xB5\xC7\xC8\xEB\xD6\xD0";
+constexpr wchar_t kLoginProgressText[] = L"登入中";
 // 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。
-constexpr char kServerConnectingText[] =
-    "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x42\xBD\xD3\xD6\xD0";
+constexpr wchar_t kServerConnectingText[] =
+    L"伺服器連接中";
 
-constexpr char kServerInfoFailureMessage[] =
-    "\xCB\xC5\xB7\xFE\xC6\xF7\xB5\xC4\xC3\xFB"
-    "\xB7\x51\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3";
-constexpr char kSocketFailureMessage[] =
-    "\xBE\x57\xC2\xB7\xCD\xA8\xD3\x8D\x85\x66"
-    "\xB6\xA8\xA3\xA8\x54\x43\x50\xA3\xA9\xE5"
-    "\x65\xD5\x60\xA1\xA3";
+constexpr wchar_t kServerInfoFailureMessage[] =
+    L"伺服器的名稱不正確。";
+constexpr wchar_t kSocketFailureMessage[] =
+    L"網路通訊協定（TCP）錯誤。";
 constexpr char kServerAddressFailureFormat[] =
-    "\x9F\x6F\xB7\xA8\xC8\xA1\xB5\xC3\xCB\xC5"
-    "\xB7\xFE\xC6\xF7\xB5\xC4\x20\x49\x50\x20"
-    "\xCE\xBB\xD6\xB7\xA1\xA3\x28\x25\x73\x29";
-constexpr char kConnectFailureMessage[] =
-    "\x9F\x6F\xB7\xA8\xE9\x5F\xCA\xBC\xCC\x8E"
-    "\xC0\xED\xC5\x63\xCB\xC5\xB7\xFE\xC6\xF7"
-    "\xB5\xC4\xDF\x42\xBD\xD3\xA1\xA3";
-constexpr char kConnectExceptionMessage[] =
-    "\x9F\x6F\xB7\xA8\xDF\x42\xC9\xCF\xCB\xC5"
-    "\xB7\xFE\xC6\xF7\xA1\xA3\x20";
-constexpr char kLoginRejectedMessage[] =
-    "\x9F\x6F\xB7\xA8\xB5\xC7\xC8\xEB\xA1\xA3";
-constexpr char kConnectionTimeoutMessage[] =
-    "\xC5\x63\xCB\xC5\xB7\xFE\xC6\xF7\xB5\xC4"
-    "\xDF\x42\xBD\xD3\xD3\xE2\x95\x72\xA1\xA3";
+    "無法取得伺服器的 IP 位址。(%s)";
+constexpr wchar_t kConnectFailureMessage[] =
+    L"無法開始處理與伺服器的連接。";
+constexpr wchar_t kConnectExceptionMessage[] =
+    L"無法連上伺服器。 ";
+constexpr wchar_t kLoginRejectedMessage[] =
+    L"無法登入。";
+constexpr wchar_t kConnectionTimeoutMessage[] =
+    L"與伺服器的連接逾時。";
 
 // 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
 struct LoginProgressLayout {
@@ -85,17 +76,6 @@ ServerConnectionLayout gServerConnectionLayout {};
 
 // 原登录进度布局计算见doc/cg2d_login_progress_layout_sampling_spec.md。
 
-static_assert(sizeof(kLoginTimeoutMessage) == 15);
-static_assert(sizeof(kLoginFailureMessage) == 43);
-static_assert(sizeof(kLoginProgressText) == 7);
-static_assert(sizeof(kServerConnectingText) == 13);
-static_assert(sizeof(kServerInfoFailureMessage) == 21);
-static_assert(sizeof(kSocketFailureMessage) == 26);
-static_assert(sizeof(kServerAddressFailureFormat) == 31);
-static_assert(sizeof(kConnectFailureMessage) == 29);
-static_assert(sizeof(kConnectExceptionMessage) == 18);
-static_assert(sizeof(kLoginRejectedMessage) == 11);
-static_assert(sizeof(kConnectionTimeoutMessage) == 21);
 
 } // namespace
 
@@ -108,7 +88,7 @@ std::uint16_t gLoginProgressPhase = 0;
 YobiAction* gLoginProgressAction = nullptr;
 
 // 原 0x9A5D6C/0x9A6E40 的全部引用都只在 sub_45D990 内。
-char gServerConnectingText[256] {};
+std::wstring gServerConnectingText {};
 YobiAction* gServerConnectionAction = nullptr;
 
 } // namespace
@@ -144,8 +124,7 @@ std::int32_t Sub_508360()
                 static_cast<std::int32_t>(gValue58AD94),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, kServerInfoFailureMessage));
+            static_cast<void>((gRequestMessage = kServerInfoFailureMessage));
             return -2;
         }
 
@@ -153,8 +132,7 @@ std::int32_t Sub_508360()
         platform::gConnectionSocket =
             static_cast<std::uintptr_t>(connectionSocket);
         if (connectionSocket == INVALID_SOCKET) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, kSocketFailureMessage));
+            static_cast<void>((gRequestMessage = kSocketFailureMessage));
             return -3;
         }
 
@@ -181,10 +159,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(std::sprintf(
-                    gRequestMessage,
-                    kServerAddressFailureFormat,
-                    serverAddress));
+                static_cast<void>(cg::text::FormatTo(gRequestMessage, kServerAddressFailureFormat, serverAddress));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -4;
@@ -210,8 +185,7 @@ std::int32_t Sub_508360()
                 static_cast<void>(Sub_44B5C0(logMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
-                static_cast<void>(std::sprintf(
-                    gRequestMessage, kConnectFailureMessage));
+                static_cast<void>((gRequestMessage = kConnectFailureMessage));
                 return -5;
             }
         }
@@ -247,8 +221,7 @@ std::int32_t Sub_508360()
         }
         if (::__WSAFDIsSet(
                 static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, kConnectExceptionMessage));
+            static_cast<void>((gRequestMessage = kConnectExceptionMessage));
             static_cast<void>(::closesocket(
                 static_cast<SOCKET>(platform::gConnectionSocket)));
             return -6;
@@ -268,8 +241,8 @@ std::int32_t Sub_508360()
             const std::int32_t queued = network::Sub_512800(
                 platform::gConnectionSocket,
                 gValueDA3A1C,
-                accountCopy,
-                gValueDA3A5C,
+                cg::text::FromGbk(accountCopy).c_str(),
+                cg::text::FromGbk(gValueDA3A5C).c_str(),
                 adapterId);
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
@@ -282,8 +255,7 @@ std::int32_t Sub_508360()
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
-                static_cast<void>(std::sprintf(
-                    gRequestMessage, kLoginRejectedMessage));
+                static_cast<void>((gRequestMessage = kLoginRejectedMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -7;
@@ -308,8 +280,7 @@ std::int32_t Sub_508360()
 
     const std::uint32_t now = platform::ReadTickCount32();
     if (now - gRequestStartTick > 600000U) {
-        static_cast<void>(std::sprintf(
-            gRequestMessage, kConnectionTimeoutMessage));
+        static_cast<void>((gRequestMessage = kConnectionTimeoutMessage));
         return -1;
     }
     return 0;
@@ -320,11 +291,8 @@ std::int32_t Sub_508360()
 std::uint16_t gValue9A6E3C = 0; // 原全局：0x009A6E3C。
 std::uint16_t gValue9A6E3E = 0; // 原全局：0x009A6E3E。
 std::int32_t gValue55A054 = -1; // 原全局：0x0055A054。
-char gValue9A5348[256] {}; // 原全局：0x009A5348。
+std::wstring gValue9A5348 {}; // 原全局：0x009A5348。
 
-static_assert(sizeof(gServerConnectingText) == 256);
-static_assert(sizeof(kServerConnectingText) <= sizeof(gServerConnectingText));
-static_assert(sizeof(gValue9A5348) == 256);
 
 // 原函数：0x0045D980。
 std::int32_t ResetValues_45D980()
@@ -341,8 +309,7 @@ std::int32_t UpdateServerConnection()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        static_cast<void>(std::sprintf(
-            gServerConnectingText, kServerConnectingText));
+        gServerConnectingText = kServerConnectingText;
 
         std::int32_t columnCount =
             (detail::TextMeasure(gServerConnectingText, 0) + 111) / 64;
@@ -452,10 +419,10 @@ std::int32_t ProcessState_45E960()
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;
-            std::memcpy(gValue9A5348, kLoginTimeoutMessage, sizeof(kLoginTimeoutMessage));
+            gValue9A5348 = kLoginTimeoutMessage;
         } else if (result == -2) {
             world::gCurrentSceneState = 100;
-            std::memcpy(gValue9A5348, kLoginFailureMessage, sizeof(kLoginFailureMessage));
+            gValue9A5348 = kLoginFailureMessage;
         }
     }
 
@@ -489,11 +456,11 @@ std::int32_t UpdateLoginProgress()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        const std::uint32_t textLength =
-            static_cast<std::uint32_t>(std::strlen(kLoginProgressText));
+        const std::uint32_t textWidth =
+            static_cast<std::uint32_t>(detail::TextMeasure(kLoginProgressText, 0));
         gLoginProgressPhase = 1;
         const std::int32_t columnCount =
-            static_cast<std::int32_t>(((textLength * 9U) >> 6U) + 2U);
+            static_cast<std::int32_t>((textWidth >> 6U) + 2U);
         gLoginProgressLayout.rowCount = 2;
         gLoginProgressLayout.columnCount = columnCount;
         const std::int32_t actionX = ((10 - columnCount) * 64) / 2;
@@ -530,10 +497,9 @@ std::int32_t UpdateLoginProgress()
         const std::int32_t rowCount = gLoginProgressLayout.rowCount;
         const std::int32_t y = gLoginProgressLayout.y;
         const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;
-        const std::int32_t textLength =
-            static_cast<std::int32_t>(std::strlen(kLoginProgressText));
+        const std::int32_t textWidth = detail::TextMeasure(kLoginProgressText, 0);
         const std::int32_t columnCount = gLoginProgressLayout.columnCount;
-        const std::int32_t horizontalWidth = (columnCount * 8 - textLength) * 8;
+        const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
         const std::int32_t x = gLoginProgressLayout.x;
         detail::DrawText3(
             static_cast<std::int16_t>(horizontalWidth / 2 + x),

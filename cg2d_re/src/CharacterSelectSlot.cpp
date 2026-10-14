@@ -1,4 +1,5 @@
 #include "cg/CharacterSelectScene.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
@@ -144,7 +145,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             0,
             9,
             color,
-            name,
+            cg::text::FromGbk(name).c_str(),
             0,
             0);
 
@@ -176,7 +177,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         const char* const text54 =
             reinterpret_cast<const char*>(record.data() + kText54Offset);
-        std::sprintf(buffer, "%s", text54);
+        std::sprintf(buffer, "%s", cg::text::FromGbk(text54).c_str());
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),

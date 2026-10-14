@@ -1,4 +1,8 @@
 #include "cg/CharacterSelectScene.hpp"
+#include "cg/text/Encoding.hpp"
+#include <optional>
+#include <system_error>
+#include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
@@ -116,14 +120,14 @@ constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{ // 原常量参
     33101, 33101, 33101, 33101, 33101, 33101, 33101,
 }};
 
-constexpr char kCreationConfirm55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0055C9B0。
+constexpr wchar_t kCreationConfirm55C9B0[] = L"可以嗎？"; // 原常量参考：0x0055C9B0。
 constexpr std::array<const char*, 6> kCreationErrors {{
-    "\x9B\x5D\xD3\xD0\xDD\x94\xC8\xEB\xD0\xD5\xC3\xFB\xA3\xA1", // 55C9A0。
-    "\xBD\xC7\xC9\xAB\xC3\xFB\xB7\x51\xD6\xD8\xD1\x7D", // 55C918。
-    "\xD5\x88\xB0\xD1\xB3\xD6\xD3\xD0\xFC\x63\x94\xB5\xB7\xD6\xBD\x6F\xC4\xDC\xC1\xA6\xA3\xA1", // 55C968。
-    "\xD5\x88\xB0\xD1\xB3\xD6\xD3\xD0\xFC\x63\x94\xB5\xB7\xD6\xBD\x6F\x8C\xD9\xD0\xD4\xA3\xA1", // 55C950。
-    "\xB2\xBB\xC4\xDC\xCA\xB9\xD3\xC3\xBA\xAC\xD3\xD0\xBF\xD5\xB0\xD7\xCE\xC4\xD7\xD6\xB5\xC4\xC3\xFB\xD7\xD6\xBB\xF2\xCF\xB5\xBD\x79\xD7\xD6\xD4\xAA\xA3\xA1", // 55C928。
-    "\xC8\xCB\xCE\xEF\xC3\xFB\xB7\x51\xB2\xBB\xBF\xC9\xBA\xAC\xD3\xD0\xB7\xC7\xB7\xA8\xD7\xD6\xD4\xAA\xA3\xA1", // 55CE14。
+    "沒有輸入姓名！", // 55C9A0。
+    "角色名稱重複", // 55C918。
+    "請把持有點數分給能力！", // 55C968。
+    "請把持有點數分給屬性！", // 55C950。
+    "不能使用含有空白文字的名字或系統字元！", // 55C928。
+    "人物名稱不可含有非法字元！", // 55CE14。
 }};
 
 std::int32_t CreationSignedByte(const std::uint8_t value)
@@ -182,14 +186,11 @@ struct CreationRequestProgress {
 };
 
 CreationRequestProgress gCreationRequestProgress {};
-constexpr char kCreationProgress55C9C0[] = "\x84\x93\xD4\xEC\xBD\xC7\xC9\xAB\xD6\xD0"; // 原常量参考：0x0055C9C0。
-static_assert(sizeof(kCreationProgress55C9C0) == 11);
+constexpr wchar_t kCreationProgress55C9C0[] = L"創造角色中"; // 原常量参考：0x0055C9C0。
 
 std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
-constexpr char kCreationDuplicate55C980[] = // 原常量参考：0x0055C980。
-    "\xD2\xD1\xBD\x9B\xD3\xD0\xCF\xE0\xCD\xAC\xC3\xFB\xD7\xD6"
-    "\xB5\xC4\xBD\xC7\xC9\xAB\xB4\xE6\xD4\xDA\xC1\xCB\xA3\xA1";
-static_assert(sizeof(kCreationDuplicate55C980) == 29);
+constexpr wchar_t kCreationDuplicate55C980[] = // 原常量参考：0x0055C980。
+    L"已經有相同名字的角色存在了！";
 
 std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
@@ -218,12 +219,11 @@ std::int32_t Sub_45E7B0()
 // 原函数：0x0045E7D0。
 std::int32_t Sub_45E7D0()
 {
-    char text[sizeof(kCreationProgress55C9C0)];
-    std::memcpy(text, kCreationProgress55C9C0, sizeof(text));
+    const std::wstring_view text = kCreationProgress55C9C0;
     if (gCreationRequestProgress.phase == 0) {
         gCreationRequestProgress.phase = 1;
-        const auto length = static_cast<std::uint32_t>(std::strlen(text));
-        std::int32_t columns = std::bit_cast<std::int32_t>((9U * (length + 7U)) >> 6);
+        const auto textWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(text, 0));
+        std::int32_t columns = std::bit_cast<std::int32_t>((textWidth + 63U) >> 6);
         gCreationRequestProgress.columns = columns;
         if (columns < 2) {
             columns = 2;
@@ -260,10 +260,9 @@ std::int32_t Sub_45E7D0()
         const std::int32_t unscaledY = 48 * rows - 16;
         const std::int32_t top = gCreationRequestProgress.y;
         const std::int32_t y = unscaledY / 2 + top;
-        const auto length = static_cast<std::uint32_t>(std::strlen(text));
+        const auto textWidth = static_cast<std::uint32_t>(login::detail::TextMeasure(text, 0));
         const std::int32_t columns = gCreationRequestProgress.columns;
-        const auto textUnits = static_cast<std::int32_t>(length >> 1);
-        const std::int32_t unscaledX = 64 * columns - 17 * textUnits;
+        const std::int32_t unscaledX = 64 * columns - static_cast<std::int32_t>(textWidth);
         const std::int32_t left = gCreationRequestProgress.x;
         const std::int32_t x = unscaledX / 2 + left;
         login::detail::DrawText3(
@@ -910,20 +909,30 @@ std::int32_t Sub_4631D0()
                 } else if (CreationSignedByte(state::gValue9A50C8) > 0) {
                     state::gValue9A5AFC = 106;
                 } else {
-                    char* const name = state::gCreationNameFF0D18.data();
-                    std::strcpy(name, state::gCreationInput9A51E8.text);
-                    name[cursor] = '\0';
-                    if (login::CharacterNameExists_51B140(state::gCreationInput9A51E8.text) != 0) {
-                        state::gValue9A5AFC = 102;
-                    } else if (const_cast<char*>(std::strstr(name, " ")) != nullptr
-                        || const_cast<char*>(std::strstr(name, "\x81\x40")) != nullptr
-                        || input::IsRejectedInputText_404060(name)) {
-                        state::gValue9A5AFC = 108;
-                    } else if (input::Sub_45E770(name) == 1) {
-                        state::gValue9A5AFC = 110;
-                    } else {
-                        state::gValue9A5AFC = 10;
-                        audio::PlaySe_52C450(53, 320);
+                    const std::wstring utf16Name(state::gCreationInput9A51E8.text,
+                        cg::text::Prefix(state::gCreationInput9A51E8.text, static_cast<std::size_t>(cursor)));
+                    std::optional<std::string> stored;
+                    try { stored = cg::text::ToGbk(utf16Name); }
+                    catch (const std::system_error&) { state::gValue9A5AFC = 108; }
+                    if (stored) {
+                        if (stored->size() >= state::gCreationNameFF0D18.size()) {
+                            state::gValue9A5AFC = 108;
+                        } else {
+                            char* const name = state::gCreationNameFF0D18.data();
+                            std::memcpy(name, stored->c_str(), stored->size() + 1);
+                            if (login::CharacterNameExists_51B140(name) != 0) {
+                                state::gValue9A5AFC = 102;
+                            } else if (std::strstr(name, " ") != nullptr
+                                || std::strstr(name, "\x81\x40") != nullptr
+                                || input::IsRejectedInputText_404060(cg::text::FromUtf16(utf16Name).c_str())) {
+                                state::gValue9A5AFC = 108;
+                            } else if (input::Sub_45E770(cg::text::FromUtf16(utf16Name).c_str()) == 1) {
+                                state::gValue9A5AFC = 110;
+                            } else {
+                                state::gValue9A5AFC = 10;
+                                audio::PlaySe_52C450(53, 320);
+                            }
+                        }
                     }
                 }
             }
@@ -1146,9 +1155,7 @@ std::int32_t Sub_4642C0()
     const std::int32_t value9A5668 = std::bit_cast<std::int8_t>(state::gValue9A5668);
     gCreationSnapshot.value9A554C = value9A4D04;
     const std::int32_t value9A4B80 = std::bit_cast<std::int8_t>(state::gValue9A4B80);
-    std::memcpy(
-        &gCreationSnapshot.input9A4F38, &state::gCreationInput9A51E8,
-        sizeof(input::InputContext));
+    gCreationSnapshot.input9A4F38 = state::gCreationInput9A51E8;
     gCreationSnapshot.value9A5664 = value9A5668;
     gCreationSnapshot.value9A5954 = value9A4B80;
     return value9A4B80;
@@ -1186,9 +1193,7 @@ std::uint8_t Sub_464380()
     state::gValue9A4D04 = value9A554C;
     const std::uint8_t value9A5954 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5954);
     state::gValue9A5668 = value9A5664;
-    std::memcpy(
-        &state::gCreationInput9A51E8, &gCreationSnapshot.input9A4F38,
-        sizeof(input::InputContext));
+    state::gCreationInput9A51E8 = gCreationSnapshot.input9A4F38;
     state::gValue9A4B80 = value9A5954;
     return value9A5954;
 }
@@ -1260,44 +1265,30 @@ namespace cg::character_select {
 namespace {
 
 // 原 0x55CD68: 角色资料读取失败提示。
-constexpr char kCharacterDataReadFailed[] =
-    "\xBD\xC7\xC9\xAB\xD9\x59\xC1\xCF\xD7\x78\xC8\xA1\xCA\xA7\x94\xA1\xA1\xA3";
+constexpr wchar_t kCharacterDataReadFailed[] =
+    L"角色資料讀取失敗。";
 // 原 0x55CD4C: 服务器维护提示。
-constexpr char kServerMaintenance[] =
-    "\xC4\xBF\xC7\xB0\xCB\xC5\xB7\xFE\xC6\xF7\xD5\xFD\xD4\xDA\xCD\xA3"
-    "\x99\x43\xBE\x53\xD7\x6F\xD6\xD0\xA1\xA3";
+constexpr wchar_t kServerMaintenance[] =
+    L"目前伺服器正在停機維護中。";
 // 原 0x55C854: 删除角色确认提示。
-constexpr char kDeleteQuestion[] =
-    "\xD5\xE6\xB5\xC4\xD2\xAA\x84\x68\xB3\xFD\x86\xE1\xA3\xBF";
+constexpr wchar_t kDeleteQuestion[] =
+    L"真的要刪除嗎？";
 // 原 0x55CD94: 按住 CTRL 删除角色提示。
-constexpr char kDeleteWithControl[] =
-    "\xCF\xEB\xD2\xAA\x84\x68\xB3\xFD\x95\x72\xA3\xAC\xD5\x88\xB0\xB4"
-    "\xD6\xF8\x20\x43\x54\x52\x4C\xE6\x49\xB2\xBB\xB7\xC5";
+constexpr wchar_t kDeleteWithControl[] =
+    L"想要刪除時，請按著 CTRL鍵不放";
 // 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。
-constexpr char kClickYesAgain[] =
-    "\xD4\xD9\xFC\x63\xDF\x78\xA1\xBA\xCA\xC7\xA1\xBB\xA1\xA3"
-    "\x20\x20\x20\x20\x20\x20\x20\x20";
+constexpr wchar_t kClickYesAgain[] =
+    L"再點選『是』。        ";
 // 原 0x55CD38: 无法删除角色提示。
-constexpr char kCannotDeleteCharacter[] =
-    "\x9F\x6F\xB7\xA8\x84\x68\xB3\xFD\xB4\xCB\xBD\xC7\xC9\xAB\xA1\xA3";
+constexpr wchar_t kCannotDeleteCharacter[] =
+    L"無法刪除此角色。";
 // 原 0x55CD28: 更新确认提示。
-constexpr char kUpdateQuestion[] =
-    "\xD2\xAA\xDF\x4D\xD0\xD0\xB8\xFC\xD0\xC2\x86\xE1\xA3\xBF";
+constexpr wchar_t kUpdateQuestion[] =
+    L"要進行更新嗎？";
 // 原 0x55C818: 资料片专用账号及客户端更新提示。
-constexpr char kExpansionOnlyAccount[] =
-    "\xDF\x40\x82\x80\x8E\xA4\xCC\x96\x83\x48\xDF\x6D\xD3\xC3\xEC\xB6"
-    "\xD9\x59\xC1\xCF\xC6\xAC\xB0\xE6\xB1\xBE\xA3\xAC\xD5\x88\x8C\xA2"
-    "\xD3\xC3\x91\xF4\xB6\xCB\xB5\xC4\xB0\xE6\xB1\xBE\xB8\xFC\xD0\xC2"
-    "\xD6\xC1\xD9\x59\xC1\xCF\xC6\xAC\xA1\xA3";
+constexpr wchar_t kExpansionOnlyAccount[] =
+    L"這個帳號僅適用於資料片版本，請將用戶端的版本更新至資料片。";
 
-static_assert(sizeof(kCharacterDataReadFailed) == 19);
-static_assert(sizeof(kServerMaintenance) == 27);
-static_assert(sizeof(kDeleteQuestion) == 15);
-static_assert(sizeof(kDeleteWithControl) == 30);
-static_assert(sizeof(kClickYesAgain) == 23);
-static_assert(sizeof(kCannotDeleteCharacter) == 17);
-static_assert(sizeof(kUpdateQuestion) == 15);
-static_assert(sizeof(kExpansionOnlyAccount) == 59);
 
 constexpr std::size_t kNameOffset = 0x00;
 constexpr std::size_t kGraphicNoOffset = 0x18;

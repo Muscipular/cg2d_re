@@ -22,21 +22,16 @@ const char gVersionPayload9A5C10[1] {}; // 原全局：0x009A5C10。
 namespace {
 
 // 原 0x55AC58/0x55C8F0/0x55C900/0x55C8E0，供两条版本场景复用原字节。
-constexpr char kUpgradeProgressText[] =
-    "\xB0\xE6\xB1\xBE\xC9\xFD\xBC\x89\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4";
-constexpr char kUpgradeSucceededText[] =
-    "\xB0\xE6\xB1\xBE\xD2\xD1\xBD\x9B\xC9\xFD\xBC\x89\xA1\xA3";
-constexpr char kUpgradeFailedText[] =
-    "\xB0\xE6\xB1\xBE\xC9\xFD\xBC\x89\xCA\xA7\x94\xA1\xA1\xA3";
-constexpr char kCannotUpgradeText[] =
-    "\x9F\x6F\xB7\xA8\xB8\xFC\xD0\xC2\xB0\xE6\xB1\xBE\xA1\xA3";
+constexpr wchar_t kUpgradeProgressText[] =
+    L"版本升級中···";
+constexpr wchar_t kUpgradeSucceededText[] =
+    L"版本已經升級。";
+constexpr wchar_t kUpgradeFailedText[] =
+    L"版本升級失敗。";
+constexpr wchar_t kCannotUpgradeText[] =
+    L"無法更新版本。";
 constexpr char kLegacyVersionRequest[] = "abcdefg"; // 原 0x55C910。
 
-static_assert(sizeof(kUpgradeProgressText) == 17);
-static_assert(sizeof(kUpgradeSucceededText) == 15);
-static_assert(sizeof(kUpgradeFailedText) == 15);
-static_assert(sizeof(kCannotUpgradeText) == 15);
-static_assert(sizeof(kLegacyVersionRequest) == 8);
 
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
 login::YobiAction* gVersionUpgradeAction = nullptr;

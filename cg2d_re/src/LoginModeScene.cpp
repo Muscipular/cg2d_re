@@ -1,4 +1,6 @@
 #include "cg/LoginScene.hpp"
+#include <string>
+#include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
 
@@ -18,13 +20,11 @@ namespace cg::login {
 namespace {
 
 // 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。
-constexpr char kMissingCredentials[] = "\xD5\x88\xDD\x94\xC8\xEB\xA3\xC9\xA3\xC4\xBA\xCD\xA3\xD0\xA3\xC1\xA3\xD3\xA3\xD3\xA3\xD7\xA3\xCF\xA3\xD2\xA3\xC4";
-static_assert(sizeof(kMissingCredentials) == 29);
+constexpr wchar_t kMissingCredentials[] = L"請輸入ＩＤ和ＰＡＳＳＷＯＲＤ";
 
 // 原 0x9A5FE0：本函数私有的 256 字节消息缓冲，映像初值为零。
-char gLoginModeMessage[256] {};
+std::wstring gLoginModeMessage {};
 
-static_assert(sizeof(kMissingCredentials) <= sizeof(gLoginModeMessage));
 
 } // namespace
 
@@ -75,9 +75,9 @@ void ProcessModeScene_45C5A0()
     if (result == 1) {
         cg::NullSub_509080();
         static_cast<void>(
-            WriteInputValueFF494F_5203B0(gInputContext9A5960.text));
+            WriteInputValueFF494F_5203B0(gInputContext9A5960.utf8().c_str()));
         static_cast<void>(
-            WriteInputValueFF4982_520410(gInputContext9A5678.text));
+            WriteInputValueFF4982_520410(gInputContext9A5678.utf8().c_str()));
         static_cast<void>(detail::Sub_520200());
         static_cast<void>(detail::PlaySe(53, 320, 240));
         if (render::gPaletteCapability >= 1) {
@@ -93,10 +93,7 @@ void ProcessModeScene_45C5A0()
             platform::gLegacyWindow, 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 100;
-        std::memcpy(
-            gLoginModeMessage,
-            kMissingCredentials,
-            sizeof(kMissingCredentials));
+        gLoginModeMessage = kMissingCredentials;
     }
 
     if (result < 0 || world::gCurrentSceneState == 100) {

@@ -1,4 +1,5 @@
 #include "cg/LoginInput.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
@@ -91,23 +92,24 @@ void DrawCapability4SavedSlotGraphic(
         -1));
 }
 
-char* WriteStoredInputValue(
-    char* const source,
+const char* WriteStoredInputValue(
+    const char* const source,
     char* const storedValue)
 {
     if (source == nullptr) {
         return nullptr;
     }
 
+    const std::string stored = cg::text::ToGbk(source);
     for (std::size_t index = 0; index < kStoredInputValueSize; ++index) {
-        char* const cursor = source + index;
+        const char* const cursor = stored.c_str() + index;
         const char value = *cursor;
         storedValue[index] = value;
         if (value == '\0') {
-            return cursor;
+            return source + std::strlen(source);
         }
     }
-    return source + kStoredInputValueSize;
+    return source + cg::text::Prefix(source, cg::text::FromGbk(std::string_view(stored).substr(0, kStoredInputValueSize)).size());
 }
 
 char* ReadStoredInputValue(
@@ -127,7 +129,7 @@ char* ReadStoredInputValue(
 } // namespace
 
 // 原函数：0x005203B0。
-char* WriteInputValueFF494F_5203B0(char* const source)
+const char* WriteInputValueFF494F_5203B0(const char* const source)
 {
     return WriteStoredInputValue(
         source,
@@ -146,7 +148,7 @@ char* ReadInputValueFF494F_5203E0(char* const output)
 }
 
 // 原函数：0x00520410。
-char* WriteInputValueFF4982_520410(char* const source)
+const char* WriteInputValueFF4982_520410(const char* const source)
 {
     return WriteStoredInputValue(
         source,
@@ -331,7 +333,7 @@ void InitializeInputContexts_45C7C0()
     if (useHighLayout) {
         gInputContext9A5960X = 114;
         gInputContext9A5960Y = 341;
-        gInputContext9A5960.text[0] = '\0';
+        gInputContext9A5960.clearText();
         gInputContext9A5960.totalByteLength = 0;
         gInputContext9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
@@ -342,7 +344,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            firstInitialText,
+            cg::text::FromGbk(firstInitialText).c_str(),
             1,
             20,
             0,
@@ -351,7 +353,7 @@ void InitializeInputContexts_45C7C0()
 
         gInputContext9A5678X = 114;
         gInputContext9A5678Y = 309;
-        gInputContext9A5678.text[0] = '\0';
+        gInputContext9A5678.clearText();
         gInputContext9A5678.totalByteLength = 0;
         gInputContext9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
@@ -362,7 +364,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            secondInitialText,
+            cg::text::FromGbk(secondInitialText).c_str(),
             1,
             20,
             0,
@@ -370,7 +372,7 @@ void InitializeInputContexts_45C7C0()
     } else {
         gInputContext9A5960X = 335;
         gInputContext9A5960Y = 300;
-        gInputContext9A5960.text[0] = '\0';
+        gInputContext9A5960.clearText();
         gInputContext9A5960.totalByteLength = 0;
         gInputContext9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
@@ -381,7 +383,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            firstInitialText,
+            cg::text::FromGbk(firstInitialText).c_str(),
             1,
             20,
             0,
@@ -390,7 +392,7 @@ void InitializeInputContexts_45C7C0()
 
         gInputContext9A5678X = 335;
         gInputContext9A5678Y = 260;
-        gInputContext9A5678.text[0] = '\0';
+        gInputContext9A5678.clearText();
         gInputContext9A5678.totalByteLength = 0;
         gInputContext9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
@@ -401,7 +403,7 @@ void InitializeInputContexts_45C7C0()
             0,
             0,
             3,
-            secondInitialText,
+            cg::text::FromGbk(secondInitialText).c_str(),
             1,
             23,
             0,
@@ -425,7 +427,7 @@ void InitializeCapabilityInput_45F970()
 
     gInputContext9A5960X = 257;
     gInputContext9A5960Y = 358;
-    gInputContext9A5960.text[0] = '\0';
+    gInputContext9A5960.clearText();
     gInputContext9A5960.totalByteLength = 0;
     gInputContext9A5960.caretByteOffset = 0;
     ReadInputValueFF4982_520440(firstInitialText);
@@ -436,7 +438,7 @@ void InitializeCapabilityInput_45F970()
         0,
         0,
         3,
-        firstInitialText,
+        cg::text::FromGbk(firstInitialText).c_str(),
         1,
         20,
         0,
@@ -445,7 +447,7 @@ void InitializeCapabilityInput_45F970()
 
     gInputContext9A5678X = 257;
     gInputContext9A5678Y = 389;
-    gInputContext9A5678.text[0] = '\0';
+    gInputContext9A5678.clearText();
     gInputContext9A5678.totalByteLength = 0;
     gInputContext9A5678.caretByteOffset = 0;
     ReadInputValueFF494F_5203E0(secondInitialText);
@@ -456,7 +458,7 @@ void InitializeCapabilityInput_45F970()
         0,
         0,
         3,
-        secondInitialText,
+        cg::text::FromGbk(secondInitialText).c_str(),
         1,
         20,
         0,
@@ -480,7 +482,7 @@ void InitializeCapability4Input_465320()
         detail::gSelectedSavedSlot105C394;
     gInputContext9A5678X = 187;
     gInputContext9A5678Y = 358;
-    gInputContext9A5678.text[0] = '\0';
+    gInputContext9A5678.clearText();
     gInputContext9A5678.totalByteLength = 0;
     gInputContext9A5678.caretByteOffset = 0;
     detail::Sub_533680(initialText, firstSelectedSlot);
@@ -493,7 +495,7 @@ void InitializeCapability4Input_465320()
         0,
         0,
         3,
-        initialText,
+        cg::text::FromGbk(initialText).c_str(),
         1,
         23,
         0,
@@ -503,7 +505,7 @@ void InitializeCapability4Input_465320()
         detail::gSelectedSavedSlot105C394;
     gInputContext9A5960X = 187;
     gInputContext9A5960Y = 389;
-    gInputContext9A5960.text[0] = '\0';
+    gInputContext9A5960.clearText();
     gInputContext9A5960.totalByteLength = 0;
     gInputContext9A5960.caretByteOffset = 0;
     detail::Sub_5335F0(initialText, secondSelectedSlot);
@@ -516,7 +518,7 @@ void InitializeCapability4Input_465320()
         0,
         0,
         3,
-        initialText,
+        cg::text::FromGbk(initialText).c_str(),
         1,
         20,
         0,
@@ -535,15 +537,15 @@ void SaveAndSwitchCapability4InputSlot_465740(
 {
     const std::int32_t firstSavedSlot =
         detail::gSelectedSavedSlot105C394;
-    detail::Sub_533570(gInputContext9A4D20.text, firstSavedSlot);
+    detail::Sub_533570(cg::text::ToGbk(input::ContextText(gInputContext9A4D20)).c_str(), firstSavedSlot);
 
     const std::int32_t secondSavedSlot =
         detail::gSelectedSavedSlot105C394;
-    detail::Sub_5335B0(gInputContext9A5960.text, secondSavedSlot);
+    detail::Sub_5335B0(cg::text::ToGbk(input::ContextText(gInputContext9A5960)).c_str(), secondSavedSlot);
 
     const std::int32_t thirdSavedSlot =
         detail::gSelectedSavedSlot105C394;
-    detail::Sub_533640(gInputContext9A5678.text, thirdSavedSlot);
+    detail::Sub_533640(cg::text::ToGbk(input::ContextText(gInputContext9A5678)).c_str(), thirdSavedSlot);
 
     detail::Sub_533730();
     detail::gSelectedSavedSlot105C394 = newSlot;

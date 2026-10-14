@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include "cg/text/Encoding.hpp"
 #include <cstddef>
 #include <cstdint>
 
@@ -35,7 +36,7 @@ extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。
 extern std::uint32_t gRequestStartTick;        // 原 0xDA3B38，R/W32。
 extern std::uint8_t gRequestPollingEnabled;    // 原 0xD9F2C9，R/W8。
 extern std::int32_t gRequestOutcomeFlag;       // 原 0xDA3B30，R/W32。
-extern char gRequestMessage[RequestMessageCapacity]; // 原 0xDA34DC。
+extern std::wstring gRequestMessage; // 原 0xDA34DC。
 
 // 原 sub_510140@[0x510140,0x510146)；读取共享请求结果标志并原样返回完整 32 位值。
 std::int32_t ReadRequestOutcomeFlag();

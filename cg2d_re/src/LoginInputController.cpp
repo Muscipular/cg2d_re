@@ -1,4 +1,5 @@
 #include "cg/LoginInput.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
@@ -39,7 +40,7 @@ constexpr LoginSceneControl32 kHighSecondControl {
 constexpr std::array<std::int32_t, 4> kBackgroundImages {
     22002, 22212, 22311, 22311,
 };
-constexpr char kVersion[] = "7.1.00";
+constexpr wchar_t kVersion[] = L"7.1.00";
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
 struct Capability4InputButton32 final {
@@ -103,19 +104,19 @@ std::int32_t ProcessCapability4Input_464E30()
 
     if ((detail::Sub_45F100(&loginButton) & 1) != 0) {
         loginButton.normalImageNo = loginButton.clickedImageNo;
-        if (std::strlen(gInputContext9A5678.text) != 0
-            && std::strlen(gInputContext9A5960.text) != 0) {
+        if (gInputContext9A5678.length() != 0
+            && gInputContext9A5960.length() != 0) {
             const std::int32_t passwordByteLength =
                 gInputContext9A5678.totalByteLength;
             const std::int32_t accountByteLength =
                 gInputContext9A5960.totalByteLength;
             result = 1;
-            gInputContext9A5678.text[static_cast<std::size_t>(
-                passwordByteLength)] = '\0';
-            gInputContext9A5960.text[static_cast<std::size_t>(
-                accountByteLength)] = '\0';
-        } else if (std::strlen(gInputContext9A5678.text) != 0
-            || std::strlen(gInputContext9A5960.text) != 0) {
+            gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
+                passwordByteLength)));
+            gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(
+                accountByteLength)));
+        } else if (gInputContext9A5678.length() != 0
+            || gInputContext9A5960.length() != 0) {
             result = -1;
         } else {
             result = -2;
@@ -158,21 +159,19 @@ std::int32_t ProcessCapability4Input_464E30()
         const std::int32_t focus = gValue9A6E20;
         if (focus == 0) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
-                && std::strlen(gInputContext9A5960.text) != 0
-                && std::strlen(gInputContext9A5678.text) != 0
-                && !input::IsRejectedInputText_404060(
-                    gInputContext9A5960.text)
-                && !input::IsRejectedInputText_404060(
-                    gInputContext9A5678.text)) {
+                && gInputContext9A5960.length() != 0
+                && gInputContext9A5678.length() != 0
+                && !input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())
+                && !input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())) {
                 const std::int32_t accountByteLength =
                     gInputContext9A5960.totalByteLength;
                 const std::int32_t passwordByteLength =
                     gInputContext9A5678.totalByteLength;
                 result = 1;
-                gInputContext9A5960.text[static_cast<std::size_t>(
-                    accountByteLength)] = '\0';
-                gInputContext9A5678.text[static_cast<std::size_t>(
-                    passwordByteLength)] = '\0';
+                gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(
+                    accountByteLength)));
+                gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
+                    passwordByteLength)));
             } else {
                 gValue9A6E20 = 1;
             }
@@ -277,12 +276,10 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
     const std::int32_t firstControlState =
         QueryLoginControlState_5036F0(firstControl);
     if ((firstControlState & 1) != 0 && mode == 0) {
-        if (std::strlen(gInputContext9A5960.text) == 0
-            || std::strlen(gInputContext9A5678.text) == 0
-            || input::IsRejectedInputText_404060(
-                gInputContext9A5678.text)
-            || input::IsRejectedInputText_404060(
-                gInputContext9A5960.text)) {
+        if (gInputContext9A5960.length() == 0
+            || gInputContext9A5678.length() == 0
+            || input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())
+            || input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())) {
             result = -1;
         } else {
             const std::int32_t firstLength =
@@ -290,10 +287,8 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
             const std::int32_t secondLength =
                 gInputContext9A5678.totalByteLength;
             result = 1;
-            gInputContext9A5960.text[
-                static_cast<std::size_t>(firstLength)] = '\0';
-            gInputContext9A5678.text[
-                static_cast<std::size_t>(secondLength)] = '\0';
+            gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(firstLength)));
+            gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(secondLength)));
         }
     } else {
         const std::int32_t secondControlState =
@@ -317,21 +312,17 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
         const std::int32_t rawFocus = gFocus55A048;
         if (rawFocus == 0) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
-                && std::strlen(gInputContext9A5960.text) != 0
-                && std::strlen(gInputContext9A5678.text) != 0
-                && !input::IsRejectedInputText_404060(
-                    gInputContext9A5960.text)
-                && !input::IsRejectedInputText_404060(
-                    gInputContext9A5678.text)) {
+                && gInputContext9A5960.length() != 0
+                && gInputContext9A5678.length() != 0
+                && !input::IsRejectedInputText_404060(gInputContext9A5960.utf8().c_str())
+                && !input::IsRejectedInputText_404060(gInputContext9A5678.utf8().c_str())) {
                 const std::int32_t firstLength =
                     gInputContext9A5960.totalByteLength;
                 const std::int32_t secondLength =
                     gInputContext9A5678.totalByteLength;
                 result = 1;
-                gInputContext9A5960.text[
-                    static_cast<std::size_t>(firstLength)] = '\0';
-                gInputContext9A5678.text[
-                    static_cast<std::size_t>(secondLength)] = '\0';
+                gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(firstLength)));
+                gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(secondLength)));
             } else {
                 candidate = 1;
             }

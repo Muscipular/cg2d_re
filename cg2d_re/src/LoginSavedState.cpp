@@ -752,24 +752,10 @@ std::int32_t ReturnOne_4A4210() noexcept
             ++sourceEnd;
         }
 
-        const std::size_t sourceBytes =
-            static_cast<std::size_t>(sourceEnd - sourceText) + 1;
-        cg::input::InputContext& context =
-            cg::input::gInputContexts5F9758[contextIndex];
-        for (std::size_t byteIndex = 0; byteIndex < sourceBytes;
-             ++byteIndex) {
-            context.text[byteIndex] =
-                static_cast<char>(sourceText[byteIndex]);
-        }
-
-        const char* destinationEnd = context.text;
-        while (*destinationEnd != '\0') {
-            ++destinationEnd;
-        }
-        const std::int32_t destinationLength =
-            static_cast<std::int32_t>(destinationEnd - context.text);
-        context.totalByteLength = destinationLength;
-        context.caretByteOffset = destinationLength;
+        cg::input::InputContext& context = cg::input::gInputContexts5F9758[contextIndex];
+        context.setText(cg::text::FromGbkWide(std::string_view(reinterpret_cast<const char*>(sourceText), static_cast<std::size_t>(sourceEnd - sourceText))));
+        context.totalByteLength = static_cast<std::int32_t>(context.text.size());
+        context.caretByteOffset = context.totalByteLength;
     }
     return 0;
 }
@@ -967,10 +953,16 @@ std::uint32_t Sub_520640()
 {
     auto* const currentBytes =
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    std::array<std::string, 24> storedTexts;
+    for (std::size_t index = 0; index < storedTexts.size(); ++index) {
+        storedTexts[index] = cg::text::ToGbk(cg::input::ContextText(cg::input::gInputContexts5F9758[index]));
+        if (storedTexts[index].size() >= 0x19) {
+            throw cg::text::GbkStorageError(122, std::system_category(), "快捷文字超过原存档字段容量");
+        }
+    }
     std::uint32_t result = 0;
     for (std::size_t index = 0; index < 24; ++index) {
-        const char* const text =
-            cg::input::gInputContexts5F9758[index].text;
+        const char* const text = storedTexts[index].c_str();
         const std::size_t bytes = std::strlen(text) + 1;
         result = static_cast<std::uint32_t>(bytes);
         std::memcpy(currentBytes + 0xB2 + index * 0x19, text, bytes);
@@ -1002,7 +994,7 @@ std::uint8_t Sub_520720()
 
 // 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
 std::int32_t Sub_520160()
-{
+try {
     const volatile std::int16_t& selectedCharacter =
         cg::login::gSelectedCharacterIndex;
     static_cast<void>(Sub_520470());
@@ -1021,6 +1013,10 @@ std::int32_t Sub_520160()
     static_cast<void>(Sub_520750(selectedForAudio));
     static_cast<void>(Sub_520720());
     return Sub_520200();
+}
+catch (const cg::text::GbkStorageError&) {
+    cg::platform::ShowWideMessage(L"快捷文字无法按GBK保存，或已超出存档容量。", L"文字编码", 0x10U);
+    return -1;
 }
 
 // 原函数：0x00520200。

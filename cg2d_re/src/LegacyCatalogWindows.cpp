@@ -1,4 +1,5 @@
 #include "CharacterSelectSceneDependencies.hpp"
+#include "cg/text/Encoding.hpp"
 #include "CharacterSelectState.hpp"
 #include "LegacyPanelRuntime.hpp"
 #include "LoginSceneDependencies.hpp"
@@ -73,22 +74,23 @@ LegacyPanelRecord gLegacyTradeTargetPanel582E08 { // 原全局：0x00582E08。
     160, 132, 320, 192, 51, {}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyTradeTargetSelectionCC4D48 = 0; // 原全局：0x00CC4D48。
-constexpr char kLegacyPetSkillAccept588D34[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D34。
-constexpr char kLegacyPetSkillCatalogCancel588CD0[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588CD0。
-constexpr char kLegacyPetSkillCatalogLearn588268[] = "\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588268。
-constexpr char kLegacyPetSkillEmptySlot5882F4[] = "\xCA\xB9\xD3\xC3\xA1\xBA\xBF\xD5\x99\xDA\xCE\xBB\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3"; // 原常量参考：0x005882F4。
-constexpr char kLegacyPetSkillGold588D5C[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\xA1\xA1\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588D5C。
-constexpr char kLegacyPetSkillLearnLine5882E8[] = "\x81\xED\x8C\x57\xC1\x95\xA1\xA3"; // 原常量参考：0x005882E8。
-constexpr char kLegacyPetSkillPetCancel588CE8[] = "\xC8\xA1\xCF\xFB\xD7\x8C\x8C\x99\xCE\xEF\x8C\x57\xC1\x95\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588CE8。
-constexpr char kLegacyPetSkillPetMeasure588320[] = "\xD7\x8C\xA1\xBA\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\xA1\xBB"; // 原常量参考：0x00588320。
-constexpr char kLegacyPetSkillPetName588338[] = "\xD7\x8C\xA1\xBA\x25\x73\xA1\xBB"; // 原常量参考：0x00588338。
-constexpr char kLegacyPetSkillPrice588D48[] = "\xD9\x8F\xD9\x49\xBD\xF0\xEE\x7E\x20\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588D48。
-constexpr char kLegacyPetSkillQuestion55C9B0[] = "\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0055C9B0。
-constexpr char kLegacyPetSkillSlotHint588D00[] = "\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D00。
-constexpr char kLegacyPetSkillStop588D18[] = "\xCD\xA3\xD6\xB9\xCA\xB9\xD3\xC3\xB4\xCB\x99\xDA\x81\xED\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588D18。
-constexpr char kLegacyPetSkillTitle588344[] = "\x8C\x57\xC1\x95\xA1\xBA\x25\x73\xA1\xBB"; // 原常量参考：0x00588344。
-constexpr char kLegacyPetSkillUsedSlot58830C[] = "\xCA\xB9\xD3\xC3\xA1\xBA\x25\x73\xA1\xBB\xB5\xC4\xCE\xBB\xD6\xC3"; // 原常量参考：0x0058830C。
-constexpr char kLegacyTradeTargetHint589368[] = "\xC5\x63\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589368。
+constexpr wchar_t kLegacyPetSkillAccept588D34[] = L"讓寵物學習技能。"; // 原常量参考：0x00588D34。
+constexpr wchar_t kLegacyPetSkillCatalogCancel588CD0[] = L"取消讓寵物學習技能。"; // 原常量参考：0x00588CD0。
+constexpr wchar_t kLegacyPetSkillCatalogLearn588268[] = L"讓寵物學習此技能。"; // 原常量参考：0x00588268。
+constexpr wchar_t kLegacyPetSkillEmptySlot5882F4[] = L"使用『空欄位』的位置"; // 原常量参考：0x005882F4。
+const std::string kLegacyPetSkillEmptySlot5882F4Utf8View = cg::text::FromUtf16(kLegacyPetSkillEmptySlot5882F4); // 旧窄接口只读兼容视图。
+constexpr char kLegacyPetSkillGold588D5C[] = "持有金額　 %7d 金幣"; // 原常量参考：0x00588D5C。
+constexpr wchar_t kLegacyPetSkillLearnLine5882E8[] = L"來學習。"; // 原常量参考：0x005882E8。
+constexpr wchar_t kLegacyPetSkillPetCancel588CE8[] = L"取消讓寵物學習此技能。"; // 原常量参考：0x00588CE8。
+constexpr wchar_t kLegacyPetSkillPetMeasure588320[] = L"讓『1234567890123456』"; // 原常量参考：0x00588320。
+constexpr char kLegacyPetSkillPetName588338[] = "讓『%s』"; // 原常量参考：0x00588338。
+constexpr char kLegacyPetSkillPrice588D48[] = "購買金額   %7d 金幣"; // 原常量参考：0x00588D48。
+constexpr wchar_t kLegacyPetSkillQuestion55C9B0[] = L"可以嗎？"; // 原常量参考：0x0055C9B0。
+constexpr wchar_t kLegacyPetSkillSlotHint588D00[] = L"使用此欄來學習技能。"; // 原常量参考：0x00588D00。
+constexpr wchar_t kLegacyPetSkillStop588D18[] = L"停止使用此欄來學習技能。"; // 原常量参考：0x00588D18。
+constexpr char kLegacyPetSkillTitle588344[] = "學習『%s』"; // 原常量参考：0x00588344。
+constexpr char kLegacyPetSkillUsedSlot58830C[] = "使用『%s』的位置"; // 原常量参考：0x0058830C。
+constexpr wchar_t kLegacyTradeTargetHint589368[] = L"與這個角色進行交易。"; // 原常量参考：0x00589368。
 
 std::uint16_t Low16(const std::int32_t value)
 {
@@ -156,7 +158,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
     if (manyPages) {
         const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
         const std::int32_t pageCount = gLegacyTradeTargetPageCountCF46D0;
-        char buffer[128];
+        char buffer[384];
         std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 270),
             static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 24), 2, 0, 0, buffer, 0, 0));
@@ -167,7 +169,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
         if (index < gLegacyTradeTargetCountD30134) {
             const char* const name = gLegacyTradeTargetNamesCB1D1C[index].data();
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 88),
-                static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 52 + 20 * row), 2, 0, 0, name, 0, 0));
+                static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 52 + 20 * row), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
             page = gLegacyTradeTargetPageCC3208;
         }
     }
@@ -181,9 +183,9 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
         const std::uint32_t color = gValueD69768;
         const std::int32_t left = gLegacyTradeTargetPanel582E08.x + 86;
         DrawGraphicHover(Low16(left), Low16(top), Low16(left + 148), Low16(top + 20), 218, color, 0);
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeTargetHint589368);
+        ui::detail::gHoverTextD68AE8 = kLegacyTradeTargetHint589368;
     } else if ((cancelState & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeCancel5889AC);
+        ui::detail::gHoverTextD68AE8 = kLegacyTradeCancel5889AC;
     }
     return Sub_503440(&gLegacyTradeTargetPanel582E08, 0);
 }
@@ -250,7 +252,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             gLegacyPetSkillCatalogMessageD2E818 = 2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            char buffer[16];
+            char buffer[48];
             char escaped[16];
             gLegacyPetSkillCatalogSelectionC8AF70 = hovered;
             std::sprintf(buffer, "%d", index);
@@ -285,12 +287,12 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 8),
         2, 0, 0, lines[0].text.data(), 0, 0));
     for (std::int32_t row = 0; row < 4; ++row) {
-        const char* const text = lines[1 + 4 * gLegacyPetSkillCatalogMessageD2E818 + row].text.data();
+        const std::wstring& text = lines[1 + 4 * gLegacyPetSkillCatalogMessageD2E818 + row].text;
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 377),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 59 + 20 * row),
             2, 0, 0, text, 0, 0));
     }
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));
@@ -302,10 +304,10 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         if (gLegacyPetSkillCatalogCA0478[index].used == 0) {
             continue;
         }
-        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].name.data(), 0);
+        const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(gLegacyPetSkillCatalogCA0478[index].name.data()).c_str(), 0);
         const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
-        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
-            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()Width / 2),
+            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
         std::sprintf(buffer, "%4d", value);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),
@@ -329,13 +331,13 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
                 hovered + 8 * gLegacyPetSkillCatalogPageD45F74].description[row].data();
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 70),
                 static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 359 + 32 * row),
-                2, 0, 0, text, 0, 0));
+                2, 0, 0, cg::text::FromGbk(text).c_str(), 0, 0));
         }
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyPetSkillCatalogPanel581FB8) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
@@ -346,7 +348,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         hint = kLegacyPetSkillCatalogLearn588268;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyPetSkillCatalogPanel581FB8, 1);
 }
@@ -403,7 +405,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         }
     }
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
-        char buffer[16];
+        char buffer[48];
         char escaped[16];
         std::sprintf(buffer, "%d", hovered);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
@@ -434,12 +436,12 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));
     const char* const measuredName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
-    const std::int32_t skillWidth = TextMeasure(measuredName, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(measuredName).c_str(), 0);
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 96 - skillWidth / 2),
-        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, skillName, 0, 0));
-    char buffer[64];
+        static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 44), 2, 0, 0, cg::text::FromGbk(skillName).c_str(), 0, 0));
+    char buffer[192];
     const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
     std::sprintf(buffer, "%4d", skillValue);
@@ -456,10 +458,10 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
             continue;
         }
         const std::uint8_t color = option.allowed != 0 ? 0 : 7;
-        const std::int32_t width = TextMeasure(option.name.data(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(option.name.data()).c_str(), 0);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 147 - width / 2),
             static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 133 + 40 * row),
-            2, 0, color, option.name.data(), 0, 0));
+            2, 0, color, cg::text::FromGbk(option.name.data()).c_str(), 0, 0));
         std::sprintf(buffer, "%3d", option.value04);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.x + 272),
             static_cast<std::int16_t>(gLegacyPetSkillPetPanel582080.y + 135 + 40 * row), 2, 1, color, buffer, 0, 0));
@@ -479,7 +481,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 70), Low16(top + 131), Low16(left + 301), Low16(top + 152), 214, color, 0);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyPetSkillPetPanel582080) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
@@ -488,7 +490,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
         hint = kLegacyPetSkillCatalogLearn588268;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyPetSkillPetPanel582080, 1);
 }
@@ -569,12 +571,12 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 8), 2, 0, 0, lines[0].text.data(), 0, 0));
     const char* const measuredName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
-    const std::int32_t skillWidth = TextMeasure(measuredName, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(measuredName).c_str(), 0);
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 96 - skillWidth / 2),
-        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, skillName, 0, 0));
-    char buffer[64];
+        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 44), 2, 0, 0, cg::text::FromGbk(skillName).c_str(), 0, 0));
+    char buffer[192];
     const std::int32_t skillValue = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
     std::sprintf(buffer, "%4d", skillValue);
@@ -586,20 +588,20 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 46), 2, 0, 0, buffer, 0, 0));
     const std::int32_t petWidth = TextMeasure(
-        ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data(), 0);
+        cg::text::FromGbk(ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data()).c_str(), 0);
     const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 142 - petWidth / 2),
-        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 81), 2, 0, 0, petName, 0, 0));
+        static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 81), 2, 0, 0, cg::text::FromGbk(petName).c_str(), 0, 0));
     std::sprintf(buffer, "%3d", ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].value04);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 267),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 83), 2, 1, 0, buffer, 0, 0));
     for (std::int32_t row = 0; row < 10; ++row) {
         const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[row];
         if (slot.used != 0) {
-            const std::int32_t width = TextMeasure(slot.name.data(), 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbk(slot.name.data()).c_str(), 0);
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 156 - width / 2),
                 static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 118 + 24 * row),
-                2, 0, 0, slot.name.data(), 0, 0));
+                2, 0, 0, cg::text::FromGbk(slot.name.data()).c_str(), 0, 0));
             std::sprintf(buffer, "%4d", slot.value04);
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 260),
                 static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 120 + 24 * row), 2, 1, 0, buffer, 0, 0));
@@ -623,14 +625,14 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         for (std::int32_t row = 0; row < 2; ++row) {
             static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 69),
                 static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 369 + 20 * row),
-                2, 0, 0, slot.description[row].data(), 0, 0));
+                2, 0, 0, cg::text::FromGbk(slot.description[row].data()).c_str(), 0, 0));
         }
     }
     std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillSlotsPanel582148.y + 286), 2, 0, 0, buffer, 0, 0));
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyPetSkillSlotsPanel582148) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
@@ -639,7 +641,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         hint = kLegacyPetSkillSlotHint588D00;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyPetSkillSlotsPanel582148, 1);
 }
@@ -686,24 +688,24 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         static_cast<void>(audio::Sub_504180(60));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    char buffer[256];
+    char buffer[768];
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].name.data();
-    std::sprintf(buffer, kLegacyPetSkillTitle588344, skillName);
+    std::sprintf(buffer, kLegacyPetSkillTitle588344, cg::text::FromGbk(skillName).c_str());
     const std::int32_t skillWidth = TextMeasure(buffer, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 20), 2, 0, 0, buffer, 0, 0));
     const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();
-    std::sprintf(buffer, kLegacyPetSkillPetName588338, petName);
+    std::sprintf(buffer, kLegacyPetSkillPetName588338, cg::text::FromGbk(petName).c_str());
     // 原4D8AEE测量固定示例文本，绘制仍使用实际名称，不能改成测量buffer。
     const std::int32_t petWidth = TextMeasure(kLegacyPetSkillPetMeasure588320, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - petWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 44), 2, 0, 0, buffer, 0, 0));
     const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[gLegacyPetSkillSlotCF4B64];
     if (slot.used != 0) {
-        std::sprintf(buffer, kLegacyPetSkillUsedSlot58830C, slot.name.data());
+        std::sprintf(buffer, kLegacyPetSkillUsedSlot58830C, cg::text::FromGbk(slot.name.data()).c_str());
     } else {
-        std::strcpy(buffer, kLegacyPetSkillEmptySlot5882F4);
+        std::strcpy(buffer, kLegacyPetSkillEmptySlot5882F4Utf8View.c_str());
     }
     const std::int32_t slotWidth = TextMeasure(buffer, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - slotWidth / 2),
@@ -725,14 +727,14 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
         2, 0, 0, kLegacyPetSkillQuestion55C9B0, 0, 0));
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&decline, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacyPetSkillAccept588D34;
     } else if ((character_select::detail::Sub_503990(&decline) & 0x40) != 0) {
         hint = kLegacyPetSkillStop588D18;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyPetSkillConfirmPanel582210, 0);
 }

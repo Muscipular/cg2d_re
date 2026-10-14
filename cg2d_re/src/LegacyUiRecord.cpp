@@ -1,4 +1,5 @@
 #include "CharacterSelectSceneDependencies.hpp"
+#include "cg/text/Encoding.hpp"
 #include "CharacterSelectState.hpp"
 #include "LegacyPanelRuntime.hpp"
 #include "LegacyPanelTexts.hpp"
@@ -16,6 +17,7 @@
 #include "cg/GraphicAlloc.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -36,8 +38,25 @@
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D、0x0053BC0F；直接沿MSVC CRT。
 #include <cstring> // 原CRT接口：0x0053BEC0；原参数／返回合同由直接调用承接。
 #include <string>
+#include <format>
 
 namespace {
+
+// 仅用于文字提交失败去重，不参与旧界面的业务状态。
+void ReportLegacyTextStorageFailure()
+{
+    static cg::input::InputContext* reportedContext = nullptr;
+    static std::wstring reportedText;
+    static bool reported = false;
+    auto* const context = cg::input::gCurrentInputData;
+    const std::wstring contents = context != nullptr ? cg::input::ContextText(*context) : std::wstring{};
+    if (!reported || reportedContext != context || reportedText != contents) {
+        reportedContext = context;
+        reportedText = contents;
+        reported = true;
+        cg::platform::ShowWideMessage(L"文字无法按GBK保存，或已超出字段容量。", L"文字编码", 0x10U);
+    }
+}
 
 using QueryStateFunction = std::int32_t (*)(const void* uiRecord);
 using DrawBaseFunction = std::int32_t (*)(
@@ -234,7 +253,6 @@ struct LegacyLogStorage {
 };
 static_assert(offsetof(LegacyLogStorage, time593E10) == 1040);
 static_assert(offsetof(LegacyLogStorage, input593E18) == 1048);
-static_assert(sizeof(LegacyLogStorage) == 1396);
 LegacyLogStorage gLegacyLogStorage593A00 {}; // 原全局：0x00593A00。 PE.data未载入尾，沿既有节头填零证据。
 LegacyPanelRecord gLegacyLogPanel553440 { // 原全局：0x00553440。
     20, 10, 600, 438, 98, {31501, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -246,16 +264,16 @@ std::int32_t gLegacyLogError593F7C = 0; // 原全局：0x00593F7C。
 std::int32_t gLegacyLogLineCount593F80 = 0; // 原全局：0x00593F80。
 platform::LegacyTm53B8C6* gLegacyLogCalendar593F88 = nullptr; // 原全局：0x00593F88。 借用原共享localtime九槽。
 input::InputContext* gLegacyLogInput593F8C = nullptr; // 原全局：0x00593F8C。 借同一连续owner，不另建输入副本。
-constexpr char kLegacyLogFailure55358C[] = "\x9F\x6F\xB7\xA8\xE9\x5F\x86\xA2\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49"; // 原常量参考：0x0055358C。
-constexpr char kLegacyLogAfterDay553534[] = "\xE1\xE1\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553534。
-constexpr char kLegacyLogBeforeDay553544[] = "\xC7\xB0\xD2\xBB\xCC\xEC\xB5\xC4\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553544。
-constexpr char kLegacyLogWrite553554[] = "\x8C\x91\xC8\xEB\xC8\xD5\xD5\x49\xA1\xA3"; // 原常量参考：0x00553554。
-constexpr char kLegacyLogLast553560[] = "\xD7\xEE\xE1\xE1\xD2\xBB\xED\x93"; // 原常量参考：0x00553560。
-constexpr char kLegacyLogFirst55356C[] = "\xB5\xDA\xD2\xBB\xED\x93"; // 原常量参考：0x0055356C。
-constexpr char kLegacyLogNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553574。
-constexpr char kLegacyLogPrevious553580[] = "\xC9\xCF\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553580。
+constexpr wchar_t kLegacyLogFailure55358C[] = L"無法開啟冒險者日誌"; // 原常量参考：0x0055358C。
+constexpr wchar_t kLegacyLogAfterDay553534[] = L"後一天的日誌。"; // 原常量参考：0x00553534。
+constexpr wchar_t kLegacyLogBeforeDay553544[] = L"前一天的日誌。"; // 原常量参考：0x00553544。
+constexpr wchar_t kLegacyLogWrite553554[] = L"寫入日誌。"; // 原常量参考：0x00553554。
+constexpr wchar_t kLegacyLogLast553560[] = L"最後一頁"; // 原常量参考：0x00553560。
+constexpr wchar_t kLegacyLogFirst55356C[] = L"第一頁"; // 原常量参考：0x0055356C。
+constexpr wchar_t kLegacyLogNext553574[] = L"下一頁。"; // 原常量参考：0x00553574。
+constexpr wchar_t kLegacyLogPrevious553580[] = L"上一頁。"; // 原常量参考：0x00553580。
 constexpr char kLegacyLogWriteFormat5535A0[] = "\x0A\x20%02d:%02d:%02d\x81\x40%s"; // 原常量参考：0x005535A0。
-constexpr char kLegacyLogClose55331C[] = "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0055331C。
+constexpr wchar_t kLegacyLogClose55331C[] = L"關閉這個視窗。"; // 原常量参考：0x0055331C。
 
 // 原旧53/54共享状态；虚拟零仅承载映像初值，布局/文本/输入生产仍待。
 LegacyPanelRecord gLegacyDialogPanelD2D9C8 {}; // 原全局：0x00D2D9C8。
@@ -266,12 +284,12 @@ std::int32_t gLegacyDialogOffsetYCAFEA8 = 0; // 原全局：0x00CAFEA8。
 std::int32_t gLegacyDialogColumnsCA0010 = 0; // 原全局：0x00CA0010。
 std::int32_t gLegacyDialogFirstLineD673D4 = 0; // 原全局：0x00D673D4。
 input::InputContext* gLegacyDialogInputD67C4C = nullptr; // 原全局：0x00D67C4C。
-constexpr char kLegacyDialogButton58599C[] = "\x20\xB4\x5F\xB6\xA8\x20"; // 原常量参考：0x0058599C。
-constexpr char kLegacyDialogButton585994[] = "\x20\xC8\xA1\xCF\xFB\x20"; // 原常量参考：0x00585994。
-constexpr char kLegacyDialogButton58598C[] = "\x20\x20\xCA\xC7\x20\x20"; // 原常量参考：0x0058598C。
-constexpr char kLegacyDialogButton585984[] = "\x20\x20\xB7\xF1\x20\x20"; // 原常量参考：0x00585984。
-constexpr char kLegacyDialogButton58597C[] = "\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058597C。
-constexpr char kLegacyDialogButton585974[] = "\xCF\xC2\xD2\xBB\xED\x93"; // 原常量参考：0x00585974。
+constexpr wchar_t kLegacyDialogButton58599C[] = L" 確定 "; // 原常量参考：0x0058599C。
+constexpr wchar_t kLegacyDialogButton585994[] = L" 取消 "; // 原常量参考：0x00585994。
+constexpr wchar_t kLegacyDialogButton58598C[] = L"  是  "; // 原常量参考：0x0058598C。
+constexpr wchar_t kLegacyDialogButton585984[] = L"  否  "; // 原常量参考：0x00585984。
+constexpr wchar_t kLegacyDialogButton58597C[] = L"上一頁"; // 原常量参考：0x0058597C。
+constexpr wchar_t kLegacyDialogButton585974[] = L"下一頁"; // 原常量参考：0x00585974。
 std::array<character_select::detail::CharacterModalUiRecord, 6> gLegacyDialogButtons581808 {{ // 原全局：0x00581808。
     {0, 0, 0, 0, 54, 16, kLegacyDialogButton58599C},
     {0, 0, 0, 0, 54, 16, kLegacyDialogButton585994},
@@ -285,61 +303,61 @@ LegacyPanelRecord gLegacySkillChoicePanel581D60 { // 原全局：0x00581D60。
     0, 0, 292, 260, 55, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 YobiAction* gLegacySkillChoiceActionD67C58 = nullptr; // 原全局：0x00D67C58。 原旧55/56/57同源借用，关闭标记死亡后清槽。
-constexpr char kLegacySkillChoiceLearn585AC4[] = "\xCF\xEB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC"; // 原常量参考：0x00585AC4。
-constexpr char kLegacySkillChoiceForget588BC8[] = "\xCF\xEB\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC"; // 原常量参考：0x00588BC8。
-constexpr char kLegacySkillChoiceCancel588BBC[] = "\xDF\x80\xCA\xC7\xCB\xE3\xC1\xCB"; // 原常量参考：0x00588BBC。
-constexpr char kLegacySkillChoiceLearnHint588BA8[] = "\xCF\xF2\xB4\xCB\xC8\xCB\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588BA8。
-constexpr char kLegacySkillChoiceForgetHint588B90[] = "\xCD\xFC\xD3\x9B\xD7\xD4\xBC\xBA\xCB\xF9\xB3\xD6\xD3\xD0\xB5\xC4\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588B90。
-constexpr char kLegacySkillChoiceCancelHint588B80[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588B80。
+constexpr wchar_t kLegacySkillChoiceLearn585AC4[] = L"想學習技能"; // 原常量参考：0x00585AC4。
+constexpr wchar_t kLegacySkillChoiceForget588BC8[] = L"想忘記技能"; // 原常量参考：0x00588BC8。
+constexpr wchar_t kLegacySkillChoiceCancel588BBC[] = L"還是算了"; // 原常量参考：0x00588BBC。
+constexpr wchar_t kLegacySkillChoiceLearnHint588BA8[] = L"向此人學習技能。"; // 原常量参考：0x00588BA8。
+constexpr wchar_t kLegacySkillChoiceForgetHint588B90[] = L"忘記自己所持有的技能。"; // 原常量参考：0x00588B90。
+constexpr wchar_t kLegacySkillChoiceCancelHint588B80[] = L"停止學習技能。"; // 原常量参考：0x00588B80。
 
 LegacyPanelRecord gLegacySkillLearningPanel581E28 { // 原全局：0x00581E28。
     0, 0, 576, 432, 56, {23301, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillLearningAccept588C20[] = "\x20\x8C\x57\x20\x20\xC1\x95"; // 原常量参考：0x00588C20。
-constexpr char kLegacySkillLearningCancel588C18[] = "\x20\xB2\xBB\x20\x20\x8C\x57"; // 原常量参考：0x00588C18。
-constexpr char kLegacySkillLearningSlots588C00[] = "\xCA\xB9\xD3\xC3\xBC\xBC\xC4\xDC\x99\xDA\xCE\xBB\x94\xB5\xA3\xBA\x25\x64\x20\x99\xDA"; // 原常量参考：0x00588C00。
-constexpr char kLegacySkillLearningCost588BEC[] = "\x8C\x57\xC1\x95\xD9\x4D\xD3\xC3\xA3\xBA\x25\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588BEC。
-constexpr char kLegacySkillLearningAcceptHint588BE0[] = "\x8C\x57\xC1\x95\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588BE0。
-constexpr char kLegacySkillLearningCancelHint588BD4[] = "\xCD\xA3\xD6\xB9\x8C\x57\xC1\x95\xA1\xA3"; // 原常量参考：0x00588BD4。
+constexpr wchar_t kLegacySkillLearningAccept588C20[] = L" 學  習"; // 原常量参考：0x00588C20。
+constexpr wchar_t kLegacySkillLearningCancel588C18[] = L" 不  學"; // 原常量参考：0x00588C18。
+constexpr char kLegacySkillLearningSlots588C00[] = "使用技能欄位數：%d 欄"; // 原常量参考：0x00588C00。
+constexpr char kLegacySkillLearningCost588BEC[] = "學習費用：%d 金幣"; // 原常量参考：0x00588BEC。
+constexpr wchar_t kLegacySkillLearningAcceptHint588BE0[] = L"學習技能。"; // 原常量参考：0x00588BE0。
+constexpr wchar_t kLegacySkillLearningCancelHint588BD4[] = L"停止學習。"; // 原常量参考：0x00588BD4。
 
 LegacyPanelRecord gLegacySkillForgetPanel581EF0 { // 原全局：0x00581EF0。
     0, 0, 576, 432, 57, {23300, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillForgetCancel588CBC[] = "\xDF\x80\xCA\xC7\xB2\xBB\xD2\xAA\xCD\xFC\xD3\x9B\xBA\xC3\xC1\xCB"; // 原常量参考：0x00588CBC。
-constexpr char kLegacySkillForgetNotes588CA4[] = "\xA1\xF9\xA1\xF9\xA1\xF9\x20\x20\xD7\xA2\xD2\xE2\x20\x20\xA1\xF9\xA1\xF9\xA1\xF9"; // 原常量参考：0x00588CA4。
-constexpr char kLegacySkillForgetWarning588C94[] = "\xBC\xBC\xC4\xDC\xD6\xBB\xD2\xAA\xD2\xBB\xCD\xFC\xD3\x9B"; // 原常量参考：0x00588C94。
-constexpr char kLegacySkillForgetNoRestore588C88[] = "\xBE\xCD\x9F\x6F\xB7\xA8\x8F\xCD\xD4\xAD"; // 原常量参考：0x00588C88。
-constexpr char kLegacySkillForgetCareful588C7C[] = "\xD5\x88\xD7\xA2\xD2\xE2\xA1\xA3"; // 原常量参考：0x00588C7C。
-constexpr char kLegacySkillForgetSelect588C68[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xCD\xFC\xD3\x9B\xB5\xC4\xBC\xBC\xC4\xDC"; // 原常量参考：0x00588C68。
-constexpr char kLegacySkillForgetTotal588C48[] = "\xAC\x46\xD4\xDA\xBC\xBC\xC4\xDC\x99\xDA\xCA\xB9\xD3\xC3\xC1\xBF\xB5\xC4\xBA\xCF\xD3\x8B\xA3\xBA\x25\x32\x64\x2F\x31\x30"; // 原常量参考：0x00588C48。
-constexpr char kLegacySkillForgetCancelHint588C38[] = "\xCD\xA3\xD6\xB9\xCD\xFC\xD3\x9B\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588C38。
-constexpr char kLegacySkillForgetRowHint588C28[] = "\xCD\xFC\xD3\x9B\xB4\xCB\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x00588C28。
+constexpr wchar_t kLegacySkillForgetCancel588CBC[] = L"還是不要忘記好了"; // 原常量参考：0x00588CBC。
+constexpr wchar_t kLegacySkillForgetNotes588CA4[] = L"※※※  注意  ※※※"; // 原常量参考：0x00588CA4。
+constexpr wchar_t kLegacySkillForgetWarning588C94[] = L"技能只要一忘記"; // 原常量参考：0x00588C94。
+constexpr wchar_t kLegacySkillForgetNoRestore588C88[] = L"就無法復原"; // 原常量参考：0x00588C88。
+constexpr wchar_t kLegacySkillForgetCareful588C7C[] = L"請注意。"; // 原常量参考：0x00588C7C。
+constexpr wchar_t kLegacySkillForgetSelect588C68[] = L"請選擇要忘記的技能"; // 原常量参考：0x00588C68。
+constexpr char kLegacySkillForgetTotal588C48[] = "現在技能欄使用量的合計：%2d/10"; // 原常量参考：0x00588C48。
+constexpr wchar_t kLegacySkillForgetCancelHint588C38[] = L"停止忘記技能。"; // 原常量参考：0x00588C38。
+constexpr wchar_t kLegacySkillForgetRowHint588C28[] = L"忘記此技能。"; // 原常量参考：0x00588C28。
 
 LegacyPanelRecord gLegacySkillStatusPanel583C90 { // 原全局：0x00583C90。
     64, 108, 512, 240, 36, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillStatusPrompt589B58[] = "\xD5\x88\xDF\x78\x93\xF1\xCA\xB9\xD3\xC3\x8C\xA6\xCF\xF3\xA1\xA3"; // 原常量参考：0x00589B58。
-constexpr char kLegacySkillStatusHeader589B2C[] = "\xBD\xA1\xBF\xB5\x20\x20\xB5\xC8\xBC\x89\x20\xD0\xD5\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xC9\xFA\xC3\xFC\x20\x20\x20\x20\x20\x20\xC4\xA7\xC1\xA6"; // 原常量参考：0x00589B2C。
-constexpr char kLegacySkillStatusCancelTransform589B20[] = "\xCD\xA3\xD6\xB9\xD7\x83\xD1\x62\xA1\xA3"; // 原常量参考：0x00589B20。
-constexpr char kLegacySkillStatusCancelDisguise589B14[] = "\xCD\xA3\xD6\xB9\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00589B14。
-constexpr char kLegacySkillStatusCancelRestore589B08[] = "\xCD\xA3\xD6\xB9\xBC\xB1\xBE\xC8\xA1\xA3"; // 原常量参考：0x00589B08。
-constexpr char kLegacySkillStatusCancelHeal589AFC[] = "\xCD\xA3\xD6\xB9\xD6\xCE\xAF\x9F\xA1\xA3"; // 原常量参考：0x00589AFC。
-constexpr char kLegacySkillStatusTransform589AEC[] = "\xD7\x83\xD1\x62\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00589AEC。
-constexpr char kLegacySkillStatusDisguise589ADC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589ADC。
-constexpr char kLegacySkillStatusSelf589ACC[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589ACC。
-constexpr char kLegacySkillStatusPet589AB8[] = "\xCC\xE6\xDF\x40\x82\x80\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589AB8。
-constexpr char kLegacySkillStatusPerson589AA8[] = "\xCC\xE6\xB4\xCB\xC8\xCB\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589AA8。
+constexpr wchar_t kLegacySkillStatusPrompt589B58[] = L"請選擇使用對象。"; // 原常量参考：0x00589B58。
+constexpr wchar_t kLegacySkillStatusHeader589B2C[] = L"健康  等級 姓名             生命      魔力"; // 原常量参考：0x00589B2C。
+constexpr wchar_t kLegacySkillStatusCancelTransform589B20[] = L"停止變裝。"; // 原常量参考：0x00589B20。
+constexpr wchar_t kLegacySkillStatusCancelDisguise589B14[] = L"停止變身。"; // 原常量参考：0x00589B14。
+constexpr wchar_t kLegacySkillStatusCancelRestore589B08[] = L"停止急救。"; // 原常量参考：0x00589B08。
+constexpr wchar_t kLegacySkillStatusCancelHeal589AFC[] = L"停止治療。"; // 原常量参考：0x00589AFC。
+constexpr wchar_t kLegacySkillStatusTransform589AEC[] = L"變裝成此角色。"; // 原常量参考：0x00589AEC。
+constexpr wchar_t kLegacySkillStatusDisguise589ADC[] = L"變身成此寵物。"; // 原常量参考：0x00589ADC。
+constexpr wchar_t kLegacySkillStatusSelf589ACC[] = L"替自己療傷。"; // 原常量参考：0x00589ACC。
+constexpr wchar_t kLegacySkillStatusPet589AB8[] = L"替這個寵物療傷。"; // 原常量参考：0x00589AB8。
+constexpr wchar_t kLegacySkillStatusPerson589AA8[] = L"替此人療傷。"; // 原常量参考：0x00589AA8。
 
 LegacyPanelRecord gLegacySkillTargetPanel583D58 { // 原全局：0x00583D58。
     160, 132, 320, 192, 35, {}, {}, 0, 0, {}, {},
 };
 
 
-constexpr char kLegacySkillTargetTransform589BD8[] = "\xD7\x83\xB3\xC9\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00589BD8。
-constexpr char kLegacySkillTargetDisguiseSelf589BC4[] = "\xD7\x83\xC9\xED\xB3\xC9\xD7\xD4\xBC\xBA\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589BC4。
-constexpr char kLegacySkillTargetDisguisePerson589BAC[] = "\xD7\x83\xC9\xED\xB3\xC9\xB4\xCB\xBD\xC7\xC9\xAB\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x00589BAC。
-constexpr char kLegacySkillTargetRestoreSelf589B98[] = "\xCC\xE6\xD7\xD4\xBC\xBA\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589B98。
-constexpr char kLegacySkillTargetRestorePerson589B80[] = "\xCC\xE6\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xBB\xF2\x8C\x99\xCE\xEF\xAF\x9F\x82\xFB\xA1\xA3"; // 原常量参考：0x00589B80。
+constexpr wchar_t kLegacySkillTargetTransform589BD8[] = L"變成這個角色。"; // 原常量参考：0x00589BD8。
+constexpr wchar_t kLegacySkillTargetDisguiseSelf589BC4[] = L"變身成自己的寵物。"; // 原常量参考：0x00589BC4。
+constexpr wchar_t kLegacySkillTargetDisguisePerson589BAC[] = L"變身成此角色的寵物。"; // 原常量参考：0x00589BAC。
+constexpr wchar_t kLegacySkillTargetRestoreSelf589B98[] = L"替自己或寵物療傷。"; // 原常量参考：0x00589B98。
+constexpr wchar_t kLegacySkillTargetRestorePerson589B80[] = L"替這個角色或寵物療傷。"; // 原常量参考：0x00589B80。
 
 LegacyPanelRecord gLegacyItemTargetPanel582D40 { // 原全局：0x00582D40。
     160, 132, 320, 192, 77, {}, {}, 0, 0, {}, {},
@@ -355,10 +373,14 @@ LegacyPanelRecord gLegacyTextNoticePanel583EE8 { // 原全局：0x00583EE8。
 LegacyPanelRecord gLegacyTextNoticePanel583FB0 { // 原全局：0x00583FB0。
     130, 180, 336, 96, 82, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyTextNotice589C24[] = "\xB0\xFC\xBA\xAC\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xA1\xA3\x20"; // 原常量参考：0x00589C24。
-constexpr char kLegacyTextNotice589C08[] = "\xBF\xCC\xD3\xA1\xB2\xBB\xC4\xDC\xCA\xB9\xD3\xC3\x20\x5C\x20\xBA\xCD\x20\x7C\x20\xB5\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x00589C08。
-constexpr char kLegacyTextNotice589C4C[] = "\xB2\xBB\xB0\xFC\xC0\xA8\xBF\xD5\xB0\xD7\xD2\xD4\xCD\xE2\xB5\xC4\xCE\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x00589C4C。
-constexpr char kLegacyTextNotice589C34[] = "\xBF\xCC\xD3\xA1\xC3\xFB\xB2\xBB\xC4\xDC\xCA\xC7\xBF\xD5\xB0\xD7\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589C34。
+constexpr wchar_t kLegacyTextNotice589C24[] = LR"(包含 \ 和 | 。 )"; // 原常量参考：0x00589C24。
+const std::string kLegacyTextNotice589C24Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C24); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTextNotice589C08[] = LR"(刻印不能使用 \ 和 | 的字。)"; // 原常量参考：0x00589C08。
+const std::string kLegacyTextNotice589C08Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C08); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTextNotice589C4C[] = L"不包括空白以外的文字。"; // 原常量参考：0x00589C4C。
+const std::string kLegacyTextNotice589C4CUtf8View = cg::text::FromUtf16(kLegacyTextNotice589C4C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTextNotice589C34[] = L"刻印名不能是空白的。"; // 原常量参考：0x00589C34。
+const std::string kLegacyTextNotice589C34Utf8View = cg::text::FromUtf16(kLegacyTextNotice589C34); // 旧窄接口只读兼容视图。
 
 LegacyPanelRecord gLegacyBuyPanel5823A0 { // 原全局：0x005823A0。
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -390,15 +412,15 @@ std::int32_t gLegacySellLimitMessageCB0A88 = 0; // 原全局：0x00CB0A88。 增
 LegacyPanelRecord gLegacyHealingPanel5826C0 { // 原全局：0x005826C0。
     96, 86, 448, 288, 67, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyHealingPrompt588FF8[] = "\xD5\x88\xDF\x78\x93\xF1\xD6\xCE\xAF\x9F\x8C\xA6\xCF\xF3"; // 原常量参考：0x00588FF8。
-constexpr char kLegacyHealingHeader588FD0[] = "\xBD\xA1\xBF\xB5\x20\xB5\xC8\xBC\x89\x20\x20\x20\x20\x20\xD0\xD5\x20\x20\x20\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\xCB\xF9\xD0\xE8\xBB\xA8\xD9\x4D"; // 原常量参考：0x00588FD0。
-constexpr char kLegacyHealingTotal588FA8[] = "\xC8\xAB\xB2\xBF\xD2\xBB\xC6\xF0\xD6\xCE\xAF\x9F\x20\x20\x20\x20\x20\x25\x38\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588FA8。
-constexpr char kLegacyHealingGold588F94[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588F94。
-constexpr char kLegacyHealingCancel588F34[] = "\xC8\xA1\xCF\xFB\xD6\xCE\xAF\x9F\xA1\xA3"; // 原常量参考：0x00588F34。
-constexpr char kLegacyHealingOne588F40[] = "\xD6\xCE\xAF\x9F\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\xB5\xC4\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F40。
-constexpr char kLegacyHealingHealthy588F54[] = "\xDF\x40\x82\x80\xBD\xC7\xC9\xAB\x81\x4B\x9B\x5D\xD3\xD0\xCA\xDC\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F54。
-constexpr char kLegacyHealingAllHealthy588F6C[] = "\x9B\x5D\xD3\xD0\xC8\xCE\xBA\xCE\xBD\xC7\xC9\xAB\xCA\xDC\x82\xFB\xA1\xA3"; // 原常量参考：0x00588F6C。
-constexpr char kLegacyHealingAll588F80[] = "\xD6\xCE\xAF\x9F\xCB\xF9\xD3\xD0\xCA\xDC\x82\xFB\xBD\xC7\xC9\xAB\xA1\xA3"; // 原常量参考：0x00588F80。
+constexpr wchar_t kLegacyHealingPrompt588FF8[] = L"請選擇治療對象"; // 原常量参考：0x00588FF8。
+constexpr wchar_t kLegacyHealingHeader588FD0[] = L"健康 等級     姓   名        所需花費"; // 原常量参考：0x00588FD0。
+constexpr char kLegacyHealingTotal588FA8[] = "全部一起治療     %8d 金幣"; // 原常量参考：0x00588FA8。
+constexpr char kLegacyHealingGold588F94[] = "持有金額 %7d 金幣"; // 原常量参考：0x00588F94。
+constexpr wchar_t kLegacyHealingCancel588F34[] = L"取消治療。"; // 原常量参考：0x00588F34。
+constexpr wchar_t kLegacyHealingOne588F40[] = L"治療這個角色的傷。"; // 原常量参考：0x00588F40。
+constexpr wchar_t kLegacyHealingHealthy588F54[] = L"這個角色並沒有受傷。"; // 原常量参考：0x00588F54。
+constexpr wchar_t kLegacyHealingAllHealthy588F6C[] = L"沒有任何角色受傷。"; // 原常量参考：0x00588F6C。
+constexpr wchar_t kLegacyHealingAll588F80[] = L"治療所有受傷角色。"; // 原常量参考：0x00588F80。
 
 LegacyPanelRecord gLegacyRepairPanel582788 { // 原全局：0x00582788。
     32, 12, 576, 432, 70, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -416,27 +438,27 @@ std::int32_t gLegacyRepairDetailPageD67C80 = 0; // 原全局：0x00D67C80。
 std::int32_t gLegacyRepairPreviousHover58284C = -1; // 原全局：0x0058284C。
 std::int32_t gLegacyRepairTotalD460C4 = 0; // 原全局：0x00D460C4。 旧70入口统计，旧71借读。
 std::int32_t gLegacyRepairMessageD64E14 = 0; // 原全局：0x00D64E14。 初始化/数量成功/翻页清0，金额不足写1。
-constexpr char kLegacyRepairWelcome587D2C[] = "\x9A\x67\xD3\xAD\xB9\xE2\xC5\x52\xA1\xA3"; // 原常量参考：0x00587D2C。
-constexpr char kLegacyRepairDecrease589010[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589010。
-constexpr char kLegacyRepairIncrease589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589024。
-constexpr char kLegacyRepairCancel589034[] = "\xC8\xA1\xCF\xFB\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589034。
-constexpr char kLegacyRepairConfirm589048[] = "\xD0\xDE\xC0\xED\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589048。
-constexpr char kLegacyRepairPrompt589058[] = "\xD2\xAA\xD0\xDE\xC0\xED\xC4\xC4\xD2\xBB\x82\x80\xC4\xD8\xA3\xBF"; // 原常量参考：0x00589058。
-constexpr char kLegacyRepairNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1"; // 原常量参考：0x0058906C。
-constexpr char kLegacyRepairStopHint58907C[] = "\xB2\xBB\xD0\xDE\xA1\xA3"; // 原常量参考：0x0058907C。
-constexpr char kLegacyRepairAcceptHint589084[] = "\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589084。
-constexpr char kLegacyRepairQuestion58908C[] = "\xD0\xDE\xC0\xED\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x0058908C。
-constexpr char kLegacyRepairSummary5890A4[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xD0\xDE\xC0\xED\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x005890A4。
+constexpr wchar_t kLegacyRepairWelcome587D2C[] = L"歡迎光臨。"; // 原常量参考：0x00587D2C。
+constexpr wchar_t kLegacyRepairDecrease589010[] = L"取消修理此物品。"; // 原常量参考：0x00589010。
+constexpr wchar_t kLegacyRepairIncrease589024[] = L"修理此物品。"; // 原常量参考：0x00589024。
+constexpr wchar_t kLegacyRepairCancel589034[] = L"取消修理指定物品。"; // 原常量参考：0x00589034。
+constexpr wchar_t kLegacyRepairConfirm589048[] = L"修理指定物品。"; // 原常量参考：0x00589048。
+constexpr wchar_t kLegacyRepairPrompt589058[] = L"要修理哪一個呢？"; // 原常量参考：0x00589058。
+constexpr wchar_t kLegacyRepairNoMoney58906C[] = L"你的錢不夠！"; // 原常量参考：0x0058906C。
+constexpr wchar_t kLegacyRepairStopHint58907C[] = L"不修。"; // 原常量参考：0x0058907C。
+constexpr wchar_t kLegacyRepairAcceptHint589084[] = L"修理。"; // 原常量参考：0x00589084。
+constexpr wchar_t kLegacyRepairQuestion58908C[] = L"修理以上物品。可以嗎？"; // 原常量参考：0x0058908C。
+constexpr char kLegacyRepairSummary5890A4[] = "持有金額  %7d 金幣    修理金額  %7d 金幣"; // 原常量参考：0x005890A4。
 
 // SCP01旧62完整本体承载；独立面板/预览复用，模式生产与未写命令仍未闭。
-constexpr char kLegacyShopBuyInitial588DCC[] = "\x20\xCF\xEB\x20\xD9\x49\x20"; // 原常量参考：0x00588DCC。
-constexpr char kLegacyShopSellInitial588DC4[] = "\x20\xCF\xEB\x20\xD9\x75\x20"; // 原常量参考：0x00588DC4。
-constexpr char kLegacyShopStopInitial588DB8[] = "\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB"; // 原常量参考：0x00588DB8。
-constexpr char kLegacyShopBuy588DAC[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x49"; // 原常量参考：0x00588DAC。
-constexpr char kLegacyShopSell588DA0[] = "\x20\x20\xCF\xEB\x20\x20\xD9\x75"; // 原常量参考：0x00588DA0。
-constexpr char kLegacyShopCancel588D94[] = "\x20\xB2\xBB\x20\xB1\xD8\x20\xC1\xCB"; // 原常量参考：0x00588D94。
-constexpr char kLegacyShopBuyHint588D84[] = "\xD9\x8F\xD9\x49\xB4\xCB\xB5\xEA\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588D84。
-constexpr char kLegacyShopSellHint588D70[] = "\x8C\xA2\xCE\xEF\xC6\xB7\xD9\x75\xBD\x6F\xB4\xCB\xB5\xEA\xA1\xA3"; // 原常量参考：0x00588D70。
+constexpr wchar_t kLegacyShopBuyInitial588DCC[] = L" 想 買 "; // 原常量参考：0x00588DCC。
+constexpr wchar_t kLegacyShopSellInitial588DC4[] = L" 想 賣 "; // 原常量参考：0x00588DC4。
+constexpr wchar_t kLegacyShopStopInitial588DB8[] = L"不 必 了"; // 原常量参考：0x00588DB8。
+constexpr wchar_t kLegacyShopBuy588DAC[] = L"  想  買"; // 原常量参考：0x00588DAC。
+constexpr wchar_t kLegacyShopSell588DA0[] = L"  想  賣"; // 原常量参考：0x00588DA0。
+constexpr wchar_t kLegacyShopCancel588D94[] = L" 不 必 了"; // 原常量参考：0x00588D94。
+constexpr wchar_t kLegacyShopBuyHint588D84[] = L"購買此店物品。"; // 原常量参考：0x00588D84。
+constexpr wchar_t kLegacyShopSellHint588D70[] = L"將物品賣給此店。"; // 原常量参考：0x00588D70。
 LegacyPanelRecord gLegacyShopChoicePanel5822D8 { // 原全局：0x005822D8。
     0, 0, 292, 260, 62, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -482,50 +504,54 @@ std::int32_t gLegacyIdentifyDetailPageD67C88 = 0; // 原全局：0x00D67C88。
 std::int32_t gLegacyIdentifyPreviousHover5829DC = -1; // 原全局：0x005829DC。
 std::int32_t gLegacyIdentifyTotalCB1E3C = 0; // 原全局：0x00CB1E3C。 入口统计，翻页/数量成功清0，旧69借读。
 std::int32_t gLegacyIdentifyMessageC9A948 = 0; // 原全局：0x00C9A948。 初始化清0，金币不足写1；翻页/数量成功不清。
-constexpr char kLegacyIdentifyDecrease5890D0[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890D0。
-constexpr char kLegacyIdentifyIncrease5890E4[] = "\xE8\x61\xB6\xA8\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890E4。
-constexpr char kLegacyIdentifyConfirm5890F4[] = "\xE8\x61\xB6\xA8\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005890F4。
-constexpr char kLegacyIdentifyCancel589104[] = "\xC8\xA1\xCF\xFB\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589104。
-constexpr char kLegacyIdentifyPrompt589110[] = "\xD2\xAA\xE8\x61\xB6\xA8\xC4\xC4\xD2\xBB\x82\x80\xCE\xEF\xC6\xB7\xA3\xBF"; // 原常量参考：0x00589110。
-constexpr char kLegacyIdentifyStopHint589124[] = "\xB2\xBB\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589124。
-constexpr char kLegacyIdentifyAcceptHint589130[] = "\xE8\x61\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589130。
-constexpr char kLegacyIdentifyQuestion589138[] = "\xE8\x61\xB6\xA8\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00589138。
-constexpr char kLegacyIdentifySummary589150[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\x20\xE8\x61\xB6\xA8\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00589150。
+constexpr wchar_t kLegacyIdentifyDecrease5890D0[] = L"取消鑑定此物品。"; // 原常量参考：0x005890D0。
+constexpr wchar_t kLegacyIdentifyIncrease5890E4[] = L"鑑定此物品。"; // 原常量参考：0x005890E4。
+constexpr wchar_t kLegacyIdentifyConfirm5890F4[] = L"鑑定指定物品。"; // 原常量参考：0x005890F4。
+constexpr wchar_t kLegacyIdentifyCancel589104[] = L"取消鑑定。"; // 原常量参考：0x00589104。
+constexpr wchar_t kLegacyIdentifyPrompt589110[] = L"要鑑定哪一個物品？"; // 原常量参考：0x00589110。
+constexpr wchar_t kLegacyIdentifyStopHint589124[] = L"不鑑定。"; // 原常量参考：0x00589124。
+constexpr wchar_t kLegacyIdentifyAcceptHint589130[] = L"鑑定。"; // 原常量参考：0x00589130。
+constexpr wchar_t kLegacyIdentifyQuestion589138[] = L"鑑定以上物品。可以嗎？"; // 原常量参考：0x00589138。
+constexpr char kLegacyIdentifySummary589150[] = "持有金額  %7d 金幣    鑑定金額  %7d 金幣"; // 原常量参考：0x00589150。
 
 LegacyPanelRecord gLegacyMessagePanel582AA8 { // 原全局：0x00582AA8。
     20, 9, 600, 438, 73, {23224, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 input::InputContext* gLegacyMessageInputD67C8C = nullptr; // 原全局：0x00D67C8C。 非拥有CC46E0借用，关闭只清槽/归还焦点。
-constexpr char kLegacyMessageDelete58917C[] = "\x84\x68\xB3\xFD\xB4\xCB\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x0058917C。
-constexpr char kLegacyMessagePrevious58918C[] = "\xC7\xB0\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x0058918C。
-constexpr char kLegacyMessageCancel589198[] = "\xC8\xA1\xCF\xFB\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x00589198。
-constexpr char kLegacyMessageEmpty5891A4[] = "\xD5\x88\xDD\x94\xC8\xEB\xCE\xC4\xD7\xD6\xA1\xA3"; // 原常量参考：0x005891A4。
-constexpr char kLegacyMessagePost5891B4[] = "\xC1\xF4\xD1\xD4\xA1\xA3"; // 原常量参考：0x005891B4。
-constexpr char kLegacyMessageNext553574[] = "\xCF\xC2\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00553574。
+constexpr wchar_t kLegacyMessageDelete58917C[] = L"刪除此留言。"; // 原常量参考：0x0058917C。
+constexpr wchar_t kLegacyMessagePrevious58918C[] = L"前一頁。"; // 原常量参考：0x0058918C。
+constexpr wchar_t kLegacyMessageCancel589198[] = L"取消留言。"; // 原常量参考：0x00589198。
+constexpr wchar_t kLegacyMessageEmpty5891A4[] = L"請輸入文字。"; // 原常量参考：0x005891A4。
+constexpr wchar_t kLegacyMessagePost5891B4[] = L"留言。"; // 原常量参考：0x005891B4。
+constexpr wchar_t kLegacyMessageNext553574[] = L"下一頁。"; // 原常量参考：0x00553574。
 
-constexpr char kLegacySellDecrease588E74[] = "\x9C\x70\xC9\xD9\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588E74。
-constexpr char kLegacySellIncrease588E8C[] = "\xD4\xF6\xBC\xD3\xD9\x75\xB5\xF4\xB4\xCB\xCE\xEF\xC6\xB7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588E8C。
-constexpr char kLegacySellConfirm588EA4[] = "\xD9\x75\xB5\xF4\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588EA4。
-constexpr char kLegacySellCancel588EB4[] = "\xB2\xBB\xD9\x75\xC1\xCB\xA1\xA3"; // 原常量参考：0x00588EB4。
-constexpr char kLegacySellLimitLine588ECC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xC4\xC3"; // 原常量参考：0x00588ECC。
-constexpr char kLegacySellLimitLine588EC0[] = "\xB8\xFC\xB6\xE0\xB5\xC4\xE5\x58\xC1\xCB"; // 原常量参考：0x00588EC0。
-constexpr char kLegacySellStopHint588ED8[] = "\xB2\xBB\xD9\x75\xA1\xA3"; // 原常量参考：0x00588ED8。
-constexpr char kLegacySellAcceptHint588EE0[] = "\xD9\x75\xB3\xF6\xA1\xA3"; // 原常量参考：0x00588EE0。
-constexpr char kLegacySellQuestion588EE8[] = "\xD9\x75\xB3\xF6\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588EE8。
-constexpr char kLegacySellSummary588F00[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5\x20\x20\x20\xD9\x75\xB3\xF6\xBD\xF0\xEE\x7E\x20\x20\x25\x37\x64\x20\xBD\xF0\x8E\xC5"; // 原常量参考：0x00588F00。
-constexpr char kLegacySellQuantity588F28[] = "\x25\x73\x28\x25\x64\x81\x7E\x25\x64\x29"; // 原常量参考：0x00588F28。
+constexpr wchar_t kLegacySellDecrease588E74[] = L"減少賣掉此物品數量。"; // 原常量参考：0x00588E74。
+constexpr wchar_t kLegacySellIncrease588E8C[] = L"增加賣掉此物品數量。"; // 原常量参考：0x00588E8C。
+constexpr wchar_t kLegacySellConfirm588EA4[] = L"賣掉指定物品。"; // 原常量参考：0x00588EA4。
+constexpr wchar_t kLegacySellCancel588EB4[] = L"不賣了。"; // 原常量参考：0x00588EB4。
+constexpr wchar_t kLegacySellLimitLine588ECC[] = L"無法再拿"; // 原常量参考：0x00588ECC。
+constexpr wchar_t kLegacySellLimitLine588EC0[] = L"更多的錢了"; // 原常量参考：0x00588EC0。
+constexpr wchar_t kLegacySellStopHint588ED8[] = L"不賣。"; // 原常量参考：0x00588ED8。
+constexpr wchar_t kLegacySellAcceptHint588EE0[] = L"賣出。"; // 原常量参考：0x00588EE0。
+constexpr wchar_t kLegacySellQuestion588EE8[] = L"賣出以上物品。可以嗎？"; // 原常量参考：0x00588EE8。
+constexpr char kLegacySellSummary588F00[] = "持有金額  %7d 金幣   賣出金額  %7d 金幣"; // 原常量参考：0x00588F00。
+constexpr char kLegacySellQuantity588F28Raw[] = "\x25\x73\x28\x25\x64\x81\x7E\x25\x64\x29";
+const std::string kLegacySellQuantity588F28Utf8 = cg::text::FromLegacyDisplay(kLegacySellQuantity588F28Raw);
+const char* const kLegacySellQuantity588F28 = kLegacySellQuantity588F28Utf8.c_str(); // 原常量参考：0x00588F28。
 
-constexpr char kLegacyBuyUnavailable588E20[] = "\x81\x7E"; // 原常量参考：0x00588E20。
-constexpr char kLegacyBuyCancel588E14[] = "\xB2\xBB\xD9\x49\xC1\xCB\xA1\xA3"; // 原常量参考：0x00588E14。
-constexpr char kLegacyBuyConfirm588E04[] = "\xD9\x8F\xD9\x49\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588E04。
-constexpr char kLegacyBuyDecrease588DD4[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588DD4。
-constexpr char kLegacyBuyIncrease588DEC[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xD6\xAE\xD9\x8F\xD9\x49\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588DEC。
-constexpr char kLegacyBuyUnavailableHint586BF4[] = "\xA3\xAA\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4"; // 原常量参考：0x00586BF4。
-constexpr char kLegacyBuyQuestion588E34[] = "\xD9\x8F\xD9\x49\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588E34。
-constexpr char kLegacyBuyAcceptHint588E2C[] = "\xD9\x8F\xD9\x49\xA1\xA3"; // 原常量参考：0x00588E2C。
-constexpr char kLegacyBuyStopHint588E24[] = "\xB2\xBB\xD9\x49\xA1\xA3"; // 原常量参考：0x00588E24。
+constexpr char kLegacyBuyUnavailable588E20Raw[] = "\x81\x7E";
+const std::string kLegacyBuyUnavailable588E20Utf8 = cg::text::FromLegacyDisplay(kLegacyBuyUnavailable588E20Raw);
+const char* const kLegacyBuyUnavailable588E20 = kLegacyBuyUnavailable588E20Utf8.c_str(); // 原常量参考：0x00588E20。
+constexpr wchar_t kLegacyBuyCancel588E14[] = L"不買了。"; // 原常量参考：0x00588E14。
+constexpr wchar_t kLegacyBuyConfirm588E04[] = L"購買指定物品。"; // 原常量参考：0x00588E04。
+constexpr wchar_t kLegacyBuyDecrease588DD4[] = L"減少此物品之購買數量。"; // 原常量参考：0x00588DD4。
+constexpr wchar_t kLegacyBuyIncrease588DEC[] = L"增加此物品之購買數量。"; // 原常量参考：0x00588DEC。
+constexpr wchar_t kLegacyBuyUnavailableHint586BF4[] = L"＊現在無法裝備"; // 原常量参考：0x00586BF4。
+constexpr wchar_t kLegacyBuyQuestion588E34[] = L"購買以上物品。可以嗎？"; // 原常量参考：0x00588E34。
+constexpr wchar_t kLegacyBuyAcceptHint588E2C[] = L"購買。"; // 原常量参考：0x00588E2C。
+constexpr wchar_t kLegacyBuyStopHint588E24[] = L"不買。"; // 原常量参考：0x00588E24。
 constexpr char kLegacyBuySummary588E4C[] = // 原常量参考：0x00588E4C。
-    "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E  %7d \xBD\xF0\x8E\xC5  \xD9\x8F\xD9\x49\xBD\xF0\xEE\x7E  %7d \xBD\xF0\x8E\xC5";
+    "持有金額  %7d 金幣  購買金額  %7d 金幣";
 
 // 原CC1A0C是现有商店文本区尾部别名，不能另建页号副本。
 std::int32_t ReadLegacyBuyPageCC1A0C()
@@ -584,17 +610,17 @@ std::int32_t gLegacyBarterPageCB10D0 = 0; // 原全局：0x00CB10D0。
 std::int32_t gLegacyBarterPageCountC8A954 = 0; // 原全局：0x00C8A954。 原生产待证，不以初值替代实际页数。
 std::int32_t gLegacyBarterTotalD2F334 = 0; // 原全局：0x00D2F334。 旧75统计，旧76借读。
 std::int32_t gLegacyBarterMessageCC2E54 = 0; // 原全局：0x00CC2E54。
-constexpr char kLegacyBarterCancel588994[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588994。
-constexpr char kLegacyBarterConfirm588984[] = "\xBD\xBB\xD2\xD7\xD6\xB8\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588984。
-constexpr char kLegacyBarterIncrease58896C[] = "\xD4\xF6\xBC\xD3\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x0058896C。
-constexpr char kLegacyBarterDecrease588954[] = "\x9C\x70\xC9\xD9\xB4\xCB\xCE\xEF\xC6\xB7\xBD\xBB\xD2\xD7\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588954。
+constexpr wchar_t kLegacyBarterCancel588994[] = L"取消交易物品。"; // 原常量参考：0x00588994。
+constexpr wchar_t kLegacyBarterConfirm588984[] = L"交易指定物品。"; // 原常量参考：0x00588984。
+constexpr wchar_t kLegacyBarterIncrease58896C[] = L"增加此物品交易數量。"; // 原常量参考：0x0058896C。
+constexpr wchar_t kLegacyBarterDecrease588954[] = L"減少此物品交易數量。"; // 原常量参考：0x00588954。
 
 
-constexpr char kLegacyBarterQuestion5889C0[] = "\xBD\xBB\xD2\xD7\xD2\xD4\xC9\xCF\xCE\xEF\xC6\xB7\xA1\xA3\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x005889C0。
-constexpr char kLegacyBarterAcceptHint5889B8[] = "\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x005889B8。
-constexpr char kLegacyBarterStopHint5889AC[] = "\xCD\xA3\xD6\xB9\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x005889AC。
+constexpr wchar_t kLegacyBarterQuestion5889C0[] = L"交易以上物品。可以嗎？"; // 原常量参考：0x005889C0。
+constexpr wchar_t kLegacyBarterAcceptHint5889B8[] = L"交易。"; // 原常量参考：0x005889B8。
+constexpr wchar_t kLegacyBarterStopHint5889AC[] = L"停止交易。"; // 原常量参考：0x005889AC。
 constexpr char kLegacyBarterSummary5889D8[] = // 原常量参考：0x005889D8。
-    "%s  %7d \x82\x80   \xBD\xBB\x93\x51\x82\x80\x94\xB5  %7d \x82\x80";
+    "%s  %7d 個   交換個數  %7d 個";
 
 LegacyPanelRecord gLegacyExchangePanel581A40 { // 原全局：0x00581A40。
     0, 0, 292, 260, 74, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -611,33 +637,35 @@ LegacyPanelRecord gLegacyGiveReceiveQuantityPanel581BD0 { // 原全局：0x00581
 LegacyPanelRecord gLegacyGiveConfirmPanel581C98 { // 原全局：0x00581C98。
     0, 0, 448, 240, 85, {0, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGiveConfirmReceiveFormat588B40[] = "\xBD\xD3\xCA\xDC\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588B40。
-constexpr char kLegacyGiveConfirmGiveFormat588B60[] = "\xBD\xBB\xB3\xF6\xC1\xCB\x25\x32\x73\xA1\xA1\x25\x32\x64\xA1\xA1\x82\x80\xA1\xA3\x0A\xBF\xC9\xD2\xD4\x86\xE1\xA3\xBF"; // 原常量参考：0x00588B60。
-constexpr char kLegacyGiveConfirmReceiveHint588B20[] = "\xBD\xD3\xCA\xDC\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B20。
-constexpr char kLegacyGiveConfirmGiveHint588B30[] = "\xBD\xBB\xB3\xF6\xC1\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B30。
-constexpr char kLegacyGiveConfirmCancelReceive588B10[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588B10。
+constexpr char kLegacyGiveConfirmReceiveFormat588B40[] = R"(接受了%2s　%2d　個。
+可以嗎？)"; // 原常量参考：0x00588B40。
+constexpr char kLegacyGiveConfirmGiveFormat588B60[] = R"(交出了%2s　%2d　個。
+可以嗎？)"; // 原常量参考：0x00588B60。
+constexpr wchar_t kLegacyGiveConfirmReceiveHint588B20[] = L"接受了物品。"; // 原常量参考：0x00588B20。
+constexpr wchar_t kLegacyGiveConfirmGiveHint588B30[] = L"交出了物品。"; // 原常量参考：0x00588B30。
+constexpr wchar_t kLegacyGiveConfirmCancelReceive588B10[] = L"取消接受物品。"; // 原常量参考：0x00588B10。
 YobiAction* gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr; // 原全局：0x00CB1DD4。
 std::int32_t gLegacyGiveReceiveImageD2D814 = 0; // 原全局：0x00D2D814。 独立图号，生产待证，不借现代D2DAD0。
 std::int32_t gLegacyGiveReceiveDetailPageD2EAB0 = 0; // 原全局：0x00D2EAB0。
-constexpr char kLegacyExchangeChoice588A40[] = "\x20\xCF\xEB\x20\xBD\xBB\x20\xD2\xD7"; // 原常量参考：0x00588A40。
-constexpr char kLegacyExchangeCancel588A34[] = "\x20\x20\x20\x9B\x5D\x20\xCA\xC2"; // 原常量参考：0x00588A34。
-constexpr char kLegacyExchangeHint588A20[] = "\xC5\x63\xB4\xCB\xB5\xEA\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A20。
-constexpr char kLegacyExchangeCancelHint588A10[] = "\xB2\xBB\xCF\xEB\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A10。
-constexpr char kLegacyGiveReceiveCancel588A70[] = "\xA1\xA1\xA1\xA1\xC8\xA1\xCF\xFB\xA1\xA1\xA1\xA1"; // 原常量参考：0x00588A70。
-constexpr char kLegacyGiveChoice588A64[] = "\xA1\xA1\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7"; // 原常量参考：0x00588A64。
-constexpr char kLegacyReceiveChoice585A40[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7"; // 原常量参考：0x00585A40。
-constexpr char kLegacyGiveHint588A58[] = "\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588A58。
-constexpr char kLegacyGiveReceiveCancelHint588A4C[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00588A4C。
-constexpr char kLegacyQuantityUnit5889A4[] = "\x82\x80"; // 原常量参考：0x005889A4。
-constexpr char kLegacyQuantityIncreaseLimit588ABC[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xD4\xF6\xBC\xD3\xA1\xA3"; // 原常量参考：0x00588ABC。
-constexpr char kLegacyReceiveIncrease588AA8[] = "\xD4\xF6\xBC\xD3\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588AA8。
-constexpr char kLegacyGiveIncrease588ACC[] = "\xD4\xF6\xBC\xD3\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588ACC。
-constexpr char kLegacyQuantityDecreaseLimit588944[] = "\x9F\x6F\xB7\xA8\xD4\xD9\x9C\x70\xC9\xD9\xA1\xA3"; // 原常量参考：0x00588944。
-constexpr char kLegacyReceiveDecrease588A80[] = "\x9C\x70\xC9\xD9\xBD\xD3\xCA\xDC\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588A80。
-constexpr char kLegacyGiveDecrease588A94[] = "\x9C\x70\xC9\xD9\xBD\xBB\xB3\xF6\xB5\xC4\x94\xB5\xC1\xBF\xA1\xA3"; // 原常量参考：0x00588A94。
-constexpr char kLegacyReceiveCancel588AEC[] = "\xC8\xA1\xCF\xFB\xBD\xD3\xCA\xD5\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AEC。
-constexpr char kLegacyGiveCancel588AFC[] = "\xC8\xA1\xCF\xFB\xBD\xBB\xB3\xF6\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AFC。
-constexpr char kLegacyReceiveHint588AE0[] = "\xBD\xD3\xCA\xDC\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00588AE0。
+constexpr wchar_t kLegacyExchangeChoice588A40[] = L" 想 交 易"; // 原常量参考：0x00588A40。
+constexpr wchar_t kLegacyExchangeCancel588A34[] = L"   沒 事"; // 原常量参考：0x00588A34。
+constexpr wchar_t kLegacyExchangeHint588A20[] = L"與此店交易物品。"; // 原常量参考：0x00588A20。
+constexpr wchar_t kLegacyExchangeCancelHint588A10[] = L"不想交易物品。"; // 原常量参考：0x00588A10。
+constexpr wchar_t kLegacyGiveReceiveCancel588A70[] = L"　　取消　　"; // 原常量参考：0x00588A70。
+constexpr wchar_t kLegacyGiveChoice588A64[] = L"　交出物品"; // 原常量参考：0x00588A64。
+constexpr wchar_t kLegacyReceiveChoice585A40[] = L"接受物品"; // 原常量参考：0x00585A40。
+constexpr wchar_t kLegacyGiveHint588A58[] = L"交出物品。"; // 原常量参考：0x00588A58。
+constexpr wchar_t kLegacyGiveReceiveCancelHint588A4C[] = L"取消交易。"; // 原常量参考：0x00588A4C。
+constexpr wchar_t kLegacyQuantityUnit5889A4[] = L"個"; // 原常量参考：0x005889A4。
+constexpr wchar_t kLegacyQuantityIncreaseLimit588ABC[] = L"無法再增加。"; // 原常量参考：0x00588ABC。
+constexpr wchar_t kLegacyReceiveIncrease588AA8[] = L"增加接受的數量。"; // 原常量参考：0x00588AA8。
+constexpr wchar_t kLegacyGiveIncrease588ACC[] = L"增加交出的數量。"; // 原常量参考：0x00588ACC。
+constexpr wchar_t kLegacyQuantityDecreaseLimit588944[] = L"無法再減少。"; // 原常量参考：0x00588944。
+constexpr wchar_t kLegacyReceiveDecrease588A80[] = L"減少接受的數量。"; // 原常量参考：0x00588A80。
+constexpr wchar_t kLegacyGiveDecrease588A94[] = L"減少交出的數量。"; // 原常量参考：0x00588A94。
+constexpr wchar_t kLegacyReceiveCancel588AEC[] = L"取消接收物品。"; // 原常量参考：0x00588AEC。
+constexpr wchar_t kLegacyGiveCancel588AFC[] = L"取消交出物品。"; // 原常量参考：0x00588AFC。
+constexpr wchar_t kLegacyReceiveHint588AE0[] = L"接受物品。"; // 原常量参考：0x00588AE0。
 
 // 旧74/83完全同构的标题及五行正文；每次绘制后仍重读面板坐标。
 void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
@@ -666,9 +694,9 @@ std::int32_t gLegacyAlbumSelectionC8AF7C = 0; // 原全局：0x00C8AF7C。
 std::int32_t gLegacyAlbumPageC8B1B0 = 0; // 原全局：0x00C8B1B0。
 std::int32_t gLegacyAlbumReturningCC40D0 = 0; // 原全局：0x00CC40D0。
 YobiAction* gLegacyAlbumActionD67D14 = nullptr; // 原全局：0x00D67D14。
-constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xCC\xF8\xDF\x5E\x31\x30\xED\x93\xA1\xA3"; // 原常量参考：0x0058A0F0。
-constexpr char kLegacyAlbumBack58A0FC[] = "\xBB\xD8\xB5\xBD\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A0FC。
-constexpr char kLegacyAlbumOpen58A114[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\x88\x44\xE8\x61\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A114。
+constexpr wchar_t kLegacyAlbumSkipTen58A0F0[] = L"跳過10頁。"; // 原常量参考：0x0058A0F0。
+constexpr wchar_t kLegacyAlbumBack58A0FC[] = L"回到圖鑑視窗。"; // 原常量参考：0x0058A0FC。
+constexpr wchar_t kLegacyAlbumOpen58A114[] = L"打開此寵物的圖鑑視窗。"; // 原常量参考：0x0058A114。
 
 // 原旧20列表面板及两帧展开标志；4F7140初始化，4F7150/4F7870共享。
 LegacyPanelRecord gLegacyPetListPanel584850 { // 原全局：0x00584850。
@@ -680,37 +708,40 @@ std::int16_t gLegacyPetStatePreviousD2D48C = 0; // 原全局：0x00D2D48C。
 std::array<std::int16_t, 5> gLegacyPetStateValuesCF4E38 {}; // 原全局：0x00CF4E38。
 std::int16_t gLegacyPetStandbyCountCC4D18 = 0; // 原全局：0x00CC4D18。
 std::int16_t gLegacyPetBattleCountD45F8C = 0; // 原全局：0x00D45F8C。 不属于D45F78金额文本或D45F88编号。
-constexpr char kLegacyPetStateConfirm58A1F0[] = "\x9B\x51\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A1F0。
-constexpr char kLegacyPetStateCancel58A1D8[] = "\xCD\xA3\xD6\xB9\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x0058A1D8。
-constexpr char kLegacyPetStateBattle586C40[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C40。
-constexpr char kLegacyPetStateBattleCurrent586C5C[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C5C。
-constexpr char kLegacyPetStateStandby586C78[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C78。
-constexpr char kLegacyPetStateStandbyCurrent586C94[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x00586C94。
-constexpr char kLegacyPetStateRestCurrent58A140[] = "\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xD5\xFD\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42"; // 原常量参考：0x0058A140。
-constexpr char kLegacyPetStateRest58A158[] = "\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xD0\xDD\xCF\xA2\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A158。
-constexpr char kLegacyPetStateStandbyRejected58A174[] = "\x9F\x6F\xB7\xA8\xCA\xB9\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\xB4\xFD\xC3\xFC\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A174。
-constexpr char kLegacyPetStateBattleRejected58A194[] = "\x9F\x6F\xB7\xA8\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xCC\x8E\xEC\xB6\x91\xF0\xF4\x59\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A194。
-constexpr char kLegacyPetStateSwap58A1B0[] = "\xB0\xD1\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xBA\xCD\xD4\x4F\x9E\xE9\x85\xA2\x91\xF0\xA0\xEE\x91\x42\xB5\xC4\x8C\x99\xCE\xEF\xCC\xE6\x93\x51\xA1\xA3"; // 原常量参考：0x0058A1B0。
+constexpr wchar_t kLegacyPetStateConfirm58A1F0[] = L"決定寵物的狀態。"; // 原常量参考：0x0058A1F0。
+constexpr wchar_t kLegacyPetStateCancel58A1D8[] = L"停止寵物的狀態選擇。"; // 原常量参考：0x0058A1D8。
+constexpr wchar_t kLegacyPetStateBattle586C40[] = L"使這隻寵物處於戰鬥狀態。"; // 原常量参考：0x00586C40。
+constexpr wchar_t kLegacyPetStateBattleCurrent586C5C[] = L"這隻寵物正處於戰鬥狀態。"; // 原常量参考：0x00586C5C。
+constexpr wchar_t kLegacyPetStateStandby586C78[] = L"使這隻寵物處於待命狀態。"; // 原常量参考：0x00586C78。
+constexpr wchar_t kLegacyPetStateStandbyCurrent586C94[] = L"這隻寵物正處於待命狀態。"; // 原常量参考：0x00586C94。
+constexpr wchar_t kLegacyPetStateRestCurrent58A140[] = L"這隻寵物正處於休息狀態"; // 原常量参考：0x0058A140。
+constexpr wchar_t kLegacyPetStateRest58A158[] = L"使這隻寵物處於休息狀態。"; // 原常量参考：0x0058A158。
+constexpr wchar_t kLegacyPetStateStandbyRejected58A174[] = L"無法使這隻寵物處於待命狀態。"; // 原常量参考：0x0058A174。
+constexpr wchar_t kLegacyPetStateBattleRejected58A194[] = L"無法這隻寵物處於戰鬥狀態。"; // 原常量参考：0x0058A194。
+constexpr wchar_t kLegacyPetStateSwap58A1B0[] = L"把這隻寵物和設為參戰狀態的寵物替換。"; // 原常量参考：0x0058A1B0。
 constexpr std::array<std::int32_t, 10> kLegacyPetTribeImages57CB2C { // 原常量参考：0x0057CB2C。
     22865, 22866, 22867, 22868, 22869, 22870, 22871, 22872, 22873, 22874,
 };
-constexpr char kLegacyPetOpenDetails586D0C[] = "\xB4\xF2\xE9\x5F\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00586D0C。
-constexpr char kLegacyPetChooseState58A12C[] = "\xD6\xB8\xB6\xA8\x8C\x99\xCE\xEF\xB5\xC4\xA0\xEE\x91\x42\xA1\xA3"; // 原常量参考：0x0058A12C。
+constexpr wchar_t kLegacyPetOpenDetails586D0C[] = L"打開此寵物的能力視窗。"; // 原常量参考：0x00586D0C。
+constexpr wchar_t kLegacyPetChooseState58A12C[] = L"指定寵物的狀態。"; // 原常量参考：0x0058A12C。
 
-constexpr char kLegacyPetBasicTab585958[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585958。
-constexpr char kLegacyPetAttributeTab58593C[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xD4\x94\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058593C。
-constexpr char kLegacyPetSkillTab585920[] = "\xC7\xD0\x93\x51\xD6\xC1\xB4\xCB\x8C\x99\xCE\xEF\xB5\xC4\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00585920。
-constexpr char kLegacyPetBack58A204[] = "\xBB\xD8\xB5\xBD\x8C\x99\xCE\xEF\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A204。
-constexpr char kLegacyPetRename586D38[] = "\xD7\x83\xB8\xFC\x8C\x99\xCE\xEF\xC3\xFB\xD7\xD6\xA1\xA3"; // 原常量参考：0x00586D38。
-constexpr char kLegacyPetLevelLimit58A214[] = "   ---   "; // 原常量参考：0x0058A214。
-constexpr char kLegacyPetVitality58A288[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC9\xFA\xC3\xFC\xA1\xA3"; // 原常量参考：0x0058A288。
-constexpr char kLegacyPetToughness58A260[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xB7\xC0\xB6\x52\xA1\xA3"; // 原常量参考：0x0058A260。
-constexpr char kLegacyPetMagic58A238[] = "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC4\xA7\xB7\xA8\xA1\xA3"; // 原常量参考：0x0058A238。
+constexpr wchar_t kLegacyPetBasicTab585958[] = L"切換至此寵物的能力視窗。"; // 原常量参考：0x00585958。
+const std::string kLegacyPetBasicTab585958Utf8View = cg::text::FromUtf16(kLegacyPetBasicTab585958); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyPetAttributeTab58593C[] = L"切換至此寵物的詳細視窗。"; // 原常量参考：0x0058593C。
+const std::string kLegacyPetAttributeTab58593CUtf8View = cg::text::FromUtf16(kLegacyPetAttributeTab58593C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyPetSkillTab585920[] = L"切換至此寵物的技能視窗。"; // 原常量参考：0x00585920。
+const std::string kLegacyPetSkillTab585920Utf8View = cg::text::FromUtf16(kLegacyPetSkillTab585920); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyPetBack58A204[] = L"回到寵物視窗。"; // 原常量参考：0x0058A204。
+constexpr wchar_t kLegacyPetRename586D38[] = L"變更寵物名字。"; // 原常量参考：0x00586D38。
+constexpr wchar_t kLegacyPetLevelLimit58A214[] = L"   ---   "; // 原常量参考：0x0058A214。
+constexpr wchar_t kLegacyPetVitality58A288[] = L"將點數分配至生命。"; // 原常量参考：0x0058A288。
+constexpr wchar_t kLegacyPetToughness58A260[] = L"將點數分配至防禦。"; // 原常量参考：0x0058A260。
+constexpr wchar_t kLegacyPetMagic58A238[] = L"將點數分配至魔法。"; // 原常量参考：0x0058A238。
 LegacyPanelRecord gLegacyPetDetailPanel584918 { // 原全局：0x00584918。
     0, 0, 272, 438, 21, {22800, 22810, 22824, 0, 0},
-    {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958},
-      {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593C},
-      {1, 187, 415, 78, 17, kLegacyPetSkillTab585920}, {}, {}}},
+    {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958Utf8View.c_str()},
+      {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593CUtf8View.c_str()},
+      {1, 187, 415, 78, 17, kLegacyPetSkillTab585920Utf8View.c_str()}, {}, {}}},
     0, 0, {}, {},
 };
 std::int32_t gLegacyPetSelectionD67ADC = 0; // 原全局：0x00D67ADC。 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
@@ -768,32 +799,35 @@ std::int32_t gLegacyTradeRemoteItemPageD67CC0 = 0; // 原全局：0x00D67CC0。
 std::int32_t gLegacyTradeRemotePetPageD67CC4 = 0; // 原全局：0x00D67CC4。
 std::int32_t gLegacyTradeLocalPetPageD67CCC = 0; // 原全局：0x00D67CCC。
 YobiAction* gLegacyTradePetActionD67CB4 = nullptr; // 原全局：0x00D67CB4。 旧52外层创建/关闭，属性页借用。
-constexpr char kLegacyTradeAvailable589524[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589524。
-constexpr char kLegacyTradeUnavailable58953C[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xB2\xBB\xC4\xDC\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x0058953C。
-constexpr char kLegacyTradeSelected589554[] = "\xB0\xD1\xB4\xCB\xCE\xEF\xC6\xB7\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589554。
-constexpr char kLegacyTradeRemoteItem5894DC[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005894DC。
-constexpr char kLegacyTradeRemotePet5894F4[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005894F4。
-constexpr char kLegacyTradeRemoteMoney58950C[] = "\xDF\x40\xCA\xC7\x8C\xA6\xB7\xBD\xCF\xEB\xBD\xBB\xD2\xD7\xB5\xC4\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x0058950C。
-constexpr char kLegacyTradePetAvailable589568[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589568。
-constexpr char kLegacyTradePetSelected589580[] = "\xB0\xD1\xB4\xCB\x8C\x99\xCE\xEF\xC4\xC3\x81\xED\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589580。
-constexpr char kLegacyTradeChoosing5894CC[] = "\xDF\x78\xC8\xA1\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xD6\xD0"; // 原常量参考：0x005894CC。
-constexpr char kLegacyTradePublished5894B8[] = "\xBD\xBB\xD2\xD7\xCE\xEF\xC6\xB7\xDF\x78\xC8\xA1\xCD\xEA\xB3\xC9"; // 原常量参考：0x005894B8。
-constexpr char kLegacyTradeConfirming5894AC[] = "\xB4\x5F\xD5\x4A\xBD\xBB\xD2\xD7\xD6\xD0"; // 原常量参考：0x005894AC。
-constexpr char kLegacyTradeConfirmSelected589484[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589484。
-constexpr char kLegacyTradeConfirm589478[] = "\xDF\x4D\xD0\xD0\xBD\xBB\xD2\xD7\xA1\xA3"; // 原常量参考：0x00589478。
+constexpr wchar_t kLegacyTradeAvailable589524[] = L"此物品可以拿來交易。"; // 原常量参考：0x00589524。
+constexpr wchar_t kLegacyTradeUnavailable58953C[] = L"此物品不能拿來交易。"; // 原常量参考：0x0058953C。
+constexpr wchar_t kLegacyTradeSelected589554[] = L"把此物品拿來交易。"; // 原常量参考：0x00589554。
+constexpr wchar_t kLegacyTradeRemoteItem5894DC[] = L"這是對方想交易的物品。"; // 原常量参考：0x005894DC。
+constexpr wchar_t kLegacyTradeRemotePet5894F4[] = L"這是對方想交易的寵物。"; // 原常量参考：0x005894F4。
+constexpr wchar_t kLegacyTradeRemoteMoney58950C[] = L"這是對方想交易的金額。"; // 原常量参考：0x0058950C。
+constexpr wchar_t kLegacyTradePetAvailable589568[] = L"此寵物可以拿來交易。"; // 原常量参考：0x00589568。
+constexpr wchar_t kLegacyTradePetSelected589580[] = L"把此寵物拿來交易。"; // 原常量参考：0x00589580。
+constexpr wchar_t kLegacyTradeChoosing5894CC[] = L"選取交易物品中"; // 原常量参考：0x005894CC。
+const std::string kLegacyTradeChoosing5894CCUtf8View = cg::text::FromUtf16(kLegacyTradeChoosing5894CC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTradePublished5894B8[] = L"交易物品選取完成"; // 原常量参考：0x005894B8。
+const std::string kLegacyTradePublished5894B8Utf8View = cg::text::FromUtf16(kLegacyTradePublished5894B8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTradeConfirming5894AC[] = L"確認交易中"; // 原常量参考：0x005894AC。
+const std::string kLegacyTradeConfirming5894ACUtf8View = cg::text::FromUtf16(kLegacyTradeConfirming5894AC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyTradeConfirmSelected589484[] = L"現在可以交易。"; // 原常量参考：0x00589484。
+constexpr wchar_t kLegacyTradeConfirm589478[] = L"進行交易。"; // 原常量参考：0x00589478。
 
-constexpr char kLegacyTradeRemoteItemTab589458[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589458。
-constexpr char kLegacyTradeRemotePetTab589438[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589438。
-constexpr char kLegacyTradeRemoteMoneyTab589418[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xBB\xD2\xD7\x8C\xA6\xCA\xD6\xB5\xC4\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589418。
-constexpr char kLegacyTradeLocalItemTab589400[] = "\xC7\xD0\x93\x51\xD6\xC1\xCE\xEF\xC6\xB7\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00589400。
-constexpr char kLegacyTradeLocalPetTab5893E8[] = "\xC7\xD0\x93\x51\xD6\xC1\x8C\x99\xCE\xEF\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x005893E8。
-constexpr char kLegacyTradeLocalMoneyTab5893D0[] = "\xC7\xD0\x93\x51\xD6\xC1\xBD\xF0\xE5\x58\x99\xDA\xC4\xC7\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x005893D0。
-constexpr char kLegacyTradePublishItems5893B4[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x005893B4。
-constexpr char kLegacyTradePublishPets589398[] = "\xB0\xD1\xDF\x78\x93\xF1\xB5\xC4\x8C\x99\xCE\xEF\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x00589398。
-constexpr char kLegacyTradePublishMoney589380[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xC4\xC3\xBD\x6F\x8C\xA6\xB7\xBD\xBF\xB4\xA1\xA3"; // 原常量参考：0x00589380。
-constexpr char kLegacyTradePetCount58949C[] = "%d\xEB\x62"; // 原常量参考：0x0058949C。
-constexpr char kLegacyTradeItemCount5894A4[] = "%2d\x82\x80"; // 原常量参考：0x005894A4。
-constexpr char kLegacyTradeMoney589494[] = "%7d\xBD\xF0\x8E\xC5"; // 原常量参考：0x00589494。
+constexpr wchar_t kLegacyTradeRemoteItemTab589458[] = L"切換至交易對手的物品欄那一頁。"; // 原常量参考：0x00589458。
+constexpr wchar_t kLegacyTradeRemotePetTab589438[] = L"切換至交易對手的寵物欄那一頁。"; // 原常量参考：0x00589438。
+constexpr wchar_t kLegacyTradeRemoteMoneyTab589418[] = L"切換至交易對手的金錢欄那一頁。"; // 原常量参考：0x00589418。
+constexpr wchar_t kLegacyTradeLocalItemTab589400[] = L"切換至物品欄那一頁。"; // 原常量参考：0x00589400。
+constexpr wchar_t kLegacyTradeLocalPetTab5893E8[] = L"切換至寵物欄那一頁。"; // 原常量参考：0x005893E8。
+constexpr wchar_t kLegacyTradeLocalMoneyTab5893D0[] = L"切換至金錢欄那一頁。"; // 原常量参考：0x005893D0。
+constexpr wchar_t kLegacyTradePublishItems5893B4[] = L"把選擇的物品拿給對方看。"; // 原常量参考：0x005893B4。
+constexpr wchar_t kLegacyTradePublishPets589398[] = L"把選擇的寵物拿給對方看。"; // 原常量参考：0x00589398。
+constexpr wchar_t kLegacyTradePublishMoney589380[] = L"把指定金額拿給對方看。"; // 原常量参考：0x00589380。
+constexpr char kLegacyTradePetCount58949C[] = "%d隻"; // 原常量参考：0x0058949C。
+constexpr char kLegacyTradeItemCount5894A4[] = "%2d個"; // 原常量参考：0x005894A4。
+constexpr char kLegacyTradeMoney589494[] = "%7d金幣"; // 原常量参考：0x00589494。
 
 char* BorrowLegacyTradeItem(const std::int32_t side, const std::int32_t item)
 {
@@ -862,33 +896,39 @@ std::int32_t gLegacyStoragePetPutCountD2D600 = 0; // 原全局：0x00D2D600。
 std::int32_t gLegacyStoragePetTakeCountD2D824 = 0; // 原全局：0x00D2D824。
 std::int32_t gLegacyStoragePetCapacityCB1DDC = 0; // 原全局：0x00CB1DDC。
 YobiAction* gLegacyStoragePetActionD67C90 = nullptr; // 原全局：0x00D67C90。
-constexpr char kLegacyStorageNoMoney58906C[] = "\xC4\xE3\xB5\xC4\xE5\x58\xB2\xBB\x89\xF2\xA3\xA1"; // 原常量参考：0x0058906C。
-constexpr char kLegacyStorageFee589284[] = "\xCA\xD6\xC0\x6D\xD9\x4D"; // 原常量参考：0x00589284。
-constexpr char kLegacyStorageGold589278[] = "\xB3\xD6\xD3\xD0\xBD\xF0\xEE\x7E"; // 原常量参考：0x00589278。
-constexpr char kLegacyStorageAmount588FC4[] = "%7d \xBD\xF0\x8E\xC5"; // 原常量参考：0x00588FC4。
-constexpr char kLegacyStorageTake589268[] = "\xC8\xA1\xB3\xF6\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589268。
-constexpr char kLegacyStorageFull589230[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589230。
-constexpr char kLegacyStorageCanPut589244[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x00589244。
-constexpr char kLegacyStoragePut589258[] = "\xB4\xE6\xB7\xC5\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589258。
-constexpr char kLegacyStorageCannotPut5878BC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x005878BC。
-constexpr char kLegacyStorageClear5859FC[] = "\xB0\xD1\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x005859FC。
-constexpr char kLegacyStorageAmountLimit5892D4[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x005892D4。
-constexpr char kLegacyStorageDeposit5892F4[] = "\xB4\xE6\xC8\xEB\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x005892F4。
-constexpr char kLegacyStorageCannotDeposit5892E8[] = "\x9F\x6F\xB7\xA8\xB4\xE6\xC8\xEB\xA1\xA3"; // 原常量参考：0x005892E8。
-constexpr char kLegacyStorageBalance589314[] = "\xB4\xE6\xBF\xEE"; // 原常量参考：0x00589314。
-constexpr char kLegacyStorageWithdraw589304[] = "\xC8\xA1\xB3\xF6\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00589304。
-constexpr char kLegacyStoragePetTake5892C4[] = "\xC8\xA1\xB3\xF6\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005892C4。
-constexpr char kLegacyStoragePetPut5892B4[] = "\xB4\xE6\xB7\xC5\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x005892B4。
-constexpr char kLegacyStoragePetCanPut5892A0[] = "\xB4\xCB\x8C\x99\xCE\xEF\xBF\xC9\xD2\xD4\xB4\xE6\xB7\xC5\xA1\xA3"; // 原常量参考：0x005892A0。
-constexpr char kLegacyStoragePetFull58928C[] = "\x9F\x6F\xB7\xA8\xD4\xD9\xB4\xE6\xB7\xC5\x8C\x99\xCE\xEF\xA1\xA3"; // 原常量参考：0x0058928C。
-constexpr char kLegacyStorageItemTab589214[] = "\xCE\xEF\xC6\xB7\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3"; // 原常量参考：0x00589214。
-constexpr char kLegacyStoragePetTab589200[] = "\x8C\x99\xCE\xEF\xB4\xE6\xB7\xC5\xC5\x63\xC8\xA1\xB3\xF6\xA1\xA3"; // 原常量参考：0x00589200。
-constexpr char kLegacyStorageDepositTab5891F8[] = "\xB4\xE6\xE5\x58\xA1\xA3"; // 原常量参考：0x005891F8。
-constexpr char kLegacyStorageWithdrawTab5891F0[] = "\xEE\x49\xE5\x58\xA1\xA3"; // 原常量参考：0x005891F0。
-constexpr char kLegacyStorageConfirm5891C4[] = "\xB4\x5F\xB6\xA8\xA1\xA3"; // 原常量参考：0x005891C4。
-constexpr char kLegacyStorageCancel5891BC[] = "\xC8\xA1\xCF\xFB\xA1\xA3"; // 原常量参考：0x005891BC。
-constexpr char kLegacyStorageItemCount5891D4[] = "%2d \x82\x80"; // 原常量参考：0x005891D4。
-constexpr char kLegacyStoragePetCount5891CC[] = "%d \xEB\x62"; // 原常量参考：0x005891CC。
+constexpr wchar_t kLegacyStorageNoMoney58906C[] = L"你的錢不夠！"; // 原常量参考：0x0058906C。
+constexpr wchar_t kLegacyStorageFee589284[] = L"手續費"; // 原常量参考：0x00589284。
+constexpr wchar_t kLegacyStorageGold589278[] = L"持有金額"; // 原常量参考：0x00589278。
+constexpr char kLegacyStorageAmount588FC4[] = "%7d 金幣"; // 原常量参考：0x00588FC4。
+constexpr wchar_t kLegacyStorageTake589268[] = L"取出此物品。"; // 原常量参考：0x00589268。
+constexpr wchar_t kLegacyStorageFull589230[] = L"無法再存放物品。"; // 原常量参考：0x00589230。
+constexpr wchar_t kLegacyStorageCanPut589244[] = L"此物品可以存放。"; // 原常量参考：0x00589244。
+constexpr wchar_t kLegacyStoragePut589258[] = L"存放此物品。"; // 原常量参考：0x00589258。
+constexpr wchar_t kLegacyStorageCannotPut5878BC[] = L"此物品無法存放。"; // 原常量参考：0x005878BC。
+constexpr wchar_t kLegacyStorageClear5859FC[] = L"把指定金額歸零。"; // 原常量参考：0x005859FC。
+constexpr wchar_t kLegacyStorageAmountLimit5892D4[] = L"無法指定更多金額。"; // 原常量参考：0x005892D4。
+constexpr wchar_t kLegacyStorageDeposit5892F4[] = L"存入指定金額。"; // 原常量参考：0x005892F4。
+constexpr wchar_t kLegacyStorageCannotDeposit5892E8[] = L"無法存入。"; // 原常量参考：0x005892E8。
+constexpr wchar_t kLegacyStorageBalance589314[] = L"存款"; // 原常量参考：0x00589314。
+constexpr wchar_t kLegacyStorageWithdraw589304[] = L"取出指定金額。"; // 原常量参考：0x00589304。
+constexpr wchar_t kLegacyStoragePetTake5892C4[] = L"取出這隻寵物。"; // 原常量参考：0x005892C4。
+constexpr wchar_t kLegacyStoragePetPut5892B4[] = L"存放這隻寵物。"; // 原常量参考：0x005892B4。
+constexpr wchar_t kLegacyStoragePetCanPut5892A0[] = L"此寵物可以存放。"; // 原常量参考：0x005892A0。
+constexpr wchar_t kLegacyStoragePetFull58928C[] = L"無法再存放寵物。"; // 原常量参考：0x0058928C。
+constexpr wchar_t kLegacyStorageItemTab589214[] = L"物品存放與取出。"; // 原常量参考：0x00589214。
+const std::string kLegacyStorageItemTab589214Utf8View = cg::text::FromUtf16(kLegacyStorageItemTab589214); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyStoragePetTab589200[] = L"寵物存放與取出。"; // 原常量参考：0x00589200。
+const std::string kLegacyStoragePetTab589200Utf8View = cg::text::FromUtf16(kLegacyStoragePetTab589200); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyStorageDepositTab5891F8[] = L"存錢。"; // 原常量参考：0x005891F8。
+const std::string kLegacyStorageDepositTab5891F8Utf8View = cg::text::FromUtf16(kLegacyStorageDepositTab5891F8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyStorageWithdrawTab5891F0[] = L"領錢。"; // 原常量参考：0x005891F0。
+const std::string kLegacyStorageWithdrawTab5891F0Utf8View = cg::text::FromUtf16(kLegacyStorageWithdrawTab5891F0); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyStorageConfirm5891C4[] = L"確定。"; // 原常量参考：0x005891C4。
+const std::string kLegacyStorageConfirm5891C4Utf8View = cg::text::FromUtf16(kLegacyStorageConfirm5891C4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyStorageCancel5891BC[] = L"取消。"; // 原常量参考：0x005891BC。
+const std::string kLegacyStorageCancel5891BCUtf8View = cg::text::FromUtf16(kLegacyStorageCancel5891BC); // 旧窄接口只读兼容视图。
+constexpr char kLegacyStorageItemCount5891D4[] = "%2d 個"; // 原常量参考：0x005891D4。
+constexpr char kLegacyStoragePetCount5891CC[] = "%d 隻"; // 原常量参考：0x005891CC。
 
 char* BorrowLegacyStorageItem(const std::int32_t side, const std::int32_t item)
 {
@@ -916,44 +956,46 @@ void WriteLegacyStorageSelection(char* const record, const std::int16_t value)
 LegacyPanelRecord gLegacySkillDetail585640 { // 原全局：0x00585640。
     0, 0, 272, 448, 19, {22770, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillDetailNoFp58A9D4[] = "\xC4\xA7\xB7\xA8\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058A9D4。
-constexpr char kLegacySkillDetailNoSpace58A9C4[] = "\xCE\xEF\xC6\xB7\x99\xDA\x9D\x4D\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A9C4。
-constexpr char kLegacySkillDetailHiddenFp58A9BC[] = "\x3F\x3F\x3F\x3F"; // 原常量参考：0x0058A9BC。
-constexpr char kLegacySkillDetailUse58A9AC[] = "\xCA\xB9\xD3\xC3\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xA1\xA3"; // 原常量参考：0x0058A9AC。
-constexpr char kLegacySkillDetailBack554088[] = "\xBB\xD8\xB5\xBD\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00554088。
-constexpr char kLegacySkillDetailUnavailable58A994[] = "\xAC\x46\xD4\xDA\xBF\xC9\xD2\xD4\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x0058A994。
-constexpr char kLegacySkillDetailTransform554104[] = "\xDF\x4D\xD0\xD0\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00554104。
-constexpr char kLegacySkillDetailRelease554114[] = "\xBD\xE2\xB3\xFD\xBE\xAB\xEC\x60\xD7\x83\xC9\xED\xA1\xA3"; // 原常量参考：0x00554114。
-constexpr char kLegacySkillClose55331C[] = // 原常量参考：0x0055331C。
-    "\xEA\x50\xE9\x5D\xDF\x40\x82\x80\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacySkillOpen5864C8[] = // 原常量参考：0x005864C8。
-    "\xB4\xF2\xE9\x5F\xDF\x40\x82\x80\xBC\xBC\xC4\xDC\xB5\xC4\xBC\xBC"
-    "\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyAttributeLimit58A220[] = // 原常量参考：0x0058A220。
-    "\xD2\xD1\xBD\x9B\xB2\xBB\xC4\xDC\xD4\xD9\xB7\xD6\xC5\xE4\xFC\x63"
-    "\x94\xB5\xC1\xCB\xA1\xA3";
-constexpr char kLegacyAttributeHint58AA08[] = // 原常量参考：0x0058AA08。
-    "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xF3\x77\xC1\xA6\xA1\xA3";
-constexpr char kLegacyAttributeHint58A274[] = // 原常量参考：0x0058A274。
-    "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC1\xA6\xC1\xBF\xA1\xA3";
-constexpr char kLegacyAttributeHint58A9F4[] = // 原常量参考：0x0058A9F4。
-    "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\x8F\x8A\xB6\xC8\xA1\xA3";
-constexpr char kLegacyAttributeHint58A24C[] = // 原常量参考：0x0058A24C。
-    "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xCB\xD9\xB6\xC8\xA1\xA3";
-constexpr char kLegacyAttributeHint58A9E0[] = // 原常量参考：0x0058A9E0。
-    "\x8C\xA2\xFC\x63\x94\xB5\xB7\xD6\xC5\xE4\xD6\xC1\xC4\xA7\xC1\xA6\xA1\xA3";
-constexpr char kLegacyProfileTab5858D8[] = // 原常量参考：0x005858D8。
-    "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xA0\xEE\x91\x42\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileTab5858C0[] = // 原常量参考：0x005858C0。
-    "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xC3\xF7\xBC\x9A\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileTab5858A8[] = // 原常量参考：0x005858A8。
-    "\xC7\xD0\x93\x51\xB3\xC9\xCD\xE6\xBC\xD2\xB7\x51\xCC\x96\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyProfileRear586344[] = // 原常量参考：0x00586344。
-    "\xB0\xD1\x91\xF0\xF4\x59\x95\x72\xB5\xC4\xCE\xBB\xD6\xC3\xD7\x83"
-    "\xB8\xFC\x9E\xE9\xE1\xE1\xC5\xC5\xA1\xA3";
-constexpr char kLegacyProfileFront586360[] = // 原常量参考：0x00586360。
-    "\xB0\xD1\x91\xF0\xF4\x59\x95\x72\xB5\xC4\xCE\xBB\xD6\xC3\xD7\x83"
-    "\xB8\xFC\x9E\xE9\xC7\xB0\xC5\xC5\xA1\xA3";
+constexpr wchar_t kLegacySkillDetailNoFp58A9D4[] = L"魔法不足。"; // 原常量参考：0x0058A9D4。
+const std::string kLegacySkillDetailNoFp58A9D4Utf8View = cg::text::FromUtf16(kLegacySkillDetailNoFp58A9D4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySkillDetailNoSpace58A9C4[] = L"物品欄滿了。"; // 原常量参考：0x0058A9C4。
+const std::string kLegacySkillDetailNoSpace58A9C4Utf8View = cg::text::FromUtf16(kLegacySkillDetailNoSpace58A9C4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySkillDetailHiddenFp58A9BC[] = L"????"; // 原常量参考：0x0058A9BC。
+constexpr wchar_t kLegacySkillDetailUse58A9AC[] = L"使用這個技能。"; // 原常量参考：0x0058A9AC。
+constexpr wchar_t kLegacySkillDetailBack554088[] = L"回到技能視窗。"; // 原常量参考：0x00554088。
+constexpr wchar_t kLegacySkillDetailUnavailable58A994[] = L"現在可以進行精靈變身。"; // 原常量参考：0x0058A994。
+constexpr wchar_t kLegacySkillDetailTransform554104[] = L"進行精靈變身。"; // 原常量参考：0x00554104。
+constexpr wchar_t kLegacySkillDetailRelease554114[] = L"解除精靈變身。"; // 原常量参考：0x00554114。
+constexpr wchar_t kLegacySkillClose55331C[] = // 原常量参考：0x0055331C。
+    L"關閉這個視窗。";
+const std::string kLegacySkillClose55331CUtf8View = cg::text::FromUtf16(kLegacySkillClose55331C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySkillOpen5864C8[] = // 原常量参考：0x005864C8。
+    L"打開這個技能的技能視窗。";
+constexpr wchar_t kLegacyAttributeLimit58A220[] = // 原常量参考：0x0058A220。
+    L"已經不能再分配點數了。";
+constexpr wchar_t kLegacyAttributeHint58AA08[] = // 原常量参考：0x0058AA08。
+    L"將點數分配至體力。";
+constexpr wchar_t kLegacyAttributeHint58A274[] = // 原常量参考：0x0058A274。
+    L"將點數分配至力量。";
+constexpr wchar_t kLegacyAttributeHint58A9F4[] = // 原常量参考：0x0058A9F4。
+    L"將點數分配至強度。";
+constexpr wchar_t kLegacyAttributeHint58A24C[] = // 原常量参考：0x0058A24C。
+    L"將點數分配至速度。";
+constexpr wchar_t kLegacyAttributeHint58A9E0[] = // 原常量参考：0x0058A9E0。
+    L"將點數分配至魔力。";
+constexpr wchar_t kLegacyProfileTab5858D8[] = // 原常量参考：0x005858D8。
+    L"切換成玩家狀態視窗。";
+const std::string kLegacyProfileTab5858D8Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858D8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyProfileTab5858C0[] = // 原常量参考：0x005858C0。
+    L"切換成玩家明細視窗。";
+const std::string kLegacyProfileTab5858C0Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858C0); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyProfileTab5858A8[] = // 原常量参考：0x005858A8。
+    L"切換成玩家稱號視窗。";
+const std::string kLegacyProfileTab5858A8Utf8View = cg::text::FromUtf16(kLegacyProfileTab5858A8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyProfileRear586344[] = // 原常量参考：0x00586344。
+    L"把戰鬥時的位置變更為後排。";
+constexpr wchar_t kLegacyProfileFront586360[] = // 原常量参考：0x00586360。
+    L"把戰鬥時的位置變更為前排。";
 constexpr std::array<std::array<std::uint32_t, 2>, 4> kLegacyAttributeBars57CBB8 {{ // 原常量参考：0x0057CBB8。
     {250, 2}, {254, 6}, {249, 1}, {251, 3},
 }};
@@ -967,8 +1009,8 @@ std::int8_t gLegacyTitleDeleteCF4678 = 0; // 原全局：0x00CF4678。
 LegacyPanelRecord gLegacyMapPanelD68868 {}; // 原全局：0x00D68868。
 std::int32_t gLegacyMapDefaultX57CB24 = 392; // 原全局：0x0057CB24。
 std::int32_t gLegacyMapDefaultYD67AD4 = 0; // 原全局：0x00D67AD4。
-constexpr char kLegacyMapEast58AA54[] = "\x96\x7C %3d"; // 原常量参考：0x0058AA54。
-constexpr char kLegacyMapSouth58AA4C[] = "\xC4\xCF %3d"; // 原常量参考：0x0058AA4C。
+constexpr char kLegacyMapEast58AA54[] = "東 %3d"; // 原常量参考：0x0058AA54。
+constexpr char kLegacyMapSouth58AA4C[] = "南 %3d"; // 原常量参考：0x0058AA4C。
 LegacyPanelRecord gLegacyPointResultPanel5838A8 { // 原全局：0x005838A8。
     236, 152, 168, 152, 41, {23385, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -984,11 +1026,13 @@ LegacyPanelRecord gLegacyGatherResultPanel583A38 { // 原全局：0x00583A38。
 std::int32_t gLegacyGatherRepeat583AFC = 1; // 原全局：0x00583AFC。
 std::uint32_t gLegacyGatherResultTickCA0AB8 = 0; // 原全局：0x00CA0AB8。
 YobiAction* gLegacyGatherResultActionD67CD4 = nullptr; // 原全局：0x00D67CD4。
-constexpr char kLegacyGatherNoFp5864F0[] = "\xC4\xA7\xC1\xA6\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x005864F0。
-constexpr char kLegacyGatherNoSpace589868[] = "\xCE\xEF\xC6\xB7\x99\xDA\xD2\xD1\x9D\x4D\xA1\xA3"; // 原常量参考：0x00589868。
-constexpr char kLegacyGatherLimit589858[] = "   --   "; // 原常量参考：0x00589858。
-constexpr char kLegacyGatherStop589848[] = "\x8C\xA2\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE\xA1\xA3"; // 原常量参考：0x00589848。
-constexpr char kLegacyGatherStart58983C[] = "\xD4\xD9\x88\xCC\xD0\xD0\xD2\xBB\xB4\xCE"; // 原常量参考：0x0058983C。
+constexpr wchar_t kLegacyGatherNoFp5864F0[] = L"魔力不足。"; // 原常量参考：0x005864F0。
+const std::string kLegacyGatherNoFp5864F0Utf8View = cg::text::FromUtf16(kLegacyGatherNoFp5864F0); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGatherNoSpace589868[] = L"物品欄已滿。"; // 原常量参考：0x00589868。
+const std::string kLegacyGatherNoSpace589868Utf8View = cg::text::FromUtf16(kLegacyGatherNoSpace589868); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGatherLimit589858[] = L"   --   "; // 原常量参考：0x00589858。
+constexpr wchar_t kLegacyGatherStop589848[] = L"將再執行一次。"; // 原常量参考：0x00589848。
+constexpr wchar_t kLegacyGatherStart58983C[] = L"再執行一次"; // 原常量参考：0x0058983C。
 LegacyPanelRecord gLegacySkillResultPanel583BC8 { // 原全局：0x00583BC8。
     0, 0, 272, 440, 37, {23356, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -996,12 +1040,13 @@ YobiAction* gLegacySkillResultActionD67CDC = nullptr; // 原全局：0x00D67CDC�
 LegacyPanelRecord gLegacyFpNoticePanel583E20 { // 原全局：0x00583E20。
     160, 180, 320, 96, 34, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySkillRetry589A94[] = // 原常量参考：0x00589A94。
-    "\xD4\xD9\xCA\xB9\xD3\xC3\xB4\xCB\xBC\xBC\xC4\xDC\xD2\xBB\xB4\xCE\xA1\xA3";
-constexpr char kLegacyFpConfirm55C5D4[] = "\xB4\x5F\xB6\xA8"; // 原常量参考：0x0055C5D4。
-constexpr char kLegacyFpNotice589BFC[] = "\xC4\xA7\xC1\xA6\xB2\xBB\x89\xF2\xA1\xA3"; // 原常量参考：0x00589BFC。
+constexpr wchar_t kLegacySkillRetry589A94[] = // 原常量参考：0x00589A94。
+    L"再使用此技能一次。";
+constexpr wchar_t kLegacyFpConfirm55C5D4[] = L"確定"; // 原常量参考：0x0055C5D4。
+constexpr wchar_t kLegacyFpNotice589BFC[] = L"魔力不夠。"; // 原常量参考：0x00589BFC。
+const std::string kLegacyFpNotice589BFCUtf8View = cg::text::FromUtf16(kLegacyFpNotice589BFC); // 旧窄接口只读兼容视图。
 constexpr char kLegacyFpRequired589BE8[] = // 原常量参考：0x00589BE8。
-    "\xD0\xE8\xD2\xAA%d\xFC\x63\xB5\xC4\xC4\xA7\xC1\xA6\xD6\xB5\xA1\xA3";
+    "需要%d點的魔力值。";
 LegacyPanelRecord gLegacyItemWorkResultPanel584140 { // 原全局：0x00584140。
     0, 0, 272, 440, 33, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1013,7 +1058,7 @@ LegacyPanelRecord gLegacyItemWorkPanel5842D0 { // 原全局：0x005842D0。
     368, 0, 272, 440, 31, {23354, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 input::InputContext* gLegacyItemWorkInputD67CE4 = nullptr; // 原全局：0x00D67CE4。
-std::string gLegacyItemWorkDraftCC31E0; // 原全局：0x00CC31E0。 仅已证NUL复制合同，不猜原固定容量。
+std::wstring gLegacyItemWorkDraftCC31E0; // 原全局：0x00CC31E0。 仅已证NUL复制合同，不猜原固定容量。
 std::int32_t gLegacyItemWorkInitGateD67CE8 = 0; // 原全局：0x00D67CE8。 只证W32测试/返回，尚无地址用途。
 std::int32_t gLegacyItemWorkButtonKindD67CF4 = 0; // 原全局：0x00D67CF4。
 std::int32_t gLegacyItemWorkPhaseCC4220 = 0; // 原全局：0x00CC4220。
@@ -1022,37 +1067,59 @@ std::int32_t gLegacyItemWorkHover584398 = -1; // 原全局：0x00584398。
 std::int32_t gLegacyItemWorkPageD67CF8 = 0; // 原全局：0x00D67CF8。
 std::uint32_t gLegacyItemWorkTickD2E12C = 0; // 原全局：0x00D2E12C。
 std::uint32_t gLegacyItemWorkDurationCC3EDC = 0; // 原全局：0x00CC3EDC。
-std::string gLegacyItemWorkMessageCA0ACC; // 原全局：0x00CA0ACC。 原NUL格式化/分行合同，未知阶段保留旧文本。
-constexpr char kItemWorkText589F84[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F84。
-constexpr char kItemWorkText589F6C[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F6C。
-constexpr char kItemWorkText589F54[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xD0\xDE\xC0\xED\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F54。
-constexpr char kItemWorkText589F40[] = "\xD5\x88\xDF\x78\x93\xF1\x8C\xA6\xCF\xF3\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589F40。
-constexpr char kItemWorkText589F2C[] = "\xD0\xE8\xD2\xAA%d\xFC\x63\xB5\xC4\xC4\xA7\xC1\xA6\xA1\xA3"; // 原常量参考：0x00589F2C。
-constexpr char kItemWorkText589F1C[] = "\xD2\xD1\xBD\x9B\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589F1C。
-constexpr char kItemWorkText589F04[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589F04。
-constexpr char kItemWorkText589EF4[] = "\xD2\xD1\xBD\x9B\xBF\xCC\xD3\xA1\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589EF4。
-constexpr char kItemWorkText589EDC[] = "\x0A\x0A      \xD0\xDE\xC0\xED\xD6\xD0......"; // 原常量参考：0x00589EDC。
-constexpr char kItemWorkText589EC4[] = "\x0A\x0A      \xE8\x61\xB6\xA8\xD6\xD0......"; // 原常量参考：0x00589EC4。
-constexpr char kItemWorkText589EAC[] = "\x0A\x0A      \xBF\xCC\xD3\xA1\xD6\xD0......"; // 原常量参考：0x00589EAC。
-constexpr char kItemWorkText589E94[] = "\x9F\x6F\xB7\xA8\xD2\xD4\xD4\x93\xBC\xBC\xC4\xDC\xDF\x4D\xD0\xD0\xD0\xDE\xC0\xED\xA1\xA3"; // 原常量参考：0x00589E94。
-constexpr char kItemWorkText589E80[] = "\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E80。
-constexpr char kItemWorkText589E58[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589E58。
-constexpr char kItemWorkText589E30[] = "\xD4\x93\xCE\xEF\xC6\xB7\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589E30。
-constexpr char kItemWorkText589E1C[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E1C。
-constexpr char kItemWorkText589E04[] = "\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xCE\xB4\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589E04。
-constexpr char kItemWorkText589DF4[] = "\xBF\xCC\xD3\xA1\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DF4。
-constexpr char kItemWorkText589DE0[] = "\xD5\x88\xDF\x78\x93\xF1\xBF\xCC\xD3\xA1\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DE0。
-constexpr char kItemWorkText589DD0[] = "\xE8\x61\xB6\xA8\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DD0。
-constexpr char kItemWorkText589DBC[] = "\xD5\x88\xDF\x78\x93\xF1\xE8\x61\xB6\xA8\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DBC。
-constexpr char kItemWorkText589DAC[] = "\xD0\xDE\xC0\xED\xCB\xF9\xDF\x78\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589DAC。
-constexpr char kItemWorkText589D98[] = "\xD5\x88\xDF\x78\x93\xF1\xD0\xDE\xC0\xED\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D98。
-constexpr char kItemWorkText589D88[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D88。
-constexpr char kItemWorkText589D74[] = "\xB4\xCB\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3"; // 原常量参考：0x00589D74。
-constexpr char kItemWorkText589D54[] = "\xD2\xD4\xAC\x46\xD4\xDA\xB5\xC4\xBC\xBC\xC4\xDC\xB5\xC8\xBC\x89\xCA\xC7\x9F\x6F\xB7\xA8\xE8\x61\xB6\xA8\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589D54。
-constexpr char kItemWorkText589D44[] = "\xE8\x61\xB6\xA8\xD4\x93\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589D44。
-constexpr char kItemWorkText589D30[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xE8\x61\xB6\xA8\xDF\x5E\xC1\xCB\xA1\xA3"; // 原常量参考：0x00589D30。
-constexpr char kItemWorkText589D10[] = "\xCE\xB4\xBD\x9B\xE8\x61\xB6\xA8\xB5\xC4\xCE\xEF\xC6\xB7\xCA\xC7\x9F\x6F\xB7\xA8\xD0\xDE\xC0\xED\xB5\xC4\xA1\xA3"; // 原常量参考：0x00589D10。
-constexpr char kItemWorkText589024[] = "\xD0\xDE\xC0\xED\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589024。
+std::wstring gLegacyItemWorkMessageCA0ACC; // 原全局：0x00CA0ACC。 原NUL格式化/分行合同，未知阶段保留旧文本。
+constexpr wchar_t kItemWorkText589F84[] = L"請選擇要刻印的物品。"; // 原常量参考：0x00589F84。
+const std::string kItemWorkText589F84Utf8View = cg::text::FromUtf16(kItemWorkText589F84); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589F6C[] = L"請選擇要鑑定的物品。"; // 原常量参考：0x00589F6C。
+const std::string kItemWorkText589F6CUtf8View = cg::text::FromUtf16(kItemWorkText589F6C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589F54[] = L"請選擇要修理的物品。"; // 原常量参考：0x00589F54。
+const std::string kItemWorkText589F54Utf8View = cg::text::FromUtf16(kItemWorkText589F54); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589F40[] = L"請選擇對象物品。"; // 原常量参考：0x00589F40。
+const std::string kItemWorkText589F40Utf8View = cg::text::FromUtf16(kItemWorkText589F40); // 旧窄接口只读兼容视图。
+constexpr char kItemWorkText589F2C[] = "需要%d點的魔力。"; // 原常量参考：0x00589F2C。
+constexpr wchar_t kItemWorkText589F1C[] = L"已經鑑定過了。"; // 原常量参考：0x00589F1C。
+const std::string kItemWorkText589F1CUtf8View = cg::text::FromUtf16(kItemWorkText589F1C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589F04[] = L"未經鑑定物品無法修理。"; // 原常量参考：0x00589F04。
+const std::string kItemWorkText589F04Utf8View = cg::text::FromUtf16(kItemWorkText589F04); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589EF4[] = L"已經刻印過了。"; // 原常量参考：0x00589EF4。
+const std::string kItemWorkText589EF4Utf8View = cg::text::FromUtf16(kItemWorkText589EF4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589EDC[] = LR"(
+
+      修理中......)"; // 原常量参考：0x00589EDC。
+const std::string kItemWorkText589EDCUtf8View = cg::text::FromUtf16(kItemWorkText589EDC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589EC4[] = LR"(
+
+      鑑定中......)"; // 原常量参考：0x00589EC4。
+const std::string kItemWorkText589EC4Utf8View = cg::text::FromUtf16(kItemWorkText589EC4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589EAC[] = LR"(
+
+      刻印中......)"; // 原常量参考：0x00589EAC。
+const std::string kItemWorkText589EACUtf8View = cg::text::FromUtf16(kItemWorkText589EAC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E94[] = L"無法以該技能進行修理。"; // 原常量参考：0x00589E94。
+const std::string kItemWorkText589E94Utf8View = cg::text::FromUtf16(kItemWorkText589E94); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E80[] = L"無法修理此物品。"; // 原常量参考：0x00589E80。
+const std::string kItemWorkText589E80Utf8View = cg::text::FromUtf16(kItemWorkText589E80); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E58[] = L"該物品以現在的技能等級是無法鑑定的。"; // 原常量参考：0x00589E58。
+const std::string kItemWorkText589E58Utf8View = cg::text::FromUtf16(kItemWorkText589E58); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E30[] = L"該物品以現在的技能等級是無法修理的。"; // 原常量参考：0x00589E30。
+const std::string kItemWorkText589E30Utf8View = cg::text::FromUtf16(kItemWorkText589E30); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E1C[] = L"無法刻印此物品。"; // 原常量参考：0x00589E1C。
+const std::string kItemWorkText589E1CUtf8View = cg::text::FromUtf16(kItemWorkText589E1C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589E04[] = L"無法刻印未鑑定的物品。"; // 原常量参考：0x00589E04。
+const std::string kItemWorkText589E04Utf8View = cg::text::FromUtf16(kItemWorkText589E04); // 旧窄接口只读兼容视图。
+constexpr wchar_t kItemWorkText589DF4[] = L"刻印所選物品。"; // 原常量参考：0x00589DF4。
+constexpr wchar_t kItemWorkText589DE0[] = L"請選擇刻印物品。"; // 原常量参考：0x00589DE0。
+constexpr wchar_t kItemWorkText589DD0[] = L"鑑定所選物品。"; // 原常量参考：0x00589DD0。
+constexpr wchar_t kItemWorkText589DBC[] = L"請選擇鑑定物品。"; // 原常量参考：0x00589DBC。
+constexpr wchar_t kItemWorkText589DAC[] = L"修理所選物品。"; // 原常量参考：0x00589DAC。
+constexpr wchar_t kItemWorkText589D98[] = L"請選擇修理物品。"; // 原常量参考：0x00589D98。
+constexpr wchar_t kItemWorkText589D88[] = L"刻印此物品。"; // 原常量参考：0x00589D88。
+constexpr wchar_t kItemWorkText589D74[] = L"此物品無法刻印。"; // 原常量参考：0x00589D74。
+constexpr wchar_t kItemWorkText589D54[] = L"以現在的技能等級是無法鑑定的。"; // 原常量参考：0x00589D54。
+constexpr wchar_t kItemWorkText589D44[] = L"鑑定該物品。"; // 原常量参考：0x00589D44。
+constexpr wchar_t kItemWorkText589D30[] = L"此物品已鑑定過了。"; // 原常量参考：0x00589D30。
+constexpr wchar_t kItemWorkText589D10[] = L"未經鑑定的物品是無法修理的。"; // 原常量参考：0x00589D10。
+constexpr wchar_t kItemWorkText589024[] = L"修理此物品。"; // 原常量参考：0x00589024。
 LegacyPanelRecord gLegacyCraftResultPanel5843A0 { // 原全局：0x005843A0。
     0, 0, 272, 440, 28, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1063,9 +1130,9 @@ LegacyPanelRecord gLegacyCraftExecutionPanel584530 { // 原全局：0x00584530�
 YobiAction* gLegacyCraftExecutionActionD67D08 = nullptr; // 原全局：0x00D67D08。
 std::uint32_t gLegacyCraftExecutionTickD2F78C = 0; // 原全局：0x00D2F78C。
 std::uint32_t gLegacyCraftExecutionDurationD2DC08 = 0; // 原全局：0x00D2DC08。
-constexpr char kLegacyCraftMissing58A098[] = "\xB2\xC4\xC1\xCF\xCE\xB4\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058A098。
-constexpr char kLegacyCraftExecute58A0A8[] = "\x8C\xA2\xB4\xCB\xB2\xC4\xC1\xCF\xBA\xCF\xB3\xC9\xA1\xA3"; // 原常量参考：0x0058A0A8。
-constexpr char kLegacyCraftBack58A084[] = "\xBB\xD8\xB5\xBD\xC9\xCF\xD2\xBB\x82\x80\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A084。
+constexpr wchar_t kLegacyCraftMissing58A098[] = L"材料未被登錄。"; // 原常量参考：0x0058A098。
+constexpr wchar_t kLegacyCraftExecute58A0A8[] = L"將此材料合成。"; // 原常量参考：0x0058A0A8。
+constexpr wchar_t kLegacyCraftBack58A084[] = L"回到上一個視窗。"; // 原常量参考：0x0058A084。
 LegacyPanelRecord gLegacyCraftMaterialsPanel584468 { // 原全局：0x00584468。
     368, 0, 272, 380, 27, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1074,23 +1141,28 @@ std::int32_t gLegacyCraftMaterialPageD67D04 = 0; // 原全局：0x00D67D04。
 std::int32_t gLegacyCraftMaterialHoverD45F84 = 0; // 原全局：0x00D45F84。 位于12B金额文本之后，非文本别名。
 std::int32_t gLegacyCraftDragSlotD2F330 = 0; // 原全局：0x00D2F330。
 std::int32_t gLegacyCraftDragImageCC3E7C = 0; // 原全局：0x00CC3E7C。
-constexpr char kLegacyMaterialText58A078[] = "\xB2\xC4\xC1\xCF\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058A078。
-constexpr char kLegacyMaterialText58A064[] = "\xB2\xC4\xC1\xCF\xB5\xC4\xDF\x78\x93\xF1\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3"; // 原常量参考：0x0058A064。
-constexpr char kLegacyMaterialText58A054[] = "\xC9\xD0\xCE\xB4\xB5\xC7\xE4\x9B\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A054。
-constexpr char kLegacyMaterialText58A044[] = "\xB2\xC4\xC1\xCF\xB5\xC7\xE4\x9B\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A044。
-constexpr char kLegacyMaterialText58A034[] = "\xBC\xD3\xB9\xA4\xD6\xD0......"; // 原常量参考：0x0058A034。
-constexpr char kLegacyMaterialText58A010[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A010。
-constexpr char kLegacyMaterialText58A020[] = "\xB5\xC7\xE4\x9B\xCB\xF9\xDF\x78\xB5\xC4\xB2\xC4\xC1\xCF\xA1\xA3"; // 原常量参考：0x0058A020。
-constexpr char kLegacyMaterialText589FFC[] = "\xB4\xCB\xCE\xEF\xC6\xB7\xD2\xD1\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x00589FFC。
-constexpr char kLegacyMaterialText589FEC[] = "\xDF\x78\x93\xF1\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x00589FEC。
+constexpr wchar_t kLegacyMaterialText58A078[] = L"材料不足。"; // 原常量参考：0x0058A078。
+const std::string kLegacyMaterialText58A078Utf8View = cg::text::FromUtf16(kLegacyMaterialText58A078); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMaterialText58A064[] = L"材料的選擇不正確。"; // 原常量参考：0x0058A064。
+const std::string kLegacyMaterialText58A064Utf8View = cg::text::FromUtf16(kLegacyMaterialText58A064); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMaterialText58A054[] = L"尚未登錄材料。"; // 原常量参考：0x0058A054。
+const std::string kLegacyMaterialText58A054Utf8View = cg::text::FromUtf16(kLegacyMaterialText58A054); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMaterialText58A044[] = L"材料登錄了。"; // 原常量参考：0x0058A044。
+const std::string kLegacyMaterialText58A044Utf8View = cg::text::FromUtf16(kLegacyMaterialText58A044); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMaterialText58A034[] = L"加工中......"; // 原常量参考：0x0058A034。
+const std::string kLegacyMaterialText58A034Utf8View = cg::text::FromUtf16(kLegacyMaterialText58A034); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMaterialText58A010[] = L"沒有選擇材料。"; // 原常量参考：0x0058A010。
+constexpr wchar_t kLegacyMaterialText58A020[] = L"登錄所選的材料。"; // 原常量参考：0x0058A020。
+constexpr wchar_t kLegacyMaterialText589FFC[] = L"此物品已被選擇。"; // 原常量参考：0x00589FFC。
+constexpr wchar_t kLegacyMaterialText589FEC[] = L"選擇此物品。"; // 原常量参考：0x00589FEC。
 LegacyPanelRecord gLegacyCraftRecipePanel5845F8 { // 原全局：0x005845F8。
     0, 0, 344, 380, 25, {23350, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyRecipePageCountD67D10 = 0; // 原全局：0x00D67D10。
 
-constexpr char kLegacyRecipeBack58A0E0[] = "\xBB\xD8\xB5\xBD\xC4\xDC\xC1\xA6\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A0E0。
-constexpr char kLegacyRecipeUnavailable58A0B8[] = "\xAC\x46\xD4\xDA\x9F\x6F\xB7\xA8\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x0058A0B8。
-constexpr char kLegacyRecipeSelect58A0D0[] = "\xD1\x75\xD7\xF7\xB4\xCB\xED\x97\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x0058A0D0。
+constexpr wchar_t kLegacyRecipeBack58A0E0[] = L"回到能力視窗。"; // 原常量参考：0x0058A0E0。
+constexpr wchar_t kLegacyRecipeUnavailable58A0B8[] = L"現在無法製作此項物品。"; // 原常量参考：0x0058A0B8。
+constexpr wchar_t kLegacyRecipeSelect58A0D0[] = L"製作此項物品。"; // 原常量参考：0x0058A0D0。
 LegacyPanelRecord gLegacyInventoryPanel584C00 { // 原全局：0x00584C00。
     368, 0, 272, 436, 14, {22540, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1104,47 +1176,59 @@ constexpr std::array<std::array<std::int32_t, 2>, 28> kLegacyInventoryPositions5
     {9, 321}, {61, 321}, {113, 321}, {165, 321}, {217, 321},
     {9, 374}, {61, 374}, {113, 374}, {165, 374}, {217, 374},
 }};
-constexpr char kLegacyInventoryTarget58A394[] = // 原常量参考：0x0058A394。
-    "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\x8C\xA2\xCE\xEF\xC6\xB7\xCA\xB9\xD3\xC3\xD4\xDA\xD5\x6C\xC9\xED\xC9\xCF\xA1\xA3";
-constexpr char kLegacyInventoryMoney58A37C[] = "\xB4\xF2\xE9\x5F\xBD\xF0\x8E\xC5\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A37C。
-constexpr char kLegacyInventoryHead585C38[] = "\xD1\x62\x82\xE4\xEE\x5E\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C38。
-constexpr char kLegacyInventoryBody585C20[] = "\xD1\x62\x82\xE4\xC9\xED\xF3\x77\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C20。
-constexpr char kLegacyInventoryHand585C08[] = "\xD1\x62\x82\xE4\xCE\xE4\xC6\xF7\xB8\xFA\xB6\xDC\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585C08。
-constexpr char kLegacyInventoryFeet585BF0[] = "\xD1\x62\x82\xE4\xC4\x5F\xB2\xBF\xB7\xC0\xBE\xDF\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BF0。
-constexpr char kLegacyInventoryAccessory585BDC[] = "\xD1\x62\x82\xE4\xD1\x62\xEF\x97\xC6\xB7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BDC。
-constexpr char kLegacyInventoryCrystal585BC8[] = "\xD1\x62\x82\xE4\xCB\xAE\xBE\xA7\xB5\xC4\xCE\xBB\xD6\xC3\xA1\xA3"; // 原常量参考：0x00585BC8。
-constexpr char kLegacyInventoryMemo58A38C[] = "\xA1\xBA%s\xA1\xBB"; // 原常量参考：0x0058A38C。
+constexpr wchar_t kLegacyInventoryTarget58A394[] = // 原常量参考：0x0058A394。
+    L"請選擇要將物品使用在誰身上。";
+const std::string kLegacyInventoryTarget58A394Utf8View = cg::text::FromUtf16(kLegacyInventoryTarget58A394); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryMoney58A37C[] = L"打開金幣視窗。"; // 原常量参考：0x0058A37C。
+const std::string kLegacyInventoryMoney58A37CUtf8View = cg::text::FromUtf16(kLegacyInventoryMoney58A37C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryHead585C38[] = L"裝備頭部防具的位置。"; // 原常量参考：0x00585C38。
+const std::string kLegacyInventoryHead585C38Utf8View = cg::text::FromUtf16(kLegacyInventoryHead585C38); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryBody585C20[] = L"裝備身體防具的位置。"; // 原常量参考：0x00585C20。
+const std::string kLegacyInventoryBody585C20Utf8View = cg::text::FromUtf16(kLegacyInventoryBody585C20); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryHand585C08[] = L"裝備武器跟盾的位置。"; // 原常量参考：0x00585C08。
+const std::string kLegacyInventoryHand585C08Utf8View = cg::text::FromUtf16(kLegacyInventoryHand585C08); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryFeet585BF0[] = L"裝備腳部防具的位置。"; // 原常量参考：0x00585BF0。
+const std::string kLegacyInventoryFeet585BF0Utf8View = cg::text::FromUtf16(kLegacyInventoryFeet585BF0); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryAccessory585BDC[] = L"裝備裝飾品的位置。"; // 原常量参考：0x00585BDC。
+const std::string kLegacyInventoryAccessory585BDCUtf8View = cg::text::FromUtf16(kLegacyInventoryAccessory585BDC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyInventoryCrystal585BC8[] = L"裝備水晶的位置。"; // 原常量参考：0x00585BC8。
+const std::string kLegacyInventoryCrystal585BC8Utf8View = cg::text::FromUtf16(kLegacyInventoryCrystal585BC8); // 旧窄接口只读兼容视图。
+constexpr char kLegacyInventoryMemo58A38C[] = "『%s』"; // 原常量参考：0x0058A38C。
 LegacyPanelRecord gLegacyItemSplitPanel584078 { // 原全局：0x00584078。
     440, 0, 200, 200, 16, {23310, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacySplitConfirm589CC4[] = "\xD6\xB8\xB6\xA8\xB7\xD6\xC5\xE4\x82\x80\x94\xB5"; // 原常量参考：0x00589CC4。
-constexpr char kLegacySplitEmpty589CB4[] = "\xD5\x88\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589CB4。
-constexpr char kLegacySplitBack589CA4[] = "\xBB\xD8\xB5\xBD\xCE\xEF\xC6\xB7\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589CA4。
-constexpr char kLegacySplitAll589C98[] = "\xC8\xAB\xB2\xBF\xD6\xB8\xB6\xA8\xA1\xA3"; // 原常量参考：0x00589C98。
-constexpr char kLegacySplitClear589C84[] = "\x8C\xA2\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x00589C84。
-constexpr char kLegacySplitBackspace585B34[] = "\x9C\x70\xC9\xD9\xD2\xBB\xCE\xBB\x94\xB5\xA1\xA3"; // 原常量参考：0x00585B34。
-constexpr char kLegacySplitLimit589C64[] = "\x9F\x6F\xB7\xA8\xD6\xB8\xB6\xA8\xB8\xFC\xB6\xE0\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589C64。
-constexpr char kLegacySplitDigit589C78[] = "\xD6\xB8\xB6\xA8\x82\x80\x94\xB5\xA1\xA3"; // 原常量参考：0x00589C78。
+constexpr wchar_t kLegacySplitConfirm589CC4[] = L"指定分配個數"; // 原常量参考：0x00589CC4。
+constexpr wchar_t kLegacySplitEmpty589CB4[] = L"請指定個數。"; // 原常量参考：0x00589CB4。
+constexpr wchar_t kLegacySplitBack589CA4[] = L"回到物品視窗。"; // 原常量参考：0x00589CA4。
+constexpr wchar_t kLegacySplitAll589C98[] = L"全部指定。"; // 原常量参考：0x00589C98。
+constexpr wchar_t kLegacySplitClear589C84[] = L"將指定個數歸零。"; // 原常量参考：0x00589C84。
+constexpr wchar_t kLegacySplitBackspace585B34[] = L"減少一位數。"; // 原常量参考：0x00585B34。
+constexpr wchar_t kLegacySplitLimit589C64[] = L"無法指定更多個數。"; // 原常量参考：0x00589C64。
+constexpr wchar_t kLegacySplitDigit589C78[] = L"指定個數。"; // 原常量参考：0x00589C78。
 LegacyPanelRecord gLegacyMoneyPanel584DA8 { // 原全局：0x00584DA8。
     440, 0, 200, 200, 15, {22930, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyMoneyAmountD2D618 = 0; // 原全局：0x00D2D618。
-constexpr char kLegacyMoneyDrop585B54[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xB5\xC4\xBD\xF0\xEE\x7E\xB7\xC5\xB5\xD8\xC9\xCF\xA1\xA3"; // 原常量参考：0x00585B54。
-constexpr char kLegacyMoneyEmpty585B44[] = "\xD5\x88\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B44。
-constexpr char kLegacyMoneyAll585B28[] = "\xD6\xB8\xB6\xA8\xC8\xAB\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B28。
-constexpr char kLegacyMoneyClear585B14[] = "\x8C\xA2\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\x9A\x77\xC1\xE3\xA1\xA3"; // 原常量参考：0x00585B14。
-constexpr char kLegacyMoneyDigit585B6C[] = "\xD6\xB8\xB6\xA8\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x00585B6C。
-constexpr char kLegacyMoneyLimit58A3B4[] = "\xB2\xBB\xC4\xDC\xB3\xAC\xB3\xF6\xDF\x40\x82\x80\xBD\xF0\xEE\x7E\xA1\xA3"; // 原常量参考：0x0058A3B4。
+constexpr wchar_t kLegacyMoneyDrop585B54[] = L"將指定的金額放地上。"; // 原常量参考：0x00585B54。
+constexpr wchar_t kLegacyMoneyEmpty585B44[] = L"請指定金額。"; // 原常量参考：0x00585B44。
+constexpr wchar_t kLegacyMoneyAll585B28[] = L"指定全額。"; // 原常量参考：0x00585B28。
+constexpr wchar_t kLegacyMoneyClear585B14[] = L"將指定金額歸零。"; // 原常量参考：0x00585B14。
+constexpr wchar_t kLegacyMoneyDigit585B6C[] = L"指定金額。"; // 原常量参考：0x00585B6C。
+constexpr wchar_t kLegacyMoneyLimit58A3B4[] = L"不能超出這個金額。"; // 原常量参考：0x0058A3B4。
 LegacyPanelRecord gLegacyEngravingPanel582FD8 { // 原全局：0x00582FD8。
     368, 0, 272, 252, 79, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyEngravingHover58309C = -1; // 原全局：0x0058309C。
 std::int32_t gLegacyEngravingPageC8AA9C = 0; // 原全局：0x00C8AA9C。
 std::int32_t gLegacyEngravingTargetCC1A14 = 0; // 原全局：0x00CC1A14。
-constexpr char kLegacyEngravingSelect5895C0[] = "\xBF\xCC\xD3\xA1\xB4\xCB\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x005895C0。
-constexpr char kLegacyEngravingReject5895AC[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\x9F\x6F\xB7\xA8\xBF\xCC\xD3\xA1\xA1\xA3"; // 原常量参考：0x005895AC。
-constexpr char kLegacyEngravingClose5868EC[] = "\xEA\x50\xE9\x5D\xB4\xCB\xD2\x95\xB4\xB0"; // 原常量参考：0x005868EC。
-constexpr char kLegacyEngravingChoose589594[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xBF\xCC\xD3\xA1\xB5\xC4\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x00589594。
+constexpr wchar_t kLegacyEngravingSelect5895C0[] = L"刻印此道具。"; // 原常量参考：0x005895C0。
+const std::string kLegacyEngravingSelect5895C0Utf8View = cg::text::FromUtf16(kLegacyEngravingSelect5895C0); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyEngravingReject5895AC[] = L"這個道具無法刻印。"; // 原常量参考：0x005895AC。
+const std::string kLegacyEngravingReject5895ACUtf8View = cg::text::FromUtf16(kLegacyEngravingReject5895AC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyEngravingClose5868EC[] = L"關閉此視窗"; // 原常量参考：0x005868EC。
+const std::string kLegacyEngravingClose5868ECUtf8View = cg::text::FromUtf16(kLegacyEngravingClose5868EC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyEngravingChoose589594[] = L"請選擇要刻印的道具。"; // 原常量参考：0x00589594。
+const std::string kLegacyEngravingChoose589594Utf8View = cg::text::FromUtf16(kLegacyEngravingChoose589594); // 旧窄接口只读兼容视图。
 // 旧80独立状态；583164为已加载-1，其余五槽按原虚拟零初始化。
 LegacyPanelRecord gLegacyBurialPanel5830A0 { // 原全局：0x005830A0。
     368, 0, 272, 252, 80, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1155,9 +1239,9 @@ std::int32_t gLegacyBurialSelectedCC4214 = 0; // 原全局：0x00CC4214。
 std::int32_t gLegacyBurialExcludedCC48AC = 0; // 原全局：0x00CC48AC。
 std::int32_t gLegacyBurialExcludedColumnD2E2B4 = 0; // 原全局：0x00D2E2B4。
 std::int32_t gLegacyBurialExcludedRowD671D0 = 0; // 原全局：0x00D671D0。
-constexpr char kLegacyBurialSelect5895FC[] = "\xC2\xF1\xC6\xF0\xB4\xCB\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005895FC。
-constexpr char kLegacyBurialReject5895E4[] = "\xDF\x40\x82\x80\xCE\xEF\xC6\xB7\x9F\x6F\xB7\xA8\xC2\xF1\xC6\xF0\x81\xED\xA1\xA3"; // 原常量参考：0x005895E4。
-constexpr char kLegacyBurialChoose5895D0[] = "\xD5\x88\xDF\x78\x93\xF1\xD2\xAA\xC2\xF1\xB5\xC4\xCE\xEF\xC6\xB7\xA1\xA3"; // 原常量参考：0x005895D0。
+constexpr wchar_t kLegacyBurialSelect5895FC[] = L"埋起此物品。"; // 原常量参考：0x005895FC。
+constexpr wchar_t kLegacyBurialReject5895E4[] = L"這個物品無法埋起來。"; // 原常量参考：0x005895E4。
+constexpr wchar_t kLegacyBurialChoose5895D0[] = L"請選擇要埋的物品。"; // 原常量参考：0x005895D0。
 // 旧50赠送页；CC1A2C与后续旧49共用唯一选择，不复制邮件草稿。
 LegacyPanelRecord gLegacyMailGiftPanel583168 { // 原全局：0x00583168。
     368, 0, 272, 252, 50, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1167,19 +1251,20 @@ std::int32_t gLegacyMailGiftPageCC2E58 = 0; // 原全局：0x00CC2E58。
 std::int32_t gLegacyMailGiftSelectedCC1A2C = 0; // 原全局：0x00CC1A2C。
 std::int32_t gLegacyMailGiftColumnD2D498 = 0; // 原全局：0x00D2D498。
 std::int32_t gLegacyMailGiftRowCC3E6C = 0; // 原全局：0x00CC3E6C。
-constexpr char kLegacyMailGift58960C[] = "\x8C\xA2\xB4\xCB\xCE\xEF\xC6\xB7\xCB\xCD\xBD\x6F\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x0058960C。
+constexpr wchar_t kLegacyMailGift58960C[] = L"將此物品送給名片上的好友。"; // 原常量参考：0x0058960C。
+const std::string kLegacyMailGift58960CUtf8View = cg::text::FromUtf16(kLegacyMailGift58960C); // 旧窄接口只读兼容视图。
 // 旧49联系人/协议值唯一承载；分别由旧42联系人发布与旧48邮件宠物选择生产。
 LegacyPanelRecord gLegacyMailComposePanel583230 { // 原全局：0x00583230。
     0, 0, 272, 438, 49, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyMailContactCC4228 = 0; // 原全局：0x00CC4228。
 std::int32_t gLegacyMailValueCC2E60 = 0; // 原全局：0x00CC2E60。
-constexpr char kLegacyMailSend589640[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x00589640。
-constexpr char kLegacyMailReturn589628[] = "\xBB\xD8\xB5\xBD\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\xB5\xC4\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589628。
+constexpr wchar_t kLegacyMailSend589640[] = L"送郵件給選擇的名片上的好友。"; // 原常量参考：0x00589640。
+constexpr wchar_t kLegacyMailReturn589628[] = L"回到名片登錄本的視窗。"; // 原常量参考：0x00589628。
 LegacyPanelRecord gLegacyMailPetPanel5832F8 { // 原全局：0x005832F8。
     0, 0, 272, 238, 48, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailPet589660[] = "\xD7\x8C\xDF\x40\xEB\x62\x8C\x99\xCE\xEF\xDF\x5C\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x00589660。
+constexpr wchar_t kLegacyMailPet589660[] = L"讓這隻寵物運送郵件。"; // 原常量参考：0x00589660。
 // 旧42四个未读提示T*槽，仅借用真实动画；初始化补空，关闭逐槽标死并清引用。
 LegacyPanelRecord gLegacyMailContactPanel5837A8 { // 原全局：0x005837A8。
     0, 0, 272, 451, 42, {238521, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1191,39 +1276,39 @@ constexpr std::array<std::int32_t, 15> kLegacyMailStatusImages58386C { // 原常
     30131, 30231, 30331, 30431, 30531, 30631, 30731, 30831,
     30931, 31131, 31231, 31331, 31431, 31531, 31631,
 };
-constexpr char kLegacyMailEdit5897AC[] = "\x8C\xA2\xC3\xFB\xC6\xAC\xB5\xC4\xB1\xED\xCA\xBE\xED\x98\xD0\xF2\xC5\xC5\xD0\xF2\xA1\xA3"; // 原常量参考：0x005897AC。
-constexpr char kLegacyMailGroup589798[] = "\xEF\x40\xCA\xBE\xBC\xD2\xD7\xE5\xCD\xA8\xD3\x8D\xE4\x9B\xA1\xA3"; // 原常量参考：0x00589798。
-constexpr char kLegacyMailContactSend589780[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xB5\xC4\xBA\xC3\xD3\xD1"; // 原常量参考：0x00589780。
-constexpr char kLegacyMailContactRead589760[] = "\xBF\xB4\xDF\x40\xC3\xFB\xC6\xAC\xC9\xCF\xBA\xC3\xD3\xD1\xB5\xC4\xE0\x5D\xBC\xFE\xCD\xA8\xD0\xC5\xBC\x6F\xE4\x9B\xA1\xA3"; // 原常量参考：0x00589760。
-constexpr char kLegacyMailContactDelete589750[] = "\x84\x68\xB3\xFD\xDF\x40\x8F\x88\xC3\xFB\xC6\xAC\xA1\xA3"; // 原常量参考：0x00589750。
+constexpr wchar_t kLegacyMailEdit5897AC[] = L"將名片的表示順序排序。"; // 原常量参考：0x005897AC。
+constexpr wchar_t kLegacyMailGroup589798[] = L"顯示家族通訊錄。"; // 原常量参考：0x00589798。
+constexpr wchar_t kLegacyMailContactSend589780[] = L"送郵件給這名片上的好友"; // 原常量参考：0x00589780。
+constexpr wchar_t kLegacyMailContactRead589760[] = L"看這名片上好友的郵件通信紀錄。"; // 原常量参考：0x00589760。
+constexpr wchar_t kLegacyMailContactDelete589750[] = L"刪除這張名片。"; // 原常量参考：0x00589750。
 LegacyPanelRecord gLegacyMailDeliveryPanel583550 { // 原全局：0x00583550。
     0, 0, 192, 174, 45, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailNormalMode5896E0[] = "\xD2\xD4\xC6\xD5\xCD\xA8\xC4\xA3\xCA\xBD\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005896E0。
-constexpr char kLegacyMailPetMode5896D0[] = "\xD2\xD4\x8C\x99\xCE\xEF\xCB\xCD\xE0\x5D\xBC\xFE\xA1\xA3"; // 原常量参考：0x005896D0。
+constexpr wchar_t kLegacyMailNormalMode5896E0[] = L"以普通模式送郵件。"; // 原常量参考：0x005896E0。
+constexpr wchar_t kLegacyMailPetMode5896D0[] = L"以寵物送郵件。"; // 原常量参考：0x005896D0。
 LegacyPanelRecord gLegacyMailDeletePanel583618 { // 原全局：0x00583618。
     0, 0, 320, 240, 44, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailDeleteYes589728[] = "\x20\xCA\xC7"; // 原常量参考：0x00589728。
-constexpr char kLegacyMailDeleteLead589714[] = "\xD7\xD4\xC3\xFB\xC6\xAC\xB5\xC7\xE4\x9B\xB1\xBE\x84\x68\xB3\xFD"; // 原常量参考：0x00589714。
-constexpr char kLegacyMailDeleteEnd589708[] = "\xB5\xC4\xC3\xFB\xC6\xAC\x86\xE1\xA3\xBF"; // 原常量参考：0x00589708。
-constexpr char kLegacyMailDeleteHint589700[] = "\x84\x68\xB3\xFD\xA1\xA3"; // 原常量参考：0x00589700。
-constexpr char kLegacyMailKeepHint5896F4[] = "\xB2\xBB\x84\x68\xB3\xFD\xA1\xA3"; // 原常量参考：0x005896F4。
+constexpr wchar_t kLegacyMailDeleteYes589728[] = L" 是"; // 原常量参考：0x00589728。
+constexpr wchar_t kLegacyMailDeleteLead589714[] = L"自名片登錄本刪除"; // 原常量参考：0x00589714。
+constexpr wchar_t kLegacyMailDeleteEnd589708[] = L"的名片嗎？"; // 原常量参考：0x00589708。
+constexpr wchar_t kLegacyMailDeleteHint589700[] = L"刪除。"; // 原常量参考：0x00589700。
+constexpr wchar_t kLegacyMailKeepHint5896F4[] = L"不刪除。"; // 原常量参考：0x005896F4。
 // 旧46普通邮件；CB0AA8的60个U8由本页初始化生产，与旧42共享目标和页号。
 LegacyPanelRecord gLegacyMailNormalPanel583488 { // 原全局：0x00583488。
     0, 0, 272, 438, 46, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<std::uint8_t, 60> gLegacyMailSelectedFlagsCB0AA8 {}; // 原全局：0x00CB0AA8。
-constexpr char kLegacyMailChooseRecipients5896A4[] = "\xD5\x88\xDF\x78\x93\xF1\xCB\xCD\xD0\xC5\xB5\xC4\x8C\xA6\xCF\xF3\xA1\xA3"; // 原常量参考：0x005896A4。
-constexpr char kLegacyMailSendSelected5896B8[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x78\x93\xF1\xB5\xC4\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x005896B8。
-constexpr char kLegacyMailUnselect58968C[] = "\xCD\xA3\xD6\xB9\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x0058968C。
-constexpr char kLegacyMailSelect589678[] = "\xCB\xCD\xE0\x5D\xBC\xFE\xBD\x6F\xDF\x40\xCE\xBB\xBA\xC3\xD3\xD1\xA1\xA3"; // 原常量参考：0x00589678。
+constexpr wchar_t kLegacyMailChooseRecipients5896A4[] = L"請選擇送信的對象。"; // 原常量参考：0x005896A4。
+constexpr wchar_t kLegacyMailSendSelected5896B8[] = L"送郵件給選擇的好友。"; // 原常量参考：0x005896B8。
+constexpr wchar_t kLegacyMailUnselect58968C[] = L"停止送郵件給這位好友。"; // 原常量参考：0x0058968C。
+constexpr wchar_t kLegacyMailSelect589678[] = L"送郵件給這位好友。"; // 原常量参考：0x00589678。
 LegacyPanelRecord gLegacyMailSortPanel5836E0 { // 原全局：0x005836E0。
     0, 0, 192, 254, 43, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyMailSortFirst589744[] = "\xB5\xC7\xE4\x9B\xED\x98\xD0\xF2"; // 原常量参考：0x00589744。
-constexpr char kLegacyMailSortSecond589738[] = "\xC6\xB4\xD2\xF4\xED\x98\xD0\xF2"; // 原常量参考：0x00589738。
-constexpr char kLegacyMailSortThird58972C[] = "\xC9\xCF\xBE\x80\xED\x98\xD0\xF2"; // 原常量参考：0x0058972C。
+constexpr wchar_t kLegacyMailSortFirst589744[] = L"登錄順序"; // 原常量参考：0x00589744。
+constexpr wchar_t kLegacyMailSortSecond589738[] = L"拼音順序"; // 原常量参考：0x00589738。
+constexpr wchar_t kLegacyMailSortThird58972C[] = L"上線順序"; // 原常量参考：0x0058972C。
 // 旧47只借同源MailState消息、联系人及页号，面板独立于现代多类别阅读窗口。
 LegacyPanelRecord gLegacyMailReadPanel5833C0 { // 原全局：0x005833C0。
     0, 0, 272, 428, 47, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1245,42 +1330,87 @@ constexpr std::array<std::int32_t, 17> kLegacyGuildStatusImages58F054 { // 原�
     23110, 23120, 23121, 23122, 23123, 23124, 23125, 23126, 23127,
     23128, 23129, 23130, 23131, 23132, 23133, 23134, 23135,
 };
-constexpr char kLegacyGuildClose58F248[] = "\x82\xB1\x82\xCC\x83\x45\x83\x42\x3F\x83\x68\x83\x45\x82\xF0\x95\xC2\x82\xB6\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F248。
-constexpr char kLegacyGuildPage58F2D4[] = "\x83\x79\x81\x5B\x83\x57\x82\xF0\x90\xD8\x82\xE8\x91\xD6\x82\xA6\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2D4。
-constexpr char kLegacyGuildSort58F4A8[] = "\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x95\x5C\x8E\xA6\x3F\x94\xD4\x82\xF0\x83\x5C\x81\x5B\x83\x67\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4A8。
-constexpr char kLegacyGuildDetails58F490[] = "\x83\x4D\x3F\x83\x68\x8F\xDA\x8D\xD7\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F490。
-constexpr char kLegacyGuildContacts58F474[] = "\x83\x41\x83\x68\x3F\x83\x58\x83\x75\x83\x62\x83\x4E\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F474。
-constexpr char kLegacyGuildSend58F2EC[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2EC。
-constexpr char kLegacyGuildRead58F44C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F44C。
-constexpr char kLegacyGuildRemove58F42C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F42C。
-constexpr char kLegacyGuildRank58F410[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F410。
+constexpr char kLegacyGuildClose58F248Raw[] = "\x82\xB1\x82\xCC\x83\x45\x83\x42\x3F\x83\x68\x83\x45\x82\xF0\x95\xC2\x82\xB6\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildClose58F248Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildClose58F248Raw);
+const char* const kLegacyGuildClose58F248 = kLegacyGuildClose58F248Utf8.c_str(); // 原常量参考：0x0058F248。
+constexpr char kLegacyGuildPage58F2D4Raw[] = "\x83\x79\x81\x5B\x83\x57\x82\xF0\x90\xD8\x82\xE8\x91\xD6\x82\xA6\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildPage58F2D4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPage58F2D4Raw);
+const char* const kLegacyGuildPage58F2D4 = kLegacyGuildPage58F2D4Utf8.c_str(); // 原常量参考：0x0058F2D4。
+constexpr char kLegacyGuildSort58F4A8Raw[] = "\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x95\x5C\x8E\xA6\x3F\x94\xD4\x82\xF0\x83\x5C\x81\x5B\x83\x67\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildSort58F4A8Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSort58F4A8Raw);
+const char* const kLegacyGuildSort58F4A8 = kLegacyGuildSort58F4A8Utf8.c_str(); // 原常量参考：0x0058F4A8。
+constexpr char kLegacyGuildDetails58F490Raw[] = "\x83\x4D\x3F\x83\x68\x8F\xDA\x8D\xD7\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildDetails58F490Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDetails58F490Raw);
+const char* const kLegacyGuildDetails58F490 = kLegacyGuildDetails58F490Utf8.c_str(); // 原常量参考：0x0058F490。
+constexpr char kLegacyGuildContacts58F474Raw[] = "\x83\x41\x83\x68\x3F\x83\x58\x83\x75\x83\x62\x83\x4E\x82\xF0\x95\x5C\x8E\xA6\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildContacts58F474Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildContacts58F474Raw);
+const char* const kLegacyGuildContacts58F474 = kLegacyGuildContacts58F474Utf8.c_str(); // 原常量参考：0x0058F474。
+constexpr char kLegacyGuildSend58F2ECRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildSend58F2ECUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildSend58F2ECRaw);
+const char* const kLegacyGuildSend58F2EC = kLegacyGuildSend58F2ECUtf8.c_str(); // 原常量参考：0x0058F2EC。
+constexpr char kLegacyGuildRead58F44CRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRead58F44CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRead58F44CRaw);
+const char* const kLegacyGuildRead58F44C = kLegacyGuildRead58F44CUtf8.c_str(); // 原常量参考：0x0058F44C。
+constexpr char kLegacyGuildRemove58F42CRaw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRemove58F42CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRemove58F42CRaw);
+const char* const kLegacyGuildRemove58F42C = kLegacyGuildRemove58F42CUtf8.c_str(); // 原常量参考：0x0058F42C。
+constexpr char kLegacyGuildRank58F410Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRank58F410Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRank58F410Raw);
+const char* const kLegacyGuildRank58F410 = kLegacyGuildRank58F410Utf8.c_str(); // 原常量参考：0x0058F410。
 LegacyPanelRecord gLegacyGuildSortPanel58EEC8 { // 原全局：0x0058EEC8。
     0, 0, 192, 254, 93, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSortFirst58F408[] = "\x93\x6F\x98\x5E\x3F"; // 原常量参考：0x0058F408。
-constexpr char kLegacyGuildSortSecond58F400[] = "\x82\x54\x82\x4F\x89\xB9\x3F"; // 原常量参考：0x0058F400。
-constexpr char kLegacyGuildSortThird58F3F4[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F"; // 原常量参考：0x0058F3F4。
+constexpr char kLegacyGuildSortFirst58F408Raw[] = "\x93\x6F\x98\x5E\x3F";
+const std::string kLegacyGuildSortFirst58F408Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortFirst58F408Raw);
+const char* const kLegacyGuildSortFirst58F408 = kLegacyGuildSortFirst58F408Utf8.c_str(); // 原常量参考：0x0058F408。
+constexpr char kLegacyGuildSortSecond58F400Raw[] = "\x82\x54\x82\x4F\x89\xB9\x3F";
+const std::string kLegacyGuildSortSecond58F400Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortSecond58F400Raw);
+const char* const kLegacyGuildSortSecond58F400 = kLegacyGuildSortSecond58F400Utf8.c_str(); // 原常量参考：0x0058F400。
+constexpr char kLegacyGuildSortThird58F3F4Raw[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F";
+const std::string kLegacyGuildSortThird58F3F4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSortThird58F3F4Raw);
+const char* const kLegacyGuildSortThird58F3F4 = kLegacyGuildSortThird58F3F4Utf8.c_str(); // 原常量参考：0x0058F3F4。
 LegacyPanelRecord gLegacyGuildDeletePanel58EE00 { // 原全局：0x0058EE00。
     0, 0, 320, 240, 92, {}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildDeleteYes58F3EC[] = "\x82\xCD\x82\xA2"; // 原常量参考：0x0058F3EC。
-constexpr char kLegacyGuildDeleteNo58F3E4[] = "\x82\xA2\x82\xA2\x82\xA6"; // 原常量参考：0x0058F3E4。
-constexpr char kLegacyGuildDeleteDenied58F3C8[] = "\xC4\xE3\x9B\x5D\xD3\xD0\xCC\xDE\xB3\xFD\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54\xB5\xC4\x99\xE0\xCF\xDE"; // 原常量参考：0x0058F3C8。
-constexpr char kLegacyGuildDeleteLead58F3B8[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7"; // 原常量参考：0x0058F3B8。
-constexpr char kLegacyGuildDeleteEnd58F3AC[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7"; // 原常量参考：0x0058F3AC。
-constexpr char kLegacyGuildDeleteHint58F3A0[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F3A0。
-constexpr char kLegacyGuildKeepHint58F38C[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F38C。
+constexpr char kLegacyGuildDeleteYes58F3ECRaw[] = "\x82\xCD\x82\xA2";
+const std::string kLegacyGuildDeleteYes58F3ECUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteYes58F3ECRaw);
+const char* const kLegacyGuildDeleteYes58F3EC = kLegacyGuildDeleteYes58F3ECUtf8.c_str(); // 原常量参考：0x0058F3EC。
+constexpr char kLegacyGuildDeleteNo58F3E4Raw[] = "\x82\xA2\x82\xA2\x82\xA6";
+const std::string kLegacyGuildDeleteNo58F3E4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteNo58F3E4Raw);
+const char* const kLegacyGuildDeleteNo58F3E4 = kLegacyGuildDeleteNo58F3E4Utf8.c_str(); // 原常量参考：0x0058F3E4。
+constexpr wchar_t kLegacyGuildDeleteDenied58F3C8[] = L"你沒有剔除家族成員的權限"; // 原常量参考：0x0058F3C8。
+const std::string kLegacyGuildDeleteDenied58F3C8Utf8View = cg::text::FromUtf16(kLegacyGuildDeleteDenied58F3C8); // 旧窄接口只读兼容视图。
+constexpr char kLegacyGuildDeleteLead58F3B8Raw[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7";
+const std::string kLegacyGuildDeleteLead58F3B8Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteLead58F3B8Raw);
+const char* const kLegacyGuildDeleteLead58F3B8 = kLegacyGuildDeleteLead58F3B8Utf8.c_str(); // 原常量参考：0x0058F3B8。
+constexpr char kLegacyGuildDeleteEnd58F3ACRaw[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7";
+const std::string kLegacyGuildDeleteEnd58F3ACUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteEnd58F3ACRaw);
+const char* const kLegacyGuildDeleteEnd58F3AC = kLegacyGuildDeleteEnd58F3ACUtf8.c_str(); // 原常量参考：0x0058F3AC。
+constexpr char kLegacyGuildDeleteHint58F3A0Raw[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildDeleteHint58F3A0Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildDeleteHint58F3A0Raw);
+const char* const kLegacyGuildDeleteHint58F3A0 = kLegacyGuildDeleteHint58F3A0Utf8.c_str(); // 原常量参考：0x0058F3A0。
+constexpr char kLegacyGuildKeepHint58F38CRaw[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildKeepHint58F38CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildKeepHint58F38CRaw);
+const char* const kLegacyGuildKeepHint58F38C = kLegacyGuildKeepHint58F38CUtf8.c_str(); // 原常量参考：0x0058F38C。
 LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 { // 原全局：0x0058ED38。
     0, 0, 192, 174, 91, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildNormalMode58F374[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F374。
-constexpr char kLegacyGuildPetMode58F358[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F358。
-constexpr char kLegacyGuildReturn58F264[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F264。
+constexpr char kLegacyGuildNormalMode58F374Raw[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildNormalMode58F374Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildNormalMode58F374Raw);
+const char* const kLegacyGuildNormalMode58F374 = kLegacyGuildNormalMode58F374Utf8.c_str(); // 原常量参考：0x0058F374。
+constexpr char kLegacyGuildPetMode58F358Raw[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildPetMode58F358Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPetMode58F358Raw);
+const char* const kLegacyGuildPetMode58F358 = kLegacyGuildPetMode58F358Utf8.c_str(); // 原常量参考：0x0058F358。
+constexpr char kLegacyGuildReturn58F264Raw[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildReturn58F264Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildReturn58F264Raw);
+const char* const kLegacyGuildReturn58F264 = kLegacyGuildReturn58F264Utf8.c_str(); // 原常量参考：0x0058F264。
 LegacyPanelRecord gLegacyGuildPetPanel58EAE0 { // 原全局：0x0058EAE0。
     0, 0, 272, 238, 88, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyGuildPetIndex1050DB0 = 0; // 原全局：0x01050DB0。 旧88写入、旧87发送消费，独立于普通邮件CC2E60。
-constexpr char kLegacyGuildPetHint58F2B4[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F2B4。
+constexpr char kLegacyGuildPetHint58F2B4Raw[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildPetHint58F2B4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPetHint58F2B4Raw);
+const char* const kLegacyGuildPetHint58F2B4 = kLegacyGuildPetHint58F2B4Utf8.c_str(); // 原常量参考：0x0058F2B4。
 // 旧86独立赠品状态；58EA14已加载-1，其余四槽按原虚拟零初始化。
 LegacyPanelRecord gLegacyGuildGiftPanel58E950 { // 原全局：0x0058E950。
     368, 0, 272, 252, 86, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1290,11 +1420,15 @@ std::int32_t gLegacyGuildGiftPage1050DAC = 0; // 原全局：0x01050DAC。
 std::int32_t gLegacyGuildGiftSelected1050DA8 = 0; // 原全局：0x01050DA8。 旧86生产、旧87消费，不能借普通邮件赠品槽。
 std::int32_t gLegacyGuildGiftColumn1050F10 = 0; // 原全局：0x01050F10。
 std::int32_t gLegacyGuildGiftRow1050DC8 = 0; // 原全局：0x01050DC8。
-constexpr char kLegacyGuildGift58F224[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F224。
+constexpr char kLegacyGuildGift58F224Raw[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildGift58F224Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildGift58F224Raw);
+const char* const kLegacyGuildGift58F224 = kLegacyGuildGift58F224Utf8.c_str(); // 原常量参考：0x0058F224。
 LegacyPanelRecord gLegacyGuildComposePanel58EA18 { // 原全局：0x0058EA18。
     0, 0, 272, 438, 87, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyGuildSendMail58F288[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F288。
+constexpr char kLegacyGuildSendMail58F288Raw[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildSendMail58F288Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSendMail58F288Raw);
+const char* const kLegacyGuildSendMail58F288 = kLegacyGuildSendMail58F288Utf8.c_str(); // 原常量参考：0x0058F288。
 LegacyPanelRecord gLegacyGuildReadPanel58EBA8 { // 原全局：0x0058EBA8。
     0, 0, 272, 428, 89, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1303,8 +1437,12 @@ LegacyPanelRecord gLegacyGuildNormalPanel58EC70 { // 原全局：0x0058EC70。
     0, 0, 272, 438, 90, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 原全局：0x01050CDC。 旧90多人选择，不包含1050DA4。
-constexpr char kLegacyGuildUnselect58F310[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F310。
-constexpr char kLegacyGuildChooseRecipients58F33C[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42"; // 原常量参考：0x0058F33C。
+constexpr char kLegacyGuildUnselect58F310Raw[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildUnselect58F310Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildUnselect58F310Raw);
+const char* const kLegacyGuildUnselect58F310 = kLegacyGuildUnselect58F310Utf8.c_str(); // 原常量参考：0x0058F310。
+constexpr char kLegacyGuildChooseRecipients58F33CRaw[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42";
+const std::string kLegacyGuildChooseRecipients58F33CUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildChooseRecipients58F33CRaw);
+const char* const kLegacyGuildChooseRecipients58F33C = kLegacyGuildChooseRecipients58F33CUtf8.c_str(); // 原常量参考：0x0058F33C。
 LegacyPanelRecord gLegacyGuildRankPanel58F160 { // 原全局：0x0058F160。
     0, 0, 272, 411, 96, {238556, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1315,9 +1453,14 @@ std::int32_t gLegacyGuildRankSelected1051338 = 0; // 原全局：0x01051338。
 std::array<std::int32_t, 8> gLegacyGuildRankHighlights1050ED8 {}; // 原全局：0x01050ED8。
 std::uint32_t gLegacyGuildRankTick1057C90 = 0; // 原全局：0x01057C90。
 std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 原全局：0x01050F14。 旧95/96共享资格，532430按本人职级是否0生产。
-constexpr char kLegacyGuildRankRequired58F584[] = "\xD5\x88\xDF\x78\x93\xF1\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96"; // 原常量参考：0x0058F584。
-constexpr char kLegacyGuildRankRemove58F568[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F568。
-constexpr char kLegacyGuildRankSelect58F4FC[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4FC。
+constexpr wchar_t kLegacyGuildRankRequired58F584[] = L"請選擇家族稱號"; // 原常量参考：0x0058F584。
+const std::string kLegacyGuildRankRequired58F584Utf8View = cg::text::FromUtf16(kLegacyGuildRankRequired58F584); // 旧窄接口只读兼容视图。
+constexpr char kLegacyGuildRankRemove58F568Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRankRemove58F568Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankRemove58F568Raw);
+const char* const kLegacyGuildRankRemove58F568 = kLegacyGuildRankRemove58F568Utf8.c_str(); // 原常量参考：0x0058F568。
+constexpr char kLegacyGuildRankSelect58F4FCRaw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRankSelect58F4FCUtf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankSelect58F4FCRaw);
+const char* const kLegacyGuildRankSelect58F4FC = kLegacyGuildRankSelect58F4FCUtf8.c_str(); // 原常量参考：0x0058F4FC。
 LegacyPanelRecord gLegacyGuildDetailsPanel58F098 { // 原全局：0x0058F098。
     0, 0, 300, 438, 95, {238535, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1329,80 +1472,99 @@ std::array<char, 128> gLegacyGuildSecondCache1050E50 {}; // 原全局：0x01050E
 std::int32_t gLegacyGuildDetailsPageCount1050ED0 = 0; // 原全局：0x01050ED0。
 std::int32_t gLegacyGuildDetailsPage1050ED4 = 0; // 原全局：0x01050ED4。
 std::array<std::int32_t, 5> gLegacyGuildDetailsHighlights1050EFC {}; // 原全局：0x01050EFC。
-constexpr char kLegacyGuildNameEdit58F550[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F550。
-constexpr char kLegacyGuildSecondEdit58F534[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F534。
-constexpr char kLegacyGuildRankEdit58F518[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F518。
-constexpr char kLegacyGuildPermissionFirst58F4E4[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4E4。
-constexpr char kLegacyGuildPermissionSecond58F4D0[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42"; // 原常量参考：0x0058F4D0。
+constexpr char kLegacyGuildNameEdit58F550Raw[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildNameEdit58F550Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildNameEdit58F550Raw);
+const char* const kLegacyGuildNameEdit58F550 = kLegacyGuildNameEdit58F550Utf8.c_str(); // 原常量参考：0x0058F550。
+constexpr char kLegacyGuildSecondEdit58F534Raw[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildSecondEdit58F534Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildSecondEdit58F534Raw);
+const char* const kLegacyGuildSecondEdit58F534 = kLegacyGuildSecondEdit58F534Utf8.c_str(); // 原常量参考：0x0058F534。
+constexpr char kLegacyGuildRankEdit58F518Raw[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildRankEdit58F518Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildRankEdit58F518Raw);
+const char* const kLegacyGuildRankEdit58F518 = kLegacyGuildRankEdit58F518Utf8.c_str(); // 原常量参考：0x0058F518。
+constexpr char kLegacyGuildPermissionFirst58F4E4Raw[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildPermissionFirst58F4E4Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPermissionFirst58F4E4Raw);
+const char* const kLegacyGuildPermissionFirst58F4E4 = kLegacyGuildPermissionFirst58F4E4Utf8.c_str(); // 原常量参考：0x0058F4E4。
+constexpr char kLegacyGuildPermissionSecond58F4D0Raw[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+const std::string kLegacyGuildPermissionSecond58F4D0Utf8 = cg::text::FromLegacyDisplay(kLegacyGuildPermissionSecond58F4D0Raw);
+const char* const kLegacyGuildPermissionSecond58F4D0 = kLegacyGuildPermissionSecond58F4D0Utf8.c_str(); // 原常量参考：0x0058F4D0。
 LegacyPanelRecord gLegacyEmotePanel584AA8 { // 原全局：0x00584AA8。
     448, 0, 192, 360, 17, {22640, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr const char* kLegacyEmoteLabels58A370[18] { // 原常量参考：0x0058A370。
-    "\x20\xD7\xF8\xA1\xA1\xCF\xC2\x20", // 原58A370
-    "\x20\xD5\xBE\xA1\xA1\xC1\xA2\x20", // 原58A364
-    "\x20\x93\x5D\x20\x20\xCA\xD6\x20", // 原58A358
-    "\x20\xD7\xDF\xA1\xA1\xC2\xB7\x20", // 原58A34C
-    "\x20\xFC\x63\x20\x20\xEE\x5E\x20", // 原58A340
-    "\x20\xB5\xB9\x20\x20\xCF\xC2\x20", // 原58A334
-    "\x20\xB8\xDF\x20\x20\xC5\x64\x20", // 原58A328
-    "\x20\xB9\xA5\x20\x20\x93\xF4\x20", // 原58A31C
-    "\x20\x91\x8D\x20\x20\xC5\xAD\x20", // 原58A310
-    "\x20\xB7\xC0\x20\x20\xB6\x52\x20", // 原58A304
-    "\x20\xB1\xAF\x20\x20\x82\xFB\x20", // 原58A2F8
-    "\x20\xCA\xDC\x20\x20\x82\xFB\x20", // 原58A2EC
-    "\x20\xCD\xB6\x20\x20\x94\x53\x20", // 原58A2E0
-    "\x20\xC4\xA7\x20\x20\xB7\xA8\x20", // 原58A2D4
-    "\x20\xBC\xF4\x20\x20\xB5\xB6\x20", // 原58A2C8
-    "\x20\xD2\xC6\x84\xD3\xD6\xD0\x20", // 原58A2BC
-    "\x20\x20\x20\xB2\xBC\x20\x20\x20", // 原58A2B0
-    "\x20\xCA\xAF\x20\x20\xEE\x5E\x20", // 原58A2A4
+constexpr const wchar_t* kLegacyEmoteLabels58A370[18] { // 原常量参考：0x0058A370。
+    L" 坐　下 ", // 原58A370
+    L" 站　立 ", // 原58A364
+    L" 揮  手 ", // 原58A358
+    L" 走　路 ", // 原58A34C
+    L" 點  頭 ", // 原58A340
+    L" 倒  下 ", // 原58A334
+    L" 高  興 ", // 原58A328
+    L" 攻  擊 ", // 原58A31C
+    L" 憤  怒 ", // 原58A310
+    L" 防  禦 ", // 原58A304
+    L" 悲  傷 ", // 原58A2F8
+    L" 受  傷 ", // 原58A2EC
+    L" 投  擲 ", // 原58A2E0
+    L" 魔  法 ", // 原58A2D4
+    L" 剪  刀 ", // 原58A2C8
+    L" 移動中 ", // 原58A2BC
+    L"   布   ", // 原58A2B0
+    L" 石  頭 ", // 原58A2A4
 };
-constexpr const char* kLegacyEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
-    "\xD7\xF6\xA1\xB8\xD7\xF8\xCF\xC2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5871B0
-    "\xD7\xF6\xA1\xB8\xD5\xBE\xC1\xA2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870D8
-    "\xD7\xF6\xA1\xB8\x93\x5D\xCA\xD6\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587198
-    "\xD7\xF6\xA1\xB8\xD7\xDF\xC2\xB7\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870C0
-    "\xD7\xF6\xA1\xB8\xFC\x63\xEE\x5E\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587180
-    "\xD7\xF6\xA1\xB8\xB5\xB9\xCF\xC2\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870A8
-    "\xD7\xF6\xA1\xB8\xB8\xDF\xC5\x64\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587168
-    "\xD7\xF6\xA1\xB8\xB9\xA5\x93\xF4\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587090
-    "\xD7\xF6\xA1\xB8\x91\x8D\xC5\xAD\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587150
-    "\xD7\xF6\xA1\xB8\xB7\xC0\xB6\x52\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587078
-    "\xD7\xF6\xA1\xB8\xB1\xAF\x82\xFB\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587138
-    "\xD7\xF6\xA1\xB8\xCA\xDC\x82\xFB\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587060
-    "\xD7\xF6\xA1\xB8\xCD\xB6\x94\x53\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587120
-    "\xD7\xF6\xA1\xB8\xC4\xA7\xB7\xA8\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587048
-    "\xD7\xF6\xA1\xB8\xB3\xF6\xBC\xF4\xB5\xB6\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587108
-    "\xD7\xF6\xA1\xB8\xD2\xC6\x84\xD3\xD6\xD0\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587030
-    "\xD7\xF6\xA1\xB8\xB3\xF6\xB2\xBC\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原5870F0
-    "\xD7\xF6\xA1\xB8\xB3\xF6\xCA\xAF\xEE\x5E\xA1\xB9\xDF\x40\x82\x80\x84\xD3\xD7\xF7\xA1\xA3", // 原587018
+constexpr const wchar_t* kLegacyEmoteHints5871B0[18] { // 原常量参考：0x005871B0。
+    L"做「坐下」這個動作。", // 原5871B0
+    L"做「站立」這個動作。", // 原5870D8
+    L"做「揮手」這個動作。", // 原587198
+    L"做「走路」這個動作。", // 原5870C0
+    L"做「點頭」這個動作。", // 原587180
+    L"做「倒下」這個動作。", // 原5870A8
+    L"做「高興」這個動作。", // 原587168
+    L"做「攻擊」這個動作。", // 原587090
+    L"做「憤怒」這個動作。", // 原587150
+    L"做「防禦」這個動作。", // 原587078
+    L"做「悲傷」這個動作。", // 原587138
+    L"做「受傷」這個動作。", // 原587060
+    L"做「投擲」這個動作。", // 原587120
+    L"做「魔法」這個動作。", // 原587048
+    L"做「出剪刀」這個動作。", // 原587108
+    L"做「移動中」這個動作。", // 原587030
+    L"做「出布」這個動作。", // 原5870F0
+    L"做「出石頭」這個動作。", // 原587018
 };
-constexpr char kLegacyBlacklistText5533F4[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x9F\xE1\xE6\x49\xCA\xB9\xD3\xC3\xD5\x66\xC3\xF7\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D"; // 原常量参考：0x005533F4。
-constexpr char kLegacyBlacklistText5533B4[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xBC\xD3\xC8\xEB\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x49\x6E\x73\x65\x72\x74\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\xB7\xC5\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE"; // 原常量参考：0x005533B4。
-constexpr char kLegacyBlacklistText553370[] = "\xBB\xAC\xCA\xF3\xBF\xF2\xBF\xF2\x8C\xA6\x9C\xCA\xD2\xAA\xD2\xC6\xB3\xFD\xB5\xC4\xC8\xCB\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x44\x65\x6C\x65\x74\x65\x5D\x20\x3D\x20\xB0\xD1\xC4\xC7\x82\x80\xC8\xCB\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD"; // 原常量参考：0x00553370。
-constexpr char kLegacyBlacklistText55332C[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\xC4\xBF\xC7\xB0\xB9\xB2\xD3\xD0\x25\x32\x64\xC8\xCB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D"; // 原常量参考：0x0055332C。
-constexpr char kLegacyBlacklistText553304[] = "\xD0\xC2\xD4\xF6\xA3\xAF\xD2\xC6\xB3\xFD\xBA\xDA\xC3\xFB\x86\xCE\xB5\xC4\x83\xC8\xC8\xDD"; // 原常量参考：0x00553304。
-constexpr char kLegacyBlacklistText5532EC[] = "\xD2\xD1\x8C\xA2\x25\x73\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\xD2\xC6\xB3\xFD"; // 原常量参考：0x005532EC。
-constexpr char kLegacyBlacklistText5532D8[] = "\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD\x25\x73\xCA\xA7\x94\xA1"; // 原常量参考：0x005532D8。
-constexpr char kLegacyBlacklistText553294[] = "\xC4\xE3\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xD1\x9D\x4D\xA3\xAC\x9F\x6F\xB7\xA8\xD4\xD9\xBC\xD3\xC8\xEB"; // 原常量参考：0x00553294。
-constexpr char kLegacyBlacklistText5532C4[] = "\xD2\xD1\x8C\xA2\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE"; // 原常量参考：0x005532C4。
-constexpr char kLegacyBlacklistText5532B0[] = "\x25\x73\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1"; // 原常量参考：0x005532B0。
+constexpr wchar_t kLegacyBlacklistText5533F4[] = L"---------------------------熱鍵使用說明--------------------------"; // 原常量参考：0x005533F4。
+const std::string kLegacyBlacklistText5533F4Utf8View = cg::text::FromUtf16(kLegacyBlacklistText5533F4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyBlacklistText5533B4[] = L"滑鼠框框對準要加入的人 + [CTRL] + [Insert] = 把那個人放在黑名單"; // 原常量参考：0x005533B4。
+const std::string kLegacyBlacklistText5533B4Utf8View = cg::text::FromUtf16(kLegacyBlacklistText5533B4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyBlacklistText553370[] = L"滑鼠框框對準要移除的人 + [CTRL] + [Delete] = 把那個人從黑名單移除"; // 原常量参考：0x00553370。
+const std::string kLegacyBlacklistText553370Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553370); // 旧窄接口只读兼容视图。
+constexpr char kLegacyBlacklistText55332C[] = "----------------------目前共有%2d人在黑名單中---------------------"; // 原常量参考：0x0055332C。
+constexpr wchar_t kLegacyBlacklistText553304[] = L"新增／移除黑名單的內容"; // 原常量参考：0x00553304。
+const std::string kLegacyBlacklistText553304Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553304); // 旧窄接口只读兼容视图。
+constexpr char kLegacyBlacklistText5532EC[] = "已將%s從黑名單中移除"; // 原常量参考：0x005532EC。
+constexpr char kLegacyBlacklistText5532D8[] = "從黑名單移除%s失敗"; // 原常量参考：0x005532D8。
+constexpr wchar_t kLegacyBlacklistText553294[] = L"你的黑名單已滿，無法再加入"; // 原常量参考：0x00553294。
+const std::string kLegacyBlacklistText553294Utf8View = cg::text::FromUtf16(kLegacyBlacklistText553294); // 旧窄接口只读兼容视图。
+constexpr char kLegacyBlacklistText5532C4[] = "已將%s加入黑名單"; // 原常量参考：0x005532C4。
+constexpr char kLegacyBlacklistText5532B0[] = "%s加入黑名單失敗"; // 原常量参考：0x005532B0。
 LegacyPanelRecord gLegacyBlacklistPanel5531D0 { // 原全局：0x005531D0。
     20, 10, 600, 438, 99, {99100, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 input::InputContext* gLegacyBlacklistInput5939B8 = nullptr; // 原全局：0x005939B8。 旧99借用槽，独立于当前输入焦点。
-constexpr char kLegacyPresetConfirm58A6C0[] = "\xBD\x59\xCA\xF8\xD4\x4F\xB6\xA8\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A6C0。
-constexpr char kLegacyPresetCtrl58A68C[] = "\x8C\xA2\x43\x74\x72\x6C\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A68C。
-constexpr char kLegacyPresetShift58A66C[] = "\x8C\xA2\x53\x68\x69\x66\x74\x2B\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A66C。
-constexpr char kLegacyPresetNormal58A6A8[] = "\x8C\xA2\xA3\xC6\x25\x64\xE6\x49\xD4\x4F\xB6\xA8\x9E\xE9\xB3\xA3\xD3\xC3\xBE\xE4\xA1\xA3"; // 原常量参考：0x0058A6A8。
-constexpr char kLegacyPresetTab585910[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xD2\xBB\xED\x93\xA1\xA3"; // 原常量参考：0x00585910。
-constexpr char kLegacyPresetTab585900[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xB6\xFE\xED\x93\xA1\xA3"; // 原常量参考：0x00585900。
-constexpr char kLegacyPresetTab5858F0[] = "\xC7\xD0\x93\x51\xB5\xBD\xB5\xDA\xC8\xFD\xED\x93\xA1\xA3"; // 原常量参考：0x005858F0。
+constexpr wchar_t kLegacyPresetConfirm58A6C0[] = L"結束設定常用句。"; // 原常量参考：0x0058A6C0。
+const std::string kLegacyPresetConfirm58A6C0Utf8View = cg::text::FromUtf16(kLegacyPresetConfirm58A6C0); // 旧窄接口只读兼容视图。
+constexpr char kLegacyPresetCtrl58A68C[] = "將Ctrl+Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A68C。
+constexpr char kLegacyPresetShift58A66C[] = "將Shift+Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A66C。
+constexpr char kLegacyPresetNormal58A6A8[] = "將Ｆ%d鍵設定為常用句。"; // 原常量参考：0x0058A6A8。
+constexpr wchar_t kLegacyPresetTab585910[] = L"切換到第一頁。"; // 原常量参考：0x00585910。
+const std::string kLegacyPresetTab585910Utf8View = cg::text::FromUtf16(kLegacyPresetTab585910); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyPresetTab585900[] = L"切換到第二頁。"; // 原常量参考：0x00585900。
+const std::string kLegacyPresetTab585900Utf8View = cg::text::FromUtf16(kLegacyPresetTab585900); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyPresetTab5858F0[] = L"切換到第三頁。"; // 原常量参考：0x005858F0。
+const std::string kLegacyPresetTab5858F0Utf8View = cg::text::FromUtf16(kLegacyPresetTab5858F0); // 旧窄接口只读兼容视图。
 LegacyPanelRecord gLegacyPresetPanel5850C8 { // 原全局：0x005850C8。
     0, 0, 272, 438, 6, {22950, 22951, 22952, 0, 0},
-    {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910},
-      {22954, 110, 43, 52, 18, kLegacyPresetTab585900},
-      {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0}, {}, {}}},
+    {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910Utf8View.c_str()},
+      {22954, 110, 43, 52, 18, kLegacyPresetTab585900Utf8View.c_str()},
+      {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0Utf8View.c_str()}, {}, {}}},
     0, 0, {}, {},
 };
 std::int32_t gLegacyPresetRowD30408 = 0; // 原全局：0x00D30408。 页号直接借面板selected，只有行号是独立S32。
@@ -1410,11 +1572,10 @@ LegacyPanelRecord gLegacyItemUseStatusPanel582C78 { // 原全局：0x00582C78。
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
 
-constexpr char kLegacyItemUsePrevious58597C[] = "\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058597C。
+constexpr wchar_t kLegacyItemUsePrevious58597C[] = L"上一頁"; // 原常量参考：0x0058597C。
 
-constexpr char kLegacyItemUseHeader58932C[] = // 原常量参考：0x0058932C。
-    "\xBD\xA1\xBF\xB5\x20\x20\xB5\xC8\xBC\x89\x20\xD0\xD5\xC3\xFB\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
-    "\xC9\xFA\xC3\xFC\xC1\xA6\x20\x20\x20\x20\xC4\xA7\xC1\xA6";
+constexpr wchar_t kLegacyItemUseHeader58932C[] = // 原常量参考：0x0058932C。
+    L"健康  等級 姓名             生命力    魔力";
 LegacyPanelRecord gLegacyGemExecutionPanel58AB28 { // 原全局：0x0058AB28。
     0, 0, 344, 380, 29, {23351, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1422,9 +1583,10 @@ YobiAction* gLegacyGemActionD68A88 = nullptr; // 原全局：0x00D68A88。
 std::uint32_t gLegacyGemTickD68AB4 = 0; // 原全局：0x00D68AB4。
 std::int32_t gLegacyGemDurationD68AB8 = 0; // 原全局：0x00D68AB8。
 std::int32_t gLegacyGemElapsedD68ABC = 0; // 原全局：0x00D68ABC。
-constexpr char kLegacyGemMissing58AC7C[] = "\xCB\xD8\xB2\xC4\x9B\x5D\xD3\xD0\xB1\xBB\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058AC7C。
-constexpr char kLegacyGemExecute58ACB0[] = "\xE8\x82\xC8\xEB\x8C\x9A\xCA\xAF\xA1\xA3"; // 原常量参考：0x0058ACB0。
-constexpr char kLegacyGemBack5871F0[] = "\xB7\xB5\xBB\xD8\xBC\xBC\xC4\xDC\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x005871F0。
+constexpr wchar_t kLegacyGemMissing58AC7C[] = L"素材沒有被登錄。"; // 原常量参考：0x0058AC7C。
+const std::string kLegacyGemMissing58AC7CUtf8View = cg::text::FromUtf16(kLegacyGemMissing58AC7C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemExecute58ACB0[] = L"鑲入寶石。"; // 原常量参考：0x0058ACB0。
+constexpr wchar_t kLegacyGemBack5871F0[] = L"返回技能視窗。"; // 原常量参考：0x005871F0。
 LegacyPanelRecord gLegacyGemMaterialsPanel58AA60 { // 原全局：0x0058AA60。
     368, 0, 272, 380, 30, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1432,32 +1594,41 @@ std::int32_t gLegacyGemMaterialHoverD68A84 = 0; // 原全局：0x00D68A84。
 std::int32_t gLegacyGemDragImageD68AA4 = 0; // 原全局：0x00D68AA4。
 std::int32_t gLegacyGemDragSlotD68AA8 = 0; // 原全局：0x00D68AA8。
 std::int32_t gLegacyGemMaterialPageD68AAC = 0; // 原全局：0x00D68AAC。
-constexpr char kLegacyGemTooFew58ACA4[] = "\xCB\xD8\xB2\xC4\xB2\xBB\xD7\xE3\xA1\xA3"; // 原常量参考：0x0058ACA4。
-constexpr char kLegacyGemInvalid58AC90[] = "\xDF\x78\x93\xF1\xB5\xC4\xCB\xD8\xB2\xC4\xB2\xBB\xD5\xFD\xB4\x5F\xA1\xA3"; // 原常量参考：0x0058AC90。
-constexpr char kLegacyGemRegistered58AC6C[] = "\xCB\xD8\xB2\xC4\xD2\xD1\xB5\xC7\xE4\x9B\xA1\xA3"; // 原常量参考：0x0058AC6C。
-constexpr char kLegacyGemWorking58AC58[] = "\xBC\xD3\xB9\xA4\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4\xA1\xA4"; // 原常量参考：0x0058AC58。
-constexpr char kLegacyGemNone58AC28[] = "\x9B\x5D\xD3\xD0\xDF\x78\x93\xF1\xB5\xBD\xCB\xD8\xB2\xC4\xA1\xA3"; // 原常量参考：0x0058AC28。
-constexpr char kLegacyGemRegister58AC3C[] = "\x8C\xA2\xDF\x78\xB5\xBD\xB5\xC4\xB5\xC0\xBE\xDF\xB5\xC7\xE4\x9B\x9E\xE9\xCB\xD8\xB2\xC4\xA1\xA3"; // 原常量参考：0x0058AC3C。
-constexpr char kLegacyGemSelected58AC10[] = "\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xD2\xD1\xBD\x9B\xB1\xBB\xDF\x78\x93\xF1\xA1\xA3"; // 原常量参考：0x0058AC10。
-constexpr char kLegacyGemSelect58AC00[] = "\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x0058AC00。
-constexpr char kLegacyGemReject58ABEC[] = "\x9F\x6F\xB7\xA8\xDF\x78\x93\xF1\xDF\x40\x82\x80\xB5\xC0\xBE\xDF\xA1\xA3"; // 原常量参考：0x0058ABEC。
-constexpr char kLegacyCraftAdd589FC8[] = "\xBB\xD8\xB5\xBD\xD7\xB7\xBC\xD3\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x00589FC8。
-constexpr char kLegacyCraftChoose589FD8[] = // 原常量参考：0x00589FD8。
-    "\xBB\xD8\xB5\xBD\xC9\xFA\xB3\xC9\xDF\x78\x93\xF1\xD2\x95\xB4\xB0\xA1\xA3";
-constexpr char kLegacyResultLimit5897D4[] = "  --  "; // 原常量参考：0x005897D4。
-constexpr char kLegacyTitleSubmit5863C4[] = // 原常量参考：0x005863C4。
-    "\xD4\x4F\xB6\xA8\xD7\xD4\xBC\xBA\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitlePage58A98C[] = "\x93\x51\xED\x93\xA1\xA3"; // 原常量参考：0x0058A98C。
-constexpr char kLegacyTitleDelete5863E8[] = // 原常量参考：0x005863E8。
-    "\x84\x68\xB3\xFD\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleCancelDelete58AA3C[] = // 原常量参考：0x0058AA3C。
-    "\xB2\xBB\xC4\xDC\x84\x68\xB3\xFD\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleClear5863FC[] = // 原常量参考：0x005863FC。
-    "\xC8\xA1\xCF\xFB\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleRemove58AA1C[] = // 原常量参考：0x0058AA1C。
-    "\xC8\xA1\xCF\xFB\xDF\x40\x82\x80\xB7\x51\xCC\x96\xA1\xA3";
-constexpr char kLegacyTitleSelect58AA2C[] = // 原常量参考：0x0058AA2C。
-    "\xD4\x4F\xB6\xA8\xDF\x40\x82\x80\xB7\x51\xCC\x96\xA1\xA3";
+constexpr wchar_t kLegacyGemTooFew58ACA4[] = L"素材不足。"; // 原常量参考：0x0058ACA4。
+const std::string kLegacyGemTooFew58ACA4Utf8View = cg::text::FromUtf16(kLegacyGemTooFew58ACA4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemInvalid58AC90[] = L"選擇的素材不正確。"; // 原常量参考：0x0058AC90。
+const std::string kLegacyGemInvalid58AC90Utf8View = cg::text::FromUtf16(kLegacyGemInvalid58AC90); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemRegistered58AC6C[] = L"素材已登錄。"; // 原常量参考：0x0058AC6C。
+const std::string kLegacyGemRegistered58AC6CUtf8View = cg::text::FromUtf16(kLegacyGemRegistered58AC6C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemWorking58AC58[] = L"加工中······"; // 原常量参考：0x0058AC58。
+const std::string kLegacyGemWorking58AC58Utf8View = cg::text::FromUtf16(kLegacyGemWorking58AC58); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemNone58AC28[] = L"沒有選擇到素材。"; // 原常量参考：0x0058AC28。
+const std::string kLegacyGemNone58AC28Utf8View = cg::text::FromUtf16(kLegacyGemNone58AC28); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemRegister58AC3C[] = L"將選到的道具登錄為素材。"; // 原常量参考：0x0058AC3C。
+const std::string kLegacyGemRegister58AC3CUtf8View = cg::text::FromUtf16(kLegacyGemRegister58AC3C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemSelected58AC10[] = L"這個道具已經被選擇。"; // 原常量参考：0x0058AC10。
+const std::string kLegacyGemSelected58AC10Utf8View = cg::text::FromUtf16(kLegacyGemSelected58AC10); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemSelect58AC00[] = L"選擇這個道具。"; // 原常量参考：0x0058AC00。
+const std::string kLegacyGemSelect58AC00Utf8View = cg::text::FromUtf16(kLegacyGemSelect58AC00); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyGemReject58ABEC[] = L"無法選擇這個道具。"; // 原常量参考：0x0058ABEC。
+const std::string kLegacyGemReject58ABECUtf8View = cg::text::FromUtf16(kLegacyGemReject58ABEC); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyCraftAdd589FC8[] = L"回到追加視窗。"; // 原常量参考：0x00589FC8。
+constexpr wchar_t kLegacyCraftChoose589FD8[] = // 原常量参考：0x00589FD8。
+    L"回到生成選擇視窗。";
+constexpr wchar_t kLegacyResultLimit5897D4[] = L"  --  "; // 原常量参考：0x005897D4。
+constexpr wchar_t kLegacyTitleSubmit5863C4[] = // 原常量参考：0x005863C4。
+    L"設定自己的稱號。";
+constexpr wchar_t kLegacyTitlePage58A98C[] = L"換頁。"; // 原常量参考：0x0058A98C。
+constexpr wchar_t kLegacyTitleDelete5863E8[] = // 原常量参考：0x005863E8。
+    L"刪除所選擇的稱號。";
+constexpr wchar_t kLegacyTitleCancelDelete58AA3C[] = // 原常量参考：0x0058AA3C。
+    L"不能刪除稱號。";
+constexpr wchar_t kLegacyTitleClear5863FC[] = // 原常量参考：0x005863FC。
+    L"取消所選擇的稱號。";
+constexpr wchar_t kLegacyTitleRemove58AA1C[] = // 原常量参考：0x0058AA1C。
+    L"取消這個稱號。";
+constexpr wchar_t kLegacyTitleSelect58AA2C[] = // 原常量参考：0x0058AA2C。
+    L"設定這個稱號。";
 std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0; // 原全局：0x00CC3EF8。
 std::uint32_t gLegacyAttributeTickD67440 = 0; // 原全局：0x00D67440。
 
@@ -1465,58 +1636,71 @@ LegacyPanelRecord gLegacySettingsMenu584E70 { // 原全局：0x00584E70。
     0, 0, 192, 304, 3, {22500, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 8> gLegacySettingsButtonsD67D38 {}; // 原全局：0x00D67D38。
-constexpr char kLegacySettingsText58A4A4[] = "\xB5\xC7\x20\x20\x20\x20\x20\x20\x20\xB3\xF6"; // 原常量参考：0x0058A4A4。
-constexpr char kLegacySettingsHint586DE8[] = "\xB5\xC7\xB3\xF6\xCB\xC5\xB7\xFE\xC6\xF7\xA1\xA3"; // 原常量参考：0x00586DE8。
-constexpr char kLegacySettingsText58A498[] = "\xC1\xC4\x20\xCC\xEC\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A498。
-constexpr char kLegacySettingsHint58A484[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A484。
-constexpr char kLegacySettingsText58A478[] = "\xD2\xF4\x20\x98\xB7\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A478。
-constexpr char kLegacySettingsHint58A460[] = "\xD4\x4F\xB6\xA8\xB1\xB3\xBE\xB0\xD2\xF4\x98\xB7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A460。
-constexpr char kLegacySettingsText58A454[] = "\xD2\xF4\x20\xD0\xA7\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A454。
-constexpr char kLegacySettingsHint58A440[] = "\xD4\x4F\xB6\xA8\xD2\xF4\xD0\xA7\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A440。
-constexpr char kLegacySettingsText58A434[] = "\xBB\xAC\x20\xCA\xF3\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A434。
-constexpr char kLegacySettingsHint58A420[] = "\xD4\x4F\xB6\xA8\xBB\xAC\xCA\xF3\xB5\xC4\xDF\x78\xED\x97\xA1\xA3"; // 原常量参考：0x0058A420。
-constexpr char kLegacySettingsText58A414[] = "\xE6\x49\x20\xB1\x50\x20\x9F\xE1\x20\xE6\x49"; // 原常量参考：0x0058A414。
-constexpr char kLegacySettingsHint58A400[] = "\xE6\x49\xB1\x50\x9F\xE1\xE6\x49\xB5\xC4\xD5\x66\xC3\xF7\xA1\xA3"; // 原常量参考：0x0058A400。
-constexpr char kLegacySettingsText58A3F4[] = "\xC0\x4C\x20\x88\x44\x20\xD4\x4F\x20\xB6\xA8"; // 原常量参考：0x0058A3F4。
-constexpr char kLegacySettingsHint58A3E4[] = "\xD4\x4F\xB6\xA8\xC0\x4C\x88\x44\xC4\xA3\xCA\xBD\xA1\xA3"; // 原常量参考：0x0058A3E4。
-constexpr char kLegacySettingsText58A3D8[] = "\xD4\x4F\xB6\xA8\xB0\xB4\xE2\x6F"; // 原常量参考：0x0058A3D8。
-constexpr char kLegacySettingsHint58A3C8[] = "\xDF\x4D\xD0\xD0\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A3C8。
+constexpr wchar_t kLegacySettingsText58A4A4[] = L"登       出"; // 原常量参考：0x0058A4A4。
+constexpr wchar_t kLegacySettingsHint586DE8[] = L"登出伺服器。"; // 原常量参考：0x00586DE8。
+const std::string kLegacySettingsHint586DE8Utf8View = cg::text::FromUtf16(kLegacySettingsHint586DE8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A498[] = L"聊 天 設 定"; // 原常量参考：0x0058A498。
+constexpr wchar_t kLegacySettingsHint58A484[] = L"設定聊天的選項。"; // 原常量参考：0x0058A484。
+const std::string kLegacySettingsHint58A484Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A484); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A478[] = L"音 樂 設 定"; // 原常量参考：0x0058A478。
+constexpr wchar_t kLegacySettingsHint58A460[] = L"設定背景音樂的選項。"; // 原常量参考：0x0058A460。
+const std::string kLegacySettingsHint58A460Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A460); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A454[] = L"音 效 設 定"; // 原常量参考：0x0058A454。
+constexpr wchar_t kLegacySettingsHint58A440[] = L"設定音效的選項。"; // 原常量参考：0x0058A440。
+const std::string kLegacySettingsHint58A440Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A440); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A434[] = L"滑 鼠 設 定"; // 原常量参考：0x0058A434。
+constexpr wchar_t kLegacySettingsHint58A420[] = L"設定滑鼠的選項。"; // 原常量参考：0x0058A420。
+const std::string kLegacySettingsHint58A420Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A420); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A414[] = L"鍵 盤 熱 鍵"; // 原常量参考：0x0058A414。
+constexpr wchar_t kLegacySettingsHint58A400[] = L"鍵盤熱鍵的說明。"; // 原常量参考：0x0058A400。
+const std::string kLegacySettingsHint58A400Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A400); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A3F4[] = L"繪 圖 設 定"; // 原常量参考：0x0058A3F4。
+constexpr wchar_t kLegacySettingsHint58A3E4[] = L"設定繪圖模式。"; // 原常量参考：0x0058A3E4。
+const std::string kLegacySettingsHint58A3E4Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A3E4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacySettingsText58A3D8[] = L"設定按鈕"; // 原常量参考：0x0058A3D8。
+constexpr wchar_t kLegacySettingsHint58A3C8[] = L"進行按鈕設定"; // 原常量参考：0x0058A3C8。
+const std::string kLegacySettingsHint58A3C8Utf8View = cg::text::FromUtf16(kLegacySettingsHint58A3C8); // 旧窄接口只读兼容视图。
 
 LegacyPanelRecord gLegacyChatSettings585000 { // 原全局：0x00585000。
     0, 0, 192, 304, 5, {22960, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 18> gLegacyChatRecordsD67E80 {}; // 原全局：0x00D67E80。
-constexpr char kLegacyChat58A584[] = "\xD4\x4F\xB6\xA8\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5"; // 原常量参考：0x0058A584。
-constexpr char kLegacyChat58A57C[] = "\xC4\xBF\xC7\xB0"; // 原常量参考：0x0058A57C。
-constexpr char kLegacyChat58A578[] = "\xD0\xD0"; // 原常量参考：0x0058A578。
-constexpr char kLegacyChat58A574[] = "\xA1\xFC"; // 原常量参考：0x0058A574。
-constexpr char kLegacyChat58A570[] = "\xA1\xFD"; // 原常量参考：0x0058A570。
-constexpr char kLegacyChat58A560[] = "\xCE\xC4\xD7\xD6\xEE\x81\xC9\xAB\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A560。
-constexpr char kLegacyChat58A554[] = "\xC4\xBF\xC7\xB0\xEE\x81\xC9\xAB"; // 原常量参考：0x0058A554。
-constexpr char kLegacyChat58A54C[] = "\x3C\xD7\x83\xB8\xFC\x3E"; // 原常量参考：0x0058A54C。
-constexpr char kLegacyChat5877B4[] = "\xD7\x83\xB8\xFC\xCE\xC4\xD7\xD6\xB5\xC4\xEE\x81\xC9\xAB\xA1\xA3"; // 原常量参考：0x005877B4。
-constexpr char kLegacyChat58A540[] = "\xB3\xA3\xD3\xC3\xBE\xE4\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A540。
-constexpr char kLegacyChat58A538[] = "\x3C\xD4\x4F\xB6\xA8\x3E"; // 原常量参考：0x0058A538。
-constexpr char kLegacyChat58A524[] = "\xB4\xF2\xE9\x5F\xB3\xA3\xD3\xC3\xBE\xE4\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A524。
-constexpr char kLegacyChat58A514[] = "\xD4\x4F\xB6\xA8\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7"; // 原常量参考：0x0058A514。
-constexpr char kLegacyChat58A508[] = "\xB9\xA0\x87\xFA\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A508。
-constexpr char kLegacyChat58A500[] = "\xAC\x46\xD4\xDA"; // 原常量参考：0x0058A500。
-constexpr char kLegacyChat58A4F8[] = "\x20\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058A4F8。
-constexpr char kLegacyChat58A4E8[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A4E8。
-constexpr char kLegacyChat58A668[] = "\xE9\x5F"; // 原常量参考：0x0058A668。
-constexpr char kLegacyChat58A664[] = "\xEA\x50"; // 原常量参考：0x0058A664。
-constexpr char kLegacyChat58A654[] = "\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3"; // 原常量参考：0x0058A654。
-constexpr char kLegacyChat58A63C[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xBC\xD3\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A63C。
-constexpr char kLegacyChat58A62C[] = "\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xA1\xA3"; // 原常量参考：0x0058A62C。
-constexpr char kLegacyChat58A614[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xEF\x40\xCA\xBE\xD0\xD0\x94\xB5\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A614。
-constexpr char kLegacyChat58A604[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3"; // 原常量参考：0x0058A604。
-constexpr char kLegacyChat58A5F4[] = "\xE9\x5F\x86\xA2\xC1\xC4\xCC\xEC\xD2\xF4\xD0\xA7\xA1\xA3"; // 原常量参考：0x0058A5F4。
-constexpr char kLegacyChat58A5E0[] = "\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3"; // 原常量参考：0x0058A5E0。
-constexpr char kLegacyChat58A5C4[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD4\xF6\xB4\xF3\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A5C4。
-constexpr char kLegacyChat58A5B0[] = "\xBF\x73\xD0\xA1\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xA1\xA3"; // 原常量参考：0x0058A5B0。
-constexpr char kLegacyChat58A594[] = "\xB2\xBB\xC4\xDC\xD4\xD9\x9C\x70\xC9\xD9\xC1\xC4\xCC\xEC\xB5\xC4\xB9\xA0\x87\xFA\xC1\xCB\xA1\xA3"; // 原常量参考：0x0058A594。
-constexpr char kLegacyChat553FB4[] = "\x25\x32\x64"; // 原常量参考：0x00553FB4。
-constexpr char kLegacyChat5531A4[] = "\x25\x64"; // 原常量参考：0x005531A4。
+constexpr wchar_t kLegacyChat58A584[] = L"設定顯示行數"; // 原常量参考：0x0058A584。
+constexpr wchar_t kLegacyChat58A57C[] = L"目前"; // 原常量参考：0x0058A57C。
+constexpr wchar_t kLegacyChat58A578[] = L"行"; // 原常量参考：0x0058A578。
+constexpr wchar_t kLegacyChat58A574[] = L"↑"; // 原常量参考：0x0058A574。
+constexpr wchar_t kLegacyChat58A570[] = L"↓"; // 原常量参考：0x0058A570。
+constexpr wchar_t kLegacyChat58A560[] = L"文字顏色設定"; // 原常量参考：0x0058A560。
+constexpr wchar_t kLegacyChat58A554[] = L"目前顏色"; // 原常量参考：0x0058A554。
+constexpr wchar_t kLegacyChat58A54C[] = L"<變更>"; // 原常量参考：0x0058A54C。
+constexpr wchar_t kLegacyChat5877B4[] = L"變更文字的顏色。"; // 原常量参考：0x005877B4。
+const std::string kLegacyChat5877B4Utf8View = cg::text::FromUtf16(kLegacyChat5877B4); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyChat58A540[] = L"常用句設定"; // 原常量参考：0x0058A540。
+constexpr wchar_t kLegacyChat58A538[] = L"<設定>"; // 原常量参考：0x0058A538。
+constexpr wchar_t kLegacyChat58A524[] = L"打開常用句視窗。"; // 原常量参考：0x0058A524。
+const std::string kLegacyChat58A524Utf8View = cg::text::FromUtf16(kLegacyChat58A524); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyChat58A514[] = L"設定聊天音效"; // 原常量参考：0x0058A514。
+constexpr wchar_t kLegacyChat58A508[] = L"範圍設定"; // 原常量参考：0x0058A508。
+constexpr wchar_t kLegacyChat58A500[] = L"現在"; // 原常量参考：0x0058A500。
+constexpr wchar_t kLegacyChat58A4F8[] = L" 上一頁"; // 原常量参考：0x0058A4F8。
+constexpr wchar_t kLegacyChat58A4E8[] = L"回到系統視窗。"; // 原常量参考：0x0058A4E8。
+const std::string kLegacyChat58A4E8Utf8View = cg::text::FromUtf16(kLegacyChat58A4E8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyChat58A668[] = L"開"; // 原常量参考：0x0058A668。
+const std::string kLegacyChat58A668Utf8View = cg::text::FromUtf16(kLegacyChat58A668); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyChat58A664[] = L"關"; // 原常量参考：0x0058A664。
+const std::string kLegacyChat58A664Utf8View = cg::text::FromUtf16(kLegacyChat58A664); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyChat58A654[] = L"增加顯示行數。"; // 原常量参考：0x0058A654。
+constexpr wchar_t kLegacyChat58A63C[] = L"不能再增加顯示行數了。"; // 原常量参考：0x0058A63C。
+constexpr wchar_t kLegacyChat58A62C[] = L"減少顯示行數。"; // 原常量参考：0x0058A62C。
+constexpr wchar_t kLegacyChat58A614[] = L"不能再減少顯示行數了。"; // 原常量参考：0x0058A614。
+constexpr wchar_t kLegacyChat58A604[] = L"關閉聊天音效。"; // 原常量参考：0x0058A604。
+constexpr wchar_t kLegacyChat58A5F4[] = L"開啟聊天音效。"; // 原常量参考：0x0058A5F4。
+constexpr wchar_t kLegacyChat58A5E0[] = L"增大聊天的範圍。"; // 原常量参考：0x0058A5E0。
+constexpr wchar_t kLegacyChat58A5C4[] = L"不能再增大聊天的範圍了。"; // 原常量参考：0x0058A5C4。
+constexpr wchar_t kLegacyChat58A5B0[] = L"縮小聊天的範圍。"; // 原常量参考：0x0058A5B0。
+constexpr wchar_t kLegacyChat58A594[] = L"不能再減少聊天的範圍了。"; // 原常量参考：0x0058A594。
+constexpr char kLegacyChat553FB4[] = "%2d"; // 原常量参考：0x00553FB4。
+constexpr char kLegacyChat5531A4[] = "%d"; // 原常量参考：0x005531A4。
 
 LegacyPanelRecord gLegacyMusicSettings585190 { // 原全局：0x00585190。
     0, 0, 192, 304, 7, {22961, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1526,63 +1710,72 @@ LegacyPanelRecord gLegacySoundSettings585258 { // 原全局：0x00585258。
     0, 0, 192, 304, 8, {22962, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 8> gLegacySoundRecordsD68218 {}; // 原全局：0x00D68218。
-constexpr char kLegacyAudio58A6D4[] = "\xD2\xF4\xC1\xBF\xD4\x4F\xB6\xA8"; // 原58A6D4 音量設定
-constexpr char kLegacyAudio58A720[] = "\xD4\x4F\xB6\xA8\xC2\x95\xD2\xF4\xC4\xA3\xCA\xBD"; // 原58A720 設定聲音模式
-constexpr char kLegacyAudio58A76C[] = "\x86\xCE\xC2\x95\xB5\xC0"; // 原58A76C 單聲道
-constexpr char kLegacyAudio58A764[] = "\xC1\xA2\xF3\x77\xC2\x95"; // 原58A764 立體聲
-constexpr char kLegacyAudio58A714[] = "\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xA1\xA3"; // 原58A714 調高音量。
-constexpr char kLegacyAudio58A700[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xC1\xCB"; // 原58A700 不能再調高音量了
-constexpr char kLegacyAudio58A6F4[] = "\xBD\xB5\xB5\xCD\xD2\xF4\xC1\xBF\xA1\xA3"; // 原58A6F4 降低音量。
-constexpr char kLegacyAudio58A6E0[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xBD\xB5\xB5\xCD\xD2\xF4\xC1\xBF\xC1\xCB\xA1\xA3"; // 原58A6E0 不能再降低音量了。
-constexpr char kLegacyAudio58A750[] = "\xB2\xBB\xC4\xDC\xD4\xD9\xD5\x7B\xB8\xDF\xD2\xF4\xC1\xBF\xC1\xCB\xA1\xA3"; // 原58A750 不能再調高音量了。
-constexpr char kLegacyAudio58A740[] = "\xD7\x83\xB8\xFC\x9E\xE9\x86\xCE\xC2\x95\xB5\xC0\xA1\xA3"; // 原58A740 變更為單聲道。
-constexpr char kLegacyAudio58A730[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC1\xA2\xF3\x77\xC2\x95\xA1\xA3"; // 原58A730 變更為立體聲。
+constexpr wchar_t kLegacyAudio58A6D4[] = L"音量設定"; // 原58A6D4 音量設定
+constexpr wchar_t kLegacyAudio58A720[] = L"設定聲音模式"; // 原58A720 設定聲音模式
+constexpr wchar_t kLegacyAudio58A76C[] = L"單聲道"; // 原58A76C 單聲道
+const std::string kLegacyAudio58A76CUtf8View = cg::text::FromUtf16(kLegacyAudio58A76C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyAudio58A764[] = L"立體聲"; // 原58A764 立體聲
+const std::string kLegacyAudio58A764Utf8View = cg::text::FromUtf16(kLegacyAudio58A764); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyAudio58A714[] = L"調高音量。"; // 原58A714 調高音量。
+constexpr wchar_t kLegacyAudio58A700[] = L"不能再調高音量了"; // 原58A700 不能再調高音量了
+constexpr wchar_t kLegacyAudio58A6F4[] = L"降低音量。"; // 原58A6F4 降低音量。
+constexpr wchar_t kLegacyAudio58A6E0[] = L"不能再降低音量了。"; // 原58A6E0 不能再降低音量了。
+constexpr wchar_t kLegacyAudio58A750[] = L"不能再調高音量了。"; // 原58A750 不能再調高音量了。
+constexpr wchar_t kLegacyAudio58A740[] = L"變更為單聲道。"; // 原58A740 變更為單聲道。
+constexpr wchar_t kLegacyAudio58A730[] = L"變更為立體聲。"; // 原58A730 變更為立體聲。
 
 LegacyPanelRecord gLegacyMouseSettings585320 { // 原全局：0x00585320。
     0, 0, 192, 304, 9, {22963, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 11> gLegacyMouseRecordsD68358 {}; // 原全局：0x00D68358。
-constexpr char kLegacyMouse58A7B0[] = "\xBB\xAC\xCA\xF3\xD3\xCE\x98\xCB\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A7B0。
-constexpr char kLegacyMouse58A7A0[] = "\xD4\x4F\xB6\xA8\xCE\xEF\xC6\xB7\xB5\xC4\xD2\xC6\x84\xD3"; // 原常量参考：0x0058A7A0。
-constexpr char kLegacyMouse58A790[] = "\xD5\x7B\xD5\xFB\xBB\xAC\xCA\xF3\xCB\xD9\xB6\xC8"; // 原常量参考：0x0058A790。
-constexpr char kLegacyMouse58A784[] = "\xC4\xBF\xC7\xB0\xCB\xD9\xB6\xC8"; // 原常量参考：0x0058A784。
-constexpr char kLegacyMouse58A774[] = "\xB5\xBD\xCF\xB5\xBD\x79\xD2\x95\xB4\xB0\xA1\xA3"; // 原常量参考：0x0058A774。
-constexpr char kLegacyMouse58A838[] = "\xD5\xFD\xB3\xA3"; // 原常量参考：0x0058A838。
-constexpr char kLegacyMouse58A830[] = "\xC6\xBD\xBB\xAC"; // 原常量参考：0x0058A830。
-constexpr char kLegacyMouse58A820[] = "\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49"; // 原常量参考：0x0058A820。
-constexpr char kLegacyMouse58A814[] = "\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49"; // 原常量参考：0x0058A814。
-constexpr char kLegacyMouse58A7FC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xD5\xFD\xB3\xA3\xA1\xA3"; // 原常量参考：0x0058A7FC。
-constexpr char kLegacyMouse58A7EC[] = "\xD7\x83\xB8\xFC\x9E\xE9\xC6\xBD\xBB\xAC\xA1\xA3"; // 原常量参考：0x0058A7EC。
-constexpr char kLegacyMouse58A7D4[] = "\xD7\x83\xB8\xFC\x9E\xE9\x43\x74\x72\x6C\x2B\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3"; // 原常量参考：0x0058A7D4。
-constexpr char kLegacyMouse58A7C0[] = "\xD7\x83\xB8\xFC\x9E\xE9\xBB\xAC\xCA\xF3\xD7\xF3\xE6\x49\xA1\xA3"; // 原常量参考：0x0058A7C0。
-constexpr char kLegacyMouse5535F8[] = "\x25\x73"; // 原常量参考：0x005535F8。
-constexpr char kLegacyMouse58A80C[] = "\x25\x32\x2E\x31\x66"; // 原常量参考：0x0058A80C。
+constexpr wchar_t kLegacyMouse58A7B0[] = L"滑鼠游標設定"; // 原常量参考：0x0058A7B0。
+constexpr wchar_t kLegacyMouse58A7A0[] = L"設定物品的移動"; // 原常量参考：0x0058A7A0。
+constexpr wchar_t kLegacyMouse58A790[] = L"調整滑鼠速度"; // 原常量参考：0x0058A790。
+constexpr wchar_t kLegacyMouse58A784[] = L"目前速度"; // 原常量参考：0x0058A784。
+constexpr wchar_t kLegacyMouse58A774[] = L"到系統視窗。"; // 原常量参考：0x0058A774。
+const std::string kLegacyMouse58A774Utf8View = cg::text::FromUtf16(kLegacyMouse58A774); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMouse58A838[] = L"正常"; // 原常量参考：0x0058A838。
+const std::string kLegacyMouse58A838Utf8View = cg::text::FromUtf16(kLegacyMouse58A838); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMouse58A830[] = L"平滑"; // 原常量参考：0x0058A830。
+const std::string kLegacyMouse58A830Utf8View = cg::text::FromUtf16(kLegacyMouse58A830); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMouse58A820[] = L"Ctrl+滑鼠左鍵"; // 原常量参考：0x0058A820。
+const std::string kLegacyMouse58A820Utf8View = cg::text::FromUtf16(kLegacyMouse58A820); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMouse58A814[] = L"滑鼠左鍵"; // 原常量参考：0x0058A814。
+const std::string kLegacyMouse58A814Utf8View = cg::text::FromUtf16(kLegacyMouse58A814); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyMouse58A7FC[] = L"變更為正常。"; // 原常量参考：0x0058A7FC。
+constexpr wchar_t kLegacyMouse58A7EC[] = L"變更為平滑。"; // 原常量参考：0x0058A7EC。
+constexpr wchar_t kLegacyMouse58A7D4[] = L"變更為Ctrl+滑鼠左鍵。"; // 原常量参考：0x0058A7D4。
+constexpr wchar_t kLegacyMouse58A7C0[] = L"變更為滑鼠左鍵。"; // 原常量参考：0x0058A7C0。
+constexpr char kLegacyMouse5535F8[] = "%s"; // 原常量参考：0x005535F8。
+constexpr char kLegacyMouse58A80C[] = "%2.1f"; // 原常量参考：0x0058A80C。
 
 LegacyPanelRecord gLegacyHotkeyHelp5853E8 { // 原全局：0x005853E8。
     0, 0, 192, 304, 10, {22964, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 13> gLegacyHotkeyRecordsD68510 {}; // 原全局：0x00D68510。
-constexpr char kLegacyHotkey58A8AC[] = "\xC8\xCB\xCE\xEF\xC3\xFB\xB7\x51\xEF\x40\xCA\xBE"; // 原常量参考：0x0058A8AC。
-constexpr char kLegacyHotkey58A8A8[] = "\x46\x31\x31"; // 原常量参考：0x0058A8A8。
-constexpr char kLegacyHotkey58A89C[] = "\xCE\x9E\xC4\xBB\x94\x58\xC8\xA1"; // 原常量参考：0x0058A89C。
-constexpr char kLegacyHotkey58A898[] = "\x46\x31\x32"; // 原常量参考：0x0058A898。
-constexpr char kLegacyHotkey58A884[] = "\xC7\xE5\xB3\xFD\xCE\x9E\xC4\xBB\xC1\xC4\xCC\xEC\xD3\x8D\xCF\xA2"; // 原常量参考：0x0058A884。
-constexpr char kLegacyHotkey58A87C[] = "\x48\x4F\x4D\x45"; // 原常量参考：0x0058A87C。
-constexpr char kLegacyHotkey58A86C[] = "\xEA\x50\xE9\x5D\xC1\xC4\xCC\xEC\xEE\x6C\xB5\xC0"; // 原常量参考：0x0058A86C。
-constexpr char kLegacyHotkey58A85C[] = "\x53\x68\x69\x66\x74\x20\x2B\x20\x48\x4F\x4D\x45"; // 原常量参考：0x0058A85C。
-constexpr char kLegacyHotkey58A850[] = "\xC3\xB0\xEB\x55\xD5\xDF\xC8\xD5\xD5\x49"; // 原常量参考：0x0058A850。
-constexpr char kLegacyHotkey58A84C[] = "\x46\x39"; // 原常量参考：0x0058A84C。
-constexpr char kLegacyHotkey58A840[] = "\xBA\xDA\xC3\xFB\x86\xCE\xC1\xD0\xB1\xED"; // 原常量参考：0x0058A840。
-constexpr char kLegacyHotkey553F00[] = "\x45\x4E\x44"; // 原常量参考：0x00553F00。
+constexpr wchar_t kLegacyHotkey58A8AC[] = L"人物名稱顯示"; // 原常量参考：0x0058A8AC。
+constexpr wchar_t kLegacyHotkey58A8A8[] = L"F11"; // 原常量参考：0x0058A8A8。
+constexpr wchar_t kLegacyHotkey58A89C[] = L"螢幕擷取"; // 原常量参考：0x0058A89C。
+constexpr wchar_t kLegacyHotkey58A898[] = L"F12"; // 原常量参考：0x0058A898。
+constexpr wchar_t kLegacyHotkey58A884[] = L"清除螢幕聊天訊息"; // 原常量参考：0x0058A884。
+constexpr wchar_t kLegacyHotkey58A87C[] = L"HOME"; // 原常量参考：0x0058A87C。
+constexpr wchar_t kLegacyHotkey58A86C[] = L"關閉聊天頻道"; // 原常量参考：0x0058A86C。
+constexpr wchar_t kLegacyHotkey58A85C[] = L"Shift + HOME"; // 原常量参考：0x0058A85C。
+constexpr wchar_t kLegacyHotkey58A850[] = L"冒險者日誌"; // 原常量参考：0x0058A850。
+constexpr wchar_t kLegacyHotkey58A84C[] = L"F9"; // 原常量参考：0x0058A84C。
+constexpr wchar_t kLegacyHotkey58A840[] = L"黑名單列表"; // 原常量参考：0x0058A840。
+constexpr wchar_t kLegacyHotkey553F00[] = L"END"; // 原常量参考：0x00553F00。
 LegacyPanelRecord gLegacyScanlineSettings5854B0 { // 原全局：0x005854B0。
     0, 0, 192, 304, 11, {22965, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 4> gLegacyScanlineRecordsD68718 {}; // 原全局：0x00D68718。
-constexpr char kLegacyScanline586E24[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xC6\xDA\xD4\x4F\xB6\xA8"; // 原常量参考：0x00586E24。
-constexpr char kLegacyScanline58A8F8[] = "\x92\xDF\xC3\xE8\xBE\x80\xCD\xAC\xB2\xBD"; // 原常量参考：0x0058A8F8。
-constexpr char kLegacyScanline58A8E8[] = "\x92\xDF\xC3\xE8\xBE\x80\xB7\xC7\xCD\xAC\xB2\xBD"; // 原常量参考：0x0058A8E8。
-constexpr char kLegacyScanline58A8D4[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xCD\xAC\xB2\xBD\xA1\xA3"; // 原常量参考：0x0058A8D4。
-constexpr char kLegacyScanline58A8BC[] = "\x92\xDF\xC3\xE8\xBE\x80\xD7\x83\xB8\xFC\x9E\xE9\xB7\xC7\xCD\xAC\xB2\xBD\xA1\xA3"; // 原常量参考：0x0058A8BC。
+constexpr wchar_t kLegacyScanline586E24[] = L"掃描線同期設定"; // 原常量参考：0x00586E24。
+constexpr wchar_t kLegacyScanline58A8F8[] = L"掃描線同步"; // 原常量参考：0x0058A8F8。
+const std::string kLegacyScanline58A8F8Utf8View = cg::text::FromUtf16(kLegacyScanline58A8F8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyScanline58A8E8[] = L"掃描線非同步"; // 原常量参考：0x0058A8E8。
+const std::string kLegacyScanline58A8E8Utf8View = cg::text::FromUtf16(kLegacyScanline58A8E8); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyScanline58A8D4[] = L"掃描線變更為同步。"; // 原常量参考：0x0058A8D4。
+constexpr wchar_t kLegacyScanline58A8BC[] = L"掃描線變更為非同步。"; // 原常量参考：0x0058A8BC。
 
 LegacyPanelRecord gLegacyButtonSettings585578 { // 原全局：0x00585578。
     0, 0, 192, 304, 12, {22549, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -1608,29 +1801,30 @@ std::int32_t gLegacyBottomHeightD2DAB4 = 0; // 原全局：0x00D2DAB4。
 std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {}; // 原全局：0x00D68938。
 // BRU01：原D68AC6正常加载零字节，无新增运行写者；不猜相邻未用区容量。
 const std::uint8_t gLoginUnloadedByteD68AC6 {};
-constexpr char kLegacyButton58A914[] = "\xB0\xB4\xE2\x6F\xD4\x4F\xB6\xA8"; // 原常量参考：0x0058A914。
-constexpr char kLegacyButton58A4BC[] = "\xBB\xD8\xC9\xCF\xD2\xBB\xED\x93"; // 原常量参考：0x0058A4BC。
-constexpr char kLegacyButton58A904[] = "\xBB\xD8\xB5\xBD\xCF\xB5\xBD\x79\xDF\x78\x86\xCE\xA1\xA3"; // 原常量参考：0x0058A904。
-constexpr char kLegacyButton58A97C[] = "\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1"; // 原常量参考：0x0058A97C。
-constexpr char kLegacyButton58A970[] = "\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA"; // 原常量参考：0x0058A970。
-constexpr char kLegacyButton58A948[] = // 原常量参考：0x0058A948。
-    "\x8C\xA2\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1\xB0\xB4\xE2\x6F"
-    "\xD7\x83\xB8\xFC\xB3\xC9\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA\xB0\xB4\xE2\x6F\xA1\xA3";
-constexpr char kLegacyButton58A920[] = // 原常量参考：0x0058A920。
-    "\x8C\xA2\xC1\xC4\xCC\xEC\xB9\xA0\x87\xFA\xB0\xB4\xE2\x6F\xD7\x83\xB8\xFC"
-    "\xB3\xC9\xC1\xC4\xCC\xEC\xCE\xC4\xD7\xD6\xB4\xF3\xD0\xA1\xB0\xB4\xE2\x6F\xA1\xA3";
+constexpr wchar_t kLegacyButton58A914[] = L"按鈕設定"; // 原常量参考：0x0058A914。
+constexpr wchar_t kLegacyButton58A4BC[] = L"回上一頁"; // 原常量参考：0x0058A4BC。
+constexpr wchar_t kLegacyButton58A904[] = L"回到系統選單。"; // 原常量参考：0x0058A904。
+const std::string kLegacyButton58A904Utf8View = cg::text::FromUtf16(kLegacyButton58A904); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyButton58A97C[] = L"聊天文字大小"; // 原常量参考：0x0058A97C。
+const std::string kLegacyButton58A97CUtf8View = cg::text::FromUtf16(kLegacyButton58A97C); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyButton58A970[] = L"聊天範圍"; // 原常量参考：0x0058A970。
+const std::string kLegacyButton58A970Utf8View = cg::text::FromUtf16(kLegacyButton58A970); // 旧窄接口只读兼容视图。
+constexpr wchar_t kLegacyButton58A948[] = // 原常量参考：0x0058A948。
+    L"將聊天文字大小按鈕變更成聊天範圍按鈕。";
+constexpr wchar_t kLegacyButton58A920[] = // 原常量参考：0x0058A920。
+    L"將聊天範圍按鈕變更成聊天文字大小按鈕。";
 
 LegacyPanelRecord gLegacyLogoutPanel584F38 { // 原全局：0x00584F38。
     0, 0, 192, 304, 4, {22504, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
-constexpr char kLegacyLogout58A4D8[] = "\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63"; // 原常量参考：0x0058A4D8。
-constexpr char kLegacyLogout58A4C8[] = "\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6"; // 原常量参考：0x0058A4C8。
+constexpr wchar_t kLegacyLogout58A4D8[] = L"回到城內登入點"; // 原常量参考：0x0058A4D8。
+constexpr wchar_t kLegacyLogout58A4C8[] = L"伺服器選擇畫面"; // 原常量参考：0x0058A4C8。
 
-constexpr char kLegacyLogout586E60[] = // 原常量参考：0x00586E60。
-    "\xB5\xC7\xB3\xF6\xE1\xE1\xBB\xD8\xB5\xBD\xCB\xC5\xB7\xFE\xC6\xF7\xDF\x78\x93\xF1\xAE\x8B\xC3\xE6\xA1\xA3";
-constexpr char kLegacyLogout586E48[] = // 原常量参考：0x00586E48。
-    "\xB5\xC7\xB3\xF6\x81\x4B\xBB\xD8\xB5\xBD\xB3\xC7\x83\xC8\xB5\xC7\xC8\xEB\xFC\x63\xA1\xA3";
-constexpr char kLegacyLogout58A4B0[] = "\xB7\xC5\x97\x89\xB5\xC7\xB3\xF6\xA1\xA3"; // 原常量参考：0x0058A4B0。
+constexpr wchar_t kLegacyLogout586E60[] = // 原常量参考：0x00586E60。
+    L"登出後回到伺服器選擇畫面。";
+constexpr wchar_t kLegacyLogout586E48[] = // 原常量参考：0x00586E48。
+    L"登出並回到城內登入點。";
+constexpr wchar_t kLegacyLogout58A4B0[] = L"放棄登出。"; // 原常量参考：0x0058A4B0。
 
 // 原函数：0x004FC7F0。
 std::int32_t Sub_4FC7F0()
@@ -1816,9 +2010,9 @@ std::uint8_t ReadNegativeSelectionAvailability(
 
 LegacyPanelRecord gLegacyProfilePanel5857D0 { // 原全局：0x005857D0。
     0, 0, 272, 438, 2, {22501, 22515, 22980, 0, 0},
-    {{{1, 7, 416, 77, 16, kLegacyProfileTab5858D8},
-      {1, 97, 416, 77, 16, kLegacyProfileTab5858C0},
-      {1, 187, 416, 77, 16, kLegacyProfileTab5858A8}, {}, {}}},
+    {{{1, 7, 416, 77, 16, kLegacyProfileTab5858D8Utf8View.c_str()},
+      {1, 97, 416, 77, 16, kLegacyProfileTab5858C0Utf8View.c_str()},
+      {1, 187, 416, 77, 16, kLegacyProfileTab5858A8Utf8View.c_str()}, {}, {}}},
     0, 0, {}, {},
 };
 
@@ -1826,7 +2020,7 @@ LegacyPanelRecord gLegacyProfilePanel5857D0 { // 原全局：0x005857D0。
 std::int32_t ReloadLegacyLog_402020()
 {
     char path[256];
-    char buffer[1000] {}; // D01/P03：只在入口定义一次原未写首轮，其后复用。
+    char buffer[3000] {}; // D01/P03：只在入口定义一次原未写首轮，其后复用。
     platform::LegacyTm53B8C6* calendar = gLegacyLogCalendar593F88;
     if (calendar == nullptr) {
         static_cast<void>(platform::ReadLegacyTime32_53BA26(&gLegacyLogStorage593A00.time593E10));
@@ -1876,8 +2070,8 @@ std::int32_t ReloadLegacyLog_402020()
 
 // 原[4021A0,402B26)：旧98完整页面；关闭路径可回原生输入T*，正常尾为原W32结果。
 std::uintptr_t Sub_4021A0(const std::int32_t opened)
-{
-    char buffer[1000] {}; // D01/P04：独立对象，跳页/正文/页号格式复用，不逐轮清零。
+try {
+    char buffer[3000] {}; // D01/P04：独立对象，跳页/正文/页号格式复用，不逐轮清零。
     const std::int32_t x = gLegacyLogPanel553440.x;
     const std::int32_t y = gLegacyLogPanel553440.y;
     LegacyPanelButtonRecord previous {AddW32(x, 59), AddW32(y, 376), AddW32(x, 46), AddW32(y, 365), 26, 22, 22895, 22896};
@@ -1912,7 +2106,7 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
         const std::int32_t inputY = AddW32(gLegacyLogPanel553440.y, 408);
         const std::int32_t inputX = AddW32(gLegacyLogPanel553440.x, 21);
         gLegacyLogInput593F8C = &gLegacyLogStorage593A00.input593E18;
-        gLegacyLogStorage593A00.input593E18.text[0] = '\0';
+        gLegacyLogStorage593A00.input593E18.clearText();
         gLegacyLogStorage593A00.input593E18.totalByteLength = 0;
         gLegacyLogStorage593A00.input593E18.caretByteOffset = 0;
         input::InitializeContext_449CF0(&gLegacyLogStorage593A00.input593E18,
@@ -1994,7 +2188,7 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
             static_cast<void>(DrawText(
                 static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 10)),
                 static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 40 + 20 * row)),
-                2, 0, 0, gLegacyLogStorage593A00.rows.data() + 65 * row, 0, 0));
+                2, 0, 0, cg::text::FromGbk(gLegacyLogStorage593A00.rows.data() + 65 * row).c_str(), 0, 0));
         }
         std::sprintf(buffer, "%3d / %3d",
             gLegacyLogPage553508, gLegacyLogPageCount553504);
@@ -2028,17 +2222,18 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
             }
         } else if ((QueryPanelButtonState(&write) & 1) != 0 || (platform::gKeyStates[13] & 2u) != 0) {
-            if (gLegacyLogInput593F8C->text[0] != '\0') {
+            if (!gLegacyLogInput593F8C->empty()) {
                 static_cast<void>(platform::SeekLegacyStream_53BC41(gLegacyLogFile593F78, 0, 2));
                 platform::LegacyTm53B8C6* const time = gLegacyLogCalendar593F88;
-                const char* const inputText = gLegacyLogInput593F8C->text;
+                const std::string storedInput = cg::text::ToGbk(input::ContextText(*gLegacyLogInput593F8C));
+                const char* const inputText = storedInput.c_str();
                 const std::int32_t seconds = time->seconds;
                 const std::int32_t minutes = time->minutes;
                 const std::int32_t hours = time->hours;
                 std::fprintf(gLegacyLogFile593F78, kLegacyLogWriteFormat5535A0,
                     hours, minutes, seconds, inputText);
                 static_cast<void>(platform::FlushLegacyStream_53BB02(gLegacyLogFile593F78));
-                gLegacyLogInput593F8C->text[0] = '\0';
+                gLegacyLogInput593F8C->clearText();
                 gLegacyLogInput593F8C->totalByteLength = 0;
                 gLegacyLogInput593F8C->caretByteOffset = 0;
                 const std::int32_t inputY = AddW32(gLegacyLogPanel553440.y, 408);
@@ -2102,7 +2297,7 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
         2, 0, 0, world::detail::gLogFileName554648, 0, 0));
     Sub_5035E0(&beforeDay, 213, 1, gValueD69768, 0);
     Sub_5035E0(&afterDay, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyLogPanel553440) != 0) {
         hint = kLegacyLogClose55331C;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0) {
@@ -2121,9 +2316,13 @@ std::uintptr_t Sub_4021A0(const std::int32_t opened)
         hint = kLegacyLogAfterDay553534;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyLogPanel553440, 1));
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00455490。
@@ -2372,7 +2571,7 @@ std::int32_t Sub_4D31C0()
 
 // 原函数：0x004D3210。
 std::uintptr_t Sub_4D3210(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyDialogPanelD2D9C8, nullptr, 0);
     if (state == 0) {
         return 0;
@@ -2399,9 +2598,10 @@ std::uintptr_t Sub_4D3210(const std::int32_t opened)
     }
     const std::int32_t buttonMask = Sub_4D31C0();
     if (buttonMask != 0) {
-        const char* const source = world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11
-            ? gLegacyDialogInputD67C4C->text : input::LegacyText593850();
-        char buffer[256];
+        const std::string sourceView = world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11
+            ? gLegacyDialogInputD67C4C->utf8() : input::LegacyText593850();
+        const char* const source = sourceView.c_str();
+        char buffer[768];
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, buffer, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2428,10 +2628,14 @@ std::uintptr_t Sub_4D3210(const std::int32_t opened)
     }
     return Sub_503440(&gLegacyDialogPanelD2D9C8, 0);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004D3410。
 std::uint32_t Sub_4D3410(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyLineDialogPanelCC4150, nullptr, 0);
     if (state == 0) {
         return 0;
@@ -2467,7 +2671,7 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
     }
     const std::int32_t buttonMask = Sub_4D31C0();
     if (buttonMask != 0 || chosen >= 0) {
-        char buffer[512];
+        char buffer[1536];
         std::sprintf(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -2505,6 +2709,10 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
     Sub_4D3180();
     return Sub_503440(&gLegacyLineDialogPanelCC4150, 0);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004D66E0。
 YobiAction* Sub_4D66E0()
@@ -2519,7 +2727,7 @@ YobiAction* Sub_4D66E0()
 
 // 原函数：0x004D6710。
 std::uintptr_t Sub_4D6710(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillChoicePanel581D60.x;
     const std::int32_t y = gLegacySkillChoicePanel581D60.y;
     std::array<character_select::detail::CharacterModalUiRecord, 3> buttons {{
@@ -2553,7 +2761,7 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
             continue;
         }
         if (index <= 1) {
-            char buffer[16];
+            char buffer[48];
             char escaped[16];
             std::sprintf(buffer, "%d", index + 1);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
@@ -2582,7 +2790,7 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
     for (const auto& button : buttons) {
         static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySkillChoicePanel581D60) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {
@@ -2593,9 +2801,13 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
         hint = kLegacySkillChoiceCancelHint588B80;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySkillChoicePanel581D60, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D6A30。
@@ -2611,7 +2823,7 @@ YobiAction* Sub_4D6A30()
 
 // 原函数：0x004D6A60。
 std::uintptr_t Sub_4D6A60(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillLearningPanel581E28.x;
     const std::int32_t y = gLegacySkillLearningPanel581E28.y;
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
@@ -2643,7 +2855,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {
             continue;
         }
-        char buffer[16];
+        char buffer[48];
         char escaped[16];
         std::sprintf(buffer, "%d", index + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
@@ -2701,7 +2913,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
     const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;
     static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
         static_cast<std::int16_t>(costY), 2, 0, 0, text, 0, 0));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySkillLearningPanel581E28) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {
@@ -2710,9 +2922,13 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         hint = kLegacySkillLearningCancelHint588BD4;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySkillLearningPanel581E28, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D6E70。
@@ -2728,7 +2944,7 @@ YobiAction* Sub_4D6E70()
 
 // 原函数：0x004D6EA0。
 std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillForgetPanel581EF0.x;
     const std::int32_t y = gLegacySkillForgetPanel581EF0.y;
     const character_select::detail::CharacterModalUiRecord cancel {
@@ -2780,7 +2996,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         const std::int32_t value = scanIndex == 15 ? ui::detail::gBattleItemPageCB01E0
             : ui::detail::gWindow54ValuesCB01A4[scanIndex];
         if (value >= 0) {
-            char buffer[16];
+            char buffer[48];
             char escaped[16];
             std::sprintf(buffer, "%d", selection);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
@@ -2793,7 +3009,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
             static_cast<void>(audio::Sub_5042D0(gLegacySkillForgetPanel581EF0.id));
         }
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY) {
         const std::int32_t top = gLegacySkillForgetPanel581EF0.y + offsetY;
         const std::int32_t left = gLegacySkillForgetPanel581EF0.x + offsetX;
@@ -2837,24 +3053,28 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
     std::sprintf(text, kLegacySkillForgetTotal588C48, total);
     drawAt(text, 14, 42);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySkillForgetPanel581EF0) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacySkillForgetCancelHint588C38;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     if (hovered >= 0 && ui::detail::gWindow54ValuesCB01A4[hovered] >= 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillForgetRowHint588C28);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillForgetRowHint588C28;
     }
     return Sub_503440(&gLegacySkillForgetPanel581EF0, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004EFB70。
 std::uint32_t Sub_4EFB70(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillStatusPanel583C90.x;
     const std::int32_t y = gLegacySkillStatusPanel583C90.y;
     const character_select::detail::CharacterModalUiRecord cancel {
@@ -2899,7 +3119,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
     }
     const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
     const std::int32_t previousState = character_select::detail::Sub_503990(&previous);
-    char buffer[128];
+    char buffer[384];
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         buffer[0] = '\0';
         std::strcpy(ui::detail::gSkillTargetNameD2F748.data(), rows.names[hovered].data());
@@ -2924,7 +3144,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         gLegacySkillPendingD67C48 = 1;
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacySkillStatusPanel583C90.y + offsetY;
         const std::int32_t left = gLegacySkillStatusPanel583C90.x + offsetX;
@@ -2936,7 +3156,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
     for (std::int32_t index = 0; index < *rows.count; ++index) {
         std::sprintf(buffer, "%3d", rows.levels[index]);
         drawAt(buffer, 107, 76 + 20 * index, 0);
-        std::sprintf(buffer, "%-16s", rows.names[index].data());
+        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(rows.names[index].data())));
         const std::int8_t color = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(colors[rows.kinds[index]]));
         drawAt(buffer, 143, 76 + 20 * index, color);
@@ -2959,7 +3179,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         const std::int32_t left = gLegacySkillStatusPanel583C90.x + 44;
         DrawGraphicHover(Low16(left), Low16(top), Low16(left + 424), Low16(top + 20), 218, image, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((cancelState & 0x40) != 0) {
         switch (ui::detail::gSkillTargetKindCF4A10) {
         case 0: hint = kLegacySkillStatusCancelTransform589B20; break;
@@ -2986,14 +3206,18 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySkillStatusPanel583C90, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F0460。
 std::uint32_t Sub_4F0460(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillTargetPanel583D58.x;
     const std::int32_t y = gLegacySkillTargetPanel583D58.y;
     const std::array<character_select::detail::CharacterModalUiRecord, 2> cancels {{
@@ -3047,7 +3271,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
     const std::int32_t cancelState = character_select::detail::Sub_503990(cancel);
     const std::int32_t pageState = manyPages
         ? character_select::detail::Sub_503990(&pages[ui::detail::gSkillTargetPageC8A974]) : 0;
-    char buffer[128];
+    char buffer[384];
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         const std::int32_t selected = hovered + 5 * ui::detail::gSkillTargetPageC8A974;
         const std::int32_t mode = ui::detail::gSkillTargetKindCF4A10;
@@ -3077,7 +3301,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
         ui::detail::gSkillTargetPageC8A974 = (ui::detail::gSkillTargetPageC8A974 - 1) & 1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacySkillTargetPanel583D58.y + offsetY;
         const std::int32_t left = gLegacySkillTargetPanel583D58.x + offsetX;
@@ -3113,7 +3337,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
         const std::int32_t left = gLegacySkillTargetPanel583D58.x + 86;
         DrawGraphicHover(Low16(left), Low16(top), Low16(left + 148), Low16(top + 20), 218, image, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((cancelState & 0x40) != 0) {
         switch (ui::detail::gSkillTargetKindCF4A10) {
         case 0: hint = kLegacySkillStatusCancelTransform589B20; break;
@@ -3149,14 +3373,18 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySkillTargetPanel583D58, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E4A50。
 std::uint32_t Sub_4E4A50(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyItemTargetPanel582D40.x;
     const std::int32_t y = gLegacyItemTargetPanel582D40.y;
     const std::array<character_select::detail::CharacterModalUiRecord, 2> cancels {{
@@ -3207,7 +3435,7 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
         *rows.page = (*rows.page - 1) & 1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyItemTargetPanel582D40.y + offsetY;
         const std::int32_t left = gLegacyItemTargetPanel582D40.x + offsetX;
@@ -3218,7 +3446,7 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
     if (manyPages) {
         const std::int32_t currentPage = *rows.page;
         const std::int32_t pageCount = *rows.pageCount;
-        char buffer[128];
+        char buffer[384];
         std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
         drawAt(buffer, 270, 24, 0);
     }
@@ -3248,6 +3476,10 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
     }
     return Sub_503440(&gLegacyItemTargetPanel582D40, 0);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 
 // 原函数：0x004F0CD0。
@@ -3267,14 +3499,14 @@ std::uint32_t Sub_4F0CD0(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583EE8.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[256];
-    std::sprintf(buffer, kLegacyTextNotice589C24);
+    char buffer[768];
+    std::sprintf(buffer, kLegacyTextNotice589C24Utf8View.c_str());
     const std::int32_t firstY = gLegacyTextNoticePanel583EE8.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原D2F798额外变参不被无25H的格式消费；不制造未知值或默认owner。
-    std::sprintf(buffer, kLegacyTextNotice589C08);
+    std::sprintf(buffer, kLegacyTextNotice589C08Utf8View.c_str());
     const std::int32_t secondY = gLegacyTextNoticePanel583EE8.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583EE8.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -3300,14 +3532,14 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583FB0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[256];
-    std::sprintf(buffer, kLegacyTextNotice589C4C);
+    char buffer[768];
+    std::sprintf(buffer, kLegacyTextNotice589C4CUtf8View.c_str());
     const std::int32_t firstY = gLegacyTextNoticePanel583FB0.y + 24;
     const std::int32_t firstX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
         static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
     // 原CF3B08额外变参不被固定格式消费；仅消去无可观察结果的普通读。
-    std::sprintf(buffer, kLegacyTextNotice589C34);
+    std::sprintf(buffer, kLegacyTextNotice589C34Utf8View.c_str());
     const std::int32_t secondY = gLegacyTextNoticePanel583FB0.y + 44;
     const std::int32_t secondX = gLegacyTextNoticePanel583FB0.x + 16;
     static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
@@ -3329,7 +3561,7 @@ YobiAction* Sub_4D8D70()
 
 // 原函数：0x004D8DA0。
 std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyShopChoicePanel5822D8.x;
     const std::int32_t y = gLegacyShopChoicePanel5822D8.y;
     std::array<character_select::detail::CharacterModalUiRecord, 3> options {{
@@ -3339,7 +3571,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
     }};
     // 原三个W32只按低位分支/取消写入；低两位全零的第二命令未写，不能补默认值。
     std::array<std::int32_t, 3> commands;
-    char buffer[16];
+    char buffer[48];
     char escaped[16];
     const std::int32_t state = Sub_503160(opened, &gLegacyShopChoicePanel5822D8,
         +[] { static_cast<void>(Sub_4D8D70()); }, 1);
@@ -3413,7 +3645,7 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
         static_cast<void>(character_select::detail::Sub_503A20(
             &options[row], 2, 0, 1, gValueD69768, 218));
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (count == 3) {
         if (Sub_503590(&gLegacyShopChoicePanel5822D8) != 0) {
             hint = kLegacyLogout553FD0;
@@ -3441,9 +3673,13 @@ std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyShopChoicePanel5822D8, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D91E0。
@@ -3459,7 +3695,7 @@ YobiAction* Sub_4D91E0()
 
 // 原函数：0x004D9220。
 std::uintptr_t Sub_4D9220(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyBuyPanel5823A0.x;
     const std::int32_t y = gLegacyBuyPanel5823A0.y;
     LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23073, 23075};
@@ -3624,14 +3860,14 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
         const std::int32_t detailX = gLegacyBuyPanel5823A0.x + 298;
         Sub_4DA400(detailX, detailY, hovered + 10 * listPage, page, 0);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyBuyPanel5823A0.y + offsetY;
         const std::int32_t left = gLegacyBuyPanel5823A0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyShopItemCF4FE0(row + 10 * ReadLegacyBuyPageCC1A0C());
         if (item[0] == 0) {
@@ -3680,7 +3916,7 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyBuyPanel5823A0) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
@@ -3698,11 +3934,15 @@ std::uintptr_t Sub_4D9220(const std::int32_t opened)
             ? kLegacyBuyDecrease588DD4 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     static_cast<void>(Sub_503440(&gLegacyBuyPanel5823A0, 1));
     gLegacyBuyPreviousHover582464 = hovered;
     return static_cast<std::uint32_t>(hovered);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DA400。
@@ -3716,20 +3956,22 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     if (item[0] == 0) {
         return;
     }
-    char title[32];
+    char title[96];
     const std::int32_t count = ReadRecordW32(item, 0xC30);
     if (count <= 1) {
-        std::strcpy(title, item + 1);
+        cg::text::Copy(title, sizeof(title), cg::text::FromGbk(item + 1));
     } else {
-        ::_snprintf(title, 28, "%s(%d)", item + 1, count);
+        ::_snprintf(title, 84, "%s(%d)", cg::text::FromGbk(item + 1).c_str(), count);
+        title[84] = '\0';
+        title[cg::text::Prefix(title, 84)] = '\0';
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC40);
-    Sub_504BA0(x, y, 272, 4, 0, title, item + 0xC44, 0, 0,
+    Sub_504BA0(x, y, 272, 4, 0, title, cg::text::FromGbk(item + 0xC44).c_str(), 0, 0,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
     for (std::int32_t row = 0; row < 7; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
         }
     }
     if (item[0xC3C] == 0 && mode == 0) {
@@ -3741,7 +3983,7 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004DA580。
 std::uint32_t Sub_4DA580(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyBuyConfirmPanel582468.x;
     const std::int32_t y = gLegacyBuyConfirmPanel582468.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -3765,7 +4007,7 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyBuyConfirmPanel582468.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512];
+    char buffer[1536];
     char entry[32];
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         buffer[0] = '\0';
@@ -3797,7 +4039,7 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
         static_cast<void>(audio::Sub_504180(63));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyBuyConfirmPanel582468.y + offsetY;
         const std::int32_t left = gLegacyBuyConfirmPanel582468.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -3812,7 +4054,7 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
             const std::int32_t nameX = gLegacyBuyConfirmPanel582468.x + dx + 24;
             const std::int32_t nameY = gLegacyBuyConfirmPanel582468.y + dy + 34;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, 0, item + 1, 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(item + 1).c_str(), 0, 0));
             std::sprintf(buffer, "x%2d", ReadRecordW32(item, 0xC28));
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
@@ -3825,16 +4067,20 @@ std::uint32_t Sub_4DA580(const std::int32_t opened)
     drawAt(kLegacyBuyQuestion588E34, 178, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacyBuyAcceptHint588E2C;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacyBuyStopHint588E24;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyBuyConfirmPanel582468, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DAA00。
@@ -3850,7 +4096,7 @@ YobiAction* Sub_4DAA00()
 
 // 原函数：0x004DAA40。
 std::uintptr_t Sub_4DAA40(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySellPanel582530.x;
     const std::int32_t y = gLegacySellPanel582530.y;
     LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23070, 23071};
@@ -4016,14 +4262,14 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
         const std::int32_t detailX = gLegacySellPanel582530.x + 298;
         Sub_4DA400(detailX, detailY, hovered + 10 * listPage, page, 1);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacySellPanel582530.y + offsetY;
         const std::int32_t left = gLegacySellPanel582530.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyShopItemCF4FE0(row + 10 * gLegacySellPageCF49FC);
         if (item[0] == 0) {
@@ -4071,7 +4317,7 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySellPanel582530) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
@@ -4090,18 +4336,18 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
             ? kLegacySellDecrease588E74 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     } else if (increaseHovered < 0 && decreaseHovered < 0) {
         // 原4DBC11先读取备注，再判悬停；越界路径沿RPLAN.24，不另加门禁。
         const char* const item = BorrowLegacyShopItemCF4FE0(hovered + 10 * gLegacySellPageCF49FC);
         if (std::strlen(item + 0xC44) != 0 && hovered >= 0) {
             const std::int32_t flags = ReadRecordW32(item, 0xC40);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 1);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             } else {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 0xC44);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC44);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             }
         }
     }
@@ -4109,10 +4355,14 @@ std::uintptr_t Sub_4DAA40(const std::int32_t opened)
     gLegacySellPreviousHover5825F4 = hovered;
     return result;
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004DBD30。
 std::uint32_t Sub_4DBD30(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySellConfirmPanel5825F8.x;
     const std::int32_t y = gLegacySellConfirmPanel5825F8.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -4136,7 +4386,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacySellConfirmPanel5825F8.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512];
+    char buffer[1536];
     char entry[32];
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         buffer[0] = '\0';
@@ -4169,7 +4419,7 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
         static_cast<void>(audio::Sub_504180(64));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacySellConfirmPanel5825F8.y + offsetY;
         const std::int32_t left = gLegacySellConfirmPanel5825F8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -4190,10 +4440,10 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
             const std::int32_t count = ReadRecordW32(item, 0xC30);
             const std::int8_t color = (flags & 0x100) != 0 ? 5 : (flags & 0x200) != 0 ? 1 : 0;
             if (count <= 1) {
-                std::strcpy(buffer, name);
+                cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
             } else {
                 const std::int32_t value = ReadRecordW32(item, 0xC38);
-                std::sprintf(buffer, kLegacySellQuantity588F28, name, value, selected);
+                std::sprintf(buffer, kLegacySellQuantity588F28, cg::text::FromGbk(name).c_str(), value, selected);
             }
             // 原100H/200H分支借旧65坐标，普通分支才取旧66，不能统一改成本面板。
             const LegacyPanelRecord& textPanel = (flags & 0x300) != 0
@@ -4212,21 +4462,25 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
     drawAt(kLegacySellQuestion588EE8, 178, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacySellAcceptHint588EE0;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacySellStopHint588ED8;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySellConfirmPanel5825F8, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DC290。
 std::uint32_t Sub_4DC290(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyHealingPanel5826C0.x;
     const std::int32_t y = gLegacyHealingPanel5826C0.y;
     const character_select::detail::CharacterModalUiRecord cancel {
@@ -4256,7 +4510,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         }
     }
     const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
-    char buffer[128];
+    char buffer[384];
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         char escaped[16];
         std::sprintf(buffer, "%d", hovered + 1);
@@ -4273,7 +4527,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyHealingPanel5826C0.y + offsetY;
         const std::int32_t left = gLegacyHealingPanel5826C0.x + offsetX;
@@ -4292,7 +4546,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         }
         std::sprintf(buffer, "%3d", level);
         drawAt(buffer, 100, 76 + 20 * index, 0);
-        std::sprintf(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
+        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(reinterpret_cast<const char*>(record + 12))));
         drawAt(buffer, 141, 76 + 20 * index, 0);
         std::sprintf(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
         drawAt(buffer, 290, 76 + 20 * index, 0);
@@ -4310,7 +4564,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
     std::sprintf(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 151, 224, 0);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (hovered >= 0) {
         const std::int32_t top = gLegacyHealingPanel5826C0.y + 20 * hovered + 74;
         const std::uint32_t image = gValueD69768;
@@ -4326,9 +4580,13 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         hint = kLegacyHealingCancel588F34;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyHealingPanel5826C0, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DC7A0。
@@ -4500,14 +4758,14 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         const std::int32_t detailX = gLegacyRepairPanel582788.x + 298;
         Sub_4DDA30(detailX, detailY, hovered + 10 * listPage, page);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyRepairPanel582788.y + offsetY;
         const std::int32_t left = gLegacyRepairPanel582788.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyRepairItemCE4548(row + 10 * gLegacyRepairPageCF4A08);
         if (item[0] == 0) {
@@ -4552,7 +4810,7 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyRepairPanel582788) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
@@ -4571,18 +4829,18 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
             ? kLegacyRepairDecrease589010 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     } else if (increaseHovered < 0 && decreaseHovered < 0) {
         // 原4DD92C直接读取备注，无悬停门禁；越界沿RPLAN.24，不另加保护。
         const char* const item = BorrowLegacyRepairItemCE4548(hovered + 10 * gLegacyRepairPageCF4A08);
         if (std::strlen(item + 0xC34) != 0) {
             const std::int32_t flags = ReadRecordW32(item, 0xC30);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 1);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             } else {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 0xC34);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC34);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             }
         }
     }
@@ -4608,7 +4866,7 @@ void Sub_4DDA30(const std::int32_t x, const std::int32_t y,
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -4616,7 +4874,7 @@ void Sub_4DDA30(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004DDB20。
 std::uint32_t Sub_4DDB20(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyRepairConfirmPanel582850.x;
     const std::int32_t y = gLegacyRepairConfirmPanel582850.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -4640,7 +4898,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyRepairConfirmPanel582850.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512];
+    char buffer[1536];
     char entry[32];
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         buffer[0] = '\0';
@@ -4672,7 +4930,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
     } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
         static_cast<void>(audio::Sub_504180(70));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyRepairConfirmPanel582850.y + offsetY;
         const std::int32_t left = gLegacyRepairConfirmPanel582850.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -4694,7 +4952,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
             const std::int32_t nameY = gLegacyRepairConfirmPanel582850.y + dy + 34;
             const std::int32_t nameX = gLegacyRepairConfirmPanel582850.x + dx + 24;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, color, name, 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
             ++shown;
         }
     }
@@ -4705,16 +4963,20 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
     drawAt(kLegacyRepairQuestion58908C, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacyRepairAcceptHint589084;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacyRepairStopHint58907C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyRepairConfirmPanel582850, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DDF80。
@@ -4887,14 +5149,14 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         const std::int32_t detailX = gLegacyIdentifyPanel582918.x + 298;
         Sub_4DF210(detailX, detailY, hovered + 10 * listPage, page);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyIdentifyPanel582918.y + offsetY;
         const std::int32_t left = gLegacyIdentifyPanel582918.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 10; ++row) {
         const char* const item = BorrowLegacyIdentifyItemC8B390(row + 10 * gLegacyIdentifyPageCC3F00);
         if (item[0] == 0) {
@@ -4939,7 +5201,7 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyIdentifyPanel582918) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
@@ -4958,18 +5220,18 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
             ? kLegacyIdentifyDecrease5890D0 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     } else if (increaseHovered < 0 && decreaseHovered < 0) {
         // 原4DF10C直接读取备注，无悬停门禁；越界沿RPLAN.24，不另加保护。
         const char* const item = BorrowLegacyIdentifyItemC8B390(hovered + 10 * gLegacyIdentifyPageCC3F00);
         if (std::strlen(item + 0xC34) != 0) {
             const std::int32_t flags = ReadRecordW32(item, 0xC30);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 1);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 1);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             } else {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 0xC34);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item + 0xC34);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             }
         }
     }
@@ -4995,7 +5257,7 @@ void Sub_4DF210(const std::int32_t x, const std::int32_t y,
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item + 0x1E + page * 768 + row * 96;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -5003,7 +5265,7 @@ void Sub_4DF210(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004DF300。
 std::uint32_t Sub_4DF300(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyIdentifyConfirmPanel5829E0.x;
     const std::int32_t y = gLegacyIdentifyConfirmPanel5829E0.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -5027,7 +5289,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyConfirmPanel5829E0.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512];
+    char buffer[1536];
     char entry[32];
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         buffer[0] = '\0';
@@ -5059,7 +5321,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
     } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
         static_cast<void>(audio::Sub_504180(68));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyIdentifyConfirmPanel5829E0.y + offsetY;
         const std::int32_t left = gLegacyIdentifyConfirmPanel5829E0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -5081,7 +5343,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
             const std::int32_t nameY = gLegacyIdentifyConfirmPanel5829E0.y + dy + 34;
             const std::int32_t nameX = gLegacyIdentifyConfirmPanel5829E0.x + dx + 24;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, color, name, 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
             ++shown;
         }
     }
@@ -5092,21 +5354,25 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
     drawAt(kLegacyIdentifyQuestion589138, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacyIdentifyAcceptHint589130;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacyIdentifyStopHint589124;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyIdentifyConfirmPanel5829E0, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004DF730。
 std::uintptr_t Sub_4DF730(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyMessagePanel582AA8.x;
     const std::int32_t y = gLegacyMessagePanel582AA8.y;
     LegacyPanelButtonRecord post {x + 557, y + 394, x + 529, y + 384, 56, 20, 23216, 23217};
@@ -5145,7 +5411,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         const std::int32_t inputY = gLegacyMessagePanel582AA8.y + 389;
         const std::int32_t inputX = gLegacyMessagePanel582AA8.x + 21;
         gLegacyMessageInputD67C8C = &input::gInputContextCC46E0;
-        input::gInputContextCC46E0.text[0] = '\0';
+        input::gInputContextCC46E0.clearText();
         input::gInputContextCC46E0.caretByteOffset = 0;
         input::gInputContextCC46E0.totalByteLength = 0;
         input::InitializeContext_449CF0(&input::gInputContextCC46E0,
@@ -5164,11 +5430,10 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         const auto socket = platform::gConnectionSocket;
         static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, mode, text));
     };
-    char buffer[384];
+    char buffer[1152];
     if ((QueryPanelButtonState(&post) & 1) != 0) {
-        if (gLegacyMessageInputD67C8C->text[0] != '\0') {
-            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
-                gLegacyMessageInputD67C8C->text, buffer + 128, 255));
+        if (!gLegacyMessageInputD67C8C->empty()) {
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(gLegacyMessageInputD67C8C->utf8().c_str(), buffer + 128, 255));
             sendReply(1, buffer + 128);
             static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -5208,7 +5473,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
             }
         }
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyMessagePanel582AA8.y + offsetY;
         const std::int32_t left = gLegacyMessagePanel582AA8.x + offsetX;
@@ -5229,7 +5494,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         }
         const char* const name = reinterpret_cast<const char*>(record + 9);
         if (name[0] != '\0') {
-            const std::int32_t nameWidth = TextMeasure(name, 0);
+            const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
             drawAt(name, 160 - nameWidth / 2, 43 + 76 * index, 0);
         }
         std::int32_t timeValue = ReadRecordW32(record, 4);
@@ -5246,7 +5511,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
             }
         }
         for (std::int32_t line = 0; line < 2; ++line) {
-            if (input::ExtractLegacyLine_503AB0(buffer, 128,
+            if (input::ExtractGbkTextLine(buffer, 128,
                     reinterpret_cast<const char*>(record + 26), line, 70) == 0) {
                 buffer[0] = '\0';
             }
@@ -5265,11 +5530,11 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         Sub_5035E0(&next, 213, 1, gValueD69768, 0);
     }
     render::DrawInputText_4568A0(gLegacyMessageInputD67C8C);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMessagePanel582AA8) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&post) & 0x40) != 0) {
-        hint = gLegacyMessageInputD67C8C->text[0] != '\0'
+        hint = !gLegacyMessageInputD67C8C->empty()
             ? kLegacyMessagePost5891B4 : kLegacyMessageEmpty5891A4;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
         hint = kLegacyMessageCancel589198;
@@ -5283,9 +5548,13 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
         hint = kLegacyMessageDelete58917C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMessagePanel582AA8, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D36B0。
@@ -5301,7 +5570,7 @@ YobiAction* Sub_4D36B0()
 
 // 原函数：0x004D36F0。
 std::uintptr_t Sub_4D36F0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyBarterPanel5818B0.x;
     const std::int32_t y = gLegacyBarterPanel5818B0.y;
     LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23331, 23332};
@@ -5484,14 +5753,14 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         const std::int32_t detailX = gLegacyBarterPanel5818B0.x + 298;
         Sub_4D4960(detailX, detailY, hovered + 10 * listPage, page);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyBarterPanel5818B0.y + offsetY;
         const std::int32_t left = gLegacyBarterPanel5818B0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 10; ++row) {
         const auto& item = gLegacyBarterItemsCA0B30[row + 10 * gLegacyBarterPageCB10D0];
         if (item.used == 0) {
@@ -5540,7 +5809,7 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyBarterPanel5818B0) != 0) {
         hint = kLegacyEngravingClose5868EC;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
@@ -5557,11 +5826,15 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
             ? kLegacyBarterDecrease588954 : kLegacyQuantityDecreaseLimit588944;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     const std::uint32_t result = Sub_503440(&gLegacyBarterPanel5818B0, 1);
     gLegacyBarterPreviousHover581974 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D4960。
@@ -5575,13 +5848,13 @@ void Sub_4D4960(const std::int32_t x, const std::int32_t y,
     if (item.used == 0) {
         return;
     }
-    const std::int32_t width = TextMeasure(item.name.data(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(item.name.data()).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, item.name.data(), 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(item.name.data()).c_str(), 0, 0));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = item.descriptions[8 * page + row].data();
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
         }
     }
     static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
@@ -5589,7 +5862,7 @@ void Sub_4D4960(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004D4A50。
 std::uint32_t Sub_4D4A50(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyBarterConfirmPanel581978.x;
     const std::int32_t y = gLegacyBarterConfirmPanel581978.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -5613,7 +5886,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512];
+    char buffer[1536];
     char entry[32];
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         buffer[0] = '\0';
@@ -5645,7 +5918,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyBarterConfirmPanel581978.y + offsetY;
         const std::int32_t left = gLegacyBarterConfirmPanel581978.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -5656,7 +5929,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
         if (item.used != 0 && item.selected != 0) {
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
-            drawAt(item.name.data(), dx + 24, dy + 34);
+            drawAt(cg::text::FromGbk(item.name.data()).c_str(), dx + 24, dy + 34);
             std::sprintf(buffer, "x%2d", item.selected);
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
@@ -5664,7 +5937,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
     }
     const std::int32_t total = gLegacyBarterTotalD2F334;
     const std::int32_t available = ui::detail::gShopAvailableCF4A24;
-    std::sprintf(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
+    std::sprintf(buffer, kLegacyBarterSummary5889D8, cg::text::FromGbk(ui::detail::gShopTextCB0184.data()).c_str(), available, total);
     const std::int32_t width = MeasureDefaultText_44B260(buffer);
     const std::int32_t summaryY = gLegacyBarterConfirmPanel581978.y + 254;
     static_cast<void>(DrawText(static_cast<std::int16_t>(320 - width / 2),
@@ -5672,16 +5945,20 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
     drawAt(kLegacyBarterQuestion5889C0, 178, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
         hint = kLegacyBarterAcceptHint5889B8;
     } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
         hint = kLegacyBarterStopHint5889AC;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyBarterConfirmPanel581978, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D4ED0。
@@ -5697,7 +5974,7 @@ YobiAction* Sub_4D4ED0()
 
 // 原函数：0x004D4F00。
 std::uintptr_t Sub_4D4F00(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyExchangePanel581A40.x;
     const std::int32_t y = gLegacyExchangePanel581A40.y;
     const character_select::detail::CharacterModalUiRecord accept {
@@ -5746,7 +6023,7 @@ std::uintptr_t Sub_4D4F00(const std::int32_t opened)
     DrawLegacySmallNpcBody(&gLegacyExchangePanel581A40);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 0, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyExchangePanel581A40) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
@@ -5755,9 +6032,13 @@ std::uintptr_t Sub_4D4F00(const std::int32_t opened)
         hint = kLegacyExchangeCancelHint588A10;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyExchangePanel581A40, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D5220。
@@ -5773,7 +6054,7 @@ YobiAction* Sub_4D5220()
 
 // 原函数：0x004D5250。
 std::uintptr_t Sub_4D5250(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGiveReceivePanel581B08.x;
     const std::int32_t y = gLegacyGiveReceivePanel581B08.y;
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
@@ -5823,16 +6104,19 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
         static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));
     }
     if (Sub_503590(&gLegacyGiveReceivePanel581B08) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyEngravingClose5868EC);
+        ui::detail::gHoverTextD68AE8 = kLegacyEngravingClose5868EC;
     }
     if (character_select::detail::Sub_503990(&buttons[0]) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-            gLegacyGiveReceiveModeC8AA98 != 0 ? kLegacyReceiveChoice585A40 : kLegacyGiveHint588A58);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyGiveReceiveModeC8AA98 != 0 ? kLegacyReceiveChoice585A40 : kLegacyGiveHint588A58);
     }
     if (character_select::detail::Sub_503990(&buttons[1]) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyGiveReceiveCancelHint588A4C);
+        ui::detail::gHoverTextD68AE8 = kLegacyGiveReceiveCancelHint588A4C;
     }
     return Sub_503440(&gLegacyGiveReceivePanel581B08, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004D5580。
@@ -5995,7 +6279,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         const std::int32_t detailX = gLegacyGiveReceiveQuantityPanel581BD0.x + 298;
         static_cast<void>(Sub_4D61E0(detailX, detailY, page));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
                            const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyGiveReceiveQuantityPanel581BD0.y + offsetY;
         const std::int32_t left = gLegacyGiveReceiveQuantityPanel581BD0.x + offsetX;
@@ -6006,7 +6290,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     const std::int32_t imageY = gLegacyGiveReceiveQuantityPanel581BD0.y + 116;
     const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
     static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%7d", value(0xC34));
     drawAt(buffer, 87, 120, 0);
     std::sprintf(buffer, "%2d", ui::detail::gShopValueD046C4);
@@ -6040,7 +6324,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
     }
     Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyGiveReceiveQuantityPanel581BD0) != 0) {
         hint = kLegacyEngravingClose5868EC;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
@@ -6051,7 +6335,7 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         hint = ui::detail::gShopValueCAFEA4 != 0 ? kLegacyReceiveHint588AE0 : kLegacyGiveHint588A58;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     if ((QueryPanelButtonState(&increase) & 0x40) != 0) {
         const std::int32_t mode = ui::detail::gShopValueCAFEA4;
@@ -6069,12 +6353,12 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
                 && total < world::detail::ReadPlayerValueFC() && selected < ui::detail::gQuantityLimit581C94;
             hint = canIncrease ? kLegacyReceiveIncrease588AA8 : kLegacyQuantityIncreaseLimit588ABC;
         }
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     if ((QueryPanelButtonState(&decrease) & 0x40) != 0) {
         hint = ui::detail::gShopValueD046C4 <= 0 ? kLegacyQuantityDecreaseLimit588944
             : (ui::detail::gShopValueCAFEA4 != 0 ? kLegacyReceiveDecrease588A80 : kLegacyGiveDecrease588A94);
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGiveReceiveQuantityPanel581BD0, 1);
 }
@@ -6083,14 +6367,14 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
 std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::int32_t page)
 {
     const char* const name = ui::detail::gShopDetailCC3210.data();
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, name, 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     const char* const description = ui::detail::gShopDetailCC3210.data() + 0x1D + 768 * page;
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const line = description + 96 * row;
         if (std::strlen(line) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(line).c_str(), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -6098,7 +6382,7 @@ std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::i
 
 // 原[4D62A0,4D6639)完整279条；P05首字节适配仅在说明格式化之后。
 std::uint32_t Sub_4D62A0(const std::int32_t opened)
-{
+try {
     const std::int32_t oldY = gLegacyGiveConfirmPanel581C98.y;
     const std::int32_t oldX = gLegacyGiveConfirmPanel581C98.x;
     character_select::detail::CharacterModalUiRecord confirm {
@@ -6128,7 +6412,7 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyGiveConfirmPanel581C98.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[512]; // 连续两256B区，不预清，不使用反编译InputContext误型。
+    char buffer[1536]; // 连续两256B区，不预清，不使用反编译InputContext误型。
     char* const description = buffer + 256;
     if ((character_select::detail::Sub_503990(&confirm) & 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyGiveConfirmPanel581C98.id));
@@ -6149,15 +6433,15 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
     const char* const format = ui::detail::gShopValueCAFEA4 != 0
         ? kLegacyGiveConfirmReceiveFormat588B40 : kLegacyGiveConfirmGiveFormat588B60;
     const std::int32_t amount = ui::detail::gShopValueD046C4;
-    std::sprintf(description, format, ui::detail::gShopDetailCC3210.data(), amount);
+    std::sprintf(description, format, cg::text::FromGbk(ui::detail::gShopDetailCC3210.data()).c_str(), amount);
     buffer[0] = 1; // D01/P05：格式化后、首门禁前，其他255B保持原未清状态。
     for (std::int32_t row = 0; buffer[0] != '\0'; ++row) {
-        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 256, description, row, 46));
+        static_cast<void>(input::ExtractTextLine(buffer, 256, description, row, 46));
         const auto marker = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gValueD69768));
         const std::int32_t y = gLegacyGiveConfirmPanel581C98.y;
         const std::int32_t lineY = AddW32(y, 36 + 32 * row);
-        const auto length = static_cast<std::uint32_t>(std::strlen(buffer));
-        const std::uint32_t centered = (416u - 9u * length) >> 1;
+        const auto textWidth = static_cast<std::uint32_t>(TextMeasure(buffer, 0));
+        const std::uint32_t centered = (416u - textWidth) >> 1;
         const std::int32_t x = gLegacyGiveConfirmPanel581C98.x;
         const std::int32_t lineX = AddW32(AddW32(std::bit_cast<std::int32_t>(centered), x), 17);
         static_cast<void>(DrawText(static_cast<std::int16_t>(lineX), static_cast<std::int16_t>(lineY),
@@ -6165,7 +6449,7 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
     }
     static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&confirm) & 0x40) != 0) {
         hint = ui::detail::gShopValueCAFEA4 != 0
             ? kLegacyGiveConfirmReceiveHint588B20 : kLegacyGiveConfirmGiveHint588B30;
@@ -6174,14 +6458,18 @@ std::uint32_t Sub_4D62A0(const std::int32_t opened)
             ? kLegacyGiveConfirmCancelReceive588B10 : kLegacyGiveCancel588AFC;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyGiveConfirmPanel581C98, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E0380。
 std::uintptr_t Sub_4E0380(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyStoragePanel582B70.x;
     const std::int32_t y = gLegacyStoragePanel582B70.y;
     LegacyPanelButtonRecord confirm {x + 167, y + 345, x + 105, y + 334, 124, 22, 23345, 23346};
@@ -6192,8 +6480,8 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
     constexpr std::array<std::array<std::int32_t, 4>, 4> tabs {{
         {14, 64, 134, 82}, {151, 64, 271, 82}, {289, 64, 409, 82}, {426, 64, 546, 82},
     }};
-    const std::array<const char*, 4> hints {kLegacyStorageItemTab589214, kLegacyStoragePetTab589200,
-        kLegacyStorageDepositTab5891F8, kLegacyStorageWithdrawTab5891F0};
+    const std::array<const char*, 4> hints {kLegacyStorageItemTab589214Utf8View.c_str(), kLegacyStoragePetTab589200Utf8View.c_str(),
+        kLegacyStorageDepositTab5891F8Utf8View.c_str(), kLegacyStorageWithdrawTab5891F0Utf8View.c_str()};
     const std::int32_t state = Sub_503160(opened, &gLegacyStoragePanel582B70, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -6235,7 +6523,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[64];
+    char buffer[192];
     if (gLegacyStorageSplitModeCA0AA8 != 0) {
         hovered = -1;
     } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
@@ -6331,11 +6619,11 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         DrawGraphicHover(Low16(left + tabs[hovered][0]), Low16(top + tabs[hovered][1]),
             Low16(left + tabs[hovered][2]), Low16(top + tabs[hovered][3]), 214, color, 0);
     }
-    const std::int32_t nameWidth = TextMeasure(world::detail::BorrowPlayerDisplayText(1), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
     const std::int32_t nameY = gLegacyStoragePanel582B70.y + 9;
     const std::int32_t nameX = gLegacyStoragePanel582B70.x - nameWidth / 2 + 431;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX), static_cast<std::int16_t>(nameY),
-        2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
+        2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX, const std::uint8_t color) {
         std::sprintf(buffer, format, value);
@@ -6355,18 +6643,22 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
     Sub_5035E0(&cancel, 212, 1, gValueD69768, style);
     const char* hint = nullptr;
     if (Sub_503590(&gLegacyStoragePanel582B70) != 0) {
-        hint = kLegacyLogout553FD0;
+        hint = kLegacyLogout553FD0Utf8View.c_str();
     } else if (hovered >= 0) {
         hint = hints[hovered];
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-        hint = kLegacyStorageConfirm5891C4;
+        hint = kLegacyStorageConfirm5891C4Utf8View.c_str();
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
-        hint = kLegacyStorageCancel5891BC;
+        hint = kLegacyStorageCancel5891BCUtf8View.c_str();
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyStoragePanel582B70, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E0270。
@@ -6434,7 +6726,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
         return 0;
     }
     const auto& grid = kLegacyStorageGrid582C34[side];
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             char* const record = BorrowLegacyStorageItem(side, column + 5 * row);
@@ -6503,7 +6795,7 @@ std::int32_t Sub_4E0FF0(const std::int32_t x, const std::int32_t y,
     const char* text = record + 0x29 + page * 768;
     for (std::int32_t row = 0; row < 8; ++row, text += 96) {
         if (std::strlen(text) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, text, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(text).c_str(), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -6511,7 +6803,7 @@ std::int32_t Sub_4E0FF0(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004E10F0。
 std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
-{
+try {
     const std::int32_t centerX = x + 100;
     const std::int32_t centerY = y + 100;
     LegacyPanelButtonRecord confirm {centerX, centerY, x + 24, y + 167, 72, 18, 23314, 23314};
@@ -6577,7 +6869,7 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
         gLegacyStorageSplitAmountCB2220 = count;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%7d",
         world::detail::BorrowPlayerItemsFDA8A4()[gLegacyStorageSplitSourceD3FACC + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
@@ -6601,6 +6893,10 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&all, 223, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 223, 1, gValueD69768, 0);
     return DrawGraphic(centerX, centerY, 222, 23310, 0, nullptr);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E18F0。
@@ -6646,11 +6942,11 @@ void Sub_4E19E0(const std::int32_t side)
                     Low16(y + 16), 213, 251, 0);
             }
             const char* const name = record + 0x142;
-            const std::int32_t width = TextMeasure(name, 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
             const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
             const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0] - width / 2 + 72;
             static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-                static_cast<std::int16_t>(y), 2, 1, 0, name, 0, 0));
+                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         }
         if (ReadLegacyStorageW16(record, 2) < 0) {
             const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet + 8;
@@ -6686,15 +6982,15 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
         DrawGraphicHover(Low16(x + 191), Low16(y + 70 + 4 * element),
             Low16(x + 191 + 7 * (value / 10)), Low16(y + 73 + 4 * element), 229, color, 1);
     }
-    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [x, y](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 4, font, 0, text, 0, 0));
     };
     const char* const name = record + 0x142;
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     drawAt(name, 136 - width / 2, 5, 0);
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 1);
@@ -6730,15 +7026,15 @@ std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
         const char* const text = record + 0x48 + 25 * skill;
         if (std::strlen(text) != 0) {
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 75),
-                static_cast<std::int16_t>(y + 22 * row + 29), 4, 0, 0, text, 0, 0));
+                static_cast<std::int16_t>(y + 22 * row + 29), 4, 0, 0, cg::text::FromGbk(text).c_str(), 0, 0));
             static_cast<void>(DrawGraphic(x + 137, y + 22 * row + 38, 223, 23281, 0, nullptr));
             ++row;
         }
     }
     const char* const name = record + 0x142;
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, name, 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 240),
         static_cast<std::int16_t>(y + 9), 4, 1, 0, "2/2", 0, 0));
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
@@ -6746,7 +7042,7 @@ std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004E2030。
 std::uint32_t Sub_4E2030()
-{
+try {
     GraphicDescriptor16 descriptor {};
     descriptor.bytes[8] = 0xFF;
     descriptor.bytes[9] = 0xFF;
@@ -6904,14 +7200,14 @@ std::uint32_t Sub_4E2030()
     }
     static_cast<void>(Sub_4E0D10(0));
     static_cast<void>(Sub_4E0D10(1));
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t y = gLegacyStoragePanel582B70.y + offsetY;
         const std::int32_t x = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(x),
             static_cast<std::int16_t>(y), 2, font, 0, text, 0, 0));
     };
-    char buffer[64];
+    char buffer[192];
     const std::int32_t message = gLegacyStorageMessageD67C98;
     if (message == 1) {
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
@@ -6927,7 +7223,7 @@ std::uint32_t Sub_4E2030()
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
     std::uint32_t result = static_cast<std::uint32_t>(
         DrawGraphic(backgroundX, backgroundY, 212, 23341, 0, &descriptor));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     bool leftHint = false;
     if (left >= 0) {
         result = static_cast<std::uint32_t>(0xC44 * left);
@@ -6936,16 +7232,16 @@ std::uint32_t Sub_4E2030()
             leftHint = true;
             const std::int32_t flags = ReadRecordW32(record, 0xC40);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0x0C);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x0C);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
                 result = 0;
             } else if ((flags & 0x200) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0xC29);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC29);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
                 result = 0;
             } else {
                 hint = kLegacyStorageTake589268;
-                result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
             }
         }
     }
@@ -6955,24 +7251,24 @@ std::uint32_t Sub_4E2030()
         if (ReadLegacyStorageW16(record, 0) != 0) {
             const std::int32_t flags = ReadRecordW32(record, 0xC40);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0x0C);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x0C);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
                 result = 0;
             } else if ((flags & 0x200) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0xC29);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC29);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
                 result = 0;
             } else {
                 const std::int16_t selection = ReadLegacyStorageW16(record, 2);
                 if (selection > 0) {
                     hint = kLegacyStoragePut589258;
-                    result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                    result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
                 } else if (selection < 0) {
                     hint = kLegacyStorageCannotPut5878BC;
                     result = 0;
                 } else if (gLegacyStoragePutCountD2DAD4 >= gLegacyStorageCapacityD30404) {
                     hint = kLegacyStorageFull589230;
-                    result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                    result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
                 } else {
                     hint = kLegacyStorageCanPut589244;
                     result = 0;
@@ -6981,11 +7277,15 @@ std::uint32_t Sub_4E2030()
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     gLegacyStoragePreviousRight582C68 = right;
     gLegacyStoragePreviousLeft582C64 = left;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E28F0。
@@ -7061,14 +7361,14 @@ std::uint32_t Sub_4E28F0()
     }
     Sub_4E19E0(0);
     Sub_4E19E0(1);
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t y = gLegacyStoragePanel582B70.y + offsetY;
         const std::int32_t x = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(x),
             static_cast<std::int16_t>(y), 2, font, 0, text, 0, 0));
     };
-    char buffer[64];
+    char buffer[192];
     const std::int32_t message = gLegacyStoragePetMessageD67CA4;
     if (message == 1) {
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
@@ -7084,7 +7384,7 @@ std::uint32_t Sub_4E28F0()
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
     std::uint32_t result = static_cast<std::uint32_t>(
         DrawGraphic(backgroundX, backgroundY, 212, 23342, 0, nullptr));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (left >= 0) {
         result = static_cast<std::uint32_t>(0x154 * left);
         const char* const record = BorrowLegacyStoragePet(0, left);
@@ -7101,20 +7401,20 @@ std::uint32_t Sub_4E28F0()
             result = (result & 0xFFFF0000u) | static_cast<std::uint16_t>(selection);
             if (selection > 0) {
                 hint = kLegacyStoragePetPut5892B4;
-                result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
             } else if (selection == 0) {
                 if (gLegacyStoragePetPutCountD2D600 < gLegacyStoragePetCapacityCB1DDC) {
                     hint = kLegacyStoragePetCanPut5892A0;
                     result = 0;
                 } else {
                     hint = kLegacyStoragePetFull58928C;
-                    result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                    result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
                 }
             }
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     gLegacyStoragePetPreviousRight582C70 = right;
     gLegacyStoragePetPreviousLeft582C6C = left;
@@ -7208,14 +7508,14 @@ std::uint32_t Sub_4E2D90()
     if (readDraft() > maximum) {
         writeDraft(maximum);
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyStoragePanel582B70.y + offsetY;
         const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[64];
+    char buffer[192];
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t balance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
@@ -7246,7 +7546,7 @@ std::uint32_t Sub_4E2D90()
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
     std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
-    const char* hint;
+    const wchar_t* hint;
     std::uint32_t result = 0;
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         const std::int32_t currentMoney = world::detail::ReadPlayerValueFC();
@@ -7256,7 +7556,7 @@ std::uint32_t Sub_4E2D90()
             hint = kLegacyStorageCannotDeposit5892E8;
         } else {
             hint = kLegacyStorageDeposit5892F4;
-            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+            result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
         }
     } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
         hint = kLegacyMoneyDigit585B6C;
@@ -7270,12 +7570,12 @@ std::uint32_t Sub_4E2D90()
             return static_cast<std::uint32_t>(backspaceState);
         } else if (readDraft() < maximum) {
             hint = kLegacyMoneyDigit585B6C;
-            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+            result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
         } else {
             hint = kLegacyStorageAmountLimit5892D4;
         }
     }
-    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    ui::detail::gHoverTextD68AE8 = hint;
     return result;
 }
 
@@ -7337,14 +7637,14 @@ std::uint32_t Sub_4E3750()
     if (gLegacyStorageWithdrawDraftD2EA98 > maximum) {
         gLegacyStorageWithdrawDraftD2EA98 = maximum;
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyStoragePanel582B70.y + offsetY;
         const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[64];
+    char buffer[192];
     std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 423, 151, 0);
     std::sprintf(buffer, "%7d", maximum);
@@ -7370,11 +7670,11 @@ std::uint32_t Sub_4E3750()
     drawAt(kLegacyStorageFee589284, 358, 305, 0);
     std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
     drawAt(buffer, 417, 306, 1);
-    const char* hint;
+    const wchar_t* hint;
     std::uint32_t result = 0;
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         hint = kLegacyStorageWithdraw589304;
-        result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+        result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
     } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
         hint = kLegacyMoneyDigit585B6C;
     } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
@@ -7387,18 +7687,18 @@ std::uint32_t Sub_4E3750()
             return static_cast<std::uint32_t>(backspaceState);
         } else if (gLegacyStorageWithdrawDraftD2EA98 < maximum) {
             hint = kLegacyMoneyDigit585B6C;
-            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+            result = static_cast<std::uint32_t>(cg::text::ToGbk(hint).size() + 1);
         } else {
             hint = kLegacyStorageAmountLimit5892D4;
         }
     }
-    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    ui::detail::gHoverTextD68AE8 = hint;
     return result;
 }
 
 // 原函数：0x004E4460。
 std::uint32_t Sub_4E4460(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyItemUseStatusPanel582C78.x;
     const std::int32_t y = gLegacyItemUseStatusPanel582C78.y;
     character_select::detail::CharacterModalUiRecord cancel {
@@ -7446,7 +7746,7 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     const std::int32_t headerX = gLegacyItemUseStatusPanel582C78.x + 44;
     static_cast<void>(DrawText(static_cast<std::int16_t>(headerX),
         static_cast<std::int16_t>(headerY), 2, 0, 0, kLegacyItemUseHeader58932C, 0, 0));
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
         const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
         std::sprintf(buffer, "%3d", record.level);
@@ -7454,7 +7754,7 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
         const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelX),
             static_cast<std::int16_t>(levelY), 2, 0, 0, buffer, 0, 0));
-        std::sprintf(buffer, "%-16s", record.name.data());
+        cg::text::Copy(buffer, sizeof(buffer), std::format("{:<16}", cg::text::FromGbk(record.name.data())));
         const std::uint8_t color = static_cast<std::uint8_t>(colors[record.kind]);
         const std::int32_t nameY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t nameX = gLegacyItemUseStatusPanel582C78.x + 143;
@@ -7485,10 +7785,14 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     }
     return Sub_503440(&gLegacyItemUseStatusPanel582C78, 0);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004E5E40。
 std::uint32_t Sub_4E5E40(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyTradePanel582F00.x;
     const std::int32_t y = gLegacyTradePanel582F00.y;
     LegacyPanelButtonRecord publish {x + 419, y + 314, x + 377, y + 303, 84, 22, 23264, 23265};
@@ -7503,7 +7807,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
         {292, 65, 372, 81}, {380, 65, 460, 81}, {468, 65, 548, 81},
     }};
     const std::array<const char*, 3> phaseTexts {
-        kLegacyTradeChoosing5894CC, kLegacyTradePublished5894B8, kLegacyTradeConfirming5894AC,
+        kLegacyTradeChoosing5894CCUtf8View.c_str(), kLegacyTradePublished5894B8Utf8View.c_str(), kLegacyTradeConfirming5894ACUtf8View.c_str(),
     };
     constexpr std::array<std::uint8_t, 3> phaseColors {6, 4, 5};
     const std::int32_t state = Sub_503160(opened, &gLegacyTradePanel582F00, nullptr, 1);
@@ -7576,7 +7880,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                     char petSource[1024];
                     char itemPayload[1024];
                     char petPayload[1024];
-                    char buffer[16];
+                    char buffer[48];
                     itemSource[0] = '\0';
                     petSource[0] = '\0';
                     std::int32_t itemCount = 0;
@@ -7697,17 +8001,17 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
     if (localHovered >= 0) {
         drawTab(localTabs[localHovered]);
     }
-    const std::int32_t remoteWidth = TextMeasure(ui::detail::gTradeNameD2D654.data(), 0);
+    const std::int32_t remoteWidth = TextMeasure(cg::text::FromGbk(ui::detail::gTradeNameD2D654.data()).c_str(), 0);
     const std::int32_t remoteY = gLegacyTradePanel582F00.y + 9;
     const std::int32_t remoteX = gLegacyTradePanel582F00.x - remoteWidth / 2 + 131;
     static_cast<void>(DrawText(static_cast<std::int16_t>(remoteX), static_cast<std::int16_t>(remoteY),
-        2, 0, 0, ui::detail::gTradeNameD2D654.data(), 0, 0));
-    const std::int32_t localWidth = TextMeasure(world::detail::BorrowPlayerDisplayText(1), 0);
+        2, 0, 0, cg::text::FromGbk(ui::detail::gTradeNameD2D654.data()).c_str(), 0, 0));
+    const std::int32_t localWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
     const std::int32_t localY = gLegacyTradePanel582F00.y + 9;
     const std::int32_t localX = gLegacyTradePanel582F00.x - localWidth / 2 + 431;
     static_cast<void>(DrawText(static_cast<std::int16_t>(localX), static_cast<std::int16_t>(localY),
-        2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
-    char buffer[128];
+        2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
+    char buffer[384];
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX) {
         std::sprintf(buffer, format, value);
@@ -7740,7 +8044,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
         Sub_5038B0(&publish, 212, 1, gValueD69768, 0);
         Sub_5035E0(&cancel, 212, 1, gValueD69768, 1);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         hint = ui::detail::gTradeValueD67CB8 != 0 ? kLegacyTradeConfirmSelected589484 : kLegacyTradeConfirm589478;
     } else if (Sub_503590(&gLegacyTradePanel582F00) != 0 || (QueryPanelButtonState(&cancel) & 0x40) != 0) {
@@ -7765,9 +8069,13 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyTradePanel582F00, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E6CC0。
@@ -7820,7 +8128,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
         return 0;
     }
     const auto& grid = kLegacyTradeGrid582ECC[side];
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             char* const record = BorrowLegacyTradeItem(side, column + 5 * row);
@@ -7909,11 +8217,11 @@ void Sub_4E71A0(const std::int32_t side)
                     Low16(y + 16), 213, 251, 0);
             }
             const char* const name = record + 0x5D8;
-            const std::int32_t width = TextMeasure(name, 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
             const std::int32_t y = gLegacyTradePanel582F00.y + origin[1] + 22 * pet;
             const std::int32_t x = gLegacyTradePanel582F00.x + origin[0] - width / 2 + 72;
             static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-                static_cast<std::int16_t>(y), 2, 1, 0, name, 0, 0));
+                static_cast<std::int16_t>(y), 2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         }
     }
 }
@@ -7935,7 +8243,7 @@ std::int32_t Sub_4E7290(const std::int32_t x, const std::int32_t y,
     const char* text = record + 0x2D + page * 768;
     for (std::int32_t row = 0; row < 8; ++row, text += 96) {
         if (std::strlen(text) != 0) {
-            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, text, 0, 0));
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, cg::text::FromGbk(text).c_str(), 0, 0));
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
@@ -7967,15 +8275,15 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
         DrawGraphicHover(Low16(x + 191), Low16(y + 70 + 4 * element),
             Low16(x + 191 + 7 * (value / 10)), Low16(y + 73 + 4 * element), 229, color, 1);
     }
-    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [x, y](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 4, font, 0, text, 0, 0));
     };
     const char* const name = record + 0x5D8;
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     drawAt(name, 136 - width / 2, 5, 0);
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 1);
@@ -8011,14 +8319,14 @@ std::int32_t Sub_4E7740(const std::int32_t x, const std::int32_t y,
         const char* const entry = record + 0x60 + skill * 0x8C;
         if (ReadLegacyTradeW16(entry, 0) != 0) {
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 75),
-                static_cast<std::int16_t>(y + 22 * skill + 29), 4, 0, 0, entry + 6, 0, 0));
+                static_cast<std::int16_t>(y + 22 * skill + 29), 4, 0, 0, cg::text::FromGbk(entry + 6).c_str(), 0, 0));
         }
         static_cast<void>(DrawGraphic(x + 137, y + 22 * skill + 38, 223, 23281, 0, nullptr));
     }
     const char* const name = record + 0x5D8;
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
-        static_cast<std::int16_t>(y + 5), 4, 0, 0, name, 0, 0));
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 240),
         static_cast<std::int16_t>(y + 9), 4, 1, 0, "2/2", 0, 0));
     return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
@@ -8026,7 +8334,7 @@ std::int32_t Sub_4E7740(const std::int32_t x, const std::int32_t y,
 
 // 原函数：0x004E7870。
 std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
-{
+try {
     const std::int32_t centerX = x + 100;
     const std::int32_t centerY = y + 100;
     LegacyPanelButtonRecord confirm {centerX, centerY, x + 24, y + 167, 72, 18, 23314, 23314};
@@ -8092,7 +8400,7 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
         gLegacyTradeSplitAmountD2D490 = count;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%7d",
         world::detail::BorrowPlayerItemsFDA8A4()[gLegacyTradeSplitSourceD45F90 + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
@@ -8116,6 +8424,10 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&all, 223, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 223, 1, gValueD69768, 0);
     return DrawGraphic(centerX, centerY, 222, 23310, 0, nullptr);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E7FC0。
@@ -8145,13 +8457,13 @@ std::int32_t Sub_4E7FC0()
         if (ReadLegacyTradeW16(record, 0) != 0) {
             const std::int32_t flags = ReadRecordW32(record, 0xC34);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0x10);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x10);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             } else if ((flags & 0x200) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0xC38);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC38);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             } else {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeRemoteItem5894DC);
+                ui::detail::gHoverTextD68AE8 = kLegacyTradeRemoteItem5894DC;
             }
         }
     }
@@ -8188,7 +8500,7 @@ std::int32_t Sub_4E81B0()
             static_cast<void>(Sub_4E7740(x, y, 0, hovered));
         }
         if (ReadLegacyTradeW16(BorrowLegacyTradePet(0, hovered), 0) != 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeRemotePet5894F4);
+            ui::detail::gHoverTextD68AE8 = kLegacyTradeRemotePet5894F4;
         }
     }
     Sub_4E71A0(0);
@@ -8205,9 +8517,9 @@ std::int32_t Sub_4E82F0()
     const std::int32_t y = gLegacyTradePanel582F00.y;
     const std::int32_t x = gLegacyTradePanel582F00.x;
     if (Sub_5049A0(x + 115, y + 146, x + 235, y + 170, -1) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeRemoteMoney58950C);
+        ui::detail::gHoverTextD68AE8 = kLegacyTradeRemoteMoney58950C;
     }
-    char buffer[32];
+    char buffer[96];
     std::sprintf(buffer, "%7d", ui::detail::gTradeValueCF4688);
     const std::int32_t textY = gLegacyTradePanel582F00.y + 150;
     const std::int32_t textX = gLegacyTradePanel582F00.x + 146;
@@ -8220,7 +8532,7 @@ std::int32_t Sub_4E82F0()
 
 // 原函数：0x004E83D0。
 std::int32_t Sub_4E83D0()
-{
+try {
     GraphicDescriptor16 descriptor {};
     descriptor.bytes[8] = 0xFF;
     descriptor.bytes[9] = 0xFF;
@@ -8337,16 +8649,16 @@ std::int32_t Sub_4E83D0()
         if (ReadLegacyTradeW16(record, 0) != 0) {
             const std::int32_t flags = ReadRecordW32(record, 0xC34);
             if ((flags & 0x100) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0x10);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0x10);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             } else if ((flags & 0x200) != 0) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), record + 0xC38);
-                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+                ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(record + 0xC38);
+                std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             } else {
                 const std::int16_t selection = ReadLegacyTradeW16(record, 2);
-                const char* const hint = selection > 0 ? kLegacyTradeSelected589554
+                const wchar_t* const hint = selection > 0 ? kLegacyTradeSelected589554
                     : (selection < 0 ? kLegacyTradeUnavailable58953C : kLegacyTradeAvailable589524);
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+                ui::detail::gHoverTextD68AE8 = hint;
             }
         }
     }
@@ -8356,6 +8668,10 @@ std::int32_t Sub_4E83D0()
     const std::int32_t result = DrawGraphic(backgroundX, backgroundY, 212, 23241, 0, nullptr);
     gLegacyTradePrevious582FCC = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E8920。
@@ -8398,9 +8714,9 @@ std::int32_t Sub_4E8920()
         }
         const char* const record = BorrowLegacyTradePet(1, hovered);
         if (ReadLegacyTradeW16(record, 0) != 0) {
-            const char* const hint = ReadLegacyTradeW16(record, 2) != 0
+            const wchar_t* const hint = ReadLegacyTradeW16(record, 2) != 0
                 ? kLegacyTradePetSelected589580 : kLegacyTradePetAvailable589568;
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+            ui::detail::gHoverTextD68AE8 = hint;
         }
     }
     Sub_4E71A0(1);
@@ -8464,13 +8780,13 @@ std::int32_t Sub_4E8AD0()
     if (ui::detail::gTradeValueD046D0 > money) {
         ui::detail::gTradeValueD046D0 = money;
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyTradePanel582F00.y + offsetY;
         const std::int32_t left = gLegacyTradePanel582F00.x + 421;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%7d", money);
     drawAt(buffer, 118);
     std::sprintf(buffer, "%7d", ui::detail::gTradeValueD046D0);
@@ -8481,7 +8797,7 @@ std::int32_t Sub_4E8AD0()
     Sub_5035E0(&backspace, 213, 1, gValueD69768, 0);
     Sub_5035E0(&all, 213, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 213, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&all) & 0x40) != 0) {
         hint = kLegacyMoneyDigit585B6C;
     } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
@@ -8499,7 +8815,7 @@ std::int32_t Sub_4E8AD0()
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     const std::int32_t backgroundY = gLegacyTradePanel582F00.y + 180;
     const std::int32_t backgroundX = gLegacyTradePanel582F00.x + 419;
@@ -8515,7 +8831,7 @@ void Sub_4E9280()
 
 // 原函数：0x004E92A0。
 std::uint32_t Sub_4E92A0(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyEngravingPanel582FD8, Sub_4E9280, 1);
     if (state == 0) {
         return 0;
@@ -8565,7 +8881,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyEngravingPageC8AA9C ^= 1;
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -8613,27 +8929,32 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     }
     // 原4E9621无悬停非负门禁；异常索引按RPLAN.24，不引入替代物品。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            std::strcpy(hint, item->name.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
             std::strcat(hint, "[kok]");
         } else if ((flags & 0x200u) != 0) {
-            std::strcpy(hint, item->memo.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
             std::strcat(hint, "[han]");
         } else {
             const bool selectable = item->itemType != 47 && item->count <= 0
                 && usedHovered != gLegacySpecialUseItemC8A96C;
-            std::strcpy(hint, selectable ? kLegacyEngravingSelect5895C0 : kLegacyEngravingReject5895AC);
+            std::strcpy(hint, selectable ? kLegacyEngravingSelect5895C0Utf8View.c_str() : kLegacyEngravingReject5895ACUtf8View.c_str());
         }
     } else {
         std::strcpy(hint, Sub_503590(&gLegacyEngravingPanel582FD8) != 0
-            ? kLegacyEngravingClose5868EC : kLegacyEngravingChoose589594);
+            ? kLegacyEngravingClose5868ECUtf8View.c_str() : kLegacyEngravingChoose589594Utf8View.c_str());
     }
     const std::uint32_t result = Sub_503440(&gLegacyEngravingPanel582FD8, 1);
     gLegacyEngravingHover58309C = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E97C0。
@@ -8645,7 +8966,7 @@ void Sub_4E97C0()
 
 // 原函数：0x004E97E0。
 std::uint32_t Sub_4E97E0(const std::int32_t opened)
-{
+try {
     GraphicDescriptor16 descriptor {};
     descriptor.bytes[8] = 0xFF;
     descriptor.bytes[9] = 0xFF;
@@ -8697,7 +9018,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyBurialPageCC4B64 ^= 1;
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -8754,7 +9075,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     }
     // 原4E9B93无悬停非负门禁；异常索引按RPLAN.24，不补记录或保护。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    const char* hint;
+    const wchar_t* hint;
     if (item->used != 0) {
         const std::uint8_t flags = static_cast<std::uint8_t>(item->flags);
         hint = (flags & 0x60u) == 0 && usedHovered != gLegacyBurialExcludedCC48AC
@@ -8763,10 +9084,14 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
         hint = Sub_503590(&gLegacyBurialPanel5830A0) != 0
             ? kLegacyEngravingClose5868EC : kLegacyBurialChoose5895D0;
     }
-    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    ui::detail::gHoverTextD68AE8 = hint;
     const std::uint32_t result = Sub_503440(&gLegacyBurialPanel5830A0, 1);
     gLegacyBurialHover583164 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004E9C60。
@@ -8829,7 +9154,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyMailGiftPageCC2E58 ^= 1;
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -8872,22 +9197,23 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
     }
     // 原4E9FD8直接访问同源Items[hovered]，按RPLAN.24不补记录或保护。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            std::strcpy(hint, item->name.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
             std::strcat(hint, "[kok]");
         } else if ((flags & 0x200u) != 0) {
-            std::strcpy(hint, item->memo.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
             std::strcat(hint, "[han]");
         }
     } else if (Sub_503590(&gLegacyMailGiftPanel583168) != 0) {
-        std::strcpy(hint, kLegacyLogout553FD0);
+        std::strcpy(hint, kLegacyLogout553FD0Utf8View.c_str());
     } else {
         const std::int32_t selected = gLegacyMailGiftSelectedCC1A2C;
         if (selected >= 0 && selected == hovered) {
-            std::strcpy(hint, kLegacyMailGift58960C);
+            std::strcpy(hint, kLegacyMailGift58960CUtf8View.c_str());
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyMailGiftPanel583168, 1);
@@ -8899,7 +9225,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
 void Sub_4EA130()
 {
     char preserved[400];
-    std::strcpy(preserved, input::gInputContextCB03F0.text);
+    std::strcpy(preserved, input::gInputContextCB03F0.utf8().c_str());
     const std::int32_t y = gLegacyMailComposePanel583230.y;
     const std::int32_t x = gLegacyMailComposePanel583230.x;
     input::InitializeContext_449CF0(&input::gInputContextCB03F0,
@@ -8909,7 +9235,7 @@ void Sub_4EA130()
 
 // 原函数：0x004EA1B0。
 std::uint32_t Sub_4EA1B0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyMailComposePanel583230.x;
     const std::int32_t y = gLegacyMailComposePanel583230.y;
     std::array<LegacyPanelButtonRecord, 2> buttons {{
@@ -8932,7 +9258,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
         return static_cast<std::uint32_t>(audio::Sub_5042D0(50));
     }
     if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
-        if (input::gInputContextCB03F0.text[0] != '\0') {
+        if (!input::gInputContextCB03F0.empty()) {
             std::int32_t timeValue;
             static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
             const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
@@ -8944,7 +9270,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
-            std::strcpy(source, input::gInputContextCB03F0.text);
+            std::strcpy(source, input::gInputContextCB03F0.utf8().c_str());
             char escaped[600];
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
             const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
@@ -8953,12 +9279,12 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_5110B0(socket, contact, value, gift, escaped, 0));
             const std::int32_t savedContact = gLegacyMailContactCC4228;
-            world::detail::Sub_5191C0(savedContact, 1, timestamp, input::gInputContextCB03F0.text);
+            world::detail::Sub_5191C0(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContextCB03F0.text).c_str());
             static_cast<void>(world::detail::Sub_519300());
             static_cast<void>(world::detail::Sub_519550());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             static_cast<void>(audio::Sub_504180(42));
-            input::gInputContextCB03F0.text[0] = '\0';
+            input::gInputContextCB03F0.clearText();
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -8971,13 +9297,13 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
     const std::int32_t contactX = gLegacyMailComposePanel583230.x + 52;
     static_cast<void>(DrawGraphic(contactX, contactY, 212, contactImage, 0, &descriptor));
     const std::int32_t measureContact = gLegacyMailContactCC4228;
-    const std::int32_t contactWidth = TextMeasure(world::detail::gContactsF19FB0[measureContact].name10.data(), 0);
+    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measureContact].name10.data()).c_str(), 0);
     const std::int32_t textContact = gLegacyMailContactCC4228;
     const char* const contactName = world::detail::gContactsF19FB0[textContact].name10.data();
     const std::int32_t contactNameY = gLegacyMailComposePanel583230.y + 62;
     const std::int32_t contactNameX = gLegacyMailComposePanel583230.x - contactWidth / 2 + 176;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
-        static_cast<std::int16_t>(contactNameY), 2, 0, 0, contactName, 0, 0));
+    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(contactName).c_str()).c_str()X),
+        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyMailGiftSelectedCC1A2C;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyMailComposePanel583230.y + 120;
@@ -8987,7 +9313,7 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
         std::int32_t nameGift = gLegacyMailGiftSelectedCC1A2C;
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
-            char buffer[128];
+            char buffer[384];
             std::sprintf(buffer, "%3d", count);
             const std::int32_t countY = gLegacyMailComposePanel583230.y + 127;
             const std::int32_t countX = gLegacyMailComposePanel583230.x + 213;
@@ -8995,18 +9321,18 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
                 static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
             nameGift = gLegacyMailGiftSelectedCC1A2C;
         }
-        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data()).c_str(), 0);
         const std::int32_t textGift = gLegacyMailGiftSelectedCC1A2C;
         const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyMailComposePanel583230.y + 152;
         const std::int32_t nameX = gLegacyMailComposePanel583230.x - width / 2 + 136;
-        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-            static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+        static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+            static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
     Sub_5035E0(&buttons[1], 212, 1, gValueD69768, 0);
     render::DrawInputText_4568A0(&input::gInputContextCB03F0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMailComposePanel583230) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
@@ -9015,9 +9341,13 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
         hint = kLegacyMailReturn589628;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailComposePanel583230, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004EA690。
@@ -9058,7 +9388,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
             212, image, 0);
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
@@ -9067,7 +9397,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         }
         const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
         const std::int8_t color = availability[row] != 0 ? 0 : 7;
-        std::strcpy(buffer, name);
+        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
         const std::int32_t width = TextMeasure(buffer, 0);
         const std::int32_t nameY = gLegacyMailPetPanel5832F8.y + 43 + 28 * row;
         const std::int32_t nameX = gLegacyMailPetPanel5832F8.x - width / 2 + 90;
@@ -9082,7 +9412,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
             static_cast<std::int16_t>(valueY), 2, 1, color, buffer, 0, 0));
     }
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMailPetPanel5832F8) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
@@ -9091,7 +9421,7 @@ std::uint32_t Sub_4EA690(const std::int32_t opened)
         hint = kLegacyMailPet589660;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailPetPanel5832F8, 1);
 }
@@ -9241,14 +9571,14 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
     } else if ((groupState & 1u) != 0) {
         static_cast<void>(audio::Sub_504180(94));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyMailContactPanel5837A8.y + offsetY;
         const std::int32_t left = gLegacyMailContactPanel5837A8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 1, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         const std::int32_t page = std::bit_cast<std::int32_t>(world::detail::gValueCB0354);
         const std::int32_t position = row + 4 * page;
@@ -9280,11 +9610,11 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         std::sprintf(buffer, "%3d", value);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
-        drawAt(world::detail::gContactsF19FB0[nameContact].name10.data(), 77, 68 + 90 * row, color);
+        drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 77, 68 + 90 * row, color);
         const std::int32_t memoContact = world::detail::gContactIndicesFDA608[position];
         const char* const memo = world::detail::gContactsF19FB0[memoContact].text21.data();
         if (memo[0] != '\0') {
-            drawAt(memo, 77, 91 + 90 * row, color);
+            drawAt(cg::text::FromGbk(memo).c_str(), 77, 91 + 90 * row, color);
         }
         Sub_5035E0(&sends[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&reads[row], 212, 1, gValueD69768, 0);
@@ -9297,7 +9627,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     Sub_5035E0(&group, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     // 原4ECCEB查询5857D0人物资料面板，不擅自改为本页。
     if (Sub_503590(&gLegacyProfilePanel5857D0) != 0) {
         hint = kLegacyLogout553FD0;
@@ -9315,7 +9645,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         hint = kLegacyMailContactDelete589750;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailContactPanel5837A8, 1);
 }
@@ -9344,7 +9674,7 @@ std::uint32_t Sub_4EB890(const std::int32_t opened)
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMailDeliveryPanel583550) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
@@ -9355,14 +9685,14 @@ std::uint32_t Sub_4EB890(const std::int32_t opened)
         hint = kLegacyMailReturn589628;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailDeliveryPanel583550, 1);
 }
 
 // 原函数：0x004EBAA0。
 std::uint32_t Sub_4EBAA0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyMailDeletePanel583618.x;
     const std::int32_t y = gLegacyMailDeletePanel583618.y;
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
@@ -9387,7 +9717,7 @@ std::uint32_t Sub_4EBAA0(const std::int32_t opened)
     } else if ((cancelState & 1u) != 0) {
         static_cast<void>(audio::Sub_504180(42));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyMailDeletePanel583618.y + offsetY;
         const std::int32_t left = gLegacyMailDeletePanel583618.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -9395,22 +9725,26 @@ std::uint32_t Sub_4EBAA0(const std::int32_t opened)
     };
     drawAt(kLegacyMailDeleteLead589714, 84, 38);
     const std::int32_t measureIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
-    const std::int32_t width = TextMeasure(world::detail::gContactsF19FB0[measureIndex].name10.data(), 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measureIndex].name10.data()).c_str(), 0);
     const std::int32_t textIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
-    drawAt(world::detail::gContactsF19FB0[textIndex].name10.data(), 160 - width / 2, 86);
+    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[textIndex].name10.data()).c_str(), 160 - width / 2, 86);
     drawAt(kLegacyMailDeleteEnd589708, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
     Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((confirmState & 0x40u) != 0) {
         hint = kLegacyMailDeleteHint589700;
     } else if ((cancelState & 0x40u) != 0) {
         hint = kLegacyMailKeepHint5896F4;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailDeletePanel583618, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004EAA50。
@@ -9493,25 +9827,25 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     const std::int32_t imageY = gLegacyMailReadPanel5833C0.y + 73;
     const std::int32_t imageX = gLegacyMailReadPanel5833C0.x + 43;
     static_cast<void>(DrawGraphic(imageX, imageY, 212, image, 0, &descriptor));
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyMailReadPanel5833C0.y + offsetY;
         const std::int32_t left = gLegacyMailReadPanel5833C0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     const std::int32_t valueContact = world::detail::gValueCF4FC0;
     std::sprintf(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
     drawAt(buffer, 134, 49, 1, 0);
     const std::int32_t measuredNameContact = world::detail::gValueCF4FC0;
-    const std::int32_t nameWidth = TextMeasure(world::detail::gContactsF19FB0[measuredNameContact].name10.data(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measuredNameContact].name10.data()).c_str(), 0);
     const std::int32_t nameContact = world::detail::gValueCF4FC0;
-    drawAt(world::detail::gContactsF19FB0[nameContact].name10.data(), 162 - nameWidth / 2, 70, 0, 0);
+    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[nameContact].name10.data()).c_str(), 162 - nameWidth / 2, 70, 0, 0);
     const std::int32_t measuredMemoContact = world::detail::gValueCF4FC0;
-    const std::int32_t memoWidth = TextMeasure(world::detail::gContactsF19FB0[measuredMemoContact].text21.data(), 0);
+    const std::int32_t memoWidth = TextMeasure(cg::text::FromGbk(world::detail::gContactsF19FB0[measuredMemoContact].text21.data()).c_str(), 0);
     const std::int32_t memoContact = world::detail::gValueCF4FC0;
-    drawAt(world::detail::gContactsF19FB0[memoContact].text21.data(), 162 - memoWidth / 2, 93, 0, 0);
+    drawAt(cg::text::FromGbk(world::detail::gContactsF19FB0[memoContact].text21.data()).c_str(), 162 - memoWidth / 2, 93, 0, 0);
     const std::int16_t titleSelected = login::gSelectedCharacterIndex;
     const std::int32_t titleContact = world::detail::gValueCF4FC0;
     const std::int32_t titlePage = world::detail::gValueD046D4;
@@ -9527,7 +9861,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         const std::int32_t rowPage = world::detail::gValueD046D4;
         const char* const body = world::detail::BorrowMailMessageF7CA08(rowSelected, rowContact, rowPage).text14;
         // 原4EAF4D不检查分行结果，十次均绘制；颜色只在正文循环前取样。
-        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 128, body, row, 28));
+        static_cast<void>(input::ExtractGbkTextLine(buffer, 128, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
     std::sprintf(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
@@ -9535,7 +9869,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMailReadPanel5833C0) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0
@@ -9547,7 +9881,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         hint = kLegacyMailReturn589628;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMailReadPanel5833C0, 1);
 }
@@ -9556,7 +9890,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
 std::int32_t Sub_4EB120()
 {
     char preserved[400];
-    std::strcpy(preserved, input::gInputContextD66CA8.text);
+    std::strcpy(preserved, input::gInputContextD66CA8.utf8().c_str());
     const std::int32_t y = gLegacyMailNormalPanel583488.y;
     const std::int32_t x = gLegacyMailNormalPanel583488.x;
     input::InitializeContext_449CF0(&input::gInputContextD66CA8,
@@ -9570,7 +9904,7 @@ std::int32_t Sub_4EB120()
 
 // 原函数：0x004EB1C0。
 std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyMailNormalPanel583488.x;
     const std::int32_t y = gLegacyMailNormalPanel583488.y;
     std::array<LegacyPanelButtonRecord, 4> buttons {{
@@ -9613,7 +9947,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     } else if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
-        if (input::gInputContextD66CA8.text[0] != '\0' && selectedCount > 0) {
+        if (!input::gInputContextD66CA8.empty() && selectedCount > 0) {
             std::int32_t timeValue;
             static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
             const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
@@ -9625,7 +9959,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
-            std::strcpy(source, input::gInputContextD66CA8.text);
+            std::strcpy(source, input::gInputContextD66CA8.utf8().c_str());
             char escaped[600];
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
             for (std::int32_t position = 0; position < 60; ++position) {
@@ -9634,13 +9968,13 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_510FA0(socket, contact, escaped, 0));
                     const std::int32_t savedContact = world::detail::gContactIndicesFDA608[position];
-                    world::detail::Sub_5191C0(savedContact, 1, timestamp, input::gInputContextD66CA8.text);
+                    world::detail::Sub_5191C0(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContextD66CA8.text).c_str());
                 }
             }
             static_cast<void>(world::detail::Sub_519300());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             static_cast<void>(audio::Sub_504180(42));
-            input::gInputContextD66CA8.text[0] = '\0';
+            input::gInputContextD66CA8.clearText();
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -9677,13 +10011,13 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
         }
         const std::int8_t color = gLegacyMailSelectedFlagsCB0AA8[contact] != 0
             ? 1 : (record->value02 != 0 ? 0 : 7);
-        const std::int32_t width = TextMeasure(record->name10.data(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(record->name10.data()).c_str(), 0);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
         const char* const name = world::detail::gContactsF19FB0[nameContact].name10.data();
         const std::int32_t top = gLegacyMailNormalPanel583488.y + 40 + 27 * row;
         const std::int32_t left = gLegacyMailNormalPanel583488.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
-            static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
+            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     char pageText[128];
     std::sprintf(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
@@ -9695,7 +10029,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     }
     render::DrawInputText_4568A0(&input::gInputContextD66CA8);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMailNormalPanel583488) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0
@@ -9713,9 +10047,13 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             ? kLegacyMailUnselect58968C : kLegacyMailSelect589678;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyMailNormalPanel583488, 1));
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004EBD20。
@@ -9761,7 +10099,7 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(selectedLeft + 19),
         static_cast<std::int16_t>(selectedTop + 38), static_cast<std::int16_t>(selectedLeft + 173),
         static_cast<std::int16_t>(selectedTop + 64), 212, 254, 0));
-    const auto drawAt = [](const char* const text, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyMailSortPanel5836E0.y + offsetY;
         const std::int32_t left = gLegacyMailSortPanel5836E0.x + 62;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -9834,7 +10172,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     } else if (hovered >= 0 && (clicks & 2u) != 0) {
         gLegacyGuildGiftPage1050DAC ^= 1;
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[8 + row * 5 + column];
@@ -9877,14 +10215,15 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     }
     // 原52DB08直接访问Items[hovered]，按RPLAN.24不补记录或新增非负门禁。
     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (item->used != 0) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            std::strcpy(hint, item->name.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
             std::strcat(hint, "[kok]");
         } else if ((flags & 0x200u) != 0) {
-            std::strcpy(hint, item->memo.data());
+            cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
             std::strcat(hint, "[han]");
         }
     } else if (Sub_503590(&gLegacyGuildGiftPanel58E950) != 0) {
@@ -9904,7 +10243,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
 void Sub_52DC60()
 {
     char preserved[400];
-    std::strcpy(preserved, input::gInputContext1050B80.text);
+    std::strcpy(preserved, input::gInputContext1050B80.utf8().c_str());
     const std::int32_t y = gLegacyGuildComposePanel58EA18.y;
     const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
     input::InitializeContext_449CF0(&input::gInputContext1050B80,
@@ -9914,7 +10253,7 @@ void Sub_52DC60()
 
 // 原函数：0x0052DCE0。
 std::uint32_t Sub_52DCE0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
     const std::int32_t y = gLegacyGuildComposePanel58EA18.y;
     std::array<LegacyPanelButtonRecord, 2> buttons {{
@@ -9937,7 +10276,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
         return static_cast<std::uint32_t>(audio::Sub_5042D0(86));
     }
     if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
-        if (input::gInputContext1050B80.text[0] != '\0') {
+        if (!input::gInputContext1050B80.empty()) {
             std::int32_t timeValue;
             static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
             const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
@@ -9949,7 +10288,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
-            std::strcpy(source, input::gInputContext1050B80.text);
+            std::strcpy(source, input::gInputContext1050B80.utf8().c_str());
             char escaped[600];
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
             const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
@@ -9958,11 +10297,11 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
             const auto socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_5110B0(socket, contact, value, gift, escaped, 0));
             const std::int32_t savedContact = gLegacyGuildMailTarget1050DCC;
-            static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, input::gInputContext1050B80.text));
+            static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContext1050B80.text).c_str()));
             static_cast<void>(world::detail::Sub_519300());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             static_cast<void>(audio::Sub_504180(94));
-            input::gInputContext1050B80.text[0] = '\0';
+            input::gInputContext1050B80.clearText();
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -9975,13 +10314,13 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
     const std::int32_t contactX = gLegacyGuildComposePanel58EA18.x + 52;
     static_cast<void>(DrawGraphic(contactX, contactY, 212, contactImage, 0, &descriptor));
     const std::int32_t measureContact = gLegacyGuildMailTarget1050DCC;
-    const std::int32_t contactWidth = TextMeasure(gOrderedRecords1051B14[measureContact].text18, 0);
+    const std::int32_t contactWidth = TextMeasure(cg::text::FromGbk(gOrderedRecords1051B14[measureContact].text18).c_str(), 0);
     const std::int32_t textContact = gLegacyGuildMailTarget1050DCC;
     const char* const contactName = gOrderedRecords1051B14[textContact].text18;
     const std::int32_t contactNameY = gLegacyGuildComposePanel58EA18.y + 62;
     const std::int32_t contactNameX = gLegacyGuildComposePanel58EA18.x - contactWidth / 2 + 176;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
-        static_cast<std::int16_t>(contactNameY), 2, 0, 0, contactName, 0, 0));
+    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(contactName).c_str()).c_str()X),
+        static_cast<std::int16_t>(contactNameY), 2, 0, 0, cg::text::FromGbk(contactName).c_str(), 0, 0));
     const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
     if (gift > 0) {
         const std::int32_t giftY = gLegacyGuildComposePanel58EA18.y + 120;
@@ -9991,7 +10330,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
         std::int32_t nameGift = gLegacyGuildGiftSelected1050DA8;
         const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[nameGift].count;
         if (count > 0) {
-            char buffer[128];
+            char buffer[384];
             std::sprintf(buffer, "%3d", count);
             const std::int32_t countY = gLegacyGuildComposePanel58EA18.y + 127;
             const std::int32_t countX = gLegacyGuildComposePanel58EA18.x + 213;
@@ -9999,13 +10338,13 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
                 static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
             nameGift = gLegacyGuildGiftSelected1050DA8;
         }
-        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data(), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerItemsFDA8A4()[nameGift].name.data()).c_str(), 0);
         const std::int32_t textGift = gLegacyGuildGiftSelected1050DA8;
         const char* const name = world::detail::BorrowPlayerItemsFDA8A4()[textGift].name.data();
         const std::int32_t nameY = gLegacyGuildComposePanel58EA18.y + 152;
         const std::int32_t nameX = gLegacyGuildComposePanel58EA18.x - width / 2 + 136;
-        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-            static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+        static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+            static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
     Sub_5035E0(&buttons[1], 212, 1, gValueD69768, 0);
@@ -10019,9 +10358,13 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyGuildComposePanel58EA18, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x0052E240。
@@ -10062,7 +10405,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
             212, image, 0);
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         const auto* const pet = &(*world::detail::BorrowPetRuntimeF633F8Storage())[index];
@@ -10071,7 +10414,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         }
         const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
         const std::int8_t color = availability[row] != 0 ? 0 : 7;
-        std::strcpy(buffer, name);
+        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(name));
         const std::int32_t width = TextMeasure(buffer, 0);
         const std::int32_t nameY = gLegacyGuildPetPanel58EAE0.y + 43 + 28 * row;
         const std::int32_t nameX = gLegacyGuildPetPanel58EAE0.x - width / 2 + 90;
@@ -10095,7 +10438,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
         hint = kLegacyGuildPetHint58F2B4;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyGuildPetPanel58EAE0, 1);
 }
@@ -10183,22 +10526,22 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
     const std::int32_t imageY = gLegacyGuildReadPanel58EBA8.y + 73;
     const std::int32_t imageX = gLegacyGuildReadPanel58EBA8.x + 43;
     static_cast<void>(DrawGraphic(imageX, imageY, 212, image, 0, &descriptor));
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyGuildReadPanel58EBA8.y + offsetY;
         const std::int32_t left = gLegacyGuildReadPanel58EBA8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%3d", member->value10);
     drawAt(buffer, 134, 49, 1, 0);
     const char* const memberName = member->text18;
-    const std::int32_t nameWidth = TextMeasure(memberName, 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(memberName).c_str(), 0);
     drawAt(memberName, 162 - nameWidth / 2, 70, 0, 0);
-    const std::int32_t rankWidth = TextMeasure(BorrowGuildRankText1051518(member->value00), 0);
+    const std::int32_t rankWidth = TextMeasure(cg::text::FromGbk(BorrowGuildRankText1051518(member->value00)).c_str(), 0);
     const char* const rankName = BorrowGuildRankText1051518(member->value00);
-    drawAt(rankName, 162 - rankWidth / 2, 93, 0, 0);
+    drawAt(cg::text::FromGbk(rankName).c_str(), 162 - rankWidth / 2, 93, 0, 0);
     const std::int16_t titleSelected = login::gSelectedCharacterIndex;
     const std::int32_t titleContact = gLegacyGuildReadTarget1050DB4;
     const std::int32_t titlePage = gLegacyGuildReadPage1050EF8;
@@ -10217,7 +10560,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         const std::int32_t rowContact = gLegacyGuildReadTarget1050DB4;
         const char* const body = world::detail::BorrowGuildMailMessageDE0B30(rowSelected, rowContact, rowPage).text14;
         // 原52EAE1不检查分行结果，十次均绘制；颜色只在正文循环前取样。
-        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 128, body, row, 28));
+        static_cast<void>(input::ExtractGbkTextLine(buffer, 128, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
     std::sprintf(buffer, "%2d/%2d", gLegacyGuildReadPage1050EF8 + 1, 10);
@@ -10237,7 +10580,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyGuildReadPanel58EBA8, 1);
 }
@@ -10246,7 +10589,7 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
 std::int32_t Sub_52ECB0()
 {
     char preserved[400];
-    std::strcpy(preserved, input::gInputContext1051348.text);
+    std::strcpy(preserved, input::gInputContext1051348.utf8().c_str());
     const std::int32_t y = gLegacyGuildNormalPanel58EC70.y;
     const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
     input::InitializeContext_449CF0(&input::gInputContext1051348,
@@ -10260,7 +10603,7 @@ std::int32_t Sub_52ECB0()
 
 // 原函数：0x0052ED50。
 std::uintptr_t Sub_52ED50(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
     const std::int32_t y = gLegacyGuildNormalPanel58EC70.y;
     std::array<LegacyPanelButtonRecord, 4> buttons {{
@@ -10303,7 +10646,7 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     } else if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
-        if (input::gInputContext1051348.text[0] != '\0' && selectedCount > 0) {
+        if (!input::gInputContext1051348.empty() && selectedCount > 0) {
             std::int32_t timeValue;
             static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
             const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
@@ -10315,7 +10658,7 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
             char timestamp[64];
             std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
-            std::strcpy(source, input::gInputContext1051348.text);
+            std::strcpy(source, input::gInputContext1051348.utf8().c_str());
             char escaped[600];
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
             for (std::int32_t position = 0; position < 200; ++position) {
@@ -10324,13 +10667,13 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511480(socket, contact, escaped, 0));
                     const std::int32_t savedContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-                    static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, input::gInputContext1051348.text));
+                    static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, cg::text::ToGbk(input::gInputContext1051348.text).c_str()));
                 }
             }
             static_cast<void>(world::detail::Sub_519550());
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             static_cast<void>(audio::Sub_504180(94));
-            input::gInputContext1051348.text[0] = '\0';
+            input::gInputContext1051348.clearText();
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -10369,13 +10712,13 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
         }
         const std::int8_t color = gLegacyGuildSelectedFlags1050CDC[contact] != 0
             ? 1 : (record->value0A != 0 ? 0 : 7);
-        const std::int32_t width = TextMeasure(record->text18, 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(record->text18).c_str(), 0);
         const std::int32_t nameContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         const char* const name = gOrderedRecords1051B14[nameContact].text18;
         const std::int32_t top = gLegacyGuildNormalPanel58EC70.y + 40 + 27 * row;
         const std::int32_t left = gLegacyGuildNormalPanel58EC70.x - width / 2 + 136;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
-            static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
+            static_cast<std::int16_t>(top), 2, 0, color, cg::text::FromGbk(name).c_str(), 0, 0));
     }
     char pageText[128];
     std::sprintf(pageText, "%2d/%2d", gLegacyGuildComposePage1051330 + 1, 50);
@@ -10405,9 +10748,13 @@ std::uintptr_t Sub_52ED50(const std::int32_t opened)
             ? kLegacyGuildUnselect58F310 : kLegacyGuildSend58F2EC;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildNormalPanel58EC70, 1));
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x0052F460。
@@ -10445,14 +10792,14 @@ std::uint32_t Sub_52F460(const std::int32_t opened)
         hint = kLegacyGuildReturn58F264;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyGuildDeliveryPanel58ED38, 1);
 }
 
 // 原函数：0x0052F670。
 std::uint32_t Sub_52F670(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGuildDeletePanel58EE00.x;
     const std::int32_t y = gLegacyGuildDeletePanel58EE00.y;
     std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
@@ -10479,13 +10826,13 @@ std::uint32_t Sub_52F670(const std::int32_t opened)
             static_cast<void>(audio::Sub_5042D0(gLegacyGuildDeletePanel58EE00.id));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
         } else {
-            world::detail::Sub_44B050(kLegacyGuildDeleteDenied58F3C8, 4, 0);
+            world::detail::Sub_44B050(kLegacyGuildDeleteDenied58F3C8Utf8View.c_str(), 4, 0);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((cancelState & 1u) != 0) {
         static_cast<void>(audio::Sub_504180(94));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyGuildDeletePanel58EE00.y + offsetY;
         const std::int32_t left = gLegacyGuildDeletePanel58EE00.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -10493,9 +10840,9 @@ std::uint32_t Sub_52F670(const std::int32_t opened)
     };
     drawAt(kLegacyGuildDeleteLead58F3B8, 84, 38);
     const std::int32_t measureTarget = gLegacyGuildDeleteTarget105132C;
-    const std::int32_t width = TextMeasure(gOrderedRecords1051B14[measureTarget].text18, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(gOrderedRecords1051B14[measureTarget].text18).c_str(), 0);
     const std::int32_t textTarget = gLegacyGuildDeleteTarget105132C;
-    drawAt(gOrderedRecords1051B14[textTarget].text18, 160 - width / 2, 86);
+    drawAt(cg::text::FromGbk(gOrderedRecords1051B14[textTarget].text18).c_str(), 160 - width / 2, 86);
     drawAt(kLegacyGuildDeleteEnd58F3AC, 109, 134);
     Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
     Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
@@ -10506,9 +10853,13 @@ std::uint32_t Sub_52F670(const std::int32_t opened)
         hint = kLegacyGuildKeepHint58F38C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return Sub_503440(&gLegacyGuildDeletePanel58EE00, 0);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x0052F910。
@@ -10554,7 +10905,7 @@ std::uint32_t Sub_52F910(const std::int32_t opened)
     static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(selectedLeft + 19),
         static_cast<std::int16_t>(selectedTop + 38), static_cast<std::int16_t>(selectedLeft + 173),
         static_cast<std::int16_t>(selectedTop + 64), 212, 254, 0));
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX, const std::int32_t offsetY) {
         const std::int32_t top = gLegacyGuildSortPanel58EEC8.y + offsetY;
         const std::int32_t left = gLegacyGuildSortPanel58EEC8.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -10726,14 +11077,14 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
     } else if ((contactsState & 1u) != 0) {
         static_cast<void>(audio::Sub_504180(42));
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyGuildContactPanel58EF90.y + offsetY;
         const std::int32_t left = gLegacyGuildContactPanel58EF90.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 1, color, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 4; ++row) {
         const std::int32_t page = gLegacyGuildPage1050B78;
         const std::int32_t position = row + 4 * page;
@@ -10757,11 +11108,11 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         std::sprintf(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-        drawAt(gOrderedRecords1051B14[nameIndex].text18, 77, 68 + 90 * row, color);
+        drawAt(cg::text::FromGbk(gOrderedRecords1051B14[nameIndex].text18).c_str(), 77, 68 + 90 * row, color);
         const std::int32_t rankIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         const char* const rank = BorrowGuildRankText1051518(gOrderedRecords1051B14[rankIndex].value00);
         if (rank[0] != '\0') {
-            drawAt(rank, 77, 91 + 90 * row, color);
+            drawAt(cg::text::FromGbk(rank).c_str(), 77, 91 + 90 * row, color);
         }
         Sub_5035E0(&sends[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&reads[row], 212, 1, gValueD69768, 0);
@@ -10797,7 +11148,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         hint = kLegacyGuildRank58F410;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildContactPanel58EF90, 1));
 }
@@ -10815,7 +11166,7 @@ void Sub_530B70()
 
 // 原函数：0x00530BA0。
 std::uintptr_t Sub_530BA0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGuildDetailsPanel58F098.x;
     const std::int32_t y = gLegacyGuildDetailsPanel58F098.y;
     std::array<LegacyPanelButtonRecord, 3> changes {{
@@ -10866,12 +11217,12 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     if (gLegacyGuildDetailsInputs1057C7C[0] == nullptr) {
         for (std::int32_t index = 0; index < 3; ++index) {
             gLegacyGuildDetailsInputs1057C7C[index] = &input::gInputContexts1050F18[index];
-            gLegacyGuildDetailsInputs1057C7C[index]->text[0] = '\0';
+            gLegacyGuildDetailsInputs1057C7C[index]->clearText();
             gLegacyGuildDetailsInputs1057C7C[index]->totalByteLength = 0;
             gLegacyGuildDetailsInputs1057C7C[index]->caretByteOffset = 0;
             const char* const initial = index == 0 ? BorrowGuildName10514BC()
                 : (index == 1 ? BorrowGuildSecondText10514E5() : input::LegacyText593850());
-            std::strcpy(buffer, initial);
+            cg::text::Copy(buffer, 256, cg::text::FromGbk(initial));
             const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y + 60 * (index + 1);
             input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[index];
             const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x + 13;
@@ -10896,7 +11247,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
         const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
         input::InitializeContext_449CF0(context, inputX + 13, inputY + 60, 2, 0, 0,
-            gLegacyGuildNameCache1050DD0.data(), 1, 16, 0, 0);
+            cg::text::FromGbk(gLegacyGuildNameCache1050DD0.data()).c_str(), 1, 16, 0, 0);
     }
     if (std::strcmp(gLegacyGuildSecondCache1050E50.data(), BorrowGuildSecondText10514E5()) != 0) {
         const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
@@ -10904,7 +11255,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
         const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
         input::InitializeContext_449CF0(context, inputX + 13, inputY + 120, 2, 0, 0,
-            gLegacyGuildSecondCache1050E50.data(), 1, 16, 0, 0);
+            cg::text::FromGbk(gLegacyGuildSecondCache1050E50.data()).c_str(), 1, 16, 0, 0);
     }
     const std::int32_t previousState = QueryPanelButtonState(&previous);
     bool pageChanged = false;
@@ -10947,8 +11298,8 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
             bool changeClicked = (changeStates[0] & 1) != 0;
             if (changeClicked) {
                 input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
-                if (std::strcmp(context->text, BorrowGuildName10514BC()) != 0) {
-                    std::strcpy(second, context->text);
+                if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildName10514BC()).c_str()) != 0) {
+                    std::strcpy(second, context->utf8().c_str());
                     static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(second, first, 128));
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511250(socket, 2, first));
@@ -10959,8 +11310,8 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
                 changeClicked = (changeStates[1] & 1) != 0;
                 if (changeClicked) {
                     input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
-                    if (std::strcmp(context->text, BorrowGuildSecondText10514E5()) != 0) {
-                        std::strcpy(first, context->text);
+                    if (std::strcmp(context->utf8().c_str(), cg::text::FromGbk(BorrowGuildSecondText10514E5()).c_str()) != 0) {
+                        std::strcpy(first, context->utf8().c_str());
                         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
                         const auto socket = platform::gConnectionSocket;
                         static_cast<void>(network::Sub_511250(socket, 3, second));
@@ -10971,13 +11322,13 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
                     changeClicked = (changeStates[2] & 1) != 0;
                     if (changeClicked) {
                         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[2];
-                        if (context->text[0] != '\0') {
+                        if (!context->empty()) {
                             std::int32_t selectedRow = 0;
                             while (selectedRow < 5 && gLegacyGuildDetailsHighlights1050EFC[selectedRow] == 0) {
                                 ++selectedRow;
                             }
                             if (selectedRow < 5) {
-                                std::strcpy(first, context->text);
+                                std::strcpy(first, context->utf8().c_str());
                                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
                                 const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
                                 const std::int32_t index = selectedRow + 5 * page;
@@ -10998,7 +11349,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
                                     ++emptyRank;
                                 }
                                 if (emptyRank < 32) {
-                                    std::strcpy(first, context->text);
+                                    std::strcpy(first, context->utf8().c_str());
                                     static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
                                     const auto socket = platform::gConnectionSocket;
                                     const std::int32_t flags = ReadGuildRankFlags1051514(emptyRank);
@@ -11030,7 +11381,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
                     const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
                     const std::int32_t index = row + 5 * page;
                     if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
-                        std::strcpy(first, BorrowGuildRankText1051518(index));
+                        cg::text::Copy(first, sizeof(first), cg::text::FromGbk(BorrowGuildRankText1051518(index)));
                         BorrowGuildRankFlags1051514(index) ^= (1 << group);
                         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
                         const std::int32_t sendPage = gLegacyGuildDetailsPage1050ED4;
@@ -11092,7 +11443,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
                         input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[2];
                         gLegacyGuildDetailsHighlights1050EFC[row] = 1;
                         input::InitializeContext_449CF0(context, inputX + 15, inputY + 182,
-                            2, 0, 0, initial, 1, 16, 0, 0);
+                            2, 0, 0, cg::text::FromGbk(initial).c_str(), 1, 16, 0, 0);
                     }
                     drawPage = gLegacyGuildDetailsPage1050ED4;
                 }
@@ -11108,7 +11459,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
             const char* const text = BorrowGuildRankText1051518(index);
             const std::int32_t top = gLegacyGuildDetailsPanel58F098.y + 260 + 30 * row;
             const std::int32_t left = gLegacyGuildDetailsPanel58F098.x + 13;
-            static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, text, 0, 0));
+            static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, cg::text::FromGbk(text).c_str(), 0, 0));
             drawPage = gLegacyGuildDetailsPage1050ED4;
         }
     }
@@ -11123,7 +11474,8 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     for (input::InputContext* const context : gLegacyGuildDetailsInputs1057C7C) {
         render::DrawInputText_4568A0(context);
     }
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         if ((changeStates[0] & 0x40) != 0) {
             std::strcpy(hint, kLegacyGuildNameEdit58F550);
@@ -11156,6 +11508,10 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildDetailsPanel58F098, 1));
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x00532430。
 std::int32_t Sub_532430()
@@ -11168,7 +11524,7 @@ std::int32_t Sub_532430()
 
 // 原函数：0x00532450。
 std::uint32_t Sub_532450(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGuildRankPanel58F160.x;
     const std::int32_t y = gLegacyGuildRankPanel58F160.y;
     LegacyPanelButtonRecord previous {x + 139, y + 109, x + 125, y + 97, 28, 24, 23022, 23026};
@@ -11252,7 +11608,7 @@ std::uint32_t Sub_532450(const std::int32_t opened)
                         const std::int32_t rank = gLegacyGuildRankSelected1051338;
                         if (rank == -1) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
-                            world::detail::Sub_44B050(kLegacyGuildRankRequired58F584, 4, 0);
+                            world::detail::Sub_44B050(kLegacyGuildRankRequired58F584Utf8View.c_str(), 4, 0);
                         } else {
                             const auto socket = platform::gConnectionSocket;
                             const std::int32_t target = gLegacyGuildRankTarget1057C70;
@@ -11270,36 +11626,37 @@ std::uint32_t Sub_532450(const std::int32_t opened)
         gLegacyGuildRankHighlights1050ED8.fill(0);
         gLegacyGuildRankSelected1051338 = -1;
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t color) {
         const std::int32_t top = gLegacyGuildRankPanel58F160.y + offsetY;
         const std::int32_t left = gLegacyGuildRankPanel58F160.x + offsetX;
         static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, text, 0, 0));
     };
     const std::int32_t nameTarget = gLegacyGuildRankTarget1057C70;
-    drawAt(gOrderedRecords1051B14[nameTarget].text18, 30, 8, 0);
+    drawAt(cg::text::FromGbk(gOrderedRecords1051B14[nameTarget].text18).c_str(), 30, 8, 0);
     const std::int32_t rankTarget = gLegacyGuildRankTarget1057C70;
     const std::int32_t currentRank = gOrderedRecords1051B14[rankTarget].value00;
     if (currentRank != -1) {
-        drawAt(BorrowGuildRankText1051518(currentRank), 8, 58, 0);
+        drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(currentRank)).c_str(), 8, 58, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t page = gLegacyGuildRankPage1051334;
         const std::int8_t color = gLegacyGuildRankHighlights1050ED8[row] != 0 ? 1 : 0;
-        drawAt(BorrowGuildRankText1051518(row + 8 * page), 41, 133 + 30 * row, color);
+        drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(row + 8 * page)).c_str(), 41, 133 + 30 * row, color);
     }
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     const std::int32_t page = gLegacyGuildRankPage1051334;
     const std::int32_t pageCount = gLegacyGuildRankPageCount105133C;
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
     drawAt(buffer, 161, 100, 0);
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         Sub_5035E0(&remove, 212, 1, gValueD69768, 0);
         Sub_5035E0(&change, 212, 1, gValueD69768, 0);
     }
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
         std::strcpy(hint, kLegacyGuildPage58F2D4);
     }
@@ -11318,6 +11675,10 @@ std::uint32_t Sub_532450(const std::int32_t opened)
         }
     }
     return Sub_503440(&gLegacyGuildRankPanel58F160, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004ECE00。
@@ -11354,7 +11715,7 @@ std::uint32_t Sub_4ECE00(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, "%+9d", world::detail::gValueFF0D04);
     const std::int32_t deltaY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t deltaX = gLegacyPointResultPanel5838A8.x;
@@ -11408,8 +11769,8 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }
-    char buffer[128];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[384];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color = 0) {
         const std::int32_t top = gLegacyBattleResultPanel583970.y;
         const std::int32_t left = gLegacyBattleResultPanel583970.x;
@@ -11461,8 +11822,8 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
     for (std::int32_t row = 0; row < 3; ++row) {
         const char* const text = names[row].data();
         if (std::strlen(text) != 0) {
-            const std::int32_t width = TextMeasure(text, 0);
-            drawAt(text, 164 - width / 2, row * 24 + 186, 0);
+            const std::int32_t width = TextMeasure(cg::text::FromGbk(text).c_str(), 0);
+            drawAt(cg::text::FromGbk(text).c_str(), 164 - width / 2, row * 24 + 186, 0);
         }
     }
     const auto& skillResults = world::detail::BorrowBattleSkillResults();
@@ -11476,7 +11837,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         }
         const world::detail::SkillRuntimeRecord* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
         if (skill->canRebirth == 0) {
-            drawAt(skill->name.data(), 357, visibleRow * 24 + 55, 0);
+            drawAt(cg::text::FromGbk(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0);
             const std::int32_t level = skill->level;
             const std::int32_t maxLevel = skill->maxLevel;
             if (level >= maxLevel) {
@@ -11489,7 +11850,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
                 drawImage(23382, 531, visibleRow * 24 + 65);
             }
         } else {
-            drawAt(skill->name.data(), 357, visibleRow * 24 + 55, 0, 7);
+            drawAt(cg::text::FromGbk(skill->name.data()).c_str(), 357, visibleRow * 24 + 55, 0, 7);
             drawAt(kLegacyResultLimit5897D4, 554, visibleRow * 24 + 57, 1, 7);
         }
         drawImage(23381, 469, visibleRow * 24 + 64);
@@ -11507,7 +11868,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
 
 // 原函数：0x004EDB20。
 std::uintptr_t Sub_4EDB20(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGatherResultPanel583A38.x;
     const std::int32_t y = gLegacyGatherResultPanel583A38.y;
     LegacyPanelButtonRecord button {x + 140, y + 418, x + 100, y + 408, 80, 20, 23395, 23396};
@@ -11589,11 +11950,11 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
         if (world::detail::IsPlayerFpLessThan(cost)) {
-            world::detail::Sub_44B050(kLegacyGatherNoFp5864F0, 4, 3);
+            world::detail::Sub_44B050(kLegacyGatherNoFp5864F0Utf8View.c_str(), 4, 3);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             gLegacyGatherRepeat583AFC = 0;
         } else if (world::detail::Sub_518C60() <= 0) {
-            world::detail::Sub_44B050(kLegacyGatherNoSpace589868, 4, 3);
+            world::detail::Sub_44B050(kLegacyGatherNoSpace589868Utf8View.c_str(), 4, 3);
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             gLegacyGatherRepeat583AFC = 0;
         } else {
@@ -11602,8 +11963,8 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         }
     }
 
-    char buffer[256];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[768];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyGatherResultPanel583A38.y;
         const std::int32_t left = gLegacyGatherResultPanel583A38.x;
@@ -11611,8 +11972,8 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t skillWidth = TextMeasure(skillName, 0);
-    drawAt(skillName, 82 - skillWidth / 2, 37, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(skillName).c_str(), 0);
+    drawAt(cg::text::FromGbk(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -11624,8 +11985,8 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
     if (ui::detail::ReadGatherResultD2D820() != 0) {
-        const std::int32_t width = TextMeasure(ui::detail::BorrowGatherResultNameD2DA94(), 0);
-        drawAt(ui::detail::BorrowGatherResultNameD2DA94(), 136 - width / 2, 91, 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(ui::detail::BorrowGatherResultNameD2DA94()).c_str(), 0);
+        drawAt(cg::text::FromGbk(ui::detail::BorrowGatherResultNameD2DA94()).c_str(), 136 - width / 2, 91, 0);
         const std::int32_t image = ui::detail::ReadGatherResultImageCF3FF0();
         const std::int32_t top = gLegacyGatherResultPanel583A38.y;
         const std::int32_t imageY = top + 184;
@@ -11634,7 +11995,7 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         drawAt(ui::detail::BorrowGatherResultSuffixCB1E1C(), 10, 114, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractLegacyLine_503AB0(
+        if (input::ExtractGbkTextLine(
                 buffer, 256, ui::detail::BorrowGatherResultDetailsCC190C(), row, 28) != 0) {
             const std::int32_t top = gLegacyGatherResultPanel583A38.y;
             const std::int32_t lineY = top + 20 * row + 237;
@@ -11644,18 +12005,21 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         }
     }
     if (Sub_503590(&gLegacyGatherResultPanel583A38) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-            gLegacyGatherRepeat583AFC == 1 ? kLegacyGatherStop589848 : kLegacyGatherStart58983C);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyGatherRepeat583AFC == 1 ? kLegacyGatherStop589848 : kLegacyGatherStart58983C);
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyGatherResultPanel583A38, 1);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004EF0F0。
 std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacySkillResultPanel583BC8.x;
     const std::int32_t y = gLegacySkillResultPanel583BC8.y;
     LegacyPanelButtonRecord button {x + 140, y + 418, x + 100, y + 408, 80, 20, 23390, 23391};
@@ -11730,8 +12094,8 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
             gLegacySkillPendingD67C48 = 1;
         }
     }
-    char buffer[128];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[384];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color = 0) {
         const std::int32_t top = gLegacySkillResultPanel583BC8.y;
         const std::int32_t left = gLegacySkillResultPanel583BC8.x;
@@ -11739,8 +12103,8 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
             static_cast<std::int16_t>(top + offsetY), 2, font, color, text, 0, 0));
     };
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t skillWidth = TextMeasure(skillName, 0);
-    drawAt(skillName, 82 - skillWidth / 2, 37, 0);
+    const std::int32_t skillWidth = TextMeasure(cg::text::FromGbk(skillName).c_str(), 0);
+    drawAt(cg::text::FromGbk(skillName).c_str(), 82 - skillWidth / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -11751,27 +12115,31 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
-    const std::int32_t targetWidth = TextMeasure(ui::detail::gSkillTargetNameD2F748.data(), 0);
-    drawAt(ui::detail::gSkillTargetNameD2F748.data(), 90 - targetWidth / 2, 91, 0);
+    const std::int32_t targetWidth = TextMeasure(cg::text::FromGbk(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 0);
+    drawAt(cg::text::FromGbk(ui::detail::gSkillTargetNameD2F748.data()).c_str(), 90 - targetWidth / 2, 91, 0);
     drawAt(ui::detail::BorrowLegacySkillSummaryCC18CC(), 10, 114, 0, 4);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractLegacyLine_503AB0(
+        if (input::ExtractGbkTextLine(
                 buffer, 128, ui::detail::BorrowLegacySkillDetailsCB0FDC(), row, 28) != 0) {
             drawAt(buffer, 10, 237 + 20 * row, 0);
         }
     }
     if (Sub_503590(&gLegacySkillResultPanel583BC8) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillRetry589A94);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillRetry589A94;
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacySkillResultPanel583BC8, 1);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004F0B40。
 std::uint32_t Sub_4F0B40(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyFpNoticePanel583E20.x;
     const std::int32_t y = gLegacyFpNoticePanel583E20.y;
     character_select::detail::CharacterModalUiRecord button {
@@ -11795,8 +12163,8 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyFpNoticePanel583E20.id));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    char buffer[256];
-    std::sprintf(buffer, kLegacyFpNotice589BFC);
+    char buffer[768];
+    std::sprintf(buffer, kLegacyFpNotice589BFCUtf8View.c_str());
     const std::int32_t messageY = gLegacyFpNoticePanel583E20.y;
     const std::int32_t messageX = gLegacyFpNoticePanel583E20.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(messageX + 16),
@@ -11809,10 +12177,14 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
     static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 4, 1, gValueD69768, 218));
     return Sub_503440(&gLegacyFpNoticePanel583E20, 0);
 }
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
+}
 
 // 原函数：0x004F0F70。
 std::uintptr_t Sub_4F0F70(const std::int32_t opened)
-{
+try {
     const std::int32_t width = gLegacyItemSplitPanel584078.width;
     const std::int32_t x = gLegacyItemSplitPanel584078.x;
     const std::int32_t height = gLegacyItemSplitPanel584078.height;
@@ -11883,7 +12255,7 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         gLegacySplitAmountC8A948 = count;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%7d", world::detail::BorrowPlayerItemsFDA8A4()[gLegacySplitSourceCC3E60].count);
     const std::int32_t countY = gLegacyItemSplitPanel584078.y + 46;
     const std::int32_t countX = gLegacyItemSplitPanel584078.x + 88;
@@ -11909,7 +12281,7 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
     Sub_5035E0(&backspace, 212, 1, gValueD69768, 0);
     Sub_5035E0(&all, 212, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyItemSplitPanel584078) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
@@ -11931,14 +12303,18 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyItemSplitPanel584078, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F1C40。
 std::uintptr_t Sub_4F1C40(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyItemWorkResultPanel584140.x;
     const std::int32_t y = gLegacyItemWorkResultPanel584140.y;
     LegacyPanelButtonRecord button {x + 140, y + 418, x + 100, y + 408, 80, 20, 23390, 23391};
@@ -11999,8 +12375,8 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     }
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-    char buffer[256];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[768];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyItemWorkResultPanel584140.y;
         const std::int32_t left = gLegacyItemWorkResultPanel584140.x;
@@ -12008,8 +12384,8 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(name, 0);
-    drawAt(name, 82 - width / 2, 37, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    drawAt(cg::text::FromGbk(name).c_str(), 82 - width / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -12020,8 +12396,8 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
     drawAt(belowMaximum ? buffer : kLegacyGatherLimit589858, 198, 62, 1);
     if (gLegacyItemWorkSelection584394 >= 0) {
-        const std::int32_t itemWidth = TextMeasure(gLegacyItemWorkNameCC40D8.data(), 0);
-        drawAt(gLegacyItemWorkNameCC40D8.data(), 136 - itemWidth / 2, 91, 0);
+        const std::int32_t itemWidth = TextMeasure(cg::text::FromGbk(gLegacyItemWorkNameCC40D8.data()).c_str(), 0);
+        drawAt(cg::text::FromGbk(gLegacyItemWorkNameCC40D8.data()).c_str(), 136 - itemWidth / 2, 91, 0);
         const std::int32_t image = gLegacyItemWorkImageCC320C;
         const std::int32_t top = gLegacyItemWorkResultPanel584140.y;
         const std::int32_t left = gLegacyItemWorkResultPanel584140.x;
@@ -12029,23 +12405,27 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     }
     drawAt(ui::detail::BorrowLegacyItemWorkSuffixD2DADC(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractLegacyLine_503AB0(
+        if (input::ExtractGbkTextLine(
                 buffer, 256, ui::detail::BorrowLegacyItemWorkDetailsD2DB00(), row, 28) != 0) {
             drawAt(buffer, 10, 237 + 20 * row, 0);
         }
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     if (Sub_503590(&gLegacyItemWorkResultPanel584140) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillRetry589A94);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillRetry589A94;
     }
     return Sub_503440(&gLegacyItemWorkResultPanel584140, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F3ED0。
 std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyCraftResultPanel5843A0.x;
     const std::int32_t y = gLegacyCraftResultPanel5843A0.y;
     LegacyPanelButtonRecord button {x + 140, y + 418, x + 100, y + 408, 80, 20, 23390, 23391};
@@ -12112,8 +12492,8 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
             static_cast<void>(audio::Sub_504180(25));
         }
     }
-    char buffer[256];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[768];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyCraftResultPanel5843A0.y;
         const std::int32_t left = gLegacyCraftResultPanel5843A0.x;
@@ -12121,8 +12501,8 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
             static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(name, 0);
-    drawAt(name, 82 - width / 2, 37, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    drawAt(cg::text::FromGbk(name).c_str(), 82 - width / 2, 37, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
     std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
@@ -12133,29 +12513,32 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
     }
-    const std::int32_t itemWidth = TextMeasure(ui::detail::BorrowLegacyCraftNameCF46D4(), 0);
-    drawAt(ui::detail::BorrowLegacyCraftNameCF46D4(), 136 - itemWidth / 2, 91, 0);
+    const std::int32_t itemWidth = TextMeasure(cg::text::FromGbk(ui::detail::BorrowLegacyCraftNameCF46D4()).c_str(), 0);
+    drawAt(cg::text::FromGbk(ui::detail::BorrowLegacyCraftNameCF46D4()).c_str(), 136 - itemWidth / 2, 91, 0);
     const std::int32_t image = ui::detail::ReadLegacyCraftImageCF4B60();
     const std::int32_t top = gLegacyCraftResultPanel5843A0.y;
     const std::int32_t left = gLegacyCraftResultPanel5843A0.x;
     static_cast<void>(DrawGraphic(left + 192, top + 184, 212, image, 0, &descriptor));
     drawAt(ui::detail::BorrowLegacyCraftSuffixD672B4(), 10, 114, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
-        if (input::ExtractLegacyLine_503AB0(
+        if (input::ExtractGbkTextLine(
                 buffer, 256, ui::detail::BorrowLegacyCraftDetailsD2E92C(), row, 28) != 0) {
             drawAt(buffer, 10, 237 + 20 * row, 0);
         }
     }
     Sub_5035E0(&button, 212, 1, gValueD69768, 0);
     if (Sub_503590(&gLegacyCraftResultPanel5843A0) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&button) & 0x40) != 0) {
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-            skillId == 255 || skillId == 606 || skillId == 2026
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(skillId == 255 || skillId == 606 || skillId == 2026
                 ? kLegacyCraftAdd589FC8 : kLegacyCraftChoose589FD8);
     }
     return Sub_503440(&gLegacyCraftResultPanel5843A0, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F2130。
@@ -12183,7 +12566,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
         const std::int32_t top = gLegacyItemWorkNamePanel584208.y;
         const std::int32_t left = gLegacyItemWorkNamePanel584208.x;
         gLegacyItemWorkInputD67CE4 = &input::gInputContextCB01F8;
-        input::gInputContextCB01F8.text[0] = '\0';
+        input::gInputContextCB01F8.clearText();
         input::gInputContextCB01F8.totalByteLength = 0;
         input::gInputContextCB01F8.caretByteOffset = 0;
         input::InitializeContext_449CF0(&input::gInputContextCB01F8,
@@ -12194,26 +12577,26 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
     bool submit = false;
     if ((QueryPanelButtonState(&confirm) & 1) != 0
         && (world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
-        if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->text) == 1) {
+        if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
-            std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->text);
+            std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->utf8().c_str());
             static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
-            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "\xA1\xA1"));
-            if (std::strlen(trimmed) == 0 && std::strlen(gLegacyItemWorkInputD67CE4->text) != 0) {
+            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "　"));
+            if (std::strlen(trimmed) == 0 && gLegacyItemWorkInputD67CE4->length() != 0) {
                 static_cast<void>(audio::Sub_504180(82));
             } else {
                 submit = true;
             }
         }
     } else if ((QueryPanelButtonState(&confirm) & 1) != 0
-               && std::strlen(gLegacyItemWorkInputD67CE4->text) != 0) {
-        std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->text);
+               && gLegacyItemWorkInputD67CE4->length() != 0) {
+        std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->utf8().c_str());
         static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
-        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "\xA1\xA1"));
+        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "　"));
         if (std::strlen(trimmed) == 0) {
             static_cast<void>(audio::Sub_504180(82));
-        } else if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->text) == 1) {
+        } else if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->utf8().c_str()) == 1) {
             static_cast<void>(audio::Sub_504180(81));
         } else {
             submit = true;
@@ -12222,7 +12605,7 @@ std::uintptr_t Sub_4F2130(const std::int32_t opened)
         static_cast<void>(audio::Sub_504180(31));
     }
     if (submit) {
-        gLegacyItemWorkDraftCC31E0 = gLegacyItemWorkInputD67CE4->text;
+        gLegacyItemWorkDraftCC31E0 = input::ContextText(*gLegacyItemWorkInputD67CE4);
         static_cast<void>(Sub_4F24A0());
         static_cast<void>(audio::Sub_5042D0(100));
     }
@@ -12237,17 +12620,18 @@ std::int32_t Sub_4F24A0()
 {
     const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
     const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
-    char request[256];
-    char source[256];
-    std::strcpy(request, gLegacyItemWorkDraftCC31E0.c_str());
-    std::strcpy(source, gLegacyItemWorkDraftCC31E0.c_str());
+    const std::string request = cg::text::FromUtf16(gLegacyItemWorkDraftCC31E0);
+    const std::string source = cg::text::ToGbk(gLegacyItemWorkDraftCC31E0);
+    if (source.size() >= gLegacyItemWorkNameCC40D8.size()) {
+        throw cg::text::GbkStorageError(122, std::system_category(), "名称超过GBK字段容量");
+    }
     NullSub_509080();
     const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
     const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
     const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request));
-    if (std::strlen(source) != 0) {
-        std::strncpy(gLegacyItemWorkNameCC40D8.data(), source, static_cast<std::uint32_t>(64));
+    static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request.c_str()));
+    if (!source.empty()) {
+        std::strncpy(gLegacyItemWorkNameCC40D8.data(), source.c_str(), static_cast<std::uint32_t>(64));
     } else {
         std::strncpy(gLegacyItemWorkNameCC40D8.data(), world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].name.data(), static_cast<std::uint32_t>(64));
     }
@@ -12367,7 +12751,7 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
 
 // 原函数：0x004F2A30。
 std::uintptr_t Sub_4F2A30(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyItemWorkPanel5842D0.x;
     const std::int32_t y = gLegacyItemWorkPanel5842D0.y;
     std::array<LegacyPanelButtonRecord, 3> buttons;
@@ -12437,7 +12821,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     if (ui::detail::ReadLegacyItemWorkSkillD67CF0() == 220) {
         cost = 10;
     }
-    char buffer[256];
+    char buffer[768];
     const std::int32_t phase = gLegacyItemWorkPhaseCC4220;
     if (phase == 7 || phase == 8 || phase == 9) {
         const std::uint32_t now = platform::ReadTickCount32();
@@ -12450,7 +12834,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
                 || skillId == 2032 || skillId == 219 || skillId == 2033) {
                 buffer[0] = '\0';
             } else {
-                std::strcpy(buffer, gLegacyItemWorkDraftCC31E0.c_str());
+                std::strcpy(buffer, cg::text::FromUtf16(gLegacyItemWorkDraftCC31E0).c_str());
             }
             NullSub_509080();
             const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
@@ -12552,40 +12936,40 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     case 0: {
         const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
         if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            message = kItemWorkText589F54;
+            message = kItemWorkText589F54Utf8View.c_str();
         } else if (skillId == 219 || skillId == 2033) {
-            message = kItemWorkText589F6C;
+            message = kItemWorkText589F6CUtf8View.c_str();
         } else if (skillId == 220) {
-            message = kItemWorkText589F84;
+            message = kItemWorkText589F84Utf8View.c_str();
         }
         break;
     }
-    case 1: message = kItemWorkText589F40; break;
+    case 1: message = kItemWorkText589F40Utf8View.c_str(); break;
     case 2:
         std::sprintf(buffer, kItemWorkText589F2C, cost);
-        gLegacyItemWorkMessageCA0ACC = buffer;
+        gLegacyItemWorkMessageCA0ACC = cg::text::ToUtf16(buffer);
         break;
-    case 3: message = kLegacyGatherNoFp5864F0; break;
-    case 4: message = kItemWorkText589F1C; break;
-    case 5: message = kItemWorkText589F04; break;
-    case 6: message = kItemWorkText589EF4; break;
-    case 7: message = kItemWorkText589EDC; break;
-    case 8: message = kItemWorkText589EC4; break;
-    case 9: message = kItemWorkText589EAC; break;
-    case 10: message = kItemWorkText589E94; break;
-    case 11: message = kItemWorkText589E80; break;
-    case 12: message = kItemWorkText589E58; break;
-    case 13: message = kItemWorkText589E30; break;
-    case 14: message = kItemWorkText589E1C; break;
-    case 15: message = kItemWorkText589E04; break;
+    case 3: message = kLegacyGatherNoFp5864F0Utf8View.c_str(); break;
+    case 4: message = kItemWorkText589F1CUtf8View.c_str(); break;
+    case 5: message = kItemWorkText589F04Utf8View.c_str(); break;
+    case 6: message = kItemWorkText589EF4Utf8View.c_str(); break;
+    case 7: message = kItemWorkText589EDCUtf8View.c_str(); break;
+    case 8: message = kItemWorkText589EC4Utf8View.c_str(); break;
+    case 9: message = kItemWorkText589EACUtf8View.c_str(); break;
+    case 10: message = kItemWorkText589E94Utf8View.c_str(); break;
+    case 11: message = kItemWorkText589E80Utf8View.c_str(); break;
+    case 12: message = kItemWorkText589E58Utf8View.c_str(); break;
+    case 13: message = kItemWorkText589E30Utf8View.c_str(); break;
+    case 14: message = kItemWorkText589E1CUtf8View.c_str(); break;
+    case 15: message = kItemWorkText589E04Utf8View.c_str(); break;
     default: break;
     }
     if (message != nullptr) {
         std::sprintf(buffer, message);
-        gLegacyItemWorkMessageCA0ACC = buffer;
+        gLegacyItemWorkMessageCA0ACC = cg::text::ToUtf16(buffer);
     }
     for (std::int32_t row = 0; row < 3; ++row) {
-        if (input::ExtractLegacyLine_503AB0(
+        if (input::ExtractTextLine(
                 buffer, 256, gLegacyItemWorkMessageCA0ACC.c_str(), row, 28) != 0) {
             const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 255 + 20 * row;
             const std::int32_t left = gLegacyItemWorkPanel5842D0.x + 9;
@@ -12599,8 +12983,8 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
         Sub_5035E0(&buttons[gLegacyItemWorkButtonKindD67CF4], 212, 1, gValueD69768, 0);
     }
     const auto writeTaggedHint = [](const world::detail::PlayerItemRecord* const item, const bool name) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), name ? item->name.data() : item->memo.data());
-        std::strcat(ui::detail::gHoverTextD68AE8.data(), name ? "[kok]" : "[han]");
+        ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(name ? item->name.data() : item->memo.data());
+        std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), name ? "[kok]" : "[han]");
     };
     if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
@@ -12619,11 +13003,11 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
         }
     }
     if (Sub_503590(&gLegacyItemWorkPanel5842D0) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else {
         const std::int32_t buttonState = QueryPanelButtonState(&buttons[gLegacyItemWorkButtonKindD67CF4]);
         const std::int32_t hintPhase = gLegacyItemWorkPhaseCC4220;
-        const char* hint = nullptr;
+        const wchar_t* hint = nullptr;
         if ((buttonState & 0x40) != 0 && (hintPhase < 7 || hintPhase > 9)) {
             const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
             if (skillId == 217 || skillId == 218) {
@@ -12680,12 +13064,16 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             }
         }
         if (hint != nullptr) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+            ui::detail::gHoverTextD68AE8 = hint;
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyItemWorkPanel5842D0, 1);
     gLegacyItemWorkHover584398 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FB940。
@@ -12699,7 +13087,7 @@ void Sub_4FB940(
     if (item->used == 0) {
         return;
     }
-    Sub_504BA0(x, y, 272, 4, 0, item->name.data(), item->memo.data(),
+    Sub_504BA0(x, y, 272, 4, 0, cg::text::FromGbk(item->name.data()).c_str(), cg::text::FromGbk(item->memo.data()).c_str(),
         0, 0, std::bit_cast<std::int16_t>(item->flags));
     for (std::int32_t row = 0; row < 8; ++row) {
         const char* const text = item->description[page * 8 + row].data();
@@ -12868,7 +13256,7 @@ std::int32_t Sub_4F4760()
 
 // 原函数：0x004F4790。
 std::uint32_t Sub_4F4790(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyCraftMaterialsPanel584468.x;
     const std::int32_t y = gLegacyCraftMaterialsPanel584468.y;
     LegacyPanelButtonRecord confirm {x + 140, y + 357, x + 100, y + 347, 80, 20, 23363, 23365};
@@ -12971,7 +13359,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
         const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, &descriptor));
     }
-    char buffer[256];
+    char buffer[768];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t slot = row * 5 + column;
@@ -13028,12 +13416,12 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
     if (phase != 0) {
         const char* message = nullptr;
         switch (phase) {
-        case 1: message = kLegacyMaterialText58A078; break;
-        case 2: message = kLegacyMaterialText58A064; break;
-        case 3: message = kLegacyMaterialText58A054; break;
-        case 4: message = kLegacyMaterialText58A044; break;
-        case 5: case 6: message = kLegacyMaterialText58A034; break;
-        case 7: message = kLegacyGatherNoFp5864F0; break;
+        case 1: message = kLegacyMaterialText58A078Utf8View.c_str(); break;
+        case 2: message = kLegacyMaterialText58A064Utf8View.c_str(); break;
+        case 3: message = kLegacyMaterialText58A054Utf8View.c_str(); break;
+        case 4: message = kLegacyMaterialText58A044Utf8View.c_str(); break;
+        case 5: case 6: message = kLegacyMaterialText58A034Utf8View.c_str(); break;
+        case 7: message = kLegacyGatherNoFp5864F0Utf8View.c_str(); break;
         default: break;
         }
         // 原default保留局部缓冲；已证正常阶段生产为0..7，不新增补零或文案。
@@ -13051,13 +13439,13 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
     const auto writeTaggedHint = [](const world::detail::PlayerItemRecord* const item) {
         const std::uint16_t flags = item->flags;
         if ((flags & 0x100u) != 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), item->name.data());
-            std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+            ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->name.data());
+            std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[kok]");
             return true;
         }
         if ((flags & 0x200u) != 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(), item->memo.data());
-            std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+            ui::detail::gHoverTextD68AE8 = cg::text::FromGbkWide(item->memo.data());
+            std::strcat(cg::text::FromUtf16(ui::detail::gHoverTextD68AE8).c_str(), "[han]");
             return true;
         }
         return false;
@@ -13066,24 +13454,26 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
         static_cast<void>(writeTaggedHint(&world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8]));
     }
     if (Sub_503590(&gLegacyCraftMaterialsPanel584468) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else {
         const std::int32_t buttonState = QueryPanelButtonState(&confirm);
         const std::int32_t hintPhase = gLegacyCraftPhaseD67D00;
         if ((buttonState & 0x40) != 0 && hintPhase < 4) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-                markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010);
+            ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010);
         } else if (hovered >= 0) {
             const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
             if (item->used != 0 && hintPhase < 4 && !writeTaggedHint(item)) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-                    gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC);
+                ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC);
             }
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyCraftMaterialsPanel584468, 1);
     gLegacyCraftMaterialHoverD45F84 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F50D0。
@@ -13128,7 +13518,7 @@ std::int32_t Sub_4F51A0()
 
 // 原函数：0x004F51D0。
 std::uint32_t Sub_4F51D0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyCraftExecutionPanel584530.x;
     const std::int32_t y = gLegacyCraftExecutionPanel584530.y;
     LegacyPanelButtonRecord execute {x + 97, y + 357, x + 57, y + 347, 80, 20, 23360, 23362};
@@ -13177,7 +13567,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
         const std::int32_t image = world::detail::ReadPlayerImageNo();
         gLegacyCraftExecutionActionD67D08 = Sub_4FAAA0(image, left + 94, top + 290);
     }
-    char buffer[256];
+    char buffer[768];
     char part[128];
     if ((QueryPanelButtonState(&back) & 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyCraftExecutionPanel584530.id));
@@ -13238,7 +13628,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
             }
         }
     }
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyCraftExecutionPanel584530.y;
         const std::int32_t left = gLegacyCraftExecutionPanel584530.x;
@@ -13247,9 +13637,9 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     };
     const std::int32_t measuredRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t width =
-        TextMeasure(world::detail::gSkillsF1BAFC[skill].recipes8E8[measuredRecipe].name.data(), 0);
+        TextMeasure(cg::text::FromGbk(world::detail::gSkillsF1BAFC[skill].recipes8E8[measuredRecipe].name.data()).c_str(), 0);
     const std::int32_t nameRecipe = ui::detail::gRecipeIndex5846BC;
-    drawAt(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data(), 137 - width / 2, 37, 0);
+    drawAt(cg::text::FromGbk(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data()).c_str(), 137 - width / 2, 37, 0);
     const std::int32_t costRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
     const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
@@ -13259,7 +13649,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     for (std::int32_t material = 4; material >= 0; --material) {
         const auto* const item = &world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material];
         if (item->itemId >= 0) {
-            drawAt(item->name.data(), 11, 65 + 24 * material, 0);
+            drawAt(cg::text::FromGbk(item->name.data()).c_str(), 11, 65 + 24 * material, 0);
             materialRecipe = ui::detail::gRecipeIndex5846BC;
             const std::int32_t count =
                 world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material].count;
@@ -13291,14 +13681,17 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     }
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     if (Sub_503590(&gLegacyCraftExecutionPanel584530) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&execute) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-            ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyCraftExecute58A0A8 : kLegacyCraftMissing58A098);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyCraftExecute58A0A8 : kLegacyCraftMissing58A098);
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyCraftBack58A084);
+        ui::detail::gHoverTextD68AE8 = kLegacyCraftBack58A084;
     }
     return Sub_503440(&gLegacyCraftExecutionPanel584530, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00504EE0。
@@ -13341,7 +13734,7 @@ std::int32_t Sub_504FA0()
 
 // 原函数：0x00505170。
 std::uint32_t Sub_505170(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGemMaterialsPanel58AA60.x;
     const std::int32_t y = gLegacyGemMaterialsPanel58AA60.y;
     LegacyPanelButtonRecord confirm {x + 140, y + 357, x + 100, y + 347, 80, 20, 23363, 23365};
@@ -13473,7 +13866,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
         const std::int32_t mouseX = platform::BorrowLegacyMouseStateStorage()->mouseX.value();
         static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, nullptr));
     }
-    char buffer[256];
+    char buffer[768];
     for (std::int32_t row = 0; row < 4; ++row) {
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t slot = row * 5 + column;
@@ -13528,12 +13921,12 @@ std::uint32_t Sub_505170(const std::int32_t opened)
     const std::int32_t phase = gLegacyGemPhaseD68A8C;
     if (phase != 0) {
         switch (phase) {
-        case 1: std::strcpy(buffer, kLegacyGemTooFew58ACA4); break;
-        case 2: std::strcpy(buffer, kLegacyGemInvalid58AC90); break;
-        case 3: std::strcpy(buffer, kLegacyGemMissing58AC7C); break;
-        case 4: std::strcpy(buffer, kLegacyGemRegistered58AC6C); break;
-        case 5: std::strcpy(buffer, kLegacyGatherNoFp5864F0); break;
-        case 6: case 7: std::strcpy(buffer, kLegacyGemWorking58AC58); break;
+        case 1: std::strcpy(buffer, kLegacyGemTooFew58ACA4Utf8View.c_str()); break;
+        case 2: std::strcpy(buffer, kLegacyGemInvalid58AC90Utf8View.c_str()); break;
+        case 3: std::strcpy(buffer, kLegacyGemMissing58AC7CUtf8View.c_str()); break;
+        case 4: std::strcpy(buffer, kLegacyGemRegistered58AC6CUtf8View.c_str()); break;
+        case 5: std::strcpy(buffer, kLegacyGatherNoFp5864F0Utf8View.c_str()); break;
+        case 6: case 7: std::strcpy(buffer, kLegacyGemWorking58AC58Utf8View.c_str()); break;
         default: break;
         }
         const std::int32_t textWidth = TextMeasure(buffer, 0);
@@ -13543,34 +13936,39 @@ std::uint32_t Sub_505170(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, 0, 0, buffer, 0, 0));
     }
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (Sub_503590(&gLegacyGemMaterialsPanel58AA60) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331C);
+        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
     }
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0 && gLegacyGemPhaseD68A8C <= 4) {
-        std::strcpy(hint, markedCount > 0 ? kLegacyGemRegister58AC3C : kLegacyGemNone58AC28);
+        std::strcpy(hint, markedCount > 0 ? kLegacyGemRegister58AC3CUtf8View.c_str() : kLegacyGemNone58AC28Utf8View.c_str());
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
         if (item->used != 0) {
             const std::uint16_t flags = item->flags;
             if ((flags & 0x100u) != 0) {
-                std::strcpy(hint, item->name.data());
+                cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->name.data()));
                 std::strcat(hint, "[kok]");
             } else if ((flags & 0x200u) != 0) {
-                std::strcpy(hint, item->memo.data());
+                cg::text::Copy(hint, sizeof(hint), cg::text::FromGbk(item->memo.data()));
                 std::strcat(hint, "[han]");
             } else if (ui::detail::gItemMarksD68A90[hovered] != 0) {
-                std::strcpy(hint, kLegacyGemSelected58AC10);
+                std::strcpy(hint, kLegacyGemSelected58AC10Utf8View.c_str());
             } else {
                 const bool selectable = world::detail::Sub_505040(hovered + 8) != 0
                     || world::detail::Sub_5050B0(hovered + 8) != 0;
-                std::strcpy(hint, selectable ? kLegacyGemSelect58AC00 : kLegacyGemReject58ABEC);
+                std::strcpy(hint, selectable ? kLegacyGemSelect58AC00Utf8View.c_str() : kLegacyGemReject58ABECUtf8View.c_str());
             }
         }
     }
     const std::uint32_t result = Sub_503440(&gLegacyGemMaterialsPanel58AA60, 1);
     gLegacyGemMaterialHoverD68A84 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00505BC0。
@@ -13614,7 +14012,7 @@ std::int32_t Sub_5062A0()
 
 // 原函数：0x00505C20。
 std::uint32_t Sub_505C20(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyGemExecutionPanel58AB28.x;
     const std::int32_t y = gLegacyGemExecutionPanel58AB28.y;
     LegacyPanelButtonRecord execute {x + 97, y + 357, x + 57, y + 347, 80, 20, 23360, 23362};
@@ -13652,7 +14050,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     char part[128];
-    char buffer[256];
+    char buffer[768];
     if ((QueryPanelButtonState(&back) & 1) != 0) {
         static_cast<void>(audio::Sub_5042D0(gLegacyGemExecutionPanel58AB28.id));
         static_cast<void>(audio::Sub_504180(19));
@@ -13706,11 +14104,11 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
         }
     }
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     const std::int32_t nameY = gLegacyGemExecutionPanel58AB28.y + 37;
     const std::int32_t nameX = gLegacyGemExecutionPanel58AB28.x + 137 - width / 2;
-    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-        static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+    static_cast<void>(DrawText(static_cast<std::int16_t>(cg::text::FromGbk(cg::text::FromGbk(name).c_str()).c_str()X),
+        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     const std::int32_t reduce = world::detail::gSkillsF1BAFC[skill].fpReduce;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].techniques3C[0].value7C;
     std::sprintf(buffer, "%4d", fp * reduce / 100);
@@ -13743,14 +14141,17 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
     }
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     if (Sub_503590(&gLegacyGemExecutionPanel58AB28) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     } else if ((QueryPanelButtonState(&execute) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-            ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyGemExecute58ACB0 : kLegacyGemMissing58AC7C);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyGemExecute58ACB0 : kLegacyGemMissing58AC7C);
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyGemBack5871F0);
+        ui::detail::gHoverTextD68AE8 = kLegacyGemBack5871F0;
     }
     return Sub_503440(&gLegacyGemExecutionPanel58AB28, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00519640。
@@ -13765,7 +14166,7 @@ std::int32_t Sub_519640(const std::int32_t skill)
 
 // 原函数：0x004F5A60。
 std::uint32_t Sub_4F5A60(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyCraftRecipePanel5845F8.x;
     const std::int32_t y = gLegacyCraftRecipePanel5845F8.y;
     LegacyPanelButtonRecord previous {x + 61, y + 357, x + 47, y + 345, 28, 24, 23022, 23026};
@@ -13830,8 +14231,8 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
         static_cast<void>(audio::Sub_5042D0(gLegacyCraftRecipePanel5845F8.id));
         static_cast<void>(audio::Sub_504180(19));
     }
-    char buffer[256];
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    char buffer[768];
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
         const std::int32_t top = gLegacyCraftRecipePanel5845F8.y;
         const std::int32_t left = gLegacyCraftRecipePanel5845F8.x;
@@ -13839,8 +14240,8 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
             static_cast<std::int16_t>(top + offsetY), 2, font, color, text, 0, 0));
     };
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
-    const std::int32_t width = TextMeasure(name, 0);
-    drawAt(name, 85 - width / 2, 35, 0, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
+    drawAt(cg::text::FromGbk(name).c_str(), 85 - width / 2, 35, 0, 0);
     std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 66, 60, 1, 0);
     // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
@@ -13852,7 +14253,7 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
         const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
         if (recipe->itemId >= 0) {
             const std::int8_t color = recipe->value0C == 0 ? 7 : 0;
-            drawAt(recipe->name.data(), 11, 90 + 24 * row, 0, color);
+            drawAt(cg::text::FromGbk(recipe->name.data()).c_str(), 11, 90 + 24 * row, 0, color);
             const std::int32_t costRecipe = row + 8 * gLegacyRecipePageD67D0C;
             const std::int32_t multiplierSkill = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
             const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
@@ -13873,7 +14274,7 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
                 const std::int32_t descriptionRecipe = hoveredRow + 8 * gLegacyRecipePageD67D0C;
                 const char* const description =
                     world::detail::gSkillsF1BAFC[skill].recipes8E8[descriptionRecipe].description.data();
-                if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 28) != 0) {
+                if (input::ExtractGbkTextLine(buffer, 256, description, line, 28) != 0) {
                     drawAt(buffer, 46, 293 + 20 * line, 0, 0);
                 }
             }
@@ -13888,20 +14289,23 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     if (Sub_503590(&gLegacyCraftRecipePanel5845F8) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
                || (QueryPanelButtonState(&next) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyRecipePage586D2C);
+        ui::detail::gHoverTextD68AE8 = kLegacyRecipePage586D2C;
     } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyRecipeBack58A0E0);
+        ui::detail::gHoverTextD68AE8 = kLegacyRecipeBack58A0E0;
     } else if (hoveredRecipe >= 0) {
         const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[hoveredRecipe];
         if (recipe->itemId >= 0) {
-            std::strcpy(ui::detail::gHoverTextD68AE8.data(),
-                recipe->value0C == 1 ? kLegacyRecipeSelect58A0D0 : kLegacyRecipeUnavailable58A0B8);
+            ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(recipe->value0C == 1 ? kLegacyRecipeSelect58A0D0 : kLegacyRecipeUnavailable58A0B8);
         }
     }
     return Sub_503440(&gLegacyCraftRecipePanel5845F8, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004F61C0。
@@ -13988,14 +14392,14 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
         return records + index * 0x80;
     };
-    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY, const std::int8_t font) {
         const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + offsetY;
         const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
-    char buffer[128];
+    char buffer[384];
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
     const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
@@ -14011,7 +14415,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         }
         std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
         drawAt(buffer, 46, 170, 1);
-        const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);
+        const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(reinterpret_cast<const char*>(selectedRecord() + 0x34)).c_str(), 0);
         const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
         drawAt(name, 154 - nameWidth / 2, 168, 0);
         const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);
@@ -14070,7 +14474,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     Sub_5035E0(&nextTen, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyAlbumDetailPanel5846C0) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
@@ -14081,7 +14485,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         hint = kLegacyAlbumBack58A0FC;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);
 }
@@ -14163,7 +14567,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 15; ++row) {
         const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
         const std::int32_t index = row + 15 * gLegacyAlbumPageC8B1B0;
@@ -14176,13 +14580,13 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
                 static_cast<std::int16_t>(numberY), 2, 1, 0, buffer, 0, 0));
             const std::byte* const measureRecords = world::detail::BorrowSelectedAlbumRecords();
             const std::int32_t width = TextMeasure(
-                reinterpret_cast<const char*>(measureRecords + index * 0x80 + 0x34), 0);
+                cg::text::FromGbk(reinterpret_cast<const char*>(measureRecords + index * 0x80 + 0x34)).c_str(), 0);
             const std::byte* const nameRecords = world::detail::BorrowSelectedAlbumRecords();
             const std::int32_t nameY = gLegacyAlbumListPanel584788.y + 24 * row + 40;
             const char* const name = reinterpret_cast<const char*>(nameRecords + index * 0x80 + 0x34);
             const std::int32_t nameX = gLegacyAlbumListPanel584788.x - width / 2 + 154;
             static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-                static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+                static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
             const std::byte* const flagRecords = world::detail::BorrowSelectedAlbumRecords();
             if (flagRecords[index * 0x80 + 0x7F] != std::byte{0}) {
                 const std::int32_t markY = gLegacyAlbumListPanel584788.y + 48 + 24 * row;
@@ -14207,7 +14611,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 40), Low16(top + 37),
             Low16(left + 232), Low16(top + 61), 214, color, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyAlbumListPanel584788) != 0) {
         hint = kLegacyLogout553FD0;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
@@ -14216,7 +14620,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         hint = kLegacyAlbumOpen58A114;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyAlbumListPanel584788, 1);
 }
@@ -14232,7 +14636,7 @@ std::int32_t Sub_4F7140()
 // 原旧20完整列表入口；内嵌4F7870本体已接，真实旧表外层路由及运行仍待。
 // 原函数：0x004F7150。
 std::uint32_t Sub_4F7150(const std::int32_t opened)
-{
+try {
     const std::int32_t panelY = gLegacyPetListPanel584850.y;
     const std::int32_t panelX = gLegacyPetListPanel584850.x;
     std::array<LegacyPanelButtonRecord, 5> buttons;
@@ -14294,7 +14698,7 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
             gLegacyPetListPanel584850.y);
     }
     gLegacyPetStatePreviousD2D48C = gLegacyPetStateOpenD67D18;
-    char buffer[128];
+    char buffer[384];
     for (std::int32_t row = 0; row < 5; ++row) {
         if (world::detail::gPetPairsDE0B08[row].used == 0) {
             continue;
@@ -14302,10 +14706,10 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
         auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
         const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-        const std::int32_t width = TextMeasure(name, 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 36 + 75 * row),
-            2, 0, 0, name, 0, 0));
+            2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
         std::sprintf(buffer, "%3d", pet.value08);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
@@ -14348,7 +14752,7 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         DrawGraphicHover(Low16(left + 8), Low16(top), Low16(left + 154), Low16(top + 21),
             214, color, 0);
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyPetListPanel584850) != 0) {
         hint = kLegacyLogout553FD0;
     } else if (nameHovered >= 0 && world::detail::gPetPairsDE0B08[nameHovered].used != 0) {
@@ -14357,14 +14761,18 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         hint = kLegacyPetChooseState58A12C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyPetListPanel584850, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原[4F7870,4F8336)完整634条；唯一4F7150 caller弃返回，沿已证void合同。
 void Sub_4F7870(const std::int32_t x, const std::int32_t y)
-{
+try {
     std::int32_t hoveredRow = -1; // D01/P06：仅入口补原var_228。
     std::int32_t hoveredState = -1; // D01/P06：仅入口补原var_224。
     LegacyPanelButtonRecord confirm {AddW32(x, 48), AddW32(y, 228),
@@ -14498,7 +14906,7 @@ void Sub_4F7870(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     Sub_5035E0(&cancel, 212, 1, gValueD69768, 0);
     static_cast<void>(DrawGraphic(AddW32(x, 48), AddW32(y, 228), 212, 22910, 1, nullptr));
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
         hint = kLegacyPetStateConfirm58A1F0;
     } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
@@ -14536,8 +14944,12 @@ void Sub_4F7870(const std::int32_t x, const std::int32_t y)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return;
 }
 
 // 原函数：0x004F8340。
@@ -14604,13 +15016,13 @@ std::uintptr_t Sub_4F83B0(const std::int32_t opened)
     if (std::strlen(name) == 0) {
         name = pet.name6AC.data();
     }
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     const std::int32_t y = gLegacyPetDetailPanel584918.y + 9;
     const std::int32_t x = gLegacyPetDetailPanel584918.x - width / 2 + 116;
     static_cast<void>(DrawText(static_cast<std::int16_t>(x),
-        static_cast<std::int16_t>(y), 2, 0, 0, name, 0, 0));
+        static_cast<std::int16_t>(y), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     if (Sub_503590(&gLegacyPetDetailPanel584918) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     }
     return Sub_503440(&gLegacyPetDetailPanel584918, 1);
 }
@@ -14656,12 +15068,12 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
             SetYobiActionField2B8(gLegacyPetDetailActionD67AE0, 6);
         }
     }
-    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [x, y](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 44);
     std::sprintf(buffer, "%9d", pet.values0C[4].value());
@@ -14714,7 +15126,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     Sub_5035E0(&rename, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&back) & 0x40) != 0) {
         hint = kLegacyPetBack58A204;
     } else if ((QueryPanelButtonState(&rename) & 0x40) != 0) {
@@ -14723,14 +15135,14 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
         hint = kLegacyRecipePage586D2C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return 0;
 }
 
 // 原函数：0x004F8E40。
 std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
-{
+try {
     const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
     const std::int32_t panelX = gLegacyPetDetailPanel584918.x;
     std::array<LegacyPanelButtonRecord, 5> attributes;
@@ -14769,12 +15181,12 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
             }
         }
     }
-    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [x, y](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 36);
     const std::int32_t maxHp = pet.values0C[1].value();
@@ -14823,7 +15235,7 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&back) & 0x40) != 0) {
         hint = kLegacyPetBack58A204;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
@@ -14842,8 +15254,12 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
+    return 0;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
     return 0;
 }
 
@@ -14870,14 +15286,14 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         }
     }
     static_cast<void>(HandleLegacyPetNavigation(&back, &previous, &next));
-    char buffer[256];
+    char buffer[768];
     for (std::int32_t row = 0; row < slots; ++row) {
         const auto& pair = pet.techniquePairs650[row];
         if (pair.used != 0) {
             const auto skill = std::bit_cast<std::int16_t>(pair.index);
             const auto& technique = pet.techniquesD8[skill];
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 39),
-                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, technique.name.data(), 0, 0));
+                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, cg::text::FromGbk(technique.name.data()).c_str(), 0, 0));
             std::sprintf(buffer, "%4d", technique.fp);
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 211),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 1, 0, buffer, 0, 0));
@@ -14888,7 +15304,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         const auto skill = std::bit_cast<std::int16_t>(pet.techniquePairs650[hovered].index);
         const char* const description = pet.techniquesD8[skill].description.data();
         for (std::int32_t line = 0; line < 4; ++line) {
-            if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 26) != 0) {
+            if (input::ExtractGbkTextLine(buffer, 256, description, line, 26) != 0) {
                 static_cast<void>(DrawText(static_cast<std::int16_t>(x + 19),
                     static_cast<std::int16_t>(y + 294 + 19 * line), 2, 0, 0, buffer, 0, 0));
             }
@@ -14904,14 +15320,14 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((QueryPanelButtonState(&back) & 0x40) != 0) {
         hint = kLegacyPetBack58A204;
     } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
         hint = kLegacyRecipePage586D2C;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return 0;
 }
@@ -15120,14 +15536,14 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
         input::InputContext* const context = input::BorrowLegacyBlacklistContext593858();
         gLegacyBlacklistInput5939B8 = context;
-        context->text[0] = 0;
+        context->clearText();
         context->totalByteLength = 0;
         context->caretByteOffset = 0;
         input::InitializeContext_449CF0(context, inputX + 21, inputY + 408, 2, 0, 0, nullptr, 1, 16, 18, 0);
         input::SetContext_44B330(gLegacyBlacklistInput5939B8);
     }
-    constexpr const char* instructions[3] {
-        kLegacyBlacklistText5533F4, kLegacyBlacklistText5533B4, kLegacyBlacklistText553370,
+    const char* const instructions[3] {
+        kLegacyBlacklistText5533F4Utf8View.c_str(), kLegacyBlacklistText5533B4Utf8View.c_str(), kLegacyBlacklistText553370Utf8View.c_str(),
     };
     for (std::int32_t index = 0; index < 3; ++index) {
         const std::int32_t textY = gLegacyBlacklistPanel5531D0.y;
@@ -15157,36 +15573,35 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
             const std::int32_t nameY = gLegacyBlacklistPanel5531D0.y;
             const std::int32_t nameX = gLegacyBlacklistPanel5531D0.x;
             DrawText(Low16(nameX + 148 * column + 10), Low16(nameY + 15 * row + 115),
-                2, 1, 0, name, 0, 0);
+                2, 1, 0, cg::text::FromGbk(name).c_str(), 0, 0);
             ++row;
         }
     }
     render::DrawInputText_4568A0(gLegacyBlacklistInput5939B8);
     Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (Sub_503590(&gLegacyBlacklistPanel5531D0) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331C);
+        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
     } else if ((QueryPanelButtonState(&confirm) & 1) == 0 && (platform::gKeyStates[13] & 4u) == 0) {
         if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-            std::strcpy(hint, kLegacyBlacklistText553304);
+            std::strcpy(hint, kLegacyBlacklistText553304Utf8View.c_str());
         }
-    } else if (gLegacyBlacklistInput5939B8->text[0] != 0) {
-        char message[128];
-        if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->text) != 0) {
-            const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->text) != 0;
-            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
-                gLegacyBlacklistInput5939B8->text);
+    } else if (!gLegacyBlacklistInput5939B8->empty()) {
+        char message[384];
+        if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0) {
+            const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
+            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8, gLegacyBlacklistInput5939B8->utf8().c_str());
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
-                world::detail::Sub_44B050(kLegacyBlacklistText553294, 4, 3);
+                world::detail::Sub_44B050(kLegacyBlacklistText553294Utf8View.c_str(), 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
-            const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->text) != 0;
-            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
-                gLegacyBlacklistInput5939B8->text);
+            const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->utf8().c_str()) != 0;
+            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0, gLegacyBlacklistInput5939B8->utf8().c_str());
         }
-        gLegacyBlacklistInput5939B8->text[0] = 0;
+        gLegacyBlacklistInput5939B8->clearText();
         gLegacyBlacklistInput5939B8->totalByteLength = 0;
         gLegacyBlacklistInput5939B8->caretByteOffset = 0;
         const std::int32_t inputY = gLegacyBlacklistPanel5531D0.y;
@@ -15270,11 +15685,12 @@ std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
         render::DrawInputText_4568A0(input::BorrowLegacyPresetContext5F9758(index + 26 * currentPage));
     }
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
-    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    const std::string hintUtf8View = cg::text::FromUtf16(ui::detail::gHoverTextD68AE8);
+    const char* const hint = hintUtf8View.c_str();
     if (Sub_503590(&gLegacyPresetPanel5850C8) != 0) {
-        std::strcpy(hint, kLegacySkillClose55331C);
+        std::strcpy(hint, kLegacySkillClose55331CUtf8View.c_str());
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
-        std::strcpy(hint, kLegacyPresetConfirm58A6C0);
+        std::strcpy(hint, kLegacyPresetConfirm58A6C0Utf8View.c_str());
     } else if (hovered >= 0) {
         const std::int8_t currentPage = gLegacyPresetPanel5850C8.selected;
         if (currentPage == 0) {
@@ -15323,14 +15739,14 @@ std::uint32_t Sub_4FA350(const std::int32_t opened)
         static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));
     }
     if (hovered >= 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyEmoteHints5871B0[hovered]);
+        ui::detail::gHoverTextD68AE8 = kLegacyEmoteHints5871B0[hovered];
     }
     return Sub_503440(&gLegacyEmotePanel584AA8, 1);
 }
 
 // 原函数：0x004FA050。
 std::uintptr_t Sub_4FA050(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyPetRenamePanel5849E0.x;
     const std::int32_t y = gLegacyPetRenamePanel5849E0.y;
     LegacyPanelButtonRecord confirm {x + 90, y + 172, x + 50, y + 162, 80, 20, 22712, 22713};
@@ -15351,13 +15767,13 @@ std::uintptr_t Sub_4FA050(const std::int32_t opened)
     const auto index = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
     auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
-    char buffer[256];
+    char buffer[768];
     if (gLegacyPetRenameInputD67D1C == nullptr) {
         const std::int32_t top = gLegacyPetRenamePanel5849E0.y;
-        std::strcpy(buffer, pet.name6BD.data());
+        cg::text::Copy(buffer, sizeof(buffer), cg::text::FromGbk(pet.name6BD.data()));
         const std::int32_t left = gLegacyPetRenamePanel5849E0.x;
         gLegacyPetRenameInputD67D1C = &input::gInputContextD2DFD0;
-        input::gInputContextD2DFD0.text[0] = '\0';
+        input::gInputContextD2DFD0.clearText();
         input::gInputContextD2DFD0.totalByteLength = 0;
         input::gInputContextD2DFD0.caretByteOffset = 0;
         input::InitializeContext_449CF0(&input::gInputContextD2DFD0,
@@ -15365,8 +15781,8 @@ std::uintptr_t Sub_4FA050(const std::int32_t opened)
         input::SetContext_44B330(gLegacyPetRenameInputD67D1C);
     }
     if ((QueryPanelButtonState(&confirm) & 1) != 0) {
-        if (std::strcmp(pet.name6BD.data(), gLegacyPetRenameInputD67D1C->text) != 0) {
-            std::strcpy(buffer, gLegacyPetRenameInputD67D1C->text);
+        if (std::strcmp(pet.name6BD.data(), gLegacyPetRenameInputD67D1C->utf8().c_str()) != 0) {
+            std::strcpy(buffer, gLegacyPetRenameInputD67D1C->utf8().c_str());
             NullSub_509080();
             const std::uintptr_t socket = platform::gConnectionSocket;
             static_cast<void>(network::Sub_5125B0(socket, index, buffer));
@@ -15381,11 +15797,15 @@ std::uintptr_t Sub_4FA050(const std::int32_t opened)
     const std::int32_t nameY = gLegacyPetRenamePanel5849E0.y + 51;
     const std::int32_t nameX = gLegacyPetRenamePanel5849E0.x + 94;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
-        static_cast<std::int16_t>(nameY), 2, 0, 0, pet.name6BD.data(), 0, 0));
+        static_cast<std::int16_t>(nameY), 2, 0, 0, cg::text::FromGbk(pet.name6BD.data()).c_str(), 0, 0));
     render::DrawInputText_4568A0(gLegacyPetRenameInputD67D1C);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     Sub_5035E0(&cancel, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyPetRenamePanel5849E0, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FAED0。
@@ -15399,7 +15819,7 @@ std::int32_t Sub_4FAED0()
 
 // 原函数：0x004FAEF0。
 std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
-{
+try {
     GraphicDescriptor16 descriptor {};
     descriptor.bytes[8] = 0xFF;
     descriptor.bytes[9] = 0xFF;
@@ -15577,7 +15997,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
             static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, &descriptor));
         }
     }
-    char buffer[256];
+    char buffer[768];
     for (std::int32_t slot = 27; slot >= 0; --slot) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot];
         const auto& position = kLegacyInventoryPositions584CC4[slot];
@@ -15627,37 +16047,41 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     Sub_5035E0(&money, 218, 1, gValueD69768, 0);
     const char* hint = nullptr;
     if (Sub_503590(&gLegacyInventoryPanel584C00) != 0) {
-        hint = kLegacySkillClose55331C;
+        hint = kLegacySkillClose55331CUtf8View.c_str();
     } else if (ui::detail::gDraggingCA0B28 == 2) {
-        hint = kLegacyInventoryTarget58A394;
+        hint = kLegacyInventoryTarget58A394Utf8View.c_str();
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered];
         if (item->used != 0 && std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-            std::sprintf(buffer, "%s[kok]", item->name.data());
+            std::sprintf(buffer, "%s[kok]", cg::text::FromGbk(item->name.data()).c_str());
             hint = buffer;
         } else if (item->used != 0 && (item->flags & 0x200u) != 0) {
-            std::sprintf(buffer, kLegacyInventoryMemo58A38C, item->memo.data());
+            std::sprintf(buffer, kLegacyInventoryMemo58A38C, cg::text::FromGbk(item->memo.data()).c_str());
             hint = buffer;
         } else {
             switch (hovered) {
-            case 0: hint = kLegacyInventoryHead585C38; break;
-            case 1: hint = kLegacyInventoryBody585C20; break;
-            case 2: case 3: hint = kLegacyInventoryHand585C08; break;
-            case 4: hint = kLegacyInventoryFeet585BF0; break;
-            case 5: case 6: hint = kLegacyInventoryAccessory585BDC; break;
-            case 7: hint = kLegacyInventoryCrystal585BC8; break;
+            case 0: hint = kLegacyInventoryHead585C38Utf8View.c_str(); break;
+            case 1: hint = kLegacyInventoryBody585C20Utf8View.c_str(); break;
+            case 2: case 3: hint = kLegacyInventoryHand585C08Utf8View.c_str(); break;
+            case 4: hint = kLegacyInventoryFeet585BF0Utf8View.c_str(); break;
+            case 5: case 6: hint = kLegacyInventoryAccessory585BDCUtf8View.c_str(); break;
+            case 7: hint = kLegacyInventoryCrystal585BC8Utf8View.c_str(); break;
             default: break;
             }
         }
     } else if ((QueryPanelButtonState(&money) & 0x40) != 0) {
-        hint = kLegacyInventoryMoney58A37C;
+        hint = kLegacyInventoryMoney58A37CUtf8View.c_str();
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
     }
     const std::uint32_t result = Sub_503440(&gLegacyInventoryPanel584C00, 1);
     gLegacyInventoryHoverC8AF78 = hovered;
     return result;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FBB30。
@@ -15668,7 +16092,7 @@ void Sub_4FBB30()
 
 // 原函数：0x004FBB40。
 std::uintptr_t Sub_4FBB40(const std::int32_t opened)
-{
+try {
     const std::int32_t width = gLegacyMoneyPanel584DA8.width;
     const std::int32_t x = gLegacyMoneyPanel584DA8.x;
     const std::int32_t height = gLegacyMoneyPanel584DA8.height;
@@ -15735,7 +16159,7 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
     if (money < gLegacyMoneyAmountD2D618) {
         gLegacyMoneyAmountD2D618 = money;
     }
-    char buffer[256];
+    char buffer[768];
     std::sprintf(buffer, "%7d", money);
     const std::int32_t moneyY = gLegacyMoneyPanel584DA8.y + 46;
     const std::int32_t moneyX = gLegacyMoneyPanel584DA8.x + 88;
@@ -15761,7 +16185,7 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
     Sub_5035E0(&backspace, 218, 1, gValueD69768, 0);
     Sub_5035E0(&all, 218, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 218, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMoneyPanel584DA8) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
@@ -15785,19 +16209,23 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMoneyPanel584DA8, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原[4FF650,500358)完整919条；原反编译char不能覆盖实际EAX完整返回合同。
 std::uint32_t Sub_4FF650(const std::int32_t opened)
-{
+try {
     LegacyPanelButtonRecord transform {}; // D01/P02：仅原第四32B按钮在入口清零一次。
     LegacyPanelButtonRecord back;
     LegacyPanelButtonRecord previous;
     LegacyPanelButtonRecord next;
-    char buffer[256]; // 原格式/说明共用，不扩大第四按钮适配。
+    char buffer[768]; // 原格式/说明共用，不扩大第四按钮适配。
     if (character_select::state::gPukVersion >= 7
         && world::detail::gSkillsF1BAFC[std::bit_cast<std::int16_t>(
             world::detail::gSkillPairsF63370[std::bit_cast<std::int8_t>(
@@ -15893,10 +16321,10 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
                 const bool insufficient = world::detail::IsPlayerFpLessThan(cost);
                 if (kind == 4) {
                     if (insufficient) {
-                        world::detail::Sub_44B050(kLegacySkillDetailNoFp58A9D4, 4, 3);
+                        world::detail::Sub_44B050(kLegacySkillDetailNoFp58A9D4Utf8View.c_str(), 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else if (world::detail::Sub_518C60() <= 0) {
-                        world::detail::Sub_44B050(kLegacySkillDetailNoSpace58A9C4, 4, 3);
+                        world::detail::Sub_44B050(kLegacySkillDetailNoSpace58A9C4Utf8View.c_str(), 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         static_cast<void>(audio::Sub_504180(38));
@@ -15977,7 +16405,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
         static_cast<void>(DrawText(
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 36)),
             static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 81 + 24 * row)),
-            2, 0, color, technique.name.data(), 0, 0));
+            2, 0, color, cg::text::FromGbk(technique.name.data()).c_str(), 0, 0));
         const std::int32_t kind = skill.canRebirth;
         if (kind == 1 || kind == 2) {
             static_cast<void>(DrawText(
@@ -15999,10 +16427,10 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
         static_cast<void>(DrawGraphic(AddW32(x, 136), AddW32(x, 90 + 24 * row), 212, 22761, 0, nullptr));
     }
     const char* const name = skill.name.data();
-    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t width = TextMeasure(cg::text::FromGbk(name).c_str(), 0);
     static_cast<void>(DrawText(
         static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 86 - width / 2)),
-        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, name, 0, 0));
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, cg::text::FromGbk(name).c_str(), 0, 0));
     const std::int32_t maxLevel = skill.maxLevel;
     const std::int32_t level = skill.level;
     std::sprintf(buffer, "%2d/%2d", level, maxLevel);
@@ -16031,7 +16459,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
     if (hovered >= 0) {
         const char* const description = skill.techniques3C[hovered].description.data();
         for (std::int32_t line = 0; line < 4; ++line) {
-            if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 26) != 0) {
+            if (input::ExtractGbkTextLine(buffer, 256, description, line, 26) != 0) {
                 static_cast<void>(DrawText(
                     static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 19)),
                     static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 336 + 18 * line)),
@@ -16055,7 +16483,7 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
     }
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySkillDetail585640) != 0) {
         hint = kLegacySkillClose55331C;
     } else {
@@ -16081,14 +16509,18 @@ std::uint32_t Sub_4FF650(const std::int32_t opened)
         }
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySkillDetail585640, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00500370。
 std::int32_t Sub_500370(const std::int32_t opened)
-{
+try {
     std::uint8_t usedSlots = 0;
     const std::int32_t result = Sub_503160(opened, &gLegacySkillList585708, nullptr, 1);
     if (result == 0 || result == 2) {
@@ -16119,13 +16551,13 @@ std::int32_t Sub_500370(const std::int32_t opened)
             break;
         }
     }
-    char buffer[128];
-    const std::int32_t nameWidth = TextMeasure(world::detail::BorrowPlayerJobName(), 0);
+    char buffer[384];
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 0);
     const std::int32_t nameTop = gLegacySkillList585708.y;
     const std::int32_t nameLeft = gLegacySkillList585708.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameLeft - nameWidth / 2 + 147),
         static_cast<std::int16_t>(nameTop + 45), 2, 0, 0,
-        world::detail::BorrowPlayerJobName(), 0, 0));
+        cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 0, 0));
     for (std::int32_t row = 0; row < 15; ++row) {
         const world::detail::SkillPairRecord* const pair = &world::detail::gSkillPairsF63370[row];
         if (pair->used == 0) {
@@ -16138,7 +16570,7 @@ std::int32_t Sub_500370(const std::int32_t opened)
         const std::int32_t skillLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(skillLeft + 30),
             static_cast<std::int16_t>(skillTop + row * 29 + 120), 2, 0, 0,
-            skill->name.data(), 0, 0));
+            cg::text::FromGbk(skill->name.data()).c_str(), 0, 0));
         std::sprintf(buffer, "%2d", skill->level);
         const std::int32_t levelTop = gLegacySkillList585708.y;
         const std::int32_t levelLeft = gLegacySkillList585708.x;
@@ -16173,11 +16605,15 @@ std::int32_t Sub_500370(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(footerLeft + 156),
         static_cast<std::int16_t>(footerTop + 73), 2, 0, 0, buffer, 0, 0));
     if (Sub_503590(&gLegacySkillList585708) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     } else if (hovered >= 0 && world::detail::gSkillPairsF63370[hovered].used != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillOpen5864C8);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillOpen5864C8;
     }
     return std::bit_cast<std::int32_t>(Sub_503440(&gLegacySkillList585708, 1));
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x005006F0。
@@ -16221,11 +16657,11 @@ std::uintptr_t Sub_5006F0(const std::int32_t opened)
         selected = gLegacyProfilePanel5857D0.selected;
     }
     if (selected < 2) {
-        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerDisplayText(1), 0);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0);
         const std::int32_t y = gLegacyProfilePanel5857D0.y;
         const std::int32_t x = gLegacyProfilePanel5857D0.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 116),
-            static_cast<std::int16_t>(y + 9), 2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
+            static_cast<std::int16_t>(y + 9), 2, 0, 0, cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(1)).c_str(), 0, 0));
         selected = gLegacyProfilePanel5857D0.selected;
     }
     if (gLegacyProfilePreviousPage585894 != selected) {
@@ -16241,7 +16677,7 @@ std::uintptr_t Sub_5006F0(const std::int32_t opened)
         input::SetContext_44B330(context);
     }
     if (Sub_503590(&gLegacyProfilePanel5857D0) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     }
     const std::uint32_t result = Sub_503440(&gLegacyProfilePanel5857D0, 1);
     gLegacyProfilePreviousPage585894 = gLegacyProfilePanel5857D0.selected;
@@ -16250,7 +16686,7 @@ std::uintptr_t Sub_5006F0(const std::int32_t opened)
 
 // 原函数：0x005008C0。
 std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
-{
+try {
     const std::int32_t panelX = gLegacyProfilePanel5857D0.x;
     const std::int32_t panelY = gLegacyProfilePanel5857D0.y;
     std::array<LegacyPanelButtonRecord, 2> buttons {{
@@ -16279,11 +16715,11 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
         static_cast<void>(audio::PlaySe_52C450(78, 320));
     }
 
-    char buffer[256];
+    char buffer[768];
     const auto versionY = [](const std::int32_t oldY, const std::int32_t newY) {
         return character_select::state::gPukVersion >= 7 ? newY : oldY;
     };
-    const auto drawAt = [&](const char* const text, const std::int32_t offsetX,
+    const auto drawAt = [&](const auto& text, const std::int32_t offsetX,
         const std::int32_t offsetY) {
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
@@ -16301,31 +16737,31 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     drawNumber(world::detail::ReadPlayerDuelPoint(), 185, 145, 162, "%9d");
     const std::int32_t title = world::detail::ReadPlayerTitleIndex();
     if (title >= 0) {
-        const std::int32_t width = TextMeasure(world::detail::gTitlesFF0508[title].text.data(), 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(world::detail::gTitlesFF0508[title].text.data()).c_str(), 1);
         const std::int32_t titleY = versionY(75, 68);
         const std::int32_t currentTitle = world::detail::ReadPlayerTitleIndex();
-        drawAt(world::detail::gTitlesFF0508[currentTitle].text.data(), 198 - width / 2, titleY);
+        drawAt(cg::text::FromGbk(world::detail::gTitlesFF0508[currentTitle].text.data()).c_str(), 198 - width / 2, titleY);
     }
     const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
     if (std::strlen(ownTitle) != 0) {
-        const std::int32_t width = TextMeasure(ownTitle, 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(ownTitle).c_str(), 1);
         const std::int32_t titleY = versionY(98, 91);
-        drawAt(world::detail::BorrowPlayerDisplayText(2), 198 - width / 2, titleY);
+        drawAt(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)).c_str(), 198 - width / 2, titleY);
     }
     if (character_select::state::gPukVersion >= 7) {
         const std::int32_t rankIndex = ReadGuildTextIndex10514B0();
         const char* const rank = BorrowGuildRankText1051518(rankIndex);
         if (std::strlen(rank) != 0) {
-            const std::int32_t width = TextMeasure(rank, 1);
+            const std::int32_t width = TextMeasure(cg::text::FromGbk(rank).c_str(), 1);
             const std::int32_t currentRank = ReadGuildTextIndex10514B0();
-            drawAt(BorrowGuildRankText1051518(currentRank), 198 - width / 2, 114);
+            drawAt(cg::text::FromGbk(BorrowGuildRankText1051518(currentRank)).c_str(), 198 - width / 2, 114);
         }
     }
     const char* const job = world::detail::BorrowPlayerJobName();
     if (std::strlen(job) != 0) {
-        const std::int32_t width = TextMeasure(job, 1);
+        const std::int32_t width = TextMeasure(cg::text::FromGbk(job).c_str(), 1);
         const std::int32_t jobY = versionY(52, 45);
-        drawAt(world::detail::BorrowPlayerJobName(), 198 - width / 2, jobY);
+        drawAt(cg::text::FromGbk(world::detail::BorrowPlayerJobName()).c_str(), 198 - width / 2, jobY);
     }
     drawNumber(world::detail::ReadPlayerLevel(), 62, 122, 140, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
@@ -16394,16 +16830,20 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t hoveredPosition = std::bit_cast<std::int16_t>(world::detail::ReadPlayerValue1A0());
     if ((QueryPanelButtonState(&buttons[hoveredPosition]) & 0x40) != 0) {
-        const char* const hint = world::detail::ReadPlayerValue1A0() != 0
+        const wchar_t* const hint = world::detail::ReadPlayerValue1A0() != 0
             ? kLegacyProfileRear586344 : kLegacyProfileFront586360;
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
+    return 0;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
     return 0;
 }
 
 // 原函数：0x005014A0。
 std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
-{
+try {
     std::array<LegacyPanelButtonRecord, 5> buttons;
     for (std::int32_t index = 0; index < 5; ++index) {
         buttons[index] = {x + 241, y + 92 + index * 23, x + 226, y + 82 + index * 23,
@@ -16437,7 +16877,7 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
             }
         }
     }
-    char buffer[256];
+    char buffer[768];
     const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
         const std::int32_t offsetY, const char* const format, const std::int8_t color = 0) {
         std::sprintf(buffer, format, value);
@@ -16493,7 +16933,7 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
             Sub_5035E0(&button, 212, 1, hoverImage, 0);
         }
     }
-    const char* hint;
+    const wchar_t* hint;
     switch (hovered) {
     case -2: hint = kLegacyAttributeLimit58A220; break;
     case 0: hint = kLegacyAttributeHint58AA08; break;
@@ -16503,13 +16943,17 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
     case 4: hint = kLegacyAttributeHint58A9E0; break;
     default: return 0;
     }
-    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    ui::detail::gHoverTextD68AE8 = hint;
+    return 0;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
     return 0;
 }
 
 // 原函数：0x00501FD0。
 std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
-{
+try {
     LegacyPanelButtonRecord submit {x + 135, y + 211, x + 201, y + 57, 64, 24, 22981, 22982};
     LegacyPanelButtonRecord previous {x + 143, y + 109, x + 129, y + 97, 28, 24, 23022, 23026};
     LegacyPanelButtonRecord next {x + 235, y + 109, x + 221, y + 97, 28, 24, 23023, 23027};
@@ -16521,12 +16965,12 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     std::int32_t clearState = 0;
     std::int32_t hovered = -1;
     std::int32_t hoveredTitle = -1;
-    char buffer[32];
+    char buffer[96];
     char text[128];
     char escaped[128];
     if (gLegacyProfileInputD6885C == nullptr) {
-        std::strcpy(text, world::detail::BorrowPlayerDisplayText(2));
-        input::gInputContextD2E2E0.text[0] = '\0';
+        cg::text::Copy(text, sizeof(text), cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)));
+        input::gInputContextD2E2E0.clearText();
         input::gInputContextD2E2E0.totalByteLength = 0;
         input::gInputContextD2E2E0.caretByteOffset = 0;
         gLegacyProfileInputD6885C = &input::gInputContextD2E2E0;
@@ -16561,8 +17005,8 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
         const std::uint32_t now = platform::ReadTickCount32();
         if (gLegacyProfileEditTickD68864 + 500u < now) {
             const input::InputContext* const context = gLegacyProfileInputD6885C;
-            if (std::strcmp(world::detail::BorrowPlayerDisplayText(2), context->text) != 0) {
-                std::strcpy(text, context->text);
+            if (std::strcmp(cg::text::FromGbk(world::detail::BorrowPlayerDisplayText(2)).c_str(), context->utf8().c_str()) != 0) {
+                std::strcpy(text, context->utf8().c_str());
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 128));
                 static_cast<void>(network::Sub_512360(platform::gConnectionSocket, escaped));
             }
@@ -16642,7 +17086,7 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
                 color = world::detail::gTitlesFF0508[currentTitle].id == id ? 1 : 0;
             }
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 44),
-                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, title->text.data(), 0, 0));
+                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, cg::text::FromGbk(title->text.data()).c_str(), 0, 0));
             currentTitle = world::detail::ReadPlayerTitleIndex();
             if (currentTitle >= 0) {
                 const std::int32_t currentIndex = row + 8 * gLegacyTitlePageCF49B4;
@@ -16668,7 +17112,7 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     const std::int32_t deleteMode = gLegacyTitleDeleteCF4678;
     Sub_5038B0(&remove, 212, 1, gValueD69768, deleteMode);
     Sub_5035E0(&clear, 212, 1, gValueD69768, 0);
-    const char* hint;
+    const wchar_t* hint;
     if ((submitState & 0x40) != 0) {
         hint = kLegacyTitleSubmit5863C4;
     } else if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
@@ -16683,7 +17127,11 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
         }
         hint = gLegacyTitleDeleteCF4678 != 0 ? kLegacyTitleRemove58AA1C : kLegacyTitleSelect58AA2C;
     }
-    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    ui::detail::gHoverTextD68AE8 = hint;
+    return 0;
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
     return 0;
 }
 
@@ -16719,7 +17167,7 @@ std::int32_t Sub_4FC430()
     buttons[0].color = 0;
     buttons[0].reserved21[0] = std::byte {1};
     buttons[0].reserved21[1] = std::byte {0xF9};
-    buttons[0].hint = kLegacySettingsHint586DE8;
+    buttons[0].hint = kLegacySettingsHint586DE8Utf8View.c_str();
     buttons[1].label.textX = x + 45;
     buttons[1].label.left = x + 27;
     buttons[1].label.width = 136;
@@ -16729,7 +17177,7 @@ std::int32_t Sub_4FC430()
     buttons[1].color = 0;
     buttons[1].reserved21[0] = std::byte {1};
     buttons[1].reserved21[1] = std::byte {0xF9};
-    buttons[1].hint = kLegacySettingsHint58A484;
+    buttons[1].hint = kLegacySettingsHint58A484Utf8View.c_str();
     buttons[2].label.textX = x + 45;
     buttons[2].label.left = x + 27;
     buttons[2].label.width = 136;
@@ -16739,7 +17187,7 @@ std::int32_t Sub_4FC430()
     buttons[2].color = 0;
     buttons[2].reserved21[0] = std::byte {1};
     buttons[2].reserved21[1] = std::byte {0xF9};
-    buttons[2].hint = kLegacySettingsHint58A460;
+    buttons[2].hint = kLegacySettingsHint58A460Utf8View.c_str();
     buttons[3].label.textX = x + 45;
     buttons[3].label.left = x + 27;
     buttons[3].label.width = 136;
@@ -16749,7 +17197,7 @@ std::int32_t Sub_4FC430()
     buttons[3].color = 0;
     buttons[3].reserved21[0] = std::byte {1};
     buttons[3].reserved21[1] = std::byte {0xF9};
-    buttons[3].hint = kLegacySettingsHint58A440;
+    buttons[3].hint = kLegacySettingsHint58A440Utf8View.c_str();
     buttons[4].label.textX = x + 45;
     buttons[4].label.left = x + 27;
     buttons[4].label.width = 136;
@@ -16759,7 +17207,7 @@ std::int32_t Sub_4FC430()
     buttons[4].color = 0;
     buttons[4].reserved21[0] = std::byte {1};
     buttons[4].reserved21[1] = std::byte {0xF9};
-    buttons[4].hint = kLegacySettingsHint58A420;
+    buttons[4].hint = kLegacySettingsHint58A420Utf8View.c_str();
     buttons[5].label.textX = x + 45;
     buttons[5].label.textY = y + 200;
     buttons[5].label.left = x + 27;
@@ -16781,13 +17229,13 @@ std::int32_t Sub_4FC430()
     buttons[5].callback = &Sub_4FC890;
     buttons[5].color = 0;
     buttons[5].reserved21[0] = std::byte {1};
-    buttons[5].hint = kLegacySettingsHint58A400;
+    buttons[5].hint = kLegacySettingsHint58A400Utf8View.c_str();
     buttons[6].label.left = x + 27;
     buttons[6].label.text = kLegacySettingsText58A3F4;
     buttons[6].callback = &Sub_4FC8B0;
     buttons[6].color = 0;
     buttons[6].reserved21[0] = std::byte {1};
-    buttons[6].hint = kLegacySettingsHint58A3E4;
+    buttons[6].hint = kLegacySettingsHint58A3E4Utf8View.c_str();
     buttons[7].label.textY = y + 260;
     buttons[7].label.left = x + 27;
     buttons[7].label.top = y + 260;
@@ -16795,12 +17243,12 @@ std::int32_t Sub_4FC430()
     buttons[7].callback = &Sub_4FC8D0;
     buttons[7].color = 0;
     buttons[7].reserved21[0] = std::byte {1};
-    buttons[7].hint = kLegacySettingsHint58A3C8;
+    buttons[7].hint = kLegacySettingsHint58A3C8Utf8View.c_str();
     return y + 260;
 }
 
 std::uint32_t Sub_4FC730(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacySettingsMenu584E70, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -16820,14 +17268,18 @@ std::uint32_t Sub_4FC730(const std::int32_t opened)
     }
     Sub_503120(gLegacySettingsButtonsD67D38.data(), 8);
     if (Sub_503590(&gLegacySettingsMenu584E70) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     }
     return Sub_503440(&gLegacySettingsMenu584E70, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FC8F0。
 std::uint32_t Sub_4FC8F0(const std::int32_t opened)
-{
+try {
     const std::int32_t x = gLegacyLogoutPanel584F38.x;
     const std::int32_t y = gLegacyLogoutPanel584F38.y;
     const character_select::detail::CharacterModalUiRecord town {
@@ -16861,9 +17313,9 @@ std::uint32_t Sub_4FC8F0(const std::int32_t opened)
     static_cast<void>(character_select::detail::Sub_503A20(&server, 2, 0, 1, gValueD69768, 218));
     static_cast<void>(character_select::detail::Sub_503A20(&back, 2, 0, 1, gValueD69768, 218));
     if (Sub_503590(&gLegacyLogoutPanel584F38) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+        ui::detail::gHoverTextD68AE8 = kLegacyLogout553FD0;
     }
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if ((character_select::detail::Sub_503990(&server) & 0x40) != 0) {
         hint = kLegacyLogout586E60;
     } else if ((character_select::detail::Sub_503990(&town) & 0x40) != 0) {
@@ -16872,9 +17324,13 @@ std::uint32_t Sub_4FC8F0(const std::int32_t opened)
         hint = kLegacyLogout58A4B0;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyLogoutPanel584F38, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FCB90。
@@ -16990,7 +17446,7 @@ std::int32_t Sub_4FCBA0()
     records[7].color = 0;
     records[7].reserved21[0] = std::byte {1};
     records[7].reserved21[1] = std::byte {0xF9};
-    records[7].hint = kLegacyChat5877B4;
+    records[7].hint = kLegacyChat5877B4Utf8View.c_str();
     records[8].label.textX = x + 20;
     records[8].label.left = 0;
     records[8].label.top = 0;
@@ -17010,7 +17466,7 @@ std::int32_t Sub_4FCBA0()
     records[9].color = 0;
     records[9].reserved21[0] = std::byte {1};
     records[9].reserved21[1] = std::byte {0xF9};
-    records[9].hint = kLegacyChat58A524;
+    records[9].hint = kLegacyChat58A524Utf8View.c_str();
     records[10].label.textX = x + 20;
     records[10].label.left = 0;
     records[10].label.top = 0;
@@ -17105,13 +17561,13 @@ std::int32_t Sub_4FCBA0()
     records[17].color = 0;
     records[17].reserved21[0] = std::byte {1};
     records[17].reserved21[1] = std::byte {0xF9};
-    records[17].hint = kLegacyChat58A4E8;
+    records[17].hint = kLegacyChat58A4E8Utf8View.c_str();
     return 0;
 }
 
 // 原函数：0x004FD1A0。
 std::uint32_t Sub_4FD1A0(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyChatSettings585000, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17129,13 +17585,13 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
     if (interaction != 0) {
         return static_cast<std::uint32_t>(interaction);
     }
-    char buffer[128];
+    char buffer[384];
     std::sprintf(buffer, kLegacyChat553FB4, platform::gValue55463C);
     const std::int32_t linesY = gLegacyChatSettings585000.y;
     const std::int32_t linesX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(linesX + 62),
         static_cast<std::int16_t>(linesY + 60), 2, 0, 0, buffer, 0, 0));
-    const char* const soundText = platform::gValue554644 != 0 ? kLegacyChat58A668 : kLegacyChat58A664;
+    const char* const soundText = platform::gValue554644 != 0 ? kLegacyChat58A668Utf8View.c_str() : kLegacyChat58A664Utf8View.c_str();
     const std::int32_t soundY = gLegacyChatSettings585000.y;
     std::strcpy(buffer, soundText);
     const std::int32_t soundX = gLegacyChatSettings585000.x;
@@ -17148,7 +17604,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         static_cast<std::int16_t>(rangeY + 220), 2, 0, 0, buffer, 0, 0));
     gLegacyChatRecordsD67E80[6].color = static_cast<std::uint8_t>(input::gInputContext626AA0.field140);
     Sub_503120(gLegacyChatRecordsD67E80.data(), 18);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyChatSettings585000) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[3].label) & 0x40) != 0) {
@@ -17163,9 +17619,13 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         hint = platform::gValue554640 > 1 ? kLegacyChat58A5B0 : kLegacyChat58A594;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyChatSettings585000, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FD9F0。
@@ -17239,14 +17699,14 @@ std::int32_t Sub_4FDA00()
     records[4].color = 0;
     records[4].reserved21[0] = std::byte {0x01};
     records[4].reserved21[1] = std::byte {0xF9};
-    records[4].hint = kLegacyChat58A4E8;
+    records[4].hint = kLegacyChat58A4E8Utf8View.c_str();
     return 0;
 }
 
 
 // 原[4FDBD0,4FDD62)：音乐设置完整页面；文本和提示均按原现场状态消费。
 std::uint32_t Sub_4FDBD0(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyMusicSettings585190, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17265,7 +17725,7 @@ std::uint32_t Sub_4FDBD0(const std::int32_t opened)
         return static_cast<std::uint32_t>(interaction);
     }
 
-    char buffer[128];
+    char buffer[384];
     static_cast<void>(std::sprintf(
         buffer, kLegacyChat553FB4, platform::gMusicVolume));
     const std::int32_t y = gLegacyMusicSettings585190.y;
@@ -17274,7 +17734,7 @@ std::uint32_t Sub_4FDBD0(const std::int32_t opened)
         static_cast<std::int16_t>(y + 60), 2, 0, 0, buffer, 0, 0));
     Sub_503120(gLegacyMusicRecordsD68150.data(), 5);
 
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMusicSettings585190) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacyMusicRecordsD68150[2].label) & 0x40) != 0) {
@@ -17283,9 +17743,13 @@ std::uint32_t Sub_4FDBD0(const std::int32_t opened)
         hint = platform::gMusicVolume > 0 ? kLegacyAudio58A6F4 : kLegacyAudio58A6E0;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMusicSettings585190, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FDE10。
@@ -17395,15 +17859,15 @@ std::int32_t Sub_4FDE20()
     records[7].callback = &Sub_4FE3E0;
     records[7].color = 0;
     records[7].reserved21[0] = std::byte {0x01};
-    records[7].hint = kLegacyChat58A4E8;
+    records[7].hint = kLegacyChat58A4E8Utf8View.c_str();
     return 0;
 }
 
 
 // 原[4FE0E0,4FE312)：音效设置完整页面；模式指针在503160前形成。
 std::uint32_t Sub_4FE0E0(const std::int32_t opened)
-{
-    const char* const modes[2] {kLegacyAudio58A76C, kLegacyAudio58A764};
+try {
+    const char* const modes[2] {kLegacyAudio58A76CUtf8View.c_str(), kLegacyAudio58A764Utf8View.c_str()};
     const std::int32_t state = Sub_503160(opened, &gLegacySoundSettings585258, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17422,7 +17886,7 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
         return static_cast<std::uint32_t>(interaction);
     }
 
-    char buffer[128];
+    char buffer[384];
     static_cast<void>(std::sprintf(
         buffer, kLegacyChat553FB4, platform::gEffectVolume));
     const std::int32_t volumeY = gLegacySoundSettings585258.y;
@@ -17439,7 +17903,7 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
         static_cast<std::int16_t>(modeY + 100), 2, 0, 0, buffer, 0, 0));
     Sub_503120(gLegacySoundRecordsD68218.data(), 8);
 
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacySoundSettings585258) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacySoundRecordsD68218[2].label) & 0x40) != 0) {
@@ -17450,9 +17914,13 @@ std::uint32_t Sub_4FE0E0(const std::int32_t opened)
         hint = platform::gUseStereo != 0 ? kLegacyAudio58A740 : kLegacyAudio58A730;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacySoundSettings585258, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FE490。
@@ -17599,15 +18067,15 @@ std::int32_t Sub_4FE4A0()
     records[10].color = 0;
     records[10].reserved21[0] = std::byte {1};
     records[10].reserved21[1] = std::byte {0xF9};
-    records[10].hint = kLegacyMouse58A774;
+    records[10].hint = kLegacyMouse58A774Utf8View.c_str();
     return 0;
 }
 
 // 原函数：0x004FE860。
 std::uint32_t Sub_4FE860(const std::int32_t opened)
-{
-    const char* const cursorNames[2] {kLegacyMouse58A838, kLegacyMouse58A830};
-    const char* const moveNames[2] {kLegacyMouse58A820, kLegacyMouse58A814};
+try {
+    const char* const cursorNames[2] {kLegacyMouse58A838Utf8View.c_str(), kLegacyMouse58A830Utf8View.c_str()};
+    const char* const moveNames[2] {kLegacyMouse58A820Utf8View.c_str(), kLegacyMouse58A814Utf8View.c_str()};
     const std::int32_t state = Sub_503160(opened, &gLegacyMouseSettings585320, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17626,7 +18094,7 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     if (interaction != 0) {
         return static_cast<std::uint32_t>(interaction);
     }
-    char buffer[128];
+    char buffer[384];
     const std::uint32_t cursorMode = platform::gValueD67AE4;
     std::sprintf(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
     const std::int32_t cursorY = gLegacyMouseSettings585320.y;
@@ -17648,7 +18116,7 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(speedX + 100),
         static_cast<std::int16_t>(speedY + 200), 2, 0, 0, buffer, 0, 0));
     Sub_503120(gLegacyMouseRecordsD68358.data(), 11);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyMouseSettings585320) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacyMouseRecordsD68358[2].label) & 0x40) != 0) {
@@ -17657,9 +18125,13 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
         hint = platform::gValueD67AE8 != 0 ? kLegacyMouse58A7D4 : kLegacyMouse58A7C0;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyMouseSettings585320, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FEB00。
@@ -17830,13 +18302,13 @@ std::int32_t Sub_4FEB10()
     records[12].color = 0;
     records[12].reserved21[0] = std::byte {1};
     records[12].reserved21[1] = std::byte {0xF9};
-    records[12].hint = kLegacyChat58A4E8;
+    records[12].hint = kLegacyChat58A4E8Utf8View.c_str();
     return 0;
 }
 
 // 原函数：0x004FEF30。
 std::uint32_t Sub_4FEF30(const std::int32_t opened)
-{
+try {
     const std::int32_t state = Sub_503160(opened, &gLegacyHotkeyHelp5853E8, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17856,9 +18328,13 @@ std::uint32_t Sub_4FEF30(const std::int32_t opened)
     }
     Sub_503120(gLegacyHotkeyRecordsD68510.data(), 13);
     if (Sub_503590(&gLegacyHotkeyHelp5853E8) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     }
     return Sub_503440(&gLegacyHotkeyHelp5853E8, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FF020。
@@ -17920,14 +18396,14 @@ std::int32_t Sub_4FF030()
     records[3].color = 0;
     records[3].reserved21[0] = std::byte {1};
     records[3].reserved21[1] = std::byte {0xF9};
-    records[3].hint = kLegacyChat58A4E8;
+    records[3].hint = kLegacyChat58A4E8Utf8View.c_str();
     return 0;
 }
 
 // 原函数：0x004FF1A0。
 std::uint32_t Sub_4FF1A0(const std::int32_t opened)
-{
-    const char* const modeNames[2] {kLegacyScanline58A8F8, kLegacyScanline58A8E8};
+try {
+    const char* const modeNames[2] {kLegacyScanline58A8F8Utf8View.c_str(), kLegacyScanline58A8E8Utf8View.c_str()};
     const std::int32_t state = Sub_503160(opened, &gLegacyScanlineSettings5854B0, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -17945,7 +18421,7 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
     if (interaction != 0) {
         return static_cast<std::uint32_t>(interaction);
     }
-    char buffer[128];
+    char buffer[384];
     const std::int32_t mode = std::bit_cast<std::int16_t>(platform::gScanlineSyncMode);
     std::sprintf(buffer, kLegacyMouse5535F8, modeNames[mode]);
     const std::int32_t y = gLegacyScanlineSettings5854B0.y;
@@ -17953,16 +18429,20 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 31),
         static_cast<std::int16_t>(y + 80), 2, 0, 0, buffer, 0, 0));
     Sub_503120(gLegacyScanlineRecordsD68718.data(), 4);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyScanlineSettings5854B0) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacyScanlineRecordsD68718[2].label) & 0x40) != 0) {
         hint = platform::gScanlineSyncMode != 0 ? kLegacyScanline58A8D4 : kLegacyScanline58A8BC;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyScanlineSettings5854B0, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x004FF340。
@@ -18024,14 +18504,14 @@ std::int32_t Sub_4FF350()
     records[3].color = 0;
     records[3].reserved21[0] = std::byte {1};
     records[3].reserved21[1] = std::byte {0xF9};
-    records[3].hint = kLegacyButton58A904;
+    records[3].hint = kLegacyButton58A904Utf8View.c_str();
     return 0;
 }
 
 // 原函数：0x004FF4C0。
 std::uint32_t Sub_4FF4C0(const std::int32_t opened)
-{
-    const char* const modeNames[2] {kLegacyButton58A97C, kLegacyButton58A970};
+try {
+    const char* const modeNames[2] {kLegacyButton58A97CUtf8View.c_str(), kLegacyButton58A970Utf8View.c_str()};
     const std::int32_t state = Sub_503160(opened, &gLegacyButtonSettings585578, nullptr, 1);
     if (state == 0) {
         return 0;
@@ -18057,16 +18537,20 @@ std::uint32_t Sub_4FF4C0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(x - width + 172),
         static_cast<std::int16_t>(y + 80), 2, 0, 4, text, 0, 0));
     Sub_503120(gLegacyButtonRecordsD687B8.data(), 4);
-    const char* hint = nullptr;
+    const wchar_t* hint = nullptr;
     if (Sub_503590(&gLegacyButtonSettings585578) != 0) {
         hint = kLegacySkillClose55331C;
     } else if ((character_select::detail::Sub_503990(&gLegacyButtonRecordsD687B8[2].label) & 0x40) != 0) {
         hint = platform::gValueD68858 == 0 ? kLegacyButton58A948 : kLegacyButton58A920;
     }
     if (hint != nullptr) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        ui::detail::gHoverTextD68AE8 = hint;
     }
     return Sub_503440(&gLegacyButtonSettings585578, 1);
+}
+catch (const cg::text::GbkStorageError&) {
+    ReportLegacyTextStorageFailure();
+    return 0;
 }
 
 // 原函数：0x00502930。
@@ -18106,12 +18590,12 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     if (state == 0 || state == 2) {
         return static_cast<std::uint32_t>(state);
     }
-    const std::int32_t nameWidth = TextMeasure(world::ReadText9DAD30(), 0);
+    const std::int32_t nameWidth = TextMeasure(cg::text::FromGbk(world::ReadText9DAD30()).c_str(), 0);
     const std::int32_t nameY = gLegacyMapPanelD68868.y;
     const std::int32_t nameX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(nameX - nameWidth / 2 + 124),
-        static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
-    char buffer[256];
+        static_cast<std::int16_t>(nameY + 36), 2, 0, 0, cg::text::FromGbk(world::ReadText9DAD30()).c_str(), 0, 0));
+    char buffer[768];
     const std::int32_t playerX = world::detail::BorrowPlayerXStorage()->value();
     std::sprintf(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
@@ -18125,7 +18609,7 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(southX + 133),
         static_cast<std::int16_t>(southY + 186), 2, 0, 0, buffer, 0, 0));
     if (Sub_503590(&gLegacyMapPanelD68868) != 0) {
-        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+        ui::detail::gHoverTextD68AE8 = kLegacySkillClose55331C;
     }
     const std::int32_t width = gLegacyMapPanelD68868.width;
     const std::int32_t x = gLegacyMapPanelD68868.x;
@@ -18348,7 +18832,7 @@ std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::i
         if ((state & 0x40) != 0) {
             const char* const hint = record->hint;
             if (hint != nullptr) {
-                std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+                ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
             }
         }
         if ((state & 0x10) != 0) {
@@ -18454,9 +18938,7 @@ std::int32_t Sub_503160(
                 panel->hovered = static_cast<std::int8_t>(tabIndex);
                 const char* const hint = tab->hint;
                 if (hint != nullptr) {
-                    char buffer[128];
-                    std::sprintf(buffer, "%s", hint);
-                    std::strcpy(ui::detail::gHoverTextD68AE8.data(), buffer);
+                    ui::detail::gHoverTextD68AE8 = cg::text::ToUtf16(hint);
                 }
                 if ((gValueD68D9C & 1u) != 0) {
                     panel->selected = static_cast<std::int8_t>(tabIndex);

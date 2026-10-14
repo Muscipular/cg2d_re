@@ -1,4 +1,5 @@
 #include "cg/CharacterDeletionRequest.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -14,13 +15,10 @@ namespace {
 constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。
-constexpr char kRequestTimeoutMessage[] = "\x84\x68\xB3\xFD\xBD\xC7\xC9\xAB\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kRequestTimeoutMessage[] = L"刪除角色逾時。";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(sizeof(kRequestTimeoutMessage) == 15);
-static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
-static_assert(sizeof(kSuccessfulResult) == 11);
 
 } // namespace
 
@@ -67,8 +65,7 @@ std::int32_t PollCharacterDeletionRequest()
         return 0;
     }
 
-    static_cast<void>(std::sprintf(
-        gRequestMessage, kRequestTimeoutMessage));
+    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
     return -1;
 }
 

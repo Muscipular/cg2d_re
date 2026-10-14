@@ -4,17 +4,37 @@
 #include "WindowProcedureState.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include <imm.h>
 
 #include <bit>
 #include <cstring>
+#include <optional>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iterator>
 
 namespace cg::platform {
 namespace {
 
-constexpr LONG kImeBufferCapacity = 256;
-constexpr LONG kImeMaximumByteCount = kImeBufferCapacity - 1;
+// W接口的字符串长度始终是字节；属性仍为BYTE，光标值单独映射。
+std::optional<std::wstring> ReadImeString(const DWORD kind)
+{
+    const HIMC context = reinterpret_cast<HIMC>(gImeContext);
+    const LONG bytes = ::ImmGetCompositionStringW(context, kind, nullptr, 0);
+    if (bytes < 0) {
+        return std::nullopt;
+    }
+    std::wstring result(static_cast<std::size_t>(bytes) / sizeof(wchar_t), L'\0');
+    const LONG copied = ::ImmGetCompositionStringW(context, kind, result.data(), static_cast<DWORD>(bytes));
+    if (copied < 0) {
+        return std::nullopt;
+    }
+    result.resize(static_cast<std::size_t>(copied) / sizeof(wchar_t));
+    return result;
+}
 
 } // namespace
 
@@ -23,80 +43,37 @@ char Sub_459580(const std::int16_t flags)
 {
     const std::uint16_t flagBits = std::bit_cast<std::uint16_t>(flags);
     std::uint8_t returnByte = static_cast<std::uint8_t>(flagBits);
-
     if ((flagBits & GCS_RESULTSTR) != 0u) {
-        // 原局部未预清；仅第二次API后在查询长度处写NUL。
-        char result[kImeBufferCapacity];
-        LONG byteCount = ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_RESULTSTR,
-            nullptr,
-            0);
-        if (byteCount >= kImeBufferCapacity) {
-            byteCount = kImeMaximumByteCount;
-        }
-        static_cast<void>(ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_RESULTSTR,
-            result,
-            static_cast<DWORD>(byteCount)));
-        result[byteCount] = '\0';
-
-        std::int32_t resultLength = static_cast<std::int32_t>(std::strlen(result));
-        if (resultLength >= kImeBufferCapacity) {
-            resultLength = kImeMaximumByteCount;
-        }
-        for (std::int32_t index = 0; index < resultLength; ++index) {
-            input::AppendChar_44ADB0(result[index]);
+        if (const auto result = ReadImeString(GCS_RESULTSTR)) {
+            input::AppendText(*result);
         }
     }
-
     if ((flagBits & GCS_COMPSTR) != 0u) {
-        LONG byteCount = ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_COMPSTR,
-            nullptr,
-            0);
-        if (byteCount >= kImeBufferCapacity) {
-            byteCount = kImeMaximumByteCount;
+        if (const auto composition = ReadImeString(GCS_COMPSTR)) {
+            gImeComposition = *composition;
         }
-        static_cast<void>(ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_COMPSTR,
-            gImeComposition,
-            static_cast<DWORD>(byteCount)));
-        gImeComposition[byteCount] = '\0';
     }
-
     if ((flagBits & GCS_COMPATTR) != 0u) {
-        LONG byteCount = ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_COMPATTR,
-            nullptr,
-            0);
-        if (byteCount >= kImeBufferCapacity) {
-            byteCount = kImeMaximumByteCount;
+        const HIMC context = reinterpret_cast<HIMC>(gImeContext);
+        const LONG bytes = ::ImmGetCompositionStringW(context, GCS_COMPATTR, nullptr, 0);
+        if (bytes >= 0) {
+            std::vector<std::uint8_t> attributes(static_cast<std::size_t>(bytes));
+            const LONG copied = ::ImmGetCompositionStringW(context, GCS_COMPATTR, attributes.data(), static_cast<DWORD>(bytes));
+            if (copied >= 0) {
+                attributes.resize(static_cast<std::size_t>(copied));
+                attributes.resize(gImeComposition.size(), 0);
+                gImeAttributes = std::move(attributes);
+            }
         }
-        static_cast<void>(ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_COMPATTR,
-            gImeAttributes,
-            static_cast<DWORD>(byteCount)));
-        gImeAttributes[byteCount] = 0;
     }
-
     if ((flagBits & GCS_CURSORPOS) != 0u) {
-        const LONG cursorPosition = ImmGetCompositionStringA(
-            reinterpret_cast<HIMC>(gImeContext),
-            GCS_CURSORPOS,
-            nullptr,
-            0);
-        static_assert(sizeof(cursorPosition) == sizeof(gImeCompositionCursorPosition));
-        gImeCompositionCursorPosition = cursorPosition;
-        input::gValue626C0C = 20;
-        returnByte = static_cast<std::uint8_t>(cursorPosition);
+        const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(gImeContext), GCS_CURSORPOS, nullptr, 0);
+        if (cursor >= 0) {
+            gImeCompositionCursorPosition = static_cast<std::int32_t>(text::Prefix(gImeComposition, static_cast<std::size_t>(cursor)));
+            input::gValue626C0C = 20;
+            returnByte = static_cast<std::uint8_t>(gImeCompositionCursorPosition);
+        }
     }
-
     return std::bit_cast<char>(returnByte);
 }
 

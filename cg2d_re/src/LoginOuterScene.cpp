@@ -1,4 +1,6 @@
 #include "cg/LoginScene.hpp"
+#include <string>
+#include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
 
@@ -19,15 +21,14 @@ namespace cg::login {
 namespace {
 
 // 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。
-constexpr char kIncorrectAccountOrPassword[] = "\xB2\xBB\xD5\xFD\xB4\x5F\xB5\xC4\x8E\xA4\xCC\x96\xBA\xCD\xC3\xDC\xB4\x61\xA1\xA3";
-static_assert(sizeof(kIncorrectAccountOrPassword) == 21);
+constexpr wchar_t kIncorrectAccountOrPassword[] = L"不正確的帳號和密碼。";
 
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。
 YobiAction* gValue9A6E24 = nullptr;
 
 // 原 0x9A4BA0 只有本函数的消息读取与固定文本写入，原容量未获证。
 // 新端只为同一文本的原字节及末尾 NUL 建立最窄唯一缓冲，不据此推定原总容量。
-char gValue9A4BA0[sizeof(kIncorrectAccountOrPassword)] {};
+std::wstring gValue9A4BA0 {};
 
 } // namespace
 
@@ -120,9 +121,9 @@ void ProcessOuterScene_45C2D0()
     if (result == 1) {
         cg::NullSub_509080();
         static_cast<void>(
-            WriteInputValueFF494F_5203B0(gInputContext9A5960.text));
+            WriteInputValueFF494F_5203B0(gInputContext9A5960.utf8().c_str()));
         static_cast<void>(
-            WriteInputValueFF4982_520410(gInputContext9A5678.text));
+            WriteInputValueFF4982_520410(gInputContext9A5678.utf8().c_str()));
         static_cast<void>(detail::Sub_520200());
         static_cast<void>(detail::PlaySe(53, 320, 240));
         if (render::gPaletteCapability < 1) {
@@ -135,10 +136,7 @@ void ProcessOuterScene_45C2D0()
             platform::gLegacyWindow, 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;
-        std::memcpy(
-            gValue9A4BA0,
-            kIncorrectAccountOrPassword,
-            sizeof(kIncorrectAccountOrPassword));
+        gValue9A4BA0 = kIncorrectAccountOrPassword;
     }
 }
 

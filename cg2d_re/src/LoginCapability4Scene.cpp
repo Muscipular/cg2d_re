@@ -1,4 +1,6 @@
 #include "world/WorldUpdateDependencies.hpp"
+#include <string>
+#include "cg/text/Encoding.hpp"
 
 #include "LoginCapability4Modal.hpp"
 #include "LoginInputDependencies.hpp"
@@ -20,26 +22,20 @@
 namespace {
 
 // 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
-constexpr char kCapability4CredentialsPrompt[] = "\xD5\x88\xD4\x4F\xB6\xA8\x49\x44\xA1\xA2\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\xA3";
-static_assert(sizeof(kCapability4CredentialsPrompt) == 21);
+constexpr wchar_t kCapability4CredentialsPrompt[] = L"請設定ID、PASSWORD。";
 // 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。
-constexpr char kCapability4DeletePrompt[] = "\xB4\x5F\xB6\xA8\xD2\xAA\x84\x68\xB3\xFD\xDF\x40\x8E\xA4\xCC\x96\xD3\x9B\xE4\x9B\x86\xE1\xA3\xBF";
-static_assert(sizeof(kCapability4DeletePrompt) == 25);
+constexpr wchar_t kCapability4DeletePrompt[] = L"確定要刪除這帳號記錄嗎？";
 // 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。
-constexpr char kCapability4DeleteSucceeded[] = "\x8E\xA4\xCC\x96\xD3\x9B\xE4\x9B\xD2\xD1\xB3\xC9\xB9\xA6\x84\x68\xB3\xFD\xA1\xA3";
-static_assert(sizeof(kCapability4DeleteSucceeded) == 21);
+constexpr wchar_t kCapability4DeleteSucceeded[] = L"帳號記錄已成功刪除。";
 
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gValue9A4F2C = 0; // 原全局：0x009A4F2C。
 std::int32_t gValue9A4D00 = 0; // 原全局：0x009A4D00。
 std::int32_t gValue9A4B7C = 0; // 原全局：0x009A4B7C。
 std::int32_t gValue9A509C = 0; // 原全局：0x009A509C。
-char gValue9A4A78[256] {}; // 原全局：0x009A4A78。
+std::wstring gValue9A4A78 {}; // 原全局：0x009A4A78。
 
-static_assert(
-    sizeof(kCapability4CredentialsPrompt) <= sizeof(gValue9A4A78));
-static_assert(sizeof(kCapability4DeletePrompt) <= sizeof(gValue9A4A78));
-static_assert(sizeof(kCapability4DeleteSucceeded) <= sizeof(gValue9A4A78));
+
 
 std::int32_t AddW32(
     const std::int32_t left,
@@ -176,15 +172,9 @@ std::int32_t Sub_464840()
         const std::int32_t result =
             login::ProcessCapability4Input_464E30();
         if (result == 1) {
-            login::detail::Sub_533570(
-                login::gInputContext9A4D20.text,
-                login::detail::gSelectedSavedSlot105C394);
-            login::detail::Sub_5335B0(
-                login::gInputContext9A5960.text,
-                login::detail::gSelectedSavedSlot105C394);
-            login::detail::Sub_533640(
-                login::gInputContext9A5678.text,
-                login::detail::gSelectedSavedSlot105C394);
+            login::detail::Sub_533570(cg::text::ToGbk(input::ContextText(login::gInputContext9A4D20)).c_str(), login::detail::gSelectedSavedSlot105C394);
+            login::detail::Sub_5335B0(cg::text::ToGbk(input::ContextText(login::gInputContext9A5960)).c_str(), login::detail::gSelectedSavedSlot105C394);
+            login::detail::Sub_533640(cg::text::ToGbk(input::ContextText(login::gInputContext9A5678)).c_str(), login::detail::gSelectedSavedSlot105C394);
             login::detail::Sub_533730();
             static_cast<void>(login::detail::PlaySe(53, 320, 240));
             static_cast<void>(render::SelectPalette(30, 30));
@@ -237,10 +227,7 @@ std::int32_t Sub_464840()
     }
 
     case 6:
-        std::memcpy(
-            gValue9A4A78,
-            kCapability4CredentialsPrompt,
-            sizeof(kCapability4CredentialsPrompt));
+        gValue9A4A78 = kCapability4CredentialsPrompt;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }
@@ -255,10 +242,7 @@ std::int32_t Sub_464840()
     }
 
     case 8: {
-        std::memcpy(
-            gValue9A4A78,
-            kCapability4DeletePrompt,
-            sizeof(kCapability4DeletePrompt));
+        gValue9A4A78 = kCapability4DeletePrompt;
         const std::int32_t result =
             login::detail::UpdateCapability4Modal_464450(gValue9A4A78);
         if (result == 1) {
@@ -283,10 +267,7 @@ std::int32_t Sub_464840()
     }
 
     case 10:
-        std::memcpy(
-            gValue9A4A78,
-            kCapability4DeleteSucceeded,
-            sizeof(kCapability4DeleteSucceeded));
+        gValue9A4A78 = kCapability4DeleteSucceeded;
         if (login::UpdateLoginMessage(gValue9A4A78) != 0) {
             world::gCurrentSceneState = 2;
         }

@@ -20,7 +20,7 @@ struct GraphicDescriptor16;
 }
 
 namespace cg::input {
-struct InputContext;
+class InputContext;
 } // namespace cg::input
 
 namespace cg::login::detail {

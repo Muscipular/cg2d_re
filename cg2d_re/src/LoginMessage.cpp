@@ -1,4 +1,5 @@
 #include "cg/LoginMessage.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "LoginMessageDependencies.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -8,6 +9,8 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
+#include <vector>
 #include <cstring> // 原CRT接口：0x0053C2F0；原参数／返回合同由直接调用承接。
 
 namespace cg::login {
@@ -27,14 +30,15 @@ std::int32_t PlaySe(
 
 namespace {
 
-constexpr char kMultilineToken[] = "Multiline";
-constexpr char kMultilineNewToken[] = "Multiline_New";
+constexpr wchar_t kMultilineToken[] = L"Multiline";
+const std::string kMultilineTokenUtf8View = cg::text::FromUtf16(kMultilineToken); // 旧窄接口只读兼容视图。
+constexpr wchar_t kMultilineNewToken[] = L"Multiline_New";
+const std::string kMultilineNewTokenUtf8View = cg::text::FromUtf16(kMultilineNewToken); // 旧窄接口只读兼容视图。
 // 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
-constexpr char kConfirmText[] = "\xB4\x5F\xB6\xA8";
+constexpr wchar_t kConfirmText[] = L"確定";
 
 constexpr std::int32_t kScreenWidth = 640;
 constexpr std::int32_t kScreenHeight = 480;
-constexpr std::int32_t kTextBufferSize = 256;
 
 struct MessageLayout {
     std::int32_t width;
@@ -63,11 +67,8 @@ std::int32_t RoundMessageWidth(std::int32_t textWidth)
 
 } // namespace
 
-char gValue9A620C[12][256] {}; // 原全局：0x009A620C。
+std::array<std::wstring, 12> gValue9A620C {}; // 原全局：0x009A620C。
 
-static_assert(sizeof(gValue9A620C) == 12 * 256);
-static_assert(sizeof(gValue9A620C[0]) == 256);
-static_assert(sizeof(kConfirmText) == 5);
 
 // 原函数：0x0045CE00。
 void ResetLoginMessage()
@@ -76,41 +77,23 @@ void ResetLoginMessage()
 }
 
 // 原函数：0x0045CE10。
-std::int32_t UpdateLoginMessage(const char* text)
+std::int32_t UpdateLoginMessage(const std::wstring_view text)
 {
-    std::array<char, kTextBufferSize> splitText {};
-    std::array<char*, kTextBufferSize> lines {};
-
-    const std::size_t textLength = std::strlen(text);
-    std::memcpy(splitText.data(), text, textLength + 1);
-
-    std::int32_t lineCount = 1;
+    std::vector<std::wstring_view> lines;
     std::int32_t maximumTextWidth = 0;
-    char* currentLine = splitText.data();
-    lines[0] = currentLine;
-
+    std::size_t start = 0;
     for (;;) {
-        char* const newline = const_cast<char*>(std::strchr(currentLine, '\n'));
-        if (newline == nullptr) {
-            const std::int32_t width = detail::TextMeasure(currentLine, 0);
-            if (width > maximumTextWidth) {
-                maximumTextWidth = width;
-            }
-            break;
-        }
-
-        *newline = '\0';
-        const std::int32_t width = detail::TextMeasure(currentLine, 0);
-        if (width > maximumTextWidth) {
-            maximumTextWidth = width;
-        }
-
-        currentLine = newline + 1;
-        lines[static_cast<std::size_t>(lineCount)] = currentLine;
-        ++lineCount;
+        const std::size_t newline = text.find(L'\n', start);
+        const std::wstring_view line = text.substr(start, newline == std::wstring_view::npos ? newline : newline - start);
+        lines.push_back(line);
+        const std::int32_t width = detail::TextMeasure(line, 0);
+        if (width > maximumTextWidth) { maximumTextWidth = width; }
+        if (newline == std::wstring_view::npos) { break; }
+        start = newline + 1;
     }
+    const std::int32_t lineCount = static_cast<std::int32_t>(lines.size());
 
-    if (std::strcmp(text, kMultilineToken) == 0) {
+    if (text == kMultilineTokenUtf8View.c_str()) {
         if (gMessageState == 0) {
             gMessageState = 1;
             gMessageResult = -2;
@@ -176,7 +159,7 @@ std::int32_t UpdateLoginMessage(const char* text)
         return 0;
     }
 
-    if (std::strcmp(text, kMultilineNewToken) == 0) {
+    if (text == kMultilineNewTokenUtf8View.c_str()) {
         if (gMessageState == 0) {
             gMessageState = 1;
             gMessageResult = -2;
@@ -324,5 +307,12 @@ std::int32_t UpdateLoginMessage(const char* text)
     }
     return 0;
 }
+
+// 原0x0045CE10：旧窄调用只提供局部UTF-8视图。
+std::int32_t UpdateLoginMessage(const char* const text)
+{
+    return UpdateLoginMessage(cg::text::ToUtf16(text));
+}
+
 
 } // namespace cg::login

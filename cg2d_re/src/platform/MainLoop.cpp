@@ -21,11 +21,7 @@ namespace cg::platform {
 // 原函数：0x00458A40。
 void ShowModeChange_458A40()
 {
-    static constexpr char kModeChangeText[] {
-        '\xD5', '\xFD', '\xD4', '\xDA', '\xB8', '\xC4',
-        '\xD7', '\x83', '\xC3', '\xE8', '\xC0', '\x4C',
-        '\xC4', '\xA3', '\xCA', '\xBD', '\xA1', '\xA3', '\0',
-    };
+    static constexpr wchar_t kModeChangeText[] = L"正在改變描繪模式。";
 
     gPendingGraphicCount = 0;
     gPendingGraphicCount2 = 0;

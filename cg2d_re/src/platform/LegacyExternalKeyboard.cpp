@@ -1,4 +1,5 @@
 #include "../LoginInputDependencies.hpp"
+#include "cg/text/Encoding.hpp"
 #include "LegacyExternalKeyboardDependencies.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -154,15 +155,19 @@ namespace cg::login::detail {
 namespace {
 
 // 原 0x58F6F8/0x58F714 的 CP950 字节：“載入 idguardlibr.dll 失敗!”、“無法載入函式庫”。
-inline constexpr char kLoadLibraryErrorText[] =
-    "\xDD\x64\xC8\xEB idguardlibr.dll \xCA\xA7\x94\xA1!";
-inline constexpr char kLoadLibraryErrorCaption[] =
-    "\x9F\x6F\xB7\xA8\xDD\x64\xC8\xEB\xBA\xAF\xCA\xBD\x8E\xEC";
+inline constexpr wchar_t kLoadLibraryErrorText[] =
+    L"載入 idguardlibr.dll 失敗!";
+inline const std::string kLoadLibraryErrorTextUtf8View = cg::text::FromUtf16(kLoadLibraryErrorText); // 旧窄接口只读兼容视图。
+inline constexpr wchar_t kLoadLibraryErrorCaption[] =
+    L"無法載入函式庫";
+inline const std::string kLoadLibraryErrorCaptionUtf8View = cg::text::FromUtf16(kLoadLibraryErrorCaption); // 旧窄接口只读兼容视图。
 // 原 0x58F6CC/0x58F6E0 的 CP950 字节：“螢幕小鍵盤啟動失敗!”、“螢幕小鍵盤”。
-inline constexpr char kDialogErrorText[] =
-    "\xCE\x9E\xC4\xBB\xD0\xA1\xE6\x49\xB1\x50\x86\xA2\x84\xD3\xCA\xA7\x94\xA1!";
-inline constexpr char kDialogErrorCaption[] =
-    "\xCE\x9E\xC4\xBB\xD0\xA1\xE6\x49\xB1\x50";
+inline constexpr wchar_t kDialogErrorText[] =
+    L"螢幕小鍵盤啟動失敗!";
+inline const std::string kDialogErrorTextUtf8View = cg::text::FromUtf16(kDialogErrorText); // 旧窄接口只读兼容视图。
+inline constexpr wchar_t kDialogErrorCaption[] =
+    L"螢幕小鍵盤";
+inline const std::string kDialogErrorCaptionUtf8View = cg::text::FromUtf16(kDialogErrorCaption); // 旧窄接口只读兼容视图。
 
 } // namespace
 
@@ -177,7 +182,7 @@ std::int32_t Sub_534AB0(const std::uintptr_t window, char* output)
 
     const HMODULE module = LoadLibraryA("idguardlibr.dll");
     if (module == nullptr) {
-        MessageBoxA(parent, kLoadLibraryErrorText, kLoadLibraryErrorCaption, MB_OK);
+        MessageBoxW(parent, kLoadLibraryErrorTextUtf8View.c_str().c_str(), kLoadLibraryErrorCaptionUtf8View.c_str().c_str(), MB_OK);
         return -1;
     }
 
@@ -188,7 +193,7 @@ std::int32_t Sub_534AB0(const std::uintptr_t window, char* output)
     FreeLibrary(module);
 
     if (dialogResult <= 0) {
-        MessageBoxA(parent, kDialogErrorText, kDialogErrorCaption, MB_OK);
+        MessageBoxW(parent, kDialogErrorTextUtf8View.c_str().c_str(), kDialogErrorCaptionUtf8View.c_str().c_str(), MB_OK);
         return -1;
     }
     if (dialogResult == 100) {

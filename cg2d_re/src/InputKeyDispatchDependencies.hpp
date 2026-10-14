@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace cg::input {
-struct InputContext;
+class InputContext;
 }
 
 namespace cg::input::detail {

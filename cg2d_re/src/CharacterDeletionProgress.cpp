@@ -11,9 +11,8 @@ namespace cg::character_select {
 namespace {
 
 // 原 0x55ABE8：正文 10 字节，含隐式 NUL 共 11 字节。
-constexpr char kCharacterDeletionProgressText[] =
-    "\xBD\xC7\xC9\xAB\x84\x68\xB3\xFD\xD6\xD0";
-static_assert(sizeof(kCharacterDeletionProgressText) == 11);
+constexpr wchar_t kCharacterDeletionProgressText[] =
+    L"角色刪除中";
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
 
@@ -40,9 +39,8 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     std::int32_t result = 0;
 
     if (stage == 0) {
-        const std::uint32_t textLength =
-            static_cast<std::uint32_t>(std::strlen(kCharacterDeletionProgressText));
-        const std::uint32_t textWidth = textLength * 9U;
+        const std::uint32_t textWidth =
+            static_cast<std::uint32_t>(login::detail::TextMeasure(kCharacterDeletionProgressText, 0));
         gCharacterDeletionProgressStage = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
@@ -85,10 +83,9 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         const std::int32_t y = gCharacterDeletionProgressY;
         const std::int32_t verticalHeight = rows * kRowHeight - 16;
         const std::int32_t textY = verticalHeight / 2 + y;
-        const std::int32_t textLength =
-            static_cast<std::int32_t>(std::strlen(kCharacterDeletionProgressText));
+        const std::int32_t textWidth = login::detail::TextMeasure(kCharacterDeletionProgressText, 0);
         const std::int32_t columns = gCharacterDeletionProgressColumns;
-        const std::int32_t horizontalWidth = (columns * 8 - textLength) * 8;
+        const std::int32_t horizontalWidth = columns * kColumnWidth - textWidth;
         const std::int32_t x = gCharacterDeletionProgressX;
         const std::int32_t textX = horizontalWidth / 2 + x;
         login::detail::DrawText3(

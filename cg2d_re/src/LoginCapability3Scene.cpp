@@ -1,4 +1,6 @@
 #include "world/WorldUpdateDependencies.hpp"
+#include <string>
+#include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
 
@@ -24,8 +26,7 @@ constexpr std::uint64_t kFrameGateIncrementBits = 0x4030AAAAAAAAAAABULL;
 constexpr double kFrameGateIncrement =
     std::bit_cast<double>(kFrameGateIncrementBits);
 // 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
-constexpr char kCredentialsPrompt[] = "\xD5\x88\xD4\x4F\xB6\xA8\x49\x44\xA1\xA2\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\xA3";
-static_assert(sizeof(kCredentialsPrompt) == 21);
+constexpr wchar_t kCredentialsPrompt[] = L"請設定ID、PASSWORD。";
 
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
@@ -34,9 +35,8 @@ std::int32_t gAlpha9A4CA0 = 0; // 原全局：0x009A4CA0。
 std::int32_t gAlpha9A5E70 = 0; // 原全局：0x009A5E70。
 cg::login::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
 cg::login::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
-char gMessage9A50E8[256] {}; // 原全局：0x009A50E8。
+std::wstring gMessage9A50E8 {}; // 原全局：0x009A50E8。
 
-static_assert(sizeof(kCredentialsPrompt) <= sizeof(gMessage9A50E8));
 
 std::int32_t AddW32(
     const std::int32_t left,
@@ -141,10 +141,8 @@ std::int32_t ProcessCapability3InputAndDraw()
     const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
     if (result == 1) {
         cg::NullSub_509080();
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(
-            cg::login::gInputContext9A5678.text));
-        static_cast<void>(cg::login::WriteInputValueFF4982_520410(
-            cg::login::gInputContext9A5960.text));
+        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::login::gInputContext9A5678.utf8().c_str()));
+        static_cast<void>(cg::login::WriteInputValueFF4982_520410(cg::login::gInputContext9A5960.utf8().c_str()));
         static_cast<void>(cg::login::detail::Sub_520200());
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
         static_cast<void>(cg::render::SelectPalette(30, 30));
@@ -158,16 +156,9 @@ std::int32_t ProcessCapability3InputAndDraw()
             0));
     } else if (result < 0) {
         cg::world::gCurrentSceneState = 8;
-        std::memcpy(
-            gMessage9A50E8,
-            kCredentialsPrompt,
-            sizeof(kCredentialsPrompt));
-        std::memset(
-            cg::login::gInputContext9A5960.text,
-            0,
-            sizeof(cg::login::gInputContext9A5960.text));
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(
-            cg::login::gInputContext9A5960.text));
+        gMessage9A50E8 = kCredentialsPrompt;
+        cg::login::gInputContext9A5960.clearText();
+        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::login::gInputContext9A5960.utf8().c_str()));
     }
     return DrawCapability3CommonTail();
 }

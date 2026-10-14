@@ -1,4 +1,5 @@
 #include "GraphicDxCacheState.hpp"
+#include "cg/text/Encoding.hpp"
 #include "../platform/LegacyFormat.hpp"
 #include "LegacyTextureDrawing.hpp"
 
@@ -46,24 +47,20 @@ struct TextureSurface {
 namespace {
 
 // 原5536B8「確認」；正文4B，字面量隐式追加唯一NUL。
-constexpr char kSurfaceFailureCaption[] =
-    "\xB4\x5F\xD5\x4A";
-static_assert(sizeof(kSurfaceFailureCaption) == 5);
+constexpr wchar_t kSurfaceFailureCaption[] =
+    L"確認";
 
 // 原58D398「AutoMap作業用Surface產生失敗。」；正文30B，字面量隐式追加唯一NUL。
-constexpr char kAutoMapCreateFailed[] =
-    "\x41\x75\x74\x6F\x4D\x61\x70\xD7\xF7\x98\x49\xD3\xC3\x53\x75\x72\x66\x61\x63\x65\xAE\x61\xC9\xFA\xCA\xA7\x94\xA1\xA1\xA3";
-static_assert(sizeof(kAutoMapCreateFailed) == 31);
+constexpr wchar_t kAutoMapCreateFailed[] =
+    L"AutoMap作業用Surface產生失敗。";
 
 // 原58D384「建立戰鬥畫面錯誤」；正文16B，字面量隐式追加唯一NUL。
-constexpr char kTempSurfaceCreateFailed[] =
-    "\xBD\xA8\xC1\xA2\x91\xF0\xF4\x59\xAE\x8B\xC3\xE6\xE5\x65\xD5\x60";
-static_assert(sizeof(kTempSurfaceCreateFailed) == 17);
+constexpr wchar_t kTempSurfaceCreateFailed[] =
+    L"建立戰鬥畫面錯誤";
 
 // 原58D374「建立繪圖頁失敗」；正文14B，字面量隐式追加唯一NUL。
-constexpr char kTextureNodeCreateFailed[] =
-    "\xBD\xA8\xC1\xA2\xC0\x4C\x88\x44\xED\x93\xCA\xA7\x94\xA1";
-static_assert(sizeof(kTextureNodeCreateFailed) == 15);
+constexpr wchar_t kTextureNodeCreateFailed[] =
+    L"建立繪圖頁失敗";
 
 class TextureSurfaceOwner final {
 public:
@@ -522,8 +519,8 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
             // 原 58D348 消息字节及 52253F 路径；不足时不清除部分链或补写尾 next。
             char message[256];
             std::sprintf(message,
-                "\x83\x54\x81\x5B\x83\x74\x83\x46\x83\x58\x95\x73"
-                "\x91\xAB\x82\xC5\x82\xB7\x81\x42%d\n", scan);
+                cg::text::FromLegacyDisplay("\x83\x54\x81\x5B\x83\x74\x83\x46\x83\x58\x95\x73"
+                "\x91\xAB\x82\xC5\x82\xB7\x81\x42%d\n").c_str(), scan);
             platform::WriteLegacyDebugString(message);
             return;
         }
@@ -688,14 +685,12 @@ std::int32_t BuildSurfaceCache_5231A0()
     gTextureFallbackCount = 0;
 
     if (!CreateCpuAutoMapSurface()) {
-        platform::ShowLegacyMessage(
-            kAutoMapCreateFailed, kSurfaceFailureCaption, 0x10);
+        platform::ShowWideMessage(kAutoMapCreateFailed, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
     if (!CreateCpuTempSurface() && !CreateCpuTempSurfaceFallback()) {
-        platform::ShowLegacyMessage(
-            kTempSurfaceCreateFailed, kSurfaceFailureCaption, 0x10);
+        platform::ShowWideMessage(kTempSurfaceCreateFailed, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
@@ -722,8 +717,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         std::memcpy(&width, &gTextureSizeW, sizeof(width));
         node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
         if (node.surface == nullptr) {
-            platform::ShowLegacyMessage(
-                kTextureNodeCreateFailed, kSurfaceFailureCaption, 0x10);
+            platform::ShowWideMessage(kTextureNodeCreateFailed, kSurfaceFailureCaption, 0x10);
             return 0;
         }
         ++gTextureFallbackCount;

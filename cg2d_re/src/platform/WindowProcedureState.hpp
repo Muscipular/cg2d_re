@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
+#include <vector>
 
 namespace cg::platform {
 
@@ -12,12 +14,12 @@ extern std::uint32_t gCurrentClientHeight; // 原全局：0x009A6F30。
 extern std::uint32_t gWindowResizePhase;
 
 // 原 IME 平台状态。原生句柄使用指针宽承载，不向业务接口泄漏 Win32 类型。
-extern char gImeDescription[100]; // 原全局：0x0073ED70。
+extern std::wstring gImeDescription; // 原0x0073ED70；UTL02动态UTF-16描述。
 extern std::uintptr_t gImeContext; // 原全局：0x0073EDD8。
 extern std::uintptr_t gPreviousImeContext; // 原全局：0x0073EDDC。
-extern char gImeComposition[256]; // 原全局：0x0073EDE0。
-extern std::uint8_t gImeAttributes[256]; // 原全局：0x0073EEE0。
-extern std::int32_t gImeCompositionCursorPosition;
+extern std::wstring gImeComposition; // 原0x0073EDE0；UTL02动态UTF-16组合正文。
+extern std::vector<std::uint8_t> gImeAttributes; // 原0x0073EEE0；与UTF-16码元位置对应。
+extern std::int32_t gImeCompositionCursorPosition; // UTL02：UTF-16码元偏移。
 extern std::uint32_t gImeConversionMode; // 原全局：0x0073EFE4。
 extern std::uint32_t gImeSentenceMode; // 原全局：0x0073EFE8。
 extern void* gImeCandidateList;

@@ -1,4 +1,5 @@
 #include "cg/CharacterCreationRequest.hpp"
+#include "cg/text/Encoding.hpp"
 
 #include "CharacterSelectState.hpp"
 
@@ -17,15 +18,11 @@ constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::size_t kPreviewToggleOffset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。
-constexpr char kRequestTimeoutMessage[] =
-    "\xD0\xC2\xBD\xA8\xBD\xC7\xC9\xAB\xD3\xE2\x95\x72\xA1\xA3";
+constexpr wchar_t kRequestTimeoutMessage[] = L"新建角色逾時。";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kPreviewToggleOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(sizeof(kRequestTimeoutMessage) == 15);
-static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
-static_assert(sizeof(kSuccessfulResult) == 11);
 
 } // namespace
 
@@ -51,7 +48,7 @@ std::uint32_t StartCharacterCreationRequest()
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterCreationReplyCode = 0;
     network::Sub_5128C0(
-        socket, selected, character_select::state::gCreationNameFF0D18.data(),
+        socket, selected, cg::text::FromGbk(character_select::state::gCreationNameFF0D18.data()).c_str(),
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
     gRequestStatus = 1;
@@ -76,8 +73,7 @@ std::int32_t PollCharacterCreationRequest()
         return 0;
     }
 
-    static_cast<void>(std::sprintf(
-        gRequestMessage, kRequestTimeoutMessage));
+    static_cast<void>(gRequestMessage = kRequestTimeoutMessage);
     return -1;
 }
 

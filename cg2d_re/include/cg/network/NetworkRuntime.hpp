@@ -83,6 +83,7 @@ std::int32_t ParseDelimitedBase62_52D0D0(
     const char* source, char delimiter, std::int32_t ordinal);
 
 // 原 sub_5171F0@[0x5171F0,0x5172CE)：向共享缓冲逐字节转义协议文本。
+// UTL02：参数为局部UTF-8视图，返回原协议GBK文本token，容量不足/不可编码抛GbkStorageError。
 std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 
 // 原 sub_5172D0@[0x5172D0,0x5173A6)：向共享缓冲逐字节反转义协议文本。

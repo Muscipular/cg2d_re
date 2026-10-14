@@ -2,6 +2,9 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <vector>
+#include <string_view>
+#include <string>
 
 namespace cg {
 
@@ -14,9 +17,8 @@ namespace cg::input {
 
 inline constexpr std::size_t InputTextCapacity = 0x120;
 
-// 原 InputContext，固定承接 x86 的 0x15C 字节值布局。
-struct InputContext {
-    char text[InputTextCapacity]; // 原成员偏移：+0x00。
+// 原0x15C值布局只用于明确GBK叠加存储，原成员偏移保留。
+struct InputFields {
     std::int32_t x; // 原成员偏移：+0x120。
     std::int32_t y; // 原成员偏移：+0x124。
     std::int32_t caretByteOffset; // 原成员偏移：+0x128。
@@ -33,16 +35,69 @@ struct InputContext {
     std::int32_t field154; // 原成员偏移：+0x154。
     std::int32_t field158; // 原成员偏移：+0x158。
 };
+struct LegacyInputStorage {
+    char text[InputTextCapacity]; // 原+0x00，GBK，容量含NUL。
+    InputFields fields;
+};
+static_assert(offsetof(LegacyInputStorage, fields) == 0x120);
+static_assert(sizeof(LegacyInputStorage) == 0x15C);
+static_assert(offsetof(InputFields, caretByteOffset) + 0x120 == 0x128);
+static_assert(offsetof(InputFields, field158) + 0x120 == 0x158);
 
-static_assert(offsetof(InputContext, text) == 0x000);
-static_assert(offsetof(InputContext, x) == 0x120);
-static_assert(offsetof(InputContext, y) == 0x124);
-static_assert(offsetof(InputContext, caretByteOffset) == 0x128);
-static_assert(offsetof(InputContext, totalByteLength) == 0x12C);
-static_assert(offsetof(InputContext, maxLine) == 0x144);
-static_assert(offsetof(InputContext, maxCharPerLine) == 0x148);
-static_assert(offsetof(InputContext, encrypt) == 0x150);
-static_assert(sizeof(InputContext) == 0x15C);
+// UTL02：普通输入持有动态UTF-16；旧叠加视图直接关联真实字段，不复制权威状态。
+class InputContext {
+private:
+    InputFields ownFields_ {};
+    LegacyInputStorage* legacy_ = nullptr;
+    InputFields& fields() noexcept { return legacy_ != nullptr ? legacy_->fields : ownFields_; }
+    explicit InputContext(LegacyInputStorage* legacy) noexcept;
+public:
+    InputContext() noexcept;
+    explicit InputContext(LegacyInputStorage& legacy) noexcept;
+    InputContext(const InputContext& other);
+    InputContext& operator=(const InputContext& other);
+    ~InputContext() = default;
+    [[nodiscard]] LegacyInputStorage* legacyStorage() const noexcept { return legacy_; }
+    [[nodiscard]] bool empty() const noexcept;
+    [[nodiscard]] std::size_t length() const;
+    void clearText() noexcept;
+    void reset() noexcept;
+    void setText(std::wstring_view value);
+    [[nodiscard]] std::string utf8() const;
+
+    std::wstring text; // 原+0x00；仅普通现场输入持有正文，不限制旧字节容量。
+    std::int32_t& x; // 原成员偏移：+0x120。
+    std::int32_t& y; // 原成员偏移：+0x124。
+    std::int32_t& caretByteOffset; // 原+0x128；原生输入为UTF-16码元，旧存储视图为GBK字节。
+    std::int32_t& totalByteLength; // 原+0x12C；长度单位与当前输入存储一致。
+    std::int32_t& field130; // 原成员偏移：+0x130。
+    std::int32_t& field134; // 原成员偏移：+0x134。
+    std::uint8_t (&field138)[4]; // 原成员偏移：+0x138。
+    std::int32_t& field13C; // 原成员偏移：+0x13C。
+    std::int32_t& field140; // 原成员偏移：+0x140。
+    std::int32_t& maxLine; // 原成员偏移：+0x144。
+    std::int32_t& maxCharPerLine; // 原成员偏移：+0x148。
+    std::int32_t& field14C; // 原成员偏移：+0x14C。
+    std::int32_t& encrypt; // 原成员偏移：+0x150。
+    std::int32_t& field154; // 原成员偏移：+0x154。
+    std::int32_t& field158; // 原+0x158；可见起点，原生UTF-16／旧存储GBK偏移。
+};
+
+// UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。
+struct TextLine {
+    std::size_t start;
+    std::size_t end;
+    std::size_t nextStart;
+};
+[[nodiscard]] std::vector<TextLine> SplitLines(const InputContext& context);
+void AppendText(std::wstring_view utf16);
+// 窄CRT兼容边界；内部只编辑UTF-16。
+void AppendText(std::string_view utf8);
+[[nodiscard]] std::wstring ContextText(const InputContext& context);
+[[nodiscard]] std::size_t ContextUtf16Offset(const InputContext& context, std::int32_t storedByteOffset);
+void SetVisibleUtf16Offset(InputContext& context, std::size_t utf16Offset);
+
+void LoadInitialText_44A160(std::wstring_view initialText);
 
 // 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
 [[nodiscard]] bool IsRejectedInputText_404060(const char* legacyText);
@@ -141,6 +196,18 @@ void InitializeContext_449CF0(
     std::int32_t maxCharPerLine,
     std::int32_t field14C,
     std::int32_t encrypt);
+void InitializeContext_449CF0(
+    InputContext* context,
+    std::int32_t field130,
+    std::int32_t field134,
+    std::int32_t renderMode,
+    std::int32_t fontType,
+    std::int32_t color,
+    std::wstring_view initialText,
+    std::int32_t maxLine,
+    std::int32_t maxCharPerLine,
+    std::int32_t field14C,
+    std::int32_t encrypt);
 
 // 原45D720：清154/158，按Y/X/render/color写入；第四参数不消费。
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
@@ -156,7 +223,7 @@ InputContext* Sub_45D760(
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
 // 原函数：0x0044A160。
-void LoadInitialText_44A160(const char* initialText); // 向当前输入逐字追加，保留原287B上限。
+void LoadInitialText_44A160(const char* initialText); // 向当前动态输入逐字追加；旧存储视图单独检查容量。
 // 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
@@ -166,6 +233,10 @@ std::int32_t Sub_476740(const char* text);
 std::int32_t Sub_45E770(const char* text);
 
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
+// 旧GBK协议／存档域的字节转义，容量仍按GBK字节计算。
+char* EscapeGbkText(const char* source, char* destination, std::int32_t capacity);
+
+std::wstring EscapeText(std::wstring_view source);
 char* EscapeLegacyText_52D1B0(
     const char* source, char* destination, std::int32_t capacity); // ETE01：见文本转义完整正常合同。
 
@@ -182,7 +253,17 @@ char* UnescapeLegacyText_52D150(char* text); // UTE01：原位BYTE取样/固定S
 // 原函数：0x0052D2F0。
 char* UnescapeLegacyTextAndNotify_52D2F0(char* text); // UTE01：反转义/原空操作/同text，非新增通知。
 
-// 原503AB0：按旧字节列宽提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
+// UTL01：source为UTF-8，输出预算为字节，旧列预算不切开完整Unicode字符。
+// 原0x00503AB0的GBK输入、UTF-8显示输出边界；固定记录仍用原接口。
+std::int32_t ExtractGbkTextLine(
+    char* destination, std::int32_t capacity, const char* source,
+    std::int32_t requestedLine, std::int32_t width);
+std::int32_t ExtractGbkTextLine(std::wstring& destination, const char* source, std::int32_t line, std::int32_t width);
+std::int32_t ExtractTextLine(std::wstring& destination, std::wstring_view source, std::int32_t line, std::int32_t width);
+std::int32_t ExtractTextLine(char* destination, std::int32_t capacity, std::wstring_view source, std::int32_t line, std::int32_t width);
+std::int32_t ExtractTextLine(char* destination, std::int32_t capacity, const char* source, std::int32_t line, std::int32_t width);
+
+// 原503AB0：GBK协议／资源输入边界，转换后按旧逻辑列预算提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
 std::int32_t ExtractLegacyLine_503AB0(
     char* destination, std::int32_t capacity, const char* source,
     std::int32_t line, std::int32_t width);

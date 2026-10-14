@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <array>
@@ -16,7 +17,7 @@ struct OrderedRecord1051B14;
 }
 
 namespace cg::input {
-struct InputContext;
+class InputContext;
 }
 
 namespace cg::world::detail {
@@ -66,9 +67,10 @@ struct WindowAnimationData {
 };
 
 // 原第3类元素的8B载荷；文本由47167F分配，47134F释放。
+// UTL02：动态UTF-16正文；原256B私有容量退休，协议/资源模型另行承载。
 struct WindowTextData {
     std::array<std::byte, 4> bytes00; // 原成员偏移：+0x00。
-    char* text; // 原成员偏移：+0x04。
+    std::wstring text; // 原成员偏移：+0x04；UTL02动态UTF-16正文。
 };
 
 // 原type4的12B鼠标载荷；滚动回调与元素命中共用，不含地址。
@@ -764,9 +766,8 @@ std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338
 
 // 原CB1398等固定81B对话行；创建入口只借用，不负责释放。
 struct WindowDialogTextLine {
-    std::array<char, 81> text;
+    std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
-static_assert(sizeof(WindowDialogTextLine) == 81);
 
 const WindowDialogTextLine* BorrowNpcDialogLinesCC24D4() noexcept; // 借用标题及正文，旧/现代对话同源。
 std::int32_t ReadLegacyChoiceImageCC4890() noexcept; // 4A0640生产，旧55/56/57共享预览消费。
@@ -884,13 +885,13 @@ static_assert(offsetof(WindowCrystalItem, limitC4C) == 0xC4C);
 static_assert(offsetof(WindowCrystalItem, remainingC50) == 0xC50);
 
 using WindowDialogReplyCallback = std::int32_t (*)(
-    std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
+    std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
     WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t events);
 using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
 // 原函数：0x0049FCA0。
 login::YobiAction* Sub_49FCA0(
-    const char* title, std::int32_t imageNo, const char* const* lines, std::uint8_t lineCount,
+    const char* title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
     const char* const* choices, std::uint8_t choiceCount,
     const char* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
 // 原函数：0x0049FFA0。
@@ -1174,7 +1175,7 @@ std::int32_t Sub_49CE70(std::int32_t index, std::int32_t state); // 六按钮与
 std::int32_t Sub_49CF70(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
 // 原函数：0x0049DA30。
 std::int32_t Sub_49DA30(
-    std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
+    std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
 // 原函数：0x0049D2E0。
 void Sub_49D2E0(
     std::int32_t type, std::int32_t value, std::int32_t request,
@@ -1212,10 +1213,15 @@ login::YobiAction* Sub_49C600(
     WindowDialogReplyCallback reply, WindowDialogFrameCallback frame,
     std::uint32_t flags, std::uint32_t mode);
 
-// 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
+// UTL02：原型与实例各自拥有动态UTF-16正文，复制使用宽字符串赋值。
 struct WindowTextPrototype {
     std::array<std::byte, 4> bytes00; // 原成员偏移：+0x00。
-    const char* text; // 原成员偏移：+0x04。
+    std::wstring text; // 原成员偏移：+0x04；UTL02拥有UTF-16原型正文。
+    WindowTextPrototype() = default;
+    WindowTextPrototype(std::array<std::byte, 4> bytes, const char* utf8)
+        : bytes00(bytes), text(cg::text::ToUtf16(utf8)) {}
+    WindowTextPrototype(std::array<std::byte, 4> bytes, std::wstring_view wide)
+        : bytes00(bytes), text(wide) {}
 };
 
 // 原元素+18按type解释；type0/5/6当前原型值为0且471440不消费。
@@ -1283,7 +1289,7 @@ struct WindowInputPrototype {
     std::int32_t renderMode; // 原成员偏移：+0x0C。
     std::int32_t fontType; // 原成员偏移：+0x10。
     std::int32_t color; // 原成员偏移：+0x14。
-    std::array<char, 0x204> text; // 原+18文本起点至+21C前的字节区，未消费尾部不冻结语义。
+    std::wstring text; // 原+18文本；UTL02动态UTF-16输入原型正文。
     std::int32_t maxLine; // 原成员偏移：+0x21C。
     std::int32_t maxCharPerLine; // 原成员偏移：+0x220。
     std::int32_t value224; // 原成员偏移：+0x224。
@@ -1404,7 +1410,7 @@ std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称
 std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
 // 原函数：0x0048F6C0。
 std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。
-extern std::array<char, 256> gTitleDraftD45FC0; // 原全局：0x00D45FC0。 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
+extern std::wstring gTitleDraftD45FC0; // 原全局：0x00D45FC0。 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
 extern std::int32_t& gTitleModeCF4E50; // 原全局：0x00CF4E50。 借既有登录窗口状态槽0，0选择/1删除。
 extern std::int32_t& gTitlePageCF4E54; // 原全局：0x00CF4E54。 借既有登录窗口状态槽1，重置/刷新/滚动同源。
 // 原函数：0x00477540。
@@ -1644,10 +1650,10 @@ extern std::int32_t gQuantityLimit581C94; // 原全局：0x00581C94。 原装载
 extern WindowValueCallback gConfirmationCallbackC8B088; // 原全局：0x00C8B088。 原生借用函数指针，确认/取消各自重读。
 extern std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40; // 原全局：0x00CB1E40。
 extern std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90; // 原全局：0x00CB0F90。
-extern std::array<char, 100> gConfirmationLineCB1320; // 原全局：0x00CB1320。
-extern std::array<char, 104> gConfirmationLineCB1210; // 原全局：0x00CB1210。
-extern std::array<char, 256> gConfirmationAcceptHintCC3FCC; // 原全局：0x00CC3FCC。 4C0F20也借用，不建窗口私有副本。
-extern std::array<char, 256> gConfirmationCancelHintD45D70; // 原全局：0x00D45D70。
+extern std::wstring gConfirmationLineCB1320; // 原全局：0x00CB1320。
+extern std::wstring gConfirmationLineCB1210; // 原全局：0x00CB1210。
+extern std::wstring gConfirmationAcceptHintCC3FCC; // 原全局：0x00CC3FCC。 4C0F20也借用，不建窗口私有副本。
+extern std::wstring gConfirmationCancelHintD45D70; // 原全局：0x00D45D70。
 extern std::int32_t gWindow54DialogTypeCB2224; // 原全局：0x00CB2224。 创建快照581800，更新/释放共同读取。
 extern std::int32_t gWindow54ImageCC18C4; // 原全局：0x00CC18C4。 协议字段1的图号，非地址。
 extern std::int32_t gWindow54ValueCC2E68; // 原全局：0x00CC2E68。 4BD540字段6，4D6A60也消费。
@@ -1722,14 +1728,14 @@ extern std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8; // �
 extern std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8; // 原全局：0x00D2E2B8。
 extern std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290; // 原全局：0x00D2E290。
 // 固定原文及NUL的已消费前缀，不据此冻结未消费尾区容量。
-extern std::array<char, 50> gWindow69ConfirmHeadingCC3F68; // 原全局：0x00CC3F68。
-extern std::array<char, 48> gWindow70ConfirmHeadingCF4A40; // 原全局：0x00CF4A40。
-extern std::array<char, 21> gWindow69ConfirmQuestionCC3F04; // 原全局：0x00CC3F04。
-extern std::array<char, 21> gWindow70ConfirmQuestionCF4ABC; // 原全局：0x00CF4ABC。
-extern std::array<char, 11> gWindow69ConfirmAcceptD2E81C; // 原全局：0x00D2E81C。
-extern std::array<char, 11> gWindow70ConfirmAcceptD2DD6C; // 原全局：0x00D2DD6C。
-extern std::array<char, 11> gWindow69ConfirmCancelCB076C; // 原全局：0x00CB076C。
-extern std::array<char, 11> gWindow70ConfirmCancelCC48BC; // 原全局：0x00CC48BC。
+extern std::wstring gWindow69ConfirmHeadingCC3F68; // 原全局：0x00CC3F68。
+extern std::wstring gWindow70ConfirmHeadingCF4A40; // 原全局：0x00CF4A40。
+extern std::wstring gWindow69ConfirmQuestionCC3F04; // 原全局：0x00CC3F04。
+extern std::wstring gWindow70ConfirmQuestionCF4ABC; // 原全局：0x00CF4ABC。
+extern std::wstring gWindow69ConfirmAcceptD2E81C; // 原全局：0x00D2E81C。
+extern std::wstring gWindow70ConfirmAcceptD2DD6C; // 原全局：0x00D2DD6C。
+extern std::wstring gWindow69ConfirmCancelCB076C; // 原全局：0x00CB076C。
+extern std::wstring gWindow70ConfirmCancelCC48BC; // 原全局：0x00CC48BC。
 extern std::int32_t gStorageValueCC4218; // 原全局：0x00CC4218。 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 原全局：0x00CB1DF8。 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8; // 原全局：0x0054F4E8。
@@ -1756,11 +1762,11 @@ extern std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20; // 原全局
 extern std::int32_t gWindowListCountCF46A8; // 原全局：0x00CF46A8。
 extern WindowListSelectionCallback gWindowListCallbackCB1E14; // 原全局：0x00CB1E14。 49EF60借用名单文本并弃返回。
 extern std::int32_t gWindowListOffsetCC3EF4; // 原全局：0x00CC3EF4。
-extern std::array<char, 256> gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
+extern std::wstring gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
 extern std::array<char, 24> gStatusHpTextD40B18; // 原全局：0x00D40B18。 状态栏type7共用原文本跨度，非新截断门槛。
 extern std::array<char, 28> gStatusFpTextD45D50; // 原全局：0x00D45D50。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
-extern std::array<char, 260> gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
+extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
 extern std::int32_t gWindow6HoverD2EA70; // 原全局：0x00D2EA70。 473840的case0写U8(state)&1，4731E0严格判1。
 extern std::int32_t gValueCC4D34; // 原全局：0x00CC4D34。 4D3020保存x/y数值，非CryptInt对象。
@@ -1777,13 +1783,13 @@ std::int32_t ReadGatherResultD2D820() noexcept; // 旧选择39借用窗口12同�
 std::int32_t ReadGatherResultImageCF3FF0() noexcept;
 const char* BorrowGatherResultNameD2DA94() noexcept;
 const char* BorrowGatherResultSuffixCB1E1C() noexcept;
-const char* BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
+std::wstring_view BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
 std::int32_t ReadLegacySkillResultD66E2C() noexcept; // 旧选择37与窗口13共享回复结果。
 const char* BorrowLegacySkillSummaryCC18CC() noexcept;
-const char* BorrowLegacySkillDetailsCB0FDC() noexcept;
+std::wstring_view BorrowLegacySkillDetailsCB0FDC() noexcept;
 std::int32_t ReadLegacyItemWorkResultCB05FC() noexcept;
 const char* BorrowLegacyItemWorkSuffixD2DADC() noexcept;
-const char* BorrowLegacyItemWorkDetailsD2DB00() noexcept;
+std::wstring_view BorrowLegacyItemWorkDetailsD2DB00() noexcept;
 std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept; // 新旧加工入口与结果回复同源技能类别。
 void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
 std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
@@ -1791,7 +1797,7 @@ std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
 const char* BorrowLegacyCraftNameCF46D4() noexcept;
 void WriteLegacyCraftNameCF46D4(const char* name); // 旧26发送前NUL复制，沿既有60B结果名称。
 const char* BorrowLegacyCraftSuffixD672B4() noexcept;
-const char* BorrowLegacyCraftDetailsD2E92C() noexcept;
+std::wstring_view BorrowLegacyCraftDetailsD2E92C() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原全局：0x005846BC。 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
 extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C; // 原全局：0x00D2D61C。
@@ -2123,6 +2129,10 @@ std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // WCL01：持�
 std::int32_t Sub_4FBA30(
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
     std::int32_t fontType, std::int8_t color, const char* text,
+    std::int8_t value7, std::int8_t marker);
+std::int32_t Sub_4FBA30(
+    std::int32_t x, std::int32_t y, std::uint8_t renderMode,
+    std::int32_t fontType, std::int8_t color, std::wstring_view text,
     std::int8_t value7, std::int8_t marker); // 原$分段、颜色续接与即时测宽。
 // 原函数：0x0048B810。
 std::int32_t Sub_48B810(
@@ -2809,8 +2819,6 @@ void Sub_4771B0(
 std::int32_t Sub_477460(const char* text, std::int8_t style); // 原字节长度乘运行步进减扣宽。
 
 static_assert(sizeof(WindowInputReference) == 16);
-static_assert(offsetof(WindowTextPrototype, text) == 8);
-static_assert(sizeof(WindowTextPrototype) == 16);
 static_assert(sizeof(WindowElementPrototypeSource) == 8);
 static_assert(offsetof(WindowElementPrototype, source) == 0x18);
 static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);
@@ -2836,14 +2844,9 @@ static_assert(offsetof(WindowNumberData, style) == 9);
 static_assert(offsetof(WindowNumberData, flags) == 0x0A);
 static_assert(offsetof(WindowNumberData, byte07) == 0x0B);
 static_assert(sizeof(WindowNumberData) == 16);
-static_assert(offsetof(WindowInputPrototype, text) == 0x24);
-static_assert(offsetof(WindowInputPrototype, maxLine) == 0x228);
-static_assert(sizeof(WindowInputPrototype) == 0x238);
 static_assert(offsetof(WindowAnimationData, action) == 0);
 static_assert(offsetof(WindowAnimationData, value04) == 8);
 static_assert(sizeof(WindowAnimationData) == 16);
-static_assert(offsetof(WindowTextData, text) == 8);
-static_assert(sizeof(WindowTextData) == 16);
 static_assert(offsetof(WindowMouseData, deltaX) == 4);
 static_assert(offsetof(WindowMouseData, deltaY) == 8);
 static_assert(sizeof(WindowMouseData) == 12);

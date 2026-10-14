@@ -1,4 +1,5 @@
 #include "cg/platform/Startup.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #define WIN32_LEAN_AND_MEAN
@@ -37,7 +38,7 @@ int InitializeWindow()
 
     if (gLegacyWindow) {
         // GWL_STYLE 的值仍是 32 位 LONG，不是需要 Ptr 宽化的窗口指针字段。
-        SetWindowLongA(reinterpret_cast<HWND>(gLegacyWindow), GWL_STYLE, static_cast<LONG>(style));
+        SetWindowLongW(reinterpret_cast<HWND>(gLegacyWindow), GWL_STYLE, static_cast<LONG>(style));
         ShowWindow(reinterpret_cast<HWND>(gLegacyWindow), gShowCommand);
         if (gWindowMode) {
             SetWindowPos(
@@ -51,15 +52,16 @@ int InitializeWindow()
                 SWP_FRAMECHANGED);
         }
     } else {
+        const std::wstring className = text::ToUtf16(gWindowClassName);
         HWND window;
         if (gWindowMode) {
-            window = CreateWindowExA(
-                0, gWindowClassName, gWindowClassName, style,
+            window = CreateWindowExW(
+                0, className.c_str(), className.c_str(), style,
                 gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
                 nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
         } else {
-            window = CreateWindowExA(
-                0, gWindowClassName, gWindowClassName, style,
+            window = CreateWindowExW(
+                0, className.c_str(), className.c_str(), style,
                 0, 0, rect.right - rect.left, rect.bottom - rect.top,
                 nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
         }
@@ -75,12 +77,12 @@ int InitializeWindow()
 int PumpWindowMessages()
 {
     MSG message;
-    while (PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
+    while (PeekMessageW(&message, nullptr, 0, 0, PM_REMOVE)) {
         if (message.message == WM_QUIT) {
             return 0;
         }
         TranslateMessage(&message);
-        DispatchMessageA(&message);
+        DispatchMessageW(&message);
     }
     return 1;
 }

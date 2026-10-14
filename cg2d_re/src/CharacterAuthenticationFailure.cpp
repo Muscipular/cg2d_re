@@ -8,9 +8,8 @@ namespace cg::character_select {
 namespace {
 
 // 原 0x55C5E8：正文 14 字节，含唯一 NUL 共 15 字节；来源编码名称不猜。
-constexpr char kAuthenticationFailedText[] =
-    "\xB5\xC7\xC8\xEB\xD5\x4A\xD7\x43\xCA\xA7\x94\xA1\xA1\xA3";
-static_assert(sizeof(kAuthenticationFailedText) == 15);
+constexpr wchar_t kAuthenticationFailedText[] =
+    L"登入認證失敗。";
 
 // 下列原存储的全部引用都只在 sub_45D7D0/sub_45D7E0 内。
 std::uint16_t gAuthenticationFailureStage = 0; // 原 0x9A6E34，R/W16。

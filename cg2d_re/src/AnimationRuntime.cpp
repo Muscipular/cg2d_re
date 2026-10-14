@@ -1,4 +1,6 @@
 #include "cg/AnimationRuntime.hpp"
+#include "cg/text/Encoding.hpp"
+#include <string>
 
 #include "AnimationRuntimeState.hpp"
 #include "platform/LegacyFormat.hpp"
@@ -64,9 +66,11 @@ static_assert(offsetof(AnimeInfoPair, count) == 0x08);
 static_assert(offsetof(AnimeInfoPair, flag) == 0x0A);
 static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
 
-constexpr char kAnimeSizeErrorCaption[] =
+constexpr char kAnimeSizeErrorCaptionRaw[] =
     "\x83\x41\x83\x6A\x3F\x81\x5B\x83\x56\x3F\x3F\x83\x66\x81\x5B\x83\x5E"
     "\x82\xAA\x94\x6A\x91\xB9\x82\xB5\x82\xC4\x82\xA2\x82\xDC\x82\xB7\x81\x42";
+const std::string kAnimeSizeErrorCaptionUtf8 = cg::text::FromLegacyDisplay(kAnimeSizeErrorCaptionRaw);
+const char* const kAnimeSizeErrorCaption = kAnimeSizeErrorCaptionUtf8.c_str();
 
 } // namespace
 
@@ -357,8 +361,8 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
         char message[256];
         std::sprintf(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
         platform::ShowLegacyMessage(message,
-            "\x8D\xC0\x95\x57\x83\x66\x81\x5B\x83\x5E\x97\xCA"
-            "\x82\xAA\x88\xD9\x8F\xED\x82\xC5\x82\xB7\x81\x42", 0);
+            cg::text::FromLegacyDisplay("\x8D\xC0\x95\x57\x83\x66\x81\x5B\x83\x5E\x97\xCA"
+            "\x82\xAA\x88\xD9\x8F\xED\x82\xC5\x82\xB7\x81\x42").c_str(), 0);
         return 0;
     }
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];

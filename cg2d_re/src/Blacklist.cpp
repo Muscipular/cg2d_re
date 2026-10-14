@@ -1,4 +1,6 @@
 #include "cg/Blacklist.hpp"
+#include "cg/text/Encoding.hpp"
+#include <system_error>
 #include "cg/Input.hpp"
 #include "platform/LegacyFormat.hpp"
 #include "platform/LegacyStdio.hpp"
@@ -161,8 +163,13 @@ std::int32_t GetBlacklistCount_401190()
 // 原函数：0x004013D0。
 std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
 {
+    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    std::string stored;
+    try { stored = cg::text::ToGbk(name); }
+    catch (const std::system_error&) { return 0; }
+    const char* const storedName = stored.c_str();
     const auto* const inputBytes =
-        reinterpret_cast<const volatile std::uint8_t*>(name);
+        reinterpret_cast<const volatile std::uint8_t*>(storedName);
     for (const Record& record : gRecords) {
         if (EqualPairedBytes(
                 inputBytes,
@@ -180,6 +187,11 @@ std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
 // 原函数：0x00401270。
 std::int8_t AddBlacklistRecord_401270(const char* const name)
 {
+    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    std::string stored;
+    try { stored = cg::text::ToGbk(name); }
+    catch (const std::system_error&) { return 0; }
+    const char* const storedName = stored.c_str();
     if (gCursor == static_cast<std::int32_t>(kRecordCount)) {
         return 0;
     }
@@ -192,12 +204,12 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
         std::size_t byteCount = 0;
         do {
             ++byteCount;
-        } while (name[byteCount - 1] != '\0');
+        } while (storedName[byteCount - 1] != '\0');
 
         std::uint8_t* const destination = record.data();
         const std::size_t wordCopyByteCount = byteCount & ~std::size_t {3};
         for (std::size_t i = 0; i < wordCopyByteCount; ++i) {
-            destination[i] = static_cast<std::uint8_t>(name[i]);
+            destination[i] = static_cast<std::uint8_t>(storedName[i]);
         }
 
         // 原4012BF在四字节分组复制后取游标，余数字节复制后才发布。
@@ -205,7 +217,7 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
         const std::int32_t nextCursor =
             std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
         for (std::size_t i = wordCopyByteCount; i < byteCount; ++i) {
-            destination[i] = static_cast<std::uint8_t>(name[i]);
+            destination[i] = static_cast<std::uint8_t>(storedName[i]);
         }
         gCursor = nextCursor;
         break;
@@ -221,8 +233,13 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
 // 原函数：0x004012F0。
 std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
 {
+    // UTL01：公开名称为 UTF-8，原黑名单记录和文件继续 GBK。
+    std::string stored;
+    try { stored = cg::text::ToGbk(name); }
+    catch (const std::system_error&) { return 0; }
+    const char* const storedName = stored.c_str();
     const auto* const inputBytes =
-        reinterpret_cast<const volatile std::uint8_t*>(name);
+        reinterpret_cast<const volatile std::uint8_t*>(storedName);
     std::size_t i = 0;
     for (; i < kRecordCount; ++i) {
         if (EqualPairedBytes(gRecords[i].data(), inputBytes)) {

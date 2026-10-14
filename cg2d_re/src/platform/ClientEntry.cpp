@@ -10,7 +10,7 @@
 #include <dbghelp.h>
 #include <mmsystem.h>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cwchar>
 #include <string>
 
@@ -277,7 +277,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     gInstance = reinterpret_cast<std::uintptr_t>(instance);
     gCommandLine = commandLine;
 
-    if (StrStr_53BE40(commandLine, "CGstart") != nullptr) {
+    if (const_cast<char*>(std::strstr(commandLine, "CGstart")) != nullptr) {
         std::memset(fileCommandLine, 0, sizeof(fileCommandLine));
         std::memset(fileName, 0, sizeof(fileName));
         std::int32_t total = 0;
@@ -300,7 +300,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 
     // 原代码不检查 ERROR_ALREADY_EXISTS，也不在 WinMain 中释放该句柄。
     gStartupMutex = reinterpret_cast<std::uintptr_t>(CreateMutexA(nullptr, TRUE, "XZYDRaEvyPQC"));
-    if (StrStr_53BE40(gCommandLine, "updated") == nullptr) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "updated")) == nullptr) {
         ShowUtf8Message("請由「線上遊戲領航員」啟動", "確認", 0x10);
         return 0;
     }

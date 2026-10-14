@@ -4,11 +4,6 @@
 
 namespace cg::platform {
 
-// 原53C3AC/53C0A9；沿用户已批准的std::malloc/std::free合同，数量保持U32。
-void* __cdecl Malloc_53C3AC(std::uint32_t size);
-// 原函数：0x0053C0A9。
-void __cdecl Free_53C0A9(void* memory);
-
 // 原53FCFB；直接查询同CRT域块的_msize实际容量，沿现接口按U32消费。
 std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);
 // 原53BFF8/53FA5B：MC01-C4直接std::calloc/realloc，输入数量保持U32。

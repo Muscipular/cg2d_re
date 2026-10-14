@@ -30,3 +30,52 @@ LegacyScan.cpp和CMake一行源项退休，LegacyFormat保留原店铺W32取样�
 当前全量表更新直接调用／CRT导入和受影响源行号，3680入口身份／状态、所有原端事实、阶段历史和完整门禁保持，无活动绑定指向删除扫描单元。
 UTF-8无BOM／LF、841调用／九容量、必要适配、SDK导入、历史／门禁、原身份及Git差异静态核对通过；文本汇总器及最终-Check通过3680函数／218导入／3061区间／184叶功能／60任务。
 仅静态，未编译、测试或运行，不把调用改写计为完整格式／扫描流程或互通通过；精确提交本步并保留其它用户修改，不打tag。
+
+<a id="direct-string-time-calls"></a>
+## 字符串／时间通用包装退休（DCS01）
+
+用户继续要求LegacyStringCompare与LegacyTime使用MSVC CRT；两模块底层已是CRT，本步只消除25个纯转发接口，173处实际调用直接使用原提供者；未使用包装退休，不新增消费者。
+
+| 旧接口 | 直接提供者 | CPP调用数 |
+| --- | --- | --- |
+| ClassifyLegacySpace_53BDEF／0x0053BDEF | std::isspace | 1 |
+| ClassifyLegacyControl_53BE17／0x0053BE17 | std::iscntrl | 1 |
+| CompareInsensitive_53CF50／0x0053CF50 | ::_stricmp | 2 |
+| CompareInsensitiveN_54AB30／0x0054AB30 | ::_strnicmp | 1 |
+| LegacyErrno_1085FE0／0x01085FE0 | errno | 1 |
+| LegacyDosError_1085FE4／0x01085FE4 | _doserrno | 0 |
+| GetEnv_54518B／0x0054518B | std::getenv | 0 |
+| Atol_53C5BE／0x0053C5BE | std::atol | 0 |
+| Strtol_53DA45／0x0053DA45 | std::strtol | 0 |
+| Atoi_53C649／0x0053C649 | std::atoi | 45 |
+| Malloc_53C3AC／0x0053C3AC | std::malloc | 1 |
+| Free_53C0A9／0x0053C0A9 | std::free | 1 |
+| Itoa_54ABDD／0x0054ABDD | ::_itoa | 1 |
+| StrTok_53D26E／0x0053D26E | std::strtok | 2 |
+| StrNCmp_53BFC0／0x0053BFC0 | std::strncmp | 9 |
+| StrCmp_5450F0／0x005450F0 | std::strcmp | 0 |
+| StrLen_53F9E0／0x0053F9E0 | std::strlen | 0 |
+| StrCpy_544DB0／0x00544DB0 | std::strcpy | 0 |
+| StrCat_544DC0／0x00544DC0 | std::strcat | 0 |
+| StrNCat_53C790／0x0053C790 | std::strncat | 1 |
+| StrNCpy_53BEC0／0x0053BEC0 | std::strncpy | 35 |
+| StrChr_53C2F0／0x0053C2F0 | std::strchr | 16 |
+| StrStr_53BE40／0x0053BE40 | std::strstr | 48 |
+| CreateLegacyDirectory_53C654／0x0053C654 | ::_mkdir | 6 |
+| ChangeLegacyDirectory_53DD2F／0x0053DD2F | ::_chdir | 2 |
+
+旧count／malloc请求的U32参数转换保持，调用点在该参数显式static_cast<std::uint32_t>；strlen的U32返回与atol／strtol的S32返回按旧接口保持。strchr／strstr沿原返回char*合同在调用点const_cast，不扩大修改权限或改业务类型。errno直接访问当前CRT线程槽，保原读写，不新增缓存／影子状态；_doserrno无消费者不补调用。
+四个真正的时间适配继续保留：ReadLegacyTime32写S32可空出参、七参数ConvertLocalTime组std::tm／_mktime32、LocalTime转九S32字段并借用当前线程对象、文件创建时间_fileno／_fstat32成功才发布；保持_time32／_localtime32／_mktime32，不换64位time_t，不改结构或FILE域。
+LegacyStringCompare.cpp／.hpp及CMake项在四接口退休后删除；LegacyTime保留适配与相关声明，LegacyMemory只退休本批malloc／free声明，不扩其他分配／内存包装。原25个参考地址保留到实际标准库导入说明，数据槽地址明确是原全局，不冒充函数入口；无调用的接口只记CRT提供者。
+原参数求值、宽度、返回消费、失败及所有原地址／历史／验收门禁保持，更新实际源定位与唯一进度；只做必要静态和文本汇总，不编译、测试、运行、查产物、计算摘要、引依赖或委派，同分支精确提交，不打tag。
+
+### DCS01源码与静态结果
+
+25个纯转发接口已退休，173处实际CPP调用直接使用原CRT；malloc／free各1处，数量不把头文件声明计入调用。四比较接口及其.cpp／.hpp、单一CMake源项退休，旧名在src／include无残留。
+调用参数按原U32边界转换，原const char*查询后char*借用由同一const_cast承接，类型／返回消费与errno线程访问保持；四个真实时间适配正文逐字相同，不改32位时间或LegacyTm字段。
+LegacyTime仅保留时间适配和布局断言，删除不再使用的头文件依赖；LegacyMemory仅移除本批malloc／free声明，其它分配／内存接口保持。
+历史定位快照不重写；汇总器只允许退休比较文件的历史附件读取具名“格式化与扫描直接使用MSVC CRT”提交中的前态，当前语义source仍须实际存在。
+原参考地址注释保留在真实CRT导入及调用依赖旁；无消费者的八个服务不造新CPP调用，原全局errno／_doserrno地址明确标作数据槽。
+当前源定位／标准库及内部支撑关系、既有语义／证据／处置与CRT及C04／U04／U11开放引用同步，旧绑定具名存历史；3680身份／状态及全部原端事实／历史／门禁保持。
+UTF-8无BOM／LF、173参数／类型转换、四适配正文、旧接口与比较文件残留、原身份／历史门禁及Git差异静态核对通过；文本汇总器及最终-Check通过3680函数／218导入／3061区间／184叶功能／60任务。
+仅静态，未编译、测试或运行；不把宿主承接计为完整locale／时间／硬件ABI运行等价，精确提交并保留其它用户修改，不打tag。

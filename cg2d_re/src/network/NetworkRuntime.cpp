@@ -36,7 +36,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdlib>
+#include <cstdlib> // 原CRT接口：0x0053C649、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
 #include <string>
 #include <tuple>
@@ -886,25 +886,25 @@ void Sub_50DD80(
     ExtractDelimitedField_52CED0(payload, '|', 2, 2047, field);
     const std::int32_t recordIndex = Base62Decode_52D050(field);
     ExtractDelimitedField_52CED0(payload, '|', 3, 2047, field);
-    const std::int32_t recordX = platform::Atoi_53C649(field);
+    const std::int32_t recordX = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 4, 2047, field);
-    const std::int32_t recordY = platform::Atoi_53C649(field);
+    const std::int32_t recordY = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 5, 2047, field);
-    const std::int32_t recordDirection = platform::Atoi_53C649(field);
+    const std::int32_t recordDirection = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 6, 2047, field);
     const std::int32_t recordImageNo =
-        character_select::detail::Sub_51B740(platform::Atoi_53C649(field));
+        character_select::detail::Sub_51B740(std::atoi(field));
     ExtractDelimitedField_52CED0(payload, '|', 7, 2047, field);
-    const std::int32_t level = platform::Atoi_53C649(field);
+    const std::int32_t level = std::atoi(field);
     const std::int32_t value40 = ParseDelimitedInteger_52CFA0(payload, '|', 8);
     ExtractDelimitedField_52CED0(payload, '|', 9, 2047, name);
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
     ExtractDelimitedField_52CED0(payload, '|', 10, 2047, titles);
     input::UnescapeLegacyTextAndNotify_52D2F0(titles);
     ExtractDelimitedField_52CED0(payload, '|', 11, 2047, field);
-    const std::int32_t flag1 = platform::Atoi_53C649(field);
+    const std::int32_t flag1 = std::atoi(field);
     ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
-    const std::int32_t flag2 = platform::Atoi_53C649(field);
+    const std::int32_t flag2 = std::atoi(field);
     if (world::detail::Sub_445A60(
             recordIndex, recordImageNo, recordX, recordY, recordDirection,
             name, titles, level, static_cast<std::uint16_t>(value40),
@@ -940,7 +940,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
 {
     char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
     if (previous[0] != '\0') {
-        if (platform::StrStr_53BE40(previous, text) != nullptr) {
+        if (const_cast<char*>(std::strstr(previous, text)) != nullptr) {
             return;
         }
         constexpr char format58B0B0[] =
@@ -1105,16 +1105,13 @@ void HandleResponse_508800(
     gNetworkRuntimeState.localTime62B380 =
         platform::LocalTime_53B8C6(&gNetworkRuntimeState.time62B394);
 
-    const char* const separator = platform::StrStr_53BE40(text, "|");
+    const char* const separator = const_cast<char*>(std::strstr(text, "|"));
     std::memset(
         character_select::detail::gText9A4EAC,
         0,
         sizeof(character_select::detail::gText9A4EAC));
     if (separator != nullptr) {
-        platform::StrNCpy_53BEC0(
-            character_select::detail::gText9A4EAC,
-            text,
-            static_cast<std::uint32_t>(separator - text));
+        std::strncpy(character_select::detail::gText9A4EAC, text, static_cast<std::uint32_t>(static_cast<std::uint32_t>(separator - text)));
         platform::ParseProtectionTables_404600(separator);
         return;
     }
@@ -1541,7 +1538,7 @@ std::int32_t ParseDelimitedInteger_52CFA0(
     if (field[0] == '\0') {
         return -1;
     }
-    return platform::Atoi_53C649(field.data());
+    return std::atoi(field.data());
 }
 
 // 原 [0x52CFF0,0x52D04F)：保留字段提取结果；空字段不写输出。
@@ -1557,7 +1554,7 @@ std::int32_t ParseDelimitedIntegerStatus_52CFF0(
     if (field[0] == '\0') {
         return 2;
     }
-    *output = platform::Atoi_53C649(field.data());
+    *output = std::atoi(field.data());
     return status;
 }
 

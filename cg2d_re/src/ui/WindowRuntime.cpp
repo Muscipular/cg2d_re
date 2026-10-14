@@ -43,13 +43,14 @@
 #include <cstddef>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D；直接沿MSVC CRT。
 #include <cstdlib>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0、0x0053D26E、0x0053BEC0、0x0053C649、0x0053C0A9、0x0053C3AC；原参数／返回合同由直接调用承接。
 #include <fcntl.h>
 #include <io.h>
 #include <optional>
 #include <string>
 #include <sys/stat.h>
 #include <type_traits>
+#include <cstdint>
 
 namespace cg::ui {
 namespace detail {
@@ -2707,21 +2708,21 @@ std::int32_t Sub_4CFE70()
         }
     }
     input::EscapeLegacyTextAndNotify_52D2D0(offers, escaped, 275);
-    platform::StrNCpy_53BEC0(offers, escaped, 275);
+    std::strncpy(offers, escaped, static_cast<std::uint32_t>(275));
     const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
     offers[275] = '\0';
     if (nameLength != 0) {
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(name, escaped, 275);
-    platform::StrNCpy_53BEC0(name, escaped, 32);
+    std::strncpy(name, escaped, static_cast<std::uint32_t>(32));
     const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
     name[32] = '\0';
     if (descriptionLength != 0) {
         std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(description, escaped, 275);
-    platform::StrNCpy_53BEC0(description, escaped, 112);
+    std::strncpy(description, escaped, static_cast<std::uint32_t>(112));
     const std::uintptr_t socket = platform::gConnectionSocket;
     description[112] = '\0';
     static_cast<void>(network::Sub_5120D0(socket, name, description, offers));
@@ -3749,8 +3750,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(Sub_476570(&gStallDescriptionInput581360, window->x, window->y, 1));
-            platform::StrNCpy_53BEC0(gStallDescriptionD67BF8.data(),
-                gStallDescriptionInput581360.input.context->text, 56);
+            std::strncpy(gStallDescriptionD67BF8.data(), gStallDescriptionInput581360.input.context->text, static_cast<std::uint32_t>(56));
             gStallDescriptionD67BF8[56] = '\0';
         } else if (std::strlen(gStallDescriptionD67BF8.data()) != 0) {
             for (std::int32_t line = 0; line < 3; ++line) {
@@ -3776,7 +3776,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(Sub_476570(&gStallNameInput581130, window->x, window->y, 1));
-            platform::StrNCpy_53BEC0(gStallNameD67BE4.data(), gStallNameInput581130.input.context->text, 16);
+            std::strncpy(gStallNameD67BE4.data(), gStallNameInput581130.input.context->text, static_cast<std::uint32_t>(16));
             gStallNameD67BE4[16] = '\0';
         } else if (std::strlen(gStallNameD67BE4.data()) != 0) {
             WindowInstance* const window = gCurrentWindow;
@@ -4047,13 +4047,13 @@ void Sub_4CED60(
     }
     constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
     std::memset(bytes + tail, 0, sizeof(browse) - tail);
-    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
+    std::strncpy(BorrowStallBrowseD046D8Storage()->sellerName00.data(), login::detail::BorrowYobiNameC4(action), static_cast<std::uint32_t>(16));
     BorrowStallBrowseD046D8Storage()->target5C = target;
     BorrowStallBrowseD046D8Storage()->imageNo60 = login::detail::GetYobiActionField2A8(action);
     BorrowStallBrowseD046D8Storage()->action64 = login::detail::GetYobiActionField2B0(action);
     BorrowStallBrowseD046D8Storage()->direction68 = login::detail::GetYobiActionField2B8(action);
-    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->stallName11.data(), stallName, 16);
-    platform::StrNCpy_53BEC0(BorrowStallBrowseD046D8Storage()->description22.data(), description, 56);
+    std::strncpy(BorrowStallBrowseD046D8Storage()->stallName11.data(), stallName, static_cast<std::uint32_t>(16));
+    std::strncpy(BorrowStallBrowseD046D8Storage()->description22.data(), description, static_cast<std::uint32_t>(56));
 
     char itemName[256];
     char itemDescription[768];
@@ -7912,17 +7912,17 @@ std::int32_t Sub_4FBA30(
     const std::int32_t fontType, std::int8_t color, const char* text,
     const std::int8_t value7, const std::int8_t marker)
 {
-    const char* delimiter = platform::StrChr_53C2F0(text, '$');
+    const char* delimiter = const_cast<char*>(std::strchr(text, '$'));
     while (delimiter != nullptr) {
         std::uint32_t length = static_cast<std::uint32_t>(delimiter - text);
         if (delimiter[1] == '$') {
             ++length;
         }
-        auto* const prefix = static_cast<char*>(platform::Malloc_53C3AC(length + 1));
+        auto* const prefix = static_cast<char*>(std::malloc(static_cast<std::uint32_t>(length + 1)));
         if (prefix == nullptr) {
             return 0;
         }
-        platform::StrNCpy_53BEC0(prefix, text, length);
+        std::strncpy(prefix, text, static_cast<std::uint32_t>(length));
         prefix[length] = '\0';
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
@@ -7931,7 +7931,7 @@ std::int32_t Sub_4FBA30(
             color, prefix, value7, marker));
         x += login::detail::TextMeasure(prefix, fontType);
         text = delimiter + 2;
-        platform::Free_53C0A9(prefix);
+        std::free(prefix);
         const signed char next = static_cast<signed char>(delimiter[1]);
         if (next != '$') {
             const std::int32_t digit = next - '0';
@@ -7940,7 +7940,7 @@ std::int32_t Sub_4FBA30(
                 color = static_cast<std::int8_t>(digit);
             }
         }
-        delimiter = platform::StrChr_53C2F0(text, '$');
+        delimiter = const_cast<char*>(std::strchr(text, '$'));
     }
     return render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
@@ -8909,7 +8909,7 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
 // 原函数：0x004888C0。
 std::int32_t Sub_4888C0(const char* const text)
 {
-    const std::int32_t selected = platform::Atoi_53C649(text);
+    const std::int32_t selected = std::atoi(text);
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const unsigned char previous = occupancy[selected];
     gSelectedItemCB0A44 = selected;
@@ -9817,7 +9817,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
     const char delimiter = cursor[index];
     number[index] = '\0';
     cursor += index + 1;
-    const std::int32_t imageNo = platform::Atoi_53C649(number.data());
+    const std::int32_t imageNo = std::atoi(number.data());
     std::uint8_t direction = 0;
     if (delimiter == ',') {
         ++cursor;
@@ -9830,12 +9830,12 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
         }
         number[index] = '\0';
         cursor += index + 1;
-        direction = static_cast<std::uint8_t>(platform::Atoi_53C649(number.data()));
+        direction = static_cast<std::uint8_t>(std::atoi(number.data()));
     }
-    const char* const coordinates = platform::StrChr_53C2F0(cursor, '(');
+    const char* const coordinates = const_cast<char*>(std::strchr(cursor, '('));
     if (coordinates != nullptr) {
         cursor = coordinates + 1;
-        if (platform::StrChr_53C2F0(cursor, ')') != nullptr) {
+        if (const_cast<char*>(std::strchr(cursor, ')')) != nullptr) {
             index = 0;
             while (cursor[index] != '\0' && cursor[index] != ',') {
                 if (cursor[index] != ' ') {
@@ -9845,7 +9845,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
             }
             number[index] = '\0';
             cursor += index + 1;
-            x = static_cast<std::int16_t>(platform::Atoi_53C649(number.data()));
+            x = static_cast<std::int16_t>(std::atoi(number.data()));
             index = 0;
             while (cursor[index] != '\0' && cursor[index] != ',') {
                 if (cursor[index] != ' ') {
@@ -9854,7 +9854,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
                 ++index;
             }
             number[index] = '\0';
-            y = static_cast<std::int16_t>(platform::Atoi_53C649(number.data()));
+            y = static_cast<std::int16_t>(std::atoi(number.data()));
         }
     }
     Sub_49C510(1, imageNo, direction, x, y);
@@ -10168,7 +10168,7 @@ login::YobiAction* Sub_49DF30(
     if (type == 2) {
         lineHeight = 20;
         gDialogReply.firstLine = network::ParseDelimitedInteger_52CFA0(text, '\n', 1);
-        text = platform::StrChr_53C2F0(text, '\n') + 1;
+        text = const_cast<char*>(std::strchr(text, '\n')) + 1;
     }
     const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
     const std::int32_t lines = login::detail::Sub_49C5E0(
@@ -12781,7 +12781,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 ++count;
             }
         }
-        platform::StrNCpy_53BEC0(itemCopy.data(), itemSource.data(), 1024);
+        std::strncpy(itemCopy.data(), itemSource.data(), static_cast<std::uint32_t>(1024));
         count = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
             const std::int32_t slot = Sub_4B00F0(position);
@@ -12794,7 +12794,7 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 ++count;
             }
         }
-        platform::StrNCpy_53BEC0(petCopy.data(), petSource.data(), 1024);
+        std::strncpy(petCopy.data(), petSource.data(), static_cast<std::uint32_t>(1024));
         const std::int32_t amount = gTradeValueD046D0;
         static_cast<void>(network::Sub_512040(
             platform::gConnectionSocket, itemCopy.data(), petCopy.data(), amount));
@@ -13122,7 +13122,7 @@ void RebuildWindowLines51(char* const text)
     gWindowLineCountD67B74 = 0;
     char* segment = text;
     for (;;) {
-        char* separator = platform::StrChr_53C2F0(segment, '\n');
+        char* separator = const_cast<char*>(std::strchr(segment, '\n'));
         if (separator == nullptr) {
             separator = end;
         }
@@ -13149,7 +13149,7 @@ void RebuildWindowLines51(char* const text)
 
     segment = text;
     for (std::int32_t line = 0; line < gWindowLineCountD67B74; ++line) {
-        char* separator = platform::StrChr_53C2F0(segment, '\n');
+        char* separator = const_cast<char*>(std::strchr(segment, '\n'));
         if (separator != nullptr) {
             *separator = '\0';
         } else {
@@ -18988,7 +18988,7 @@ login::YobiAction* Sub_4B77E0(const char* const text)
     WriteTradeValue(detail, 0xC28, network::ParseDelimitedInteger_52CFA0(text, '|', 9));
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 10, 768, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    platform::StrNCpy_53BEC0(detail, std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), 29);
+    std::strncpy(detail, std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), static_cast<std::uint32_t>(29));
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 11, 767, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 32; ++row) {
@@ -27148,13 +27148,13 @@ char* Sub_4AE8D0()
     char text[1024];
     char line[1024];
     std::strcpy(text, gWindow47Runtime.textCC426C.data());
-    char* token = platform::StrTok_53D26E(text, kWindow47Delimiter5531C4);
+    char* token = std::strtok(text, kWindow47Delimiter5531C4);
     std::int32_t row = 0;
     while (token != nullptr) {
         static_cast<void>(Sub_4AEA10(line, token));
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
         std::strcpy(data->text, line);
-        token = platform::StrTok_53D26E(nullptr, kWindow47Delimiter5531C4);
+        token = std::strtok(nullptr, kWindow47Delimiter5531C4);
         ++row;
     }
     return token;
@@ -27601,7 +27601,7 @@ std::uint32_t Sub_4A49B0()
         const MailMessageView message = borrowCurrent();
         *message.unread00 = std::byte{0};
         std::sprintf(buffer, "%s", message.text02);
-        const char* const slash = platform::StrChr_53C2F0(buffer, '/');
+        const char* const slash = const_cast<char*>(std::strchr(buffer, '/'));
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         std::strcpy(time->text, slash != nullptr ? slash + 1 : input::LegacyText593850());
         for (std::int32_t row = 0; row < 10; ++row) {
@@ -42280,12 +42280,12 @@ std::int32_t Sub_4731E0(const std::int32_t)
         gCurrentWindow->elements[11].visible = 0;
         gCurrentWindow->elements[12].visible = 0;
     } else {
-        if (platform::StrStr_53BE40(gHoverTextD68AE8.data(), "[han]") != nullptr) {
+        if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[han]")) != nullptr) {
             if (gHoverTextD68AE8[0] != '\0') {
                 gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
             }
             gHoverObjectValueD68AC8 = 1;
-        } else if (platform::StrStr_53BE40(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
+        } else if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[kok]")) != nullptr) {
             if (gHoverTextD68AE8[0] != '\0') {
                 gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
             }

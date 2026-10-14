@@ -34,7 +34,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053D21D、0x0053BC0F；直接沿MSVC CRT。
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BEC0；原参数／返回合同由直接调用承接。
 #include <string>
 
 namespace {
@@ -7591,7 +7591,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             ++itemCount;
                         }
                     }
-                    platform::StrNCpy_53BEC0(itemPayload, itemSource, static_cast<std::uint32_t>(sizeof(itemPayload)));
+                    std::strncpy(itemPayload, itemSource, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(itemPayload))));
                     std::int32_t petCount = 0;
                     for (std::int32_t pet = 0; pet < 5; ++pet) {
                         const char* const record = BorrowLegacyTradePet(1, pet);
@@ -7604,7 +7604,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             ++petCount;
                         }
                     }
-                    platform::StrNCpy_53BEC0(petPayload, petSource, static_cast<std::uint32_t>(sizeof(petPayload)));
+                    std::strncpy(petPayload, petSource, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(petPayload))));
                     const std::int32_t amount = ui::detail::gTradeValueD046D0;
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_512040(socket, itemPayload, petPayload, amount));
@@ -12247,10 +12247,9 @@ std::int32_t Sub_4F24A0()
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request));
     if (std::strlen(source) != 0) {
-        platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(), source, 64);
+        std::strncpy(gLegacyItemWorkNameCC40D8.data(), source, static_cast<std::uint32_t>(64));
     } else {
-        platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
-            world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].name.data(), 64);
+        std::strncpy(gLegacyItemWorkNameCC40D8.data(), world::detail::BorrowPlayerItemsFDA8A4()[gLegacyItemWorkSelection584394 + 8].name.data(), static_cast<std::uint32_t>(64));
     }
     const std::int32_t selected = gLegacyItemWorkSelection584394;
     const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
@@ -12459,8 +12458,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, item, buffer));
             const std::int32_t resultItem = gLegacyItemWorkSelection584394;
             gLegacySkillPendingD67C48 = 1;
-            platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
-                world::detail::BorrowPlayerItemsFDA8A4()[resultItem + 8].name.data(), 64);
+            std::strncpy(gLegacyItemWorkNameCC40D8.data(), world::detail::BorrowPlayerItemsFDA8A4()[resultItem + 8].name.data(), static_cast<std::uint32_t>(64));
             const std::int32_t imageItem = gLegacyItemWorkSelection584394;
             const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
             gLegacyItemWorkImageCC320C = world::detail::BorrowPlayerItemsFDA8A4()[imageItem + 8].imageNo;

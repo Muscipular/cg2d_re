@@ -10,7 +10,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BEC0；原参数／返回合同由直接调用承接。
 
 namespace cg::render {
 namespace {
@@ -83,8 +83,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
                     break;
                 }
                 if (current == '\r') {
-                    platform::StrNCpy_53BEC0(
-                        destination.data(), lineSource, scan);
+                    std::strncpy(destination.data(), lineSource, static_cast<std::uint32_t>(scan));
                     destination[scan] = '\0';
                     nextStart = AddW32(
                         AddW32(lineStart, std::bit_cast<std::int32_t>(scan)),
@@ -112,10 +111,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
                     break;
                 }
 
-                platform::StrNCpy_53BEC0(
-                    destination.data(),
-                    lineSource,
-                    std::bit_cast<std::uint32_t>(copyBudget));
+                std::strncpy(destination.data(), lineSource, static_cast<std::uint32_t>(std::bit_cast<std::uint32_t>(copyBudget)));
                 const std::int32_t terminateAt = context->maxCharPerLine;
                 destination.data()[terminateAt] = '\0';
                 const std::int32_t boundary =

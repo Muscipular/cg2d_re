@@ -30,6 +30,8 @@
 #include <new>
 #include <utility>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
+#include <cerrno> // 原CRT接口：0x01085FE0、0x0053C654；原参数／返回合同由直接调用承接。
+#include <direct.h>
 
 #if !defined(SDL_PLATFORM_WIN32)
 #error "SdlPresenter 仅支持 Win32 窗口。"
@@ -465,8 +467,8 @@ void TakeScreenshot_453760()
 {
     POINT origin {0, 0};
     static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
-    if (platform::CreateLegacyDirectory_53C654(kScreenshotDirectory556738) != 0
-        && platform::LegacyErrno_1085FE0() != 17) {
+    if (::_mkdir(kScreenshotDirectory556738) != 0
+        && errno != 17) {
         return;
     }
     std::int32_t time;

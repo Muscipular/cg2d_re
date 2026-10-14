@@ -7,7 +7,6 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
-#include "cg/platform/LegacyStringCompare.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"
@@ -17,7 +16,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BEC0、0x0053BFC0、0x0054AB30、0x0053CF50；原参数／返回合同由直接调用承接。
 #include <optional>
 #include <random>
 #include <tlhelp32.h>
@@ -182,7 +181,7 @@ void UpdateProtectionChecksum(
             if (moduleName[0] == '\0') {
                 break;
             }
-            if (CompareInsensitive_53CF50(moduleEntry.szModule, moduleName) == 0) {
+            if (::_stricmp(moduleEntry.szModule, moduleName) == 0) {
                 result = 1;
                 break;
             }
@@ -245,10 +244,10 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
         bool matched = false;
         if (flag == 0) {
             const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
-            matched = CompareInsensitiveN_54AB30(title, record.text, length) == 0;
+            matched = ::_strnicmp(title, record.text, static_cast<std::uint32_t>(length)) == 0;
         } else if (flag == 1) {
             const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
-            matched = StrNCmp_53BFC0(title, record.text, length) == 0
+            matched = std::strncmp(title, record.text, static_cast<std::uint32_t>(length)) == 0
                 && static_cast<std::uint32_t>(std::strlen(record.text)) == titleLength;
         }
 
@@ -515,11 +514,8 @@ void ParseProtectionTables_404600(const char* input)
             const std::uint32_t segmentLength =
                 static_cast<std::uint32_t>(cursor - segmentStart);
             if (*cursor == ',') {
-                StrNCpy_53BEC0(
-                    reinterpret_cast<char*>(
-                        gProtectionBuffer1 + table1Index * 0x400),
-                    segmentStart,
-                    segmentLength);
+                std::strncpy(reinterpret_cast<char*>(
+                        gProtectionBuffer1 + table1Index * 0x400), segmentStart, static_cast<std::uint32_t>(segmentLength));
                 ++table1Index;
 
                 if (gProtectionAuxiliaryRecordCount < 30) {
@@ -528,7 +524,7 @@ void ParseProtectionTables_404600(const char* input)
                     ProtectionAuxiliaryRecord& record =
                         gProtectionAuxiliaryRecords[recordIndex];
                     std::memset(record.text, 0, sizeof(record.text));
-                    StrNCpy_53BEC0(record.text, segmentStart, segmentLength);
+                    std::strncpy(record.text, segmentStart, static_cast<std::uint32_t>(segmentLength));
                     record.number = 1001 + recordIndex;
                     if (record.flagB == 0) {
                         record.number += 10000;
@@ -541,11 +537,8 @@ void ParseProtectionTables_404600(const char* input)
             }
 
             if (*cursor == ';') {
-                StrNCpy_53BEC0(
-                    reinterpret_cast<char*>(
-                        gProtectionBuffer2 + table2Index * 0x400),
-                    segmentStart,
-                    segmentLength);
+                std::strncpy(reinterpret_cast<char*>(
+                        gProtectionBuffer2 + table2Index * 0x400), segmentStart, static_cast<std::uint32_t>(segmentLength));
                 ++table2Index;
 
                 ProtectionAuxiliaryRecord& record =
@@ -566,11 +559,8 @@ void ParseProtectionTables_404600(const char* input)
                 continue;
             }
 
-            StrNCpy_53BEC0(
-                reinterpret_cast<char*>(
-                    gProtectionBuffer1 + table1Index * 0x400),
-                segmentStart,
-                segmentLength);
+            std::strncpy(reinterpret_cast<char*>(
+                    gProtectionBuffer1 + table1Index * 0x400), segmentStart, static_cast<std::uint32_t>(segmentLength));
             ++table1Index;
             break;
         }

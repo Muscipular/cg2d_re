@@ -3,11 +3,12 @@
 #include "cg/network/NetworkRuntime.hpp"
 
 #include <bit>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BFC0；原参数／返回合同由直接调用承接。
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <cstdint>
 
 namespace cg::platform {
 namespace {
@@ -33,16 +34,16 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         - static_cast<std::uint32_t>(rect.left);
 
     auto* lowFlagByte = reinterpret_cast<unsigned char*>(&gWindowReportFlags);
-    if (StrNCmp_53BFC0(title, kPrefix559384, static_cast<std::uint32_t>(sizeof(kPrefix559384) - 1)) == 0) {
+    if (std::strncmp(title, kPrefix559384, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix559384) - 1))) == 0) {
         *lowFlagByte |= 1u;
     }
-    if (StrNCmp_53BFC0(title, kPrefix55937C, static_cast<std::uint32_t>(sizeof(kPrefix55937C) - 1)) == 0) {
+    if (std::strncmp(title, kPrefix55937C, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix55937C) - 1))) == 0) {
         *lowFlagByte |= 2u;
     }
 
     std::uint16_t flags;
     std::memcpy(&flags, &gWindowReportFlags, sizeof(flags));
-    if (StrNCmp_53BFC0(title, kPrefix559370, static_cast<std::uint32_t>(sizeof(kPrefix559370) - 1)) == 0) {
+    if (std::strncmp(title, kPrefix559370, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(kPrefix559370) - 1))) == 0) {
         flags = static_cast<std::uint16_t>(flags | 4u);
         std::memcpy(&gWindowReportFlags, &flags, sizeof(flags));
     }

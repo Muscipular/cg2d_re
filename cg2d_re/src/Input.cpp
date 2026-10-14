@@ -9,7 +9,6 @@
 #include "InputKeyDispatchDependencies.hpp"
 #include "platform/LegacyFormat.hpp"
 #include "platform/LegacyStdio.hpp"
-#include "cg/platform/LegacyStringCompare.hpp"
 #include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -20,6 +19,8 @@
 #include <cstring>
 #include <type_traits>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
+#include <cctype>
+#include <direct.h> // 原CRT接口：0x0053C654、0x0053BEC0、0x0053C790、0x0053BE40、0x0053BE17、0x0053BDEF；原参数／返回合同由直接调用承接。
 
 namespace cg {
 
@@ -248,10 +249,7 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
     const std::int32_t count)
 {
     std::array<char, InputTextCapacity> copied;
-    platform::StrNCpy_53BEC0(
-        copied.data(),
-        source,
-        static_cast<std::uint32_t>(count));
+    std::strncpy(copied.data(), source, static_cast<std::uint32_t>(static_cast<std::uint32_t>(count)));
     copied.data()[count] = '\0';
 
     std::int32_t result = 0;
@@ -586,7 +584,7 @@ bool IsRejectedInputText_404060(const char* const legacyText)
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
     const std::int32_t length = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(std::strlen(legacyText)));
-    if (platform::StrStr_53BE40(legacyText, "\xA1\xA1") != nullptr) {
+    if (const_cast<char*>(std::strstr(legacyText, "\xA1\xA1")) != nullptr) {
         return true;
     }
     if (length == 0) {
@@ -620,15 +618,15 @@ bool IsRejectedInputText_404060(const char* const legacyText)
         if (firstByte == static_cast<std::uint8_t>('/')) {
             return true;
         }
-        if (platform::ClassifyLegacySpace_53BDEF(firstByte) != 0) {
+        if (std::isspace(firstByte) != 0) {
             return true;
         }
-        if (platform::ClassifyLegacyControl_53BE17(SignedByte(legacyText[index])) != 0) {
+        if (std::iscntrl(SignedByte(legacyText[index])) != 0) {
             return true;
         }
     }
 
-    return platform::StrStr_53BE40(legacyText, "[GP]") != nullptr;
+    return const_cast<char*>(std::strstr(legacyText, "[GP]")) != nullptr;
 }
 
 // 原函数：0x00476740。
@@ -937,12 +935,9 @@ void AppendChar_44ADB0(const char character)
     }
     std::array<char, InputTextCapacity + 1> tail;
     std::array<char, InputTextCapacity> oldText;
-    platform::StrNCpy_53BEC0(
-        tail.data(),
-        context->text + context->caretByteOffset,
-        static_cast<std::uint32_t>(tail.size()));
+    std::strncpy(tail.data(), context->text + context->caretByteOffset, static_cast<std::uint32_t>(static_cast<std::uint32_t>(tail.size())));
     context = gCurrentInputData;
-    platform::StrNCpy_53BEC0(oldText.data(), context->text, static_cast<std::uint32_t>(oldText.size()));
+    std::strncpy(oldText.data(), context->text, static_cast<std::uint32_t>(static_cast<std::uint32_t>(oldText.size())));
 
     // 当前对象按原阶段重取，保存/回写次序见doc/cg2d_input_append.md。
     context = gCurrentInputData;
@@ -960,7 +955,7 @@ void AppendChar_44ADB0(const char character)
     const std::uint32_t insertedLength = static_cast<std::uint32_t>(std::strlen(context->text));
     const std::uint32_t remainingCapacity =
         static_cast<std::uint32_t>(InputTextCapacity - 1) - insertedLength;
-    platform::StrNCat_53C790(context->text, tail.data(), remainingCapacity);
+    std::strncat(context->text, tail.data(), static_cast<std::uint32_t>(remainingCapacity));
     context = gCurrentInputData;
 
     std::int32_t lineStart = 0;
@@ -1041,7 +1036,7 @@ void AppendChar_44ADB0(const char character)
         const std::int32_t totalByteLength = context->totalByteLength;
         const std::int32_t caretByteOffset = context->caretByteOffset;
         if (caretByteOffset == totalByteLength - 1) {
-            platform::StrNCpy_53BEC0(context->text, oldText.data(), static_cast<std::uint32_t>(oldText.size()));
+            std::strncpy(context->text, oldText.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(oldText.size())));
             context = gCurrentInputData;
             context->totalByteLength = oldTotalByteLength;
             context = gCurrentInputData;
@@ -1321,7 +1316,7 @@ void __cdecl Sub_449DA0()
         return;
     }
 
-    platform::CreateLegacyDirectory_53C654(kLogDirectory_554658);
+    ::_mkdir(kLogDirectory_554658);
     platform::ReadLegacyTime32_53BA26(&timeValue);
     const platform::LegacyTm53B8C6* const legacyTime =
         platform::LocalTime_53B8C6(&timeValue);

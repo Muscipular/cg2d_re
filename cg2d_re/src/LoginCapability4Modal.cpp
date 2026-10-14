@@ -6,7 +6,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053C2F0；原参数／返回合同由直接调用承接。
 
 namespace {
 
@@ -87,7 +87,7 @@ std::int32_t UpdateCapability4Modal_464450(const char* const text)
     std::int32_t maximumTextWidth = 0;
     char* currentLine = splitText;
     for (;;) {
-        char* const newline = platform::StrChr_53C2F0(currentLine, '\n');
+        char* const newline = const_cast<char*>(std::strchr(currentLine, '\n'));
         if (newline == nullptr) {
             const std::int32_t width = TextMeasure(currentLine, 0);
             if (width > maximumTextWidth) {

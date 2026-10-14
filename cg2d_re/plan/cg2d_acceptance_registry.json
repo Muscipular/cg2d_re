@@ -1345,7 +1345,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -1620,6 +1621,18 @@
         "bounded_truncation_contract_changed": false,
         "format_arguments_changed": false,
         "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -55979,7 +55992,7 @@
         "doc/cg2d_legacy_string_compare.md",
         "src/platform/LegacyMultibyte.cpp",
         "src/platform/LegacyMultibyte.hpp",
-        "src/platform/LegacyStringCompare.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/LegacyStringCompareState.hpp",
         "src/platform/LegacyFloatEnvironment.asm",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
@@ -55997,7 +56010,34 @@
       "recorded_on": "2026-10-08",
       "observation": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三原完整体、五已证映射点/原目录U8 caller及两真字节读取/固定接口-原字段生产消费，不代更多间接父、两GetEnv私有链或原硬件SEH/全部输入实际NLS。",
       "expected": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三原完整体、五已证映射点/原目录U8 caller及两真字节读取/固定接口-原字段生产消费，不代更多间接父、两GetEnv私有链或原硬件SEH/全部输入实际NLS。",
-      "actual": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三原完整体、五已证映射点/原目录U8 caller及两真字节读取/固定接口-原字段生产消费，不代更多间接父、两GetEnv私有链或原硬件SEH/全部输入实际NLS。"
+      "actual": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三原完整体、五已证映射点/原目录U8 caller及两真字节读取/固定接口-原字段生产消费，不代更多间接父、两GetEnv私有链或原硬件SEH/全部输入实际NLS。",
+      "historical_artifacts_before_dcs01": [
+        "doc/cg2d_nls_map_general_evidence.json",
+        "doc/cg2d_nls_map_general_spec.md",
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-NLS-MAP-GENERAL-FUNC-CRT-S-20261008",
@@ -56014,7 +56054,7 @@
         "doc/cg2d_legacy_string_compare.md",
         "src/platform/LegacyMultibyte.cpp",
         "src/platform/LegacyMultibyte.hpp",
-        "src/platform/LegacyStringCompare.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/LegacyStringCompareState.hpp",
         "src/platform/LegacyFloatEnvironment.asm",
         "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
@@ -56032,7 +56072,34 @@
       "recorded_on": "2026-10-08",
       "observation": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。",
       "expected": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。",
-      "actual": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。"
+      "actual": "BWX01补原543AE8完整193条548B八参数NLS、543D37四十三条123B完整W32大写及543D0C二十条43B真实计数读，三完整256条714B/五页。五现源九改、两完整CPP、三原薄转调、计数两个读位置及两个真实ASM读取叶/C桥；共享1086198/1086170与NLS producer/原五映射点及目录U8域保持。原仅正源长度缩源、A/W探测/严格第一次1或9和实际1、SORTKEY目标/容量0与查询数量返回、普通flags220/目标0查询、两U32栈请求及原filter1/置空SEH保持，不造FS/旧帧/故障样例。完整W32大写按原无符号分域、highBYTE lead、显式locale-CP/源2-目标2-strict1、失败完整输入及非零后两U8/W32组合；Count循环/末端复读实际单U8，CPP只借地址消费真返回，不补值/哨兵或根据数量少读。完善既有340/342/438及三F adapted、CRT200→203/F1026/E1185两限定I-S，语义1859/有效1852、文档1969/3680（53.51%）、R7已审482余2579和队列保持。原GetEnv两私有点仍宿主承接；完整间接父/SEH链、CRT库存/正常寿命、实际NLS/SDK/ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅三全根256条714B/五页、六对齐参数消费窗口与两原scope、五源九改及原位宽/API顺序-SORTKEY/普通query和原两BYTE/Count复读集中静态，不代原未写值或机器。",
+      "historical_artifacts_before_dcs01": [
+        "doc/cg2d_nls_map_general_evidence.json",
+        "doc/cg2d_nls_map_general_spec.md",
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyMultibyte.hpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "src/platform/LegacyStringCompareState.hpp",
+        "src/platform/LegacyFloatEnvironment.asm",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-baseline",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-decision",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-acceptance",
+        "doc/cg2d_nls_map_general_spec.md#nls-map-general-source-state"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "id": "E-NLS-TYPE-GENERAL-FUNC-CRT-I-20261008",
@@ -60276,7 +60343,7 @@
         "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
         "src/platform/LegacyTime.cpp",
         "src/platform/LegacyMemory.cpp",
-        "src/platform/LegacyStringCompare.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/LegacyFormat.cpp",
         "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
         "src/platform/LegacyFloatEnvironment.cpp",
@@ -60286,7 +60353,7 @@
         "src/render/SdlPresenter.cpp",
         "include/cg/platform/LegacyTime.hpp",
         "include/cg/platform/LegacyMemory.hpp",
-        "include/cg/platform/LegacyStringCompare.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/LegacyFormat.hpp"
       ],
       "observation": "核33入口，其中4已有宿主服务、29新转交MSVC；错误访问成组读取真实errno/_doserrno，截图读取同源。",
@@ -60330,17 +60397,8 @@
         "format_return_consumers_changed": false,
         "build_verified": false,
         "runtime_verified": false
-      }
-    },
-    {
-      "id": "E-MSVC-CRT-SCALAR-FUNC-CRT-S-20261009",
-      "feature_id": "FUNC-CRT",
-      "gate": "S",
-      "epoch": "2026-10-04.1",
-      "baseline_reference": "用户CRT直接用MSVC指令；迁移前固定快照 cg2d-re-msvc-crt-history-20261009及原库存身份",
-      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-scalar-20261009",
-      "method": "static",
-      "artifacts": [
+      },
+      "historical_artifacts_before_dcs01": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
         "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
@@ -60357,6 +60415,46 @@
         "include/cg/platform/LegacyTime.hpp",
         "include/cg/platform/LegacyMemory.hpp",
         "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "id": "E-MSVC-CRT-SCALAR-FUNC-CRT-S-20261009",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "用户CRT直接用MSVC指令；迁移前固定快照 cg2d-re-msvc-crt-history-20261009及原库存身份",
+      "implementation_reference": "Git固定快照 cg2d-re-msvc-crt-scalar-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyMemory.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "src/platform/LegacyFormat.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/render/SdlPresenter.cpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/LegacyFormat.hpp"
       ],
       "observation": "核33入口，其中4已有宿主服务、29新转交MSVC；错误访问成组读取真实errno/_doserrno，截图读取同源。",
@@ -60398,6 +60496,37 @@
         "bounded_truncation_contract_changed": false,
         "format_arguments_changed": false,
         "format_return_consumers_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_artifacts_before_dcs01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "src/platform/LegacyTime.cpp",
+        "src/platform/LegacyMemory.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "src/platform/LegacyFormat.cpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "src/platform/LegacyFloatEnvironment.cpp",
+        "src/platform/LegacyLowIo.cpp",
+        "src/platform/LegacyMultibyte.cpp",
+        "src/platform/LegacyStdio.cpp",
+        "src/render/SdlPresenter.cpp",
+        "include/cg/platform/LegacyTime.hpp",
+        "include/cg/platform/LegacyMemory.hpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/LegacyFormat.hpp"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -61180,8 +61309,8 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "CMakeLists.txt",
         "src/Input.cpp",
-        "src/platform/LegacyStringCompare.cpp",
-        "include/cg/platform/LegacyStringCompare.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/CommandOptions.cpp",
         "include/cg/platform/CommandOptions.hpp",
         "src/platform/LegacyMouse.cpp",
@@ -61236,6 +61365,35 @@
         "hardware_seh_equivalence_claimed": false,
         "build_verified": false,
         "runtime_verified": false
+      },
+      "historical_artifacts_before_dcs01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "CMakeLists.txt",
+        "src/Input.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/CommandOptions.cpp",
+        "include/cg/platform/CommandOptions.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/ClientEntry.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -61252,8 +61410,8 @@
         "doc/cg2d_msvc_crt_multibyte_evidence.json",
         "CMakeLists.txt",
         "src/Input.cpp",
-        "src/platform/LegacyStringCompare.cpp",
-        "include/cg/platform/LegacyStringCompare.hpp",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
         "src/platform/CommandOptions.cpp",
         "include/cg/platform/CommandOptions.hpp",
         "src/platform/LegacyMouse.cpp",
@@ -61306,6 +61464,35 @@
         "consumer_calls_changed": false,
         "old_seh_filter_active": false,
         "hardware_seh_equivalence_claimed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      },
+      "historical_artifacts_before_dcs01": [
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
+        "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "CMakeLists.txt",
+        "src/Input.cpp",
+        "src/platform/LegacyStringCompare.cpp",
+        "include/cg/platform/LegacyStringCompare.hpp",
+        "src/platform/CommandOptions.cpp",
+        "include/cg/platform/CommandOptions.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeError.cpp",
+        "src/platform/LegacyRuntimeError.hpp",
+        "plan/measure_cg2d.ps1",
+        "src/platform/ClientEntry.cpp",
+        "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services"
+      ],
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
         "build_verified": false,
         "runtime_verified": false
       }
@@ -71587,7 +71774,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-value-accessor",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
         "doc/cg2d_cryptint_class_spec.md#cryptint-unused-array-services",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ]
     },
     {
@@ -73628,7 +73816,8 @@
         "doc/cg2d_palette_capability_selection_spec.md#evidence-archive-20261011",
         "doc/cg2d_cryptint_class_spec.md#cryptint-integer-left-bool-comparison",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ]
     },
     {
@@ -75144,7 +75333,8 @@
         "doc/cg2d_window_close_front_release_spec.md#evidence-archive-20261011",
         "doc/cg2d_shop_inventory_draw_assert_20261011.md#shop-inventory-draw-sentinel-source-state",
         "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-standard-engine",
-        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls"
+        "doc/cg2d_direct_crt_calls_spec.md#direct-format-calls",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ]
     },
     {
@@ -77952,7 +78142,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
       "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
       "previous_disposition_before_mc01a": {
@@ -77966,6 +78157,18 @@
           "doc/cg2d_heap_malloc_unification_evidence.json"
         ],
         "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+      },
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -90879,7 +91082,8 @@
         "doc/cg2d_heap_malloc_unification_evidence.json",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
       "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
       "previous_disposition_before_mc01a": {
@@ -90892,6 +91096,18 @@
           "doc/cg2d_heap_malloc_unification_evidence.json"
         ],
         "boundary": "HMU01当前：按malloc方向与工程委托整族承接至标准CRT；旧池职责host、通用接口adapted。保原请求宽度/数量策略/handler/NULL零和两个初始化caller，真实CRT句柄借用/容量与释放配对；不宣原池体等价或完整owner/SDK/生命周期通过。"
+      },
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
       }
     },
     {
@@ -90969,9 +91185,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C790",
@@ -90980,9 +91209,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013D21D",
@@ -91061,9 +91303,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00144DB0",
@@ -91072,9 +91327,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0014AB30",
@@ -91083,9 +91351,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C5BE",
@@ -91094,9 +91375,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013BFC0",
@@ -91105,9 +91399,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00144DC0",
@@ -91116,9 +91423,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013BEC0",
@@ -91127,9 +91447,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013BE40",
@@ -91138,9 +91471,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013DA45",
@@ -91149,9 +91495,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013B8C6",
@@ -91171,9 +91530,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:001419D0",
@@ -91193,9 +91565,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C654",
@@ -91204,9 +91589,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013CADC",
@@ -91247,9 +91645,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013DA5C",
@@ -91269,9 +91680,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00141160",
@@ -91303,9 +91727,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:001450F0",
@@ -91314,9 +91751,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C2F0",
@@ -91325,9 +91775,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-direct-decision-20261009",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-scalar-source-state-20261009",
-        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011"
+        "doc/cg2d_msvc_crt_scalar_spec.md#evidence-archive-20261011",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。"
+      "boundary": "MC01-A真实MSVC服务与定宽适配；旧CRT内部实现不再复刻，原身份保留。仅本组已迁职责，不表示全部CRT/业务/SDK或运行验收。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:00140D7B",
@@ -94774,9 +95237,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。"
+      "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013BE17",
@@ -94785,9 +95261,22 @@
       "evidence_refs": [
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-multibyte-source-state-20261010",
-        "doc/cg2d_msvc_crt_multibyte_evidence.json"
+        "doc/cg2d_msvc_crt_multibyte_evidence.json",
+        "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls"
       ],
-      "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。"
+      "boundary": "MC01-C5旧ctype/多字节/NLS/转换/locale表及私有argv/环境组交MSVC；真实Input仅ASCII两项非零分类，应用命令解析与WinMain尾、业务字段/字节/owner/RNG保持。库转换/校验/失败/locale/TLS/argv环境与初始化机制采用本机合同；原私有表/未写数据/机器ABI只历史，全部未知alias/业务/SDK/运行未验。",
+      "direct_string_time_calls_dcs01": {
+        "recorded_on": "2026-10-14",
+        "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
+        "retired_interfaces": 25,
+        "cpp_call_sites": 173,
+        "old_u32_argument_boundaries_preserved": true,
+        "old_return_types_preserved": true,
+        "time32_adapters_changed": false,
+        "calendar_fields_changed": false,
+        "build_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0013C112",

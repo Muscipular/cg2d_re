@@ -24,7 +24,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::character_select::detail {
@@ -915,8 +915,8 @@ std::int32_t Sub_4631D0()
                     name[cursor] = '\0';
                     if (login::CharacterNameExists_51B140(state::gCreationInput9A51E8.text) != 0) {
                         state::gValue9A5AFC = 102;
-                    } else if (platform::StrStr_53BE40(name, " ") != nullptr
-                        || platform::StrStr_53BE40(name, "\x81\x40") != nullptr
+                    } else if (const_cast<char*>(std::strstr(name, " ")) != nullptr
+                        || const_cast<char*>(std::strstr(name, "\x81\x40")) != nullptr
                         || input::IsRejectedInputText_404060(name)) {
                         state::gValue9A5AFC = 108;
                     } else if (input::Sub_45E770(name) == 1) {

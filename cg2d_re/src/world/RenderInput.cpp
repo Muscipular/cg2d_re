@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <cstdlib> // 原CRT接口：0x0054ABDD；原参数／返回合同由直接调用承接。
 
 namespace cg::world::detail {
 
@@ -121,7 +122,7 @@ char* FormatDecimalW32(
     const std::uint32_t valueBits,
     std::array<char, 12>& destination) noexcept
 {
-    return platform::Itoa_54ABDD(
+    return ::_itoa(
         std::bit_cast<std::int32_t>(valueBits), destination.data(), 10);
 }
 

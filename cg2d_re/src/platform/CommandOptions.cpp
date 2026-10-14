@@ -11,7 +11,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0；原参数／返回合同由直接调用承接。
 
 namespace cg::platform {
 
@@ -60,19 +60,19 @@ static_assert(std::endian::native == std::endian::little);
 int ParseCommandOptions()
 {
     char savedata[128] {};
-    if (char* match = StrStr_53BE40(gCommandLine, "newest:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "newest:"))) {
         std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
     }
-    if (char* match = StrStr_53BE40(gCommandLine, "savedata:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "savedata:"))) {
         std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
     }
-    if (char* match = StrStr_53BE40(gCommandLine, "datafolder:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "datafolder:"))) {
         std::sscanf(match + std::strlen("datafolder:"), "%s", gDataPath);
     }
-    if (char* match = StrStr_53BE40(gCommandLine, "binfolder:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "binfolder:"))) {
         std::sscanf(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
     }
-    if (char* match = StrStr_53BE40(gCommandLine, "mapfolder:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "mapfolder:"))) {
         std::sscanf(match + std::strlen("mapfolder:"), "%s", gMapPath);
     }
 
@@ -148,37 +148,37 @@ int ParseCommandOptions()
     // 原 var_260 是跨表、跨轮复用的未初始化 int；原函数不检查 sscanf 返回值。
     int value;
     for (int slot = 0; slot < 9; ++slot) {
-        if (char* match = StrStr_53BE40(gCommandLine, graphicKeys[slot])) {
+        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
-        if (char* match = StrStr_53BE40(gCommandLine, graphicOverrideKeys[slot])) {
+        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicOverrideKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
-        if (char* match = StrStr_53BE40(gCommandLine, graphicInfoKeys[slot])) {
+        if (char* match = const_cast<char*>(std::strstr(gCommandLine, graphicInfoKeys[slot]))) {
             std::sscanf(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
         }
-        if (char* match = StrStr_53BE40(gCommandLine, animeKeys[slot])) {
+        if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeKeys[slot]))) {
             std::sscanf(match + std::strlen(animeKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
         }
-        if (char* match = StrStr_53BE40(gCommandLine, animeInfoKeys[slot])) {
+        if (char* match = const_cast<char*>(std::strstr(gCommandLine, animeInfoKeys[slot]))) {
             std::sscanf(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
         }
     }
 
     for (int slot = 0; slot < 9; ++slot) {
-        if (!StrChr_53C2F0(gResourceNames[CoordinateNames][slot], '*')) {
-            if (char* match = StrStr_53BE40(gCommandLine, coordinateKeys[slot])) {
+        if (!const_cast<char*>(std::strchr(gResourceNames[CoordinateNames][slot], '*'))) {
+            if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateKeys[slot]))) {
                 std::sscanf(match + std::strlen(coordinateKeys[slot]), "%d", &value);
                 std::sprintf(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
             }
         }
-        if (!StrChr_53C2F0(gResourceNames[CoordinateInfoNames][slot], '*')) {
-            if (char* match = StrStr_53BE40(gCommandLine, coordinateInfoKeys[slot])) {
+        if (!const_cast<char*>(std::strchr(gResourceNames[CoordinateInfoNames][slot], '*'))) {
+            if (char* match = const_cast<char*>(std::strstr(gCommandLine, coordinateInfoKeys[slot]))) {
                 std::sscanf(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
                 std::sprintf(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
             }
@@ -189,7 +189,7 @@ int ParseCommandOptions()
     for (int slot = 0; slot < 9; ++slot) {
         for (int table = CoordinateNames; table <= CoordinateInfoNames; ++table) {
             char* destination = gResourceNames[table][slot];
-            if (StrChr_53C2F0(destination, '*')) {
+            if (const_cast<char*>(std::strchr(destination, '*'))) {
                 std::sscanf(destination, "*%d", &value);
                 const char* source = gResourceNames[table][value];
                 const std::size_t length = std::strlen(source) + 1;
@@ -208,17 +208,17 @@ int ParseCommandOptions()
         }
     }
 
-    if (StrStr_53BE40(gCommandLine, "windowmode")) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "windowmode"))) {
         gWindowMode = 1;
     }
     HDC deviceContext = GetDC(reinterpret_cast<HWND>(gLegacyWindow));
     gDeviceBitsPerPixel = GetDeviceCaps(deviceContext, BITSPIXEL);
     ReleaseDC(reinterpret_cast<HWND>(gLegacyWindow), deviceContext);
 
-    if (StrStr_53BE40(gCommandLine, "nodelay")) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "nodelay"))) {
         gNoDelay = 0;
     }
-    if (char* match = StrStr_53BE40(gCommandLine, "winpos:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "winpos:"))) {
         int x;
         int y;
         std::sscanf(match + std::strlen("winpos:"), "%d,%d", &x, &y);
@@ -230,19 +230,19 @@ int ParseCommandOptions()
 
     gRendererFlags = 0;
     gRendererMode = 1;
-    if (char* match = StrStr_53BE40(gCommandLine, "3Ddevice:")) {
+    if (char* match = const_cast<char*>(std::strstr(gCommandLine, "3Ddevice:"))) {
         std::sscanf(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
     }
-    if (StrStr_53BE40(gCommandLine, "soundoff")) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "soundoff"))) {
         gEnableSound = 0;
     }
-    if (StrStr_53BE40(gCommandLine, "musicoff")) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "musicoff"))) {
         gEnableMusic = 0;
     }
     if (gRequestedRenderMode) {
         gRendererMode = gRequestedRenderMode;
     }
-    if (StrStr_53BE40(gCommandLine, "onlyactive")) {
+    if (const_cast<char*>(std::strstr(gCommandLine, "onlyactive"))) {
         gRendererFlags |= 0x10;
     }
     gValueFF0D40 = 1;
@@ -263,7 +263,7 @@ int ParseIpOptions_507C80(const char* const commandLine)
         static_cast<std::uint32_t>(
             reinterpret_cast<std::uintptr_t>(commandLine)));
     const char* cursor = commandLine;
-    while (const char* const match = StrStr_53BE40(cursor, "IP:")) {
+    while (const char* const match = const_cast<char*>(std::strstr(cursor, "IP:"))) {
         const char* const number = match + 3;
         const int parsed = std::sscanf(number, "%d:", &index);
         if (static_cast<std::uint32_t>(index)

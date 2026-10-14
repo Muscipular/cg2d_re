@@ -15,7 +15,7 @@
 #include <array>
 #include <bit>
 #include <cstdint>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 
 namespace cg::login::detail {
 
@@ -292,9 +292,9 @@ void Sub_507140()
             SortTextures_520790();
             if (world::detail::gValueD460C8 == 0 && gValue58589C != 0) {
                 DescribeHoveredYobi_507140(&graphic);
-                if (StrStr_53BE40(gHoverTextD68AE8.data(), "[han]") != nullptr) {
+                if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[han]")) != nullptr) {
                     gHoverObjectValueD68AC8 = 1;
-                } else if (StrStr_53BE40(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
+                } else if (const_cast<char*>(std::strstr(gHoverTextD68AE8.data(), "[kok]")) != nullptr) {
                     gHoverObjectValueD68AC8 = 5;
                 }
             }

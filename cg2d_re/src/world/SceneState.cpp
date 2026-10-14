@@ -42,7 +42,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304、0x0053CADC；直接沿MSVC CRT。
-#include <cstdlib>
+#include <cstdlib> // 原CRT接口：0x0053C649、0x0053C654、0x0053BFC0、0x0053BEC0、0x0053BE40；原参数／返回合同由直接调用承接。
 #include <cstring>
 #include <new>
 #include <optional>
@@ -521,6 +521,8 @@ char gText55BAE0[8] = "\xB5\xC7\xB3\xF6\xD6\xD0";
 // 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
 std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
+#include <cstdint>
+#include <direct.h>
 };
 
 // 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
@@ -2638,15 +2640,15 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t x = platform::Atoi_53C649(field);
+            const std::int32_t x = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t y = platform::Atoi_53C649(field);
+            const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 5, 2047, field);
-            const std::int32_t direction = platform::Atoi_53C649(field);
+            const std::int32_t direction = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
-            const std::int32_t imageNo = platform::Atoi_53C649(field);
+            const std::int32_t imageNo = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 7, 2047, field);
-            const std::int32_t level = platform::Atoi_53C649(field);
+            const std::int32_t level = std::atoi(field);
             const std::int32_t value40 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 8);
             network::ExtractDelimitedField_52CED0(row, '|', 9, 255, name);
@@ -2654,17 +2656,17 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 10, 255, titles);
             input::UnescapeLegacyText_52D150(titles);
             network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
-            const std::int32_t flag1 = platform::Atoi_53C649(field);
+            const std::int32_t flag1 = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 12, 2047, field);
-            const std::int32_t flag2 = platform::Atoi_53C649(field);
+            const std::int32_t flag2 = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 13, 2047, field);
-            static_cast<void>(platform::Atoi_53C649(field));
+            static_cast<void>(std::atoi(field));
             network::ExtractDelimitedField_52CED0(row, '|', 14, 255, extraText);
             input::UnescapeLegacyTextAndNotify_52D2F0(extraText);
             network::ExtractDelimitedField_52CED0(row, '|', 15, 2047, field);
-            const std::int32_t mode = platform::Atoi_53C649(field);
+            const std::int32_t mode = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
-            const std::int32_t attachmentImage = platform::Atoi_53C649(field);
+            const std::int32_t attachmentImage = std::atoi(field);
 
             login::YobiAction* object;
             if (static_cast<std::uint32_t>(objectIndex) == BorrowPlayerRuntimeStorage()->objectIndex) {
@@ -2747,11 +2749,11 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = platform::Atoi_53C649(field);
+            const std::int32_t x = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = platform::Atoi_53C649(field);
+            const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t imageNo = platform::Atoi_53C649(field);
+            const std::int32_t imageNo = std::atoi(field);
             const std::int32_t value48 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 5);
             network::ExtractDelimitedField_52CED0(row, '|', 6, 1023, label);
@@ -2767,11 +2769,11 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = platform::Atoi_53C649(field);
+            const std::int32_t x = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = platform::Atoi_53C649(field);
+            const std::int32_t y = std::atoi(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t count = platform::Atoi_53C649(field);
+            const std::int32_t count = std::atoi(field);
             std::sprintf(label, "%d \xBD\xF0\x8E\xC5", count);
             std::int32_t imageNo;
             if (count < 50) {
@@ -2978,12 +2980,12 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     char command[512];
     std::strcpy(source, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(source);
-    if (platform::StrNCmp_53BFC0(source, "@FIND_LV1", 9) == 0) {
+    if (std::strncmp(source, "@FIND_LV1", static_cast<std::uint32_t>(9)) == 0) {
         std::int32_t sound = 0;
-        platform::StrNCpy_53BEC0(command, source, static_cast<std::uint32_t>(sizeof(command)));
+        std::strncpy(command, source, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(command))));
         std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
-        const char* const message = platform::StrStr_53BE40(command, "@MSG:");
-        platform::StrNCpy_53BEC0(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
+        const char* const message = const_cast<char*>(std::strstr(command, "@MSG:"));
+        std::strncpy(source, message + 5, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(source))));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     Sub_44B050(source, 4, 3);
@@ -3142,7 +3144,7 @@ void Sub_50CAE0(
             std::uint32_t cursor = 0;
             for (;;) {
                 if (source[cursor] == ':' && source[cursor + 1] == ' ') {
-                    platform::StrNCpy_53BEC0(name, source, cursor);
+                    std::strncpy(name, source, static_cast<std::uint32_t>(cursor));
                     name[cursor] = '\0';
                     break;
                 }
@@ -3164,10 +3166,10 @@ void Sub_50CAE0(
             std::memset(name, 0, sizeof(name));
             std::strcpy(name, stripped);
         };
-        if (platform::StrNCmp_53BFC0(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
+        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[MIC]")))) == 0) {
             gChatGateDA3B54 = 1;
             stripPrefix(5);
-        } else if (platform::StrNCmp_53BFC0(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
+        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[GP]")))) == 0) {
             stripPrefix(4);
         }
         if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
@@ -4884,15 +4886,15 @@ std::int32_t __cdecl Sub_468570(
     platform::LegacyFile* const file =
         platform::OpenLegacyStream_53B2F1(path, kMapReadMode);
     if (file == nullptr) {
-        platform::CreateLegacyDirectory_53C654(kMapPathPrefix);
+        ::_mkdir(kMapPathPrefix);
         char directory[256];
         std::sprintf(
             directory, kMapDirectoryOne, kMapPathPrefix, a2);
-        platform::CreateLegacyDirectory_53C654(directory);
+        ::_mkdir(directory);
         if (a2 > 0) {
             std::sprintf(
                 directory, kMapDirectoryTwo, kMapPathPrefix, a2, a1);
-            platform::CreateLegacyDirectory_53C654(directory);
+            ::_mkdir(directory);
         }
         return Sub_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
     }
@@ -6467,7 +6469,7 @@ std::int32_t __cdecl Sub_509550(
     if (number[0] == '\0') {
         gValueFF0D4C = -1;
     } else {
-        const std::int32_t value = platform::Atoi_53C649(number.data());
+        const std::int32_t value = std::atoi(number.data());
         gValueFF0D4C = value;
         if (value < 0) {
             gValueFF0D4C = -1;

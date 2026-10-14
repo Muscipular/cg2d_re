@@ -41,7 +41,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
-#include <cstdlib>
+#include <cstdlib> // 原CRT接口：0x0053C649、0x0053BFC0、0x0053BE40、0x0053BEC0、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <cstring>
 #include <memory>
 #include <optional>
@@ -4836,7 +4836,7 @@ std::int32_t Sub_43DD00(
     network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
     ++field;
     const auto flags = static_cast<std::uint8_t>(
-        character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer)));
+        character_select::detail::Sub_51B740(std::atoi(buffer)));
     if (payload != nullptr) {
         if (payload->action30 != nullptr) {
             MarkDeath(payload->action30);
@@ -4858,12 +4858,12 @@ std::int32_t Sub_43DD00(
         std::int32_t index = 0;
         while (std::strcmp(buffer, "EF") != 0) {
             const std::int32_t kind =
-                character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
+                character_select::detail::Sub_51B740(std::atoi(buffer));
             if (kind == 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
+                    character_select::detail::Sub_51B740(std::atoi(buffer));
                 if (payload != nullptr) {
                     payload->action30 = NewYobiGear_4410F0(imageNo);
                 }
@@ -4871,7 +4871,7 @@ std::int32_t Sub_43DD00(
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
+                    character_select::detail::Sub_51B740(std::atoi(buffer));
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
@@ -4905,7 +4905,7 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
+            character_select::detail::Sub_51B740(std::atoi(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
                 YobiAction* const player = world::detail::ReadPlayerAction();
@@ -4943,18 +4943,18 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
+            character_select::detail::Sub_51B740(std::atoi(buffer));
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t packedDirection = platform::Atoi_53C649(buffer);
+        const std::int32_t packedDirection = std::atoi(buffer);
         const std::int32_t direction = packedDirection / 10 - 1;
         const std::int32_t offsetDirection = packedDirection % 10 - 1;
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t level = platform::Atoi_53C649(buffer);
+        const std::int32_t level = std::atoi(buffer);
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t value1D8 = platform::Atoi_53C649(buffer);
+        const std::int32_t value1D8 = std::atoi(buffer);
         char name[256];
         network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
         ++field;
@@ -6686,8 +6686,8 @@ YobiAction* NewBattleText_4217F0(
     const char* current = text;
     payload->remaining10 = duration;
     payload->fontType0C = fontType;
-    for (const char* newline = platform::StrChr_53C2F0(current, '\n'); newline != nullptr;
-         newline = platform::StrChr_53C2F0(newline + 1, '\n')) {
+    for (const char* newline = const_cast<char*>(std::strchr(current, '\n')); newline != nullptr;
+         newline = const_cast<char*>(std::strchr(newline + 1, '\n'))) {
         ++payload->lineCount08;
     }
     ++payload->lineCount08;
@@ -6698,7 +6698,7 @@ YobiAction* NewBattleText_4217F0(
     std::int32_t index = 0;
     if (current != nullptr) {
         do {
-            const char* const newline = platform::StrChr_53C2F0(current, '\n');
+            const char* const newline = const_cast<char*>(std::strchr(current, '\n'));
             const std::int32_t length = newline != nullptr
                 ? static_cast<std::int32_t>(newline - current)
                 : static_cast<std::int32_t>(std::strlen(current));
@@ -13227,7 +13227,7 @@ std::int32_t GetBattleMHeader_439070(char* const destination)
         ++offset;
     }
     gBattleMScanOffset5A8A3C = offset;
-    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + offset, 3);
+    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, static_cast<std::uint32_t>(3));
     destination[3] = '\0';
     gBattleMScanOffset5A8A3C += 4;
     return 0;
@@ -13408,7 +13408,7 @@ std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
         ++offset;
     }
     gBattleMPreviewOffset5AAA60 = offset;
-    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + offset, 3);
+    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, static_cast<std::uint32_t>(3));
     destination[3] = '\0';
     gBattleMPreviewOffset5AAA60 += 4;
     return 0;
@@ -13537,7 +13537,7 @@ void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
         static_cast<void>(GetBattleMPreviewHeader_439700(header.data()));
         std::int32_t kind = 0;
         while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind != 22) {
@@ -14146,7 +14146,7 @@ std::int32_t CheckBattleMParticipants_43B290(
     }
     std::int32_t kind = 0;
     while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-        && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+        && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
         ++kind;
     }
     if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
@@ -14263,7 +14263,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         } else {
             std::int32_t kind = 0;
             while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-                && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+                && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
                 ++kind;
             }
             if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
@@ -14353,7 +14353,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
         }
         payload->packetOffset64 = offset + 1;
     }
-    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
+    std::strncpy(destination, gBattleMText5AAA7C.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
     destination[3] = '\0';
     payload->packetOffset64 += 4;
     return 0;
@@ -14429,7 +14429,7 @@ namespace {
     while (payload->remainingMessages5C > 0 && GetBattleMObjectHeader_423960(scene, header.data()) == 0) {
         std::int32_t kind = 0;
         while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind == static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
@@ -21872,7 +21872,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         static_cast<void>(GetBattleMObjectHeader_423960(action, header.data()));
         std::int32_t kind = 0;
         while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind != 22) {
@@ -22487,13 +22487,13 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         }
         // 原43B6FD在NUL处也复制并推进，不复用带NUL早退的423960。
         std::array<char, 4> header;
-        platform::StrNCpy_53BEC0(header.data(), gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
+        std::strncpy(header.data(), gBattleMText5AAA7C.data() + payload->packetOffset64, static_cast<std::uint32_t>(3));
         const std::int32_t next = payload->packetOffset64 + 4;
         header[3] = '\0';
         payload->packetOffset64 = next;
         std::int32_t kind = 0;
         while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
@@ -22582,7 +22582,7 @@ std::int32_t Sub_43BAA0()
         }
         std::int32_t kind = 0;
         while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
-            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
         if (kind != 14 && kind != 20) {
@@ -35916,9 +35916,9 @@ void AllocateActorChatText(
     std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
     if (text[0] == '[' && text[1] == 'G' && text[2] == 'P' && text[3] == ']') {
         offset += 4;
-    } else if (platform::StrNCmp_53BFC0(text, "[MIC]", 5) == 0) {
+    } else if (std::strncmp(text, "[MIC]", static_cast<std::uint32_t>(5)) == 0) {
         offset += 5;
-    } else if (platform::StrNCmp_53BFC0(text, kChatFamilyPrefix554580, 6) == 0) {
+    } else if (std::strncmp(text, kChatFamilyPrefix554580, static_cast<std::uint32_t>(6)) == 0) {
         offset += 6;
     }
     const std::int32_t remaining = length - offset;
@@ -35968,13 +35968,13 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
         }
         const std::int32_t objectIndex = network::Base62Decode_52D050(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 2047, text);
-        const std::int32_t hp = platform::Atoi_53C649(text);
+        const std::int32_t hp = std::atoi(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field, 2047, text);
-        const std::int32_t maxHp = platform::Atoi_53C649(text);
+        const std::int32_t maxHp = std::atoi(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 2047, text);
-        const std::int32_t fp = platform::Atoi_53C649(text);
+        const std::int32_t fp = std::atoi(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
-        const std::int32_t maxFp = platform::Atoi_53C649(text);
+        const std::int32_t maxFp = std::atoi(text);
         login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action == nullptr) {
             continue;

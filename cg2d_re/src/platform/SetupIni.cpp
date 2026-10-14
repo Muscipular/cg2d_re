@@ -3,7 +3,7 @@
 
 #include "LegacyFormat.hpp"
 
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053BE40；原参数／返回合同由直接调用承接。
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -40,12 +40,12 @@ int ReadSetupIni()
         "DISPLAY", "MonitorKeyboard", nullptr, monitorKeyboard, 256, fileName);
 
     if (std::strcmp(screenMode, "NORMAL") == 0) {
-        if (StrStr_53BE40(gCommandLine, "windowmode") == nullptr) {
+        if (const_cast<char*>(std::strstr(gCommandLine, "windowmode")) == nullptr) {
             std::sprintf(screenCommandLine, "windowmode %s", gCommandLine);
             gCommandLine = screenCommandLine;
         }
     } else if (std::strcmp(screenMode, "FULLSCREEN") == 0
-        && StrStr_53BE40(gCommandLine, "windowmode") != nullptr) {
+        && const_cast<char*>(std::strstr(gCommandLine, "windowmode")) != nullptr) {
         std::strcpy(screenCommandLine, gCommandLine);
         // 0x465CE3 从复制缓冲区头跳过长度，不使用 strstr 返回的匹配位置。
         gCommandLine = screenCommandLine + std::strlen("windowmode ");
@@ -54,25 +54,25 @@ int ReadSetupIni()
     // 原 EDI 保留 ScreenMode 处理后的指针，供两个 ActiveMode 分支查找。
     char* const commandAfterScreen = gCommandLine;
     if (std::strcmp(activeMode, "ONLYACTIVE") == 0) {
-        if (StrStr_53BE40(commandAfterScreen, "onlyactive") == nullptr) {
+        if (const_cast<char*>(std::strstr(commandAfterScreen, "onlyactive")) == nullptr) {
             std::sprintf(activeCommandLine, "onlyactive %s", gCommandLine);
             gCommandLine = activeCommandLine;
         }
     } else if (std::strcmp(activeMode, "NOACTIVE") == 0
-        && StrStr_53BE40(commandAfterScreen, "onlyactive") != nullptr) {
+        && const_cast<char*>(std::strstr(commandAfterScreen, "onlyactive")) != nullptr) {
         std::strcpy(activeCommandLine, gCommandLine);
         // 0x465DF8 同样从复制缓冲区头跳过长度；该缓冲区原本没有预清零。
         gCommandLine = activeCommandLine + std::strlen("onlyactive ");
     }
 
     gRequestedRenderMode = 0;
-    if (StrStr_53BE40(effect, "GENERALEFF") != nullptr) {
+    if (const_cast<char*>(std::strstr(effect, "GENERALEFF")) != nullptr) {
         gRequestedRenderMode = 1;
-    } else if (StrStr_53BE40(effect, "SIMULATEEFF") != nullptr) {
+    } else if (const_cast<char*>(std::strstr(effect, "SIMULATEEFF")) != nullptr) {
         gRequestedRenderMode = 2;
-    } else if (StrStr_53BE40(effect, "ALPHAEFF") != nullptr) {
+    } else if (const_cast<char*>(std::strstr(effect, "ALPHAEFF")) != nullptr) {
         gRequestedRenderMode = 3;
-    } else if (StrStr_53BE40(effect, "HARDEFF") != nullptr) {
+    } else if (const_cast<char*>(std::strstr(effect, "HARDEFF")) != nullptr) {
         gRequestedRenderMode = 4;
     }
 

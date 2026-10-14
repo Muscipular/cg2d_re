@@ -18,7 +18,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdlib>
+#include <cstdlib> // 原CRT接口：0x0053C649；原参数／返回合同由直接调用承接。
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstring>
 
@@ -470,7 +470,7 @@ std::int32_t GetServerAddressInfo_507D90(
     const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
     std::strcpy(serverAddress, reinterpret_cast<const char*>(record.opaque.data()));
     *port = static_cast<std::uint16_t>(
-        platform::Atoi_53C649(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
+        std::atoi(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
     return 0;
 }
 

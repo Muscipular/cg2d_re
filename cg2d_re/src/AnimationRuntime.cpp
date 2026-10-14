@@ -7,11 +7,11 @@
 #include "cg/GraphicAlloc.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/LegacyWindow.hpp"
-#include "cg/platform/LegacyStringCompare.hpp"
 
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
-#include <cstring>
+#include <cstring> // 原CRT接口：0x0053CF50；原参数／返回合同由直接调用承接。
+#include <cstdint>
 
 namespace cg::resource::animation::detail {
 
@@ -394,7 +394,7 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
         CoordLoad_45BF60(&detail::gCoordinateFiles9A2988[slot],
             dataPaths[slot], infoPaths[slot]);
         for (std::size_t later = slot + 1; later < 9; ++later) {
-            if (platform::CompareInsensitive_53CF50(dataPaths[later], dataPaths[slot]) == 0) {
+            if (::_stricmp(dataPaths[later], dataPaths[slot]) == 0) {
                 std::strcpy(dataPaths[later], dataPaths[slot]);
                 std::strcpy(infoPaths[later], infoPaths[slot]);
                 detail::gCoordinateFiles9A2988[later] = detail::gCoordinateFiles9A2988[slot];

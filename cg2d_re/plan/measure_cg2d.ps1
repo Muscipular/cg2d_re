@@ -77,6 +77,12 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将多字节与私有参数准备设施收敛到MSVC([[:space:]]|$)}^:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # DCS01：比较包装退休；历史附件核格式化迁移提交中的固定前态，当前语义source禁回退。
+    $historicalStringCompare = @('src/platform/LegacyStringCompare.cpp', 'include/cg/platform/LegacyStringCompare.hpp')
+    if (-not $exists -and $relativePath -cin $historicalStringCompare -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 格式化与扫描直接使用MSVC CRT([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

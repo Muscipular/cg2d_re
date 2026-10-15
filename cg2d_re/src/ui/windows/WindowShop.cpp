@@ -136,13 +136,13 @@ static std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {}; // 原全局：0x
 static std::array<char, 20> gShopSelectedSlotsCB03DC {}; // 原全局：0x00CB03DC。
 static_assert(sizeof(gShopSelectedSlotsCB03DC) == 20);
 
-std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。
+static std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。 模式2字段7反转义结果，不套商品名回退。
 
-std::int32_t gShopValueCAFEA4 = 0; // 原全局：0x00CAFEA4。
+static std::int32_t gShopValueCAFEA4 = 0; // 原全局：0x00CAFEA4。
 
-std::int32_t gShopValueD046C4 = 0; // 原全局：0x00D046C4。
+static std::int32_t gShopValueD046C4 = 0; // 原全局：0x00D046C4。
 
-std::int32_t gShopValueD672D4 = 0; // 原全局：0x00D672D4。
+static std::int32_t gShopValueD672D4 = 0; // 原全局：0x00D672D4。
 
 // 原全局：0x00580844。 玩家/商品/详情提示编号，原装载初值-1。
 static std::int32_t gShopTooltipIndex580844 = -1; // 原全局：0x00580844。
@@ -180,7 +180,7 @@ static std::wstring gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
 // 原全局：0x00D67B90。 非零仅清自身，零分支移除选择；原虚拟零初值。
 static std::uint8_t gShopDragFlagD67B90 = 0; // 原全局：0x00D67B90。
 
-std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。
+static std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。 原装载值999，商店及其他数量窗口同源上限。
 
 // 原全局：0x00C8B088。 原生借用函数指针，确认/取消各自重读。
 static WindowValueCallback gConfirmationCallbackC8B088 = nullptr; // 原全局：0x00C8B088。

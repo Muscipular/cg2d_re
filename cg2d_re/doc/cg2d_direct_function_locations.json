@@ -12207,7 +12207,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_HandleDrag",
-          "definition_line": 739,
+          "definition_line": 731,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12219,7 +12219,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_StartDrag",
-          "definition_line": 766,
+          "definition_line": 758,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12231,7 +12231,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_AdjustSpecialHoverCount",
-          "definition_line": 366,
+          "definition_line": 358,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12243,7 +12243,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_FindSpecialSkill",
-          "definition_line": 383,
+          "definition_line": 375,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12255,7 +12255,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReadCrystalLevel",
-          "definition_line": 397,
+          "definition_line": 389,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12267,7 +12267,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReadCrystalElement",
-          "definition_line": 414,
+          "definition_line": 406,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12279,7 +12279,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReadBattlePetImage",
-          "definition_line": 431,
+          "definition_line": 423,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12291,7 +12291,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_FindPetTechnique",
-          "definition_line": 438,
+          "definition_line": 430,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12303,7 +12303,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_CheckPetLevel",
-          "definition_line": 456,
+          "definition_line": 448,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12315,7 +12315,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_CheckPetFp",
-          "definition_line": 467,
+          "definition_line": 459,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12327,7 +12327,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_CanUseSpecialSkill",
-          "definition_line": 482,
+          "definition_line": 474,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12339,7 +12339,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowSkillList",
-          "definition_line": 829,
+          "definition_line": 821,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12351,7 +12351,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowTechniques",
-          "definition_line": 966,
+          "definition_line": 958,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12363,7 +12363,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowRecipes",
-          "definition_line": 2157,
+          "definition_line": 2149,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12375,7 +12375,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowBattleSkills",
-          "definition_line": 1019,
+          "definition_line": 1011,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12387,7 +12387,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowBattleTechniques",
-          "definition_line": 1077,
+          "definition_line": 1069,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12399,7 +12399,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SyncStates",
-          "definition_line": 2406,
+          "definition_line": 2398,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12411,7 +12411,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowPetSkills",
-          "definition_line": 1494,
+          "definition_line": 1486,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12423,7 +12423,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ShowRidingSkills",
-          "definition_line": 1541,
+          "definition_line": 1533,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12435,7 +12435,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_Open",
-          "definition_line": 1254,
+          "definition_line": 1246,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12447,7 +12447,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenBattleSkills",
-          "definition_line": 1267,
+          "definition_line": 1259,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12459,7 +12459,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenBattleTechniques",
-          "definition_line": 1279,
+          "definition_line": 1271,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12471,7 +12471,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenPetSkills",
-          "definition_line": 1588,
+          "definition_line": 1580,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12483,7 +12483,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenRidingSkills",
-          "definition_line": 1600,
+          "definition_line": 1592,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12495,7 +12495,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_Back",
-          "definition_line": 1658,
+          "definition_line": 1650,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12507,7 +12507,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_Update",
-          "definition_line": 1795,
+          "definition_line": 1787,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12519,7 +12519,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_Draw",
-          "definition_line": 1850,
+          "definition_line": 1842,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12531,7 +12531,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonBack",
-          "definition_line": 1612,
+          "definition_line": 1604,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12543,7 +12543,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonUse",
-          "definition_line": 1681,
+          "definition_line": 1673,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12555,7 +12555,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonPreviousRow",
-          "definition_line": 2029,
+          "definition_line": 2021,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12567,7 +12567,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonNextRow",
-          "definition_line": 2057,
+          "definition_line": 2049,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12579,7 +12579,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonPreviousPage",
-          "definition_line": 2087,
+          "definition_line": 2079,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12591,7 +12591,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonNextPage",
-          "definition_line": 2114,
+          "definition_line": 2106,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12603,7 +12603,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_Scroll",
-          "definition_line": 2144,
+          "definition_line": 2136,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12615,7 +12615,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_DrawSkillRow",
-          "definition_line": 706,
+          "definition_line": 698,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12627,7 +12627,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_HandleSkillRow",
-          "definition_line": 772,
+          "definition_line": 764,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12639,7 +12639,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_HandleTechniqueRow",
-          "definition_line": 877,
+          "definition_line": 869,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12651,7 +12651,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectSkillType",
-          "definition_line": 2244,
+          "definition_line": 2236,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12663,7 +12663,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_HandleRecipeRow",
-          "definition_line": 935,
+          "definition_line": 927,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12675,7 +12675,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectRecipe",
-          "definition_line": 2188,
+          "definition_line": 2180,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12687,7 +12687,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_HandleBattleSkillRow",
-          "definition_line": 1123,
+          "definition_line": 1115,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12699,7 +12699,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectBattleTechnique",
-          "definition_line": 1185,
+          "definition_line": 1177,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12711,7 +12711,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ButtonPetSkillBack",
-          "definition_line": 1731,
+          "definition_line": 1723,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12723,7 +12723,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_DrawPetSkillRow",
-          "definition_line": 1293,
+          "definition_line": 1285,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12735,7 +12735,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectPetSkill",
-          "definition_line": 1369,
+          "definition_line": 1361,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12747,7 +12747,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_DrawRidingSkillRow",
-          "definition_line": 1332,
+          "definition_line": 1324,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12759,7 +12759,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectRidingSkill",
-          "definition_line": 1434,
+          "definition_line": 1426,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13503,7 +13503,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_MatchesCrystalLevel",
-          "definition_line": 503,
+          "definition_line": 495,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13515,7 +13515,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectTextTarget",
-          "definition_line": 2421,
+          "definition_line": 2413,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13527,7 +13527,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenTextTargets",
-          "definition_line": 2471,
+          "definition_line": 2463,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13539,7 +13539,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_SelectAttributeTarget",
-          "definition_line": 512,
+          "definition_line": 504,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13551,7 +13551,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_OpenAttributeTargets",
-          "definition_line": 560,
+          "definition_line": 552,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -14055,7 +14055,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_SelectTextTarget",
-          "definition_line": 83,
+          "definition_line": 86,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -14067,7 +14067,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_OpenTextTargets",
-          "definition_line": 104,
+          "definition_line": 107,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -14079,7 +14079,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_SelectAttributeTarget",
-          "definition_line": 189,
+          "definition_line": 192,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -14091,7 +14091,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_OpenAttributeTargets",
-          "definition_line": 216,
+          "definition_line": 219,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20343,7 +20343,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_Release",
-          "definition_line": 423,
+          "definition_line": 459,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20355,7 +20355,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_OpenLearn",
-          "definition_line": 433,
+          "definition_line": 469,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20367,7 +20367,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_OpenForget",
-          "definition_line": 467,
+          "definition_line": 503,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20379,7 +20379,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_OpenPetSkills",
-          "definition_line": 568,
+          "definition_line": 604,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20391,7 +20391,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_OpenPetSkillsByTribe",
-          "definition_line": 574,
+          "definition_line": 610,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20403,7 +20403,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ReceivePetCandidates",
-          "definition_line": 580,
+          "definition_line": 616,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20415,7 +20415,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ReceiveTribeCandidates",
-          "definition_line": 626,
+          "definition_line": 662,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20427,7 +20427,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ReceiveSelectedPetSkills",
-          "definition_line": 676,
+          "definition_line": 712,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20439,7 +20439,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshLearn",
-          "definition_line": 725,
+          "definition_line": 761,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20451,7 +20451,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshForget",
-          "definition_line": 778,
+          "definition_line": 814,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20463,7 +20463,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshPetNames",
-          "definition_line": 853,
+          "definition_line": 889,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20475,7 +20475,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshPetCandidates",
-          "definition_line": 907,
+          "definition_line": 943,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20487,7 +20487,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshSelectedPetSkills",
-          "definition_line": 976,
+          "definition_line": 1012,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20499,7 +20499,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshLearnRows",
-          "definition_line": 1024,
+          "definition_line": 1060,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20511,7 +20511,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshForgetRows",
-          "definition_line": 1056,
+          "definition_line": 1092,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20523,7 +20523,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshPetRows",
-          "definition_line": 1085,
+          "definition_line": 1121,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20535,7 +20535,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_RefreshSelectedSkillRows",
-          "definition_line": 1123,
+          "definition_line": 1159,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20547,7 +20547,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_Update",
-          "definition_line": 1156,
+          "definition_line": 1192,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20559,7 +20559,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_Draw",
-          "definition_line": 1200,
+          "definition_line": 1236,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20571,7 +20571,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonLearn",
-          "definition_line": 1286,
+          "definition_line": 1322,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20583,7 +20583,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonBack",
-          "definition_line": 1322,
+          "definition_line": 1358,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20595,7 +20595,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonPreviousRow",
-          "definition_line": 1436,
+          "definition_line": 1472,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20607,7 +20607,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonNextRow",
-          "definition_line": 1514,
+          "definition_line": 1550,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20619,7 +20619,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonPreviousPage",
-          "definition_line": 1596,
+          "definition_line": 1632,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20631,7 +20631,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_ButtonNextPage",
-          "definition_line": 1668,
+          "definition_line": 1704,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20643,7 +20643,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_Scroll",
-          "definition_line": 1764,
+          "definition_line": 1800,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20655,7 +20655,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_SubmitForget",
-          "definition_line": 1808,
+          "definition_line": 1844,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20667,7 +20667,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_SelectPetCandidate",
-          "definition_line": 1849,
+          "definition_line": 1885,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20679,7 +20679,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_SelectSkillSlot",
-          "definition_line": 1918,
+          "definition_line": 1954,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20691,7 +20691,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_SubmitPetSkill",
-          "definition_line": 1946,
+          "definition_line": 1982,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20703,7 +20703,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_DrawSelectedSkillFrame",
-          "definition_line": 2010,
+          "definition_line": 2046,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20715,7 +20715,7 @@
         {
           "path": "src/ui/windows/WindowPetSkillChoice.cpp",
           "symbol": "WindowPetSkillChoice_HandleConfirmation",
-          "definition_line": 2028,
+          "definition_line": 2064,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -23379,7 +23379,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_ReceiveAttributeTargets",
-          "definition_line": 254,
+          "definition_line": 257,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -23391,7 +23391,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_ReceiveTextTargets",
-          "definition_line": 139,
+          "definition_line": 142,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -23991,7 +23991,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ClassifyAttributeSkill",
-          "definition_line": 694,
+          "definition_line": 686,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -24003,7 +24003,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReceiveAttributeTargets",
-          "definition_line": 593,
+          "definition_line": 585,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -24015,7 +24015,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReceiveTextTargets",
-          "definition_line": 2506,
+          "definition_line": 2498,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -26985,7 +26985,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReceiveTextTargetReply",
-          "definition_line": 2583,
+          "definition_line": 2575,
           "namespace": "cg::ui"
         }
       ]
@@ -26997,7 +26997,7 @@
         {
           "path": "src/ui/windows/WindowSkill.cpp",
           "symbol": "WindowSkill_ReceiveAttributeTargetReply",
-          "definition_line": 2592,
+          "definition_line": 2584,
           "namespace": "cg::ui"
         }
       ]
@@ -27009,7 +27009,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_ReceiveTextTargetReply",
-          "definition_line": 349,
+          "definition_line": 352,
           "namespace": "cg::ui"
         }
       ]
@@ -27021,7 +27021,7 @@
         {
           "path": "src/ui/windows/WindowItemUse.cpp",
           "symbol": "WindowItemUse_ReceiveAttributeTargetReply",
-          "definition_line": 358,
+          "definition_line": 361,
           "namespace": "cg::ui"
         }
       ]
@@ -32531,7 +32531,7 @@
       "definition": {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_Release",
-        "definition_line": 1006,
+        "definition_line": 998,
         "namespace": "cg::ui::detail"
       }
     },
@@ -34837,5 +34837,12 @@
     ],
     "inventory_entries_retired": 99,
     "scope": "仅当前工程已证无消费者的97旧handler及3独占初始化；原身份保持。"
+  },
+  "ui_definition_ownership_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
+    "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
+    "type_moves": 3,
+    "private_variables": 27,
+    "inventory_identity_and_state_unchanged": true
   }
 }

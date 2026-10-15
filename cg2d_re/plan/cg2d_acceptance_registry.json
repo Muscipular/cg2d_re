@@ -191912,5 +191912,18 @@
     "built": false,
     "runtime_verified": false,
     "scope": "只废弃当前工程处理器层，原二进制不可达未证；旧五项目录缺证不改写为生产／功能通过。"
+  },
+  "ui_definition_ownership_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
+    "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
+    "type_moves": 3,
+    "private_variables": 27,
+    "retired_non_inventory_helpers": 4,
+    "retired_private_views": 2,
+    "shared_candidates_retained": 8,
+    "inventory_identity_and_state_unchanged": true,
+    "shared_gates_changed": false,
+    "built": false,
+    "runtime_verified": false
   }
 }

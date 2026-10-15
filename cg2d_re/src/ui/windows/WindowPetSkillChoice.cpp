@@ -5,6 +5,42 @@ namespace detail {
 
 namespace {
 
+// 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。
+struct Window54PetOption {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t slots; // 原成员偏移：+0x08。
+    std::array<char, 17> name; // 原成员偏移：+0x0C。
+    std::uint8_t allowed; // 原成员偏移：+0x1D。
+    std::array<std::byte, 2> bytes1E; // 原成员偏移：+0x1E。
+    std::int32_t tribe; // 原成员偏移：+0x20。
+    std::uint8_t hintFlag; // 原成员偏移：+0x24。
+    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
+};
+static_assert(sizeof(Window54PetOption) == 0x28);
+static_assert(offsetof(Window54PetOption, value04) == 4);
+static_assert(offsetof(Window54PetOption, slots) == 8);
+static_assert(offsetof(Window54PetOption, name) == 0x0C);
+static_assert(offsetof(Window54PetOption, allowed) == 0x1D);
+static_assert(offsetof(Window54PetOption, tribe) == 0x20);
+static_assert(offsetof(Window54PetOption, hintFlag) == 0x24);
+
+// 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。
+struct Window54TechniqueSlot {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::array<char, 25> name; // 原成员偏移：+0x08。
+    std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x21。
+    std::byte byte5B; // 原成员偏移：+0x5B。
+};
+static_assert(sizeof(Window54TechniqueSlot) == 0x5C);
+static_assert(offsetof(Window54TechniqueSlot, value04) == 4);
+static_assert(offsetof(Window54TechniqueSlot, name) == 8);
+static_assert(offsetof(Window54TechniqueSlot, description) == 0x21);
+static_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);
+
 // 原D2EAB8的60H技能报价记录；未消费字节不据此定业务语义。
 struct Window54SkillRecord {
     std::uint16_t used;
@@ -115,9 +151,9 @@ static std::int32_t gWindow54DialogTypeCB2224 = 0; // 原全局：0x00CB2224。
 // 原全局：0x00CC18C4。 协议字段1的图号，非地址。
 static std::int32_t gWindow54ImageCC18C4 = 0; // 原全局：0x00CC18C4。
 
-std::int32_t gWindow54ValueCC2E68 = 0; // 原全局：0x00CC2E68。
+static std::int32_t gWindow54ValueCC2E68 = 0; // 原全局：0x00CC2E68。 4BD540字段6，4D6A60也消费。
 
-std::int32_t gWindow54ValueCF4A3C = 0; // 原全局：0x00CF4A3C。
+static std::int32_t gWindow54ValueCF4A3C = 0; // 原全局：0x00CF4A3C。 4BD540字段7，4D6A60也消费。
 
 // 原全局：0x00CB01E4。 创建尾清零的独立数值，不与CB01E8合并。
 static std::int32_t gWindow54ValueCB01E4 = 0; // 原全局：0x00CB01E4。
@@ -132,9 +168,9 @@ static std::int32_t gWindow54LifecycleD67434 = 0; // 原全局：0x00D67434。
 // 原全局：0x00C8AAA0。 4BD680复制、4BF2E0消费。
 static std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0 {}; // 原全局：0x00C8AAA0。
 
-std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {}; // 原全局：0x00CB01A4。
+static std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {}; // 原全局：0x00CB01A4。 两表也被4D6EA0消费，保持同源。
 
-std::array<std::int32_t, 15> gWindow54ValuesCB09D8 {}; // 原全局：0x00CB09D8。
+static std::array<std::int32_t, 15> gWindow54ValuesCB09D8 {}; // 原全局：0x00CB09D8。
 
 // 原全局：0x00D2EAB8。 600H，到D2F0B8前结束。
 static std::array<Window54SkillRecord, 16> gWindow54SkillsD2EAB8 {}; // 原全局：0x00D2EAB8。
@@ -161,7 +197,7 @@ static std::array<std::wstring, 5> gWindow54SkillValueTextsCF4978 {}; // 原全�
 
 static std::array<std::wstring, 5> gWindow54SkillPriceTextsCF493C {}; // 原全局：0x00CF493C。
 
-std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。
+static std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。 4D7C20/4D8230也读，保持同源。
 
 // 原全局：0x00CF4AB0。 4C0A50原CF4A6B基址含元素索引69的别名。
 static std::array<std::int8_t, 5> gWindow54PetMapCF4AB0 {}; // 原全局：0x00CF4AB0。
@@ -173,7 +209,7 @@ static std::int32_t gWindow54PetChoiceC8AA90 = 0; // 原全局：0x00C8AA90。
 
 static std::int32_t gWindow54PetScrollCC31DC = 0; // 原全局：0x00CC31DC。
 
-std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。
+static std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。 398H，其他窗口同源。
 
 // 原全局：0x00C8B08C。 4C0BF0发布、4C0F20消费的技能槽索引。
 static std::int32_t gWindow54ReplacementC8B08C = 0; // 原全局：0x00C8B08C。

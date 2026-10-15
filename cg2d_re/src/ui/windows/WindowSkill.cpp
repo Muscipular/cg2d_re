@@ -152,13 +152,13 @@ static void WindowSkill_Release();
 
 // 控件载荷、窗口状态、组件表与原型。
 
-std::int32_t gSkillTargetCountCA0004 = 0; // 原全局：0x00CA0004。
+static std::int32_t gSkillTargetCountCA0004 = 0; // 原全局：0x00CA0004。
 
-std::int32_t gSkillTargetPageC8A974 = 0; // 原全局：0x00C8A974。
+static std::int32_t gSkillTargetPageC8A974 = 0; // 原全局：0x00C8A974。
 
-std::int32_t gSkillTargetPageCountCA0178 = 0; // 原全局：0x00CA0178。
+static std::int32_t gSkillTargetPageCountCA0178 = 0; // 原全局：0x00CA0178。
 
-std::int32_t gSkillSelectedTargetCC4B1C = 0; // 原全局：0x00CC4B1C。
+static std::int32_t gSkillSelectedTargetCC4B1C = 0; // 原全局：0x00CC4B1C。
 
 static std::int32_t gSkillWindowModeD672AC = 0; // 原全局：0x00D672AC。
 
@@ -179,9 +179,9 @@ static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr; // 
 
 static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr; // 原全局：0x00CC4D14。
 
-std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。
+static std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立原字节名单，非LY表。
 
-std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
+static std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
 
 static std::array<const char*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
 
@@ -333,14 +333,6 @@ static WindowElementPrototype gWindowElements561B78[30] { // 原全局：0x00561
 WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30, gWindowElements561B78, &WindowSkill_Update, &WindowSkill_Draw, &WindowSkill_Release}; // 10: 54E420
 
 // 窗口函数实现。
-
-LegacySkillStatusView WindowSkill_BorrowStatusView() noexcept
-{
-    return {&gSkillStatusCountC8AA94, gSkillStatusNamesCC4670.data(), gSkillStatusLevelsCC31C0.data(),
-        gSkillStatusInjuriesD67600.data(), gSkillStatusHpCC318C.data(), gSkillStatusMaxHpD66C1C.data(),
-        gSkillStatusFpCC2348.data(), gSkillStatusMaxFpD2EA80.data(), gSkillStatusKindsCA0A78.data(),
-        gSkillStatusTargetsCF3FD0.data()};
-}
 
 std::int32_t WindowSkill_ReadRequestFlag() noexcept
 {

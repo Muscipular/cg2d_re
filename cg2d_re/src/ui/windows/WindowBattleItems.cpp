@@ -43,7 +43,7 @@ static WindowItemSelectorState gItemSelectorD2F338 {}; // 原全局：0x00D2F338
 // 原全局：0x00CF49B0。 窗口27每帧清-1，499C30发布提示槽。
 static std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
 
-std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。
+static std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。 窗口27物品提示页，同源于两战斗交互。
 
 static std::int32_t gBattleBackpackHover57E430 = -2; // 原全局：0x0057E430。
 

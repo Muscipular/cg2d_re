@@ -243,21 +243,21 @@ static std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
 // 原全局：0x00D67B7C。 原43窗口展开动画，仅借用。
 static login::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
 
-std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。
+static std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。 原第一个页签数值索引。
 
-std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。
+static std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。 原另一页签，均为数值索引。
 
-std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。
+static std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。 原四个物品/宠物计数。
 
-std::int32_t gTradeValueC8AF68 = 0; // 原全局：0x00C8AF68。
+static std::int32_t gTradeValueC8AF68 = 0; // 原全局：0x00C8AF68。
 
-std::int32_t gTradeValueCB03CC = 0; // 原全局：0x00CB03CC。
+static std::int32_t gTradeValueCB03CC = 0; // 原全局：0x00CB03CC。
 
-std::int32_t gTradeValueCF4AB8 = 0; // 原全局：0x00CF4AB8。
+static std::int32_t gTradeValueCF4AB8 = 0; // 原全局：0x00CF4AB8。
 
-std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。
+static std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。 交易阶段相关数值，不是地址。
 
-std::int32_t gTradeValueD67CBC = 0; // 原全局：0x00D67CBC。
+static std::int32_t gTradeValueD67CBC = 0; // 原全局：0x00D67CBC。
 
 std::int32_t gTradeValueCC3EC4 = 0; // 原全局：0x00CC3EC4。
 
@@ -265,7 +265,7 @@ std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。
 
 std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。
 
-std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
+static std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
 
 static_assert(sizeof(gTradeNameD2D654) == 17);
 

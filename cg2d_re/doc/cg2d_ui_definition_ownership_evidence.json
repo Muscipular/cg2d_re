@@ -1,0 +1,758 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
+  "symbols_audited": 274,
+  "candidates_before": [
+    {
+      "name": "ItemUseStatusRecord",
+      "cpp": {
+        "src/ui/windows/WindowItemUse.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 9
+      }
+    },
+    {
+      "name": "LegacyItemUseTargetView",
+      "cpp": {
+        "src/ui/windows/WindowItemUse.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 2
+      }
+    },
+    {
+      "name": "LegacySkillStatusView",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 2
+      }
+    },
+    {
+      "name": "Window54PetOption",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 5
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 9
+      }
+    },
+    {
+      "name": "Window54TechniqueSlot",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 7
+      }
+    },
+    {
+      "name": "WindowChoiceSlotsCC4CA0",
+      "cpp": {
+        "src/ui/windows/WindowMail.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeInternal.hpp": 5
+      }
+    },
+    {
+      "name": "WindowListRecordD3FAD4",
+      "cpp": {
+        "src/ui/windows/WindowMessageBoard.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeInternal.hpp": 7
+      }
+    },
+    {
+      "name": "WindowStoragePet",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowBank.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1,
+        "src/ui/WindowStorageRecords.hpp": 23
+      }
+    },
+    {
+      "name": "gBattleItemPageCB01E0",
+      "cpp": {
+        "src/ui/windows/WindowBattleItems.cpp": 10
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gQuantityLimit581C94",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopTextCB0184",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueCAFEA4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 7
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueD046C4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 17
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueD672D4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillSelectedTargetCC4B1C",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetCountCA0004",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 9
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetKindsD2F75C",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 8
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetNamesCB0550",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetPageC8A974",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetPageCountCA0178",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTitleModeCF4E50",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowPlayerTitles.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTitlePageCF4E54",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowPlayerTitles.cpp": 16
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeNameD2D654",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueC8AF68",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCB03CC",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCC4C94",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCF4A1C",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCF4AB8",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD673E0",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD67CB8",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD67CBC",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54PetOptionsD67448",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 18
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54TechniqueSlotsD66E38",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 8
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValueCC2E68",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValueCF4A3C",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValuesCB01A4",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValuesCB09D8",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindowPrototype54E240",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowShortcutBar.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindowPrototype54E2A0",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowStatusBar.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindowPrototype54E330",
+      "cpp": {
+        "src/ui/WindowRuntime.cpp": 1,
+        "src/ui/windows/WindowBottomBar.cpp": 1
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    }
+  ],
+  "type_moves": {
+    "ItemUseStatusRecord": "src/ui/windows/WindowItemUse.cpp",
+    "Window54PetOption": "src/ui/windows/WindowPetSkillChoice.cpp",
+    "Window54TechniqueSlot": "src/ui/windows/WindowPetSkillChoice.cpp"
+  },
+  "private_variables": [
+    {
+      "name": "gBattleItemPageCB01E0",
+      "cpp": {
+        "src/ui/windows/WindowBattleItems.cpp": 10
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gQuantityLimit581C94",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopTextCB0184",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueCAFEA4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 7
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueD046C4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 17
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gShopValueD672D4",
+      "cpp": {
+        "src/ui/windows/WindowShop.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillSelectedTargetCC4B1C",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetCountCA0004",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 9
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetKindsD2F75C",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 8
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetNamesCB0550",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetPageC8A974",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gSkillTargetPageCountCA0178",
+      "cpp": {
+        "src/ui/windows/WindowSkill.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeNameD2D654",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueC8AF68",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCB03CC",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCC4C94",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCF4A1C",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueCF4AB8",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD673E0",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 2
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD67CB8",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gTradeValueD67CBC",
+      "cpp": {
+        "src/ui/windows/WindowTrade.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54PetOptionsD67448",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 18
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54TechniqueSlotsD66E38",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 8
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValueCC2E68",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValueCF4A3C",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 3
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValuesCB01A4",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 6
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    },
+    {
+      "name": "gWindow54ValuesCB09D8",
+      "cpp": {
+        "src/ui/windows/WindowPetSkillChoice.cpp": 4
+      },
+      "headers": {
+        "src/ui/WindowRuntimeState.hpp": 1
+      }
+    }
+  ],
+  "retained_candidates": {
+    "WindowChoiceSlotsCC4CA0": "共享LoginWindowRuntimeSlots聚合成员，其他窗口通过同一对象间接使用，不能按类型名称出现次数拆分。",
+    "WindowListRecordD3FAD4": "共享LoginWindowRuntimeSlots聚合成员，保持完整布局和唯一owner。",
+    "WindowStoragePet": "共享extern数组与外部回复解析仍需完整记录定义，不能按显式类型名计使用方。",
+    "gTitleModeCF4E50": "绑定公共聚合owner字段，保留同文件初始化与别名关系。",
+    "gTitlePageCF4E54": "绑定公共聚合owner字段，保留同文件初始化与别名关系。",
+    "gWindowPrototype54E240": "公共WindowRuntime实际比较固定原型对象，需共享。",
+    "gWindowPrototype54E2A0": "公共WindowRuntime实际比较固定原型对象，需共享。",
+    "gWindowPrototype54E330": "公共WindowRuntime实际比较固定原型对象，需共享。"
+  },
+  "retired_types": [
+    "LegacyItemUseTargetView",
+    "LegacySkillStatusView"
+  ],
+  "retired_helpers": [
+    "WindowItemUse_BorrowTargetView",
+    "WindowItemUse_ReadStatus",
+    "WindowItemUse_ReadStatusCount",
+    "WindowSkill_BorrowStatusView"
+  ],
+  "progress_section": 261,
+  "validation": {
+    "preserved_function_bodies_equal": 229,
+    "window_sources_exact_expected_transform": 6,
+    "shared_header_exact_expected_removals": true,
+    "private_variable_consumers_verified": 27,
+    "type_owners_verified": 3,
+    "retired_helper_and_view_code_references": 0,
+    "inventory_identity_and_state_preserved": 3680,
+    "shared_feature_gates_and_tasks_unchanged": true,
+    "encoding": "UTF-8无BOM/LF",
+    "execution": "未编译、测试或运行"
+  },
+  "moved_type_units": {
+    "ItemUseStatusRecord": "// 原CB10D8的52B值记录；旧78只读借用，实际六行存储仍由WindowRuntime私有持有。\nstruct ItemUseStatusRecord {\n    std::array<char, 20> name;\n    std::int32_t level; // 原成员偏移：+0x14。\n    std::int32_t injury; // 原成员偏移：+0x18。\n    std::int32_t hp; // 原成员偏移：+0x1C。\n    std::int32_t maxHp;\n    std::int32_t fp;\n    std::int32_t maxFp; // 原成员偏移：+0x28。\n    std::int32_t kind; // 原成员偏移：+0x2C。\n    std::int32_t target; // 原成员偏移：+0x30。\n};\nstatic_assert(offsetof(ItemUseStatusRecord, level) == 0x14);\nstatic_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);\nstatic_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);\nstatic_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);\nstatic_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);\nstatic_assert(offsetof(ItemUseStatusRecord, target) == 0x30);\nstatic_assert(sizeof(ItemUseStatusRecord) == 52);\n",
+    "Window54PetOption": "// 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。\nstruct Window54PetOption {\n    std::uint16_t used;\n    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。\n    std::int32_t value04; // 原成员偏移：+0x04。\n    std::int32_t slots; // 原成员偏移：+0x08。\n    std::array<char, 17> name; // 原成员偏移：+0x0C。\n    std::uint8_t allowed; // 原成员偏移：+0x1D。\n    std::array<std::byte, 2> bytes1E; // 原成员偏移：+0x1E。\n    std::int32_t tribe; // 原成员偏移：+0x20。\n    std::uint8_t hintFlag; // 原成员偏移：+0x24。\n    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。\n};\nstatic_assert(sizeof(Window54PetOption) == 0x28);\nstatic_assert(offsetof(Window54PetOption, value04) == 4);\nstatic_assert(offsetof(Window54PetOption, slots) == 8);\nstatic_assert(offsetof(Window54PetOption, name) == 0x0C);\nstatic_assert(offsetof(Window54PetOption, allowed) == 0x1D);\nstatic_assert(offsetof(Window54PetOption, tribe) == 0x20);\nstatic_assert(offsetof(Window54PetOption, hintFlag) == 0x24);\n\n",
+    "Window54TechniqueSlot": "// 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。\nstruct Window54TechniqueSlot {\n    std::uint16_t used;\n    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。\n    std::int32_t value04; // 原成员偏移：+0x04。\n    std::array<char, 25> name; // 原成员偏移：+0x08。\n    std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x21。\n    std::byte byte5B; // 原成员偏移：+0x5B。\n};\nstatic_assert(sizeof(Window54TechniqueSlot) == 0x5C);\nstatic_assert(offsetof(Window54TechniqueSlot, value04) == 4);\nstatic_assert(offsetof(Window54TechniqueSlot, name) == 8);\nstatic_assert(offsetof(Window54TechniqueSlot, description) == 0x21);\nstatic_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);\n\n",
+    "LegacyItemUseTargetView": "// 原LY十条20B记录及分立S32状态的非拥有视图；只借页号/选择写权，不复制名单。\nstruct LegacyItemUseTargetView {\n    const std::int32_t* count; // CC40CC。\n    std::int32_t* page; // CC46DC。\n    const std::int32_t* pageCount; // CC3E70。\n    std::int32_t* selected; // CB0A48。\n    const std::byte* records; // CB0EA8，kind S16/+2名称，步长20。\n};\n",
+    "LegacySkillStatusView": "// 原ND六行分立列的只读非拥有视图；count必须在原循环边界重读，不复制成新记录。\nstruct LegacySkillStatusView {\n    const std::int32_t* count; // C8AA94。\n    const std::array<char, 17>* names; // CC4670。\n    const std::int32_t* levels; // CC31C0。\n    const std::int32_t* injuries; // D67600。\n    const std::int32_t* hp; // CC318C。\n    const std::int32_t* maxHp; // D66C1C。\n    const std::int32_t* fp; // CC2348。\n    const std::int32_t* maxFp; // D2EA80。\n    const std::int32_t* kinds; // CA0A78。\n    const std::int32_t* targets; // CF3FD0。\n};\n"
+  },
+  "removed_helper_units": {
+    "WindowItemUse_BorrowTargetView": "LegacyItemUseTargetView WindowItemUse_BorrowTargetView() noexcept\n{\n    return {&gItemUseTargetCountCC40CC, &gItemUsePageCC46DC, &gItemUsePageCountCC3E70, &gItemUseTargetCB0A48,\n        reinterpret_cast<const std::byte*>(gItemUseTargetsCB0EA8.data())};\n}",
+    "WindowItemUse_ReadStatus": "const ItemUseStatusRecord& WindowItemUse_ReadStatus(const std::int32_t index) noexcept\n{\n    return gItemUseStatusRecordsCB10D8[index];\n}",
+    "WindowItemUse_ReadStatusCount": "std::int32_t WindowItemUse_ReadStatusCount() noexcept\n{\n    return gItemUseStatusCountCC4D44;\n}",
+    "WindowSkill_BorrowStatusView": "LegacySkillStatusView WindowSkill_BorrowStatusView() noexcept\n{\n    return {&gSkillStatusCountC8AA94, gSkillStatusNamesCC4670.data(), gSkillStatusLevelsCC31C0.data(),\n        gSkillStatusInjuriesD67600.data(), gSkillStatusHpCC318C.data(), gSkillStatusMaxHpD66C1C.data(),\n        gSkillStatusFpCC2348.data(), gSkillStatusMaxFpD2EA80.data(), gSkillStatusKindsCA0A78.data(),\n        gSkillStatusTargetsCF3FD0.data()};\n}"
+  },
+  "refreshed_ui_symbol_records": 229,
+  "type_comment_updates": {
+    "// 原CB10D8的52B值记录；旧78只读借用，实际六行存储仍由WindowRuntime私有持有。": "// 原CB10D8的52B值记录；实际六行存储由本文件私有持有。"
+  },
+  "additional_shared_aliases_and_constants_audited": 42,
+  "additional_alias_decision": "42项保留：多窗口常量，或共享结构字段／公开参数所需别名；显式类型名只出现单CPP不代表接口私有。",
+  "ledger_validation": "measure_cg2d.ps1 -Check仍仅两份既有键盘历史附件缺失；未写派生文件，不计全量台账通过。",
+  "private_comment_updates": [
+    {
+      "path": "src/ui/windows/WindowBattleItems.cpp",
+      "symbol": "gBattleItemPageCB01E0",
+      "old": "static std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。",
+      "new": "static std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。 窗口27物品提示页，同源于两战斗交互。"
+    },
+    {
+      "path": "src/ui/windows/WindowShop.cpp",
+      "symbol": "gQuantityLimit581C94",
+      "old": "static std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。",
+      "new": "static std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。 原装载值999，商店及其他数量窗口同源上限。"
+    },
+    {
+      "path": "src/ui/windows/WindowShop.cpp",
+      "symbol": "gShopTextCB0184",
+      "old": "static std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。",
+      "new": "static std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。 模式2字段7反转义结果，不套商品名回退。"
+    },
+    {
+      "path": "src/ui/windows/WindowSkill.cpp",
+      "symbol": "gSkillTargetNamesCB0550",
+      "old": "static std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。",
+      "new": "static std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立原字节名单，非LY表。"
+    },
+    {
+      "path": "src/ui/windows/WindowTrade.cpp",
+      "symbol": "gTradeValueCC4C94",
+      "old": "static std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。",
+      "new": "static std::int32_t gTradeValueCC4C94 = 0; // 原全局：0x00CC4C94。 原四个物品/宠物计数。"
+    },
+    {
+      "path": "src/ui/windows/WindowTrade.cpp",
+      "symbol": "gTradeValueCF4A1C",
+      "old": "static std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。",
+      "new": "static std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。 原第一个页签数值索引。"
+    },
+    {
+      "path": "src/ui/windows/WindowTrade.cpp",
+      "symbol": "gTradeValueD673E0",
+      "old": "static std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。",
+      "new": "static std::int32_t gTradeValueD673E0 = 0; // 原全局：0x00D673E0。 原另一页签，均为数值索引。"
+    },
+    {
+      "path": "src/ui/windows/WindowTrade.cpp",
+      "symbol": "gTradeValueD67CB8",
+      "old": "static std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。",
+      "new": "static std::int32_t gTradeValueD67CB8 = 0; // 原全局：0x00D67CB8。 交易阶段相关数值，不是地址。"
+    },
+    {
+      "path": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "symbol": "gWindow54PetOptionsD67448",
+      "old": "static std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。",
+      "new": "static std::array<Window54PetOption, 5> gWindow54PetOptionsD67448 {}; // 原全局：0x00D67448。 4D7C20/4D8230也读，保持同源。"
+    },
+    {
+      "path": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "symbol": "gWindow54TechniqueSlotsD66E38",
+      "old": "static std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。",
+      "new": "static std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {}; // 原全局：0x00D66E38。 398H，其他窗口同源。"
+    },
+    {
+      "path": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "symbol": "gWindow54ValueCC2E68",
+      "old": "static std::int32_t gWindow54ValueCC2E68 = 0; // 原全局：0x00CC2E68。",
+      "new": "static std::int32_t gWindow54ValueCC2E68 = 0; // 原全局：0x00CC2E68。 4BD540字段6，4D6A60也消费。"
+    },
+    {
+      "path": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "symbol": "gWindow54ValueCF4A3C",
+      "old": "static std::int32_t gWindow54ValueCF4A3C = 0; // 原全局：0x00CF4A3C。",
+      "new": "static std::int32_t gWindow54ValueCF4A3C = 0; // 原全局：0x00CF4A3C。 4BD540字段7，4D6A60也消费。"
+    },
+    {
+      "path": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "symbol": "gWindow54ValuesCB01A4",
+      "old": "static std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {}; // 原全局：0x00CB01A4。",
+      "new": "static std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {}; // 原全局：0x00CB01A4。 两表也被4D6EA0消费，保持同源。"
+    }
+  ]
+}

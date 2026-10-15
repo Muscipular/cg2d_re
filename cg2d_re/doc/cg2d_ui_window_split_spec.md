@@ -91,3 +91,18 @@ InputContext 的默认构造只绑定自身字段和自有正文，析构为默�
 实例和原型共用WindowTextStyle，color、font、reserved02、reserved03各为std::byte，保持现有颜色位型、转换方式和聚合初值。增加4字节大小、1字节对齐及四字段偏移的编译期断言；将bytes00[0/1]替换为style.color/font。创建时仍仅复制颜色和字体，保留两字节仍随实例值初始化清零；不改成整结构复制。正文继续std::wstring，注释明确+4为原x86指针偏移，当前布局由编译器对齐。不改文字、地址注释、调用／读写顺序及窗口行为。按原授权用build.bat Debug验证。
 
 本步已完成19个cpp的55处字段替换，CPP原函数行号保持；Debug编译／链接及新增布局断言通过，既有未初始化警告保留。未运行、测试或部署。
+
+## 删除旧处理器后的专属定义复查（2026-10-15）
+
+<a id="ui-definition-ownership-20261015"></a>
+
+用户追加要求检查src/ui定义能否归入专属Window文件。本步检查四个内部头的274个类型／extern名称并沿关联数组／聚合成员核消费者，得到40个单窗口表面候选；不能只按显式类型名计引用。沿既有工程委托，先记录范围后实施。
+
+- ItemUseStatusRecord移入WindowItemUse.cpp；Window54PetOption／Window54TechniqueSlot及原布局断言移入WindowPetSkillChoice.cpp，均置于文件已有私有类型区。
+- 27项已在窗口文件定义、现只被该文件使用的状态变量增加static，并移除共享头extern；涉及战斗物品、商店、技能、交易和宠物技能选择。定义位置、初值和相对初始化次序保持。
+- 旧handler删除后，WindowItemUse_BorrowTargetView／WindowItemUse_ReadStatus／WindowItemUse_ReadStatusCount／WindowSkill_BorrowStatusView已无调用，删除四个辅助函数及声明、两种仅服务它们的Legacy视图类型；不迁移无人使用的接口。
+- 八项候选保留：WindowStoragePet仍被跨文件extern数组和回复写入方间接消费；WindowListRecordD3FAD4／WindowChoiceSlotsCC4CA0是公共LoginWindowRuntimeSlots的成员类型；两个称号字段引用继续与同一owner绑定；三个固定原型别名仍被通用设置逻辑实际比较。保持共享定义，不复制owner或新增访问包装。
+
+其他共享类型、协议写入数据、跨窗口状态和公开接口保持。迁移保持类型／布局断言和函数正文，私有化仅改变链接可见性；只删除上述四个零调用辅助函数。同步UI符号位置、当前函数表／直接定位及限定验收记录，原3680身份／状态保持。静态核对唯一实体、全部消费者、原地址／初值／正文、初始化序、UTF-8／JSON和差异；不构建、测试或运行。
+
+本次复查完成：3个类型及布局断言归入对应窗口，27个唯一窗口变量收为static并移除共享extern；4个已无消费者的辅助函数及2视图类型删除。额外核42项别名／常量，均涉及共享字段、公开接口或多窗口使用，继续共享。6个窗口文件精确变换、229个保留函数正文、原初值／初始化序、3680身份／状态及UI符号位置核对通过。台账-Check仍仅两份既有键盘历史附件缺失，未写派生文件；未编译、测试或运行。详见[归位证据](cg2d_ui_definition_ownership_evidence.json)。

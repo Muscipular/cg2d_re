@@ -259,27 +259,6 @@ std::int32_t WindowSkill_ReadBattlePetImage(); // 重新选取出战宠物并读
 std::int32_t WindowSkill_CheckPetFp(); // 当前宠物FP的单次CryptInt比较。
 // 原函数：0x00479B00。
 std::int32_t WindowSkill_CanUseSpecialSkill(); // 技能/晶石/宠物技术/属性/等级条件链。
-// 原CB10D8的52B值记录；旧78只读借用，实际六行存储仍由WindowRuntime私有持有。
-struct ItemUseStatusRecord {
-    std::array<char, 20> name;
-    std::int32_t level; // 原成员偏移：+0x14。
-    std::int32_t injury; // 原成员偏移：+0x18。
-    std::int32_t hp; // 原成员偏移：+0x1C。
-    std::int32_t maxHp;
-    std::int32_t fp;
-    std::int32_t maxFp; // 原成员偏移：+0x28。
-    std::int32_t kind; // 原成员偏移：+0x2C。
-    std::int32_t target; // 原成员偏移：+0x30。
-};
-static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
-static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
-static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
-static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
-static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
-static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
-static_assert(sizeof(ItemUseStatusRecord) == 52);
-const ItemUseStatusRecord& WindowItemUse_ReadStatus(std::int32_t index) noexcept;
-std::int32_t WindowItemUse_ReadStatusCount() noexcept; // 原CC4D44，不固定为六行或复制数量。
 // 原函数：0x0049F000。names借用GBK名单；49F0A0刷新时直接转为宽正文。
 login::YobiAction* WindowTextTarget_Open(
     const char* const* names, const std::uint8_t* colors,
@@ -426,42 +405,6 @@ static_assert(sizeof(WindowConfirmationAmount) == 12);
 static_assert(offsetof(WindowConfirmationAmount, x) == 4);
 static_assert(offsetof(WindowConfirmationAmount, y) == 6);
 static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
-
-// 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。
-struct Window54PetOption {
-    std::uint16_t used;
-    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
-    std::int32_t value04; // 原成员偏移：+0x04。
-    std::int32_t slots; // 原成员偏移：+0x08。
-    std::array<char, 17> name; // 原成员偏移：+0x0C。
-    std::uint8_t allowed; // 原成员偏移：+0x1D。
-    std::array<std::byte, 2> bytes1E; // 原成员偏移：+0x1E。
-    std::int32_t tribe; // 原成员偏移：+0x20。
-    std::uint8_t hintFlag; // 原成员偏移：+0x24。
-    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
-};
-static_assert(sizeof(Window54PetOption) == 0x28);
-static_assert(offsetof(Window54PetOption, value04) == 4);
-static_assert(offsetof(Window54PetOption, slots) == 8);
-static_assert(offsetof(Window54PetOption, name) == 0x0C);
-static_assert(offsetof(Window54PetOption, allowed) == 0x1D);
-static_assert(offsetof(Window54PetOption, tribe) == 0x20);
-static_assert(offsetof(Window54PetOption, hintFlag) == 0x24);
-
-// 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。
-struct Window54TechniqueSlot {
-    std::uint16_t used;
-    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
-    std::int32_t value04; // 原成员偏移：+0x04。
-    std::array<char, 25> name; // 原成员偏移：+0x08。
-    std::array<std::array<char, 29>, 2> description; // 原成员偏移：+0x21。
-    std::byte byte5B; // 原成员偏移：+0x5B。
-};
-static_assert(sizeof(Window54TechniqueSlot) == 0x5C);
-static_assert(offsetof(Window54TechniqueSlot, value04) == 4);
-static_assert(offsetof(Window54TechniqueSlot, name) == 8);
-static_assert(offsetof(Window54TechniqueSlot, description) == 0x21);
-static_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);
 
 // 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
 struct WindowCrystalItem {
@@ -692,7 +635,6 @@ extern std::int32_t gChatWindowModeD66E04; // 原全局：0x00D66E04。 原独�
 extern std::int32_t gLogDisplayGate593F84; // 原全局：0x00593F84。 窗口66与旧402020/4021A0共用，非恒1。
 extern std::uint8_t gValue57DA28; // 原全局：0x0057DA28。 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::uint8_t gValue57E42C; // 原全局：0x0057E42C。 原独立U8，初值FF，设置文件与宠物窗口共用。
-extern std::int32_t gBattleItemPageCB01E0; // 原全局：0x00CB01E0。 窗口27物品提示页，同源于两战斗交互。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern std::int32_t gValueCF4AAC; // 原全局：0x00CF4AAC。 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690; // 原全局：0x00CF4690。
@@ -709,13 +651,7 @@ extern std::uint8_t gValue5F9754; // 原全局：0x005F9754。 原多窗口/物�
 extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能请求索引，不与窗口当前选中槽合并。
 extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。
 extern std::int32_t gSkillTargetKindCF4A10; // 原全局：0x00CF4A10。
-extern std::int32_t gSkillTargetCountCA0004; // 原全局：0x00CA0004。
-extern std::int32_t gSkillTargetPageC8A974; // 原全局：0x00C8A974。
-extern std::int32_t gSkillTargetPageCountCA0178; // 原全局：0x00CA0178。
 extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
-extern std::int32_t gSkillSelectedTargetCC4B1C; // 原全局：0x00CC4B1C。
-extern std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550; // 原全局：0x00CB0550。 独立原字节名单，非LY表。
-extern std::array<std::int32_t, 10> gSkillTargetKindsD2F75C; // 原全局：0x00D2F75C。
 extern std::array<char, 20> gSkillTargetNameD2F748; // 原全局：0x00D2F748。 选择发送前复制；后续属性/技能消费者共享。
 extern std::int32_t gChatWidthUnitsC9A930; // 原全局：0x00C9A930。 原聊天宽度单位，输入滚动/聊天绘制共用。
 extern std::int32_t gChatHeightUnitsC9A938; // 原全局：0x00C9A938。 原聊天可见高度的字体9行高倍数。
@@ -732,38 +668,18 @@ extern std::array<WindowShopItem, 20> gShopItemsCF4FE0; // 原全局：0x00CF4FE
 extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopImageD2DAD0; // 原全局：0x00D2DAD0。
 extern std::int32_t gValueD2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
-extern std::array<char, 32> gShopTextCB0184; // 原全局：0x00CB0184。 模式2字段7反转义结果，不套商品名回退。
 extern WindowShopDetail gShopDetailCC3210; // 原全局：0x00CC3210。 名称/32行说明/六W32同源，见窗口53 SPEC。
-extern std::int32_t gShopValueCAFEA4; // 原全局：0x00CAFEA4。
-extern std::int32_t gShopValueD046C4; // 原全局：0x00D046C4。
-extern std::int32_t gShopValueD672D4; // 原全局：0x00D672D4。
 extern std::int32_t gShopAvailableCF4A24; // 原全局：0x00CF4A24。 模式2指定物品数量，装载0，窗口初始化再写-1。
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 原全局：0x00C9A954。 多窗口共用的行编号缓存，非地址。
-extern std::int32_t gQuantityLimit581C94; // 原全局：0x00581C94。 原装载值999，商店及其他数量窗口同源上限。
 extern std::wstring gConfirmationAcceptHintCC3FCC; // 原全局：0x00CC3FCC。 4C0F20也借用，不建窗口私有副本。
 extern std::wstring gConfirmationCancelHintD45D70; // 原全局：0x00D45D70。
-extern std::int32_t gWindow54ValueCC2E68; // 原全局：0x00CC2E68。 4BD540字段6，4D6A60也消费。
-extern std::int32_t gWindow54ValueCF4A3C; // 原全局：0x00CF4A3C。 4BD540字段7，4D6A60也消费。
-extern std::array<std::int32_t, 15> gWindow54ValuesCB01A4; // 原全局：0x00CB01A4。 两表也被4D6EA0消费，保持同源。
-extern std::array<std::int32_t, 15> gWindow54ValuesCB09D8; // 原全局：0x00CB09D8。
-extern std::array<Window54PetOption, 5> gWindow54PetOptionsD67448; // 原全局：0x00D67448。 4D7C20/4D8230也读，保持同源。
-extern std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38; // 原全局：0x00D66E38。 398H，其他窗口同源。
 extern std::int32_t gTradeValueCC4224; // 原全局：0x00CC4224。
 extern std::int32_t gTradeValueCF4688; // 原全局：0x00CF4688。
 extern std::int32_t gTradeValueD046D0; // 原全局：0x00D046D0。
 extern std::int32_t gTradeValueD2E2B0; // 原全局：0x00D2E2B0。
-extern std::int32_t gTradeValueCF4A1C; // 原全局：0x00CF4A1C。 原第一个页签数值索引。
-extern std::int32_t gTradeValueD673E0; // 原全局：0x00D673E0。 原另一页签，均为数值索引。
-extern std::int32_t gTradeValueCC4C94; // 原全局：0x00CC4C94。 原四个物品/宠物计数。
-extern std::int32_t gTradeValueC8AF68; // 原全局：0x00C8AF68。
-extern std::int32_t gTradeValueCB03CC; // 原全局：0x00CB03CC。
-extern std::int32_t gTradeValueCF4AB8; // 原全局：0x00CF4AB8。
-extern std::int32_t gTradeValueD67CB8; // 原全局：0x00D67CB8。 交易阶段相关数值，不是地址。
-extern std::int32_t gTradeValueD67CBC; // 原全局：0x00D67CBC。
 extern std::int32_t gTradeValueCC3EC4; // 原全局：0x00CC3EC4。 所选物品数值索引，4E5620写-1。
 extern std::int32_t gTradeValueD66E08; // 原全局：0x00D66E08。 所选图号数值。
 extern std::int32_t gTradeValueCC2344; // 原全局：0x00CC2344。 交易选择状态。
-extern std::array<char, 17> gTradeNameD2D654; // 原全局：0x00D2D654。
 extern std::wstring gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
@@ -805,30 +721,7 @@ extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
 const std::byte* WindowDialog_BorrowHealingRecords() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
-// 原LY十条20B记录及分立S32状态的非拥有视图；只借页号/选择写权，不复制名单。
-struct LegacyItemUseTargetView {
-    const std::int32_t* count; // CC40CC。
-    std::int32_t* page; // CC46DC。
-    const std::int32_t* pageCount; // CC3E70。
-    std::int32_t* selected; // CB0A48。
-    const std::byte* records; // CB0EA8，kind S16/+2名称，步长20。
-};
-LegacyItemUseTargetView WindowItemUse_BorrowTargetView() noexcept;
 
-// 原ND六行分立列的只读非拥有视图；count必须在原循环边界重读，不复制成新记录。
-struct LegacySkillStatusView {
-    const std::int32_t* count; // C8AA94。
-    const std::array<char, 17>* names; // CC4670。
-    const std::int32_t* levels; // CC31C0。
-    const std::int32_t* injuries; // D67600。
-    const std::int32_t* hp; // CC318C。
-    const std::int32_t* maxHp; // D66C1C。
-    const std::int32_t* fp; // CC2348。
-    const std::int32_t* maxFp; // D2EA80。
-    const std::int32_t* kinds; // CA0A78。
-    const std::int32_t* targets; // CF3FD0。
-};
-LegacySkillStatusView WindowSkill_BorrowStatusView() noexcept; // 借4EF750已有唯一owner，地址拓宽，数值仍S32。
 
 std::int32_t WindowPet_ReadHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90; // 原全局：0x00CA0A90。

@@ -100,7 +100,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1794
+        1786
       ]
     },
     {
@@ -110,7 +110,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1849
+        1841
       ]
     },
     {
@@ -120,7 +120,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1005
+        997
       ]
     },
     {
@@ -950,7 +950,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1156
+        1192
       ]
     },
     {
@@ -960,7 +960,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1200
+        1236
       ]
     },
     {
@@ -970,7 +970,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        423
+        459
       ]
     },
     {
@@ -5311,7 +5311,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "窗口54模式0，五行正文及八行说明。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        433
+        469
       ]
     },
     {
@@ -5321,7 +5321,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "窗口54模式1，固定十五项名称/双数值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        467
+        503
       ]
     },
     {
@@ -5331,7 +5331,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "窗口54模式2，技能报价及旧窗刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        568
+        604
       ]
     },
     {
@@ -5341,7 +5341,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "同创建流程，模式12显示种族。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        574
+        610
       ]
     },
     {
@@ -5351,7 +5351,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式3候选回复，仅更新存在的窗口54。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        580
+        616
       ]
     },
     {
@@ -5361,7 +5361,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式13候选回复，带种族条件及提示标记。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        626
+        662
       ]
     },
     {
@@ -5371,7 +5371,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式4固定十槽回复，空名不终止后续槽。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        676
+        712
       ]
     },
     {
@@ -5381,7 +5381,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0技能栏/说明/花费，reqSlot按低S8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        725
+        761
       ]
     },
     {
@@ -5391,7 +5391,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式1遗忘映射/警告/回调，与原技能表同源。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        778
+        814
       ]
     },
     {
@@ -5401,7 +5401,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "固定旧窗的五宠物名称/元素及技能分页刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        853
+        889
       ]
     },
     {
@@ -5411,7 +5411,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "玩家索引对转候选映射，绑定真实选择回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        907
+        943
       ]
     },
     {
@@ -5421,7 +5421,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "技能槽计数/候选原序显示，先右侧再左侧刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        976
+        1012
       ]
     },
     {
@@ -5431,7 +5431,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0十行原技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1024
+        1060
       ]
     },
     {
@@ -5441,7 +5441,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式1十行协议名称/双数值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1056
+        1092
       ]
     },
     {
@@ -5451,7 +5451,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "五行，存在性与内容索引不同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1085
+        1121
       ]
     },
     {
@@ -5461,7 +5461,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "按候选槽数逐轮重读，不加十行钳制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1123
+        1159
       ]
     },
     {
@@ -5471,7 +5471,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "模式0学习请求，bit2恒消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1286
+        1322
       ]
     },
     {
@@ -5481,7 +5481,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "分模式关闭/返回，音效后重读模式。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1322
+        1358
       ]
     },
     {
@@ -5491,7 +5491,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "bit400上一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1436
+        1472
       ]
     },
     {
@@ -5501,7 +5501,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "下一行，12/13固定左侧且目标index-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1514
+        1550
       ]
     },
     {
@@ -5511,7 +5511,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "上一页，音效后重读位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1596
+        1632
       ]
     },
     {
@@ -5521,7 +5521,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "下一页，先上限后负值修正。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1668
+        1704
       ]
     },
     {
@@ -5531,7 +5531,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "两侧滚轮；模式0/1只更新位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1764
+        1800
       ]
     },
     {
@@ -5541,7 +5541,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "遗忘映射+1发送，发送后关闭窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1808
+        1844
       ]
     },
     {
@@ -5551,7 +5551,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "候选门禁/提示/发送，hintFlag不阻止发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1849
+        1885
       ]
     },
     {
@@ -5561,7 +5561,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "选技能槽并显示元素0，不提前发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1918
+        1954
       ]
     },
     {
@@ -5571,7 +5571,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "技能选择/请求，发送后对话类型=-2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1946
+        1982
       ]
     },
     {
@@ -5581,7 +5581,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "已选技能内框，恒0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2010
+        2046
       ]
     },
     {
@@ -5591,7 +5591,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "确认覆盖层，发原选槽文本后请求关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2028
+        2064
       ]
     },
     {
@@ -8351,7 +8351,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "槽7特殊悬停计数，两条件独立。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        365
+        357
       ]
     },
     {
@@ -8361,7 +8361,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能索引对中查1009，按S16读取槽号。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        382
+        374
       ]
     },
     {
@@ -8371,7 +8371,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "玩家物品槽7的晶石等级，未用/未知返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        396
+        388
       ]
     },
     {
@@ -8381,7 +8381,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同一槽7的属性0..3；未用0，未知ID为-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        413
+        405
       ]
     },
     {
@@ -8391,7 +8391,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "重新选取出战宠物并读取原图号，未命中0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        430
+        422
       ]
     },
     {
@@ -8401,7 +8401,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物技术索引对中查40330..40332。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        437
+        429
       ]
     },
     {
@@ -8411,7 +8411,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物等级闭区间。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        455
+        447
       ]
     },
     {
@@ -8421,7 +8421,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前宠物FP的单次CryptInt比较。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        466
+        458
       ]
     },
     {
@@ -8431,7 +8431,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能/晶石/宠物技术/属性/等级条件链。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        481
+        473
       ]
     },
     {
@@ -8441,7 +8441,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前技能技术value90与重读晶石等级等值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        502
+        494
       ]
     },
     {
@@ -8451,7 +8451,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "按属性目标编号发送技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        511
+        503
       ]
     },
     {
@@ -8461,7 +8461,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同源六属性视图与46创建，不回滚计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        559
+        551
       ]
     },
     {
@@ -8471,7 +8471,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "ND自身/远端属性生产，分类1跳过人物行。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        592
+        584
       ]
     },
     {
@@ -8481,7 +8481,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "221..224分类0..3，其余-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        693
+        685
       ]
     },
     {
@@ -8491,7 +8491,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "固定配对对应技能，需求槽数按S8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        705
+        697
       ]
     },
     {
@@ -8501,7 +8501,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "kind4拖动，仅message0推进。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        738
+        730
       ]
     },
     {
@@ -8511,7 +8511,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "安装479700并透传返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        765
+        757
       ]
     },
     {
@@ -8521,7 +8521,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "列表排序请求、打开技术与右键拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        771
+        763
       ]
     },
     {
@@ -8531,7 +8531,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能列表定位，不以used过滤索引查找。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        828
+        820
       ]
     },
     {
@@ -8541,7 +8541,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技术行，>=100按战斗FP着色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        876
+        868
       ]
     },
     {
@@ -8551,7 +8551,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "配方行与独立图号表。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        934
+        926
       ]
     },
     {
@@ -8561,7 +8561,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "切技术模式，负参数保留原技能。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        965
+        957
       ]
     },
     {
@@ -8571,7 +8571,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗列表及原过滤表尾字节计数门槛。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1018
+        1010
       ]
     },
     {
@@ -8581,7 +8581,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术初始化。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1076
+        1068
       ]
     },
     {
@@ -8591,7 +8591,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗列表行，技能标志决定可用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1122
+        1114
       ]
     },
     {
@@ -8601,7 +8601,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术选择，独立FP读取与回调后重取窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1184
+        1176
       ]
     },
     {
@@ -8611,7 +8611,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "清选择回调并创建普通技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1253
+        1245
       ]
     },
     {
@@ -8621,7 +8621,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置回调并创建战斗列表窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1266
+        1258
       ]
     },
     {
@@ -8631,7 +8631,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗技术窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1278
+        1270
       ]
     },
     {
@@ -8641,7 +8641,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物行绘制，两次宠物查询。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1292
+        1284
       ]
     },
     {
@@ -8651,7 +8651,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘行绘制，固定技术记录。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1331
+        1323
       ]
     },
     {
@@ -8661,7 +8661,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物选择，不加滚动偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1368
+        1360
       ]
     },
     {
@@ -8671,7 +8671,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘选择，FP不足不补失败音效。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1433
+        1425
       ]
     },
     {
@@ -8681,7 +8681,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "宠物模式初始化，保留弃用结果的FP读取。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1493
+        1485
       ]
     },
     {
@@ -8691,7 +8691,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "骑乘模式初始化，名称借自身战斗对象。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1540
+        1532
       ]
     },
     {
@@ -8701,7 +8701,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置CC4D14并创建宠物技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1587
+        1579
       ]
     },
     {
@@ -8711,7 +8711,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "设置CC4D14并创建骑乘技能窗。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1599
+        1591
       ]
     },
     {
@@ -8721,7 +8721,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "固定入口窗口的返回按钮。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1611
+        1603
       ]
     },
     {
@@ -8731,7 +8731,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "战斗返回：模式4退列表，0/3/5/6关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1657
+        1649
       ]
     },
     {
@@ -8741,7 +8741,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1680
+        1672
       ]
     },
     {
@@ -8751,7 +8751,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "无可用宠物技能时略过，通知-1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1730
+        1722
       ]
     },
     {
@@ -8761,7 +8761,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "前一行，bit400。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2028
+        2020
       ]
     },
     {
@@ -8771,7 +8771,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "后一行，bit400。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2056
+        2048
       ]
     },
     {
@@ -8781,7 +8781,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "前十行，音效后重读页码。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2086
+        2078
       ]
     },
     {
@@ -8791,7 +8791,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "后十行，不额外钳制负上限。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2113
+        2105
       ]
     },
     {
@@ -8801,7 +8801,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "同源滚轮，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2143
+        2135
       ]
     },
     {
@@ -8811,7 +8811,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "切配方，滚动先用旧上限。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2156
+        2148
       ]
     },
     {
@@ -8821,7 +8821,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "转生一致才处理配方，恒返0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2187
+        2179
       ]
     },
     {
@@ -8831,7 +8831,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "五类技能选择与完整失败音效。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2243
+        2235
       ]
     },
     {
@@ -8841,7 +8841,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "窗口10模式2的技能状态差异请求，原返回无人消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2405
+        2397
       ]
     },
     {
@@ -8851,7 +8851,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "请求属性/发送技能及释放通知。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2420
+        2412
       ]
     },
     {
@@ -8861,7 +8861,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "技能目标名称/颜色借用及45创建，不回滚失败计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2470
+        2462
       ]
     },
     {
@@ -8871,7 +8871,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "ysVc完整名单生产；唯一回复调用方弃用混合返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2505
+        2497
       ]
     },
     {
@@ -9181,7 +9181,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "选择发送/释放计数；-2仅允许关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        83
+        86
       ]
     },
     {
@@ -9191,7 +9191,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "名称/颜色借用及物品占用计数，创建失败按原条件回滚。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        104
+        107
       ]
     },
     {
@@ -9201,7 +9201,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "LY完整目标名单生产，保留原Yobi返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        139
+        142
       ]
     },
     {
@@ -9211,7 +9211,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "用物品/请求回退/释放通知。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        189
+        192
       ]
     },
     {
@@ -9221,7 +9221,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "属性展示源及46创建成功后的引用计数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        216
+        219
       ]
     },
     {
@@ -9231,7 +9231,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "nFV完整属性值生产，不清旧表或替换宠物状态owner。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        254
+        257
       ]
     },
     {
@@ -10131,7 +10131,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2582
+        2574
       ]
     },
     {
@@ -10141,7 +10141,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2591
+        2583
       ]
     },
     {
@@ -10151,7 +10151,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        349
+        352
       ]
     },
     {
@@ -10161,7 +10161,7 @@
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        358
+        361
       ]
     },
     {
@@ -10882,7 +10882,7 @@
       "source": "src/ui/windows/WindowPetSkillChoice.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        510
+        546
       ]
     },
     {
@@ -11063,9 +11063,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         66
-      ]
+      ],
+      "current_source_state": "旧handler删除后无消费者，辅助函数已移除；原记录保留历史。"
     },
     {
       "old_symbol": "BorrowLegacySkillStatusView",
@@ -11073,9 +11075,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "借4EF750已有唯一owner，地址拓宽，数值仍S32。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         336
-      ]
+      ],
+      "current_source_state": "旧handler删除后无消费者，辅助函数已移除；原记录保留历史。"
     },
     {
       "old_symbol": "ReadLegacyHealthImage",
@@ -11093,9 +11097,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         72
-      ]
+      ],
+      "current_source_state": "旧handler删除后无消费者，辅助函数已移除；原记录保留历史。"
     },
     {
       "old_symbol": "ReadLegacyItemUseStatusCount",
@@ -11103,9 +11109,11 @@
       "original_entry": null,
       "source": "src/ui/windows/WindowItemUse.cpp",
       "basis": "原CC4D44，不固定为六行或复制数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
-      "current_definition_lines": [
+      "current_definition_lines": [],
+      "historical_definition_lines": [
         77
-      ]
+      ],
+      "current_source_state": "旧handler删除后无消费者，辅助函数已移除；原记录保留历史。"
     },
     {
       "old_symbol": "ReadSkillRequestD64E13",
@@ -11114,7 +11122,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "旧技能请求读取同源低S8，4FF650实际写者已接。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        344
+        336
       ]
     },
     {
@@ -11124,7 +11132,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "4FF650四原写点共用私有唯一D64E13。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        349
+        341
       ]
     },
     {
@@ -11134,7 +11142,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "新旧技能面板共用额外时长。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        354
+        346
       ]
     },
     {
@@ -11144,7 +11152,7 @@
       "source": "src/ui/windows/WindowSkill.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        359
+        351
       ]
     },
     {
@@ -11388,5 +11396,10 @@
       ]
     }
   ],
-  "renamed_symbol_count": 1138
+  "renamed_symbol_count": 1138,
+  "ui_definition_ownership_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
+    "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
+    "location_records_refreshed": 229
+  }
 }

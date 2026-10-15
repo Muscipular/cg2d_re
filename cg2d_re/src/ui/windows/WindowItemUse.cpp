@@ -5,6 +5,25 @@ namespace detail {
 
 namespace {
 
+// 原CB10D8的52B值记录；实际六行存储由本文件私有持有。
+struct ItemUseStatusRecord {
+    std::array<char, 20> name;
+    std::int32_t level; // 原成员偏移：+0x14。
+    std::int32_t injury; // 原成员偏移：+0x18。
+    std::int32_t hp; // 原成员偏移：+0x1C。
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp; // 原成员偏移：+0x28。
+    std::int32_t kind; // 原成员偏移：+0x2C。
+    std::int32_t target; // 原成员偏移：+0x30。
+};
+static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
+static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
+static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
+static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
+static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
+static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
+static_assert(sizeof(ItemUseStatusRecord) == 52);
 // 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
 struct ItemUseTargetRecord {
     std::int16_t kind;
@@ -62,22 +81,6 @@ static std::int32_t gItemUseStatusCountCC4D44 = 0; // 原全局：0x00CC4D44。
 static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 原全局：0x00CB1278。
 
 // 窗口函数实现。
-
-LegacyItemUseTargetView WindowItemUse_BorrowTargetView() noexcept
-{
-    return {&gItemUseTargetCountCC40CC, &gItemUsePageCC46DC, &gItemUsePageCountCC3E70, &gItemUseTargetCB0A48,
-        reinterpret_cast<const std::byte*>(gItemUseTargetsCB0EA8.data())};
-}
-
-const ItemUseStatusRecord& WindowItemUse_ReadStatus(const std::int32_t index) noexcept
-{
-    return gItemUseStatusRecordsCB10D8[index];
-}
-
-std::int32_t WindowItemUse_ReadStatusCount() noexcept
-{
-    return gItemUseStatusCountCC4D44;
-}
 
 // 原函数：0x0048AEA0。
 static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char*)

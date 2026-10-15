@@ -285822,5 +285822,22 @@
     "handler_count": 97,
     "inventory_entries_retired": 99,
     "scope": "历史关系保留；当前提供者以唯一函数表及LWR01为准，选择状态和公共Yobi不在废弃范围。"
+  },
+  "ui_definition_ownership_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
+    "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
+    "type_moves": {
+      "ItemUseStatusRecord": "src/ui/windows/WindowItemUse.cpp",
+      "Window54PetOption": "src/ui/windows/WindowPetSkillChoice.cpp",
+      "Window54TechniqueSlot": "src/ui/windows/WindowPetSkillChoice.cpp"
+    },
+    "private_variables": 27,
+    "retired_non_inventory_helpers": [
+      "WindowItemUse_BorrowTargetView",
+      "WindowItemUse_ReadStatus",
+      "WindowItemUse_ReadStatusCount",
+      "WindowSkill_BorrowStatusView"
+    ],
+    "scope": "仅单窗口定义归位和已无消费者的辅助层清理；共享聚合／状态／原型别名保持，原库存状态不变。"
   }
 }

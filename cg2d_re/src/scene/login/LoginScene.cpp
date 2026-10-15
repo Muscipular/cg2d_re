@@ -337,9 +337,9 @@ std::int32_t GetServerAddressInfo_507D90(
     }
 
     const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
-    std::strcpy(serverAddress, reinterpret_cast<const char*>(record.opaque.data()));
+    std::strcpy(serverAddress, record.address.data());
     *port = static_cast<std::uint16_t>(
-        std::atoi(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
+        std::atoi(record.portText.data()));
     return 0;
 }
 

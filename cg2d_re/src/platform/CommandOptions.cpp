@@ -273,10 +273,9 @@ int ParseIpOptions_507C80(const char* const commandLine)
         while (*address != '\0'
             && *address != ':'
             && addressLength < 0x7F) {
-            record.opaque[addressLength++] =
-                static_cast<std::uint8_t>(*address++);
+            record.address[addressLength++] = *address++;
         }
-        record.opaque[addressLength] = 0;
+        record.address[addressLength] = 0;
 
         const char* port = address + 1;
         std::size_t portLength = 0;
@@ -284,10 +283,9 @@ int ParseIpOptions_507C80(const char* const commandLine)
             && *port != ' '
             && *port != '\t'
             && portLength < 0x3F) {
-            record.opaque[0x80 + portLength++] =
-                static_cast<std::uint8_t>(*port++);
+            record.portText[portLength++] = *port++;
         }
-        record.opaque[0x80 + portLength] = 0;
+        record.portText[portLength] = 0;
         record.available = 1;
         ++login::gValueD9F2D4[static_cast<std::size_t>(index / 20)];
         cursor = port;

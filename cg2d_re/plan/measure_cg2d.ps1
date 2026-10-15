@@ -112,6 +112,11 @@ function Check-Path([string]$path, [string]$owner) {
         & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 将单窗口类型与状态收归实现文件([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
         $exists = $LASTEXITCODE -eq 0
     }
+    # LUI01：共用控件文件迁入UI；历史附件核固定前态，当前语义source不得回退。
+    if (-not $exists -and $relativePath -ceq 'src/LegacyUiRecord.cpp' -and -not $currentSemanticSource) {
+        & git -C $projectRoot cat-file -e ("HEAD^{/^\[#\] 收拢窗口私有定义并清理旧窗口残留([[:space:]]|$)}:cg2d_re/" + $relativePath) 2>$null
+        $exists = $LASTEXITCODE -eq 0
+    }
     Require $exists "$owner 引用不存在：$path"
     $pathCache[$pathCacheKey] = $true
 }

@@ -960,9 +960,9 @@
 | 902 | 0x0045ED90 | `sub_45ED90` | 有正文 | `src/world/SceneState.cpp:11859 — Sub_45ED90` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 903 | 0x0045EEE0 | `sub_45EEE0` | 有正文 | `src/world/SceneState.cpp:10470 — Sub_45EEE0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 904 | 0x0045EF80 | `sub_45EF80` | 有正文 | `src/LoginCapability3Scene.cpp:70 — Sub_45EF80` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/LegacyUiRecord.cpp:199 — Sub_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 905 | 0x0045EFD0 | `sub_45EFD0` | 有正文 | `src/ui/LegacyUiRecord.cpp:199 — Sub_45EFD0` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 906 | 0x0045F090 | `sub_45F090` | 有正文 | `src/DrawGraphic.cpp:129 — Sub_45F090` | 实际非占位正文已定位；完整业务／接线／运行未验 |
-| 907 | 0x0045F100 | `sub_45F100` | 有正文 | `src/LegacyUiRecord.cpp:192 — Sub_45F100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
+| 907 | 0x0045F100 | `sub_45F100` | 有正文 | `src/ui/LegacyUiRecord.cpp:192 — Sub_45F100` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 908 | 0x0045F190 | `sub_45F190` | 有正文 | `src/LoginCapability3Scene.cpp:201 — Sub_45F190` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 909 | 0x0045F970 | `sub_45F970` | 有正文 | `src/LoginInput.cpp:451 — InitializeCapabilityInput_45F970` | 实际非占位正文已定位；完整业务／接线／运行未验 |
 | 910 | 0x0045FA70 | `sub_45FA70` | 有正文 | `src/LoginCapability3InputController.cpp:79 — ProcessCapability3Input_45FA70` | 实际非占位正文已定位；完整业务／接线／运行未验 |

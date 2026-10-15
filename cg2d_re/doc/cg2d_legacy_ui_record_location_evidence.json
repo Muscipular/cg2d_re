@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "task": "LUI01",
+  "spec": "doc/cg2d_ui_window_split_spec.md#legacy-ui-record-location-lui01",
+  "scope": "共用控件绘制／命中文件归属UI；仅目录、两处include和当前定位变更。",
+  "move": {
+    "from": "src/LegacyUiRecord.cpp",
+    "to": "src/ui/LegacyUiRecord.cpp",
+    "function_count": 10,
+    "functions": [
+      {
+        "symbol": "ReadRecordW32",
+        "namespace": "(匿名)",
+        "line": 29
+      },
+      {
+        "symbol": "QueryLegacyUiRecordState_45F100",
+        "namespace": "(匿名)",
+        "line": 40
+      },
+      {
+        "symbol": "AddW32",
+        "namespace": "(匿名)",
+        "line": 55
+      },
+      {
+        "symbol": "Low16",
+        "namespace": "(匿名)",
+        "line": 62
+      },
+      {
+        "symbol": "QueryCharacterSelectState",
+        "namespace": "(匿名)",
+        "line": 68
+      },
+      {
+        "symbol": "DrawLegacyUiRecord_45EFD0",
+        "namespace": "(匿名)",
+        "line": 78
+      },
+      {
+        "symbol": "Sub_45F100",
+        "namespace": "cg::login::detail",
+        "line": 164
+      },
+      {
+        "symbol": "Sub_45EFD0",
+        "namespace": "cg::login::detail",
+        "line": 170
+      },
+      {
+        "symbol": "Sub_45F100",
+        "namespace": "cg::character_select::detail",
+        "line": 192
+      },
+      {
+        "symbol": "Sub_45EFD0",
+        "namespace": "cg::character_select::detail",
+        "line": 199
+      }
+    ],
+    "file_equal_except_two_relative_includes": true,
+    "all_function_signatures_and_bodies_equal": true,
+    "cmake_unique_source_entry": true
+  },
+  "current_locations": {
+    "direct_updated": 6,
+    "table_provider_paths_updated": 2,
+    "existing_direct_lines_corrected": [
+      {
+        "symbol": "Sub_45EFD0",
+        "namespace": "cg::login::detail",
+        "before_line": 199,
+        "current_line": 170
+      },
+      {
+        "symbol": "Sub_45F100",
+        "namespace": "cg::login::detail",
+        "before_line": 192,
+        "current_line": 164
+      }
+    ],
+    "semantic_current_sources_old_path_count": 0,
+    "ui_rename_current_sources_old_path_count": 0,
+    "historical_references_preserved": true
+  },
+  "validation": {
+    "method": "静态源码／JSON／路径／差异核对",
+    "inventory_rows_unchanged": 3680,
+    "inventory_identity_name_status_unchanged": true,
+    "shared_gates_and_tasks_unchanged": true,
+    "utf8_without_bom_lf": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "ledger_check": {
+      "exit_code": 1,
+      "error_count": 2,
+      "existing_missing_historical_attachments": [
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "src/platform/LegacyExternalKeyboardObject.cpp"
+      ],
+      "new_missing_references": 0,
+      "derived_files_written": false,
+      "full_ledger_passed": false
+    }
+  }
+}

@@ -193993,5 +193993,19 @@
     "runtime_verified": false,
     "inventory_states_changed": false,
     "shared_gates_changed": false
+  },
+  "legacy_ui_record_location_lui01": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#legacy-ui-record-location-lui01",
+    "evidence": "doc/cg2d_legacy_ui_record_location_evidence.json",
+    "old_source": "src/LegacyUiRecord.cpp",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "function_bodies_preserved": 10,
+    "current_direct_locations_updated": 6,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

@@ -127,3 +127,13 @@ WindowStorageItem／WindowStoragePetSummary仍是跨窗口详情聚合的成员�
 UWO02完成：七函数归位并收static；三种记录及54条原布局断言归交易／商店，17项状态与两常量归相应窗口私有。13个文件精确变换、七个迁移函数正文及419个保留函数正文、类型／断言、初值／字面量、原型绑定／已有初始化次序、所有私有符号唯一消费者静态核对通过；402项受影响当前直接定位、3680原身份／名称／状态和九个空方法保持，共同功能门禁与任务不变。
 
 UTF-8无BOM／LF、JSON与Git差异静态检查通过；台账-Check仍只报LegacyExternalKeyboard.cpp和LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。本轮未编译、测试或运行；54条断言按原文迁移，未把源码核对计为编译验证。详见cg2d_ui_window_ownership_followup_evidence.json。按用户最新指令集中提交本会话LWR02／LWR03与UWO02，排除其他会话既有进度。
+
+<a id="legacy-ui-record-location-lui01"></a>
+
+## 共用控件绘制文件归入UI目录（LUI01）
+
+2026-10-15，按用户要求将src/LegacyUiRecord.cpp原名迁入src/ui。该文件包含登录与角色选择共用的控件绘制／命中及两组场景适配，保留共享实现，不拆入某一业务窗口。只修改两处场景依赖头的相对包含路径、CMake唯一登记和当前函数定位，十个函数的签名／正文、namespace、地址注释及调用保持。
+
+直接定位及3680行函数表只更新当前提供者路径；语义映射当前sources与UI重命名表若无旧路径则保持。历史来源／附件不改写，汇总器仅对旧文件的历史附件读取固定迁移前态，当前语义source禁止回退。限定验收登记只记录目录归属，不提升状态或共享门禁。以整文件扣除两处include后的逐字对照、相对包含存在性、构建登记唯一性、当前定位、身份／状态及UTF-8／JSON／差异进行静态核对；不编译、测试或运行。
+
+LUI01完成：文件已移入src/ui，十个函数的签名／正文及整文件除两处include外逐字一致；CMake唯一登记、相对包含、六项当前直接定位和两项表内提供者路径核对通过，并纠正两项登录namespace误指角色选择同名函数的旧行号。当前语义sources和UI重命名表无该旧路径，保持；3680行原身份／名称／状态及既有验收登记／共享门禁不变。UTF-8无BOM／LF、JSON与差异检查通过；台账-Check仍仅两份既有外部键盘历史附件缺失，未写派生文件，不计全量台账通过。未编译、测试或运行。详见[cg2d_legacy_ui_record_location_evidence.json](cg2d_legacy_ui_record_location_evidence.json)。

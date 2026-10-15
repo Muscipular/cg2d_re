@@ -1,5 +1,5 @@
-#include "CharacterSelectSceneDependencies.hpp"
-#include "LoginSceneDependencies.hpp"
+#include "../CharacterSelectSceneDependencies.hpp"
+#include "../LoginSceneDependencies.hpp"
 
 #include "cg/LoginInput.hpp"
 

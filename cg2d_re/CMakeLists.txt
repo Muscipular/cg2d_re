@@ -78,7 +78,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MapEffectMath.cpp
     # 用户排除屏幕键盘；LegacyExternalKeyboard*.cpp仅保留为历史源码。
     src/LegacyHitTest.cpp
-    src/LegacyUiRecord.cpp
+    src/ui/LegacyUiRecord.cpp
     src/LegacyRecordOrder.cpp
     src/LegacyAudio.cpp
     src/Blacklist.cpp

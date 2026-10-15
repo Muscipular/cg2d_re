@@ -9001,19 +9001,19 @@
       "original_entry": "0x45EFD0",
       "definitions": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "DrawLegacyUiRecord_45EFD0",
           "definition_line": 78,
           "namespace": "(匿名)"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "Sub_45EFD0",
-          "definition_line": 199,
+          "definition_line": 170,
           "namespace": "cg::login::detail"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "Sub_45EFD0",
           "definition_line": 199,
           "namespace": "cg::character_select::detail"
@@ -9037,19 +9037,19 @@
       "original_entry": "0x45F100",
       "definitions": [
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "QueryLegacyUiRecordState_45F100",
           "definition_line": 40,
           "namespace": "(匿名)"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "Sub_45F100",
-          "definition_line": 192,
+          "definition_line": 164,
           "namespace": "cg::login::detail"
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "Sub_45F100",
           "definition_line": 192,
           "namespace": "cg::character_select::detail"
@@ -32263,5 +32263,19 @@
     "moved_function_definitions": 6,
     "updated_definition_locations": 402,
     "inventory_states_changed": false
+  },
+  "legacy_ui_record_location_lui01": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#legacy-ui-record-location-lui01",
+    "evidence": "doc/cg2d_legacy_ui_record_location_evidence.json",
+    "old_source": "src/LegacyUiRecord.cpp",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "function_bodies_preserved": 10,
+    "current_direct_locations_updated": 6,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

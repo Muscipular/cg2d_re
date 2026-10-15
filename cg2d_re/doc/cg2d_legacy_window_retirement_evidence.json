@@ -1,0 +1,2858 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "spec": "doc/cg2d_legacy_window_retirement_spec.md",
+  "scope": "当前工程无人调用的旧窗口处理器层，非原端不可达证明",
+  "handler_count": 97,
+  "catalog_initializers": 3,
+  "removed_functions": [
+    {
+      "symbol": "Sub_5029B0",
+      "original_entry": "0x5029B0",
+      "inventory_id": "F:001029B0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 18358,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_5006F0",
+      "original_entry": "0x5006F0",
+      "inventory_id": "F:001006F0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 16396,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_500370",
+      "original_entry": "0x500370",
+      "inventory_id": "F:00100370",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 16298,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FF650",
+      "original_entry": "0x4FF650",
+      "inventory_id": "F:000FF650",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15998,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FAEF0",
+      "original_entry": "0x4FAEF0",
+      "inventory_id": "F:000FAEF0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15596,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FBB40",
+      "original_entry": "0x4FBB40",
+      "inventory_id": "F:000FBB40",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15870,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F0F70",
+      "original_entry": "0x4F0F70",
+      "inventory_id": "F:000F0F70",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11957,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F7150",
+      "original_entry": "0x4F7150",
+      "inventory_id": "F:000F7150",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 14409,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F83B0",
+      "original_entry": "0x4F83B0",
+      "inventory_id": "F:000F83B0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 14746,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FA050",
+      "original_entry": "0x4FA050",
+      "inventory_id": "F:000FA050",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15523,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F5A60",
+      "original_entry": "0x4F5A60",
+      "inventory_id": "F:000F5A60",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 13939,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F51D0",
+      "original_entry": "0x4F51D0",
+      "inventory_id": "F:000F51D0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 13291,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F4790",
+      "original_entry": "0x4F4790",
+      "inventory_id": "F:000F4790",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 13029,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_505C20",
+      "original_entry": "0x505C20",
+      "inventory_id": "F:00105C20",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 13785,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_505170",
+      "original_entry": "0x505170",
+      "inventory_id": "F:00105170",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 13507,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F3ED0",
+      "original_entry": "0x4F3ED0",
+      "inventory_id": "F:000F3ED0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 12198,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F2A30",
+      "original_entry": "0x4F2A30",
+      "inventory_id": "F:000F2A30",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 12524,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F2130",
+      "original_entry": "0x4F2130",
+      "inventory_id": "F:000F2130",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 12316,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F1C40",
+      "original_entry": "0x4F1C40",
+      "inventory_id": "F:000F1C40",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 12087,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F0B40",
+      "original_entry": "0x4F0B40",
+      "inventory_id": "F:000F0B40",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11912,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F0460",
+      "original_entry": "0x4F0460",
+      "inventory_id": "F:000F0460",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2991,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EFB70",
+      "original_entry": "0x4EFB70",
+      "inventory_id": "F:000EFB70",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2848,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EF0F0",
+      "original_entry": "0x4EF0F0",
+      "inventory_id": "F:000EF0F0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11792,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EDB20",
+      "original_entry": "0x4EDB20",
+      "inventory_id": "F:000EDB20",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11641,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4ED020",
+      "original_entry": "0x4ED020",
+      "inventory_id": "F:000ED020",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11511,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4ECE00",
+      "original_entry": "0x4ECE00",
+      "inventory_id": "F:000ECE00",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11456,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EC240",
+      "original_entry": "0x4EC240",
+      "inventory_id": "F:000EC240",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9229,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EBD20",
+      "original_entry": "0x4EBD20",
+      "inventory_id": "F:000EBD20",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9837,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EBAA0",
+      "original_entry": "0x4EBAA0",
+      "inventory_id": "F:000EBAA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9470,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EB890",
+      "original_entry": "0x4EB890",
+      "inventory_id": "F:000EB890",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9430,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EB1C0",
+      "original_entry": "0x4EB1C0",
+      "inventory_id": "F:000EB1C0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9682,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EAAA0",
+      "original_entry": "0x4EAAA0",
+      "inventory_id": "F:000EAAA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9546,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EA690",
+      "original_entry": "0x4EA690",
+      "inventory_id": "F:000EA690",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9130,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4EA1B0",
+      "original_entry": "0x4EA1B0",
+      "inventory_id": "F:000EA1B0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9012,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E9C80",
+      "original_entry": "0x4E9C80",
+      "inventory_id": "F:000E9C80",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 8880,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52FD60",
+      "original_entry": "0x52FD60",
+      "inventory_id": "F:0012FD60",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10724,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52F910",
+      "original_entry": "0x52F910",
+      "inventory_id": "F:0012F910",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10645,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52F670",
+      "original_entry": "0x52F670",
+      "inventory_id": "F:0012F670",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10580,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52F460",
+      "original_entry": "0x52F460",
+      "inventory_id": "F:0012F460",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10540,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52ED50",
+      "original_entry": "0x52ED50",
+      "inventory_id": "F:0012ED50",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10383,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52E650",
+      "original_entry": "0x52E650",
+      "inventory_id": "F:0012E650",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10244,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52E240",
+      "original_entry": "0x52E240",
+      "inventory_id": "F:0012E240",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10149,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52DCE0",
+      "original_entry": "0x52DCE0",
+      "inventory_id": "F:0012DCE0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10032,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_52D7B0",
+      "original_entry": "0x52D7B0",
+      "inventory_id": "F:0012D7B0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 9900,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_530BA0",
+      "original_entry": "0x530BA0",
+      "inventory_id": "F:00130BA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 10947,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_532450",
+      "original_entry": "0x532450",
+      "inventory_id": "F:00132450",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 11297,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E5E40",
+      "original_entry": "0x4E5E40",
+      "inventory_id": "F:000E5E40",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 7570,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F6CA0",
+      "original_entry": "0x4F6CA0",
+      "inventory_id": "F:000F6CA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 14291,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F6220",
+      "original_entry": "0x4F6220",
+      "inventory_id": "F:000F6220",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 14100,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FC730",
+      "original_entry": "0x4FC730",
+      "inventory_id": null,
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17024,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FC8F0",
+      "original_entry": "0x4FC8F0",
+      "inventory_id": "F:000FC8F0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17055,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FD1A0",
+      "original_entry": "0x4FD1A0",
+      "inventory_id": "F:000FD1A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17343,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FD6A0",
+      "original_entry": "0x4FD6A0",
+      "inventory_id": "F:000FD6A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15401,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FDBD0",
+      "original_entry": "0x4FDBD0",
+      "inventory_id": "F:000FDBD0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17482,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FE0E0",
+      "original_entry": "0x4FE0E0",
+      "inventory_id": "F:000FE0E0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17641,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FE860",
+      "original_entry": "0x4FE860",
+      "inventory_id": "F:000FE860",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 17846,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FEF30",
+      "original_entry": "0x4FEF30",
+      "inventory_id": "F:000FEF30",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 18081,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FF1A0",
+      "original_entry": "0x4FF1A0",
+      "inventory_id": "F:000FF1A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 18175,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FF4C0",
+      "original_entry": "0x4FF4C0",
+      "inventory_id": "F:000FF4C0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 18283,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4FA350",
+      "original_entry": "0x4FA350",
+      "inventory_id": "F:000FA350",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15483,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D3210",
+      "original_entry": "0x4D3210",
+      "inventory_id": "F:000D3210",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2347,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D3410",
+      "original_entry": "0x4D3410",
+      "inventory_id": "F:000D3410",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2409,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D6710",
+      "original_entry": "0x4D6710",
+      "inventory_id": "F:000D6710",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2501,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D6A60",
+      "original_entry": "0x4D6A60",
+      "inventory_id": "F:000D6A60",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2597,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D6EA0",
+      "original_entry": "0x4D6EA0",
+      "inventory_id": "F:000D6EA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 2718,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D8DA0",
+      "original_entry": "0x4D8DA0",
+      "inventory_id": "F:000D8DA0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3335,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D9220",
+      "original_entry": "0x4D9220",
+      "inventory_id": "F:000D9220",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3481,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DA580",
+      "original_entry": "0x4DA580",
+      "inventory_id": "F:000DA580",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3767,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DAA40",
+      "original_entry": "0x4DAA40",
+      "inventory_id": "F:000DAA40",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3880,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DBD30",
+      "original_entry": "0x4DBD30",
+      "inventory_id": "F:000DBD30",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 4146,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DC290",
+      "original_entry": "0x4DC290",
+      "inventory_id": "F:000DC290",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 4263,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DDFC0",
+      "original_entry": "0x4DDFC0",
+      "inventory_id": "F:000DDFC0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 4776,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DF300",
+      "original_entry": "0x4DF300",
+      "inventory_id": "F:000DF300",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5048,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DC7E0",
+      "original_entry": "0x4DC7E0",
+      "inventory_id": "F:000DC7E0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 4386,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DDB20",
+      "original_entry": "0x4DDB20",
+      "inventory_id": "F:000DDB20",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 4657,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E0380",
+      "original_entry": "0x4E0380",
+      "inventory_id": "F:000E0380",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 6252,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4DF730",
+      "original_entry": "0x4DF730",
+      "inventory_id": "F:000DF730",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5155,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D4F00",
+      "original_entry": "0x4D4F00",
+      "inventory_id": "F:000D4F00",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5756,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D36F0",
+      "original_entry": "0x4D36F0",
+      "inventory_id": "F:000D36F0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5352,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D4A50",
+      "original_entry": "0x4D4A50",
+      "inventory_id": "F:000D4A50",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5644,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E4A50",
+      "original_entry": "0x4E4A50",
+      "inventory_id": "F:000E4A50",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3158,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E4460",
+      "original_entry": "0x4E4460",
+      "inventory_id": "F:000E4460",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 7476,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E92A0",
+      "original_entry": "0x4E92A0",
+      "inventory_id": "F:000E92A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 8608,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E97E0",
+      "original_entry": "0x4E97E0",
+      "inventory_id": "F:000E97E0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 8743,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F0CD0",
+      "original_entry": "0x4F0CD0",
+      "inventory_id": "F:000F0CD0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3258,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4F0E20",
+      "original_entry": "0x4F0E20",
+      "inventory_id": "F:000F0E20",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 3291,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D5250",
+      "original_entry": "0x4D5250",
+      "inventory_id": "F:000D5250",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5836,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D55C0",
+      "original_entry": "0x4D55C0",
+      "inventory_id": "F:000D55C0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 5915,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D62A0",
+      "original_entry": "0x4D62A0",
+      "inventory_id": "F:000D62A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 6165,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4021A0",
+      "original_entry": "0x4021A0",
+      "inventory_id": "F:000021A0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 1845,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4014B0",
+      "original_entry": "0x4014B0",
+      "inventory_id": "F:000014B0",
+      "source": "src/LegacyUiRecord.cpp",
+      "definition_line_before": 15287,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4E4EA0",
+      "original_entry": "0x4E4EA0",
+      "inventory_id": "F:000E4EA0",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 104,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D7470",
+      "original_entry": "0x4D7470",
+      "inventory_id": "F:000D7470",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 206,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D7C20",
+      "original_entry": "0x4D7C20",
+      "inventory_id": "F:000D7C20",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 368,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D8230",
+      "original_entry": "0x4D8230",
+      "inventory_id": "F:000D8230",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 510,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D88C0",
+      "original_entry": "0x4D88C0",
+      "inventory_id": "F:000D88C0",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 650,
+      "role": "旧handler"
+    },
+    {
+      "symbol": "Sub_4D7440",
+      "original_entry": "0x4D7440",
+      "inventory_id": "F:000D7440",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 194,
+      "role": "独占目录初始化"
+    },
+    {
+      "symbol": "Sub_4D7BF0",
+      "original_entry": "0x4D7BF0",
+      "inventory_id": "F:000D7BF0",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 357,
+      "role": "独占目录初始化"
+    },
+    {
+      "symbol": "Sub_4D8200",
+      "original_entry": "0x4D8200",
+      "inventory_id": "F:000D8200",
+      "source": "src/LegacyCatalogWindows.cpp",
+      "definition_line_before": 499,
+      "role": "独占目录初始化"
+    },
+    {
+      "symbol": "Sub_4EE380",
+      "original_entry": "0x4EE380",
+      "inventory_id": "F:000EE380",
+      "source": "src/YobiRuntime.cpp",
+      "definition_line_before": 35796,
+      "role": "旧handler"
+    }
+  ],
+  "source_edits": {
+    "src/LegacyUiRecord.cpp": [
+      [
+        97415,
+        110228
+      ],
+      [
+        115953,
+        119092
+      ],
+      [
+        119092,
+        122927
+      ],
+      [
+        123305,
+        127443
+      ],
+      [
+        127826,
+        133641
+      ],
+      [
+        134020,
+        140169
+      ],
+      [
+        140169,
+        147479
+      ],
+      [
+        147479,
+        155792
+      ],
+      [
+        155792,
+        160667
+      ],
+      [
+        160668,
+        162268
+      ],
+      [
+        162268,
+        163864
+      ],
+      [
+        164243,
+        170280
+      ],
+      [
+        170616,
+        182655
+      ],
+      [
+        184071,
+        188905
+      ],
+      [
+        189245,
+        202079
+      ],
+      [
+        202079,
+        207682
+      ],
+      [
+        207682,
+        213178
+      ],
+      [
+        213562,
+        225525
+      ],
+      [
+        226468,
+        231608
+      ],
+      [
+        232002,
+        244135
+      ],
+      [
+        245080,
+        250189
+      ],
+      [
+        250189,
+        259501
+      ],
+      [
+        259849,
+        272808
+      ],
+      [
+        273791,
+        278681
+      ],
+      [
+        279058,
+        282154
+      ],
+      [
+        282543,
+        285720
+      ],
+      [
+        286112,
+        297970
+      ],
+      [
+        298883,
+        303557
+      ],
+      [
+        303557,
+        312736
+      ],
+      [
+        360376,
+        365984
+      ],
+      [
+        365984,
+        380718
+      ],
+      [
+        414358,
+        420249
+      ],
+      [
+        420362,
+        426513
+      ],
+      [
+        426630,
+        432087
+      ],
+      [
+        432525,
+        439052
+      ],
+      [
+        439052,
+        442819
+      ],
+      [
+        443685,
+        453868
+      ],
+      [
+        453868,
+        455539
+      ],
+      [
+        455539,
+        458556
+      ],
+      [
+        459099,
+        465487
+      ],
+      [
+        466100,
+        474147
+      ],
+      [
+        474147,
+        477040
+      ],
+      [
+        477161,
+        482672
+      ],
+      [
+        483115,
+        489628
+      ],
+      [
+        489628,
+        493424
+      ],
+      [
+        493974,
+        500193
+      ],
+      [
+        500822,
+        509163
+      ],
+      [
+        509163,
+        510846
+      ],
+      [
+        510846,
+        514242
+      ],
+      [
+        514242,
+        517181
+      ],
+      [
+        518086,
+        529141
+      ],
+      [
+        529368,
+        549570
+      ],
+      [
+        549797,
+        557608
+      ],
+      [
+        557608,
+        560100
+      ],
+      [
+        560100,
+        566425
+      ],
+      [
+        566425,
+        574369
+      ],
+      [
+        574369,
+        580750
+      ],
+      [
+        580750,
+        582840
+      ],
+      [
+        582840,
+        588783
+      ],
+      [
+        588783,
+        594430
+      ],
+      [
+        594430,
+        600407
+      ],
+      [
+        600407,
+        603858
+      ],
+      [
+        609389,
+        626084
+      ],
+      [
+        632585,
+        643565
+      ],
+      [
+        644902,
+        654885
+      ],
+      [
+        656024,
+        668183
+      ],
+      [
+        669695,
+        677321
+      ],
+      [
+        677589,
+        685393
+      ],
+      [
+        686041,
+        695255
+      ],
+      [
+        696017,
+        701717
+      ],
+      [
+        701855,
+        708890
+      ],
+      [
+        718748,
+        721167
+      ],
+      [
+        739195,
+        744669
+      ],
+      [
+        744808,
+        748638
+      ],
+      [
+        748638,
+        750209
+      ],
+      [
+        750209,
+        753426
+      ],
+      [
+        753641,
+        767694
+      ],
+      [
+        767770,
+        773644
+      ],
+      [
+        773644,
+        789502
+      ],
+      [
+        789502,
+        794913
+      ],
+      [
+        794913,
+        797977
+      ],
+      [
+        826026,
+        827096
+      ],
+      [
+        827096,
+        829613
+      ],
+      [
+        838046,
+        841373
+      ],
+      [
+        843947,
+        845900
+      ],
+      [
+        849807,
+        852481
+      ],
+      [
+        857717,
+        860845
+      ],
+      [
+        866915,
+        867996
+      ],
+      [
+        870093,
+        872011
+      ],
+      [
+        874104,
+        875975
+      ],
+      [
+        876876,
+        879427
+      ]
+    ],
+    "src/LegacyCatalogWindows.cpp": [
+      [
+        0,
+        41549
+      ]
+    ],
+    "src/YobiRuntime.cpp": [
+      [
+        1674634,
+        1678474
+      ]
+    ]
+  },
+  "outside_handler_refs_before_removal": [],
+  "preserved": [
+    "99项ID和S8类别初值",
+    "选择控制和同源状态",
+    "公共Yobi登录面板及其他保留函数正文"
+  ],
+  "binary_reachability_proven": false,
+  "table_initializers": [
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      18,
+      0
+    ],
+    [
+      19,
+      0
+    ],
+    [
+      14,
+      1
+    ],
+    [
+      15,
+      1
+    ],
+    [
+      16,
+      1
+    ],
+    [
+      20,
+      0
+    ],
+    [
+      21,
+      0
+    ],
+    [
+      22,
+      0
+    ],
+    [
+      25,
+      0
+    ],
+    [
+      26,
+      0
+    ],
+    [
+      27,
+      1
+    ],
+    [
+      29,
+      0
+    ],
+    [
+      30,
+      1
+    ],
+    [
+      28,
+      0
+    ],
+    [
+      31,
+      1
+    ],
+    [
+      32,
+      1
+    ],
+    [
+      33,
+      0
+    ],
+    [
+      34,
+      2
+    ],
+    [
+      35,
+      2
+    ],
+    [
+      36,
+      2
+    ],
+    [
+      37,
+      0
+    ],
+    [
+      38,
+      0
+    ],
+    [
+      39,
+      0
+    ],
+    [
+      40,
+      2
+    ],
+    [
+      41,
+      2
+    ],
+    [
+      42,
+      0
+    ],
+    [
+      43,
+      0
+    ],
+    [
+      44,
+      0
+    ],
+    [
+      45,
+      0
+    ],
+    [
+      46,
+      0
+    ],
+    [
+      47,
+      0
+    ],
+    [
+      48,
+      0
+    ],
+    [
+      49,
+      0
+    ],
+    [
+      50,
+      1
+    ],
+    [
+      94,
+      0
+    ],
+    [
+      93,
+      0
+    ],
+    [
+      92,
+      0
+    ],
+    [
+      91,
+      0
+    ],
+    [
+      90,
+      0
+    ],
+    [
+      89,
+      0
+    ],
+    [
+      88,
+      0
+    ],
+    [
+      87,
+      0
+    ],
+    [
+      86,
+      1
+    ],
+    [
+      95,
+      0
+    ],
+    [
+      96,
+      0
+    ],
+    [
+      51,
+      2
+    ],
+    [
+      52,
+      2
+    ],
+    [
+      23,
+      0
+    ],
+    [
+      24,
+      0
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      7,
+      0
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      9,
+      0
+    ],
+    [
+      10,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      17,
+      1
+    ],
+    [
+      53,
+      2
+    ],
+    [
+      54,
+      2
+    ],
+    [
+      55,
+      2
+    ],
+    [
+      56,
+      2
+    ],
+    [
+      57,
+      2
+    ],
+    [
+      62,
+      2
+    ],
+    [
+      63,
+      2
+    ],
+    [
+      65,
+      2
+    ],
+    [
+      64,
+      2
+    ],
+    [
+      66,
+      2
+    ],
+    [
+      67,
+      2
+    ],
+    [
+      68,
+      2
+    ],
+    [
+      69,
+      2
+    ],
+    [
+      70,
+      2
+    ],
+    [
+      71,
+      2
+    ],
+    [
+      72,
+      2
+    ],
+    [
+      73,
+      2
+    ],
+    [
+      58,
+      2
+    ],
+    [
+      59,
+      2
+    ],
+    [
+      60,
+      2
+    ],
+    [
+      61,
+      2
+    ],
+    [
+      74,
+      2
+    ],
+    [
+      75,
+      2
+    ],
+    [
+      76,
+      2
+    ],
+    [
+      77,
+      2
+    ],
+    [
+      78,
+      2
+    ],
+    [
+      79,
+      1
+    ],
+    [
+      80,
+      1
+    ],
+    [
+      81,
+      2
+    ],
+    [
+      82,
+      2
+    ],
+    [
+      83,
+      2
+    ],
+    [
+      84,
+      2
+    ],
+    [
+      85,
+      2
+    ],
+    [
+      98,
+      2
+    ],
+    [
+      99,
+      2
+    ],
+    [
+      100,
+      2
+    ]
+  ],
+  "inventory_count": 99,
+  "retired_file": "src/LegacyCatalogWindows.cpp",
+  "validation": {
+    "removed_target_code_references": 0,
+    "preserved_function_bodies_equal": 877,
+    "preserved_selection_table_rows": 99,
+    "original_inventory_identities_preserved": 3680,
+    "inventory_states_changed_to_excluded": 99,
+    "shared_feature_gates_and_tasks_unchanged": true,
+    "encoding": "UTF-8无BOM/LF",
+    "build": "未编译、测试或运行"
+  },
+  "preexisting_unresolved_locations": [
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "SortBattleDrawPointers_53C112",
+      "reason": "删除前源码已无此名称；仅保历史定位，不作当前定义存在的证明。"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "ShortSortBattleDrawActions_53C266",
+      "reason": "删除前源码已无此名称；仅保历史定位，不作当前定义存在的证明。"
+    }
+  ],
+  "records": [
+    {
+      "inventory_id": "F:001029B0",
+      "original_entry": "0x5029B0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_5029B0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:001006F0",
+      "original_entry": "0x5006F0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_5006F0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00100370",
+      "original_entry": "0x500370",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_500370",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FF650",
+      "original_entry": "0x4FF650",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FF650",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FAEF0",
+      "original_entry": "0x4FAEF0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FAEF0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FBB40",
+      "original_entry": "0x4FBB40",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FBB40",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F0F70",
+      "original_entry": "0x4F0F70",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F0F70",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F7150",
+      "original_entry": "0x4F7150",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F7150",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F83B0",
+      "original_entry": "0x4F83B0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F83B0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FA050",
+      "original_entry": "0x4FA050",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FA050",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F5A60",
+      "original_entry": "0x4F5A60",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F5A60",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F51D0",
+      "original_entry": "0x4F51D0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F51D0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F4790",
+      "original_entry": "0x4F4790",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F4790",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00105C20",
+      "original_entry": "0x505C20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_505C20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00105170",
+      "original_entry": "0x505170",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_505170",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F3ED0",
+      "original_entry": "0x4F3ED0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F3ED0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F2A30",
+      "original_entry": "0x4F2A30",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F2A30",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F2130",
+      "original_entry": "0x4F2130",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F2130",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F1C40",
+      "original_entry": "0x4F1C40",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F1C40",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F0B40",
+      "original_entry": "0x4F0B40",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F0B40",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F0460",
+      "original_entry": "0x4F0460",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F0460",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EFB70",
+      "original_entry": "0x4EFB70",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EFB70",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EF0F0",
+      "original_entry": "0x4EF0F0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EF0F0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EDB20",
+      "original_entry": "0x4EDB20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EDB20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000ED020",
+      "original_entry": "0x4ED020",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4ED020",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000ECE00",
+      "original_entry": "0x4ECE00",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4ECE00",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EC240",
+      "original_entry": "0x4EC240",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EC240",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EBD20",
+      "original_entry": "0x4EBD20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EBD20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EBAA0",
+      "original_entry": "0x4EBAA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EBAA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EB890",
+      "original_entry": "0x4EB890",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EB890",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EB1C0",
+      "original_entry": "0x4EB1C0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EB1C0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EAAA0",
+      "original_entry": "0x4EAAA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EAAA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EA690",
+      "original_entry": "0x4EA690",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EA690",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EA1B0",
+      "original_entry": "0x4EA1B0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EA1B0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E9C80",
+      "original_entry": "0x4E9C80",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E9C80",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012FD60",
+      "original_entry": "0x52FD60",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52FD60",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012F910",
+      "original_entry": "0x52F910",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52F910",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012F670",
+      "original_entry": "0x52F670",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52F670",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012F460",
+      "original_entry": "0x52F460",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52F460",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012ED50",
+      "original_entry": "0x52ED50",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52ED50",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012E650",
+      "original_entry": "0x52E650",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52E650",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012E240",
+      "original_entry": "0x52E240",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52E240",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012DCE0",
+      "original_entry": "0x52DCE0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52DCE0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0012D7B0",
+      "original_entry": "0x52D7B0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_52D7B0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00130BA0",
+      "original_entry": "0x530BA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_530BA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00132450",
+      "original_entry": "0x532450",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_532450",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E5E40",
+      "original_entry": "0x4E5E40",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E5E40",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F6CA0",
+      "original_entry": "0x4F6CA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F6CA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F6220",
+      "original_entry": "0x4F6220",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F6220",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FC8F0",
+      "original_entry": "0x4FC8F0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FC8F0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FD1A0",
+      "original_entry": "0x4FD1A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FD1A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FD6A0",
+      "original_entry": "0x4FD6A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FD6A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FDBD0",
+      "original_entry": "0x4FDBD0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FDBD0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FE0E0",
+      "original_entry": "0x4FE0E0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FE0E0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FE860",
+      "original_entry": "0x4FE860",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FE860",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FEF30",
+      "original_entry": "0x4FEF30",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FEF30",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FF1A0",
+      "original_entry": "0x4FF1A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FF1A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FF4C0",
+      "original_entry": "0x4FF4C0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FF4C0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000FA350",
+      "original_entry": "0x4FA350",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4FA350",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D3210",
+      "original_entry": "0x4D3210",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D3210",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D3410",
+      "original_entry": "0x4D3410",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D3410",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D6710",
+      "original_entry": "0x4D6710",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D6710",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D6A60",
+      "original_entry": "0x4D6A60",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D6A60",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D6EA0",
+      "original_entry": "0x4D6EA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D6EA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D8DA0",
+      "original_entry": "0x4D8DA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D8DA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D9220",
+      "original_entry": "0x4D9220",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D9220",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DA580",
+      "original_entry": "0x4DA580",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DA580",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DAA40",
+      "original_entry": "0x4DAA40",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DAA40",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DBD30",
+      "original_entry": "0x4DBD30",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DBD30",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DC290",
+      "original_entry": "0x4DC290",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DC290",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DDFC0",
+      "original_entry": "0x4DDFC0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DDFC0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DF300",
+      "original_entry": "0x4DF300",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DF300",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DC7E0",
+      "original_entry": "0x4DC7E0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DC7E0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DDB20",
+      "original_entry": "0x4DDB20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DDB20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E0380",
+      "original_entry": "0x4E0380",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E0380",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000DF730",
+      "original_entry": "0x4DF730",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4DF730",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D4F00",
+      "original_entry": "0x4D4F00",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D4F00",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D36F0",
+      "original_entry": "0x4D36F0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D36F0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D4A50",
+      "original_entry": "0x4D4A50",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D4A50",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E4A50",
+      "original_entry": "0x4E4A50",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E4A50",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E4460",
+      "original_entry": "0x4E4460",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E4460",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E92A0",
+      "original_entry": "0x4E92A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E92A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E97E0",
+      "original_entry": "0x4E97E0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E97E0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F0CD0",
+      "original_entry": "0x4F0CD0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F0CD0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F0E20",
+      "original_entry": "0x4F0E20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4F0E20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D5250",
+      "original_entry": "0x4D5250",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D5250",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D55C0",
+      "original_entry": "0x4D55C0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D55C0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D62A0",
+      "original_entry": "0x4D62A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D62A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000021A0",
+      "original_entry": "0x4021A0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4021A0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000014B0",
+      "original_entry": "0x4014B0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4014B0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000E4EA0",
+      "original_entry": "0x4E4EA0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4E4EA0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D7470",
+      "original_entry": "0x4D7470",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D7470",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D7C20",
+      "original_entry": "0x4D7C20",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D7C20",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D8230",
+      "original_entry": "0x4D8230",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D8230",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D88C0",
+      "original_entry": "0x4D88C0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D88C0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D7440",
+      "original_entry": "0x4D7440",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D7440",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D7BF0",
+      "original_entry": "0x4D7BF0",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D7BF0",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000D8200",
+      "original_entry": "0x4D8200",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4D8200",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000EE380",
+      "original_entry": "0x4EE380",
+      "status": "用户范围排除：当前工程未接入的旧窗口处理器层已废弃",
+      "symbol": "Sub_4EE380",
+      "evidence_documents": [
+        "doc/cg2d_legacy_window_retirement_spec.md"
+      ]
+    }
+  ],
+  "evidence_document": "doc/cg2d_legacy_window_retirement_spec.md",
+  "direct_location_counts": {
+    "inventory_functions": 3680,
+    "source_files": 270,
+    "direct_inventory_entries": 2669,
+    "direct_definitions": 2686,
+    "multiple_definition_entries": 13,
+    "shared_tag_definitions": 1,
+    "non_inventory_definitions": 57,
+    "without_direct_definition": 1011
+  },
+  "inventory_states_after": {
+    "有正文": 2770,
+    "已排除": 212,
+    "有承接": 688,
+    "不适用": 1,
+    "空方法": 9,
+    "部分实现": 0,
+    "未实现": 0,
+    "待确认": 0
+  },
+  "historical_dispositions": [
+    {
+      "disposition": "adapted",
+      "inventory_id": "F:000021A0",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:000FF650",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_skill_panels.md#skill-detail-source-closure",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:000D62A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:000D8DA0",
+      "disposition": "mixed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-acceptance",
+        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
+        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+      ],
+      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置mixed与边界：BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
+    },
+    {
+      "inventory_id": "F:000EDB20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000D9220",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DAA40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DC7E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000DDFC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D36F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D55C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
+        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+      ],
+      "boundary": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000F6220",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
+        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+      ],
+      "boundary": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+    },
+    {
+      "inventory_id": "F:000D6710",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D6A60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D6EA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+      ],
+      "boundary": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D7470",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+      ],
+      "boundary": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D7C20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+      ],
+      "boundary": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000D8230",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
+        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
+        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+      ],
+      "boundary": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+    },
+    {
+      "inventory_id": "F:000FDBD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000FE0E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
+        "doc/cg2d_audio_settings_pages_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000DF730",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:000EAAA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:0012E650",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+    },
+    {
+      "inventory_id": "F:000E92A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:000E97E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:000E9C80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    },
+    {
+      "inventory_id": "F:0012D7B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
+        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
+        "doc/cg2d_panel_local_value_evidence.json",
+        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+      ],
+      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+    }
+  ],
+  "ledger_validation": "measure_cg2d.ps1 -Check仅两份既有键盘历史附件缺失；退休目录文件的历史前态核对通过，未写派生文件。"
+}

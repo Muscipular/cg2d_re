@@ -1,5 +1,7 @@
 # R1：直接函数定义定位
 
+> 2026-10-15 LWR01：97个未接入的旧handler及3个独占目录初始化已废弃，当前99项库存入口已排除，正文／当前定位已移除；选择控制保留。当前JSON为2669个直接入口、2686个位置、57项非库存定义、1011个无直接定义；原分母3680不变。下文2026-10-02数量及LWS01绑定说明保留历史，不作为当前状态。见[废弃SPEC](cg2d_legacy_window_retirement_spec.md)。
+
 > 2026-10-15 LWS01：57C368旧窗口记录及选择入口已迁至 `src/ui/LegacyWindowSelection.cpp`（`cg::ui`），类别按S8定义，97个非空handler绑定真实实现；见[类型与绑定SPEC](cg2d_legacy_window_selection_spec.md)。当前定位见机器清单；历史LegacyAudio归属保留为原记录，未证调度时机及验收门禁不变。
 
 ## 范围与实施方案

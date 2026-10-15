@@ -4298,3 +4298,7 @@ X:00143383-00143390的7B实际代码对应Cg2dApplyLegacyConditionalSignX87，�
 
 
 2026-10-15 UWS01：窗口实现已拆至 `src/ui/windows/`，窗口专属输入上下文同步归位；当前 JSON 定位与 UI 符号对应表已同步，历史证据路径按原记录保留。仅源码组织和静态接线核对，未编译、测试或运行；原身份、功能状态及验收结论保持。见 [窗口拆分 SPEC](cg2d_ui_window_split_spec.md)。
+
+## 2026-10-15：未接入旧窗口处理器废弃
+
+按用户要求移除当前工程无消费者的97个旧handler、三个独占目录初始化及getter／wrapper／绑定；99个库存入口保留身份并标已排除，原数据／调度未证不改写为实现通过。仍有调用的选择状态与公共Yobi面板保留，私有选择记录不再存handler，宿主布局24B。既有绑定／40B说明和原取证保留历史，当前范围见[废弃SPEC](cg2d_legacy_window_retirement_spec.md)及[限定证据](cg2d_legacy_window_retirement_evidence.json)。

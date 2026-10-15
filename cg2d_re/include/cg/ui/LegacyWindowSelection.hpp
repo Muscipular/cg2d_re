@@ -8,11 +8,6 @@ struct YobiAction;
 
 namespace cg::ui {
 
-// 原回调的共同 opened 参数；返回承载原 W32 位型或宿主原生地址。
-using LegacyWindowHandler = std::uintptr_t (*)(std::int32_t opened);
-// 只查表取得处理器；具体调度时机由调用方决定。
-LegacyWindowHandler FindLegacyWindowHandler(std::uint32_t id);
-
 // 原 57C368 旧窗口表与 CC236C 三槽的共享选择入口；与现代窗口编号独立。
 // 原函数：0x005044C0。
 std::int32_t __cdecl Sub_5044C0(std::uint32_t id);

@@ -11,13 +11,13 @@
   ],
   "counts": {
     "inventory_functions": 3680,
-    "source_files": 187,
-    "direct_inventory_entries": 2762,
-    "direct_definitions": 2779,
+    "source_files": 270,
+    "direct_inventory_entries": 2669,
+    "direct_definitions": 2686,
     "multiple_definition_entries": 13,
     "shared_tag_definitions": 1,
-    "non_inventory_definitions": 58,
-    "without_direct_definition": 918
+    "non_inventory_definitions": 57,
+    "without_direct_definition": 1011
   },
   "records": [
     {
@@ -113,18 +113,6 @@
           "symbol": "ClearBlacklistRecords_401470",
           "definition_line": 263,
           "namespace": "cg::blacklist"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000014B0",
-      "original_entry": "0x4014B0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4014B0",
-          "definition_line": 15287,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -459,7 +447,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_402B30",
-          "definition_line": 15216,
+          "definition_line": 5410,
           "namespace": "cg::login::detail"
         }
       ]
@@ -5403,7 +5391,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43D860",
-          "definition_line": 35957,
+          "definition_line": 35871,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5415,7 +5403,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43D970",
-          "definition_line": 36122,
+          "definition_line": 36036,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5427,7 +5415,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43D9A0",
-          "definition_line": 36134,
+          "definition_line": 36048,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5439,7 +5427,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43D9D0",
-          "definition_line": 36146,
+          "definition_line": 36060,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5451,7 +5439,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DA10",
-          "definition_line": 36161,
+          "definition_line": 36075,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5463,7 +5451,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DA40",
-          "definition_line": 36173,
+          "definition_line": 36087,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5475,7 +5463,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DA70",
-          "definition_line": 36185,
+          "definition_line": 36099,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5487,7 +5475,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DAA0",
-          "definition_line": 36197,
+          "definition_line": 36111,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5499,7 +5487,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DAD0",
-          "definition_line": 36209,
+          "definition_line": 36123,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5511,7 +5499,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DB00",
-          "definition_line": 36221,
+          "definition_line": 36135,
           "namespace": "cg::world::detail"
         }
       ]
@@ -5523,7 +5511,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_43DB30",
-          "definition_line": 36233,
+          "definition_line": 36147,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6063,7 +6051,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442BD0",
-          "definition_line": 36575,
+          "definition_line": 36489,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6075,7 +6063,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442C00",
-          "definition_line": 36036,
+          "definition_line": 35950,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6087,7 +6075,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442C40",
-          "definition_line": 36550,
+          "definition_line": 36464,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6099,7 +6087,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442C70",
-          "definition_line": 36562,
+          "definition_line": 36476,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6111,7 +6099,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442CA0",
-          "definition_line": 36050,
+          "definition_line": 35964,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6123,7 +6111,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442CD0",
-          "definition_line": 36062,
+          "definition_line": 35976,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6135,7 +6123,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442D00",
-          "definition_line": 36074,
+          "definition_line": 35988,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6147,7 +6135,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442D30",
-          "definition_line": 36086,
+          "definition_line": 36000,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6159,7 +6147,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442D60",
-          "definition_line": 36098,
+          "definition_line": 36012,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6171,7 +6159,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442D90",
-          "definition_line": 36110,
+          "definition_line": 36024,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6183,7 +6171,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_442DC0",
-          "definition_line": 35991,
+          "definition_line": 35905,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6243,7 +6231,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_444410",
-          "definition_line": 36245,
+          "definition_line": 36159,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6267,7 +6255,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_445030",
-          "definition_line": 36949,
+          "definition_line": 36863,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6279,7 +6267,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_4450D0",
-          "definition_line": 36978,
+          "definition_line": 36892,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6291,7 +6279,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_445160",
-          "definition_line": 37005,
+          "definition_line": 36919,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6303,7 +6291,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_4451F0",
-          "definition_line": 37032,
+          "definition_line": 36946,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6315,7 +6303,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_4452A0",
-          "definition_line": 37062,
+          "definition_line": 36976,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6327,7 +6315,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_445350",
-          "definition_line": 36684,
+          "definition_line": 36598,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6351,7 +6339,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_445D20",
-          "definition_line": 36830,
+          "definition_line": 36744,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6363,7 +6351,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_445F40",
-          "definition_line": 36891,
+          "definition_line": 36805,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6471,7 +6459,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_446640",
-          "definition_line": 36636,
+          "definition_line": 36550,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6483,7 +6471,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_4467D0",
-          "definition_line": 36595,
+          "definition_line": 36509,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6939,7 +6927,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_449C90",
-          "definition_line": 36521,
+          "definition_line": 36435,
           "namespace": "cg::world::detail"
         }
       ]
@@ -6951,7 +6939,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_449CC0",
-          "definition_line": 36537,
+          "definition_line": 36451,
           "namespace": "cg::world::detail"
         }
       ]
@@ -7707,7 +7695,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455490",
-          "definition_line": 2103,
+          "definition_line": 1845,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7719,7 +7707,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4554A0",
-          "definition_line": 2109,
+          "definition_line": 1851,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7731,7 +7719,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4554C0",
-          "definition_line": 2118,
+          "definition_line": 1860,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7743,7 +7731,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4554D0",
-          "definition_line": 2124,
+          "definition_line": 1866,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7755,7 +7743,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455540",
-          "definition_line": 2130,
+          "definition_line": 1872,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7767,7 +7755,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455550",
-          "definition_line": 2136,
+          "definition_line": 1878,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7779,7 +7767,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4555C0",
-          "definition_line": 2142,
+          "definition_line": 1884,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7791,7 +7779,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4555D0",
-          "definition_line": 2148,
+          "definition_line": 1890,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7803,7 +7791,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455640",
-          "definition_line": 2154,
+          "definition_line": 1896,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7815,7 +7803,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455650",
-          "definition_line": 2160,
+          "definition_line": 1902,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7827,7 +7815,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4556C0",
-          "definition_line": 2166,
+          "definition_line": 1908,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7839,7 +7827,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4556D0",
-          "definition_line": 2172,
+          "definition_line": 1914,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7851,7 +7839,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455740",
-          "definition_line": 2178,
+          "definition_line": 1920,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7863,7 +7851,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455750",
-          "definition_line": 2184,
+          "definition_line": 1926,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7875,7 +7863,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4557C0",
-          "definition_line": 2190,
+          "definition_line": 1932,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7887,7 +7875,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4557D0",
-          "definition_line": 2196,
+          "definition_line": 1938,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7899,7 +7887,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455840",
-          "definition_line": 2216,
+          "definition_line": 1958,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7911,7 +7899,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455850",
-          "definition_line": 2222,
+          "definition_line": 1964,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7923,7 +7911,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455930",
-          "definition_line": 2261,
+          "definition_line": 2003,
           "namespace": "cg::login::detail"
         }
       ]
@@ -7935,7 +7923,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_455940",
-          "definition_line": 2267,
+          "definition_line": 2009,
           "namespace": "cg::login::detail"
         }
       ]
@@ -9297,13 +9285,13 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_45EFD0",
-          "definition_line": 18885,
+          "definition_line": 7468,
           "namespace": "cg::login::detail"
         },
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_45EFD0",
-          "definition_line": 18914,
+          "definition_line": 7468,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9333,13 +9321,13 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_45F100",
-          "definition_line": 18879,
+          "definition_line": 7461,
           "namespace": "cg::login::detail"
         },
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_45F100",
-          "definition_line": 18907,
+          "definition_line": 7461,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9963,7 +9951,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_46A190",
-          "definition_line": 37126,
+          "definition_line": 37040,
           "namespace": "cg::world::detail"
         }
       ]
@@ -9999,7 +9987,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_46A5F0",
-          "definition_line": 37276,
+          "definition_line": 37190,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10191,7 +10179,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "MovePlayerOneStep_46B1B0",
-          "definition_line": 37227,
+          "definition_line": 37141,
           "namespace": "cg::world::detail"
         }
       ]
@@ -10215,7 +10203,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_46B4B0",
-          "definition_line": 37091,
+          "definition_line": 37005,
           "namespace": "cg::world::detail"
         }
       ]
@@ -22923,7 +22911,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D3180",
-          "definition_line": 2322,
+          "definition_line": 2064,
           "namespace": "cg::login::detail"
         }
       ]
@@ -22935,31 +22923,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D31C0",
-          "definition_line": 2334,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D3210",
-      "original_entry": "0x4D3210",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D3210",
-          "definition_line": 2347,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D3410",
-      "original_entry": "0x4D3410",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D3410",
-          "definition_line": 2409,
+          "definition_line": 2076,
           "namespace": "cg::login::detail"
         }
       ]
@@ -22971,19 +22935,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D36B0",
-          "definition_line": 5341,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D36F0",
-      "original_entry": "0x4D36F0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D36F0",
-          "definition_line": 5352,
+          "definition_line": 2260,
           "namespace": "cg::login::detail"
         }
       ]
@@ -22995,19 +22947,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D4960",
-          "definition_line": 5621,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D4A50",
-      "original_entry": "0x4D4A50",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D4A50",
-          "definition_line": 5644,
+          "definition_line": 2271,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23019,19 +22959,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D4ED0",
-          "definition_line": 5745,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D4F00",
-      "original_entry": "0x4D4F00",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D4F00",
-          "definition_line": 5756,
+          "definition_line": 2294,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23043,19 +22971,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D5220",
-          "definition_line": 5825,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D5250",
-      "original_entry": "0x4D5250",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D5250",
-          "definition_line": 5836,
+          "definition_line": 2305,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23067,19 +22983,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D5580",
-          "definition_line": 5904,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D55C0",
-      "original_entry": "0x4D55C0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D55C0",
-          "definition_line": 5915,
+          "definition_line": 2316,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23091,7 +22995,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D61E0",
-          "definition_line": 6148,
+          "definition_line": 2327,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23127,19 +23031,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D66E0",
-          "definition_line": 2490,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D6710",
-      "original_entry": "0x4D6710",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D6710",
-          "definition_line": 2501,
+          "definition_line": 2089,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23151,19 +23043,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D6A30",
-          "definition_line": 2586,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D6A60",
-      "original_entry": "0x4D6A60",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D6A60",
-          "definition_line": 2597,
+          "definition_line": 2100,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23175,103 +23055,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D6E70",
-          "definition_line": 2707,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D6EA0",
-      "original_entry": "0x4D6EA0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D6EA0",
-          "definition_line": 2718,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D7440",
-      "original_entry": "0x4D7440",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D7440",
-          "definition_line": 194,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D7470",
-      "original_entry": "0x4D7470",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D7470",
-          "definition_line": 206,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D7BF0",
-      "original_entry": "0x4D7BF0",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D7BF0",
-          "definition_line": 357,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D7C20",
-      "original_entry": "0x4D7C20",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D7C20",
-          "definition_line": 368,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D8200",
-      "original_entry": "0x4D8200",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D8200",
-          "definition_line": 499,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D8230",
-      "original_entry": "0x4D8230",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D8230",
-          "definition_line": 510,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D88C0",
-      "original_entry": "0x4D88C0",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4D88C0",
-          "definition_line": 650,
+          "definition_line": 2111,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23283,7 +23067,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D8D70",
-          "definition_line": 3324,
+          "definition_line": 2123,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23295,19 +23079,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D91E0",
-          "definition_line": 3470,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000D9220",
-      "original_entry": "0x4D9220",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4D9220",
-          "definition_line": 3481,
+          "definition_line": 2134,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23319,19 +23091,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DA400",
-          "definition_line": 3733,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DA580",
-      "original_entry": "0x4DA580",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DA580",
-          "definition_line": 3767,
+          "definition_line": 2145,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23343,43 +23103,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DAA00",
-          "definition_line": 3869,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DAA40",
-      "original_entry": "0x4DAA40",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DAA40",
-          "definition_line": 3880,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DBD30",
-      "original_entry": "0x4DBD30",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DBD30",
-          "definition_line": 4146,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DC290",
-      "original_entry": "0x4DC290",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DC290",
-          "definition_line": 4263,
+          "definition_line": 2179,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23391,19 +23115,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DC7A0",
-          "definition_line": 4374,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DC7E0",
-      "original_entry": "0x4DC7E0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DC7E0",
-          "definition_line": 4386,
+          "definition_line": 2190,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23415,19 +23127,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DDA30",
-          "definition_line": 4634,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DDB20",
-      "original_entry": "0x4DDB20",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DDB20",
-          "definition_line": 4657,
+          "definition_line": 2202,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23439,19 +23139,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DDF80",
-          "definition_line": 4764,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DDFC0",
-      "original_entry": "0x4DDFC0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DDFC0",
-          "definition_line": 4776,
+          "definition_line": 2225,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23463,31 +23151,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4DF210",
-          "definition_line": 5025,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DF300",
-      "original_entry": "0x4DF300",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DF300",
-          "definition_line": 5048,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000DF730",
-      "original_entry": "0x4DF730",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4DF730",
-          "definition_line": 5155,
+          "definition_line": 2237,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23511,7 +23175,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E0270",
-          "definition_line": 6446,
+          "definition_line": 2344,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23529,25 +23193,13 @@
       ]
     },
     {
-      "inventory_id": "F:000E0380",
-      "original_entry": "0x4E0380",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E0380",
-          "definition_line": 6252,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000E0BC0",
       "original_entry": "0x4E0BC0",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E0BC0",
-          "definition_line": 6461,
+          "definition_line": 2359,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23559,7 +23211,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E0C70",
-          "definition_line": 6483,
+          "definition_line": 2381,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23571,7 +23223,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E0D10",
-          "definition_line": 6498,
+          "definition_line": 2396,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23583,7 +23235,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E0FF0",
-          "definition_line": 6563,
+          "definition_line": 2461,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23595,7 +23247,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E10F0",
-          "definition_line": 6586,
+          "definition_line": 2484,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23619,7 +23271,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E18F0",
-          "definition_line": 6683,
+          "definition_line": 2581,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23631,7 +23283,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E1980",
-          "definition_line": 6700,
+          "definition_line": 2598,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23643,7 +23295,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E19E0",
-          "definition_line": 6712,
+          "definition_line": 2610,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23655,7 +23307,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E1B10",
-          "definition_line": 6740,
+          "definition_line": 2638,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23667,7 +23319,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E1EE0",
-          "definition_line": 6797,
+          "definition_line": 2695,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23679,7 +23331,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E2030",
-          "definition_line": 6824,
+          "definition_line": 2722,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23691,7 +23343,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E28F0",
-          "definition_line": 7072,
+          "definition_line": 2970,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23703,7 +23355,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E2D90",
-          "definition_line": 7205,
+          "definition_line": 3103,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23715,7 +23367,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E3750",
-          "definition_line": 7361,
+          "definition_line": 3259,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23733,18 +23385,6 @@
       ]
     },
     {
-      "inventory_id": "F:000E4460",
-      "original_entry": "0x4E4460",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E4460",
-          "definition_line": 7476,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000E4860",
       "original_entry": "0x4E4860",
       "definitions": [
@@ -23753,18 +23393,6 @@
           "symbol": "WindowItemUse_ReceiveTextTargets",
           "definition_line": 139,
           "namespace": "cg::ui::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000E4A50",
-      "original_entry": "0x4E4A50",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E4A50",
-          "definition_line": 3158,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -23789,18 +23417,6 @@
           "symbol": "WindowTrade_OpenTargetList",
           "definition_line": 2600,
           "namespace": "cg::ui::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000E4EA0",
-      "original_entry": "0x4E4EA0",
-      "definitions": [
-        {
-          "path": "src/LegacyCatalogWindows.cpp",
-          "symbol": "Sub_4E4EA0",
-          "definition_line": 104,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -23925,25 +23541,13 @@
       ]
     },
     {
-      "inventory_id": "F:000E5E40",
-      "original_entry": "0x4E5E40",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E5E40",
-          "definition_line": 7570,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000E6CC0",
       "original_entry": "0x4E6CC0",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E6CC0",
-          "definition_line": 7858,
+          "definition_line": 3374,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23955,7 +23559,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E6D70",
-          "definition_line": 7880,
+          "definition_line": 3396,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23967,7 +23571,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E6E10",
-          "definition_line": 7895,
+          "definition_line": 3411,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23979,7 +23583,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E70B0",
-          "definition_line": 7954,
+          "definition_line": 3470,
           "namespace": "cg::login::detail"
         }
       ]
@@ -23991,7 +23595,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7140",
-          "definition_line": 7971,
+          "definition_line": 3487,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24003,7 +23607,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E71A0",
-          "definition_line": 7983,
+          "definition_line": 3499,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24015,7 +23619,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7290",
-          "definition_line": 8006,
+          "definition_line": 3522,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24027,7 +23631,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7380",
-          "definition_line": 8029,
+          "definition_line": 3545,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24039,7 +23643,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7740",
-          "definition_line": 8086,
+          "definition_line": 3602,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24051,7 +23655,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7870",
-          "definition_line": 8112,
+          "definition_line": 3628,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24063,7 +23667,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E7FC0",
-          "definition_line": 8209,
+          "definition_line": 3725,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24075,7 +23679,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E81B0",
-          "definition_line": 8254,
+          "definition_line": 3770,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24087,7 +23691,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E82F0",
-          "definition_line": 8290,
+          "definition_line": 3806,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24099,7 +23703,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E83D0",
-          "definition_line": 8309,
+          "definition_line": 3825,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24111,7 +23715,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E8920",
-          "definition_line": 8453,
+          "definition_line": 3969,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24123,7 +23727,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E8AD0",
-          "definition_line": 8506,
+          "definition_line": 4022,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24135,19 +23739,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E9280",
-          "definition_line": 8601,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000E92A0",
-      "original_entry": "0x4E92A0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E92A0",
-          "definition_line": 8608,
+          "definition_line": 4117,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24159,19 +23751,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E97C0",
-          "definition_line": 8736,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000E97E0",
-      "original_entry": "0x4E97E0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E97E0",
-          "definition_line": 8743,
+          "definition_line": 4124,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24183,19 +23763,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E9C60",
-          "definition_line": 8873,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000E9C80",
-      "original_entry": "0x4E9C80",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4E9C80",
-          "definition_line": 8880,
+          "definition_line": 4131,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24207,19 +23775,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4EA130",
-          "definition_line": 9000,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EA1B0",
-      "original_entry": "0x4EA1B0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EA1B0",
-          "definition_line": 9012,
+          "definition_line": 4138,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24237,37 +23793,13 @@
       ]
     },
     {
-      "inventory_id": "F:000EA690",
-      "original_entry": "0x4EA690",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EA690",
-          "definition_line": 9130,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000EAA50",
       "original_entry": "0x4EAA50",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4EAA50",
-          "definition_line": 9527,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EAAA0",
-      "original_entry": "0x4EAAA0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EAAA0",
-          "definition_line": 9546,
+          "definition_line": 4173,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24279,55 +23811,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4EB120",
-          "definition_line": 9666,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EB1C0",
-      "original_entry": "0x4EB1C0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EB1C0",
-          "definition_line": 9682,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EB890",
-      "original_entry": "0x4EB890",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EB890",
-          "definition_line": 9430,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EBAA0",
-      "original_entry": "0x4EBAA0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EBAA0",
-          "definition_line": 9470,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EBD20",
-      "original_entry": "0x4EBD20",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EBD20",
-          "definition_line": 9837,
+          "definition_line": 4192,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24387,19 +23871,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4EC1D0",
-          "definition_line": 9206,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EC240",
-      "original_entry": "0x4EC240",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EC240",
-          "definition_line": 9229,
+          "definition_line": 4150,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24417,18 +23889,6 @@
       ]
     },
     {
-      "inventory_id": "F:000ECE00",
-      "original_entry": "0x4ECE00",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4ECE00",
-          "definition_line": 11456,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000ED010",
       "original_entry": "0x4ED010",
       "definitions": [
@@ -24437,18 +23897,6 @@
           "symbol": "Sub_4ED010",
           "definition_line": 1751,
           "namespace": "cg::login::detail::(匿名)"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000ED020",
-      "original_entry": "0x4ED020",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4ED020",
-          "definition_line": 11511,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -24477,18 +23925,6 @@
       ]
     },
     {
-      "inventory_id": "F:000EDB20",
-      "original_entry": "0x4EDB20",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EDB20",
-          "definition_line": 11641,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000EE130",
       "original_entry": "0x4EE130",
       "definitions": [
@@ -24497,18 +23933,6 @@
           "symbol": "Sub_4EE130",
           "definition_line": 35438,
           "namespace": "cg::login::detail::(匿名)"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000EE380",
-      "original_entry": "0x4EE380",
-      "definitions": [
-        {
-          "path": "src/YobiRuntime.cpp",
-          "symbol": "Sub_4EE380",
-          "definition_line": 35796,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -24549,18 +23973,6 @@
       ]
     },
     {
-      "inventory_id": "F:000EF0F0",
-      "original_entry": "0x4EF0F0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EF0F0",
-          "definition_line": 11792,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000EF5F0",
       "original_entry": "0x4EF5F0",
       "definitions": [
@@ -24597,18 +24009,6 @@
       ]
     },
     {
-      "inventory_id": "F:000EFB70",
-      "original_entry": "0x4EFB70",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4EFB70",
-          "definition_line": 2848,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000F0200",
       "original_entry": "0x4F0200",
       "definitions": [
@@ -24617,66 +24017,6 @@
           "symbol": "WindowSkill_ReceiveTextTargets",
           "definition_line": 2506,
           "namespace": "cg::ui::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F0460",
-      "original_entry": "0x4F0460",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F0460",
-          "definition_line": 2991,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F0B40",
-      "original_entry": "0x4F0B40",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F0B40",
-          "definition_line": 11912,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F0CD0",
-      "original_entry": "0x4F0CD0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F0CD0",
-          "definition_line": 3258,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F0E20",
-      "original_entry": "0x4F0E20",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F0E20",
-          "definition_line": 3291,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F0F70",
-      "original_entry": "0x4F0F70",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F0F70",
-          "definition_line": 11957,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -24693,37 +24033,13 @@
       ]
     },
     {
-      "inventory_id": "F:000F1C40",
-      "original_entry": "0x4F1C40",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F1C40",
-          "definition_line": 12087,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F2130",
-      "original_entry": "0x4F2130",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F2130",
-          "definition_line": 12316,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000F24A0",
       "original_entry": "0x4F24A0",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F24A0",
-          "definition_line": 12390,
+          "definition_line": 4305,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24735,7 +24051,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F25C0",
-          "definition_line": 12416,
+          "definition_line": 4331,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24747,7 +24063,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F2650",
-          "definition_line": 12436,
+          "definition_line": 4351,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24759,19 +24075,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F2720",
-          "definition_line": 12462,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F2A30",
-      "original_entry": "0x4F2A30",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F2A30",
-          "definition_line": 12524,
+          "definition_line": 4377,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24785,18 +24089,6 @@
           "symbol": "WindowCraft_ReceiveRecipeResult",
           "definition_line": 3299,
           "namespace": "cg::ui::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F3ED0",
-      "original_entry": "0x4F3ED0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F3ED0",
-          "definition_line": 12198,
-          "namespace": "cg::login::detail"
         }
       ]
     },
@@ -24819,7 +24111,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F4470",
-          "definition_line": 12893,
+          "definition_line": 4481,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24843,7 +24135,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F4690",
-          "definition_line": 12973,
+          "definition_line": 4561,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24855,7 +24147,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F4720",
-          "definition_line": 12998,
+          "definition_line": 4586,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24867,7 +24159,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F4740",
-          "definition_line": 13010,
+          "definition_line": 4598,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24879,19 +24171,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F4760",
-          "definition_line": 13017,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F4790",
-      "original_entry": "0x4F4790",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F4790",
-          "definition_line": 13029,
+          "definition_line": 4605,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24903,7 +24183,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F50D0",
-          "definition_line": 13251,
+          "definition_line": 4617,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24915,7 +24195,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F5170",
-          "definition_line": 13272,
+          "definition_line": 4638,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24927,31 +24207,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F51A0",
-          "definition_line": 13281,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F51D0",
-      "original_entry": "0x4F51D0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F51D0",
-          "definition_line": 13291,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F5A60",
-      "original_entry": "0x4F5A60",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F5A60",
-          "definition_line": 13939,
+          "definition_line": 4647,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24963,19 +24219,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F61C0",
-          "definition_line": 14083,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F6220",
-      "original_entry": "0x4F6220",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F6220",
-          "definition_line": 14100,
+          "definition_line": 4744,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24987,7 +24231,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F6BF0",
-          "definition_line": 14265,
+          "definition_line": 4761,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24999,19 +24243,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F6C60",
-          "definition_line": 14279,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F6CA0",
-      "original_entry": "0x4F6CA0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F6CA0",
-          "definition_line": 14291,
+          "definition_line": 4775,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25023,19 +24255,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F7140",
-          "definition_line": 14400,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F7150",
-      "original_entry": "0x4F7150",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F7150",
-          "definition_line": 14409,
+          "definition_line": 4787,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25047,19 +24267,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F8340",
-          "definition_line": 14727,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000F83B0",
-      "original_entry": "0x4F83B0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4F83B0",
-          "definition_line": 14746,
+          "definition_line": 4977,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25071,7 +24279,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F8550",
-          "definition_line": 14802,
+          "definition_line": 4996,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25083,7 +24291,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F8E40",
-          "definition_line": 14915,
+          "definition_line": 5109,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25095,7 +24303,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4F9B10",
-          "definition_line": 15038,
+          "definition_line": 5232,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25108,30 +24316,6 @@
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_4F9FF0",
           "definition_line": 35634,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FA050",
-      "original_entry": "0x4FA050",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FA050",
-          "definition_line": 15523,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FA350",
-      "original_entry": "0x4FA350",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FA350",
-          "definition_line": 15483,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25173,19 +24357,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FAED0",
-          "definition_line": 15587,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FAEF0",
-      "original_entry": "0x4FAEF0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FAEF0",
-          "definition_line": 15596,
+          "definition_line": 5489,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25221,7 +24393,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FB940",
-          "definition_line": 12851,
+          "definition_line": 4439,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25245,19 +24417,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FBB30",
-          "definition_line": 15864,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FBB40",
-      "original_entry": "0x4FBB40",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FBB40",
-          "definition_line": 15870,
+          "definition_line": 5498,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25269,7 +24429,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FC420",
-          "definition_line": 16913,
+          "definition_line": 5953,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25281,7 +24441,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FC430",
-          "definition_line": 16919,
+          "definition_line": 5959,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25383,25 +24543,13 @@
       ]
     },
     {
-      "inventory_id": "F:000FC8F0",
-      "original_entry": "0x4FC8F0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FC8F0",
-          "definition_line": 17055,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:000FCB90",
       "original_entry": "0x4FCB90",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FCB90",
-          "definition_line": 17111,
+          "definition_line": 6065,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25413,19 +24561,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FCBA0",
-          "definition_line": 17117,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FD1A0",
-      "original_entry": "0x4FD1A0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FD1A0",
-          "definition_line": 17343,
+          "definition_line": 6071,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25521,19 +24657,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FD690",
-          "definition_line": 15393,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FD6A0",
-      "original_entry": "0x4FD6A0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FD6A0",
-          "definition_line": 15401,
+          "definition_line": 5481,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25581,7 +24705,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FE490",
-          "definition_line": 17698,
+          "definition_line": 6485,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25593,19 +24717,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FE4A0",
-          "definition_line": 17704,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FE860",
-      "original_entry": "0x4FE860",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FE860",
-          "definition_line": 17846,
+          "definition_line": 6491,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25629,7 +24741,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FEB00",
-          "definition_line": 17909,
+          "definition_line": 6633,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25641,19 +24753,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FEB10",
-          "definition_line": 17915,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FEF30",
-      "original_entry": "0x4FEF30",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FEF30",
-          "definition_line": 18081,
+          "definition_line": 6639,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25677,7 +24777,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FF020",
-          "definition_line": 18112,
+          "definition_line": 6805,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25689,19 +24789,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FF030",
-          "definition_line": 18118,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FF1A0",
-      "original_entry": "0x4FF1A0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FF1A0",
-          "definition_line": 18175,
+          "definition_line": 6811,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25725,7 +24813,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FF340",
-          "definition_line": 18220,
+          "definition_line": 6868,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25737,19 +24825,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4FF350",
-          "definition_line": 18226,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:000FF4C0",
-      "original_entry": "0x4FF4C0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_4FF4C0",
-          "definition_line": 18283,
+          "definition_line": 6874,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25767,37 +24843,13 @@
       ]
     },
     {
-      "inventory_id": "F:00100370",
-      "original_entry": "0x500370",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_500370",
-          "definition_line": 16298,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:001006F0",
-      "original_entry": "0x5006F0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_5006F0",
-          "definition_line": 16396,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:001008C0",
       "original_entry": "0x5008C0",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5008C0",
-          "definition_line": 16464,
+          "definition_line": 5504,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25809,7 +24861,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5014A0",
-          "definition_line": 16621,
+          "definition_line": 5661,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25833,7 +24885,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_501FD0",
-          "definition_line": 16731,
+          "definition_line": 5771,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25845,7 +24897,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502930",
-          "definition_line": 18328,
+          "definition_line": 6931,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25857,19 +24909,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502940",
-          "definition_line": 18334,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:001029B0",
-      "original_entry": "0x5029B0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_5029B0",
-          "definition_line": 18358,
+          "definition_line": 6937,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25881,7 +24921,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502B80",
-          "definition_line": 18407,
+          "definition_line": 6961,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25893,7 +24933,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C30",
-          "definition_line": 18445,
+          "definition_line": 6999,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25905,7 +24945,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C40",
-          "definition_line": 18451,
+          "definition_line": 7005,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25917,7 +24957,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C60",
-          "definition_line": 18460,
+          "definition_line": 7014,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25929,7 +24969,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C70",
-          "definition_line": 18466,
+          "definition_line": 7020,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25941,7 +24981,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C80",
-          "definition_line": 18474,
+          "definition_line": 7028,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25953,7 +24993,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502C90",
-          "definition_line": 18480,
+          "definition_line": 7034,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25965,7 +25005,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502CA0",
-          "definition_line": 18488,
+          "definition_line": 7042,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25977,7 +25017,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502CB0",
-          "definition_line": 18494,
+          "definition_line": 7048,
           "namespace": "cg::login::detail"
         }
       ]
@@ -25989,7 +25029,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502D20",
-          "definition_line": 18514,
+          "definition_line": 7068,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26001,7 +25041,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502D30",
-          "definition_line": 18520,
+          "definition_line": 7074,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26013,7 +25053,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502DA0",
-          "definition_line": 18526,
+          "definition_line": 7080,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26025,7 +25065,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502DB0",
-          "definition_line": 18532,
+          "definition_line": 7086,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26037,7 +25077,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502E20",
-          "definition_line": 18538,
+          "definition_line": 7092,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26049,7 +25089,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502E30",
-          "definition_line": 18544,
+          "definition_line": 7098,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26061,7 +25101,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502EA0",
-          "definition_line": 18550,
+          "definition_line": 7104,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26073,7 +25113,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502EB0",
-          "definition_line": 18556,
+          "definition_line": 7110,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26085,7 +25125,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502F20",
-          "definition_line": 18562,
+          "definition_line": 7116,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26097,7 +25137,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502F30",
-          "definition_line": 18568,
+          "definition_line": 7122,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26109,7 +25149,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502FA0",
-          "definition_line": 18574,
+          "definition_line": 7128,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26121,7 +25161,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_502FB0",
-          "definition_line": 18580,
+          "definition_line": 7134,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26133,7 +25173,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503020",
-          "definition_line": 18586,
+          "definition_line": 7140,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26145,7 +25185,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503030",
-          "definition_line": 18592,
+          "definition_line": 7146,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26157,7 +25197,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5030A0",
-          "definition_line": 18598,
+          "definition_line": 7152,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26169,7 +25209,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503120",
-          "definition_line": 18620,
+          "definition_line": 7174,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26181,7 +25221,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503160",
-          "definition_line": 18631,
+          "definition_line": 7185,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26193,7 +25233,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503440",
-          "definition_line": 18739,
+          "definition_line": 7293,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26205,7 +25245,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503590",
-          "definition_line": 18793,
+          "definition_line": 7347,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26217,7 +25257,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5035E0",
-          "definition_line": 18808,
+          "definition_line": 7362,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26253,7 +25293,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5038B0",
-          "definition_line": 18847,
+          "definition_line": 7401,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26301,7 +25341,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503B70",
-          "definition_line": 15226,
+          "definition_line": 5420,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26313,7 +25353,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503BC0",
-          "definition_line": 15236,
+          "definition_line": 5430,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26325,7 +25365,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503BE0",
-          "definition_line": 15243,
+          "definition_line": 5437,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26337,7 +25377,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503C30",
-          "definition_line": 15257,
+          "definition_line": 5451,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26349,7 +25389,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503C40",
-          "definition_line": 15263,
+          "definition_line": 5457,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26361,7 +25401,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503C50",
-          "definition_line": 15269,
+          "definition_line": 5463,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26373,7 +25413,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503C60",
-          "definition_line": 15275,
+          "definition_line": 5469,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26385,7 +25425,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_503C70",
-          "definition_line": 15281,
+          "definition_line": 5475,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26493,7 +25533,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_504180",
-          "definition_line": 224,
+          "definition_line": 198,
           "namespace": "cg::ui"
         }
       ]
@@ -26505,7 +25545,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_5042D0",
-          "definition_line": 295,
+          "definition_line": 269,
           "namespace": "cg::ui"
         }
       ]
@@ -26517,7 +25557,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_504380",
-          "definition_line": 334,
+          "definition_line": 308,
           "namespace": "cg::ui"
         }
       ]
@@ -26529,7 +25569,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_5043D0",
-          "definition_line": 352,
+          "definition_line": 326,
           "namespace": "cg::ui"
         }
       ]
@@ -26541,7 +25581,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_504410",
-          "definition_line": 206,
+          "definition_line": 180,
           "namespace": "cg::ui"
         }
       ]
@@ -26553,7 +25593,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_504460",
-          "definition_line": 190,
+          "definition_line": 164,
           "namespace": "cg::ui"
         }
       ]
@@ -26565,7 +25605,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_5044C0",
-          "definition_line": 159,
+          "definition_line": 143,
           "namespace": "cg::ui"
         }
       ]
@@ -26637,7 +25677,7 @@
         {
           "path": "src/ui/LegacyWindowSelection.cpp",
           "symbol": "Sub_504AF0",
-          "definition_line": 283,
+          "definition_line": 257,
           "namespace": "cg::ui"
         }
       ]
@@ -26673,7 +25713,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_504BA0",
-          "definition_line": 12873,
+          "definition_line": 4461,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26697,7 +25737,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_504EE0",
-          "definition_line": 13469,
+          "definition_line": 4657,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26721,7 +25761,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_504FA0",
-          "definition_line": 13479,
+          "definition_line": 4667,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26763,37 +25803,13 @@
       ]
     },
     {
-      "inventory_id": "F:00105170",
-      "original_entry": "0x505170",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_505170",
-          "definition_line": 13507,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:00105BC0",
       "original_entry": "0x505BC0",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_505BC0",
-          "definition_line": 13746,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00105C20",
-      "original_entry": "0x505C20",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_505C20",
-          "definition_line": 13785,
+          "definition_line": 4695,
           "namespace": "cg::login::detail"
         }
       ]
@@ -26805,7 +25821,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_5062A0",
-          "definition_line": 13764,
+          "definition_line": 4713,
           "namespace": "cg::login::detail"
         }
       ]
@@ -27513,7 +26529,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_50AEF0",
-          "definition_line": 35923,
+          "definition_line": 35837,
           "namespace": "cg::world::detail"
         }
       ]
@@ -29817,7 +28833,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_5183B0",
-          "definition_line": 36588,
+          "definition_line": 36502,
           "namespace": "cg::world::detail"
         }
       ]
@@ -30165,7 +29181,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_519640",
-          "definition_line": 13929,
+          "definition_line": 4734,
           "namespace": "cg::login::detail"
         }
       ]
@@ -30381,7 +29397,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_519EE0",
-          "definition_line": 37352,
+          "definition_line": 37266,
           "namespace": "cg::world::detail"
         }
       ]
@@ -30537,7 +29553,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_51A640",
-          "definition_line": 37325,
+          "definition_line": 37239,
           "namespace": "cg::world::detail"
         }
       ]
@@ -30549,7 +29565,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_51A660",
-          "definition_line": 37335,
+          "definition_line": 37249,
           "namespace": "cg::world::detail"
         }
       ]
@@ -30561,7 +29577,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_51A680",
-          "definition_line": 37345,
+          "definition_line": 37259,
           "namespace": "cg::world::detail"
         }
       ]
@@ -30573,7 +29589,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "Sub_51A6A0",
-          "definition_line": 36015,
+          "definition_line": 35929,
           "namespace": "cg::world::detail"
         }
       ]
@@ -31605,7 +30621,7 @@
         {
           "path": "src/YobiRuntime.cpp",
           "symbol": "RenderChara_521F20",
-          "definition_line": 37387,
+          "definition_line": 37301,
           "namespace": "cg::world::detail"
         }
       ]
@@ -32193,19 +31209,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_52D790",
-          "definition_line": 9893,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012D7B0",
-      "original_entry": "0x52D7B0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52D7B0",
-          "definition_line": 9900,
+          "definition_line": 4208,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32217,19 +31221,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_52DC60",
-          "definition_line": 10020,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012DCE0",
-      "original_entry": "0x52DCE0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52DCE0",
-          "definition_line": 10032,
+          "definition_line": 4215,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32259,37 +31251,13 @@
       ]
     },
     {
-      "inventory_id": "F:0012E240",
-      "original_entry": "0x52E240",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52E240",
-          "definition_line": 10149,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
       "inventory_id": "F:0012E600",
       "original_entry": "0x52E600",
       "definitions": [
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_52E600",
-          "definition_line": 10225,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012E650",
-      "original_entry": "0x52E650",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52E650",
-          "definition_line": 10244,
+          "definition_line": 4227,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32301,55 +31269,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_52ECB0",
-          "definition_line": 10367,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012ED50",
-      "original_entry": "0x52ED50",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52ED50",
-          "definition_line": 10383,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012F460",
-      "original_entry": "0x52F460",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52F460",
-          "definition_line": 10540,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012F670",
-      "original_entry": "0x52F670",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52F670",
-          "definition_line": 10580,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012F910",
-      "original_entry": "0x52F910",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52F910",
-          "definition_line": 10645,
+          "definition_line": 4246,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32385,19 +31305,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_52FCF0",
-          "definition_line": 10701,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:0012FD60",
-      "original_entry": "0x52FD60",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_52FD60",
-          "definition_line": 10724,
+          "definition_line": 4262,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32409,19 +31317,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_530B70",
-          "definition_line": 10937,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00130BA0",
-      "original_entry": "0x530BA0",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_530BA0",
-          "definition_line": 10947,
+          "definition_line": 4286,
           "namespace": "cg::login::detail"
         }
       ]
@@ -32433,19 +31329,7 @@
         {
           "path": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_532430",
-          "definition_line": 11288,
-          "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00132450",
-      "original_entry": "0x532450",
-      "definitions": [
-        {
-          "path": "src/LegacyUiRecord.cpp",
-          "symbol": "Sub_532450",
-          "definition_line": 11297,
+          "definition_line": 4296,
           "namespace": "cg::login::detail"
         }
       ]
@@ -33287,7 +32171,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503BB0",
-        "definition_line": 15106,
+        "definition_line": 5300,
         "namespace": "cg::login::detail"
       }
     },
@@ -33296,7 +32180,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D00",
-        "definition_line": 15111,
+        "definition_line": 5305,
         "namespace": "cg::login::detail"
       }
     },
@@ -33305,7 +32189,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D10",
-        "definition_line": 15117,
+        "definition_line": 5311,
         "namespace": "cg::login::detail"
       }
     },
@@ -33314,7 +32198,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D20",
-        "definition_line": 15123,
+        "definition_line": 5317,
         "namespace": "cg::login::detail"
       }
     },
@@ -33323,7 +32207,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D30",
-        "definition_line": 15129,
+        "definition_line": 5323,
         "namespace": "cg::login::detail"
       }
     },
@@ -33332,7 +32216,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D40",
-        "definition_line": 15135,
+        "definition_line": 5329,
         "namespace": "cg::login::detail"
       }
     },
@@ -33341,7 +32225,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D50",
-        "definition_line": 15141,
+        "definition_line": 5335,
         "namespace": "cg::login::detail"
       }
     },
@@ -33350,7 +32234,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D60",
-        "definition_line": 15147,
+        "definition_line": 5341,
         "namespace": "cg::login::detail"
       }
     },
@@ -33359,7 +32243,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D70",
-        "definition_line": 15153,
+        "definition_line": 5347,
         "namespace": "cg::login::detail"
       }
     },
@@ -33368,7 +32252,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D80",
-        "definition_line": 15159,
+        "definition_line": 5353,
         "namespace": "cg::login::detail"
       }
     },
@@ -33377,7 +32261,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503D90",
-        "definition_line": 15165,
+        "definition_line": 5359,
         "namespace": "cg::login::detail"
       }
     },
@@ -33386,7 +32270,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503DA0",
-        "definition_line": 15171,
+        "definition_line": 5365,
         "namespace": "cg::login::detail"
       }
     },
@@ -33395,7 +32279,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503DB0",
-        "definition_line": 15177,
+        "definition_line": 5371,
         "namespace": "cg::login::detail"
       }
     },
@@ -33404,7 +32288,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503DC0",
-        "definition_line": 15183,
+        "definition_line": 5377,
         "namespace": "cg::login::detail"
       }
     },
@@ -33413,7 +32297,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503E00",
-        "definition_line": 15195,
+        "definition_line": 5389,
         "namespace": "cg::login::detail"
       }
     },
@@ -33422,7 +32306,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503E10",
-        "definition_line": 15200,
+        "definition_line": 5394,
         "namespace": "cg::login::detail"
       }
     },
@@ -33431,7 +32315,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503E20",
-        "definition_line": 15205,
+        "definition_line": 5399,
         "namespace": "cg::login::detail"
       }
     },
@@ -33440,16 +32324,7 @@
       "definition": {
         "path": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_503E30",
-        "definition_line": 15210,
-        "namespace": "cg::login::detail"
-      }
-    },
-    {
-      "source_address": "0x4FC730",
-      "definition": {
-        "path": "src/LegacyUiRecord.cpp",
-        "symbol": "Sub_4FC730",
-        "definition_line": 17024,
+        "definition_line": 5404,
         "namespace": "cg::login::detail"
       }
     },
@@ -33807,6 +32682,7 @@
   ],
   "without_direct_definition": [
     "F:00001030",
+    "F:000014B0",
     "F:00001960",
     "F:00001AB0",
     "F:00001C10",
@@ -34008,10 +32884,82 @@
     "F:000CD250",
     "F:000CD2D0",
     "F:000CD360",
+    "F:000D3210",
+    "F:000D3410",
+    "F:000D36F0",
+    "F:000D4A50",
+    "F:000D4F00",
+    "F:000D5250",
+    "F:000D55C0",
     "F:000D62A0",
     "F:000D6650",
+    "F:000D6710",
+    "F:000D6A60",
+    "F:000D6EA0",
+    "F:000D7440",
+    "F:000D7470",
+    "F:000D7BF0",
+    "F:000D7C20",
+    "F:000D8200",
+    "F:000D8230",
+    "F:000D88C0",
     "F:000D8DA0",
+    "F:000D9220",
+    "F:000DA580",
+    "F:000DAA40",
+    "F:000DBD30",
+    "F:000DC290",
+    "F:000DC7E0",
+    "F:000DDB20",
+    "F:000DDFC0",
+    "F:000DF300",
+    "F:000DF730",
+    "F:000E0380",
+    "F:000E4460",
+    "F:000E4A50",
+    "F:000E4EA0",
+    "F:000E5E40",
+    "F:000E92A0",
+    "F:000E97E0",
+    "F:000E9C80",
+    "F:000EA1B0",
+    "F:000EA690",
+    "F:000EAAA0",
+    "F:000EB1C0",
+    "F:000EB890",
+    "F:000EBAA0",
+    "F:000EBD20",
+    "F:000EC240",
+    "F:000ECE00",
+    "F:000ED020",
+    "F:000EDB20",
+    "F:000EE380",
+    "F:000EF0F0",
+    "F:000EFB70",
+    "F:000F0460",
+    "F:000F0B40",
+    "F:000F0CD0",
+    "F:000F0E20",
+    "F:000F0F70",
+    "F:000F1C40",
+    "F:000F2130",
+    "F:000F2A30",
+    "F:000F3ED0",
+    "F:000F4790",
+    "F:000F51D0",
+    "F:000F5A60",
+    "F:000F6220",
+    "F:000F6CA0",
+    "F:000F7150",
     "F:000F7870",
+    "F:000F83B0",
+    "F:000FA050",
+    "F:000FA350",
+    "F:000FAEF0",
+    "F:000FBB40",
+    "F:000FC8F0",
+    "F:000FD1A0",
+    "F:000FD6A0",
     "F:000FD9F0",
     "F:000FDA00",
     "F:000FDBD0",
@@ -34023,7 +32971,16 @@
     "F:000FE320",
     "F:000FE370",
     "F:000FE3B0",
+    "F:000FE860",
+    "F:000FEF30",
+    "F:000FF1A0",
+    "F:000FF4C0",
     "F:000FF650",
+    "F:00100370",
+    "F:001006F0",
+    "F:001029B0",
+    "F:00105170",
+    "F:00105C20",
     "F:00106340",
     "F:00106350",
     "F:00106530",
@@ -34085,6 +33042,17 @@
     "F:0012C160",
     "F:0012C3D0",
     "F:0012D5C0",
+    "F:0012D7B0",
+    "F:0012DCE0",
+    "F:0012E240",
+    "F:0012E650",
+    "F:0012ED50",
+    "F:0012F460",
+    "F:0012F670",
+    "F:0012F910",
+    "F:0012FD60",
+    "F:00130BA0",
+    "F:00132450",
     "F:00132E70",
     "F:00134980",
     "F:00134986",
@@ -34734,5 +33702,1140 @@
     "static_validation": "99项原/新/IDA初值一致；97个handler唯一声明/定义；12个迁移入口限定词法变换一致，实际音频正文保持。",
     "commit_owner": "用户指定由“整理 UI 窗口代码命名”会话统一合并与提交。",
     "dispatch_trace": "doc/cg2d_legacy_window_dispatch_evidence.json"
+  },
+  "legacy_window_retirement_lwr01": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md",
+    "evidence": "doc/cg2d_legacy_window_retirement_evidence.json",
+    "removed_direct_records": [
+      {
+        "inventory_id": "F:000014B0",
+        "original_entry": "0x4014B0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4014B0",
+            "definition_line": 15287,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D3210",
+        "original_entry": "0x4D3210",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D3210",
+            "definition_line": 2347,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D3410",
+        "original_entry": "0x4D3410",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D3410",
+            "definition_line": 2409,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D36F0",
+        "original_entry": "0x4D36F0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D36F0",
+            "definition_line": 5352,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D4A50",
+        "original_entry": "0x4D4A50",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D4A50",
+            "definition_line": 5644,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D4F00",
+        "original_entry": "0x4D4F00",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D4F00",
+            "definition_line": 5756,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D5250",
+        "original_entry": "0x4D5250",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D5250",
+            "definition_line": 5836,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D55C0",
+        "original_entry": "0x4D55C0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D55C0",
+            "definition_line": 5915,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D6710",
+        "original_entry": "0x4D6710",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6710",
+            "definition_line": 2501,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D6A60",
+        "original_entry": "0x4D6A60",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6A60",
+            "definition_line": 2597,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D6EA0",
+        "original_entry": "0x4D6EA0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D6EA0",
+            "definition_line": 2718,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D7440",
+        "original_entry": "0x4D7440",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D7440",
+            "definition_line": 194,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D7470",
+        "original_entry": "0x4D7470",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D7470",
+            "definition_line": 206,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D7BF0",
+        "original_entry": "0x4D7BF0",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D7BF0",
+            "definition_line": 357,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D7C20",
+        "original_entry": "0x4D7C20",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D7C20",
+            "definition_line": 368,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D8200",
+        "original_entry": "0x4D8200",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D8200",
+            "definition_line": 499,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D8230",
+        "original_entry": "0x4D8230",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D8230",
+            "definition_line": 510,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D88C0",
+        "original_entry": "0x4D88C0",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4D88C0",
+            "definition_line": 650,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000D9220",
+        "original_entry": "0x4D9220",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D9220",
+            "definition_line": 3481,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DA580",
+        "original_entry": "0x4DA580",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DA580",
+            "definition_line": 3767,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DAA40",
+        "original_entry": "0x4DAA40",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DAA40",
+            "definition_line": 3880,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DBD30",
+        "original_entry": "0x4DBD30",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DBD30",
+            "definition_line": 4146,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DC290",
+        "original_entry": "0x4DC290",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DC290",
+            "definition_line": 4263,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DC7E0",
+        "original_entry": "0x4DC7E0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DC7E0",
+            "definition_line": 4386,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DDB20",
+        "original_entry": "0x4DDB20",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DDB20",
+            "definition_line": 4657,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DDFC0",
+        "original_entry": "0x4DDFC0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DDFC0",
+            "definition_line": 4776,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DF300",
+        "original_entry": "0x4DF300",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DF300",
+            "definition_line": 5048,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000DF730",
+        "original_entry": "0x4DF730",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DF730",
+            "definition_line": 5155,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E0380",
+        "original_entry": "0x4E0380",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E0380",
+            "definition_line": 6252,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E4460",
+        "original_entry": "0x4E4460",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E4460",
+            "definition_line": 7476,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E4A50",
+        "original_entry": "0x4E4A50",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E4A50",
+            "definition_line": 3158,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E4EA0",
+        "original_entry": "0x4E4EA0",
+        "definitions": [
+          {
+            "path": "src/LegacyCatalogWindows.cpp",
+            "symbol": "Sub_4E4EA0",
+            "definition_line": 104,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E5E40",
+        "original_entry": "0x4E5E40",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E5E40",
+            "definition_line": 7570,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E92A0",
+        "original_entry": "0x4E92A0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E92A0",
+            "definition_line": 8608,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E97E0",
+        "original_entry": "0x4E97E0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E97E0",
+            "definition_line": 8743,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000E9C80",
+        "original_entry": "0x4E9C80",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4E9C80",
+            "definition_line": 8880,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EA1B0",
+        "original_entry": "0x4EA1B0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EA1B0",
+            "definition_line": 9012,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EA690",
+        "original_entry": "0x4EA690",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EA690",
+            "definition_line": 9130,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EAAA0",
+        "original_entry": "0x4EAAA0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EAAA0",
+            "definition_line": 9546,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EB1C0",
+        "original_entry": "0x4EB1C0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EB1C0",
+            "definition_line": 9682,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EB890",
+        "original_entry": "0x4EB890",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EB890",
+            "definition_line": 9430,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EBAA0",
+        "original_entry": "0x4EBAA0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EBAA0",
+            "definition_line": 9470,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EBD20",
+        "original_entry": "0x4EBD20",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EBD20",
+            "definition_line": 9837,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EC240",
+        "original_entry": "0x4EC240",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EC240",
+            "definition_line": 9229,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000ECE00",
+        "original_entry": "0x4ECE00",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4ECE00",
+            "definition_line": 11456,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000ED020",
+        "original_entry": "0x4ED020",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4ED020",
+            "definition_line": 11511,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EDB20",
+        "original_entry": "0x4EDB20",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EDB20",
+            "definition_line": 11641,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EE380",
+        "original_entry": "0x4EE380",
+        "definitions": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbol": "Sub_4EE380",
+            "definition_line": 35796,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EF0F0",
+        "original_entry": "0x4EF0F0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EF0F0",
+            "definition_line": 11792,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000EFB70",
+        "original_entry": "0x4EFB70",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EFB70",
+            "definition_line": 2848,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F0460",
+        "original_entry": "0x4F0460",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F0460",
+            "definition_line": 2991,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F0B40",
+        "original_entry": "0x4F0B40",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F0B40",
+            "definition_line": 11912,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F0CD0",
+        "original_entry": "0x4F0CD0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F0CD0",
+            "definition_line": 3258,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F0E20",
+        "original_entry": "0x4F0E20",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F0E20",
+            "definition_line": 3291,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F0F70",
+        "original_entry": "0x4F0F70",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F0F70",
+            "definition_line": 11957,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F1C40",
+        "original_entry": "0x4F1C40",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F1C40",
+            "definition_line": 12087,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F2130",
+        "original_entry": "0x4F2130",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F2130",
+            "definition_line": 12316,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F2A30",
+        "original_entry": "0x4F2A30",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F2A30",
+            "definition_line": 12524,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F3ED0",
+        "original_entry": "0x4F3ED0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F3ED0",
+            "definition_line": 12198,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F4790",
+        "original_entry": "0x4F4790",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F4790",
+            "definition_line": 13029,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F51D0",
+        "original_entry": "0x4F51D0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F51D0",
+            "definition_line": 13291,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F5A60",
+        "original_entry": "0x4F5A60",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F5A60",
+            "definition_line": 13939,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F6220",
+        "original_entry": "0x4F6220",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F6220",
+            "definition_line": 14100,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F6CA0",
+        "original_entry": "0x4F6CA0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F6CA0",
+            "definition_line": 14291,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F7150",
+        "original_entry": "0x4F7150",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F7150",
+            "definition_line": 14409,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000F83B0",
+        "original_entry": "0x4F83B0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F83B0",
+            "definition_line": 14746,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FA050",
+        "original_entry": "0x4FA050",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FA050",
+            "definition_line": 15523,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FA350",
+        "original_entry": "0x4FA350",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FA350",
+            "definition_line": 15483,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FAEF0",
+        "original_entry": "0x4FAEF0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FAEF0",
+            "definition_line": 15596,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FBB40",
+        "original_entry": "0x4FBB40",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FBB40",
+            "definition_line": 15870,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FC8F0",
+        "original_entry": "0x4FC8F0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FC8F0",
+            "definition_line": 17055,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FD1A0",
+        "original_entry": "0x4FD1A0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FD1A0",
+            "definition_line": 17343,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FD6A0",
+        "original_entry": "0x4FD6A0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FD6A0",
+            "definition_line": 15401,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FE860",
+        "original_entry": "0x4FE860",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FE860",
+            "definition_line": 17846,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FEF30",
+        "original_entry": "0x4FEF30",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FEF30",
+            "definition_line": 18081,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FF1A0",
+        "original_entry": "0x4FF1A0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FF1A0",
+            "definition_line": 18175,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:000FF4C0",
+        "original_entry": "0x4FF4C0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FF4C0",
+            "definition_line": 18283,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:00100370",
+        "original_entry": "0x500370",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_500370",
+            "definition_line": 16298,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:001006F0",
+        "original_entry": "0x5006F0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_5006F0",
+            "definition_line": 16396,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:001029B0",
+        "original_entry": "0x5029B0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_5029B0",
+            "definition_line": 18358,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:00105170",
+        "original_entry": "0x505170",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_505170",
+            "definition_line": 13507,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:00105C20",
+        "original_entry": "0x505C20",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_505C20",
+            "definition_line": 13785,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012D7B0",
+        "original_entry": "0x52D7B0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52D7B0",
+            "definition_line": 9900,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012DCE0",
+        "original_entry": "0x52DCE0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52DCE0",
+            "definition_line": 10032,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012E240",
+        "original_entry": "0x52E240",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52E240",
+            "definition_line": 10149,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012E650",
+        "original_entry": "0x52E650",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52E650",
+            "definition_line": 10244,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012ED50",
+        "original_entry": "0x52ED50",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52ED50",
+            "definition_line": 10383,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012F460",
+        "original_entry": "0x52F460",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52F460",
+            "definition_line": 10540,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012F670",
+        "original_entry": "0x52F670",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52F670",
+            "definition_line": 10580,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012F910",
+        "original_entry": "0x52F910",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52F910",
+            "definition_line": 10645,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:0012FD60",
+        "original_entry": "0x52FD60",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52FD60",
+            "definition_line": 10724,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:00130BA0",
+        "original_entry": "0x530BA0",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_530BA0",
+            "definition_line": 10947,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      },
+      {
+        "inventory_id": "F:00132450",
+        "original_entry": "0x532450",
+        "definitions": [
+          {
+            "path": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_532450",
+            "definition_line": 11297,
+            "namespace": "cg::login::detail"
+          }
+        ]
+      }
+    ],
+    "removed_non_inventory_definitions": [
+      {
+        "source_address": "0x4FC730",
+        "definition": {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FC730",
+          "definition_line": 17024,
+          "namespace": "cg::login::detail"
+        }
+      }
+    ],
+    "inventory_entries_retired": 99,
+    "scope": "仅当前工程已证无消费者的97旧handler及3独占初始化；原身份保持。"
   }
 }

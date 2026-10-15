@@ -79478,14 +79478,14 @@
       ]
     },
     {
-      "disposition": "adapted",
+      "disposition": "excluded",
       "inventory_id": "F:000021A0",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure",
-        "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000F7870",
@@ -79499,23 +79499,23 @@
     },
     {
       "inventory_id": "F:000FF650",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/legacy_skill_panels.md#skill-detail-source-closure",
-        "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D62A0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
-        "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:00003C50",
@@ -81949,22 +81949,13 @@
     },
     {
       "inventory_id": "F:000D8DA0",
-      "disposition": "mixed",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-baseline",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-decision",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-acceptance",
-        "doc/cg2d_shop_choice_body_spec.md#shop-preview-flag-source-state",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-baseline",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-decision",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-acceptance",
-        "doc/cg2d_shop_command_read_spec.md#shop-command-read-source-state",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-decision",
-        "doc/cg2d_asm_to_cpp_migration_spec.md#asm-cpp-crt-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "ACP01-C最新：当前数值提供者改CPP/double/std数学与宿主浮点环境；原私有ST0接口退役，数学组按宿主/混合承接登记，不称原体等价。业务字段、低宽整数读与错误记录/系统回调保留；完整原间接父/CRT/生命周期未闭。迁移前处置mixed与边界：BWT01修复旧商店4D8DA0命令格式参数的C++未生产整数直接求值：原3×S32命令与低位写1/2/末尾3、mode==3三行否则两行保持；同原row<=1命中后只借&commands[row]到真实Cg2dReadLegacyShopCommandW32，MOV EAX,DWORD PTR[RCX];RET实际读W32后给既有53B304 %d。三现源四改、一ASM私有读取叶/声明，零CPP新正文/owner/依赖/原身份；不补值、改写、保护、删行或造旧栈。当前39条152B原命令窗口及4D8F5B8B07对照，复用SCP01全321条1080B与原格式/转义/明文发送和BVV预览修复。仅已有1226/mixed/pending6、UI-L-062两成员及两限定I-S/E1178；所有数量/完整门禁保持，原实际模式/未写命令值/旧外层和机器运行继续，RPLAN.24/音频暂停保。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:0013C9DD",
@@ -84514,15 +84505,13 @@
     },
     {
       "inventory_id": "F:000EDB20",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_evidence.json"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:00104120",
@@ -91831,87 +91820,73 @@
     },
     {
       "inventory_id": "F:000D9220",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4D9220 买入：恢复gLegacyBuyActionD67C6C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000DAA40",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4DAA40 卖出：恢复gLegacySellActionD67C74一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000DC7E0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4DC7E0 修理：恢复gLegacyRepairActionD67C7C一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000DDFC0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4DDFC0 鉴定：恢复gLegacyIdentifyActionD67C84一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D36F0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4D36F0 交换：恢复gLegacyBarterActionD67C50一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D55C0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-baseline",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-decision",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-acceptance",
-        "doc/cg2d_legacy_preview_flag_sampling_spec.md#legacy-preview-flag-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "4D55C0 交出/接受数量：恢复gLegacyGiveReceiveQuantityActionCB1DD4一次非拥有指针取样，原判空与既有SetYobiActionFlag2(false)借同一样本清W32 bit1；其它完整父正文、字段/模式/显示/格式/原字节/消费者/关闭回收与生产叶保持，只本标志阶段，不宣全父/旧外路由或运行等价。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000F6220",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-baseline",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-decision",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-acceptance",
-        "doc/cg2d_album_preview_sampling_spec.md#album-preview-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "BVX01旧24图鉴详情4F6220两不同预览阶段定点20条80B：有记录16条67B保持initial action先取→清newFlag→同样本判断，以及映图返回后fresh图号写、fresh bit1清、fresh0CH清的三次独立action取样；空记录四条13B持样判空后OR W32 bit1，一CPP一片段恢复这一原取样。原helper/头与其它完整父正文、生产/图号/格式/消费者保持，无新函数/API/helper/owner，不缓存有记录fresh阶段。既有1044更新不重计原新，单adapted F、UI-L-024一主父，两限定I-S；只本源码与相关原点，不重验完整688父或旧路由/全部生产和owner寿命/机器ABI/画面运行，原格式明文/音频暂停/RPLAN.24保，完整门禁保持。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000F61C0",
@@ -91939,78 +91914,63 @@
     },
     {
       "inventory_id": "F:000D6710",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "技能选择4D6710：原0x4d6815..0x4d6822四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D6A60",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "技能学习4D6A60：原0x4d6b32..0x4d6b3f四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D6EA0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "技能遗忘4D6EA0：原0x4d6f4a..0x4d6f57四条13B，一次取gLegacySkillChoiceActionD67C58，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D7470",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
-        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "宠物技能目录4D7470：原0x4d75ab..0x4d75b8四条13B，一次取gLegacyPetSkillCatalogActionD67C5C，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D7C20",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
-        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "候选宠物4D7C20：原0x4d7ce2..0x4d7cef四条13B，一次取gLegacyPetSkillPetActionD67C60，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D8230",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-baseline",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-decision",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-acceptance",
-        "doc/cg2d_skill_preview_flag_boundary_spec.md#skill-preview-source-state",
-        "doc/ui_windows/legacy_pet_skill_catalog.md#legacy-catalog-table-pointer-relations-20261012"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "宠物技能槽4D8230：原0x4d82f7..0x4d8304四条13B，一次取gLegacyPetSkillSlotsActionD67C64，同样本判空并清flags的W32 bit1。通过既有SetYobiActionFlag2(previewAction,false)恢复类型边界与指针持样，其他位、正常分支、完整父/格式/字节和消费者保持。 仅本阶段；其余已存合同沿旧记录，完整父/外路由/寿命及运行仍待。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:00104180",
@@ -93376,12 +93336,13 @@
     },
     {
       "inventory_id": "F:000FDBD0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
-        "doc/cg2d_audio_settings_pages_evidence.json"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000FDE10",
@@ -93403,12 +93364,13 @@
     },
     {
       "inventory_id": "F:000FE0E0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_display_settings.md#audio-settings-pages-source-state",
-        "doc/cg2d_audio_settings_pages_evidence.json"
-      ]
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:0012C160",
@@ -93716,87 +93678,73 @@
     },
     {
       "inventory_id": "F:000DF730",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000EAAA0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:0012E650",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只局部绘字lambda font S32改S8，三个父真实调用均font0/1，对应原456780 a4低BYTE消费；公共入口/颜色/坐标/文本字节、绘字参数与全部其它正文/音效/调用/返回保持。16原调用邻窗224条663B及入口36条仅本次范围，不代全父/callee/正常寿命/旧表路由/机器ABI/画面或运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000E92A0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000E97E0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000E9C80",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:0012D7B0",
-      "disposition": "adapted",
+      "disposition": "excluded",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-decision",
-        "doc/ui_windows/shared_legacy_panels.md#panel-local-value-source-state",
-        "doc/cg2d_panel_local_value_evidence.json",
-        "doc/cg2d_build_acceptance_spec.md#panel-local-value-debug-build"
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
       ],
-      "boundary": "CAB28只撤独立未初始化行列及命中赋值，扫描后由最终hovered还原row=(hovered-8)/5、column=(hovered-8)%5。保四行五列/每行首命中后外层继续、used/gift独立索引及后行unused保较早有效索引、原共享坐标消费与音效/调用/返回。坐标用最终hovered，原门禁下只能8..27；未命中仅未消费算术值，无补零/额外门禁/钳制/异常模拟。四扫描210条646B为本次范围，不代全父/callee/旧表路由/正常寿命/ABI/画面运行。"
+      "boundary": "LWR01：按用户要求废弃当前工程无消费者的旧处理器；原身份／历史保留，不计实现和运行通过。"
     },
     {
       "inventory_id": "F:000D0EB0",
@@ -103747,6 +103695,726 @@
         "doc/cg2d_semantic_function_mappings.json#/records/221"
       ],
       "reason": "仅将既有三字段载荷复制映射为同类operator=；原438270身份／实施状态沿全量表及既有语义，不新增原端取证或完整SDK／运行验收。"
+    },
+    {
+      "inventory_id": "F:000014B0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D3210",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D3410",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D4A50",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D4F00",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D5250",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D7440",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D7BF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D8200",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000D88C0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000DA580",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000DBD30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000DC290",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000DDB20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000DF300",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000E0380",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000E4460",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000E4A50",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000E4EA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000E5E40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EA1B0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EA690",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EB1C0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EB890",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EBAA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EBD20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EC240",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000ECE00",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000ED020",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EE380",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EF0F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000EFB70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F0460",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F0B40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F0CD0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F0E20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F0F70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F1C40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F2130",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F2A30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F3ED0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F4790",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F51D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F5A60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F6CA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F7150",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000F83B0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FA050",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FA350",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FAEF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FBB40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FC8F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FD1A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FD6A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FE860",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FEF30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FF1A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:000FF4C0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:00100370",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:001006F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:001029B0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:00105170",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:00105C20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012DCE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012E240",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012ED50",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012F460",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012F670",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012F910",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:0012FD60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:00130BA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
+    },
+    {
+      "inventory_id": "F:00132450",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_window_retirement_spec.md",
+        "doc/cg2d_legacy_window_retirement_evidence.json"
+      ],
+      "boundary": "LWR01：当前工程无消费者，用户授权废弃并移除；不证明原端不可达。"
     }
   ],
   "auxiliary_dispositions": [
@@ -191227,5 +191895,22 @@
     "layout_assertions": "WindowMaterialState的24B大小、S32对齐、三个字段偏移和标准布局／平凡复制性质，以及选择槽20B断言已加入；本步未编译，不计断言执行通过。",
     "validation": "USR03静态核对完成：模板及18处调用已移除，39处商店模式访问改具名字段；三处24B整区清零、原地址注释及读写顺序保持。制作／商店源码归一化对照、当前定位、3680行原身份／状态、UTF-8无BOM／LF、JSON与Git差异检查通过。已加入布局断言，本步未编译、测试或运行。",
     "ledger_validation": "台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。"
+  },
+  "legacy_window_retirement_lwr01": {
+    "spec": "doc/cg2d_legacy_window_retirement_spec.md",
+    "evidence": "doc/cg2d_legacy_window_retirement_evidence.json",
+    "handler_count": 97,
+    "original_address_functions_removed": 100,
+    "inventory_entries_retired": 99,
+    "non_inventory_target": "0x4FC730",
+    "preserved_scope": [
+      "旧选择控制和状态",
+      "登录复用的公共Yobi面板",
+      "现代窗口分发"
+    ],
+    "shared_feature_gates_changed": false,
+    "built": false,
+    "runtime_verified": false,
+    "scope": "只废弃当前工程处理器层，原二进制不可达未证；旧五项目录缺证不改写为生产／功能通过。"
   }
 }

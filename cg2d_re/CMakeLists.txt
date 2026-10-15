@@ -79,7 +79,6 @@ add_library(cg2d_re_startup STATIC
     # 用户排除屏幕键盘；LegacyExternalKeyboard*.cpp仅保留为历史源码。
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp
-    src/LegacyCatalogWindows.cpp
     src/LegacyRecordOrder.cpp
     src/LegacyAudio.cpp
     src/Blacklist.cpp

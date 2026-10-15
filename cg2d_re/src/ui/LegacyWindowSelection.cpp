@@ -1,6 +1,5 @@
 #include "cg/ui/LegacyWindowSelection.hpp"
 
-#include "../LegacyPanelRuntime.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -14,10 +13,9 @@ namespace cg::ui {
 namespace {
 
 // 原 [0x0057C368,0x0057CB24)：99 项旧窗口记录，原 x86 步长 0x14。
-// handler 绑定实际处理器；运行对象由 runtimeAction 非拥有借用。
+// 旧handler层已废弃；仅保留仍被调用的选择／对象状态，见LWR01。
 struct LegacyWindowRecord final {
     std::uint32_t id; // 原 +0x00：旧窗口编号，与现代 WindowId 独立。
-    LegacyWindowHandler handler; // 原 +0x04：旧窗口处理器，绑定见表内原地址。
     std::int8_t category; // 原 +0x08：0/1 活动槽，2 为两槽互斥类别。
     std::array<std::uint8_t, 3> reserved09 {}; // 原 +0x09：未定字节。
     login::YobiAction* runtimeAction = nullptr; // 原 +0x0C：503160 维护的窗口对象。
@@ -26,128 +24,114 @@ struct LegacyWindowRecord final {
 };
 
 static_assert(offsetof(LegacyWindowRecord, id) == 0);
-static_assert(offsetof(LegacyWindowRecord, handler) == 8);
-static_assert(offsetof(LegacyWindowRecord, category) == 16);
+static_assert(offsetof(LegacyWindowRecord, category) == 4);
 static_assert(sizeof(decltype(LegacyWindowRecord::category)) == 1);
-static_assert(offsetof(LegacyWindowRecord, reserved09) == 17);
-static_assert(offsetof(LegacyWindowRecord, runtimeAction) == 24);
-static_assert(offsetof(LegacyWindowRecord, dirty) == 32);
-static_assert(offsetof(LegacyWindowRecord, reserved11) == 33);
-static_assert(sizeof(LegacyWindowRecord) == 40);
-
-// 旧处理器分别返回 S32/U32/原生地址：整数保留原低 W32，地址保留宿主全宽。
-// 仅适配函数类型，不转换函数指针，不改变处理器调用次数或 opened 实参。
-template <auto Handler>
-std::uintptr_t InvokeLegacyWindowHandler(const std::int32_t opened)
-{
-    const auto result = Handler(opened);
-    if constexpr (sizeof(result) == sizeof(std::uint32_t)) {
-        return static_cast<std::uint32_t>(result);
-    } else {
-        return result;
-    }
-}
+static_assert(offsetof(LegacyWindowRecord, reserved09) == 5);
+static_assert(offsetof(LegacyWindowRecord, runtimeAction) == 8);
+static_assert(offsetof(LegacyWindowRecord, dirty) == 16);
+static_assert(offsetof(LegacyWindowRecord, reserved11) == 17);
+static_assert(sizeof(LegacyWindowRecord) == 24);
 
 std::array<LegacyWindowRecord, 99> gLegacyWindowRecords57C368 {{ // 原全局：0x0057C368。
-    {0, nullptr, 2},
-    {1, InvokeLegacyWindowHandler<login::detail::Sub_5029B0>, 1}, // 原回调：0x005029B0。
-    {2, InvokeLegacyWindowHandler<login::detail::Sub_5006F0>, 0}, // 原回调：0x005006F0。
-    {18, InvokeLegacyWindowHandler<login::detail::Sub_500370>, 0}, // 原回调：0x00500370。
-    {19, InvokeLegacyWindowHandler<login::detail::Sub_4FF650>, 0}, // 原回调：0x004FF650。
-    {14, InvokeLegacyWindowHandler<login::detail::Sub_4FAEF0>, 1}, // 原回调：0x004FAEF0。
-    {15, InvokeLegacyWindowHandler<login::detail::Sub_4FBB40>, 1}, // 原回调：0x004FBB40。
-    {16, InvokeLegacyWindowHandler<login::detail::Sub_4F0F70>, 1}, // 原回调：0x004F0F70。
-    {20, InvokeLegacyWindowHandler<login::detail::Sub_4F7150>, 0}, // 原回调：0x004F7150。
-    {21, InvokeLegacyWindowHandler<login::detail::Sub_4F83B0>, 0}, // 原回调：0x004F83B0。
-    {22, InvokeLegacyWindowHandler<login::detail::Sub_4FA050>, 0}, // 原回调：0x004FA050。
-    {25, InvokeLegacyWindowHandler<login::detail::Sub_4F5A60>, 0}, // 原回调：0x004F5A60。
-    {26, InvokeLegacyWindowHandler<login::detail::Sub_4F51D0>, 0}, // 原回调：0x004F51D0。
-    {27, InvokeLegacyWindowHandler<login::detail::Sub_4F4790>, 1}, // 原回调：0x004F4790。
-    {29, InvokeLegacyWindowHandler<login::detail::Sub_505C20>, 0}, // 原回调：0x00505C20。
-    {30, InvokeLegacyWindowHandler<login::detail::Sub_505170>, 1}, // 原回调：0x00505170。
-    {28, InvokeLegacyWindowHandler<login::detail::Sub_4F3ED0>, 0}, // 原回调：0x004F3ED0。
-    {31, InvokeLegacyWindowHandler<login::detail::Sub_4F2A30>, 1}, // 原回调：0x004F2A30。
-    {32, InvokeLegacyWindowHandler<login::detail::Sub_4F2130>, 1}, // 原回调：0x004F2130。
-    {33, InvokeLegacyWindowHandler<login::detail::Sub_4F1C40>, 0}, // 原回调：0x004F1C40。
-    {34, InvokeLegacyWindowHandler<login::detail::Sub_4F0B40>, 2}, // 原回调：0x004F0B40。
-    {35, InvokeLegacyWindowHandler<login::detail::Sub_4F0460>, 2}, // 原回调：0x004F0460。
-    {36, InvokeLegacyWindowHandler<login::detail::Sub_4EFB70>, 2}, // 原回调：0x004EFB70。
-    {37, InvokeLegacyWindowHandler<login::detail::Sub_4EF0F0>, 0}, // 原回调：0x004EF0F0。
-    {38, InvokeLegacyWindowHandler<login::detail::Sub_4EE380>, 0}, // 原回调：0x004EE380。
-    {39, InvokeLegacyWindowHandler<login::detail::Sub_4EDB20>, 0}, // 原回调：0x004EDB20。
-    {40, InvokeLegacyWindowHandler<login::detail::Sub_4ED020>, 2}, // 原回调：0x004ED020。
-    {41, InvokeLegacyWindowHandler<login::detail::Sub_4ECE00>, 2}, // 原回调：0x004ECE00。
-    {42, InvokeLegacyWindowHandler<login::detail::Sub_4EC240>, 0}, // 原回调：0x004EC240。
-    {43, InvokeLegacyWindowHandler<login::detail::Sub_4EBD20>, 0}, // 原回调：0x004EBD20。
-    {44, InvokeLegacyWindowHandler<login::detail::Sub_4EBAA0>, 0}, // 原回调：0x004EBAA0。
-    {45, InvokeLegacyWindowHandler<login::detail::Sub_4EB890>, 0}, // 原回调：0x004EB890。
-    {46, InvokeLegacyWindowHandler<login::detail::Sub_4EB1C0>, 0}, // 原回调：0x004EB1C0。
-    {47, InvokeLegacyWindowHandler<login::detail::Sub_4EAAA0>, 0}, // 原回调：0x004EAAA0。
-    {48, InvokeLegacyWindowHandler<login::detail::Sub_4EA690>, 0}, // 原回调：0x004EA690。
-    {49, InvokeLegacyWindowHandler<login::detail::Sub_4EA1B0>, 0}, // 原回调：0x004EA1B0。
-    {50, InvokeLegacyWindowHandler<login::detail::Sub_4E9C80>, 1}, // 原回调：0x004E9C80。
-    {94, InvokeLegacyWindowHandler<login::detail::Sub_52FD60>, 0}, // 原回调：0x0052FD60。
-    {93, InvokeLegacyWindowHandler<login::detail::Sub_52F910>, 0}, // 原回调：0x0052F910。
-    {92, InvokeLegacyWindowHandler<login::detail::Sub_52F670>, 0}, // 原回调：0x0052F670。
-    {91, InvokeLegacyWindowHandler<login::detail::Sub_52F460>, 0}, // 原回调：0x0052F460。
-    {90, InvokeLegacyWindowHandler<login::detail::Sub_52ED50>, 0}, // 原回调：0x0052ED50。
-    {89, InvokeLegacyWindowHandler<login::detail::Sub_52E650>, 0}, // 原回调：0x0052E650。
-    {88, InvokeLegacyWindowHandler<login::detail::Sub_52E240>, 0}, // 原回调：0x0052E240。
-    {87, InvokeLegacyWindowHandler<login::detail::Sub_52DCE0>, 0}, // 原回调：0x0052DCE0。
-    {86, InvokeLegacyWindowHandler<login::detail::Sub_52D7B0>, 1}, // 原回调：0x0052D7B0。
-    {95, InvokeLegacyWindowHandler<login::detail::Sub_530BA0>, 0}, // 原回调：0x00530BA0。
-    {96, InvokeLegacyWindowHandler<login::detail::Sub_532450>, 0}, // 原回调：0x00532450。
-    {51, InvokeLegacyWindowHandler<login::detail::Sub_4E4EA0>, 2}, // 原回调：0x004E4EA0。
-    {52, InvokeLegacyWindowHandler<login::detail::Sub_4E5E40>, 2}, // 原回调：0x004E5E40。
-    {23, InvokeLegacyWindowHandler<login::detail::Sub_4F6CA0>, 0}, // 原回调：0x004F6CA0。
-    {24, InvokeLegacyWindowHandler<login::detail::Sub_4F6220>, 0}, // 原回调：0x004F6220。
-    {3, InvokeLegacyWindowHandler<login::detail::Sub_4FC730>, 0}, // 原回调：0x004FC730。
-    {4, InvokeLegacyWindowHandler<login::detail::Sub_4FC8F0>, 0}, // 原回调：0x004FC8F0。
-    {5, InvokeLegacyWindowHandler<login::detail::Sub_4FD1A0>, 0}, // 原回调：0x004FD1A0。
-    {6, InvokeLegacyWindowHandler<login::detail::Sub_4FD6A0>, 0}, // 原回调：0x004FD6A0。
-    {7, InvokeLegacyWindowHandler<login::detail::Sub_4FDBD0>, 0}, // 原回调：0x004FDBD0。
-    {8, InvokeLegacyWindowHandler<login::detail::Sub_4FE0E0>, 0}, // 原回调：0x004FE0E0。
-    {9, InvokeLegacyWindowHandler<login::detail::Sub_4FE860>, 0}, // 原回调：0x004FE860。
-    {10, InvokeLegacyWindowHandler<login::detail::Sub_4FEF30>, 0}, // 原回调：0x004FEF30。
-    {11, InvokeLegacyWindowHandler<login::detail::Sub_4FF1A0>, 0}, // 原回调：0x004FF1A0。
-    {12, InvokeLegacyWindowHandler<login::detail::Sub_4FF4C0>, 0}, // 原回调：0x004FF4C0。
-    {17, InvokeLegacyWindowHandler<login::detail::Sub_4FA350>, 1}, // 原回调：0x004FA350。
-    {53, InvokeLegacyWindowHandler<login::detail::Sub_4D3210>, 2}, // 原回调：0x004D3210。
-    {54, InvokeLegacyWindowHandler<login::detail::Sub_4D3410>, 2}, // 原回调：0x004D3410。
-    {55, InvokeLegacyWindowHandler<login::detail::Sub_4D6710>, 2}, // 原回调：0x004D6710。
-    {56, InvokeLegacyWindowHandler<login::detail::Sub_4D6A60>, 2}, // 原回调：0x004D6A60。
-    {57, InvokeLegacyWindowHandler<login::detail::Sub_4D6EA0>, 2}, // 原回调：0x004D6EA0。
-    {62, InvokeLegacyWindowHandler<login::detail::Sub_4D8DA0>, 2}, // 原回调：0x004D8DA0。
-    {63, InvokeLegacyWindowHandler<login::detail::Sub_4D9220>, 2}, // 原回调：0x004D9220。
-    {65, InvokeLegacyWindowHandler<login::detail::Sub_4DA580>, 2}, // 原回调：0x004DA580。
-    {64, InvokeLegacyWindowHandler<login::detail::Sub_4DAA40>, 2}, // 原回调：0x004DAA40。
-    {66, InvokeLegacyWindowHandler<login::detail::Sub_4DBD30>, 2}, // 原回调：0x004DBD30。
-    {67, InvokeLegacyWindowHandler<login::detail::Sub_4DC290>, 2}, // 原回调：0x004DC290。
-    {68, InvokeLegacyWindowHandler<login::detail::Sub_4DDFC0>, 2}, // 原回调：0x004DDFC0。
-    {69, InvokeLegacyWindowHandler<login::detail::Sub_4DF300>, 2}, // 原回调：0x004DF300。
-    {70, InvokeLegacyWindowHandler<login::detail::Sub_4DC7E0>, 2}, // 原回调：0x004DC7E0。
-    {71, InvokeLegacyWindowHandler<login::detail::Sub_4DDB20>, 2}, // 原回调：0x004DDB20。
-    {72, InvokeLegacyWindowHandler<login::detail::Sub_4E0380>, 2}, // 原回调：0x004E0380。
-    {73, InvokeLegacyWindowHandler<login::detail::Sub_4DF730>, 2}, // 原回调：0x004DF730。
-    {58, InvokeLegacyWindowHandler<login::detail::Sub_4D7470>, 2}, // 原回调：0x004D7470。
-    {59, InvokeLegacyWindowHandler<login::detail::Sub_4D7C20>, 2}, // 原回调：0x004D7C20。
-    {60, InvokeLegacyWindowHandler<login::detail::Sub_4D8230>, 2}, // 原回调：0x004D8230。
-    {61, InvokeLegacyWindowHandler<login::detail::Sub_4D88C0>, 2}, // 原回调：0x004D88C0。
-    {74, InvokeLegacyWindowHandler<login::detail::Sub_4D4F00>, 2}, // 原回调：0x004D4F00。
-    {75, InvokeLegacyWindowHandler<login::detail::Sub_4D36F0>, 2}, // 原回调：0x004D36F0。
-    {76, InvokeLegacyWindowHandler<login::detail::Sub_4D4A50>, 2}, // 原回调：0x004D4A50。
-    {77, InvokeLegacyWindowHandler<login::detail::Sub_4E4A50>, 2}, // 原回调：0x004E4A50。
-    {78, InvokeLegacyWindowHandler<login::detail::Sub_4E4460>, 2}, // 原回调：0x004E4460。
-    {79, InvokeLegacyWindowHandler<login::detail::Sub_4E92A0>, 1}, // 原回调：0x004E92A0。
-    {80, InvokeLegacyWindowHandler<login::detail::Sub_4E97E0>, 1}, // 原回调：0x004E97E0。
-    {81, InvokeLegacyWindowHandler<login::detail::Sub_4F0CD0>, 2}, // 原回调：0x004F0CD0。
-    {82, InvokeLegacyWindowHandler<login::detail::Sub_4F0E20>, 2}, // 原回调：0x004F0E20。
-    {83, InvokeLegacyWindowHandler<login::detail::Sub_4D5250>, 2}, // 原回调：0x004D5250。
-    {84, InvokeLegacyWindowHandler<login::detail::Sub_4D55C0>, 2}, // 原回调：0x004D55C0。
-    {85, InvokeLegacyWindowHandler<login::detail::Sub_4D62A0>, 2}, // 原回调：0x004D62A0。
-    {98, InvokeLegacyWindowHandler<login::detail::Sub_4021A0>, 2}, // 原回调：0x004021A0。
-    {99, InvokeLegacyWindowHandler<login::detail::Sub_4014B0>, 2}, // 原回调：0x004014B0。
-    {100, nullptr, 2},
+    {0, 2},
+    {1, 1},
+    {2, 0},
+    {18, 0},
+    {19, 0},
+    {14, 1},
+    {15, 1},
+    {16, 1},
+    {20, 0},
+    {21, 0},
+    {22, 0},
+    {25, 0},
+    {26, 0},
+    {27, 1},
+    {29, 0},
+    {30, 1},
+    {28, 0},
+    {31, 1},
+    {32, 1},
+    {33, 0},
+    {34, 2},
+    {35, 2},
+    {36, 2},
+    {37, 0},
+    {38, 0},
+    {39, 0},
+    {40, 2},
+    {41, 2},
+    {42, 0},
+    {43, 0},
+    {44, 0},
+    {45, 0},
+    {46, 0},
+    {47, 0},
+    {48, 0},
+    {49, 0},
+    {50, 1},
+    {94, 0},
+    {93, 0},
+    {92, 0},
+    {91, 0},
+    {90, 0},
+    {89, 0},
+    {88, 0},
+    {87, 0},
+    {86, 1},
+    {95, 0},
+    {96, 0},
+    {51, 2},
+    {52, 2},
+    {23, 0},
+    {24, 0},
+    {3, 0},
+    {4, 0},
+    {5, 0},
+    {6, 0},
+    {7, 0},
+    {8, 0},
+    {9, 0},
+    {10, 0},
+    {11, 0},
+    {12, 0},
+    {17, 1},
+    {53, 2},
+    {54, 2},
+    {55, 2},
+    {56, 2},
+    {57, 2},
+    {62, 2},
+    {63, 2},
+    {65, 2},
+    {64, 2},
+    {66, 2},
+    {67, 2},
+    {68, 2},
+    {69, 2},
+    {70, 2},
+    {71, 2},
+    {72, 2},
+    {73, 2},
+    {58, 2},
+    {59, 2},
+    {60, 2},
+    {61, 2},
+    {74, 2},
+    {75, 2},
+    {76, 2},
+    {77, 2},
+    {78, 2},
+    {79, 1},
+    {80, 1},
+    {81, 2},
+    {82, 2},
+    {83, 2},
+    {84, 2},
+    {85, 2},
+    {98, 2},
+    {99, 2},
+    {100, 2},
 }};
 std::array<std::uint32_t, 3> gLegacyWindowSelectionCC236C {}; // 原全局：0x00CC236C。
 static_assert(sizeof(gLegacyWindowRecords57C368) == 99 * sizeof(LegacyWindowRecord));
@@ -164,16 +148,6 @@ std::int32_t __cdecl Sub_5044C0(const std::uint32_t id)
         }
     }
     return -1;
-}
-
-// 按旧窗口编号借用已绑定的处理器；0/100 两条原空记录仍返回 nullptr。
-LegacyWindowHandler FindLegacyWindowHandler(const std::uint32_t id)
-{
-    const std::int32_t index = Sub_5044C0(id);
-    if (index < 0) {
-        return nullptr;
-    }
-    return gLegacyWindowRecords57C368[static_cast<std::size_t>(index)].handler;
 }
 
 login::YobiAction*& BorrowLegacyPanelAction57C374(const std::int32_t index) noexcept

@@ -27,9 +27,9 @@ std::int32_t ProcessCharacterModal_462090(
     };
     std::int32_t result = 0;
 
-    login::YobiAction* modalAction = state::gCharacterModalAction;
+    cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,
@@ -42,17 +42,17 @@ std::int32_t ProcessCharacterModal_462090(
         }
     }
 
-    if (login::detail::IsYobiActionStateLessOrEqual(modalAction, 0)) {
+    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(modalAction, 0)) {
         return 0;
     }
 
     if ((detail::Sub_503990(&uiRecord) & 1) != 0) {
         result = 1;
         login::detail::PlaySe(79, 320, 240);
-        login::YobiAction* const actionToDestroy =
+        cg::yobi::YobiAction* const actionToDestroy =
             state::gCharacterModalAction;
         if (actionToDestroy != nullptr) {
-            login::detail::MarkDeath(actionToDestroy);
+            cg::yobi::detail::MarkDeath(actionToDestroy);
             state::gCharacterModalAction = nullptr;
         }
     }

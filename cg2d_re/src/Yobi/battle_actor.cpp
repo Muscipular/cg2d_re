@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1232,4 +1232,4 @@ void UpdateBattleAction236_406630(YobiAction* const action)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

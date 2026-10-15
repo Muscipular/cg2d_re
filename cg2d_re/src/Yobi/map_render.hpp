@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -20,4 +20,4 @@ YobiAction* Sub_444260(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

@@ -6,7 +6,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -595,4 +595,4 @@ void SyncBattleAttachmentAlpha_420F10(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

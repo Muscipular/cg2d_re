@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <optional>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1551,4 +1551,4 @@ YobiAction* NewBattleHitEffect_41F5B0(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

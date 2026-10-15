@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -395,7 +395,7 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi
 
 namespace cg::world::detail {
 

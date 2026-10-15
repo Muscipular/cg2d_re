@@ -66,26 +66,26 @@ void DrawCutObject(
         const std::int32_t startY = gMapYStart;
         const std::int32_t mapX = startX + column;
         const std::int32_t index = 399 * mapX + startY + row;
-        if (login::detail::MapYobiRegistryFlagAt(index) != 0) {
-            login::YobiAction* const action = login::detail::MapYobiRegistryActionAt(index);
-            login::detail::Sub_46DD90(action);
+        if (cg::yobi::detail::MapYobiRegistryFlagAt(index) != 0) {
+            cg::yobi::YobiAction* const action = cg::yobi::detail::MapYobiRegistryActionAt(index);
+            cg::yobi::detail::Sub_46DD90(action);
             return;
         }
         const std::int32_t mapY = startY + row;
-        login::detail::MapYobiRegistryFlagAt(index) = 1;
+        cg::yobi::detail::MapYobiRegistryFlagAt(index) = 1;
         const std::int32_t imageNo = cut.value00;
-        login::YobiAction* const action = login::detail::Sub_46DE50(imageNo, mapX, mapY);
+        cg::yobi::YobiAction* const action = cg::yobi::detail::Sub_46DE50(imageNo, mapX, mapY);
         const std::int32_t publishX = gMapXStart + column;
         const std::int32_t publishY = gMapYStart;
         const std::int32_t offsetX = cut.value0E;
-        login::detail::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
-        login::detail::SetYobiMapOffsetX(action, offsetX);
+        cg::yobi::detail::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
+        cg::yobi::detail::SetYobiMapOffsetX(action, offsetX);
         const std::int32_t offsetIndexX = gMapXStart + column;
         const std::int32_t offsetY = cut.value10;
         const std::int32_t offsetIndexY = gMapYStart;
-        login::YobiAction* const offsetAction =
-            login::detail::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
-        login::detail::SetYobiMapOffsetY(offsetAction, offsetY);
+        cg::yobi::YobiAction* const offsetAction =
+            cg::yobi::detail::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
+        cg::yobi::detail::SetYobiMapOffsetY(offsetAction, offsetY);
         return;
     }
     if (animationFlag != 0) {

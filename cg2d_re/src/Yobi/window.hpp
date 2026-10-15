@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -41,4 +41,4 @@ render::GraphicDescriptor16 ToGraphicDescriptor(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

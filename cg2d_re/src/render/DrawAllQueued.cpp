@@ -134,19 +134,19 @@ void DrawScaledNodes(
         const TextureRectangle rectangle = MakeNodeRectangle(node, x, y, width, height);
         const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
         const std::int32_t originX = graphic->x;
-        const login::YobiAction* const action = useActionScale ? graphic->reference.action : nullptr;
+        const cg::yobi::YobiAction* const action = useActionScale ? graphic->reference.action : nullptr;
         float scaleX = fixedScale;
         std::int32_t offsetX;
         if ((mixFlags & GraphicMixFlag_FlipX) != 0) {
             if (useActionScale) {
-                scaleX = login::detail::GetYobiActionScaleX(action);
+                scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
             }
             const std::int32_t fullWidth = ReadGraphicDxWidth(imageNo);
             offsetX = fullWidth - node->blockX - rectangle[2] + x;
         } else {
             const std::int32_t currentBlockX = node->blockX;
             if (useActionScale) {
-                scaleX = login::detail::GetYobiActionScaleX(action);
+                scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
             }
             offsetX = currentBlockX - x + rectangle[0];
         }
@@ -157,14 +157,14 @@ void DrawScaledNodes(
         std::int32_t offsetY;
         if ((mixFlags & GraphicMixFlag_FlipY) != 0) {
             if (useActionScale) {
-                scaleY = login::detail::GetYobiActionScaleY(action);
+                scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
             }
             const std::int32_t fullHeight = ReadGraphicDxHeight(imageNo);
             offsetY = fullHeight - node->blockY - rectangle[3] + y;
         } else {
             const std::int32_t currentBlockY = node->blockY;
             if (useActionScale) {
-                scaleY = login::detail::GetYobiActionScaleY(action);
+                scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
             }
             offsetY = currentBlockY - y + rectangle[1];
         }
@@ -265,13 +265,13 @@ void DrawSprite(GraphicCacheItem32* const graphic)
         return;
     }
     bool integerPath = true;
-    const login::YobiAction* const action = graphic->reference.action;
+    const cg::yobi::YobiAction* const action = graphic->reference.action;
     if (action != nullptr) {
-        const float scaleX = login::detail::GetYobiActionScaleX(action);
+        const float scaleX = cg::yobi::detail::GetYobiActionScaleX(action);
         // 原只测 x87 C3；unordered 与相等同支，X 未命中时不得读取 Y。
         integerPath = scaleX == 1.0f || std::isnan(scaleX);
         if (integerPath) {
-            const float scaleY = login::detail::GetYobiActionScaleY(action);
+            const float scaleY = cg::yobi::detail::GetYobiActionScaleY(action);
             integerPath = scaleY == 1.0f || std::isnan(scaleY);
         }
     }

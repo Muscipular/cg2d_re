@@ -29,7 +29,7 @@ struct ChoiceDialogRuntimeSlots {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049FCA0。
-static login::YobiAction* WindowShopChoice_Open(
+static cg::yobi::YobiAction* WindowShopChoice_Open(
     std::wstring_view title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
     const wchar_t* const* choices, std::uint8_t choiceCount,
     const wchar_t* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
@@ -187,7 +187,7 @@ static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
 }
 
 // 原函数：0x0049FCA0。
-static login::YobiAction* WindowShopChoice_Open(
+static cg::yobi::YobiAction* WindowShopChoice_Open(
     const std::wstring_view title, const std::int32_t imageNo,
     const std::wstring* const* const lines, const std::uint8_t lineCount,
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
@@ -223,9 +223,9 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         window->elements[0].x = ((window->width - measured) >> 1) + 6;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
-        login::detail::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
+        cg::yobi::detail::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
         animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
-        login::detail::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
         const std::uint8_t count = gChoiceDialog.choiceCount;
         gCurrentWindow->elements[2].height =
             count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
@@ -261,7 +261,7 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
                 3, 12, 0, text, 0, 0));
     }
     WindowInstance* const window = gCurrentWindow;
-    login::detail::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
+    cg::yobi::detail::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
@@ -334,7 +334,7 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
 }
 
 // 原函数：0x004A0140。
-login::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
 {
     gShopImageC9A9A0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -418,7 +418,7 @@ static std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t in
 }
 
 // 原函数：0x004A0300。
-login::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const text)
 {
     gChoiceImageCB0AE4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -444,7 +444,7 @@ login::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const text)
 }
 
 // 原函数：0x004A04A0。
-login::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* const text)
 {
     gChoiceImageCF4A18 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -470,7 +470,7 @@ login::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* const text
 }
 
 // 原函数：0x004A0640。
-login::YobiAction* WindowShopChoice_OpenSkillChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(const char* const text)
 {
     gChoiceImageCC4890 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -484,7 +484,7 @@ login::YobiAction* WindowShopChoice_OpenSkillChoice(const char* const text)
 }
 
 // 原函数：0x004A0790。
-login::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* const text)
 {
     gChoiceImageC9A99C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -498,7 +498,7 @@ login::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* const text)
 }
 
 // 原函数：0x004A0850。
-login::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const text)
 {
     gChoiceImageD2EA74 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};

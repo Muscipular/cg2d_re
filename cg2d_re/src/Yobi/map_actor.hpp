@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <string>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -82,4 +82,4 @@ static_assert(sizeof(MapActorPayload) == 0x88);
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

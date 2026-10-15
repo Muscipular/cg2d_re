@@ -33,9 +33,9 @@ constexpr wchar_t kUpgradeFailedText[] =
 constexpr wchar_t kCannotUpgradeText[] =
     L"無法更新版本。";
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
-login::YobiAction* gVersionUpgradeAction = nullptr;
+cg::yobi::YobiAction* gVersionUpgradeAction = nullptr;
 // 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
-login::YobiAction* gLegacyVersionUpgradeAction = nullptr;
+cg::yobi::YobiAction* gLegacyVersionUpgradeAction = nullptr;
 
 } // namespace
 
@@ -70,7 +70,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         if (columns < 2) {
             columns = 2;
         }
-        gLegacyVersionUpgradeAction = login::detail::CreateModalAction_5044E0(
+        gLegacyVersionUpgradeAction = cg::yobi::detail::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -81,9 +81,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     }
     case 4: {
-        login::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr
-            && login::detail::IsYobiActionStateEqual(
+            && cg::yobi::detail::IsYobiActionStateEqual(
                 action,
                 1)) {
             const std::int32_t width =
@@ -101,9 +101,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     }
     case 100: {
-        login::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr) {
-            login::detail::MarkDeath(action);
+            cg::yobi::detail::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
         login::ResetLoginMessage();
@@ -115,9 +115,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         }
         break;
     case 200: {
-        login::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
         if (action != nullptr) {
-            login::detail::MarkDeath(action);
+            cg::yobi::detail::MarkDeath(action);
         }
         login::ResetLoginMessage();
         world::gCurrentSceneState = 201;
@@ -194,7 +194,7 @@ std::int32_t ProcessScene_462330()
         if (columns < 2) {
             columns = 2;
         }
-        gVersionUpgradeAction = login::detail::CreateModalAction_5044E0(
+        gVersionUpgradeAction = cg::yobi::detail::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -205,9 +205,9 @@ std::int32_t ProcessScene_462330()
         break;
     }
     case 4: {
-        login::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr
-            && login::detail::IsYobiActionStateEqual(
+            && cg::yobi::detail::IsYobiActionStateEqual(
                 action,
                 1)) {
             const std::int32_t width =
@@ -225,9 +225,9 @@ std::int32_t ProcessScene_462330()
         break;
     }
     case 100: {
-        login::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr) {
-            login::detail::MarkDeath(action);
+            cg::yobi::detail::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
         login::ResetLoginMessage();
@@ -235,7 +235,7 @@ std::int32_t ProcessScene_462330()
     }
     case 101:
         if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
-            login::detail::YobiClearUp_404D30();
+            cg::yobi::detail::YobiClearUp_404D30();
             if (state::gPreviewActions[0] != nullptr) {
                 state::gPreviewActions[0] = nullptr;
             }
@@ -246,9 +246,9 @@ std::int32_t ProcessScene_462330()
         }
         break;
     case 200: {
-        login::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
         if (action != nullptr) {
-            login::detail::MarkDeath(action);
+            cg::yobi::detail::MarkDeath(action);
         }
         login::ResetLoginMessage();
         world::gCurrentSceneState = 201;

@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -107,4 +107,4 @@ namespace detail {
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

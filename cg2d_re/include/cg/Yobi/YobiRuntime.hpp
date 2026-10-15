@@ -11,7 +11,7 @@ struct GraphicDescriptor16;
 struct GraphicCacheItem32;
 }
 
-namespace cg::login {
+namespace cg::yobi {
 
 // 原 x86 YobiAction 的原生 x64 承载；具体布局只由 Yobi runtime 持有。
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
@@ -1245,4 +1245,4 @@ std::int32_t Sub_517880(
 std::int32_t PlayFrame_517DA0(YobiAction* action, std::int32_t stopAtEnd);
 
 } // namespace detail
-} // namespace cg::login
+} // namespace cg::yobi

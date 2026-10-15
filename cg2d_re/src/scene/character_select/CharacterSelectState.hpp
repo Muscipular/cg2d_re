@@ -21,7 +21,7 @@ extern std::uint8_t gGraphicVersionOverride58B6A0; // 原全局：0x0058B6A0。 
 extern std::uint8_t gValue9A57E0; // 原 0x9A57E0，创建界面版本门禁 W8。
 extern std::uint8_t gValue9A4CFC; // 原 0x9A4CFC，创建界面选择 W8。
 extern std::uint8_t gValue9A5B00; // 原 0x9A5B00，创建界面状态 W8。
-extern std::array<login::YobiAction*, 2> gCreateActions; // 原 0x9A4CB4/0x9A4CB8，非拥有。
+extern std::array<cg::yobi::YobiAction*, 2> gCreateActions; // 原 0x9A4CB4/0x9A4CB8，非拥有。
 // 创建页463100/4631D0及确认快照共用；两个W32同时被按字节访问。
 extern input::InputContext gCreationInput9A51E8; // 原全局：0x009A51E8。
 extern std::uint8_t gValue9A5E78; // 原全局：0x009A5E78。
@@ -48,8 +48,8 @@ extern std::int32_t gValueF7C948; // 原全局：0x00F7C948。
 extern std::int32_t gValueDE0B04; // 原全局：0x00DE0B04。
 extern std::int32_t gValueDE0AFC; // 原全局：0x00DE0AFC。 4631D0生产、508E00读取的创建动作图号。
 extern std::array<char, 24> gCreationNameFF0D18; // 原全局：0x00FF0D18。 至FF0D30前的同源原字节名称区。
-extern std::array<login::YobiAction*, 2> gPreviewActions; // 原 0x9A6E44、0x9A6E48。
-extern login::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。
+extern std::array<cg::yobi::YobiAction*, 2> gPreviewActions; // 原 0x9A6E44、0x9A6E48。
+extern cg::yobi::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。
 extern std::int16_t gPendingCharacterCount; // 原 0xF7CA06，R/W16。
 extern std::int32_t gSelectedGraphicNo;      // 原 0xF7C9FC，R/W32。
 extern std::uint16_t gCharacterEntryState;  // 原 0x9A6E10，R/W16。

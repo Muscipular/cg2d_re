@@ -150,13 +150,13 @@ std::int32_t ProcessCharacterSlot_461B30(
             buffer,
             0);
 
-        login::YobiAction* const actionForFieldWrite =
+        cg::yobi::YobiAction* const actionForFieldWrite =
             state::gPreviewActions[static_cast<std::size_t>(slot)];
         if (actionForFieldWrite != nullptr) {
-            login::detail::SetYobiActionField2B0(actionForFieldWrite, 1);
-            login::YobiAction* const actionForFrameMove =
+            cg::yobi::detail::SetYobiActionField2B0(actionForFieldWrite, 1);
+            cg::yobi::YobiAction* const actionForFrameMove =
                 state::gPreviewActions[static_cast<std::size_t>(slot)];
-            login::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
+            cg::yobi::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {
         detail::DrawUiControl_45EFD0(&uiRecords[0], 5, 0, 0, mode);

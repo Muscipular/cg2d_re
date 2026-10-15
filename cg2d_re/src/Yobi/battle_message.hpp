@@ -5,7 +5,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -64,4 +64,4 @@ enum class BattleMStatusHeader : std::int32_t {
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

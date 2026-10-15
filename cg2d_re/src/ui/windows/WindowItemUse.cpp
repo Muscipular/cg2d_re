@@ -40,19 +40,19 @@ struct ItemUseTargetRecord {
 static std::int32_t WindowItemUse_SelectTextTarget(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 
 // 原函数：0x0048AF00。
-static login::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
+static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
 
 // 原函数：0x004E4860。
-static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* text); // LY完整目标名单生产，保留原Yobi返回。
+static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* text); // LY完整目标名单生产，保留原Yobi返回。
 
 // 原函数：0x0048B010。
 static std::int32_t WindowItemUse_SelectAttributeTarget(std::int32_t index, const char* unusedText); // 用物品/请求回退/释放通知。
 
 // 原函数：0x0048B0A0。
-static login::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展示源及46创建成功后的引用计数。
+static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展示源及46创建成功后的引用计数。
 
 // 原函数：0x004E4020。
-static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
+static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -105,7 +105,7 @@ static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, con
 }
 
 // 原函数：0x0048AF00。
-static login::YobiAction* WindowItemUse_OpenTextTargets()
+static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets()
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -124,7 +124,7 @@ static login::YobiAction* WindowItemUse_OpenTextTargets()
     gSelectedItemCB1DF4 = selected;
     ++reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
     ++gValueD67B24;
-    login::YobiAction* const result = WindowTextTarget_Open(
+    cg::yobi::YobiAction* const result = WindowTextTarget_Open(
         gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
         gItemUseTargetCountCC40CC, WindowItemUse_SelectTextTarget);
     if (result == nullptr) {
@@ -140,7 +140,7 @@ static login::YobiAction* WindowItemUse_OpenTextTargets()
 }
 
 // 原函数：0x004E4860。
-static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
+static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 {
     const std::int32_t y = world::detail::gPlayerY.value();
     const std::int32_t x = world::detail::gPlayerX.value();
@@ -156,9 +156,9 @@ static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const tex
     for (std::int16_t slot = 0; slot < 5; ++slot) {
         if (world::detail::ReadPetMapFlags(slot) != 0
             && world::detail::ReadPetMapObjectIndex(slot) != ownIndex) {
-            login::YobiAction* const action = world::detail::ReadPetMapAction(slot);
+            cg::yobi::YobiAction* const action = world::detail::ReadPetMapAction(slot);
             if (action != nullptr) {
-                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), login::detail::GetYobiName(action));
+                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), cg::yobi::detail::GetYobiName(action));
             }
             const std::int32_t index = count++;
             gItemUseTargetCountCC40CC = count;
@@ -217,7 +217,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
 }
 
 // 原函数：0x0048B0A0。
-static login::YobiAction* WindowItemUse_OpenAttributeTargets()
+static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets()
 {
     const std::int32_t count = gItemUseStatusCountCC4D44;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -240,7 +240,7 @@ static login::YobiAction* WindowItemUse_OpenAttributeTargets()
             window->state |= 0x8000u;
         }
     }
-    login::YobiAction* const result =
+    cg::yobi::YobiAction* const result =
         WindowAttributeTarget_Open(gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, WindowItemUse_SelectAttributeTarget);
     bool retainReference = result != nullptr;
     if (!retainReference) {
@@ -255,7 +255,7 @@ static login::YobiAction* WindowItemUse_OpenAttributeTargets()
 }
 
 // 原函数：0x004E4020。
-static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
+static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
 {
     const std::int32_t y = world::detail::gPlayerY.value();
     const std::int32_t x = world::detail::gPlayerX.value();

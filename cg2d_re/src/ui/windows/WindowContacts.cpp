@@ -67,13 +67,13 @@ static std::int32_t WindowContacts_ButtonCompose(std::int32_t index, std::int32_
 static std::int32_t WindowContacts_ButtonDelete(std::int32_t index, std::int32_t state); // 三类联系人删除确认分派。
 
 // 原函数：0x004A33C0。
-static login::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
 
 // 原函数：0x004A3480。
-static login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(std::int32_t index); // 公会成员除名确认。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(std::int32_t index); // 公会成员除名确认。
 
 // 原函数：0x004A3540。
-static login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(std::int32_t index); // 迷你邮件联系人删除确认。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(std::int32_t index); // 迷你邮件联系人删除确认。
 
 // 原函数：0x004A2700。
 static void WindowContacts_ClampScroll(); // 修正当前名单位置并更新元素17滚动条。
@@ -1215,7 +1215,7 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
 }
 
 // 原函数：0x004A33C0。
-static login::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteContact);
     gWindow47Runtime.textCC426C = std::format(L"" LR"(
@@ -1231,7 +1231,7 @@ static login::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t
 }
 
 // 原函数：0x004A3480。
-static login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteGuildMember);
     gWindow47Runtime.textCC426C = std::format(LR"(
@@ -1247,7 +1247,7 @@ static login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int
 }
 
 // 原函数：0x004A3540。
-static login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteMiniMailContact);
     gWindow47Runtime.textCC426C = std::format(LR"(

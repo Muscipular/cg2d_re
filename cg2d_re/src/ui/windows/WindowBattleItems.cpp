@@ -218,22 +218,22 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     }
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     WindowInstance* const window = gCurrentWindow;
-    login::YobiAction* const source = world::detail::gBattleEntries59E980[position];
+    cg::yobi::YobiAction* const source = world::detail::gBattleEntries59E980[position];
     auto* const data = static_cast<WindowAnimationData*>(window->elements[4].data);
-    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(source);
-    login::detail::SetYobiActionField2A8(data->action, imageNo);
-    login::detail::SetYobiActionField2B8(
+    const std::int32_t imageNo = cg::yobi::detail::GetYobiActionField2A8(source);
+    cg::yobi::detail::SetYobiActionField2A8(data->action, imageNo);
+    cg::yobi::detail::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
-    login::detail::SetYobiActionField309(
+    cg::yobi::detail::SetYobiActionField309(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 0);
     WindowElement* const elements = gCurrentWindow->elements;
     if (elements[4].visible != 0) {
-        const std::int32_t currentImage = login::detail::GetYobiActionField2A8(
+        const std::int32_t currentImage = cg::yobi::detail::GetYobiActionField2A8(
             world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4]);
         if (currentImage >= 110350 && currentImage <= 110373) {
-            login::detail::SetYobiActionField309(
+            cg::yobi::detail::SetYobiActionField309(
                 static_cast<WindowAnimationData*>(elements[4].data)->action, 4);
-            login::detail::SetYobiActionField310(
+            cg::yobi::detail::SetYobiActionField310(
                 static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
         }
     }
@@ -504,7 +504,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
                 const auto target = static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
-                if (login::detail::CheckBattleCommand_43C560(position, target) != 0) {
+                if (cg::yobi::detail::CheckBattleCommand_43C560(position, target) != 0) {
                     world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                     world::detail::gBattleItemTargetPending5ABCC4 = 1;
@@ -517,7 +517,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                    login::detail::FlushBattleEntries_43C060();
+                    cg::yobi::detail::FlushBattleEntries_43C060();
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                     static_cast<void>(audio::PlaySe_52C450(77, 320));

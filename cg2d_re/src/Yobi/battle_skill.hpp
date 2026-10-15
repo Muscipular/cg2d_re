@@ -6,7 +6,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -20,4 +20,4 @@ void ProcessBattleMSkillHeader(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

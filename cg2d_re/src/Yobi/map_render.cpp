@@ -30,7 +30,7 @@
 #include <string>
 #include <string_view>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -966,14 +966,14 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi
 
 namespace cg::world::detail {
 
 namespace {
 
 void AllocateActorChatText(
-    login::detail::MapActorPayload* const payload, const char* const name,
+    cg::yobi::detail::MapActorPayload* const payload, const char* const name,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
@@ -1005,13 +1005,13 @@ void AllocateActorChatText(
 } // namespace
 
 // 原函数：0x0043D860。
-void Sub_43D860(login::YobiAction* const action)
+void Sub_43D860(cg::yobi::YobiAction* const action)
 {
-    login::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const player = cg::world::detail::gPlayerRuntimeSlots.action;
     if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     if (gWorldObjects[payload->index].category != 1) {
         return;
     }
@@ -1040,7 +1040,7 @@ void Sub_43D860(login::YobiAction* const action)
 
 // 原函数：0x00442DC0。
 void Sub_442DC0(
-    login::YobiAction* const action, const std::int32_t duration,
+    cg::yobi::YobiAction* const action, const std::int32_t duration,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
@@ -1067,7 +1067,7 @@ void Sub_51A6A0(
     const std::int32_t duration, const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
-    login::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = cg::world::detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
@@ -1084,12 +1084,12 @@ void Sub_51A6A0(
 }
 
 // 原函数：0x00442C00。
-void Sub_442C00(login::YobiAction* const action)
+void Sub_442C00(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     record.marker44 = 0;
     if (action->field2E4 != 2) {
@@ -1098,103 +1098,103 @@ void Sub_442C00(login::YobiAction* const action)
 }
 
 // 原函数：0x00442CA0。
-void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
+void Sub_442CA0(cg::yobi::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x40u;
     record.value10C = value;
 }
 
 // 原函数：0x00442CD0。
-std::uint16_t* Sub_442CD0(login::YobiAction* const action)
+std::uint16_t* Sub_442CD0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0xBFFFu;
     return &flags;
 }
 
 // 原函数：0x00442D00。
-void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
+void Sub_442D00(cg::yobi::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x80u;
     record.value10C = value;
 }
 
 // 原函数：0x00442D30。
-std::uint16_t* Sub_442D30(login::YobiAction* const action)
+std::uint16_t* Sub_442D30(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0x7FFFu;
     return &flags;
 }
 
 // 原函数：0x00442D60。
-void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
+void Sub_442D60(cg::yobi::YobiAction* const action, const std::int32_t value)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 4u;
     record.value10C = value;
 }
 
 // 原函数：0x00442D90。
-std::uint16_t* Sub_442D90(login::YobiAction* const action)
+std::uint16_t* Sub_442D90(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags42;
     flags &= 0xEBFFu;
     return &flags;
 }
 
 // 原函数：0x0043D970。
-std::uint16_t* Sub_43D970(login::YobiAction* const action)
+std::uint16_t* Sub_43D970(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 1u;
     return &flags;
 }
 
 // 原函数：0x0043D9A0。
-std::uint16_t* Sub_43D9A0(login::YobiAction* const action)
+std::uint16_t* Sub_43D9A0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFFFEu;
     return &flags;
 }
 
 // 原函数：0x0043D9D0。
-void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
+void Sub_43D9D0(cg::yobi::YobiAction* const action, std::int32_t value)
 {
     if (action == nullptr) {
         return;
@@ -1202,103 +1202,103 @@ void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
     if (value < 0 || value >= Sub_4410E0()) {
         value = 0;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     *reinterpret_cast<unsigned char*>(&record.flags120) |= 2u;
     record.value124 = value;
 }
 
 // 原函数：0x0043DA10。
-void Sub_43DA10(login::YobiAction* const action)
+void Sub_43DA10(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     record.flags120 &= 0xFFFDu;
     record.value124 = 0;
 }
 
 // 原函数：0x0043DA40。
-std::uint16_t* Sub_43DA40(login::YobiAction* const action)
+std::uint16_t* Sub_43DA40(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x24u;
     return &flags;
 }
 
 // 原函数：0x0043DA70。
-std::uint16_t* Sub_43DA70(login::YobiAction* const action)
+std::uint16_t* Sub_43DA70(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 8u;
     return &flags;
 }
 
 // 原函数：0x0043DAA0。
-std::uint16_t* Sub_43DAA0(login::YobiAction* const action)
+std::uint16_t* Sub_43DAA0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFFF7u;
     return &flags;
 }
 
 // 原函数：0x0043DAD0。
-std::uint16_t* Sub_43DAD0(login::YobiAction* const action)
+std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x50u;
     return &flags;
 }
 
 // 原函数：0x0043DB00。
-std::uint16_t* Sub_43DB00(login::YobiAction* const action)
+std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
     return &flags;
 }
 
 // 原函数：0x0043DB30。
-std::uint16_t* Sub_43DB30(login::YobiAction* const action)
+std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags120;
     flags &= 0xFF7Fu;
     return &flags;
 }
 
 // 原函数：0x00449C90。
-std::uint16_t Sub_449C90(login::YobiAction* const action)
+std::uint16_t Sub_449C90(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return 0;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags42;
     std::uint16_t sampledFlags = flags;
     if ((sampledFlags & 0x200u) == 0) {
@@ -1309,12 +1309,12 @@ std::uint16_t Sub_449C90(login::YobiAction* const action)
 }
 
 // 原函数：0x00449CC0。
-void Sub_449CC0(login::YobiAction* const action)
+void Sub_449CC0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     if (record.marker44 == 0) {
         record.flags42 &= 0xFEFFu;
@@ -1322,19 +1322,19 @@ void Sub_449CC0(login::YobiAction* const action)
 }
 
 // 原函数：0x00442C40。
-std::uint16_t* Sub_442C40(login::YobiAction* const action)
+std::uint16_t* Sub_442C40(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return nullptr;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& flags = gWorldObjects[payload->index].flags42;
     reinterpret_cast<unsigned char*>(&flags)[1] |= 2u;
     return &flags;
 }
 
 // 原函数：0x00442C70。
-void Sub_442C70(login::YobiAction* const action)
+void Sub_442C70(cg::yobi::YobiAction* const action)
 {
     if (Sub_440B50() != 0) {
         return;
@@ -1342,17 +1342,17 @@ void Sub_442C70(login::YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     gWorldObjects[payload->index].flags42 &= 0xFDFFu;
 }
 
 // 原函数：0x00442BD0。
-void Sub_442BD0(login::YobiAction* const action)
+void Sub_442BD0(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload.mapActor);
+    const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 1u;
     record.marker44 = 1;
@@ -1372,8 +1372,8 @@ void Sub_445D20(
         if (index < 0) {
             return;
         }
-        login::YobiAction* const action =
-            login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        cg::yobi::YobiAction* const action =
+            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -1403,7 +1403,7 @@ void Sub_445D20(
     record.flags114 = 0x400u;
     record.value118 = 0;
     record.value50 = value50;
-    login::YobiAction* const action = record.action;
+    cg::yobi::YobiAction* const action = record.action;
     if (action == nullptr) {
         return;
     }
@@ -1433,8 +1433,8 @@ void Sub_445F40(
         if (index < 0) {
             return;
         }
-        login::YobiAction* const action =
-            login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        cg::yobi::YobiAction* const action =
+            cg::yobi::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -1463,7 +1463,7 @@ void Sub_445F40(
     }
     record.flags114 = 0x800u;
     record.value118 = 0;
-    login::YobiAction* const action = record.action;
+    cg::yobi::YobiAction* const action = record.action;
     if (action == nullptr) {
         return;
     }
@@ -1480,19 +1480,19 @@ void Sub_445F40(
 // 原函数：0x00521F20。
 void RenderChara_521F20()
 {
-    using login::detail::gYobiActionStart;
-    using login::detail::gYobiActionEnd;
+    using cg::yobi::detail::gYobiActionStart;
+    using cg::yobi::detail::gYobiActionEnd;
 
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    login::YobiAction* const start = gYobiActionStart;
+    cg::yobi::YobiAction* const start = cg::yobi::detail::gYobiActionStart;
     render::GraphicCache3* order =
         render::gLegacyPendingStorage.cache3.data() + initialCount;
-    login::YobiAction* action = start->next;
+    cg::yobi::YobiAction* action = start->next;
     render::GraphicCacheItem32* record =
         render::gLegacyPendingStorage.records.data() + initialCount;
-    login::YobiAction* end = gYobiActionEnd;
-    for (; action != end; action = action->next, end = gYobiActionEnd) {
+    cg::yobi::YobiAction* end = cg::yobi::detail::gYobiActionEnd;
+    for (; action != end; action = action->next, end = cg::yobi::detail::gYobiActionEnd) {
         const std::uint32_t flags = action->flags;
         if (((flags & 0x8000u) != 0 && render::gFrameParity628FC8 == 0)
             || ((flags & 0x10000u) != 0 && render::gFrameParity628FC8 == 1)) {
@@ -1629,7 +1629,7 @@ void RenderChara_521F20()
         if (clipMode == 1) {
             record->batchType = 1;
         }
-        login::YobiAction* const queuedAction = record->reference.action;
+        cg::yobi::YobiAction* const queuedAction = record->reference.action;
         std::uint8_t queuedFlags;
         std::memcpy(&queuedFlags, &queuedAction->flags, sizeof(queuedFlags));
         if ((queuedFlags & 0x20u) != 0) {

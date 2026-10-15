@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -879,4 +879,4 @@ void Sub_449160()
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

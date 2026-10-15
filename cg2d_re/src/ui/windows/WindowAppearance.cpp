@@ -123,7 +123,7 @@ WindowPrototype gWindowPrototypeAppearance {0, 4, 96, 108, 448, 240, 0x80010101u
 // 窗口函数实现。
 
 // 原函数：0x004C5790。
-login::YobiAction* WindowAppearance_Open(
+cg::yobi::YobiAction* WindowAppearance_Open(
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
     gWindow56DialogTypeCB1DE0 = 36;
@@ -210,10 +210,10 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
     const std::int32_t image = character_select::detail::Sub_4C5650(
         base, imageClass, quarter, fifth, ones);
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
-    login::YobiAction* const action = animation->action;
-    login::detail::SetYobiActionField2A8(action, world::detail::gPlayerRuntimeSlots.imageNo);
-    login::detail::SetYobiActionField2B0(animation->action, 0);
-    login::detail::SetYobiActionField2B8(animation->action, 5);
+    cg::yobi::YobiAction* const action = animation->action;
+    cg::yobi::detail::SetYobiActionField2A8(action, world::detail::gPlayerRuntimeSlots.imageNo);
+    cg::yobi::detail::SetYobiActionField2B0(animation->action, 0);
+    cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
     return 1;
 }
 
@@ -227,7 +227,7 @@ static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
     }
     WindowRuntime_DrawCurrent();
     WindowInstance* const window = gCurrentWindow;
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),
         static_cast<std::int16_t>(window->width), static_cast<std::int16_t>(window->height),
         223, -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
@@ -415,7 +415,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
 }
 
 // 原函数：0x004C6060。
-login::YobiAction* WindowAppearance_OpenDialogPreview(
+cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
     const char* const text)
 {
@@ -427,8 +427,8 @@ login::YobiAction* WindowAppearance_OpenDialogPreview(
     std::array<char, 3000> buffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 1000, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    const std::int32_t columns = login::detail::Sub_49C5C0(448);
-    const std::int32_t count = login::detail::Sub_49C5E0(240, buttons, 16);
+    const std::int32_t columns = cg::yobi::detail::Sub_49C5C0(448);
+    const std::int32_t count = cg::yobi::detail::Sub_49C5E0(240, buttons, 16);
     gImageDialogLinesD2F7B0[0].text.clear();
     gImageDialogLinesD2F7B0[1].text.clear();
     gImageDialogLinesD2F7B0[2].text.clear();

@@ -51,7 +51,7 @@ struct MessageLayout {
 std::uint16_t gMessageState = 0;
 std::int32_t gMessageResult = -2;
 MessageLayout gMessageLayout {};
-YobiAction* gMessageAction = nullptr;
+cg::yobi::YobiAction* gMessageAction = nullptr;
 
 constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
@@ -99,7 +99,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageLayout.height = 192;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 144;
-            gMessageAction = detail::CreateModalAction_5044E0(
+            gMessageAction = cg::yobi::detail::CreateModalAction_5044E0(
                 gMessageLayout.x,
                 gMessageLayout.y,
                 gMessageLayout.width,
@@ -111,14 +111,14 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         if (cg::render::FindClickedTextIndex_45D7A0(&gMessageResult, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {
-                detail::MarkDeath(gMessageAction);
+                cg::yobi::detail::MarkDeath(gMessageAction);
                 gMessageAction = nullptr;
             }
             return 1;
         }
 
         if (gMessageAction == nullptr
-            || !detail::IsYobiActionReady(gMessageAction, 1)) {
+            || !cg::yobi::detail::IsYobiActionReady(gMessageAction, 1)) {
             return 0;
         }
 
@@ -165,7 +165,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
             gMessageLayout.height = 336;
             gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
             gMessageLayout.y = 72;
-            gMessageAction = detail::CreateModalAction_5044E0(
+            gMessageAction = cg::yobi::detail::CreateModalAction_5044E0(
                 gMessageLayout.x,
                 gMessageLayout.y,
                 gMessageLayout.width,
@@ -177,14 +177,14 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         if (cg::render::FindClickedTextIndex_45D7A0(&gMessageResult, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {
-                detail::MarkDeath(gMessageAction);
+                cg::yobi::detail::MarkDeath(gMessageAction);
                 gMessageAction = nullptr;
             }
             return 1;
         }
 
         if (gMessageAction == nullptr
-            || !detail::IsYobiActionReady(gMessageAction, 1)) {
+            || !cg::yobi::detail::IsYobiActionReady(gMessageAction, 1)) {
             return 0;
         }
 
@@ -245,7 +245,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         gMessageLayout.height = messageHeight;
         gMessageLayout.x = (kScreenWidth - gMessageLayout.width) / 2;
         gMessageLayout.y = (kScreenHeight - gMessageLayout.height) / 2;
-        gMessageAction = detail::CreateModalAction_5044E0(
+        gMessageAction = cg::yobi::detail::CreateModalAction_5044E0(
             gMessageLayout.x,
             gMessageLayout.y,
             gMessageLayout.width,
@@ -265,7 +265,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
         if ((mouseClickState & 1U) != 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {
-                detail::MarkDeath(gMessageAction);
+                cg::yobi::detail::MarkDeath(gMessageAction);
                 gMessageAction = nullptr;
             }
             return 1;
@@ -273,7 +273,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     }
 
     if (gMessageAction != nullptr
-        && detail::IsYobiActionReady(gMessageAction, 1)) {
+        && cg::yobi::detail::IsYobiActionReady(gMessageAction, 1)) {
         const std::int32_t textX = gMessageLayout.x
             + (gMessageLayout.width - maximumTextWidth) / 2;
         for (std::int32_t index = 0; index < lineCount; ++index) {

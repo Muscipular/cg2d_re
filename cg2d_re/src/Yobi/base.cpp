@@ -9,7 +9,7 @@
 #include <cstring>
 #include <memory>
 
-namespace cg::login {
+namespace cg::yobi {
 
 YobiAction::YobiAction(RawFields)
     : readiness(platform::LegacyCryptInt::RawPayload{}),
@@ -636,4 +636,4 @@ void SetYobiActionField30F(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

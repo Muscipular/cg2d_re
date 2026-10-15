@@ -27,7 +27,7 @@ static std::int32_t WindowBlacklist_HandleButtons(std::int32_t index, std::int32
 static std::int32_t WindowBlacklist_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原90参数拖动换算；旧X代码1999。
 
 // 原函数：0x004CD150。
-static login::YobiAction* WindowBlacklist_ConfirmClear(); // 生产窗口47的清空确认及两个真实回调。
+static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(); // 生产窗口47的清空确认及两个真实回调。
 
 // 原函数：0x004CD1E0。
 static std::int32_t WindowBlacklist_Clear(std::int32_t unusedIndex, std::int32_t unusedState);
@@ -392,7 +392,7 @@ static std::int32_t WindowBlacklist_DragScroll(const std::int32_t index, const s
 }
 
 // 原函数：0x004CD150。
-static login::YobiAction* WindowBlacklist_ConfirmClear()
+static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear()
 {
     gWindow47Runtime.visibleMaskCC4240 = 3;
     gWindow47Runtime.widthUnitsCC4244 = 3;

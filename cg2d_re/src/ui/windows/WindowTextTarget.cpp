@@ -105,7 +105,7 @@ WindowPrototype gWindowPrototypeTextTarget {0, 4, 160, 125, 320, 192, 0x80010101
 // 窗口函数实现。
 
 // 原函数：0x0049F000。
-login::YobiAction* WindowTextTarget_Open(
+cg::yobi::YobiAction* WindowTextTarget_Open(
     const char* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
 {
@@ -176,7 +176,7 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
     const auto x = static_cast<std::int16_t>(window->x);
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, x, y, width, height, 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

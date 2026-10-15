@@ -12,7 +12,7 @@ namespace {
 
 // 下列原存储的全部引用都只在 sub_45D7D0/sub_45D7E0 内。
 std::uint16_t gAuthenticationFailureStage = 0; // 原 0x9A6E34，R/W16。
-login::YobiAction* gAuthenticationFailureAction = nullptr; // 原 0x9A6E38。
+cg::yobi::YobiAction* gAuthenticationFailureAction = nullptr; // 原 0x9A6E38。
 std::int32_t gAuthenticationFailureUnknown = -2; // 原 0x55A050，R/W32。
 std::int32_t gAuthenticationFailureWidth = 0;  // 原 0x9A50CC，R/W32。
 std::int32_t gAuthenticationFailureHeight = 0; // 原 0x9A5E6C，R/W32。
@@ -43,7 +43,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         gAuthenticationFailureHeight = 144;
         gAuthenticationFailureX = 64;
         gAuthenticationFailureY = 168;
-        gAuthenticationFailureAction = login::detail::CreateModalAction_5044E0(
+        gAuthenticationFailureAction = cg::yobi::detail::CreateModalAction_5044E0(
             64,
             168,
             512,
@@ -73,18 +73,18 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         if ((mouseClickState & 1U) != 0) {
             result = 1;
             login::detail::PlaySe(51, 320, 240);
-            login::YobiAction* const action = gAuthenticationFailureAction;
+            cg::yobi::YobiAction* const action = gAuthenticationFailureAction;
             if (action != nullptr) {
-                login::detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gAuthenticationFailureAction = nullptr;
             }
             return result;
         }
     }
 
-    login::YobiAction* const action = gAuthenticationFailureAction;
+    cg::yobi::YobiAction* const action = gAuthenticationFailureAction;
     if (action == nullptr
-        || !login::detail::IsYobiActionReady(action, 1)) {
+        || !cg::yobi::detail::IsYobiActionReady(action, 1)) {
         return result;
     }
 

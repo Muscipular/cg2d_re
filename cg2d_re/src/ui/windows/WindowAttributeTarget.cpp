@@ -108,7 +108,7 @@ WindowPrototype gWindowPrototypeAttributeTarget {0, 4, 60, 105, 520, 243, 0x8001
 // 窗口函数实现。
 
 // 原函数：0x0049F760。
-login::YobiAction* WindowAttributeTarget_Open(
+cg::yobi::YobiAction* WindowAttributeTarget_Open(
     const WindowStatusChoiceRecord* const records, const std::int32_t count,
     const WindowTextChoiceCallback callback)
 {

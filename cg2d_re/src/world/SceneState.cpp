@@ -66,7 +66,7 @@ std::int32_t gValueFF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等�
 std::int32_t gValueFF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
 std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
 std::wstring gLogoutText9A5B08; // 原全局：0x009A5B08。 动态UTF-16消息，排他尾9A5C10独立。
-login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
+cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
 std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
@@ -175,7 +175,7 @@ detail::AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t 
 }
 
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
-login::YobiAction* gWindow39Action62B5B8 = nullptr;
+cg::yobi::YobiAction* gWindow39Action62B5B8 = nullptr;
 
 using detail::BattleResultRecord;
 using detail::BattleSkillResultRecord;
@@ -257,7 +257,7 @@ struct PetMapCharaSlot {
     std::int32_t value14; // 原成员偏移：+0x14。 50A3E0按掩码0x21写。
     std::array<char, 17> name18; // 原+18，旧编码名称。
     std::array<std::byte, 3> bytes29; // 原成员偏移：+0x29。
-    login::YobiAction* action; // 原 +2C，非拥有。
+    cg::yobi::YobiAction* action; // 原 +2C，非拥有。
 };
 
 static_assert(offsetof(PetMapCharaSlot, flags) == 0);
@@ -294,7 +294,7 @@ struct MapCharaSceneSlots {
     std::uint32_t valueC8A75C; // 原全局：0x00C8A75C。
     std::int16_t valueC8A760; // 原全局：0x00C8A760。
     std::int16_t valueC8A762; // 原全局：0x00C8A762。
-    login::YobiAction* actionC8A764; // 原全局：0x00C8A764。
+    cg::yobi::YobiAction* actionC8A764; // 原全局：0x00C8A764。
     std::uint32_t valueC8A768 {}; // 原全局：0x00C8A768。 原PE未初始化区装载清零；413070仅覆写命中半字。
     std::uint32_t valueC8A76C {}; // 原全局：0x00C8A76C。
     float value55DE9C {5.0F}; // 原全局：0x0055DE9C。
@@ -849,12 +849,12 @@ std::uint32_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
 std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
 std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
-void ClearMapEffectAction(login::YobiAction* const action)
+void ClearMapEffectAction(cg::yobi::YobiAction* const action)
 {
     if (action == nullptr) {
         return;
     }
-    login::detail::MarkDeath(action);
+    cg::yobi::detail::MarkDeath(action);
     MapEffectRecord* record = gActiveMapEffectHead;
     gMapCharaSceneSlots.actionC8A764 = nullptr;
     while (record != nullptr) {
@@ -1459,7 +1459,7 @@ void Sub_46E4A0()
 void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
 {
     if (mask == 0) {
-        login::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
+        cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
         gMapCharaSceneSlots.valueC8A752 = 0;
         gMapCharaSceneSlots.valueC8A754 = 0;
         gMapCharaSceneSlots.value55DEA2 = -1;
@@ -1510,7 +1510,7 @@ void Sub_46F160()
             continue;
         }
         if (kind == 8) {
-            login::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
+            cg::yobi::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
             gMapCharaSceneSlots.actionC8A764 = nullptr;
         }
         MapEffectRecord* const next = record->next;
@@ -1620,18 +1620,18 @@ void Sub_46F1D0()
         Sub_46F090(8, motion.horizontalSign, motion.verticalSign,
             phase, 2000, phase % 3);
         gMapCharaSceneSlots.actionC8A764 =
-            login::detail::NewYobiAction_404AE0(3, 0);
+            cg::yobi::detail::NewYobiAction_404AE0(3, 0);
         if (gMapCharaSceneSlots.actionC8A764 != nullptr) {
-            login::detail::SetYobiActionField2A8(
+            cg::yobi::detail::SetYobiActionField2A8(
                 gMapCharaSceneSlots.actionC8A764, 110308);
-            login::detail::SetYobiActionField2B0(
+            cg::yobi::detail::SetYobiActionField2B0(
                 gMapCharaSceneSlots.actionC8A764, 3);
-            login::detail::SetYobiActionField2B8(
+            cg::yobi::detail::SetYobiActionField2B8(
                 gMapCharaSceneSlots.actionC8A764,
                 gMapCharaSceneSlots.valueC8A762 % 8);
-            login::detail::ClearYobiActionCallback(
+            cg::yobi::detail::ClearYobiActionCallback(
                 gMapCharaSceneSlots.actionC8A764);
-            login::detail::SetYobiActionField15(
+            cg::yobi::detail::SetYobiActionField15(
                 gMapCharaSceneSlots.actionC8A764, 26);
         }
     }
@@ -1694,7 +1694,7 @@ void Sub_46F1D0()
             record->y = y;
             if (x < -400 || x > 640 || y < -400 || y > 480) {
                 if (record->kind == 8) {
-                    login::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
+                    cg::yobi::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
                     gMapCharaSceneSlots.actionC8A764 = nullptr;
                 }
                 MapEffectRecord* const next = record->next;
@@ -1706,17 +1706,17 @@ void Sub_46F1D0()
 
             const std::uint16_t drawKind = record->kind;
             if (drawKind == 8 && gMapCharaSceneSlots.actionC8A764 != nullptr) {
-                login::detail::SetYobiActionField30(
+                cg::yobi::detail::SetYobiActionField30(
                     gMapCharaSceneSlots.actionC8A764, x + 150);
                 const auto actionY = record->y;
-                login::detail::SetYobiActionField34(
+                cg::yobi::detail::SetYobiActionField34(
                     gMapCharaSceneSlots.actionC8A764, actionY + 150);
-                login::detail::Sub_517880(
+                cg::yobi::detail::Sub_517880(
                     gMapCharaSceneSlots.actionC8A764, 100, 0, 0);
-                login::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
-                const std::int32_t imageNo = login::detail::GetYobiActionField20(action);
-                const std::int32_t drawY = login::detail::GetYobiActionField34(action);
-                const std::int32_t drawX = login::detail::GetYobiActionField30(action);
+                cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
+                const std::int32_t imageNo = cg::yobi::detail::GetYobiActionField20(action);
+                const std::int32_t drawY = cg::yobi::detail::GetYobiActionField34(action);
+                const std::int32_t drawX = cg::yobi::detail::GetYobiActionField30(action);
                 cg::render::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
             }
             if (drawKind == 7) {
@@ -1742,7 +1742,7 @@ void Sub_46F1D0()
 // 原函数：0x00440FF0。
 std::int32_t Sub_440FF0()
 {
-    const std::int32_t direction = login::detail::ReadMapObservationDirection();
+    const std::int32_t direction = cg::yobi::detail::ReadMapObservationDirection();
     constexpr std::array<std::int32_t, 8> angles {315, 270, 225, 180, 135, 90, 45, 0};
     const auto angle = static_cast<std::int16_t>(angles[direction]);
     const render::GraphicDescriptor16 descriptor {
@@ -1767,14 +1767,14 @@ std::int32_t Sub_440FF0()
 // 原函数：0x00476680。
 void Sub_476680()
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
 
     std::int32_t radius = platform::gValue554640;
-    std::int32_t x = login::detail::GetYobiActionField30(action) - radius * 64;
-    std::int32_t y = login::detail::GetYobiActionField34(action);
+    std::int32_t x = cg::yobi::detail::GetYobiActionField30(action) - radius * 64;
+    std::int32_t y = cg::yobi::detail::GetYobiActionField34(action);
     const auto countdown = std::bit_cast<std::int32_t>(gValue626BFC);
     x -= 31;
     y -= 23;
@@ -1828,7 +1828,7 @@ void Sub_50A3E0(
         if (slot.flags != 0) {
             const std::uint32_t objectIndex = slot.objectIndex;
             if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
-                login::YobiAction* const action =
+                cg::yobi::YobiAction* const action =
                     FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
                 if (action != nullptr) {
                     Sub_442C70(action);
@@ -1837,9 +1837,9 @@ void Sub_50A3E0(
         }
         std::int32_t x = -1;
         std::int32_t y = -1;
-        login::YobiAction* const targetAction = slot.action;
+        cg::yobi::YobiAction* const targetAction = slot.action;
         if (targetAction != nullptr) {
-            login::detail::ReadMapActorTarget(targetAction, slot.action, &x, &y);
+            cg::yobi::detail::ReadMapActorTarget(targetAction, slot.action, &x, &y);
         }
         slot.flags = 0;
         slot.action = nullptr;
@@ -1898,7 +1898,7 @@ void Sub_50A3E0(
     }
     const std::uint32_t objectIndex = slot.objectIndex;
     if (objectIndex != detail::gPlayerRuntimeSlots.objectIndex) {
-        login::YobiAction* const action =
+        cg::yobi::YobiAction* const action =
             FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
             slot.action = action;
@@ -1975,7 +1975,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
             const std::int32_t attachmentImage = std::atoi(field);
 
-            login::YobiAction* object;
+            cg::yobi::YobiAction* object;
             if (static_cast<std::uint32_t>(objectIndex) == detail::gPlayerRuntimeSlots.objectIndex) {
                 const std::int32_t mappedImage =
                     character_select::detail::Sub_51B740(imageNo);
@@ -1989,7 +1989,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
                     Sub_519E50(mappedImage, detail::gPlayerRuntimeSlots.direction);
                 }
                 object = detail::gPlayerRuntimeSlots.action;
-                login::detail::UpdateMapActorMode(
+                cg::yobi::detail::UpdateMapActorMode(
                     detail::gPlayerRuntimeSlots.action, mode, attachmentImage);
                 if (mode == 2) {
                     if ((detail::gPlayerRuntimeSlots.flags18A & 0x200u) == 0) {
@@ -2027,7 +2027,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
                     extraText, level, value40, flag1, flag2, type);
                 object = FindObjectYobi_4462B0(objectIndex);
                 if (object != nullptr) {
-                    login::detail::UpdateMapActorMode(object, mode, attachmentImage);
+                    cg::yobi::detail::UpdateMapActorMode(object, mode, attachmentImage);
                     if (mode == 2) {
                         Sub_449C90(object);
                     } else {
@@ -2047,7 +2047,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
                     }
                 }
             }
-            login::detail::ApplyMapActorReplyAttachments(object, row);
+            cg::yobi::detail::ApplyMapActorReplyAttachments(object, row);
             continue;
         }
 
@@ -2135,7 +2135,7 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
         const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
         const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
-        if (login::detail::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
+        if (cg::yobi::detail::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
             continue;
         }
         const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
@@ -2143,13 +2143,13 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
         const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
         const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
         if (detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-            login::YobiAction* const player = detail::gPlayerRuntimeSlots.action;
-            if (player != nullptr && login::detail::GetYobiActionField2A8(player) != 0) {
+            cg::yobi::YobiAction* const player = detail::gPlayerRuntimeSlots.action;
+            if (player != nullptr && cg::yobi::detail::GetYobiActionField2A8(player) != 0) {
                 Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
             }
             continue;
         }
-        login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action != nullptr) {
             Sub_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
             continue;
@@ -2334,7 +2334,7 @@ void Sub_50E650(
     const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
-    login::detail::Sub_449700(mode, duration, floor, mapX, mapY);
+    cg::yobi::detail::Sub_449700(mode, duration, floor, mapX, mapY);
 }
 
 // 原函数：0x0050E210。
@@ -2514,7 +2514,7 @@ void Sub_50CAE0(
         && detail::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
         Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
     } else {
-        login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        cg::yobi::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action != nullptr) {
             Sub_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
         }
@@ -2687,9 +2687,9 @@ void Sub_509BA0(const std::uintptr_t, const char* const payload)
             speed = 100;
             detail::gPlayerRuntimeSlots.walkSpeed = speed;
         }
-        login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+        cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
         if (action != nullptr) {
-            login::detail::SetYobiWalkSpeed(action, speed);
+            cg::yobi::detail::SetYobiWalkSpeed(action, speed);
         }
         ++field;
     }
@@ -3638,8 +3638,8 @@ void Sub_43C4E0()
     gBattleCommandState5ABC3C = 0;
     gBattleSkillActionCount5ABBF4 = 0;
     gBattlePetActionCount5ABBBC = 0;
-    login::detail::Sub_43C040();
-    login::detail::Sub_43BFF0();
+    cg::yobi::detail::Sub_43C040();
+    cg::yobi::detail::Sub_43BFF0();
     gBattleCommandX553F78 = 493;
     gBattleCommandY553F7C = -106;
     gBattleCommandValue553F80 = 17;
@@ -3835,18 +3835,18 @@ std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
 std::int32_t gBattleMScanOffset5A8A3C = 0; // 原全局：0x005A8A3C。
 std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
 std::uint32_t gBattleActiveEventMask5AAA74 = 0; // 原全局：0x005AAA74。
-std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C {}; // 原全局：0x005ABA9C。
+std::array<cg::yobi::YobiAction*, 32> gBattleEventActions5ABA9C {}; // 原全局：0x005ABA9C。
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
-static_assert(sizeof(gBattleEventActions5ABA9C) == 32 * sizeof(login::YobiAction*));
+static_assert(sizeof(gBattleEventActions5ABA9C) == 32 * sizeof(cg::yobi::YobiAction*));
 std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {}; // 原全局：0x005AAA48。
 std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
 std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
 static_assert(sizeof(BattleNamedEffectRecord) == 36);
 static_assert(offsetof(BattleNamedEffectRecord, value) == 32);
 static_assert(sizeof(gBattleNamedEffects5ABCE0) == 720);
-login::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
-std::array<login::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
-constinit const std::span<login::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
+cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
+std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
+constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
     gBattleAllEntries59E980.data(), 20
 };
 const std::array<std::int32_t, 22> gBattlePointIndices5536FC { // 原全局：0x005536FC。
@@ -3881,12 +3881,12 @@ std::int32_t gBattleCommandY553F7C = -104; // 原全局：0x00553F7C。
 std::int32_t gBattleCommandValue553F80 = 17; // 原全局：0x00553F80。
 std::int32_t gBattlePetSkillGraphicIndex553F8C = -1; // 原全局：0x00553F8C。
 std::array<std::int32_t, 9> gBattleResetValues5ABB84 {}; // 原全局：0x005ABB84。
-login::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr; // 原全局：0x005ABFB8。
+cg::yobi::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr; // 原全局：0x005ABFB8。
 std::int32_t gBattleSelectionMode5ABC70 = 0; // 原全局：0x005ABC70。
 std::int32_t gBattleSkillUsed5ABC68 = 0; // 原全局：0x005ABC68。
 std::int32_t gBattlePetCommandPhase553F88 = 1; // 原全局：0x00553F88。
 std::int32_t gBattleValue5ABCC0 = 0; // 原全局：0x005ABCC0。
-login::YobiAction* gBattleCommandAction5ABC00 = nullptr; // 原全局：0x005ABC00。
+cg::yobi::YobiAction* gBattleCommandAction5ABC00 = nullptr; // 原全局：0x005ABC00。
 std::uint32_t gBattleTargetFlags5ABC44 = 0; // 原全局：0x005ABC44。
 std::int32_t gBattleSelectedItem5ABC48 = 0; // 原全局：0x005ABC48。
 std::int32_t gBattleItemTargetPending5ABCC4 = 0; // 原全局：0x005ABCC4。
@@ -3900,7 +3900,7 @@ std::uint32_t gBattleEndBits5ABBC0 = 0; // 原全局：0x005ABBC0。
 std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
 std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 std::uint32_t gValue5ABCB0 = 0; // 原全局：0x005ABCB0。
-static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(login::YobiAction*));
+static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
 static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
@@ -3934,7 +3934,7 @@ std::int32_t gValue9A5674 = 0; // 原全局：0x009A5674。
 std::int32_t gValue9A594C = 0; // 原全局：0x009A594C。
 std::int32_t gValue9A61F8 = 0; // 原全局：0x009A61F8。
 std::int32_t gValue9A5AC0 = 0; // 原全局：0x009A5AC0。
-login::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
+cg::yobi::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
 std::int32_t gValue5ABB70 = 0; // 原全局：0x005ABB70。
@@ -5159,9 +5159,9 @@ void Sub_455FC0()
     const std::uint32_t value = gValue62B5B0;
     gValue62B398 = 0;
     if (value == 0) {
-        login::YobiAction* const action = gWindow39Action62B5B8;
+        cg::yobi::YobiAction* const action = gWindow39Action62B5B8;
         if (action != nullptr) {
-            static_cast<void>(login::detail::MarkDeath(action));
+            static_cast<void>(cg::yobi::detail::MarkDeath(action));
             gWindow39Action62B5B8 = nullptr;
         }
         return;
@@ -5205,7 +5205,7 @@ void Sub_50D120(
         gValueFF03D8 = 0;
         gValueF7CA04 = 0;
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         Sub_446610();
 
         cg::world::detail::gRippleGate = std::int32_t{0};
@@ -5287,7 +5287,7 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
             gBattleFirstTurnPending5ABC6C = 0;
             gBattleTurnSnapshot5ABC08 = turn;
         }
-        login::detail::Sub_43BFF0();
+        cg::yobi::detail::Sub_43BFF0();
         return;
     }
     if (text[1] == 'U') {
@@ -5659,7 +5659,7 @@ void DrawNormalScene_51C7D0()
         Sub_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
-        login::detail::Sub_43F220();
+        cg::yobi::detail::Sub_43F220();
         static_cast<void>(Sub_518DA0());
         input::SetContext_44B330(&input::gInputContext626AA0);
         gCurrentSceneState = 101;
@@ -5685,7 +5685,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(render::ResetGraphicCache_456D30());
         ui::detail::gValue5F9754 = 0;
         Sub_46BD40();
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         audio::Sub_52B940();
         Sub_469020();
@@ -5773,7 +5773,7 @@ void DrawNormalScene_51C7D0()
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         Sub_46BD40();
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
@@ -5852,7 +5852,7 @@ void DrawNormalScene_51C7D0()
         gCurrentSceneState = 204;
         platform::gLastRenderDt = tick;
         Sub_51D6F0();
-        const std::int32_t bgm = login::detail::Sub_440FE0();
+        const std::int32_t bgm = cg::yobi::detail::Sub_440FE0();
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
         gValueFF0D68 = audio::gBgmTarget1050818;
@@ -5864,7 +5864,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(Sub_440FF0());
         Sub_51D6F0();
         static_cast<void>(NextRotationValue_455C70());
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         cg::NullSub_509080();
         input::ProcessKeyInput_4596D0();
@@ -5887,7 +5887,7 @@ void DrawNormalScene_51C7D0()
         }
         Sub_51D6F0();
         Sub_46BD40();
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
@@ -5902,7 +5902,7 @@ void DrawNormalScene_51C7D0()
         platform::gLastRenderDt = tick;
         static_cast<void>(render::ResetGraphicCache_456D30());
         Sub_46BD40();
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_469020();
         cg::NullSub_509080();
@@ -5938,14 +5938,14 @@ void DrawNormalScene_51C7D0()
         Sub_446640();
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
-        login::detail::Sub_43F220();
+        cg::yobi::detail::Sub_43F220();
         static_cast<void>(Sub_518DA0());
         if (gValueFF0D50 == 1) {
             platform::gPendingGraphicCount = 0;
             platform::gPendingGraphicCount2 = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
             Sub_46BD40();
-            static_cast<void>(login::detail::YobiUpdateAll_404C50());
+            static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
             RenderChara_521F20();
             audio::Sub_52B940();
             static_cast<void>(Sub_468200());
@@ -6045,7 +6045,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(Sub_469C90());
         Sub_46BD40();
         Sub_455FC0();
-        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_46E4A0();
         Sub_469020();
@@ -6080,7 +6080,7 @@ void DrawNormalScene_51C7D0()
         gValueC8A79C = 0;
         gValue58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(login::detail::Sub_43F230());
+        static_cast<void>(cg::yobi::detail::Sub_43F230());
         Sub_51BEF0();
         platform::RequestRender_457010();
         static_cast<void>(audio::PlaySe_52C450(201, 320));
@@ -6093,7 +6093,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(Sub_51D750());
         platform::gValue73ECC0 = 2;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(login::detail::Sub_43F230());
+        static_cast<void>(cg::yobi::detail::Sub_43F230());
         ++gCurrentSceneState;
         goto inputTail;
     case 5:
@@ -6277,8 +6277,8 @@ void DrawBattleScene_43CBB0()
             || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
             static_cast<void>(Sub_46E4C0(160));
         }
-        YobiClearUp_404D30();
-        InitializeBattleScene_4383F0();
+        cg::yobi::detail::YobiClearUp_404D30();
+        cg::yobi::detail::InitializeBattleScene_4383F0();
         gBattleEntryNoticeAction5ABFB8 = nullptr;
         gBattleExitAction5ABCDC = nullptr;
         gValue58B6D0 = 1;
@@ -6370,8 +6370,8 @@ void DrawBattleScene_43CBB0()
         break;
     case 2: {
         input::ProcessKeyInput_4596D0();
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(SortBattleActions_405C30());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
@@ -6394,12 +6394,12 @@ void DrawBattleScene_43CBB0()
             if (consumedLastSlot) {
                 gBattleCReadIndex5AAA44 = 0;
             }
-            ParseBattleC_438550();
+            cg::yobi::detail::ParseBattleC_438550();
             if ((*reinterpret_cast<const unsigned char*>(&gBattleFieldFlags5ABB58) & 0x20U) != 0) {
                 gCurrentSceneState = 7;
                 break;
             }
-            Sub_43C9A0();
+            cg::yobi::detail::Sub_43C9A0();
             const std::int32_t position = std::bit_cast<std::int32_t>(gBattlePosition5ABCA8);
             const bool changed = gBattleCurrentPosition5ABCA4 != position;
             gBattleCurrentPosition5ABCA4 = position;
@@ -6408,7 +6408,7 @@ void DrawBattleScene_43CBB0()
                 gBattleSceneIndex5ABFD8 = 0;
                 do {
                     if (gBattleAllEntries59E980[index] != nullptr) {
-                        UpdateBattleAlbumFlag_4238F0(gBattleAllEntries59E980[index]);
+                        cg::yobi::detail::UpdateBattleAlbumFlag_4238F0(gBattleAllEntries59E980[index]);
                         index = gBattleSceneIndex5ABFD8;
                     }
                     gBattleSceneIndex5ABFD8 = ++index;
@@ -6430,18 +6430,18 @@ void DrawBattleScene_43CBB0()
     case 3:
         ui::detail::WindowBattleStateNotice_Open();
         input::ProcessKeyInput_4596D0();
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(SortBattleActions_405C30());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
-        Sub_43CA80();
+        cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        if (Sub_43C910() == 1) {
+        if (cg::yobi::detail::Sub_43C910() == 1) {
             if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
-                static_cast<void>(MarkDeath(gBattleEntryNoticeAction5ABFB8));
+                static_cast<void>(cg::yobi::detail::MarkDeath(gBattleEntryNoticeAction5ABFB8));
                 const std::uint32_t flags = gBattlePlayerFlags5ABCAC & ~3U;
                 gBattleEntryNoticeAction5ABFB8 = nullptr;
                 gBattlePlayerFlags5ABCAC = flags;
@@ -6452,9 +6452,9 @@ void DrawBattleScene_43CBB0()
         break;
     case 4:
         input::ProcessKeyInput_4596D0();
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(SortBattleActions_405C30());
-        Sub_43CA80();
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
+        cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -6466,10 +6466,10 @@ void DrawBattleScene_43CBB0()
         break;
     case 5: {
         input::ProcessKeyInput_4596D0();
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(SortBattleActions_405C30());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
-        Sub_43CA80();
+        cg::yobi::detail::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
@@ -6491,15 +6491,15 @@ void DrawBattleScene_43CBB0()
             }
             gBattleMScanOffset5A8A3C = 2;
             gCurrentSceneState = 6;
-        } else if (Sub_43CA50() >= 2) {
+        } else if (cg::yobi::detail::Sub_43CA50() >= 2) {
             ui::detail::gHoverTextD68AE8 = L"等待其他玩家的輸入指令。" /* 原常量参考：0x005541A0。 */;
         }
         break;
     }
     case 6:
         input::ProcessKeyInput_4596D0();
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(SortBattleActions_405C30());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         Sub_44A410();
@@ -6511,9 +6511,9 @@ void DrawBattleScene_43CBB0()
     case 7: {
         gBattleActiveEventMask5AAA74 = 0;
         gValue5ABB20 = 1;
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(Sub_43BAA0());
-        ClearBattleAppendEffects_43BED0();
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::Sub_43BAA0());
+        cg::yobi::detail::ClearBattleAppendEffects_43BED0();
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(audio::Sub_52B990());
@@ -6547,7 +6547,7 @@ void DrawBattleScene_43CBB0()
         ui::WindowRuntime_ProcessScene();
         render::ClearSurfaceTransformCache_44D490();
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
-        YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         Sub_446610();
         cg::world::detail::gRippleGate = std::int32_t{0};
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
@@ -6556,8 +6556,8 @@ void DrawBattleScene_43CBB0()
     case 9: {
         gValue5ABB20 = 1;
         gBattleActiveEventMask5AAA74 = 0;
-        static_cast<void>(YobiUpdateAll_404C50());
-        static_cast<void>(Sub_43BAA0());
+        static_cast<void>(cg::yobi::detail::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::detail::Sub_43BAA0());
         gBattleSceneIndex5ABFD8 = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(audio::Sub_52B990());
@@ -6573,7 +6573,7 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(Sub_46E4C0(160));
         }
         clearBattleEffects();
-        YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         Sub_446610();
         cg::world::detail::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
@@ -6592,17 +6592,17 @@ void DrawBattleScene_43CBB0()
     const std::int32_t end = position < 10 ? 10 : 20;
     gBattleSceneIndex5ABFD8 = index;
     do {
-        login::YobiAction* const actor = gBattleAllEntries59E980[index];
+        cg::yobi::YobiAction* const actor = gBattleAllEntries59E980[index];
         if (actor != nullptr) {
             const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
-            bool atRest = GetYobiActionField30(actor) == point[2]
-                && GetYobiActionField34(actor) == point[3];
+            bool atRest = cg::yobi::detail::GetYobiActionField30(actor) == point[2]
+                && cg::yobi::detail::GetYobiActionField34(actor) == point[3];
             if (!atRest) {
-                const std::int32_t action = GetYobiActionField2B0(actor);
+                const std::int32_t action = cg::yobi::detail::GetYobiActionField2B0(actor);
                 atRest = action == 0 || action == 9 || action == 8 || action == 10 || action == 1;
             }
-            if (atRest && ReadYobiBatchType(actor) == 0 && (GetYobiActionFlagsLowByte(actor) & 2U) == 0) {
-                Sub_4990A0(index);
+            if (atRest && cg::yobi::detail::ReadYobiBatchType(actor) == 0 && (cg::yobi::detail::GetYobiActionFlagsLowByte(actor) & 2U) == 0) {
+                cg::yobi::detail::Sub_4990A0(index);
                 index = gBattleSceneIndex5ABFD8;
             }
         }
@@ -6616,11 +6616,11 @@ void DrawBattleScene_43CBB0()
         gCurrentSceneState = 7;
         gValue5ABCB0 = 0;
     }
-    login::YobiAction* const exitAction = gBattleExitAction5ABCDC;
-    if (exitAction != nullptr && ReadYobiActionHpOnce(exitAction) > 0) {
-        login::YobiAction* const action = gBattleExitAction5ABCDC;
-        const std::int32_t y = GetYobiActionField34(action);
-        const std::int32_t x = GetYobiActionField30(action);
+    cg::yobi::YobiAction* const exitAction = gBattleExitAction5ABCDC;
+    if (exitAction != nullptr && cg::yobi::detail::ReadYobiActionHpOnce(exitAction) > 0) {
+        cg::yobi::YobiAction* const action = gBattleExitAction5ABCDC;
+        const std::int32_t y = cg::yobi::detail::GetYobiActionField34(action);
+        const std::int32_t x = cg::yobi::detail::GetYobiActionField30(action);
         if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             ui::detail::gHoverTextD68AE8 = L"結束觀戰。" /* 原常量参考：0x00554194。 */;
             const auto clicked = *reinterpret_cast<const unsigned char*>(
@@ -6633,9 +6633,9 @@ void DrawBattleScene_43CBB0()
                 gCurrentSceneState = 7;
             }
         }
-        login::YobiAction* const drawAction = gBattleExitAction5ABCDC;
-        const std::int32_t drawY = GetYobiActionField34(drawAction);
-        const std::int32_t drawX = GetYobiActionField30(drawAction);
+        cg::yobi::YobiAction* const drawAction = gBattleExitAction5ABCDC;
+        const std::int32_t drawY = cg::yobi::detail::GetYobiActionField34(drawAction);
+        const std::int32_t drawX = cg::yobi::detail::GetYobiActionField30(drawAction);
         static_cast<void>(render::DrawText2_456670(
             static_cast<std::int16_t>(drawX + 23), static_cast<std::int16_t>(drawY + 40),
             2, 2, 0, L"觀戰結束" /* 原常量参考：0x00554184。 */, 0));
@@ -6655,7 +6655,7 @@ void* __cdecl Sub_51D5B0()
         &low, sizeof(low));
 
     if (gate != 0
-        || login::detail::Sub_43F1F0(cg::world::detail::gPlayerRuntimeSlots.objectIndex)
+        || cg::yobi::detail::Sub_43F1F0(cg::world::detail::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
         const std::uint32_t currentGate = gValueD67E78;
         gValueFF0D74 = 0;
@@ -6664,14 +6664,14 @@ void* __cdecl Sub_51D5B0()
         }
     } else if (gValueFF0D74 == 0) {
         gCurrentSceneState = 250;
-        static_cast<void>(login::detail::Sub_440F50());
+        static_cast<void>(cg::yobi::detail::Sub_440F50());
         ++gValueFF0D74;
     } else {
         const std::uint32_t count = gValueFF0D74;
         gCurrentSceneState = 252;
         gValueFF0D74 = count + 1u;
     }
-    return login::detail::Sub_43F230();
+    return cg::yobi::detail::Sub_43F230();
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
@@ -6937,7 +6937,7 @@ void __cdecl Sub_46DA80(
     gValue9DAD64 = selected;
     Sub_46DB00(selected);
     Sub_46DC90(selected);
-    login::detail::Sub_46DD40();
+    cg::yobi::detail::Sub_46DD40();
 }
 
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
@@ -7844,7 +7844,7 @@ std::int16_t ReadPetFollowIndex(const std::size_t position) noexcept
     return std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
 }
 
-login::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
+cg::yobi::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
 {
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
 }
@@ -7876,13 +7876,13 @@ void Sub_46A990()
     }
 }
 
-void ResetMapFollowersFromPath(login::YobiAction* const leader)
+void ResetMapFollowersFromPath(cg::yobi::YobiAction* const leader)
 {
     for (std::int32_t i = 1; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
             const bool isPlayer = slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex;
-            login::detail::ResetMapFollowerFromPath(
+            cg::yobi::detail::ResetMapFollowerFromPath(
                 leader, i, slot.action, isPlayer, &detail::gPlayerRuntimeSlots.direction);
         }
     }
@@ -7891,8 +7891,8 @@ void ResetMapFollowersFromPath(login::YobiAction* const leader)
 // 原函数：0x0046AFE0。
 void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
 {
-    login::YobiAction* const first = gPetMapCharaSlots[0].action;
-    if (first == nullptr || !login::detail::IsMapActorIdleAtTarget(first)) {
+    cg::yobi::YobiAction* const first = gPetMapCharaSlots[0].action;
+    if (first == nullptr || !cg::yobi::detail::IsMapActorIdleAtTarget(first)) {
         return;
     }
     std::int32_t previous = index - 1;
@@ -7902,7 +7902,7 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
             break;
         }
     }
-    if (previous >= 0 && login::detail::AreMapActorTargetsAdjacent(
+    if (previous >= 0 && cg::yobi::detail::AreMapActorTargetsAdjacent(
             gPetMapCharaSlots[static_cast<std::size_t>(previous)].action,
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action)) {
         return;
@@ -7911,12 +7911,12 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
     for (std::int32_t i = index; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
         if (slot.flags != 0) {
-            login::YobiAction* const action = slot.action;
+            cg::yobi::YobiAction* const action = slot.action;
             if (action != nullptr) {
                 std::int32_t nextX;
                 std::int32_t nextY;
-                login::detail::ReadMapActorTarget(action, slot.action, &nextX, &nextY);
-                login::detail::Sub_441F60(action, x, y);
+                cg::yobi::detail::ReadMapActorTarget(action, slot.action, &nextX, &nextY);
+                cg::yobi::detail::Sub_441F60(action, x, y);
                 x = nextX;
                 y = nextY;
             }
@@ -7933,22 +7933,22 @@ void Sub_51B0F0()
 }
 
 // 原函数：0x0051B080。
-login::YobiAction* Sub_51B080()
+cg::yobi::YobiAction* Sub_51B080()
 {
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
             if (slot.objectIndex == detail::gPlayerRuntimeSlots.objectIndex) {
-                login::YobiAction* const action = slot.action;
+                cg::yobi::YobiAction* const action = slot.action;
                 if (action != nullptr) {
-                    login::detail::ClearMapActorPathCount(action);
+                    cg::yobi::detail::ClearMapActorPathCount(action);
                 }
                 Sub_51A5F0();
             } else {
                 const std::uint32_t flags = ReadPlayerFlags18A();
                 if ((flags & 0x100u) != 0) {
-                    login::YobiAction* const action = slot.action;
+                    cg::yobi::YobiAction* const action = slot.action;
                     if (action != nullptr) {
-                        login::detail::ClearMapActorPathCount(action);
+                        cg::yobi::detail::ClearMapActorPathCount(action);
                     }
                 }
                 Sub_442C70(slot.action);
@@ -7976,9 +7976,9 @@ void Sub_46A5A0(const std::int32_t x, const std::int32_t y)
     if (index < 0) {
         return;
     }
-    login::YobiAction* const action =
+    cg::yobi::YobiAction* const action =
         gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
-    login::detail::Sub_441F60(action, x, y);
+    cg::yobi::detail::Sub_441F60(action, x, y);
 }
 
 // 原函数：0x0046A940。
@@ -7997,9 +7997,9 @@ void Sub_46A940()
         if (index < 0) {
             break;
         }
-        login::YobiAction* const action =
+        cg::yobi::YobiAction* const action =
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
-        login::detail::Sub_442730(action);
+        cg::yobi::detail::Sub_442730(action);
     }
 }
 
@@ -8321,7 +8321,7 @@ void Sub_470670()
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 {
-    login::YobiAction* const initialAction = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const initialAction = detail::gPlayerRuntimeSlots.action;
     if (initialAction == nullptr || gCurrentSceneType == 10
         || gValue9A86D8 != 0 || gValue9FB92E != 0) {
         return reinterpret_cast<std::uintptr_t>(initialAction);
@@ -8337,10 +8337,10 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     if (gEmoteRequestTickD67D20 + 500u >= now) {
         return static_cast<std::uintptr_t>(now);
     }
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
-    bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    bool useLimitedActions = cg::yobi::detail::ReadMapActorAttachment44(action) != nullptr;
     if (!useLimitedActions) {
-        const std::int32_t image = login::detail::GetYobiActionField2A8(action);
+        const std::int32_t image = cg::yobi::detail::GetYobiActionField2A8(action);
         useLimitedActions = !((image >= 0x186A0 && image <= 0x18A87)
             || (image >= 0x19A28 && image <= 0x1A130)
             || (image >= 0x1AF0E && image <= 0x1AF25)
@@ -8758,9 +8758,9 @@ void Sub_46A700()
             const std::int32_t remaining = count - 1;
             detail::gPlayerRuntimeSlots.value174 = remaining;
             if (remaining <= 0) {
-                login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+                cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
                 if (action != nullptr) {
-                    login::detail::BeginMapActorPhase2(action);
+                    cg::yobi::detail::BeginMapActorPhase2(action);
                     const std::int32_t snapshotY =
                         gPlayerSnapshotY.value();
                     const std::int32_t snapshotX =
@@ -8773,10 +8773,10 @@ void Sub_46A700()
     }
     Sub_51A060(1);
     static_cast<void>(Sub_51A640());
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
         gMapCharaSceneSlots.value55DE98 =
-            login::detail::ReadYobiDirectionLow16(action);
+            cg::yobi::detail::ReadYobiDirectionLow16(action);
     }
     static_cast<void>(Sub_46CEE0());
     Sub_519EE0();
@@ -8815,10 +8815,10 @@ void Sub_519A80()
     Sub_51A090(
         detail::gPlayerRuntimeSlots.name.data(), titles, level, value188, flag40, flag80);
 
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        login::detail::CopyYobiPlayerHp(action, &detail::gPlayerRuntimeSlots.hp);
-        login::detail::CopyYobiPlayerMaxHp(
+        cg::yobi::detail::CopyYobiPlayerHp(action, &detail::gPlayerRuntimeSlots.hp);
+        cg::yobi::detail::CopyYobiPlayerMaxHp(
             detail::gPlayerRuntimeSlots.action, &detail::gPlayerRuntimeSlots.maxHp);
         const std::uint32_t objectIndex = detail::gPlayerRuntimeSlots.objectIndex;
         for (auto& slot : gPetMapCharaSlots) {
@@ -8836,7 +8836,7 @@ void Sub_519A80()
 }
 
 // 原函数：0x0051A090。
-login::YobiAction* Sub_51A090(
+cg::yobi::YobiAction* Sub_51A090(
     const char* const name, const char* const titles, const std::int32_t level,
     const std::int32_t value188, const std::int32_t flag40,
     const std::int32_t flag80)
@@ -8879,14 +8879,14 @@ login::YobiAction* Sub_51A090(
     if (flag80 != 0) {
         detail::gPlayerRuntimeSlots.flags18A |= 0x80u;
     }
-    return login::detail::PublishPlayerActionIdentity(
+    return cg::yobi::detail::PublishPlayerActionIdentity(
         name, titles, nameLength, level, value188);
 }
 
 // 原函数：0x0051A4B0。
 void Sub_51A4B0()
 {
-    login::detail::CopyInitialPlayerActionIdentity(
+    cg::yobi::detail::CopyInitialPlayerActionIdentity(
         detail::gPlayerRuntimeSlots.name.data(), detail::gPlayerRuntimeSlots.ownTitle.data(),
         &detail::gPlayerRuntimeSlots.level, &detail::gPlayerRuntimeSlots.hp, &detail::gPlayerRuntimeSlots.maxHp);
 }
@@ -8896,7 +8896,7 @@ void Sub_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
-    login::YobiAction* const oldAction = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const oldAction = detail::gPlayerRuntimeSlots.action;
     detail::gPlayerRuntimeSlots.imageNo = imageNo;
     detail::gPlayerRuntimeSlots.direction = direction;
     if (oldAction != nullptr) {
@@ -8906,32 +8906,32 @@ void Sub_519CD0(
         return;
     }
 
-    login::YobiAction* const action =
-        login::detail::Sub_441DB0(imageNo, x, y, direction);
+    cg::yobi::YobiAction* const action =
+        cg::yobi::detail::Sub_441DB0(imageNo, x, y, direction);
     detail::gPlayerRuntimeSlots.action = action;
     if (action != nullptr) {
-        login::detail::SetYobiPlayerFlag(action);
-        login::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
-        login::detail::SetYobiWalkSpeed(current, detail::gPlayerRuntimeSlots.walkSpeed);
+        cg::yobi::detail::SetYobiPlayerFlag(action);
+        cg::yobi::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
+        cg::yobi::detail::SetYobiWalkSpeed(current, detail::gPlayerRuntimeSlots.walkSpeed);
     }
 }
 
 // 原函数：0x00519E50。
 void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     detail::gPlayerRuntimeSlots.imageNo = imageNo;
     detail::gPlayerRuntimeSlots.direction = direction;
     if (action == nullptr) {
         return;
     }
-    login::detail::SetYobiActionField2A8(action, imageNo);
-    login::detail::SetYobiActionField2B8(detail::gPlayerRuntimeSlots.action, direction);
-    login::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
-    if (login::detail::ReadMapActorAttachment44(current) != nullptr) {
+    cg::yobi::detail::SetYobiActionField2A8(action, imageNo);
+    cg::yobi::detail::SetYobiActionField2B8(detail::gPlayerRuntimeSlots.action, direction);
+    cg::yobi::YobiAction* const current = detail::gPlayerRuntimeSlots.action;
+    if (cg::yobi::detail::ReadMapActorAttachment44(current) != nullptr) {
         const std::int32_t mapped =
-            Sub_51C0D0(login::detail::GetYobiActionField2A8(current));
-        login::detail::SetYobiActionField2A8(detail::gPlayerRuntimeSlots.action, mapped);
+            Sub_51C0D0(cg::yobi::detail::GetYobiActionField2A8(current));
+        cg::yobi::detail::SetYobiActionField2A8(detail::gPlayerRuntimeSlots.action, mapped);
     }
 }
 
@@ -8944,10 +8944,10 @@ std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
 // 原函数：0x0051A040。
 std::int32_t Sub_51A040(const std::int32_t direction)
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     detail::gPlayerRuntimeSlots.direction = direction;
     if (action != nullptr) {
-        login::detail::SetYobiActionField2B8(action, direction);
+        cg::yobi::detail::SetYobiActionField2B8(action, direction);
     }
     return direction;
 }
@@ -8955,9 +8955,9 @@ std::int32_t Sub_51A040(const std::int32_t direction)
 // 原函数：0x0051A060。
 void Sub_51A060(const std::int32_t characterAction)
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        login::detail::Sub_43EFC0(
+        cg::yobi::detail::Sub_43EFC0(
             action, characterAction, characterAction == 1 ? 0 : 1);
     }
 }
@@ -8974,9 +8974,9 @@ void Sub_51A840(
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
-        login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+        cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
         detail::gPlayerRuntimeSlots.walkSpeed = speed;
-        login::detail::SetYobiWalkSpeed(action, speed);
+        cg::yobi::detail::SetYobiWalkSpeed(action, speed);
         Sub_51A060(1);
         return;
     }
@@ -9058,7 +9058,7 @@ void Sub_51A840(
         static_cast<void>(Sub_4681B0());
         return;
     case 60:
-        login::detail::ApplyPlayerAppearanceReply(
+        cg::yobi::detail::ApplyPlayerAppearanceReply(
             option1, option2, option3, option4, &detail::gPlayerRuntimeSlots.imageNo);
         return;
     case 63:
@@ -9070,10 +9070,10 @@ void Sub_51A840(
         static_cast<void>(Sub_51A040(direction));
         return;
     case 70:
-        login::detail::ApplyPlayerRideReply(option1, option2, &detail::gPlayerRuntimeSlots.value174);
+        cg::yobi::detail::ApplyPlayerRideReply(option1, option2, &detail::gPlayerRuntimeSlots.value174);
         return;
     case 80:
-        login::detail::ApplyPlayerPhase3Reply(option1);
+        cg::yobi::detail::ApplyPlayerPhase3Reply(option1);
         return;
     case 200:
         if (option1 != 0) {
@@ -9140,10 +9140,10 @@ std::int32_t Sub_51C0D0(const std::int32_t imageNo)
 // 原函数：0x00519D50。
 std::int8_t Sub_519D50()
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     if (action != nullptr) {
-        login::detail::ClearMapActorAttachments(action);
-        login::detail::MarkDeath(detail::gPlayerRuntimeSlots.action);
+        cg::yobi::detail::ClearMapActorAttachments(action);
+        cg::yobi::detail::MarkDeath(detail::gPlayerRuntimeSlots.action);
         detail::gPlayerRuntimeSlots.action = nullptr;
     }
     Sub_51A5B0();
@@ -9249,11 +9249,11 @@ void Sub_51BEE0()
 }
 
 // 原函数：0x0051A5B0。
-login::YobiAction* Sub_51A5B0()
+cg::yobi::YobiAction* Sub_51A5B0()
 {
-    login::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = detail::gPlayerRuntimeSlots.action;
     *reinterpret_cast<unsigned char*>(&detail::gPlayerRuntimeSlots.flags18C) = 0;
-    if (action == nullptr || login::detail::GetYobiActionField2E4(action) != 2) {
+    if (action == nullptr || cg::yobi::detail::GetYobiActionField2E4(action) != 2) {
         detail::gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
     }
     return action;
@@ -9532,7 +9532,7 @@ std::int32_t Sub_45EEE0()
         gLogoutTransition9A6E94 = next;
         platform::gLastRenderDt = tick;
         ui::WindowRuntime_ProcessScene();
-        login::detail::Sub_43F230();
+        cg::yobi::detail::Sub_43F230();
     }
     return 0;
 }
@@ -10832,7 +10832,7 @@ std::int32_t Sub_45EBB0()
         gLogoutTransition9A6E94 = 0;
         Sub_519D50();
         Sub_446470();
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         sceneState = gCurrentSceneState;
         ++sceneState;
         gCurrentSceneState = sceneState;
@@ -10847,7 +10847,7 @@ std::int32_t Sub_45EBB0()
         const std::int32_t result = Sub_45ED90();
         if (result == 1) {
             network::ShutdownNetworkRuntime_5081A0();
-            login::detail::YobiClearUp_404D30();
+            cg::yobi::detail::YobiClearUp_404D30();
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
@@ -10891,7 +10891,7 @@ std::int32_t Sub_45EBB0()
             return result;
         }
         network::ShutdownNetworkRuntime_5081A0();
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         return SetCurrentSceneType(2);
     }
     return finalState;
@@ -10920,7 +10920,7 @@ std::int32_t Sub_45ED90()
         const std::int32_t actionWidth = columns * 64;
         const std::int32_t left = initialXWidth / 2;
         gValue9A5AC0 = left;
-        gAction9A6E98 = login::detail::CreateModalAction_5044E0(
+        gAction9A6E98 = cg::yobi::detail::CreateModalAction_5044E0(
             left, 192, actionWidth, 96, 4, 1);
     }
 
@@ -10933,17 +10933,17 @@ std::int32_t Sub_45ED90()
     } else if (phase == 2) {
         result = login::detail::Sub_508C90();
         if (result != 0) {
-            login::YobiAction* const action = gAction9A6E98;
+            cg::yobi::YobiAction* const action = gAction9A6E98;
             if (action != nullptr) {
-                login::detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gAction9A6E98 = nullptr;
             }
             return result;
         }
     }
 
-    login::YobiAction* const action = gAction9A6E98;
-    if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gAction9A6E98;
+    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gValue9A5674;
         const std::int32_t top = gValue9A61F8;
         const std::int32_t drawY = top + (48 * rows - 16) / 2;

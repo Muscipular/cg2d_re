@@ -54,7 +54,7 @@ int ShutdownClient_457A40()
     cg::resource::Sub_457670();
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
-    login::detail::Sub_404D60();
+    cg::yobi::detail::Sub_404D60();
     cg::network::ShutdownNetworkRuntime_5081A0();
     ResetLegacyMouseTrackerDefaults_5066D0();
 

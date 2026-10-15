@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1049,4 +1049,4 @@ std::int32_t gBattleMHalfValue5A4A30 = 0;
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

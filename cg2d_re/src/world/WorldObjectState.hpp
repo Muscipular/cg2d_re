@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 struct YobiAction;
 }
 
@@ -47,7 +47,7 @@ struct WorldObjectRecord {
     std::array<std::byte, 4> bytes110; // 原成员偏移：+0x110。
     std::uint32_t flags114; // 原成员偏移：+0x114。
     std::int32_t value118; // 原成员偏移：+0x118。
-    login::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
+    cg::yobi::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
     std::uint16_t flags120; // 原成员偏移：+0x120。
     std::array<std::byte, 2> bytes122; // 原成员偏移：+0x122。
     std::int32_t value124; // 原+124，442F70状态图号表下标。

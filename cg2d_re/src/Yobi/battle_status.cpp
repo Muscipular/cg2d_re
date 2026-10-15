@@ -10,7 +10,7 @@
 #include <bit>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1090,4 +1090,4 @@ void UpdateBattleAction207_412830(YobiAction* const action)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

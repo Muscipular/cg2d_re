@@ -7,7 +7,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004875E0。
-static login::YobiAction* WindowSkillResult_Open(); // 原操作计数、关联关闭及窗口13创建。
+static cg::yobi::YobiAction* WindowSkillResult_Open(); // 原操作计数、关联关闭及窗口13创建。
 
 // 原函数：0x004876B0。
 static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* window); // 窗口13按分类完整填充结果。
@@ -116,7 +116,7 @@ std::int32_t WindowSkillResult_ReadPreviewImage(const std::int32_t imageNo, cons
 }
 
 // 原函数：0x004875E0。
-static login::YobiAction* WindowSkillResult_Open()
+static cg::yobi::YobiAction* WindowSkillResult_Open()
 {
     WindowRuntime_IncrementOperationCount();
     const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
@@ -211,7 +211,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
         increments.append(std::format(kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC));
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
-    login::detail::SetYobiActionField2B0(
+    cg::yobi::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[2].data)->action,
         gWindow13ResultD66E2C != 0 ? 5 : 10);
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -227,9 +227,9 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
     }
     const std::int32_t imageNo =
         WindowSkillResult_ReadPreviewImage(character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo), 0);
-    login::detail::SetYobiActionField2A8(
+    cg::yobi::detail::SetYobiActionField2A8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
-    login::detail::SetYobiActionField2B8(
+    cg::yobi::detail::SetYobiActionField2B8(
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
     if (gSkillSendModeC8A970 != 0) {
         static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 1, 3, gSkillPetImageCB0A18));
@@ -242,28 +242,28 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 // 原函数：0x00487B80。
 static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
-    login::YobiAction* const action =
+    cg::yobi::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
-    const std::int32_t actionId = login::detail::GetYobiActionField2B0(action);
-    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(action);
+    const std::int32_t actionId = cg::yobi::detail::GetYobiActionField2B0(action);
+    const std::int32_t imageNo = cg::yobi::detail::GetYobiActionField2A8(action);
     if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
         const bool succeeded = actionId == 18 || actionId == 5;
         const std::int32_t defaultAction = succeeded ? 5 : 10;
-        login::detail::SetYobiActionField2B0(action, defaultAction);
+        cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
         for (const auto& range : kCraftAlternateActionImages) {
             if (imageNo >= range[0] && imageNo <= range[1]) {
-                login::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                cg::yobi::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
             }
         }
         if (imageNo == 0x18A26) {
-            login::detail::SetYobiActionField2B0(action, defaultAction);
+            cg::yobi::detail::SetYobiActionField2B0(action, defaultAction);
         }
     }
     if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        login::detail::SetYobiActionField309(action, 4);
-        login::detail::SetYobiActionField310(action, 4);
+        cg::yobi::detail::SetYobiActionField309(action, 4);
+        cg::yobi::detail::SetYobiActionField310(action, 4);
     } else {
-        login::detail::SetYobiActionField309(action, 0);
+        cg::yobi::detail::SetYobiActionField309(action, 0);
     }
     WindowRuntime_DrawCurrent();
     return 1;
@@ -330,7 +330,7 @@ static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, cons
 }
 
 // 原函数：0x004EEA40。
-login::YobiAction* WindowSkillResult_ReceiveResult(const std::int32_t result, const char* const text)
+cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(const std::int32_t result, const char* const text)
 {
     gWindow13ResultD66E2C = result;
     gWindow13DetailsCB0FDC.clear();

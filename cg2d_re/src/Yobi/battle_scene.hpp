@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -13,4 +13,4 @@ extern std::int32_t gBattlePendingGroupCount5ABB24;
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

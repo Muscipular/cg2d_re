@@ -20,7 +20,7 @@
 #include <optional>
 #include <string>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -3753,4 +3753,4 @@ void UpdateBattleAction254_40FEB0(YobiAction* const action)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

@@ -872,7 +872,7 @@ void Sub_50DD80(
         default:
             return;
         }
-        static_cast<void>(login::detail::Sub_448040(
+        static_cast<void>(cg::yobi::detail::Sub_448040(
             convertedImageNo, mapX, mapY, direction, actionMode, value02, -1));
         return;
     }
@@ -928,7 +928,7 @@ void Sub_50DD80(
     default:
         return;
     }
-    static_cast<void>(login::detail::Sub_448040(
+    static_cast<void>(cg::yobi::detail::Sub_448040(
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
 }

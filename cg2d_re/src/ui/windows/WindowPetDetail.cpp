@@ -288,10 +288,10 @@ static std::uint32_t WindowPetDetail_Refresh()
         WindowElement* const imageElements = gCurrentWindow->elements;
         const std::int32_t imageNo = imagePet.imageNo6A0;
         auto* const imageData = static_cast<WindowAnimationData*>(imageElements[20].data);
-        login::detail::SetYobiActionField2A8(imageData->action, imageNo);
+        cg::yobi::detail::SetYobiActionField2A8(imageData->action, imageNo);
         auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[20].data);
         const std::int32_t direction = gLoginWindowRuntime.valueD673D0;
-        login::detail::SetYobiActionField2B8(directionData->action, direction);
+        cg::yobi::detail::SetYobiActionField2B8(directionData->action, direction);
 
         const std::int32_t injury = selectedPet().values70[25];
         std::int32_t injuryImage;

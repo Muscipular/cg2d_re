@@ -8,6 +8,7 @@
 #include "PetTechniqueRecord.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>
@@ -18,7 +19,7 @@
 #include <string>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 struct YobiAction;
 }
 
@@ -50,8 +51,6 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 
 namespace cg::login::detail {
 
-// 原函数：0x0046DD40。
-void Sub_46DD40(); // 原 0x46DD40；复用 YobiRuntime.cpp 的外部定义。
 // 原函数：0x00520470。
 std::int32_t Sub_520470(); // 原 [0x520470,0x5204BF)，保存当前音频设置。
 // 原函数：0x00520510。
@@ -673,7 +672,7 @@ struct PlayerRuntimeSlots {
     std::uint16_t options194; // 原成员偏移：+0x194。 原FDA894低W16；选项切换/回复与聊天门禁共用。
     std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
     std::array<detail::PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
-    login::YobiAction* action;
+    cg::yobi::YobiAction* action;
     std::array<char, 17> text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
     std::array<std::int32_t, 3> values15BD0; // 原成员偏移：+0x15BD0。 原FF02D0/FF02D4/FF02D8。
@@ -1036,7 +1035,7 @@ void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一ca
 // 原函数：0x00444FA0。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // WOL01：两段编号查槽，命中更新查找游标。
 // 原函数：0x004462B0。
-login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
+cg::yobi::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
 // 原函数：0x0050AEF0。
 void Sub_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 // 原函数：0x0050B380。
@@ -1074,10 +1073,10 @@ void Sub_50CAE0(
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。
 void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
 // 原函数：0x0043D860。
-void Sub_43D860(login::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
+void Sub_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
 // 原函数：0x00442DC0。
 void Sub_442DC0(
-    login::YobiAction* action, std::int32_t duration, const char* text,
+    cg::yobi::YobiAction* action, std::int32_t duration, const char* text,
     std::int32_t color, std::int32_t font, std::int32_t length);
 // 原函数：0x0051A6A0。
 void Sub_51A6A0(
@@ -1101,55 +1100,55 @@ void Sub_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
 // 原函数：0x0051A5E0。
 void Sub_51A5E0(); // 玩家flags18A置200。
 // 原函数：0x00449C90。
-std::uint16_t Sub_449C90(login::YobiAction* action); // 同一次W16 flags42取样/条件置100并返低W16结果；NULL返0。
+std::uint16_t Sub_449C90(cg::yobi::YobiAction* action); // 同一次W16 flags42取样/条件置100并返低W16结果；NULL返0。
 // 原函数：0x00449CC0。
-void Sub_449CC0(login::YobiAction* action); // marker44为0才清flags42的100。
+void Sub_449CC0(cg::yobi::YobiAction* action); // marker44为0才清flags42的100。
 // 原函数：0x00442C40。
-std::uint16_t* Sub_442C40(login::YobiAction* action); // flags42高BYTE置2，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_442C40(cg::yobi::YobiAction* action); // flags42高BYTE置2，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00442C70。
-void Sub_442C70(login::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
+void Sub_442C70(cg::yobi::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
 // 原函数：0x00442BD0。
-void Sub_442BD0(login::YobiAction* action); // flags42置100，再marker44=1。
+void Sub_442BD0(cg::yobi::YobiAction* action); // flags42置100，再marker44=1。
 // 原函数：0x00442C00。
-void Sub_442C00(login::YobiAction* action); // 清marker44，非模式2才清flags42的100。
+void Sub_442C00(cg::yobi::YobiAction* action); // 清marker44，非模式2才清flags42的100。
 // 原函数：0x00442CA0。
-void Sub_442CA0(login::YobiAction* action, std::int32_t value); // 置4000，再写value10C。
+void Sub_442CA0(cg::yobi::YobiAction* action, std::int32_t value); // 置4000，再写value10C。
 // 原函数：0x00442CD0。
-std::uint16_t* Sub_442CD0(login::YobiAction* action); // flags42原W16清4000/保value10C，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_442CD0(cg::yobi::YobiAction* action); // flags42原W16清4000/保value10C，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00442D00。
-void Sub_442D00(login::YobiAction* action, std::int32_t value); // 置8000，再写value10C。
+void Sub_442D00(cg::yobi::YobiAction* action, std::int32_t value); // 置8000，再写value10C。
 // 原函数：0x00442D30。
-std::uint16_t* Sub_442D30(login::YobiAction* action); // flags42原W16清8000，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_442D30(cg::yobi::YobiAction* action); // flags42原W16清8000，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00442D60。
-void Sub_442D60(login::YobiAction* action, std::int32_t value); // 置0400，再写value10C。
+void Sub_442D60(cg::yobi::YobiAction* action, std::int32_t value); // 置0400，再写value10C。
 // 原函数：0x00442D90。
-std::uint16_t* Sub_442D90(login::YobiAction* action); // flags42原W16 AND EBFF，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_442D90(cg::yobi::YobiAction* action); // flags42原W16 AND EBFF，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D970。
-std::uint16_t* Sub_43D970(login::YobiAction* action); // flags120低BYTE置1，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43D970(cg::yobi::YobiAction* action); // flags120低BYTE置1，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D9A0。
-std::uint16_t* Sub_43D9A0(login::YobiAction* action); // flags120原W16清1，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43D9A0(cg::yobi::YobiAction* action); // flags120原W16清1，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043D9D0。
-void Sub_43D9D0(login::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
+void Sub_43D9D0(cg::yobi::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
 // 原函数：0x0043DA10。
-void Sub_43DA10(login::YobiAction* action); // flags120清2，再清value124。
+void Sub_43DA10(cg::yobi::YobiAction* action); // flags120清2，再清value124。
 // 原函数：0x0043DA40。
-std::uint16_t* Sub_43DA40(login::YobiAction* action); // flags120低BYTE置24，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DA40(cg::yobi::YobiAction* action); // flags120低BYTE置24，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DA70。
-std::uint16_t* Sub_43DA70(login::YobiAction* action); // flags120低BYTE置8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DA70(cg::yobi::YobiAction* action); // flags120低BYTE置8，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DAA0。
-std::uint16_t* Sub_43DAA0(login::YobiAction* action); // flags120原W16清8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DAA0(cg::yobi::YobiAction* action); // flags120原W16清8，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DAD0。
-std::uint16_t* Sub_43DAD0(login::YobiAction* action); // flags120低BYTE置50，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DAD0(cg::yobi::YobiAction* action); // flags120低BYTE置50，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DB00。
-std::uint16_t* Sub_43DB00(login::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DB00(cg::yobi::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DB30。
-std::uint16_t* Sub_43DB30(login::YobiAction* action); // flags120原W16清80，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DB30(cg::yobi::YobiAction* action); // flags120原W16清80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00444410。
 void Sub_444410(
-    login::YobiAction* action, std::int32_t x, std::int32_t y,
+    cg::yobi::YobiAction* action, std::int32_t x, std::int32_t y,
     std::int32_t direction, std::int32_t characterAction, std::int32_t option1,
     std::int32_t option2, std::int32_t option3, std::int32_t option4);
-void ResetMapFollowersFromPath(login::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
+void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
 // 原函数：0x0050A3E0。
 void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
 // 原函数：0x0050D000。
@@ -1209,7 +1208,7 @@ void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 // 原函数：0x0051A5F0。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
 // 原函数：0x0051B080。
-login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
+cg::yobi::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
 // 原函数：0x0051B0F0。
 void Sub_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x0046AFE0。
@@ -1483,7 +1482,7 @@ void Sub_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠�
 // 原 46FB80：先X差再Y差，返回Y平方+X平方的F64值。
 double Sub_46FB80(float x, float y, float targetX, float targetY);
 // 原函数：0x0051A090。
-login::YobiAction* Sub_51A090(
+cg::yobi::YobiAction* Sub_51A090(
     const char* name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 519A80 公共尾清理；后续协议/场景必须复用这些独立 W16 槽。
@@ -1538,7 +1537,7 @@ std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个�
 std::int32_t Sub_504B60(); // SHP01：五S16配对首个受伤宠物原编号，无则-1，不检查used。
 std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
-login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
+cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
@@ -1584,9 +1583,9 @@ void Sub_51BE40(); // FDA88E置0x50。
 // 原函数：0x0051BEE0。
 void Sub_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 // 原函数：0x0051A640。
-login::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
+cg::yobi::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
 // 原函数：0x0051A660。
-login::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
+cg::yobi::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
 // 原函数：0x0051A680。
 std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 // 原函数：0x0051C0D0。
@@ -1597,7 +1596,7 @@ std::int8_t Sub_519D50();                  // 原 0x519D50：附件清理、重�
 // 原函数：0x0051A5A0。
 void Sub_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
 // 原函数：0x0051A5B0。
-login::YobiAction* Sub_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
+cg::yobi::YobiAction* Sub_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
 // 原函数：0x0051BDD0。
 std::int32_t Sub_51BDD0(std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
 // 原函数：0x0051BDF0。
@@ -1638,7 +1637,7 @@ extern std::array<char, 0x1000> gBattleMText5AAA7C; // 原全局：0x005AAA7C。
 extern std::int32_t gBattleMScanOffset5A8A3C; // 原全局：0x005A8A3C。 M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 原全局：0x005AAA60。 439600/439700预扫描游标，由43B290复制头游标。
 extern std::uint32_t gBattleActiveEventMask5AAA74; // 原全局：0x005AAA74。 32事件槽位图，43B6C0清当前位。
-extern std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C; // 原全局：0x005ABA9C。 非拥有事件引用；4383F0清表，43B610按当前eventSlot发布。
+extern std::array<cg::yobi::YobiAction*, 32> gBattleEventActions5ABA9C; // 原全局：0x005ABA9C。 非拥有事件引用；4383F0清表，43B610按当前eventSlot发布。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
 extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 原全局：0x005AAA48。 调度累计、43B290逐槽冲突判定。
 extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 原全局：0x005A8A40。 仅映射439B30已消费位置，40F2B1同源读取。
@@ -1647,9 +1646,9 @@ struct BattleNamedEffectRecord {
     std::int32_t value; // 原+20，439B30按名称更新。
 };
 extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0; // 原全局：0x005ABCE0。
-extern login::YobiAction* gBattleSceneAction5ABA94; // 原全局：0x005ABA94。 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
-extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。
-extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
+extern cg::yobi::YobiAction* gBattleSceneAction5ABA94; // 原全局：0x005ABA94。 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
+extern std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。
+extern const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC; // 原全局：0x005536FC。
 extern const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 原全局：0x00553758。 两组原S32坐标。
 extern std::int32_t gBattleCurrentPosition5ABCA4; // 原全局：0x005ABCA4。 实际gMyPostion；不同于P回复的5ABCA8。
@@ -1671,14 +1670,14 @@ extern std::int32_t gBattleCommandY553F7C; // 原全局：0x00553F7C。 映像-1
 extern std::int32_t gBattleCommandValue553F80; // 原全局：0x00553F80。 映像及初始化17，43C3E0读取。
 extern std::int32_t gBattlePetSkillGraphicIndex553F8C; // 原全局：0x00553F8C。 原绘制返回索引，初值-1，不是对象地址。
 extern std::array<std::int32_t, 9> gBattleResetValues5ABB84; // 原全局：0x005ABB84。 43C490只写-2的独立九槽，非选择标志。
-extern login::YobiAction* gBattleEntryNoticeAction5ABFB8; // 原全局：0x005ABFB8。 43C950返回的非拥有窗口动画，49BD40及场景清槽。
+extern cg::yobi::YobiAction* gBattleEntryNoticeAction5ABFB8; // 原全局：0x005ABFB8。 43C950返回的非拥有窗口动画，49BD40及场景清槽。
 // 原函数：0x0043C4E0。
 void Sub_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::int32_t gBattleSelectionMode5ABC70; // 原全局：0x005ABC70。 与九个选择槽分别存储。
 extern std::int32_t gBattleSkillUsed5ABC68; // 原全局：0x005ABC68。 497000/4975A0读取完整W32。
 extern std::int32_t gBattlePetCommandPhase553F88; // 原全局：0x00553F88。 原.data初值1，宠物命令写0/2。
 extern std::int32_t gBattleValue5ABCC0; // 原全局：0x005ABCC0。 两个技能开启入口清零，不猜未消费语义。
-extern login::YobiAction* gBattleCommandAction5ABC00; // 原全局：0x005ABC00。 原非拥有对象引用，MarkDeath后清槽。
+extern cg::yobi::YobiAction* gBattleCommandAction5ABC00; // 原全局：0x005ABC00。 原非拥有对象引用，MarkDeath后清槽。
 extern std::uint32_t gBattleTargetFlags5ABC44; // 原全局：0x005ABC44。 43C560先发布完整目标位模式，43C120后续消费。
 extern std::int32_t gBattleSelectedItem5ABC48; // 原全局：0x005ABC48。 499C30发布真实物品槽，498520后续消费。
 extern std::int32_t gBattleItemTargetPending5ABCC4; // 原全局：0x005ABCC4。 499C30请求选目标，497100/497770处理。

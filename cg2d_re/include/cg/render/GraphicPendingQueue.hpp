@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 struct YobiAction;
 }
 
@@ -50,11 +50,11 @@ static_assert(offsetof(GraphicDescriptor16, paletteIndex) == 0x0E);
 
 // 原 +0C 混用字段；按生产/消费合同访问，action 为非拥有引用，文本仍用 W32 token。
 union GraphicQueueReference {
-    cg::login::YobiAction* action;
+    cg::yobi::YobiAction* action;
     std::uint32_t textToken;
 };
 
-static_assert(sizeof(cg::login::YobiAction*) == 0x08);
+static_assert(sizeof(cg::yobi::YobiAction*) == 0x08);
 static_assert(sizeof(GraphicQueueReference) == 0x08);
 static_assert(alignof(GraphicQueueReference) == 0x08);
 static_assert(std::is_standard_layout_v<GraphicQueueReference>);

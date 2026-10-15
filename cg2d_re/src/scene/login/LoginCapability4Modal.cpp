@@ -30,7 +30,7 @@ std::int32_t gCapability4ModalHeight = 0; // 原全局：0x009A5448。
 std::int32_t gCapability4ModalX = 0; // 原全局：0x009A4B78。
 std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
 // 原 dword_9A6EBC@0x9A6EBC；原生指针宽度观察者，不放入 W32。
-cg::login::YobiAction* gCapability4ModalAction = nullptr;
+cg::yobi::YobiAction* gCapability4ModalAction = nullptr;
 
 constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
@@ -121,7 +121,7 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         gCapability4ModalHeight = modalHeight;
         gCapability4ModalX = modalX;
         gCapability4ModalY = modalY;
-        gCapability4ModalAction = CreateModalAction_5044E0(
+        gCapability4ModalAction = cg::yobi::detail::CreateModalAction_5044E0(
             modalX,
             modalY,
             roundedWidth,
@@ -186,16 +186,16 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     if (selection != -1) {
         const std::int32_t result = AddW32(selection, 1);
         PlaySe(79, 320, 240);
-        YobiAction* const action = gCapability4ModalAction;
+        cg::yobi::YobiAction* const action = gCapability4ModalAction;
         if (action != nullptr) {
-            MarkDeath(action);
+            cg::yobi::detail::MarkDeath(action);
             gCapability4ModalAction = nullptr;
         }
         return result;
     }
 
-    YobiAction* const action = gCapability4ModalAction;
-    if (action == nullptr || !IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gCapability4ModalAction;
+    if (action == nullptr || !cg::yobi::detail::IsYobiActionReady(action, 1)) {
         return 0;
     }
 

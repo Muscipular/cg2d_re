@@ -22,7 +22,7 @@ namespace cg::login {
 namespace {
 
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。
-YobiAction* gValue9A6E24 = nullptr;
+cg::yobi::YobiAction* gValue9A6E24 = nullptr;
 
 // 原 0x9A4BA0 只有本函数的消息读取与固定文本写入，原容量未获证。
 // 新端只为同一文本的原字节及末尾 NUL 建立最窄唯一缓冲，不据此推定原总容量。
@@ -40,13 +40,13 @@ void ProcessOuterScene_45C2D0()
     if (initialState <= 10u) {
         switch (initialState) {
         case 0:
-            detail::YobiClearUp_404D30();
+            cg::yobi::detail::YobiClearUp_404D30();
             gValue9A6E24 = nullptr;
             world::gCurrentSceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
             static_cast<void>(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr));
-            static_cast<void>(detail::MarkDeath(gValue9A6E24));
+            static_cast<void>(cg::yobi::detail::MarkDeath(gValue9A6E24));
             InitializeInputContexts_45C7C0();
             world::gCurrentSceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
@@ -86,7 +86,7 @@ void ProcessOuterScene_45C2D0()
                 320, 240, 3, 22311, 0, nullptr));
             if (render::gPaletteChanging == 0) {
                 static_cast<void>(world::SetCurrentSceneType(2));
-                detail::YobiClearUp_404D30();
+                cg::yobi::detail::YobiClearUp_404D30();
                 return;
             }
             break;

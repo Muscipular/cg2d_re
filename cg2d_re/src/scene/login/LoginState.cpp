@@ -62,11 +62,11 @@ namespace {
 
 // 原 0x9A6E8C/0x9A6E90 的全部引用都只在 sub_45EA50/sub_45EA60 内。
 std::uint16_t gLoginProgressPhase = 0;
-YobiAction* gLoginProgressAction = nullptr;
+cg::yobi::YobiAction* gLoginProgressAction = nullptr;
 
 // 原 0x9A5D6C/0x9A6E40 的全部引用都只在 sub_45D990 内。
 std::wstring gServerConnectingText {};
-YobiAction* gServerConnectionAction = nullptr;
+cg::yobi::YobiAction* gServerConnectionAction = nullptr;
 
 } // namespace
 
@@ -301,7 +301,7 @@ std::int32_t UpdateServerConnection()
         gServerConnectionLayout.rowCount = 2;
         gServerConnectionLayout.x = x;
         gServerConnectionLayout.y = 192;
-        gServerConnectionAction = detail::CreateModalAction_5044E0(
+        gServerConnectionAction = cg::yobi::detail::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -350,14 +350,14 @@ std::int32_t UpdateServerConnection()
 
     if (result != 0) {
         if (gServerConnectionAction != nullptr) {
-            detail::MarkDeath(gServerConnectionAction);
+            cg::yobi::detail::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
         cg::blacklist::LoadBlacklistFile(gValue55A054);
     }
 
-    YobiAction* const action = gServerConnectionAction;
-    if (action != nullptr && detail::IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gServerConnectionAction;
+    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t textWidth = cg::render::TextMeasure(gServerConnectingText, 0);
         const std::int32_t rowCount = gServerConnectionLayout.rowCount;
         const std::int32_t verticalHeight = rowCount * 48 - 16;
@@ -444,7 +444,7 @@ std::int32_t UpdateLoginProgress()
         gLoginProgressLayout.y = 192;
         const std::int32_t actionWidth = columnCount * 64;
         gLoginProgressLayout.x = actionX;
-        gLoginProgressAction = detail::CreateModalAction_5044E0(
+        gLoginProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
             actionX,
             192,
             actionWidth,
@@ -460,17 +460,17 @@ std::int32_t UpdateLoginProgress()
     } else if (phase == 2) {
         result = PollLoginRequest();
         if (result != 0) {
-            YobiAction* const action = gLoginProgressAction;
+            cg::yobi::YobiAction* const action = gLoginProgressAction;
             if (action != nullptr) {
-                detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gLoginProgressAction = nullptr;
             }
             return result;
         }
     }
 
-    YobiAction* const action = gLoginProgressAction;
-    if (action != nullptr && detail::IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gLoginProgressAction;
+    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t rowCount = gLoginProgressLayout.rowCount;
         const std::int32_t y = gLoginProgressLayout.y;
         const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;

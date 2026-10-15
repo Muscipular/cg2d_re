@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -144,4 +144,4 @@ std::int32_t Sub_45E6E0(YobiAction* const action)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

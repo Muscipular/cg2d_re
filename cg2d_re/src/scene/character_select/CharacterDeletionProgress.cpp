@@ -20,7 +20,7 @@ constexpr std::int32_t kRowHeight = 48;
 
 // 下列原存储的全部引用都只在 sub_45DBF0/sub_45DC00 内。
 std::uint16_t gCharacterDeletionProgressStage = 0; // 原 0x9A6E54，R/W16。
-login::YobiAction* gCharacterDeletionProgressAction = nullptr; // 原 0x9A6E58。
+cg::yobi::YobiAction* gCharacterDeletionProgressAction = nullptr; // 原 0x9A6E58。
 std::int32_t gCharacterDeletionProgressX = 0;       // 原 0x9A4EA4，R/W32。
 std::int32_t gCharacterDeletionProgressY = 0;       // 原 0x9A5FDC，R/W32。
 std::int32_t gCharacterDeletionProgressColumns = 0; // 原 0x9A50DC，R/W32。
@@ -54,7 +54,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
         const std::int32_t width = columns * kColumnWidth;
         const std::int32_t x = centeredWidth / 2;
         gCharacterDeletionProgressX = x;
-        gCharacterDeletionProgressAction = login::detail::CreateModalAction_5044E0(
+        gCharacterDeletionProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -70,17 +70,17 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     } else if (stage == 2) {
         result = login::PollCharacterDeletionRequest();
         if (result != 0) {
-            login::YobiAction* const action = gCharacterDeletionProgressAction;
+            cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
             if (action != nullptr) {
-                login::detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gCharacterDeletionProgressAction = nullptr;
             }
             return result;
         }
     }
 
-    login::YobiAction* const action = gCharacterDeletionProgressAction;
-    if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
+    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCharacterDeletionProgressRows;
         const std::int32_t y = gCharacterDeletionProgressY;
         const std::int32_t verticalHeight = rows * kRowHeight - 16;

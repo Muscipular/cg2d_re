@@ -17,7 +17,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -2774,4 +2774,4 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

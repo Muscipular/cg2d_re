@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 struct YobiAction;
 }
 
@@ -93,9 +93,9 @@ WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。
-login::YobiAction* WindowRuntime_CreateAnimation(
+cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
-    login::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
+    cg::yobi::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
 
 // 原函数：0x004CD3E0。
 WindowInstance* WindowStallBrowse_RequestClose(); // 原窗口68的state置0x8000，返回原借用引用。

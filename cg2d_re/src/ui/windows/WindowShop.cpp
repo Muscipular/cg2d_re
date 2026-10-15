@@ -592,7 +592,7 @@ static void WindowShop_Release()
 }
 
 // 原函数：0x004B6E00。
-login::YobiAction* WindowShop_OpenBuy(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenBuy(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894.shopMode = 0;
@@ -645,7 +645,7 @@ login::YobiAction* WindowShop_OpenBuy(const char* const text)
 }
 
 // 原函数：0x004B70D0。
-login::YobiAction* WindowShop_OpenSell(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenSell(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894.shopMode = 1;
@@ -733,7 +733,7 @@ login::YobiAction* WindowShop_OpenSell(const char* const text)
 }
 
 // 原函数：0x004B74E0。
-login::YobiAction* WindowShop_OpenExchange(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenExchange(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894.shopMode = 2;
@@ -796,7 +796,7 @@ login::YobiAction* WindowShop_OpenExchange(const char* const text)
 }
 
 // 原函数：0x004B77E0。
-login::YobiAction* WindowShop_OpenItemDetails(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* const text)
 {
     std::array<char, 2304> buffer;
     gMaterialOccupancyCC4894.shopMode = 3;
@@ -849,7 +849,7 @@ login::YobiAction* WindowShop_OpenItemDetails(const char* const text)
 }
 
 // 4B7AB0/4B7EE0同一七字段流程；只区分模式字节和第二行原字节提示。
-static login::YobiAction* WindowShop_CreateService(
+static cg::yobi::YobiAction* WindowShop_CreateService(
     const char* const text, const char mode, const std::wstring_view prompt)
 {
     std::array<char, 2304> buffer;
@@ -938,14 +938,14 @@ static login::YobiAction* WindowShop_CreateService(
 }
 
 // 原函数：0x004B7AB0。
-login::YobiAction* WindowShop_OpenIdentify(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenIdentify(const char* const text)
 {
     return WindowShop_CreateService(
         text, 4, L"你想鑑定什麼物品呢？");
 }
 
 // 原函数：0x004B7EE0。
-login::YobiAction* WindowShop_OpenRepair(const char* const text)
+cg::yobi::YobiAction* WindowShop_OpenRepair(const char* const text)
 {
     return WindowShop_CreateService(
         text, 5, L"你想修理什麼物品呢？");
@@ -1464,9 +1464,9 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
         title->text = gNpcDialogLinesCC24D4[0].text;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-        login::detail::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
+        cg::yobi::detail::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
         animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-        login::detail::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -3466,7 +3466,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
             WindowNumber_Draw(x, y + 35, buffer, 0, 4, 1, 226);
         }
     }
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, 0, 35, 640, 383, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

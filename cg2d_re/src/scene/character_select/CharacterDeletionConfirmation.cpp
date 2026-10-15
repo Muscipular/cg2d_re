@@ -33,9 +33,9 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t hover = 0;
     std::int32_t result = 0;
 
-    login::YobiAction* modalAction = state::gCharacterModalAction;
+    cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
             left,
             top,
             width,
@@ -48,7 +48,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         }
     }
 
-    if (login::detail::IsYobiActionStateLessOrEqual(
+    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(
             modalAction,
             0)) {
         return 0;
@@ -79,9 +79,9 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         if ((mouseClickState & 1U) != 0) {
             result = hover;
             login::detail::PlaySe(79, 320, 240);
-            login::YobiAction* const clickedAction = state::gCharacterModalAction;
+            cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
             if (clickedAction != nullptr) {
-                login::detail::MarkDeath(clickedAction);
+                cg::yobi::detail::MarkDeath(clickedAction);
                 state::gCharacterModalAction = nullptr;
             }
         }
@@ -150,9 +150,9 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     };
     std::int32_t result = 0;
 
-    login::YobiAction* modalAction = state::gCharacterModalAction;
+    cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
     if (modalAction == nullptr) {
-        modalAction = login::detail::CreateModalAction_5044E0(
+        modalAction = cg::yobi::detail::CreateModalAction_5044E0(
             x - 192,
             y - 96,
             384,
@@ -165,7 +165,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
         }
     }
 
-    if (login::detail::IsYobiActionStateLessOrEqual(
+    if (cg::yobi::detail::IsYobiActionStateLessOrEqual(
             modalAction,
             0)) {
         return 0;
@@ -179,9 +179,9 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     if (result != 0) {
         login::detail::PlaySe(79, 320, 240);
-        login::YobiAction* const clickedAction = state::gCharacterModalAction;
+        cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
         if (clickedAction != nullptr) {
-            login::detail::MarkDeath(clickedAction);
+            cg::yobi::detail::MarkDeath(clickedAction);
             state::gCharacterModalAction = nullptr;
         }
     }

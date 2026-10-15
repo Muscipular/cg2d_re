@@ -84,24 +84,24 @@ bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
 
     const std::int32_t scene = world::gCurrentSceneType;
     if (scene != 10 && scene != 3) {
-        const login::YobiAction* const xAction = graphic.reference.action;
+        const cg::yobi::YobiAction* const xAction = graphic.reference.action;
         const std::int32_t x = graphic.x;
-        const std::int32_t centerX = x - login::detail::ReadYobiGraphicOffsetX(xAction);
+        const std::int32_t centerX = x - cg::yobi::detail::ReadYobiGraphicOffsetX(xAction);
         if (login::detail::ReadLegacyMouseX() > centerX + 16) {
             return false;
         }
         if (!(static_cast<std::int32_t>(centerX - 16) <= gLegacyMouseState.mouseX)) {
             return false;
         }
-        const login::YobiAction* const upperAction = graphic.reference.action;
+        const cg::yobi::YobiAction* const upperAction = graphic.reference.action;
         const std::int32_t upperY = graphic.y;
-        const std::int32_t upperOffset = login::detail::ReadYobiGraphicOffsetY(upperAction);
+        const std::int32_t upperOffset = cg::yobi::detail::ReadYobiGraphicOffsetY(upperAction);
         if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperY - upperOffset + 12))) {
             return false;
         }
-        const login::YobiAction* const lowerAction = graphic.reference.action;
+        const cg::yobi::YobiAction* const lowerAction = graphic.reference.action;
         const std::int32_t lowerY = graphic.y;
-        const std::int32_t lowerOffset = login::detail::ReadYobiGraphicOffsetY(lowerAction);
+        const std::int32_t lowerOffset = cg::yobi::detail::ReadYobiGraphicOffsetY(lowerAction);
         return (static_cast<std::int32_t>(lowerY - lowerOffset - 12) <= gLegacyMouseState.mouseY);
     }
 
@@ -109,9 +109,9 @@ bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
     const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
     const std::int32_t height = std::bit_cast<std::int16_t>(base[imageNo].height);
     const std::int32_t hitHeight = height < 96 ? height : 96;
-    const login::YobiAction* const xAction = graphic.reference.action;
+    const cg::yobi::YobiAction* const xAction = graphic.reference.action;
     const std::int32_t x = graphic.x;
-    const std::int32_t center = x - login::detail::ReadYobiGraphicOffsetX(xAction);
+    const std::int32_t center = x - cg::yobi::detail::ReadYobiGraphicOffsetX(xAction);
     const double centerX = center;
     if (login::detail::ReadLegacyMouseX() > centerX + 24.0) {
         return false;
@@ -134,7 +134,7 @@ bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
     if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= gLegacyMouseState.mouseY)) {
         return false;
     }
-    return (login::detail::ReadYobiActionFlags(graphic.reference.action) & 0x02000000u) == 0;
+    return (cg::yobi::detail::ReadYobiActionFlags(graphic.reference.action) & 0x02000000u) == 0;
 }
 
 // 原5075A3..5076B4；只由value4==2路径进入，不在这里重取排序层。
@@ -170,12 +170,12 @@ void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, const std
         x = graphic.x;
         const std::int32_t height = std::bit_cast<std::int16_t>(entry->height);
         const double scaledHeight = static_cast<double>(height)
-            * login::detail::GetYobiActionScaleY(graphic.reference.action);
+            * cg::yobi::detail::GetYobiActionScaleY(graphic.reference.action);
         const std::int32_t bottom =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledHeight)) + y + 2;
         const std::int32_t width = std::bit_cast<std::int16_t>(entry->width);
         const double scaledWidth = static_cast<double>(width)
-            * login::detail::GetYobiActionScaleX(graphic.reference.action);
+            * cg::yobi::detail::GetYobiActionScaleX(graphic.reference.action);
         const std::int32_t right =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledWidth)) + x + 2;
         cg::render::DrawGraphicHover(
@@ -286,7 +286,7 @@ void Sub_507140()
             }
             render::SortTextures_520790();
             if (world::detail::gValueD460C8 == 0 && ui::detail::gValue58589C != 0) {
-                login::detail::DescribeHoveredYobi_507140(&graphic);
+                cg::yobi::detail::DescribeHoveredYobi_507140(&graphic);
                 if (ui::detail::gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 1;
                 } else if (ui::detail::gHoverTextD68AE8.find(L"[kok]") != std::wstring::npos) {

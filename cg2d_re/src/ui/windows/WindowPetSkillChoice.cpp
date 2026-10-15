@@ -470,7 +470,7 @@ static void WindowPetSkillChoice_Release()
 }
 
 // 原函数：0x004BD540。
-login::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 {
     std::array<char, 1536> buffer;
     gWindow54DialogTypeCB2224 = world::detail::gValue581800;
@@ -504,7 +504,7 @@ login::YobiAction* WindowPetSkillChoice_OpenLearn(const char* const text)
 }
 
 // 原函数：0x004BD680。
-login::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
 {
     std::array<char, 1536> buffer;
     gWindow54DialogTypeCB2224 = world::detail::gValue581800;
@@ -547,7 +547,7 @@ login::YobiAction* WindowPetSkillChoice_OpenForget(const char* const text)
 }
 
 // 两原创建仅模式值不同，保留原窗快照和生命周期标记的分支次序。
-static login::YobiAction* WindowPetSkillChoice_CreateSkillList(
+static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     const char* const text, const std::uint8_t mode)
 {
     std::array<char, 768> buffer;
@@ -605,13 +605,13 @@ static login::YobiAction* WindowPetSkillChoice_CreateSkillList(
 }
 
 // 原函数：0x004BD810。
-login::YobiAction* WindowPetSkillChoice_OpenPetSkills(const char* const text)
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkills(const char* const text)
 {
     return WindowPetSkillChoice_CreateSkillList(text, 2);
 }
 
 // 原函数：0x004BDAD0。
-login::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* const text)
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* const text)
 {
     return WindowPetSkillChoice_CreateSkillList(text, 12);
 }
@@ -1199,9 +1199,9 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
         gCurrentWindow->elements[0].visible = 0;
         static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = gNpcDialogLinesCC24D4[0].text;
         auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
-        login::detail::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
+        cg::yobi::detail::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
         animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
-        login::detail::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::detail::SetYobiActionField2B8(animation->action, 5);
         gWindow54PetScrollCC31DC = 0;
         const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
         gWindow54SkillScrollCC31F4 = 0;
@@ -2138,7 +2138,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     cg::text::FormatTo(buffer, L"購入金額 {:7}金幣" /* 原常量参考：0x005882C0。 */, gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));
     static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, L"這樣可以嗎？" /* 原常量参考：0x005882B0。 */, 0, 0));
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, 160, 110, 320, 240, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

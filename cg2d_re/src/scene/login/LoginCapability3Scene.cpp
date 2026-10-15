@@ -30,8 +30,8 @@ std::int32_t gPhaseValue9A5550 = 0; // 原全局：0x009A5550。
 std::int32_t gAlpha9A4D08 = 0; // 原全局：0x009A4D08。
 std::int32_t gAlpha9A4CA0 = 0; // 原全局：0x009A4CA0。
 std::int32_t gAlpha9A5E70 = 0; // 原全局：0x009A5E70。
-cg::login::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
-cg::login::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
+cg::yobi::YobiAction* gLeftAction9A50C0 = nullptr; // 原全局：0x009A50C0。
+cg::yobi::YobiAction* gRightAction9A50C4 = nullptr; // 原全局：0x009A50C4。
 std::wstring gMessage9A50E8 {}; // 原全局：0x009A50E8。
 
 
@@ -184,7 +184,7 @@ std::int32_t Sub_45F190()
 
     switch (state) {
     case 0:
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         gPhaseValue9A5550 = 0;
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
@@ -228,46 +228,46 @@ std::int32_t Sub_45F190()
         gPhaseValue9A5550 = 0;
         gAlpha9A4D08 = 255;
 
-        gLeftAction9A50C0 = login::detail::NewYobiAction_404AE0(2, 0);
+        gLeftAction9A50C0 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
         if (gLeftAction9A50C0 != nullptr) {
-            login::detail::SetYobiActionField2A8(
+            cg::yobi::detail::SetYobiActionField2A8(
                 gLeftAction9A50C0,
                 245150);
-            login::detail::SetYobiActionField2B0(gLeftAction9A50C0, 0);
-            login::detail::SetYobiActionField15(gLeftAction9A50C0, 10);
-            login::detail::SetYobiActionField30(gLeftAction9A50C0, 451);
-            login::detail::SetYobiActionField34(gLeftAction9A50C0, 193);
-            login::detail::SetYobiActionField2B8(gLeftAction9A50C0, 0);
-            login::detail::SetYobiActionField308(gLeftAction9A50C0, 8);
-            login::detail::SetYobiActionField30C(
+            cg::yobi::detail::SetYobiActionField2B0(gLeftAction9A50C0, 0);
+            cg::yobi::detail::SetYobiActionField15(gLeftAction9A50C0, 10);
+            cg::yobi::detail::SetYobiActionField30(gLeftAction9A50C0, 451);
+            cg::yobi::detail::SetYobiActionField34(gLeftAction9A50C0, 193);
+            cg::yobi::detail::SetYobiActionField2B8(gLeftAction9A50C0, 0);
+            cg::yobi::detail::SetYobiActionField308(gLeftAction9A50C0, 8);
+            cg::yobi::detail::SetYobiActionField30C(
                 gLeftAction9A50C0,
                 kWhiteColor);
-            static_cast<void>(login::detail::Sub_517880(
+            static_cast<void>(cg::yobi::detail::Sub_517880(
                 gLeftAction9A50C0,
                 100,
                 0,
                 0));
         }
 
-        gRightAction9A50C4 = login::detail::NewYobiAction_404AE0(2, 0);
+        gRightAction9A50C4 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
         if (gRightAction9A50C4 == nullptr) {
             world::gCurrentSceneState = 6;
             return ProcessCapability3InputAndDraw();
         }
 
-        login::detail::SetYobiActionField2A8(
+        cg::yobi::detail::SetYobiActionField2A8(
             gRightAction9A50C4,
             245150);
-        login::detail::SetYobiActionField2B0(gRightAction9A50C4, 0);
-        login::detail::SetYobiActionField15(gRightAction9A50C4, 10);
-        login::detail::SetYobiActionField30(gRightAction9A50C4, 189);
-        login::detail::SetYobiActionField34(gRightAction9A50C4, 287);
-        login::detail::SetYobiActionField2B8(gRightAction9A50C4, 0);
-        login::detail::SetYobiActionField308(gRightAction9A50C4, 8);
-        login::detail::SetYobiActionField30C(
+        cg::yobi::detail::SetYobiActionField2B0(gRightAction9A50C4, 0);
+        cg::yobi::detail::SetYobiActionField15(gRightAction9A50C4, 10);
+        cg::yobi::detail::SetYobiActionField30(gRightAction9A50C4, 189);
+        cg::yobi::detail::SetYobiActionField34(gRightAction9A50C4, 287);
+        cg::yobi::detail::SetYobiActionField2B8(gRightAction9A50C4, 0);
+        cg::yobi::detail::SetYobiActionField308(gRightAction9A50C4, 8);
+        cg::yobi::detail::SetYobiActionField30C(
             gRightAction9A50C4,
             kWhiteColor);
-        static_cast<void>(login::detail::Sub_517880(
+        static_cast<void>(cg::yobi::detail::Sub_517880(
             gRightAction9A50C4,
             100,
             0,
@@ -277,52 +277,52 @@ std::int32_t Sub_45F190()
     }
 
     case 3: {
-        login::YobiAction* const leftForX = gLeftAction9A50C0;
-        login::detail::SetYobiActionField30(
+        cg::yobi::YobiAction* const leftForX = gLeftAction9A50C0;
+        cg::yobi::detail::SetYobiActionField30(
             leftForX,
-            login::detail::GetYobiActionField30(leftForX) - 3);
+            cg::yobi::detail::GetYobiActionField30(leftForX) - 3);
 
-        login::YobiAction* const leftForY = gLeftAction9A50C0;
-        login::detail::SetYobiActionField34(
+        cg::yobi::YobiAction* const leftForY = gLeftAction9A50C0;
+        cg::yobi::detail::SetYobiActionField34(
             leftForY,
-            login::detail::GetYobiActionField34(leftForY) + 1);
+            cg::yobi::detail::GetYobiActionField34(leftForY) + 1);
 
-        login::YobiAction* const rightForX = gRightAction9A50C4;
-        login::detail::SetYobiActionField30(
+        cg::yobi::YobiAction* const rightForX = gRightAction9A50C4;
+        cg::yobi::detail::SetYobiActionField30(
             rightForX,
-            login::detail::GetYobiActionField30(rightForX) + 3);
+            cg::yobi::detail::GetYobiActionField30(rightForX) + 3);
 
-        login::YobiAction* const rightForY = gRightAction9A50C4;
-        login::detail::SetYobiActionField34(
+        cg::yobi::YobiAction* const rightForY = gRightAction9A50C4;
+        cg::yobi::detail::SetYobiActionField34(
             rightForY,
-            login::detail::GetYobiActionField34(rightForY) - 1);
+            cg::yobi::detail::GetYobiActionField34(rightForY) - 1);
 
-        login::YobiAction* const rightForDelta = gRightAction9A50C4;
-        const std::int32_t delta = 287 - login::detail::GetYobiActionField34(rightForDelta);
+        cg::yobi::YobiAction* const rightForDelta = gRightAction9A50C4;
+        const std::int32_t delta = 287 - cg::yobi::detail::GetYobiActionField34(rightForDelta);
         gPhaseValue9A5550 = delta;
         if (delta >= 0) {
             const std::int32_t alpha = (delta << 7U) / 47;
-            login::detail::SetYobiActionField30F(
+            cg::yobi::detail::SetYobiActionField30F(
                 gLeftAction9A50C0,
                 static_cast<std::uint8_t>(alpha));
-            login::YobiAction* const leftForAlphaCopy = gLeftAction9A50C0;
-            login::YobiAction* const rightForAlphaCopy = gRightAction9A50C4;
+            cg::yobi::YobiAction* const leftForAlphaCopy = gLeftAction9A50C0;
+            cg::yobi::YobiAction* const rightForAlphaCopy = gRightAction9A50C4;
             const std::uint8_t copiedAlpha =
-                login::detail::GetYobiActionField30F(leftForAlphaCopy);
-            login::detail::SetYobiActionField30F(
+                cg::yobi::detail::GetYobiActionField30F(leftForAlphaCopy);
+            cg::yobi::detail::SetYobiActionField30F(
                 rightForAlphaCopy,
                 copiedAlpha);
         }
 
-        login::YobiAction* const leftForCompare = gLeftAction9A50C0;
-        if (login::detail::GetYobiActionField30(leftForCompare) > 320) {
+        cg::yobi::YobiAction* const leftForCompare = gLeftAction9A50C0;
+        if (cg::yobi::detail::GetYobiActionField30(leftForCompare) > 320) {
             return DispatchCapability3FromCurrentState();
         }
 
-        login::detail::SetYobiActionField30(leftForCompare, 320);
-        login::detail::SetYobiActionField34(gLeftAction9A50C0, 240);
-        login::detail::SetYobiActionField30F(gLeftAction9A50C0, 0);
-        login::detail::MarkDeath(gRightAction9A50C4);
+        cg::yobi::detail::SetYobiActionField30(leftForCompare, 320);
+        cg::yobi::detail::SetYobiActionField34(gLeftAction9A50C0, 240);
+        cg::yobi::detail::SetYobiActionField30F(gLeftAction9A50C0, 0);
+        cg::yobi::detail::MarkDeath(gRightAction9A50C4);
         gRightAction9A50C4 = nullptr;
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
@@ -337,9 +337,9 @@ std::int32_t Sub_45F190()
         if (gPhaseValue9A5550 > 0) {
             gPhaseValue9A5550 = gPhaseValue9A5550 - 1;
             if (gPhaseValue9A5550 == 0) {
-                login::YobiAction* const action = gLeftAction9A50C0;
+                cg::yobi::YobiAction* const action = gLeftAction9A50C0;
                 if (action != nullptr) {
-                    login::detail::SetYobiActionField30F(action, 0xFF);
+                    cg::yobi::detail::SetYobiActionField30F(action, 0xFF);
                     gAlpha9A4D08 = 255;
                 }
             }
@@ -349,10 +349,10 @@ std::int32_t Sub_45F190()
         if (gAlpha9A4CA0 < 255) {
             gAlpha9A4CA0 = gAlpha9A4CA0 + 4;
             if (gAlpha9A4CA0 >= 255) {
-                login::YobiAction* const action = gLeftAction9A50C0;
+                cg::yobi::YobiAction* const action = gLeftAction9A50C0;
                 gAlpha9A4CA0 = 255;
                 gPhaseValue9A5550 = 60;
-                login::detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gLeftAction9A50C0 = nullptr;
                 render::gBackgroundColor = 0;
                 gAlpha9A4D08 = 0;
@@ -371,14 +371,14 @@ std::int32_t Sub_45F190()
         return ProcessCapability3InputAndDraw();
 
     case 5: {
-        login::YobiAction* const leftAction = gLeftAction9A50C0;
+        cg::yobi::YobiAction* const leftAction = gLeftAction9A50C0;
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
         gAlpha9A5E70 = 255;
         render::gBackgroundColor = 0;
-        login::detail::MarkDeath(leftAction);
-        login::YobiAction* const rightAction = gRightAction9A50C4;
-        login::detail::MarkDeath(rightAction);
+        cg::yobi::detail::MarkDeath(leftAction);
+        cg::yobi::YobiAction* const rightAction = gRightAction9A50C4;
+        cg::yobi::detail::MarkDeath(rightAction);
         gRightAction9A50C4 = nullptr;
         gLeftAction9A50C0 = nullptr;
         login::InitializeCapabilityInput_45F970();
@@ -416,7 +416,7 @@ std::int32_t Sub_45F190()
 
     case 10:
         static_cast<void>(world::SetCurrentSceneType(2));
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         render::gBackgroundColor = 0;
         return DispatchCapability3FromCurrentState();
     }

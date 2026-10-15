@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -940,4 +940,4 @@ void Sub_447E60(YobiAction* const action)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

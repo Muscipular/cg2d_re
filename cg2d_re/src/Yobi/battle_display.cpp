@@ -17,7 +17,7 @@
 #include <cstring>
 #include <string>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -545,4 +545,4 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

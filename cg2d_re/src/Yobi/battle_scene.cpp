@@ -18,7 +18,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -610,4 +610,4 @@ void FlushBattleEntries_43C060()
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <optional>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -3255,4 +3255,4 @@ void UpdateBattleAction256_418B50(YobiAction* const)
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

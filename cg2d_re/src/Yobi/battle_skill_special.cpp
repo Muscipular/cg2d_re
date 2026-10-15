@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -3522,4 +3522,4 @@ constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {111126, 111
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

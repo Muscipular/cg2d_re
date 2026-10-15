@@ -5,7 +5,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -20,4 +20,4 @@ extern std::int32_t gBattleActionSequenceIndex59F9DC;
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

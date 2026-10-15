@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <string>
 
-namespace cg::login {
+namespace cg::yobi {
 struct YobiAction;
 }
 
@@ -77,7 +77,7 @@ struct WindowNumberData {
 
 // 原第2类元素的8B载荷；471622写真实Yobi，471334只给它标死。
 struct WindowAnimationData {
-    login::YobiAction* action; // 原成员偏移：+0x00。
+    cg::yobi::YobiAction* action; // 原成员偏移：+0x00。
     std::uint32_t value04; // 原成员偏移：+0x04。
 };
 
@@ -159,15 +159,15 @@ using SkillWindowSelectionCallback = void (*)(std::int32_t skillIndex, std::int3
 // 原函数：0x0047A140。
 void WindowSkill_SyncStates(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 // 原函数：0x0047A490。
-login::YobiAction* WindowSkill_Open(); // 清选择回调并创建普通技能窗。
+cg::yobi::YobiAction* WindowSkill_Open(); // 清选择回调并创建普通技能窗。
 // 原函数：0x0047A4C0。
-login::YobiAction* WindowSkill_OpenBattleSkills(SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
+cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
 // 原函数：0x0047A500。
-login::YobiAction* WindowSkill_OpenBattleTechniques(std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
+cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
 // 原函数：0x0047A540。
-login::YobiAction* WindowSkill_OpenPetSkills(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
+cg::yobi::YobiAction* WindowSkill_OpenPetSkills(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
 // 原函数：0x0047A580。
-login::YobiAction* WindowSkill_OpenRidingSkills(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
+cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
 // 原函数：0x00497000。
 void WindowBattleCommand_OpenSkills(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
 // 原函数：0x00496FB0。
@@ -185,8 +185,8 @@ std::int32_t WindowStatusBar_ButtonEmote(std::int32_t index, std::int32_t state)
 // 原函数：0x00470910。
 std::int32_t WindowStatusBar_ButtonMiniMap(std::int32_t index, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
 // 原函数：0x00495F00。
-login::YobiAction* WindowMiniMap_Open(
-    std::uint32_t flags, std::uint32_t mode, login::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
+cg::yobi::YobiAction* WindowMiniMap_Open(
+    std::uint32_t flags, std::uint32_t mode, cg::yobi::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
 // 原函数：0x00495F70。
 std::int32_t WindowEmote_Select(std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
 // 原函数：0x00498520。
@@ -212,17 +212,17 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     WindowInstance* window, std::int32_t first, std::int32_t second,
     std::int32_t flag, std::int32_t actionId, std::int32_t direction); // 返回第二个借用载荷。
 // 原函数：0x0047D5F0。
-login::YobiAction* WindowCraft_OpenRecipe(
+cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     std::int32_t skill, std::int32_t recipe, std::int32_t request); // 制造开窗，保存同源配方id。
 // 原函数：0x0047D780。
-login::YobiAction* WindowCraft_OpenItemWork(std::int32_t skill, std::int32_t request); // 单选加工开窗。
+cg::yobi::YobiAction* WindowCraft_OpenItemWork(std::int32_t skill, std::int32_t request); // 单选加工开窗。
 // 原函数：0x0047D8F0。
-login::YobiAction* WindowCraft_OpenDecoration(
+cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     std::int32_t skill, std::int32_t request, std::int32_t kind); // 装饰开窗，kind严格1为宠物装备。
 // 原函数：0x0047DA70。
-login::YobiAction* WindowCraft_OpenRefining(std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
+cg::yobi::YobiAction* WindowCraft_OpenRefining(std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
 // 原函数：0x0047DB50。
-login::YobiAction* WindowCraft_OpenMaterials(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
+cg::yobi::YobiAction* WindowCraft_OpenMaterials(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
 // 原函数：0x004F4430。
 std::int32_t WindowCraft_ClassifySpecialMaterial(std::int32_t itemType, std::int32_t skillId); // 技能分类对应的特殊材料类别。
 // 原函数：0x00482F70。
@@ -236,7 +236,7 @@ void WindowRuntime_DecrementGatherOperationCount(); // 只递减既有D67AFC低U
 // 原函数：0x004796D0。
 void WindowRuntime_IncrementGatherOperationCount(); // 仅递增既有D67AFC低U8。
 // 原函数：0x004854A0。
-login::YobiAction* WindowGather_Open(std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
+cg::yobi::YobiAction* WindowGather_Open(std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
 // 原函数：0x0047D2E0。
 WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     WindowInstance* unusedWindow, std::int32_t anchor,
@@ -250,7 +250,7 @@ std::int32_t WindowCraft_SetPreviewImages(
 // 原函数：0x00487F30。
 std::int32_t WindowSkillResult_ReadPreviewImage(std::int32_t imageNo, std::int32_t offset); // 技能预览分组图号转换。
 // 原函数：0x004EEA40。
-login::YobiAction* WindowSkillResult_ReceiveResult(std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
+cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
 // 原函数：0x00479860。
 std::int32_t WindowSkill_ReadCrystalLevel(); // 玩家物品槽7的晶石等级，未用/未知返回0。
 // 原函数：0x004799D0。
@@ -260,7 +260,7 @@ std::int32_t WindowSkill_CheckPetFp(); // 当前宠物FP的单次CryptInt比较�
 // 原函数：0x00479B00。
 std::int32_t WindowSkill_CanUseSpecialSkill(); // 技能/晶石/宠物技术/属性/等级条件链。
 // 原函数：0x0049F000。names借用GBK名单；49F0A0刷新时直接转为宽正文。
-login::YobiAction* WindowTextTarget_Open(
+cg::yobi::YobiAction* WindowTextTarget_Open(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);
 
@@ -281,7 +281,7 @@ static_assert(offsetof(WindowStatusChoiceRecord, injury) == 0x1C);
 static_assert(offsetof(WindowStatusChoiceRecord, color) == 0x1D);
 static_assert(sizeof(WindowStatusChoiceRecord) == 32);
 // 原函数：0x0049F760。
-login::YobiAction* WindowAttributeTarget_Open(
+cg::yobi::YobiAction* WindowAttributeTarget_Open(
     const WindowStatusChoiceRecord* records, std::int32_t count,
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x00499830。
@@ -296,7 +296,7 @@ struct WindowItemSelectorState {
     std::int32_t step6C; // 原成员偏移：+0x6C。
     std::int32_t selectedPet70; // 原成员偏移：+0x70。
     std::int32_t previousPet74; // 原成员偏移：+0x74。
-    login::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
+    cg::yobi::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
     std::int32_t hoverCount3A8; // 原成员偏移：+0x3A8。
     std::array<std::byte, 4> bytes3AC; // 原成员偏移：+0x3AC。
     std::int32_t hoverIndex3B0; // 原成员偏移：+0x3B0。
@@ -430,27 +430,27 @@ using WindowDialogReplyCallback = std::int32_t (*)(
 using WindowDialogFrameCallback = std::int32_t (*)(
     WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t events);
 // 原函数：0x004A0140。
-login::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
+cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
 // 原函数：0x004B6E00。
-login::YobiAction* WindowShop_OpenBuy(const char* text); // 窗口53买入商品及三组四行正文。
+cg::yobi::YobiAction* WindowShop_OpenBuy(const char* text); // 窗口53买入商品及三组四行正文。
 // 原函数：0x004B70D0。
-login::YobiAction* WindowShop_OpenSell(const char* text); // 窗口53出售商品、库存映射及占用。
+cg::yobi::YobiAction* WindowShop_OpenSell(const char* text); // 窗口53出售商品、库存映射及占用。
 // 原函数：0x004B74E0。
-login::YobiAction* WindowShop_OpenExchange(const char* text); // 窗口53模式2五字段商品及指定物品文本。
+cg::yobi::YobiAction* WindowShop_OpenExchange(const char* text); // 窗口53模式2五字段商品及指定物品文本。
 // 原函数：0x004B77E0。
-login::YobiAction* WindowShop_OpenItemDetails(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
+cg::yobi::YobiAction* WindowShop_OpenItemDetails(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
 // 原函数：0x004B7AB0。
-login::YobiAction* WindowShop_OpenIdentify(const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
+cg::yobi::YobiAction* WindowShop_OpenIdentify(const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
 // 原函数：0x004B7EE0。
-login::YobiAction* WindowShop_OpenRepair(const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
+cg::yobi::YobiAction* WindowShop_OpenRepair(const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
 // 原函数：0x004BD540。
-login::YobiAction* WindowPetSkillChoice_OpenLearn(const char* text); // 窗口54模式0，五行正文及八行说明。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* text); // 窗口54模式0，五行正文及八行说明。
 // 原函数：0x004BD680。
-login::YobiAction* WindowPetSkillChoice_OpenForget(const char* text); // 窗口54模式1，固定十五项名称/双数值。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(const char* text); // 窗口54模式1，固定十五项名称/双数值。
 // 原函数：0x004BD810。
-login::YobiAction* WindowPetSkillChoice_OpenPetSkills(const char* text); // 窗口54模式2，技能报价及旧窗刷新。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkills(const char* text); // 窗口54模式2，技能报价及旧窗刷新。
 // 原函数：0x004BDAD0。
-login::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* text); // 同创建流程，模式12显示种族。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* text); // 同创建流程，模式12显示种族。
 // 原函数：0x004BDD90。
 void WindowPetSkillChoice_ReceivePetCandidates(const char* text); // 模式3候选回复，仅更新存在的窗口54。
 // 原函数：0x004BDF70。
@@ -458,30 +458,30 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* text); // 模式13�
 // 原函数：0x004BE200。
 void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* text); // 模式4固定十槽回复，空名不终止后续槽。
 // 原函数：0x004C5790。
-login::YobiAction* WindowAppearance_Open(
+cg::yobi::YobiAction* WindowAppearance_Open(
     std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
 // 原函数：0x004C6060。
-login::YobiAction* WindowAppearance_OpenDialogPreview(
+cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     std::int32_t buttons, std::int32_t request, std::int32_t target,
     const char* text); // 类型37内嵌图号及左侧14空格正文。
 // 原函数：0x004C13B0。
-login::YobiAction* WindowCrystalShop_Open(const char* text); // 窗口69商品，remaining非-1才可能下调limit。
+cg::yobi::YobiAction* WindowCrystalShop_Open(const char* text); // 窗口69商品，remaining非-1才可能下调limit。
 // 原函数：0x004C3550。
-login::YobiAction* WindowCrystalExchangeShop_Open(const char* text); // 窗口70七组正文/附加值，不下调limit。
+cg::yobi::YobiAction* WindowCrystalExchangeShop_Open(const char* text); // 窗口70七组正文/附加值，不下调limit。
 // 原函数：0x004C2460。
 std::int32_t WindowCrystalTrade_ButtonCancel(std::int32_t index, std::int32_t state); // 两窗口共用取消，发送command2。
 // 原函数：0x004C4680。
 std::int32_t WindowCrystalTrade_DrawButton(std::int32_t index, std::int32_t state); // 两窗口共用按钮图，恒0。
 // 原函数：0x004A0300。
-login::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* text);
+cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* text);
 // 原函数：0x004A04A0。
-login::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* text);
+cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* text);
 // 原函数：0x004A0640。
-login::YobiAction* WindowShopChoice_OpenSkillChoice(const char* text); // 技能三选项。
+cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(const char* text); // 技能三选项。
 // 原函数：0x004A0790。
-login::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* text); // 交易两选项。
+cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* text); // 交易两选项。
 // 原函数：0x004A0850。
-login::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* text); // 给出/接收标签，正文取第四字段。
+cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* text); // 给出/接收标签，正文取第四字段。
 // 原函数：0x0049C4D0。
 void WindowDialog_Reset(); // 只清内嵌图号/计数及窗口36十元素可见性。
 // 原函数：0x0049C510。
@@ -490,7 +490,7 @@ void WindowDialog_AddImage(
     std::int16_t x, std::int16_t y);
 extern std::int32_t gDialogValueCF4E5C; // 原全局：0x00CF4E5C。 原第二协议参数；虚拟零S32，后续UI按位读取。
 // 原函数：0x0049C600。
-login::YobiAction* WindowDialog_Open(
+cg::yobi::YobiAction* WindowDialog_Open(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,
     std::int32_t lineCount, std::int32_t lineHeight, std::int32_t firstSelectableLine,
@@ -630,9 +630,9 @@ extern std::int32_t gValueCF4AAC; // 原全局：0x00CF4AAC。 原设置文件�
 extern std::int32_t gValueCF4690; // 原全局：0x00CF4690。
 extern std::int32_t gValueCA0440; // 原全局：0x00CA0440。
 extern std::int32_t gValueD67B38; // 原全局：0x00D67B38。
-extern login::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
-extern login::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
-extern login::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
+extern cg::yobi::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
+extern cg::yobi::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
+extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
 extern std::uint8_t gValueD67AFC; // 原全局：0x00D67AFC。
 extern std::uint8_t gValueD67AFD; // 原全局：0x00D67AFD。
 extern std::uint8_t gValueD67AFE; // 原全局：0x00D67AFE。
@@ -761,9 +761,9 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
 std::int32_t WindowTrade_DrawOwnPetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index); // 完整己方宠物提示，含重量行。
 // 原函数：0x004E5620。
-login::YobiAction* WindowTrade_ReceiveStart(const char* name); // 全量清交易双侧后复制己方，最后打开43。
+cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 // 原函数：0x0049E800。
-login::YobiAction* WindowTradeTarget_ReceiveTargets(const char* text, WindowListSelectionCallback callback);
+cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(const char* text, WindowListSelectionCallback callback);
 // 原函数：0x00485110。
 void WindowElement_DrawHoverFrame(WindowElement* element, std::int32_t state, std::uint32_t imageNo); // 元素外扩一像素悬停框。
 // 原函数：0x00474270。
@@ -805,7 +805,7 @@ void WindowCraft_ResetSelection(std::int32_t first, std::int32_t second); // 窗
 // 原函数：0x004AD060。
 void WindowTrade_RemapTextListSelection(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
 // 原函数：0x004AD180。
-login::YobiAction* WindowTextList_Open(
+cg::yobi::YobiAction* WindowTextList_Open(
     std::int32_t request, std::int32_t target, const char* text); // 解析标题/正文并展开51。
 // 原函数：0x004AD470。
 void WindowTextList_ContinueDialog(const char* text); // 同类对话续接，唯一caller不消费原混合返回。

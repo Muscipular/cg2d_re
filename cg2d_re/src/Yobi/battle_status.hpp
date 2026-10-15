@@ -5,7 +5,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -16,4 +16,4 @@ inline constexpr std::array<std::array<std::int32_t, 4>, 4> kRebirthPersistentIm
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

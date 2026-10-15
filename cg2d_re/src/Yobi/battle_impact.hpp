@@ -5,7 +5,7 @@
 #include <array>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -13,4 +13,4 @@ inline constexpr std::array<std::int32_t, 5> kBattleHitImages54D450 {111256, 111
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

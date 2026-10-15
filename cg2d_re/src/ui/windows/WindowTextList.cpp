@@ -200,7 +200,7 @@ static void WindowTextList_RebuildLines(char* const text)
 }
 
 // 原函数：0x004AD180。
-login::YobiAction* WindowTextList_Open(
+cg::yobi::YobiAction* WindowTextList_Open(
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
     gWindowRequestD672B0 = request;
@@ -362,7 +362,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     }
     static_cast<void>(cg::render::DrawGraphic(320, 227, 226, imageNo, 0, &descriptor));
     static_cast<void>(render::DrawText_456780(185, 185, 4, 0, 0, gWindowModalTextC8AF88, 0, static_cast<std::uint8_t>(cg::render::gValueD69768)));
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, 155, 155, 330, 110, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

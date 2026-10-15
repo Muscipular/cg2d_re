@@ -117,7 +117,7 @@ static void WindowTrade_CopyOwnPet(std::int32_t side); // 同源玩家宠物属�
 static void WindowTrade_SyncOwnItems(std::int32_t side); // 顺序同步20条交易物品。
 
 // 原函数：0x004B0110。
-static login::YobiAction* WindowTrade_Open(); // 清交易U8，创建窗口43动画并发布借用T*。
+static cg::yobi::YobiAction* WindowTrade_Open(); // 清交易U8，创建窗口43动画并发布借用T*。
 
 // 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
 // 原函数：0x004B0130。
@@ -286,7 +286,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
 static void WindowTrade_RequestTargetList(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 
 // 原函数：0x004E4E80。
-static login::YobiAction* WindowTrade_OpenTargetList(const char* text); // 选择表绑定真实交易回调后打开44。
+static cg::yobi::YobiAction* WindowTrade_OpenTargetList(const char* text); // 选择表绑定真实交易回调后打开44。
 
 // 原函数：0x004E5770。
 static void WindowTrade_BuildRemoteItemDescription(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
@@ -326,7 +326,7 @@ static std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
 static std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
 
 // 原全局：0x00D67B7C。 原43窗口展开动画，仅借用。
-static login::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
+static cg::yobi::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
 
 static std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。 原第一个页签数值索引。
 
@@ -589,10 +589,10 @@ static void WindowTrade_SyncOwnItems(const std::int32_t side)
 }
 
 // 原函数：0x004B0110。
-static login::YobiAction* WindowTrade_Open()
+static cg::yobi::YobiAction* WindowTrade_Open()
 {
     gTradeValueD67B80 = 0;
-    login::YobiAction* const action = WindowRuntime_CreateAnimation(WindowId_Trade, 1, 0, nullptr);
+    cg::yobi::YobiAction* const action = WindowRuntime_CreateAnimation(WindowId_Trade, 1, 0, nullptr);
     gTradeWindowActionD67B7C = action;
     return action;
 }
@@ -2251,18 +2251,18 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
             31, 5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
-    login::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        login::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
+        cg::yobi::detail::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2368,18 +2368,18 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
             5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
-    login::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        login::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
+        cg::yobi::detail::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2487,17 +2487,17 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
             5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
-    login::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
-        login::detail::GetYobiActionDrawMode(action);
-    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
+        cg::yobi::detail::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2681,7 +2681,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
 }
 
 // 原函数：0x004E5620。
-login::YobiAction* WindowTrade_ReceiveStart(const char* const name)
+cg::yobi::YobiAction* WindowTrade_ReceiveStart(const char* const name)
 {
     gTradeItemsD460D0.fill({});
     gTradePetsC9C108.fill({});
@@ -2714,7 +2714,7 @@ static void WindowTrade_RequestTargetList(const std::int32_t index, const char* 
 }
 
 // 原函数：0x004E4E80。
-static login::YobiAction* WindowTrade_OpenTargetList(const char* const text)
+static cg::yobi::YobiAction* WindowTrade_OpenTargetList(const char* const text)
 {
     return WindowTradeTarget_ReceiveTargets(text, &WindowTrade_RequestTargetList);
 }

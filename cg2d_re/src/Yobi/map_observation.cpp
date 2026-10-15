@@ -14,7 +14,7 @@
 #include <tuple>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1220,4 +1220,4 @@ std::int32_t Sub_440FE0()
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

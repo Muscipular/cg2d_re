@@ -8,7 +8,7 @@
 #include <bit>
 #include <cstdint>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1800,4 +1800,4 @@ void ProcessBattleMSkillAttackTargets(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

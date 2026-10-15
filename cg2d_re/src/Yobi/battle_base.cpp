@@ -14,7 +14,7 @@
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BFC0、0x0053BE40、0x0053BEC0、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <cstring>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -863,4 +863,4 @@ YobiAction* const* FindBattleRiderSlot(const YobiAction* const action) noexcept
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

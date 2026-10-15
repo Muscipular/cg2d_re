@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 using YobiCallback = void (*)(YobiAction* action);
 
@@ -34,18 +34,18 @@ struct YobiUIData;
 // 独立分配的载荷指针；只访问YobiAction::payloadKind对应的有效成员。
 union YobiPayload {
     void* raw = nullptr;
-    detail::BattleActorPayload* battleActor;
-    detail::BattleScenePayload* battleScene;
-    detail::BattleRideCarrierPayload* battleRideCarrier;
-    detail::BattleRingEmitterPayload* battleRingEmitter;
-    detail::BattleFollowOffsetPayload* battleFollowOffset;
-    detail::BattleTransitionEffectPayload* battleTransitionEffect;
-    detail::BattleTextPayload* battleText;
-    detail::MapActorPayload* mapActor;
-    detail::MapCharaPayload* mapChara;
-    detail::MapTransitionPayload* mapTransition;
-    detail::WindowOpeningPayload* windowOpening;
-    detail::YobiUIData* windowUi;
+    cg::yobi::detail::BattleActorPayload* battleActor;
+    cg::yobi::detail::BattleScenePayload* battleScene;
+    cg::yobi::detail::BattleRideCarrierPayload* battleRideCarrier;
+    cg::yobi::detail::BattleRingEmitterPayload* battleRingEmitter;
+    cg::yobi::detail::BattleFollowOffsetPayload* battleFollowOffset;
+    cg::yobi::detail::BattleTransitionEffectPayload* battleTransitionEffect;
+    cg::yobi::detail::BattleTextPayload* battleText;
+    cg::yobi::detail::MapActorPayload* mapActor;
+    cg::yobi::detail::MapCharaPayload* mapChara;
+    cg::yobi::detail::MapTransitionPayload* mapTransition;
+    cg::yobi::detail::WindowOpeningPayload* windowOpening;
+    cg::yobi::detail::YobiUIData* windowUi;
 };
 
 static_assert(sizeof(YobiPayload) == sizeof(void*));
@@ -187,7 +187,7 @@ struct YobiAction {
 private:
     // 原41EB10：仅克隆入口可用，按原顺序赋值字段，不复制独立载荷内容。
     YobiAction& operator=(const YobiAction& source) noexcept;
-    friend YobiAction* detail::CloneBattleAction_41EAB0(YobiAction* source);
+    friend YobiAction* cg::yobi::detail::CloneBattleAction_41EAB0(YobiAction* source);
 };
 
 static_assert(std::is_standard_layout_v<YobiAction>);
@@ -206,4 +206,4 @@ extern YobiAction* gYobiActionEnd;
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

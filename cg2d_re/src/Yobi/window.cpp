@@ -11,7 +11,7 @@
 #include <cstring>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -1005,4 +1005,4 @@ YobiAction* CreateModalAction_5044E0(
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

@@ -149,7 +149,7 @@ WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x800000
 // 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
 static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 {
-    login::YobiAction* battlePlayer = nullptr;
+    cg::yobi::YobiAction* battlePlayer = nullptr;
     if (world::gCurrentSceneType == 10) {
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
         if (position < 20) {
@@ -157,16 +157,16 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
         }
     }
     if (battlePlayer != nullptr) {
-        const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
+        const std::int32_t maxHp = cg::yobi::detail::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
+        const std::int32_t hp = cg::yobi::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
-            login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
+            cg::yobi::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
+        const std::int32_t fp = cg::yobi::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::gPlayerRuntimeSlots.maxHp.value();

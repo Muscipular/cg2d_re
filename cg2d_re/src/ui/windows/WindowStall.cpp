@@ -1072,7 +1072,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
     window = gCurrentWindow;
     const auto backgroundY = static_cast<std::int16_t>(window->y + (window->height - 92) / 2);
     const auto backgroundX = static_cast<std::int16_t>(window->x + (window->width - 220) / 2);
-    login::detail::DrawNineGrid_49BE00(
+    cg::yobi::detail::DrawNineGrid_49BE00(
         245300, backgroundX, backgroundY, 220, 92, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     return state & 1;
@@ -1139,15 +1139,15 @@ static std::int32_t WindowStall_DrawPetDetails(
             5, 12, 0, buffer, 0, 0));
     }
     if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
+        gPreviewActionD67B84 = cg::yobi::detail::NewYobiAction_404AE0(2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
-    login::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(cg::yobi::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX = static_cast<std::int16_t>(x);
-    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
-    const render::GraphicDescriptor16* const mode = login::detail::GetYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = cg::yobi::detail::GetYobiActionField20(action);
+    const render::GraphicDescriptor16* const mode = cg::yobi::detail::GetYobiActionDrawMode(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 230, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -2195,24 +2195,24 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
     if (gStallOwn58111C != 0) {
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
-            login::YobiAction* const target = data->action;
-            const std::int32_t value = login::detail::GetYobiActionField2A8(source);
-            login::detail::SetYobiActionField2A8(target, value);
+            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const target = data->action;
+            const std::int32_t value = cg::yobi::detail::GetYobiActionField2A8(source);
+            cg::yobi::detail::SetYobiActionField2A8(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
-            login::YobiAction* const target = data->action;
-            const std::int32_t value = login::detail::GetYobiActionField2B0(source);
-            login::detail::SetYobiActionField2B0(target, value);
+            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const target = data->action;
+            const std::int32_t value = cg::yobi::detail::GetYobiActionField2B0(source);
+            cg::yobi::detail::SetYobiActionField2B0(target, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
-            login::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
-            login::YobiAction* const target = data->action;
-            const std::int32_t value = login::detail::GetYobiActionField2B8(source);
-            login::detail::SetYobiActionField2B8(target, value);
+            cg::yobi::YobiAction* const source = world::detail::gPlayerRuntimeSlots.action;
+            cg::yobi::YobiAction* const target = data->action;
+            const std::int32_t value = cg::yobi::detail::GetYobiActionField2B8(source);
+            cg::yobi::detail::SetYobiActionField2B8(target, value);
         }
         if (gStallModeD67BDC != 1) {
             const std::int32_t hover = gStallHover581120;
@@ -2262,17 +2262,17 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
             const std::int32_t value = gStallBrowseData->imageNo60;
-            login::detail::SetYobiActionField2A8(data->action, value);
+            cg::yobi::detail::SetYobiActionField2A8(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
             const std::int32_t value = gStallBrowseData->action64;
-            login::detail::SetYobiActionField2B0(data->action, value);
+            cg::yobi::detail::SetYobiActionField2B0(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
             const std::int32_t value = gStallBrowseData->direction68;
-            login::detail::SetYobiActionField2B8(data->action, value);
+            cg::yobi::detail::SetYobiActionField2B8(data->action, value);
         }
         if (gStallModeD67BDC != 1) {
             const std::int32_t hover = gStallHover581120;
@@ -2307,7 +2307,7 @@ static void WindowStall_OpenBrowse(
 {
     gStallItemCountD67BCC = 0;
     gStallPetCountD67BD4 = 0;
-    login::YobiAction* const action = world::detail::FindObjectYobi_4462B0(target);
+    cg::yobi::YobiAction* const action = world::detail::FindObjectYobi_4462B0(target);
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:
@@ -2338,11 +2338,11 @@ static void WindowStall_OpenBrowse(
     }
     constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
     std::memset(bytes + tail, 0, sizeof(browse) - tail);
-    std::strncpy(gStallBrowseData->sellerName00.data(), login::detail::GetYobiName(action), static_cast<std::uint32_t>(16));
+    std::strncpy(gStallBrowseData->sellerName00.data(), cg::yobi::detail::GetYobiName(action), static_cast<std::uint32_t>(16));
     gStallBrowseData->target5C = target;
-    gStallBrowseData->imageNo60 = login::detail::GetYobiActionField2A8(action);
-    gStallBrowseData->action64 = login::detail::GetYobiActionField2B0(action);
-    gStallBrowseData->direction68 = login::detail::GetYobiActionField2B8(action);
+    gStallBrowseData->imageNo60 = cg::yobi::detail::GetYobiActionField2A8(action);
+    gStallBrowseData->action64 = cg::yobi::detail::GetYobiActionField2B0(action);
+    gStallBrowseData->direction68 = cg::yobi::detail::GetYobiActionField2B8(action);
     std::strncpy(gStallBrowseData->stallName11.data(), stallName, static_cast<std::uint32_t>(16));
     std::strncpy(gStallBrowseData->description22.data(), description, static_cast<std::uint32_t>(56));
 

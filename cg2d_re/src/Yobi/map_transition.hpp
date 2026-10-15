@@ -2,7 +2,7 @@
 
 #include "base.hpp"
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -12,4 +12,4 @@ bool TransitionMovementIdle(const YobiAction* const action);
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

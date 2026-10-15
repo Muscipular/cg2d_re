@@ -62,7 +62,7 @@ void Update()
         default:
             break;
         }
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -71,20 +71,20 @@ void Update()
     case 2:
         platform::gValue73ECC0 = 0;
         login::ProcessScene_45FEA0();
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     case 3:
         platform::gValue73ECC0 = 0;
         character_select::ProcessScene_460FF0();
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     case 4:
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         character_select::detail::ProcessCreationScene_4626A0(1);
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -114,7 +114,7 @@ void Update()
         cg::NullSub_509080();
         detail::Sub_518780();
         ui::WindowRuntime_ProcessScene();
-        login::detail::Sub_43F220();
+        cg::yobi::detail::Sub_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
@@ -127,7 +127,7 @@ void Update()
         goto sceneSixTail;
     case 7:
         detail::Sub_45EBB0();
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         return;
     case 8:
         return;
@@ -142,9 +142,9 @@ void Update()
         if (sceneState == 0) {
             detail::Sub_519D50();
             detail::Sub_446470();
-            login::detail::YobiClearUp_404D30();
+            cg::yobi::detail::YobiClearUp_404D30();
             ui::WindowRuntime_ProcessScene();
-            login::detail::Sub_43F220();
+            cg::yobi::detail::Sub_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;
@@ -170,7 +170,7 @@ void Update()
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
-        login::detail::YobiClearUp_404D30();
+        cg::yobi::detail::YobiClearUp_404D30();
         gValueD9F2CA = 0;
         return;
     }
@@ -184,7 +184,7 @@ void Update()
         } else {
             character_select::ProcessScene_462330();
         }
-        login::detail::YobiUpdateAll_404C50();
+        cg::yobi::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -195,7 +195,7 @@ void Update()
 
 // 原函数：0x00404C50。
 sceneSixTail:
-    login::detail::YobiUpdateAll_404C50();
+    cg::yobi::detail::YobiUpdateAll_404C50();
     detail::RenderChara_521F20();
 }
 
@@ -205,7 +205,7 @@ std::wstring gDisconnectText9A4D10; // 原全局：0x009A4D10。
 
 namespace {
 
-login::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
+cg::yobi::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
 std::int32_t gDisconnectState62B3A8 = 0; // 原全局：0x0062B3A8。
 std::int32_t gDisconnectWidth62B32C = 0; // 原全局：0x0062B32C。
 std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
@@ -222,20 +222,20 @@ std::int32_t Sub_455C90()
     };
     std::int32_t clicked = 0;
     bool hovered = false;
-    login::YobiAction* action = gDisconnectAction62B5B4;
+    cg::yobi::YobiAction* action = gDisconnectAction62B5B4;
     if (action == nullptr) {
         gDisconnectState62B3A8 = -2;
         gDisconnectWidth62B32C = 380;
         gDisconnectHeight62B304 = 144;
         gDisconnectX62B390 = 130;
         gDisconnectY62B2EC = 156;
-        action = login::detail::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
+        action = cg::yobi::detail::CreateModalAction_5044E0(130, 156, 380, 144, 4, 1);
         gDisconnectAction62B5B4 = action;
         if (action == nullptr) {
             return 0;
         }
     }
-    if (!login::detail::IsYobiActionReady(action, 1)) {
+    if (!cg::yobi::detail::IsYobiActionReady(action, 1)) {
         return 0;
     }
 
@@ -254,7 +254,7 @@ std::int32_t Sub_455C90()
         left, top, right, bottom, -1) != 0;
     if (hovered
         && (static_cast<std::uint8_t>(login::detail::gValueD68D9C) & 1U) != 0) {
-        login::detail::MarkDeath(gDisconnectAction62B5B4);
+        cg::yobi::detail::MarkDeath(gDisconnectAction62B5B4);
         gDisconnectAction62B5B4 = nullptr;
         clicked = 1;
     }

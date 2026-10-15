@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cg::login {
+namespace cg::yobi {
 
 namespace detail {
 
@@ -143,4 +143,4 @@ static_assert(offsetof(BattleScenePayload, fieldEffectB0) == 0xB0);
 
 } // namespace detail
 
-} // namespace cg::login
+} // namespace cg::yobi

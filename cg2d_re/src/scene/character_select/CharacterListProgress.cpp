@@ -21,7 +21,7 @@ constexpr std::int32_t kTextHeight = 16;
 // 原阶段 0x9A6E5C、对象 0x9A6E60 及文本/布局状态的全部引用都只在
 // sub_45DD50/sub_45DD60 内。
 std::uint16_t gCharacterListProgressStage = 0;
-login::YobiAction* gCharacterListProgressAction = nullptr;
+cg::yobi::YobiAction* gCharacterListProgressAction = nullptr;
 std::wstring gCharacterListProgressText {};
 std::int32_t gCharacterListProgressColumns = 0;
 std::int32_t gCharacterListProgressRows = 0;
@@ -58,7 +58,7 @@ std::int32_t UpdateCharacterListProgress_45DD60()
         const std::int32_t x = centeredWidth / 2;
         gCharacterListProgressX = x;
         gCharacterListProgressY = 192;
-        gCharacterListProgressAction = login::detail::CreateModalAction_5044E0(
+        gCharacterListProgressAction = cg::yobi::detail::CreateModalAction_5044E0(
             x,
             192,
             width,
@@ -74,17 +74,17 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     } else if (stage == 2) {
         result = login::PollCharacterListRequest();
         if (result != 0) {
-            login::YobiAction* const action = gCharacterListProgressAction;
+            cg::yobi::YobiAction* const action = gCharacterListProgressAction;
             if (action != nullptr) {
-                login::detail::MarkDeath(action);
+                cg::yobi::detail::MarkDeath(action);
                 gCharacterListProgressAction = nullptr;
             }
             return result;
         }
     }
 
-    login::YobiAction* const action = gCharacterListProgressAction;
-    if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+    cg::yobi::YobiAction* const action = gCharacterListProgressAction;
+    if (action != nullptr && cg::yobi::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCharacterListProgressRows;
         const std::int32_t verticalHeight = rows * kRowHeight - kTextHeight;
         const std::int32_t y = gCharacterListProgressY;

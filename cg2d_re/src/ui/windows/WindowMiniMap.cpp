@@ -123,9 +123,9 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const
 }
 
 // 原函数：0x00495F00。
-login::YobiAction* WindowMiniMap_Open(
+cg::yobi::YobiAction* WindowMiniMap_Open(
     const std::uint32_t flags, const std::uint32_t mode,
-    login::YobiAction** const completionSlot)
+    cg::yobi::YobiAction** const completionSlot)
 {
     WindowInstance* const window = gWindowStates[WindowId_MiniMap].window;
     std::int32_t x;
@@ -139,7 +139,7 @@ login::YobiAction* WindowMiniMap_Open(
         x = gWindowStates[WindowId_MiniMap].x;
         y = gWindowStates[WindowId_MiniMap].y;
     }
-    return login::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
+    return cg::yobi::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
 }
 
 } // namespace detail

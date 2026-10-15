@@ -99,7 +99,7 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 
 // WOL01：一次真实查槽后借用原生action指针，保查槽游标副作用，不转移所有权。
 // 原函数：0x004462B0。
-login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
+cg::yobi::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
 {
     const std::int32_t index = Sub_444FA0(objectIndex);
     return index < 0 ? nullptr : gWorldObjects[index].action;
@@ -245,10 +245,10 @@ void Sub_4462E0(const std::int32_t objectIndex)
         return;
     }
     auto& record = gWorldObjects[static_cast<std::size_t>(index)];
-    login::YobiAction* const action = record.action;
+    cg::yobi::YobiAction* const action = record.action;
     if (action != nullptr) {
-        login::detail::ClearMapActorAttachments(action);
-        login::detail::MarkDeath(record.action);
+        cg::yobi::detail::ClearMapActorAttachments(action);
+        cg::yobi::detail::MarkDeath(record.action);
         record.action = nullptr;
     }
     const std::int32_t used = gWorldObjectUsedCount;
@@ -301,10 +301,10 @@ void __cdecl Sub_4464D0()
         if (record.used == 0) {
             continue;
         }
-        login::YobiAction* const action = record.action;
+        cg::yobi::YobiAction* const action = record.action;
         if (action != nullptr) {
-            login::detail::ClearMapActorAttachments(action);
-            login::detail::MarkDeath(record.action);
+            cg::yobi::detail::ClearMapActorAttachments(action);
+            cg::yobi::detail::MarkDeath(record.action);
             record.action = nullptr;
         }
         record.used = 0;

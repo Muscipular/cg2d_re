@@ -2653,3 +2653,11 @@ USR02最终静态检查：UTF-8无BOM／LF、JSON及Git差异检查通过；台�
 按用户“功能名_地址”授权，IDA改名ProcessWindowScene_503E80、ResetSceneUiState_504100、CreateModalAction_5044E0、UpdateModalAction_5046D0。项目中504100／5044E0原Sub名称合计25处同步；503E80／5046D0已有语义项目名保留。16个源码／头文件只改名称，直接定位／函数表当前源码列／六处验收符号引用同步；旧表97绑定和wrapper保持。源码反向替换一致、唯一声明／定义及行号、3680行原身份／名称／状态、UTF-8无BOM／LF、JSON和差异静态检查通过；共享LegacyUiRecord保留另一会话USR02改动。
 
 台账-Check仍只报LegacyExternalKeyboard.cpp／LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。本步仅静态分析及授权改名，不构建、测试、运行或保存／重载IDA数据库；源码／证据小步精确提交，排除另一会话商店结构化内容。
+
+## 258. 2026-10-15：移除UI按偏移写值模板（USR03）
+
+按用户要求补充USR03，移除WindowTrade_WriteValue及18处调用；CC4894改为WindowMaterialState，含5个S32材料值、+14商店模式字节及3个保留字节，保24B单一对象与原地址。材料值／商店模式使用具名字段，三处整区清零保留；选择槽保持20字节和原分段初始化顺序。正在静态检查，不编译、测试或运行。
+
+USR03静态核对完成：模板及18处调用已移除，39处商店模式访问改具名字段；三处24B整区清零、原地址注释及读写顺序保持。制作／商店源码归一化对照、当前定位、3680行原身份／状态、UTF-8无BOM／LF、JSON与Git差异检查通过。已加入布局断言，本步未编译、测试或运行。
+
+台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。

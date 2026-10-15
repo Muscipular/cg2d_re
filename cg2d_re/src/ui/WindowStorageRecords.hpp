@@ -143,6 +143,13 @@ struct WindowShopDetail {
     std::int32_t valueC34; // 原成员偏移：+0xC34；原分支显示值／现有数量，不归并用途。
 };
 
+// 原CC4894材料区与CC48A8商店模式；窗口共享同一24B对象，整区清零包含尾部。
+struct WindowMaterialState {
+    std::array<std::int32_t, 5> materialValues; // 原成员偏移：+0x00；材料占用值，打包时存材料等级。
+    char shopMode; // 原成员偏移：+0x14；原全局：0x00CC48A8。 商店模式，保留原S8解释。
+    std::array<std::byte, 3> reserved15; // 原成员偏移：+0x15；未确认用途，随整区清零。
+};
+
 static_assert(std::is_standard_layout_v<WindowTradeItem>);
 static_assert(std::is_trivially_copyable_v<WindowTradeItem>);
 static_assert(sizeof(WindowTradeItem) == 0xC4C);
@@ -276,5 +283,13 @@ static_assert(offsetof(WindowShopDetail, itemId) == 0xC28);
 static_assert(offsetof(WindowShopDetail, price) == 0xC2C);
 static_assert(offsetof(WindowShopDetail, capacity) == 0xC30);
 static_assert(offsetof(WindowShopDetail, valueC34) == 0xC34);
+
+static_assert(std::is_standard_layout_v<WindowMaterialState>);
+static_assert(std::is_trivially_copyable_v<WindowMaterialState>);
+static_assert(sizeof(WindowMaterialState) == 0x18);
+static_assert(alignof(WindowMaterialState) == alignof(std::int32_t));
+static_assert(offsetof(WindowMaterialState, materialValues) == 0x00);
+static_assert(offsetof(WindowMaterialState, shopMode) == 0x14);
+static_assert(offsetof(WindowMaterialState, reserved15) == 0x15);
 
 } // namespace cg::ui::detail

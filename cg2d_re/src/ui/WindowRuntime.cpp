@@ -375,7 +375,7 @@ const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057C
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
 }};
 
-std::array<char, 24> gMaterialOccupancyCC4894 {}; // 原全局：0x00CC4894。
+WindowMaterialState gMaterialOccupancyCC4894 {}; // 原全局：0x00CC4894。
 
 std::uint8_t gValue57DA28 = 0xFF; // 原全局：0x0057DA28。
 

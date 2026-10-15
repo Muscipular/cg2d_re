@@ -412,14 +412,6 @@ static_assert(offsetof(WindowRuntimePrefixD2F0B8, value26C) == 0x26C);
 
 static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
 
-// UI原字节区的窄数值通过复制写入，不对未对齐地址构造数值T*。
-template <typename T>
-void WindowTrade_WriteValue(char* const record, const std::size_t offset, const T value)
-{
-    static_assert(sizeof(T) == 2 || sizeof(T) == 4);
-    std::memcpy(record + offset, &value, sizeof(value));
-}
-
 } // namespace detail
 
 } // namespace cg::ui

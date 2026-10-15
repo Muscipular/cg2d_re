@@ -411,7 +411,7 @@ static std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
         }
         const std::int32_t material = gMaterialIndicesCA0458[index];
         if (material >= 0) {
-            WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{0});
+            gMaterialOccupancyCC4894.materialValues[material] = 0;
         }
         hover[slot + 8] = static_cast<unsigned char>(hover[slot + 8] - 1);
         gItemMarksD67290[slot + 8] = 0;
@@ -597,7 +597,7 @@ static void WindowCraft_ResetMaterialMode()
     gItemMarksD68A90.fill(0);
     gMaterialHoverSlotsCB0A8C.fill(-2);
     gMaterialSingleHoverCB0AA4 = -2;
-    gMaterialOccupancyCC4894.fill(0);
+    gMaterialOccupancyCC4894 = {};
     gMaterialIndicesCA0458.fill(-1);
     gSelectedSlotsCA0A90.fill(-1);
     gSelectionCountsD66E0C.fill(0);
@@ -1078,9 +1078,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                         if (itemId < 0) {
                             continue;
                         }
-                        std::int32_t occupied;
-                        std::memcpy(&occupied,
-                            gMaterialOccupancyCC4894.data() + material * 4, sizeof(occupied));
+                        const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
                         if (occupied == 0 && gItemMarksD67290[source] == 0
                             && item->itemId == itemId && count >= materials[material].count) {
                             break;
@@ -1094,7 +1092,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     }
                     const std::int32_t itemId = item->itemId;
                     const std::int32_t imageNo = item->imageNo;
-                    WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{1});
+                    gMaterialOccupancyCC4894.materialValues[material] = 1;
                     gSelectedSlotsCA0A90[destination] = source - 8;
                     gSelectionImagesCF3FF4[destination] = imageNo;
                     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
@@ -1118,13 +1116,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
-                    std::int32_t occupied;
-                    std::memcpy(&occupied,
-                        gMaterialOccupancyCC4894.data() + material * 4, sizeof(occupied));
+                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
                     if (occupied != 0) {
                         return;
                     }
-                    WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{1});
+                    gMaterialOccupancyCC4894.materialValues[material] = 1;
                     WindowCraft_ReleaseMaterialSlot(destination, source, material);
                     gItemMarksD68A90[source - 8] = 1;
                     return;
@@ -1136,12 +1132,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
                         static_cast<void>(WindowCraft_ReleaseMaterials(destination));
                     }
-                    std::int32_t occupied;
-                    std::memcpy(&occupied, gMaterialOccupancyCC4894.data(), sizeof(occupied));
+                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[0];
                     if (occupied != 0) {
                         return;
                     }
-                    WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), 0, std::int32_t{1});
+                    gMaterialOccupancyCC4894.materialValues[0] = 1;
                     gSelectedSlotsCA0A90[destination] = source - 8;
                     const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
                     const std::int32_t itemId = item->itemId;
@@ -1327,7 +1322,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
     gItemMarksD67290.fill(0);
     gMaterialHoverSlotsCB0A8C.fill(-2);
     gMaterialSingleHoverCB0AA4 = -2;
-    gMaterialOccupancyCC4894.fill(0);
+    gMaterialOccupancyCC4894 = {};
     gMaterialIndicesCA0458.fill(-1);
     gSelectedSlotsCA0A90.fill(-1);
     gSelectionCountsD66E0C.fill(0);
@@ -1336,14 +1331,14 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
     std::int32_t row = 0;
     for (std::int32_t material = 4; material >= 0; --material) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
-        WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{1});
+        gMaterialOccupancyCC4894.materialValues[material] = 1;
         const auto* const requirement =
             &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
         if (requirement->itemId < 0) {
             continue;
         }
         const std::int32_t count = requirement->count;
-        WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{0});
+        gMaterialOccupancyCC4894.materialValues[material] = 0;
         if (count <= 0) {
             row = 1;
         }
@@ -1431,8 +1426,7 @@ static std::int32_t WindowCraft_ReadMaxMaterialLevel()
 {
     std::int32_t maximum = 0;
     for (std::int32_t index = 0; index < 3; ++index) {
-        std::int32_t value;
-        std::memcpy(&value, gMaterialOccupancyCC4894.data() + index * 4, sizeof(value));
+        const std::int32_t value = gMaterialOccupancyCC4894.materialValues[index];
         if (value > maximum) {
             maximum = value;
         }
@@ -1495,9 +1489,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
             const std::int32_t itemId = WindowCraft_ReadFirstMaterialId();
             if (item->itemId == itemId) {
                 for (material = 0; material < 3; ++material) {
-                    std::int32_t occupied;
-                    std::memcpy(
-                        &occupied, gMaterialOccupancyCC4894.data() + material * 4, sizeof(occupied));
+                    const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
                     if (occupied <= 0) {
                         break;
                     }
@@ -1542,7 +1534,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
     static_cast<void>(WindowCraft_ReleaseMaterials(6));
     if (accepted) {
         WindowCraft_ReleaseMaterialSlot(destination, source, material);
-        WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, item->level);
+        gMaterialOccupancyCC4894.materialValues[material] = item->level;
     }
 }
 
@@ -1609,11 +1601,6 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     auto* const graphic = static_cast<WindowGraphicData*>(element->data);
     std::int32_t consumed = 0;
     bool enabled = false;
-    const auto occupied = [](const std::int32_t slot) {
-        std::int32_t value;
-        std::memcpy(&value, gMaterialOccupancyCC4894.data() + slot * 4, sizeof(value));
-        return value;
-    };
     const auto recipeCost = [] {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
@@ -1623,7 +1610,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
     case 0:
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            if (occupied(slot) == 0) {
+            if (gMaterialOccupancyCC4894.materialValues[slot] == 0) {
                 element->visible = 0;
                 return 0;
             }
@@ -1700,25 +1687,25 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     }
     case 6:
     case 15:
-        if (occupied(0) == 0 || occupied(1) == 0) {
+        if (gMaterialOccupancyCC4894.materialValues[0] == 0 || gMaterialOccupancyCC4894.materialValues[1] == 0) {
             element->visible = 0;
             return 0;
         }
         enabled = !world::detail::IsPlayerFpLessThan(100);
         break;
     case 9:
-        if (occupied(0) == 0) {
+        if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
             element->visible = 0;
             return 0;
         }
         enabled = true;
         break;
     case 12: {
-        const std::int32_t fourth = occupied(4);
-        const std::int32_t third = occupied(3);
-        const std::int32_t second = occupied(2);
-        const std::int32_t first = occupied(1);
-        const std::int32_t zeroth = occupied(0);
+        const std::int32_t fourth = gMaterialOccupancyCC4894.materialValues[4];
+        const std::int32_t third = gMaterialOccupancyCC4894.materialValues[3];
+        const std::int32_t second = gMaterialOccupancyCC4894.materialValues[2];
+        const std::int32_t first = gMaterialOccupancyCC4894.materialValues[1];
+        const std::int32_t zeroth = gMaterialOccupancyCC4894.materialValues[0];
         if ((fourth & third & second & first & zeroth) == 0) {
             element->visible = 0;
             return 0;
@@ -2061,11 +2048,6 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         }
                         return slot;
                     };
-                    const auto occupied = [](const std::int32_t slot) {
-                        std::int32_t value;
-                        std::memcpy(&value, gMaterialOccupancyCC4894.data() + slot * 4, sizeof(value));
-                        return value;
-                    };
                     // 此路径只填首空槽，没有483E30的预释放；标记仍在4F4630之后发布。
                     const auto publishMaterial = [&](const std::int32_t slot,
                                                      const std::int32_t material,
@@ -2073,7 +2055,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         const std::int32_t itemId = item->itemId;
                         const std::int32_t imageNo = item->imageNo;
                         if (material >= 0) {
-                            WindowTrade_WriteValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{1});
+                            gMaterialOccupancyCC4894.materialValues[material] = 1;
                         }
                         gSelectedSlotsCA0A90[slot] = hovered;
                         gSelectionImagesCF3FF4[slot] = imageNo;
@@ -2125,7 +2107,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         for (std::int32_t material = 0; material < 5; ++material) {
                             const auto* const required = &recipe->items6C[material];
                             const std::int32_t itemId = required->itemId;
-                            if (itemId >= 0 && occupied(material) == 0
+                            if (itemId >= 0 && gMaterialOccupancyCC4894.materialValues[material] == 0
                                 && gItemMarksD67290[hovered + 8] == 0
                                 && item->itemId == itemId && count >= required->count) {
                                 publishMaterial(slot, material, false);
@@ -2228,7 +2210,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         const bool special = currentMode == 6 ? type == 38 || type == 25 || type == 39
                                                               : type == 80;
                         const std::int32_t material = special ? 1 : 0;
-                        if (occupied(material) == 0) {
+                        if (gMaterialOccupancyCC4894.materialValues[material] == 0) {
                             publishMaterial(slot, material, true);
                         }
                         return;
@@ -2242,7 +2224,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                             fail();
                             return;
                         }
-                        if (occupied(0) == 0) {
+                        if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
                             publishMaterial(slot, 0, false);
                         }
                         return;
@@ -2626,7 +2608,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     gItemMarksD67290.fill(0);
     gMaterialHoverSlotsCB0A8C.fill(-2);
     gMaterialSingleHoverCB0AA4 = -2;
-    gMaterialOccupancyCC4894.fill(0);
+    gMaterialOccupancyCC4894 = {};
     gMaterialIndicesCA0458.fill(-1);
     gSelectedSlotsCA0A90.fill(-1);
     gSelectionCountsD66E0C.fill(0);

@@ -834,7 +834,7 @@ std::int32_t WindowPet_ReadHealthImage(std::int32_t health); // 复用519680分�
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90; // 原全局：0x00CA0A90。
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C; // 原全局：0x00D66E0C。
 extern std::array<std::int32_t, 6> gSelectionImagesCF3FF4; // 原全局：0x00CF3FF4。
-extern std::array<char, 24> gMaterialOccupancyCC4894; // 原全局：0x00CC4894。 前五W32占用，末4B与CC48A8同源。
+extern WindowMaterialState gMaterialOccupancyCC4894; // 原全局：0x00CC4894。 材料值与商店模式CC48A8共用24B对象。
 extern std::array<std::uint8_t, 20> gItemMarksD68A90; // 原全局：0x00D68A90。 不为原越界访问扩展为28B。
 // 原函数：0x004E54E0。
 void WindowTrade_CopyOwnItem(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。

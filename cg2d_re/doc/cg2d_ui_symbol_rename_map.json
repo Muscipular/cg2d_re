@@ -130,7 +130,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2741
+        2723
       ]
     },
     {
@@ -140,7 +140,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3080
+        3062
       ]
     },
     {
@@ -150,7 +150,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3056
+        3038
       ]
     },
     {
@@ -920,7 +920,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1266
+        1267
       ]
     },
     {
@@ -930,7 +930,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        3384
+        3385
       ]
     },
     {
@@ -940,7 +940,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        480
+        481
       ]
     },
     {
@@ -4901,7 +4901,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "kind9出售拖动生命周期。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        393
+        394
       ]
     },
     {
@@ -4911,7 +4911,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "透传kind9注册返回。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        438
+        439
       ]
     },
     {
@@ -4921,7 +4921,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "三次读取来源，撤销选择并刷新窗口53。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        444
+        445
       ]
     },
     {
@@ -4931,7 +4931,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53买入商品及三组四行正文。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        494
+        495
       ]
     },
     {
@@ -4941,7 +4941,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53出售商品、库存映射及占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        547
+        548
       ]
     },
     {
@@ -4951,7 +4951,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53模式2五字段商品及指定物品文本。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        639
+        640
       ]
     },
     {
@@ -4961,7 +4961,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53模式3独立详情，保留其他商品状态。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        702
+        703
       ]
     },
     {
@@ -4971,7 +4971,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53鉴定，库存映射保留未匹配物品哨兵20。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        848
+        849
       ]
     },
     {
@@ -4981,7 +4981,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "窗口53修理，与鉴定仅模式和提示不同。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        855
+        856
       ]
     },
     {
@@ -4991,7 +4991,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "买入五行名称/价格/不可装备提示，保留原分行终止偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        862
+        863
       ]
     },
     {
@@ -5001,7 +5001,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "买入五行所选数量文本。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        920
+        921
       ]
     },
     {
@@ -5011,7 +5011,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20商品金额合计及元素7颜色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        936
+        937
       ]
     },
     {
@@ -5021,7 +5021,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20商品按上限分组计算占用数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        959
+        960
       ]
     },
     {
@@ -5031,7 +5031,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售五行按S8选择槽取商品，不另检查use。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        980
+        981
       ]
     },
     {
@@ -5041,7 +5041,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售数量及上限>1时的加减元素可见性。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1046
+        1047
       ]
     },
     {
@@ -5051,7 +5051,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20选择槽的金额合计，元素7颜色固定0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1073
+        1074
       ]
     },
     {
@@ -5061,7 +5061,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "全20选择槽直接累计所选数，不做买入分组。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1094
+        1095
       ]
     },
     {
@@ -5071,7 +5071,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2五行，按指定物品数量与价格加合计比较。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1111
+        1112
       ]
     },
     {
@@ -5081,7 +5081,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2数量，使用项直接重显加减元素。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1172
+        1173
       ]
     },
     {
@@ -5091,7 +5091,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2合计写CF4A28，不写金额颜色。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1191
+        1192
       ]
     },
     {
@@ -5101,7 +5101,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式2全部使用商品累计所选数。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1210
+        1211
       ]
     },
     {
@@ -5111,7 +5111,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3首行详情名与数值，短名称的次行借593850。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1226
+        1227
       ]
     },
     {
@@ -5121,7 +5121,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3三次读取D046C4，先两个显示值后乘详情单价。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1236
+        1237
       ]
     },
     {
@@ -5131,7 +5131,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "模式3详情数值或全部28玩家物品的匹配数量。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1246
+        1247
       ]
     },
     {
@@ -5141,7 +5141,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "确认选择低U8为0才按模式发送，返回值不消费。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1451
+        1452
       ]
     },
     {
@@ -5151,7 +5151,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "六模式确认生产，借用同源覆盖层。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1509
+        1510
       ]
     },
     {
@@ -5161,7 +5161,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "取消发送command2，发送后关闭。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1779
+        1780
       ]
     },
     {
@@ -5171,7 +5171,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "批量加入出售选择，每轮固定重置/音效尾。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1814
+        1815
       ]
     },
     {
@@ -5181,7 +5181,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "kind2拖放加入，hover模式门禁独立。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1933
+        1934
       ]
     },
     {
@@ -5191,7 +5191,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向前一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2019
+        2020
       ]
     },
     {
@@ -5201,7 +5201,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit400向后一行，触边仍刷新。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2065
+        2066
       ]
     },
     {
@@ -5211,7 +5211,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向前五行，音效后重读位置。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2111
+        2112
       ]
     },
     {
@@ -5221,7 +5221,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "bit2向后五行，先上限后负值修正。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2155
+        2156
       ]
     },
     {
@@ -5231,7 +5231,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "共享滚轮更新并刷新，恒返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2206
+        2207
       ]
     },
     {
@@ -5241,7 +5241,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量减少，兑换模式两轮背包占槽计算。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2237
+        2238
       ]
     },
     {
@@ -5251,7 +5251,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "数量增加，保留行价格与选择槽索引差别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2470
+        2471
       ]
     },
     {
@@ -5261,7 +5261,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "商品图标，仅hover内bit4翻页。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2821
+        2822
       ]
     },
     {
@@ -5271,7 +5271,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "独立详情图标，bit4无hover门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2877
+        2878
       ]
     },
     {
@@ -5281,7 +5281,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "出售选择行，接kind9交换/取消/拖动。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2912
+        2913
       ]
     },
     {
@@ -5291,7 +5291,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "背包20格命中、加入/拖动/翻页及两组绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3045
+        3046
       ]
     },
     {
@@ -5301,7 +5301,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "确认覆盖层，事件直接读共享鼠标。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3293
+        3294
       ]
     },
     {
@@ -7811,7 +7811,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造模式0完整初始化，逆序发布五材料需求。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1321
+        1316
       ]
     },
     {
@@ -7821,7 +7821,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "技能分类对应的特殊材料类别。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1385
+        1380
       ]
     },
     {
@@ -7831,7 +7831,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "先释放再发布材料槽/占用。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1394
+        1389
       ]
     },
     {
@@ -7841,7 +7841,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "完整快照后查技能等级，附加值只读低U8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1410
+        1405
       ]
     },
     {
@@ -7851,7 +7851,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "前三材料占用等级与0的最大值。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1430
+        1425
       ]
     },
     {
@@ -7861,7 +7861,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六槽中首个材料类别0/1/2对应的itemId。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1444
+        1438
       ]
     },
     {
@@ -7871,7 +7871,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "模式12完整材料校验、清理与发布。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1457
+        1451
       ]
     },
     {
@@ -7881,7 +7881,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "材料/单选拖动与释放。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1550
+        1542
       ]
     },
     {
@@ -7891,7 +7891,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "安装类型10的47DE00拖动回调。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1588
+        1580
       ]
     },
     {
@@ -7901,7 +7901,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "加工分类；类别7优先归2。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1594
+        1586
       ]
     },
     {
@@ -7911,7 +7911,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "执行资格、五等待及刻印直接发送。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1606
+        1598
       ]
     },
     {
@@ -7921,7 +7921,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "续作，初始化后独立重读模式5。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1911
+        1898
       ]
     },
     {
@@ -7931,7 +7931,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "底部关闭，点击仍返回0。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1958
+        1945
       ]
     },
     {
@@ -7941,7 +7941,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "20格背包投放/快速选择/拖动及绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        1980
+        1967
       ]
     },
     {
@@ -7951,7 +7951,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "结果图，负图号不绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2345
+        2327
       ]
     },
     {
@@ -7961,7 +7961,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "刻印输入焦点，借用唯一D2DE70。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2364
+        2346
       ]
     },
     {
@@ -7971,7 +7971,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "右上关闭，点击返回1。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2389
+        2371
       ]
     },
     {
@@ -7981,7 +7981,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "非法刻印字符覆盖提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2444
+        2426
       ]
     },
     {
@@ -7991,7 +7991,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "空白刻印覆盖提示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2452
+        2434
       ]
     },
     {
@@ -8001,7 +8001,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选投放/校验/拖动与绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2460
+        2442
       ]
     },
     {
@@ -8011,7 +8011,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选模式3完整初始化，返回借用载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2620
+        2602
       ]
     },
     {
@@ -8021,7 +8021,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "晶石等级读取后比较当前配方等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2691
+        2673
       ]
     },
     {
@@ -8031,7 +8031,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单选物品不加8，晶石读取后重新取得选择索引。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2700
+        2682
       ]
     },
     {
@@ -8041,7 +8041,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六材料首个匹配类别，晶石读取后重取槽号再比较等级。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2711
+        2693
       ]
     },
     {
@@ -8051,7 +8051,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "首材料slot+8等级在晶石读取前快照。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        2729
+        2711
       ]
     },
     {
@@ -8061,7 +8061,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双预览定位/显隐，返回原36B元素数值偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3128
+        3110
       ]
     },
     {
@@ -8071,7 +8071,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "返回第二个借用载荷。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3152
+        3134
       ]
     },
     {
@@ -8081,7 +8081,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "六材料槽悬停、翻页与图形绘制。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3171
+        3153
       ]
     },
     {
@@ -8091,7 +8091,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "制造结果完整窗口11展示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3219
+        3201
       ]
     },
     {
@@ -8101,7 +8101,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "仅已有窗口11才更新，不自动创建。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3310
+        3292
       ]
     },
     {
@@ -8111,7 +8111,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "JgO制造分支，原字节摘要与展示。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3317
+        3299
       ]
     },
     {
@@ -8121,7 +8121,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "单物品悬停/翻页，物品编号不加8。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3381
+        3363
       ]
     },
     {
@@ -8131,7 +8131,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "物品加工结果展示，保留入口选择快照及交叉门禁。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3428
+        3410
       ]
     },
     {
@@ -8141,7 +8141,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "仅已有窗口11才展示物品结果。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3537
+        3519
       ]
     },
     {
@@ -8151,7 +8151,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "JgO第二分支七字段及独立摘要。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3544
+        3526
       ]
     },
     {
@@ -8161,7 +8161,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双预览六点插值，实际借当前窗口。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3599
+        3581
       ]
     },
     {
@@ -8171,7 +8171,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "双动画图号，非正才隐藏；返回原数值元素偏移。 当前声明／正文和原型绑定静态核对；原入口身份保持。",
       "current_definition_lines": [
-        3634
+        3616
       ]
     },
     {
@@ -10611,10 +10611,9 @@
       "new_symbol": "WindowTrade_WriteValue",
       "original_entry": null,
       "source": "src/ui/WindowRuntimeInternal.hpp",
-      "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
-      "current_definition_lines": [
-        416
-      ]
+      "basis": "USR03：18处调用已改为材料具名字段赋值或商店字节槽分段填充；模板移除，原改名记录仅保留历史。",
+      "current_definition_lines": [],
+      "status": "removed"
     },
     {
       "old_symbol": "AppendMouseButtonEvents",
@@ -10803,7 +10802,7 @@
       "source": "src/ui/windows/WindowCraft.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        2412
+        2394
       ]
     },
     {
@@ -10873,7 +10872,7 @@
       "source": "src/ui/windows/WindowShop.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        755
+        756
       ]
     },
     {

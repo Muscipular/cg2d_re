@@ -70,7 +70,7 @@ YobiAction*；释放仅被54EC60原型引用，沿既有void回调契约弃用�
   +C20图号、+C24价格、+C2C背包索引、+C30数量、+C34上限、
   +C38未定名W32、+C3C单字节、+C40标志、+C44附文。
   未消费字节只随原整区清零；不裁决最终完整记录语义。
-- CC48A8直接使用gMaterialOccupancyCC4894[20]，保留末W32重叠；
+- CC48A8对应gMaterialOccupancyCC4894.shopMode，位于结构体+14，仍与材料区同属24B清零对象（USR03）；
   D67B08直接使用world::gValueD67B08的28字节视图。
   CB03DC..CB03F0为20个选择槽字节，不能因五次W32写-1拆成五个索引。
   D2DAB8是另一个20个S8映射；CB1E10列表数和CF4B58回复商品数各自独立。

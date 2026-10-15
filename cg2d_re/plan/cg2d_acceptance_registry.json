@@ -191216,5 +191216,16 @@
     ],
     "blocker_owner": "用户已指定原会话继续补齐；本轮不重复接手或填猜测数组。",
     "ledger_validation": "USR02最终静态检查：UTF-8无BOM／LF、JSON及Git差异检查通过；台账-Check仍只报两份既有外部键盘历史附件缺失，未写派生文件，不计全量台账通过。"
+  },
+  "ui_value_writer_removal_20261015": {
+    "spec": "doc/cg2d_ui_storage_records_spec.md",
+    "scope": "移除WindowTrade_WriteValue；材料区改WindowMaterialState结构：5个S32值、商店模式字节及3B保留区，保24B单一对象；选择槽保20B及分段写入顺序。",
+    "removed_calls": 18,
+    "material_write_sites": 8,
+    "selection_fill_sites": 10,
+    "shared_mode_use_sites": 39,
+    "layout_assertions": "WindowMaterialState的24B大小、S32对齐、三个字段偏移和标准布局／平凡复制性质，以及选择槽20B断言已加入；本步未编译，不计断言执行通过。",
+    "validation": "USR03静态核对完成：模板及18处调用已移除，39处商店模式访问改具名字段；三处24B整区清零、原地址注释及读写顺序保持。制作／商店源码归一化对照、当前定位、3680行原身份／状态、UTF-8无BOM／LF、JSON与Git差异检查通过。已加入布局断言，本步未编译、测试或运行。",
+    "ledger_validation": "台账-Check仍仅报LegacyExternalKeyboard.cpp与LegacyExternalKeyboardObject.cpp两份既有历史附件缺失，未写派生文件，不计全量台账通过。"
   }
 }

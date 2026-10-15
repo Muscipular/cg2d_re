@@ -12783,7 +12783,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_SetPreviewPositions",
-          "definition_line": 3128,
+          "definition_line": 3110,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12795,7 +12795,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_BorrowSecondPreview",
-          "definition_line": 3152,
+          "definition_line": 3134,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12807,7 +12807,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_SetPreviewImages",
-          "definition_line": 3634,
+          "definition_line": 3616,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12819,7 +12819,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_AnimatePreviewPositions",
-          "definition_line": 3599,
+          "definition_line": 3581,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12855,7 +12855,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HasRecipeCrystalLevel",
-          "definition_line": 2691,
+          "definition_line": 2673,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12867,7 +12867,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HasSelectedCrystalLevel",
-          "definition_line": 2700,
+          "definition_line": 2682,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12879,7 +12879,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HasMaterialCrystalLevel",
-          "definition_line": 2711,
+          "definition_line": 2693,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12891,7 +12891,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HasFirstMaterialCrystalLevel",
-          "definition_line": 2729,
+          "definition_line": 2711,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12987,7 +12987,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HandleMaterialDrag",
-          "definition_line": 1550,
+          "definition_line": 1542,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -12999,7 +12999,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_StartMaterialDrag",
-          "definition_line": 1588,
+          "definition_line": 1580,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13011,7 +13011,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_InitializeRecipe",
-          "definition_line": 1321,
+          "definition_line": 1316,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13035,7 +13035,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ShowRecipeResult",
-          "definition_line": 3219,
+          "definition_line": 3201,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13047,7 +13047,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_RefreshRecipeResult",
-          "definition_line": 3310,
+          "definition_line": 3292,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13059,7 +13059,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_InitializeItemWork",
-          "definition_line": 2620,
+          "definition_line": 2602,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13083,7 +13083,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ShowItemWorkResult",
-          "definition_line": 3428,
+          "definition_line": 3410,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13095,7 +13095,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_RefreshItemWorkResult",
-          "definition_line": 3537,
+          "definition_line": 3519,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13191,7 +13191,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_Release",
-          "definition_line": 3056,
+          "definition_line": 3038,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13203,7 +13203,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_Update",
-          "definition_line": 2741,
+          "definition_line": 2723,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13215,7 +13215,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_Draw",
-          "definition_line": 3080,
+          "definition_line": 3062,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13227,7 +13227,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ButtonExecute",
-          "definition_line": 1606,
+          "definition_line": 1598,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13239,7 +13239,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ClassifyWork",
-          "definition_line": 1594,
+          "definition_line": 1586,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13251,7 +13251,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ButtonContinue",
-          "definition_line": 1911,
+          "definition_line": 1898,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13263,7 +13263,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ButtonClose",
-          "definition_line": 1958,
+          "definition_line": 1945,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13275,7 +13275,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HandleInventory",
-          "definition_line": 1980,
+          "definition_line": 1967,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13287,7 +13287,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReleaseMaterialSlot",
-          "definition_line": 1394,
+          "definition_line": 1389,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13311,7 +13311,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HandleSingleMaterial",
-          "definition_line": 2460,
+          "definition_line": 2442,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13323,7 +13323,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HandleMaterialTooltip",
-          "definition_line": 3171,
+          "definition_line": 3153,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13335,7 +13335,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_HandleItemTooltip",
-          "definition_line": 3381,
+          "definition_line": 3363,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13347,7 +13347,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_DrawResultImage",
-          "definition_line": 2345,
+          "definition_line": 2327,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13371,7 +13371,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ButtonCloseIcon",
-          "definition_line": 2389,
+          "definition_line": 2371,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13383,7 +13383,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_DrawInvalidEngravingNotice",
-          "definition_line": 2444,
+          "definition_line": 2426,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13395,7 +13395,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_DrawEmptyEngravingNotice",
-          "definition_line": 2452,
+          "definition_line": 2434,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13659,7 +13659,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReadRequiredSkillLevel",
-          "definition_line": 1410,
+          "definition_line": 1405,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13671,7 +13671,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReadMaxMaterialLevel",
-          "definition_line": 1430,
+          "definition_line": 1425,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13683,7 +13683,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReadFirstMaterialId",
-          "definition_line": 1444,
+          "definition_line": 1438,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -13695,7 +13695,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ValidatePackingMaterials",
-          "definition_line": 1457,
+          "definition_line": 1451,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19839,7 +19839,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleSaleDrag",
-          "definition_line": 393,
+          "definition_line": 394,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19851,7 +19851,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_StartSaleDrag",
-          "definition_line": 438,
+          "definition_line": 439,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19863,7 +19863,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_Release",
-          "definition_line": 480,
+          "definition_line": 481,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19875,7 +19875,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenBuy",
-          "definition_line": 494,
+          "definition_line": 495,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19887,7 +19887,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenSell",
-          "definition_line": 547,
+          "definition_line": 548,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19899,7 +19899,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenExchange",
-          "definition_line": 639,
+          "definition_line": 640,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19911,7 +19911,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenItemDetails",
-          "definition_line": 702,
+          "definition_line": 703,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19923,7 +19923,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenIdentify",
-          "definition_line": 848,
+          "definition_line": 849,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19935,7 +19935,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_OpenRepair",
-          "definition_line": 855,
+          "definition_line": 856,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19947,7 +19947,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshBuyRows",
-          "definition_line": 862,
+          "definition_line": 863,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19959,7 +19959,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshBuyQuantities",
-          "definition_line": 920,
+          "definition_line": 921,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19971,7 +19971,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshBuyAmount",
-          "definition_line": 936,
+          "definition_line": 937,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19983,7 +19983,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_CountBuySlots",
-          "definition_line": 959,
+          "definition_line": 960,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -19995,7 +19995,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshSellRows",
-          "definition_line": 980,
+          "definition_line": 981,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20007,7 +20007,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshSellQuantities",
-          "definition_line": 1046,
+          "definition_line": 1047,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20019,7 +20019,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshSellAmount",
-          "definition_line": 1073,
+          "definition_line": 1074,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20031,7 +20031,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_CountSellItems",
-          "definition_line": 1094,
+          "definition_line": 1095,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20043,7 +20043,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshExchangeRows",
-          "definition_line": 1111,
+          "definition_line": 1112,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20055,7 +20055,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshExchangeQuantities",
-          "definition_line": 1172,
+          "definition_line": 1173,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20067,7 +20067,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshExchangeAmount",
-          "definition_line": 1191,
+          "definition_line": 1192,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20079,7 +20079,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_CountExchangeItems",
-          "definition_line": 1210,
+          "definition_line": 1211,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20091,7 +20091,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshDetailName",
-          "definition_line": 1226,
+          "definition_line": 1227,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20103,7 +20103,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RefreshDetailAmount",
-          "definition_line": 1236,
+          "definition_line": 1237,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20115,7 +20115,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_CountDetailItems",
-          "definition_line": 1246,
+          "definition_line": 1247,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20127,7 +20127,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_Update",
-          "definition_line": 1266,
+          "definition_line": 1267,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20139,7 +20139,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_Draw",
-          "definition_line": 3384,
+          "definition_line": 3385,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20151,7 +20151,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_Submit",
-          "definition_line": 1451,
+          "definition_line": 1452,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20163,7 +20163,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonOk",
-          "definition_line": 1509,
+          "definition_line": 1510,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20175,7 +20175,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonCancel",
-          "definition_line": 1779,
+          "definition_line": 1780,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20187,7 +20187,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonAddAll",
-          "definition_line": 1814,
+          "definition_line": 1815,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20199,7 +20199,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonPreviousRow",
-          "definition_line": 2019,
+          "definition_line": 2020,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20211,7 +20211,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonNextRow",
-          "definition_line": 2065,
+          "definition_line": 2066,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20223,7 +20223,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonPreviousPage",
-          "definition_line": 2111,
+          "definition_line": 2112,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20235,7 +20235,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonNextPage",
-          "definition_line": 2155,
+          "definition_line": 2156,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20247,7 +20247,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonDecrease",
-          "definition_line": 2237,
+          "definition_line": 2238,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20259,7 +20259,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_ButtonIncrease",
-          "definition_line": 2470,
+          "definition_line": 2471,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20271,7 +20271,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleItemIcon",
-          "definition_line": 2821,
+          "definition_line": 2822,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20283,7 +20283,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleDetailIcon",
-          "definition_line": 2877,
+          "definition_line": 2878,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20295,7 +20295,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_RemoveSaleSelection",
-          "definition_line": 444,
+          "definition_line": 445,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20307,7 +20307,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleSaleSelection",
-          "definition_line": 2912,
+          "definition_line": 2913,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20319,7 +20319,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleInventory",
-          "definition_line": 3045,
+          "definition_line": 3046,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20331,7 +20331,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleSaleDrop",
-          "definition_line": 1933,
+          "definition_line": 1934,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -20343,7 +20343,7 @@
         {
           "path": "src/ui/windows/WindowShop.cpp",
           "symbol": "WindowShop_HandleConfirmation",
-          "definition_line": 3293,
+          "definition_line": 3294,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -24687,7 +24687,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReceiveItemWorkResult",
-          "definition_line": 3544,
+          "definition_line": 3526,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -24783,7 +24783,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ReceiveRecipeResult",
-          "definition_line": 3317,
+          "definition_line": 3299,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -24807,7 +24807,7 @@
         {
           "path": "src/ui/windows/WindowCraft.cpp",
           "symbol": "WindowCraft_ClassifySpecialMaterial",
-          "definition_line": 1385,
+          "definition_line": 1380,
           "namespace": "cg::ui::detail"
         }
       ]
@@ -33593,7 +33593,7 @@
       "definition": {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_Scroll",
-        "definition_line": 2206,
+        "definition_line": 2207,
         "namespace": "cg::ui::detail"
       }
     },
@@ -33629,7 +33629,7 @@
       "definition": {
         "path": "src/ui/windows/WindowCraft.cpp",
         "symbol": "WindowCraft_HandleEngravingInput",
-        "definition_line": 2364,
+        "definition_line": 2346,
         "namespace": "cg::ui::detail"
       }
     },

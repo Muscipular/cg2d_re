@@ -183,6 +183,11 @@ struct YobiAction {
     std::int32_t mapOffsetX; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
     std::int32_t mapOffsetY; // 原成员偏移：+0x318。
     std::array<char, 17> text31C; // 原 +31C；51A090 第四文本的独立槽。
+
+private:
+    // 原41EB10：仅克隆入口可用，按原顺序赋值字段，不复制独立载荷内容。
+    YobiAction& operator=(const YobiAction& source) noexcept;
+    friend YobiAction* detail::CloneBattleAction_41EAB0(YobiAction* source);
 };
 
 static_assert(std::is_standard_layout_v<YobiAction>);

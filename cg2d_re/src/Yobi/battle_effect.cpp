@@ -94,110 +94,6 @@ std::int32_t gBattleTiledEffectPhase59F9EC = 0; // 原全局：0x0059F9EC。
 
 std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9F0。
 
-// 原41EB10逐成员复制；三个联合槽按原生宽度复制，CryptInt不改目标token/保留字节。
-YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiAction* const source)
-{
-    destination->prev = source->prev;
-    destination->next = source->next;
-    destination->callback = source->callback;
-    destination->payload = source->payload;
-    destination->payloadKind = source->payloadKind;
-    std::memcpy(&destination->completionSlot10, &source->completionSlot10, sizeof(source->completionSlot10));
-    destination->priority = source->priority;
-    destination->displayPriority = source->displayPriority;
-    destination->cacheIndex = source->cacheIndex;
-    destination->deathFlag = source->deathFlag;
-    destination->graphicIndex = source->graphicIndex;
-    destination->flags = source->flags;
-    destination->counter28 = source->counter28;
-    std::memcpy(&destination->numberWindowCallback2C, &source->numberWindowCallback2C, sizeof(source->numberWindowCallback2C));
-    destination->x = source->x;
-    destination->y = source->y;
-    destination->deltaX = source->deltaX;
-    destination->deltaY = source->deltaY;
-    std::memcpy(&destination->offset40, &source->offset40, sizeof(source->offset40));
-    std::memcpy(&destination->offset44, &source->offset44, sizeof(source->offset44));
-    std::memcpy(&destination->effectAcceleration48, &source->effectAcceleration48, sizeof(source->effectAcceleration48));
-    destination->value4CBits = source->value4CBits;
-    std::memcpy(&destination->angle50, &source->angle50, sizeof(source->angle50));
-    std::memcpy(&destination->value54, &source->value54, sizeof(source->value54));
-    destination->field58 = source->field58;
-    std::memcpy(&destination->scaleX, &source->scaleX, sizeof(source->scaleX));
-    std::memcpy(&destination->scaleY, &source->scaleY, sizeof(source->scaleY));
-    destination->displayName = source->displayName;
-    destination->nameX = source->nameX;
-    destination->nameY = source->nameY;
-    std::memcpy(&destination->nameOffsetAC, &source->nameOffsetAC, sizeof(source->nameOffsetAC));
-    std::memcpy(&destination->nameOffsetB0, &source->nameOffsetB0, sizeof(source->nameOffsetB0));
-    std::memcpy(&destination->battleTurnStepB4, &source->battleTurnStepB4, sizeof(source->battleTurnStepB4));
-    std::memcpy(&destination->numberVelocityB8, &source->numberVelocityB8, sizeof(source->numberVelocityB8));
-    destination->nameColor = source->nameColor;
-    destination->nameFontType = source->nameFontType;
-    destination->nameLayer = source->nameLayer;
-    destination->nameValueC0 = source->nameValueC0;
-    destination->nameC4 = source->nameC4;
-    destination->titleE1 = source->titleE1;
-    destination->text102 = source->text102;
-    destination->text123 = source->text123;
-    destination->text144 = source->text144;
-    destination->bytes155 = source->bytes155;
-    destination->readiness = source->readiness;
-    destination->maxHp = source->maxHp;
-    destination->value190 = source->value190;
-    destination->value1A0 = source->value1A0;
-    destination->barValue1B0 = source->barValue1B0;
-    destination->barMaximum1C0 = source->barMaximum1C0;
-    std::memcpy(&destination->windowCompletionSlot1D0, &source->windowCompletionSlot1D0, sizeof(source->windowCompletionSlot1D0));
-    destination->value1D4 = source->value1D4;
-    destination->field1D8 = source->field1D8;
-    destination->counter1DC = source->counter1DC;
-    destination->mapX1E0 = source->mapX1E0;
-    destination->mapY1F0 = source->mapY1F0;
-    destination->mapX200 = source->mapX200;
-    destination->mapY210 = source->mapY210;
-    destination->pathX220 = source->pathX220;
-    destination->pathY248 = source->pathY248;
-    destination->field270 = source->field270;
-    destination->field272 = source->field272;
-    std::memcpy(&destination->worldX, &source->worldX, sizeof(source->worldX));
-    std::memcpy(&destination->worldY, &source->worldY, sizeof(source->worldY));
-    destination->field27C = source->field27C;
-    destination->field280 = source->field280;
-    destination->walkSpeed = source->walkSpeed;
-    destination->fields288 = source->fields288;
-    destination->extraState290 = source->extraState290;
-    destination->framePlayingRate = source->framePlayingRate;
-    destination->imageNo = source->imageNo;
-    destination->lastImageNo = source->lastImageNo;
-    destination->characterAction = source->characterAction;
-    destination->lastCharacterAction = source->lastCharacterAction;
-    destination->direction = source->direction;
-    destination->lastDirection = source->lastDirection;
-    destination->frameIndex = source->frameIndex;
-    destination->frameRemain = source->frameRemain;
-    destination->graphicOffsetX = source->graphicOffsetX;
-    destination->graphicOffsetY = source->graphicOffsetY;
-    destination->frameEvent = source->frameEvent;
-    destination->hidden = source->hidden;
-    destination->field2D8 = source->field2D8;
-    destination->completedLoops = source->completedLoops;
-    destination->playRevert = source->playRevert;
-    destination->field2E4 = source->field2E4;
-    destination->imageNo2E8 = source->imageNo2E8;
-    destination->refresh2EC = source->refresh2EC;
-    destination->frameX = source->frameX;
-    destination->frameY = source->frameY;
-    destination->drawMode = source->drawMode;
-    destination->batchType = source->batchType;
-    destination->rebirthValue1 = source->rebirthValue1;
-    destination->color2 = source->color2;
-    destination->rebirthValue2 = source->rebirthValue2;
-    destination->mapOffsetX = source->mapOffsetX;
-    destination->mapOffsetY = source->mapOffsetY;
-    destination->text31C = source->text31C;
-    return destination;
-}
-
 } // namespace
 
 // 原函数：0x0041EAB0。
@@ -211,7 +107,7 @@ YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
     YobiAction* const previous = action->prev;
     YobiAction* const next = action->next;
     auto* const payload = action->payload.battleActor;
-    static_cast<void>(CopyYobiAction_41EB10(action, source));
+    *action = *source;
     action->next = next;
     action->prev = previous;
     action->payload.battleActor = payload;

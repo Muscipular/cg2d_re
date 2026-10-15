@@ -34,6 +34,111 @@ YobiAction::YobiAction(RawFields)
     payloadKind = YobiPayloadKind::None;
 }
 
+// 原函数：0x0041EB10。
+// 原41EB10逐成员复制；三个联合槽按原生宽度复制，CryptInt不改目标token/保留字节。
+YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
+{
+    this->prev = source.prev;
+    this->next = source.next;
+    this->callback = source.callback;
+    this->payload = source.payload;
+    this->payloadKind = source.payloadKind;
+    std::memcpy(&this->completionSlot10, &source.completionSlot10, sizeof(source.completionSlot10));
+    this->priority = source.priority;
+    this->displayPriority = source.displayPriority;
+    this->cacheIndex = source.cacheIndex;
+    this->deathFlag = source.deathFlag;
+    this->graphicIndex = source.graphicIndex;
+    this->flags = source.flags;
+    this->counter28 = source.counter28;
+    std::memcpy(&this->numberWindowCallback2C, &source.numberWindowCallback2C, sizeof(source.numberWindowCallback2C));
+    this->x = source.x;
+    this->y = source.y;
+    this->deltaX = source.deltaX;
+    this->deltaY = source.deltaY;
+    std::memcpy(&this->offset40, &source.offset40, sizeof(source.offset40));
+    std::memcpy(&this->offset44, &source.offset44, sizeof(source.offset44));
+    std::memcpy(&this->effectAcceleration48, &source.effectAcceleration48, sizeof(source.effectAcceleration48));
+    this->value4CBits = source.value4CBits;
+    std::memcpy(&this->angle50, &source.angle50, sizeof(source.angle50));
+    std::memcpy(&this->value54, &source.value54, sizeof(source.value54));
+    this->field58 = source.field58;
+    std::memcpy(&this->scaleX, &source.scaleX, sizeof(source.scaleX));
+    std::memcpy(&this->scaleY, &source.scaleY, sizeof(source.scaleY));
+    this->displayName = source.displayName;
+    this->nameX = source.nameX;
+    this->nameY = source.nameY;
+    std::memcpy(&this->nameOffsetAC, &source.nameOffsetAC, sizeof(source.nameOffsetAC));
+    std::memcpy(&this->nameOffsetB0, &source.nameOffsetB0, sizeof(source.nameOffsetB0));
+    std::memcpy(&this->battleTurnStepB4, &source.battleTurnStepB4, sizeof(source.battleTurnStepB4));
+    std::memcpy(&this->numberVelocityB8, &source.numberVelocityB8, sizeof(source.numberVelocityB8));
+    this->nameColor = source.nameColor;
+    this->nameFontType = source.nameFontType;
+    this->nameLayer = source.nameLayer;
+    this->nameValueC0 = source.nameValueC0;
+    this->nameC4 = source.nameC4;
+    this->titleE1 = source.titleE1;
+    this->text102 = source.text102;
+    this->text123 = source.text123;
+    this->text144 = source.text144;
+    this->bytes155 = source.bytes155;
+    this->readiness = source.readiness;
+    this->maxHp = source.maxHp;
+    this->value190 = source.value190;
+    this->value1A0 = source.value1A0;
+    this->barValue1B0 = source.barValue1B0;
+    this->barMaximum1C0 = source.barMaximum1C0;
+    std::memcpy(&this->windowCompletionSlot1D0, &source.windowCompletionSlot1D0, sizeof(source.windowCompletionSlot1D0));
+    this->value1D4 = source.value1D4;
+    this->field1D8 = source.field1D8;
+    this->counter1DC = source.counter1DC;
+    this->mapX1E0 = source.mapX1E0;
+    this->mapY1F0 = source.mapY1F0;
+    this->mapX200 = source.mapX200;
+    this->mapY210 = source.mapY210;
+    this->pathX220 = source.pathX220;
+    this->pathY248 = source.pathY248;
+    this->field270 = source.field270;
+    this->field272 = source.field272;
+    std::memcpy(&this->worldX, &source.worldX, sizeof(source.worldX));
+    std::memcpy(&this->worldY, &source.worldY, sizeof(source.worldY));
+    this->field27C = source.field27C;
+    this->field280 = source.field280;
+    this->walkSpeed = source.walkSpeed;
+    this->fields288 = source.fields288;
+    this->extraState290 = source.extraState290;
+    this->framePlayingRate = source.framePlayingRate;
+    this->imageNo = source.imageNo;
+    this->lastImageNo = source.lastImageNo;
+    this->characterAction = source.characterAction;
+    this->lastCharacterAction = source.lastCharacterAction;
+    this->direction = source.direction;
+    this->lastDirection = source.lastDirection;
+    this->frameIndex = source.frameIndex;
+    this->frameRemain = source.frameRemain;
+    this->graphicOffsetX = source.graphicOffsetX;
+    this->graphicOffsetY = source.graphicOffsetY;
+    this->frameEvent = source.frameEvent;
+    this->hidden = source.hidden;
+    this->field2D8 = source.field2D8;
+    this->completedLoops = source.completedLoops;
+    this->playRevert = source.playRevert;
+    this->field2E4 = source.field2E4;
+    this->imageNo2E8 = source.imageNo2E8;
+    this->refresh2EC = source.refresh2EC;
+    this->frameX = source.frameX;
+    this->frameY = source.frameY;
+    this->drawMode = source.drawMode;
+    this->batchType = source.batchType;
+    this->rebirthValue1 = source.rebirthValue1;
+    this->color2 = source.color2;
+    this->rebirthValue2 = source.rebirthValue2;
+    this->mapOffsetX = source.mapOffsetX;
+    this->mapOffsetY = source.mapOffsetY;
+    this->text31C = source.text31C;
+    return *this;
+}
+
 namespace detail {
 
 std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。

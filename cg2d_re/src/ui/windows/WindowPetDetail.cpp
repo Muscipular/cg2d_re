@@ -2,11 +2,143 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x0048DD80。
+static std::int32_t WindowPetDetail_HandleButtons(std::int32_t index, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
+
+// 原函数：0x0048D9A0。
+static std::int32_t WindowPetDetail_Update(std::int32_t value);
+
+// 原函数：0x0048DCC0。
+static void WindowPetDetail_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic563388 {0x3B5D6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563388。
+
+static WindowGraphicData gWindowGraphic565668 {0x3BAEF, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565668。
+
+static WindowGraphicData gWindowGraphic565938 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565938。
+
+static WindowTextPrototype gWindowText565958 { // 原全局：0x00565958。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10000000/10000000", // 原常量参考：0x00586020。
+};
+
+static WindowTextPrototype gWindowText565960 { // 原全局：0x00565960。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
+};
+
+static WindowTextPrototype gWindowText565968 { // 原全局：0x00565968。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
+};
+
+static WindowTextPrototype gWindowText565970 { // 原全局：0x00565970。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
+};
+
+static WindowTextPrototype gWindowText565978 { // 原全局：0x00565978。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"999", // 原常量参考：0x00586014。
+};
+
+static WindowTextPrototype gWindowText565980 { // 原全局：0x00565980。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
+};
+
+static WindowTextPrototype gWindowText5659A8 { // 原全局：0x005659A8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
+};
+
+static WindowTextPrototype gWindowText5659B0 { // 原全局：0x005659B0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"0/0", // 原常量参考：0x00585FF0。
+};
+
+static std::uint32_t gWindowAnimationImage5659B8 = 100000; // 原全局：0x005659B8。
+
+static std::uint32_t gWindowMouseFlagsD677B0 = 0; // 原全局：0x00D677B0。
+
+static WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x005659C0。
+    {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
+    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage},
+    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage},
+    {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetDetail_HandleButtons},
+    {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetDetail_HandleButtons},
+    {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetDetail_HandleButtons},
+    {WindowElementType_Graphic, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &WindowPetDetail_HandleButtons},
+    {WindowElementType_Text, 66, 31, 0, 0, 1, {.text = &gWindowText565950}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 200, 141, 0, 0, 1, {.graphic = &gWindowGraphic565938}, &WindowElement_NoOp},
+    {WindowElementType_Text, 63, 65, 0, 0, 1, {.text = &gWindowText565958}, &WindowElement_NoOp},
+    {WindowElementType_Text, 48, 82, 0, 0, 1, {.text = &gWindowText565960}, &WindowElement_NoOp},
+    {WindowElementType_Text, 142, 82, 0, 0, 1, {.text = &gWindowText565968}, &WindowElement_NoOp},
+    {WindowElementType_Text, 62, 99, 0, 0, 1, {.text = &gWindowText565970}, &WindowElement_NoOp},
+    {WindowElementType_Text, 150, 99, 0, 0, 1, {.text = &gWindowText565978}, &WindowElement_NoOp},
+    {WindowElementType_Text, 206, 99, 0, 0, 1, {.text = &gWindowText565980}, &WindowElement_NoOp},
+    {WindowElementType_Text, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &WindowElement_NoOp},
+    {WindowElementType_Text, 63, 48, 0, 0, 1, {.text = &gWindowText5659A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 39, 115, 0, 0, 1, {.text = &gWindowText5659B0}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 80, 220, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage5659B8)}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 157, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 163, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 169, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 175, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 181, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 187, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 193, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 199, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 211, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 157, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 163, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 169, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 175, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 181, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 187, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 193, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 199, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 211, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 157, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 163, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 169, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 175, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 181, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 187, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 193, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 199, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 211, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 157, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 163, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 169, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 175, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 181, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 187, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 193, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 199, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 211, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 23, 32, 0, 0, 1, {.graphic = &gWindowGraphic565668}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 19, 132, 114, 110, 1, {.mouseFlags = &gWindowMouseFlagsD677B0}, &WindowPetDetail_HandleButtons},
+    {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口16；原全局：0x0054E570。
+WindowPrototype gWindowPrototypePetDetail {0, 4, 365, 83, 245, 306, 0x80010101u, 66, gWindowElements5659C0, &WindowPetDetail_Update, &WindowRuntime_DrawDefault, &WindowPetDetail_Release}; // 16: 54E570
+
+// 窗口函数实现。
 
 // 原函数：0x00492260。
 void WindowPetDetail_ResetDraftFlag()
@@ -62,7 +194,7 @@ std::int32_t WindowPetDetail_HasPetSequenceChanges()
 
 // 窗口16完整刷新；复制取样和空宠物显隐差异见window_16.md。
 // 原函数：0x0048F8F0。
-std::uint32_t WindowPetDetail_Refresh()
+static std::uint32_t WindowPetDetail_Refresh()
 {
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
@@ -220,7 +352,7 @@ std::uint32_t WindowPetDetail_Refresh()
 
 // 窗口16主更新，入口-1负责共享详情拖动槽的初始化。
 // 原函数：0x0048D9A0。
-std::int32_t WindowPetDetail_Update(const std::int32_t value)
+static std::int32_t WindowPetDetail_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -256,7 +388,7 @@ std::int32_t WindowPetDetail_Update(const std::int32_t value)
 }
 
 // 原函数：0x0048DCC0。
-void WindowPetDetail_Release()
+static void WindowPetDetail_Release()
 {
     WindowInstance* const window = gWindowStates[WindowId_PetDetail].window;
     if (window != nullptr) {
@@ -266,19 +398,9 @@ void WindowPetDetail_Release()
         gWindowStates[WindowId_PetSkills].y = window->y;
     }
 }
-namespace {
-
-
-constexpr wchar_t kPetSkillPageHint585920[] = L"切換至此寵物的技能視窗。"; // 原常量参考：0x00585920。
-
-constexpr wchar_t kPetDetailPageHint58593C[] = L"切換至此寵物的詳細視窗。"; // 原常量参考：0x0058593C。
-
-constexpr wchar_t kPetAbilityPageHint585958[] = L"切換至此寵物的能力視窗。"; // 原常量参考：0x00585958。
-} // namespace
-
 
 // 原函数：0x0048DD80。
-std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
@@ -443,13 +565,13 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
     const wchar_t* hint;
     switch (index) {
     case 2:
-        target = 16; idle = 0x3BAF4; hover = 0x3BAF6; hint = kPetAbilityPageHint585958;
+        target = 16; idle = 0x3BAF4; hover = 0x3BAF6; hint = L"切換至此寵物的能力視窗。" /* 原常量参考：0x00585958。 */;
         break;
     case 3:
-        target = 17; idle = 0x3B583; hover = 0x3B585; hint = kPetDetailPageHint58593C;
+        target = 17; idle = 0x3B583; hover = 0x3B585; hint = L"切換至此寵物的詳細視窗。" /* 原常量参考：0x0058593C。 */;
         break;
     case 4:
-        target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = kPetSkillPageHint585920;
+        target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = L"切換至此寵物的技能視窗。" /* 原常量参考：0x00585920。 */;
         break;
     default:
         return 0;
@@ -481,125 +603,3 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic563388 {0x3B5D6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563388。
-
-WindowGraphicData gWindowGraphic565668 {0x3BAEF, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565668。
-
-WindowGraphicData gWindowGraphic565938 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00565938。
-
-WindowTextPrototype gWindowText565958 { // 原全局：0x00565958。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10000000/10000000", // 原常量参考：0x00586020。
-};
-
-WindowTextPrototype gWindowText565960 { // 原全局：0x00565960。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
-};
-
-WindowTextPrototype gWindowText565968 { // 原全局：0x00565968。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"100000/100000", // 原常量参考：0x00586034。
-};
-
-WindowTextPrototype gWindowText565970 { // 原全局：0x00565970。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
-};
-
-WindowTextPrototype gWindowText565978 { // 原全局：0x00565978。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"999", // 原常量参考：0x00586014。
-};
-
-WindowTextPrototype gWindowText565980 { // 原全局：0x00565980。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
-};
-
-WindowTextPrototype gWindowText5659A8 { // 原全局：0x005659A8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"99", // 原常量参考：0x00586010。
-};
-
-WindowTextPrototype gWindowText5659B0 { // 原全局：0x005659B0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"0/0", // 原常量参考：0x00585FF0。
-};
-
-std::uint32_t gWindowAnimationImage5659B8 = 100000; // 原全局：0x005659B8。
-
-std::uint32_t gWindowMouseFlagsD677B0 = 0; // 原全局：0x00D677B0。
-
-} // namespace
-
-// 原型：窗口16；原全局：0x0054E570。
-WindowPrototype gWindowPrototypePetDetail {0, 4, 365, 83, 245, 306, 0x80010101u, 66, gWindowElements5659C0, &WindowPetDetail_Update, &WindowRuntime_DrawDefault, &WindowPetDetail_Release}; // 16: 54E570
-
-WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x005659C0。
-    {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
-    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage},
-    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage},
-    {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetDetail_HandleButtons},
-    {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetDetail_HandleButtons},
-    {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetDetail_HandleButtons},
-    {WindowElementType_Graphic, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &WindowPetDetail_HandleButtons},
-    {WindowElementType_Text, 66, 31, 0, 0, 1, {.text = &gWindowText565950}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 200, 141, 0, 0, 1, {.graphic = &gWindowGraphic565938}, &WindowElement_NoOp},
-    {WindowElementType_Text, 63, 65, 0, 0, 1, {.text = &gWindowText565958}, &WindowElement_NoOp},
-    {WindowElementType_Text, 48, 82, 0, 0, 1, {.text = &gWindowText565960}, &WindowElement_NoOp},
-    {WindowElementType_Text, 142, 82, 0, 0, 1, {.text = &gWindowText565968}, &WindowElement_NoOp},
-    {WindowElementType_Text, 62, 99, 0, 0, 1, {.text = &gWindowText565970}, &WindowElement_NoOp},
-    {WindowElementType_Text, 150, 99, 0, 0, 1, {.text = &gWindowText565978}, &WindowElement_NoOp},
-    {WindowElementType_Text, 206, 99, 0, 0, 1, {.text = &gWindowText565980}, &WindowElement_NoOp},
-    {WindowElementType_Text, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &WindowElement_NoOp},
-    {WindowElementType_Text, 63, 48, 0, 0, 1, {.text = &gWindowText5659A8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 39, 115, 0, 0, 1, {.text = &gWindowText5659B0}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 80, 220, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage5659B8)}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 157, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 163, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 169, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 175, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 181, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 187, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 193, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 199, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 211, 166, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 157, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 163, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 169, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 175, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 181, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 187, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 193, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 199, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 211, 182, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 157, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 163, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 169, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 175, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 181, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 187, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 193, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 199, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 211, 198, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 157, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 163, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 169, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 175, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 181, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 187, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 193, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 199, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 211, 214, 0, 0, 1, {.graphic = &gWindowGraphic563388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 23, 32, 0, 0, 1, {.graphic = &gWindowGraphic565668}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 19, 132, 114, 110, 1, {.mouseFlags = &gWindowMouseFlagsD677B0}, &WindowPetDetail_HandleButtons},
-    {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

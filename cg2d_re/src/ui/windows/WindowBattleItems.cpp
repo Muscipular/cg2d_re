@@ -3,53 +3,143 @@
 namespace cg::ui {
 namespace detail {
 
-WindowItemSelectorState gItemSelectorD2F338 {}; // 原全局：0x00D2F338。
+// 回调与内部函数前置声明。
 
-std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
+// 4C6EC0发布的战斗背包/装备交互。
+// 原函数：0x00499930。
+static std::int32_t WindowBattleItems_TogglePreview(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00499950。
+static std::int32_t WindowBattleItems_CycleEquipment(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00499970。
+static std::int32_t WindowBattleItems_RotatePreview(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00499B00。
+static std::int32_t WindowBattleItems_RefreshMoney(std::int32_t unusedIndex, std::int32_t unusedState);
+
+// 原函数：0x00499B20。
+static std::int32_t WindowBattleItems_RefreshExtraValue(std::int32_t unusedIndex, std::int32_t unusedState);
+
+// 原函数：0x00499B40。
+static std::int32_t WindowBattleItems_TabEquipment(std::int32_t unusedIndex, std::int32_t state); // 战斗页签忽略内部返回。
+
+// 原函数：0x00499B60。
+static std::int32_t WindowBattleItems_TabPet(std::int32_t index, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
+
+// 原函数：0x0049B610。
+static std::int32_t WindowBattleItems_ShowExtraAttributes(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
+
+// 原函数：0x00499990。
+static std::int32_t WindowBattleItems_Update(std::int32_t value);
+
+// 原函数：0x004999D0。
+static std::int32_t WindowBattleItems_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowItemSelectorState gItemSelectorD2F338 {}; // 原全局：0x00D2F338。
+
+// 原全局：0x00CF49B0。 窗口27每帧清-1，499C30发布提示槽。
+static std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
 
 std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。
 
 static std::int32_t gBattleBackpackHover57E430 = -2; // 原全局：0x0057E430。
 
-std::wstring gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
+// 原全局：0x00CF469C。 499B00格式化，type7原型借用。
+static std::wstring gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
 
-std::wstring gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
+// 原全局：0x00C8A960。 499B20格式化，独立于普通库存文本。
+static std::wstring gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
+
+static WindowGraphicData gWindowGraphic56C348 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C348。
+
+static WindowGraphicData gWindowGraphic56C360 {0x3BA42, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C360。
+
+static WindowGraphicData gWindowGraphic56C378 {0x3BA46, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C378。
+
+static WindowGraphicData gWindowGraphic56C390 {0x17F63, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C390。
+
+static WindowGraphicData gWindowGraphic56C3A8 {0x17F53, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3A8。
+
+static WindowGraphicData gWindowGraphic56C3C0 {0x17F5C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3C0。
+
+static WindowGraphicData gWindowGraphic56C3D8 {0x17F5F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3D8。
+
+static WindowGraphicData gWindowGraphic56C3F0 {0x3BA49, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3F0。
+
+static std::int32_t gWindowAnimationImage56C418 = 100000; // 原全局：0x0056C418。
+
+static WindowNumberData gWindowNumber56C420 {&gBattleMoneyTextCF469C, 10, 3, 1, 0}; // 原全局：0x0056C420。
+
+static WindowNumberData gWindowNumber56C428 {&gBattleValueTextC8A960, 10, 3, 1, 0}; // 原全局：0x0056C428。
+
+static WindowElementPrototype gWindowElements56C430[22] { // 原全局：0x0056C430。
+    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber56C420}, &WindowBattleItems_RefreshMoney},
+    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber56C428}, &WindowBattleItems_RefreshExtraValue},
+    {WindowElementType_Graphic, 8, 0, 276, 253, 1, {.graphic = &gWindowGraphic56C360}, &WindowBattleItems_HandleInventory},
+    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56C418}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_TogglePreview},
+    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_CycleEquipment},
+    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowBattleItems_RotatePreview},
+    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic56C378}, &WindowBattleItems_TabEquipment},
+    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic56C3A8}, &WindowBattleItems_TabPet},
+    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic56C3C0}, &WindowBattleItems_TabPet},
+    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic56C3D8}, &WindowBattleItems_TabPet},
+    {WindowElementType_Graphic, -197, 17, 212, 210, 1, {.graphic = &gWindowGraphic56C390}, &WindowBattleItems_HandleEquipment},
+    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口27；原全局：0x0054E7E0。
+WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x80010101u, 22, gWindowElements56C430, &WindowBattleItems_Update, &WindowBattleItems_Draw, &WindowRuntime_ReleaseDefault}; // 27: 54E7E0
+
+// 窗口函数实现。
 
 // 原函数：0x00499930。
-std::int32_t WindowBattleItems_TogglePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_TogglePreview(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_TogglePreview(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499950。
-std::int32_t WindowBattleItems_CycleEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_CycleEquipment(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_CycleEquipment(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499970。
-std::int32_t WindowBattleItems_RotatePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_RotatePreview(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorD2F338, state));
     return 0;
 }
 
 // 原函数：0x00499B00。
-std::int32_t WindowBattleItems_RefreshMoney(const std::int32_t, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshMoney(const std::int32_t, const std::int32_t)
 {
     cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00499B20。
-std::int32_t WindowBattleItems_RefreshExtraValue(const std::int32_t, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
     cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 
 // 原函数：0x00499B40。
-std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, 0, state));
     return 0;
@@ -57,7 +147,7 @@ std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std::int32
 
 // SAP01：原71条；五对与S8模式保持，成功忽略按钮结果恒0，无效图/声效按原，运行待。
 // 原函数：0x00499B60。
-std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 17;
     std::int32_t remaining = ordinal;
@@ -95,7 +185,7 @@ std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x00499990。
-std::int32_t WindowBattleItems_Update(const std::int32_t value)
+static std::int32_t WindowBattleItems_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowItemSelector_BindElements(&gItemSelectorD2F338, 1);
@@ -108,7 +198,7 @@ std::int32_t WindowBattleItems_Update(const std::int32_t value)
 }
 
 // 原函数：0x004999D0。
-std::int32_t WindowBattleItems_Draw(const std::int32_t)
+static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 {
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
@@ -584,7 +674,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
 }
 
 // 原函数：0x0049B610。
-std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorD2F338, state) ? 1 : 0;
 }
@@ -850,25 +940,24 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     }
     return consumed;
 }
+
 } // namespace detail
 
-namespace {
+// 窗口函数实现。
 
 // 原499900固定D2F338；原内嵌+78预览沿已有唯一静态对象绑定。
 // 原函数：0x00499900。
-detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector()
+static detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector()
 {
     return detail::WindowItemSelector_ConstructPreview(&detail::gItemSelectorD2F338, 1);
 }
 
 // 原499920尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
 // 原函数：0x00499920。
-void WindowBattleItems_ReleaseSelectorAtExit()
+static void WindowBattleItems_ReleaseSelectorAtExit()
 {
     login::detail::DestroyWindowSelectorPreview(1);
 }
-} // namespace
-
 
 // 原函数：0x004998F0；LCI01启动拥有者替代CRT构造／退出登记。
 SecondItemSelectorStartup::SecondItemSelectorStartup()
@@ -883,61 +972,3 @@ SecondItemSelectorStartup::~SecondItemSelectorStartup()
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56C348 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C348。
-
-WindowGraphicData gWindowGraphic56C360 {0x3BA42, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C360。
-
-WindowGraphicData gWindowGraphic56C378 {0x3BA46, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C378。
-
-WindowGraphicData gWindowGraphic56C390 {0x17F63, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C390。
-
-WindowGraphicData gWindowGraphic56C3A8 {0x17F53, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3A8。
-
-WindowGraphicData gWindowGraphic56C3C0 {0x17F5C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3C0。
-
-WindowGraphicData gWindowGraphic56C3D8 {0x17F5F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3D8。
-
-WindowGraphicData gWindowGraphic56C3F0 {0x3BA49, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C3F0。
-
-std::int32_t gWindowAnimationImage56C418 = 100000; // 原全局：0x0056C418。
-
-WindowNumberData gWindowNumber56C420 {&gBattleMoneyTextCF469C, 10, 3, 1, 0}; // 原全局：0x0056C420。
-
-WindowNumberData gWindowNumber56C428 {&gBattleValueTextC8A960, 10, 3, 1, 0}; // 原全局：0x0056C428。
-
-} // namespace
-
-// 原型：窗口27；原全局：0x0054E7E0。
-WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x80010101u, 22, gWindowElements56C430, &WindowBattleItems_Update, &WindowBattleItems_Draw, &WindowRuntime_ReleaseDefault}; // 27: 54E7E0
-
-WindowElementPrototype gWindowElements56C430[22] { // 原全局：0x0056C430。
-    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber56C420}, &WindowBattleItems_RefreshMoney},
-    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber56C428}, &WindowBattleItems_RefreshExtraValue},
-    {WindowElementType_Graphic, 8, 0, 276, 253, 1, {.graphic = &gWindowGraphic56C360}, &WindowBattleItems_HandleInventory},
-    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56C418}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_TogglePreview},
-    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_CycleEquipment},
-    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowBattleItems_RotatePreview},
-    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic56C378}, &WindowBattleItems_TabEquipment},
-    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic56C3A8}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic56C3C0}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic56C3D8}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, -197, 17, 212, 210, 1, {.graphic = &gWindowGraphic56C390}, &WindowBattleItems_HandleEquipment},
-    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

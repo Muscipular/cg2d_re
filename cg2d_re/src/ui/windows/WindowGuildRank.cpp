@@ -2,16 +2,100 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-constexpr wchar_t kGuildRankSelectHint5876F4[] = L"選擇此稱號。"; // 原常量参考：0x005876F4。
-
-constexpr wchar_t kGuildRankApplyHint587704[] = L"設定已選擇的稱號。"; // 原常量参考：0x00587704。
-} // namespace
-
+// 回调与内部函数前置声明。
 
 // 原函数：0x004A4180。
-std::int32_t WindowGuildRank_Update(const std::int32_t value)
+static std::int32_t WindowGuildRank_Update(std::int32_t value); // 窗口55只初始化滚动位置。
+
+// 原函数：0x004A41A0。
+static std::int32_t WindowGuildRank_Draw(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
+
+// 原函数：0x004A4220。
+static std::int32_t WindowGuildRank_SelectRow(std::int32_t index, std::int32_t state); // 职级行选择及当前选择图号。
+
+// 原函数：0x004A42C0。
+static std::int32_t WindowGuildRank_ButtonClose(std::int32_t index, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
+
+// 原函数：0x004A4370。
+static std::int32_t WindowGuildRank_ButtonOk(std::int32_t index, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
+
+// 原函数：0x004A4420。
+static std::int32_t WindowGuildRank_HandleScrollButtons(std::int32_t index, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
+
+// 原函数：0x004A4540。
+static std::uint32_t WindowGuildRank_Refresh(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
+
+// 原函数：0x004A45E0。
+static std::int32_t WindowGuildRank_Scroll(std::int32_t unused, std::int32_t state); // 非零滚轮推进，恒返回0。
+
+// 原函数：0x004A4180。
+static std::int32_t WindowGuildRank_Update(std::int32_t value);
+
+// 原函数：0x004A41A0。
+static std::int32_t WindowGuildRank_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic56F7A8 {0x3B59C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7A8。
+
+static WindowGraphicData gWindowGraphic56F7C0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7C0。
+
+static WindowGraphicData gWindowGraphic56F7D8 {0x3B56E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7D8。
+
+static WindowGraphicData gWindowGraphic56F7F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7F0。
+
+static WindowGraphicData gWindowGraphic56F808 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F808。
+
+static WindowGraphicData gWindowGraphic56F820 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F820。
+
+static WindowGraphicData gWindowGraphic56F838 {0x3BAA3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F838。
+
+static WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號"}; // 原全局：0x0056F850。 // 原常量参考：0x00585ED8。
+
+static WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"成員名稱"}; // 原全局：0x0056F858。 // 原常量参考：0x00585ECC。
+
+static std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
+
+static WindowElementPrototype gWindowElements56F860[29] { // 原全局：0x0056F860。
+    {WindowElementType_Text, 7, 21, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 37, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 53, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 69, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 85, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 101, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 117, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 133, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 149, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 7, 165, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
+    {WindowElementType_Text, 8, 181, 0, 0, 1, {.text = &gWindowText56F858}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 150, 181, 49, 17, 1, {.graphic = &gWindowGraphic56F7C0}, &WindowGuildRank_ButtonClose},
+    {WindowElementType_Graphic, 206, 181, 32, 17, 1, {.graphic = &gWindowGraphic56F7D8}, &WindowGuildRank_ButtonOk},
+    {WindowElementType_Graphic, 224, 0, 0, 14, 1, {.graphic = &gWindowGraphic56F7F0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 225, 33, 11, 135, 1, {.mouseFlags = &gWindowMouseFlagsD67860}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 224, 22, 11, 11, 1, {.graphic = &gWindowGraphic56F808}, &WindowGuildRank_HandleScrollButtons},
+    {WindowElementType_Graphic, 224, 168, 11, 11, 1, {.graphic = &gWindowGraphic56F820}, &WindowGuildRank_HandleScrollButtons},
+    {WindowElementType_EventArea, 0, 0, 243, 206, 1, {.unusedValue = 0}, &WindowGuildRank_Scroll},
+    {WindowElementType_Graphic, 221, 18, 0, 0, 1, {.graphic = &gWindowGraphic56F838}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 5, 19, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 35, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 51, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 67, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 83, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 99, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 115, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 131, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 147, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Graphic, 5, 163, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+};
+
+// 原型：窗口55；原全局：0x0054E9C0。
+WindowPrototype gWindowPrototypeGuildRank {0, 4, 100, 100, 243, 206, 0x80000080u, 29, gWindowElements56F860, &WindowGuildRank_Update, &WindowGuildRank_Draw, &WindowRuntime_ReleaseDefault}; // 55: 54E9C0
+
+// 窗口函数实现。
+
+// 原函数：0x004A4180。
+static std::int32_t WindowGuildRank_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.mailRankScrollCA0474 = 0;
@@ -20,7 +104,7 @@ std::int32_t WindowGuildRank_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A41A0。
-std::int32_t WindowGuildRank_Draw(const std::int32_t)
+static std::int32_t WindowGuildRank_Draw(const std::int32_t)
 {
     static_cast<void>(WindowGuildRank_Refresh());
     WindowRuntime_DrawCurrent();
@@ -37,11 +121,11 @@ std::int32_t WindowGuildRank_Draw(const std::int32_t)
 }
 
 // 原函数：0x004A4220。
-std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kGuildRankSelectHint5876F4;
+        gHoverTextD68AE8 = L"選擇此稱號。" /* 原常量参考：0x005876F4。 */;
         consumed = 1;
     }
     const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
@@ -56,7 +140,7 @@ std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004A42C0。
-std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -80,13 +164,13 @@ std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004A4370。
-std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
-        gHoverTextD68AE8 = kGuildRankApplyHint587704;
+        gHoverTextD68AE8 = L"設定已選擇的稱號。" /* 原常量参考：0x00587704。 */;
         consumed = 1;
     } else {
         graphic->imageNo = 0x3B56E;
@@ -104,7 +188,7 @@ std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004A4420。
-std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     if (index != 15 && index != 16) {
         return 0;
@@ -137,7 +221,7 @@ std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index, const
 }
 
 // 原函数：0x004A4540。
-std::uint32_t WindowGuildRank_Refresh()
+static std::uint32_t WindowGuildRank_Refresh()
 {
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
@@ -154,7 +238,7 @@ std::uint32_t WindowGuildRank_Refresh()
 }
 
 // 原函数：0x004A45E0。
-std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
@@ -170,66 +254,3 @@ std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56F7A8 {0x3B59C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7A8。
-
-WindowGraphicData gWindowGraphic56F7C0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7C0。
-
-WindowGraphicData gWindowGraphic56F7D8 {0x3B56E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7D8。
-
-WindowGraphicData gWindowGraphic56F7F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F7F0。
-
-WindowGraphicData gWindowGraphic56F808 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F808。
-
-WindowGraphicData gWindowGraphic56F820 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F820。
-
-WindowGraphicData gWindowGraphic56F838 {0x3BAA3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056F838。
-
-WindowTextPrototype gWindowText56F850 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號"}; // 原全局：0x0056F850。 // 原常量参考：0x00585ED8。
-
-WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"成員名稱"}; // 原全局：0x0056F858。 // 原常量参考：0x00585ECC。
-
-std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
-
-} // namespace
-
-// 原型：窗口55；原全局：0x0054E9C0。
-WindowPrototype gWindowPrototypeGuildRank {0, 4, 100, 100, 243, 206, 0x80000080u, 29, gWindowElements56F860, &WindowGuildRank_Update, &WindowGuildRank_Draw, &WindowRuntime_ReleaseDefault}; // 55: 54E9C0
-
-WindowElementPrototype gWindowElements56F860[29] { // 原全局：0x0056F860。
-    {WindowElementType_Text, 7, 21, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 37, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 53, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 69, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 85, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 101, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 117, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 133, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 149, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 165, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 8, 181, 0, 0, 1, {.text = &gWindowText56F858}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 150, 181, 49, 17, 1, {.graphic = &gWindowGraphic56F7C0}, &WindowGuildRank_ButtonClose},
-    {WindowElementType_Graphic, 206, 181, 32, 17, 1, {.graphic = &gWindowGraphic56F7D8}, &WindowGuildRank_ButtonOk},
-    {WindowElementType_Graphic, 224, 0, 0, 14, 1, {.graphic = &gWindowGraphic56F7F0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 225, 33, 11, 135, 1, {.mouseFlags = &gWindowMouseFlagsD67860}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 224, 22, 11, 11, 1, {.graphic = &gWindowGraphic56F808}, &WindowGuildRank_HandleScrollButtons},
-    {WindowElementType_Graphic, 224, 168, 11, 11, 1, {.graphic = &gWindowGraphic56F820}, &WindowGuildRank_HandleScrollButtons},
-    {WindowElementType_EventArea, 0, 0, 243, 206, 1, {.unusedValue = 0}, &WindowGuildRank_Scroll},
-    {WindowElementType_Graphic, 221, 18, 0, 0, 1, {.graphic = &gWindowGraphic56F838}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 5, 19, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 35, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 51, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 67, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 83, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 99, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 115, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 131, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 147, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 163, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-};
-
-} // namespace cg::ui::detail

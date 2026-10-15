@@ -3,18 +3,149 @@
 namespace cg::ui {
 namespace detail {
 
-std::wstring gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
+// 回调与内部函数前置声明。
 
-std::wstring gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
-namespace {
+// 原函数：0x004723D0。
+static std::int32_t WindowStatusBar_HandleHintButton(std::int32_t index, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
 
+// 原函数：0x00470AC0。
+static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
 
-constexpr wchar_t kStatusVitalsFormat553FE8[] = L"{:4}/{:4}"; // 原常量参考：0x00553FE8。
+// 原函数：0x004718F0。
+static void WindowCompactStatusBar_Refresh(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 
-constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556}); // 原常量参考：0x0054F638。
+// 原函数：0x00471CD0。
+static std::int32_t WindowStatusBar_ButtonCompact(std::int32_t unused, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
+
+// 原函数：0x00471D10。
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(std::int32_t unused, std::int32_t state); // 状态栏2点击切3。
+
+// 原函数：0x00471D60。
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(std::int32_t unused, std::int32_t state); // 状态栏3按场景返回2或1。
+
+// 原函数：0x00471DD0。
+static std::int32_t WindowStatusBar_HandleHover(std::int32_t unused, std::int32_t state); // 仅hover命中消费。
+
+// 原函数：0x00471DF0。
+static std::int32_t WindowStatusBar_HandleOptionButtons(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
+
+// 原函数：0x00473080。
+static std::int32_t WindowStatusBar_ReadInjuredPetIndex(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
+
+// 原函数：0x004731B0。
+static std::int32_t WindowStatusBar_FindSortedPetIndex(std::int32_t index); // SHP01：五个S16配对首匹配位置，无则-1，不查used。
+
+// 原函数：0x00470A80。
+// 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
+static std::int32_t WindowStatusBar_Update(std::int32_t value);
+
+// 原函数：0x00470AB0。
+static std::int32_t WindowCompactStatusBar_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00D40B18。 状态栏type7共用原文本跨度，非新截断门槛。
+static std::wstring gStatusHpTextD40B18 {}; // 原全局：0x00D40B18。
+
+static std::wstring gStatusFpTextD45D50 {}; // 原全局：0x00D45D50。
+
+static constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556}); // 原常量参考：0x0054F638。
+
+static WindowGraphicData gWindowGraphic55EF00 {0x3B92B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF00。
+
+static WindowGraphicData gWindowGraphic55EF18 {0x3B92F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF18。
+
+static WindowGraphicData gWindowGraphic55EF30 {0x3B932, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF30。
+
+static WindowGraphicData gWindowGraphic55EF48 {0x3B935, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF48。
+
+static WindowGraphicData gWindowGraphic55EF60 {0x3B938, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF60。
+
+static WindowGraphicData gWindowGraphic55EF78 {0x3B93B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF78。
+
+static WindowGraphicData gWindowGraphic55EF90 {0x3B93E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF90。
+
+static WindowGraphicData gWindowGraphic55EFA8 {0x3B941, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFA8。
+
+static WindowGraphicData gWindowGraphic55EFC0 {0x3B950, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFC0。
+
+static WindowGraphicData gWindowGraphic55EFD8 {0x3B954, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFD8。
+
+static WindowGraphicData gWindowGraphic55EFF0 {0x3B92D, 0, 3, 60, 15, 0xFFFFFFFFu}; // 原全局：0x0055EFF0。
+
+static WindowGraphicData gWindowGraphic55F008 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F008。
+
+static WindowGraphicData gWindowGraphic55F020 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F020。
+
+static WindowGraphicData gWindowGraphic55F038 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F038。
+
+static WindowGraphicData gWindowGraphic55F050 {0x3B92A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F050。
+
+static WindowGraphicData gWindowGraphic55F068 {0x3B92C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F068。
+
+static WindowNumberData gWindowNumber55F090 {&gStatusHpTextD40B18, 10, 0, 0, 0}; // 原全局：0x0055F090。
+
+static WindowNumberData gWindowNumber55F098 {&gStatusFpTextD45D50, 10, 0, 0, 0}; // 原全局：0x0055F098。
+
+static std::uint32_t gWindowMouseFlagsD67650 = 0; // 原全局：0x00D67650。
+
+WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeStatusBar; // 原全局：0x0054E2A0。
+
+static WindowElementPrototype gWindowElements55F0A0[24] { // 原全局：0x0055F0A0。
+    {WindowElementType_Number, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
+    {WindowElementType_Number, 20, 29, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 63, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF18}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 82, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 101, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF48}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 120, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF60}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 139, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 158, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF90}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 158, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 6, 42, 36, 20, 1, {.graphic = &gWindowGraphic55EFA8}, &WindowStatusBar_HandleHintButton},
+    {WindowElementType_Graphic, 51, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFC0}, &WindowStatusBar_HandleHintButton},
+    {WindowElementType_Graphic, 83, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFD8}, &WindowStatusBar_HandleHintButton},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EF00}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 3, 4, 0, 0, 1, {.graphic = &gWindowGraphic55EFF0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 175, 0, 15, 33, 1, {}, &WindowStatusBar_ButtonCompact},
+    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
+    {WindowElementType_EventArea, 0, 40, 120, 30, 1, {}, &WindowStatusBar_HandleHover},
+};
+
+static WindowElementPrototype gWindowElements55F3A0[7] { // 原全局：0x0055F3A0。
+    {WindowElementType_Number, 20, 2, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
+    {WindowElementType_Number, 20, 12, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 146, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 158, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F050}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 181, 0, 16, 37, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCompactStatusBar_ButtonCollapse},
+};
+
+static WindowElementPrototype gWindowElements55F480[2] { // 原全局：0x0055F480。
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F068}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 19, 34, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCollapsedStatusBar_ButtonExpand},
+};
+
+// 原型：窗口1；原全局：0x0054E2A0。
+WindowPrototype gWindowPrototypeStatusBar {0, 5, 0, 0, 197, 40, 0x80000080u, 24, gWindowElements55F0A0, &WindowStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 1: 54E2A0
+
+// 原型：窗口2；原全局：0x0054E2D0。
+WindowPrototype gWindowPrototypeCompactStatusBar {0, 5, 0, 0, 197, 32, 0x80000080u, 7, gWindowElements55F3A0, &WindowCompactStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 2: 54E2D0
+
+// 原型：窗口3；原全局：0x0054E300。
+WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x80000080u, 2, gWindowElements55F480, &WindowRuntime_ReturnOne, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 3: 54E300
+
+// 窗口函数实现。
 
 // 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
-void WindowStatusBar_FormatVitals(std::wstring& buffer)
+static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 {
     login::YobiAction* battlePlayer = nullptr;
     if (world::gCurrentSceneType == 10) {
@@ -27,27 +158,27 @@ void WindowStatusBar_FormatVitals(std::wstring& buffer)
         const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
-        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
             login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
-        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
         const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
         const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
         const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-        cg::text::FormatTo(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     }
 }
 
 // TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
-void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
+static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
     const std::int32_t duration = world::detail::ReadPlayerTimerRemaining0C();
     const std::int32_t hours = duration / 3600000;
@@ -96,73 +227,6 @@ void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicD
     }
 }
 
-constexpr wchar_t kStatusNoMail556D14[] = L"現在沒有郵件。"; // 原常量参考：0x00556D14。
-
-constexpr wchar_t kStatusNewMail556D24[] = L"現在有新郵件。"; // 原常量参考：0x00556D24。
-
-constexpr wchar_t kStatusNoPoints556D34[] = // 原常量参考：0x00556D34。
-    L"現在沒有任何的增加點數。";
-
-constexpr wchar_t kStatusPlayerPoints556D50[] = // 原常量参考：0x00556D50。
-    L"現在有增加點數{}點。";
-
-constexpr wchar_t kStatusHealthy556D68[] = L"現在十分健康。"; // 原常量参考：0x00556D68。
-
-constexpr wchar_t kStatusPetInjury556D78[] = L"現在{}瀕臨死亡。"; // 原常量参考：0x00556D78。
-
-constexpr wchar_t kStatusPetInjury556D8C[] = L"現在{}受了重傷。"; // 原常量参考：0x00556D8C。
-
-constexpr wchar_t kStatusPetInjury556DA0[] = L"現在{}受到輕傷。"; // 原常量参考：0x00556DA0。
-
-constexpr wchar_t kStatusPetInjury556DB4[] = L"現在{}受到擦傷。"; // 原常量参考：0x00556DB4。
-
-constexpr wchar_t kStatusPlayerInjury556DC8[] = // 原常量参考：0x00556DC8。
-    L"現在正面臨死亡邊緣。";
-
-constexpr wchar_t kStatusPlayerInjury556DE0[] = L"現在受到重傷。"; // 原常量参考：0x00556DE0。
-
-constexpr wchar_t kStatusPlayerInjury556DF0[] = L"現在受了輕傷。"; // 原常量参考：0x00556DF0。
-
-constexpr wchar_t kStatusPlayerInjury556E00[] = // 原常量参考：0x00556E00。
-    L"現在受了一點小傷。";
-
-constexpr wchar_t kStatusPetPoints586314[] = // 原常量参考：0x00586314。
-    L"現在{}擁有{}點的能力點數。";
-
-constexpr wchar_t kStatusDuelOff556E14[] = L"現在不能跟別人對戰。"; // 原常量参考：0x00556E14。
-
-constexpr wchar_t kStatusDuelOn556E2C[] = L"現在可以跟別人對戰。"; // 原常量参考：0x00556E2C。
-
-constexpr wchar_t kStatusChatOff556E44[] = L"現在進行普通的聊天。"; // 原常量参考：0x00556E44。
-
-constexpr wchar_t kStatusChatOn556E5C[] = L"現在進行小隊的聊天。"; // 原常量参考：0x00556E5C。
-
-constexpr wchar_t kStatusPartyOff556E74[] = // 原常量参考：0x00556E74。
-    L"現在禁止別人與自己組隊。";
-
-constexpr wchar_t kStatusPartyOn556E90[] = // 原常量参考：0x00556E90。
-    L"現在允許別人與自己組隊。";
-
-constexpr wchar_t kStatusCardOff556EAC[] = // 原常量参考：0x00556EAC。
-    L"現在禁止別人與自己交換名片。";
-
-constexpr wchar_t kStatusCardOn556ECC[] = // 原常量参考：0x00556ECC。
-    L"現在允許別人與自己交換名片。";
-
-constexpr wchar_t kStatusTradeOff556EEC[] = // 原常量参考：0x00556EEC。
-    L"現在禁止別人與自己交易。";
-
-constexpr wchar_t kStatusTradeOn556F08[] = // 原常量参考：0x00556F08。
-    L"現在允許別人與自己交易。";
-
-constexpr wchar_t kStatusGuildOff5862D4[] = // 原常量参考：0x005862D4。
-    L"現在禁止別人邀請自己參加家族。";
-
-constexpr wchar_t kStatusGuildOn5862F4[] = // 原常量参考：0x005862F4。
-    L"現在允許別人邀請自己參加家族。";
-} // namespace
-
-
 // 原函数：0x004708A0。
 std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
@@ -205,7 +269,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
 
 // 原函数：0x00470A80。
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
-std::int32_t WindowStatusBar_Update(const std::int32_t)
+static std::int32_t WindowStatusBar_Update(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
         gCurrentWindow->state |= 0x8000u;
@@ -216,7 +280,7 @@ std::int32_t WindowStatusBar_Update(const std::int32_t)
 }
 
 // 原函数：0x00470AB0。
-std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
+static std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
 {
     WindowCompactStatusBar_Refresh();
     return 1;
@@ -224,7 +288,7 @@ std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
 
 // TUC01：原窗口1完整根；描述符原零初始化、HP/FP/时钟/提示生产保持，四位消费见共用 helper。
 // 原函数：0x00470AC0。
-void WindowStatusBar_Refresh()
+static void WindowStatusBar_Refresh()
 {
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
@@ -285,7 +349,7 @@ void WindowStatusBar_Refresh()
 
 // TUC01：原窗口2完整根；直接FP复制/原零描述符保持，仅消费四位倒计时。
 // 原函数：0x004718F0。
-void WindowCompactStatusBar_Refresh()
+static void WindowCompactStatusBar_Refresh()
 {
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
@@ -295,7 +359,7 @@ void WindowCompactStatusBar_Refresh()
 }
 
 // 原函数：0x00471CD0。
-std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
         return 0;
@@ -308,7 +372,7 @@ std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_
 }
 
 // 原函数：0x00471D10。
-std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
         return 0;
@@ -321,7 +385,7 @@ std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std
 }
 
 // 原函数：0x00471D60。
-std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
         return 0;
@@ -340,13 +404,13 @@ std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std
 }
 
 // 原函数：0x00471DD0。
-std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::int32_t state)
 {
     return (state & 1) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00471DF0。
-std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
 {
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index - 15].data);
@@ -366,12 +430,12 @@ std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const
     const std::uint8_t options = world::detail::ReadPlayerOptions194LowByte();
     constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
     const wchar_t* const hints[6][2] {
-        {kStatusDuelOff556E14, kStatusDuelOn556E2C},
-        {kStatusChatOff556E44, kStatusChatOn556E5C},
-        {kStatusPartyOff556E74, kStatusPartyOn556E90},
-        {kStatusCardOff556EAC, kStatusCardOn556ECC},
-        {kStatusTradeOff556EEC, kStatusTradeOn556F08},
-        {kStatusGuildOff5862D4, kStatusGuildOn5862F4},
+        {L"現在不能跟別人對戰。" /* 原常量参考：0x00556E14。 */, L"現在可以跟別人對戰。" /* 原常量参考：0x00556E2C。 */},
+        {L"現在進行普通的聊天。" /* 原常量参考：0x00556E44。 */, L"現在進行小隊的聊天。" /* 原常量参考：0x00556E5C。 */},
+        {L"現在禁止別人與自己組隊。" /* 原常量参考：0x00556E74。 */, L"現在允許別人與自己組隊。" /* 原常量参考：0x00556E90。 */},
+        {L"現在禁止別人與自己交換名片。" /* 原常量参考：0x00556EAC。 */, L"現在允許別人與自己交換名片。" /* 原常量参考：0x00556ECC。 */},
+        {L"現在禁止別人與自己交易。" /* 原常量参考：0x00556EEC。 */, L"現在允許別人與自己交易。" /* 原常量参考：0x00556F08。 */},
+        {L"現在禁止別人邀請自己參加家族。" /* 原常量参考：0x005862D4。 */, L"現在允許別人邀請自己參加家族。" /* 原常量参考：0x005862F4。 */},
     };
     std::int32_t (*const toggleCallbacks[6])() {
         &world::detail::Sub_472F40, &world::detail::Sub_472F70, &world::detail::Sub_472FA0,
@@ -395,7 +459,7 @@ std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const
 
 // SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
 // 原函数：0x00473080。
-std::int32_t WindowStatusBar_ReadInjuredPetIndex()
+static std::int32_t WindowStatusBar_ReadInjuredPetIndex()
 {
     if (world::detail::ReadPlayerInjury() != 0) {
         return 0;
@@ -406,7 +470,7 @@ std::int32_t WindowStatusBar_ReadInjuredPetIndex()
 
 // SHP01：原五S16配对首个编号匹配位置，无则-1。
 // 原函数：0x004731B0。
-std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
+static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t candidate =
@@ -420,7 +484,7 @@ std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 
 // SHP01：原三项提示/关闭开窗；hover持有及姓名/分档/窗口读取序，原业务门槛保持。
 // 原函数：0x004723D0。
-std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     std::wstring buffer;
@@ -436,13 +500,13 @@ std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const st
                     const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    cg::text::FormatTo(buffer, kStatusPetPoints586314, cg::text::FromGbkWide(name).c_str(), points);
+                    cg::text::FormatTo(buffer, L"現在{}擁有{}點的能力點數。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
                 } else {
                     const std::int32_t points = world::detail::gValueD2F788;
-                    cg::text::FormatTo(buffer, kStatusPlayerPoints556D50, points);
+                    cg::text::FormatTo(buffer, L"現在有增加點數{}點。" /* 原常量参考：0x00556D50。 */, points);
                 }
             } else {
-                buffer = kStatusNoPoints556D34;
+                buffer = L"現在沒有任何的增加點數。" /* 原常量参考：0x00556D34。 */;
             }
             gHoverTextD68AE8 = buffer;
         }
@@ -485,7 +549,7 @@ std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const st
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
         const bool hover = (state & 1) != 0;
         if (hover) {
-            gHoverTextD68AE8 = hasMail != 0 ? kStatusNewMail556D24 : kStatusNoMail556D14;
+            gHoverTextD68AE8 = hasMail != 0 ? L"現在有新郵件。" /* 原常量参考：0x00556D24。 */ : L"現在沒有郵件。" /* 原常量参考：0x00556D14。 */;
             if (hasMail == 0) {
                 return 0;
             }
@@ -520,28 +584,28 @@ std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const st
         const std::int32_t petIndex = target - 10;
         if (hover) {
             if (injury != 0) {
-                const wchar_t* const text = injury <= 25 ? kStatusPlayerInjury556E00
-                    : injury <= 50 ? kStatusPlayerInjury556DF0
-                    : injury <= 75 ? kStatusPlayerInjury556DE0 : kStatusPlayerInjury556DC8;
+                const wchar_t* const text = injury <= 25 ? L"現在受了一點小傷。" /* 原常量参考：0x00556E00。 */
+                    : injury <= 50 ? L"現在受了輕傷。" /* 原常量参考：0x00556DF0。 */
+                    : injury <= 75 ? L"現在受到重傷。" /* 原常量参考：0x00556DE0。 */ : L"現在正面臨死亡邊緣。" /* 原常量参考：0x00556DC8。 */;
                 gHoverTextD68AE8 = text;
             } else if (target == -1) {
-                gHoverTextD68AE8 = kStatusHealthy556D68;
+                gHoverTextD68AE8 = L"現在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
                 const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const char* name;
                 const wchar_t* format;
                 if (petInjury <= 25) {
-                    format = kStatusPetInjury556DB4;
+                    format = L"現在{}受到擦傷。" /* 原常量参考：0x00556DB4。 */;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 } else if (petInjury <= 50) {
-                    format = kStatusPetInjury556DA0;
+                    format = L"現在{}受到輕傷。" /* 原常量参考：0x00556DA0。 */;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 } else {
                     const char nameFirst = pet.name6BD[0];
                     const bool critical = petInjury > 75;
                     name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                    format = critical ? kStatusPetInjury556D78 : kStatusPetInjury556D8C;
+                    format = critical ? L"現在{}瀕臨死亡。" /* 原常量参考：0x00556D78。 */ : L"現在{}受了重傷。" /* 原常量参考：0x00556D8C。 */;
                 }
                 cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
                 gHoverTextD68AE8 = buffer;
@@ -609,102 +673,3 @@ std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const st
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic55EF00 {0x3B92B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF00。
-
-WindowGraphicData gWindowGraphic55EF18 {0x3B92F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF18。
-
-WindowGraphicData gWindowGraphic55EF30 {0x3B932, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF30。
-
-WindowGraphicData gWindowGraphic55EF48 {0x3B935, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF48。
-
-WindowGraphicData gWindowGraphic55EF60 {0x3B938, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF60。
-
-WindowGraphicData gWindowGraphic55EF78 {0x3B93B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF78。
-
-WindowGraphicData gWindowGraphic55EF90 {0x3B93E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EF90。
-
-WindowGraphicData gWindowGraphic55EFA8 {0x3B941, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFA8。
-
-WindowGraphicData gWindowGraphic55EFC0 {0x3B950, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFC0。
-
-WindowGraphicData gWindowGraphic55EFD8 {0x3B954, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EFD8。
-
-WindowGraphicData gWindowGraphic55EFF0 {0x3B92D, 0, 3, 60, 15, 0xFFFFFFFFu}; // 原全局：0x0055EFF0。
-
-WindowGraphicData gWindowGraphic55F008 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F008。
-
-WindowGraphicData gWindowGraphic55F020 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F020。
-
-WindowGraphicData gWindowGraphic55F038 {0x3B664, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F038。
-
-WindowGraphicData gWindowGraphic55F050 {0x3B92A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F050。
-
-WindowGraphicData gWindowGraphic55F068 {0x3B92C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F068。
-
-WindowNumberData gWindowNumber55F090 {&gStatusHpTextD40B18, 10, 0, 0, 0}; // 原全局：0x0055F090。
-
-WindowNumberData gWindowNumber55F098 {&gStatusFpTextD45D50, 10, 0, 0, 0}; // 原全局：0x0055F098。
-
-std::uint32_t gWindowMouseFlagsD67650 = 0; // 原全局：0x00D67650。
-
-} // namespace
-
-// 原型：窗口1；原全局：0x0054E2A0。
-WindowPrototype gWindowPrototypeStatusBar {0, 5, 0, 0, 197, 40, 0x80000080u, 24, gWindowElements55F0A0, &WindowStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 1: 54E2A0
-
-// 原型：窗口2；原全局：0x0054E2D0。
-WindowPrototype gWindowPrototypeCompactStatusBar {0, 5, 0, 0, 197, 32, 0x80000080u, 7, gWindowElements55F3A0, &WindowCompactStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 2: 54E2D0
-
-// 原型：窗口3；原全局：0x0054E300。
-WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x80000080u, 2, gWindowElements55F480, &WindowRuntime_ReturnOne, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 3: 54E300
-
-WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeStatusBar; // 原全局：0x0054E2A0。
-
-WindowElementPrototype gWindowElements55F0A0[24] { // 原全局：0x0055F0A0。
-    {WindowElementType_Number, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
-    {WindowElementType_Number, 20, 29, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 63, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF18}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 82, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 101, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 120, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF60}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 139, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 6, 42, 36, 20, 1, {.graphic = &gWindowGraphic55EFA8}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 51, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFC0}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 83, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFD8}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EF00}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 3, 4, 0, 0, 1, {.graphic = &gWindowGraphic55EFF0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 175, 0, 15, 33, 1, {}, &WindowStatusBar_ButtonCompact},
-    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_EventArea, 0, 40, 120, 30, 1, {}, &WindowStatusBar_HandleHover},
-};
-
-WindowElementPrototype gWindowElements55F3A0[7] { // 原全局：0x0055F3A0。
-    {WindowElementType_Number, 20, 2, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
-    {WindowElementType_Number, 20, 12, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 146, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F050}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 181, 0, 16, 37, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCompactStatusBar_ButtonCollapse},
-};
-
-WindowElementPrototype gWindowElements55F480[2] { // 原全局：0x0055F480。
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F068}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 19, 34, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCollapsedStatusBar_ButtonExpand},
-};
-
-} // namespace cg::ui::detail

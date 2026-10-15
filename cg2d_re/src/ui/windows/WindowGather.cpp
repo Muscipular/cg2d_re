@@ -2,63 +2,120 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-std::int32_t gWindow12ResultD2D820 = 0; // 原全局：0x00D2D820。
+// 回调与内部函数前置声明。
 
-std::int32_t gWindow12ExperienceD2DFCC = 0; // 原全局：0x00D2DFCC。
+// 原函数：0x00485700。
+static WindowAnimationData* WindowGather_Cancel(WindowInstance* window); // 取消窗口12操作并归空闲，保留末动画载荷返回。
 
-std::int32_t gWindow12ValueD40B08 = 0; // 原全局：0x00D40B08。
+// 原函数：0x00485890。
+static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* window); // 窗口12计时/操作初始化。
 
-std::int32_t gWindow12LevelUpC9C0FC = 0; // 原全局：0x00C9C0FC。
+// 原函数：0x00486CF0。
+static std::int32_t WindowGather_ButtonContinue(std::int32_t index, std::int32_t state); // FP/背包检查与重启。
 
-std::int32_t gWindow12EnduranceCB0358 = 0; // 原全局：0x00CB0358。
+// 原函数：0x00486E50。
+static std::int32_t WindowGather_ButtonClose(std::int32_t index, std::int32_t state); // 关闭或取消，hover后重取窗口。
 
-std::int32_t gWindow12DexterityCC3EC0 = 0; // 原全局：0x00CC3EC0。
+// 原函数：0x00486F20。
+static std::int32_t WindowGather_DrawResultImage(std::int32_t index, std::int32_t unusedState); // 结果图及固定框，恒返0。
 
-std::int32_t gWindow12IntelligenceCC4B60 = 0; // 原全局：0x00CC4B60。
+// 原函数：0x00485AF0。
+static WindowAnimationData* WindowGather_ShowResult(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
 
-std::int32_t gWindow12ValueCF3FF0 = 0; // 原全局：0x00CF3FF0。 回复第七字段，486F20按结果图号消费。
+// 原函数：0x00486020。
+static WindowAnimationData* WindowGather_RefreshResult(); // 仅更新已有窗口12，不自动创建。
 
-std::int32_t gWindow12ValueD66E28 = 0; // 原全局：0x00D66E28。
+// 原函数：0x00485690。
+static void WindowGather_Release();
 
-std::wstring gWindow12NameD2DA94; // 原全局：0x00D2DA94。
+// 原函数：0x00486040。
+static std::int32_t WindowGather_Update(std::int32_t value);
 
-std::wstring gWindow12SuffixCB1E1C; // 原全局：0x00CB1E1C。
+// 控件载荷、窗口状态、组件表与原型。
 
-std::wstring gWindow12DetailsCC190C; // 原全局：0x00CC190C。 只承接已证NUL文本，不与前两结果摘要混用。
+static std::int32_t gWindow12ResultD2D820 = 0; // 原全局：0x00D2D820。
 
-std::uint8_t gWindow12ModeCC3E80 = 0; // 原全局：0x00CC3E80。
+static std::int32_t gWindow12ExperienceD2DFCC = 0; // 原全局：0x00D2DFCC。
 
-std::uint8_t gWindow12FlagCC4D27 = 0; // 原全局：0x00CC4D27。
+static std::int32_t gWindow12ValueD40B08 = 0; // 原全局：0x00D40B08。
 
-std::uint32_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
+static std::int32_t gWindow12LevelUpC9C0FC = 0; // 原全局：0x00C9C0FC。
 
-std::uint8_t gWindow12SkillLevelCB0608 = 0; // 原全局：0x00CB0608。
+static std::int32_t gWindow12EnduranceCB0358 = 0; // 原全局：0x00CB0358。
 
-std::uint8_t gWindow12KindD046CC = 0; // 原全局：0x00D046CC。
+static std::int32_t gWindow12DexterityCC3EC0 = 0; // 原全局：0x00CC3EC0。
 
-std::uint32_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
+static std::int32_t gWindow12IntelligenceCC4B60 = 0; // 原全局：0x00CC4B60。
 
-std::int32_t gWindow12PetImageCB10CC = 0; // 原全局：0x00CB10CC。
+static std::int32_t gWindow12ValueCF3FF0 = 0; // 原全局：0x00CF3FF0。 回复第七字段，486F20按结果图号消费。
 
-std::int32_t gWindow12CrystalLevelCC3E90 = 0; // 原全局：0x00CC3E90。
+static std::int32_t gWindow12ValueD66E28 = 0; // 原全局：0x00D66E28。
 
-constexpr wchar_t kWindow12Suffix589830[] = L"得到了！"; // 原常量参考：0x00589830。
+static std::wstring gWindow12NameD2DA94; // 原全局：0x00D2DA94。
 
-constexpr wchar_t kWindow12Nothing5897DC[] = LR"(沒看到任何東西。)"; // 原常量参考：0x005897DC。
+static std::wstring gWindow12SuffixCB1E1C; // 原全局：0x00CB1E1C。
 
-constexpr wchar_t kWindow12Success5869D4[] = L"　發現了。"; // 原常量参考：0x005869D4。
+static std::wstring gWindow12DetailsCC190C; // 原全局：0x00CC190C。 只承接已证NUL文本，不与前两结果摘要混用。
 
-constexpr wchar_t kWindow12Failure5869C4[] = L"什麼都沒發現。"; // 原常量参考：0x005869C4。
+static std::uint8_t gWindow12ModeCC3E80 = 0; // 原全局：0x00CC3E80。
 
-constexpr wchar_t kWindow12NoSpace5869E0[] = L"物品欄沒有空位。"; // 原常量参考：0x005869E0。
+static std::uint8_t gWindow12FlagCC4D27 = 0; // 原全局：0x00CC4D27。
 
-constexpr wchar_t kWindow12Restart5869F4[] = L"重新再開。"; // 原常量参考：0x005869F4。
+static std::uint32_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
 
-constexpr wchar_t kWindow12Cancel586A00[] = L"暫時中斷。"; // 原常量参考：0x00586A00。
-} // namespace
+static std::uint8_t gWindow12SkillLevelCB0608 = 0; // 原全局：0x00CB0608。
 
+static std::uint8_t gWindow12KindD046CC = 0; // 原全局：0x00D046CC。
+
+static std::uint32_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
+
+static std::int32_t gWindow12PetImageCB10CC = 0; // 原全局：0x00CB10CC。
+
+static std::int32_t gWindow12CrystalLevelCC3E90 = 0; // 原全局：0x00CC3E90。
+
+static WindowGraphicData gWindowGraphic562568 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562568。
+
+static WindowGraphicData gWindowGraphic562580 {0x3BA2E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562580。
+
+static WindowGraphicData gWindowGraphic562598 {0x3BA30, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562598。
+
+static WindowGraphicData gWindowGraphic5625C8 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625C8。
+
+static WindowGraphicData gWindowGraphic5625E0 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625E0。
+
+static WindowGraphicData gWindowGraphic5625F8 {0x3BA34, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625F8。
+
+static WindowTextPrototype gWindowText562610 { // 原全局：0x00562610。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
+};
+
+static std::int32_t gWindowAnimationImage562618 = 0x1AF16; // 原全局：0x00562618。
+
+static std::int32_t gWindowAnimationImage56261C = 0x1AF16; // 原全局：0x0056261C。
+
+static WindowElementPrototype gWindowElements562620[15] { // 原全局：0x00562620。
+    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage562618}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
+    {WindowElementType_Text, 16, 27, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
+    {WindowElementType_Text, 16, 41, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
+    {WindowElementType_Text, 16, 55, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
+    {WindowElementType_Text, 16, 69, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 43, 0, 0, 1, {.graphic = &gWindowGraphic562598}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 40, 0, 0, 1, {.graphic = &gWindowGraphic5625F8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 143, 29, 0, 0, 1, {.unusedValue = 0}, &WindowGather_DrawResultImage},
+    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625C8}, &WindowGather_ButtonContinue},
+    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625E0}, &WindowGather_ButtonClose},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic562580}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口12；原全局：0x0054E480。
+WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 15, gWindowElements562620, &WindowGather_Update, &WindowRuntime_DrawDefault, &WindowGather_Release}; // 12: 54E480
+
+// 窗口函数实现。
 
 std::int32_t WindowGather_ReadResult() noexcept
 {
@@ -159,7 +216,7 @@ login::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int32_
 }
 
 // 原函数：0x00485690。
-void WindowGather_Release()
+static void WindowGather_Release()
 {
     WindowRuntime_DecrementOperationCount();
     const std::uint8_t mode = gWindow12ModeCC3E80;
@@ -182,7 +239,7 @@ void WindowGather_Release()
 }
 
 // 原函数：0x00485700。
-WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
+static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
 {
     const std::uint8_t mode = gWindow12ModeCC3E80;
     if (mode != 0 && mode != 3 && mode != 4) {
@@ -210,7 +267,7 @@ WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
 }
 
 // 原函数：0x00485890。
-WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const window)
+static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const window)
 {
     if (gWindow12ModeCC3E80 != 1) {
         WindowRuntime_IncrementGatherOperationCount();
@@ -264,7 +321,7 @@ WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const window)
 }
 
 // 原函数：0x00485AF0。
-WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window)
+static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window)
 {
     std::uint8_t mode = gWindow12ModeCC3E80;
     if (mode != 0 && mode != 3 && mode != 4) {
@@ -283,10 +340,10 @@ WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window)
     window->elements[12].visible = 1;
     if (gWindow12ResultD2D820 != 0) {
         static_cast<WindowTextData*>(window->elements[4].data)->text = gWindow12NameD2DA94;
-        static_cast<WindowTextData*>(window->elements[5].data)->text = kWindow12Success5869D4;
+        static_cast<WindowTextData*>(window->elements[5].data)->text = L"　發現了。" /* 原常量参考：0x005869D4。 */;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        static_cast<WindowTextData*>(window->elements[4].data)->text = kWindow12Failure5869C4;
+        static_cast<WindowTextData*>(window->elements[4].data)->text = L"什麼都沒發現。" /* 原常量参考：0x005869C4。 */;
         static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
         static_cast<void>(audio::PlaySe_52C450(58, 320));
         gWindow12ValueCF3FF0 = -1;
@@ -339,7 +396,7 @@ WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window)
 }
 
 // 原函数：0x00486020。
-WindowAnimationData* WindowGather_RefreshResult()
+static WindowAnimationData* WindowGather_RefreshResult()
 {
     WindowInstance* const window = gWindowStates[WindowId_Gather].window;
     return window != nullptr ? WindowGather_ShowResult(window) : nullptr;
@@ -355,7 +412,7 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
     if (result == 0) {
         gWindow12ExperienceD2DFCC = 0;
         // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
-        gWindow12DetailsCC190C += kWindow12Nothing5897DC;
+        gWindow12DetailsCC190C += LR"(沒看到任何東西。)" /* 原常量参考：0x005897DC。 */;
         gWindow12LevelUpC9C0FC = 0;
         gWindow12EnduranceCB0358 = 0;
         // 原两段拼接并为完整UTF-16正文追加。
@@ -375,7 +432,7 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
     gWindow12NameD2DA94 = std::strlen(buffer) <= 28 ? cg::text::FromGbkWide(buffer) : kWindow12Unknown554590;
     gWindow12ValueD66E28 = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
     const std::int32_t experience = gWindow12ExperienceD2DFCC;
-    gWindow12SuffixCB1E1C = kWindow12Suffix589830;
+    gWindow12SuffixCB1E1C = L"得到了！" /* 原常量参考：0x00589830。 */;
     std::int32_t lines = 0;
     const auto appendValue = [&](const std::wstring_view format, const std::int32_t value) {
         // 四种数值行按原GBK最多22字节，始终低于28列换行门槛。
@@ -403,7 +460,7 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
 }
 
 // 原函数：0x00486040。
-std::int32_t WindowGather_Update(const std::int32_t value)
+static std::int32_t WindowGather_Update(const std::int32_t value)
 {
     if (value == -1) {
         gWindowActionD2E928 = nullptr;
@@ -542,7 +599,7 @@ std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
             } else if (world::detail::Sub_518C60() <= 0) {
-                world::detail::Sub_44B050(kWindow12NoSpace5869E0, 4, 3);
+                world::detail::Sub_44B050(L"物品欄沒有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(gCurrentWindow));
@@ -627,7 +684,7 @@ std::int32_t WindowGather_Update(const std::int32_t value)
 }
 
 // 原函数：0x00486CF0。
-std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
@@ -644,7 +701,7 @@ std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::in
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kWindow12Restart5869F4;
+        gHoverTextD68AE8 = L"重新再開。" /* 原常量参考：0x005869F4。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -666,12 +723,12 @@ std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::in
 }
 
 // 原函数：0x00486E50。
-std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : kWindow12Cancel586A00;
+        gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暫時中斷。" /* 原常量参考：0x00586A00。 */;
         window = gCurrentWindow;
     }
     std::int32_t consumed = 0;
@@ -696,7 +753,7 @@ std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x00486F20。
-std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const std::int32_t)
 {
     const std::int32_t resultImage = gWindow12ValueCF3FF0;
     render::GraphicDescriptor16 descriptor {};
@@ -721,52 +778,3 @@ std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const std::i
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic562568 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562568。
-
-WindowGraphicData gWindowGraphic562580 {0x3BA2E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562580。
-
-WindowGraphicData gWindowGraphic562598 {0x3BA30, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562598。
-
-WindowGraphicData gWindowGraphic5625C8 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625C8。
-
-WindowGraphicData gWindowGraphic5625E0 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625E0。
-
-WindowGraphicData gWindowGraphic5625F8 {0x3BA34, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005625F8。
-
-WindowTextPrototype gWindowText562610 { // 原全局：0x00562610。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
-};
-
-std::int32_t gWindowAnimationImage562618 = 0x1AF16; // 原全局：0x00562618。
-
-std::int32_t gWindowAnimationImage56261C = 0x1AF16; // 原全局：0x0056261C。
-
-} // namespace
-
-// 原型：窗口12；原全局：0x0054E480。
-WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 15, gWindowElements562620, &WindowGather_Update, &WindowRuntime_DrawDefault, &WindowGather_Release}; // 12: 54E480
-
-WindowElementPrototype gWindowElements562620[15] { // 原全局：0x00562620。
-    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage562618}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 27, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 41, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 55, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 69, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 43, 0, 0, 1, {.graphic = &gWindowGraphic562598}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 40, 0, 0, 1, {.graphic = &gWindowGraphic5625F8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 143, 29, 0, 0, 1, {.unusedValue = 0}, &WindowGather_DrawResultImage},
-    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625C8}, &WindowGather_ButtonContinue},
-    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625E0}, &WindowGather_ButtonClose},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic562580}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

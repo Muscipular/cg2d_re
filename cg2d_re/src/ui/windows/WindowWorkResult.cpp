@@ -2,6 +2,8 @@
 
 namespace cg::ui {
 
+// 窗口函数实现。
+
 // 原函数：0x0050C7F0。
 void WindowWorkResult_ReceiveReply(
     const std::uintptr_t, const std::int32_t result,

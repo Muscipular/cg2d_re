@@ -3,18 +3,83 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x00473840。
+static std::int32_t WindowBottomBar_HandleButtons(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
+
+// HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
+// 原函数：0x004731E0。
+static std::int32_t WindowBottomBar_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
 std::int32_t gHoverObjectValueD68AC8 = 0; // 原全局：0x00D68AC8。
 
 std::wstring gHoverTitleD68BF4 {}; // 原全局：0x00D68BF4。
 
 std::int32_t gHoverTitleValueD69748 = 0; // 原全局：0x00D69748。
 
-std::int32_t gWindow6HoverD2EA70 = 0; // 原全局：0x00D2EA70。
+// 原全局：0x00D2EA70。 473840的case0写U8(state)&1，4731E0严格判1。
+static std::int32_t gWindow6HoverD2EA70 = 0; // 原全局：0x00D2EA70。
 
 static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原全局：0x00D67AF0。 原W64；473840只用低W32差作30秒门禁。
 
+static WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4C0。
+
+static WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4D8。
+
+static WindowGraphicData gWindowGraphic55F4F0 {0x3B965, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4F0。
+
+static WindowGraphicData gWindowGraphic55F508 {0x3B968, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F508。
+
+static WindowGraphicData gWindowGraphic55F520 {0x3B96B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F520。
+
+static WindowGraphicData gWindowGraphic55F538 {0x3B96E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F538。
+
+static WindowGraphicData gWindowGraphic55F550 {0x3B971, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F550。
+
+static WindowGraphicData gWindowGraphic55F568 {0x18665, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F568。
+
+static WindowGraphicData gWindowGraphic55F580 {0x3B95C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F580。
+
+static WindowGraphicData gWindowGraphic55F598 {0x3B95D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F598。
+
+static WindowTextPrototype gWindowText55F5B0 { // 原全局：0x0055F5B0。
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
+    L"相關資訊",
+};
+
+static WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"--------",
+};
+
+WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeBottomBar; // 原全局：0x0054E330。
+
+static WindowElementPrototype gWindowElements55F5C0[14] { // 原全局：0x0055F5C0。
+    {WindowElementType_EventArea, 0, 0, 640, 30, 1, {.unusedValue = 0}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 10, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4C0}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 86, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4D8}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 163, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4F0}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 239, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F508}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 316, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F520}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 392, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F538}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 464, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F550}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Graphic, 555, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F568}, &WindowBottomBar_HandleButtons},
+    {WindowElementType_Text, 565, 11, 0, 0, 1, {.text = &gWindowText55F5B8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F580}, &WindowElement_NoOp},
+    {WindowElementType_Text, 21, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 408, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F598}, &WindowElement_NoOp},
+};
+
+// 原型：窗口6；原全局：0x0054E330。
+WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 14, gWindowElements55F5C0, &WindowBottomBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 6: 54E330
+
+// 窗口函数实现。
+
 // 原函数：0x00473840。
-std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     switch (index) {
@@ -254,7 +319,7 @@ std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::
 // 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 // 原函数：0x004731E0。
-std::int32_t WindowBottomBar_Update(const std::int32_t)
+static std::int32_t WindowBottomBar_Update(const std::int32_t)
 {
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
@@ -310,62 +375,3 @@ std::int32_t WindowBottomBar_Update(const std::int32_t)
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4C0。
-
-WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4D8。
-
-WindowGraphicData gWindowGraphic55F4F0 {0x3B965, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F4F0。
-
-WindowGraphicData gWindowGraphic55F508 {0x3B968, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F508。
-
-WindowGraphicData gWindowGraphic55F520 {0x3B96B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F520。
-
-WindowGraphicData gWindowGraphic55F538 {0x3B96E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F538。
-
-WindowGraphicData gWindowGraphic55F550 {0x3B971, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F550。
-
-WindowGraphicData gWindowGraphic55F568 {0x18665, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F568。
-
-WindowGraphicData gWindowGraphic55F580 {0x3B95C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F580。
-
-WindowGraphicData gWindowGraphic55F598 {0x3B95D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F598。
-
-WindowTextPrototype gWindowText55F5B0 { // 原全局：0x0055F5B0。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    L"相關資訊",
-};
-
-WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"--------",
-};
-
-} // namespace
-
-// 原型：窗口6；原全局：0x0054E330。
-WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 14, gWindowElements55F5C0, &WindowBottomBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 6: 54E330
-
-WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeBottomBar; // 原全局：0x0054E330。
-
-WindowElementPrototype gWindowElements55F5C0[14] { // 原全局：0x0055F5C0。
-    {WindowElementType_EventArea, 0, 0, 640, 30, 1, {.unusedValue = 0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 10, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4C0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 86, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4D8}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 163, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4F0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 239, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F508}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 316, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F520}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 392, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F538}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 464, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F550}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 555, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F568}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Text, 565, 11, 0, 0, 1, {.text = &gWindowText55F5B8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F580}, &WindowElement_NoOp},
-    {WindowElementType_Text, 21, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 408, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F598}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

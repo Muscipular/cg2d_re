@@ -2,24 +2,106 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x0049F040。
+static void WindowTextTarget_Release();
+
+// 原函数：0x0049F060。
+static std::int32_t WindowTextTarget_Update(std::int32_t value);
+
+// 原函数：0x0049F0A0。
+static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未用行复制593850但保留颜色。
+
+// 原函数：0x0049F1A0。
+static std::int32_t WindowTextTarget_Draw(std::int32_t value);
+
+// 原函数：0x0049F260。
+static std::int32_t WindowTextTarget_ButtonPreviousRow(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F310。
+static std::int32_t WindowTextTarget_ButtonNextRow(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F3D0。
+static std::int32_t WindowTextTarget_ButtonPreviousPage(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F490。
+static std::int32_t WindowTextTarget_ButtonNextPage(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F570。
+static std::int32_t WindowTextTarget_Scroll(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F5C0。
+static std::int32_t WindowTextTarget_ButtonCancel(std::int32_t index, std::int32_t state);
+
+// 原函数：0x0049F680。
+static std::int32_t WindowTextTarget_SelectRow(std::int32_t index, std::int32_t state);
+
+// 控件载荷、窗口状态、组件表与原型。
 
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
-const char* const* gTextChoiceNamesD30130 = nullptr; // 借用原GBK名单，窗口正文在49F0A0转为UTF-16。 // 原全局：0x00D30130。
+static const char* const* gTextChoiceNamesD30130 = nullptr; // 借用原GBK名单，窗口正文在49F0A0转为UTF-16。 // 原全局：0x00D30130。
 
-const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
+static const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
 
-std::int32_t gTextChoiceCountCC4CE4 = 0; // 原全局：0x00CC4CE4。
+static std::int32_t gTextChoiceCountCC4CE4 = 0; // 原全局：0x00CC4CE4。
 
-WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr; // 原全局：0x00C9A974。
+static WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr; // 原全局：0x00C9A974。
 
-WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr; // 原全局：0x00CA0AC0。
+static WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr; // 原全局：0x00CA0AC0。
 
-std::int32_t gTextChoiceOffsetD2D9C0 = 0; // 原全局：0x00D2D9C0。
+static std::int32_t gTextChoiceOffsetD2D9C0 = 0; // 原全局：0x00D2D9C0。
 
-std::uint8_t gTextChoiceEnabledCA0008 = 0; // 原全局：0x00CA0008。
-} // namespace
+static std::uint8_t gTextChoiceEnabledCA0008 = 0; // 原全局：0x00CA0008。
 
+static WindowGraphicData gWindowGraphic56D010 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D010。
+
+static WindowGraphicData gWindowGraphic56D028 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D028。
+
+static WindowGraphicData gWindowGraphic56D040 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D040。
+
+static WindowGraphicData gWindowGraphic56D058 {243042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D058。
+
+static WindowGraphicData gWindowGraphic56D070 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D070。
+
+static WindowGraphicData gWindowGraphic56D088 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D088。
+
+static WindowTextPrototype gWindowText56D0A0 { // 原全局：0x0056D0A0。
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■", // 原常量参考：0x00585F64。
+};
+
+static WindowTextPrototype gWindowText56D0A8 { // 原全局：0x0056D0A8。
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
+};
+
+static WindowElementPrototype gWindowElements56D0B0[19] { // 原全局：0x0056D0B0。
+    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56D010}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
+        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56D010.imageNo)}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56D028}, &WindowTextTarget_ButtonPreviousRow},
+    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56D040}, &WindowTextTarget_ButtonNextRow},
+    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56D070}, &WindowTextTarget_ButtonPreviousPage},
+    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56D088}, &WindowTextTarget_ButtonNextPage},
+    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTextTarget_Scroll},
+    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56D058}, &WindowTextTarget_ButtonCancel},
+    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56D0A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+};
+
+// 原型：窗口45；原全局：0x0054E900。
+WindowPrototype gWindowPrototypeTextTarget {0, 4, 160, 125, 320, 192, 0x80010101u, 19, gWindowElements56D0B0, &WindowTextTarget_Update, &WindowTextTarget_Draw, &WindowTextTarget_Release}; // 45: 54E900
+
+// 窗口函数实现。
 
 // 原函数：0x0049F000。
 login::YobiAction* WindowTextTarget_Open(
@@ -34,7 +116,7 @@ login::YobiAction* WindowTextTarget_Open(
 }
 
 // 原函数：0x0049F040。
-void WindowTextTarget_Release()
+static void WindowTextTarget_Release()
 {
     const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
     if (callback != nullptr) {
@@ -43,7 +125,7 @@ void WindowTextTarget_Release()
 }
 
 // 原函数：0x0049F060。
-std::int32_t WindowTextTarget_Update(const std::int32_t value)
+static std::int32_t WindowTextTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
         gTextChoiceOffsetD2D9C0 = 0;
@@ -56,7 +138,7 @@ std::int32_t WindowTextTarget_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049F0A0。
-void WindowTextTarget_Refresh(const std::int32_t offset)
+static void WindowTextTarget_Refresh(const std::int32_t offset)
 {
     const char* const* names = gTextChoiceNamesD30130;
     std::int32_t row = 0;
@@ -76,7 +158,7 @@ void WindowTextTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049F1A0。
-std::int32_t WindowTextTarget_Draw(const std::int32_t)
+static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -101,7 +183,7 @@ std::int32_t WindowTextTarget_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049F260。
-std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -130,7 +212,7 @@ std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const 
 }
 
 // 原函数：0x0049F310。
-std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -158,7 +240,7 @@ std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std:
 }
 
 // 原函数：0x0049F3D0。
-std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -185,7 +267,7 @@ std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const
 }
 
 // 原函数：0x0049F490。
-std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -219,7 +301,7 @@ std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std
 }
 
 // 原函数：0x0049F570。
-std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
@@ -232,7 +314,7 @@ std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x0049F5C0。
-std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -263,7 +345,7 @@ std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::
 }
 
 // 原函数：0x0049F680。
-std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
     // 原门槛只比较行号，不将滚动偏移并入检查。
@@ -293,57 +375,3 @@ std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56D010 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D010。
-
-WindowGraphicData gWindowGraphic56D028 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D028。
-
-WindowGraphicData gWindowGraphic56D040 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D040。
-
-WindowGraphicData gWindowGraphic56D058 {243042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D058。
-
-WindowGraphicData gWindowGraphic56D070 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D070。
-
-WindowGraphicData gWindowGraphic56D088 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D088。
-
-WindowTextPrototype gWindowText56D0A0 { // 原全局：0x0056D0A0。
-    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■", // 原常量参考：0x00585F64。
-};
-
-WindowTextPrototype gWindowText56D0A8 { // 原全局：0x0056D0A8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
-};
-
-} // namespace
-
-// 原型：窗口45；原全局：0x0054E900。
-WindowPrototype gWindowPrototypeTextTarget {0, 4, 160, 125, 320, 192, 0x80010101u, 19, gWindowElements56D0B0, &WindowTextTarget_Update, &WindowTextTarget_Draw, &WindowTextTarget_Release}; // 45: 54E900
-
-WindowElementPrototype gWindowElements56D0B0[19] { // 原全局：0x0056D0B0。
-    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56D010}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
-        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56D010.imageNo)}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56D028}, &WindowTextTarget_ButtonPreviousRow},
-    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56D040}, &WindowTextTarget_ButtonNextRow},
-    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56D070}, &WindowTextTarget_ButtonPreviousPage},
-    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56D088}, &WindowTextTarget_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTextTarget_Scroll},
-    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56D058}, &WindowTextTarget_ButtonCancel},
-    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56D0A8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-};
-
-} // namespace cg::ui::detail

@@ -2,13 +2,226 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCC21E8 {}; // 原全局：0x00CC21E8。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
+namespace {
+
+// 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
+using WindowTradePanelCallback = void (*)(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
+
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x004E5710。
+static std::int32_t WindowTrade_ResetRemoteItems(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
+
+// 原函数：0x004E52B0。
+static void WindowTrade_CopyOwnPet(std::int32_t side); // 同源玩家宠物属性及十项技能按存储索引复制。
+
+// 原函数：0x004E5600。
+static void WindowTrade_SyncOwnItems(std::int32_t side); // 顺序同步20条交易物品。
+
+// 原函数：0x004B0110。
+static login::YobiAction* WindowTrade_Open(); // 清交易U8，创建窗口43动画并发布借用T*。
+
+// 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
+// 原函数：0x004B0130。
+static void WindowTrade_MovePanel(
+    WindowInstance* window, std::int32_t index, std::int32_t x, std::int32_t y);
+
+// 原函数：0x004B0180。
+static void WindowTrade_SetPanelVisible(WindowInstance* window, std::int32_t index, std::int32_t visible);
+
+// 原函数：0x004B01B0。
+static void WindowTrade_SetPanelColor(WindowInstance* window, std::int32_t index, std::uint32_t color);
+
+// 原函数：0x004AFF70。
+static std::int32_t WindowTrade_RemoveItem(std::int32_t index); // 释放物品选择，再减同源悬停字节。
+
+// 原函数：0x004B0090。
+static std::int32_t WindowTrade_RemovePet(std::int32_t index); // 只释放宠物选择及标记。
+
+// 原函数：0x004B0200。
+static void WindowTrade_Release(); // 窗口43释放回调，原返回值弃用。
+
+// 原函数：0x004B0290。
+static std::int32_t WindowTrade_Update(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
+
+// 原函数：0x004B08D0。
+static std::int32_t WindowTrade_Draw(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+
+// 原函数：0x004AFF30。
+static std::int32_t WindowTrade_AddItem(std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
+
+// 原函数：0x004AFFB0。
+static std::int32_t WindowTrade_SwapSelectedItems(std::int32_t first, std::int32_t second); // 仅交换选择槽字节。
+
+// 原函数：0x004B0060。
+static std::int32_t WindowTrade_AddPet(std::int32_t index, std::int32_t slot); // 空槽领取并标记宠物。
+
+// 原函数：0x004B00C0。
+static std::int32_t WindowTrade_SwapSelectedPets(std::int32_t first, std::int32_t second);
+
+// 原函数：0x004B1940。
+static void WindowTrade_HandleOwnInventory(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,
+    const render::GraphicDescriptor16* descriptor); // 自有物品交易页，20格玩家背包。
+
+// 原函数：0x004B2480。
+static std::int32_t WindowTrade_HandleOwnPanel(std::int32_t index, std::int32_t state);
+
+// 原函数：0x004B2500。
+static void WindowTrade_RefreshOwnPanel(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* unusedAmount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
+
+// 原函数：0x004B2060。
+static void WindowTrade_HandleOwnPets(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state, std::int32_t scroll,
+    const render::GraphicDescriptor16* descriptor); // 自有宠物交易页，按索引对取原宠物。
+
+// 原函数：0x004B25D0。
+static void WindowTrade_HandleOwnItemDrag(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+
+// 原函数：0x004B2E00。
+static void WindowTrade_HandleOwnPetDrag(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+
+// 原函数：0x004B2710。
+static std::int32_t WindowTrade_StartOwnItemDrag(std::int32_t index); // kind6，绑定真实物品拖动回调。
+
+// 原函数：0x004B2F50。
+static std::int32_t WindowTrade_StartOwnPetDrag(std::int32_t index); // kind7，绑定真实宠物拖动回调。
+
+// 原函数：0x004B2730。
+static void WindowTrade_HandleSelectedItem(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,
+    const render::GraphicDescriptor16* descriptor); // 己方已选物品完整交互/绘制。
+
+// 原函数：0x004B2F70。
+static void WindowTrade_HandleSelectedPet(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state, std::int32_t scroll,
+    const render::GraphicDescriptor16* descriptor); // 己方已选宠物完整交互/绘制。
+
+// 原函数：0x004B3430。
+static std::int32_t WindowTrade_HandleSelectedPanel(std::int32_t index, std::int32_t state);
+
+// 原函数：0x004B34C0。
+static void WindowTrade_RefreshSelectedPanel(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
+
+// 原函数：0x004B0F20。
+static std::int32_t WindowTrade_DrawPetRow(
+    std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
+    std::uint8_t textLayer, std::uint8_t graphicLayer,
+    const render::GraphicDescriptor16* descriptor); // 空宠物槽仍画背景。
+
+// 原函数：0x004B1260。
+static std::int32_t WindowTrade_HandlePanel(
+    WindowInstance* window, std::int32_t index, std::int32_t state,
+    const std::int32_t* backgroundImages, std::uint8_t* tab,
+    std::int32_t scrollElement, std::int32_t* scrollValue,
+    std::int32_t numericElement, std::int32_t maximum,
+    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
+    render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback); // TQN01：低W16坐标/scroll BYTE及声效后fresh滚动目标，callback与真实S32 0/2返回保。
+
+// 原函数：0x004B3580。
+static std::int32_t WindowTrade_HandleRemoteSelection(std::int32_t index, std::int32_t state); // 对方交易面板入口。
+
+// 原函数：0x004B3610。
+static void WindowTrade_HandleRemoteItem(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
+
+// 原函数：0x004B1900。
+static bool WindowTrade_HitTestOwnPetRow(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
+
+// 原函数：0x004AFFE0。
+static std::int32_t WindowTrade_ReadSelectedItem(std::int32_t index); // S8物品槽，负值归-1。
+
+// 原函数：0x004B00F0。
+static std::int32_t WindowTrade_ReadSelectedPet(std::int32_t index); // S8宠物槽，负值归-1。
+
+// 原函数：0x004B0A50。
+static std::int32_t WindowTrade_ButtonPublish(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。
+
+// 原函数：0x004B0CF0。
+static std::int32_t WindowTrade_ButtonWithdraw(std::int32_t index, std::int32_t state); // 撤回公开，无计时门禁。
+
+// 原函数：0x004B0DB0。
+static std::int32_t WindowTrade_ButtonConfirm(std::int32_t index, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
+
+// 原函数：0x004B09E0。
+static std::int32_t WindowTrade_HandleAmountInput(std::int32_t unusedIndex, std::int32_t state); // 交易输入激活/聊天恢复。
+
+// 原函数：0x004B4070。
+static std::int32_t WindowTrade_DrawRemotePetSkillRow(
+    std::int32_t x, std::int32_t y, std::int32_t index,
+    std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。
+
+// 原函数：0x004B45A0。
+static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
+    std::int32_t x, std::int32_t y, std::int32_t side,
+    std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。
+
+// 原函数：0x004B4680。
+static std::int32_t WindowTrade_DrawSelectedPetTooltip(
+    std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t index); // 完整交易宠物提示。
+
+// 原函数：0x004B3B00。
+static std::int32_t WindowTrade_DrawOwnPetSkillRow(
+    std::int32_t x, std::int32_t y, std::int32_t petIndex,
+    std::int32_t skillPosition); // 己方技能按S16索引对取名称。
+
+// 原函数：0x004E4E60。
+static void WindowTrade_RequestTargetList(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
+
+// 原函数：0x004E4E80。
+static login::YobiAction* WindowTrade_OpenTargetList(const char* text); // 选择表绑定真实交易回调后打开44。
+
+// 原函数：0x004E5770。
+static void WindowTrade_BuildRemoteItemDescription(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
+
+// 原函数：0x004E5830。
+static std::int32_t WindowTrade_ReceiveRemoteItems(const char* text); // 每条14字段，返回终止字段状态1。
+
+// 原函数：0x004E5A40。
+static std::int32_t WindowTrade_ReceiveRemotePet(std::int32_t index, const char* text); // 单宠物属性与双名称。
+
+// 原函数：0x004E5CD0。
+static std::int32_t WindowTrade_ReceiveRemotePetSkills(std::int32_t index, const char* text); // 只预清第一条技能。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x005803D0。 借用input唯一CC21E8上下文。
+static WindowInputPrototype gTradeInputPrototype5803D0 { // 原全局：0x005803D0。
     {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
@@ -25,9 +238,10 @@ std::int32_t gTradeValueD046D0 = 0; // 原全局：0x00D046D0。
 
 std::int32_t gTradeValueD2E2B0 = 0; // 原全局：0x00D2E2B0。
 
-std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
+static std::uint8_t gTradeValueD67B80 = 0; // 原全局：0x00D67B80。
 
-login::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
+// 原全局：0x00D67B7C。 原43窗口展开动画，仅借用。
+static login::YobiAction* gTradeWindowActionD67B7C = nullptr; // 原全局：0x00D67B7C。
 
 std::int32_t gTradeValueCF4A1C = 0; // 原全局：0x00CF4A1C。
 
@@ -55,43 +269,54 @@ std::array<char, 17> gTradeNameD2D654 {}; // 原全局：0x00D2D654。
 
 static_assert(sizeof(gTradeNameD2D654) == 17);
 
-std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
+// 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
+static std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
 
-std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {}; // 原全局：0x00D2D61C。
+static std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {}; // 原全局：0x00D2D61C。
 
-std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {}; // 原全局：0x00CC4D28。
+// 原全局：0x00CC4D28。 末项即CC4D2C，按S8读槽号。
+static std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {}; // 原全局：0x00CC4D28。
 
-std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {}; // 原全局：0x00CF3AFC。
+// 原全局：0x00CF3AFC。 末项即CF3B00，不拆独立标量。
+static std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {}; // 原全局：0x00CF3AFC。
 
-std::uint8_t gTradePhaseCAFEC4 = 0; // 原全局：0x00CAFEC4。
+static std::uint8_t gTradePhaseCAFEC4 = 0; // 原全局：0x00CAFEC4。
 
-std::uint8_t gTradeStepD3040C = 0; // 原全局：0x00D3040C。
+// 原全局：0x00D3040C。 位移按S8读，递减只写U8。
+static std::uint8_t gTradeStepD3040C = 0; // 原全局：0x00D3040C。
 
-std::uint8_t gTradeValueD2EA20 = 0; // 原全局：0x00D2EA20。
+static std::uint8_t gTradeValueD2EA20 = 0; // 原全局：0x00D2EA20。
 
-std::uint8_t gTradeValueD6742C = 0; // 原全局：0x00D6742C。
+static std::uint8_t gTradeValueD6742C = 0; // 原全局：0x00D6742C。
 
-std::uint8_t gTradeValueC8AF81 = 0; // 原全局：0x00C8AF81。
+static std::uint8_t gTradeValueC8AF81 = 0; // 原全局：0x00C8AF81。
 
-std::uint8_t gTradeTabCC4D1A = 0; // 原全局：0x00CC4D1A。
+// 原全局：0x00CC4D1A。 对方页签，不套用己方窗口初始化重置。
+static std::uint8_t gTradeTabCC4D1A = 0; // 原全局：0x00CC4D1A。
 
-std::int32_t gTradeHoverSlotC8B314 = 0; // 原全局：0x00C8B314。
+// 原全局：0x00C8B314。 对方提示槽缓存，非地址。
+static std::int32_t gTradeHoverSlotC8B314 = 0; // 原全局：0x00C8B314。
 
-std::int32_t gTradeHoverSlotC8AA78 = 0; // 原全局：0x00C8AA78。
+// 原全局：0x00C8AA78。 己方已选物品提示槽缓存。
+static std::int32_t gTradeHoverSlotC8AA78 = 0; // 原全局：0x00C8AA78。
 
-std::int32_t gTradeHoverSlotCB0A4C = 0; // 原全局：0x00CB0A4C。
+// 原全局：0x00CB0A4C。 己方自有物品提示槽缓存。
+static std::int32_t gTradeHoverSlotCB0A4C = 0; // 原全局：0x00CB0A4C。
 
-std::int32_t gTradeScrollCF3B0C = 0; // 原全局：0x00CF3B0C。
+static std::int32_t gTradeScrollCF3B0C = 0; // 原全局：0x00CF3B0C。
 
-std::int32_t gTradeScrollCC4C90 = 0; // 原全局：0x00CC4C90。
+static std::int32_t gTradeScrollCC4C90 = 0; // 原全局：0x00CC4C90。
 
-std::int32_t gTradeScrollD67430 = 0; // 原全局：0x00D67430。
+static std::int32_t gTradeScrollD67430 = 0; // 原全局：0x00D67430。
 
-std::int32_t gTradePreviewCC2E64 = 0; // 原全局：0x00CC2E64。
+// 原全局：0x00CC2E64。 原预览分类数值，非地址。
+static std::int32_t gTradePreviewCC2E64 = 0; // 原全局：0x00CC2E64。
 
-std::uint8_t gTradeTooltipPageCB10D4 = 0; // 原全局：0x00CB10D4。
+// 原全局：0x00CB10D4。 物品提示页，绘制按S8读取。
+static std::uint8_t gTradeTooltipPageCB10D4 = 0; // 原全局：0x00CB10D4。
 
-const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
+// 原全局：0x005805FC。 原字节提示的借用指针表。
+static const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x005805FC。
     L"指定金額。",
     L"指定提領金額。",
     L"指定金額數量。",
@@ -99,6 +324,56 @@ const std::array<const wchar_t*, 6> gTradeNumberHints5805FC {{ // 原全局：0x
     L"指定全部金額。",
     L"把指定金額歸零。",
 }};
+
+static WindowGraphicData gWindowGraphic572940 {0x3BA88, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572940。
+
+static WindowGraphicData gWindowGraphic572958 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572958。
+
+static WindowGraphicData gWindowGraphic572970 {0x3BA89, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572970。
+
+static WindowGraphicData gWindowGraphic572988 {0x3BA8C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572988。
+
+static WindowGraphicData gWindowGraphic5729A0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005729A0。
+
+static WindowGraphicData gWindowGraphic572AD8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572AD8。
+
+static WindowTextPrototype gWindowText572AF0 { // 原全局：0x00572AF0。
+    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static std::uint32_t gWindowMouseFlagsD678B8 = 0; // 原全局：0x00D678B8。
+
+static std::uint32_t gWindowMouseFlagsD678C4 = 0; // 原全局：0x00D678C4。
+
+static std::uint32_t gWindowMouseFlagsD678D0 = 0; // 原全局：0x00D678D0。
+
+static WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572AF8。
+    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowTrade_HandleAmountInput},
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &WindowTrade_ButtonPublish},
+    {WindowElementType_Graphic, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &WindowTrade_ButtonConfirm},
+    {WindowElementType_Graphic, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &WindowTrade_ButtonWithdraw},
+    {WindowElementType_EventArea, 376, 136, 106, 85, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678C4}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleSelectedPanel},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678B8}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 297, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleOwnPanel},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678D0}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleRemoteSelection},
+    {WindowElementType_Text, 133, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 281, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 317, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572940}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+};
+
+// 原型：窗口43；原全局：0x0054EBD0。
+WindowPrototype gWindowPrototypeTrade {0, 4, 20, 25, 567, 339, 0x80010101u, 20, gWindowElements572AF8, &WindowTrade_Update, &WindowTrade_Draw, &WindowTrade_Release}; // 43: 54EBD0
+
+// 窗口函数实现。
 
 // 原函数：0x004E5DA0。
 void WindowTrade_SwapRemoteItems(
@@ -190,7 +465,7 @@ void WindowTrade_CopyOwnItem(const std::int32_t side, const std::int32_t index)
 }
 
 // 原函数：0x004E5600。
-void WindowTrade_SyncOwnItems(const std::int32_t side)
+static void WindowTrade_SyncOwnItems(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
         WindowTrade_CopyOwnItem(side, index);
@@ -198,7 +473,7 @@ void WindowTrade_SyncOwnItems(const std::int32_t side)
 }
 
 // 原函数：0x004B0110。
-login::YobiAction* WindowTrade_Open()
+static login::YobiAction* WindowTrade_Open()
 {
     gTradeValueD67B80 = 0;
     login::YobiAction* const action = WindowRuntime_CreateAnimation(WindowId_Trade, 1, 0, nullptr);
@@ -207,7 +482,7 @@ login::YobiAction* WindowTrade_Open()
 }
 
 // 原函数：0x004B0130。
-void WindowTrade_MovePanel(
+static void WindowTrade_MovePanel(
     WindowInstance* const window, const std::int32_t index,
     const std::int32_t x, const std::int32_t y)
 {
@@ -221,7 +496,7 @@ void WindowTrade_MovePanel(
 }
 
 // 原函数：0x004B0180。
-void WindowTrade_SetPanelVisible(
+static void WindowTrade_SetPanelVisible(
     WindowInstance* const window, const std::int32_t index, const std::int32_t visible)
 {
     window->elements[index].visible = visible;
@@ -232,7 +507,7 @@ void WindowTrade_SetPanelVisible(
 }
 
 // 原函数：0x004B01B0。
-void WindowTrade_SetPanelColor(
+static void WindowTrade_SetPanelColor(
     WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -240,7 +515,7 @@ void WindowTrade_SetPanelColor(
 }
 
 // 原函数：0x004AFF30。
-std::int32_t WindowTrade_AddItem(const std::int32_t index, const std::int32_t slot)
+static std::int32_t WindowTrade_AddItem(const std::int32_t index, const std::int32_t slot)
 {
     if (std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]) >= 0) {
         return 0;
@@ -254,7 +529,7 @@ std::int32_t WindowTrade_AddItem(const std::int32_t index, const std::int32_t sl
 }
 
 // 原函数：0x004AFFB0。
-std::int32_t WindowTrade_SwapSelectedItems(const std::int32_t first, const std::int32_t second)
+static std::int32_t WindowTrade_SwapSelectedItems(const std::int32_t first, const std::int32_t second)
 {
     const std::uint8_t previous = gTradeItemSlotsCF3AE8[first];
     gTradeItemSlotsCF3AE8[first] = gTradeItemSlotsCF3AE8[second];
@@ -263,7 +538,7 @@ std::int32_t WindowTrade_SwapSelectedItems(const std::int32_t first, const std::
 }
 
 // 原函数：0x004B0060。
-std::int32_t WindowTrade_AddPet(const std::int32_t index, const std::int32_t slot)
+static std::int32_t WindowTrade_AddPet(const std::int32_t index, const std::int32_t slot)
 {
     if (std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]) >= 0) {
         return 0;
@@ -274,7 +549,7 @@ std::int32_t WindowTrade_AddPet(const std::int32_t index, const std::int32_t slo
 }
 
 // 原函数：0x004B00C0。
-std::int32_t WindowTrade_SwapSelectedPets(const std::int32_t first, const std::int32_t second)
+static std::int32_t WindowTrade_SwapSelectedPets(const std::int32_t first, const std::int32_t second)
 {
     const std::uint8_t previous = gTradePetSlotsCC4D28[first];
     gTradePetSlotsCC4D28[first] = gTradePetSlotsCC4D28[second];
@@ -283,7 +558,7 @@ std::int32_t WindowTrade_SwapSelectedPets(const std::int32_t first, const std::i
 }
 
 // 原函数：0x004AFF70。
-std::int32_t WindowTrade_RemoveItem(const std::int32_t index)
+static std::int32_t WindowTrade_RemoveItem(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
     if (slot < 0) {
@@ -298,7 +573,7 @@ std::int32_t WindowTrade_RemoveItem(const std::int32_t index)
 }
 
 // 原函数：0x004B0090。
-std::int32_t WindowTrade_RemovePet(const std::int32_t index)
+static std::int32_t WindowTrade_RemovePet(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
     if (slot < 0) {
@@ -310,7 +585,7 @@ std::int32_t WindowTrade_RemovePet(const std::int32_t index)
 }
 
 // 原函数：0x004B0200。
-void WindowTrade_Release()
+static void WindowTrade_Release()
 {
     WindowInstance* const window = gWindowStates[WindowId_Quantity].window;
     if (window != nullptr && gWindowStates[WindowId_Quantity].value20 == 43) {
@@ -331,7 +606,7 @@ void WindowTrade_Release()
 }
 
 // 原函数：0x004B0290。
-std::int32_t WindowTrade_Update(const std::int32_t value)
+static std::int32_t WindowTrade_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const initialWindow = gCurrentWindow;
@@ -507,7 +782,7 @@ std::int32_t WindowTrade_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B08D0。
-std::int32_t WindowTrade_Draw(const std::int32_t)
+static std::int32_t WindowTrade_Draw(const std::int32_t)
 {
     std::int32_t preview = gTradePreviewCC2E64;
     if (preview >= 0) {
@@ -554,7 +829,7 @@ std::int32_t WindowTrade_Draw(const std::int32_t)
 }
 
 // 原函数：0x004B0F20。
-std::int32_t WindowTrade_DrawPetRow(
+static std::int32_t WindowTrade_DrawPetRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t side,
     const std::int32_t index, const std::uint8_t textLayer, const std::uint8_t graphicLayer,
     const render::GraphicDescriptor16* const descriptor)
@@ -607,7 +882,7 @@ std::int32_t WindowTrade_DrawPetRow(
 
 // TQN01：原4B1260完整524条；低W16坐标/scroll BYTE、滚动值先元素及前一滚动框坐标原序，原callback/格式历史保。
 // 原函数：0x004B1260。
-std::int32_t WindowTrade_HandlePanel(
+static std::int32_t WindowTrade_HandlePanel(
     WindowInstance* const window, const std::int32_t index, const std::int32_t state,
     const std::int32_t* const backgroundImages, std::uint8_t* const tab,
     const std::int32_t scrollElement, std::int32_t* const scrollValue,
@@ -754,7 +1029,7 @@ std::int32_t WindowTrade_HandlePanel(
 }
 
 // 原函数：0x004B1940。
-void WindowTrade_HandleOwnInventory(
+static void WindowTrade_HandleOwnInventory(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const render::GraphicDescriptor16* const descriptor)
@@ -933,7 +1208,7 @@ void WindowTrade_HandleOwnInventory(
 }
 
 // 原函数：0x004B2060。
-void WindowTrade_HandleOwnPets(
+static void WindowTrade_HandleOwnPets(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
@@ -1063,7 +1338,7 @@ void WindowTrade_HandleOwnPets(
 }
 
 // 原函数：0x004B2480。
-std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
@@ -1079,7 +1354,7 @@ std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004B2500。
-void WindowTrade_RefreshOwnPanel(
+static void WindowTrade_RefreshOwnPanel(
     const std::int16_t x, const std::int16_t y,
     const std::int32_t mouseX, const std::int32_t mouseY,
     const std::int32_t state, std::uint8_t* const tab, const std::int32_t scroll,
@@ -1119,7 +1394,7 @@ void WindowTrade_RefreshOwnPanel(
 }
 
 // 原函数：0x004B25D0。
-void WindowTrade_HandleOwnItemDrag(
+static void WindowTrade_HandleOwnItemDrag(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1158,7 +1433,7 @@ void WindowTrade_HandleOwnItemDrag(
 }
 
 // 原函数：0x004B2E00。
-void WindowTrade_HandleOwnPetDrag(
+static void WindowTrade_HandleOwnPetDrag(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1201,19 +1476,19 @@ void WindowTrade_HandleOwnPetDrag(
 }
 
 // 原函数：0x004B2710。
-std::int32_t WindowTrade_StartOwnItemDrag(const std::int32_t index)
+static std::int32_t WindowTrade_StartOwnItemDrag(const std::int32_t index)
 {
     return WindowDrag_Start(6, index, WindowTrade_HandleOwnItemDrag);
 }
 
 // 原函数：0x004B2F50。
-std::int32_t WindowTrade_StartOwnPetDrag(const std::int32_t index)
+static std::int32_t WindowTrade_StartOwnPetDrag(const std::int32_t index)
 {
     return WindowDrag_Start(7, index, WindowTrade_HandleOwnPetDrag);
 }
 
 // 原函数：0x004B2730。
-void WindowTrade_HandleSelectedItem(
+static void WindowTrade_HandleSelectedItem(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const render::GraphicDescriptor16* const descriptor)
@@ -1387,7 +1662,7 @@ void WindowTrade_HandleSelectedItem(
 }
 
 // 原函数：0x004B2F70。
-void WindowTrade_HandleSelectedPet(
+static void WindowTrade_HandleSelectedPet(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
     const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
@@ -1524,7 +1799,7 @@ void WindowTrade_HandleSelectedPet(
 }
 
 // 原函数：0x004B3430。
-std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
@@ -1543,7 +1818,7 @@ std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, const std
 }
 
 // 原函数：0x004B34C0。
-void WindowTrade_RefreshSelectedPanel(
+static void WindowTrade_RefreshSelectedPanel(
     const std::int16_t x, const std::int16_t y,
     const std::int32_t mouseX, const std::int32_t mouseY, const std::int32_t state,
     std::uint8_t* const tab, const std::int32_t scroll,
@@ -1575,7 +1850,7 @@ void WindowTrade_RefreshSelectedPanel(
 }
 
 // 原函数：0x004B3580。
-std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
@@ -1594,7 +1869,7 @@ std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, const s
 }
 
 // 原函数：0x004B3610。
-void WindowTrade_HandleRemoteItem(
+static void WindowTrade_HandleRemoteItem(
     const std::int16_t x, const std::int16_t y, const std::int32_t, const std::int32_t,
     const std::int32_t state, std::uint8_t* const tab, const std::int32_t scroll,
     const std::uint8_t, std::uint32_t*,
@@ -1754,7 +2029,7 @@ void WindowTrade_HandleRemoteItem(
 }
 
 // 原函数：0x004B1900。
-bool WindowTrade_HitTestOwnPetRow(
+static bool WindowTrade_HitTestOwnPetRow(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height)
 {
@@ -1769,7 +2044,7 @@ bool WindowTrade_HitTestOwnPetRow(
 }
 
 // 原函数：0x004B09E0。
-std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std::int32_t state)
 {
     if (gTradeValueD6742C == 2) {
         if ((state & 2) != 0) {
@@ -1787,7 +2062,7 @@ std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std::int32_
 }
 
 // 原函数：0x004B4070。
-std::int32_t WindowTrade_DrawRemotePetSkillRow(
+static std::int32_t WindowTrade_DrawRemotePetSkillRow(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t skill)
 {
@@ -1907,7 +2182,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
 }
 
 // 原函数：0x004B45A0。
-std::int32_t WindowTrade_DrawSelectedPetSkillRow(
+static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     const std::int32_t x, const std::int32_t y, const std::int32_t side,
     const std::int32_t index, const std::int32_t skill)
 {
@@ -1937,7 +2212,7 @@ std::int32_t WindowTrade_DrawSelectedPetSkillRow(
 }
 
 // 原函数：0x004B4680。
-std::int32_t WindowTrade_DrawSelectedPetTooltip(
+static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t index)
 {
@@ -2024,7 +2299,7 @@ std::int32_t WindowTrade_DrawSelectedPetTooltip(
 }
 
 // 原函数：0x004B3B00。
-std::int32_t WindowTrade_DrawOwnPetSkillRow(
+static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
@@ -2140,21 +2415,21 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
 }
 
 // 原函数：0x004AFFE0。
-std::int32_t WindowTrade_ReadSelectedItem(const std::int32_t index)
+static std::int32_t WindowTrade_ReadSelectedItem(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
     return slot < 0 ? -1 : slot;
 }
 
 // 原函数：0x004B00F0。
-std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
+static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
     return slot < 0 ? -1 : slot;
 }
 
 // 原函数：0x004B0A50。
-std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -2217,7 +2492,7 @@ std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004B0CF0。
-std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -2247,7 +2522,7 @@ std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004B0DB0。
-std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -2318,14 +2593,14 @@ login::YobiAction* WindowTrade_ReceiveStart(const char* const name)
 }
 
 // 原函数：0x004E4E60。
-void WindowTrade_RequestTargetList(const std::int32_t index, const char* const name)
+static void WindowTrade_RequestTargetList(const std::int32_t index, const char* const name)
 {
     static_cast<void>(network::Sub_511FF0(platform::gConnectionSocket, index));
     static_cast<void>(WindowTrade_ReceiveStart(name));
 }
 
 // 原函数：0x004E4E80。
-login::YobiAction* WindowTrade_OpenTargetList(const char* const text)
+static login::YobiAction* WindowTrade_OpenTargetList(const char* const text)
 {
     return WindowTradeTarget_ReceiveTargets(text, &WindowTrade_RequestTargetList);
 }
@@ -2365,7 +2640,7 @@ void WindowTrade_CopyDisplayItems(const std::int32_t side, const std::int32_t in
 }
 
 // 原函数：0x004E52B0。
-void WindowTrade_CopyOwnPet(const std::int32_t side)
+static void WindowTrade_CopyOwnPet(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 5; ++index) {
         world::detail::PetRuntimeRecord& source = (*world::detail::BorrowPetRuntimeF633F8Storage())[index];
@@ -2428,7 +2703,7 @@ void WindowTrade_CopyOwnPet(const std::int32_t side)
 }
 
 // 原函数：0x004E5710。
-std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
+static std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
 {
     if (side == 0) {
         gTradeValueCF4688 = 0;
@@ -2441,7 +2716,7 @@ std::int32_t WindowTrade_ResetRemoteItems(const std::int32_t side)
 }
 
 // 原函数：0x004E5770。
-void WindowTrade_BuildRemoteItemDescription(
+static void WindowTrade_BuildRemoteItemDescription(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {
     char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
@@ -2463,7 +2738,7 @@ void WindowTrade_BuildRemoteItemDescription(
 }
 
 // 原函数：0x004E5830。
-std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
+static std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
 {
     char name[256];
     char memo[256];
@@ -2504,7 +2779,7 @@ std::int32_t WindowTrade_ReceiveRemoteItems(const char* const text)
 }
 
 // 原函数：0x004E5A40。
-std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const char* const text)
+static std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const char* const text)
 {
     char* const record = gTradePetsC9C108.data() + index * 0x5FC;
     std::memset(record, 0, 0x5FC);
@@ -2542,7 +2817,7 @@ std::int32_t WindowTrade_ReceiveRemotePet(const std::int32_t index, const char* 
 }
 
 // 原函数：0x004E5CD0。
-std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index, const char* const text)
+static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index, const char* const text)
 {
     if (index < 0 || index >= 5) {
         return index;
@@ -2572,8 +2847,10 @@ std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index, const 
     }
     return 10;
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050E3C0。
 void WindowTrade_ReceiveTargetReply(const std::uintptr_t, const char* const text)
@@ -2720,59 +2997,3 @@ void WindowTrade_ReceiveCloseReply(const std::uintptr_t, const std::int32_t valu
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic572940 {0x3BA88, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572940。
-
-WindowGraphicData gWindowGraphic572958 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572958。
-
-WindowGraphicData gWindowGraphic572970 {0x3BA89, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572970。
-
-WindowGraphicData gWindowGraphic572988 {0x3BA8C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572988。
-
-WindowGraphicData gWindowGraphic5729A0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005729A0。
-
-WindowGraphicData gWindowGraphic572AD8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572AD8。
-
-WindowTextPrototype gWindowText572AF0 { // 原全局：0x00572AF0。
-    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-std::uint32_t gWindowMouseFlagsD678B8 = 0; // 原全局：0x00D678B8。
-
-std::uint32_t gWindowMouseFlagsD678C4 = 0; // 原全局：0x00D678C4。
-
-std::uint32_t gWindowMouseFlagsD678D0 = 0; // 原全局：0x00D678D0。
-
-} // namespace
-
-// 原型：窗口43；原全局：0x0054EBD0。
-WindowPrototype gWindowPrototypeTrade {0, 4, 20, 25, 567, 339, 0x80010101u, 20, gWindowElements572AF8, &WindowTrade_Update, &WindowTrade_Draw, &WindowTrade_Release}; // 43: 54EBD0
-
-WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572AF8。
-    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowTrade_HandleAmountInput},
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &WindowTrade_ButtonPublish},
-    {WindowElementType_Graphic, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &WindowTrade_ButtonConfirm},
-    {WindowElementType_Graphic, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &WindowTrade_ButtonWithdraw},
-    {WindowElementType_EventArea, 376, 136, 106, 85, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678C4}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleSelectedPanel},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678B8}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 297, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleOwnPanel},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678D0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleRemoteSelection},
-    {WindowElementType_Text, 133, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 281, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 317, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572940}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

@@ -3,8 +3,174 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
 // 原函数：0x004B4B00。
-std::int32_t WindowGroupSelect_Update(const std::int32_t value)
+static std::int32_t WindowGroupSelect_Update(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
+
+// 原函数：0x004B4B70。
+static void WindowGroupSelect_Release(); // 释放时仅关闭仍处于群发方式的22。
+
+// 原函数：0x004B4B90。
+static std::int32_t WindowGroupSelect_Draw(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
+
+// 原函数：0x004B4BB0。
+static std::int32_t WindowGroupSelect_HandlePageButtons(std::int32_t index, std::int32_t state); // 前后翻七行，仅hover消费。
+
+// 原函数：0x004B4CA0。
+static std::int32_t WindowGroupSelect_HandleScrollButtons(std::int32_t index, std::int32_t state); // bit400单行滚动，发声后修正位置。
+
+// 原函数：0x004B4DB0。
+static std::int32_t WindowGroupSelect_ClampScroll(); // 顺序修正上下界，保留count<7时负上界。
+
+// 原函数：0x004B4DF0。
+static std::int32_t WindowGroupSelect_DragScroll(std::int32_t unused); // 非负最大值反求并发布滚动位置。
+
+// 原函数：0x004B4E20。
+static void WindowGroupSelect_Refresh(); // 三种标题和七行显隐，不改选择标志。
+
+// 原函数：0x004B5210。
+static std::int32_t WindowGroupSelect_TabCategory(std::int32_t index, std::int32_t state); // 切换三模式后清滚动位置。
+
+// 原函数：0x004B53C0。
+static std::int32_t WindowGroupSelect_ButtonSelectAll(std::int32_t index, std::int32_t state); // 全组选择，普通联系人借原排序索引。
+
+// 原函数：0x004B5550。
+static std::int32_t WindowGroupSelect_SelectRow(std::int32_t index, std::int32_t state); // 七行选择，点击时重读滚动位置。
+
+// 原函数：0x004B5A40。
+static std::int32_t WindowGroupSelect_Scroll(std::int32_t unused, std::int32_t state); // 零wheel仍调用4743B0。
+
+// 原函数：0x004B5630。
+static void WindowGroupSelect_ResetRecipients(); // 清计数/模式及两200项数组，不清初始化标志。
+
+// 原函数：0x004B5660。
+static void WindowGroupSelect_BuildRecipients(std::int32_t mode); // 稀疏名单生产，不按count压紧槽位。
+
+// 原函数：0x004B5760。
+static void WindowGroupSelect_SortRecipients(std::int32_t category); // 原CRT次序排序60或200个S32索引。
+
+// 原函数：0x004B57B0。
+static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* left, const std::int32_t* right);
+
+// 原函数：0x004B4B00。
+static std::int32_t WindowGroupSelect_Update(std::int32_t value);
+
+// 原函数：0x004B4B70。
+static void WindowGroupSelect_Release();
+
+// 原函数：0x004B4B90。
+static std::int32_t WindowGroupSelect_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic572E20 {0x3BA15, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E20。
+
+static WindowGraphicData gWindowGraphic572E38 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E38。
+
+static WindowGraphicData gWindowGraphic572E50 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E50。
+
+static WindowGraphicData gWindowGraphic572E68 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E68。
+
+static WindowGraphicData gWindowGraphic572E80 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E80。
+
+static WindowGraphicData gWindowGraphic572E98 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E98。
+
+static WindowGraphicData gWindowGraphic572EB0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572EB0。
+
+static WindowGraphicData gWindowGraphic572EC8 {0x3BA17, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572EC8。
+
+static WindowGraphicData gWindowGraphic572EF8 {0x3BA16, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00572EF8。
+
+static WindowGraphicData gWindowGraphic572F10 {0x3BA18, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F10。
+
+static WindowGraphicData gWindowGraphic572F28 {0x3BA1E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F28。
+
+static WindowGraphicData gWindowGraphic572F40 {0x3BA21, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F40。
+
+static WindowTextPrototype gWindowText572F70 { // 原全局：0x00572F70。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"人員",
+};
+
+// 原全局：0x00572F58。 49三类副标题，元素原型与刷新同源。
+static WindowTextPrototype gWindowText572F58 { // 原全局：0x00572F58。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"持有名片＆上線的人員",
+};
+
+static WindowTextPrototype gWindowText572F60 { // 原全局：0x00572F60。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"同家族內上線的人員",
+};
+
+static WindowTextPrototype gWindowText572F68 { // 原全局：0x00572F68。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"同家族全部的人員",
+};
+
+// 原全局：0x00572F78。 49三类标题。
+static WindowTextPrototype gWindowText572F78 { // 原全局：0x00572F78。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"交換過名片的人",
+};
+
+static WindowTextPrototype gWindowText572F80 { // 原全局：0x00572F80。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"家族成員",
+};
+
+static WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"家族稱號",
+};
+
+static WindowElementPrototype gWindowElements572F90[37] { // 原全局：0x00572F90。
+    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 239, 88, 11, 11, 1, {.graphic = &gWindowGraphic572E50}, &WindowGroupSelect_HandleScrollButtons},
+    {WindowElementType_Graphic, 239, 275, 11, 11, 1, {.graphic = &gWindowGraphic572E80}, &WindowGroupSelect_HandleScrollButtons},
+    {WindowElementType_Graphic, 239, 99, 10, 14, 1, {.graphic = &gWindowGraphic572E68}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 239, 99, 10, 177, 1, {.graphic = &gWindowGraphicD678E0}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_EventArea, 0, 0, 280, 317, 1, {}, &WindowGroupSelect_Scroll},
+    {WindowElementType_Graphic, 20, 288, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_HandlePageButtons},
+    {WindowElementType_Graphic, 60, 288, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_HandlePageButtons},
+    {WindowElementType_Graphic, 111, 30, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_TabCategory},
+    {WindowElementType_Graphic, 218, 30, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_TabCategory},
+    {WindowElementType_Text, 131, 33, 0, 0, 1, {.text = &gWindowText572F78}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 57, 0, 0, 1, {.text = &gWindowText572F58}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 93, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 122, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 151, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 180, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 209, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 238, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Text, 23, 267, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 214, 55, 19, 19, 1, {.graphic = &gWindowGraphic572F28}, &WindowGroupSelect_ButtonSelectAll},
+    {WindowElementType_Graphic, 214, 91, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 120, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 149, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 178, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 207, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 236, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 214, 265, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
+    {WindowElementType_Graphic, 16, 50, 0, 0, 1, {.graphic = &gWindowGraphic572F10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 86, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 115, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 144, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 173, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 202, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 231, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 260, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572E20}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 10, 25, 0, 0, 1, {.graphic = &gWindowGraphic572EF8}, &WindowElement_NoOp},
+};
+
+// 原型：窗口49；原全局：0x0054EC00。
+WindowPrototype gWindowPrototypeGroupSelect {0, 4, 68, 84, 280, 317, 0x80010101u, 37, gWindowElements572F90, &WindowGroupSelect_Update, &WindowGroupSelect_Draw, &WindowGroupSelect_Release}; // 49: 54EC00
+
+// 窗口函数实现。
+
+// 原函数：0x004B4B00。
+static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
 {
     if (value == -1) {
         if (gLoginWindowRuntime.mailGroupCC1A30.initialize == 0) {
@@ -24,7 +190,7 @@ std::int32_t WindowGroupSelect_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B4B70。
-void WindowGroupSelect_Release()
+static void WindowGroupSelect_Release()
 {
     WindowInstance* const window = gWindowStates[WindowId_MailCompose].window;
     if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
@@ -33,7 +199,7 @@ void WindowGroupSelect_Release()
 }
 
 // 原函数：0x004B4B90。
-std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
+static std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
 {
     static_cast<void>(WindowGroupSelect_DragScroll(value));
     WindowGroupSelect_Refresh();
@@ -42,7 +208,7 @@ std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
 }
 
 // 原函数：0x004B4BB0。
-std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index, const std::int32_t state)
 {
     if (index != 6 && index != 7) {
         return 0;
@@ -69,7 +235,7 @@ std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index, const
 }
 
 // 原函数：0x004B4CA0。
-std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     if (index != 1 && index != 2) {
         return 0;
@@ -109,7 +275,7 @@ std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t index, con
 }
 
 // 原函数：0x004B4DB0。
-std::int32_t WindowGroupSelect_ClampScroll()
+static std::int32_t WindowGroupSelect_ClampScroll()
 {
     std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
     if (position < 0) {
@@ -125,7 +291,7 @@ std::int32_t WindowGroupSelect_ClampScroll()
 }
 
 // 原函数：0x004B4DF0。
-std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
+static std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
 {
     const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
     WindowInstance* const window = gCurrentWindow;
@@ -136,7 +302,7 @@ std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
 }
 
 // 原函数：0x004B4E20。
-void WindowGroupSelect_Refresh()
+static void WindowGroupSelect_Refresh()
 {
     const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
     if (mode != 0 && mode != 1 && mode != 2) {
@@ -172,7 +338,7 @@ void WindowGroupSelect_Refresh()
 }
 
 // 原函数：0x004B5210。
-std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, const std::int32_t state)
 {
     if (index != 8 && index != 9) {
         return 0;
@@ -216,7 +382,7 @@ std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, const std::
 }
 
 // 原函数：0x004B53C0。
-std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t result = 0;
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -262,7 +428,7 @@ std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const s
 }
 
 // 原函数：0x004B5550。
-std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
     const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
@@ -291,7 +457,7 @@ std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004B5A40。
-std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
@@ -306,7 +472,7 @@ std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int32_t sta
 }
 
 // 原函数：0x004B5630。
-void WindowGroupSelect_ResetRecipients()
+static void WindowGroupSelect_ResetRecipients()
 {
     gLoginWindowRuntime.mailGroupCC1A30.count = 0;
     gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
@@ -317,7 +483,7 @@ void WindowGroupSelect_ResetRecipients()
 }
 
 // 原函数：0x004B5660。
-void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
+static void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
 {
     gLoginWindowRuntime.mailGroupCC1A30.count = 0;
     gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
@@ -358,7 +524,7 @@ void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
 }
 
 // 原函数：0x004B5760。
-void WindowGroupSelect_SortRecipients(const std::int32_t category)
+static void WindowGroupSelect_SortRecipients(const std::int32_t category)
 {
     gLoginWindowRuntime.mailGroupSortCategoryCB0600 = category;
     for (std::int32_t index = 0; index < 200; ++index) {
@@ -369,7 +535,7 @@ void WindowGroupSelect_SortRecipients(const std::int32_t category)
 }
 
 // 原函数：0x004B57B0。
-std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* const left, const std::int32_t* const right)
+static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* const left, const std::int32_t* const right)
 {
     const std::int32_t category = gLoginWindowRuntime.mailGroupSortCategoryCB0600;
     const std::int32_t rightIndex = *right;
@@ -417,112 +583,3 @@ std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* const left,
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic572E20 {0x3BA15, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E20。
-
-WindowGraphicData gWindowGraphic572E38 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E38。
-
-WindowGraphicData gWindowGraphic572E50 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E50。
-
-WindowGraphicData gWindowGraphic572E68 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E68。
-
-WindowGraphicData gWindowGraphic572E80 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E80。
-
-WindowGraphicData gWindowGraphic572E98 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572E98。
-
-WindowGraphicData gWindowGraphic572EB0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572EB0。
-
-WindowGraphicData gWindowGraphic572EC8 {0x3BA17, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572EC8。
-
-WindowGraphicData gWindowGraphic572EF8 {0x3BA16, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00572EF8。
-
-WindowGraphicData gWindowGraphic572F10 {0x3BA18, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F10。
-
-WindowGraphicData gWindowGraphic572F28 {0x3BA1E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F28。
-
-WindowGraphicData gWindowGraphic572F40 {0x3BA21, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572F40。
-
-WindowTextPrototype gWindowText572F70 { // 原全局：0x00572F70。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"人員",
-};
-
-} // namespace
-
-// 原型：窗口49；原全局：0x0054EC00。
-WindowPrototype gWindowPrototypeGroupSelect {0, 4, 68, 84, 280, 317, 0x80010101u, 37, gWindowElements572F90, &WindowGroupSelect_Update, &WindowGroupSelect_Draw, &WindowGroupSelect_Release}; // 49: 54EC00
-
-WindowTextPrototype gWindowText572F58 { // 原全局：0x00572F58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"持有名片＆上線的人員",
-};
-
-WindowTextPrototype gWindowText572F60 { // 原全局：0x00572F60。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"同家族內上線的人員",
-};
-
-WindowTextPrototype gWindowText572F68 { // 原全局：0x00572F68。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"同家族全部的人員",
-};
-
-WindowTextPrototype gWindowText572F78 { // 原全局：0x00572F78。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"交換過名片的人",
-};
-
-WindowTextPrototype gWindowText572F80 { // 原全局：0x00572F80。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"家族成員",
-};
-
-WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"家族稱號",
-};
-
-WindowElementPrototype gWindowElements572F90[37] { // 原全局：0x00572F90。
-    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 239, 88, 11, 11, 1, {.graphic = &gWindowGraphic572E50}, &WindowGroupSelect_HandleScrollButtons},
-    {WindowElementType_Graphic, 239, 275, 11, 11, 1, {.graphic = &gWindowGraphic572E80}, &WindowGroupSelect_HandleScrollButtons},
-    {WindowElementType_Graphic, 239, 99, 10, 14, 1, {.graphic = &gWindowGraphic572E68}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 99, 10, 177, 1, {.graphic = &gWindowGraphicD678E0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_EventArea, 0, 0, 280, 317, 1, {}, &WindowGroupSelect_Scroll},
-    {WindowElementType_Graphic, 20, 288, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_HandlePageButtons},
-    {WindowElementType_Graphic, 60, 288, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_HandlePageButtons},
-    {WindowElementType_Graphic, 111, 30, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_TabCategory},
-    {WindowElementType_Graphic, 218, 30, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_TabCategory},
-    {WindowElementType_Text, 131, 33, 0, 0, 1, {.text = &gWindowText572F78}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 57, 0, 0, 1, {.text = &gWindowText572F58}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 93, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 122, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 151, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 180, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 209, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 238, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 267, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 214, 55, 19, 19, 1, {.graphic = &gWindowGraphic572F28}, &WindowGroupSelect_ButtonSelectAll},
-    {WindowElementType_Graphic, 214, 91, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 120, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 149, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 178, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 207, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 236, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 265, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 16, 50, 0, 0, 1, {.graphic = &gWindowGraphic572F10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 86, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 115, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 144, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 173, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 202, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 231, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 260, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572E20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 10, 25, 0, 0, 1, {.graphic = &gWindowGraphic572EF8}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

@@ -2,30 +2,80 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-constexpr wchar_t kQuickDuel556C80[] = L"要求進行對戰。"; // 原常量参考：0x00556C80。
+// 回调与内部函数前置声明。
 
-constexpr wchar_t kQuickWatch556C90[] = L"要求進行觀戰。"; // 原常量参考：0x00556C90。
+// 原函数：0x0046FBD0。
+static std::int32_t WindowShortcutBar_ButtonCollapse(std::int32_t unused, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
 
-constexpr wchar_t kQuickTeam556CA0[] = L"要求加入冒險隊伍。"; // 原常量参考：0x00556CA0。
+// 原函数：0x0046FC10。
+static std::int32_t WindowShortcutBar_ButtonExpand(std::int32_t unused, std::int32_t state); // 快捷栏5点击展开到4。
 
-constexpr wchar_t kQuickCard556CB4[] = L"要求交換名片。"; // 原常量参考：0x00556CB4。
+// 原函数：0x0046FC60。
+static std::int32_t WindowShortcutBar_HandleButtons(std::int32_t index, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
 
-constexpr wchar_t kQuickTrade556CD8[] = L"要求進行交易。"; // 原常量参考：0x00556CD8。
+// 主原型中的真实回调依赖；本声明只约束窗口调用侧，不替代各本体取证。
+// 原函数：0x0046FBA0。
+static std::int32_t WindowShortcutBar_Update(std::int32_t value);
 
-constexpr wchar_t kQuickEmote556CE8[] = L"打開情緒動作視窗。"; // 原常量参考：0x00556CE8。
+// 控件载荷、窗口状态、组件表与原型。
 
-constexpr wchar_t kQuickMap58625C[] = L"打開小地圖視窗。"; // 原常量参考：0x0058625C。
+static WindowGraphicData gWindowGraphic55EC58 {0x18229, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC58。
 
-constexpr wchar_t kQuickGuild586284[] = L"邀請對方加入自己的家族。"; // 原常量参考：0x00586284。
+static WindowGraphicData gWindowGraphic55EC70 {0x3B90E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC70。
 
-constexpr wchar_t kQuickStall5862A0[] = L"進行擺攤"; // 原常量参考：0x005862A0。
-} // namespace
+static WindowGraphicData gWindowGraphic55EC88 {0x3B911, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC88。
 
+static WindowGraphicData gWindowGraphic55ECA0 {0x3B914, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECA0。
+
+static WindowGraphicData gWindowGraphic55ECB8 {0x3B917, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECB8。
+
+static WindowGraphicData gWindowGraphic55ECD0 {0x3B91A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECD0。
+
+static WindowGraphicData gWindowGraphic55ECE8 {0x3B91D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECE8。
+
+static WindowGraphicData gWindowGraphic55ED00 {0x3B920, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED00。
+
+static WindowGraphicData gWindowGraphic55ED18 {0x3B923, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED18。
+
+static WindowGraphicData gWindowGraphic55ED30 {0x18223, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED30。
+
+static WindowGraphicData gWindowGraphic55ED48 {0x3B90D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED48。
+
+static std::uint32_t gWindowMouseFlagsD67620 = 0; // 原全局：0x00D67620。
+
+WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeShortcutBar; // 原全局：0x0054E240。
+
+// 原57C130指向的元素数组；实际初值和回调绑定位于windows/各窗口文件；共享载荷与索引表位于WindowPrototypes.cpp，本头声明供窗口调用侧使用。
+static WindowElementPrototype gWindowElements55ED60[11] { // 原全局：0x0055ED60。
+    {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonCollapse},
+};
+
+static WindowElementPrototype gWindowElements55EEC0[2] { // 原全局：0x0055EEC0。
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonExpand},
+};
+
+// 原型：窗口4；原全局：0x0054E240。
+WindowPrototype gWindowPrototypeShortcutBar {0, 5, 437, 0, 210, 28, 0x80000080u, 11, gWindowElements55ED60, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 4: 54E240
+
+// 原型：窗口5；原全局：0x0054E270。
+WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80000080u, 2, gWindowElements55EEC0, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 5: 54E270
+
+// 窗口函数实现。
 
 // 原函数：0x0046FBA0。
-std::int32_t WindowShortcutBar_Update(const std::int32_t)
+static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 {
     if (world::gCurrentSceneType == 10) {
         gCurrentWindow->state |= 0x8000u;
@@ -34,7 +84,7 @@ std::int32_t WindowShortcutBar_Update(const std::int32_t)
 }
 
 // 原函数：0x0046FBD0。
-std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
         return 0;
@@ -47,7 +97,7 @@ std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int
 }
 
 // 原函数：0x0046FC10。
-std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
     if ((state & 2) == 0) {
         return 0;
@@ -60,14 +110,14 @@ std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32
 }
 
 // 原函数：0x0046FC60。
-std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = hover ? 1 : 0;
     if (index == 8) {
         if (hover) {
-            gHoverTextD68AE8 = kQuickStall5862A0;
+            gHoverTextD68AE8 = L"進行擺攤" /* 原常量参考：0x005862A0。 */;
             graphic->imageNo = 0x18224;
         } else {
             graphic->imageNo = 0x18225;
@@ -108,8 +158,8 @@ std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std
     }
     if (index < 5) {
         const wchar_t* const hints[5] {
-            kQuickDuel556C80, kQuickWatch556C90, kQuickTeam556CA0,
-            kQuickCard556CB4, kQuickTrade556CD8,
+            L"要求進行對戰。" /* 原常量参考：0x00556C80。 */, L"要求進行觀戰。" /* 原常量参考：0x00556C90。 */, L"要求加入冒險隊伍。" /* 原常量参考：0x00556CA0。 */,
+            L"要求交換名片。" /* 原常量参考：0x00556CB4。 */, L"要求進行交易。" /* 原常量参考：0x00556CD8。 */,
         };
         void (*const requests[5])() {
             &world::detail::Sub_470050, &world::detail::Sub_470150,
@@ -134,7 +184,7 @@ std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std
             return consumed;
         }
         if (hover) {
-            gHoverTextD68AE8 = kQuickGuild586284;
+            gHoverTextD68AE8 = L"邀請對方加入自己的家族。" /* 原常量参考：0x00586284。 */;
         }
         if ((state & 2) != 0) {
             world::detail::Sub_470670();
@@ -144,12 +194,12 @@ std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std
     }
     if (index == 6) {
         if (hover) {
-            gHoverTextD68AE8 = kQuickEmote556CE8;
+            gHoverTextD68AE8 = L"打開情緒動作視窗。" /* 原常量参考：0x00556CE8。 */;
         }
         return WindowStatusBar_ButtonEmote(6, state);
     }
     if (hover) {
-        gHoverTextD68AE8 = kQuickMap58625C;
+        gHoverTextD68AE8 = L"打開小地圖視窗。" /* 原常量参考：0x0058625C。 */;
     }
     return WindowStatusBar_ButtonMiniMap(7, state);
 }
@@ -157,63 +207,3 @@ std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-
-WindowGraphicData gWindowGraphic55EC58 {0x18229, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC58。
-
-WindowGraphicData gWindowGraphic55EC70 {0x3B90E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC70。
-
-WindowGraphicData gWindowGraphic55EC88 {0x3B911, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC88。
-
-WindowGraphicData gWindowGraphic55ECA0 {0x3B914, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECA0。
-
-WindowGraphicData gWindowGraphic55ECB8 {0x3B917, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECB8。
-
-WindowGraphicData gWindowGraphic55ECD0 {0x3B91A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECD0。
-
-WindowGraphicData gWindowGraphic55ECE8 {0x3B91D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECE8。
-
-WindowGraphicData gWindowGraphic55ED00 {0x3B920, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED00。
-
-WindowGraphicData gWindowGraphic55ED18 {0x3B923, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED18。
-
-WindowGraphicData gWindowGraphic55ED30 {0x18223, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED30。
-
-WindowGraphicData gWindowGraphic55ED48 {0x3B90D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED48。
-
-std::uint32_t gWindowMouseFlagsD67620 = 0; // 原全局：0x00D67620。
-
-} // namespace
-
-// 原型：窗口4；原全局：0x0054E240。
-WindowPrototype gWindowPrototypeShortcutBar {0, 5, 437, 0, 210, 28, 0x80000080u, 11, gWindowElements55ED60, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 4: 54E240
-
-// 原型：窗口5；原全局：0x0054E270。
-WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80000080u, 2, gWindowElements55EEC0, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 5: 54E270
-
-WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeShortcutBar; // 原全局：0x0054E240。
-
-WindowElementPrototype gWindowElements55ED60[11] { // 原全局：0x0055ED60。
-    {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonCollapse},
-};
-
-WindowElementPrototype gWindowElements55EEC0[2] { // 原全局：0x0055EEC0。
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonExpand},
-};
-
-} // namespace cg::ui::detail

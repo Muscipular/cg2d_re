@@ -3,6 +3,97 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004CAF60。
+// 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
+static std::int32_t WindowProfileView_Update(std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
+
+// 原函数：0x004CAFA0。
+static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
+
+// 原函数：0x004CB530。
+static void WindowProfileView_Release(); // 先清对话类型，再标记关联窗口63。
+
+// 原函数：0x004CB2F0。
+static std::int32_t WindowProfileView_ButtonMail(std::int32_t index, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic5795A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005795A8。
+
+static WindowGraphicData gWindowGraphic579620 {0x3C10F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579620。
+
+static WindowGraphicData gWindowGraphic579638 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579638。
+
+static WindowGraphicData gWindowGraphic579650 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00579650。
+
+static WindowGraphicData gWindowGraphic579698 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579698。
+
+static WindowGraphicData gWindowGraphic5796B0 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005796B0。
+
+static WindowTextPrototype gWindowText5796C8 { // 原全局：0x005796C8。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"姓名", // 原常量参考：0x00585D4C。
+};
+
+static WindowTextPrototype gWindowText5796D0 { // 原全局：0x005796D0。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00585D44。
+};
+
+static WindowTextPrototype gWindowText5796D8 { // 原全局：0x005796D8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x00585D38。
+};
+
+static WindowTextPrototype gWindowText5796E0 { // 原全局：0x005796E0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x00585D28。
+};
+
+static WindowTextPrototype gWindowText5796E8 { // 原全局：0x005796E8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00585D20。
+};
+
+static WindowTextPrototype gWindowText5796F8 { // 原全局：0x005796F8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"出售", // 原常量参考：0x00585D10。
+};
+
+static WindowTextPrototype gWindowText579700 { // 原全局：0x00579700。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"購買", // 原常量参考：0x00585D08。
+};
+
+static WindowTextPrototype gWindowText579708 { // 原全局：0x00579708。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介紹", // 原常量参考：0x00585D00。
+};
+
+static WindowElementPrototype gWindowElements579710[22] { // 原全局：0x00579710。
+    {WindowElementType_Graphic, 257, 32, 40, 30, 1, {.graphic = &gWindowGraphic5796B0}, &WindowProfileView_ButtonMail},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText5796C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText5796D0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText5796D8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText5796E0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText5796E8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText5796F8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText579700}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5795A8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5795A8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic579620}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic579638}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic579650}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 307, 0, 30, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口62；原全局：0x0054EDF0。
+WindowPrototype gWindowPrototypeProfileView {0, 4, 5, 20, 317, 250, 0x80000080u, 22, gWindowElements579710, &WindowProfileView_Update, &WindowRuntime_DrawDefault, &WindowProfileView_Release}; // 62: 54EDF0
+
+// 窗口函数实现。
+
 // 原函数：0x004CB430。
 std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 {
@@ -16,7 +107,7 @@ std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 }
 
 // 原函数：0x004CAFA0。
-std::uint32_t WindowProfileView_Refresh()
+static std::uint32_t WindowProfileView_Refresh()
 {
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::ReadViewedProfile105ECE0();
@@ -50,7 +141,7 @@ std::uint32_t WindowProfileView_Refresh()
 
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
-std::int32_t WindowProfileView_Update(const std::int32_t)
+static std::int32_t WindowProfileView_Update(const std::int32_t)
 {
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -70,14 +161,14 @@ WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
 }
 
 // 原函数：0x004CB530。
-void WindowProfileView_Release()
+static void WindowProfileView_Release()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));
 }
 
 // 原函数：0x004CB2F0。
-std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::int32_t state)
 {
     if (index != 0) {
         return 0;
@@ -112,83 +203,3 @@ std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::i
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5795A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005795A8。
-
-WindowGraphicData gWindowGraphic579620 {0x3C10F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579620。
-
-WindowGraphicData gWindowGraphic579638 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579638。
-
-WindowGraphicData gWindowGraphic579650 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00579650。
-
-WindowGraphicData gWindowGraphic579698 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579698。
-
-WindowGraphicData gWindowGraphic5796B0 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005796B0。
-
-WindowTextPrototype gWindowText5796C8 { // 原全局：0x005796C8。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"姓名", // 原常量参考：0x00585D4C。
-};
-
-WindowTextPrototype gWindowText5796D0 { // 原全局：0x005796D0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00585D44。
-};
-
-WindowTextPrototype gWindowText5796D8 { // 原全局：0x005796D8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x00585D38。
-};
-
-WindowTextPrototype gWindowText5796E0 { // 原全局：0x005796E0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x00585D28。
-};
-
-WindowTextPrototype gWindowText5796E8 { // 原全局：0x005796E8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00585D20。
-};
-
-WindowTextPrototype gWindowText5796F8 { // 原全局：0x005796F8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"出售", // 原常量参考：0x00585D10。
-};
-
-WindowTextPrototype gWindowText579700 { // 原全局：0x00579700。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"購買", // 原常量参考：0x00585D08。
-};
-
-WindowTextPrototype gWindowText579708 { // 原全局：0x00579708。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自我介紹", // 原常量参考：0x00585D00。
-};
-
-} // namespace
-
-// 原型：窗口62；原全局：0x0054EDF0。
-WindowPrototype gWindowPrototypeProfileView {0, 4, 5, 20, 317, 250, 0x80000080u, 22, gWindowElements579710, &WindowProfileView_Update, &WindowRuntime_DrawDefault, &WindowProfileView_Release}; // 62: 54EDF0
-
-WindowElementPrototype gWindowElements579710[22] { // 原全局：0x00579710。
-    {WindowElementType_Graphic, 257, 32, 40, 30, 1, {.graphic = &gWindowGraphic5796B0}, &WindowProfileView_ButtonMail},
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText5796C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText5796D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText5796D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText5796E0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText5796E8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText5796F8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText579700}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText579708}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5795A8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5795A8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic579698}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic579620}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic579638}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic579650}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 307, 0, 30, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

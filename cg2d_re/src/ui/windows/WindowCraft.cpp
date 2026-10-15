@@ -2,155 +2,317 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x00484D60。
+static std::int32_t WindowCraft_HandleMaterialTooltip(std::int32_t index, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
+
+// 原函数：0x0047D4B0。
+static std::int32_t WindowCraft_HasRecipeCrystalLevel(); // 晶石等级读取后比较当前配方等级。
+
+// 原函数：0x0047D4F0。
+static std::int32_t WindowCraft_HasSelectedCrystalLevel(); // 单选物品不加8，晶石读取后重新取得选择索引。
+
+// 原函数：0x0047D530。
+static std::int32_t WindowCraft_HasMaterialCrystalLevel(); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
+
+// 原函数：0x0047D5B0。
+static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(); // 首材料slot+8等级在晶石读取前快照。
+
+// 原函数：0x0047E1B0。
+static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* window); // 制造等待模式1，按配方等级生成同源截止。
+
+// 原函数：0x0047EF00。
+static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* window); // 单选等待模式4，刻印排除宠物辅助。
+
+// 原函数：0x004801B0。
+static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* window); // 打包等待模式13，仍读取绝对单选槽等级。
+
+// 原函数：0x00480600。
+static void WindowCraft_WaitDecoration(WindowInstance* window); // 装饰等待固定8000ms，原被AL覆盖的返回值由caller弃用。
+
+// 原函数：0x00480C20。
+static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
+
+// 原函数：0x00483EB0。
+static std::int32_t WindowCraft_HandleMaterialSlot(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
+
+// 原函数：0x0047DF50。
+static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
+
+// 原函数：0x0047FAE0。
+static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* window); // 装饰模式6，固定魔力100。
+
+// 原函数：0x0047FD00。
+static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* window); // 宠物装备装饰模式15，独立标题。
+
+// 原函数：0x0047FF20。
+static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* window); // 模式12材料类别文本与完整六材料交互。
+
+// 原函数：0x00480A00。
+static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* window); // 精炼模式9，采样同源计时并按发送模式配置动作。
+
+// 原函数：0x00483E30。
+static void WindowCraft_ReleaseMaterialSlot(
+    std::int32_t destination, std::int32_t source, std::int32_t material); // 先释放再发布材料槽/占用。
+
+// 原函数：0x004880D0。
+static std::int32_t WindowCraft_ReadRequiredSkillLevel(std::int32_t skillId, std::int32_t extraLevel); // 完整快照后查技能等级，附加值只读低U8。
+
+// 原函数：0x00488160。
+static std::int32_t WindowCraft_ReadMaxMaterialLevel(); // 前三材料占用等级与0的最大值。
+
+// 原函数：0x00488180。
+static std::int32_t WindowCraft_ReadFirstMaterialId(); // 六槽中首个材料类别0/1/2对应的itemId。
+
+// 原函数：0x004881D0。
+static void WindowCraft_ValidatePackingMaterials(std::int32_t destination, std::int32_t source); // 模式12完整材料校验、清理与发布。
+
+// 原函数：0x0047DE00。
+static void WindowCraft_HandleMaterialDrag(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // 材料/单选拖动与释放。
+
+// 原函数：0x0047DF30。
+static std::int32_t WindowCraft_StartMaterialDrag(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
+
+// 原函数：0x00482270。
+static std::int32_t WindowCraft_ButtonExecute(std::int32_t index, std::int32_t state); // 执行资格、五等待及刻印直接发送。
+
+// 原函数：0x00482FA0。
+static std::int32_t WindowCraft_ButtonContinue(std::int32_t index, std::int32_t state); // 续作，初始化后独立重读模式5。
+
+// 原函数：0x004830B0。
+static std::int32_t WindowCraft_ButtonClose(std::int32_t index, std::int32_t state); // 底部关闭，点击仍返回0。
+
+// 原函数：0x00483150。
+static std::int32_t WindowCraft_HandleInventory(std::int32_t index, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
+
+// 原函数：0x00484FB0。
+static std::int32_t WindowCraft_DrawResultImage(std::int32_t index, std::int32_t unusedState); // 结果图，负图号不绘制。
+
+// 原函数：0x00485030。
+static std::int32_t WindowCraft_HandleEngravingInput(std::int32_t index, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
+
+// 原函数：0x00485160。
+static std::int32_t WindowCraft_ButtonCloseIcon(std::int32_t index, std::int32_t state); // 右上关闭，点击返回1。
+
+// 原函数：0x00485200。
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(std::int32_t index, std::int32_t unusedState); // 非法刻印字符覆盖提示。
+
+// 原函数：0x00485350。
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(std::int32_t index, std::int32_t unusedState); // 空白刻印覆盖提示。
+
+// 原函数：0x004847C0。
+static std::int32_t WindowCraft_HandleSingleMaterial(std::int32_t index, std::int32_t state); // 单选投放/校验/拖动与绘制。
+
+// 原函数：0x0047EC00。
+static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
+
+// 原函数：0x0047E5E0。
+static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* window); // 制造结果完整窗口11展示。
+
+// 原函数：0x0047EBE0。
+static WindowAnimationData* WindowCraft_RefreshRecipeResult(); // 仅已有窗口11才更新，不自动创建。
+
+// 原函数：0x00484E90。
+static std::int32_t WindowCraft_HandleItemTooltip(std::int32_t index, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
+
+// 原函数：0x0047F3D0。
+static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
+
+// 原函数：0x0047FAC0。
+static WindowAnimationData* WindowCraft_RefreshItemWorkResult(); // 仅已有窗口11才展示物品结果。
+
+// 原函数：0x0047DC20。
+static std::int32_t WindowCraft_ReleaseMaterials(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
+
+// 原函数：0x00481010。
+static void WindowCraft_Release();
+
+// 原函数：0x004810A0。
+static std::int32_t WindowCraft_Update(std::int32_t value);
+
+// 原函数：0x00482000。
+static std::int32_t WindowCraft_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
 std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。
 
 std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。
 
-std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
+// 原全局：0x00D67B00。 原数值状态，47D490清零；非地址。
+static std::int32_t gValueD67B00 = 0; // 原全局：0x00D67B00。
 
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
 
-std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
+static std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
 
 std::array<std::int32_t, 6> gSelectionCountsD66E0C {}; // 原全局：0x00D66E0C。
 
 std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {}; // 原全局：0x00CF3FF4。
 
-std::int32_t gSelectedItemD460C0 = 0; // 原全局：0x00D460C0。
+static std::int32_t gSelectedItemD460C0 = 0; // 原全局：0x00D460C0。
 
-std::int32_t gSelectedImageCC3ED8 = 0; // 原全局：0x00CC3ED8。
+static std::int32_t gSelectedImageCC3ED8 = 0; // 原全局：0x00CC3ED8。
 
-std::int32_t gSelectedCountCC483C = 0; // 原全局：0x00CC483C。
+static std::int32_t gSelectedCountCC483C = 0; // 原全局：0x00CC483C。
 
-std::uint8_t gSelectionModeD2D650 = 0; // 原全局：0x00D2D650。
+static std::uint8_t gSelectionModeD2D650 = 0; // 原全局：0x00D2D650。
 
-std::array<std::uint8_t, 28> gItemMarksD67290 {}; // 原全局：0x00D67290。
+static std::array<std::uint8_t, 28> gItemMarksD67290 {}; // 原全局：0x00D67290。
 
 std::array<std::uint8_t, 20> gItemMarksD68A90 {}; // 原全局：0x00D68A90。
 
 static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。 483150唯一读写，区别于材料/单选悬停槽。
-namespace {
 
-std::int32_t gCraftRecipeIdD2E440 = 0; // 原全局：0x00D2E440。 主更新重定位配方使用的原id快照。
+static std::int32_t gCraftRecipeIdD2E440 = 0; // 原全局：0x00D2E440。 主更新重定位配方使用的原id快照。
 
-std::uint32_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 制作等待阶段的同源U32截止值。
+static std::uint32_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 制作等待阶段的同源U32截止值。
 
-std::int32_t gCraftResultCC46D8 = 0; // 原全局：0x00CC46D8。
+static std::int32_t gCraftResultCC46D8 = 0; // 原全局：0x00CC46D8。
 
-std::int32_t gCraftExperienceCC3204 = 0; // 原全局：0x00CC3204。
+static std::int32_t gCraftExperienceCC3204 = 0; // 原全局：0x00CC3204。
 
-std::int32_t gCraftValueCC4840 = 0; // 原全局：0x00CC4840。
+static std::int32_t gCraftValueCC4840 = 0; // 原全局：0x00CC4840。
 
-std::int32_t gCraftLevelUpCF4974 = 0; // 原全局：0x00CF4974。
+static std::int32_t gCraftLevelUpCF4974 = 0; // 原全局：0x00CF4974。
 
-std::int32_t gCraftEnduranceD2F328 = 0; // 原全局：0x00D2F328。
+static std::int32_t gCraftEnduranceD2F328 = 0; // 原全局：0x00D2F328。
 
-std::int32_t gCraftDexterityCA0448 = 0; // 原全局：0x00CA0448。
+static std::int32_t gCraftDexterityCA0448 = 0; // 原全局：0x00CA0448。
 
-std::int32_t gCraftIntelligenceCB0F84 = 0; // 原全局：0x00CB0F84。
+static std::int32_t gCraftIntelligenceCB0F84 = 0; // 原全局：0x00CB0F84。
 
-std::int32_t gCraftInjuryD2EA78 = 0; // 原全局：0x00D2EA78。
+static std::int32_t gCraftInjuryD2EA78 = 0; // 原全局：0x00D2EA78。
 
-std::int32_t gCraftResultImageCF4B60 = 0; // 原全局：0x00CF4B60。
+static std::int32_t gCraftResultImageCF4B60 = 0; // 原全局：0x00CF4B60。
 
-std::int32_t gCraftDisplayImageCB2204 = 0; // 原全局：0x00CB2204。
+static std::int32_t gCraftDisplayImageCB2204 = 0; // 原全局：0x00CB2204。
 
-std::wstring gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
+static std::wstring gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
 
-std::wstring gCraftResultSuffixD672B4; // 原全局：0x00D672B4。
+static std::wstring gCraftResultSuffixD672B4; // 原全局：0x00D672B4。
 
 // 只承接已证NUL文本合同；原固定容量未证，不猜数组上界或保留邻区。
-std::wstring gCraftResultDetailsD2E92C; // 原全局：0x00D2E92C。
+static std::wstring gCraftResultDetailsD2E92C; // 原全局：0x00D2E92C。
 
-std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {}; // 原全局：0x00CB0A8C。
+static std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {}; // 原全局：0x00CB0A8C。
 
-std::int32_t gMaterialHintPageCF4FD8 = 0; // 原全局：0x00CF4FD8。
+static std::int32_t gMaterialHintPageCF4FD8 = 0; // 原全局：0x00CF4FD8。
 
-std::int32_t gMaterialHoveredItemD67424 = 0; // 原全局：0x00D67424。
+static std::int32_t gMaterialHoveredItemD67424 = 0; // 原全局：0x00D67424。
 
 // 原57D7F8：单选加工输入原型，只借用Input拥有的D2DE70。
-WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
+static WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
     {{&input::gInputContextD2DE70}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
 };
 
-constexpr wchar_t kCraftSuccess586638[] = L"　製造成功了。"; // 原常量参考：0x00586638。
+static std::int32_t gItemWorkResultCB05FC = 0; // 原全局：0x00CB05FC。
 
-constexpr wchar_t kCraftFailure586628[] = L"　製造失敗了。"; // 原常量参考：0x00586628。
+static std::int32_t gItemWorkExperienceC8A950 = 0; // 原全局：0x00C8A950。
 
-constexpr wchar_t kCraftInjury5865DC[] = L"受傷了！"; // 原常量参考：0x005865DC。
+static std::int32_t gItemWorkValueD2E2AC = 0; // 原全局：0x00D2E2AC。
 
-constexpr wchar_t kCraftSuccess589FB8[] = L"的合成成功了。"; // 原常量参考：0x00589FB8。
+static std::int32_t gItemWorkLevelUpCB03D8 = 0; // 原全局：0x00CB03D8。
 
-constexpr wchar_t kCraftFailure589FA8[] = L"的合成失敗了。"; // 原常量参考：0x00589FA8。
+static std::int32_t gItemWorkEnduranceCF46B4 = 0; // 原全局：0x00CF46B4。
 
-constexpr wchar_t kCraftInjury589CD4[] = LR"(受傷了！
-)"; // 原常量参考：0x00589CD4。
+static std::int32_t gItemWorkDexterityCB0A14 = 0; // 原全局：0x00CB0A14。
 
-constexpr wchar_t kCraftLostItem589F9C[] = L"{} 失去了！"; // 原常量参考：0x00589F9C。
+static std::int32_t gItemWorkIntelligenceD30418 = 0; // 原全局：0x00D30418。
 
-std::int32_t gItemWorkResultCB05FC = 0; // 原全局：0x00CB05FC。
+static std::int32_t gItemWorkInjuryD2E2A8 = 0; // 原全局：0x00D2E2A8。
 
-std::int32_t gItemWorkExperienceC8A950 = 0; // 原全局：0x00C8A950。
+static std::int32_t gItemWorkSkillIdD67CF0 = 0; // 原全局：0x00D67CF0。
 
-std::int32_t gItemWorkValueD2E2AC = 0; // 原全局：0x00D2E2AC。
+static std::wstring gItemWorkSuffixD2DADC; // 原全局：0x00D2DADC。
 
-std::int32_t gItemWorkLevelUpCB03D8 = 0; // 原全局：0x00CB03D8。
+static std::wstring gItemWorkDetailsD2DB00; // 原全局：0x00D2DB00。 独立NUL文本合同，与制造详情不共用。
 
-std::int32_t gItemWorkEnduranceCF46B4 = 0; // 原全局：0x00CF46B4。
+static std::int32_t gMaterialSingleHoverCB0AA4 = 0; // 原全局：0x00CB0AA4。
 
-std::int32_t gItemWorkDexterityCB0A14 = 0; // 原全局：0x00CB0A14。
-
-std::int32_t gItemWorkIntelligenceD30418 = 0; // 原全局：0x00D30418。
-
-std::int32_t gItemWorkInjuryD2E2A8 = 0; // 原全局：0x00D2E2A8。
-
-std::int32_t gItemWorkSkillIdD67CF0 = 0; // 原全局：0x00D67CF0。
-
-std::wstring gItemWorkSuffixD2DADC; // 原全局：0x00D2DADC。
-
-std::wstring gItemWorkDetailsD2DB00; // 原全局：0x00D2DB00。 独立NUL文本合同，与制造详情不共用。
-
-std::int32_t gMaterialSingleHoverCB0AA4 = 0; // 原全局：0x00CB0AA4。
-
-constexpr wchar_t kItemWorkEngrave589D08[] = L"的刻印"; // 原常量参考：0x00589D08。
-
-constexpr wchar_t kItemWorkIdentify589D00[] = L"的鑑定"; // 原常量参考：0x00589D00。
-
-constexpr wchar_t kItemWorkRepair589CF8[] = L"的修理"; // 原常量参考：0x00589CF8。
-
-constexpr wchar_t kItemWorkSuccess589CEC[] = L"成功了。"; // 原常量参考：0x00589CEC。
-
-constexpr wchar_t kItemWorkFailure589CE0[] = L"失敗了。"; // 原常量参考：0x00589CE0。
-
-constexpr wchar_t kItemWorkSuccess586774[] = L"　刻印上去了！"; // 原常量参考：0x00586774。
-
-constexpr wchar_t kItemWorkFailure586764[] = L"　刻印失敗了。"; // 原常量参考：0x00586764。
-
-constexpr wchar_t kItemWorkSuccess586754[] = L"精煉成功了！"; // 原常量参考：0x00586754。
-
-constexpr wchar_t kItemWorkFailure586744[] = L"精煉失敗了！"; // 原常量参考：0x00586744。
-
-constexpr wchar_t kItemWorkSuccess586730[] = L"　的鑑定成功了！"; // 原常量参考：0x00586730。
-
-constexpr wchar_t kItemWorkFailure58671C[] = L"　的鑑定失敗了。"; // 原常量参考：0x0058671C。
-
-constexpr wchar_t kItemWorkSuccess586708[] = L"　的修理成功了！"; // 原常量参考：0x00586708。
-
-constexpr wchar_t kItemWorkFailure5866F4[] = L"　的修理失敗了。"; // 原常量参考：0x005866F4。
-
-constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{ // 原常量参考：0x0057D7D0。
+static constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{ // 原常量参考：0x0057D7D0。
     {30, -45, 0}, {-30, -45, 7}, {-50, -20, 6},
     {-35, 22, 4}, {35, 22, 3}, {50, -20, 2},
 }};
-} // namespace
 
+static WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561FE0。
+
+static WindowGraphicData gWindowGraphic561FF8 {0x3BA38, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561FF8。
+
+static WindowGraphicData gWindowGraphic562010 {0x3BA3A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562010。
+
+static WindowGraphicData gWindowGraphic562028 {0x3BA3B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562028。
+
+static WindowGraphicData gWindowGraphic562040 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562040。
+
+static WindowGraphicData gWindowGraphic562058 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562058。
+
+static WindowGraphicData gWindowGraphic562070 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562070。
+
+static WindowGraphicData gWindowGraphic562088 {0x3BA3C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562088。
+
+static WindowGraphicData gWindowGraphic5620A0 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620A0。
+
+static WindowGraphicData gWindowGraphic5620B8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620B8。
+
+static WindowTextPrototype gWindowText5620D0 { // 原全局：0x005620D0。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？　　000", // 原常量参考：0x00586078。
+};
+
+static std::int32_t gWindowAnimationImage5620D8 = 0x1AF16; // 原全局：0x005620D8。
+
+static std::int32_t gWindowAnimationImage5620DC = 0x1AF16; // 原全局：0x005620DC。
+
+static WindowElementPrototype gWindowElements5620E0[31] { // 原全局：0x005620E0。
+    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowCraft_DrawInvalidEngravingNotice},
+    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowCraft_DrawEmptyEngravingNotice},
+    {WindowElementType_Graphic, 543, 8, 11, 11, 1, {.graphic = &gWindowGraphic561FE0}, &WindowCraft_ButtonCloseIcon},
+    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620D8}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 20, 57, 150, 12, 1, {.unusedValue = 0}, &WindowCraft_HandleEngravingInput},
+    {WindowElementType_Input, 20, 53, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 190, 54, 49, 17, 1, {.graphic = &gWindowGraphic5620B8}, &WindowCraft_ButtonExecute},
+    {WindowElementType_Text, 20, 29, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 43, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 57, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 71, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 85, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 20, 29, 0, 0, 1, {.graphic = &gWindowGraphic562010}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 190, 75, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_EventArea, 190, 125, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_EventArea, 190, 175, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_EventArea, 243, 75, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_EventArea, 243, 125, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_EventArea, 243, 175, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
+    {WindowElementType_Graphic, 231, 175, 48, 48, 1, {.graphic = &gWindowGraphic5620A0}, &WindowCraft_HandleSingleMaterial},
+    {WindowElementType_Graphic, 190, 27, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &WindowCraft_DrawResultImage},
+    {WindowElementType_Graphic, 231, 45, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &WindowCraft_DrawResultImage},
+    {WindowElementType_Graphic, 188, 73, 0, 0, 1, {.graphic = &gWindowGraphic562028}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562040}, &WindowCraft_ButtonExecute},
+    {WindowElementType_Graphic, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562058}, &WindowCraft_ButtonContinue},
+    {WindowElementType_Graphic, 126, 209, 49, 17, 1, {.graphic = &gWindowGraphic562070}, &WindowCraft_ButtonClose},
+    {WindowElementType_EventArea, 307, 28, 248, 204, 1, {.unusedValue = 0}, &WindowCraft_HandleInventory},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561FF8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 566, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口11；原全局：0x0054E450。
+WindowPrototype gWindowPrototypeCraft {0, 4, 37, 102, 563, 239, 0x80010101u, 31, gWindowElements5620E0, &WindowCraft_Update, &WindowCraft_Draw, &WindowCraft_Release}; // 11: 54E450
+
+// 窗口函数实现。
 
 std::int32_t WindowCraft_ReadItemWorkResult() noexcept
 {
@@ -235,7 +397,7 @@ std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
 }
 
 // 原函数：0x0047DC20。
-std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
+static std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
 {
     auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     if (index < 6) {
@@ -341,58 +503,9 @@ std::int32_t WindowCraft_ReadItemSelection()
 {
     return gValueD67B00;
 }
-namespace {
-
-
-constexpr wchar_t kCraftDecorate586784[] = L"裝飾"; // 原常量参考：0x00586784。
-
-constexpr wchar_t kCraftPetDecorate5867AC[] = L"裝飾寵物裝備"; // 原常量参考：0x005867AC。
-
-constexpr wchar_t kCraftMagicCost58678C[] = L"                     魔力{:3}"; // 原常量参考：0x0058678C。
-
-constexpr wchar_t kCraftExecute5868D8[] = L"執行。"; // 原常量参考：0x005868D8。
-
-constexpr wchar_t kCraftNamePrompt5868C8[] = L"請輸入名稱。"; // 原常量参考：0x005868C8。
-
-constexpr wchar_t kCraftNameCost5868A8[] = L"                     魔力 10"; // 原常量参考：0x005868A8。
-
-constexpr wchar_t kCraftCannotItem586894[] = L"目前無法對此物品"; // 原常量参考：0x00586894。
-
-constexpr wchar_t kCraftCannotEngrave586884[] = L"　進行刻印。"; // 原常量参考：0x00586884。
-
-constexpr wchar_t kCraftMaterials58681C[] = L"請選擇製作材料。"; // 原常量参考：0x0058681C。
-
-constexpr wchar_t kCraftFood5867FC[] = L"                   料理/藥水"; // 原常量参考：0x005867FC。
-
-constexpr wchar_t kCraftWood5867DC[] = L"                        木材"; // 原常量参考：0x005867DC。
-
-constexpr wchar_t kCraftCloth5867BC[] = L"                        布料"; // 原常量参考：0x005867BC。
-
-constexpr wchar_t kCraftRefine586860[] = L"精煉"; // 原常量参考：0x00586860。
-
-constexpr wchar_t kCraftWorking5865C4[] = // 原常量参考：0x005865C4。
-    L"　　　...　作成中　...";
-
-constexpr wchar_t kCraftEngraving5866DC[] = // 原常量参考：0x005866DC。
-    L"　　　…　刻印中　…";
-
-constexpr wchar_t kCraftRefining5866C4[] = // 原常量参考：0x005866C4。
-    L"　　　…　精煉中　…";
-
-constexpr wchar_t kCraftIdentifying5866AC[] = // 原常量参考：0x005866AC。
-    L"　　　…　鑑定中　…";
-
-constexpr wchar_t kCraftRepairing586694[] = // 原常量参考：0x00586694。
-    L"　　　…　修理中　…";
-
-constexpr wchar_t kCraftPacking586830[] = // 原常量参考：0x00586830。
-    L"　　　…　打包中　…";
-
-constexpr wchar_t kCraftDecorating586848[] = // 原常量参考：0x00586848。
-    L"　　　…　裝飾中　…";
 
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
-void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
+static void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
 {
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
     login::detail::SetYobiActionField2B0(
@@ -415,7 +528,7 @@ void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool speci
 }
 
 // 五等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
-WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window, std::uint32_t duration)
+static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window, std::uint32_t duration)
 {
     const std::uint8_t rebirthMode = gValue5F9754;
     gCraftDeadlineCF3B04 = duration;
@@ -447,7 +560,7 @@ WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window, std::u
 }
 
 // 仅新补的制造/单选/装饰创建入口共用；材料模式12另有无条件状态写。
-void WindowCraft_SelectState(const std::int32_t skillId)
+static void WindowCraft_SelectState(const std::int32_t skillId)
 {
     std::int32_t state = 9;
     switch (skillId) {
@@ -462,7 +575,7 @@ void WindowCraft_SelectState(const std::int32_t skillId)
 }
 
 // 五创建入口的原关闭顺序；只标关闭，不同步释放或撤回已递增计数。
-login::YobiAction* WindowCraft_Create()
+static login::YobiAction* WindowCraft_Create()
 {
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
         WindowInstance* const window = gWindowStates[id].window;
@@ -474,7 +587,7 @@ login::YobiAction* WindowCraft_Create()
 }
 
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
-void WindowCraft_ResetMaterialMode()
+static void WindowCraft_ResetMaterialMode()
 {
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
@@ -492,7 +605,7 @@ void WindowCraft_ResetMaterialMode()
 }
 
 // 四新增模式共用的元素写序；计时、动作创建与模式发布仍留在各原入口。
-void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
+static void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -515,18 +628,16 @@ void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
     window->elements[8].visible = 0;
     gCraftDisplayImageCB2204 = -1;
 }
-} // namespace
-
 
 // 原函数：0x0047E1B0。
-WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
     gValueD67B00 = gSkillSendModeC8A970;
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftWorking5865C4;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
@@ -555,7 +666,7 @@ WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
 }
 
 // 原函数：0x0047EF00。
-WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
     std::int32_t skill;
@@ -572,10 +683,10 @@ WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const window)
     gValueD67B00 = active;
     const wchar_t* hint = nullptr;
     switch (skillId) {
-    case 220: hint = kCraftEngraving5866DC; break;
-    case 2025: hint = kCraftRefining5866C4; break;
-    case 219: case 2033: hint = kCraftIdentifying5866AC; break;
-    case 217: case 218: case 2031: case 2032: hint = kCraftRepairing586694; break;
+    case 220: hint = L"　　　…　刻印中　…" /* 原常量参考：0x005866DC。 */; break;
+    case 2025: hint = L"　　　…　精煉中　…" /* 原常量参考：0x005866C4。 */; break;
+    case 219: case 2033: hint = L"　　　…　鑑定中　…" /* 原常量参考：0x005866AC。 */; break;
+    case 217: case 218: case 2031: case 2032: hint = L"　　　…　修理中　…" /* 原常量参考：0x00586694。 */; break;
     default: break;
     }
     if (hint != nullptr) {
@@ -612,7 +723,7 @@ WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const window)
 }
 
 // 原函数：0x004801B0。
-WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0
@@ -620,7 +731,7 @@ WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window)
         gSkillSendModeC8A970 = 1;
     }
     gValueD67B00 = gSkillSendModeC8A970;
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftPacking586830;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
@@ -649,14 +760,14 @@ WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window)
 }
 
 // 原函数：0x00480600。
-void WindowCraft_WaitDecoration(WindowInstance* const window)
+static void WindowCraft_WaitDecoration(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
     gValueD67B00 = gSkillSendModeC8A970;
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftDecorating586848;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　裝飾中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
@@ -684,14 +795,14 @@ void WindowCraft_WaitDecoration(WindowInstance* const window)
 }
 
 // 原函数：0x00480C20。
-WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const window)
 {
     gSkillSendModeC8A970 = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
     gValueD67B00 = gSkillSendModeC8A970;
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftRefining5866C4;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　精煉中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     }
@@ -824,11 +935,11 @@ login::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const std
 }
 
 // 原函数：0x0047FAE0。
-WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftDecorate586784;
-    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[10].data)->text, kCraftMagicCost58678C, 100);
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"裝飾" /* 原常量参考：0x00586784。 */;
+    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[10].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text.clear();
     }
@@ -841,11 +952,11 @@ WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* const wind
 }
 
 // 原函数：0x0047FD00。
-WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftPetDecorate5867AC;
-    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[10].data)->text, kCraftMagicCost58678C, 100);
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"裝飾寵物裝備" /* 原常量参考：0x005867AC。 */;
+    cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[10].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text.clear();
     }
@@ -858,13 +969,13 @@ WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* const w
 }
 
 // 原函数：0x0047FF20。
-WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftMaterials58681C;
-    static_cast<WindowTextData*>(window->elements[10].data)->text = kCraftFood5867FC;
-    static_cast<WindowTextData*>(window->elements[11].data)->text = kCraftWood5867DC;
-    static_cast<WindowTextData*>(window->elements[12].data)->text = kCraftCloth5867BC;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"請選擇製作材料。" /* 原常量参考：0x0058681C。 */;
+    static_cast<WindowTextData*>(window->elements[10].data)->text = L"                   料理/藥水" /* 原常量参考：0x005867FC。 */;
+    static_cast<WindowTextData*>(window->elements[11].data)->text = L"                        木材" /* 原常量参考：0x005867DC。 */;
+    static_cast<WindowTextData*>(window->elements[12].data)->text = L"                        布料" /* 原常量参考：0x005867BC。 */;
     static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -875,10 +986,10 @@ WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const window)
 }
 
 // 原函数：0x00480A00。
-WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    static_cast<WindowTextData*>(window->elements[9].data)->text = kCraftRefine586860;
+    static_cast<WindowTextData*>(window->elements[9].data)->text = L"精煉" /* 原常量参考：0x00586860。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text.clear();
     }
@@ -894,7 +1005,7 @@ WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const window
 }
 
 // 原函数：0x00483EB0。
-std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1207,7 +1318,7 @@ std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std:
 }
 
 // 原函数：0x0047DF50。
-WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const window)
 {
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
@@ -1280,7 +1391,7 @@ std::int32_t WindowCraft_ClassifySpecialMaterial(const std::int32_t itemType, co
 }
 
 // 原函数：0x00483E30。
-void WindowCraft_ReleaseMaterialSlot(
+static void WindowCraft_ReleaseMaterialSlot(
     const std::int32_t destination, const std::int32_t source, const std::int32_t material)
 {
     static_cast<void>(WindowCraft_ReleaseMaterials(destination));
@@ -1296,7 +1407,7 @@ void WindowCraft_ReleaseMaterialSlot(
 }
 
 // 原函数：0x004880D0。
-std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, const std::int32_t extraLevel)
+static std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, const std::int32_t extraLevel)
 {
     for (std::int32_t index = 0; index < 15; ++index) {
         const world::detail::SkillPairRecord pair = world::detail::gSkillPairsF63370[index];
@@ -1316,7 +1427,7 @@ std::int32_t WindowCraft_ReadRequiredSkillLevel(const std::int32_t skillId, cons
 }
 
 // 原函数：0x00488160。
-std::int32_t WindowCraft_ReadMaxMaterialLevel()
+static std::int32_t WindowCraft_ReadMaxMaterialLevel()
 {
     std::int32_t maximum = 0;
     for (std::int32_t index = 0; index < 3; ++index) {
@@ -1330,7 +1441,7 @@ std::int32_t WindowCraft_ReadMaxMaterialLevel()
 }
 
 // 原函数：0x00488180。
-std::int32_t WindowCraft_ReadFirstMaterialId()
+static std::int32_t WindowCraft_ReadFirstMaterialId()
 {
     for (std::int32_t index = 0; index < 6; ++index) {
         const std::int32_t material = gMaterialIndicesCA0458[index];
@@ -1343,7 +1454,7 @@ std::int32_t WindowCraft_ReadFirstMaterialId()
 }
 
 // 原函数：0x004881D0。
-void WindowCraft_ValidatePackingMaterials(const std::int32_t destination, const std::int32_t source)
+static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination, const std::int32_t source)
 {
     std::int32_t flags = 0;
     std::int32_t material = 5;
@@ -1436,7 +1547,7 @@ void WindowCraft_ValidatePackingMaterials(const std::int32_t destination, const 
 }
 
 // 原函数：0x0047DE00。
-void WindowCraft_HandleMaterialDrag(
+static void WindowCraft_HandleMaterialDrag(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1474,7 +1585,7 @@ void WindowCraft_HandleMaterialDrag(
 }
 
 // 原函数：0x0047DF30。
-std::int32_t WindowCraft_StartMaterialDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowCraft_StartMaterialDrag(const std::int32_t sourceIndex)
 {
     return WindowDrag_Start(10, sourceIndex, WindowCraft_HandleMaterialDrag);
 }
@@ -1492,7 +1603,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 }
 
 // 原函数：0x00482270。
-std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
     auto* const graphic = static_cast<WindowGraphicData*>(element->data);
@@ -1532,7 +1643,7 @@ std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int3
             enabled = !world::detail::IsPlayerFpLessThan(
                 world::detail::BorrowPlayerItemsFDA8A4()[selected].level * 10);
             const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level;
-            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text, kCraftMagicCost58678C, level * 10);
+            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
@@ -1621,7 +1732,7 @@ std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int3
     const bool hovered = (state & 1) != 0;
     if (hovered) {
         if (enabled) {
-            gHoverTextD68AE8 = kCraftExecute5868D8;
+            gHoverTextD68AE8 = L"執行。" /* 原常量参考：0x005868D8。 */;
         }
         bool insufficient = false;
         switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
@@ -1781,23 +1892,23 @@ std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int3
     }
     if (enabled) {
         if (gSelectionModeD2D650 == 3) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = kCraftNamePrompt5868C8;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = kCraftNameCost5868A8;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"請輸入名稱。" /* 原常量参考：0x005868C8。 */;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"                     魔力 10" /* 原常量参考：0x005868A8。 */;
         }
         if (gSelectionModeD2D650 == 5) {
             static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
             static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
         }
     } else {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = kCraftCannotItem586894;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = kCraftCannotEngrave586884;
+        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"目前無法對此物品" /* 原常量参考：0x00586894。 */;
+        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"　進行刻印。" /* 原常量参考：0x00586884。 */;
         graphic->imageNo = 0x3BAC3;
     }
     return consumed;
 }
 
 // 原函数：0x00482FA0。
-std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -1844,7 +1955,7 @@ std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004830B0。
-std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hovered = (state & 1) != 0;
@@ -1866,7 +1977,7 @@ std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x00483150。
-std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -2231,7 +2342,7 @@ std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::in
 }
 
 // 原函数：0x00484FB0。
-std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::int32_t)
 {
     const std::int32_t imageNo = gCraftDisplayImageCB2204;
     if (imageNo < 0) {
@@ -2250,7 +2361,7 @@ std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::in
 }
 
 // 原函数：0x00485030。
-std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const std::int32_t state)
 {
     if (gSelectedItemD460C0 < 0) {
         return 0;
@@ -2275,7 +2386,7 @@ std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const st
 }
 
 // 原函数：0x00485160。
-std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hovered = (state & 1) != 0;
@@ -2297,10 +2408,8 @@ std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::in
     }
     return consumed;
 }
-namespace {
 
-
-std::int32_t WindowCraft_DrawInputNotice(
+static std::int32_t WindowCraft_DrawInputNotice(
     const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -2330,11 +2439,9 @@ std::int32_t WindowCraft_DrawInputNotice(
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
 }
-} // namespace
-
 
 // 原函数：0x00485200。
-std::int32_t WindowCraft_DrawInvalidEngravingNotice(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(const std::int32_t index, const std::int32_t)
 {
     return WindowCraft_DrawInputNotice(index,
         LR"(包含\ 或 | 的字元。)",
@@ -2342,7 +2449,7 @@ std::int32_t WindowCraft_DrawInvalidEngravingNotice(const std::int32_t index, co
 }
 
 // 原函数：0x00485350。
-std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t index, const std::int32_t)
 {
     return WindowCraft_DrawInputNotice(index,
         L"沒有包含空白以外的字元",
@@ -2350,7 +2457,7 @@ std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t index, cons
 }
 
 // 原函数：0x004847C0。
-std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2510,7 +2617,7 @@ std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const st
 }
 
 // 原函数：0x0047EC00。
-WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const window)
 {
     for (std::int32_t index = 0; index < 6; ++index) {
         static_cast<void>(WindowCraft_ReleaseMaterials(index));
@@ -2581,7 +2688,7 @@ WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const window
 }
 
 // 原函数：0x0047D4B0。
-std::int32_t WindowCraft_HasRecipeCrystalLevel()
+static std::int32_t WindowCraft_HasRecipeCrystalLevel()
 {
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t skill = gCraftSkillIndexCC2368;
@@ -2590,7 +2697,7 @@ std::int32_t WindowCraft_HasRecipeCrystalLevel()
 }
 
 // 原函数：0x0047D4F0。
-std::int32_t WindowCraft_HasSelectedCrystalLevel()
+static std::int32_t WindowCraft_HasSelectedCrystalLevel()
 {
     if (gSelectedItemD460C0 < 0) {
         return 0;
@@ -2601,7 +2708,7 @@ std::int32_t WindowCraft_HasSelectedCrystalLevel()
 }
 
 // 原函数：0x0047D530。
-std::int32_t WindowCraft_HasMaterialCrystalLevel()
+static std::int32_t WindowCraft_HasMaterialCrystalLevel()
 {
     for (std::int32_t index = 0; index < 6; ++index) {
         const std::int32_t slot = gSelectedSlotsCA0A90[index];
@@ -2619,7 +2726,7 @@ std::int32_t WindowCraft_HasMaterialCrystalLevel()
 }
 
 // 原函数：0x0047D5B0。
-std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
+static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 {
     const std::int32_t slot = gSelectedSlotsCA0A90[0];
     if (slot < 0) {
@@ -2631,7 +2738,7 @@ std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 }
 
 // 原函数：0x004810A0。
-std::int32_t WindowCraft_Update(const std::int32_t value)
+static std::int32_t WindowCraft_Update(const std::int32_t value)
 {
     const auto initializeMode = [](const std::uint8_t mode) {
         switch (mode) {
@@ -2946,7 +3053,7 @@ std::int32_t WindowCraft_Update(const std::int32_t value)
 }
 
 // 原函数：0x00481010。
-void WindowCraft_Release()
+static void WindowCraft_Release()
 {
     WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
     if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 11) {
@@ -2970,7 +3077,7 @@ void WindowCraft_Release()
 }
 
 // 原函数：0x00482000。
-std::int32_t WindowCraft_Draw(const std::int32_t)
+static std::int32_t WindowCraft_Draw(const std::int32_t)
 {
     login::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action;
@@ -3061,7 +3168,7 @@ WindowAnimationData* WindowCraft_BorrowSecondPreview(
 }
 
 // 原函数：0x00484D60。
-std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3109,7 +3216,7 @@ std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const s
 }
 
 // 原函数：0x0047E5E0。
-WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
 {
     gValueD67B00 = 0;
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -3124,10 +3231,10 @@ WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
     const std::int32_t result = gCraftResultCC46D8;
     auto* const resultText = static_cast<WindowTextData*>(window->elements[10].data);
     if (result != 0) {
-        resultText->text = kCraftSuccess586638;
+        resultText->text = L"　製造成功了。" /* 原常量参考：0x00586638。 */;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        resultText->text = kCraftFailure586628;
+        resultText->text = L"　製造失敗了。" /* 原常量参考：0x00586628。 */;
         static_cast<void>(audio::PlaySe_52C450(58, 320));
     }
     if (gCraftLevelUpCF4974 != 0) {
@@ -3147,7 +3254,7 @@ WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
     if (gCraftIntelligenceCB0F84 != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gCraftIntelligenceCB0F84));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : cg::text::FromGbkWide(input::LegacyText593850());
     const std::int32_t imageResult = gCraftResultCC46D8;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -3200,7 +3307,7 @@ WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
 }
 
 // 原函数：0x0047EBE0。
-WindowAnimationData* WindowCraft_RefreshRecipeResult()
+static WindowAnimationData* WindowCraft_RefreshRecipeResult()
 {
     WindowInstance* const window = gWindowStates[WindowId_Craft].window;
     return window != nullptr ? WindowCraft_ShowRecipeResult(window) : nullptr;
@@ -3220,10 +3327,10 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
     gCraftInjuryD2EA78 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
     gCraftResultImageCF4B60 = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
     if (result != 0) {
-        gCraftResultSuffixD672B4 = kCraftSuccess589FB8;
+        gCraftResultSuffixD672B4 = L"的合成成功了。" /* 原常量参考：0x00589FB8。 */;
     } else {
         gCraftResultImageCF4B60 = 0;
-        gCraftResultSuffixD672B4 = kCraftFailure589FA8;
+        gCraftResultSuffixD672B4 = L"的合成失敗了。" /* 原常量参考：0x00589FA8。 */;
     }
     char buffer[768];
     std::wstring lostItem;
@@ -3256,7 +3363,7 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
         if (std::strlen(buffer) == 0) {
             break;
         }
-        lostItem = std::format(kCraftLostItem589F9C, cg::text::FromGbkWide(buffer));
+        lostItem = std::format(L"{} 失去了！" /* 原常量参考：0x00589F9C。 */, cg::text::FromGbkWide(buffer));
         if (std::strlen(buffer) + 9 < 28) { // 原GBK行宽：名称字节数 + 空格1B +「失去了！」8B。
             lostItem += L'\n';
         }
@@ -3264,13 +3371,14 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
         ++lines;
     }
     if (gCraftInjuryD2EA78 != 0 && lines < 8) {
-        gCraftResultDetailsD2E92C += kCraftInjury589CD4;
+        gCraftResultDetailsD2E92C += LR"(受傷了！
+)" /* 原常量参考：0x00589CD4。 */;
     }
     return WindowCraft_RefreshRecipeResult();
 }
 
 // 原函数：0x00484E90。
-std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3317,7 +3425,7 @@ std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::
 }
 
 // 原函数：0x0047F3D0。
-WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window)
 {
     const std::int32_t entryResult = gItemWorkResultCB05FC;
     const std::int32_t selected = gSelectedItemD460C0;
@@ -3334,17 +3442,17 @@ WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window
     case 218:
     case 2031:
     case 2032:
-        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586708 : kItemWorkFailure5866F4;
+        message = gItemWorkResultCB05FC != 0 ? L"　的修理成功了！" /* 原常量参考：0x00586708。 */ : L"　的修理失敗了。" /* 原常量参考：0x005866F4。 */;
         break;
     case 219:
     case 2033:
-        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586730 : kItemWorkFailure58671C;
+        message = gItemWorkResultCB05FC != 0 ? L"　的鑑定成功了！" /* 原常量参考：0x00586730。 */ : L"　的鑑定失敗了。" /* 原常量参考：0x0058671C。 */;
         break;
     case 220:
-        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586774 : kItemWorkFailure586764;
+        message = gItemWorkResultCB05FC != 0 ? L"　刻印上去了！" /* 原常量参考：0x00586774。 */ : L"　刻印失敗了。" /* 原常量参考：0x00586764。 */;
         break;
     case 2025:
-        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586754 : kItemWorkFailure586744;
+        message = gItemWorkResultCB05FC != 0 ? L"精煉成功了！" /* 原常量参考：0x00586754。 */ : L"精煉失敗了！" /* 原常量参考：0x00586744。 */;
         break;
     }
     if (message != nullptr) {
@@ -3369,7 +3477,7 @@ WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window
     if (gCraftIntelligenceCB0F84 != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gItemWorkIntelligenceD30418));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : cg::text::FromGbkWide(input::LegacyText593850());
     const std::int32_t imageResult = gItemWorkResultCB05FC;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -3426,7 +3534,7 @@ WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window
 }
 
 // 原函数：0x0047FAC0。
-WindowAnimationData* WindowCraft_RefreshItemWorkResult()
+static WindowAnimationData* WindowCraft_RefreshItemWorkResult()
 {
     WindowInstance* const window = gWindowStates[WindowId_Craft].window;
     return window != nullptr ? WindowCraft_ShowItemWorkResult(window) : nullptr;
@@ -3450,13 +3558,13 @@ WindowAnimationData* WindowCraft_ReceiveItemWorkResult(const std::int32_t result
     case 217:
     case 218:
     case 2031:
-    case 2032: prefix = kItemWorkRepair589CF8; break;
+    case 2032: prefix = L"的修理" /* 原常量参考：0x00589CF8。 */; break;
     case 219:
-    case 2033: prefix = kItemWorkIdentify589D00; break;
-    default: prefix = kItemWorkEngrave589D08; break;
+    case 2033: prefix = L"的鑑定" /* 原常量参考：0x00589D00。 */; break;
+    default: prefix = L"的刻印" /* 原常量参考：0x00589D08。 */; break;
     }
     gItemWorkSuffixD2DADC = prefix;
-    gItemWorkSuffixD2DADC += result != 0 ? kItemWorkSuccess589CEC : kItemWorkFailure589CE0;
+    gItemWorkSuffixD2DADC += result != 0 ? L"成功了。" /* 原常量参考：0x00589CEC。 */ : L"失敗了。" /* 原常量参考：0x00589CE0。 */;
     std::int32_t lines = 0;
     const auto appendValue = [&](const std::wstring_view format, const std::int32_t value) {
         // 四种数值行按原GBK最多22字节，始终低于28列换行门槛。
@@ -3481,7 +3589,8 @@ WindowAnimationData* WindowCraft_ReceiveItemWorkResult(const std::int32_t result
         appendValue(kCraftIntelligence5897F0, gItemWorkIntelligenceD30418);
     }
     if (gItemWorkInjuryD2E2A8 != 0 && lines < 8) {
-        gItemWorkDetailsD2DB00 += kCraftInjury589CD4;
+        gItemWorkDetailsD2DB00 += LR"(受傷了！
+)" /* 原常量参考：0x00589CD4。 */;
     }
     return WindowCraft_RefreshItemWorkResult();
 }
@@ -3540,76 +3649,3 @@ std::int32_t WindowCraft_SetPreviewImages(
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561FE0。
-
-WindowGraphicData gWindowGraphic561FF8 {0x3BA38, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561FF8。
-
-WindowGraphicData gWindowGraphic562010 {0x3BA3A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562010。
-
-WindowGraphicData gWindowGraphic562028 {0x3BA3B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562028。
-
-WindowGraphicData gWindowGraphic562040 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562040。
-
-WindowGraphicData gWindowGraphic562058 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562058。
-
-WindowGraphicData gWindowGraphic562070 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562070。
-
-WindowGraphicData gWindowGraphic562088 {0x3BA3C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562088。
-
-WindowGraphicData gWindowGraphic5620A0 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620A0。
-
-WindowGraphicData gWindowGraphic5620B8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005620B8。
-
-WindowTextPrototype gWindowText5620D0 { // 原全局：0x005620D0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？　　000", // 原常量参考：0x00586078。
-};
-
-std::int32_t gWindowAnimationImage5620D8 = 0x1AF16; // 原全局：0x005620D8。
-
-std::int32_t gWindowAnimationImage5620DC = 0x1AF16; // 原全局：0x005620DC。
-
-} // namespace
-
-// 原型：窗口11；原全局：0x0054E450。
-WindowPrototype gWindowPrototypeCraft {0, 4, 37, 102, 563, 239, 0x80010101u, 31, gWindowElements5620E0, &WindowCraft_Update, &WindowCraft_Draw, &WindowCraft_Release}; // 11: 54E450
-
-WindowElementPrototype gWindowElements5620E0[31] { // 原全局：0x005620E0。
-    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowCraft_DrawInvalidEngravingNotice},
-    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowCraft_DrawEmptyEngravingNotice},
-    {WindowElementType_Graphic, 543, 8, 11, 11, 1, {.graphic = &gWindowGraphic561FE0}, &WindowCraft_ButtonCloseIcon},
-    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620D8}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 20, 57, 150, 12, 1, {.unusedValue = 0}, &WindowCraft_HandleEngravingInput},
-    {WindowElementType_Input, 20, 53, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 190, 54, 49, 17, 1, {.graphic = &gWindowGraphic5620B8}, &WindowCraft_ButtonExecute},
-    {WindowElementType_Text, 20, 29, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 43, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 57, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 71, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 85, 0, 0, 1, {.text = &gWindowText5620D0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 20, 29, 0, 0, 1, {.graphic = &gWindowGraphic562010}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 190, 75, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_EventArea, 190, 125, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_EventArea, 190, 175, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_EventArea, 243, 75, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_EventArea, 243, 125, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_EventArea, 243, 175, 48, 48, 1, {.unusedValue = 0}, &WindowCraft_HandleMaterialSlot},
-    {WindowElementType_Graphic, 231, 175, 48, 48, 1, {.graphic = &gWindowGraphic5620A0}, &WindowCraft_HandleSingleMaterial},
-    {WindowElementType_Graphic, 190, 27, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &WindowCraft_DrawResultImage},
-    {WindowElementType_Graphic, 231, 45, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &WindowCraft_DrawResultImage},
-    {WindowElementType_Graphic, 188, 73, 0, 0, 1, {.graphic = &gWindowGraphic562028}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562040}, &WindowCraft_ButtonExecute},
-    {WindowElementType_Graphic, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562058}, &WindowCraft_ButtonContinue},
-    {WindowElementType_Graphic, 126, 209, 49, 17, 1, {.graphic = &gWindowGraphic562070}, &WindowCraft_ButtonClose},
-    {WindowElementType_EventArea, 307, 28, 248, 204, 1, {.unusedValue = 0}, &WindowCraft_HandleInventory},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561FF8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 566, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

@@ -3,8 +3,57 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x00495E10。
+static std::int32_t WindowMiniMap_DrawMap(std::int32_t index, std::int32_t unused); // 小地图按窗口/元素坐标入既有绘制队列。
+
+// 原函数：0x00495E60。
+static std::int32_t WindowMiniMap_RefreshPlayerX(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家X。
+
+// 原函数：0x00495EB0。
+static std::int32_t WindowMiniMap_RefreshPlayerY(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
+
 // 原函数：0x00495D70。
-std::int32_t WindowMiniMap_Update(const std::int32_t value)
+static std::int32_t WindowMiniMap_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AEF0。
+
+static WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AF08。
+
+static WindowGraphicData gWindowGraphic56AF20 {0x3B97B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056AF20。
+
+static WindowTextPrototype gWindowText56AF38 { // 原全局：0x0056AF38。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static WindowTextPrototype gWindowText56AF40 { // 原全局：0x0056AF40。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF50。
+    {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Text, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &WindowMiniMap_RefreshPlayerX},
+    {WindowElementType_Text, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &WindowMiniMap_RefreshPlayerY},
+    {WindowElementType_Text, 160, 138, 0, 0, 1, {.text = &gWindowText56AF48}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
+    {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
+};
+
+// 原型：窗口33；原全局：0x0054E6C0。
+WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 7, gWindowElements56AF50, &WindowMiniMap_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 33: 54E6C0
+
+// 窗口函数实现。
+
+// 原函数：0x00495D70。
+static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
@@ -28,7 +77,7 @@ std::int32_t WindowMiniMap_Update(const std::int32_t value)
 }
 
 // 原函数：0x00495E10。
-std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
 {
     if (world::detail::Sub_440B50() != 0) {
         return 0;
@@ -45,7 +94,7 @@ std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
 }
 
 // 原函数：0x00495E60。
-std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
     if (world::detail::Sub_440B50() != 0) {
@@ -59,7 +108,7 @@ std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::i
 }
 
 // 原函数：0x00495EB0。
-std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
     if (world::detail::Sub_440B50() != 0) {
@@ -95,42 +144,3 @@ login::YobiAction* WindowMiniMap_Open(
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AEF0。
-
-WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056AF08。
-
-WindowGraphicData gWindowGraphic56AF20 {0x3B97B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056AF20。
-
-WindowTextPrototype gWindowText56AF38 { // 原全局：0x0056AF38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-WindowTextPrototype gWindowText56AF40 { // 原全局：0x0056AF40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-} // namespace
-
-// 原型：窗口33；原全局：0x0054E6C0。
-WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 7, gWindowElements56AF50, &WindowMiniMap_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 33: 54E6C0
-
-WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF50。
-    {WindowElementType_Graphic, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Text, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &WindowMiniMap_RefreshPlayerX},
-    {WindowElementType_Text, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &WindowMiniMap_RefreshPlayerY},
-    {WindowElementType_Text, 160, 138, 0, 0, 1, {.text = &gWindowText56AF48}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, -19, 81, 0, 0, 1, {}, &WindowMiniMap_DrawMap},
-    {WindowElementType_Graphic, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

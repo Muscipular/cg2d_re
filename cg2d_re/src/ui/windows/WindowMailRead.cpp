@@ -2,17 +2,94 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-
-constexpr wchar_t kPreviousMailHint587718[] = L"上一封郵件"; // 原常量参考：0x00587718。
-
-constexpr wchar_t kNextMailHint587724[] = L"下一封郵件"; // 原常量参考：0x00587724。
-} // namespace
-
+// 回调与内部函数前置声明。
 
 // 原函数：0x004A4620。
-std::int32_t WindowMailRead_Update(const std::int32_t value)
+static std::int32_t WindowMailRead_Update(std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
+
+// 原函数：0x004A4650。
+static std::int32_t WindowMailRead_Draw(std::int32_t unused); // 刷新清当前未读，再公共绘制。
+
+// 原函数：0x004A4660。
+static std::int32_t WindowMailRead_ButtonPrevious(std::int32_t index, std::int32_t state); // 上一封，负页跳9。
+
+// 原函数：0x004A4710。
+static std::int32_t WindowMailRead_ButtonNext(std::int32_t index, std::int32_t state); // 下一封，页>=10跳0。
+
+// 原函数：0x004A47C0。
+static std::int32_t WindowMailRead_ButtonReply(std::int32_t index, std::int32_t state); // 回复上下文与旧物品占用释放。
+
+// 原函数：0x004A48A0。
+static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
+
+// 原函数：0x004A49B0。
+static std::uint32_t WindowMailRead_Refresh(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
+
+// 原函数：0x004A4FC0。
+static std::int32_t WindowMailRead_HandleAvatar(std::int32_t unused, std::int32_t state); // 悬停双图，区分三类头像采样序。
+
+// 原函数：0x004A4620。
+static std::int32_t WindowMailRead_Update(std::int32_t value);
+
+// 原函数：0x004A4650。
+static std::int32_t WindowMailRead_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic56FCA8 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCA8。
+
+static WindowGraphicData gWindowGraphic56FCC0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCC0。
+
+static WindowGraphicData gWindowGraphic56FCD8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCD8。
+
+static WindowGraphicData gWindowGraphic56FCF0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCF0。
+
+static WindowGraphicData gWindowGraphic56FD08 {0x3BA0C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD08。
+
+static WindowGraphicData gWindowGraphic56FD20 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD20。
+
+static WindowGraphicData gWindowGraphic56FD38 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056FD38。
+
+static WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"內容"}; // 原全局：0x0056FD50。 // 原常量参考：0x00585EC4。
+
+static WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"頁數"}; // 原全局：0x0056FD58。 // 原常量参考：0x00585EBC。
+
+static WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱"}; // 原全局：0x0056FD60。 // 原常量参考：0x00586230。
+
+static WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00/00 00:00"}; // 原全局：0x0056FD68。 // 原常量参考：0x00585EB0。
+
+static WindowElementPrototype gWindowElements56FD70[21] { // 原全局：0x0056FD70。
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 154, 27, 49, 17, 1, {.graphic = &gWindowGraphic56FCA8}, &WindowMailRead_ButtonReply},
+    {WindowElementType_Graphic, 15, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCD8}, &WindowMailRead_ButtonPrevious},
+    {WindowElementType_Graphic, 77, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCF0}, &WindowMailRead_ButtonNext},
+    {WindowElementType_Text, 25, 52, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 64, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 76, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 88, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 100, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 112, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 124, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 136, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 148, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 160, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 35, 183, 0, 0, 1, {.text = &gWindowText56FD58}, &WindowElement_NoOp},
+    {WindowElementType_Text, 18, 30, 0, 0, 1, {.text = &gWindowText56FD60}, &WindowElement_NoOp},
+    {WindowElementType_Text, 115, 180, 0, 0, 1, {.text = &gWindowText56FD68}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 45, 0, 0, 1, {.graphic = &gWindowGraphic56FD08}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 230, 210, 1, {.graphic = &gWindowGraphic56FD20}, &WindowMailRead_HandleAvatar},
+    {WindowElementType_Graphic, 13, 25, 0, 0, 1, {.graphic = &gWindowGraphic56FD38}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口40；原全局：0x0054E9F0。
+WindowPrototype gWindowPrototypeMailRead {0, 4, 383, 71, 211, 206, 0x80010101u, 21, gWindowElements56FD70, &WindowMailRead_Update, &WindowMailRead_Draw, &WindowRuntime_ReleaseDefault}; // 40: 54E9F0
+
+// 窗口函数实现。
+
+// 原函数：0x004A4620。
+static std::int32_t WindowMailRead_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowMailRead_FindUnread();
@@ -25,7 +102,7 @@ std::int32_t WindowMailRead_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A4650。
-std::int32_t WindowMailRead_Draw(const std::int32_t)
+static std::int32_t WindowMailRead_Draw(const std::int32_t)
 {
     static_cast<void>(WindowMailRead_Refresh());
     WindowRuntime_DrawCurrent();
@@ -33,13 +110,13 @@ std::int32_t WindowMailRead_Draw(const std::int32_t)
 }
 
 // 原函数：0x004A4660。
-std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kPreviousMailHint587718;
+        gHoverTextD68AE8 = L"上一封郵件" /* 原常量参考：0x00587718。 */;
         graphic->imageNo = 0x3B558;
     }
     if ((state & 2) != 0) {
@@ -60,13 +137,13 @@ std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::
 }
 
 // 原函数：0x004A4710。
-std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kNextMailHint587724;
+        gHoverTextD68AE8 = L"下一封郵件" /* 原常量参考：0x00587724。 */;
         graphic->imageNo = 0x3B55B;
     }
     if ((state & 2) != 0) {
@@ -87,7 +164,7 @@ std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004A47C0。
-std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -123,7 +200,7 @@ std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004A48A0。
-void WindowMailRead_FindUnread()
+static void WindowMailRead_FindUnread()
 {
     using namespace world::detail;
     const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
@@ -174,7 +251,7 @@ void WindowMailRead_FindUnread()
 }
 
 // 原函数：0x004A49B0。
-std::uint32_t WindowMailRead_Refresh()
+static std::uint32_t WindowMailRead_Refresh()
 {
     using namespace world::detail;
     const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
@@ -253,7 +330,7 @@ std::uint32_t WindowMailRead_Refresh()
 }
 
 // 原函数：0x004A4FC0。
-std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t state)
 {
     using namespace world::detail;
     render::GraphicDescriptor16 descriptor {};
@@ -332,60 +409,3 @@ std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t 
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56FCA8 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCA8。
-
-WindowGraphicData gWindowGraphic56FCC0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCC0。
-
-WindowGraphicData gWindowGraphic56FCD8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCD8。
-
-WindowGraphicData gWindowGraphic56FCF0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FCF0。
-
-WindowGraphicData gWindowGraphic56FD08 {0x3BA0C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD08。
-
-WindowGraphicData gWindowGraphic56FD20 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056FD20。
-
-WindowGraphicData gWindowGraphic56FD38 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056FD38。
-
-WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"內容"}; // 原全局：0x0056FD50。 // 原常量参考：0x00585EC4。
-
-WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"頁數"}; // 原全局：0x0056FD58。 // 原常量参考：0x00585EBC。
-
-WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱"}; // 原全局：0x0056FD60。 // 原常量参考：0x00586230。
-
-WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00/00 00:00"}; // 原全局：0x0056FD68。 // 原常量参考：0x00585EB0。
-
-} // namespace
-
-// 原型：窗口40；原全局：0x0054E9F0。
-WindowPrototype gWindowPrototypeMailRead {0, 4, 383, 71, 211, 206, 0x80010101u, 21, gWindowElements56FD70, &WindowMailRead_Update, &WindowMailRead_Draw, &WindowRuntime_ReleaseDefault}; // 40: 54E9F0
-
-WindowElementPrototype gWindowElements56FD70[21] { // 原全局：0x0056FD70。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 154, 27, 49, 17, 1, {.graphic = &gWindowGraphic56FCA8}, &WindowMailRead_ButtonReply},
-    {WindowElementType_Graphic, 15, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCD8}, &WindowMailRead_ButtonPrevious},
-    {WindowElementType_Graphic, 77, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCF0}, &WindowMailRead_ButtonNext},
-    {WindowElementType_Text, 25, 52, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 64, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 76, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 88, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 100, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 112, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 124, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 136, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 148, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 160, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 35, 183, 0, 0, 1, {.text = &gWindowText56FD58}, &WindowElement_NoOp},
-    {WindowElementType_Text, 18, 30, 0, 0, 1, {.text = &gWindowText56FD60}, &WindowElement_NoOp},
-    {WindowElementType_Text, 115, 180, 0, 0, 1, {.text = &gWindowText56FD68}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 45, 0, 0, 1, {.graphic = &gWindowGraphic56FD08}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 230, 210, 1, {.graphic = &gWindowGraphic56FD20}, &WindowMailRead_HandleAvatar},
-    {WindowElementType_Graphic, 13, 25, 0, 0, 1, {.graphic = &gWindowGraphic56FD38}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

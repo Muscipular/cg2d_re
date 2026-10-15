@@ -2,11 +2,203 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x00474BE0。
+static std::int32_t WindowPlayerProfile_HandleButtons(std::int32_t index, std::int32_t state); // 窗口7资料切页及前后排请求。
+
+// 原函数：0x00474310。
+static void WindowPlayerProfile_Release();
+
+// 原函数：0x00474540。
+static std::int32_t WindowPlayerProfile_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic55F780 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F780。
+
+static WindowGraphicData gWindowGraphic55F798 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F798。
+
+static WindowGraphicData gWindowGraphic55F7B0 {0x3BAC5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7B0。
+
+static WindowGraphicData gWindowGraphic55F7C8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7C8。
+
+static WindowGraphicData gWindowGraphic55F7E0 {0x3BAB6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7E0。
+
+static WindowGraphicData gWindowGraphic55F7F8 {0x3B583, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7F8。
+
+static WindowGraphicData gWindowGraphic55F810 {0x3BAB8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F810。
+
+static WindowGraphicData gWindowGraphic55F828 {0x3BAC0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F828。
+
+static WindowGraphicData gWindowGraphic55F840 {0x3BABD, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F840。
+
+static WindowGraphicData gWindowGraphic55F858 {0x3BABB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F858。
+
+static WindowGraphicData gWindowGraphic55F870 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F870。
+
+static WindowGraphicData gWindowGraphic55F960 {0x3BACC, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F960。
+
+static WindowGraphicData gWindowGraphic55FA50 {0x3BAD1, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FA50。
+
+static WindowGraphicData gWindowGraphic55FB40 {0x3BAD6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FB40。
+
+static WindowGraphicData gWindowGraphic55FC30 {0x3BAC6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC30。
+
+static WindowGraphicData gWindowGraphic55FC48 {0x3BACB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC48。
+
+static WindowGraphicData gWindowGraphic55FC60 {0x3BAD0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC60。
+
+static WindowGraphicData gWindowGraphic55FC78 {0x3BAD5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC78。
+
+static WindowGraphicData gWindowGraphic55FC90 {0x3BAB2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC90。
+
+static WindowGraphicData gWindowGraphic55FCA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCA8。
+
+static WindowGraphicData gWindowGraphic55FCC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x0055FCC0。
+
+static WindowGraphicData gWindowGraphic55FCD8 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCD8。
+
+static WindowTextPrototype gWindowText55FCF0 { // 原全局：0x0055FCF0。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+};
+
+static WindowTextPrototype gWindowText55FCF8 { // 原全局：0x0055FCF8。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+};
+
+static WindowTextPrototype gWindowText55FD00 { // 原全局：0x0055FD00。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"x5", // 原常量参考：0x00586224。
+};
+
+static WindowTextPrototype gWindowText55FD08 { // 原全局：0x0055FD08。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
+};
+
+static WindowTextPrototype gWindowText55FD10 { // 原全局：0x0055FD10。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00586214。
+};
+
+static WindowTextPrototype gWindowText55FD18 { // 原全局：0x0055FD18。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號", // 原常量参考：0x00586208。
+};
+
+static WindowTextPrototype gWindowText55FD20 { // 原全局：0x0055FD20。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"特殊稱號", // 原常量参考：0x005861FC。
+};
+
+static WindowTextPrototype gWindowText55FD28 { // 原全局：0x0055FD28。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自定稱號", // 原常量参考：0x005861F0。
+};
+
+static WindowTextPrototype gWindowText55FD30 { // 原全局：0x0055FD30。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
+};
+
+static WindowTextPrototype gWindowText55FD38 { // 原全局：0x0055FD38。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
+};
+
+static WindowTextPrototype gWindowText55FD40 { // 原全局：0x0055FD40。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"下一級經驗值", // 原常量参考：0x005861D0。
+};
+
+static WindowTextPrototype gWindowText55FD48 { // 原全局：0x0055FD48。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"生命值", // 原常量参考：0x005861C8。
+};
+
+static WindowTextPrototype gWindowText55FD50 { // 原全局：0x0055FD50。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
+};
+
+static WindowTextPrototype gWindowText55FD58 { // 原全局：0x0055FD58。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"對戰勝利值", // 原常量参考：0x005861B4。
+};
+
+static WindowElementPrototype gWindowElements55FD60[73] { // 原全局：0x0055FD60。
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText55FCF0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText55FCF8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 70, 101, 0, 0, 1, {.text = &gWindowText55FD00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 31, 0, 0, 1, {.text = &gWindowText55FD08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 49, 0, 0, 1, {.text = &gWindowText55FD10}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 68, 0, 0, 1, {.text = &gWindowText55FD18}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 86, 0, 0, 1, {.text = &gWindowText55FD20}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 104, 0, 0, 1, {.text = &gWindowText55FD28}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 123, 0, 0, 1, {.text = &gWindowText55FD30}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 141, 0, 0, 1, {.text = &gWindowText55FD38}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 158, 0, 0, 1, {.text = &gWindowText55FD40}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 176, 0, 0, 1, {.text = &gWindowText55FD48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 194, 0, 0, 1, {.text = &gWindowText55FD50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 89, 211, 0, 0, 1, {.text = &gWindowText55FD58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic55F780}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 48, 103, 0, 0, 1, {.graphic = &gWindowGraphic55F798}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 60, 104, 0, 0, 1, {.graphic = &gWindowGraphic55F7B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 151, 230, 0, 0, 1, {.graphic = &gWindowGraphic55F7E0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic55F7F8}, &WindowPlayerProfile_HandleButtons},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic55F810}, &WindowPlayerProfile_HandleButtons},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic55FCD8}, &WindowPlayerProfile_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F858}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 217, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F828}, &WindowPlayerProfile_HandleButtons},
+    {WindowElementType_Graphic, 253, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F840}, &WindowPlayerProfile_HandleButtons},
+    {WindowElementType_Graphic, 229, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 237, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 245, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 253, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 261, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 269, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 277, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 285, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 293, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 301, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 229, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 237, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 245, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 253, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 261, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 269, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 277, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 285, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 293, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 301, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 229, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 237, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 245, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 253, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 261, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 269, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 285, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 293, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 301, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 229, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 237, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 245, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 253, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 261, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 269, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 277, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 285, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 293, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 301, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 195, 130, 0, 0, 1, {.graphic = &gWindowGraphic55FC30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 195, 147, 0, 0, 1, {.graphic = &gWindowGraphic55FC48}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 195, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FC60}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 195, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FC78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 29, 0, 0, 1, {.graphic = &gWindowGraphic55FC90}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55FCA8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic55FCC0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口7；原全局：0x0054E360。
+WindowPrototype gWindowPrototypePlayerProfile {0, 4, 15, 97, 315, 261, 0x80000080u, 73, gWindowElements55FD60, &WindowPlayerProfile_Update, &WindowRuntime_DrawDefault, &WindowPlayerProfile_Release}; // 7: 54E360
+
+// 窗口函数实现。
 
 // 原474FD1..4753A6：每组先清显隐后读属性，图号与显隐各自重取窗口。
-void WindowPlayerProfile_RefreshAttributeBar(
+static void WindowPlayerProfile_RefreshAttributeBar(
     const std::int32_t attribute, const std::int32_t firstElement,
     const std::int32_t middleImage, const std::int32_t firstImage,
     const std::int32_t lastImage, const std::int32_t singleImage)
@@ -41,12 +233,10 @@ void WindowPlayerProfile_RefreshAttributeBar(
         }
     }
 }
-} // namespace
-
 
 // 原474BE0：五按钮及默认分支；位置请求不写玩家状态，返回仍为悬停值。
 // 原函数：0x00474BE0。
-std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t idleImage;
     std::int32_t hoverImage;
@@ -123,7 +313,7 @@ std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const s
 
 // 原474FB0：窗口7完整刷新，复制阶段的elements/data快照差异见window_7.md。
 // 原函数：0x00474FB0。
-void WindowPlayerProfile_Refresh()
+static void WindowPlayerProfile_Refresh()
 {
     WindowElement* const portraitElements = gCurrentWindow->elements;
     const std::int32_t portrait = world::detail::ReadPlayerValue17C();
@@ -249,14 +439,14 @@ void WindowPlayerProfile_Refresh()
 }
 
 // 原函数：0x00474540。
-std::int32_t WindowPlayerProfile_Update(const std::int32_t)
+static std::int32_t WindowPlayerProfile_Update(const std::int32_t)
 {
     WindowPlayerProfile_Refresh();
     return 1;
 }
 
 // 原函数：0x00474310。
-void WindowPlayerProfile_Release()
+static void WindowPlayerProfile_Release()
 {
     WindowInstance* const window = gWindowStates[WindowId_PlayerProfile].window;
     if (window != nullptr) {
@@ -272,190 +462,3 @@ void WindowPlayerProfile_Release()
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic55F780 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F780。
-
-WindowGraphicData gWindowGraphic55F798 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F798。
-
-WindowGraphicData gWindowGraphic55F7B0 {0x3BAC5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7B0。
-
-WindowGraphicData gWindowGraphic55F7C8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7C8。
-
-WindowGraphicData gWindowGraphic55F7E0 {0x3BAB6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7E0。
-
-WindowGraphicData gWindowGraphic55F7F8 {0x3B583, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F7F8。
-
-WindowGraphicData gWindowGraphic55F810 {0x3BAB8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F810。
-
-WindowGraphicData gWindowGraphic55F828 {0x3BAC0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F828。
-
-WindowGraphicData gWindowGraphic55F840 {0x3BABD, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F840。
-
-WindowGraphicData gWindowGraphic55F858 {0x3BABB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F858。
-
-WindowGraphicData gWindowGraphic55F870 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F870。
-
-WindowGraphicData gWindowGraphic55F960 {0x3BACC, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055F960。
-
-WindowGraphicData gWindowGraphic55FA50 {0x3BAD1, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FA50。
-
-WindowGraphicData gWindowGraphic55FB40 {0x3BAD6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FB40。
-
-WindowGraphicData gWindowGraphic55FC30 {0x3BAC6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC30。
-
-WindowGraphicData gWindowGraphic55FC48 {0x3BACB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC48。
-
-WindowGraphicData gWindowGraphic55FC60 {0x3BAD0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC60。
-
-WindowGraphicData gWindowGraphic55FC78 {0x3BAD5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC78。
-
-WindowGraphicData gWindowGraphic55FC90 {0x3BAB2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FC90。
-
-WindowGraphicData gWindowGraphic55FCA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCA8。
-
-WindowGraphicData gWindowGraphic55FCC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x0055FCC0。
-
-WindowGraphicData gWindowGraphic55FCD8 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055FCD8。
-
-WindowTextPrototype gWindowText55FCF0 { // 原全局：0x0055FCF0。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
-};
-
-WindowTextPrototype gWindowText55FCF8 { // 原全局：0x0055FCF8。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
-};
-
-WindowTextPrototype gWindowText55FD00 { // 原全局：0x0055FD00。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"x5", // 原常量参考：0x00586224。
-};
-
-WindowTextPrototype gWindowText55FD08 { // 原全局：0x0055FD08。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
-};
-
-WindowTextPrototype gWindowText55FD10 { // 原全局：0x0055FD10。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族", // 原常量参考：0x00586214。
-};
-
-WindowTextPrototype gWindowText55FD18 { // 原全局：0x0055FD18。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族稱號", // 原常量参考：0x00586208。
-};
-
-WindowTextPrototype gWindowText55FD20 { // 原全局：0x0055FD20。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"特殊稱號", // 原常量参考：0x005861FC。
-};
-
-WindowTextPrototype gWindowText55FD28 { // 原全局：0x0055FD28。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"自定稱號", // 原常量参考：0x005861F0。
-};
-
-WindowTextPrototype gWindowText55FD30 { // 原全局：0x0055FD30。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種族", // 原常量参考：0x005861E8。
-};
-
-WindowTextPrototype gWindowText55FD38 { // 原全局：0x0055FD38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
-};
-
-WindowTextPrototype gWindowText55FD40 { // 原全局：0x0055FD40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"下一級經驗值", // 原常量参考：0x005861D0。
-};
-
-WindowTextPrototype gWindowText55FD48 { // 原全局：0x0055FD48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"生命值", // 原常量参考：0x005861C8。
-};
-
-WindowTextPrototype gWindowText55FD50 { // 原全局：0x0055FD50。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
-};
-
-WindowTextPrototype gWindowText55FD58 { // 原全局：0x0055FD58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"對戰勝利值", // 原常量参考：0x005861B4。
-};
-
-} // namespace
-
-// 原型：窗口7；原全局：0x0054E360。
-WindowPrototype gWindowPrototypePlayerProfile {0, 4, 15, 97, 315, 261, 0x80000080u, 73, gWindowElements55FD60, &WindowPlayerProfile_Update, &WindowRuntime_DrawDefault, &WindowPlayerProfile_Release}; // 7: 54E360
-
-WindowElementPrototype gWindowElements55FD60[73] { // 原全局：0x0055FD60。
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText55FCF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText55FCF8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 70, 101, 0, 0, 1, {.text = &gWindowText55FD00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 31, 0, 0, 1, {.text = &gWindowText55FD08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 49, 0, 0, 1, {.text = &gWindowText55FD10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 68, 0, 0, 1, {.text = &gWindowText55FD18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 86, 0, 0, 1, {.text = &gWindowText55FD20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 104, 0, 0, 1, {.text = &gWindowText55FD28}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 123, 0, 0, 1, {.text = &gWindowText55FD30}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 141, 0, 0, 1, {.text = &gWindowText55FD38}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 158, 0, 0, 1, {.text = &gWindowText55FD40}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 176, 0, 0, 1, {.text = &gWindowText55FD48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 194, 0, 0, 1, {.text = &gWindowText55FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 211, 0, 0, 1, {.text = &gWindowText55FD58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic55F780}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 48, 103, 0, 0, 1, {.graphic = &gWindowGraphic55F798}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 60, 104, 0, 0, 1, {.graphic = &gWindowGraphic55F7B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 151, 230, 0, 0, 1, {.graphic = &gWindowGraphic55F7E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic55F7F8}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic55F810}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic55FCD8}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F858}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 217, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F828}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 253, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F840}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 229, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 130, 0, 0, 1, {.graphic = &gWindowGraphic55FC30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 147, 0, 0, 1, {.graphic = &gWindowGraphic55FC48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FC60}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FC78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 29, 0, 0, 1, {.graphic = &gWindowGraphic55FC90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55FCA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic55FCC0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

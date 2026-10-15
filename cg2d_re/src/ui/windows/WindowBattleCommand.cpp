@@ -3,6 +3,76 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004966B0。
+static void WindowBattleCommand_Open(std::int32_t mode, std::int16_t x, std::int16_t y); // 窗口26五模式创建/配置及入场偏移。
+
+// 原函数：0x00496B90。
+static std::int32_t WindowBattleCommand_Update(std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
+
+// 原函数：0x00496D50。
+static std::int32_t WindowBattleCommand_Draw(std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
+
+// 原函数：0x00496AE0。
+static void WindowBattleCommand_Close(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
+
+// 原函数：0x00496F10。
+static void WindowBattleCommand_ResetSelection(); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
+
+// 原函数：0x004972B0。
+static std::int32_t WindowBattleCommand_ButtonAttack(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
+
+// 原函数：0x004973C0。
+static std::int32_t WindowBattleCommand_ButtonDefend(std::int32_t index, std::int32_t state); // 防御G命令及玩家动作完成。
+
+// 原函数：0x004974C0。
+static void WindowBattleCommand_SelectSkill(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。
+
+// 原函数：0x004975A0。
+static std::int32_t WindowBattleCommand_ButtonSkill(std::int32_t index, std::int32_t state); // 技能按钮及选目标返回技术窗。
+
+// 原函数：0x00497770。
+static std::int32_t WindowBattleCommand_ButtonItem(std::int32_t index, std::int32_t state); // 物品选择/返回27，保留CC4D40独立门禁。
+
+// 原函数：0x00497900。
+static std::int32_t WindowBattleCommand_ButtonPet(std::int32_t index, std::int32_t state); // 宠物选择及28窗口关闭。
+
+// 原函数：0x00497A60。
+static std::int32_t WindowBattleCommand_ButtonFormation(std::int32_t index, std::int32_t state); // P命令，使用九槽中的槽6。
+
+// 原函数：0x00497B80。
+static std::int32_t WindowBattleCommand_ButtonEscape(std::int32_t index, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
+
+// 原函数：0x00497C80。
+static std::int32_t WindowBattleCommand_ButtonRebirth(std::int32_t index, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
+
+// 原函数：0x00497E30。
+static void WindowBattleCommand_SelectPetSkill(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
+
+// 原函数：0x00497FF0。
+static void WindowBattleCommand_SelectRidingSkill(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
+
+// 原函数：0x00498160。
+static std::int32_t WindowBattleCommand_ButtonPetSkills(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。
+
+// 原函数：0x004982C0。
+static void WindowBattleCommand_DrawTimer(); // 完整倒计时/超时发送，本帧超时后仍绘制。
+
+// 原函数：0x0043C3E0。
+static void WindowBattleCommand_DrawTargetHint(); // 553F80门禁及首个可选对象的目标提示，不要求鼠标命中。
+
+// 原函数：0x0043C490。
+static void WindowBattleCommand_ResetTargets(std::int32_t* values, std::int32_t count); // 正数count逐槽写-2，原caller弃返回。
+
+// 原函数：0x00496B90。
+static std::int32_t WindowBattleCommand_Update(std::int32_t value);
+
+// 原函数：0x00496D50。
+static std::int32_t WindowBattleCommand_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
 // 原战斗子窗展开引用；CC423C独立于关闭入口处理的前三槽，不合并生命周期。
 static login::YobiAction* gBattleSkillWindowActionCC1A10 = nullptr; // 原全局：0x00CC1A10。
 
@@ -16,8 +86,60 @@ static std::uint8_t gBattleSkillTargetPendingD303F8 = 0; // 原全局：0x00D303
 
 static std::uint8_t gBattleValueCB054C = 0; // 原全局：0x00CB054C。
 
+static WindowGraphicData gWindowGraphic56B5E0 {0x3B9C0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5E0。
+
+static WindowGraphicData gWindowGraphic56B5F8 {0x3B9C5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5F8。
+
+static WindowGraphicData gWindowGraphic56B610 {0x3B9D1, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B610。
+
+static WindowGraphicData gWindowGraphic56B628 {0x3B9C8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B628。
+
+static WindowGraphicData gWindowGraphic56B640 {0x3B9D4, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B640。
+
+static WindowGraphicData gWindowGraphic56B658 {0x3B9CB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B658。
+
+static WindowGraphicData gWindowGraphic56B670 {0x3B9D7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B670。
+
+static WindowGraphicData gWindowGraphic56B688 {0x3B9DA, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B688。
+
+static WindowGraphicData gWindowGraphic56B6A0 {0x3B9CE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B6A0。
+
+static WindowTextPrototype gWindowText56B6F8 { // 原全局：0x0056B6F8。
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+};
+
+static WindowTextPrototype gWindowText56B700 { // 原全局：0x0056B700。
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
+};
+
+static WindowTextPrototype gWindowText56B708 { // 原全局：0x0056B708。
+    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
+};
+
+static WindowElementPrototype gWindowElements56B710[14] { // 原全局：0x0056B710。
+    {WindowElementType_Graphic, 13, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B5F8}, &WindowBattleCommand_ButtonAttack},
+    {WindowElementType_Graphic, 13, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B610}, &WindowBattleCommand_ButtonDefend},
+    {WindowElementType_Graphic, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonSkill},
+    {WindowElementType_Graphic, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &WindowBattleCommand_ButtonItem},
+    {WindowElementType_Graphic, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &WindowBattleCommand_ButtonPet},
+    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonFormation},
+    {WindowElementType_Graphic, 223, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
+    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRebirth},
+    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonPetSkills},
+    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
+    {WindowElementType_Text, 20, 24, 0, 0, 1, {.text = &gWindowText56B6F8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 215, 24, 0, 0, 1, {.text = &gWindowText56B700}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 48, 0, 0, 1, {.text = &gWindowText56B708}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B5E0}, &WindowElement_NoOp},
+};
+
+// 原型：窗口26；原全局：0x0054E720。
+WindowPrototype gWindowPrototypeBattleCommand {2, 5, 341, 0, 299, 69, 0x80010101u, 14, gWindowElements56B710, &WindowBattleCommand_Update, &WindowBattleCommand_Draw, &WindowRuntime_ReleaseDefault}; // 26: 54E720
+
+// 窗口函数实现。
+
 // 原函数：0x004966B0。
-void WindowBattleCommand_Open(
+static void WindowBattleCommand_Open(
     const std::int32_t mode, const std::int16_t x, const std::int16_t y)
 {
     gWindowStates[WindowId_BattleCommand].actionFlags1C =
@@ -116,7 +238,7 @@ void WindowBattleCommand_Open(
 }
 
 // 原函数：0x00496B90。
-std::int32_t WindowBattleCommand_Update(const std::int32_t value)
+static std::int32_t WindowBattleCommand_Update(const std::int32_t value)
 {
     if (value == -1) {
         gWindowStates[WindowId_BattleCommand].value10 = 0;
@@ -187,7 +309,7 @@ std::int32_t WindowBattleCommand_Update(const std::int32_t value)
 }
 
 // 原函数：0x00496D50。
-std::int32_t WindowBattleCommand_Draw(const std::int32_t)
+static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
 {
     WindowRuntime_DrawCurrent();
     const auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
@@ -250,7 +372,7 @@ std::int32_t WindowBattleCommand_Draw(const std::int32_t)
 }
 
 // 原函数：0x00496AE0。
-void WindowBattleCommand_Close()
+static void WindowBattleCommand_Close()
 {
     if (gWindowStates[WindowId_BattleCommand].window == nullptr) {
         return;
@@ -292,7 +414,7 @@ void WindowBattleCommand_Close()
 }
 
 // 原函数：0x00496F10。
-void WindowBattleCommand_ResetSelection()
+static void WindowBattleCommand_ResetSelection()
 {
     world::detail::gBattleSelectionModes5ABC7C.fill(0);
     WindowInstance* window = gWindowStates[WindowId_Skill].window;
@@ -325,7 +447,7 @@ void WindowBattleCommand_ResetSelection()
 }
 
 // 原函数：0x004972B0。
-std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
@@ -363,7 +485,7 @@ std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const st
 }
 
 // 原函数：0x004973C0。
-std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
@@ -400,7 +522,7 @@ std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, const st
 }
 
 // 原函数：0x00497770。
-std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (world::detail::gBattleSkillUsed5ABC68 != 0) {
@@ -454,7 +576,7 @@ std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, const std:
 }
 
 // 原函数：0x00497900。
-std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (world::detail::gBattleSkillUsed5ABC68 != 0) {
@@ -507,7 +629,7 @@ std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, const std::
 }
 
 // 原函数：0x00497A60。
-std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (world::detail::gBattleSkillUsed5ABC68 != 0) {
@@ -548,7 +670,7 @@ std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index, const
 }
 
 // 原函数：0x00497B80。
-std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
@@ -586,7 +708,7 @@ std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, const st
 
 // TUC01：原战斗转生门槛/载荷判空保持；持有 hover，刷新后重取命令状态，发送弃返。
 // 原函数：0x00497C80。
-std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const element = &gCurrentWindow->elements[index];
     auto* const graphic = static_cast<WindowGraphicData*>(element->data);
@@ -776,7 +898,7 @@ void WindowBattleCommand_OpenSkills()
 }
 
 // 原函数：0x004974C0。
-void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const std::int32_t technique)
+static void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const std::int32_t technique)
 {
     world::detail::gBattleSelectedSkill5ABB5C = skillIndex;
     world::detail::gBattleSelectedTechnique5ABC78 = technique;
@@ -808,7 +930,7 @@ void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const std::i
 }
 
 // 原函数：0x004975A0。
-std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (world::detail::gBattleSkillUsed5ABC68 != 0) {
@@ -872,7 +994,7 @@ std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, const std
 }
 
 // 原函数：0x00497E30。
-void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
+static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
 {
     if (technique < 0) {
         world::detail::gBattlePetCommandPhase553F88 = 0;
@@ -924,7 +1046,7 @@ void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
 }
 
 // 原函数：0x00497FF0。
-void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
+static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
 {
     if (technique < 0) {
         world::detail::gBattlePetCommandPhase553F88 = 0;
@@ -973,7 +1095,7 @@ void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
 }
 
 // 原函数：0x00498160。
-std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
@@ -1021,7 +1143,7 @@ std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index, const
 }
 
 // 原函数：0x0043C3E0。
-void WindowBattleCommand_DrawTargetHint()
+static void WindowBattleCommand_DrawTargetHint()
 {
     if (world::detail::gBattleCommandValue553F80 != 0) {
         return;
@@ -1045,7 +1167,7 @@ void WindowBattleCommand_DrawTargetHint()
 }
 
 // 原函数：0x0043C490。
-void WindowBattleCommand_ResetTargets(std::int32_t* const values, const std::int32_t count)
+static void WindowBattleCommand_ResetTargets(std::int32_t* const values, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
         values[index] = -2;
@@ -1491,7 +1613,7 @@ void WindowBattleCommand_Dispatch()
 }
 
 // 原函数：0x004982C0。
-void WindowBattleCommand_DrawTimer()
+static void WindowBattleCommand_DrawTimer()
 {
     using namespace world::detail;
     const std::uint32_t tick = platform::ReadTickCount32();
@@ -1615,61 +1737,3 @@ void WindowBattleCommand_SyncActorVitals()
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56B5E0 {0x3B9C0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5E0。
-
-WindowGraphicData gWindowGraphic56B5F8 {0x3B9C5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B5F8。
-
-WindowGraphicData gWindowGraphic56B610 {0x3B9D1, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B610。
-
-WindowGraphicData gWindowGraphic56B628 {0x3B9C8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B628。
-
-WindowGraphicData gWindowGraphic56B640 {0x3B9D4, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B640。
-
-WindowGraphicData gWindowGraphic56B658 {0x3B9CB, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B658。
-
-WindowGraphicData gWindowGraphic56B670 {0x3B9D7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B670。
-
-WindowGraphicData gWindowGraphic56B688 {0x3B9DA, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B688。
-
-WindowGraphicData gWindowGraphic56B6A0 {0x3B9CE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B6A0。
-
-WindowTextPrototype gWindowText56B6F8 { // 原全局：0x0056B6F8。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
-};
-
-WindowTextPrototype gWindowText56B700 { // 原全局：0x0056B700。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
-};
-
-WindowTextPrototype gWindowText56B708 { // 原全局：0x0056B708。
-    {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
-};
-
-} // namespace
-
-// 原型：窗口26；原全局：0x0054E720。
-WindowPrototype gWindowPrototypeBattleCommand {2, 5, 341, 0, 299, 69, 0x80010101u, 14, gWindowElements56B710, &WindowBattleCommand_Update, &WindowBattleCommand_Draw, &WindowRuntime_ReleaseDefault}; // 26: 54E720
-
-WindowElementPrototype gWindowElements56B710[14] { // 原全局：0x0056B710。
-    {WindowElementType_Graphic, 13, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B5F8}, &WindowBattleCommand_ButtonAttack},
-    {WindowElementType_Graphic, 13, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B610}, &WindowBattleCommand_ButtonDefend},
-    {WindowElementType_Graphic, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonSkill},
-    {WindowElementType_Graphic, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &WindowBattleCommand_ButtonItem},
-    {WindowElementType_Graphic, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &WindowBattleCommand_ButtonPet},
-    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonFormation},
-    {WindowElementType_Graphic, 223, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
-    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRebirth},
-    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonPetSkills},
-    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
-    {WindowElementType_Text, 20, 24, 0, 0, 1, {.text = &gWindowText56B6F8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 215, 24, 0, 0, 1, {.text = &gWindowText56B700}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 48, 0, 0, 1, {.text = &gWindowText56B708}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B5E0}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

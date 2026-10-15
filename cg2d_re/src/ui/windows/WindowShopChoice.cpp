@@ -2,7 +2,10 @@
 
 namespace cg::ui {
 namespace detail {
+
 namespace {
+
+using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
 
 // 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
 struct ChoiceDialogRuntimeSlots {
@@ -18,77 +21,143 @@ struct ChoiceDialogRuntimeSlots {
     std::uint8_t closeEnabled;
 };
 
-ChoiceDialogRuntimeSlots gChoiceDialog {};
+} // namespace
 
-std::array<const std::wstring*, 5> gChoiceDialogLinesD672D8 {}; // 原全局：0x00D672D8。
+// 回调与内部函数前置声明。
 
-std::int32_t gShopImageC9A9A0 = 0; // 原全局：0x00C9A9A0。
+// 原函数：0x0049FCA0。
+static login::YobiAction* WindowShopChoice_Open(
+    std::wstring_view title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
+    const wchar_t* const* choices, std::uint8_t choiceCount,
+    const wchar_t* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
 
-std::array<const wchar_t*, 3> gShopChoicesCB1DC8 {}; // 原全局：0x00CB1DC8。
+// 原函数：0x0049FFA0。
+static std::int32_t WindowShopChoice_SelectRow(std::int32_t unusedIndex, std::int32_t state);
 
-std::array<const wchar_t*, 3> gShopHintsD2F738 {}; // 原全局：0x00D2F738。
+// 原函数：0x004A00C0。
+static std::int32_t WindowShopChoice_SendBuySellChoice(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
 
-std::array<std::int8_t, 3> gShopCommandsD64E10 {}; // 原全局：0x00D64E10。
+// 原函数：0x004A0280。
+static std::int32_t WindowShopChoice_SendFirstCommandChoice(std::int32_t index); // CB03D4命令表的选择回复。
 
-constexpr std::array<const wchar_t*, 3> kShopChoices57E6B8 { // 原常量参考：0x0057E6B8。
+// 原函数：0x004A0420。
+static std::int32_t WindowShopChoice_SendSecondCommandChoice(std::int32_t index); // CF47D8命令表的选择回复。
+
+// 原函数：0x004A05C0。
+static std::int32_t WindowShopChoice_SendExchangeChoice(std::int32_t index); // 索引0..1分别发送1/2。
+
+// 原函数：0x004A0700。
+static std::int32_t WindowShopChoice_SendGiveReceiveChoice(std::int32_t index); // 仅索引0发送原字节1。
+
+// 原函数：0x0049FD20。
+static std::int32_t WindowShopChoice_Update(std::int32_t value);
+
+// 原函数：0x0049FE40。
+static std::int32_t WindowShopChoice_Draw(std::int32_t value);
+
+// 原函数：0x0049FF70。
+static void WindowShopChoice_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static ChoiceDialogRuntimeSlots gChoiceDialog {};
+
+static std::array<const std::wstring*, 5> gChoiceDialogLinesD672D8 {}; // 原全局：0x00D672D8。
+
+static std::int32_t gShopImageC9A9A0 = 0; // 原全局：0x00C9A9A0。
+
+static std::array<const wchar_t*, 3> gShopChoicesCB1DC8 {}; // 原全局：0x00CB1DC8。
+
+static std::array<const wchar_t*, 3> gShopHintsD2F738 {}; // 原全局：0x00D2F738。
+
+static std::array<std::int8_t, 3> gShopCommandsD64E10 {}; // 原全局：0x00D64E10。
+
+static constexpr std::array<const wchar_t*, 3> kShopChoices57E6B8 { // 原常量参考：0x0057E6B8。
     L"買", L"賣", L"不用了",
 };
 
-std::int32_t gChoiceImageCB0AE4 = 0; // 原全局：0x00CB0AE4。
+static std::int32_t gChoiceImageCB0AE4 = 0; // 原全局：0x00CB0AE4。
 
-std::int32_t gChoiceImageCF4A18 = 0; // 原全局：0x00CF4A18。
+static std::int32_t gChoiceImageCF4A18 = 0; // 原全局：0x00CF4A18。
 
-std::int32_t gChoiceImageCC4890 = 0; // 原全局：0x00CC4890。
+static std::int32_t gChoiceImageCC4890 = 0; // 原全局：0x00CC4890。
 
-std::int32_t gChoiceImageC9A99C = 0; // 原全局：0x00C9A99C。
+static std::int32_t gChoiceImageC9A99C = 0; // 原全局：0x00C9A99C。
 
-std::int32_t gChoiceImageD2EA74 = 0; // 原全局：0x00D2EA74。
+static std::int32_t gChoiceImageD2EA74 = 0; // 原全局：0x00D2EA74。
 
-std::array<const wchar_t*, 2> gChoicesD67438 {}; // 原全局：0x00D67438。
+static std::array<const wchar_t*, 2> gChoicesD67438 {}; // 原全局：0x00D67438。
 
-std::array<const wchar_t*, 2> gChoiceHintsCC31FC {}; // 原全局：0x00CC31FC。
+static std::array<const wchar_t*, 2> gChoiceHintsCC31FC {}; // 原全局：0x00CC31FC。
 
-std::array<std::int8_t, 2> gChoiceCommandsCB03D4 {}; // 原全局：0x00CB03D4。
+static std::array<std::int8_t, 2> gChoiceCommandsCB03D4 {}; // 原全局：0x00CB03D4。
 
-std::array<const wchar_t*, 2> gChoicesD2D818 {}; // 原全局：0x00D2D818。
+static std::array<const wchar_t*, 2> gChoicesD2D818 {}; // 原全局：0x00D2D818。
 
-std::array<const wchar_t*, 2> gChoiceHintsCA0AAC {}; // 原全局：0x00CA0AAC。
+static std::array<const wchar_t*, 2> gChoiceHintsCA0AAC {}; // 原全局：0x00CA0AAC。
 
-std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {}; // 原全局：0x00CF47D8。
+static std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {}; // 原全局：0x00CF47D8。
 
-constexpr std::array<const wchar_t*, 3> kSkillChoices57E6F0 { // 原常量参考：0x0057E6F0。
+static constexpr std::array<const wchar_t*, 3> kSkillChoices57E6F0 { // 原常量参考：0x0057E6F0。
     L"想學習技能",
     L"想遺忘技能",
     kShopChoices57E6B8[2],
 };
 
-constexpr std::array<const wchar_t*, 3> kSkillHints57E6FC { // 原常量参考：0x0057E6FC。
+static constexpr std::array<const wchar_t*, 3> kSkillHints57E6FC { // 原常量参考：0x0057E6FC。
     L"向這位技能師範學習技能。",
     L"遺忘自己學習到的技能。",
     L"不學習技能。",
 };
 
-constexpr std::array<const wchar_t*, 3> kExchangeChoices57E708 { // 原常量参考：0x0057E708。
+static constexpr std::array<const wchar_t*, 3> kExchangeChoices57E708 { // 原常量参考：0x0057E708。
     L"交易", kShopChoices57E6B8[2], nullptr,
 };
 
-constexpr std::array<const wchar_t*, 3> kExchangeHints57E714 { // 原常量参考：0x0057E714。
+static constexpr std::array<const wchar_t*, 3> kExchangeHints57E714 { // 原常量参考：0x0057E714。
     L"交換這家店的物品。",
     kShopHints57E6C4[2], nullptr,
 };
 
-constexpr std::array<const wchar_t*, 2> kGiveReceiveLabels57E720 { // 原常量参考：0x0057E720。
+static constexpr std::array<const wchar_t*, 2> kGiveReceiveLabels57E720 { // 原常量参考：0x0057E720。
     L"給予物品", L"接受物品",
 };
 
-std::array<const wchar_t*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]}; // 原全局：0x0057E728。
+static std::array<const wchar_t*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]}; // 原全局：0x0057E728。
 
-constexpr std::array<const wchar_t*, 3> kGiveReceiveHints57E730 { // 原常量参考：0x0057E730。
+static constexpr std::array<const wchar_t*, 3> kGiveReceiveHints57E730 { // 原常量参考：0x0057E730。
     kExchangeHints57E714[0], kShopHints57E6C4[2], nullptr,
 };
 
+static_assert(std::is_same_v<decltype(&WindowShopChoice_SendBuySellChoice), WindowChoiceCallback>);
+
+static_assert(std::is_same_v<decltype(&WindowShopChoice_SendFirstCommandChoice), WindowChoiceCallback>);
+
+static_assert(std::is_same_v<decltype(&WindowShopChoice_SendSecondCommandChoice), WindowChoiceCallback>);
+
+static_assert(std::is_same_v<decltype(&WindowShopChoice_SendExchangeChoice), WindowChoiceCallback>);
+
+static_assert(std::is_same_v<decltype(&WindowShopChoice_SendGiveReceiveChoice), WindowChoiceCallback>);
+
+static WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。
+
+static WindowElementPrototype gWindowElements56D838[3] { // 原全局：0x0056D838。
+    {WindowElementType_Text, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 99, 142, 108, 0, 1, {.unusedValue = 0}, &WindowShopChoice_SelectRow},
+};
+
+// 原型：窗口52；原全局：0x0054E960。
+WindowPrototype gWindowPrototypeShopChoice {2, 4, 209, 117, 222, 216, 0x80010101u, 3, gWindowElements56D838, &WindowShopChoice_Update, &WindowShopChoice_Draw, &WindowShopChoice_Release}; // 52: 54E960
+
+// 窗口函数实现。
+
 // 五个选择创建入口共用的原字段提取/反转义/五行发布序列。
-void WindowShopChoice_FillBody(
+static void WindowShopChoice_FillBody(
     const char* const text, const std::int32_t field, const std::int32_t capacity)
 {
     std::array<char, 256> body;
@@ -102,7 +171,7 @@ void WindowShopChoice_FillBody(
 }
 
 // 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
-std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
+static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
 {
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -113,8 +182,6 @@ std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
         world::detail::BorrowPlayerXStorage()->value();
     return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
-} // namespace
-
 
 std::int32_t WindowShopChoice_ReadSkillImage() noexcept
 {
@@ -137,7 +204,7 @@ std::int32_t WindowShopChoice_ReadGiveReceiveImage() noexcept
 }
 
 // 原函数：0x0049FCA0。
-login::YobiAction* WindowShopChoice_Open(
+static login::YobiAction* WindowShopChoice_Open(
     const std::wstring_view title, const std::int32_t imageNo,
     const std::wstring* const* const lines, const std::uint8_t lineCount,
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
@@ -164,7 +231,7 @@ login::YobiAction* WindowShopChoice_Open(
 }
 
 // 原函数：0x0049FD20。
-std::int32_t WindowShopChoice_Update(const std::int32_t value)
+static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
@@ -190,7 +257,7 @@ std::int32_t WindowShopChoice_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049FE40。
-std::int32_t WindowShopChoice_Draw(const std::int32_t)
+static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 {
     WindowRuntime_DrawCurrent();
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
@@ -224,7 +291,7 @@ std::int32_t WindowShopChoice_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049FF70。
-void WindowShopChoice_Release()
+static void WindowShopChoice_Release()
 {
     if (gChoiceDialog.closeEnabled != 0 && world::detail::gValue581800 == gChoiceDialog.type) {
         world::detail::gValue581800 = -1;
@@ -232,7 +299,7 @@ void WindowShopChoice_Release()
 }
 
 // 原函数：0x0049FFA0。
-std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) == 0) {
         return 0;
@@ -265,7 +332,7 @@ std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::int32_t s
 }
 
 // 原函数：0x004A00C0。
-std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
@@ -282,8 +349,6 @@ std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
     return network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
 }
-
-static_assert(std::is_same_v<decltype(&WindowShopChoice_SendBuySellChoice), WindowChoiceCallback>);
 
 // 原函数：0x004A0140。
 login::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
@@ -326,7 +391,7 @@ login::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
 }
 
 // 原函数：0x004A0280。
-std::int32_t WindowShopChoice_SendFirstCommandChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendFirstCommandChoice(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
@@ -337,7 +402,7 @@ std::int32_t WindowShopChoice_SendFirstCommandChoice(const std::int32_t index)
 }
 
 // 原函数：0x004A0420。
-std::int32_t WindowShopChoice_SendSecondCommandChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendSecondCommandChoice(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
@@ -348,7 +413,7 @@ std::int32_t WindowShopChoice_SendSecondCommandChoice(const std::int32_t index)
 }
 
 // 原函数：0x004A05C0。
-std::int32_t WindowShopChoice_SendExchangeChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendExchangeChoice(const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
@@ -359,7 +424,7 @@ std::int32_t WindowShopChoice_SendExchangeChoice(const std::int32_t index)
 }
 
 // 原函数：0x004A0700。
-std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t index)
 {
     if (index != 0) {
         return index;
@@ -368,14 +433,6 @@ std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t index)
     buffer = L"1";
     return WindowShopChoice_SendReply(buffer);
 }
-
-static_assert(std::is_same_v<decltype(&WindowShopChoice_SendFirstCommandChoice), WindowChoiceCallback>);
-
-static_assert(std::is_same_v<decltype(&WindowShopChoice_SendSecondCommandChoice), WindowChoiceCallback>);
-
-static_assert(std::is_same_v<decltype(&WindowShopChoice_SendExchangeChoice), WindowChoiceCallback>);
-
-static_assert(std::is_same_v<decltype(&WindowShopChoice_SendGiveReceiveChoice), WindowChoiceCallback>);
 
 // 原函数：0x004A0300。
 login::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const text)
@@ -479,26 +536,3 @@ login::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const text
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。
-
-} // namespace
-
-// 原型：窗口52；原全局：0x0054E960。
-WindowPrototype gWindowPrototypeShopChoice {2, 4, 209, 117, 222, 216, 0x80010101u, 3, gWindowElements56D838, &WindowShopChoice_Update, &WindowShopChoice_Draw, &WindowShopChoice_Release}; // 52: 54E960
-
-WindowElementPrototype gWindowElements56D838[3] { // 原全局：0x0056D838。
-    {WindowElementType_Text, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 99, 142, 108, 0, 1, {.unusedValue = 0}, &WindowShopChoice_SelectRow},
-};
-
-} // namespace cg::ui::detail

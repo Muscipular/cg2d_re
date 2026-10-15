@@ -3,9 +3,53 @@
 namespace cg::ui {
 namespace detail {
 
-std::int32_t gStorageOwnHover57EE04 = -2; // 原全局：0x0057EE04。
+// 回调与内部函数前置声明。
 
-std::int32_t gStorageExternalHover57EE08 = -2; // 原全局：0x0057EE08。
+// 原函数：0x004AC290。
+static std::int32_t WindowItemStorage_HandleOwnItems(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。
+
+// 原函数：0x004AC890。
+static std::int32_t WindowItemStorage_HandleStoredItems(std::int32_t index, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
+
+// 原函数：0x004AC0F0。
+static void WindowItemStorage_Release();
+
+// 原函数：0x004AC140。
+static std::int32_t WindowItemStorage_Update(std::int32_t value);
+
+// 原函数：0x004AC1B0。
+// 关联原入口：0x004AC1EC（共享尾已并入本函数正文）。
+static std::int32_t WindowItemStorage_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static std::int32_t gStorageOwnHover57EE04 = -2; // 原全局：0x0057EE04。
+
+static std::int32_t gStorageExternalHover57EE08 = -2; // 原全局：0x0057EE08。
+
+static WindowGraphicData gWindowGraphic5716C8 {245221, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716C8。
+
+static WindowGraphicData gWindowGraphic5716E0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716E0。
+
+static WindowGraphicData gWindowGraphic5716F8 {245222, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716F8。
+
+static WindowGraphicData gWindowGraphic571710 {245220, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571710。
+
+static WindowGraphicData gWindowGraphic571728 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571728。
+
+static WindowElementPrototype gWindowElements571740[6] { // 原全局：0x00571740。
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571728}, &WindowBank_ButtonCloseIcon},
+    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic5716E0}, &WindowBank_ButtonClose},
+    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic5716F8}, &WindowItemStorage_HandleOwnItems},
+    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic571710}, &WindowItemStorage_HandleStoredItems},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5716C8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口38；原全局：0x0054EB40。
+WindowPrototype gWindowPrototypeItemStorage {0, 4, 300, 82, 567, 339, 0x80010101u, 6, gWindowElements571740, &WindowItemStorage_Update, &WindowItemStorage_Draw, &WindowItemStorage_Release}; // 38: 54EB40
+
+// 窗口函数实现。
 
 // 原函数：0x004AC0C0。
 WindowInstance* WindowItemStorage_Open(
@@ -21,7 +65,7 @@ WindowInstance* WindowItemStorage_Open(
 }
 
 // 原函数：0x004AC0F0。
-void WindowItemStorage_Release()
+static void WindowItemStorage_Release()
 {
     if (world::detail::gValue581800 == 34) {
         world::detail::gValue581800 = -1;
@@ -36,7 +80,7 @@ void WindowItemStorage_Release()
 }
 
 // 原函数：0x004AC140。
-std::int32_t WindowItemStorage_Update(const std::int32_t)
+static std::int32_t WindowItemStorage_Update(const std::int32_t)
 {
     if (WindowProfile_CheckDistance(1, 1) != 0) {
         gCurrentWindow->state |= 0x8000u;
@@ -52,7 +96,7 @@ std::int32_t WindowItemStorage_Update(const std::int32_t)
 
 // SPD01：原4AC1B0完整19条及4AC1EC三条共享尾；页数/内外物品预览分派后绘制并返回1。
 // 原函数：0x004AC1B0。
-std::int32_t WindowItemStorage_Draw(const std::int32_t)
+static std::int32_t WindowItemStorage_Draw(const std::int32_t)
 {
     const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].actionFlags1C);
     if (preview >= 0) {
@@ -68,7 +112,7 @@ std::int32_t WindowItemStorage_Draw(const std::int32_t)
 }
 
 // 原函数：0x004AC290。
-std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -223,7 +267,7 @@ std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const st
 
 // SEP01：原4AC890完整426条；flags只读低BYTE，坐标按原S32取样序，窗口38类型门槛/翻页/数量显示保持。
 // 原函数：0x004AC890。
-std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -395,33 +439,3 @@ std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5716C8 {245221, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716C8。
-
-WindowGraphicData gWindowGraphic5716E0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716E0。
-
-WindowGraphicData gWindowGraphic5716F8 {245222, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005716F8。
-
-WindowGraphicData gWindowGraphic571710 {245220, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571710。
-
-WindowGraphicData gWindowGraphic571728 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571728。
-
-} // namespace
-
-// 原型：窗口38；原全局：0x0054EB40。
-WindowPrototype gWindowPrototypeItemStorage {0, 4, 300, 82, 567, 339, 0x80010101u, 6, gWindowElements571740, &WindowItemStorage_Update, &WindowItemStorage_Draw, &WindowItemStorage_Release}; // 38: 54EB40
-
-WindowElementPrototype gWindowElements571740[6] { // 原全局：0x00571740。
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571728}, &WindowBank_ButtonCloseIcon},
-    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic5716E0}, &WindowBank_ButtonClose},
-    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic5716F8}, &WindowItemStorage_HandleOwnItems},
-    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic571710}, &WindowItemStorage_HandleStoredItems},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5716C8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

@@ -2,22 +2,78 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0。
+// 回调与内部函数前置声明。
+
+// 原函数：0x004CB550。
+static std::int32_t WindowMiniMail_Update(std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
+
+// 原函数：0x004CB5D0。
+static void WindowMiniMail_Refresh(); // 同源收件人与八位费用刷新，原混合返回无人消费。
+
+// 原函数：0x004CB6A0。
+static std::int32_t WindowMiniMail_Send(std::int32_t index, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
+
+// 原函数：0x004CB920。
+static std::int32_t WindowMiniMail_HandleInput(std::int32_t unusedIndex, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowInputPrototype gMiniMailInputPrototype580CB0 { // 原全局：0x00580CB0。
     {{&input::gInputContextCA0180}, WindowInputReferenceKind::Context},
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
-} // namespace
 
+static WindowGraphicData gWindowGraphic5799D0 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799D0。
+
+static WindowGraphicData gWindowGraphic5799E8 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799E8。
+
+static WindowGraphicData gWindowGraphic579A00 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00579A00。
+
+static WindowGraphicData gWindowGraphic579A78 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579A78。
+
+static WindowGraphicData gWindowGraphic579AA8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579AA8。
+
+static WindowGraphicData gWindowGraphic579B08 {0x3C123, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579B08。
+
+static WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"收件人", // 原常量参考：0x00585CF4。
+};
+
+static WindowElementPrototype gWindowElements579B28[16] { // 原全局：0x00579B28。
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput},
+    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 72, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 64, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 56, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 48, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 40, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 32, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 24, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 20, 28, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText579B20}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &WindowElement_NoOp},
+};
+
+// 原型：窗口63；原全局：0x0054EE20。
+WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 16, gWindowElements579B28, &WindowMiniMail_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 63: 54EE20
+
+// 窗口函数实现。
 
 // 原函数：0x004CB5D0。
-void WindowMiniMail_Refresh()
+static void WindowMiniMail_Refresh()
 {
     static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text = cg::text::FromGbkWide(gMiniMailCompose105F508.name.data());
     WindowInstance* const window = gCurrentWindow;
@@ -35,7 +91,7 @@ void WindowMiniMail_Refresh()
 }
 
 // 原函数：0x004CB550。
-std::int32_t WindowMiniMail_Update(const std::int32_t value)
+static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t mode =
@@ -55,7 +111,7 @@ std::int32_t WindowMiniMail_Update(const std::int32_t value)
 }
 
 // 原函数：0x004CB920。
-std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -78,7 +134,7 @@ std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t s
 }
 
 // 原函数：0x004CB6A0。
-std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t state)
 {
     if (index != 2) {
         return 0;
@@ -146,49 +202,3 @@ std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t st
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5799D0 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799D0。
-
-WindowGraphicData gWindowGraphic5799E8 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799E8。
-
-WindowGraphicData gWindowGraphic579A00 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00579A00。
-
-WindowGraphicData gWindowGraphic579A78 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579A78。
-
-WindowGraphicData gWindowGraphic579AA8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579AA8。
-
-WindowGraphicData gWindowGraphic579B08 {0x3C123, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579B08。
-
-WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"收件人", // 原常量参考：0x00585CF4。
-};
-
-} // namespace
-
-// 原型：窗口63；原全局：0x0054EE20。
-WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 16, gWindowElements579B28, &WindowMiniMail_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 63: 54EE20
-
-WindowElementPrototype gWindowElements579B28[16] { // 原全局：0x00579B28。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput},
-    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 72, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 64, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 56, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 48, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 40, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 32, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 24, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 20, 28, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText579B20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

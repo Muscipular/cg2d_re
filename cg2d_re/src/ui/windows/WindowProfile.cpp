@@ -3,9 +3,21 @@
 namespace cg::ui {
 namespace detail {
 
-std::int32_t gValueCC4D34 = 0; // 原全局：0x00CC4D34。
+// 回调与内部函数前置声明。
 
-std::int32_t gValueCC4D3C = 0; // 原全局：0x00CC4D3C。
+// 原函数：0x0049D8F0。
+static void WindowProfile_RouteReply(
+    std::int32_t type, std::int32_t value, std::int32_t request,
+    std::int32_t target, char* text); // 先发布同源对话状态，再生产并打开60/61/62。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00CC4D34。 4D3020保存x/y数值，非CryptInt对象。
+static std::int32_t gValueCC4D34 = 0; // 原全局：0x00CC4D34。
+
+static std::int32_t gValueCC4D3C = 0; // 原全局：0x00CC4D3C。
+
+// 窗口函数实现。
 
 // 原函数：0x00478330。
 std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
@@ -155,7 +167,7 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
 }
 
 // 原函数：0x0049D8F0。
-void WindowProfile_RouteReply(
+static void WindowProfile_RouteReply(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
@@ -200,8 +212,10 @@ void WindowProfile_RouteReply(
         return;
     }
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050F990。
 void WindowProfile_ReceiveReply(

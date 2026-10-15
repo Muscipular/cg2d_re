@@ -3,15 +3,137 @@
 namespace cg::ui {
 namespace detail {
 
-std::int32_t gShopReplyItemCountCF4B58 = 0; // 原全局：0x00CF4B58。
+// 回调与内部函数前置声明。
 
-std::int32_t gShopDialogTypeCC3EC8 = 0; // 原全局：0x00CC3EC8。
+// 原函数：0x004B8310。
+static void WindowShop_RefreshBuyRows(); // 买入五行名称/价格/不可装备提示，保留原分行终止偏移。
 
-std::int32_t gShopValueCF467C = 0; // 原全局：0x00CF467C。
+// 原函数：0x004B8670。
+static void WindowShop_RefreshBuyQuantities(); // 买入五行所选数量文本。
 
-std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {}; // 原全局：0x00D2DAB8。
+// 原函数：0x004B86C0。
+static void WindowShop_RefreshBuyAmount(); // 全20商品金额合计及元素7颜色。
 
-std::array<char, 20> gShopSelectedSlotsCB03DC {}; // 原全局：0x00CB03DC。
+// 原函数：0x004B8730。
+static void WindowShop_CountBuySlots(); // 全20商品按上限分组计算占用数量。
+
+// 原函数：0x004B8780。
+static void WindowShop_RefreshSellRows(); // 出售五行按S8选择槽取商品，不另检查use。
+
+// 原函数：0x004B8B10。
+static void WindowShop_RefreshSellQuantities(); // 出售数量及上限>1时的加减元素可见性。
+
+// 原函数：0x004B8BE0。
+static void WindowShop_RefreshSellAmount(); // 全20选择槽的金额合计，元素7颜色固定0。
+
+// 原函数：0x004B8C50。
+static void WindowShop_CountSellItems(); // 全20选择槽直接累计所选数，不做买入分组。
+
+// 原函数：0x004B8C90。
+static void WindowShop_RefreshExchangeRows(); // 模式2五行，按指定物品数量与价格加合计比较。
+
+// 原函数：0x004B8FF0。
+static void WindowShop_RefreshExchangeQuantities(); // 模式2数量，使用项直接重显加减元素。
+
+// 原函数：0x004B9090。
+static void WindowShop_RefreshExchangeAmount(); // 模式2合计写CF4A28，不写金额颜色。
+
+// 原函数：0x004B90E0。
+static void WindowShop_CountExchangeItems(); // 模式2全部使用商品累计所选数。
+
+// 原函数：0x004B9110。
+static void WindowShop_RefreshDetailName(); // 模式3首行详情名与数值，短名称的次行借593850。
+
+// 原函数：0x004B9270。
+static void WindowShop_RefreshDetailAmount(); // 模式3三次读取D046C4，先两个显示值后乘详情单价。
+
+// 原函数：0x004B92C0。
+static void WindowShop_CountDetailItems(); // 模式3详情数值或全部28玩家物品的匹配数量。
+
+// 原函数：0x004BBED0。
+static std::int32_t WindowShop_HandleItemIcon(std::int32_t index, std::int32_t state); // 商品图标，仅hover内bit4翻页。
+
+// 原函数：0x004BC060。
+static std::int32_t WindowShop_HandleDetailIcon(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
+
+// 原函数：0x004BC230。
+static std::int32_t WindowShop_HandleSaleSelection(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
+
+// 原函数：0x004BC660。
+static std::int32_t WindowShop_HandleInventory(std::int32_t index, std::int32_t state); // 背包20格命中、加入/拖动/翻页及两组绘制。
+
+// 原函数：0x004B9B10。
+static void WindowShop_Submit(std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
+
+// 原函数：0x004B9F40。
+static std::int32_t WindowShop_ButtonOk(std::int32_t index, std::int32_t state); // 六模式确认生产，借用同源覆盖层。
+
+// 原函数：0x004BD100。
+static std::int32_t WindowShop_HandleConfirmation(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，事件直接读共享鼠标。
+
+// 原函数：0x004BA950。
+static std::int32_t WindowShop_ButtonCancel(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
+
+// 原函数：0x004BAA50。
+static std::int32_t WindowShop_ButtonAddAll(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
+
+// 原函数：0x004BCEE0。
+static std::int32_t WindowShop_HandleSaleDrop(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
+
+// 原函数：0x004BAD10。
+static std::int32_t WindowShop_ButtonPreviousRow(std::int32_t index, std::int32_t state); // bit400向前一行，触边仍刷新。
+
+// 原函数：0x004BAE10。
+static std::int32_t WindowShop_ButtonNextRow(std::int32_t index, std::int32_t state); // bit400向后一行，触边仍刷新。
+
+// 原函数：0x004BAF10。
+static std::int32_t WindowShop_ButtonPreviousPage(std::int32_t index, std::int32_t state); // bit2向前五行，音效后重读位置。
+
+// 原函数：0x004BB010。
+static std::int32_t WindowShop_ButtonNextPage(std::int32_t index, std::int32_t state); // bit2向后五行，先上限后负值修正。
+
+// 原函数：0x004BB130。
+static std::int32_t WindowShop_Scroll(std::int32_t index, std::int32_t state); // 共享滚轮更新并刷新，恒返回0。
+
+// 原函数：0x004BB1D0。
+static std::int32_t WindowShop_ButtonDecrease(std::int32_t index, std::int32_t state); // 数量减少，兑换模式两轮背包占槽计算。
+
+// 原函数：0x004BB6E0。
+static std::int32_t WindowShop_ButtonIncrease(std::int32_t index, std::int32_t state); // 数量增加，保留行价格与选择槽索引差别。
+
+// 原函数：0x004B6C50。
+static void WindowShop_HandleSaleDrag(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
+
+// 原函数：0x004B6DA0。
+static std::int32_t WindowShop_StartSaleDrag(std::int32_t sourceIndex); // 透传kind9注册返回。
+
+// 原函数：0x004BC150。
+static void WindowShop_RemoveSaleSelection(); // 三次读取来源，撤销选择并刷新窗口53。
+
+// 原函数：0x004B6DC0。
+static void WindowShop_Release();
+
+// 原函数：0x004B9310。
+static std::int32_t WindowShop_Update(std::int32_t value);
+
+// 原函数：0x004B99D0。
+static std::int32_t WindowShop_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00CF4B58。 出售回复中实际读取的商品数。
+static std::int32_t gShopReplyItemCountCF4B58 = 0; // 原全局：0x00CF4B58。
+
+static std::int32_t gShopDialogTypeCC3EC8 = 0; // 原全局：0x00CC3EC8。
+
+static std::int32_t gShopValueCF467C = 0; // 原全局：0x00CF467C。
+
+// 原全局：0x00D2DAB8。 背包8..27到商品首匹配索引。
+static std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {}; // 原全局：0x00D2DAB8。
+
+// 原全局：0x00CB03DC。 原五次W32清-1，消费者按S8槽读取。
+static std::array<char, 20> gShopSelectedSlotsCB03DC {}; // 原全局：0x00CB03DC。
 
 std::array<char, 32> gShopTextCB0184 {}; // 原全局：0x00CB0184。
 
@@ -21,47 +143,57 @@ std::int32_t gShopValueD046C4 = 0; // 原全局：0x00D046C4。
 
 std::int32_t gShopValueD672D4 = 0; // 原全局：0x00D672D4。
 
-std::int32_t gShopTooltipIndex580844 = -1; // 原全局：0x00580844。
+// 原全局：0x00580844。 玩家/商品/详情提示编号，原装载初值-1。
+static std::int32_t gShopTooltipIndex580844 = -1; // 原全局：0x00580844。
 
-std::int32_t gShopMessage580848 = -1; // 原全局：0x00580848。
+// 原全局：0x00580848。 四行正文组的负编号，原装载初值-1。
+static std::int32_t gShopMessage580848 = -1; // 原全局：0x00580848。
 
-std::int32_t gShopInventoryHover58084C = -2; // 原全局：0x0058084C。
+// 原全局：0x0058084C。 原装载值-2，父初始化不重置的背包命中缓存。
+static std::int32_t gShopInventoryHover58084C = -2; // 原全局：0x0058084C。
 
-std::int32_t gShopTooltipPageD67B8C = 0; // 原全局：0x00D67B8C。
+static std::int32_t gShopTooltipPageD67B8C = 0; // 原全局：0x00D67B8C。
 
-std::int32_t gShopTotalD2DAFC = 0; // 原全局：0x00D2DAFC。
+static std::int32_t gShopTotalD2DAFC = 0; // 原全局：0x00D2DAFC。
 
-std::int32_t gShopValueC8AF74 = 0; // 原全局：0x00C8AF74。
+// 原全局：0x00C8AF74。 各模式计算的数量值，不与总金额合并。
+static std::int32_t gShopValueC8AF74 = 0; // 原全局：0x00C8AF74。
 
-std::int32_t gShopScrollCC488C = 0; // 原全局：0x00CC488C。
+static std::int32_t gShopScrollCC488C = 0; // 原全局：0x00CC488C。
 
-std::array<std::wstring, 5> gShopPriceTextsD673EC {}; // 原全局：0x00D673EC。
+// 原全局：0x00D673EC。 动态宽文本，控件借稳定owner。
+static std::array<std::wstring, 5> gShopPriceTextsD673EC {}; // 原全局：0x00D673EC。
 
-std::array<std::wstring, 5> gShopCountTextsD2D988 {}; // 原全局：0x00D2D988。
+// 原全局：0x00D2D988。 五行所选数量文本，与价格区分离。
+static std::array<std::wstring, 5> gShopCountTextsD2D988 {}; // 原全局：0x00D2D988。
 
-std::wstring gShopTotalTextCC4B2C {}; // 原全局：0x00CC4B2C。
+// 原全局：0x00CC4B2C。 金额或模式相关数值的共用显示文本。
+static std::wstring gShopTotalTextCC4B2C {}; // 原全局：0x00CC4B2C。
 
-std::wstring gShopMoneyTextCC1A00 {}; // 原全局：0x00CC1A00。
+// 原全局：0x00CC1A00。 玩家金额文本，573D18 type7借用；旧尾页号CC1A0C已迁独立数值owner。
+static std::wstring gShopMoneyTextCC1A00 {}; // 原全局：0x00CC1A00。
 
-std::wstring gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
+// 原全局：0x00CF4A28。 模式2/3数值显示，573D20借用。
+static std::wstring gShopValueTextCF4A28 {}; // 原全局：0x00CF4A28。
 
-std::uint8_t gShopDragFlagD67B90 = 0; // 原全局：0x00D67B90。
+// 原全局：0x00D67B90。 非零仅清自身，零分支移除选择；原虚拟零初值。
+static std::uint8_t gShopDragFlagD67B90 = 0; // 原全局：0x00D67B90。
 
 std::int32_t gQuantityLimit581C94 = 999; // 原全局：0x00581C94。
 
-WindowValueCallback gConfirmationCallbackC8B088 = nullptr; // 原全局：0x00C8B088。
+// 原全局：0x00C8B088。 原生借用函数指针，确认/取消各自重读。
+static WindowValueCallback gConfirmationCallbackC8B088 = nullptr; // 原全局：0x00C8B088。
 
-std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40 {}; // 原全局：0x00CB1E40。
+static std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40 {}; // 原全局：0x00CB1E40。
 
-std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90 {}; // 原全局：0x00CB0F90。
+static std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90 {}; // 原全局：0x00CB0F90。
 
-std::wstring gConfirmationLineCB1320 {}; // 原全局：0x00CB1320。
+static std::wstring gConfirmationLineCB1320 {}; // 原全局：0x00CB1320。
 
-std::wstring gConfirmationLineCB1210 {}; // 原全局：0x00CB1210。
-namespace {
+static std::wstring gConfirmationLineCB1210 {}; // 原全局：0x00CB1210。
 
 // 4B9F40六模式原字节文案，保留格式与定宽空格。
-constexpr std::array<const wchar_t*, 6> kShopConfirmHoverHints {
+static constexpr std::array<const wchar_t*, 6> kShopConfirmHoverHints {
     L"買進指定的物品。",
     L"賣掉指定的物品。",
     L"交換指定的物品。",
@@ -70,7 +202,7 @@ constexpr std::array<const wchar_t*, 6> kShopConfirmHoverHints {
     L"修理指定的物品。",
 };
 
-constexpr std::array<const wchar_t*, 6> kShopConfirmHeadings {
+static constexpr std::array<const wchar_t*, 6> kShopConfirmHeadings {
     L"持有金額           金幣    購買金額           金幣",
     L"持有金額           金幣    賣出金額           金幣",
     L"{:<24}    個  交換數      個",
@@ -79,7 +211,7 @@ constexpr std::array<const wchar_t*, 6> kShopConfirmHeadings {
     L"持有金額           金幣    修理金額           金幣",
 };
 
-constexpr std::array<const wchar_t*, 6> kShopConfirmQuestions {
+static constexpr std::array<const wchar_t*, 6> kShopConfirmQuestions {
     L"確認要購買這些物品？",
     L"賣掉這些物品。可以嗎？",
     L"交換這些物品。可以嗎？",
@@ -88,7 +220,7 @@ constexpr std::array<const wchar_t*, 6> kShopConfirmQuestions {
     L"修理這些物品。可以嗎？",
 };
 
-constexpr std::array<const wchar_t*, 6> kShopConfirmAcceptHints {
+static constexpr std::array<const wchar_t*, 6> kShopConfirmAcceptHints {
     L"買進物品。",
     L"賣掉。",
     L"進行交換。",
@@ -96,11 +228,169 @@ constexpr std::array<const wchar_t*, 6> kShopConfirmAcceptHints {
     L"進行鑑定。",
     L"進行修理。",
 };
-} // namespace
 
+static WindowGraphicData gWindowGraphic573AF0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573AF0。
+
+static WindowGraphicData gWindowGraphic573B08 {0x3BA9C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B08。
+
+static WindowGraphicData gWindowGraphic573B20 {0x3BA9D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B20。
+
+static WindowGraphicData gWindowGraphic573B38 {0x3BA9E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B38。
+
+static WindowGraphicData gWindowGraphic573B50 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B50。
+
+static WindowGraphicData gWindowGraphic573B68 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B68。
+
+static WindowGraphicData gWindowGraphic573B80 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B80。
+
+static WindowGraphicData gWindowGraphic573B98 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B98。
+
+static WindowGraphicData gWindowGraphic573BB0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BB0。
+
+static WindowGraphicData gWindowGraphic573BC8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BC8。
+
+static WindowGraphicData gWindowGraphic573BE0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BE0。
+
+static WindowGraphicData gWindowGraphic573BF8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BF8。
+
+static WindowGraphicData gWindowGraphic573C10 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C10。
+
+static WindowGraphicData gWindowGraphic573C28 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C28。
+
+static WindowGraphicData gWindowGraphic573C40 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C40。
+
+static WindowGraphicData gWindowGraphic573C58 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C58。
+
+static WindowGraphicData gWindowGraphic573C70 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C70。
+
+static WindowGraphicData gWindowGraphic573C88 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C88。
+
+static WindowGraphicData gWindowGraphic573CA0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CA0。
+
+static WindowGraphicData gWindowGraphic573CB8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CB8。
+
+static WindowGraphicData gWindowGraphic573CD0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CD0。
+
+static WindowTextPrototype gWindowText573CF8 { // 原全局：0x00573CF8。
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
+};
+
+static WindowTextPrototype gWindowText573D00 { // 原全局：0x00573D00。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
+};
+
+static WindowTextPrototype gWindowText573D08 { // 原全局：0x00573D08。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
+};
+
+static std::int32_t gWindowAnimationImage573D10 = 100000; // 原全局：0x00573D10。
+
+static WindowNumberData gWindowNumber573D18 {&gShopMoneyTextCC1A00, 0, 3, 1, 0}; // 原全局：0x00573D18。
+
+static WindowNumberData gWindowNumber573D20 {&gShopValueTextCF4A28, 0, 3, 1, 0}; // 原全局：0x00573D20。
+
+static WindowNumberData gWindowNumber573D28 {&gShopTotalTextCC4B2C, 0, 3, 1, 0}; // 原全局：0x00573D28。
+
+static WindowNumberData gWindowNumber573D30 {&gShopPriceTextsD673EC[0], 0, 3, 1, 0}; // 原全局：0x00573D30。
+
+static WindowNumberData gWindowNumber573D38 {&gShopPriceTextsD673EC[1], 0, 3, 1, 0}; // 原全局：0x00573D38。
+
+static WindowNumberData gWindowNumber573D40 {&gShopPriceTextsD673EC[2], 0, 3, 1, 0}; // 原全局：0x00573D40。
+
+static WindowNumberData gWindowNumber573D48 {&gShopPriceTextsD673EC[3], 0, 3, 1, 0}; // 原全局：0x00573D48。
+
+static WindowNumberData gWindowNumber573D50 {&gShopPriceTextsD673EC[4], 0, 3, 1, 0}; // 原全局：0x00573D50。
+
+static WindowNumberData gWindowNumber573D58 {&gShopCountTextsD2D988[0], 0, 3, 1, 0}; // 原全局：0x00573D58。
+
+static WindowNumberData gWindowNumber573D60 {&gShopCountTextsD2D988[1], 0, 3, 1, 0}; // 原全局：0x00573D60。
+
+static WindowNumberData gWindowNumber573D68 {&gShopCountTextsD2D988[2], 0, 3, 1, 0}; // 原全局：0x00573D68。
+
+static WindowNumberData gWindowNumber573D70 {&gShopCountTextsD2D988[3], 0, 3, 1, 0}; // 原全局：0x00573D70。
+
+static WindowNumberData gWindowNumber573D78 {&gShopCountTextsD2D988[4], 0, 3, 1, 0}; // 原全局：0x00573D78。
+
+// 51的flags源与49图形源+10H重叠，实例仍分别按type4/type1创建。
+static std::uint32_t& gWindowMouseFlagsD678F0 = // 原全局：0x00D678F0。
+    reinterpret_cast<std::uint32_t&>(gWindowGraphicD678E0.height);
+
+static WindowElementPrototype gWindowElements573D80[66] { // 原全局：0x00573D80。
+    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowShop_HandleConfirmation},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic573C88}, &WindowShop_ButtonOk},
+    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonCancel},
+    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonAddAll},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText573CF8}, &WindowElement_NoOp},
+    {WindowElementType_Number, 124, 37, 0, 0, 1, {.number = &gWindowNumber573D20}, &WindowElement_NoOp},
+    {WindowElementType_Number, 255, 37, 0, 0, 1, {.number = &gWindowNumber573D28}, &WindowElement_NoOp},
+    {WindowElementType_Number, 389, 30, 0, 0, 1, {.number = &gWindowNumber573D18}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage573D10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic573B50}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD678F0}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic573B68}, &WindowShop_ButtonPreviousRow},
+    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic573B80}, &WindowShop_ButtonNextRow},
+    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CB8}, &WindowShop_ButtonPreviousPage},
+    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CD0}, &WindowShop_ButtonNextPage},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowShop_Scroll},
+    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber573D30}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber573D38}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber573D40}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber573D48}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber573D50}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber573D58}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber573D60}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber573D68}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber573D70}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber573D78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic573B98}, &WindowShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic573BB0}, &WindowShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic573BC8}, &WindowShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic573BE0}, &WindowShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic573BF8}, &WindowShop_ButtonDecrease},
+    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic573C10}, &WindowShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic573C28}, &WindowShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic573C40}, &WindowShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic573C58}, &WindowShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic573C70}, &WindowShop_ButtonIncrease},
+    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
+    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowShop_HandleInventory},
+    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic573B20}, &WindowShop_HandleSaleDrop},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic573B08}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口53；原全局：0x0054EC60。
+WindowPrototype gWindowPrototypeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 66, gWindowElements573D80, &WindowShop_Update, &WindowShop_Draw, &WindowShop_Release}; // 53: 54EC60
+
+// 窗口函数实现。
 
 // 原函数：0x004B6C50。
-void WindowShop_HandleSaleDrag(
+static void WindowShop_HandleSaleDrag(
     const std::int32_t message, const std::int32_t unused, const std::int32_t sourceIndex)
 {
     static_cast<void>(unused);
@@ -145,13 +435,13 @@ void WindowShop_HandleSaleDrag(
 }
 
 // 原函数：0x004B6DA0。
-std::int32_t WindowShop_StartSaleDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowShop_StartSaleDrag(const std::int32_t sourceIndex)
 {
     return WindowDrag_Start(9, sourceIndex, &WindowShop_HandleSaleDrag);
 }
 
 // 原函数：0x004BC150。
-void WindowShop_RemoveSaleSelection()
+static void WindowShop_RemoveSaleSelection()
 {
     if (gShopDragFlagD67B90 != 0) {
         gShopDragFlagD67B90 = 0;
@@ -187,7 +477,7 @@ void WindowShop_RemoveSaleSelection()
 }
 
 // 原函数：0x004B6DC0。
-void WindowShop_Release()
+static void WindowShop_Release()
 {
     if (gShopDialogTypeCC3EC8 == world::detail::gValue581800) {
         world::detail::gValue581800 = -1;
@@ -460,11 +750,9 @@ login::YobiAction* WindowShop_OpenItemDetails(const char* const text)
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
-namespace {
-
 
 // 4B7AB0/4B7EE0同一七字段流程；只区分模式字节和第二行原字节提示。
-login::YobiAction* WindowShop_CreateService(
+static login::YobiAction* WindowShop_CreateService(
     const char* const text, const char mode, const std::wstring_view prompt)
 {
     std::array<char, 2304> buffer;
@@ -555,8 +843,6 @@ login::YobiAction* WindowShop_CreateService(
     gShopDialogTypeCC3EC8 = world::detail::gValue581800;
     return WindowRuntime_CreateAnimation(WindowId_Shop, 1, 0, nullptr);
 }
-} // namespace
-
 
 // 原函数：0x004B7AB0。
 login::YobiAction* WindowShop_OpenIdentify(const char* const text)
@@ -573,7 +859,7 @@ login::YobiAction* WindowShop_OpenRepair(const char* const text)
 }
 
 // 原函数：0x004B8310。
-void WindowShop_RefreshBuyRows()
+static void WindowShop_RefreshBuyRows()
 {
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -631,7 +917,7 @@ void WindowShop_RefreshBuyRows()
 }
 
 // 原函数：0x004B8670。
-void WindowShop_RefreshBuyQuantities()
+static void WindowShop_RefreshBuyQuantities()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t scroll = gShopScrollCC488C;
@@ -647,7 +933,7 @@ void WindowShop_RefreshBuyQuantities()
 }
 
 // 原函数：0x004B86C0。
-void WindowShop_RefreshBuyAmount()
+static void WindowShop_RefreshBuyAmount()
 {
     std::int32_t total = 0;
     gShopTotalD2DAFC = 0;
@@ -670,7 +956,7 @@ void WindowShop_RefreshBuyAmount()
 }
 
 // 原函数：0x004B8730。
-void WindowShop_CountBuySlots()
+static void WindowShop_CountBuySlots()
 {
     std::int32_t total = 0;
     gShopValueC8AF74 = 0;
@@ -691,7 +977,7 @@ void WindowShop_CountBuySlots()
 }
 
 // 原函数：0x004B8780。
-void WindowShop_RefreshSellRows()
+static void WindowShop_RefreshSellRows()
 {
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -757,7 +1043,7 @@ void WindowShop_RefreshSellRows()
 }
 
 // 原函数：0x004B8B10。
-void WindowShop_RefreshSellQuantities()
+static void WindowShop_RefreshSellQuantities()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& text = gShopCountTextsD2D988[row];
@@ -784,7 +1070,7 @@ void WindowShop_RefreshSellQuantities()
 }
 
 // 原函数：0x004B8BE0。
-void WindowShop_RefreshSellAmount()
+static void WindowShop_RefreshSellAmount()
 {
     std::int32_t total = 0;
     gShopTotalD2DAFC = 0;
@@ -805,7 +1091,7 @@ void WindowShop_RefreshSellAmount()
 }
 
 // 原函数：0x004B8C50。
-void WindowShop_CountSellItems()
+static void WindowShop_CountSellItems()
 {
     std::int32_t total = 0;
     gShopValueC8AF74 = 0;
@@ -822,7 +1108,7 @@ void WindowShop_CountSellItems()
 }
 
 // 原函数：0x004B8C90。
-void WindowShop_RefreshExchangeRows()
+static void WindowShop_RefreshExchangeRows()
 {
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -883,7 +1169,7 @@ void WindowShop_RefreshExchangeRows()
 }
 
 // 原函数：0x004B8FF0。
-void WindowShop_RefreshExchangeQuantities()
+static void WindowShop_RefreshExchangeQuantities()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& text = gShopCountTextsD2D988[row];
@@ -902,7 +1188,7 @@ void WindowShop_RefreshExchangeQuantities()
 }
 
 // 原函数：0x004B9090。
-void WindowShop_RefreshExchangeAmount()
+static void WindowShop_RefreshExchangeAmount()
 {
     std::int32_t total = 0;
     gShopTotalD2DAFC = 0;
@@ -921,7 +1207,7 @@ void WindowShop_RefreshExchangeAmount()
 }
 
 // 原函数：0x004B90E0。
-void WindowShop_CountExchangeItems()
+static void WindowShop_CountExchangeItems()
 {
     std::int32_t total = 0;
     gShopValueC8AF74 = 0;
@@ -937,7 +1223,7 @@ void WindowShop_CountExchangeItems()
 }
 
 // 原函数：0x004B9110。
-void WindowShop_RefreshDetailName()
+static void WindowShop_RefreshDetailName()
 {
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
@@ -947,7 +1233,7 @@ void WindowShop_RefreshDetailName()
 }
 
 // 原函数：0x004B9270。
-void WindowShop_RefreshDetailAmount()
+static void WindowShop_RefreshDetailAmount()
 {
     cg::text::FormatTo(gShopCountTextsD2D988[0], L"{:2}", gShopValueD046C4);
     cg::text::FormatTo(gShopValueTextCF4A28, L"{:10}", gShopValueD046C4);
@@ -957,7 +1243,7 @@ void WindowShop_RefreshDetailAmount()
 }
 
 // 原函数：0x004B92C0。
-void WindowShop_CountDetailItems()
+static void WindowShop_CountDetailItems()
 {
     const std::int32_t mode = gShopValueCAFEA4;
     gShopValueC8AF74 = 0;
@@ -977,7 +1263,7 @@ void WindowShop_CountDetailItems()
 }
 
 // 原函数：0x004B9310。
-std::int32_t WindowShop_Update(const std::int32_t value)
+static std::int32_t WindowShop_Update(const std::int32_t value)
 {
     if (value == -1) {
         gShopScrollCC488C = 0;
@@ -1162,7 +1448,7 @@ std::int32_t WindowShop_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B9B10。
-void WindowShop_Submit(const std::int32_t selection)
+static void WindowShop_Submit(const std::int32_t selection)
 {
     if (static_cast<std::uint8_t>(selection) != 0) {
         return;
@@ -1220,7 +1506,7 @@ void WindowShop_Submit(const std::int32_t selection)
 }
 
 // 原函数：0x004B9F40。
-std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -1490,7 +1776,7 @@ std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t st
 }
 
 // 原函数：0x004BA950。
-std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -1525,7 +1811,7 @@ std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004BAA50。
-std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     bool available = false;
@@ -1644,7 +1930,7 @@ std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004BCEE0。
-std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const std::int32_t state)
 {
     auto events = static_cast<std::uint8_t>(state);
     if ((events & 1u) != 0) {
@@ -1730,7 +2016,7 @@ std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004BAD10。
-std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1776,7 +2062,7 @@ std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004BAE10。
-std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1822,7 +2108,7 @@ std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004BAF10。
-std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1866,7 +2152,7 @@ std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::
 }
 
 // 原函数：0x004BB010。
-std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1917,7 +2203,7 @@ std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004BB130。
-std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
@@ -1948,7 +2234,7 @@ std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32_t stat
 }
 
 // 原函数：0x004BB1D0。
-std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const std::int32_t row = gShopScrollCC488C + index - 42;
@@ -2181,7 +2467,7 @@ std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004BB6E0。
-std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const std::int32_t row = gShopScrollCC488C + index - 47;
@@ -2532,7 +2818,7 @@ std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004BBED0。
-std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t item = gShopScrollCC488C + index - 52;
     render::GraphicDescriptor16 descriptor {};
@@ -2588,7 +2874,7 @@ std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004BC060。
-std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2623,7 +2909,7 @@ std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004BC230。
-std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t row = gShopScrollCC488C + index - 52;
     render::GraphicDescriptor16 descriptor {};
@@ -2756,7 +3042,7 @@ std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, const std:
 }
 
 // 原函数：0x004BC660。
-std::int32_t WindowShop_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3004,7 +3290,7 @@ std::int32_t WindowShop_HandleInventory(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004BD100。
-std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
+static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
@@ -3095,7 +3381,7 @@ std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::
 }
 
 // 原函数：0x004B99D0。
-std::int32_t WindowShop_Draw(const std::int32_t unused)
+static std::int32_t WindowShop_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     const WindowInstance* const window = gCurrentWindow;
@@ -3142,169 +3428,3 @@ std::int32_t WindowShop_Draw(const std::int32_t unused)
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic573AF0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573AF0。
-
-WindowGraphicData gWindowGraphic573B08 {0x3BA9C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B08。
-
-WindowGraphicData gWindowGraphic573B20 {0x3BA9D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B20。
-
-WindowGraphicData gWindowGraphic573B38 {0x3BA9E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B38。
-
-WindowGraphicData gWindowGraphic573B50 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B50。
-
-WindowGraphicData gWindowGraphic573B68 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B68。
-
-WindowGraphicData gWindowGraphic573B80 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B80。
-
-WindowGraphicData gWindowGraphic573B98 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573B98。
-
-WindowGraphicData gWindowGraphic573BB0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BB0。
-
-WindowGraphicData gWindowGraphic573BC8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BC8。
-
-WindowGraphicData gWindowGraphic573BE0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BE0。
-
-WindowGraphicData gWindowGraphic573BF8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573BF8。
-
-WindowGraphicData gWindowGraphic573C10 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C10。
-
-WindowGraphicData gWindowGraphic573C28 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C28。
-
-WindowGraphicData gWindowGraphic573C40 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C40。
-
-WindowGraphicData gWindowGraphic573C58 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C58。
-
-WindowGraphicData gWindowGraphic573C70 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C70。
-
-WindowGraphicData gWindowGraphic573C88 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573C88。
-
-WindowGraphicData gWindowGraphic573CA0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CA0。
-
-WindowGraphicData gWindowGraphic573CB8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CB8。
-
-WindowGraphicData gWindowGraphic573CD0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573CD0。
-
-WindowTextPrototype gWindowText573CF8 { // 原全局：0x00573CF8。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
-};
-
-WindowTextPrototype gWindowText573D00 { // 原全局：0x00573D00。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
-};
-
-WindowTextPrototype gWindowText573D08 { // 原全局：0x00573D08。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
-};
-
-std::int32_t gWindowAnimationImage573D10 = 100000; // 原全局：0x00573D10。
-
-WindowNumberData gWindowNumber573D18 {&gShopMoneyTextCC1A00, 0, 3, 1, 0}; // 原全局：0x00573D18。
-
-WindowNumberData gWindowNumber573D20 {&gShopValueTextCF4A28, 0, 3, 1, 0}; // 原全局：0x00573D20。
-
-WindowNumberData gWindowNumber573D28 {&gShopTotalTextCC4B2C, 0, 3, 1, 0}; // 原全局：0x00573D28。
-
-WindowNumberData gWindowNumber573D30 {&gShopPriceTextsD673EC[0], 0, 3, 1, 0}; // 原全局：0x00573D30。
-
-WindowNumberData gWindowNumber573D38 {&gShopPriceTextsD673EC[1], 0, 3, 1, 0}; // 原全局：0x00573D38。
-
-WindowNumberData gWindowNumber573D40 {&gShopPriceTextsD673EC[2], 0, 3, 1, 0}; // 原全局：0x00573D40。
-
-WindowNumberData gWindowNumber573D48 {&gShopPriceTextsD673EC[3], 0, 3, 1, 0}; // 原全局：0x00573D48。
-
-WindowNumberData gWindowNumber573D50 {&gShopPriceTextsD673EC[4], 0, 3, 1, 0}; // 原全局：0x00573D50。
-
-WindowNumberData gWindowNumber573D58 {&gShopCountTextsD2D988[0], 0, 3, 1, 0}; // 原全局：0x00573D58。
-
-WindowNumberData gWindowNumber573D60 {&gShopCountTextsD2D988[1], 0, 3, 1, 0}; // 原全局：0x00573D60。
-
-WindowNumberData gWindowNumber573D68 {&gShopCountTextsD2D988[2], 0, 3, 1, 0}; // 原全局：0x00573D68。
-
-WindowNumberData gWindowNumber573D70 {&gShopCountTextsD2D988[3], 0, 3, 1, 0}; // 原全局：0x00573D70。
-
-WindowNumberData gWindowNumber573D78 {&gShopCountTextsD2D988[4], 0, 3, 1, 0}; // 原全局：0x00573D78。
-
-// 51的flags源与49图形源+10H重叠，实例仍分别按type4/type1创建。
-std::uint32_t& gWindowMouseFlagsD678F0 = // 原全局：0x00D678F0。
-    reinterpret_cast<std::uint32_t&>(gWindowGraphicD678E0.height);
-
-} // namespace
-
-// 原型：窗口53；原全局：0x0054EC60。
-WindowPrototype gWindowPrototypeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 66, gWindowElements573D80, &WindowShop_Update, &WindowShop_Draw, &WindowShop_Release}; // 53: 54EC60
-
-WindowElementPrototype gWindowElements573D80[66] { // 原全局：0x00573D80。
-    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic573C88}, &WindowShop_ButtonOk},
-    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonCancel},
-    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonAddAll},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText573CF8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 124, 37, 0, 0, 1, {.number = &gWindowNumber573D20}, &WindowElement_NoOp},
-    {WindowElementType_Number, 255, 37, 0, 0, 1, {.number = &gWindowNumber573D28}, &WindowElement_NoOp},
-    {WindowElementType_Number, 389, 30, 0, 0, 1, {.number = &gWindowNumber573D18}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage573D10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic573B50}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD678F0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic573B68}, &WindowShop_ButtonPreviousRow},
-    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic573B80}, &WindowShop_ButtonNextRow},
-    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CB8}, &WindowShop_ButtonPreviousPage},
-    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CD0}, &WindowShop_ButtonNextPage},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowShop_Scroll},
-    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber573D30}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber573D38}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber573D40}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber573D48}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber573D50}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber573D58}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber573D60}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber573D68}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber573D70}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber573D78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic573B98}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic573BB0}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic573BC8}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic573BE0}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic573BF8}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic573C10}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic573C28}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic573C40}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic573C58}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic573C70}, &WindowShop_ButtonIncrease},
-    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowShop_HandleInventory},
-    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic573B20}, &WindowShop_HandleSaleDrop},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic573B08}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

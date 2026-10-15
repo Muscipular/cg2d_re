@@ -3,6 +3,8 @@
 namespace cg::ui {
 namespace detail {
 
+// 窗口函数实现。
+
 // 原函数：0x004C2460。
 std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {

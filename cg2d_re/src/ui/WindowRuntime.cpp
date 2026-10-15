@@ -3,6 +3,196 @@
 namespace cg::ui {
 namespace detail {
 
+namespace {
+
+// 原第二原型的内联矩形以借用T*表达；不复制共享表或原矩形数据。
+struct WindowDragPrototype {
+    std::int32_t count;
+    WindowDragRect* rectangles;
+};
+
+// 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
+struct WindowSavedRecord {
+    std::int32_t x; // 原成员偏移：+0x00。
+    std::int32_t y; // 原成员偏移：+0x04。
+    std::int32_t value08; // 原成员偏移：+0x08。
+    std::int32_t value0C; // 原成员偏移：+0x0C。
+    std::int32_t value10; // 原成员偏移：+0x10。
+    std::array<std::byte, 0x114> bytes14; // 原成员偏移：+0x14。
+};
+
+struct WindowSavedData {
+    std::int32_t version;
+    std::array<WindowSavedRecord, kWindowCount> records; // 原成员偏移：+0x04。
+};
+
+// 4C803D/4C8B07两段顺序指令的归纳，不是原端存储表；每项执行后才读取下一键。
+struct ShortcutEmoteBinding {
+    std::uint8_t keyMode0;
+    std::uint8_t keyMode1;
+    std::int32_t action;
+    std::int32_t selected;
+};
+
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
+// 原函数：0x004C63C0。
+static std::int32_t WindowItemSelector_ReadSlotX(const WindowItemSelectorState* state, std::int32_t slot);
+
+// SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
+// 原函数：0x004C6400。
+static std::int32_t WindowItemSelector_ReadSlotY(const WindowItemSelectorState* state, std::int32_t slot);
+
+// 原函数：0x004C6440。
+static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* state); // SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
+
+// 原函数：0x004C6470。
+static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* state); // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
+
+// 原函数：0x004C6500。
+static void WindowItemSelector_HidePageElements(WindowItemSelectorState* state); // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
+
+// 原函数：0x004C6550。
+static void WindowItemSelector_SelectPage(WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
+
+// 原函数：0x004C6790。
+static void WindowItemSelector_UpdatePage(WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
+
+// 原函数：0x004C6990。
+static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* state); // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
+
+// 原函数：0x004C69B0。
+static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* state); // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
+
+// 原函数：0x004C6AC0。
+static void WindowItemSelector_MoveElements(WindowItemSelectorState* state, std::int32_t x); // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
+
+// SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
+// 原函数：0x004C6B10。
+static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
+
+// 原函数：0x004C6D90。
+static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
+
+// 原函数：0x004C71C0。
+static std::int32_t WindowItemSelector_FindPetIndex(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
+
+// 原函数：0x004C7340。
+static bool WindowItemSelector_SetMode(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
+
+// 原函数：0x004885A0。
+static std::int32_t WindowItem_RequestTransferQuantity(std::int32_t amount); // IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。
+
+// 原函数：0x0048D540。
+static std::int32_t WindowPet_DrawTooltip(
+    std::int16_t x, std::int16_t y, std::int32_t index,
+    std::uint8_t textLayer, std::uint8_t graphicLayer, std::uint32_t color);
+
+// 原函数：0x0048BF30。
+static void WindowPetDrag_Handle(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+
+// 原函数：0x0048BC90。
+static void WindowItemDrag_Handle(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // IDE01：物品回调，两fresh分类/两点击BYTE及descriptor持址，reset/取消后原继续，完整分发及运行待。
+
+// 原函数：0x004740F0。
+static void WindowInput_FormatSkillSlotCount(std::wstring& destination); // 前10项技能索引的S16槽数，直接宽格式化。
+
+// 原函数：0x00472F00。
+static std::int32_t WindowRuntime_HitTestRect(
+    std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
+
+// 原函数：0x00473560。
+static void WindowRuntime_DispatchElementMouse(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
+
+// 原函数：0x00472D20。
+static std::int32_t WindowDrag_Update(); // WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。
+
+// 原函数：0x004730A0。
+static std::int32_t WindowRuntime_CompactAndReorder(); // WCR01：71槽压紧/关闭/前插，两个标记判断用同一W32 state。
+
+// 原函数：0x00473E40。
+static void WindowRuntime_AdvanceMousePhase(); // 每轮窗口处理前的鼠标阶段推进。
+
+// 原函数：0x00503CD0。
+static std::int32_t WindowRuntime_IncrementNameMode(); // 名称模式S16递增，保存标量后持久化。
+
+// 原函数：0x004C9240。
+static std::int32_t WindowRuntime_ResetSettings(); // 原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。
+
+// 原函数：0x004C93A0。
+static std::int32_t WindowRuntime_HasChangedDefaultPositions(); // 文件三处x与固定原型比较，首差异返回1。
+
+// 原函数：0x004C93E0。
+static std::int32_t WindowRuntime_RepairSettingsTail(); // 原文件长度尾部修复，不增加索引保护。
+
+// 原函数：0x004C9170。
+static std::int32_t WindowRuntime_ApplySettings(); // 文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。
+
+// 原函数：0x004C9060。
+static std::int32_t WindowRuntime_LoadSettings(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
+
+// 原函数：0x004C92B0。
+static std::int32_t WindowRuntime_ClearSavedSettings(); // 仅清521CH设置文件区。
+
+// 原函数：0x004C92D0。
+static std::uint32_t WindowRuntime_CaptureSettings(); // 原序捕获窗口设置，返回窗口33的marker快照。
+
+// 原函数：0x00472200。
+static void WindowRuntime_ClearSavedWindowMarkers(); // 仅清71个marker50，不释放窗口。
+
+// 原函数：0x00472220。
+static void WindowRuntime_MarkExistingWindows(); // 只将现存窗口marker写1，空窗口保留旧值。
+
+// 原函数：0x004722A0。
+static void WindowRuntime_ResetMouseAndItemFlags(); // 完整鼠标/拖动重置，先清D67B08七W32。
+
+// 原函数：0x004722E0。
+static void WindowRuntime_ClearElementFocus(); // 只清异型元素焦点引用。
+
+// 原函数：0x004722F0。
+static void WindowRuntime_RestoreMarkedWindows(); // marker严格1才分派，四个特殊窗口按原序恢复。
+
+// 原函数：0x00479640。
+static void WindowRuntime_ResetOperationCount(); // 只清窗口操作S32计数。
+
+// 原函数：0x004796C0。
+static void WindowRuntime_ResetGatherOperationCount(); // 只清D67AFC。
+
+// 原函数：0x004796F0。
+static void WindowRuntime_ResetSkillOperationCount(); // 只清D67AFD。
+
+// 原函数：0x00479610。
+static void WindowRuntime_ResetOperationReferences(); // 清两借用Yobi槽与计数/三个字节，不释放对象。
+
+// 原函数：0x004C7AD0。
+static void WindowRuntime_ResetShortcutFlag(); // 只清CF4AAC。
+
+// 原函数：0x00475C10。
+static void WindowRuntime_RestorePositions(); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
+
+// 原函数：0x004C7AE0。
+static void WindowRuntime_ProcessShortcuts(); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
+
+// 原函数：0x00470980。
+static void WindowRuntime_OpenNormalScene(); // 普通场景完整重开，保持626C14与22/23门禁。
+
+// 原函数：0x004923D0。
+static std::int32_t WindowRuntime_ResetAlbumState(); // 三个UI数值依序写5/0/0。
+
+// 原函数：0x004742B0。
+static std::int32_t WindowScroll_ResetPosition(); // 只清CF4E50/54。
+
+// 原函数：0x00470600。
+static void WindowRuntime_InitializeLogin(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static_assert(offsetof(WindowDragPrototype, rectangles) == 8);
+
+static_assert(sizeof(WindowDragPrototype) == 16);
 
 WindowItemSelectorState gItemSelectorCF3B10 {}; // 原全局：0x00CF3B10。
 
@@ -30,25 +220,26 @@ std::int32_t gValue58589C = 1; // 原全局：0x0058589C。
 
 void* gFocusedElementDataD45F94 = nullptr; // 原全局：0x00D45F94。
 
-std::int32_t gMouseValue57C110 = 0; // 原全局：0x0057C110。
+static std::int32_t gMouseValue57C110 = 0; // 原全局：0x0057C110。
 
-std::int32_t gDragSourceIndex57C114 = 0; // 原全局：0x0057C114。
+static std::int32_t gDragSourceIndex57C114 = 0; // 原全局：0x0057C114。
 
-WindowDragCallback gDragCallback57C118 = nullptr; // 原全局：0x0057C118。
+static WindowDragCallback gDragCallback57C118 = nullptr; // 原全局：0x0057C118。
 
-std::int16_t gDragX57C11C = 0; // 原全局：0x0057C11C。
+static std::int16_t gDragX57C11C = 0; // 原全局：0x0057C11C。
 
-std::int16_t gDragY57C11E = 0; // 原全局：0x0057C11E。
+static std::int16_t gDragY57C11E = 0; // 原全局：0x0057C11E。
 
-std::int32_t gFocusWindowId57C120 = 0; // 原全局：0x0057C120。
+static std::int32_t gFocusWindowId57C120 = 0; // 原全局：0x0057C120。
 
-std::int32_t gFocusElementIndex57C124 = -1; // 原全局：0x0057C124。
+static std::int32_t gFocusElementIndex57C124 = -1; // 原全局：0x0057C124。
 
-std::int32_t gMousePhase57C128 = 0; // 原全局：0x0057C128。
+static std::int32_t gMousePhase57C128 = 0; // 原全局：0x0057C128。
 
-std::int32_t gCurrentElementIndex57C12C = -1; // 原全局：0x0057C12C。
+// 原全局：0x0057C12C。 原映像初值-1，不等同焦点元素。
+static std::int32_t gCurrentElementIndex57C12C = -1; // 原全局：0x0057C12C。
 
-std::int32_t gCurrentWindowIdD67A1C = 0; // 原全局：0x00D67A1C。
+static std::int32_t gCurrentWindowIdD67A1C = 0; // 原全局：0x00D67A1C。
 
 std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
 
@@ -119,13 +310,17 @@ std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
 
 std::int32_t gSelectedItem57EE0C = -1; // 原全局：0x0057EE0C。
 
-std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
+// 原全局：0x00D2EA1C。 48C130发布，回调分别采点击和绘制模式。
+static std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
 
-std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
+// 原全局：0x00CC4C9C。 48BF10发布，仅门禁48BC90的message2请求。
+static std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
 
-std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
+// 原全局：0x00CF46B0。 4886E0发布，4885A0读取的来源槽号。
+static std::int32_t gItemMoveSourceCF46B0 = 0; // 原全局：0x00CF46B0。
 
-std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
+// 原全局：0x00D2DBF8。 4886E0发布，4885A0读取的目标槽号。
+static std::int32_t gItemMoveTargetD2DBF8 = 0; // 原全局：0x00D2DBF8。
 
 std::uint32_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
 
@@ -188,13 +383,13 @@ std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
 
 std::uint8_t gValue57E42C = 0xFF; // 原全局：0x0057E42C。
 
-const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
+static const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
 
-const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180}; // 原全局：0x0054F5A4。
+static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180}; // 原全局：0x0054F5A4。
 
-const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
+static const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
 
-const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
+static const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
 
 std::int32_t gValueCF4AAC = 0; // 原全局：0x00CF4AAC。
 
@@ -210,7 +405,8 @@ login::YobiAction* gWindowActionD2E928 = nullptr; // 原全局：0x00D2E928。
 
 login::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
 
-std::int32_t gValueD67AF8 = 0; // 原全局：0x00D67AF8。
+// 原全局：0x00D67AF8。 原窗口操作计数，不随指针扩宽。
+static std::int32_t gValueD67AF8 = 0; // 原全局：0x00D67AF8。
 
 std::uint8_t gValueD67AFC = 0; // 原全局：0x00D67AFC。
 
@@ -234,11 +430,8 @@ std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4
 
 // 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
 std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
-namespace {
 
 static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
-} // namespace
-
 
 std::int32_t gSkillPetImageCB0A18 = 0; // 原全局：0x00CB0A18。
 
@@ -259,22 +452,6 @@ std::uint32_t gSkillExtraDelayCF46C4 = 0; // 原全局：0x00CF46C4。
 std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
 MiniMailComposeState gMiniMailCompose105F508 {}; // 原全局：0x0105F508。
-namespace {
-
-// 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
-struct WindowSavedRecord {
-    std::int32_t x; // 原成员偏移：+0x00。
-    std::int32_t y; // 原成员偏移：+0x04。
-    std::int32_t value08; // 原成员偏移：+0x08。
-    std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::int32_t value10; // 原成员偏移：+0x10。
-    std::array<std::byte, 0x114> bytes14; // 原成员偏移：+0x14。
-};
-
-struct WindowSavedData {
-    std::int32_t version;
-    std::array<WindowSavedRecord, kWindowCount> records; // 原成员偏移：+0x04。
-};
 
 static_assert(offsetof(WindowSavedRecord, x) == 0);
 
@@ -298,20 +475,11 @@ static_assert(offsetof(WindowSavedData, records) == 4);
 
 static_assert(sizeof(WindowSavedData) == 0x521C);
 
-WindowSavedData gWindowSavedDataD40B30 {}; // 原全局：0x00D40B30。
+static WindowSavedData gWindowSavedDataD40B30 {}; // 原全局：0x00D40B30。
 
-std::int32_t gWindowSavedLengthCC4238 = 0; // 原全局：0x00CC4238。
+static std::int32_t gWindowSavedLengthCC4238 = 0; // 原全局：0x00CC4238。
 
-std::uint32_t gValueCF4B6C = 0; // 原全局：0x00CF4B6C。 原4705D0独立清零槽，不扩展用途。
-} // namespace
-
-
-// 原函数：0x004A6D00。
-std::int32_t WindowRuntime_MatchesRuntimePrefix(
-    const WindowRuntimePrefixD2F0B8 first, const WindowRuntimePrefixD2F0B8 second)
-{
-    return first.value00 == second.value00 && first.value04 == second.value04 ? 1 : 0;
-}
+static std::uint32_t gValueCF4B6C = 0; // 原全局：0x00CF4B6C。 原4705D0独立清零槽，不扩展用途。
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
@@ -320,107 +488,90 @@ Window47RuntimeSlots gWindow47Runtime {};
 // CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
 std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {}; // 原全局：0x00CC24D4。
 
-// 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
-// 原函数：0x00519680。
-std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
-{
-    if (health == 0) {
-        return 0;
-    }
-    if (health < 26) {
-        return 1;
-    }
-    if (health < 51) {
-        return 2;
-    }
-    return health < 76 ? 3 : 4;
-}
-namespace {
-
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
-WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}}; // 原全局：0x00561998。
+static WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}}; // 原全局：0x00561998。
 
-WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}}; // 原全局：0x00561F38。
+static WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}}; // 原全局：0x00561F38。
 
-WindowDragRect gDragRects5624C0[] {{10, 0, 553, 27}, {566, 5, 18, 79}}; // 原全局：0x005624C0。
+static WindowDragRect gDragRects5624C0[] {{10, 0, 553, 27}, {566, 5, 18, 79}}; // 原全局：0x005624C0。
 
-WindowDragRect gDragRects562800[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562800。
+static WindowDragRect gDragRects562800[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562800。
 
-WindowDragRect gDragRects562AF0[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562AF0。
+static WindowDragRect gDragRects562AF0[] {{10, 0, 288, 27}, {201, 5, 18, 79}}; // 原全局：0x00562AF0。
 
-WindowDragRect gDragRects562FD8[] {{22, 0, 256, 33}, {282, 7, 18, 78}}; // 原全局：0x00562FD8。
+static WindowDragRect gDragRects562FD8[] {{22, 0, 256, 33}, {282, 7, 18, 78}}; // 原全局：0x00562FD8。
 
-WindowDragRect gDragRects5631F0[] {{12, 0, 113, 26}, {128, 7, 18, 78}}; // 原全局：0x005631F0。
+static WindowDragRect gDragRects5631F0[] {{12, 0, 113, 26}, {128, 7, 18, 78}}; // 原全局：0x005631F0。
 
-WindowDragRect gDragRects565560[] {{0, 0, 343, 30}, {323, 0, 20, 122}}; // 原全局：0x00565560。
+static WindowDragRect gDragRects565560[] {{0, 0, 343, 30}, {323, 0, 20, 122}}; // 原全局：0x00565560。
 
-WindowDragRect gDragRects566E70[] {{0, 0, 272, 30}, {252, 0, 20, 100}}; // 原全局：0x00566E70。
+static WindowDragRect gDragRects566E70[] {{0, 0, 272, 30}, {252, 0, 20, 100}}; // 原全局：0x00566E70。
 
-WindowDragRect gDragRects567908[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00567908。
+static WindowDragRect gDragRects567908[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00567908。
 
-WindowDragRect gDragRects568528[] {{0, 0, 279, 25}, {249, 0, 25, 120}}; // 原全局：0x00568528。
+static WindowDragRect gDragRects568528[] {{0, 0, 279, 25}, {249, 0, 25, 120}}; // 原全局：0x00568528。
 
-WindowDragRect gDragRects568DC8[] {{16, 0, 184, 30}, {209, 7, 18, 78}}; // 原全局：0x00568DC8。
+static WindowDragRect gDragRects568DC8[] {{16, 0, 184, 30}, {209, 7, 18, 78}}; // 原全局：0x00568DC8。
 
-WindowDragRect gDragRects569298[] {{10, 0, 275, 33}, {288, 5, 18, 79}}; // 原全局：0x00569298。
+static WindowDragRect gDragRects569298[] {{10, 0, 275, 33}, {288, 5, 18, 79}}; // 原全局：0x00569298。
 
-WindowDragRect gDragRects56B030[] {{0, 0, 184, 21}}; // 原全局：0x0056B030。
+static WindowDragRect gDragRects56B030[] {{0, 0, 184, 21}}; // 原全局：0x0056B030。
 
-WindowDragRect gDragRects56B538[] {{0, 0, 61, 25}}; // 原全局：0x0056B538。
+static WindowDragRect gDragRects56B538[] {{0, 0, 61, 25}}; // 原全局：0x0056B538。
 
-WindowDragRect gDragRects56C1F8[] {{9, 0, 481, 27}, {493, 7, 18, 78}}; // 原全局：0x0056C1F8。
+static WindowDragRect gDragRects56C1F8[] {{9, 0, 481, 27}, {493, 7, 18, 78}}; // 原全局：0x0056C1F8。
 
-WindowDragRect gDragRects56C6F0[] {{17, 0, 300, 33}, {320, 7, 18, 78}}; // 原全局：0x0056C6F0。
+static WindowDragRect gDragRects56C6F0[] {{17, 0, 300, 33}, {320, 7, 18, 78}}; // 原全局：0x0056C6F0。
 
-WindowDragRect gDragRects56C900[] {{17, 0, 339, 33}, {359, 7, 18, 78}}; // 原全局：0x0056C900。
+static WindowDragRect gDragRects56C900[] {{17, 0, 339, 33}, {359, 7, 18, 78}}; // 原全局：0x0056C900。
 
-WindowDragRect gDragRects56E918[] {{0, 0, 342, 30}, {331, 0, 20, 120}}; // 原全局：0x0056E918。
+static WindowDragRect gDragRects56E918[] {{0, 0, 342, 30}, {331, 0, 20, 120}}; // 原全局：0x0056E918。
 
-WindowDragRect gDragRects56FC00[] {{0, 0, 243, 10}}; // 原全局：0x0056FC00。
+static WindowDragRect gDragRects56FC00[] {{0, 0, 243, 10}}; // 原全局：0x0056FC00。
 
-WindowDragRect gDragRects570010[] {{0, 0, 267, 25}, {207, 0, 25, 100}}; // 原全局：0x00570010。
+static WindowDragRect gDragRects570010[] {{0, 0, 267, 25}, {207, 0, 25, 100}}; // 原全局：0x00570010。
 
-WindowDragRect gDragRects5704B8[] {{0, 0, 232, 30}, {207, 0, 25, 100}}; // 原全局：0x005704B8。
+static WindowDragRect gDragRects5704B8[] {{0, 0, 232, 30}, {207, 0, 25, 100}}; // 原全局：0x005704B8。
 
-WindowDragRect gDragRects570F30[] {{0, 0, 100, 25}}; // 原全局：0x00570F30。
+static WindowDragRect gDragRects570F30[] {{0, 0, 100, 25}}; // 原全局：0x00570F30。
 
-WindowDragRect gDragRects571620[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571620。
+static WindowDragRect gDragRects571620[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571620。
 
-WindowDragRect gDragRects571800[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571800。
+static WindowDragRect gDragRects571800[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00571800。
 
-WindowDragRect gDragRects571D48[] {{10, 0, 231, 27}, {234, 5, 18, 79}}; // 原全局：0x00571D48。
+static WindowDragRect gDragRects571D48[] {{10, 0, 231, 27}, {234, 5, 18, 79}}; // 原全局：0x00571D48。
 
-WindowDragRect gDragRects572898[] {{0, 0, 320, 25}, {317, 0, 20, 100}}; // 原全局：0x00572898。
+static WindowDragRect gDragRects572898[] {{0, 0, 320, 25}, {317, 0, 20, 100}}; // 原全局：0x00572898。
 
-WindowDragRect gDragRects572D78[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00572D78。
+static WindowDragRect gDragRects572D78[] {{9, 0, 558, 27}, {571, 7, 18, 78}}; // 原全局：0x00572D78。
 
-WindowDragRect gDragRects573430[] {{0, 0, 280, 27}, {260, 0, 20, 120}}; // 原全局：0x00573430。
+static WindowDragRect gDragRects573430[] {{0, 0, 280, 27}, {260, 0, 20, 120}}; // 原全局：0x00573430。
 
-WindowDragRect gDragRects573A48[] {{0, 0, 634, 30}, {604, 0, 30, 130}}; // 原全局：0x00573A48。
+static WindowDragRect gDragRects573A48[] {{0, 0, 634, 30}, {604, 0, 30, 130}}; // 原全局：0x00573A48。
 
-WindowDragRect gDragRects5745C0[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x005745C0。
+static WindowDragRect gDragRects5745C0[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x005745C0。
 
-WindowDragRect gDragRects575648[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00575648。
+static WindowDragRect gDragRects575648[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00575648。
 
-WindowDragRect gDragRects576248[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576248。
+static WindowDragRect gDragRects576248[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576248。
 
-WindowDragRect gDragRects576E48[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576E48。
+static WindowDragRect gDragRects576E48[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x00576E48。
 
-WindowDragRect gDragRects577698[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00577698。
+static WindowDragRect gDragRects577698[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x00577698。
 
-WindowDragRect gDragRects579D28[] {{0, 0, 634, 35}, {600, 0, 34, 130}}; // 原全局：0x00579D28。
+static WindowDragRect gDragRects579D28[] {{0, 0, 634, 35}, {600, 0, 34, 130}}; // 原全局：0x00579D28。
 
-WindowDragRect gDragRects579DD0[] {{0, 0, 305, 25}, {300, 0, 30, 130}}; // 原全局：0x00579DD0。
+static WindowDragRect gDragRects579DD0[] {{0, 0, 305, 25}, {300, 0, 30, 130}}; // 原全局：0x00579DD0。
 
-WindowDragRect gDragRects579E78[] {{0, 0, 317, 25}, {307, 0, 30, 130}}; // 原全局：0x00579E78。
+static WindowDragRect gDragRects579E78[] {{0, 0, 317, 25}, {307, 0, 30, 130}}; // 原全局：0x00579E78。
 
-WindowDragRect gDragRects57AD30[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x0057AD30。
+static WindowDragRect gDragRects57AD30[] {{0, 0, 231, 25}, {221, 0, 30, 100}}; // 原全局：0x0057AD30。
 
-WindowDragRect gDragRects57B1E0[] {{0, 0, 460, 25}, {445, 0, 30, 102}}; // 原全局：0x0057B1E0。
+static WindowDragRect gDragRects57B1E0[] {{0, 0, 460, 25}, {445, 0, 30, 102}}; // 原全局：0x0057B1E0。
 
-WindowDragRect gDragRects57B460[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x0057B460。
+static WindowDragRect gDragRects57B460[] {{16, 0, 533, 27}, {552, 5, 18, 80}}; // 原全局：0x0057B460。
 
-std::array<WindowDragPrototype, 42> gDragPrototypes {{
+static std::array<WindowDragPrototype, 42> gDragPrototypes {{
     {2, gDragRects561998}, // 0
     {2, gDragRects561F38},
     {2, gDragRects5624C0},
@@ -466,7 +617,7 @@ std::array<WindowDragPrototype, 42> gDragPrototypes {{
 }};
 
 // 原54EFE8的71项S8类别，与窗口编号一一对应。
-constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
+static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 4, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
     0, 4, 4, 0, 1, 2, 2, 0, 1, 2, 4, 2, 2, 2, 2, 2,
@@ -474,7 +625,7 @@ constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 2, 2, 2, 2,
 };
 
-constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
+static constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
     243300, 243310, 243320, 243330, 243340, 243350, 243360,
     243370, 243380, 243390, 245500, 245500, 245500,
     243500, 243510, 243520, 243530, 243540, 243550, 243560,
@@ -485,7 +636,7 @@ constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量�
     245580, 245520, 245520, 245540, 245540, 245540,
 };
 
-constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 { // 原常量参考：0x0054F1A8。
+static constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 { // 原常量参考：0x0054F1A8。
     243400, 243410, 243420, 243430, 243440, 243450, 243460,
     243470, 243480, 243490, 245510, 245510, 245510,
     243600, 243610, 243620, 243630, 243640, 243650, 243660,
@@ -496,79 +647,13 @@ constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 { // 原常量�
     245580, 245530, 245530, 245550, 245550, 245550,
 };
 
-constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 { // 原常量参考：0x0054F278。
+static constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 { // 原常量参考：0x0054F278。
     2, 2, 5, 5, 4, 8, 5, 5, 8, 2, 3, 5,
 };
 
-constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1}; // 原常量参考：0x0054F2A8。
+static constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1}; // 原常量参考：0x0054F2A8。
 
-std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00D67AC4。
-
-// 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
-std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
-{
-    const auto edge = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
-    if ((edge & 1u) != 0) {
-        events |= 0x02;
-    }
-    if ((edge & 2u) != 0) {
-        events |= 0x04;
-    }
-    const auto held = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->heldButtons);
-    if ((held & 1u) != 0) {
-        events |= 0x08;
-    }
-    if ((held & 2u) != 0) {
-        events |= 0x10;
-    }
-    if ((edge & 0x10u) != 0) {
-        events |= 0x100;
-    }
-    if ((edge & 0x20u) != 0) {
-        events |= 0x200;
-    }
-    const auto pulse = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->pulseButtons);
-    if ((pulse & 1u) != 0) {
-        events |= 0x400;
-    }
-    if ((pulse & 2u) != 0) {
-        events |= 0x800;
-    }
-    return events;
-}
-} // namespace
-
-
-// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
-// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
-void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width)
-{
-    const std::wstring contents = input::ContextText(*context);
-    const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
-    std::size_t offset = input::ContextUtf16Offset(*context, context->field158);
-    context->field154 = width;
-    if (caret < offset) { offset = caret; }
-    else {
-        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->field13C,
-            static_cast<std::int32_t>(caret - offset)) > context->field154) { offset = cg::text::Next(contents, offset); }
-    }
-    input::SetVisibleUtf16Offset(*context, offset);
-    render::DrawInputText_4568A0(context);
-}
-
-void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents)
-{
-    const auto font = std::to_integer<std::uint8_t>(first->bytes00[1]);
-    const auto rows = render::Font::split(contents, font, 20 * render::gFontMetrics[font].sWidth);
-    const std::size_t prefix = rows.front().size();
-    first->text = contents.substr(0, prefix);
-    second->text = contents.substr(prefix);
-}
-
-std::int32_t WindowPet_ReadHealthImage(const std::int32_t health)
-{
-    return gHealthImages57CBA4[WindowItem_HealthImageLevel(health)];
-}
+static std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00D67AC4。
 
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0]; // 原全局：0x00CF4E50。
 
@@ -580,7 +665,7 @@ WindowInputPrototype gPetNameInputPrototype57DCF8 { // 原全局：0x0057DCF8。
 };
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
-std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
+static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
     &gDragPrototypes[41], // 0
     &gDragPrototypes[41],
     &gDragPrototypes[41],
@@ -653,6 +738,115 @@ std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 
     &gDragPrototypes[32],
     &gDragPrototypes[33], // 70
 };
+
+static std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
+
+static constexpr ShortcutEmoteBinding kShortcutEmotes[] {
+    {0x31, 0x31, 0, 0},
+    {0x32, 0x32, 2, 1},
+    {0x33, 0x33, 4, 2},
+    {0x34, 0x34, 6, 3},
+    {0x35, 0x35, 8, 4},
+    {0x36, 0x36, 10, 5},
+    {0x37, 0x37, 12, 6},
+    {0x38, 0x38, 1, 9},
+    {0x39, 0x39, 3, 10},
+    {0x30, 0x42, 5, 11},
+    {0x54, 0x4E, 15, 16},
+    {0xBD, 0x4D, 7, 12},
+    {0xDE, 0xBC, 9, 13},
+    {0x47, 0xBE, 11, 14},
+    {0x42, 0xBF, 13, 15},
+};
+
+// 窗口函数实现。
+
+// 原函数：0x004A6D00。
+std::int32_t WindowRuntime_MatchesRuntimePrefix(
+    const WindowRuntimePrefixD2F0B8 first, const WindowRuntimePrefixD2F0B8 second)
+{
+    return first.value00 == second.value00 && first.value04 == second.value04 ? 1 : 0;
+}
+
+// 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
+// 原函数：0x00519680。
+std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
+{
+    if (health == 0) {
+        return 0;
+    }
+    if (health < 26) {
+        return 1;
+    }
+    if (health < 51) {
+        return 2;
+    }
+    return health < 76 ? 3 : 4;
+}
+
+// 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
+static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
+{
+    const auto edge = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->edgeButtons);
+    if ((edge & 1u) != 0) {
+        events |= 0x02;
+    }
+    if ((edge & 2u) != 0) {
+        events |= 0x04;
+    }
+    const auto held = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->heldButtons);
+    if ((held & 1u) != 0) {
+        events |= 0x08;
+    }
+    if ((held & 2u) != 0) {
+        events |= 0x10;
+    }
+    if ((edge & 0x10u) != 0) {
+        events |= 0x100;
+    }
+    if ((edge & 0x20u) != 0) {
+        events |= 0x200;
+    }
+    const auto pulse = static_cast<std::uint8_t>(platform::BorrowLegacyMouseStateStorage()->pulseButtons);
+    if ((pulse & 1u) != 0) {
+        events |= 0x400;
+    }
+    if ((pulse & 2u) != 0) {
+        events |= 0x800;
+    }
+    return events;
+}
+
+// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
+// CIG01：共享两原根的现场偏移/宽度与低BYTE步长合同；见doc/cg2d_input_scroll_draw_spec.md。
+void WindowInput_ScrollAndDraw(input::InputContext* const context, const std::int32_t width)
+{
+    const std::wstring contents = input::ContextText(*context);
+    const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
+    std::size_t offset = input::ContextUtf16Offset(*context, context->field158);
+    context->field154 = width;
+    if (caret < offset) { offset = caret; }
+    else {
+        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->field13C,
+            static_cast<std::int32_t>(caret - offset)) > context->field154) { offset = cg::text::Next(contents, offset); }
+    }
+    input::SetVisibleUtf16Offset(*context, offset);
+    render::DrawInputText_4568A0(context);
+}
+
+void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents)
+{
+    const auto font = std::to_integer<std::uint8_t>(first->bytes00[1]);
+    const auto rows = render::Font::split(contents, font, 20 * render::gFontMetrics[font].sWidth);
+    const std::size_t prefix = rows.front().size();
+    first->text = contents.substr(0, prefix);
+    second->text = contents.substr(prefix);
+}
+
+std::int32_t WindowPet_ReadHealthImage(const std::int32_t health)
+{
+    return gHealthImages57CBA4[WindowItem_HealthImageLevel(health)];
+}
 
 // WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
 // 原函数：0x004B0F10。
@@ -764,7 +958,7 @@ std::int32_t WindowElement_HandleSideArea(const std::int32_t, const std::int32_t
 
 // IMT01：原88条，source7短路及41/38转义后状态-Y-X/真实返回；旧格式历史及正确正文保，全owner/运行待。
 // 原函数：0x004885A0。
-std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount)
+static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount)
 {
     std::int32_t source = gItemMoveSourceCF46B0;
     std::int32_t target;
@@ -904,7 +1098,7 @@ std::int32_t WindowPet_HasSkill25600(const std::int32_t index)
 }
 
 // 原函数：0x0048D540。
-std::int32_t WindowPet_DrawTooltip(
+static std::int32_t WindowPet_DrawTooltip(
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer, const std::uint8_t graphicLayer, const std::uint32_t color)
 {
@@ -982,7 +1176,7 @@ std::int32_t WindowPet_DrawTooltip(
 }
 
 // 原函数：0x0048BF30。
-void WindowPetDrag_Handle(
+static void WindowPetDrag_Handle(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1071,7 +1265,7 @@ std::int32_t WindowPetDrag_Start(const std::int32_t sourceIndex, const std::int3
 
 // IDE01：原189条；动作及两点击BYTE/三descriptor持址明确，两fresh分类/取消后绘制保持，完整owner及运行待。
 // 原函数：0x0048BC90。
-void WindowItemDrag_Handle(
+static void WindowItemDrag_Handle(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1624,7 +1818,7 @@ void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const
 
 // SLC01：负slot先返-1；S8 mode0取8项玩家X表，正mode取6项宠物X表，其它返-1。
 // 原函数：0x004C63C0。
-std::int32_t WindowItemSelector_ReadSlotX(
+static std::int32_t WindowItemSelector_ReadSlotX(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
     if (slot < 0) {
@@ -1642,7 +1836,7 @@ std::int32_t WindowItemSelector_ReadSlotX(
 
 // SLC01：负slot先返-1；S8 mode0取8项玩家Y表，正mode取6项宠物Y表，其它返-1。
 // 原函数：0x004C6400。
-std::int32_t WindowItemSelector_ReadSlotY(
+static std::int32_t WindowItemSelector_ReadSlotY(
     const WindowItemSelectorState* const state, const std::int32_t slot)
 {
     if (slot < 0) {
@@ -1660,7 +1854,7 @@ std::int32_t WindowItemSelector_ReadSlotY(
 
 // SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
 // 原函数：0x004C6440。
-void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const state)
+static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const state)
 {
     if (state->value60 == 2) {
         state->elements00[6]->visible = 1;
@@ -1672,7 +1866,7 @@ void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const state)
 
 // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
 // 原函数：0x004C6470。
-void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
+static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
 {
     if (state->value60 == 3) {
         state->elements00[7]->visible = 1;
@@ -1694,7 +1888,7 @@ void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
 
 // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
 // 原函数：0x004C6500。
-void WindowItemSelector_HidePageElements(WindowItemSelectorState* const state)
+static void WindowItemSelector_HidePageElements(WindowItemSelectorState* const state)
 {
     state->elements00[6]->visible = 0;
     state->elements00[7]->visible = 0;
@@ -1712,7 +1906,7 @@ void WindowItemSelector_HidePageElements(WindowItemSelectorState* const state)
 
 // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 // 原函数：0x004C6550。
-void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, const std::int32_t page)
+static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, const std::int32_t page)
 {
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
@@ -1799,7 +1993,7 @@ void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, const s
 
 // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 // 原函数：0x004C6790。
-void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
+static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
 {
     static constexpr std::int32_t images54F564[] {98133, 98133, 98135, 98134};
     static constexpr std::int32_t images54F574[] {98137, 98137, 98139, 98138};
@@ -1887,7 +2081,7 @@ void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
 
 // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
 // 原函数：0x004C6990。
-std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* const state)
+static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* const state)
 {
     const std::int32_t index = WindowItemSelector_FindPetIndex(std::bit_cast<std::int8_t>(*state->mode68));
     state->selectedPet70 = index;
@@ -1896,7 +2090,7 @@ std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* const state)
 
 // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
 // 原函数：0x004C69B0。
-void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const state)
+static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const state)
 {
     if (state->selectedPet70 == -1 || !world::IsValidPetIndex_51C410(state->selectedPet70)) {
         return;
@@ -1929,7 +2123,7 @@ void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const state)
 
 // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
 // 原函数：0x004C6AC0。
-void WindowItemSelector_MoveElements(WindowItemSelectorState* const state, const std::int32_t x)
+static void WindowItemSelector_MoveElements(WindowItemSelectorState* const state, const std::int32_t x)
 {
     state->elements00[1]->x = x;
     for (std::int32_t position = 2; position < 6; ++position) {
@@ -1942,7 +2136,7 @@ void WindowItemSelector_MoveElements(WindowItemSelectorState* const state, const
 
 // SLC01：两轴先窗口再元素取值，flags/淡入计数只读原BYTE；void不证明原EAX上行等价。
 // 原函数：0x004C6B10。
-void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
+static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 {
     if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
         state->hoverCount3A8 = 0;
@@ -2020,7 +2214,7 @@ void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 
 // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 // 原函数：0x004C6D90。
-std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state)
+static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state)
 {
     const std::int32_t selected = state->selectedPet70;
     if (selected < 0 || state->value3EC == 0) {
@@ -2047,7 +2241,7 @@ std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state
 
 // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 // 原函数：0x004C71C0。
-std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
+static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
 {
     if (ordinal == -1) {
         return -1;
@@ -2074,7 +2268,7 @@ std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
 
 // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 // 原函数：0x004C7340。
-bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, const std::int32_t mode)
+static bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, const std::int32_t mode)
 {
     *state->mode68 = static_cast<std::uint8_t>(mode);
     const std::int32_t page = state->value60;
@@ -2630,7 +2824,7 @@ std::int32_t WindowRuntime_CycleNameMode()
 }
 
 // 原函数：0x00503CD0。
-std::int32_t WindowRuntime_IncrementNameMode()
+static std::int32_t WindowRuntime_IncrementNameMode()
 {
     const auto mode = static_cast<std::int16_t>(platform::gValue5F974C + 1);
     const bool pastLastMode = mode >= 7;
@@ -2644,7 +2838,7 @@ std::int32_t WindowRuntime_IncrementNameMode()
 
 // CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
 // 原函数：0x004C9240。
-std::int32_t WindowRuntime_ResetSettings()
+static std::int32_t WindowRuntime_ResetSettings()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
@@ -2665,7 +2859,7 @@ std::int32_t WindowRuntime_ResetSettings()
 }
 
 // 原函数：0x004C93A0。
-std::int32_t WindowRuntime_HasChangedDefaultPositions()
+static std::int32_t WindowRuntime_HasChangedDefaultPositions()
 {
     if (gWindowSavedDataD40B30.records[1].x != gWindowPrototype54E2A0.defaultX) {
         return 1;
@@ -2677,7 +2871,7 @@ std::int32_t WindowRuntime_HasChangedDefaultPositions()
 }
 
 // 原函数：0x004C93E0。
-std::int32_t WindowRuntime_RepairSettingsTail()
+static std::int32_t WindowRuntime_RepairSettingsTail()
 {
     const std::int32_t fileLength = gWindowSavedLengthCC4238;
     if (fileLength == 0x521C) {
@@ -2705,7 +2899,7 @@ std::int32_t WindowRuntime_RepairSettingsTail()
 
 // CWP01：原两设置BYTE现场读取，完整S32字段/交错发布与返回保持。
 // 原函数：0x004C9170。
-std::int32_t WindowRuntime_ApplySettings()
+static std::int32_t WindowRuntime_ApplySettings()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         gWindowStates[index].x = gWindowSavedDataD40B30.records[index].x;
@@ -2740,7 +2934,7 @@ std::int32_t WindowRuntime_ApplySettings()
 }
 
 // 原函数：0x004C9060。
-std::int32_t WindowRuntime_LoadSettings()
+static std::int32_t WindowRuntime_LoadSettings()
 {
     static_cast<void>(WindowRuntime_ResetSettings());
     platform::LegacyFile* const stream =
@@ -2777,14 +2971,14 @@ std::int32_t WindowRuntime_LoadSettings()
 }
 
 // 原函数：0x004C92B0。
-std::int32_t WindowRuntime_ClearSavedSettings()
+static std::int32_t WindowRuntime_ClearSavedSettings()
 {
     std::memset(&gWindowSavedDataD40B30, 0, sizeof(gWindowSavedDataD40B30));
     return 0;
 }
 
 // 原函数：0x004C92D0。
-std::uint32_t WindowRuntime_CaptureSettings()
+static std::uint32_t WindowRuntime_CaptureSettings()
 {
     static_cast<void>(WindowRuntime_ClearSavedSettings());
     gWindowSavedDataD40B30.version = 0x13;
@@ -2834,7 +3028,7 @@ std::int32_t WindowRuntime_SaveSettings()
 }
 
 // 原函数：0x00472200。
-void WindowRuntime_ClearSavedWindowMarkers()
+static void WindowRuntime_ClearSavedWindowMarkers()
 {
     for (WindowState& state : gWindowStates) {
         state.marker50 = 0;
@@ -2842,7 +3036,7 @@ void WindowRuntime_ClearSavedWindowMarkers()
 }
 
 // 原函数：0x00472220。
-void WindowRuntime_MarkExistingWindows()
+static void WindowRuntime_MarkExistingWindows()
 {
     for (WindowState& state : gWindowStates) {
         if (state.window != nullptr) {
@@ -2852,7 +3046,7 @@ void WindowRuntime_MarkExistingWindows()
 }
 
 // 原函数：0x004722A0。
-void WindowRuntime_ResetMouseAndItemFlags()
+static void WindowRuntime_ResetMouseAndItemFlags()
 {
     world::gValueD67B08.fill(0);
     gMouseValue57C110 = 0;
@@ -2866,13 +3060,13 @@ void WindowRuntime_ResetMouseAndItemFlags()
 }
 
 // 原函数：0x004722E0。
-void WindowRuntime_ClearElementFocus()
+static void WindowRuntime_ClearElementFocus()
 {
     gFocusedElementDataD45F94 = nullptr;
 }
 
 // 原函数：0x004722F0。
-void WindowRuntime_RestoreMarkedWindows()
+static void WindowRuntime_RestoreMarkedWindows()
 {
     for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
         if (gWindowStates[index].marker50 != 1) {
@@ -2915,25 +3109,25 @@ void WindowRuntime_RestoreMarkedWindows()
 }
 
 // 原函数：0x00479640。
-void WindowRuntime_ResetOperationCount()
+static void WindowRuntime_ResetOperationCount()
 {
     gValueD67AF8 = 0;
 }
 
 // 原函数：0x004796C0。
-void WindowRuntime_ResetGatherOperationCount()
+static void WindowRuntime_ResetGatherOperationCount()
 {
     gValueD67AFC = 0;
 }
 
 // 原函数：0x004796F0。
-void WindowRuntime_ResetSkillOperationCount()
+static void WindowRuntime_ResetSkillOperationCount()
 {
     gValueD67AFD = 0;
 }
 
 // 原函数：0x00479610。
-void WindowRuntime_ResetOperationReferences()
+static void WindowRuntime_ResetOperationReferences()
 {
     gWindowActionCA0174 = nullptr;
     gWindowActionD2E928 = nullptr;
@@ -2944,13 +3138,13 @@ void WindowRuntime_ResetOperationReferences()
 }
 
 // 原函数：0x004C7AD0。
-void WindowRuntime_ResetShortcutFlag()
+static void WindowRuntime_ResetShortcutFlag()
 {
     gValueCF4AAC = 0;
 }
 
 // 原函数：0x00475C10。
-void WindowRuntime_RestorePositions()
+static void WindowRuntime_RestorePositions()
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         WindowState& state = gWindowStates[index];
@@ -2998,12 +3192,8 @@ void WindowRuntime_RestorePositions()
         }
     }
 }
-namespace {
 
-
-std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
-
-void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
+static void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
 {
     WindowInstance* const window = gWindowStates[id].window;
     if (window == nullptr) {
@@ -3014,43 +3204,15 @@ void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
     }
 }
 
-void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
+static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
 {
     world::detail::Sub_4FA8E0(action);
     static_cast<void>(WindowEmote_Select(selected));
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
-// 4C803D/4C8B07两段顺序指令的归纳，不是原端存储表；每项执行后才读取下一键。
-struct ShortcutEmoteBinding {
-    std::uint8_t keyMode0;
-    std::uint8_t keyMode1;
-    std::int32_t action;
-    std::int32_t selected;
-};
-
-constexpr ShortcutEmoteBinding kShortcutEmotes[] {
-    {0x31, 0x31, 0, 0},
-    {0x32, 0x32, 2, 1},
-    {0x33, 0x33, 4, 2},
-    {0x34, 0x34, 6, 3},
-    {0x35, 0x35, 8, 4},
-    {0x36, 0x36, 10, 5},
-    {0x37, 0x37, 12, 6},
-    {0x38, 0x38, 1, 9},
-    {0x39, 0x39, 3, 10},
-    {0x30, 0x42, 5, 11},
-    {0x54, 0x4E, 15, 16},
-    {0xBD, 0x4D, 7, 12},
-    {0xDE, 0xBC, 9, 13},
-    {0x47, 0xBE, 11, 14},
-    {0x42, 0xBF, 13, 15},
-};
-} // namespace
-
-
 // 原函数：0x004C7AE0。
-void WindowRuntime_ProcessShortcuts()
+static void WindowRuntime_ProcessShortcuts()
 {
     const std::int32_t mode = gValueCF4AAC;
     if (mode != 0 && mode != 1) {
@@ -3303,11 +3465,9 @@ void WindowRuntime_ProcessShortcuts()
         static_cast<void>(WindowChat_ClearHistory());
     }
 }
-namespace {
-
 
 // 三条重开共用的两轮窄清理；不释放实例，也不清记录的其他字段。
-void WindowRuntime_ResetReferences()
+static void WindowRuntime_ResetReferences()
 {
     gWindows.fill(nullptr);
     for (WindowState& state : gWindowStates) {
@@ -3318,7 +3478,7 @@ void WindowRuntime_ResetReferences()
     gCurrentElementIndex57C12C = -1;
 }
 
-void WindowRuntime_OpenConfiguredWindows()
+static void WindowRuntime_OpenConfiguredWindows()
 {
     static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
     switch (gValueCF4690) {
@@ -3357,7 +3517,7 @@ void WindowRuntime_OpenConfiguredWindows()
 }
 
 // 原函数：0x004707C0。
-void WindowRuntime_OpenLoginScene()
+static void WindowRuntime_OpenLoginScene()
 {
     WindowRuntime_ResetReferences();
     WindowRuntime_OpenConfiguredWindows();
@@ -3372,7 +3532,7 @@ void WindowRuntime_OpenLoginScene()
 }
 
 // 原函数：0x00471170。
-void WindowRuntime_OpenBattleScene()
+static void WindowRuntime_OpenBattleScene()
 {
     WindowRuntime_ResetReferences();
     WindowRuntime_ClearElementFocus();
@@ -3412,7 +3572,7 @@ void WindowRuntime_OpenBattleScene()
     }
 }
 
-void WindowRuntime_MarkSceneWindows()
+static void WindowRuntime_MarkSceneWindows()
 {
     for (const std::int32_t id : std::array<std::int32_t, 4>{21, 40, 22, 23}) {
         if (gWindowStates[id].window != nullptr) {
@@ -3420,11 +3580,9 @@ void WindowRuntime_MarkSceneWindows()
         }
     }
 }
-} // namespace
-
 
 // 原函数：0x00470980。
-void WindowRuntime_OpenNormalScene()
+static void WindowRuntime_OpenNormalScene()
 {
     WindowRuntime_ResetReferences();
     WindowRuntime_ClearElementFocus();
@@ -3454,7 +3612,7 @@ std::int32_t WindowRuntime_Initialize()
 }
 
 // 原函数：0x004923D0。
-std::int32_t WindowRuntime_ResetAlbumState()
+static std::int32_t WindowRuntime_ResetAlbumState()
 {
     gLoginWindowRuntime.valueCF4A00 = 5;
     gLoginWindowRuntime.valueC8A95C = 0;
@@ -3463,7 +3621,7 @@ std::int32_t WindowRuntime_ResetAlbumState()
 }
 
 // 原函数：0x004742B0。
-std::int32_t WindowScroll_ResetPosition()
+static std::int32_t WindowScroll_ResetPosition()
 {
     gLoginWindowRuntime.valuesCF4E50[0] = 0;
     gLoginWindowRuntime.valuesCF4E50[1] = 0;
@@ -3471,7 +3629,7 @@ std::int32_t WindowScroll_ResetPosition()
 }
 
 // 原函数：0x00470600。
-void WindowRuntime_InitializeLogin()
+static void WindowRuntime_InitializeLogin()
 {
     static_cast<void>(WindowRuntime_LoadSettings());
     static_cast<void>(WindowRuntime_ResetAlbumState());
@@ -3799,7 +3957,7 @@ void WindowElement_DrawHoverFrame(
 }
 
 // 原函数：0x00472F00。
-std::int32_t WindowRuntime_HitTestRect(
+static std::int32_t WindowRuntime_HitTestRect(
     const std::int32_t left, const std::int32_t top,
     const std::int32_t width, const std::int32_t height)
 {
@@ -3937,7 +4095,7 @@ std::int32_t WindowDrag_ResetMouse()
 
 // WDF01：同一拖动W32样本/四BYTE消费与矩形/焦点原取序；结果为1/2掩码。
 // 原函数：0x00472D20。
-std::int32_t WindowDrag_Update()
+static std::int32_t WindowDrag_Update()
 {
     const std::int32_t initialPhase = gMousePhase57C128;
     WindowInstance* window = gCurrentWindow;
@@ -4020,7 +4178,7 @@ std::int32_t WindowDrag_Update()
 
 // WCR01：71槽整理共用原state样本分流；关闭后压紧、等层前插与计数见对应SPEC。
 // 原函数：0x004730A0。
-std::int32_t WindowRuntime_CompactAndReorder()
+static std::int32_t WindowRuntime_CompactAndReorder()
 {
     std::int32_t count = 0;
     for (std::size_t index = 0; index < kWindowCount;) {
@@ -4069,7 +4227,7 @@ std::int32_t WindowRuntime_CompactAndReorder()
 }
 
 // 原函数：0x00473E40。
-void WindowRuntime_AdvanceMousePhase()
+static void WindowRuntime_AdvanceMousePhase()
 {
     std::int32_t phase = gMousePhase57C128;
     if (phase == 1) {
@@ -4120,7 +4278,7 @@ void WindowRuntime_AdvanceMousePhase()
 }
 
 // 原函数：0x00473560。
-void WindowRuntime_DispatchElementMouse(const std::int32_t index)
+static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
 {
     WindowInstance* const window = gCurrentWindow;
     WindowElement* const element = &window->elements[index];
@@ -4299,7 +4457,7 @@ std::uint8_t WindowInput_ActivateElement(
 }
 
 // 原函数：0x004740F0。
-void WindowInput_FormatSkillSlotCount(std::wstring& destination)
+static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
 {
     std::int32_t count = 0;
     for (std::size_t position = 0; position < 10; ++position) {
@@ -4314,8 +4472,18 @@ void WindowInput_FormatSkillSlotCount(std::wstring& destination)
     }
     cg::text::FormatTo(destination, L"{:2}/10", count);
 }
+
+// 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
+// WCL01：窗口release家族丢弃原4A4210常量1；真实七类资源回收留在FreeWindow，非此适配。
+// 原函数：0x004A4210。
+void WindowRuntime_ReleaseDefault()
+{
+    static_cast<void>(WindowRuntime_ReturnOne(0));
+}
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x00473F80。
 std::int32_t WindowRuntime_Update()
@@ -5063,15 +5231,3 @@ void WindowRuntime_ApplyObservationInputGate()
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-// 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
-// WCL01：窗口release家族丢弃原4A4210常量1；真实七类资源回收留在FreeWindow，非此适配。
-// 原函数：0x004A4210。
-void WindowRuntime_ReleaseDefault()
-{
-    static_cast<void>(WindowRuntime_ReturnOne(0));
-}
-
-} // namespace cg::ui::detail

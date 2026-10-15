@@ -2,24 +2,120 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
+// 回调与内部函数前置声明。
+
+// 原函数：0x004B5B70。
+static std::int32_t WindowMessageBoard_HandleInput(std::int32_t index, std::int32_t state); // 输入焦点及非空文本提示。
+
+// 原函数：0x004B5C30。
+static std::int32_t WindowMessageBoard_HandleButtons(std::int32_t index, std::int32_t state); // 删除/写入/取消/翻页完整交互。
+
+// 原函数：0x004B62A0。
+static void WindowMessageBoard_RefreshRecords(); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
+
+// 原函数：0x004B6C20。
+static std::int32_t WindowMessageBoard_Close(); // 清对话类型、关闭入口时实例并透传SE57结果。
+
+// 原函数：0x004B5AD0。
+static std::int32_t WindowMessageBoard_Update(std::int32_t value);
+
+// 原函数：0x004B5B50。
+static void WindowMessageBoard_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00580618。 借Input唯一CC2080，供更新与编辑交互。
+static WindowInputPrototype gWindow50InputPrototype580618 { // 原全局：0x00580618。
     {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
     33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
 };
-namespace {
 
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
-std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {}; // 原全局：0x00D30138。
+static std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {}; // 原全局：0x00D30138。
 
-constexpr wchar_t kWindow50WriteHint587C84[] = L"寫下訊息。"; // 原常量参考：0x00587C84。
-} // namespace
+static WindowGraphicData gWindowGraphic5734D8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005734D8。
 
+static WindowGraphicData gWindowGraphic5734F0 {0x3BB3C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005734F0。
+
+static WindowGraphicData gWindowGraphic573508 {0x3BB3D, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00573508。
+
+static WindowGraphicData gWindowGraphic573520 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573520。
+
+static WindowGraphicData gWindowGraphic573538 {0x3B577, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573538。
+
+static WindowGraphicData gWindowGraphic573550 {0x3BB3E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573550。
+
+static WindowGraphicData gWindowGraphic573568 {0x3BB41, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573568。
+
+static WindowGraphicData gWindowGraphic573580 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573580。
+
+static WindowGraphicData gWindowGraphic573598 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573598。
+
+static WindowTextPrototype gWindowText5735B0 { // 原全局：0x005735B0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    L"留言板文字列",
+};
+
+static WindowTextPrototype gWindowText5735B8 { // 原全局：0x005735B8。
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"名稱",
+};
+
+static WindowTextPrototype gWindowText5735C0 { // 原全局：0x005735C0。
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"留言時間",
+};
+
+static WindowElementPrototype gWindowElements5735C8[36] { // 原全局：0x005735C8。
+    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic573520}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Input, 27, 362, 503, 42, 1, {.unusedValue = 0}, &WindowMessageBoard_HandleInput},
+    {WindowElementType_Graphic, 22, 38, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 135, 46, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 330, 46, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 530, 46, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Text, 100, 73, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 89, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 105, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 22, 114, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 135, 122, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 330, 122, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 530, 122, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Text, 100, 150, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 166, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 182, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 22, 190, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 135, 198, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 330, 198, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 530, 198, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Text, 100, 226, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 242, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 258, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 22, 266, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 135, 274, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 330, 274, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 530, 274, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Text, 100, 302, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 318, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 100, 334, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 538, 364, 49, 17, 1, {.graphic = &gWindowGraphic573550}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Graphic, 538, 386, 49, 17, 1, {.graphic = &gWindowGraphic573568}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Graphic, 576, 342, 17, 17, 1, {.graphic = &gWindowGraphic573580}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Graphic, 536, 342, 17, 17, 1, {.graphic = &gWindowGraphic573598}, &WindowMessageBoard_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5734F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 30, 0, 0, 1, {.graphic = &gWindowGraphic573508}, &WindowElement_NoOp},
+};
+
+// 原型：窗口50；原全局：0x0054EC30。
+WindowPrototype gWindowPrototypeMessageBoard {0, 4, 5, 20, 634, 424, 0x80010101u, 36, gWindowElements5735C8, &WindowMessageBoard_Update, &WindowRuntime_DrawDefault, &WindowMessageBoard_Release}; // 50: 54EC30
+
+// 窗口函数实现。
 
 const std::byte* WindowMessageBoard_BorrowRecords() noexcept
 {
@@ -42,7 +138,7 @@ void WindowMessageBoard_ResetRecords()
 }
 
 // 原函数：0x004B5AD0。
-std::int32_t WindowMessageBoard_Update(const std::int32_t value)
+static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 {
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();
@@ -61,7 +157,7 @@ std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B5B50。
-void WindowMessageBoard_Release()
+static void WindowMessageBoard_Release()
 {
     if (world::detail::gValue581800 == 21) {
         world::detail::gValue581800 = -1;
@@ -69,10 +165,10 @@ void WindowMessageBoard_Release()
 }
 
 // 原函数：0x004B5B70。
-std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
-        gHoverTextD68AE8 = kWindow50WriteHint587C84;
+        gHoverTextD68AE8 = L"寫下訊息。" /* 原常量参考：0x00587C84。 */;
     }
     if ((state & 2) == 0) {
         return 0;
@@ -89,7 +185,7 @@ std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std:
 }
 
 // 原函数：0x004B5C30。
-std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::wstring escaped;
     std::wstring text;
@@ -145,7 +241,7 @@ std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const st
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[30].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 244544;
-            gHoverTextD68AE8 = kWindow50WriteHint587C84;
+            gHoverTextD68AE8 = L"寫下訊息。" /* 原常量参考：0x00587C84。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 244542;
@@ -209,7 +305,7 @@ std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const st
 }
 
 // 原函数：0x004B62A0。
-void WindowMessageBoard_RefreshRecords()
+static void WindowMessageBoard_RefreshRecords()
 {
     std::wstring buffer;
     for (std::int32_t index = 0; index < 4; ++index) {
@@ -254,7 +350,7 @@ void WindowMessageBoard_RefreshRecords()
 }
 
 // 原函数：0x004B6C20。
-std::int32_t WindowMessageBoard_Close()
+static std::int32_t WindowMessageBoard_Close()
 {
     WindowInstance* const window = gCurrentWindow;
     world::detail::gValue581800 = -1;
@@ -328,84 +424,3 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5734D8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005734D8。
-
-WindowGraphicData gWindowGraphic5734F0 {0x3BB3C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005734F0。
-
-WindowGraphicData gWindowGraphic573508 {0x3BB3D, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00573508。
-
-WindowGraphicData gWindowGraphic573520 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573520。
-
-WindowGraphicData gWindowGraphic573538 {0x3B577, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573538。
-
-WindowGraphicData gWindowGraphic573550 {0x3BB3E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573550。
-
-WindowGraphicData gWindowGraphic573568 {0x3BB41, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573568。
-
-WindowGraphicData gWindowGraphic573580 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573580。
-
-WindowGraphicData gWindowGraphic573598 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00573598。
-
-WindowTextPrototype gWindowText5735B0 { // 原全局：0x005735B0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    L"留言板文字列",
-};
-
-WindowTextPrototype gWindowText5735B8 { // 原全局：0x005735B8。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"名稱",
-};
-
-WindowTextPrototype gWindowText5735C0 { // 原全局：0x005735C0。
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, L"留言時間",
-};
-
-} // namespace
-
-// 原型：窗口50；原全局：0x0054EC30。
-WindowPrototype gWindowPrototypeMessageBoard {0, 4, 5, 20, 634, 424, 0x80010101u, 36, gWindowElements5735C8, &WindowMessageBoard_Update, &WindowRuntime_DrawDefault, &WindowMessageBoard_Release}; // 50: 54EC30
-
-WindowElementPrototype gWindowElements5735C8[36] { // 原全局：0x005735C8。
-    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic573520}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Input, 27, 362, 503, 42, 1, {.unusedValue = 0}, &WindowMessageBoard_HandleInput},
-    {WindowElementType_Graphic, 22, 38, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 46, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 46, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 46, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 73, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 89, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 105, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 114, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 122, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 122, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 122, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 150, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 166, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 182, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 190, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 198, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 198, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 198, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 226, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 242, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 258, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 266, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 274, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 274, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 274, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 302, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 318, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 334, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 538, 364, 49, 17, 1, {.graphic = &gWindowGraphic573550}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 538, 386, 49, 17, 1, {.graphic = &gWindowGraphic573568}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 576, 342, 17, 17, 1, {.graphic = &gWindowGraphic573580}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 536, 342, 17, 17, 1, {.graphic = &gWindowGraphic573598}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5734F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 30, 0, 0, 1, {.graphic = &gWindowGraphic573508}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

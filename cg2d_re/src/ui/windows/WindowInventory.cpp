@@ -3,13 +3,119 @@
 namespace cg::ui {
 namespace detail {
 
-std::int32_t gInventoryHover57DA2C = -2; // 原全局：0x0057DA2C。
+// 回调与内部函数前置声明。
 
-std::int32_t gEquipmentHover57DA68 = -2; // 原全局：0x0057DA68。
+// 原函数：0x00488930。
+static std::int32_t WindowInventory_TogglePreview(std::int32_t unusedIndex, std::int32_t state);
 
-std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
+// 原函数：0x00488950。
+static std::int32_t WindowInventory_CycleEquipment(std::int32_t unusedIndex, std::int32_t state);
 
-std::wstring gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
+// 原函数：0x00488970。
+static std::int32_t WindowInventory_RotatePreview(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00488EA0。
+static std::int32_t WindowInventory_TabEquipment(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00488EC0。
+static std::int32_t WindowInventory_TabPet(std::int32_t index, std::int32_t state); // SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。
+
+// 原函数：0x00488C50。
+static std::int32_t WindowInventory_ButtonClose(std::int32_t index, std::int32_t state); // 库存关闭按钮。
+
+// 原函数：0x00488CF0。
+static void WindowInventory_DropMoney(std::int32_t amount); // MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。
+
+// 原函数：0x00488D30。
+static std::int32_t WindowInventory_HandleMoney(std::int32_t index, std::int32_t state); // MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。
+
+// 原函数：0x00488E60。
+static std::int32_t WindowInventory_RefreshMoney(std::int32_t unusedIndex, std::int32_t unusedState);
+
+// 原函数：0x00488E80。
+static std::int32_t WindowInventory_RefreshExtraValue(std::int32_t unusedIndex, std::int32_t unusedState);
+
+// 原函数：0x00489EE0。
+static std::int32_t WindowInventory_TabPlayerAttributes(std::int32_t unusedIndex, std::int32_t state);
+
+// 原函数：0x00488510。
+static void WindowInventory_Release();
+
+// 原函数：0x00488990。
+static std::int32_t WindowInventory_Update(std::int32_t value);
+
+// 原函数：0x00488B10。
+static std::int32_t WindowInventory_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x0057DA2C。 普通背包悬停槽，初值-2，仅488FB0读写。
+static std::int32_t gInventoryHover57DA2C = -2; // 原全局：0x0057DA2C。
+
+// 原全局：0x0057DA68。 装备页独立悬停槽，初值-2，仅489760读写。
+static std::int32_t gEquipmentHover57DA68 = -2; // 原全局：0x0057DA68。
+
+// 原全局：0x00CB086C。 488E60格式化，type7载荷借用。
+static std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
+
+// 原全局：0x00CC3ECC。 488E80格式化FF02CC，独立于输入区。
+static std::wstring gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
+
+static WindowGraphicData gWindowGraphic562B98 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562B98。
+
+static WindowGraphicData gWindowGraphic562BB0 {244290, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BB0。
+
+static WindowGraphicData gWindowGraphic562BC8 {244291, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BC8。
+
+static WindowGraphicData gWindowGraphic562BE0 {244294, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BE0。
+
+static WindowGraphicData gWindowGraphic562BF8 {98131, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BF8。
+
+static WindowGraphicData gWindowGraphic562C10 {98140, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C10。
+
+static WindowGraphicData gWindowGraphic562C28 {98143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C28。
+
+static WindowGraphicData gWindowGraphic562C40 {98146, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C40。
+
+static WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C58。
+
+static std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
+
+static WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
+
+static WindowNumberData gWindowNumber562CB8 {&gInventoryValueTextCC3ECC, 10, 3, 1, 0}; // 原全局：0x00562CB8。
+
+static WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562CD8。
+    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic562B98}, &WindowInventory_ButtonClose},
+    {WindowElementType_Graphic, 221, 28, 49, 17, 1, {.graphic = &gWindowGraphic562BC8}, &WindowInventory_HandleMoney},
+    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber562CB0}, &WindowInventory_RefreshMoney},
+    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber562CB8}, &WindowInventory_RefreshExtraValue},
+    {WindowElementType_Graphic, 8, 0, 278, 259, 1, {.graphic = &gWindowGraphic562BB0}, &WindowInventory_HandleItems},
+    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562C80}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_TogglePreview},
+    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_CycleEquipment},
+    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowInventory_RotatePreview},
+    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -16, 17, 293, 222, 0, {.graphic = &gWindowGraphic562C40}, &WindowInventory_HandleEquipment},
+    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic562BE0}, &WindowInventory_TabEquipment},
+    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic562BF8}, &WindowInventory_TabPet},
+    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic562C10}, &WindowInventory_TabPet},
+    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic562C28}, &WindowInventory_TabPet},
+    {WindowElementType_EventArea, -197, 17, 293, 222, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_EventArea, 282, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口14；原全局：0x0054E4E0。
+WindowPrototype gWindowPrototypeInventory {0, 4, 340, 120, 278, 259, 0x80010101u, 24, gWindowElements562CD8, &WindowInventory_Update, &WindowInventory_Draw, &WindowInventory_Release}; // 14: 54E4E0
+
+// 窗口函数实现。
 
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 // 原函数：0x0048A6C0。
@@ -73,33 +179,33 @@ std::int32_t WindowInventory_OpenSpecialSelection(const char* const text)
 }
 
 // 原函数：0x00488930。
-std::int32_t WindowInventory_TogglePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowInventory_TogglePreview(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_TogglePreview(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // 原函数：0x00488950。
-std::int32_t WindowInventory_CycleEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowInventory_CycleEquipment(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_CycleEquipment(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // 原函数：0x00488970。
-std::int32_t WindowInventory_RotatePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowInventory_RotatePreview(const std::int32_t, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorCF3B10, state));
     return 0;
 }
 
 // 原函数：0x00488EA0。
-std::int32_t WindowInventory_TabEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowInventory_TabEquipment(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
 }
 
 // SAP01：原81条；五对used/索引/flags与S8模式保持，成功低AL归一、无效图/声效按原，运行待。
 // 原函数：0x00488EC0。
-std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t ordinal = index - 19;
     std::int32_t remaining = ordinal;
@@ -136,7 +242,7 @@ std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::int32_t
 }
 
 // 原函数：0x00488510。
-void WindowInventory_Release()
+static void WindowInventory_Release()
 {
     WindowInstance* const quantityWindow = gWindowStates[WindowId_Quantity].window;
     if (quantityWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 14) {
@@ -160,7 +266,7 @@ void WindowInventory_Release()
 }
 
 // 原函数：0x00488990。
-std::int32_t WindowInventory_Update(const std::int32_t value)
+static std::int32_t WindowInventory_Update(const std::int32_t value)
 {
     std::int32_t selected;
     if (value == -1) {
@@ -215,7 +321,7 @@ updateSelector:
 }
 
 // 原函数：0x00488B10。
-std::int32_t WindowInventory_Draw(const std::int32_t)
+static std::int32_t WindowInventory_Draw(const std::int32_t)
 {
     static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
         L"選好想蓋印的物品，", L"單點滑鼠左鍵，", L"可蓋下印記。", L"單點滑鼠右鍵即結束。",
@@ -257,7 +363,7 @@ std::int32_t WindowInventory_Draw(const std::int32_t)
 }
 
 // 原函数：0x00488C50。
-std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     graphic->imageNo = 243000;
@@ -277,7 +383,7 @@ std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const std::in
 
 // MDR01：原488CF0完整18条；动作BYTE bit7/场景门槛原短路，玩家Y后X→woz金额；void只承副作用，全callback ABI待。
 // 原函数：0x00488CF0。
-void WindowInventory_DropMoney(const std::int32_t amount)
+static void WindowInventory_DropMoney(const std::int32_t amount)
 {
     if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
         && world::detail::Sub_440B50() == 0) {
@@ -289,7 +395,7 @@ void WindowInventory_DropMoney(const std::int32_t amount)
 
 // MDR01：原488D30完整91条；held graphic/三fresh窗口匹配，开框后重读金额、图号优先序及S32 0/1保持。
 // 原函数：0x00488D30。
-std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -325,14 +431,14 @@ std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const std::in
 }
 
 // 原函数：0x00488E60。
-std::int32_t WindowInventory_RefreshMoney(const std::int32_t, const std::int32_t)
+static std::int32_t WindowInventory_RefreshMoney(const std::int32_t, const std::int32_t)
 {
     cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 // 原函数：0x00488E80。
-std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const std::int32_t)
+static std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const std::int32_t)
 {
     cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::detail::ReadPlayerValue15BCC());
     return 0;
@@ -759,7 +865,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
 }
 
 // 原函数：0x00489EE0。
-std::int32_t WindowInventory_TabPlayerAttributes(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowInventory_TabPlayerAttributes(const std::int32_t, const std::int32_t state)
 {
     return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
@@ -917,26 +1023,24 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     }
     return consumed;
 }
+
 } // namespace detail
 
-namespace {
-
+// 窗口函数实现。
 
 // 原488400固定CF3B10；原内嵌+78预览沿已有唯一静态对象绑定。
 // 原函数：0x00488400。
-detail::WindowItemSelectorState* WindowInventory_ConstructSelector()
+static detail::WindowItemSelectorState* WindowInventory_ConstructSelector()
 {
     return detail::WindowItemSelector_ConstructPreview(&detail::gItemSelectorCF3B10, 0);
 }
 
 // 原488420尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
 // 原函数：0x00488420。
-void WindowInventory_ReleaseSelectorAtExit()
+static void WindowInventory_ReleaseSelectorAtExit()
 {
     login::detail::DestroyWindowSelectorPreview(0);
 }
-} // namespace
-
 
 // 原函数：0x004883F0；LCI01启动拥有者替代CRT构造／退出登记。
 FirstItemSelectorStartup::FirstItemSelectorStartup()
@@ -951,65 +1055,3 @@ FirstItemSelectorStartup::~FirstItemSelectorStartup()
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic562B98 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562B98。
-
-WindowGraphicData gWindowGraphic562BB0 {244290, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BB0。
-
-WindowGraphicData gWindowGraphic562BC8 {244291, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BC8。
-
-WindowGraphicData gWindowGraphic562BE0 {244294, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BE0。
-
-WindowGraphicData gWindowGraphic562BF8 {98131, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BF8。
-
-WindowGraphicData gWindowGraphic562C10 {98140, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C10。
-
-WindowGraphicData gWindowGraphic562C28 {98143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C28。
-
-WindowGraphicData gWindowGraphic562C40 {98146, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C40。
-
-WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C58。
-
-std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
-
-WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
-
-WindowNumberData gWindowNumber562CB8 {&gInventoryValueTextCC3ECC, 10, 3, 1, 0}; // 原全局：0x00562CB8。
-
-} // namespace
-
-// 原型：窗口14；原全局：0x0054E4E0。
-WindowPrototype gWindowPrototypeInventory {0, 4, 340, 120, 278, 259, 0x80010101u, 24, gWindowElements562CD8, &WindowInventory_Update, &WindowInventory_Draw, &WindowInventory_Release}; // 14: 54E4E0
-
-WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562CD8。
-    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic562B98}, &WindowInventory_ButtonClose},
-    {WindowElementType_Graphic, 221, 28, 49, 17, 1, {.graphic = &gWindowGraphic562BC8}, &WindowInventory_HandleMoney},
-    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber562CB0}, &WindowInventory_RefreshMoney},
-    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber562CB8}, &WindowInventory_RefreshExtraValue},
-    {WindowElementType_Graphic, 8, 0, 278, 259, 1, {.graphic = &gWindowGraphic562BB0}, &WindowInventory_HandleItems},
-    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562C80}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_TogglePreview},
-    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_CycleEquipment},
-    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowInventory_RotatePreview},
-    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -16, 17, 293, 222, 0, {.graphic = &gWindowGraphic562C40}, &WindowInventory_HandleEquipment},
-    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic562BE0}, &WindowInventory_TabEquipment},
-    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic562BF8}, &WindowInventory_TabPet},
-    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic562C10}, &WindowInventory_TabPet},
-    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic562C28}, &WindowInventory_TabPet},
-    {WindowElementType_EventArea, -197, 17, 293, 222, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-    {WindowElementType_EventArea, 282, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

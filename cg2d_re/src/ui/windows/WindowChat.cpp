@@ -2,33 +2,146 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContext626AA0 {}; // 原全局：0x00626AA0。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gChatInputPrototype57E970 { // 原全局：0x0057E970。
+// 回调与内部函数前置声明。
+
+// CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A6EA0。
+static std::int32_t WindowChat_HandleInput(std::int32_t unused, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
+
+// 原函数：0x004A80F0。
+static std::int32_t WindowChat_DragScroll(std::int32_t index, std::int32_t state); // WSP01：日志数量前后分别取样，返回滚动结果。
+
+// CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A81D0。
+static std::int32_t WindowChat_Scroll(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
+
+// 原函数：0x004A7C40。
+static void WindowChat_RefreshGeometry(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
+
+// 原函数：0x004A8140。
+static void WindowChat_SyncScrollThumb(); // 查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。
+
+// 原函数：0x004A6FC0。
+static std::int32_t WindowChat_HandleButtons(std::int32_t index, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
+
+// 原函数：0x004A7700。
+static std::int32_t WindowChat_ResetScroll(); // 不清日志正文或写指针。
+
+// 原函数：0x004A82E0。
+static std::int32_t WindowChat_RefreshCompactHeight(); // 窗口57高度循环调整并清两个请求。
+
+// 原函数：0x004A6DD0。
+static std::int32_t WindowChat_Update(std::int32_t value); // CWC01：见聊天窗口控制完整合同。
+
+// 原函数：0x004A8240。
+static std::int32_t WindowCompactChat_Update(std::int32_t value);
+
+// CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
+// 原函数：0x004A82C0。
+static std::int32_t WindowChat_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowInputPrototype gChatInputPrototype57E970 { // 原全局：0x0057E970。
     {{&input::gInputContext626AA0}, WindowInputReferenceKind::Context},
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
 };
 
-std::int32_t gChatWidthRequestC9A934 = 0; // 原全局：0x00C9A934。
+// 原全局：0x00C9A934。 原宽度调整请求，独立于实际宽度。
+static std::int32_t gChatWidthRequestC9A934 = 0; // 原全局：0x00C9A934。
 
-std::int32_t gChatHeightRequestC9A93C = 0; // 原全局：0x00C9A93C。
-namespace {
+// 原全局：0x00C9A93C。 原高度调整请求，消费后清零。
+static std::int32_t gChatHeightRequestC9A93C = 0; // 原全局：0x00C9A93C。
+
+static WindowGraphicData gWindowGraphic570B10 {245167, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B10。
+
+static WindowGraphicData gWindowGraphic570B28 {245160, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B28。
+
+static WindowGraphicData gWindowGraphic570B40 {245187, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B40。
+
+static WindowGraphicData gWindowGraphic570B58 {245172, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B58。
+
+static WindowGraphicData gWindowGraphic570B70 {245206, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B70。
+
+static WindowGraphicData gWindowGraphic570B88 {245192, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B88。
+
+static WindowGraphicData gWindowGraphic570BA0 {245161, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570BA0。
+
+static WindowGraphicData gWindowGraphic570BD0 {245171, 0, 0, 0, 0, 0x30FFFFFFu}; // 原全局：0x00570BD0。
+
+static WindowGraphicData gWindowGraphic570BE8 {245169, 0, 0, 0, 0, 0x30FFFFFFu}; // 原全局：0x00570BE8。
+
+static WindowGraphicData gWindowGraphic570C00 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C00。
+
+static WindowGraphicData gWindowGraphic570C18 {245165, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C18。
+
+static WindowGraphicData gWindowGraphic570C30 {245164, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C30。
+
+static WindowGraphicData gWindowGraphic570C48 {245166, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C48。
+
+static WindowGraphicData gWindowGraphic570C60 {245212, 0, 0, 0, 0, 0xA0FFFFFFu}; // 原全局：0x00570C60。
+
+static WindowGraphicData gWindowGraphic570C78 {243091, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C78。
+
+static WindowGraphicData gWindowGraphic570C90 {243094, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C90。
+
+static std::uint32_t gWindowMouseFlagsD67870 = 0; // 原全局：0x00D67870。
+
+// 原全局：0x00570CB0。 几何更新所读五按钮原型坐标。
+static WindowElementPrototype gWindowElements570CB0[20] { // 原全局：0x00570CB0。
+    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
+    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 0, 0, 0, 0, 1, {}, &WindowChat_Scroll},
+    {WindowElementType_Graphic, 7, 3, 18, 16, 1, {.graphic = &gWindowGraphic570BA0}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 27, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B40}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 48, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B58}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 68, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B70}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 87, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B88}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 11, 14, 1, {.graphic = &gWindowGraphic570C00}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 239, 104, 11, 100, 1, {.mouseFlags = &gWindowMouseFlagsD67870}, &WindowChat_DragScroll},
+    {WindowElementType_Graphic, 0, 0, 14, 534, 1, {.graphic = &gWindowGraphic570C18}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C78}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C90}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C30}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C48}, &WindowChat_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 454, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, -370, 0, 0, 1, {.graphic = &gWindowGraphic570BD0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, -386, 0, 0, 1, {.graphic = &gWindowGraphic570BE8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 1, 1, 0, 0, 1, {.graphic = &gWindowGraphic570C60}, &WindowChat_HandleButtons},
+};
+
+static WindowElementPrototype gWindowElements570FD8[2] { // 原全局：0x00570FD8。
+    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
+    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
+};
+
+// 原型：窗口35；原全局：0x0054EAB0。
+WindowPrototype gWindowPrototypeChat {0, 4, 364, 428, 640, 25, 0x80010101u, 20, gWindowElements570CB0, &WindowChat_Update, &WindowChat_Draw, &WindowRuntime_ReleaseDefault}; // 35: 54EAB0
+
+// 原型：窗口57；原全局：0x0054EAE0。
+WindowPrototype gWindowPrototypeCompactChat {0, 4, 0, 428, 0, 0, 0x80010101u, 2, gWindowElements570FD8, &WindowCompactChat_Update, &WindowChat_Draw, &WindowRuntime_ReleaseDefault}; // 57: 54EAE0
+
+// 窗口函数实现。
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
 // CLD01：索引0借第24项输入field158，保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。
-std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
+static std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
 {
     if (index == 0) {
         return input::gInputContexts5F9758[23].field158;
     }
     return world::detail::gRecords5FB7F8[index - 1].fontType;
 }
-} // namespace
-
 
 // 原函数：0x004A6D80。
 std::int32_t WindowChat_ResetState()
@@ -80,7 +193,7 @@ WindowInstance* WindowChat_SwitchMode()
 
 // CWC01：持有实际窗口/新count与elements，原浮点比例/低S32位置和正常分支保持。
 // 原函数：0x004A8140。
-void WindowChat_SyncScrollThumb()
+static void WindowChat_SyncScrollThumb()
 {
     WindowInstance* const window = WindowRuntime_FindById(WindowId_Chat);
     if (window == nullptr) {
@@ -107,7 +220,7 @@ void WindowChat_SyncScrollThumb()
 
 // CWP01：原请求/字体高度各点顺序取样，尺寸环/现场窗口载荷及完整几何保持。
 // 原函数：0x004A7C40。
-void WindowChat_RefreshGeometry()
+static void WindowChat_RefreshGeometry()
 {
     const std::int32_t previousHeight = gChatHeightUnitsC9A938;
     const std::int32_t heightRequest = gChatHeightRequestC9A93C;
@@ -247,7 +360,7 @@ void WindowChat_RefreshGeometry()
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
 // 原函数：0x004A6DD0。
-std::int32_t WindowChat_Update(const std::int32_t value)
+static std::int32_t WindowChat_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
@@ -278,7 +391,7 @@ std::int32_t WindowChat_Update(const std::int32_t value)
 
 // CWC01：原三个hover窗口/元素及scroll→count取样，按钮/SE/发布和返回序保持。
 // 原函数：0x004A6FC0。
-std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
         return 0;
@@ -485,7 +598,7 @@ std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std::int32
 
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A6EA0。
-std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_t state)
 {
     if (input::gValueC9A96C == 0) {
         return 0;
@@ -532,7 +645,7 @@ std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_t state
 }
 
 // 原函数：0x004A8240。
-std::int32_t WindowCompactChat_Update(const std::int32_t value)
+static std::int32_t WindowCompactChat_Update(const std::int32_t value)
 {
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t y = window->y;
@@ -553,7 +666,7 @@ std::int32_t WindowCompactChat_Update(const std::int32_t value)
 
 // CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A82C0。
-std::int32_t WindowChat_Draw(const std::int32_t)
+static std::int32_t WindowChat_Draw(const std::int32_t)
 {
     if (input::gValueC9A96C != 0) {
         WindowRuntime_DrawCurrent();
@@ -563,7 +676,7 @@ std::int32_t WindowChat_Draw(const std::int32_t)
 
 // WSP01：原state bit3控制日志位置换算，换算后重读count；仍返回滚动原结果。
 // 原函数：0x004A80F0。
-std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     if ((state & 8) != 0) {
@@ -577,7 +690,7 @@ std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::int32_t 
 
 // CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A81D0。
-std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
@@ -599,7 +712,7 @@ std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004A7700。
-std::int32_t WindowChat_ResetScroll()
+static std::int32_t WindowChat_ResetScroll()
 {
     world::detail::gCountC9A944 = 0;
     gChatScrollOffsetC9A940 = 0;
@@ -640,7 +753,7 @@ void WindowChat_RequestWidthDecrease()
 }
 
 // 原函数：0x004A82E0。
-std::int32_t WindowChat_RefreshCompactHeight()
+static std::int32_t WindowChat_RefreshCompactHeight()
 {
     const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
     gChatHeightUnitsC9A938 = height;
@@ -812,8 +925,10 @@ std::int32_t WindowChat_RestoreInput()
     input::SetContext_44B330(&input::gInputContext626AA0);
     return 1;
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // HBN01：同一C9A930 W32正常两倍返S32，正确正文保持，不新增数值模型。
 // 原函数：0x004A80E0。
@@ -823,79 +938,3 @@ std::int32_t WindowChat_ReadInputByteWidth()
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic570B10 {245167, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B10。
-
-WindowGraphicData gWindowGraphic570B28 {245160, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B28。
-
-WindowGraphicData gWindowGraphic570B40 {245187, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B40。
-
-WindowGraphicData gWindowGraphic570B58 {245172, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B58。
-
-WindowGraphicData gWindowGraphic570B70 {245206, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B70。
-
-WindowGraphicData gWindowGraphic570B88 {245192, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B88。
-
-WindowGraphicData gWindowGraphic570BA0 {245161, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570BA0。
-
-WindowGraphicData gWindowGraphic570BD0 {245171, 0, 0, 0, 0, 0x30FFFFFFu}; // 原全局：0x00570BD0。
-
-WindowGraphicData gWindowGraphic570BE8 {245169, 0, 0, 0, 0, 0x30FFFFFFu}; // 原全局：0x00570BE8。
-
-WindowGraphicData gWindowGraphic570C00 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C00。
-
-WindowGraphicData gWindowGraphic570C18 {245165, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C18。
-
-WindowGraphicData gWindowGraphic570C30 {245164, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C30。
-
-WindowGraphicData gWindowGraphic570C48 {245166, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C48。
-
-WindowGraphicData gWindowGraphic570C60 {245212, 0, 0, 0, 0, 0xA0FFFFFFu}; // 原全局：0x00570C60。
-
-WindowGraphicData gWindowGraphic570C78 {243091, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C78。
-
-WindowGraphicData gWindowGraphic570C90 {243094, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570C90。
-
-std::uint32_t gWindowMouseFlagsD67870 = 0; // 原全局：0x00D67870。
-
-} // namespace
-
-// 原型：窗口35；原全局：0x0054EAB0。
-WindowPrototype gWindowPrototypeChat {0, 4, 364, 428, 640, 25, 0x80010101u, 20, gWindowElements570CB0, &WindowChat_Update, &WindowChat_Draw, &WindowRuntime_ReleaseDefault}; // 35: 54EAB0
-
-// 原型：窗口57；原全局：0x0054EAE0。
-WindowPrototype gWindowPrototypeCompactChat {0, 4, 0, 428, 0, 0, 0x80010101u, 2, gWindowElements570FD8, &WindowCompactChat_Update, &WindowChat_Draw, &WindowRuntime_ReleaseDefault}; // 57: 54EAE0
-
-WindowElementPrototype gWindowElements570CB0[20] { // 原全局：0x00570CB0。
-    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
-    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 0, 0, 0, 0, 1, {}, &WindowChat_Scroll},
-    {WindowElementType_Graphic, 7, 3, 18, 16, 1, {.graphic = &gWindowGraphic570BA0}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 27, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B40}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 48, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B58}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 68, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B70}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 87, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B88}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 11, 14, 1, {.graphic = &gWindowGraphic570C00}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 239, 104, 11, 100, 1, {.mouseFlags = &gWindowMouseFlagsD67870}, &WindowChat_DragScroll},
-    {WindowElementType_Graphic, 0, 0, 14, 534, 1, {.graphic = &gWindowGraphic570C18}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C78}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C90}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C30}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C48}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 454, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, -370, 0, 0, 1, {.graphic = &gWindowGraphic570BD0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, -386, 0, 0, 1, {.graphic = &gWindowGraphic570BE8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 1, 1, 0, 0, 1, {.graphic = &gWindowGraphic570C60}, &WindowChat_HandleButtons},
-};
-
-WindowElementPrototype gWindowElements570FD8[2] { // 原全局：0x00570FD8。
-    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
-    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

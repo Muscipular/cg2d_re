@@ -2,17 +2,67 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-constexpr wchar_t kNormalMailHint5877A4[] = L"寄送一般郵件。"; // 原常量参考：0x005877A4。
-
-constexpr wchar_t kSwitchMailPetHint58778C[] = // 原常量参考：0x0058778C。
-    L"換另一隻寵物寄送郵件。";
-} // namespace
-
+// 回调与内部函数前置声明。
 
 // 原函数：0x004A56F0。
-std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
+static std::int32_t WindowPetMailCompose_Update(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
+
+// 原函数：0x004A6300。
+static std::int32_t WindowPetMailCompose_HandleGiftItem(std::int32_t index, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
+
+// 原函数：0x004A6450。
+static std::int32_t WindowPetMailCompose_HandleSendButtons(std::int32_t index, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
+
+// 原函数：0x004A6AC0。
+static std::uint8_t WindowPetMailCompose_RefreshPet(); // 宠物名称/颜色和携带物品图、数量刷新。
+
+// 原函数：0x004A6D30。
+static std::int32_t WindowPetMailCompose_HasGiftPet(std::int32_t index); // 同源flags6AA完整W16恰3。
+
+// 原函数：0x004A6D50。
+static std::int32_t WindowPetMailCompose_HasGiftItem(std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
+
+// 原函数：0x004A56F0。
+static std::int32_t WindowPetMailCompose_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic570118 {0x3BA0D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570118。
+
+static WindowGraphicData gWindowGraphic570130 {0x3BA0E, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00570130。
+
+static WindowGraphicData gWindowGraphic570178 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570178。
+
+static WindowGraphicData gWindowGraphic5701A8 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701A8。
+
+static WindowGraphicData gWindowGraphic5701C0 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701C0。
+
+static WindowGraphicData gWindowGraphic5701D8 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701D8。
+
+static WindowElementPrototype gWindowElements570318[13] { // 原全局：0x00570318。
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Input, 33, 84, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
+    {WindowElementType_Graphic, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &WindowPetMailCompose_HandleSendButtons},
+    {WindowElementType_Graphic, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowPetMailCompose_HandleSendButtons},
+    {WindowElementType_Graphic, 151, 199, 0, 0, 1, {.graphic = &gWindowGraphic5701A8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 151, 199, 50, 50, 1, {.graphic = &gWindowGraphic5701A8}, &WindowPetMailCompose_HandleGiftItem},
+    {WindowElementType_Text, 21, 49, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 16, 199, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701C0}, &WindowPetMailCompose_HandleSendButtons},
+    {WindowElementType_Graphic, 66, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701D8}, &WindowPetMailCompose_HandleSendButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570118}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 13, 26, 0, 0, 1, {.graphic = &gWindowGraphic570130}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口23；原全局：0x0054EA50。
+WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010101u, 13, gWindowElements570318, &WindowPetMailCompose_Update, &WindowRuntime_DrawDefault, &WindowMailCompose_Release}; // 23: 54EA50
+
+// 窗口函数实现。
+
+// 原函数：0x004A56F0。
+static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const normalWindow = gWindowStates[WindowId_MailCompose].window;
@@ -81,7 +131,7 @@ std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A6300。
-std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const std::int32_t state)
 {
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
@@ -144,13 +194,13 @@ std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const
 }
 
 // 原函数：0x004A6D30。
-std::int32_t WindowPetMailCompose_HasGiftPet(const std::int32_t index)
+static std::int32_t WindowPetMailCompose_HasGiftPet(const std::int32_t index)
 {
     return (*world::detail::BorrowPetRuntimeF633F8Storage())[index].flags6AA == 3 ? 1 : 0;
 }
 
 // 原函数：0x004A6D50。
-std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
+static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 {
     if (WindowCraft_ReadItemSelection() == 0) {
         return 0;
@@ -159,7 +209,7 @@ std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 }
 
 // 原函数：0x004A6450。
-std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     switch (index) {
@@ -170,7 +220,7 @@ std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, co
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
         if ((state & 1) != 0) {
             graphic->imageNo = idle + 2;
-            gHoverTextD68AE8 = index == 2 ? kNormalMailHint5877A4 : kSwitchMailPetHint58778C;
+            gHoverTextD68AE8 = index == 2 ? L"寄送一般郵件。" /* 原常量参考：0x005877A4。 */ : L"換另一隻寵物寄送郵件。" /* 原常量参考：0x0058778C。 */;
             consumed = 1;
         } else {
             graphic->imageNo = idle;
@@ -279,7 +329,7 @@ std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, co
 }
 
 // 原函数：0x004A6AC0。
-std::uint8_t WindowPetMailCompose_RefreshPet()
+static std::uint8_t WindowPetMailCompose_RefreshPet()
 {
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
@@ -334,42 +384,3 @@ std::uint8_t WindowPetMailCompose_RefreshPet()
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic570118 {0x3BA0D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570118。
-
-WindowGraphicData gWindowGraphic570130 {0x3BA0E, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00570130。
-
-WindowGraphicData gWindowGraphic570178 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570178。
-
-WindowGraphicData gWindowGraphic5701A8 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701A8。
-
-WindowGraphicData gWindowGraphic5701C0 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701C0。
-
-WindowGraphicData gWindowGraphic5701D8 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701D8。
-
-} // namespace
-
-// 原型：窗口23；原全局：0x0054EA50。
-WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010101u, 13, gWindowElements570318, &WindowPetMailCompose_Update, &WindowRuntime_DrawDefault, &WindowMailCompose_Release}; // 23: 54EA50
-
-WindowElementPrototype gWindowElements570318[13] { // 原全局：0x00570318。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Input, 33, 84, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
-    {WindowElementType_Graphic, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 151, 199, 0, 0, 1, {.graphic = &gWindowGraphic5701A8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 151, 199, 50, 50, 1, {.graphic = &gWindowGraphic5701A8}, &WindowPetMailCompose_HandleGiftItem},
-    {WindowElementType_Text, 21, 49, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 199, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701C0}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 66, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701D8}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570118}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 13, 26, 0, 0, 1, {.graphic = &gWindowGraphic570130}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

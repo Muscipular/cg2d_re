@@ -2,101 +2,93 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
-std::int32_t gWindow13ResultD66E2C = 0; // 原全局：0x00D66E2C。
+// 回调与内部函数前置声明。
 
-std::int32_t gWindow13ExperienceCC2E5C = 0; // 原全局：0x00CC2E5C。
+// 原函数：0x004875E0。
+static login::YobiAction* WindowSkillResult_Open(); // 原操作计数、关联关闭及窗口13创建。
 
-std::int32_t gWindow13ValueCC3E8C = 0; // 原全局：0x00CC3E8C。
+// 原函数：0x004876B0。
+static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* window); // 窗口13按分类完整填充结果。
 
-std::int32_t gWindow13LevelUpCF468C = 0; // 原全局：0x00CF468C。
+// 原函数：0x00487D60。
+static std::int32_t WindowSkillResult_ButtonContinue(std::int32_t index, std::int32_t state); // 先比较FP，再继续技能请求。
 
-std::int32_t gWindow13EnduranceCC421C = 0; // 原全局：0x00CC421C。
+// 原函数：0x00487E80。
+static std::int32_t WindowSkillResult_ButtonClose(std::int32_t index, std::int32_t state); // 关闭入口窗口，音效后写图号。
 
-std::int32_t gWindow13DexterityD2D644 = 0; // 原全局：0x00D2D644。
+// 原函数：0x00487660。
+static void WindowSkillResult_Release();
 
-std::int32_t gWindow13IntelligenceCC19FC = 0; // 原全局：0x00CC19FC。
+// 原函数：0x00487AE0。
+static std::int32_t WindowSkillResult_Update(std::int32_t value);
 
-std::int32_t gWindow13ValueD2DBF0 = 0; // 原全局：0x00D2DBF0。
+// 原函数：0x00487B80。
+static std::int32_t WindowSkillResult_Draw(std::int32_t value);
 
-std::wstring gWindow13SummaryCC18CC; // 原全局：0x00CC18CC。
+// 控件载荷、窗口状态、组件表与原型。
 
-std::wstring gWindow13TitleCC18EC; // 原全局：0x00CC18EC。
+static std::int32_t gWindow13ResultD66E2C = 0; // 原全局：0x00D66E2C。
 
-std::wstring gWindow13DetailsCB0FDC; // 原全局：0x00CB0FDC。 原NUL详情，只供同源结果消费者借读。
+static std::int32_t gWindow13ExperienceCC2E5C = 0; // 原全局：0x00CC2E5C。
 
-constexpr wchar_t kWindow13Text589A80[] = L"使用『變裝』技能"; // 原常量参考：0x00589A80。
+static std::int32_t gWindow13ValueCC3E8C = 0; // 原全局：0x00CC3E8C。
 
-constexpr wchar_t kWindow13Text589A64[] = L"使用『變裝』技能，成功了！"; // 原常量参考：0x00589A64。
+static std::int32_t gWindow13LevelUpCF468C = 0; // 原全局：0x00CF468C。
 
-constexpr wchar_t kWindow13Text589A48[] = L"使用『變裝』技能，失敗了！"; // 原常量参考：0x00589A48。
+static std::int32_t gWindow13EnduranceCC421C = 0; // 原全局：0x00CC421C。
 
-constexpr wchar_t kWindow13Text589A34[] = L"使用『變身』技能"; // 原常量参考：0x00589A34。
+static std::int32_t gWindow13DexterityD2D644 = 0; // 原全局：0x00D2D644。
 
-constexpr wchar_t kWindow13Text589A18[] = L"使用『變身』技能，成功了！"; // 原常量参考：0x00589A18。
+static std::int32_t gWindow13IntelligenceCC19FC = 0; // 原全局：0x00CC19FC。
 
-constexpr wchar_t kWindow13Text5899FC[] = L"使用『變身』技能，失敗了！"; // 原常量参考：0x005899FC。
+static std::int32_t gWindow13ValueD2DBF0 = 0; // 原全局：0x00D2DBF0。
 
-constexpr wchar_t kWindow13Text5899E8[] = L"使用『急救』技能"; // 原常量参考：0x005899E8。
+static std::wstring gWindow13SummaryCC18CC; // 原全局：0x00CC18CC。
 
-constexpr wchar_t kWindow13Text5899D4[] = L"回復了{}點生命力。"; // 原常量参考：0x005899D4。
+static std::wstring gWindow13TitleCC18EC; // 原全局：0x00CC18EC。
 
-constexpr wchar_t kWindow13Text5899B8[] = L"使用『急救』技能，成功了！"; // 原常量参考：0x005899B8。
+static std::wstring gWindow13DetailsCB0FDC; // 原全局：0x00CB0FDC。 原NUL详情，只供同源结果消费者借读。
 
-constexpr wchar_t kWindow13Text5899A0[] = L"無法實施『急救』技能！"; // 原常量参考：0x005899A0。
+static WindowGraphicData gWindowGraphic5628A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628A8。
 
-constexpr wchar_t kWindow13Text589984[] = L"使用『急救』技能，失敗了！"; // 原常量参考：0x00589984。
+static WindowGraphicData gWindowGraphic5628C0 {0x3BA3F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628C0。
 
-constexpr wchar_t kWindow13Text589970[] = L"使用『治療』技能"; // 原常量参考：0x00589970。
+static WindowGraphicData gWindowGraphic5628D8 {0x3BA3E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628D8。
 
-constexpr wchar_t kWindow13Text589954[] = L"使用『治療』技能，成功了！"; // 原常量参考：0x00589954。
+static WindowGraphicData gWindowGraphic5628F0 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628F0。
 
-constexpr wchar_t kWindow13Text589940[] = L"回復了健康狀態。"; // 原常量参考：0x00589940。
+static WindowGraphicData gWindowGraphic562908 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562908。
 
-constexpr wchar_t kWindow13Text589928[] = L"回復了少許健康狀態。"; // 原常量参考：0x00589928。
+static WindowTextPrototype gWindowText562920 { // 原全局：0x00562920。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
+};
 
-constexpr wchar_t kWindow13Text589914[] = L"使用『治療』技能，"; // 原常量参考：0x00589914。
+static std::int32_t gWindowAnimationImage562928 = 0x1AF16; // 原全局：0x00562928。
 
-constexpr wchar_t kWindow13Text5898F4[] = L"使用『治療』技能，無法實施！"; // 原常量参考：0x005898F4。
+static std::int32_t gWindowAnimationImage56292C = 0x1AF16; // 原全局：0x0056292C。
 
-constexpr wchar_t kWindow13Text5898D8[] = L"使用『治療』技能，失敗了！"; // 原常量参考：0x005898D8。
+static WindowElementPrototype gWindowElements562930[14] { // 原全局：0x00562930。
+    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic5628A8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562928}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 28, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 42, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 56, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 70, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 24, 28, 0, 0, 1, {.graphic = &gWindowGraphic5628D8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 24, 55, 0, 0, 1, {.graphic = &gWindowGraphic5628D8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5628F0}, &WindowSkillResult_ButtonContinue},
+    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic562908}, &WindowSkillResult_ButtonClose},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5628C0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
 
-constexpr wchar_t kWindow13Text5898B8[] = L"傷勢過度惡化，靈魂掉了一格。"; // 原常量参考：0x005898B8。
+// 原型：窗口13；原全局：0x0054E4B0。
+WindowPrototype gWindowPrototypeSkillResult {0, 4, 383, 118, 198, 232, 0x80010101u, 14, gWindowElements562930, &WindowSkillResult_Update, &WindowSkillResult_Draw, &WindowSkillResult_Release}; // 13: 54E4B0
 
-constexpr wchar_t kWindow13Text5898A8[] = L"傷勢惡化了。"; // 原常量参考：0x005898A8。
-
-constexpr wchar_t kWindow13Text586B00[] = L"對{:<22}"; // 原常量参考：0x00586B00。
-
-constexpr wchar_t kWindow13Text586AF0[] = L"　變裝成功了！"; // 原常量参考：0x00586AF0。
-
-constexpr wchar_t kWindow13Text586AE0[] = L"　變裝失敗了！"; // 原常量参考：0x00586AE0。
-
-constexpr wchar_t kWindow13Text586AD0[] = L"　變身成功了！"; // 原常量参考：0x00586AD0。
-
-constexpr wchar_t kWindow13Text586AC0[] = L"　變身失敗了！"; // 原常量参考：0x00586AC0。
-
-constexpr wchar_t kWindow13Text586AAC[] = L"{:<16}的治療成功了"; // 原常量参考：0x00586AAC。
-
-constexpr wchar_t kWindow13Text586A94[] = L"　生命值恢復了 {} 。"; // 原常量参考：0x00586A94。
-
-constexpr wchar_t kWindow13Text586A80[] = L"　不需進行治療！"; // 原常量参考：0x00586A80。
-
-constexpr wchar_t kWindow13Text586A70[] = L"　治療失敗了！"; // 原常量参考：0x00586A70。
-
-constexpr wchar_t kWindow13Text586A5C[] = L"傷勢全部恢復了！"; // 原常量参考：0x00586A5C。
-
-constexpr wchar_t kWindow13Text586A48[] = L"傷勢稍微恢復了。"; // 原常量参考：0x00586A48。
-
-constexpr wchar_t kWindow13Text586A34[] = L"{:<16}的治療失敗了"; // 原常量参考：0x00586A34。
-
-constexpr wchar_t kWindow13Text586A1C[] = L"　傷勢惡化而掉魂了。"; // 原常量参考：0x00586A1C。
-
-constexpr wchar_t kWindow13Text586A0C[] = L"　傷勢惡化了。"; // 原常量参考：0x00586A0C。
-
-constexpr wchar_t kWindow13Text5868E0[] = L"繼續執行。"; // 原常量参考：0x005868E0。
-} // namespace
-
+// 窗口函数实现。
 
 std::int32_t WindowSkillResult_ReadResult() noexcept
 {
@@ -138,7 +130,7 @@ std::int32_t WindowSkillResult_ReadPreviewImage(const std::int32_t imageNo, cons
 }
 
 // 原函数：0x004875E0。
-login::YobiAction* WindowSkillResult_Open()
+static login::YobiAction* WindowSkillResult_Open()
 {
     WindowRuntime_IncrementOperationCount();
     const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
@@ -159,7 +151,7 @@ login::YobiAction* WindowSkillResult_Open()
 }
 
 // 原函数：0x00487660。
-void WindowSkillResult_Release()
+static void WindowSkillResult_Release()
 {
     WindowRuntime_DecrementOperationCount();
     const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
@@ -173,43 +165,43 @@ void WindowSkillResult_Release()
 }
 
 // 原函数：0x004876B0。
-WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* const window)
+static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* const window)
 {
     const std::int32_t kind = gSkillTargetKindCF4A10;
     switch (kind) {
         case 0:
         case 1: {
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
             const wchar_t* text = nullptr;
             if (kind == 0) {
-                text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AF0 : kWindow13Text586AE0;
+                text = gWindow13ResultD66E2C != 0 ? L"　變裝成功了！" /* 原常量参考：0x00586AF0。 */ : L"　變裝失敗了！" /* 原常量参考：0x00586AE0。 */;
             } else {
-                text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AD0 : kWindow13Text586AC0;
+                text = gWindow13ResultD66E2C != 0 ? L"　變身成功了！" /* 原常量参考：0x00586AD0。 */ : L"　變身失敗了！" /* 原常量参考：0x00586AC0。 */;
             }
             static_cast<WindowTextData*>(window->elements[5].data)->text = text;
             break;
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586AAC, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, kWindow13Text586A94, gWindow13ValueD2DBF0);
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"　生命值恢復了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? L"　不需進行治療！" /* 原常量参考：0x00586A80。 */ : L"　治療失敗了！" /* 原常量参考：0x00586A70。 */;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586AAC, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? L"傷勢全部恢復了！" /* 原常量参考：0x00586A5C。 */ : L"傷勢稍微恢復了。" /* 原常量参考：0x00586A48。 */;
             } else if (gWindow13ValueD2DBF0 == 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586B00, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
-                static_cast<WindowTextData*>(window->elements[5].data)->text = kWindow13Text586A80;
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"對{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = L"　不需進行治療！" /* 原常量参考：0x00586A80。 */;
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow13Text586A34, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療失敗了" /* 原常量参考：0x00586A34。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
                 const std::int32_t value = gWindow13ValueD2DBF0;
-                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? kWindow13Text586A1C
-                    : value == 2 ? kWindow13Text586A0C : cg::text::FromGbkWide(input::LegacyText593850());
+                static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　傷勢惡化而掉魂了。" /* 原常量参考：0x00586A1C。 */
+                    : value == 2 ? L"　傷勢惡化了。" /* 原常量参考：0x00586A0C。 */ : cg::text::FromGbkWide(input::LegacyText593850());
             }
             break;
         default:
@@ -242,7 +234,7 @@ WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* const windo
 }
 
 // 原函数：0x00487AE0。
-std::int32_t WindowSkillResult_Update(const std::int32_t value)
+static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(WindowSkillResult_RefreshResult(gCurrentWindow));
@@ -262,7 +254,7 @@ std::int32_t WindowSkillResult_Update(const std::int32_t value)
 }
 
 // 原函数：0x00487B80。
-std::int32_t WindowSkillResult_Draw(const std::int32_t)
+static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
     login::YobiAction* const action =
         static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
@@ -292,7 +284,7 @@ std::int32_t WindowSkillResult_Draw(const std::int32_t)
 }
 
 // 原函数：0x00487D60。
-std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
@@ -308,7 +300,7 @@ std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const st
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kWindow13Text5868E0;
+        gHoverTextD68AE8 = L"繼續執行。" /* 原常量参考：0x005868E0。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -328,7 +320,7 @@ std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const st
 }
 
 // 原函数：0x00487E80。
-std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -368,39 +360,39 @@ login::YobiAction* WindowSkillResult_ReceiveResult(const std::int32_t result, co
     std::int32_t lines = 0;
     switch (kind) {
         case 0:
-            gWindow13TitleCC18EC = kWindow13Text589A80;
-            gWindow13SummaryCC18CC = result != 0 ? kWindow13Text589A64 : kWindow13Text589A48;
+            gWindow13TitleCC18EC = L"使用『變裝』技能" /* 原常量参考：0x00589A80。 */;
+            gWindow13SummaryCC18CC = result != 0 ? L"使用『變裝』技能，成功了！" /* 原常量参考：0x00589A64。 */ : L"使用『變裝』技能，失敗了！" /* 原常量参考：0x00589A48。 */;
             lines = 1;
             break;
         case 1:
-            gWindow13TitleCC18EC = kWindow13Text589A34;
-            gWindow13SummaryCC18CC = result != 0 ? kWindow13Text589A18 : kWindow13Text5899FC;
+            gWindow13TitleCC18EC = L"使用『變身』技能" /* 原常量参考：0x00589A34。 */;
+            gWindow13SummaryCC18CC = result != 0 ? L"使用『變身』技能，成功了！" /* 原常量参考：0x00589A18。 */ : L"使用『變身』技能，失敗了！" /* 原常量参考：0x005899FC。 */;
             lines = 1;
             break;
         case 2:
-            gWindow13TitleCC18EC = kWindow13Text5899E8;
+            gWindow13TitleCC18EC = L"使用『急救』技能" /* 原常量参考：0x005899E8。 */;
             if (result != 0) {
-                gWindow13SummaryCC18CC = kWindow13Text5899B8;
-                gWindow13DetailsCB0FDC += std::format(kWindow13Text5899D4, value);
+                gWindow13SummaryCC18CC = L"使用『急救』技能，成功了！" /* 原常量参考：0x005899B8。 */;
+                gWindow13DetailsCB0FDC += std::format(L"回復了{}點生命力。" /* 原常量参考：0x005899D4。 */, value);
                 lines = 1;
             } else {
-                gWindow13SummaryCC18CC = value == 0 ? kWindow13Text5899A0 : kWindow13Text589984;
+                gWindow13SummaryCC18CC = value == 0 ? L"無法實施『急救』技能！" /* 原常量参考：0x005899A0。 */ : L"使用『急救』技能，失敗了！" /* 原常量参考：0x00589984。 */;
             }
             break;
         case 3:
             if (result != 0) {
-                gWindow13TitleCC18EC = kWindow13Text589970;
-                gWindow13SummaryCC18CC = kWindow13Text589954;
-                gWindow13DetailsCB0FDC += value == 4 ? kWindow13Text589940 : kWindow13Text589928;
+                gWindow13TitleCC18EC = L"使用『治療』技能" /* 原常量参考：0x00589970。 */;
+                gWindow13SummaryCC18CC = L"使用『治療』技能，成功了！" /* 原常量参考：0x00589954。 */;
+                gWindow13DetailsCB0FDC += value == 4 ? L"回復了健康狀態。" /* 原常量参考：0x00589940。 */ : L"回復了少許健康狀態。" /* 原常量参考：0x00589928。 */;
                 lines = 1;
             } else {
-                gWindow13TitleCC18EC = kWindow13Text589914;
+                gWindow13TitleCC18EC = L"使用『治療』技能，" /* 原常量参考：0x00589914。 */;
                 if (value == 0) {
-                    gWindow13SummaryCC18CC = kWindow13Text5898F4;
+                    gWindow13SummaryCC18CC = L"使用『治療』技能，無法實施！" /* 原常量参考：0x005898F4。 */;
                 } else {
-                    gWindow13SummaryCC18CC = kWindow13Text5898D8;
+                    gWindow13SummaryCC18CC = L"使用『治療』技能，失敗了！" /* 原常量参考：0x005898D8。 */;
                     if (value == 3 || value == 2) {
-                        gWindow13DetailsCB0FDC += value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8;
+                        gWindow13DetailsCB0FDC += value == 3 ? L"傷勢過度惡化，靈魂掉了一格。" /* 原常量参考：0x005898B8。 */ : L"傷勢惡化了。" /* 原常量参考：0x005898A8。 */;
                     }
                     lines = 1;
                 }
@@ -437,49 +429,3 @@ login::YobiAction* WindowSkillResult_ReceiveResult(const std::int32_t result, co
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5628A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628A8。
-
-WindowGraphicData gWindowGraphic5628C0 {0x3BA3F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628C0。
-
-WindowGraphicData gWindowGraphic5628D8 {0x3BA3E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628D8。
-
-WindowGraphicData gWindowGraphic5628F0 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005628F0。
-
-WindowGraphicData gWindowGraphic562908 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562908。
-
-WindowTextPrototype gWindowText562920 { // 原全局：0x00562920。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？？？", // 原常量参考：0x00586060。
-};
-
-std::int32_t gWindowAnimationImage562928 = 0x1AF16; // 原全局：0x00562928。
-
-std::int32_t gWindowAnimationImage56292C = 0x1AF16; // 原全局：0x0056292C。
-
-} // namespace
-
-// 原型：窗口13；原全局：0x0054E4B0。
-WindowPrototype gWindowPrototypeSkillResult {0, 4, 383, 118, 198, 232, 0x80010101u, 14, gWindowElements562930, &WindowSkillResult_Update, &WindowSkillResult_Draw, &WindowSkillResult_Release}; // 13: 54E4B0
-
-WindowElementPrototype gWindowElements562930[14] { // 原全局：0x00562930。
-    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic5628A8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562928}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 224, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56292C}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 28, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 42, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 56, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 70, 0, 0, 1, {.text = &gWindowText562920}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 24, 28, 0, 0, 1, {.graphic = &gWindowGraphic5628D8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 24, 55, 0, 0, 1, {.graphic = &gWindowGraphic5628D8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5628F0}, &WindowSkillResult_ButtonContinue},
-    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic562908}, &WindowSkillResult_ButtonClose},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5628C0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

@@ -2,27 +2,19 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCB0028 {}; // 原全局：0x00CB0028。
 
 InputContext gInputContextCC2378 {}; // 原全局：0x00CC2378。
 
 InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-std::wstring gStallMessageC8A978 {}; // 原全局：0x00C8A978。
-
-std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
-
-std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
-
-std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
-
-std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
-
-std::wstring gStallMoneyText57B440 {L"01234567"}; // 原全局：0x0057B440。
 namespace {
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
@@ -43,6 +35,150 @@ struct StallBrowseData {
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
 
+// 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
+struct StallOffer {
+    std::int32_t slot;
+    std::int32_t value;
+};
+
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x004CE700。
+static void WindowStall_ReceiveOpenResult(std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
+
+// 原函数：0x004CE8B0。
+static void WindowStall_ReceiveCloseResult(std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
+
+// 原函数：0x004CE930。
+static void WindowStall_ReceivePurchaseResult(std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
+
+// 原函数：0x004CF8A0。
+static void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
+
+// 原函数：0x004CECB0。
+static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
+
+// 原函数：0x004CD420。
+static std::int32_t WindowStall_ButtonClose(std::int32_t index, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
+
+// 原函数：0x004CDE00。
+static void WindowStall_Release(); // 67/68共用释放，条件发送后无条件SE57。
+
+// 原函数：0x004CDB10。
+static std::int32_t WindowStall_Draw(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
+
+// 原函数：0x004D27C0。
+static std::int32_t WindowStall_AddListing(std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
+
+// 原函数：0x004CD4F0。
+static std::int32_t WindowStall_Update(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
+
+// 原函数：0x004D2080。
+static std::int32_t WindowStall_EditDescription(std::int32_t unusedIndex, std::int32_t state); // 固定元素8说明编辑，hover不消费。
+
+// 原函数：0x004D2170。
+static std::int32_t WindowStall_EditName(std::int32_t unusedIndex, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
+
+// 原函数：0x004CDE40。
+static std::int32_t WindowStall_ButtonPreviousListing(std::int32_t index, std::int32_t state); // 上架列表向前，bit400动作。
+
+// 原函数：0x004CDFA0。
+static std::int32_t WindowStall_ButtonNextListing(std::int32_t index, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
+
+// 原函数：0x004CE0F0。
+static std::int32_t WindowStall_ScrollListings(std::int32_t unusedIndex, std::int32_t state); // 上架列表滚轮，始终返回0。
+
+// 原函数：0x004CE1F0。
+static std::int32_t WindowStall_ButtonPreviousPet(std::int32_t index, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
+
+// 原函数：0x004CE2B0。
+static std::int32_t WindowStall_ButtonNextPet(std::int32_t index, std::int32_t state); // 宠物候选向后，最大页1。
+
+// 原函数：0x004CE370。
+static std::int32_t WindowStall_ScrollPetCandidates(std::int32_t unusedIndex, std::int32_t state); // 宠物候选滚轮，始终返回0。
+
+// 原函数：0x004CE3F0。
+static std::int32_t WindowStall_TabCategory(std::int32_t index, std::int32_t state); // 类别页签及七项候选控件原序显隐。
+
+// 原函数：0x004CFE70。
+static std::int32_t WindowStall_SubmitListings(); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
+
+// 原函数：0x004D0230。
+static std::int32_t WindowStall_DrawTooltipOverlay(std::int32_t index, std::int32_t state); // 共用提示覆盖层，只返回hover位。
+
+// 原函数：0x004CF940。
+static std::int32_t WindowStall_HandleButtons(std::int32_t index, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
+
+// 原函数：0x004CE8A0。
+static std::int32_t WindowStall_RequestClose(); // 收摊请求，透传原发送返回。
+
+// 原函数：0x004CED50。
+static WindowInstance* WindowStall_ShowPurchaseConfirmation(); // 显示购买确认，返回入口窗口。
+
+// 原函数：0x004CED60。
+static void WindowStall_OpenBrowse(
+    std::int32_t status, std::int32_t target, const char* stallName,
+    const char* description, const char* itemPayload, const char* petPayload); // 浏览区完整生产后打开68。
+
+// 原函数：0x004CFC40。
+static WindowElement* WindowStall_EditItemPrice(); // 物品定价输入初始化，返回末次取得的元素表。
+
+// 原函数：0x004CFCA0。
+static void WindowStall_EditPetPrice(std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
+
+// 原函数：0x004CFD70。
+static std::int32_t WindowStall_RemoveListing(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
+
+// 原函数：0x004D2260。
+static std::int32_t WindowStall_HandlePriceInput(std::int32_t unusedIndex, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
+
+// 原函数：0x004D2840。
+static std::int32_t WindowStall_HandlePurchaseConfirmation(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
+
+// 原函数：0x004D1D50。
+static std::int32_t WindowStall_HandleInventory(std::int32_t index, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
+
+// 原函数：0x004D04A0。
+static std::int32_t WindowStall_HandleItemRow(std::int32_t index, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
+
+// 原函数：0x004D16F0。
+static std::int32_t WindowStall_HandlePetCandidate(std::int32_t index, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
+
+// 原函数：0x004D1C00。
+static std::int32_t WindowStall_DrawCandidateAttributes(
+    std::int32_t petIndex, std::int32_t attribute, std::int32_t x, std::int32_t y); // 候选属性条，透传末绘制返回。
+
+// 原函数：0x004D0990。
+static std::int32_t WindowStall_DrawPetSkills(
+    std::int32_t x, std::int32_t y, std::int32_t petIndex, std::int32_t skillPosition); // 浏览宠物技能，使用独立浏览记录。
+
+// 原函数：0x004D0A80。
+static std::int32_t WindowStall_DrawPetDetails(
+    std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
+
+// 原函数：0x004D0EB0。
+static std::int32_t WindowStall_HandlePetRow(std::int32_t index, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00C8A978。 摆摊结果提示，4D0230消费同一文本。
+static std::wstring gStallMessageC8A978 {}; // 原全局：0x00C8A978。
+
+// 原全局：0x00D67BE4。 原strncpy16及D67BF4终止字节。
+static std::array<char, 17> gStallNameD67BE4 {}; // 原全局：0x00D67BE4。
+
+// 原全局：0x00D67C31。 请求与回复共用等待标记。
+static std::uint8_t gStallPendingD67C31 = 0; // 原全局：0x00D67C31。
+
+static std::int32_t gStallMessageModeD67C34 = 0; // 原全局：0x00D67C34。
+
+static std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
+
+// 原全局：0x0057B440。 原可变金额串，止于下一数字原型57B450。
+static std::wstring gStallMoneyText57B440 {L"01234567"}; // 原全局：0x0057B440。
+
 static_assert(!std::is_trivially_destructible_v<StallBrowseData>);
 
 static_assert(offsetof(StallBrowseData, sellerName00) == 0);
@@ -61,61 +197,52 @@ static_assert(offsetof(StallBrowseData, action64) == 0x64);
 
 static_assert(offsetof(StallBrowseData, direction68) == 0x68);
 
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-std::optional<StallBrowseData>& WindowStall_BorrowBrowseStorage()
-{
-    static std::optional<StallBrowseData> storage;
-    return storage;
-} // 原全局：0x00D046D8。
+static std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
 
-std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
+static std::int32_t gStallItemCountD67BCC = 0; // 原全局：0x00D67BCC。
 
-std::int32_t gStallItemCountD67BCC = 0; // 原全局：0x00D67BCC。
+static std::int32_t gStallPetPageD67BD0 = 0; // 原全局：0x00D67BD0。
 
-std::int32_t gStallPetPageD67BD0 = 0; // 原全局：0x00D67BD0。
+static std::int32_t gStallPetCountD67BD4 = 0; // 原全局：0x00D67BD4。
 
-std::int32_t gStallPetCountD67BD4 = 0; // 原全局：0x00D67BD4。
+static std::int32_t gStallModeD67BDC = 0; // 原全局：0x00D67BDC。
 
-std::int32_t gStallModeD67BDC = 0; // 原全局：0x00D67BDC。
+static std::int32_t gStallItemSelection581124 = -1; // 原全局：0x00581124。
 
-std::int32_t gStallItemSelection581124 = -1; // 原全局：0x00581124。
+static std::int32_t gStallPetSelection581128 = -1; // 原全局：0x00581128。
 
-std::int32_t gStallPetSelection581128 = -1; // 原全局：0x00581128。
+static std::uint8_t gStallOwn58111C = 1; // 原全局：0x0058111C。
 
-std::uint8_t gStallOwn58111C = 1; // 原全局：0x0058111C。
+static std::int32_t gStallHover581120 = -1; // 原全局：0x00581120。
 
-std::int32_t gStallHover581120 = -1; // 原全局：0x00581120。
+static std::int32_t gStallDescriptionPageD67C3C = 0; // 原全局：0x00D67C3C。
 
-std::int32_t gStallDescriptionPageD67C3C = 0; // 原全局：0x00D67C3C。
+static std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8。
 
-std::int32_t gStallPetCandidatePageD67BD8 = 0; // 原全局：0x00D67BD8。
+static std::array<char, 57> gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
 
-std::array<char, 57> gStallDescriptionD67BF8 {}; // 原全局：0x00D67BF8。
-
-WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
+static WindowInputPrototype gStallNameInput581130 { // 原全局：0x00581130。
     {{&input::gInputContextCB0028}, WindowInputReferenceKind::Context},
     230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
 };
 
-WindowInputPrototype gStallDescriptionInput581360 { // 原全局：0x00581360。
+static WindowInputPrototype gStallDescriptionInput581360 { // 原全局：0x00581360。
     {{&input::gInputContextCC2378}, WindowInputReferenceKind::Context},
     299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
 };
 
-WindowInputPrototype gStallPriceInput581590 { // 原全局：0x00581590。
+static WindowInputPrototype gStallPriceInput581590 { // 原全局：0x00581590。
     {{&input::gInputContextCF4E60}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
 
-std::int32_t gStallPriceD67C40 = 0; // 原全局：0x00D67C40。
+static std::int32_t gStallPriceD67C40 = 0; // 原全局：0x00D67C40。
 
-std::int32_t gStallButtonStateD67C44 = 0; // 原全局：0x00D67C44。
+static std::int32_t gStallButtonStateD67C44 = 0; // 原全局：0x00D67C44。
 
-std::int32_t gStallInventoryHover5817FC = -1; // 原全局：0x005817FC。
+static std::int32_t gStallInventoryHover5817FC = -1; // 原全局：0x005817FC。
 
-constexpr wchar_t kStallInputHint586450[] = L"請輸入描述"; // 原常量参考：0x00586450。
-
-constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{ // 原常量参考：0x0054EEE0。
+static constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{ // 原常量参考：0x0054EEE0。
     {98891, 98886, 98890},
     {98888, 98889, 98887},
     {98885, 98883, 98884},
@@ -124,38 +251,193 @@ constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{
     {98873, 98871, 98872},
 }};
 
-constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{ // 原常量参考：0x0054EF40。
+static constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{ // 原常量参考：0x0054EF40。
     {98864, 98862, 98863},
     {98867, 98865, 98866},
 }};
 
-constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButtonImages54EF28 {{ // 原常量参考：0x0054EF28。
+static constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButtonImages54EF28 {{ // 原常量参考：0x0054EF28。
     {98876, 98874, 98875},
     {98879, 98877, 98878},
 }};
-
-// 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
-struct StallOffer {
-    std::int32_t slot;
-    std::int32_t value;
-};
 
 static_assert(sizeof(StallOffer) == 8);
 
 static_assert(offsetof(StallOffer, value) == 4);
 
-std::array<StallOffer, 20> gStallItemOffersD671D8 {}; // 原全局：0x00D671D8。
+static std::array<StallOffer, 20> gStallItemOffersD671D8 {}; // 原全局：0x00D671D8。
 
-std::array<StallOffer, 5> gStallPetOffersCC3E98 {}; // 原全局：0x00CC3E98。
+static std::array<StallOffer, 5> gStallPetOffersCC3E98 {}; // 原全局：0x00CC3E98。
 
-std::array<std::uint8_t, 20> gStallItemUsedCC31AC {}; // 原全局：0x00CC31AC。
+static std::array<std::uint8_t, 20> gStallItemUsedCC31AC {}; // 原全局：0x00CC31AC。
 
-std::array<std::uint8_t, 5> gStallPetUsedCF400C {}; // 原全局：0x00CF400C。
-} // namespace
+static std::array<std::uint8_t, 5> gStallPetUsedCF400C {}; // 原全局：0x00CF400C。
 
+static WindowGraphicData gWindowGraphic57B288 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B288。
+
+static WindowGraphicData gWindowGraphic57B2A0 {98891, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2A0。
+
+static WindowGraphicData gWindowGraphic57B2B8 {98888, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2B8。
+
+static WindowGraphicData gWindowGraphic57B2D0 {98885, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2D0。
+
+static WindowGraphicData gWindowGraphic57B2E8 {98870, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2E8。
+
+static WindowGraphicData gWindowGraphic57B300 {98882, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B300。
+
+static WindowGraphicData gWindowGraphic57B318 {98873, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B318。
+
+static WindowGraphicData gWindowGraphic57B360 {98859, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B360。
+
+static WindowGraphicData gWindowGraphic57B378 {98861, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B378。
+
+static WindowGraphicData gWindowGraphic57B390 {98854, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B390。
+
+static WindowGraphicData gWindowGraphic57B3A8 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3A8。
+
+static WindowGraphicData gWindowGraphic57B3C0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3C0。
+
+static WindowGraphicData gWindowGraphic57B3D8 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3D8。
+
+static WindowGraphicData gWindowGraphic57B3F0 {98864, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3F0。
+
+static WindowGraphicData gWindowGraphic57B408 {98867, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B408。
+
+static WindowTextPrototype gWindowText57B420 { // 原全局：0x0057B420。
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}},
+    L"ˋˋˋˋ",
+};
+
+static WindowTextPrototype gWindowText57B428 { // 原全局：0x0057B428。
+    {std::byte{0x8C}, std::byte{4}, std::byte{0}, std::byte{0}},
+    L"請輸入店名八個字",
+};
+
+static WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
+    L"請輸入店舖描述",
+};
+
+static WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
+
+static std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B458。
+
+static std::uint32_t gWindowMouseFlagsD67A10 = 0; // 原全局：0x00D67A10。
+
+static WindowElementPrototype gWindowElements57B508[48] { // 原全局：0x0057B508。
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
+    {WindowElementType_Input, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePriceInput},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
+    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
+    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
+    {WindowElementType_Input, 230, 11, 120, 16, 1, {.unusedValue = 0}, &WindowStall_EditName},
+    {WindowElementType_Text, 298, 51, 0, 0, 1, {.text = &gWindowText57B430}, &WindowElement_NoOp},
+    {WindowElementType_Input, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowStall_EditDescription},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
+    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
+    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
+    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2A0}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2B8}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2E8}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 322, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B318}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
+    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
+    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
+    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
+    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
+    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
+    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
+};
+
+static WindowElementPrototype gWindowElements57BB08[43] { // 原全局：0x0057BB08。
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePurchaseConfirmation},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
+    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
+    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
+    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
+    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
+    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
+    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
+    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
+    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2D0}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
+    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
+    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
+    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
+    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
+    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
+    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
+    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
+};
+
+// 原型：窗口67；原全局：0x0054EF58。
+WindowPrototype gWindowPrototypeOwnStall {0, 4, 10, 30, 549, 366, 0x80000080u, 48, gWindowElements57B508, &WindowStall_Update, &WindowStall_Draw, &WindowStall_Release}; // 67: 54EF58
+
+// 原型：窗口68；原全局：0x0054EF88。
+WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u, 43, gWindowElements57BB08, &WindowStall_Update, &WindowStall_Draw, &WindowStall_Release}; // 68: 54EF88
+
+// 窗口函数实现。
+
+// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
+static std::optional<StallBrowseData>& WindowStall_BorrowBrowseStorage()
+{
+    static std::optional<StallBrowseData> storage;
+    return storage;
+} // 原全局：0x00D046D8。
 
 // 原函数：0x004CDE40。
-std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -198,7 +480,7 @@ std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const s
 }
 
 // 原函数：0x004CDFA0。
-std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -245,7 +527,7 @@ std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::
 }
 
 // 原函数：0x004CE0F0。
-std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const bool own = gStallOwn58111C != 0;
@@ -268,7 +550,7 @@ std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::int32_t s
 }
 
 // 原函数：0x004CE1F0。
-std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -298,7 +580,7 @@ std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::
 }
 
 // 原函数：0x004CE2B0。
-std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -328,7 +610,7 @@ std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004CE370。
-std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const bool own = gStallOwn58111C != 0;
@@ -345,7 +627,7 @@ std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const std::int3
 }
 
 // 原函数：0x004CE3F0。
-std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const bool ownAtEntry = gStallOwn58111C != 0;
@@ -407,7 +689,7 @@ std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004D27C0。
-std::int32_t WindowStall_AddListing(const std::int32_t value)
+static std::int32_t WindowStall_AddListing(const std::int32_t value)
 {
     const std::int32_t mode = gStallModeD67BDC;
     if (mode == 0) {
@@ -434,13 +716,13 @@ std::int32_t WindowStall_AddListing(const std::int32_t value)
 }
 
 // 原函数：0x004CE8A0。
-std::int32_t WindowStall_RequestClose()
+static std::int32_t WindowStall_RequestClose()
 {
     return network::Sub_512160(platform::gConnectionSocket);
 }
 
 // 原函数：0x004CED50。
-WindowInstance* WindowStall_ShowPurchaseConfirmation()
+static WindowInstance* WindowStall_ShowPurchaseConfirmation()
 {
     WindowInstance* const window = gCurrentWindow;
     window->elements[1].visible = 1;
@@ -448,7 +730,7 @@ WindowInstance* WindowStall_ShowPurchaseConfirmation()
 }
 
 // 原函数：0x004CFC40。
-WindowElement* WindowStall_EditItemPrice()
+static WindowElement* WindowStall_EditItemPrice()
 {
     gStallPriceD67C40 = 0;
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
@@ -462,7 +744,7 @@ WindowElement* WindowStall_EditItemPrice()
 }
 
 // 原函数：0x004CFCA0。
-void WindowStall_EditPetPrice(const std::int32_t petIndex)
+static void WindowStall_EditPetPrice(const std::int32_t petIndex)
 {
     const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
@@ -483,7 +765,7 @@ void WindowStall_EditPetPrice(const std::int32_t petIndex)
 }
 
 // 原函数：0x004CFD70。
-std::int32_t WindowStall_RemoveListing()
+static std::int32_t WindowStall_RemoveListing()
 {
     const std::int32_t mode = gStallModeD67BDC;
     if (mode == 1) {
@@ -526,7 +808,7 @@ std::int32_t WindowStall_RemoveListing()
 }
 
 // 原函数：0x004CF940。
-std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -667,7 +949,7 @@ std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004CFE70。
-std::int32_t WindowStall_SubmitListings()
+static std::int32_t WindowStall_SubmitListings()
 {
     std::wstring buffer;
     char name[33] {};
@@ -756,7 +1038,7 @@ std::int32_t WindowStall_SubmitListings()
 }
 
 // 原函数：0x004D0230。
-std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t mode = gStallMessageModeD67C34;
     if (mode != 0 && mode != 1) {
@@ -797,7 +1079,7 @@ std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, const std:
 }
 
 // 原函数：0x004D0990。
-std::int32_t WindowStall_DrawPetSkills(
+static std::int32_t WindowStall_DrawPetSkills(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
@@ -823,7 +1105,7 @@ std::int32_t WindowStall_DrawPetSkills(
 }
 
 // 原函数：0x004D0A80。
-std::int32_t WindowStall_DrawPetDetails(
+static std::int32_t WindowStall_DrawPetDetails(
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -895,7 +1177,7 @@ std::int32_t WindowStall_DrawPetDetails(
 }
 
 // 原函数：0x004D0EB0。
-std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 1) {
         return 0;
@@ -1048,7 +1330,7 @@ std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004D1C00。
-std::int32_t WindowStall_DrawCandidateAttributes(
+static std::int32_t WindowStall_DrawCandidateAttributes(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
 {
@@ -1078,7 +1360,7 @@ std::int32_t WindowStall_DrawCandidateAttributes(
 }
 
 // 原函数：0x004D16F0。
-std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 1) {
         return 0;
@@ -1192,7 +1474,7 @@ std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, const std:
 }
 
 // 原函数：0x004D04A0。
-std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int32_t state)
 {
     if (gValueD67BE0 != 0) {
         const std::int32_t petCount = gStallPetCountD67BD4;
@@ -1342,7 +1624,7 @@ std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004D1D50。
-std::int32_t WindowStall_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     if (gStallModeD67BDC != 0) {
         return 0;
@@ -1430,7 +1712,7 @@ std::int32_t WindowStall_HandleInventory(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004D2260。
-std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::int32_t state)
 {
     const bool clicked = (state & 2) != 0;
     if (clicked) {
@@ -1546,7 +1828,7 @@ std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::int32_t
 }
 
 // 原函数：0x004D2840。
-std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     std::int32_t y = window->y + 183;
@@ -1706,7 +1988,7 @@ std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, const st
 }
 
 // 原函数：0x004CD4F0。
-std::int32_t WindowStall_Update(const std::int32_t value)
+static std::int32_t WindowStall_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowInstance* const initial = gCurrentWindow;
@@ -1854,13 +2136,13 @@ std::int32_t WindowStall_Update(const std::int32_t value)
 }
 
 // 原函数：0x004D2080。
-std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t state)
 {
     if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kStallInputHint586450;
+        gHoverTextD68AE8 = L"請輸入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
@@ -1881,13 +2163,13 @@ std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t 
 }
 
 // 原函数：0x004D2170。
-std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
 {
     if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kStallInputHint586450;
+        gHoverTextD68AE8 = L"請輸入描述" /* 原常量参考：0x00586450。 */;
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
@@ -1908,7 +2190,7 @@ std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004CDB10。
-std::int32_t WindowStall_Draw(const std::int32_t)
+static std::int32_t WindowStall_Draw(const std::int32_t)
 {
     if (gStallOwn58111C != 0) {
         {
@@ -2018,7 +2300,7 @@ std::int32_t WindowStall_Draw(const std::int32_t)
 }
 
 // 原函数：0x004CED60。
-void WindowStall_OpenBrowse(
+static void WindowStall_OpenBrowse(
     const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
     const char* const itemPayload, const char* const petPayload)
@@ -2212,7 +2494,7 @@ void WindowStall_OpenBrowse(
 }
 
 // 原函数：0x004CF8A0。
-void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* const item, const char* const text)
+static void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* const item, const char* const text)
 {
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
@@ -2232,7 +2514,7 @@ void WindowStall_BuildItemDescription(world::detail::PlayerItemRecord* const ite
 }
 
 // 原函数：0x004CECB0。
-std::int32_t WindowStall_RequestPurchase()
+static std::int32_t WindowStall_RequestPurchase()
 {
     const std::int32_t mode = gStallModeD67BDC;
     std::int32_t value;
@@ -2259,7 +2541,7 @@ std::int32_t WindowStall_RequestPurchase()
 }
 
 // 原函数：0x004CD420。
-std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -2284,7 +2566,7 @@ std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004CDE00。
-void WindowStall_Release()
+static void WindowStall_Release()
 {
     if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
         static_cast<void>(network::Sub_512160(platform::gConnectionSocket));
@@ -2293,7 +2575,7 @@ void WindowStall_Release()
 }
 
 // 原函数：0x004CE700。
-void WindowStall_ReceiveOpenResult(const std::int32_t result)
+static void WindowStall_ReceiveOpenResult(const std::int32_t result)
 {
     if (result != 0) {
         const wchar_t* message;
@@ -2339,7 +2621,7 @@ void WindowStall_ReceiveOpenResult(const std::int32_t result)
 }
 
 // 原函数：0x004CE8B0。
-void WindowStall_ReceiveCloseResult(const std::int32_t result)
+static void WindowStall_ReceiveCloseResult(const std::int32_t result)
 {
     if (result != 0) {
         gStallMessageC8A978 = L"收攤失敗";
@@ -2360,7 +2642,7 @@ void WindowStall_ReceiveCloseResult(const std::int32_t result)
 }
 
 // 原函数：0x004CE930。
-void WindowStall_ReceivePurchaseResult(const std::int32_t result)
+static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
 {
     if (result == 0) {
         const std::int32_t mode = gStallModeD67BDC;
@@ -2439,8 +2721,10 @@ void WindowStall_ReceivePurchaseResult(const std::int32_t result)
     }
     gStallPendingD67C31 = 0;
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050E7D0。
 void WindowStall_ReceiveOpenReply(const std::uintptr_t, const std::int32_t result)
@@ -2514,165 +2798,3 @@ WindowInstance* WindowOwnStall_RequestClose()
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic57B288 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B288。
-
-WindowGraphicData gWindowGraphic57B2A0 {98891, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2A0。
-
-WindowGraphicData gWindowGraphic57B2B8 {98888, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2B8。
-
-WindowGraphicData gWindowGraphic57B2D0 {98885, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2D0。
-
-WindowGraphicData gWindowGraphic57B2E8 {98870, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B2E8。
-
-WindowGraphicData gWindowGraphic57B300 {98882, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B300。
-
-WindowGraphicData gWindowGraphic57B318 {98873, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B318。
-
-WindowGraphicData gWindowGraphic57B360 {98859, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B360。
-
-WindowGraphicData gWindowGraphic57B378 {98861, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B378。
-
-WindowGraphicData gWindowGraphic57B390 {98854, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B390。
-
-WindowGraphicData gWindowGraphic57B3A8 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3A8。
-
-WindowGraphicData gWindowGraphic57B3C0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3C0。
-
-WindowGraphicData gWindowGraphic57B3D8 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3D8。
-
-WindowGraphicData gWindowGraphic57B3F0 {98864, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B3F0。
-
-WindowGraphicData gWindowGraphic57B408 {98867, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057B408。
-
-WindowTextPrototype gWindowText57B420 { // 原全局：0x0057B420。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}},
-    L"ˋˋˋˋ",
-};
-
-WindowTextPrototype gWindowText57B428 { // 原全局：0x0057B428。
-    {std::byte{0x8C}, std::byte{4}, std::byte{0}, std::byte{0}},
-    L"請輸入店名八個字",
-};
-
-WindowTextPrototype gWindowText57B430 { // 原全局：0x0057B430。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
-    L"請輸入店舖描述",
-};
-
-WindowNumberData gWindowNumber57B450 {&gStallMoneyText57B440, 0, 3, 1, 0}; // 原全局：0x0057B450。
-
-std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B458。
-
-std::uint32_t gWindowMouseFlagsD67A10 = 0; // 原全局：0x00D67A10。
-
-} // namespace
-
-// 原型：窗口67；原全局：0x0054EF58。
-WindowPrototype gWindowPrototypeOwnStall {0, 4, 10, 30, 549, 366, 0x80000080u, 48, gWindowElements57B508, &WindowStall_Update, &WindowStall_Draw, &WindowStall_Release}; // 67: 54EF58
-
-// 原型：窗口68；原全局：0x0054EF88。
-WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u, 43, gWindowElements57BB08, &WindowStall_Update, &WindowStall_Draw, &WindowStall_Release}; // 68: 54EF88
-
-WindowElementPrototype gWindowElements57B508[48] { // 原全局：0x0057B508。
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
-    {WindowElementType_Input, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePriceInput},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
-    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
-    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
-    {WindowElementType_Input, 230, 11, 120, 16, 1, {.unusedValue = 0}, &WindowStall_EditName},
-    {WindowElementType_Text, 298, 51, 0, 0, 1, {.text = &gWindowText57B430}, &WindowElement_NoOp},
-    {WindowElementType_Input, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowStall_EditDescription},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
-    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
-    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
-    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2A0}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2B8}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2E8}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 322, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B318}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
-    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
-    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
-    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
-    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
-};
-
-WindowElementPrototype gWindowElements57BB08[43] { // 原全局：0x0057BB08。
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePurchaseConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
-    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
-    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
-    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
-    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
-    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2D0}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
-    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
-    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
-    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
-    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

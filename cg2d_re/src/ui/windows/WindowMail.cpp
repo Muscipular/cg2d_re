@@ -2,44 +2,17 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextD66CA8 {}; // 原全局：0x00D66CA8。
 
 InputContext gInputContextCB03F0 {}; // 原全局：0x00CB03F0。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-// 原函数：0x004A5390。
-std::int32_t WindowMail_ResetComposeState()
-{
-    WindowChoiceSlotsCC4CA0& choices = gLoginWindowRuntime.choicesCC4CA0;
-    choices.value00 = 0;
-    for (std::int32_t index = 0; index < 5; ++index) {
-        choices.values04[index] = 0;
-        choices.pairs18[index][1] = 0;
-        choices.pairs18[index][0] = 0;
-    }
-    gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
-    gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
-    gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
-    return -1;
-}
-
-void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callback)
-{
-    gWindow47Runtime.visibleMaskCC4240 = 3;
-    gWindow47Runtime.widthUnitsCC4244 = 3;
-    gWindow47Runtime.valueCC424C = 0;
-    gWindow47Runtime.valueCC4248 = 0;
-    gWindow47Runtime.initializeCC4250 = nullptr;
-    gWindow47Runtime.actionsCC4254[5] = nullptr;
-    gWindow47Runtime.actionsCC4254[4] = nullptr;
-    gWindow47Runtime.actionsCC4254[3] = nullptr;
-    gWindow47Runtime.actionsCC4254[2] = nullptr;
-    gWindow47Runtime.actionsCC4254[0] = callback;
-    gWindow47Runtime.actionsCC4254[1] = &WindowMail_CancelDelete;
-}
 namespace {
 
 struct MailStatusTextTable {
@@ -52,7 +25,16 @@ struct MailStatusTextTable {
     }
 };
 
-constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量参考：0x0056E9BC。
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x004A3760。
+static std::int32_t WindowMail_CancelDelete(std::int32_t unusedIndex, std::int32_t unusedState); // 取消时必要重开窗口21。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量参考：0x0056E9BC。
     {
         L"卡蓮",
         L"金牛座",
@@ -86,7 +68,7 @@ constexpr MailStatusTextTable kMailContactStatusText56E9BC { // 原常量参考�
     },
 };
 
-constexpr MailStatusTextTable kMailGuildStatusText56F0AC { // 原常量参考：0x0056F0AC。
+static constexpr MailStatusTextTable kMailGuildStatusText56F0AC { // 原常量参考：0x0056F0AC。
     {
         L"卡蓮",
         L"金牛座",
@@ -120,17 +102,42 @@ constexpr MailStatusTextTable kMailGuildStatusText56F0AC { // 原常量参考：
     },
 };
 
-constexpr std::array<std::uint8_t, 16> kMailStatusColors56F09C { // 原常量参考：0x0056F09C。
+static constexpr std::array<std::uint8_t, 16> kMailStatusColors56F09C { // 原常量参考：0x0056F09C。
     7, 5, 1, 3, 4, 2, 6, 5, 1, 3, 4, 2, 6, 0, 0, 0,
 };
 
-constexpr wchar_t kMailOffline58743C[] = L"離線"; // 原常量参考：0x0058743C。
+// 窗口函数实现。
 
-constexpr wchar_t kMailStatusFormat5598F0[] = L"{}{}"; // 原常量参考：0x005598F0。
+// 原函数：0x004A5390。
+std::int32_t WindowMail_ResetComposeState()
+{
+    WindowChoiceSlotsCC4CA0& choices = gLoginWindowRuntime.choicesCC4CA0;
+    choices.value00 = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        choices.values04[index] = 0;
+        choices.pairs18[index][1] = 0;
+        choices.pairs18[index][0] = 0;
+    }
+    gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
+    gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+    gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+    return -1;
+}
 
-constexpr wchar_t kMailReverseFormat587434[] = L"逆-{}"; // 原常量参考：0x00587434。
-} // namespace
-
+void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callback)
+{
+    gWindow47Runtime.visibleMaskCC4240 = 3;
+    gWindow47Runtime.widthUnitsCC4244 = 3;
+    gWindow47Runtime.valueCC424C = 0;
+    gWindow47Runtime.valueCC4248 = 0;
+    gWindow47Runtime.initializeCC4250 = nullptr;
+    gWindow47Runtime.actionsCC4254[5] = nullptr;
+    gWindow47Runtime.actionsCC4254[4] = nullptr;
+    gWindow47Runtime.actionsCC4254[3] = nullptr;
+    gWindow47Runtime.actionsCC4254[2] = nullptr;
+    gWindow47Runtime.actionsCC4254[0] = callback;
+    gWindow47Runtime.actionsCC4254[1] = &WindowMail_CancelDelete;
+}
 
 MailContactView WindowMail_BorrowContactView(const world::detail::ContactRuntimeRecord& record)
 {
@@ -162,7 +169,7 @@ MailContactView WindowMail_BorrowContactView(const world::detail::MiniMailContac
 void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t status)
 {
     if (status == 0) {
-        data->text = kMailOffline58743C;
+        data->text = L"離線" /* 原常量参考：0x0058743C。 */;
         const std::int32_t currentStatus = login::detail::ReadGuildStatus10514AC();
         data->bytes00[0] = static_cast<std::byte>(
             gLoginWindowRuntime.mailGuildColorsD6784C[currentStatus]);
@@ -171,7 +178,7 @@ void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t 
         if (server >= 25) {
             server -= 25;
         }
-        cg::text::FormatTo(data->text, kMailStatusFormat5598F0, kMailGuildStatusText56F0AC.prefixes[server], kMailGuildStatusText56F0AC.Suffix(status));
+        cg::text::FormatTo(data->text, L"{}{}" /* 原常量参考：0x005598F0。 */, kMailGuildStatusText56F0AC.prefixes[server], kMailGuildStatusText56F0AC.Suffix(status));
         data->bytes00[0] = static_cast<std::byte>(gLoginWindowRuntime.mailGuildColorsD6784C[1]);
     }
 }
@@ -183,7 +190,7 @@ void WindowMail_WriteContactStatus(
         return;
     }
     if (status == 0) {
-        data->text = kMailOffline58743C;
+        data->text = L"離線" /* 原常量参考：0x0058743C。 */;
         const std::int16_t currentStatus = record.ReadStatus();
         data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[currentStatus]);
     } else {
@@ -192,9 +199,9 @@ void WindowMail_WriteContactStatus(
             server -= 25;
         }
         const wchar_t* const prefix = kMailContactStatusText56E9BC.prefixes[server];
-        cg::text::FormatTo(data->text, kMailStatusFormat5598F0, prefix, kMailContactStatusText56E9BC.Suffix(status));
+        cg::text::FormatTo(data->text, L"{}{}" /* 原常量参考：0x005598F0。 */, prefix, kMailContactStatusText56E9BC.Suffix(status));
         if (record.ReadStatus() == 10) {
-            cg::text::FormatTo(data->text, kMailReverseFormat587434, prefix);
+            cg::text::FormatTo(data->text, L"逆-{}" /* 原常量参考：0x00587434。 */, prefix);
         }
         data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[1]);
     }
@@ -259,7 +266,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int
 }
 
 // 原函数：0x004A3760。
-std::int32_t WindowMail_CancelDelete(const std::int32_t, const std::int32_t)
+static std::int32_t WindowMail_CancelDelete(const std::int32_t, const std::int32_t)
 {
     if (gWindowStates[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));

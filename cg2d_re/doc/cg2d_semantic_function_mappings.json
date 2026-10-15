@@ -50545,7 +50545,7 @@
       "current_provider": {
         "path": "src/ui/windows/WindowMailRead.cpp",
         "symbol": "std::strtok",
-        "line": 158,
+        "line": 235,
         "cpp_calls": 2,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -87041,7 +87041,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::malloc",
-        "line": 1450,
+        "line": 1644,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -87576,7 +87576,7 @@
       "current_provider": {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "std::free",
-        "line": 1463,
+        "line": 1657,
         "cpp_calls": 1,
         "kind": "msvc_crt_direct",
         "decision": "doc/cg2d_direct_crt_calls_spec.md#direct-string-time-calls",
@@ -281808,52 +281808,52 @@
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_DrawPetSkills",
-        "line": 860
+        "line": 1142
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_DrawPetDetails",
-        "line": 886
+        "line": 1168
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_Draw",
-        "line": 1971
+        "line": 2253
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_DrawOwnPetTooltip",
-        "line": 126
+        "line": 277
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowBank_DrawStoredPetTooltip",
-        "line": 916
+        "line": 1110
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowPet_DrawTooltip",
-        "line": 972
+        "line": 1166
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawPetRow",
-        "line": 623
+        "line": 898
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleOwnInventory",
-        "line": 822
+        "line": 1097
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleSelectedItem",
-        "line": 1283
+        "line": 1558
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleRemoteItem",
-        "line": 1666
+        "line": 1941
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
@@ -281868,42 +281868,42 @@
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawPetTooltip",
-        "line": 1538
+        "line": 1732
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
         "symbol": "WindowInventory_Draw",
-        "line": 262
+        "line": 368
       },
       {
         "path": "src/ui/windows/WindowBattleItems.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 204
+        "line": 294
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
         "symbol": "WindowInventory_HandleItems",
-        "line": 401
+        "line": 507
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItemSelector_HandlePlayerAttributes",
-        "line": 2377
+        "line": 2571
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
         "symbol": "WindowInventory_HandleItemSelection",
-        "line": 835
+        "line": 941
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 2524
+        "line": 2718
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawDescriptionTooltip",
-        "line": 2567
+        "line": 2761
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
@@ -281913,132 +281913,132 @@
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowItem_DrawWorkTooltip",
-        "line": 1834
+        "line": 2109
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawRemotePetSkillRow",
-        "line": 1858
+        "line": 2133
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawRemotePetTooltip",
-        "line": 1885
+        "line": 2160
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawSelectedPetSkillRow",
-        "line": 1978
+        "line": 2253
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawSelectedPetTooltip",
-        "line": 2008
+        "line": 2283
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawOwnPetSkillRow",
-        "line": 2095
+        "line": 2370
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_DrawOwnPetTooltip",
-        "line": 2125
+        "line": 2400
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_HandleOwnItems",
-        "line": 559
+        "line": 710
       },
       {
         "path": "src/ui/windows/WindowBank.cpp",
         "symbol": "WindowBank_HandleStoredItems",
-        "line": 739
+        "line": 890
       },
       {
         "path": "src/ui/windows/WindowItemStorage.cpp",
         "symbol": "WindowItemStorage_HandleOwnItems",
-        "line": 144
+        "line": 188
       },
       {
         "path": "src/ui/windows/WindowItemStorage.cpp",
         "symbol": "WindowItemStorage_HandleStoredItems",
-        "line": 299
+        "line": 343
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 2832
+        "line": 3118
       },
       {
         "path": "src/ui/windows/WindowPetSkillChoice.cpp",
         "symbol": "WindowPetSkillChoice_Draw",
-        "line": 937
+        "line": 1287
       },
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 830
+        "line": 1073
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalShop_ShowTooltip",
-        "line": 118
+        "line": 356
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 832
+        "line": 1070
       },
       {
         "path": "src/ui/windows/WindowAppearance.cpp",
         "symbol": "WindowCrystalExchangeShop_ShowTooltip",
-        "line": 111
+        "line": 187
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
         "symbol": "WindowCraft_HandleInventory",
-        "line": 1983
+        "line": 2094
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawSkillRow",
-        "line": 674
+        "line": 870
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_HandleTechniqueRow",
-        "line": 846
+        "line": 1042
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_HandleRecipeRow",
-        "line": 904
+        "line": 1100
       },
       {
         "path": "src/ui/windows/WindowBattleCommand.cpp",
         "symbol": "WindowBattleCommand_Draw",
-        "line": 355
+        "line": 477
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowBattlePets_Refresh",
-        "line": 1089
+        "line": 1285
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawPetSkillRow",
-        "line": 1265
+        "line": 1461
       },
       {
         "path": "src/ui/windows/WindowSkill.cpp",
         "symbol": "WindowSkill_DrawRidingSkillRow",
-        "line": 1304
+        "line": 1500
       },
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
         "symbol": "WindowPetSkills_DrawDraggedSkillTooltip",
-        "line": 251
+        "line": 359
       },
       {
         "path": "src/LegacyUiRecord.cpp",
@@ -282208,132 +282208,132 @@
       {
         "path": "src/ui/windows/WindowPetSkills.cpp",
         "symbol": "WindowCraft_BorrowResultName",
-        "line": 6
+        "line": 26
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowCraft_WriteResultName",
-        "line": 585
+        "line": 670
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowTrade_CopyOwnItem",
-        "line": 167
+        "line": 449
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_HandleItemRow",
-        "line": 1247
+        "line": 1529
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_HandlePurchaseConfirmation",
-        "line": 1601
+        "line": 1883
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_Draw",
-        "line": 1965
+        "line": 2247
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_OpenBrowse",
-        "line": 2075
+        "line": 2357
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_BuildItemDescription",
-        "line": 2272
+        "line": 2554
       },
       {
         "path": "src/ui/windows/WindowStall.cpp",
         "symbol": "WindowStall_ReceivePurchaseResult",
-        "line": 2421
+        "line": 2703
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleOwnInventory",
-        "line": 820
+        "line": 1095
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_HandleSelectedItem",
-        "line": 1279
+        "line": 1554
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltipLines",
-        "line": 1441
+        "line": 1635
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 1487
+        "line": 1681
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawTooltip",
-        "line": 1499
+        "line": 1693
       },
       {
         "path": "src/ui/windows/WindowBattleItems.cpp",
         "symbol": "WindowBattleItems_HandleInventory",
-        "line": 223
+        "line": 313
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
         "symbol": "WindowInventory_HandleItems",
-        "line": 418
+        "line": 524
       },
       {
         "path": "src/ui/windows/WindowInventory.cpp",
         "symbol": "WindowInventory_HandleEquipment",
-        "line": 615
+        "line": 721
       },
       {
         "path": "src/ui/WindowRuntime.cpp",
         "symbol": "WindowItem_DrawEquipmentTooltip",
-        "line": 2536
+        "line": 2730
       },
       {
         "path": "src/ui/windows/WindowTrade.cpp",
         "symbol": "WindowTrade_CopyDisplayItems",
-        "line": 2412
+        "line": 2687
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_ButtonAddAll",
-        "line": 1606
+        "line": 1892
       },
       {
         "path": "src/ui/windows/WindowShop.cpp",
         "symbol": "WindowShop_HandleInventory",
-        "line": 2841
+        "line": 3127
       },
       {
         "path": "src/ui/windows/WindowCrystalShop.cpp",
         "symbol": "WindowCrystalShop_HandleInventory",
-        "line": 837
+        "line": 1080
       },
       {
         "path": "src/ui/windows/WindowCrystalExchangeShop.cpp",
         "symbol": "WindowCrystalExchangeShop_HandleInventory",
-        "line": 837
+        "line": 1075
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
         "symbol": "WindowCraft_Update",
-        "line": 2755
+        "line": 2862
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
         "symbol": "WindowCraft_ShowRecipeResult",
-        "line": 3237
+        "line": 3344
       },
       {
         "path": "src/ui/windows/WindowCraft.cpp",
         "symbol": "WindowCraft_ShowItemWorkResult",
-        "line": 3453
+        "line": 3561
       },
       {
         "path": "src/LegacyUiRecord.cpp",

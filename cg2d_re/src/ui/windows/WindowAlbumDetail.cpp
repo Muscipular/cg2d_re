@@ -2,26 +2,158 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
+// 回调与内部函数前置声明。
 
-constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E}; // 原常量参考：0x0057DF24。
+// 原函数：0x00492880。
+static std::int32_t WindowAlbumDetail_HandleNavigation(std::int32_t index, std::int32_t state); // 图鉴详情四种翻页与旋转。
 
-constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11}; // 原常量参考：0x0057DF2C。
+// 原函数：0x00492410。
+static std::int32_t WindowAlbumDetail_Update(std::int32_t value);
 
-constexpr wchar_t kAlbumPreviousTen586DC8[] = L"快速切換至後10頁視窗。"; // 原常量参考：0x00586DC8。
+// 控件载荷、窗口状态、组件表与原型。
 
-constexpr wchar_t kAlbumPrevious586DB4[] = L"切換至後一頁視窗。"; // 原常量参考：0x00586DB4。
+static constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E}; // 原常量参考：0x0057DF24。
 
-constexpr wchar_t kAlbumNext586DA0[] = L"切換至前一頁視窗。"; // 原常量参考：0x00586DA0。
+static constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11}; // 原常量参考：0x0057DF2C。
 
-constexpr wchar_t kAlbumNextTen586D88[] = L"快速切換至前10頁視窗。"; // 原常量参考：0x00586D88。
-} // namespace
+static WindowGraphicData gWindowGraphic5679B0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679B0。
 
+static WindowGraphicData gWindowGraphic5679C8 {0x3BB0A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679C8。
+
+static WindowGraphicData gWindowGraphic5679E0 {0x3BB0B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005679E0。
+
+static WindowGraphicData gWindowGraphic5679F8 {0x3BB0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679F8。
+
+static WindowGraphicData gWindowGraphic567A10 {0x3BB0C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A10。
+
+static WindowGraphicData gWindowGraphic567A40 {0x3B55C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A40。
+
+static WindowGraphicData gWindowGraphic567A58 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A58。
+
+static WindowGraphicData gWindowGraphic567A70 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A70。
+
+static WindowGraphicData gWindowGraphic567A88 {0x3B55F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A88。
+
+static WindowGraphicData gWindowGraphic567AA0 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567AA0。
+
+static WindowTextPrototype gWindowText567AB8 { // 原全局：0x00567AB8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
+};
+
+static WindowTextPrototype gWindowText567AC0 { // 原全局：0x00567AC0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"000", // 原常量参考：0x00585FEC。
+};
+
+static WindowTextPrototype gWindowText567AC8 { // 原全局：0x00567AC8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00", // 原常量参考：0x00585FE8。
+};
+
+static WindowTextPrototype gWindowText567AD0 { // 原全局：0x00567AD0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
+};
+
+static WindowTextPrototype gWindowText567AD8 { // 原全局：0x00567AD8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"255/255", // 原常量参考：0x00585FE0。
+};
+
+static std::uint32_t gWindowAnimationImage567AE0 = 100000; // 原全局：0x00567AE0。
+
+static std::uint32_t gWindowMouseFlagsD677D0 = 0; // 原全局：0x00D677D0。
+
+static WindowElementPrototype gWindowElements567AE8[82] { // 原全局：0x00567AE8。
+    {WindowElementType_Graphic, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Animation, 186, 135, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage567AE0)}, &WindowElement_NoOp},
+    {WindowElementType_Text, 60, 28, 0, 0, 1, {.text = &gWindowText567AB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 214, 28, 0, 0, 1, {.text = &gWindowText567AC0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 95, 47, 0, 0, 1, {.text = &gWindowText567AC8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 63, 63, 0, 0, 1, {.text = &gWindowText567AD0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 48, 262, 0, 0, 1, {.text = &gWindowText567AD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 18, 175, 0, 0, 1, {.graphic = &gWindowGraphic5679F8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 54, 173, 0, 0, 1, {.graphic = &gWindowGraphic5679F8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 18, 261, 13, 11, 1, {.graphic = &gWindowGraphic567A40}, &WindowAlbumDetail_HandleNavigation},
+    {WindowElementType_Graphic, 38, 261, 10, 10, 1, {.graphic = &gWindowGraphic567A58}, &WindowAlbumDetail_HandleNavigation},
+    {WindowElementType_Graphic, 90, 261, 10, 10, 1, {.graphic = &gWindowGraphic567A70}, &WindowAlbumDetail_HandleNavigation},
+    {WindowElementType_Graphic, 102, 261, 13, 11, 1, {.graphic = &gWindowGraphic567A88}, &WindowAlbumDetail_HandleNavigation},
+    {WindowElementType_Graphic, 31, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 37, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 43, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 49, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 55, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 61, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 67, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 79, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 85, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 37, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 43, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 49, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 55, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 61, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 67, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 79, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 85, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 37, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 43, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 49, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 55, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 61, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 67, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 79, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 85, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 37, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 43, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 49, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 55, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 61, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 67, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 73, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 79, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 85, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 185, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 185, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 185, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 185, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 145, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 165, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 185, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 205, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 225, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 11, 11, 1, {.graphic = &gWindowGraphic5679C8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 13, 26, 11, 11, 1, {.graphic = &gWindowGraphic5679E0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 131, 59, 114, 110, 1, {.mouseFlags = &gWindowMouseFlagsD677D0}, &WindowAlbumDetail_HandleNavigation},
+    {WindowElementType_EventArea, 256, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口20；原全局：0x0054E630。
+WindowPrototype gWindowPrototypeAlbumDetail {0, 4, 357, 90, 256, 289, 0x80010101u, 82, gWindowElements567AE8, &WindowAlbumDetail_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 20: 54E630
+
+// 窗口函数实现。
 
 // 原评级参数是S32，不是反编译的载荷指针；五个caller均不消费混合返回。
 // 原函数：0x004939A0。
-void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::int32_t base)
+static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::int32_t base)
 {
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         gCurrentWindow->elements[base + slot].visible = 0;
@@ -44,7 +176,7 @@ void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::int32_t 
 
 // 唯一caller492410不消费原混合返回；保留各消费点独立的角色/记录取样。
 // 原函数：0x00492F70。
-void WindowAlbumDetail_Refresh()
+static void WindowAlbumDetail_Refresh()
 {
     const auto selectedRecord = []() {
         const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
@@ -179,7 +311,7 @@ void WindowAlbumDetail_Refresh()
 }
 
 // 原函数：0x00492410。
-std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
+static std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueCF4A00 = 5;
@@ -189,7 +321,7 @@ std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 }
 
 // 原函数：0x00492880。
-std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t delta;
     std::int32_t idle;
@@ -198,22 +330,22 @@ std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const 
     case 9:
         delta = -10;
         idle = 0x3B55C;
-        hint = kAlbumPreviousTen586DC8;
+        hint = L"快速切換至後10頁視窗。" /* 原常量参考：0x00586DC8。 */;
         break;
     case 10:
         delta = -1;
         idle = 0x3BE5D;
-        hint = kAlbumPrevious586DB4;
+        hint = L"切換至後一頁視窗。" /* 原常量参考：0x00586DB4。 */;
         break;
     case 11:
         delta = 1;
         idle = 0x3BE5A;
-        hint = kAlbumNext586DA0;
+        hint = L"切換至前一頁視窗。" /* 原常量参考：0x00586DA0。 */;
         break;
     case 12:
         delta = 10;
         idle = 0x3B55F;
-        hint = kAlbumNextTen586D88;
+        hint = L"快速切換至前10頁視窗。" /* 原常量参考：0x00586D88。 */;
         break;
     case 80:
         if ((state & 0x400) != 0) {
@@ -266,143 +398,3 @@ std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const 
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5679B0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679B0。
-
-WindowGraphicData gWindowGraphic5679C8 {0x3BB0A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679C8。
-
-WindowGraphicData gWindowGraphic5679E0 {0x3BB0B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005679E0。
-
-WindowGraphicData gWindowGraphic5679F8 {0x3BB0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005679F8。
-
-WindowGraphicData gWindowGraphic567A10 {0x3BB0C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A10。
-
-WindowGraphicData gWindowGraphic567A40 {0x3B55C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A40。
-
-WindowGraphicData gWindowGraphic567A58 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A58。
-
-WindowGraphicData gWindowGraphic567A70 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A70。
-
-WindowGraphicData gWindowGraphic567A88 {0x3B55F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567A88。
-
-WindowGraphicData gWindowGraphic567AA0 {0x3BAC7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567AA0。
-
-WindowTextPrototype gWindowText567AB8 { // 原全局：0x00567AB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
-};
-
-WindowTextPrototype gWindowText567AC0 { // 原全局：0x00567AC0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"000", // 原常量参考：0x00585FEC。
-};
-
-WindowTextPrototype gWindowText567AC8 { // 原全局：0x00567AC8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00", // 原常量参考：0x00585FE8。
-};
-
-WindowTextPrototype gWindowText567AD0 { // 原全局：0x00567AD0。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"種類", // 原常量参考：0x00586018。
-};
-
-WindowTextPrototype gWindowText567AD8 { // 原全局：0x00567AD8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"255/255", // 原常量参考：0x00585FE0。
-};
-
-std::uint32_t gWindowAnimationImage567AE0 = 100000; // 原全局：0x00567AE0。
-
-std::uint32_t gWindowMouseFlagsD677D0 = 0; // 原全局：0x00D677D0。
-
-} // namespace
-
-// 原型：窗口20；原全局：0x0054E630。
-WindowPrototype gWindowPrototypeAlbumDetail {0, 4, 357, 90, 256, 289, 0x80010101u, 82, gWindowElements567AE8, &WindowAlbumDetail_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 20: 54E630
-
-WindowElementPrototype gWindowElements567AE8[82] { // 原全局：0x00567AE8。
-    {WindowElementType_Graphic, 235, 8, 11, 11, 1, {.graphic = &gWindowGraphic5679B0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Animation, 186, 135, 0, 0, 1, {.animationImageNo = reinterpret_cast<std::int32_t*>(&gWindowAnimationImage567AE0)}, &WindowElement_NoOp},
-    {WindowElementType_Text, 60, 28, 0, 0, 1, {.text = &gWindowText567AB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 214, 28, 0, 0, 1, {.text = &gWindowText567AC0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 95, 47, 0, 0, 1, {.text = &gWindowText567AC8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 63, 63, 0, 0, 1, {.text = &gWindowText567AD0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 48, 262, 0, 0, 1, {.text = &gWindowText567AD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 18, 175, 0, 0, 1, {.graphic = &gWindowGraphic5679F8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 54, 173, 0, 0, 1, {.graphic = &gWindowGraphic5679F8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 18, 261, 13, 11, 1, {.graphic = &gWindowGraphic567A40}, &WindowAlbumDetail_HandleNavigation},
-    {WindowElementType_Graphic, 38, 261, 10, 10, 1, {.graphic = &gWindowGraphic567A58}, &WindowAlbumDetail_HandleNavigation},
-    {WindowElementType_Graphic, 90, 261, 10, 10, 1, {.graphic = &gWindowGraphic567A70}, &WindowAlbumDetail_HandleNavigation},
-    {WindowElementType_Graphic, 102, 261, 13, 11, 1, {.graphic = &gWindowGraphic567A88}, &WindowAlbumDetail_HandleNavigation},
-    {WindowElementType_Graphic, 31, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 43, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 49, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 55, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 61, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 67, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 79, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 85, 100, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 43, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 49, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 55, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 61, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 67, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 79, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 85, 116, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 43, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 49, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 55, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 61, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 67, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 79, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 85, 132, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 43, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 49, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 55, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 61, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 67, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 79, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 85, 148, 0, 0, 1, {.graphic = &gWindowGraphic567AA0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 185, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 225, 173, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 185, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 225, 194, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 185, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 225, 215, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 185, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 225, 236, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 185, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 205, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 225, 257, 0, 0, 1, {.graphic = &gWindowGraphic567A10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 11, 11, 1, {.graphic = &gWindowGraphic5679C8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 13, 26, 11, 11, 1, {.graphic = &gWindowGraphic5679E0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 131, 59, 114, 110, 1, {.mouseFlags = &gWindowMouseFlagsD677D0}, &WindowAlbumDetail_HandleNavigation},
-    {WindowElementType_EventArea, 256, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

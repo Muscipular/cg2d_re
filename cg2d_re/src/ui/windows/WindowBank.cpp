@@ -2,36 +2,108 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gStorageInputPrototype57EBA0 { // 原全局：0x0057EBA0。
+// 回调与内部函数前置声明。
+
+// 原函数：0x004A92D0。
+static std::int32_t WindowBank_FocusAmountInput(std::int32_t unused, std::int32_t state); // 存取数值输入焦点。
+
+// 原函数：0x004A93E0。
+static std::int32_t WindowBank_ButtonFirstPage(std::int32_t index, std::int32_t state); // 存放第一页请求。
+
+// 原函数：0x004A94A0。
+static std::int32_t WindowBank_ButtonSecondPage(std::int32_t index, std::int32_t state); // 存放第二页请求。
+
+// 原函数：0x004A9560。
+static std::int32_t WindowBank_DrawFirstPageSelection(std::int32_t index, std::int32_t unused); // 第一页选中图。
+
+// 原函数：0x004A9580。
+static std::int32_t WindowBank_DrawSecondPageSelection(std::int32_t index, std::int32_t unused); // 第二页选中图。
+
+// 原函数：0x004A9B00。
+static std::int32_t WindowBank_DrawCounts(std::int32_t unusedIndex, std::int32_t unusedState); // 双侧数量和金额。
+
+// 原函数：0x004A95A0。
+static std::int32_t WindowBank_TabItems(std::int32_t index, std::int32_t state); // 物品页签。
+
+// 原函数：0x004A96D0。
+static std::int32_t WindowBank_TabPets(std::int32_t index, std::int32_t state); // 宠物页签。
+
+// 原函数：0x004A9820。
+static std::int32_t WindowBank_TabDeposit(std::int32_t index, std::int32_t state); // 存款页签。
+
+// 原函数：0x004A9990。
+static std::int32_t WindowBank_TabWithdraw(std::int32_t index, std::int32_t state); // 取款页签。
+
+// 原函数：0x004A9D10。
+static std::int32_t WindowBank_HandleOwnItems(std::int32_t index, std::int32_t state); // 自有存放物品面板。
+
+// 原函数：0x004AA3D0。
+static std::int32_t WindowBank_HandleStoredItems(std::int32_t index, std::int32_t state); // SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。
+
+// 原函数：0x004AA9C0。
+static std::int32_t WindowBank_ButtonPreviousPet(std::int32_t index, std::int32_t state); // 宠物上一行。
+
+// 原函数：0x004AAA70。
+static std::int32_t WindowBank_ButtonNextPet(std::int32_t index, std::int32_t state); // 宠物下一行。
+
+// 原函数：0x004AAB20。
+static std::int32_t WindowBank_ScrollPets(std::int32_t index, std::int32_t state); // 两侧宠物滚轮。
+
+// 原函数：0x004ABB20。
+static std::int32_t WindowBank_HandleAmount(std::int32_t index, std::int32_t state); // SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。
+
+// 原函数：0x004AAEC0。
+static std::int32_t WindowBank_HandleOwnPetRow(std::int32_t index, std::int32_t state); // 自有宠物存放行。
+
+// 原函数：0x004AB710。
+static std::int32_t WindowBank_HandleStoredPetRow(std::int32_t index, std::int32_t state); // 外部宠物提领行。
+
+// 原函数：0x004A83D0。
+static void WindowBank_Release();
+
+// 原函数：0x004A9020。
+static std::int32_t WindowBank_Update(std::int32_t value);
+
+// 原函数：0x004A9160。
+static std::int32_t WindowBank_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowInputPrototype gStorageInputPrototype57EBA0 { // 原全局：0x0057EBA0。
     {{&input::gInputContextCA0018}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
 };
 
-std::int32_t gStorageValueCC4218 = 0; // 原全局：0x00CC4218。
+// 原全局：0x00CC4218。 存放窗口41每帧清零、元素13绘制的数值。
+static std::int32_t gStorageValueCC4218 = 0; // 原全局：0x00CC4218。
 
-std::int32_t gBankOwnHover57EDCC = -2; // 原全局：0x0057EDCC。
+static std::int32_t gBankOwnHover57EDCC = -2; // 原全局：0x0057EDCC。
 
-std::int32_t gBankExternalHover57EDD0 = -2; // 原全局：0x0057EDD0。
+static std::int32_t gBankExternalHover57EDD0 = -2; // 原全局：0x0057EDD0。
 
-const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320}; // 原全局：0x0054F4E8。
+static const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320}; // 原全局：0x0054F4E8。
 
-const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321}; // 原全局：0x0054F4F0。
+static const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321}; // 原全局：0x0054F4F0。
 
-const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323}; // 原全局：0x0054F4F8。
+static const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323}; // 原全局：0x0054F4F8。
 
-const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322}; // 原全局：0x0054F500。
+static const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322}; // 原全局：0x0054F500。
 
-std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：0x00D67B68。
+static std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {}; // 原全局：0x00D67B68。
 
-std::array<std::wstring, 2> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
+// 原全局：0x00CB1DF8。 动态宽文本，控件借稳定owner。
+static std::array<std::wstring, 2> gStorageAmountTextsCB1DF8 {}; // 原全局：0x00CB1DF8。
 
-const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
+static const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局：0x0057EDD4。
     L"指定金額。",
     L"指定存入金額。",
     L"請指定金額。",
@@ -40,7 +112,7 @@ const std::array<const wchar_t*, 6> gStorageDepositHints57EDD4 {{ // 原全局�
     L"把指定金額歸零。",
 }};
 
-const std::array<const wchar_t*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
+static const std::array<const wchar_t*, 6> gStorageWithdrawHints57EDEC {{ // 原全局：0x0057EDEC。
     L"指定金額。",
     L"指定提領金額。",
     L"指定金額數量。",
@@ -49,8 +121,87 @@ const std::array<const wchar_t*, 6> gStorageWithdrawHints57EDEC {{ // 原全局�
     L"把指定金額歸零。",
 }};
 
-static constexpr wchar_t kStoragePetEquipmentWarning587900[] = // 原常量参考：0x00587900。
-    L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。";
+static WindowGraphicData gWindowGraphic571018 {244390, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571018。
+
+static WindowGraphicData gWindowGraphic571030 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571030。
+
+static WindowGraphicData gWindowGraphic571048 {243027, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571048。
+
+static WindowGraphicData gWindowGraphic571060 {243021, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571060。
+
+static WindowGraphicData gWindowGraphic571078 {243024, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571078。
+
+static WindowGraphicData gWindowGraphic571090 {243143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571090。
+
+static WindowGraphicData gWindowGraphic5710A8 {244391, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710A8。
+
+static WindowGraphicData gWindowGraphic5710C0 {243141, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710C0。
+
+static WindowGraphicData gWindowGraphic5710D8 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710D8。
+
+static WindowGraphicData gWindowGraphic5710F0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710F0。
+
+static WindowGraphicData gWindowGraphic571108 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571108。
+
+static WindowGraphicData gWindowGraphic571120 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571120。
+
+static WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
+
+static WindowNumberData gWindowNumber571158 {&gStorageAmountTextsCB1DF8[1], 0, 3, 1, 0}; // 原全局：0x00571158。
+
+static std::uint32_t gWindowMouseFlagsD67880 = 0; // 原全局：0x00D67880。
+
+static std::uint32_t gWindowMouseFlagsD6788C = 0; // 原全局：0x00D6788C。
+
+static WindowElementPrototype gWindowElements571160[38] { // 原全局：0x00571160。
+    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowBank_FocusAmountInput},
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571120}, &WindowBank_ButtonCloseIcon},
+    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonClose},
+    {WindowElementType_Graphic, 26, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonFirstPage},
+    {WindowElementType_Graphic, 55, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonSecondPage},
+    {WindowElementType_Graphic, 26, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_DrawFirstPageSelection},
+    {WindowElementType_Graphic, 55, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_DrawSecondPageSelection},
+    {WindowElementType_Graphic, 298, 264, 80, 15, 1, {.graphic = &gWindowGraphic571048}, &WindowBank_TabItems},
+    {WindowElementType_Graphic, 383, 264, 80, 15, 1, {.graphic = &gWindowGraphic571060}, &WindowBank_TabPets},
+    {WindowElementType_Graphic, 469, 264, 80, 15, 1, {.graphic = &gWindowGraphic571078}, &WindowBank_TabDeposit},
+    {WindowElementType_Graphic, 26, 264, 80, 15, 1, {.graphic = &gWindowGraphic571048}, &WindowBank_TabItems},
+    {WindowElementType_Graphic, 111, 264, 80, 15, 1, {.graphic = &gWindowGraphic571060}, &WindowBank_TabPets},
+    {WindowElementType_Graphic, 197, 264, 80, 15, 1, {.graphic = &gWindowGraphic571078}, &WindowBank_TabWithdraw},
+    {WindowElementType_Text, 478, 328, 80, 15, 1, {.text = &gWindowText571148}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 297, 53, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
+    {WindowElementType_Graphic, 297, 122, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
+    {WindowElementType_Graphic, 297, 191, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
+    {WindowElementType_Graphic, 25, 53, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
+    {WindowElementType_Graphic, 25, 122, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
+    {WindowElementType_Graphic, 25, 191, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
+    {WindowElementType_Graphic, 538, 65, 0, 14, 1, {.graphic = &gWindowGraphic5710D8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 538, 65, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD67880}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 538, 55, 11, 11, 1, {.graphic = &gWindowGraphic5710F0}, &WindowBank_ButtonPreviousPet},
+    {WindowElementType_Graphic, 538, 247, 11, 11, 1, {.graphic = &gWindowGraphic571108}, &WindowBank_ButtonNextPet},
+    {WindowElementType_EventArea, 286, 27, 273, 280, 1, {.unusedValue = 0}, &WindowBank_ScrollPets},
+    {WindowElementType_Graphic, 266, 65, 0, 14, 1, {.graphic = &gWindowGraphic5710D8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 266, 65, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD6788C}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 266, 55, 11, 11, 1, {.graphic = &gWindowGraphic5710F0}, &WindowBank_ButtonPreviousPet},
+    {WindowElementType_Graphic, 266, 247, 11, 11, 1, {.graphic = &gWindowGraphic571108}, &WindowBank_ButtonNextPet},
+    {WindowElementType_EventArea, 14, 27, 273, 280, 1, {.unusedValue = 0}, &WindowBank_ScrollPets},
+    {WindowElementType_EventArea, 375, 135, 106, 85, 1, {.unusedValue = 0}, &WindowBank_HandleAmount},
+    {WindowElementType_EventArea, 103, 135, 106, 85, 1, {.unusedValue = 0}, &WindowBank_HandleAmount},
+    {WindowElementType_Number, 465, 115, 0, 0, 1, {.number = &gWindowNumber571150}, &WindowElement_NoOp},
+    {WindowElementType_Number, 193, 115, 0, 0, 1, {.number = &gWindowNumber571158}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic571090}, &WindowBank_HandleOwnItems},
+    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic5710A8}, &WindowBank_HandleStoredItems},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic571018}, &WindowBank_DrawCounts},
+    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口41；原全局：0x0054EB10。
+WindowPrototype gWindowPrototypeBank {0, 4, 20, 25, 567, 339, 0x80010101u, 38, gWindowElements571160, &WindowBank_Update, &WindowBank_Draw, &WindowBank_Release}; // 41: 54EB10
+
+// 窗口函数实现。
 
 std::int32_t WindowBank_ReadSide() noexcept
 {
@@ -167,7 +318,7 @@ WindowInstance* WindowBank_Open(
 }
 
 // 原函数：0x004A83D0。
-void WindowBank_Release()
+static void WindowBank_Release()
 {
     const std::uint32_t kind = gWindowStates[WindowId_Bank].value10;
     if ((kind == 0 && world::detail::gValue581800 == 23)
@@ -194,7 +345,7 @@ void WindowBank_Release()
 }
 
 // 原函数：0x004A9020。
-std::int32_t WindowBank_Update(const std::int32_t value)
+static std::int32_t WindowBank_Update(const std::int32_t value)
 {
     if (value == -1) {
         auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[36].data);
@@ -230,7 +381,7 @@ std::int32_t WindowBank_Update(const std::int32_t value)
 
 // SPD01：原4A9160完整114条；两滚动flags只读BYTE，金额/预览/鼠标RNG原序及所有绘制返回1保持。
 // 原函数：0x004A9160。
-std::int32_t WindowBank_Draw(const std::int32_t)
+static std::int32_t WindowBank_Draw(const std::int32_t)
 {
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
@@ -275,7 +426,7 @@ std::int32_t WindowBank_Draw(const std::int32_t)
 }
 
 // 原函数：0x004A92D0。
-std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::int32_t state)
 {
     const WindowElement* const elements = gCurrentWindow->elements;
     if (elements[30].visible == 0 && elements[31].visible == 0) {
@@ -295,7 +446,7 @@ std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::int32_t 
 }
 
 // 原函数：0x004A93E0。
-std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
@@ -319,7 +470,7 @@ std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004A94A0。
-std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
@@ -343,21 +494,21 @@ std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004A9560。
-std::int32_t WindowBank_DrawFirstPageSelection(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowBank_DrawFirstPageSelection(const std::int32_t index, const std::int32_t)
 {
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243174;
     return 0;
 }
 
 // 原函数：0x004A9580。
-std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index, const std::int32_t)
 {
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243177;
     return 0;
 }
 
 // 原函数：0x004A95A0。
-std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -387,7 +538,7 @@ std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int32_t st
 }
 
 // 原函数：0x004A96D0。
-std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -420,7 +571,7 @@ std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int32_t sta
 }
 
 // 原函数：0x004A9820。
-std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -454,7 +605,7 @@ std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::int32_t 
 }
 
 // 原函数：0x004A9990。
-std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -488,7 +639,7 @@ std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::int32_t
 }
 
 // 原函数：0x004A9D10。
-std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -668,7 +819,7 @@ std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const std::int3
 
 // SEP01：原4AA3D0完整478条；flags只读低BYTE，坐标按原S32取样序，窗口41转移/翻页/数量显示保持。
 // 原函数：0x004AA3D0。
-std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -859,7 +1010,7 @@ std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004AA9C0。
-std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     WindowState* const windowState = gCurrentWindowState;
@@ -889,7 +1040,7 @@ std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004AAA70。
-std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     WindowState* const windowState = gCurrentWindowState;
@@ -919,7 +1070,7 @@ std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004AAB20。
-std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::int32_t state)
 {
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
@@ -933,7 +1084,7 @@ std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::int32_t 
 }
 
 // 原函数：0x004AAEC0。
-std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
@@ -997,7 +1148,7 @@ std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex);
             } else {
-                world::detail::Sub_44B050(kStoragePetEquipmentWarning587900, 4, 3);
+                world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
@@ -1040,7 +1191,7 @@ std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int
                 if (allowed) {
                     WindowItem_RequestPetTransfer(41, index, petIndex, target + 100);
                 } else {
-                    world::detail::Sub_44B050(kStoragePetEquipmentWarning587900, 4, 3);
+                    world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
                 }
             }
         }
@@ -1079,7 +1230,7 @@ std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004AB710。
-std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value28);
     const std::int32_t petIndex = scroll + index - 17;
@@ -1110,7 +1261,7 @@ std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, const std::
             if (allowed) {
                 WindowItem_RequestPetTransfer(41, index, source, petIndex + 100);
             } else {
-                world::detail::Sub_44B050(kStoragePetEquipmentWarning587900, 4, 3);
+                world::detail::Sub_44B050(L"寵物欲放入家族寵物庫，請卸下寵物身上的裝備後再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
         }
         WindowDrag_Reset();
@@ -1214,7 +1365,7 @@ std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, const std::
 
 // SDM01：原4ABB20完整233条；存/取原上限、AL钳回、转义后字段/Y-X与发送后fresh金额发布保，真实返回0。
 // 原函数：0x004ABB20。
-std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std::int32_t state)
 {
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
     std::int32_t maximum;
@@ -1308,7 +1459,7 @@ std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004A9B00。
-std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t)
+static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t)
 {
     std::wstring buffer;
     std::int32_t count = 0;
@@ -1552,91 +1703,3 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic571018 {244390, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571018。
-
-WindowGraphicData gWindowGraphic571030 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571030。
-
-WindowGraphicData gWindowGraphic571048 {243027, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571048。
-
-WindowGraphicData gWindowGraphic571060 {243021, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571060。
-
-WindowGraphicData gWindowGraphic571078 {243024, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571078。
-
-WindowGraphicData gWindowGraphic571090 {243143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571090。
-
-WindowGraphicData gWindowGraphic5710A8 {244391, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710A8。
-
-WindowGraphicData gWindowGraphic5710C0 {243141, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710C0。
-
-WindowGraphicData gWindowGraphic5710D8 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710D8。
-
-WindowGraphicData gWindowGraphic5710F0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005710F0。
-
-WindowGraphicData gWindowGraphic571108 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571108。
-
-WindowGraphicData gWindowGraphic571120 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571120。
-
-WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
-
-WindowNumberData gWindowNumber571158 {&gStorageAmountTextsCB1DF8[1], 0, 3, 1, 0}; // 原全局：0x00571158。
-
-std::uint32_t gWindowMouseFlagsD67880 = 0; // 原全局：0x00D67880。
-
-std::uint32_t gWindowMouseFlagsD6788C = 0; // 原全局：0x00D6788C。
-
-} // namespace
-
-// 原型：窗口41；原全局：0x0054EB10。
-WindowPrototype gWindowPrototypeBank {0, 4, 20, 25, 567, 339, 0x80010101u, 38, gWindowElements571160, &WindowBank_Update, &WindowBank_Draw, &WindowBank_Release}; // 41: 54EB10
-
-WindowElementPrototype gWindowElements571160[38] { // 原全局：0x00571160。
-    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowBank_FocusAmountInput},
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571120}, &WindowBank_ButtonCloseIcon},
-    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonClose},
-    {WindowElementType_Graphic, 26, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonFirstPage},
-    {WindowElementType_Graphic, 55, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_ButtonSecondPage},
-    {WindowElementType_Graphic, 26, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_DrawFirstPageSelection},
-    {WindowElementType_Graphic, 55, 307, 24, 19, 1, {.graphic = &gWindowGraphic571030}, &WindowBank_DrawSecondPageSelection},
-    {WindowElementType_Graphic, 298, 264, 80, 15, 1, {.graphic = &gWindowGraphic571048}, &WindowBank_TabItems},
-    {WindowElementType_Graphic, 383, 264, 80, 15, 1, {.graphic = &gWindowGraphic571060}, &WindowBank_TabPets},
-    {WindowElementType_Graphic, 469, 264, 80, 15, 1, {.graphic = &gWindowGraphic571078}, &WindowBank_TabDeposit},
-    {WindowElementType_Graphic, 26, 264, 80, 15, 1, {.graphic = &gWindowGraphic571048}, &WindowBank_TabItems},
-    {WindowElementType_Graphic, 111, 264, 80, 15, 1, {.graphic = &gWindowGraphic571060}, &WindowBank_TabPets},
-    {WindowElementType_Graphic, 197, 264, 80, 15, 1, {.graphic = &gWindowGraphic571078}, &WindowBank_TabWithdraw},
-    {WindowElementType_Text, 478, 328, 80, 15, 1, {.text = &gWindowText571148}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 297, 53, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
-    {WindowElementType_Graphic, 297, 122, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
-    {WindowElementType_Graphic, 297, 191, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleOwnPetRow},
-    {WindowElementType_Graphic, 25, 53, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
-    {WindowElementType_Graphic, 25, 122, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
-    {WindowElementType_Graphic, 25, 191, 240, 69, 1, {.graphic = &gWindowGraphic5710C0}, &WindowBank_HandleStoredPetRow},
-    {WindowElementType_Graphic, 538, 65, 0, 14, 1, {.graphic = &gWindowGraphic5710D8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 538, 65, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD67880}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 538, 55, 11, 11, 1, {.graphic = &gWindowGraphic5710F0}, &WindowBank_ButtonPreviousPet},
-    {WindowElementType_Graphic, 538, 247, 11, 11, 1, {.graphic = &gWindowGraphic571108}, &WindowBank_ButtonNextPet},
-    {WindowElementType_EventArea, 286, 27, 273, 280, 1, {.unusedValue = 0}, &WindowBank_ScrollPets},
-    {WindowElementType_Graphic, 266, 65, 0, 14, 1, {.graphic = &gWindowGraphic5710D8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 266, 65, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD6788C}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 266, 55, 11, 11, 1, {.graphic = &gWindowGraphic5710F0}, &WindowBank_ButtonPreviousPet},
-    {WindowElementType_Graphic, 266, 247, 11, 11, 1, {.graphic = &gWindowGraphic571108}, &WindowBank_ButtonNextPet},
-    {WindowElementType_EventArea, 14, 27, 273, 280, 1, {.unusedValue = 0}, &WindowBank_ScrollPets},
-    {WindowElementType_EventArea, 375, 135, 106, 85, 1, {.unusedValue = 0}, &WindowBank_HandleAmount},
-    {WindowElementType_EventArea, 103, 135, 106, 85, 1, {.unusedValue = 0}, &WindowBank_HandleAmount},
-    {WindowElementType_Number, 465, 115, 0, 0, 1, {.number = &gWindowNumber571150}, &WindowElement_NoOp},
-    {WindowElementType_Number, 193, 115, 0, 0, 1, {.number = &gWindowNumber571158}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic571090}, &WindowBank_HandleOwnItems},
-    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic5710A8}, &WindowBank_HandleStoredItems},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic571018}, &WindowBank_DrawCounts},
-    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

@@ -2,94 +2,291 @@
 
 namespace cg::ui {
 namespace detail {
-namespace {
 
+// 回调与内部函数前置声明。
 
-constexpr wchar_t kMailDetailedHint587444[] = L"切換為詳細顯示。"; // 原常量参考：0x00587444。
+// 原函数：0x004A0970。
+static std::int32_t WindowContacts_Update(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
 
-constexpr wchar_t kMailPreviewHint587458[] = L"切換為預覽顯示。"; // 原常量参考：0x00587458。
+// 原函数：0x004A09B0。
+static std::int32_t WindowContacts_Draw(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
 
-constexpr wchar_t kMailSortHint58746C[] = L"切換名片的排序方式。"; // 原常量参考：0x0058746C。
+// 原函数：0x004A09E0。
+static std::int32_t WindowContacts_Refresh(); // 三行/九行联系人完整内容刷新，不调用公共Draw。
 
-constexpr wchar_t kMailGroupHint58749C[] = L"對一群人寄送郵件。"; // 原常量参考：0x0058749C。
+// 原函数：0x004A1690。
+static void WindowContacts_SetDisplayMode(std::int32_t mode, std::int32_t category); // 显示模式后接名单类别布局。
 
-constexpr wchar_t kMailContactsHint5874B0[] = L"切換至名片視窗。"; // 原常量参考：0x005874B0。
+// 原函数：0x004A16B0。
+static void WindowContacts_ApplyDisplayLayout(std::int32_t mode); // 联系人三行/九行显隐，不触碰末三元素。
 
-constexpr wchar_t kMailGuildHint5874C4[] = L"切換至家族名簿視窗。"; // 原常量参考：0x005874C4。
+// 原函数：0x004A1780。
+static void WindowContacts_ApplyCategoryLayout(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。
 
-constexpr wchar_t kMailMiniHint5874DC[] = L"切換到迷你郵件群組。"; // 原常量参考：0x005874DC。
+// 原函数：0x004A1C30。
+static std::int32_t WindowContacts_ScrollRow(std::int32_t index, std::int32_t state); // 单行滚动、边界音效及保存。
 
-constexpr wchar_t kMailGuildDetailsHint587544[] = L"開啟家族詳細資料視窗。"; // 原常量参考：0x00587544。
+// 原函数：0x004A1EF0。
+static std::int32_t WindowContacts_HandleNavigation(std::int32_t index, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
 
-constexpr wchar_t kMailRankHint587484[] = L"變更此家族成員的稱號。"; // 原常量参考：0x00587484。
+// 原函数：0x004A2610。
+static std::int32_t WindowContacts_ButtonGroupMail(std::int32_t index, std::int32_t state); // 群发入口：检查49，动画打开22。
 
-constexpr wchar_t kMailReadContactHint5874F4[] = L"察看此名片之主人的郵件紀錄"; // 原常量参考：0x005874F4。
+// 原函数：0x004A2870。
+static std::int32_t WindowContacts_TabCategory(std::int32_t index, std::int32_t state); // 普通/公会/迷你类别切换。
 
-constexpr wchar_t kMailReadGuildHint587510[] = L"察看此家族成員的郵件紀錄"; // 原常量参考：0x00587510。
+// 原函数：0x004A2BD0。
+static std::int32_t WindowContacts_ButtonGuildDetails(std::int32_t index, std::int32_t state); // 动画打开窗口48公会详情。
 
-constexpr wchar_t kMailReadMiniHint58752C[] = L"瀏覽此迷你郵件的歷程。"; // 原常量参考：0x0058752C。
+// 原函数：0x004A37E0。
+static std::int32_t WindowContacts_ResolveRecordIndex(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
 
-constexpr wchar_t kMailWriteContactHint5876B0[] = L"寄送郵件給此名片的主人。"; // 原常量参考：0x005876B0。
+// 原函数：0x004A40C0。
+static std::int32_t WindowContacts_Scroll(std::int32_t unused, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
 
-constexpr wchar_t kMailWriteGuildHint5876CC[] = L"對此家族成員寄送郵件。"; // 原常量参考：0x005876CC。
+// 原函数：0x004A2530。
+static std::int32_t WindowContacts_HandleRankButton(std::int32_t index, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
 
-constexpr wchar_t kMailWriteMiniHint5876E4[] = L"傳送迷你郵件。"; // 原常量参考：0x005876E4。
+// 原函数：0x004A38C0。
+static void WindowContacts_OpenRankSelection(std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
 
-constexpr wchar_t kMailDeleteContactHint58755C[] = L"刪除此名片。"; // 原常量参考：0x0058755C。
+// 原函数：0x004A2B00。
+static std::int32_t WindowContacts_OpenMail(std::int32_t index, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
 
-constexpr wchar_t kMailDeleteGuildHint58756C[] = L"對此家族成員進行除名。"; // 原常量参考：0x0058756C。
+// 原函数：0x004A3780。
+static std::int32_t WindowContacts_ResolveButtonRecord(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
 
-constexpr wchar_t kMailDeleteMiniHint587584[] = L"刪除此迷你郵件的名片。"; // 原常量参考：0x00587584。
+// 原函数：0x004A39C0。
+static std::int32_t WindowContacts_HandleAvatar(std::int32_t index, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
 
-constexpr wchar_t kMailDeleteContactFormat58759C[] = // 原常量参考：0x0058759C。
-    L"" LR"(
-)" L"     確定將" LR"(
-)" L"　" LR"(
-)" L"　{}" LR"(
-)" L"　" LR"(
-)" L"　從名片裡刪除嗎？" LR"(
-)" L" " LR"(
-)" L" (確定刪除時，請按住" LR"(
-)" L"  CTRL鍵再選擇「是」)";
+// 原函数：0x004A3C70。
+static std::int32_t WindowContacts_ButtonCompose(std::int32_t index, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
 
-constexpr wchar_t kMailDeleteGuildFormat5875F4[] = // 原常量参考：0x005875F4。
-    LR"(
-     確定將
-　
-　{}
-　
-從家族會員名單中刪除嗎？
+// 原函数：0x004A32E0。
+static std::int32_t WindowContacts_ButtonDelete(std::int32_t index, std::int32_t state); // 三类联系人删除确认分派。
 
- (確定刪除時，請按住
-  CTRL鍵再選擇「是」))";
+// 原函数：0x004A33C0。
+static login::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
 
-constexpr wchar_t kMailDeleteMiniFormat587654[] = // 原常量参考：0x00587654。
-    LR"(
-     確定將
-　
-　{}
-　
-從迷你郵件中刪除嗎？
+// 原函数：0x004A3480。
+static login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(std::int32_t index); // 公会成员除名确认。
 
- (確定刪除時，請按住
-  CTRL鍵再選擇「是」))";
+// 原函数：0x004A3540。
+static login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(std::int32_t index); // 迷你邮件联系人删除确认。
 
-constexpr std::array<std::int32_t, 15> kMailSortImages54F4C0 { // 原常量参考：0x0054F4C0。
+// 原函数：0x004A2700。
+static void WindowContacts_ClampScroll(); // 修正当前名单位置并更新元素17滚动条。
+
+// 原函数：0x004A3820。
+static std::int32_t WindowContacts_DragScroll(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
+
+// 原函数：0x004A2C60。
+static void WindowContacts_Sort(); // 填200项C9FCE4后按类别依原CRT次序排序60/200/20项。
+
+// 原函数：0x004A2CC0。
+static std::int32_t WindowContacts_CompareRecords(const std::int32_t* left, const std::int32_t* right); // MC01-C8标准索引比较，有效性对称，同键返回0。
+
+// 原函数：0x004A3230。
+static std::int32_t WindowContacts_CompareMiniMailNumber(
+    const world::detail::MiniMailContactRecord* left,
+    const world::detail::MiniMailContactRecord* right); // 迷你序号按S16比较，零不替换。
+
+// 原函数：0x004A0970。
+static std::int32_t WindowContacts_Update(std::int32_t value);
+
+// 原函数：0x004A09B0。
+static std::int32_t WindowContacts_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static constexpr std::array<std::int32_t, 15> kMailSortImages54F4C0 { // 原常量参考：0x0054F4C0。
     0x3B60C, 0x3B60D, 0x3B60F, 0x3B610, 0x3B613,
     0x3B60C, 0x3B60E, 0x3B60F, 0x3B610, 0x3B613,
     0x3BAA6, 0x3BA60, 0x3BAA7, 0x3BA61, 0x3BAA8,
 };
 
-constexpr std::array<std::array<std::int32_t, 2>, 3> kMailImageAnchors56F790 {{ // 原常量参考：0x0056F790。
+static constexpr std::array<std::array<std::int32_t, 2>, 3> kMailImageAnchors56F790 {{ // 原常量参考：0x0056F790。
     {62, 115}, {62, 202}, {62, 289},
 }};
 
-constexpr wchar_t kMailNumberFormat553FCC[] = L"{:3}"; // 原常量参考：0x00553FCC。
-} // namespace
+static WindowGraphicData gWindowGraphic56D8B0 {0x3B612, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D8B0。
 
+static WindowGraphicData gWindowGraphic56D8E0 {0x3B60C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D8E0。
+
+static WindowGraphicData gWindowGraphic56D940 {0x3B544, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D940。
+
+static WindowGraphicData gWindowGraphic56D958 {0x3B547, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D958。
+
+static WindowGraphicData gWindowGraphic56D970 {0x3B541, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D970。
+
+static WindowGraphicData gWindowGraphic56D988 {0x3B54A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D988。
+
+static WindowGraphicData gWindowGraphic56D9A0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9A0。
+
+static WindowGraphicData gWindowGraphic56D9B8 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9B8。
+
+static WindowGraphicData gWindowGraphic56D9D0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9D0。
+
+static WindowGraphicData gWindowGraphic56D9E8 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9E8。
+
+static WindowGraphicData gWindowGraphic56DA00 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA00。
+
+static WindowGraphicData gWindowGraphic56DA18 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA18。
+
+static WindowGraphicData gWindowGraphic56DA30 {0x3B57D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA30。
+
+static WindowGraphicData gWindowGraphic56DA48 {0x3B580, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA48。
+
+static WindowGraphicData gWindowGraphic56DA60 {0x3B9E0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA60。
+
+static WindowGraphicData gWindowGraphic56DA78 {0x3B5C6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA78。
+
+static WindowGraphicData gWindowGraphic56DA90 {0x3B9E5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA90。
+
+static WindowGraphicData gWindowGraphic56DAA8 {0x3B9DE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAA8。
+
+static WindowGraphicData gWindowGraphic56DAC0 {0x3B9DF, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056DAC0。
+
+static WindowGraphicData gWindowGraphic56DAD8 {0x3C115, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAD8。
+
+static WindowGraphicData gWindowGraphic56DAF0 {0x3C114, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAF0。
+
+static WindowTextPrototype gWindowText56DB08 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"name"}; // 原全局：0x0056DB08。 // 原常量参考：0x00585F14。
+
+static WindowTextPrototype gWindowText56DB10 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"level"}; // 原全局：0x0056DB10。 // 原常量参考：0x00585F0C。
+
+static WindowTextPrototype gWindowText56DB18 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guild"}; // 原全局：0x0056DB18。 // 原常量参考：0x00585F04。
+
+static WindowTextPrototype gWindowText56DB20 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"title"}; // 原全局：0x0056DB20。 // 原常量参考：0x00585EFC。
+
+static WindowTextPrototype gWindowText56DB28 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"server"}; // 原全局：0x0056DB28。 // 原常量参考：0x00585EF4。
+
+static WindowTextPrototype gWindowText56DB30 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guildserver"}; // 原全局：0x0056DB30。 // 原常量参考：0x00585EE8。
+
+static std::uint32_t gWindowMouseFlagsD67840 = 0; // 原全局：0x00D67840。
+
+// 原全局：0x0056DB38。 窗口21完整元素及原型坐标唯一来源。
+static WindowElementPrototype gWindowElements56DB38[111] { // 原全局：0x0056DB38。
+    {WindowElementType_Graphic, 259, 45, 41, 17, 0, {.graphic = &gWindowGraphic56DA90}, &WindowContacts_ButtonGuildDetails},
+    {WindowElementType_Graphic, 19, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 124, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 19, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 124, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 19, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 42, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 42, 33, 0, 0, 1, {.graphic = &gWindowGraphic56D8B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 42, 52, 0, 0, 1, {.graphic = &gWindowGraphic56D8E0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 218, 353, 39, 24, 1, {.graphic = &gWindowGraphic56DA30}, &WindowContacts_TabCategory},
+    {WindowElementType_Graphic, 271, 352, 38, 25, 1, {.graphic = &gWindowGraphic56DA48}, &WindowContacts_TabCategory},
+    {WindowElementType_Graphic, 143, 349, 60, 25, 1, {.graphic = &gWindowGraphic56DAD8}, &WindowContacts_TabCategory},
+    {WindowElementType_Graphic, 120, 8, 60, 25, 1, {.graphic = &gWindowGraphic56DAF0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 310, 69, 11, 11, 1, {.graphic = &gWindowGraphic56D9B8}, &WindowContacts_ScrollRow},
+    {WindowElementType_Graphic, 310, 315, 11, 11, 1, {.graphic = &gWindowGraphic56D9E8}, &WindowContacts_ScrollRow},
+    {WindowElementType_Graphic, 310, 80, 10, 14, 1, {.graphic = &gWindowGraphic56D9D0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 309, 80, 11, 235, 1, {.mouseFlags = &gWindowMouseFlagsD67840}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_EventArea, 0, 0, 331, 381, 1, {.unusedValue = 0}, &WindowContacts_Scroll},
+    {WindowElementType_Graphic, 219, 45, 19, 19, 1, {.graphic = &gWindowGraphic56D970}, &WindowContacts_ButtonGroupMail},
+    {WindowElementType_Text, 200, 30, 0, 0, 1, {.text = &gWindowText56DB30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 142, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 282, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 142, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 282, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 142, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 282, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
+    {WindowElementType_Graphic, 222, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 243, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 264, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 130, 71, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 279, 71, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 87, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 102, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
+    {WindowElementType_Text, 151, 133, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 222, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 243, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 264, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 130, 158, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 279, 158, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 174, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 189, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
+    {WindowElementType_Text, 151, 220, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 222, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 243, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 264, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 130, 245, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 279, 245, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 261, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
+    {WindowElementType_Text, 165, 276, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
+    {WindowElementType_Text, 151, 307, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 67, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 16, 154, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 16, 241, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
+    {WindowElementType_Graphic, 242, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 80, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 80, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 110, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 110, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 139, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 139, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 168, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 168, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 197, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 197, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 226, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 226, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 255, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 255, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 284, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 284, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 242, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
+    {WindowElementType_Graphic, 263, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
+    {WindowElementType_Graphic, 284, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
+    {WindowElementType_Text, 56, 313, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
+    {WindowElementType_Text, 173, 313, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 68, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 97, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 126, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 155, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 184, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 213, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 242, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 271, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 15, 300, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56DAA8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic56DAC0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 331, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口21；原全局：0x0054E990。
+WindowPrototype gWindowPrototypeContacts {0, 4, 2, 64, 331, 381, 0x80010101u, 111, gWindowElements56DB38, &WindowContacts_Update, &WindowContacts_Draw, &WindowRuntime_ReleaseDefault}; // 21: 54E990
+
+// 窗口函数实现。
 
 // 原函数：0x004A0970。
-std::int32_t WindowContacts_Update(const std::int32_t value)
+static std::int32_t WindowContacts_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -104,7 +301,7 @@ std::int32_t WindowContacts_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A09B0。
-std::int32_t WindowContacts_Draw(const std::int32_t value)
+static std::int32_t WindowContacts_Draw(const std::int32_t value)
 {
     static_cast<void>(WindowContacts_DragScroll(value));
     static_cast<void>(WindowMail_AdvanceUnreadBlink());
@@ -114,7 +311,7 @@ std::int32_t WindowContacts_Draw(const std::int32_t value)
 }
 
 // 原函数：0x004A09E0。
-std::int32_t WindowContacts_Refresh()
+static std::int32_t WindowContacts_Refresh()
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
@@ -213,7 +410,7 @@ std::int32_t WindowContacts_Refresh()
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
             nameData->text = cg::text::FromGbkWide(record.name);
-            cg::text::FormatTo(numberText, kMailNumberFormat553FCC, *record.number);
+            cg::text::FormatTo(numberText, L"{:3}" /* 原常量参考：0x00553FCC。 */, *record.number);
             auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
             numberData->text = numberText;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -349,14 +546,14 @@ std::int32_t WindowContacts_Refresh()
 }
 
 // 原函数：0x004A1690。
-void WindowContacts_SetDisplayMode(const std::int32_t mode, const std::int32_t category)
+static void WindowContacts_SetDisplayMode(const std::int32_t mode, const std::int32_t category)
 {
     WindowContacts_ApplyDisplayLayout(mode);
     WindowContacts_ApplyCategoryLayout(category);
 }
 
 // 原函数：0x004A16B0。
-void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
+static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
 {
     for (std::int32_t index = 0; index < 21; ++index) {
         gCurrentWindow->elements[index].visible = 1;
@@ -383,7 +580,7 @@ void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
 }
 
 // 原函数：0x004A1780。
-void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
+static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 {
     if (category == 0) {
         for (std::int32_t index = 21; index < 27; ++index) {
@@ -448,7 +645,7 @@ void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 }
 
 // 原函数：0x004A1C30。
-std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const std::int32_t imageOffset = index == 14 ? 0 : 3;
@@ -493,7 +690,7 @@ std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004A1EF0。
-std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     if (index >= 51 && index <= 53) {
         if ((state & 4) == 0) {
@@ -540,9 +737,9 @@ std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
         if (index <= 2) {
-            gHoverTextD68AE8 = gValueD67B38 != 0 ? kMailDetailedHint587444 : kMailPreviewHint587458;
+            gHoverTextD68AE8 = gValueD67B38 != 0 ? L"切換為詳細顯示。" /* 原常量参考：0x00587444。 */ : L"切換為預覽顯示。" /* 原常量参考：0x00587458。 */;
         } else if (index <= 4) {
-            gHoverTextD68AE8 = kMailSortHint58746C;
+            gHoverTextD68AE8 = L"切換名片的排序方式。" /* 原常量参考：0x0058746C。 */;
         }
     } else {
         graphic->imageNo = 0x3B556 + imageOffset;
@@ -585,13 +782,13 @@ std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std
 }
 
 // 原函数：0x004A2610。
-std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     graphic->imageNo = 0x3B541;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B543;
-        gHoverTextD68AE8 = kMailGroupHint58749C;
+        gHoverTextD68AE8 = L"對一群人寄送郵件。" /* 原常量参考：0x0058749C。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -615,7 +812,7 @@ std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std:
 }
 
 // 原函数：0x004A2870。
-std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int32_t state)
 {
     if (index < 10 || index > 12) {
         return 0;
@@ -629,8 +826,8 @@ std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
-        const wchar_t* const hint = category == 0 ? kMailContactsHint5874B0
-            : (category == 1 ? kMailGuildHint5874C4 : kMailMiniHint5874DC);
+        const wchar_t* const hint = category == 0 ? L"切換至名片視窗。" /* 原常量参考：0x005874B0。 */
+            : (category == 1 ? L"切換至家族名簿視窗。" /* 原常量参考：0x005874C4。 */ : L"切換到迷你郵件群組。" /* 原常量参考：0x005874DC。 */);
         gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
@@ -657,13 +854,13 @@ std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004A2BD0。
-std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     graphic->imageNo = 0x3B9E5;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B9E7;
-        gHoverTextD68AE8 = kMailGuildDetailsHint587544;
+        gHoverTextD68AE8 = L"開啟家族詳細資料視窗。" /* 原常量参考：0x00587544。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -678,7 +875,7 @@ std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const s
 }
 
 // 原函数：0x004A37E0。
-std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
+static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 {
     if (gValueD67B38 == 0) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -691,7 +888,7 @@ std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 }
 
 // 原函数：0x004A40C0。
-std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) == 0) {
         return 0;
@@ -726,7 +923,7 @@ std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x004A2530。
-std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t parity = (index - 21) % 2;
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -734,7 +931,7 @@ std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std
     graphic->imageNo = 0x3B556 + imageOffset;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
-        gHoverTextD68AE8 = kMailRankHint587484;
+        gHoverTextD68AE8 = L"變更此家族成員的稱號。" /* 原常量参考：0x00587484。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
@@ -750,7 +947,7 @@ std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std
 }
 
 // 原函数：0x004A38C0。
-void WindowContacts_OpenRankSelection(const std::int32_t index)
+static void WindowContacts_OpenRankSelection(const std::int32_t index)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::int32_t row = (index - 21) / 2;
@@ -768,7 +965,7 @@ void WindowContacts_OpenRankSelection(const std::int32_t index)
 }
 
 // 原函数：0x004A2B00。
-std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     graphic->imageNo = 0x3B547;
@@ -776,13 +973,13 @@ std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_
         graphic->imageNo = 0x3B549;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = kMailReadContactHint5874F4;
+            gHoverTextD68AE8 = L"察看此名片之主人的郵件紀錄" /* 原常量参考：0x005874F4。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = kMailReadGuildHint587510;
+            gHoverTextD68AE8 = L"察看此家族成員的郵件紀錄" /* 原常量参考：0x00587510。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = kMailReadMiniHint58752C;
+            gHoverTextD68AE8 = L"瀏覽此迷你郵件的歷程。" /* 原常量参考：0x0058752C。 */;
             break;
         }
     }
@@ -803,7 +1000,7 @@ std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_
 }
 
 // 原函数：0x004A3780。
-std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
+static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 {
     if (gValueD67B38 == 0) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -818,7 +1015,7 @@ std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 }
 
 // 原函数：0x004A39C0。
-std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
@@ -927,7 +1124,7 @@ std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004A3C70。
-std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -957,13 +1154,13 @@ std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::i
     if (hover) {
         switch (category) {
         case 0:
-            gHoverTextD68AE8 = kMailWriteContactHint5876B0;
+            gHoverTextD68AE8 = L"寄送郵件給此名片的主人。" /* 原常量参考：0x005876B0。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = kMailWriteGuildHint5876CC;
+            gHoverTextD68AE8 = L"對此家族成員寄送郵件。" /* 原常量参考：0x005876CC。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = kMailWriteMiniHint5876E4;
+            gHoverTextD68AE8 = L"傳送迷你郵件。" /* 原常量参考：0x005876E4。 */;
             break;
         }
     }
@@ -979,7 +1176,7 @@ std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004A32E0。
-std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     graphic->imageNo = 0x3B54A;
@@ -987,13 +1184,13 @@ std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::in
         graphic->imageNo = 0x3B54C;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            gHoverTextD68AE8 = kMailDeleteContactHint58755C;
+            gHoverTextD68AE8 = L"刪除此名片。" /* 原常量参考：0x0058755C。 */;
             break;
         case 1:
-            gHoverTextD68AE8 = kMailDeleteGuildHint58756C;
+            gHoverTextD68AE8 = L"對此家族成員進行除名。" /* 原常量参考：0x0058756C。 */;
             break;
         case 2:
-            gHoverTextD68AE8 = kMailDeleteMiniHint587584;
+            gHoverTextD68AE8 = L"刪除此迷你郵件的名片。" /* 原常量参考：0x00587584。 */;
             break;
         }
     }
@@ -1017,31 +1214,55 @@ std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004A33C0。
-login::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t index)
+static login::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteContact);
-    gWindow47Runtime.textCC426C = std::format(kMailDeleteContactFormat58759C, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
+    gWindow47Runtime.textCC426C = std::format(L"" LR"(
+)" L"     確定將" LR"(
+)" L"　" LR"(
+)" L"　{}" LR"(
+)" L"　" LR"(
+)" L"　從名片裡刪除嗎？" LR"(
+)" L" " LR"(
+)" L" (確定刪除時，請按住" LR"(
+)" L"  CTRL鍵再選擇「是」)" /* 原常量参考：0x0058759C。 */, cg::text::FromGbkWide(world::detail::gContactsF19FB0[index].name10.data()).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3480。
-login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int32_t index)
+static login::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteGuildMember);
-    gWindow47Runtime.textCC426C = std::format(kMailDeleteGuildFormat5875F4, cg::text::FromGbkWide(login::detail::gOrderedRecords1051B14[index].text18).c_str());
+    gWindow47Runtime.textCC426C = std::format(LR"(
+     確定將
+　
+　{}
+　
+從家族會員名單中刪除嗎？
+
+ (確定刪除時，請按住
+  CTRL鍵再選擇「是」))" /* 原常量参考：0x005875F4。 */, cg::text::FromGbkWide(login::detail::gOrderedRecords1051B14[index].text18).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3540。
-login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int32_t index)
+static login::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int32_t index)
 {
     WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteMiniMailContact);
-    gWindow47Runtime.textCC426C = std::format(kMailDeleteMiniFormat587654, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
+    gWindow47Runtime.textCC426C = std::format(LR"(
+     確定將
+　
+　{}
+　
+從迷你郵件中刪除嗎？
+
+ (確定刪除時，請按住
+  CTRL鍵再選擇「是」))" /* 原常量参考：0x00587654。 */, cg::text::FromGbkWide(world::detail::ReadMiniMailContact1075A90(index).name10.data()).c_str());
     return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A2700。
-void WindowContacts_ClampScroll()
+static void WindowContacts_ClampScroll()
 {
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
     std::int32_t maximum;
@@ -1108,7 +1329,7 @@ void WindowContacts_ClampScroll()
 }
 
 // 原函数：0x004A2C60。
-void WindowContacts_Sort()
+static void WindowContacts_Sort()
 {
     for (std::int32_t index = 0; index < 200; ++index) {
         gLoginWindowRuntime.mailIndicesC9FCE4[index] = index;
@@ -1130,7 +1351,7 @@ void WindowContacts_Sort()
 }
 
 // 原函数：0x004A2CC0。
-std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left, const std::int32_t* const right)
+static std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left, const std::int32_t* const right)
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     if (category == 0 || category == 1 || category == 2) {
@@ -1320,7 +1541,7 @@ std::int32_t WindowContacts_CompareContactNumber(
 }
 
 // 原函数：0x004A3230。
-std::int32_t WindowContacts_CompareMiniMailNumber(
+static std::int32_t WindowContacts_CompareMiniMailNumber(
     const world::detail::MiniMailContactRecord* const left,
     const world::detail::MiniMailContactRecord* const right)
 {
@@ -1354,7 +1575,7 @@ std::int32_t WindowContacts_CompareGuildNumber(
 }
 
 // 原函数：0x004A3820。
-std::int32_t WindowContacts_DragScroll(const std::int32_t)
+static std::int32_t WindowContacts_DragScroll(const std::int32_t)
 {
     // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
     std::int32_t count;
@@ -1391,184 +1612,3 @@ std::int32_t WindowContacts_DragScroll(const std::int32_t)
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56D8B0 {0x3B612, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D8B0。
-
-WindowGraphicData gWindowGraphic56D8E0 {0x3B60C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D8E0。
-
-WindowGraphicData gWindowGraphic56D940 {0x3B544, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D940。
-
-WindowGraphicData gWindowGraphic56D958 {0x3B547, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D958。
-
-WindowGraphicData gWindowGraphic56D970 {0x3B541, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D970。
-
-WindowGraphicData gWindowGraphic56D988 {0x3B54A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D988。
-
-WindowGraphicData gWindowGraphic56D9A0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9A0。
-
-WindowGraphicData gWindowGraphic56D9B8 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9B8。
-
-WindowGraphicData gWindowGraphic56D9D0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9D0。
-
-WindowGraphicData gWindowGraphic56D9E8 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056D9E8。
-
-WindowGraphicData gWindowGraphic56DA00 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA00。
-
-WindowGraphicData gWindowGraphic56DA18 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA18。
-
-WindowGraphicData gWindowGraphic56DA30 {0x3B57D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA30。
-
-WindowGraphicData gWindowGraphic56DA48 {0x3B580, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA48。
-
-WindowGraphicData gWindowGraphic56DA60 {0x3B9E0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA60。
-
-WindowGraphicData gWindowGraphic56DA78 {0x3B5C6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA78。
-
-WindowGraphicData gWindowGraphic56DA90 {0x3B9E5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DA90。
-
-WindowGraphicData gWindowGraphic56DAA8 {0x3B9DE, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAA8。
-
-WindowGraphicData gWindowGraphic56DAC0 {0x3B9DF, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056DAC0。
-
-WindowGraphicData gWindowGraphic56DAD8 {0x3C115, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAD8。
-
-WindowGraphicData gWindowGraphic56DAF0 {0x3C114, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056DAF0。
-
-WindowTextPrototype gWindowText56DB08 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"name"}; // 原全局：0x0056DB08。 // 原常量参考：0x00585F14。
-
-WindowTextPrototype gWindowText56DB10 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"level"}; // 原全局：0x0056DB10。 // 原常量参考：0x00585F0C。
-
-WindowTextPrototype gWindowText56DB18 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guild"}; // 原全局：0x0056DB18。 // 原常量参考：0x00585F04。
-
-WindowTextPrototype gWindowText56DB20 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"title"}; // 原全局：0x0056DB20。 // 原常量参考：0x00585EFC。
-
-WindowTextPrototype gWindowText56DB28 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"server"}; // 原全局：0x0056DB28。 // 原常量参考：0x00585EF4。
-
-WindowTextPrototype gWindowText56DB30 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"guildserver"}; // 原全局：0x0056DB30。 // 原常量参考：0x00585EE8。
-
-std::uint32_t gWindowMouseFlagsD67840 = 0; // 原全局：0x00D67840。
-
-} // namespace
-
-// 原型：窗口21；原全局：0x0054E990。
-WindowPrototype gWindowPrototypeContacts {0, 4, 2, 64, 331, 381, 0x80010101u, 111, gWindowElements56DB38, &WindowContacts_Update, &WindowContacts_Draw, &WindowRuntime_ReleaseDefault}; // 21: 54E990
-
-WindowElementPrototype gWindowElements56DB38[111] { // 原全局：0x0056DB38。
-    {WindowElementType_Graphic, 259, 45, 41, 17, 0, {.graphic = &gWindowGraphic56DA90}, &WindowContacts_ButtonGuildDetails},
-    {WindowElementType_Graphic, 19, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 124, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 19, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 124, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 19, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 42, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 42, 33, 0, 0, 1, {.graphic = &gWindowGraphic56D8B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 42, 52, 0, 0, 1, {.graphic = &gWindowGraphic56D8E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 218, 353, 39, 24, 1, {.graphic = &gWindowGraphic56DA30}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 271, 352, 38, 25, 1, {.graphic = &gWindowGraphic56DA48}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 143, 349, 60, 25, 1, {.graphic = &gWindowGraphic56DAD8}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 120, 8, 60, 25, 1, {.graphic = &gWindowGraphic56DAF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 310, 69, 11, 11, 1, {.graphic = &gWindowGraphic56D9B8}, &WindowContacts_ScrollRow},
-    {WindowElementType_Graphic, 310, 315, 11, 11, 1, {.graphic = &gWindowGraphic56D9E8}, &WindowContacts_ScrollRow},
-    {WindowElementType_Graphic, 310, 80, 10, 14, 1, {.graphic = &gWindowGraphic56D9D0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 309, 80, 11, 235, 1, {.mouseFlags = &gWindowMouseFlagsD67840}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_EventArea, 0, 0, 331, 381, 1, {.unusedValue = 0}, &WindowContacts_Scroll},
-    {WindowElementType_Graphic, 219, 45, 19, 19, 1, {.graphic = &gWindowGraphic56D970}, &WindowContacts_ButtonGroupMail},
-    {WindowElementType_Text, 200, 30, 0, 0, 1, {.text = &gWindowText56DB30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 142, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 142, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 142, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 222, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 71, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 71, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 87, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 102, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 133, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 222, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 158, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 158, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 174, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 189, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 220, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 222, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 245, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 245, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 261, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 276, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 307, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 67, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 16, 154, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 16, 241, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 242, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 80, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 80, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 110, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 110, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 139, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 139, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 168, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 168, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 197, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 197, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 226, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 226, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 255, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 255, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 284, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 284, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 313, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 313, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 68, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 97, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 126, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 155, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 184, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 213, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 242, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 271, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 300, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56DAA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic56DAC0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 331, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

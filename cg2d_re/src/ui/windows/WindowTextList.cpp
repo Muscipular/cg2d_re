@@ -2,43 +2,179 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gTitleInputPrototype57EE10 { // 原全局：0x0057EE10。
+// 回调与内部函数前置声明。
+
+// 原函数：0x004AD090。
+static void WindowTextList_ReleaseLines(); // 释放窗口51的行文本及原生指针表。
+
+// 原函数：0x004AD0F0。
+static std::uint32_t WindowTextList_RefreshLines(WindowInstance* window); // 九行刷新，返回末行含NUL长度。
+
+// 原函数：0x004AD780。
+static void WindowTextList_Release(); // 51释放回调：行表、物品标记、条件关闭请求。
+
+// 原函数：0x004AD800。
+static std::int32_t WindowTextList_Update(std::int32_t value); // 51初始化、移动关闭及权限可见性。
+
+// 原函数：0x004AD9F0。
+static std::int32_t WindowTextList_Draw(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
+
+// 原函数：0x004ADAA0。
+static std::int32_t WindowTextList_DrawConfirmation(std::int32_t index, std::int32_t unused); // 51模态提示及固定确认按钮。
+
+// 原函数：0x004ADBD0。
+static std::int32_t WindowTextList_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 上一行，bit400。
+
+// 原函数：0x004ADC80。
+static std::int32_t WindowTextList_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行，bit400。
+
+// 原函数：0x004ADD50。
+static std::int32_t WindowTextList_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上九行，bit2。
+
+// 原函数：0x004ADE10。
+static std::int32_t WindowTextList_ButtonNextPage(std::int32_t index, std::int32_t state); // 下九行，bit2。
+
+// 原函数：0x004ADEF0。
+static std::int32_t WindowTextList_Scroll(std::int32_t index, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
+
+// 原函数：0x004ADF40。
+static std::int32_t WindowTextList_SubmitTitle(std::int32_t index, std::int32_t state); // 标题双次转义与N请求。
+
+// 原函数：0x004AE170。
+static std::int32_t WindowTextList_SubmitSelection(std::int32_t index, std::int32_t state); // 当前选择I请求，不预拒绝负值。
+
+// 原函数：0x004AE260。
+static std::int32_t WindowTextList_EditTitle(std::int32_t index, std::int32_t state); // 标题编辑焦点与InputContext借用。
+
+// 原函数：0x004AE350。
+static std::int32_t WindowTextList_HandleItemSelection(std::int32_t index, std::int32_t state); // 51物品选择落点/拖出与失效清理。
+
+// 原函数：0x004AE5B0。
+static std::int32_t WindowTextList_DrawBackgroundTooltip(std::int32_t unused, std::int32_t state); // 仅在提示为空时填背景提示。
+
+// 原函数：0x004AD780。
+static void WindowTextList_Release();
+
+// 原函数：0x004AD800。
+static std::int32_t WindowTextList_Update(std::int32_t value);
+
+// 原函数：0x004AD9F0。
+static std::int32_t WindowTextList_Draw(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowInputPrototype gTitleInputPrototype57EE10 { // 原全局：0x0057EE10。
     {{&input::gInputContextCC49C0}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
 };
 
 // 窗口51拥有行表/行文本；其他载荷仅复制或借用，不另建文本owner。
-std::vector<std::wstring> gWindowLinesD67B70; // 原全局：0x00D67B70。
+static std::vector<std::wstring> gWindowLinesD67B70; // 原全局：0x00D67B70。
 
-std::int32_t gWindowLineCountD67B74 = 0; // 原全局：0x00D67B74。
+static std::int32_t gWindowLineCountD67B74 = 0; // 原全局：0x00D67B74。
 
-std::int32_t gWindowLineScrollCF46B8 = 0; // 原全局：0x00CF46B8。
+static std::int32_t gWindowLineScrollCF46B8 = 0; // 原全局：0x00CF46B8。
 
-std::wstring gWindowTitleCC4118 {}; // 原全局：0x00CC4118。
+static std::wstring gWindowTitleCC4118 {}; // 原全局：0x00CC4118。
 
-std::int32_t gWindowRequestD672B0 = 0; // 原全局：0x00D672B0。
+static std::int32_t gWindowRequestD672B0 = 0; // 原全局：0x00D672B0。
 
-std::int32_t gWindowRequestCF46AC = 0; // 原全局：0x00CF46AC。
+static std::int32_t gWindowRequestCF46AC = 0; // 原全局：0x00CF46AC。
 
-std::int32_t gWindowCloseRequestCC4B28 = 0; // 原全局：0x00CC4B28。
+static std::int32_t gWindowCloseRequestCC4B28 = 0; // 原全局：0x00CC4B28。
 
-std::wstring gWindowModalTextC8AF88 {}; // 原全局：0x00C8AF88。
+static std::wstring gWindowModalTextC8AF88 {}; // 原全局：0x00C8AF88。
+
+static WindowGraphicData gWindowGraphic5718A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718A8。
+
+static WindowGraphicData gWindowGraphic5718C0 {0x3BA6A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718C0。
+
+static WindowGraphicData gWindowGraphic5718D8 {0x3BA6B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005718D8。
+
+static WindowGraphicData gWindowGraphic5718F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718F0。
+
+static WindowGraphicData gWindowGraphic571908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571908。
+
+static WindowGraphicData gWindowGraphic571920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571920。
+
+static WindowGraphicData gWindowGraphic571938 {0x3B9F7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571938。
+
+static WindowGraphicData gWindowGraphic571950 {0x3BA6C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571950。
+
+static WindowGraphicData gWindowGraphic571968 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571968。
+
+static WindowGraphicData gWindowGraphic571980 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571980。
+
+static WindowTextPrototype gWindowText571998 { // 原全局：0x00571998。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族獸", // 原常量参考：0x00585E88。
+};
+
+static WindowTextPrototype gWindowTexts5719A0[9] { // 原全局：0x005719A0。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
+};
+
+static std::uint32_t gWindowMouseFlagsD67898 = 0; // 原全局：0x00D67898。
+
+static WindowElementPrototype gWindowElements5719E8[26] { // 原全局：0x005719E8。
+    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowTextList_DrawConfirmation},
+    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_EventArea, 57, 30, 150, 12, 1, {.unusedValue = 0}, &WindowTextList_EditTitle},
+    {WindowElementType_Text, 57, 30, 0, 0, 1, {.text = &gWindowText571998}, &WindowElement_NoOp},
+    {WindowElementType_Input, 57, 30, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 64, 0, 0, 1, {.text = &gWindowTexts5719A0[0]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 81, 0, 0, 1, {.text = &gWindowTexts5719A0[1]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 98, 0, 0, 1, {.text = &gWindowTexts5719A0[2]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 115, 0, 0, 1, {.text = &gWindowTexts5719A0[3]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 132, 0, 0, 1, {.text = &gWindowTexts5719A0[4]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 149, 0, 0, 1, {.text = &gWindowTexts5719A0[5]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 166, 0, 0, 1, {.text = &gWindowTexts5719A0[6]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 183, 0, 0, 1, {.text = &gWindowTexts5719A0[7]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 17, 200, 0, 0, 1, {.text = &gWindowTexts5719A0[8]}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 212, 75, 0, 14, 1, {.graphic = &gWindowGraphic5718F0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 212, 75, 11, 136, 1, {.mouseFlags = &gWindowMouseFlagsD67898}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 212, 65, 11, 11, 1, {.graphic = &gWindowGraphic571908}, &WindowTextList_ButtonPreviousRow},
+    {WindowElementType_Graphic, 212, 210, 11, 11, 1, {.graphic = &gWindowGraphic571920}, &WindowTextList_ButtonNextRow},
+    {WindowElementType_Graphic, 169, 225, 18, 18, 1, {.graphic = &gWindowGraphic571968}, &WindowTextList_ButtonPreviousPage},
+    {WindowElementType_Graphic, 189, 225, 18, 18, 1, {.graphic = &gWindowGraphic571980}, &WindowTextList_ButtonNextPage},
+    {WindowElementType_EventArea, 0, 0, 231, 305, 1, {.unusedValue = 0}, &WindowTextList_Scroll},
+    {WindowElementType_Graphic, 165, 43, 57, 17, 1, {.graphic = &gWindowGraphic571938}, &WindowTextList_SubmitTitle},
+    {WindowElementType_Graphic, 74, 237, 57, 17, 1, {.graphic = &gWindowGraphic571950}, &WindowTextList_SubmitSelection},
+    {WindowElementType_EventArea, 15, 225, 48, 48, 1, {.unusedValue = 0}, &WindowTextList_HandleItemSelection},
+    {WindowElementType_Graphic, 0, 0, 267, 305, 1, {.graphic = &gWindowGraphic5718C0}, &WindowTextList_DrawBackgroundTooltip},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5718D8}, &WindowElement_NoOp},
+};
+
+// 原型：窗口51；原全局：0x0054EB70。
+WindowPrototype gWindowPrototypeTextList {0, 4, 100, 100, 231, 305, 0x80010101u, 26, gWindowElements5719E8, &WindowTextList_Update, &WindowTextList_Draw, &WindowTextList_Release}; // 51: 54EB70
+
+// 窗口函数实现。
 
 // 原函数：0x004AD090。
-void WindowTextList_ReleaseLines()
+static void WindowTextList_ReleaseLines()
 {
     gWindowLinesD67B70.clear();
     gWindowLineCountD67B74 = 0;
 }
 
 // 原函数：0x004AD0F0。
-std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
+static std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
 {
     std::uint32_t result = 0;
     for (std::int32_t line = 0; line < 9; ++line) {
@@ -52,18 +188,14 @@ std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
     }
     return result;
 }
-namespace {
-
 
 // 两个生产入口共享原双遍算法；预计数的<=和实际末段推进30不能合并。
-void WindowTextList_RebuildLines(char* const text)
+static void WindowTextList_RebuildLines(char* const text)
 {
     const std::wstring contents = cg::text::FromGbkWide(text);
     gWindowLinesD67B70 = render::Font::split(contents, 0, 30 * render::gFontMetrics[0].sWidth);
     gWindowLineCountD67B74 = static_cast<std::int32_t>(gWindowLinesD67B70.size());
 }
-} // namespace
-
 
 // 原函数：0x004AD180。
 login::YobiAction* WindowTextList_Open(
@@ -107,7 +239,7 @@ void WindowTextList_ContinueDialog(const char* const text)
 }
 
 // 原函数：0x004AD780。
-void WindowTextList_Release()
+static void WindowTextList_Release()
 {
     WindowTextList_ReleaseLines();
     if (gSelectedItem57EE0C >= 0) {
@@ -132,7 +264,7 @@ void WindowTextList_Release()
 }
 
 // 原函数：0x004AD800。
-std::int32_t WindowTextList_Update(const std::int32_t value)
+static std::int32_t WindowTextList_Update(const std::int32_t value)
 {
     if (value == -1) {
         gSelectedItem57EE0C = -1;
@@ -188,7 +320,7 @@ std::int32_t WindowTextList_Update(const std::int32_t value)
 }
 
 // 原函数：0x004AD9F0。
-std::int32_t WindowTextList_Draw(const std::int32_t)
+static std::int32_t WindowTextList_Draw(const std::int32_t)
 {
     gCurrentWindow->elements[14].visible = 1;
     if (gWindowLineCountD67B74 - 9 <= 0) {
@@ -210,7 +342,7 @@ std::int32_t WindowTextList_Draw(const std::int32_t)
 }
 
 // 原函数：0x004ADAA0。
-std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, const std::int32_t)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -236,7 +368,7 @@ std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, const std
 }
 
 // 原函数：0x004ADBD0。
-std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -265,7 +397,7 @@ std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const st
 }
 
 // 原函数：0x004ADC80。
-std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -294,7 +426,7 @@ std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004ADD50。
-std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -321,7 +453,7 @@ std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const s
 }
 
 // 原函数：0x004ADE10。
-std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -351,7 +483,7 @@ std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::
 }
 
 // 原函数：0x004ADEF0。
-std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
@@ -364,7 +496,7 @@ std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::int32_t 
 }
 
 // 原函数：0x004ADF40。
-std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
@@ -409,7 +541,7 @@ std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int
 }
 
 // 原函数：0x004AE170。
-std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -444,7 +576,7 @@ std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std:
 }
 
 // 原函数：0x004AE260。
-std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
 {
     const std::uint32_t imageNo = login::detail::gValueD69768;
     WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], state, imageNo);
@@ -468,7 +600,7 @@ std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x004AE350。
-std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     const auto x = std::bit_cast<std::int16_t>(
@@ -549,7 +681,7 @@ std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const 
 }
 
 // 原函数：0x004AE5B0。
-std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0 && gHoverTextD68AE8.empty()) {
         gHoverTextD68AE8 = L"從物品視窗以滑鼠拖放方式選擇要餵的飼料。";
@@ -560,81 +692,3 @@ std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std:
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5718A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718A8。
-
-WindowGraphicData gWindowGraphic5718C0 {0x3BA6A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718C0。
-
-WindowGraphicData gWindowGraphic5718D8 {0x3BA6B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005718D8。
-
-WindowGraphicData gWindowGraphic5718F0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005718F0。
-
-WindowGraphicData gWindowGraphic571908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571908。
-
-WindowGraphicData gWindowGraphic571920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571920。
-
-WindowGraphicData gWindowGraphic571938 {0x3B9F7, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571938。
-
-WindowGraphicData gWindowGraphic571950 {0x3BA6C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571950。
-
-WindowGraphicData gWindowGraphic571968 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571968。
-
-WindowGraphicData gWindowGraphic571980 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571980。
-
-WindowTextPrototype gWindowText571998 { // 原全局：0x00571998。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"家族獸", // 原常量参考：0x00585E88。
-};
-
-WindowTextPrototype gWindowTexts5719A0[9] { // 原全局：0x005719A0。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"狀態"}, // 原常量参考：0x00585E80。
-};
-
-std::uint32_t gWindowMouseFlagsD67898 = 0; // 原全局：0x00D67898。
-
-} // namespace
-
-// 原型：窗口51；原全局：0x0054EB70。
-WindowPrototype gWindowPrototypeTextList {0, 4, 100, 100, 231, 305, 0x80010101u, 26, gWindowElements5719E8, &WindowTextList_Update, &WindowTextList_Draw, &WindowTextList_Release}; // 51: 54EB70
-
-WindowElementPrototype gWindowElements5719E8[26] { // 原全局：0x005719E8。
-    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowTextList_DrawConfirmation},
-    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_EventArea, 57, 30, 150, 12, 1, {.unusedValue = 0}, &WindowTextList_EditTitle},
-    {WindowElementType_Text, 57, 30, 0, 0, 1, {.text = &gWindowText571998}, &WindowElement_NoOp},
-    {WindowElementType_Input, 57, 30, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 64, 0, 0, 1, {.text = &gWindowTexts5719A0[0]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 81, 0, 0, 1, {.text = &gWindowTexts5719A0[1]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 98, 0, 0, 1, {.text = &gWindowTexts5719A0[2]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 115, 0, 0, 1, {.text = &gWindowTexts5719A0[3]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 132, 0, 0, 1, {.text = &gWindowTexts5719A0[4]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 149, 0, 0, 1, {.text = &gWindowTexts5719A0[5]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 166, 0, 0, 1, {.text = &gWindowTexts5719A0[6]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 183, 0, 0, 1, {.text = &gWindowTexts5719A0[7]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 200, 0, 0, 1, {.text = &gWindowTexts5719A0[8]}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 212, 75, 0, 14, 1, {.graphic = &gWindowGraphic5718F0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 212, 75, 11, 136, 1, {.mouseFlags = &gWindowMouseFlagsD67898}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 212, 65, 11, 11, 1, {.graphic = &gWindowGraphic571908}, &WindowTextList_ButtonPreviousRow},
-    {WindowElementType_Graphic, 212, 210, 11, 11, 1, {.graphic = &gWindowGraphic571920}, &WindowTextList_ButtonNextRow},
-    {WindowElementType_Graphic, 169, 225, 18, 18, 1, {.graphic = &gWindowGraphic571968}, &WindowTextList_ButtonPreviousPage},
-    {WindowElementType_Graphic, 189, 225, 18, 18, 1, {.graphic = &gWindowGraphic571980}, &WindowTextList_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 231, 305, 1, {.unusedValue = 0}, &WindowTextList_Scroll},
-    {WindowElementType_Graphic, 165, 43, 57, 17, 1, {.graphic = &gWindowGraphic571938}, &WindowTextList_SubmitTitle},
-    {WindowElementType_Graphic, 74, 237, 57, 17, 1, {.graphic = &gWindowGraphic571950}, &WindowTextList_SubmitSelection},
-    {WindowElementType_EventArea, 15, 225, 48, 48, 1, {.unusedValue = 0}, &WindowTextList_HandleItemSelection},
-    {WindowElementType_Graphic, 0, 0, 267, 305, 1, {.graphic = &gWindowGraphic5718C0}, &WindowTextList_DrawBackgroundTooltip},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5718D8}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

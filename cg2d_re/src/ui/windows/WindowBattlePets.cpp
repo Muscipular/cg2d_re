@@ -3,8 +3,51 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
 // 原函数：0x0049B630。
-std::int32_t WindowBattlePets_Update(const std::int32_t)
+static std::int32_t WindowBattlePets_Update(std::int32_t unused); // 窗口28归还按钮显隐。
+
+// 原函数：0x0049BA10。
+static std::int32_t WindowBattlePets_ButtonReturn(std::int32_t index, std::int32_t state); // 窗口28宠物归还M|FF。
+
+// 原函数：0x0049BB00。
+static std::int32_t WindowBattlePets_SelectRow(std::int32_t index, std::int32_t state); // 窗口28三条宠物选择行。
+
+// 原函数：0x0049B670。
+static void WindowBattlePets_Refresh(
+    std::int16_t x, std::int16_t y, std::int32_t petIndex,
+    std::uint8_t textLayer, std::int32_t graphicLayer,
+    const render::GraphicDescriptor16* descriptor); // 快照数值与宠物属性行，唯一caller弃返回。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic56C798 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C798。
+
+static WindowGraphicData gWindowGraphic56C7B0 {0x3BA74, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7B0。
+
+static WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056C7C8。
+
+static WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7E0。
+
+static WindowElementPrototype gWindowElements56C800[8] { // 原全局：0x0056C800。
+    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 258, 173, 57, 17, 1, {.graphic = &gWindowGraphic56C7E0}, &WindowBattlePets_ButtonReturn},
+    {WindowElementType_EventArea, 15, 28, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
+    {WindowElementType_EventArea, 15, 76, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
+    {WindowElementType_EventArea, 15, 124, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
+    {WindowElementType_Graphic, 0, 0, 320, 353, 1, {.graphic = &gWindowGraphic56C7B0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 25, 320, 353, 1, {.graphic = &gWindowGraphic56C7C8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口28；原全局：0x0054E810。
+WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101u, 8, gWindowElements56C800, &WindowBattlePets_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 28: 54E810
+
+// 窗口函数实现。
+
+// 原函数：0x0049B630。
+static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
     gCurrentWindow->elements[1].visible = 0;
     if (world::detail::Sub_43C4B0() != -1) {
@@ -14,7 +57,7 @@ std::int32_t WindowBattlePets_Update(const std::int32_t)
 }
 
 // 原函数：0x0049BA10。
-std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -43,7 +86,7 @@ std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::
 }
 
 // 原函数：0x0049B670。
-void WindowBattlePets_Refresh(
+static void WindowBattlePets_Refresh(
     const std::int16_t x, const std::int16_t y, const std::int32_t petIndex,
     const std::uint8_t textLayer, const std::int32_t graphicLayer,
     const render::GraphicDescriptor16* const descriptor)
@@ -114,7 +157,7 @@ void WindowBattlePets_Refresh(
 }
 
 // 原函数：0x0049BB00。
-std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = window->elements + index;
@@ -182,33 +225,3 @@ std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56C798 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C798。
-
-WindowGraphicData gWindowGraphic56C7B0 {0x3BA74, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7B0。
-
-WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056C7C8。
-
-WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7E0。
-
-} // namespace
-
-// 原型：窗口28；原全局：0x0054E810。
-WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101u, 8, gWindowElements56C800, &WindowBattlePets_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 28: 54E810
-
-WindowElementPrototype gWindowElements56C800[8] { // 原全局：0x0056C800。
-    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 258, 173, 57, 17, 1, {.graphic = &gWindowGraphic56C7E0}, &WindowBattlePets_ButtonReturn},
-    {WindowElementType_EventArea, 15, 28, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_EventArea, 15, 76, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_EventArea, 15, 124, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_Graphic, 0, 0, 320, 353, 1, {.graphic = &gWindowGraphic56C7B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 25, 320, 353, 1, {.graphic = &gWindowGraphic56C7C8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

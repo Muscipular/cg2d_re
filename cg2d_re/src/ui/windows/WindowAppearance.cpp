@@ -2,6 +2,7 @@
 
 namespace cg::ui {
 namespace detail {
+
 namespace {
 
 // 原580870..580900：解析后的姓名与两行正文，GBK字节容量仅约束输入边界。
@@ -10,40 +11,115 @@ struct Window56TextStorage {
     std::array<std::wstring, 2> messages;
 };
 
-Window56TextStorage gWindow56Texts580870 {L"NPCNAME", {L"MESSAGE", L"MESSAGE"}}; // 原全局：0x00580870。
-
-std::int32_t gWindow56DialogTypeCB1DE0 = 0; // 原全局：0x00CB1DE0。
-
-std::int32_t gWindow56RequestCF49C0 = 0; // 原全局：0x00CF49C0。 创建保留，确认请求实际读取共享对话参数。
-
-std::int32_t gWindow56TargetC8AF60 = 0; // 原全局：0x00C8AF60。
-
-std::int32_t gWindow56MinimumCB0F80 = 0; // 原全局：0x00CB0F80。
-
-std::int32_t gWindow56MaximumC8A958 = 0; // 原全局：0x00C8A958。
-
-std::int32_t gWindow56BaseCB0F8C = 0; // 原全局：0x00CB0F8C。
-
-std::int32_t gWindow56ClassCC466C = 0; // 原全局：0x00CC466C。
-
-std::int32_t gWindow56QuarterCC3E88 = 0; // 原全局：0x00CC3E88。
-
-std::int32_t gWindow56FifthCB0F88 = 0; // 原全局：0x00CB0F88。
-
-std::int32_t gWindow56OnesCF4680 = 0; // 原全局：0x00CF4680。
-
-// 原D2F7A0..AC四个数值槽；D2F7B0只映射固定240高所能消费的13行。
-std::int32_t gImageDialogTypeD2F7A0 = 0; // 原全局：0x00D2F7A0。
-
-std::int32_t gImageDialogRequestD2F7A4 = 0; // 原全局：0x00D2F7A4。
-
-std::int32_t gImageDialogTargetD2F7A8 = 0; // 原全局：0x00D2F7A8。
-
-std::int32_t gImageDialogImageD2F7AC = 0; // 原全局：0x00D2F7AC。
-
-std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {}; // 原全局：0x00D2F7B0。
 } // namespace
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004C5C30。
+static std::int32_t WindowAppearance_ButtonOk(std::int32_t index, std::int32_t state); // 图号原文本直接发送，不转义。
+
+// 原函数：0x004C5D00。
+static std::int32_t WindowAppearance_CycleClass(std::int32_t index, std::int32_t state); // class按版本上下界循环。
+
+// 原函数：0x004C5DE0。
+static std::int32_t WindowAppearance_CycleFifthDigit(std::int32_t index, std::int32_t state); // fifth分量0..4循环。
+
+// 原函数：0x004C5EB0。
+static std::int32_t WindowAppearance_CycleOnesDigit(std::int32_t index, std::int32_t state); // ones分量0..4循环。
+
+// 原函数：0x004C5F80。
+static std::int32_t WindowAppearance_SendDialogReply(
+    std::int32_t button, std::int32_t row, const std::wstring* unusedTexts,
+    std::uint8_t unusedInputCount); // 类型37回复，图号转义后发完整button。
+
+// 原函数：0x004C5850。
+static std::int32_t WindowAppearance_Update(std::int32_t value);
+
+// 原函数：0x004C5B70。
+static std::int32_t WindowAppearance_Draw(std::int32_t value);
+
+// 原函数：0x004C5C00。
+static void WindowAppearance_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static Window56TextStorage gWindow56Texts580870 {L"NPCNAME", {L"MESSAGE", L"MESSAGE"}}; // 原全局：0x00580870。
+
+static std::int32_t gWindow56DialogTypeCB1DE0 = 0; // 原全局：0x00CB1DE0。
+
+static std::int32_t gWindow56RequestCF49C0 = 0; // 原全局：0x00CF49C0。 创建保留，确认请求实际读取共享对话参数。
+
+static std::int32_t gWindow56TargetC8AF60 = 0; // 原全局：0x00C8AF60。
+
+static std::int32_t gWindow56MinimumCB0F80 = 0; // 原全局：0x00CB0F80。
+
+static std::int32_t gWindow56MaximumC8A958 = 0; // 原全局：0x00C8A958。
+
+static std::int32_t gWindow56BaseCB0F8C = 0; // 原全局：0x00CB0F8C。
+
+static std::int32_t gWindow56ClassCC466C = 0; // 原全局：0x00CC466C。
+
+static std::int32_t gWindow56QuarterCC3E88 = 0; // 原全局：0x00CC3E88。
+
+static std::int32_t gWindow56FifthCB0F88 = 0; // 原全局：0x00CB0F88。
+
+static std::int32_t gWindow56OnesCF4680 = 0; // 原全局：0x00CF4680。
+
+// 原D2F7A0..AC四个数值槽；D2F7B0只映射固定240高所能消费的13行。
+static std::int32_t gImageDialogTypeD2F7A0 = 0; // 原全局：0x00D2F7A0。
+
+static std::int32_t gImageDialogRequestD2F7A4 = 0; // 原全局：0x00D2F7A4。
+
+static std::int32_t gImageDialogTargetD2F7A8 = 0; // 原全局：0x00D2F7A8。
+
+static std::int32_t gImageDialogImageD2F7AC = 0; // 原全局：0x00D2F7AC。
+
+static std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {}; // 原全局：0x00D2F7B0。
+
+static WindowGraphicData gWindowGraphic576EF0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576EF0。
+
+static WindowGraphicData gWindowGraphic576F08 {30000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F08。
+
+static WindowGraphicData gWindowGraphic576F20 {245042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F20。
+
+static WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F38。
+
+static WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F50。
+
+static WindowTextPrototype gWindowText576F68 {{}, L"請選擇臉部、眼睛及嘴巴。"}; // 原全局：0x00576F68。 // 原常量参考：0x00585D98。
+
+static WindowTextPrototype gWindowText576F70 {{}, L"臉部"}; // 原全局：0x00576F70。 // 原常量参考：0x00585D90。
+
+static WindowTextPrototype gWindowText576F78 {{}, L"眼睛"}; // 原全局：0x00576F78。 // 原常量参考：0x00585D88。
+
+static WindowTextPrototype gWindowText576F80 {{}, L"嘴巴"}; // 原全局：0x00576F80。 // 原常量参考：0x00585D80。
+
+static std::int32_t gWindowAnimationImage576F88 = 100000; // 原全局：0x00576F88。
+
+// 原全局：0x00576F90。
+// 原576F90的十五项，三个分量按钮复用源图形但实例各自分配。
+static WindowElementPrototype gWindowElements576F90[15] {
+    {WindowElementType_Graphic, 197, 206, 66, 17, 1, {.graphic = &gWindowGraphic576EF0}, &WindowAppearance_ButtonOk},
+    {WindowElementType_Graphic, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F20}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F08}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 144, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleClass},
+    {WindowElementType_Text, 194, 28, 0, 0, 1, {.text = &gWindowText576F70}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 260, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleClass},
+    {WindowElementType_Graphic, 144, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleFifthDigit},
+    {WindowElementType_Text, 194, 49, 0, 0, 1, {.text = &gWindowText576F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 260, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleFifthDigit},
+    {WindowElementType_Graphic, 144, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleOnesDigit},
+    {WindowElementType_Text, 194, 70, 0, 0, 1, {.text = &gWindowText576F80}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 260, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleOnesDigit},
+    {WindowElementType_Animation, 390, 120, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage576F88}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 147, 0, 0, 1, {.text = &gWindowText576F68}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 163, 0, 0, 1, {.text = &gWindowText576F68}, &WindowElement_NoOp},
+};
+
+// 原型：窗口56；原全局：0x0054ED20。
+WindowPrototype gWindowPrototypeAppearance {0, 4, 96, 108, 448, 240, 0x80010101u, 15, gWindowElements576F90, &WindowAppearance_Update, &WindowAppearance_Draw, &WindowAppearance_Release}; // 56: 54ED20
+
+// 窗口函数实现。
 
 // 原函数：0x004C5790。
 login::YobiAction* WindowAppearance_Open(
@@ -71,7 +147,7 @@ login::YobiAction* WindowAppearance_Open(
 }
 
 // 原函数：0x004C5850。
-std::int32_t WindowAppearance_Update(const std::int32_t value)
+static std::int32_t WindowAppearance_Update(const std::int32_t value)
 {
     if (value != -1) {
         return 1;
@@ -141,7 +217,7 @@ std::int32_t WindowAppearance_Update(const std::int32_t value)
 }
 
 // 原函数：0x004C5B70。
-std::int32_t WindowAppearance_Draw(const std::int32_t unused)
+static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     if (WindowProfile_CheckDistance(2, 2) != 0 || world::detail::gValue581800 != gWindow56DialogTypeCB1DE0) {
@@ -159,7 +235,7 @@ std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 }
 
 // 原函数：0x004C5C00。
-void WindowAppearance_Release()
+static void WindowAppearance_Release()
 {
     if (world::detail::gValue581800 == gWindow56DialogTypeCB1DE0) {
         world::detail::gValue581800 = -1;
@@ -168,7 +244,7 @@ void WindowAppearance_Release()
 }
 
 // 原函数：0x004C5C30。
-std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -204,7 +280,7 @@ std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x004C5D00。
-std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -239,7 +315,7 @@ std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004C5DE0。
-std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -273,7 +349,7 @@ std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const st
 }
 
 // 原函数：0x004C5EB0。
-std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -307,7 +383,7 @@ std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std
 }
 
 // 原函数：0x004C5F80。
-std::int32_t WindowAppearance_SendDialogReply(
+static std::int32_t WindowAppearance_SendDialogReply(
     const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
     const std::uint8_t unusedInputCount)
 {
@@ -371,53 +447,3 @@ login::YobiAction* WindowAppearance_OpenDialogPreview(
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic576EF0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576EF0。
-
-WindowGraphicData gWindowGraphic576F08 {30000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F08。
-
-WindowGraphicData gWindowGraphic576F20 {245042, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F20。
-
-WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F38。
-
-WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576F50。
-
-WindowTextPrototype gWindowText576F68 {{}, L"請選擇臉部、眼睛及嘴巴。"}; // 原全局：0x00576F68。 // 原常量参考：0x00585D98。
-
-WindowTextPrototype gWindowText576F70 {{}, L"臉部"}; // 原全局：0x00576F70。 // 原常量参考：0x00585D90。
-
-WindowTextPrototype gWindowText576F78 {{}, L"眼睛"}; // 原全局：0x00576F78。 // 原常量参考：0x00585D88。
-
-WindowTextPrototype gWindowText576F80 {{}, L"嘴巴"}; // 原全局：0x00576F80。 // 原常量参考：0x00585D80。
-
-std::int32_t gWindowAnimationImage576F88 = 100000; // 原全局：0x00576F88。
-
-} // namespace
-
-// 原型：窗口56；原全局：0x0054ED20。
-WindowPrototype gWindowPrototypeAppearance {0, 4, 96, 108, 448, 240, 0x80010101u, 15, gWindowElements576F90, &WindowAppearance_Update, &WindowAppearance_Draw, &WindowAppearance_Release}; // 56: 54ED20
-
-// 原576F90的十五项，三个分量按钮复用源图形但实例各自分配。
-WindowElementPrototype gWindowElements576F90[15] {
-    {WindowElementType_Graphic, 197, 206, 66, 17, 1, {.graphic = &gWindowGraphic576EF0}, &WindowAppearance_ButtonOk},
-    {WindowElementType_Graphic, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F08}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 144, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleClass},
-    {WindowElementType_Text, 194, 28, 0, 0, 1, {.text = &gWindowText576F70}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 260, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleClass},
-    {WindowElementType_Graphic, 144, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleFifthDigit},
-    {WindowElementType_Text, 194, 49, 0, 0, 1, {.text = &gWindowText576F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 260, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleFifthDigit},
-    {WindowElementType_Graphic, 144, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &WindowAppearance_CycleOnesDigit},
-    {WindowElementType_Text, 194, 70, 0, 0, 1, {.text = &gWindowText576F80}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 260, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &WindowAppearance_CycleOnesDigit},
-    {WindowElementType_Animation, 390, 120, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage576F88}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 147, 0, 0, 1, {.text = &gWindowText576F68}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 163, 0, 0, 1, {.text = &gWindowText576F68}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

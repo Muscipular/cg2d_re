@@ -2,38 +2,150 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-std::wstring gTitleDraftD45FC0 {}; // 原全局：0x00D45FC0。
+// 回调与内部函数前置声明。
 
-WindowInputPrototype gTitleInputPrototype57CCB8 { // 原全局：0x0057CCB8。
+// 原函数：0x00477540。
+static std::int32_t WindowPlayerTitles_EditDraft(std::int32_t unusedIndex, std::int32_t state); // 草稿编辑焦点。
+
+// 原函数：0x00477600。
+static std::int32_t WindowPlayerTitles_SelectTitle(std::int32_t index, std::int32_t state); // 六行称号选择/删除。
+
+// 原函数：0x00477710。
+static std::int32_t WindowPlayerTitles_HandleButtons(std::int32_t index, std::int32_t state); // 完整按钮分派与背景清模式。
+
+// 原函数：0x004782A0。
+static std::int32_t WindowPlayerTitles_Scroll(std::int32_t unusedIndex, std::int32_t state); // 称号滚轮，恒返0。
+
+// 原函数：0x004782E0。
+static std::int32_t WindowPlayerTitles_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
+
+// 原函数：0x004744A0。
+static void WindowPlayerTitles_Release();
+
+// 原函数：0x004774C0。
+// 关联原入口：0x0047752C（共享尾已并入本函数正文）。
+static std::int32_t WindowPlayerTitles_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00D45FC0。 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
+static std::wstring gTitleDraftD45FC0 {}; // 原全局：0x00D45FC0。
+
+// 原全局：0x0057CCB8。 原型当前context为编辑正文来源。
+static WindowInputPrototype gTitleInputPrototype57CCB8 { // 原全局：0x0057CCB8。
     {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
     105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
 
-static constexpr wchar_t kTitleEditHint5863C4[] = L"設定自己的稱號。"; // 原常量参考：0x005863C4。
+static WindowGraphicData gWindowGraphic560DA0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DA0。
 
-static constexpr wchar_t kTitleSelectHint5863D8[] = L"設定此稱號。"; // 原常量参考：0x005863D8。
+static WindowGraphicData gWindowGraphic560DB8 {0x3BAB5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DB8。
 
-static constexpr wchar_t kTitleStatusHint5858D8[] = L"切換成玩家狀態視窗。"; // 原常量参考：0x005858D8。
+static WindowGraphicData gWindowGraphic560DD0 {0x3B583, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DD0。
 
-static constexpr wchar_t kTitleDetailsHint5858C0[] = L"切換成玩家明細視窗。"; // 原常量参考：0x005858C0。
+static WindowGraphicData gWindowGraphic560DE8 {0x3BAB9, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DE8。
 
-static constexpr wchar_t kTitleProfileHint58637C[] = L"切換成玩家簡介視窗"; // 原常量参考：0x0058637C。
+static WindowGraphicData gWindowGraphic560E00 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E00。
 
-static constexpr wchar_t kTitleCancelHint5863FC[] = L"取消所選擇的稱號。"; // 原常量参考：0x005863FC。
+static WindowGraphicData gWindowGraphic560E18 {0x3B574, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E18。
 
-static constexpr wchar_t kTitleDeleteHint5863E8[] = L"刪除所選擇的稱號。"; // 原常量参考：0x005863E8。
+static WindowGraphicData gWindowGraphic560E30 {0x3B577, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E30。
+
+static WindowGraphicData gWindowGraphic560E48 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E48。
+
+static WindowGraphicData gWindowGraphic560E60 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E60。
+
+static WindowGraphicData gWindowGraphic560E78 {0x3B59D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E78。
+
+static WindowGraphicData gWindowGraphic560E90 {0x3BAB3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E90。
+
+static WindowGraphicData gWindowGraphic560EA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560EA8。
+
+static WindowGraphicData gWindowGraphic560EC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00560EC0。
+
+static WindowGraphicData gWindowGraphic560ED8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560ED8。
+
+static WindowGraphicData gWindowGraphic560EF0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560EF0。
+
+static WindowGraphicData gWindowGraphic560F08 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F08。
+
+static WindowGraphicData gWindowGraphic560F20 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F20。
+
+static WindowTextPrototype gWindowText560F38 { // 原全局：0x00560F38。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+};
+
+static WindowTextPrototype gWindowText560F40 { // 原全局：0x00560F40。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+};
+
+static WindowTextPrototype gWindowText560F48 { // 原全局：0x00560F48。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
+};
+
+static std::uint32_t gWindowMouseFlagsD676F0 = 0; // 原全局：0x00D676F0。
+
+static std::uint32_t gWindowMouseFlagsD6772C = 0; // 原全局：0x00D6772C。
+
+static WindowElementPrototype gWindowElements560F50[37] { // 原全局：0x00560F50。
+    {WindowElementType_Input, 105, 31, 144, 12, 1, {.unusedValue = 0}, &WindowPlayerTitles_EditDraft},
+    {WindowElementType_Graphic, 239, 104, 0, 14, 1, {.graphic = &gWindowGraphic560ED8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 239, 104, 11, 72, 1, {.mouseFlags = &gWindowMouseFlagsD676F0}, &WindowPlayerTitles_DragScroll},
+    {WindowElementType_Graphic, 239, 93, 11, 11, 1, {.graphic = &gWindowGraphic560EF0}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 239, 175, 11, 11, 1, {.graphic = &gWindowGraphic560F08}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_EventArea, 0, 0, 315, 261, 1, {.unusedValue = 0}, &WindowPlayerTitles_Scroll},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560F38}, &WindowElement_NoOp},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560F40}, &WindowElement_NoOp},
+    {WindowElementType_Text, 105, 31, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 105, 64, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 94, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 110, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 126, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 142, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 158, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 174, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DB8}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic560DD0}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DE8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560F20}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 260, 27, 49, 17, 1, {.graphic = &gWindowGraphic560E00}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 260, 61, 49, 17, 1, {.graphic = &gWindowGraphic560E18}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 260, 175, 49, 17, 1, {.graphic = &gWindowGraphic560E30}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 220, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E48}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 199, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E60}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_Graphic, 23, 92, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 23, 108, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 23, 124, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 23, 140, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 23, 156, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 23, 172, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
+    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic560E90}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560EA8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560EC0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 374, 281, 1, {.mouseFlags = &gWindowMouseFlagsD6772C}, &WindowPlayerTitles_HandleButtons},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口9；原全局：0x0054E3C0。
+WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080u, 37, gWindowElements560F50, &WindowPlayerTitles_Update, &WindowRuntime_DrawDefault, &WindowPlayerTitles_Release}; // 9: 54E3C0
+
+// 窗口函数实现。
 
 // 原函数：0x00477540。
-std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
 {
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kTitleEditHint5863C4;
+        gHoverTextD68AE8 = L"設定自己的稱號。" /* 原常量参考：0x005863C4。 */;
     }
     if ((state & 2) == 0) {
         return 0;
@@ -54,13 +166,13 @@ std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t
 }
 
 // 原函数：0x00477600。
-std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B59E;
-        gHoverTextD68AE8 = kTitleSelectHint5863D8;
+        gHoverTextD68AE8 = L"設定此稱號。" /* 原常量参考：0x005863D8。 */;
         consumed = 1;
     } else {
         graphic->imageNo = 0x3B59D;
@@ -88,7 +200,7 @@ std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std:
 }
 
 // 原函数：0x00477710。
-std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
@@ -107,8 +219,8 @@ std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const st
         const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
         if ((state & 1) != 0) {
             setImage(hover);
-            gHoverTextD68AE8 = index == 17 ? kTitleStatusHint5858D8
-                            : index == 18 ? kTitleDetailsHint5858C0 : kTitleProfileHint58637C;
+            gHoverTextD68AE8 = index == 17 ? L"切換成玩家狀態視窗。" /* 原常量参考：0x005858D8。 */
+                            : index == 18 ? L"切換成玩家明細視窗。" /* 原常量参考：0x005858C0。 */ : L"切換成玩家簡介視窗" /* 原常量参考：0x0058637C。 */;
             consumed = 1;
         } else {
             setImage(idle);
@@ -130,7 +242,7 @@ std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const st
     case 21: {
         if ((state & 1) != 0) {
             setImage(0x3BAC4);
-            gHoverTextD68AE8 = kTitleSelectHint5863D8;
+            gHoverTextD68AE8 = L"設定此稱號。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             setImage(0x3BAC2);
@@ -150,7 +262,7 @@ std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const st
     case 22:
         if ((state & 1) != 0) {
             setImage(0x3B576);
-            gHoverTextD68AE8 = kTitleCancelHint5863FC;
+            gHoverTextD68AE8 = L"取消所選擇的稱號。" /* 原常量参考：0x005863FC。 */;
             consumed = 1;
         } else {
             setImage(0x3B574);
@@ -166,7 +278,7 @@ std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const st
     case 23: {
         if (gTitleModeCF4E50 == 1) {
             setImage(0x3B578);
-            gHoverTextD68AE8 = kTitleDeleteHint5863E8;
+            gHoverTextD68AE8 = L"刪除所選擇的稱號。" /* 原常量参考：0x005863E8。 */;
         }
         const std::int32_t mode = gTitleModeCF4E50;
         if ((state & 1) != 0) {
@@ -269,7 +381,7 @@ std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const st
 }
 
 // 原函数：0x004782A0。
-std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
@@ -282,7 +394,7 @@ std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t st
 
 // WSP01：旧X片段1959；滚动非零才反求称号页码，原型/代码身份沿CAC08。
 // 原函数：0x004782E0。
-std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result != 0) {
@@ -294,7 +406,7 @@ std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::
 
 // 原478010：草稿比较分别控制颜色与确认显隐，六行固定表起点、逐行重取窗口。
 // 原函数：0x00478010。
-void WindowPlayerTitles_Refresh()
+static void WindowPlayerTitles_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
     const char* const name = world::detail::BorrowPlayerDisplayText(1);
@@ -342,7 +454,7 @@ void WindowPlayerTitles_Refresh()
 
 // 原4774C0及47752C公共尾，IDA分段不改变同一主更新的正常出口。
 // 原函数：0x004774C0。
-std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
+static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     if (value == -1) {
         const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
@@ -359,7 +471,7 @@ std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 }
 
 // 原函数：0x004744A0。
-void WindowPlayerTitles_Release()
+static void WindowPlayerTitles_Release()
 {
     WindowInstance* const window = gWindowStates[WindowId_PlayerTitles].window;
     if (window != nullptr) {
@@ -375,104 +487,3 @@ void WindowPlayerTitles_Release()
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic560DA0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DA0。
-
-WindowGraphicData gWindowGraphic560DB8 {0x3BAB5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DB8。
-
-WindowGraphicData gWindowGraphic560DD0 {0x3B583, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DD0。
-
-WindowGraphicData gWindowGraphic560DE8 {0x3BAB9, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560DE8。
-
-WindowGraphicData gWindowGraphic560E00 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E00。
-
-WindowGraphicData gWindowGraphic560E18 {0x3B574, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E18。
-
-WindowGraphicData gWindowGraphic560E30 {0x3B577, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E30。
-
-WindowGraphicData gWindowGraphic560E48 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E48。
-
-WindowGraphicData gWindowGraphic560E60 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E60。
-
-WindowGraphicData gWindowGraphic560E78 {0x3B59D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E78。
-
-WindowGraphicData gWindowGraphic560E90 {0x3BAB3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560E90。
-
-WindowGraphicData gWindowGraphic560EA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560EA8。
-
-WindowGraphicData gWindowGraphic560EC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00560EC0。
-
-WindowGraphicData gWindowGraphic560ED8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560ED8。
-
-WindowGraphicData gWindowGraphic560EF0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560EF0。
-
-WindowGraphicData gWindowGraphic560F08 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F08。
-
-WindowGraphicData gWindowGraphic560F20 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00560F20。
-
-WindowTextPrototype gWindowText560F38 { // 原全局：0x00560F38。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
-};
-
-WindowTextPrototype gWindowText560F40 { // 原全局：0x00560F40。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
-};
-
-WindowTextPrototype gWindowText560F48 { // 原全局：0x00560F48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
-};
-
-std::uint32_t gWindowMouseFlagsD676F0 = 0; // 原全局：0x00D676F0。
-
-std::uint32_t gWindowMouseFlagsD6772C = 0; // 原全局：0x00D6772C。
-
-} // namespace
-
-// 原型：窗口9；原全局：0x0054E3C0。
-WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080u, 37, gWindowElements560F50, &WindowPlayerTitles_Update, &WindowRuntime_DrawDefault, &WindowPlayerTitles_Release}; // 9: 54E3C0
-
-WindowElementPrototype gWindowElements560F50[37] { // 原全局：0x00560F50。
-    {WindowElementType_Input, 105, 31, 144, 12, 1, {.unusedValue = 0}, &WindowPlayerTitles_EditDraft},
-    {WindowElementType_Graphic, 239, 104, 0, 14, 1, {.graphic = &gWindowGraphic560ED8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 239, 104, 11, 72, 1, {.mouseFlags = &gWindowMouseFlagsD676F0}, &WindowPlayerTitles_DragScroll},
-    {WindowElementType_Graphic, 239, 93, 11, 11, 1, {.graphic = &gWindowGraphic560EF0}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 239, 175, 11, 11, 1, {.graphic = &gWindowGraphic560F08}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_EventArea, 0, 0, 315, 261, 1, {.unusedValue = 0}, &WindowPlayerTitles_Scroll},
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560F38}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560F40}, &WindowElement_NoOp},
-    {WindowElementType_Text, 105, 31, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 105, 64, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 94, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 110, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 126, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 142, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 158, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 174, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DB8}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic560DD0}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DE8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560F20}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 27, 49, 17, 1, {.graphic = &gWindowGraphic560E00}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 61, 49, 17, 1, {.graphic = &gWindowGraphic560E18}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 175, 49, 17, 1, {.graphic = &gWindowGraphic560E30}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 220, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E48}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 199, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E60}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 23, 92, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 108, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 124, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 140, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 156, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 172, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic560E90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560EA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560EC0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 374, 281, 1, {.mouseFlags = &gWindowMouseFlagsD6772C}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

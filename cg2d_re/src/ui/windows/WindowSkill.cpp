@@ -3,6 +3,154 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004EF710。
+static std::int32_t WindowSkill_ClassifyAttributeSkill(std::int32_t skillId); // 221..224分类0..3，其余-1。
+
+// 原函数：0x004F0200。
+static void WindowSkill_ReceiveTextTargets(const char* text); // ysVc完整名单生产；唯一回复调用方弃用混合返回。
+
+// 原函数：0x004871B0。
+static login::YobiAction* WindowSkill_OpenTextTargets(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
+
+// 原函数：0x00487020。
+static std::int32_t WindowSkill_SelectTextTarget(std::int32_t index, const char* text); // 请求属性/发送技能及释放通知。
+
+// 原函数：0x00479B80。
+static void WindowSkill_ShowSkillList(WindowInstance* window, std::int32_t skillIndex); // 技能列表定位，不以used过滤索引查找。
+
+// 原函数：0x0047B6C0。
+static void WindowSkill_DrawSkillRow(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t enabled, std::int32_t textLayer, std::int32_t graphicLayer,
+    std::uint32_t color); // 固定配对对应技能，需求槽数按S8。
+
+// 原函数：0x0047B820。
+static std::int32_t WindowSkill_HandleSkillRow(std::int32_t index, std::int32_t state); // 列表排序请求、打开技术与右键拖动。
+
+// 原函数：0x00479700。
+static void WindowSkill_HandleDrag(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind4拖动，仅message0推进。
+
+// 原函数：0x004797A0。
+static std::int32_t WindowSkill_StartDrag(std::int32_t sourceIndex); // 安装479700并透传返回。
+
+// 原函数：0x00479C80。
+static void WindowSkill_ShowTechniques(WindowInstance* window, std::int32_t pairIndex); // 切技术模式，负参数保留原技能。
+
+// 原函数：0x00479DA0。
+static void WindowSkill_ShowRecipes(WindowInstance* window, std::int32_t level); // 切配方，滚动先用旧上限。
+
+// 原函数：0x00479EA0。
+static void WindowSkill_ShowBattleSkills(WindowInstance* window, std::int32_t skillIndex); // 战斗列表及原过滤表尾字节计数门槛。
+
+// 原函数：0x0047A000。
+static void WindowSkill_ShowBattleTechniques(WindowInstance* window, std::int32_t index, std::uint8_t directSkill); // 战斗技术初始化。
+
+// 原函数：0x0047C570。
+static std::int32_t WindowSkill_HandleBattleSkillRow(std::int32_t index, std::int32_t state); // 战斗列表行，技能标志决定可用。
+
+// 原函数：0x0047C700。
+static std::int32_t WindowSkill_SelectBattleTechnique(std::int32_t index, std::int32_t state); // 战斗技术选择，独立FP读取与回调后重取窗口。
+
+// 原函数：0x0047A1A0。
+static void WindowSkill_ShowPetSkills(WindowInstance* window); // 宠物模式初始化，保留弃用结果的FP读取。
+
+// 原函数：0x0047A320。
+static void WindowSkill_ShowRidingSkills(WindowInstance* window); // 骑乘模式初始化，名称借自身战斗对象。
+
+// 原函数：0x0047CB00。
+static void WindowSkill_DrawPetSkillRow(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 宠物行绘制，两次宠物查询。
+
+// 原函数：0x0047CE70。
+static void WindowSkill_DrawRidingSkillRow(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 骑乘行绘制，固定技术记录。
+
+// 原函数：0x0047CC80。
+static std::int32_t WindowSkill_SelectPetSkill(std::int32_t index, std::int32_t state); // 宠物选择，不加滚动偏移。
+
+// 原函数：0x0047CFE0。
+static std::int32_t WindowSkill_SelectRidingSkill(std::int32_t index, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
+
+// 原函数：0x0047B110。
+static std::int32_t WindowSkill_ButtonBack(std::int32_t index, std::int32_t state); // 固定入口窗口的返回按钮。
+
+// 原函数：0x0047B210。
+static std::int32_t WindowSkill_ButtonUse(std::int32_t index, std::int32_t state); // TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。
+
+// 原函数：0x0047C950。
+static std::int32_t WindowSkill_ButtonPetSkillBack(std::int32_t index, std::int32_t state); // 无可用宠物技能时略过，通知-1。
+
+// 原函数：0x0047B3D0。
+static std::int32_t WindowSkill_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 前一行，bit400。
+
+// 原函数：0x0047B470。
+static std::int32_t WindowSkill_ButtonNextRow(std::int32_t index, std::int32_t state); // 后一行，bit400。
+
+// 原函数：0x0047B520。
+static std::int32_t WindowSkill_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 前十行，音效后重读页码。
+
+// 原函数：0x0047B5D0。
+static std::int32_t WindowSkill_ButtonNextPage(std::int32_t index, std::int32_t state); // 后十行，不额外钳制负上限。
+
+// 原函数：0x0047B680。
+static std::int32_t WindowSkill_Scroll(std::int32_t unusedIndex, std::int32_t state); // 同源滚轮，恒返0。
+
+// 原函数：0x0047B9B0。
+static void WindowSkill_HandleTechniqueRow(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t technique,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 技术行，>=100按战斗FP着色。
+
+// 原函数：0x0047C240。
+static void WindowSkill_HandleRecipeRow(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t recipe,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 配方行与独立图号表。
+
+// 原函数：0x0047BC00。
+static std::int32_t WindowSkill_SelectSkillType(std::int32_t index, std::int32_t state); // 五类技能选择与完整失败音效。
+
+// 原函数：0x0047C3A0。
+static std::int32_t WindowSkill_SelectRecipe(std::int32_t index, std::int32_t state); // 转生一致才处理配方，恒返0。
+
+// 原函数：0x004EF750。
+static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
+
+// 原函数：0x004874B0。
+static login::YobiAction* WindowSkill_OpenAttributeTargets(); // 同源六属性视图与46创建，不回滚计数。
+
+// 原函数：0x004872E0。
+static std::int32_t WindowSkill_SelectAttributeTarget(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。
+
+// 原函数：0x00479820。
+static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009，按S16读取槽号。
+
+// 原函数：0x00479920。
+static std::int32_t WindowSkill_ReadCrystalElement(); // 同一槽7的属性0..3；未用0，未知ID为-1。
+
+// 原函数：0x00479A00。
+static std::int32_t WindowSkill_FindPetTechnique(std::int32_t petIndex); // 宠物技术索引对中查40330..40332。
+
+// 原函数：0x00479A70。
+static std::int32_t WindowSkill_CheckPetLevel(std::int32_t petIndex, std::int32_t crystalLevel); // 宠物等级闭区间。
+
+// 原函数：0x00486FE0。
+static std::int32_t WindowSkill_MatchesCrystalLevel(); // 当前技能技术value90与重读晶石等级等值。
+
+// 原函数：0x0047A620。
+static std::int32_t WindowSkill_Update(std::int32_t value);
+
+// 原函数：0x0047A7A0。
+static std::int32_t WindowSkill_Draw(std::int32_t value);
+
+// 原函数：0x0047B0E0。
+static void WindowSkill_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
 std::int32_t gSkillTargetCountCA0004 = 0; // 原全局：0x00CA0004。
 
 std::int32_t gSkillTargetPageC8A974 = 0; // 原全局：0x00C8A974。
@@ -11,9 +159,9 @@ std::int32_t gSkillTargetPageCountCA0178 = 0; // 原全局：0x00CA0178。
 
 std::int32_t gSkillSelectedTargetCC4B1C = 0; // 原全局：0x00CC4B1C。
 
-std::int32_t gSkillWindowModeD672AC = 0; // 原全局：0x00D672AC。
+static std::int32_t gSkillWindowModeD672AC = 0; // 原全局：0x00D672AC。
 
-std::int32_t gSkillWindowIndexD2EA60 = 0; // 原全局：0x00D2EA60。
+static std::int32_t gSkillWindowIndexD2EA60 = 0; // 原全局：0x00D2EA60。
 
 static std::int32_t gSkillWindowScrollD2D648 = 0; // 原全局：0x00D2D648。
 
@@ -34,53 +182,156 @@ std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：
 
 std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
 
-std::array<const char*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
+static std::array<const char*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
 
-std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {}; // 原全局：0x00CB1DE4。
+static std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {}; // 原全局：0x00CB1DE4。
 
-std::uint8_t gSkillTargetPendingC8AF5F = 0; // 原全局：0x00C8AF5F。
-namespace {
+static std::uint8_t gSkillTargetPendingC8AF5F = 0; // 原全局：0x00C8AF5F。
 
 // ND六行属性使用各自原槽，不能与nFV值记录或ysVc名称表混用。
-std::int32_t gSkillStatusCountC8AA94 = 0; // 原全局：0x00C8AA94。
+static std::int32_t gSkillStatusCountC8AA94 = 0; // 原全局：0x00C8AA94。
 
-std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
+static std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
 
-std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {}; // 原全局：0x00CC31C0。
+static std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {}; // 原全局：0x00CC31C0。
 
-std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {}; // 原全局：0x00D67600。
+static std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {}; // 原全局：0x00D67600。
 
-std::array<std::int32_t, 6> gSkillStatusHpCC318C {}; // 原全局：0x00CC318C。
+static std::array<std::int32_t, 6> gSkillStatusHpCC318C {}; // 原全局：0x00CC318C。
 
-std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {}; // 原全局：0x00D66C1C。
+static std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {}; // 原全局：0x00D66C1C。
 
-std::array<std::int32_t, 6> gSkillStatusFpCC2348 {}; // 原全局：0x00CC2348。
+static std::array<std::int32_t, 6> gSkillStatusFpCC2348 {}; // 原全局：0x00CC2348。
 
-std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {}; // 原全局：0x00D2EA80。
+static std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {}; // 原全局：0x00D2EA80。
 
-std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {}; // 原全局：0x00CA0A78。
+static std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {}; // 原全局：0x00CA0A78。
 
-std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {}; // 原全局：0x00CF3FD0。
+static std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {}; // 原全局：0x00CF3FD0。
 
-std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {}; // 原全局：0x00CC4BE8。
+static std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {}; // 原全局：0x00CC4BE8。
 
-constexpr std::array<std::array<std::int32_t, 2>, 8> kPetCrystalItemRanges {{
+static constexpr std::array<std::array<std::int32_t, 2>, 8> kPetCrystalItemRanges {{
     {0x24B9, 0x24C2}, {0x24C3, 0x24CC}, {0x24CD, 0x24D6}, {0x24D7, 0x24E0},
     {0x24E1, 0x24E5}, {0x24E6, 0x24EA}, {0x24EB, 0x24EF}, {0x24F0, 0x24F4},
 }};
 
 // 原54F2C8起的15对等级闭区间，晶石等级1对应首项。
-constexpr std::array<std::array<std::int32_t, 2>, 15> kPetCrystalLevels54F2C8 {{
+static constexpr std::array<std::array<std::int32_t, 2>, 15> kPetCrystalLevels54F2C8 {{
     {1, 15}, {9, 22}, {16, 29}, {23, 36}, {30, 43},
     {37, 50}, {44, 57}, {51, 64}, {58, 71}, {65, 78},
     {72, 85}, {79, 92}, {86, 99}, {93, 106}, {100, 1000},
 }};
 
-constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 { // 原常量参考：0x0054F340。
+static constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 { // 原常量参考：0x0054F340。
     1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8,
 };
-} // namespace
 
+static constexpr std::array<std::int32_t, 18> kSkillListImages54F37C { // 原常量参考：0x0054F37C。
+    0x3B59F, 0x3B5A0, 0x3B5A1, 0x3B5A5, 0x3B5A6, 0x3B5A7,
+    0x3B5A5, 0x3B5A6, 0x3B5A7, 0x3B5A8, 0x3B5A9, 0x3B5AA,
+    0x3B5A2, 0x3B5A3, 0x3B5A4, 0x3B59F, 0x3B5A0, 0x3B5A1,
+};
+
+static constexpr std::array<std::int32_t, 3> kPetSkillImages54F454 {0x3B5B7, 0x3B5B8, 0x3B5B9}; // 原常量参考：0x0054F454。
+
+static constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 { // 原常量参考：0x0054F3C4。
+    0x3B5AB, 0x3B5AC, 0x3B5AD, 0x3B5B1, 0x3B5B2, 0x3B5B3,
+    0x3B5B1, 0x3B5B2, 0x3B5B3, 0x3B5B4, 0x3B5B5, 0x3B5B6,
+    0x3B5AE, 0x3B5AF, 0x3B5B0, 0x3B5AB, 0x3B5AC, 0x3B5AD,
+};
+
+static constexpr std::array<std::int32_t, 18> kSkillRecipeImages54F40C { // 原常量参考：0x0054F40C。
+    0x3B5B7, 0x3B5B8, 0x3B5B9, 0x3B5BD, 0x3B5BE, 0x3B5BF,
+    0x3B5BD, 0x3B5BE, 0x3B5BF, 0x3B5C0, 0x3B5C1, 0x3B5C2,
+    0x3B5BA, 0x3B5BB, 0x3B5BC, 0x3B5B7, 0x3B5B8, 0x3B5B9,
+};
+
+static WindowGraphicData gWindowGraphic561A40 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A40。
+
+static WindowGraphicData gWindowGraphic561A58 {0x3BA24, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A58。
+
+static WindowGraphicData gWindowGraphic561A70 {0x3BA27, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00561A70。
+
+static WindowGraphicData gWindowGraphic561A88 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A88。
+
+static WindowGraphicData gWindowGraphic561AA0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AA0。
+
+static WindowGraphicData gWindowGraphic561AB8 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AB8。
+
+static WindowGraphicData gWindowGraphic561AD0 {0x3B571, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AD0。
+
+static WindowGraphicData gWindowGraphic561AE8 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AE8。
+
+static WindowGraphicData gWindowGraphic561B00 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B00。
+
+static WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B18。
+
+static WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B30。
+
+static WindowTextPrototype gWindowText561B48 { // 原全局：0x00561B48。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"無職", // 原常量参考：0x005860A4。
+};
+
+static WindowTextPrototype gWindowText561B50 { // 原全局：0x00561B50。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10/10", // 原常量参考：0x0058609C。
+};
+
+static WindowTextPrototype gWindowText561B58 { // 原全局：0x00561B58。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
+};
+
+static WindowTextPrototype gWindowText561B60 { // 原全局：0x00561B60。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+};
+
+static WindowTextPrototype gWindowText561B68 { // 原全局：0x00561B68。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
+};
+
+static WindowTextPrototype gWindowText561B70 { // 原全局：0x00561B70。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
+};
+
+static std::uint32_t gWindowMouseFlagsD67780 = 0; // 原全局：0x00D67780。
+
+static WindowElementPrototype gWindowElements561B78[30] { // 原全局：0x00561B78。
+    {WindowElementType_Graphic, 222, 9, 11, 11, 1, {.graphic = &gWindowGraphic561A40}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Text, 82, 12, 0, 0, 1, {.text = &gWindowText561B48}, &WindowElement_NoOp},
+    {WindowElementType_Text, 87, 12, 0, 0, 1, {.text = &gWindowText561B68}, &WindowElement_NoOp},
+    {WindowElementType_Text, 66, 32, 0, 0, 1, {.text = &gWindowText561B50}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AD0}, &WindowSkill_ButtonBack},
+    {WindowElementType_Text, 103, 31, 0, 0, 1, {.text = &gWindowText561B58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 184, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AE8}, &WindowSkill_ButtonUse},
+    {WindowElementType_Text, 95, 31, 0, 0, 1, {.text = &gWindowText561B70}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 28, 49, 17, 1, {.graphic = &gWindowGraphic561B00}, &WindowSkill_ButtonPetSkillBack},
+    {WindowElementType_Text, 190, 13, 0, 0, 1, {.text = &gWindowText561B60}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 223, 57, 0, 14, 1, {.graphic = &gWindowGraphic561A88}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 223, 57, 11, 140, 1, {.mouseFlags = &gWindowMouseFlagsD67780}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 223, 47, 11, 11, 1, {.graphic = &gWindowGraphic561AA0}, &WindowSkill_ButtonPreviousRow},
+    {WindowElementType_Graphic, 223, 196, 11, 11, 1, {.graphic = &gWindowGraphic561AB8}, &WindowSkill_ButtonNextRow},
+    {WindowElementType_Graphic, 195, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B18}, &WindowSkill_ButtonPreviousPage},
+    {WindowElementType_Graphic, 215, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B30}, &WindowSkill_ButtonNextPage},
+    {WindowElementType_EventArea, 0, 0, 241, 258, 1, {.unusedValue = 0}, &WindowSkill_Scroll},
+    {WindowElementType_EventArea, 14, 46, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 62, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 78, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 94, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 110, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 126, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 142, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 158, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 174, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_EventArea, 14, 190, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561A58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561A70}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 243, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口10；原全局：0x0054E420。
+WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30, gWindowElements561B78, &WindowSkill_Update, &WindowSkill_Draw, &WindowSkill_Release}; // 10: 54E420
+
+// 窗口函数实现。
 
 LegacySkillStatusView WindowSkill_BorrowStatusView() noexcept
 {
@@ -128,7 +379,7 @@ void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::in
 }
 
 // 原函数：0x00479820。
-std::int32_t WindowSkill_FindSpecialSkill()
+static std::int32_t WindowSkill_FindSpecialSkill()
 {
     for (const auto& pair : world::detail::gSkillPairsF63370) {
         if (pair.used != 0) {
@@ -159,7 +410,7 @@ std::int32_t WindowSkill_ReadCrystalLevel()
 }
 
 // 原函数：0x00479920。
-std::int32_t WindowSkill_ReadCrystalElement()
+static std::int32_t WindowSkill_ReadCrystalElement()
 {
     const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[7];
     if (item.used == 0) {
@@ -183,7 +434,7 @@ std::int32_t WindowSkill_ReadBattlePetImage()
 }
 
 // 原函数：0x00479A00。
-std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
+static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 {
     const auto& pet = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex];
     const std::int32_t count = pet.value6A4;
@@ -201,7 +452,7 @@ std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 }
 
 // 原函数：0x00479A70。
-std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const std::int32_t crystalLevel)
+static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
     const std::int32_t level = (*world::detail::BorrowPetRuntimeF633F8Storage())[petIndex].value08;
     const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
@@ -248,7 +499,7 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
 }
 
 // 原函数：0x00486FE0。
-std::int32_t WindowSkill_MatchesCrystalLevel()
+static std::int32_t WindowSkill_MatchesCrystalLevel()
 {
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t skill = gUsingSkillIndexD2F32C;
@@ -257,7 +508,7 @@ std::int32_t WindowSkill_MatchesCrystalLevel()
 }
 
 // 原函数：0x004872E0。
-std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const char*)
+static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const char*)
 {
     if (index == -1) {
         WindowRuntime_DecrementOperationCount();
@@ -305,7 +556,7 @@ std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const c
 }
 
 // 原函数：0x004874B0。
-login::YobiAction* WindowSkill_OpenAttributeTargets()
+static login::YobiAction* WindowSkill_OpenAttributeTargets()
 {
     const std::int32_t count = gSkillStatusCountC8AA94;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -338,7 +589,7 @@ login::YobiAction* WindowSkill_OpenAttributeTargets()
 }
 
 // 原函数：0x004EF750。
-login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
+static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
 {
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
@@ -439,7 +690,7 @@ login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const text)
 }
 
 // 原函数：0x004EF710。
-std::int32_t WindowSkill_ClassifyAttributeSkill(const std::int32_t skillId)
+static std::int32_t WindowSkill_ClassifyAttributeSkill(const std::int32_t skillId)
 {
     switch (skillId) {
     case 221: return 0;
@@ -449,64 +700,9 @@ std::int32_t WindowSkill_ClassifyAttributeSkill(const std::int32_t skillId)
     default: return -1;
     }
 }
-namespace {
-
-
-constexpr std::array<std::int32_t, 18> kSkillListImages54F37C { // 原常量参考：0x0054F37C。
-    0x3B59F, 0x3B5A0, 0x3B5A1, 0x3B5A5, 0x3B5A6, 0x3B5A7,
-    0x3B5A5, 0x3B5A6, 0x3B5A7, 0x3B5A8, 0x3B5A9, 0x3B5AA,
-    0x3B5A2, 0x3B5A3, 0x3B5A4, 0x3B59F, 0x3B5A0, 0x3B5A1,
-};
-
-constexpr std::array<std::int32_t, 3> kPetSkillImages54F454 {0x3B5B7, 0x3B5B8, 0x3B5B9}; // 原常量参考：0x0054F454。
-
-constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 { // 原常量参考：0x0054F3C4。
-    0x3B5AB, 0x3B5AC, 0x3B5AD, 0x3B5B1, 0x3B5B2, 0x3B5B3,
-    0x3B5B1, 0x3B5B2, 0x3B5B3, 0x3B5B4, 0x3B5B5, 0x3B5B6,
-    0x3B5AE, 0x3B5AF, 0x3B5B0, 0x3B5AB, 0x3B5AC, 0x3B5AD,
-};
-
-constexpr std::array<std::int32_t, 18> kSkillRecipeImages54F40C { // 原常量参考：0x0054F40C。
-    0x3B5B7, 0x3B5B8, 0x3B5B9, 0x3B5BD, 0x3B5BE, 0x3B5BF,
-    0x3B5BD, 0x3B5BE, 0x3B5BF, 0x3B5C0, 0x3B5C1, 0x3B5C2,
-    0x3B5BA, 0x3B5BB, 0x3B5BC, 0x3B5B7, 0x3B5B8, 0x3B5B9,
-};
-
-constexpr wchar_t kSkillUsable586518[] = // 原常量参考：0x00586518。
-    L"使用此一等級的技能。";
-
-constexpr wchar_t kSkillUnusable5864FC[] = // 原常量参考：0x005864FC。
-    L"無法使用此一等級的技能。";
-
-constexpr wchar_t kSkillInventoryFull5864E4[] = L"物品欄已滿"; // 原常量参考：0x005864E4。
-
-constexpr wchar_t kSkillRecipeHint586530[] = // 原常量参考：0x00586530。
-    L"製作此配方內容的物品。";
-
-constexpr wchar_t kSkillListHint5864C8[] = // 原常量参考：0x005864C8。
-    L"打開這個技能的技能視窗。";
-
-constexpr wchar_t kBattleSkillInventoryFull586548[] = // 原常量参考：0x00586548。
-    L"由於持有物品滿了，無法使用。";
-
-constexpr wchar_t kBattleSkillNoFp586568[] = // 原常量参考：0x00586568。
-    L"由於魔力不足，無法使用此技能。";
-
-constexpr wchar_t kBattleSkillUnusable586588[] = // 原常量参考：0x00586588。
-    L"由於能力不足，無法使用此技能。";
-
-constexpr wchar_t kSkillBackToTechniques586470[] = // 原常量参考：0x00586470。
-    L"切換回技能等級視窗。";
-
-constexpr wchar_t kSkillBackToList586488[] = // 原常量参考：0x00586488。
-    L"切換回技能一覽視窗。";
-
-constexpr wchar_t kPetSkillSkip5865A8[] = L"略過此回合。"; // 原常量参考：0x005865A8。
-} // namespace
-
 
 // 原函数：0x0047B6C0。
-void WindowSkill_DrawSkillRow(
+static void WindowSkill_DrawSkillRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t enabled,
     const std::int32_t textLayer, const std::int32_t graphicLayer, const std::uint32_t color)
@@ -539,7 +735,7 @@ void WindowSkill_DrawSkillRow(
 }
 
 // 原函数：0x00479700。
-void WindowSkill_HandleDrag(
+static void WindowSkill_HandleDrag(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     if (message != 0) {
@@ -566,13 +762,13 @@ void WindowSkill_HandleDrag(
 }
 
 // 原函数：0x004797A0。
-std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
 {
     return WindowDrag_Start(4, sourceIndex, WindowSkill_HandleDrag);
 }
 
 // 原函数：0x0047B820。
-std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gSkillWindowScrollD2D648 + index - 17;
     if (world::detail::gSkillPairsF63370[pairIndex].used == 0) {
@@ -611,7 +807,7 @@ std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int
         consumed = 1;
     }
     if ((events & 1u) != 0) {
-        gHoverTextD68AE8 = kSkillListHint5864C8;
+        gHoverTextD68AE8 = L"打開這個技能的技能視窗。" /* 原常量参考：0x005864C8。 */;
     }
     if ((events & 0x21u) != 0) {
         visualState = 2;
@@ -629,7 +825,7 @@ std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int
 }
 
 // 原函数：0x00479B80。
-void WindowSkill_ShowSkillList(WindowInstance* const window, const std::int32_t skillIndex)
+static void WindowSkill_ShowSkillList(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
     while (row < 15
@@ -677,7 +873,7 @@ void WindowSkill_ShowSkillList(WindowInstance* const window, const std::int32_t 
 }
 
 // 原函数：0x0047B9B0。
-void WindowSkill_HandleTechniqueRow(
+static void WindowSkill_HandleTechniqueRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     std::int32_t technique, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
@@ -735,7 +931,7 @@ void WindowSkill_HandleTechniqueRow(
 }
 
 // 原函数：0x0047C240。
-void WindowSkill_HandleRecipeRow(
+static void WindowSkill_HandleRecipeRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t recipe, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
@@ -766,7 +962,7 @@ void WindowSkill_HandleRecipeRow(
 }
 
 // 原函数：0x00479C80。
-void WindowSkill_ShowTechniques(WindowInstance* const window, const std::int32_t pairIndex)
+static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::int32_t pairIndex)
 {
     gSkillWindowModeD672AC = 1;
     gSkillWindowScrollD2D648 = 0;
@@ -806,7 +1002,7 @@ void WindowSkill_ShowTechniques(WindowInstance* const window, const std::int32_t
 }
 
 // 原函数：0x0047B0E0。
-void WindowSkill_Release()
+static void WindowSkill_Release()
 {
     const std::int32_t mode = gSkillWindowModeD672AC;
     if (mode == 1 || mode == 2) {
@@ -819,7 +1015,7 @@ void WindowSkill_Release()
 }
 
 // 原函数：0x00479EA0。
-void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std::int32_t skillIndex)
+static void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std::int32_t skillIndex)
 {
     std::int32_t row = 0;
     while (row < 15
@@ -877,7 +1073,7 @@ void WindowSkill_ShowBattleSkills(WindowInstance* const window, const std::int32
 }
 
 // 原函数：0x0047A000。
-void WindowSkill_ShowBattleTechniques(
+static void WindowSkill_ShowBattleTechniques(
     WindowInstance* const window, const std::int32_t index, const std::uint8_t directSkill)
 {
     gSkillWindowModeD672AC = 4;
@@ -923,7 +1119,7 @@ void WindowSkill_ShowBattleTechniques(
 }
 
 // 原函数：0x0047C570。
-std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = gBattleSkillRowsD3FABC[gSkillWindowScrollD2D648 + index - 17];
     if (pairIndex < 0 || world::detail::gSkillPairsF63370[pairIndex].used == 0) {
@@ -944,7 +1140,7 @@ std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const st
         } else {
             if (world::detail::gSkillsF1BAFC[skillIndex].skillId == 72
                 && world::detail::Sub_518C60() == 0) {
-                world::detail::Sub_44B050(kBattleSkillInventoryFull586548, 4, 3);
+                world::detail::Sub_44B050(L"由於持有物品滿了，無法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -956,7 +1152,7 @@ std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const st
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
-            gHoverTextD68AE8 = kSkillListHint5864C8;
+            gHoverTextD68AE8 = L"打開這個技能的技能視窗。" /* 原常量参考：0x005864C8。 */;
         }
     }
     if (clicked) {
@@ -985,7 +1181,7 @@ std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const st
 }
 
 // 原函数：0x0047C700。
-std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
     const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
@@ -1020,11 +1216,11 @@ std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, const s
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
-        const wchar_t* hint = kBattleSkillUnusable586588;
+        const wchar_t* hint = L"由於能力不足，無法使用此技能。" /* 原常量参考：0x00586588。 */;
         if (record->techniques3C[technique].value8C != 0) {
             const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
             hint = login::detail::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
-                ? kBattleSkillNoFp586568 : kSkillUsable586518;
+                ? L"由於魔力不足，無法使用此技能。" /* 原常量参考：0x00586568。 */ : L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
         }
         gHoverTextD68AE8 = hint;
     }
@@ -1093,7 +1289,7 @@ login::YobiAction* WindowSkill_OpenBattleTechniques(
 }
 
 // 原函数：0x0047CB00。
-void WindowSkill_DrawPetSkillRow(
+static void WindowSkill_DrawPetSkillRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
@@ -1132,7 +1328,7 @@ void WindowSkill_DrawPetSkillRow(
 }
 
 // 原函数：0x0047CE70。
-void WindowSkill_DrawRidingSkillRow(
+static void WindowSkill_DrawRidingSkillRow(
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
@@ -1169,7 +1365,7 @@ void WindowSkill_DrawRidingSkillRow(
 }
 
 // 原函数：0x0047CC80。
-std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t pairIndex = index - 17;
     std::int32_t pairPet = world::detail::Sub_43C4B0();
@@ -1209,7 +1405,7 @@ std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int
     if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
-        gHoverTextD68AE8 = kSkillUsable586518;
+        gHoverTextD68AE8 = L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & 2u) != 0) {
         visualState = 1;
@@ -1234,7 +1430,7 @@ std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int
 }
 
 // 原函数：0x0047CFE0。
-std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::int32_t state)
 {
     const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
@@ -1269,7 +1465,7 @@ std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::
     if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
-        gHoverTextD68AE8 = kSkillUsable586518;
+        gHoverTextD68AE8 = L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */;
     }
     if ((visualFlags & 2u) != 0) {
         visualState = 1;
@@ -1294,7 +1490,7 @@ std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::
 }
 
 // 原函数：0x0047A1A0。
-void WindowSkill_ShowPetSkills(WindowInstance* const window)
+static void WindowSkill_ShowPetSkills(WindowInstance* const window)
 {
     gSkillWindowModeD672AC = 5;
     gSkillWindowScrollD2D648 = 0;
@@ -1341,7 +1537,7 @@ void WindowSkill_ShowPetSkills(WindowInstance* const window)
 }
 
 // 原函数：0x0047A320。
-void WindowSkill_ShowRidingSkills(WindowInstance* const window)
+static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
 {
     gSkillWindowModeD672AC = 6;
     gSkillWindowScrollD2D648 = 0;
@@ -1412,7 +1608,7 @@ login::YobiAction* WindowSkill_OpenRidingSkills(const WindowValueCallback callba
 }
 
 // 原函数：0x0047B110。
-std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
@@ -1422,9 +1618,9 @@ std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::int32_t
     if (hovered) {
         const std::int32_t mode = gSkillWindowModeD672AC;
         if (mode == 1 || mode == 4) {
-            gHoverTextD68AE8 = kSkillBackToList586488;
+            gHoverTextD68AE8 = L"切換回技能一覽視窗。" /* 原常量参考：0x00586488。 */;
         } else if (mode == 2) {
-            gHoverTextD68AE8 = kSkillBackToTechniques586470;
+            gHoverTextD68AE8 = L"切換回技能等級視窗。" /* 原常量参考：0x00586470。 */;
         }
     }
     if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {
@@ -1481,7 +1677,7 @@ std::int32_t WindowSkill_Back()
 
 // TUC01：初始元素→单字节动作标志→图形；持有 hover，Y/X发送后按原序发布转生/占用。
 // 原函数：0x0047B210。
-std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     WindowElement* const elements = initialWindow->elements;
@@ -1531,7 +1727,7 @@ std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::int32_t 
 }
 
 // 原函数：0x0047C950。
-std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const std::int32_t mode = gSkillWindowModeD672AC;
@@ -1572,7 +1768,7 @@ std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std:
     }
     const bool hovered = (state & 1) != 0;
     if (hovered) {
-        gHoverTextD68AE8 = kPetSkillSkip5865A8;
+        gHoverTextD68AE8 = L"略過此回合。" /* 原常量参考：0x005865A8。 */;
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -1595,7 +1791,7 @@ std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std:
 }
 
 // 原函数：0x0047A620。
-std::int32_t WindowSkill_Update(const std::int32_t value)
+static std::int32_t WindowSkill_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t mode = gSkillWindowModeD672AC;
@@ -1650,7 +1846,7 @@ std::int32_t WindowSkill_Update(const std::int32_t value)
 }
 
 // 原函数：0x0047A7A0。
-std::int32_t WindowSkill_Draw(const std::int32_t)
+static std::int32_t WindowSkill_Draw(const std::int32_t)
 {
     WindowElement* const elements = gCurrentWindow->elements;
     const auto* const mouse = static_cast<const WindowMouseData*>(elements[11].data);
@@ -1829,7 +2025,7 @@ std::int32_t WindowSkill_Draw(const std::int32_t)
 }
 
 // 原函数：0x0047B3D0。
-std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1857,7 +2053,7 @@ std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, const std::
 }
 
 // 原函数：0x0047B470。
-std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1887,7 +2083,7 @@ std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const std::int3
 }
 
 // 原函数：0x0047B520。
-std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1914,7 +2110,7 @@ std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, const std:
 }
 
 // 原函数：0x0047B5D0。
-std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -1944,7 +2140,7 @@ std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const std::int
 }
 
 // 原函数：0x0047B680。
-std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::BorrowLegacyMouseStateStorage()->tailReset);
@@ -1957,7 +2153,7 @@ std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t state)
 }
 
 // 原函数：0x00479DA0。
-void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int32_t level)
+static void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int32_t level)
 {
     if (level >= 0) {
         gSkillRecipeLevelC8B1B4 = level;
@@ -1988,7 +2184,7 @@ void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int32_t le
 }
 
 // 原函数：0x0047C3A0。
-std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
     const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
@@ -2024,7 +2220,7 @@ std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32
     if ((state & 1) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = recipe;
-        gHoverTextD68AE8 = kSkillRecipeHint586530;
+        gHoverTextD68AE8 = L"製作此配方內容的物品。" /* 原常量参考：0x00586530。 */;
     }
     if (clicked) {
         visualState = 1;
@@ -2044,7 +2240,7 @@ std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x0047BC00。
-std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
     const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
@@ -2054,7 +2250,7 @@ std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::in
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     if ((state & 1) != 0) {
-        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? kSkillUsable586518 : kSkillUnusable5864FC;
+        gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */ : L"無法使用此一等級的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
             if (world::detail::IsPlayerFpLessThan(cost)) {
@@ -2096,7 +2292,7 @@ std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::in
                         return;
                     }
                     if (world::detail::Sub_518C60() <= 0) {
-                        world::detail::Sub_44B050(kSkillInventoryFull5864E4, 4, 3);
+                        world::detail::Sub_44B050(L"物品欄已滿" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;
                     }
@@ -2221,7 +2417,7 @@ void WindowSkill_SyncStates()
 }
 
 // 原函数：0x00487020。
-std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const char* const text)
+static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const char* const text)
 {
     if (index == -1) {
         WindowRuntime_DecrementOperationCount();
@@ -2271,7 +2467,7 @@ std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const char* 
 }
 
 // 原函数：0x004871B0。
-login::YobiAction* WindowSkill_OpenTextTargets()
+static login::YobiAction* WindowSkill_OpenTextTargets()
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     gSkillSendModeC8A970 = 0;
@@ -2306,7 +2502,7 @@ login::YobiAction* WindowSkill_OpenTextTargets()
 }
 
 // 原函数：0x004F0200。
-void WindowSkill_ReceiveTextTargets(const char* const text)
+static void WindowSkill_ReceiveTextTargets(const char* const text)
 {
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
@@ -2377,8 +2573,10 @@ void WindowSkill_ReceiveTextTargets(const char* const text)
         static_cast<void>(audio::Sub_5042D0(19));
     }
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050E340。
 void WindowSkill_ReceiveTextTargetReply(const std::uintptr_t, const char* const text)
@@ -2399,95 +2597,3 @@ void WindowSkill_ReceiveAttributeTargetReply(const std::uintptr_t, const char* c
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic561A40 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A40。
-
-WindowGraphicData gWindowGraphic561A58 {0x3BA24, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A58。
-
-WindowGraphicData gWindowGraphic561A70 {0x3BA27, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00561A70。
-
-WindowGraphicData gWindowGraphic561A88 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561A88。
-
-WindowGraphicData gWindowGraphic561AA0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AA0。
-
-WindowGraphicData gWindowGraphic561AB8 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AB8。
-
-WindowGraphicData gWindowGraphic561AD0 {0x3B571, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AD0。
-
-WindowGraphicData gWindowGraphic561AE8 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561AE8。
-
-WindowGraphicData gWindowGraphic561B00 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B00。
-
-WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B18。
-
-WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561B30。
-
-WindowTextPrototype gWindowText561B48 { // 原全局：0x00561B48。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"無職", // 原常量参考：0x005860A4。
-};
-
-WindowTextPrototype gWindowText561B50 { // 原全局：0x00561B50。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"10/10", // 原常量参考：0x0058609C。
-};
-
-WindowTextPrototype gWindowText561B58 { // 原全局：0x00561B58。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"經驗值", // 原常量参考：0x005861E0。
-};
-
-WindowTextPrototype gWindowText561B60 { // 原全局：0x00561B60。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
-};
-
-WindowTextPrototype gWindowText561B68 { // 原全局：0x00561B68。
-    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"技能", // 原常量参考：0x00586094。
-};
-
-WindowTextPrototype gWindowText561B70 { // 原全局：0x00561B70。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"魔力", // 原常量参考：0x005861C0。
-};
-
-std::uint32_t gWindowMouseFlagsD67780 = 0; // 原全局：0x00D67780。
-
-} // namespace
-
-// 原型：窗口10；原全局：0x0054E420。
-WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30, gWindowElements561B78, &WindowSkill_Update, &WindowSkill_Draw, &WindowSkill_Release}; // 10: 54E420
-
-WindowElementPrototype gWindowElements561B78[30] { // 原全局：0x00561B78。
-    {WindowElementType_Graphic, 222, 9, 11, 11, 1, {.graphic = &gWindowGraphic561A40}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Text, 82, 12, 0, 0, 1, {.text = &gWindowText561B48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 87, 12, 0, 0, 1, {.text = &gWindowText561B68}, &WindowElement_NoOp},
-    {WindowElementType_Text, 66, 32, 0, 0, 1, {.text = &gWindowText561B50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AD0}, &WindowSkill_ButtonBack},
-    {WindowElementType_Text, 103, 31, 0, 0, 1, {.text = &gWindowText561B58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 184, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AE8}, &WindowSkill_ButtonUse},
-    {WindowElementType_Text, 95, 31, 0, 0, 1, {.text = &gWindowText561B70}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 28, 49, 17, 1, {.graphic = &gWindowGraphic561B00}, &WindowSkill_ButtonPetSkillBack},
-    {WindowElementType_Text, 190, 13, 0, 0, 1, {.text = &gWindowText561B60}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 223, 57, 0, 14, 1, {.graphic = &gWindowGraphic561A88}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 223, 57, 11, 140, 1, {.mouseFlags = &gWindowMouseFlagsD67780}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 223, 47, 11, 11, 1, {.graphic = &gWindowGraphic561AA0}, &WindowSkill_ButtonPreviousRow},
-    {WindowElementType_Graphic, 223, 196, 11, 11, 1, {.graphic = &gWindowGraphic561AB8}, &WindowSkill_ButtonNextRow},
-    {WindowElementType_Graphic, 195, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B18}, &WindowSkill_ButtonPreviousPage},
-    {WindowElementType_Graphic, 215, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B30}, &WindowSkill_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 241, 258, 1, {.unusedValue = 0}, &WindowSkill_Scroll},
-    {WindowElementType_EventArea, 14, 46, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 62, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 78, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 94, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 110, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 126, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 142, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 158, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 174, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_EventArea, 14, 190, 207, 16, 1, {.unusedValue = 0}, &WindowSkill_HandleSkillRow},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561A58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561A70}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 243, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

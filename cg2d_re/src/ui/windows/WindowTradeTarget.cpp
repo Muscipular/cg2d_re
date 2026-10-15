@@ -3,15 +3,102 @@
 namespace cg::ui {
 namespace detail {
 
-std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
+// 回调与内部函数前置声明。
 
-std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
+// 原函数：0x0049E990。
+static void WindowTradeTarget_Refresh(std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
 
-WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原全局：0x00CB1E14。
+// 原函数：0x0049E8F0。
+static std::int32_t WindowTradeTarget_Update(std::int32_t value); // 窗口44初始化与移动关闭。
 
-std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
+// 原函数：0x0049EAA0。
+static std::int32_t WindowTradeTarget_Draw(std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
+
+// 原函数：0x0049EB50。
+static std::int32_t WindowTradeTarget_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 上一行。
+
+// 原函数：0x0049EC00。
+static std::int32_t WindowTradeTarget_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行。
+
+// 原函数：0x0049ECC0。
+static std::int32_t WindowTradeTarget_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上五行。
+
+// 原函数：0x0049ED80。
+static std::int32_t WindowTradeTarget_ButtonNextPage(std::int32_t index, std::int32_t state); // 下五行。
+
+// 原函数：0x0049EE60。
+static std::int32_t WindowTradeTarget_Scroll(std::int32_t index, std::int32_t state); // 滚轮像素余量与偏移。
+
+// 原函数：0x0049EEB0。
+static std::int32_t WindowTradeTarget_ButtonCancel(std::int32_t index, std::int32_t state); // 取消提示/关闭及按钮三态。
+
+// 原函数：0x0049EF60。
+static std::int32_t WindowTradeTarget_SelectRow(std::int32_t index, std::int32_t state); // 实际选择回调，随后重读窗口关闭。
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {}; // 原全局：0x00CF3F20。
+
+static std::int32_t gWindowListCountCF46A8 = 0; // 原全局：0x00CF46A8。
+
+// 原全局：0x00CB1E14。 49EF60借用名单文本并弃返回。
+static WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr; // 原全局：0x00CB1E14。
+
+static std::int32_t gWindowListOffsetCC3EF4 = 0; // 原全局：0x00CC3EF4。
 
 static_assert(sizeof(gWindowListNamesCF3F20) == 170);
+
+static WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CCF0。
+
+static WindowGraphicData gWindowGraphic56CD08 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD08。
+
+static WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD20。
+
+static WindowGraphicData gWindowGraphic56CD38 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD38。
+
+static WindowGraphicData gWindowGraphic56CD50 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD50。
+
+static WindowGraphicData gWindowGraphic56CD68 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD68。
+
+static WindowTextPrototype gWindowTexts56CD80[5] { // 原全局：0x0056CD80。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
+};
+
+static WindowTextPrototype gWindowText56CDA8 { // 原全局：0x0056CDA8。
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
+};
+
+static WindowElementPrototype gWindowElements56CDB0[19] { // 原全局：0x0056CDB0。
+    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56CCF0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
+        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56CCF0.imageNo)}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56CD08}, &WindowTradeTarget_ButtonPreviousRow},
+    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56CD20}, &WindowTradeTarget_ButtonNextRow},
+    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56CD50}, &WindowTradeTarget_ButtonPreviousPage},
+    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56CD68}, &WindowTradeTarget_ButtonNextPage},
+    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTradeTarget_Scroll},
+    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56CD38}, &WindowTradeTarget_ButtonCancel},
+    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56CDA8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowTexts56CD80[0]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowTexts56CD80[1]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowTexts56CD80[2]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowTexts56CD80[3]}, &WindowElement_NoOp},
+    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowTexts56CD80[4]}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+};
+
+// 原型：窗口44；原全局：0x0054E8D0。
+WindowPrototype gWindowPrototypeTradeTarget {0, 4, 160, 125, 320, 192, 0x80010101u, 19, gWindowElements56CDB0, &WindowTradeTarget_Update, &WindowTradeTarget_Draw, &WindowRuntime_ReleaseDefault}; // 44: 54E8D0
+
+// 窗口函数实现。
 
 // 原函数：0x0049E800。
 login::YobiAction* WindowTradeTarget_ReceiveTargets(
@@ -47,7 +134,7 @@ login::YobiAction* WindowTradeTarget_ReceiveTargets(
 }
 
 // 原函数：0x0049E990。
-void WindowTradeTarget_Refresh(const std::int32_t offset)
+static void WindowTradeTarget_Refresh(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9 + line].data);
@@ -56,7 +143,7 @@ void WindowTradeTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049E8F0。
-std::int32_t WindowTradeTarget_Update(const std::int32_t value)
+static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
@@ -74,7 +161,7 @@ std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049EAA0。
-std::int32_t WindowTradeTarget_Draw(const std::int32_t)
+static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 {
     gCurrentWindow->elements[0].visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
@@ -100,7 +187,7 @@ std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049EB50。
-std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -129,7 +216,7 @@ std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const
 }
 
 // 原函数：0x0049EC00。
-std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -157,7 +244,7 @@ std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std
 }
 
 // 原函数：0x0049ECC0。
-std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -184,7 +271,7 @@ std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, cons
 }
 
 // 原函数：0x0049ED80。
-std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t result = 0;
@@ -218,7 +305,7 @@ std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const st
 }
 
 // 原函数：0x0049EE60。
-std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
@@ -231,7 +318,7 @@ std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std::int32
 }
 
 // 原函数：0x0049EEB0。
-std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
@@ -255,7 +342,7 @@ std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std:
 }
 
 // 原函数：0x0049EF60。
-std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     if (index - 14 >= gWindowListCountCF46A8) {
         return 0;
@@ -280,61 +367,3 @@ std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const std::in
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CCF0。
-
-WindowGraphicData gWindowGraphic56CD08 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD08。
-
-WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD20。
-
-WindowGraphicData gWindowGraphic56CD38 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD38。
-
-WindowGraphicData gWindowGraphic56CD50 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD50。
-
-WindowGraphicData gWindowGraphic56CD68 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CD68。
-
-WindowTextPrototype gWindowTexts56CD80[5] { // 原全局：0x0056CD80。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
-    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"■"}, // 原常量参考：0x00585F64。
-};
-
-WindowTextPrototype gWindowText56CDA8 { // 原全局：0x0056CDA8。
-    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, L"請選擇對象。", // 原常量参考：0x00585F54。
-};
-
-} // namespace
-
-// 原型：窗口44；原全局：0x0054E8D0。
-WindowPrototype gWindowPrototypeTradeTarget {0, 4, 160, 125, 320, 192, 0x80010101u, 19, gWindowElements56CDB0, &WindowTradeTarget_Update, &WindowTradeTarget_Draw, &WindowRuntime_ReleaseDefault}; // 44: 54E8D0
-
-WindowElementPrototype gWindowElements56CDB0[19] { // 原全局：0x0056CDB0。
-    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56CCF0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
-        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56CCF0.imageNo)}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56CD08}, &WindowTradeTarget_ButtonPreviousRow},
-    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56CD20}, &WindowTradeTarget_ButtonNextRow},
-    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56CD50}, &WindowTradeTarget_ButtonPreviousPage},
-    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56CD68}, &WindowTradeTarget_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTradeTarget_Scroll},
-    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56CD38}, &WindowTradeTarget_ButtonCancel},
-    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56CDA8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowTexts56CD80[0]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowTexts56CD80[1]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowTexts56CD80[2]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowTexts56CD80[3]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowTexts56CD80[4]}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-};
-
-} // namespace cg::ui::detail

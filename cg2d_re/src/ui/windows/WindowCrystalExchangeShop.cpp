@@ -3,62 +3,300 @@
 namespace cg::ui {
 namespace detail {
 
-std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {}; // 原全局：0x00D30428。
+// 回调与内部函数前置声明。
 
-std::int32_t gWindow70ValueD67BA4 = 0; // 原全局：0x00D67BA4。
+// 原函数：0x004C39A0。
+static void WindowCrystalExchangeShop_RefreshRemaining(); // 窗口70五条剩余量文本。
 
-std::uint8_t gWindow70FlagD673D8 = 0; // 原全局：0x00D673D8。
+// 原函数：0x004C3A50。
+static void WindowCrystalExchangeShop_RefreshRows(); // 名称两行和价格，独立分页/显示缓冲。
 
-std::int32_t gWindow70ImageD2E43C = 0; // 原全局：0x00D2E43C。
+// 原函数：0x004C3D40。
+static void WindowCrystalExchangeShop_RefreshQuantities(); // 五条已选数量。
 
-std::int32_t gWindow70ValueD6791C = 0; // 原全局：0x00D6791C。
+// 原函数：0x004C3DA0。
+static void WindowCrystalExchangeShop_RefreshAmount(); // 总额与指定背包物品数量比较。
 
-std::int32_t gWindow70DialogTypeD45D6C = 0; // 原全局：0x00D45D6C。
+// 原函数：0x004C3E20。
+static void WindowCrystalExchangeShop_CountSlots(); // 二十条选中商品占槽。
 
-std::int32_t gWindow70ScrollCC4B68 = 0; // 原全局：0x00CC4B68。
+// 原函数：0x004C3E70。
+static void WindowCrystalExchangeShop_Refresh(); // 首次/分页/数量脏标刷新。
 
-std::int32_t gWindow70DirtyD67BA8 = 0; // 原全局：0x00D67BA8。
+// 原函数：0x004C4270。
+static void WindowCrystalExchangeShop_Submit(std::int32_t value); // 低U8为0才按实时商品组包，命令1。
 
-std::int32_t gWindow70CachedScroll580868 = -1; // 原全局：0x00580868。
+// 原函数：0x004C43C0。
+static std::int32_t WindowCrystalExchangeShop_ButtonOk(std::int32_t index, std::int32_t state); // 交换物数量/背包门禁及确认预览。
 
-std::int32_t gWindow70TotalCB0F74 = 0; // 原全局：0x00CB0F74。
+// 原函数：0x004C50C0。
+static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(std::int32_t index, std::int32_t unusedState); // 窗口70确认覆盖层。
 
-std::int32_t gWindow70SlotsCF4E44 = 0; // 原全局：0x00CF4E44。
+// 原函数：0x004C4CB0。
+static std::int32_t WindowCrystalExchangeShop_HandleInventory(std::int32_t index, std::int32_t state); // 仅首格命中，仍绘完整20格。
 
-std::array<std::wstring, 5> gWindow70PriceTextsCF49C4 {}; // 原全局：0x00CF49C4。
+// 原函数：0x004C4B70。
+static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
 
-std::array<std::wstring, 5> gWindow70CountTextsCC4848 {}; // 原全局：0x00CC4848。
+// 原函数：0x004C46C0。
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 窗口70上一行。
 
-std::wstring gWindow70TotalTextD2D804 {}; // 原全局：0x00D2D804。
+// 原函数：0x004C4740。
+static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行。
 
-std::int32_t gWindow70Tooltip580860 = -1; // 原全局：0x00580860。
+// 原函数：0x004C47C0。
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上一页。
 
-std::int32_t gWindow70Message580864 = -1; // 原全局：0x00580864。
+// 原函数：0x004C4840。
+static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(std::int32_t index, std::int32_t state); // 下一页。
 
-std::int32_t gWindow70TooltipPageD67BA0 = 0; // 原全局：0x00D67BA0。
+// 原函数：0x004C48F0。
+static std::int32_t WindowCrystalExchangeShop_Scroll(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
 
-std::int32_t gWindow70InventoryHover58086C = -2; // 原全局：0x0058086C。
+// 原函数：0x004C4940。
+static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(std::int32_t index, std::int32_t state); // 减数量，窗口70独立脏标。
 
-std::wstring gWindow70BalanceTextCF3F14 {}; // 原全局：0x00CF3F14。
+// 原函数：0x004C4A50。
+static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(std::int32_t index, std::int32_t state); // 加数量，零上限采用交换文案。
 
-WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr; // 原全局：0x00CF4AA4。
+// 原函数：0x004C54D0。
+static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
+    std::int32_t index, std::int32_t page, std::int32_t unused); // 共用D303FC提示键。
 
-std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8 {}; // 原全局：0x00CB0AE8。
+// 原函数：0x004C3530。
+static void WindowCrystalExchangeShop_Release();
 
-std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290 {}; // 原全局：0x00D2E290。
+// 原函数：0x004C3F00。
+static std::int32_t WindowCrystalExchangeShop_Update(std::int32_t value);
 
-std::wstring gWindow70ConfirmHeadingCF4A40 {}; // 原全局：0x00CF4A40。
+// 原函数：0x004C4180。
+static std::int32_t WindowCrystalExchangeShop_Draw(std::int32_t value);
 
-std::wstring gWindow70ConfirmQuestionCF4ABC {}; // 原全局：0x00CF4ABC。
+// 控件载荷、窗口状态、组件表与原型。
 
-std::wstring gWindow70ConfirmAcceptD2DD6C {}; // 原全局：0x00D2DD6C。
+static std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {}; // 原全局：0x00D30428。
 
-std::wstring gWindow70ConfirmCancelCC48BC {}; // 原全局：0x00CC48BC。
+static std::int32_t gWindow70ValueD67BA4 = 0; // 原全局：0x00D67BA4。
+
+static std::uint8_t gWindow70FlagD673D8 = 0; // 原全局：0x00D673D8。
+
+static std::int32_t gWindow70ImageD2E43C = 0; // 原全局：0x00D2E43C。
+
+// 原全局：0x00D6791C。 第十协议字段，仍S32。
+static std::int32_t gWindow70ValueD6791C = 0; // 原全局：0x00D6791C。
+
+static std::int32_t gWindow70DialogTypeD45D6C = 0; // 原全局：0x00D45D6C。
+
+static std::int32_t gWindow70ScrollCC4B68 = 0; // 原全局：0x00CC4B68。
+
+static std::int32_t gWindow70DirtyD67BA8 = 0; // 原全局：0x00D67BA8。
+
+static std::int32_t gWindow70CachedScroll580868 = -1; // 原全局：0x00580868。
+
+static std::int32_t gWindow70TotalCB0F74 = 0; // 原全局：0x00CB0F74。
+
+static std::int32_t gWindow70SlotsCF4E44 = 0; // 原全局：0x00CF4E44。
+
+static std::array<std::wstring, 5> gWindow70PriceTextsCF49C4 {}; // 原全局：0x00CF49C4。
+
+static std::array<std::wstring, 5> gWindow70CountTextsCC4848 {}; // 原全局：0x00CC4848。
+
+static std::wstring gWindow70TotalTextD2D804 {}; // 原全局：0x00D2D804。
+
+static std::int32_t gWindow70Tooltip580860 = -1; // 原全局：0x00580860。
+
+static std::int32_t gWindow70Message580864 = -1; // 原全局：0x00580864。
+
+static std::int32_t gWindow70TooltipPageD67BA0 = 0; // 原全局：0x00D67BA0。
+
+static std::int32_t gWindow70InventoryHover58086C = -2; // 原全局：0x0058086C。
+
+static std::wstring gWindow70BalanceTextCF3F14 {}; // 原全局：0x00CF3F14。
+
+static WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr; // 原全局：0x00CF4AA4。
+
+static std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8 {}; // 原全局：0x00CB0AE8。
+
+static std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290 {}; // 原全局：0x00D2E290。
+
+static std::wstring gWindow70ConfirmHeadingCF4A40 {}; // 原全局：0x00CF4A40。
+
+static std::wstring gWindow70ConfirmQuestionCF4ABC {}; // 原全局：0x00CF4ABC。
+
+static std::wstring gWindow70ConfirmAcceptD2DD6C {}; // 原全局：0x00D2DD6C。
+
+static std::wstring gWindow70ConfirmCancelCC48BC {}; // 原全局：0x00CC48BC。
 
 static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 
+static WindowGraphicData gWindowGraphic5762F0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005762F0。
+
+static WindowGraphicData gWindowGraphic576308 {0x18661, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576308。
+
+static WindowGraphicData gWindowGraphic576320 {0x18662, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576320。
+
+static WindowGraphicData gWindowGraphic576338 {0x18663, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576338。
+
+static WindowGraphicData gWindowGraphic576350 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576350。
+
+static WindowGraphicData gWindowGraphic576368 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576368。
+
+static WindowGraphicData gWindowGraphic576380 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576380。
+
+static WindowGraphicData gWindowGraphic576398 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576398。
+
+static WindowGraphicData gWindowGraphic5763B0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763B0。
+
+static WindowGraphicData gWindowGraphic5763C8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763C8。
+
+static WindowGraphicData gWindowGraphic5763E0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763E0。
+
+static WindowGraphicData gWindowGraphic5763F8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763F8。
+
+static WindowGraphicData gWindowGraphic576410 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576410。
+
+static WindowGraphicData gWindowGraphic576428 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576428。
+
+static WindowGraphicData gWindowGraphic576440 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576440。
+
+static WindowGraphicData gWindowGraphic576458 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576458。
+
+static WindowGraphicData gWindowGraphic576470 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576470。
+
+static WindowGraphicData gWindowGraphic576488 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576488。
+
+static WindowGraphicData gWindowGraphic5764A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764A0。
+
+static WindowGraphicData gWindowGraphic5764B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764B8。
+
+static WindowGraphicData gWindowGraphic5764D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764D0。
+
+static WindowTextPrototype gWindowText5764F8 { // 原全局：0x005764F8。
+    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
+};
+
+static WindowTextPrototype gWindowText576500 { // 原全局：0x00576500。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
+};
+
+static WindowTextPrototype gWindowText576508 { // 原全局：0x00576508。
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
+};
+
+static WindowTextPrototype gWindowText576510 { // 原全局：0x00576510。
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩餘 %2d 個", // 原常量参考：0x00585DCC。
+};
+
+static std::int32_t gWindowAnimationImage576518 = 100000; // 原全局：0x00576518。
+
+static WindowNumberData gWindowNumber576520 {&gWindow70BalanceTextCF3F14, 10, 3, 1, 0}; // 原全局：0x00576520。
+
+static WindowNumberData gWindowNumber576530 {&gWindow70TotalTextD2D804, 0, 3, 1, 0}; // 原全局：0x00576530。
+
+static WindowNumberData gWindowNumber576538 {&gWindow70PriceTextsCF49C4[0], 10, 3, 1, 0}; // 原全局：0x00576538。
+
+static WindowNumberData gWindowNumber576540 {&gWindow70PriceTextsCF49C4[1], 10, 3, 1, 0}; // 原全局：0x00576540。
+
+static WindowNumberData gWindowNumber576548 {&gWindow70PriceTextsCF49C4[2], 10, 3, 1, 0}; // 原全局：0x00576548。
+
+static WindowNumberData gWindowNumber576550 {&gWindow70PriceTextsCF49C4[3], 10, 3, 1, 0}; // 原全局：0x00576550。
+
+static WindowNumberData gWindowNumber576558 {&gWindow70PriceTextsCF49C4[4], 10, 3, 1, 0}; // 原全局：0x00576558。
+
+static WindowNumberData gWindowNumber576560 {&gWindow70CountTextsCC4848[0], 0, 3, 1, 0}; // 原全局：0x00576560。
+
+static WindowNumberData gWindowNumber576568 {&gWindow70CountTextsCC4848[1], 0, 3, 1, 0}; // 原全局：0x00576568。
+
+static WindowNumberData gWindowNumber576570 {&gWindow70CountTextsCC4848[2], 0, 3, 1, 0}; // 原全局：0x00576570。
+
+static WindowNumberData gWindowNumber576578 {&gWindow70CountTextsCC4848[3], 0, 3, 1, 0}; // 原全局：0x00576578。
+
+static WindowNumberData gWindowNumber576580 {&gWindow70CountTextsCC4848[4], 0, 3, 1, 0}; // 原全局：0x00576580。
+
+static std::uint32_t gWindowMouseFlagsD67920 = 0; // 原全局：0x00D67920。
+
+// 原全局：0x00576588。
+// 原576588的完整70项，保留70背包回调的单格命中语义。
+static WindowElementPrototype gWindowElements576588[70] {
+    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleConfirmation},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5762F0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic576488}, &WindowCrystalExchangeShop_ButtonOk},
+    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_ButtonCancel},
+    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_DrawButton},
+    {WindowElementType_Text, 425, 44, 0, 14, 1, {.text = &gWindowText5764F8}, &WindowElement_NoOp},
+    {WindowElementType_Number, 260, 37, 0, 0, 1, {.number = &gWindowNumber576530}, &WindowElement_NoOp},
+    {WindowElementType_Number, 400, 32, 0, 0, 1, {.number = &gWindowNumber576520}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage576518}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic576350}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD67920}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic576368}, &WindowCrystalExchangeShop_ButtonPreviousRow},
+    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic576380}, &WindowCrystalExchangeShop_ButtonNextRow},
+    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic5764B8}, &WindowCrystalExchangeShop_ButtonPreviousPage},
+    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic5764D0}, &WindowCrystalExchangeShop_ButtonNextPage},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_Scroll},
+    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
+    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
+    {WindowElementType_Text, 83, 87, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
+    {WindowElementType_Text, 83, 142, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
+    {WindowElementType_Text, 83, 197, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
+    {WindowElementType_Text, 83, 252, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
+    {WindowElementType_Text, 83, 307, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber576538}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber576540}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber576548}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber576550}, &WindowElement_NoOp},
+    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber576558}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber576560}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber576568}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber576570}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber576578}, &WindowElement_NoOp},
+    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber576580}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic576398}, &WindowCrystalExchangeShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic5763B0}, &WindowCrystalExchangeShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic5763C8}, &WindowCrystalExchangeShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic5763E0}, &WindowCrystalExchangeShop_ButtonDecrease},
+    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic5763F8}, &WindowCrystalExchangeShop_ButtonDecrease},
+    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic576410}, &WindowCrystalExchangeShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic576428}, &WindowCrystalExchangeShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic576440}, &WindowCrystalExchangeShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic576458}, &WindowCrystalExchangeShop_ButtonIncrease},
+    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic576470}, &WindowCrystalExchangeShop_ButtonIncrease},
+    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
+    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
+    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleInventory},
+    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic576320}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic576308}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口70；原全局：0x0054ECF0。
+WindowPrototype gWindowPrototypeCrystalExchangeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 70, gWindowElements576588, &WindowCrystalExchangeShop_Update, &WindowCrystalExchangeShop_Draw, &WindowCrystalExchangeShop_Release}; // 70: 54ECF0
+
+// 窗口函数实现。
+
 // 原函数：0x004C3530。
-void WindowCrystalExchangeShop_Release()
+static void WindowCrystalExchangeShop_Release()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
     if (type == world::detail::gValue581800) {
@@ -129,7 +367,7 @@ login::YobiAction* WindowCrystalExchangeShop_Open(const char* const text)
 }
 
 // 原函数：0x004C39A0。
-void WindowCrystalExchangeShop_RefreshRemaining()
+static void WindowCrystalExchangeShop_RefreshRemaining()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         gCurrentWindow->elements[row + 31].visible = 0;
@@ -145,7 +383,7 @@ void WindowCrystalExchangeShop_RefreshRemaining()
 }
 
 // 原函数：0x004C3A50。
-void WindowCrystalExchangeShop_RefreshRows()
+static void WindowCrystalExchangeShop_RefreshRows()
 {
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -185,7 +423,7 @@ void WindowCrystalExchangeShop_RefreshRows()
 }
 
 // 原函数：0x004C3D40。
-void WindowCrystalExchangeShop_RefreshQuantities()
+static void WindowCrystalExchangeShop_RefreshQuantities()
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t scroll = gWindow70ScrollCC4B68;
@@ -199,7 +437,7 @@ void WindowCrystalExchangeShop_RefreshQuantities()
 }
 
 // 原函数：0x004C3DA0。
-void WindowCrystalExchangeShop_RefreshAmount()
+static void WindowCrystalExchangeShop_RefreshAmount()
 {
     std::int32_t total = 0;
     gWindow70TotalCB0F74 = 0;
@@ -218,7 +456,7 @@ void WindowCrystalExchangeShop_RefreshAmount()
 }
 
 // 原函数：0x004C3E20。
-void WindowCrystalExchangeShop_CountSlots()
+static void WindowCrystalExchangeShop_CountSlots()
 {
     std::int32_t slots = 0;
     gWindow70SlotsCF4E44 = 0;
@@ -236,7 +474,7 @@ void WindowCrystalExchangeShop_CountSlots()
 }
 
 // 原函数：0x004C3E70。
-void WindowCrystalExchangeShop_Refresh()
+static void WindowCrystalExchangeShop_Refresh()
 {
     const std::int32_t initialized = gWindow70ValueD67BA4;
     const std::int32_t scroll = gWindow70ScrollCC4B68;
@@ -263,7 +501,7 @@ void WindowCrystalExchangeShop_Refresh()
 }
 
 // 原函数：0x004C3F00。
-std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
+static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
 {
     WindowInstance* const entryWindow = gCurrentWindow;
     if (value == -1) {
@@ -327,7 +565,7 @@ std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
 }
 
 // 原函数：0x004C4180。
-std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
+static std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
 {
     static_cast<void>(unused);
     const WindowInstance* const window = gCurrentWindow;
@@ -361,7 +599,7 @@ std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
 }
 
 // 原函数：0x004C4270。
-void WindowCrystalExchangeShop_Submit(const std::int32_t value)
+static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
 {
     if (static_cast<std::uint8_t>(value) != 0) {
         return;
@@ -398,7 +636,7 @@ void WindowCrystalExchangeShop_Submit(const std::int32_t value)
 }
 
 // 原函数：0x004C43C0。
-std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -488,7 +726,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index, const 
 }
 
 // 原函数：0x004C46C0。
-std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -513,7 +751,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32_t inde
 }
 
 // 原函数：0x004C4740。
-std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -539,7 +777,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t index, c
 }
 
 // 原函数：0x004C47C0。
-std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -563,7 +801,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int32_t ind
 }
 
 // 原函数：0x004C4840。
-std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     std::int32_t consumed = 0;
@@ -594,7 +832,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t index, 
 }
 
 // 原函数：0x004C48F0。
-std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
@@ -608,7 +846,7 @@ std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, const st
 }
 
 // 原函数：0x004C4940。
-std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -643,7 +881,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t index, 
 }
 
 // 原函数：0x004C4A50。
-std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
     const bool hover = (state & 1) != 0;
@@ -687,7 +925,7 @@ std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t index, 
 }
 
 // 原函数：0x004C4B70。
-std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gWindow70ScrollCC4B68 + index - 56;
     render::GraphicDescriptor16 descriptor {};
@@ -734,7 +972,7 @@ std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t index, 
 }
 
 // 原函数：0x004C4CB0。
-std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -844,7 +1082,7 @@ std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t index,
 }
 
 // 原函数：0x004C50C0。
-std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
+static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
@@ -935,7 +1173,7 @@ std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t ind
 }
 
 // 原函数：0x004C54D0。
-std::int32_t WindowCrystalExchangeShop_ShowTooltip(
+static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
     const std::int32_t index, const std::int32_t page, const std::int32_t unused)
 {
     static_cast<void>(unused);
@@ -972,174 +1210,3 @@ std::int32_t WindowCrystalExchangeShop_ShowTooltip(
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5762F0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005762F0。
-
-WindowGraphicData gWindowGraphic576308 {0x18661, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576308。
-
-WindowGraphicData gWindowGraphic576320 {0x18662, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576320。
-
-WindowGraphicData gWindowGraphic576338 {0x18663, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576338。
-
-WindowGraphicData gWindowGraphic576350 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576350。
-
-WindowGraphicData gWindowGraphic576368 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576368。
-
-WindowGraphicData gWindowGraphic576380 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576380。
-
-WindowGraphicData gWindowGraphic576398 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576398。
-
-WindowGraphicData gWindowGraphic5763B0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763B0。
-
-WindowGraphicData gWindowGraphic5763C8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763C8。
-
-WindowGraphicData gWindowGraphic5763E0 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763E0。
-
-WindowGraphicData gWindowGraphic5763F8 {0x3B53E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005763F8。
-
-WindowGraphicData gWindowGraphic576410 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576410。
-
-WindowGraphicData gWindowGraphic576428 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576428。
-
-WindowGraphicData gWindowGraphic576440 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576440。
-
-WindowGraphicData gWindowGraphic576458 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576458。
-
-WindowGraphicData gWindowGraphic576470 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576470。
-
-WindowGraphicData gWindowGraphic576488 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576488。
-
-WindowGraphicData gWindowGraphic5764A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764A0。
-
-WindowGraphicData gWindowGraphic5764B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764B8。
-
-WindowGraphicData gWindowGraphic5764D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005764D0。
-
-WindowTextPrototype gWindowText5764F8 { // 原全局：0x005764F8。
-    {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
-};
-
-WindowTextPrototype gWindowText576500 { // 原全局：0x00576500。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"？？？？", // 原常量参考：0x00585DE8。
-};
-
-WindowTextPrototype gWindowText576508 { // 原全局：0x00576508。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"＊目前無法裝備", // 原常量参考：0x00585DD8。
-};
-
-WindowTextPrototype gWindowText576510 { // 原全局：0x00576510。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"剩餘 %2d 個", // 原常量参考：0x00585DCC。
-};
-
-std::int32_t gWindowAnimationImage576518 = 100000; // 原全局：0x00576518。
-
-WindowNumberData gWindowNumber576520 {&gWindow70BalanceTextCF3F14, 10, 3, 1, 0}; // 原全局：0x00576520。
-
-WindowNumberData gWindowNumber576530 {&gWindow70TotalTextD2D804, 0, 3, 1, 0}; // 原全局：0x00576530。
-
-WindowNumberData gWindowNumber576538 {&gWindow70PriceTextsCF49C4[0], 10, 3, 1, 0}; // 原全局：0x00576538。
-
-WindowNumberData gWindowNumber576540 {&gWindow70PriceTextsCF49C4[1], 10, 3, 1, 0}; // 原全局：0x00576540。
-
-WindowNumberData gWindowNumber576548 {&gWindow70PriceTextsCF49C4[2], 10, 3, 1, 0}; // 原全局：0x00576548。
-
-WindowNumberData gWindowNumber576550 {&gWindow70PriceTextsCF49C4[3], 10, 3, 1, 0}; // 原全局：0x00576550。
-
-WindowNumberData gWindowNumber576558 {&gWindow70PriceTextsCF49C4[4], 10, 3, 1, 0}; // 原全局：0x00576558。
-
-WindowNumberData gWindowNumber576560 {&gWindow70CountTextsCC4848[0], 0, 3, 1, 0}; // 原全局：0x00576560。
-
-WindowNumberData gWindowNumber576568 {&gWindow70CountTextsCC4848[1], 0, 3, 1, 0}; // 原全局：0x00576568。
-
-WindowNumberData gWindowNumber576570 {&gWindow70CountTextsCC4848[2], 0, 3, 1, 0}; // 原全局：0x00576570。
-
-WindowNumberData gWindowNumber576578 {&gWindow70CountTextsCC4848[3], 0, 3, 1, 0}; // 原全局：0x00576578。
-
-WindowNumberData gWindowNumber576580 {&gWindow70CountTextsCC4848[4], 0, 3, 1, 0}; // 原全局：0x00576580。
-
-std::uint32_t gWindowMouseFlagsD67920 = 0; // 原全局：0x00D67920。
-
-} // namespace
-
-// 原型：窗口70；原全局：0x0054ECF0。
-WindowPrototype gWindowPrototypeCrystalExchangeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 70, gWindowElements576588, &WindowCrystalExchangeShop_Update, &WindowCrystalExchangeShop_Draw, &WindowCrystalExchangeShop_Release}; // 70: 54ECF0
-
-// 原576588的完整70项，保留70背包回调的单格命中语义。
-WindowElementPrototype gWindowElements576588[70] {
-    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic5762F0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic576488}, &WindowCrystalExchangeShop_ButtonOk},
-    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_ButtonCancel},
-    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic5764A0}, &WindowCrystalTrade_DrawButton},
-    {WindowElementType_Text, 425, 44, 0, 14, 1, {.text = &gWindowText5764F8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 260, 37, 0, 0, 1, {.number = &gWindowNumber576530}, &WindowElement_NoOp},
-    {WindowElementType_Number, 400, 32, 0, 0, 1, {.number = &gWindowNumber576520}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage576518}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic576350}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD67920}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic576368}, &WindowCrystalExchangeShop_ButtonPreviousRow},
-    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic576380}, &WindowCrystalExchangeShop_ButtonNextRow},
-    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic5764B8}, &WindowCrystalExchangeShop_ButtonPreviousPage},
-    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic5764D0}, &WindowCrystalExchangeShop_ButtonNextPage},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_Scroll},
-    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText576500}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText576508}, &WindowElement_NoOp},
-    {WindowElementType_Text, 83, 87, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
-    {WindowElementType_Text, 83, 142, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
-    {WindowElementType_Text, 83, 197, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
-    {WindowElementType_Text, 83, 252, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
-    {WindowElementType_Text, 83, 307, 0, 14, 1, {.text = &gWindowText576510}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber576538}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber576540}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber576548}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber576550}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber576558}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber576560}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber576568}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber576570}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber576578}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber576580}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic576398}, &WindowCrystalExchangeShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic5763B0}, &WindowCrystalExchangeShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic5763C8}, &WindowCrystalExchangeShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic5763E0}, &WindowCrystalExchangeShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic5763F8}, &WindowCrystalExchangeShop_ButtonDecrease},
-    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic576410}, &WindowCrystalExchangeShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic576428}, &WindowCrystalExchangeShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic576440}, &WindowCrystalExchangeShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic576458}, &WindowCrystalExchangeShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic576470}, &WindowCrystalExchangeShop_ButtonIncrease},
-    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleItemIcon},
-    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic576338}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowCrystalExchangeShop_HandleInventory},
-    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic576320}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic576308}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

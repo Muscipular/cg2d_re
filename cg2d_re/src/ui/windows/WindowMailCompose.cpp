@@ -3,22 +3,56 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004A53F0。
+static std::int32_t WindowMailCompose_Update(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
+
+// 原函数：0x004A5970。
+static std::int32_t WindowMailCompose_HandleRecipients(std::int32_t index, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
+
+// 原函数：0x004A6160。
+static std::uint8_t WindowMailCompose_RefreshRecipients(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
+
+// 原函数：0x004A53F0。
+static std::int32_t WindowMailCompose_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+static WindowGraphicData gWindowGraphic5700B8 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700B8。
+
+static WindowGraphicData gWindowGraphic5700D0 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700D0。
+
+static WindowGraphicData gWindowGraphic5700E8 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005700E8。
+
+static WindowGraphicData gWindowGraphic570148 {0x3BA08, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570148。
+
+static WindowElementPrototype gWindowElements5701F8[9] { // 原全局：0x005701F8。
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Input, 22, 70, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
+    {WindowElementType_Graphic, 16, 28, 56, 16, 1, {.graphic = &gWindowGraphic570148}, &WindowMailCompose_HandleRecipients},
+    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowMailCompose_HandleRecipients},
+    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5700B8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5700D0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic5700E8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口22；原全局：0x0054EA20。
+WindowPrototype gWindowPrototypeMailCompose {0, 4, 383, 81, 211, 210, 0x80010101u, 9, gWindowElements5701F8, &WindowMailCompose_Update, &WindowRuntime_DrawDefault, &WindowMailCompose_Release}; // 22: 54EA20
+
+// 窗口函数实现。
+
 // 原函数：0x004A53D0。
 WindowInstance* WindowMailCompose_Open()
 {
     gLoginWindowRuntime.prefixD2F0B8.value26C = 1;
     return WindowRuntime_Open(WindowId_MailCompose);
 }
-namespace {
-
-constexpr wchar_t kPetMailHint58774C[] = L"使用寵物郵件。"; // 原常量参考：0x0058774C。
-
-constexpr wchar_t kGroupMailText587780[] = L"群組郵件"; // 原常量参考：0x00587780。
-} // namespace
-
 
 // 原函数：0x004A53F0。
-std::int32_t WindowMailCompose_Update(const std::int32_t value)
+static std::int32_t WindowMailCompose_Update(const std::int32_t value)
 {
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
@@ -165,7 +199,7 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
 }
 
 // 原函数：0x004A5970。
-std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const std::int32_t state)
 {
     if (index != 2 && index != 3) {
         return 0;
@@ -175,7 +209,7 @@ std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const 
         auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BA0A;
-            gHoverTextD68AE8 = kPetMailHint58774C;
+            gHoverTextD68AE8 = L"使用寵物郵件。" /* 原常量参考：0x0058774C。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3BA08;
@@ -326,14 +360,14 @@ std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const 
 }
 
 // 原函数：0x004A6160。
-std::uint8_t WindowMailCompose_RefreshRecipients()
+static std::uint8_t WindowMailCompose_RefreshRecipients()
 {
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
     if (mode != 0) {
         const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
-            text->text = kGroupMailText587780;
+            text->text = L"群組郵件" /* 原常量参考：0x00587780。 */;
             gCurrentWindow->elements[2].visible = 0;
         }
     } else {
@@ -371,34 +405,3 @@ std::uint8_t WindowMailCompose_RefreshRecipients()
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic5700B8 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700B8。
-
-WindowGraphicData gWindowGraphic5700D0 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005700D0。
-
-WindowGraphicData gWindowGraphic5700E8 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005700E8。
-
-WindowGraphicData gWindowGraphic570148 {0x3BA08, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570148。
-
-} // namespace
-
-// 原型：窗口22；原全局：0x0054EA20。
-WindowPrototype gWindowPrototypeMailCompose {0, 4, 383, 81, 211, 210, 0x80010101u, 9, gWindowElements5701F8, &WindowMailCompose_Update, &WindowRuntime_DrawDefault, &WindowMailCompose_Release}; // 22: 54EA20
-
-WindowElementPrototype gWindowElements5701F8[9] { // 原全局：0x005701F8。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Input, 22, 70, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
-    {WindowElementType_Graphic, 16, 28, 56, 16, 1, {.graphic = &gWindowGraphic570148}, &WindowMailCompose_HandleRecipients},
-    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowMailCompose_HandleRecipients},
-    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5700B8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5700D0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic5700E8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

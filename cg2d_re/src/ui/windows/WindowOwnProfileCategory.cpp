@@ -3,10 +3,97 @@
 namespace cg::ui {
 namespace detail {
 
-std::int32_t gProfileScrollCA0444 = 0; // 原全局：0x00CA0444。
+// 回调与内部函数前置声明。
+
+// 原函数：0x004C94F0。
+static std::int32_t WindowOwnProfileCategory_SelectCategory(std::int32_t index, std::int32_t state); // 十行分类选择，写当前资料。
+
+// 原函数：0x004C96F0。
+static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(std::int32_t index, std::int32_t state); // 窗口59四滚动/翻页按钮。
+
+// 原函数：0x004C9B80。
+static std::int32_t WindowOwnProfileCategory_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原分类count-10拖动换算；旧X代码1992。
+
+// 原函数：0x004C9BE0。
+static std::int32_t WindowOwnProfileCategory_Scroll(std::int32_t unusedIndex, std::int32_t state); // 三模式滚轮，恒返0。
+
+// 原函数：0x004C94B0。
+// 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
+static std::int32_t WindowOwnProfileCategory_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x00CA0444。 窗口59六入口共用的S32页码。
+static std::int32_t gProfileScrollCA0444 = 0; // 原全局：0x00CA0444。
+
+static WindowGraphicData gWindowGraphic577170 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577170。
+
+static WindowGraphicData gWindowGraphic577188 {0x3BB00, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577188。
+
+static WindowGraphicData gWindowGraphic5771A0 {0x3BB01, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005771A0。
+
+static WindowGraphicData gWindowGraphic5771B8 {0x3BB03, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005771B8。
+
+static WindowGraphicData gWindowGraphic5771E8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005771E8。
+
+static WindowGraphicData gWindowGraphic577200 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577200。
+
+static WindowGraphicData gWindowGraphic577218 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577218。
+
+static WindowGraphicData gWindowGraphic577248 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577248。
+
+static WindowGraphicData gWindowGraphic577260 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577260。
+
+static WindowGraphicData gWindowGraphic577278 {0x3C386, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577278。
+
+static WindowTextPrototype gWindowText577290 { // 原全局：0x00577290。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"物品", // 原常量参考：0x00585D78。
+};
+
+static std::uint32_t gWindowMouseFlagsD67930 = 0; // 原全局：0x00D67930。
+
+static WindowElementPrototype gWindowElements577298[32] { // 原全局：0x00577298。
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &WindowOwnProfileCategory_DragScroll},
+    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &WindowOwnProfileCategory_HandleScrollButtons},
+    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic577218}, &WindowOwnProfileCategory_HandleScrollButtons},
+    {WindowElementType_Graphic, 89, 7, 0, 0, 1, {.graphic = &gWindowGraphic577278}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic577248}, &WindowOwnProfileCategory_HandleScrollButtons},
+    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic577260}, &WindowOwnProfileCategory_HandleScrollButtons},
+    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowOwnProfileCategory_Scroll},
+    {WindowElementType_Text, 20, 30, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 46, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 62, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 78, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 94, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 110, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 126, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 142, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 158, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 174, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577188}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5771A0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+// 原型：窗口59；原全局：0x0054ED60。
+WindowPrototype gWindowPrototypeOwnProfileCategory {0, 4, 38, 95, 225, 220, 0x80010101u, 32, gWindowElements577298, &WindowOwnProfileCategory_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 59: 54ED60
+
+// 窗口函数实现。
 
 // 原函数：0x004C9C70。
-void WindowOwnProfileCategory_Refresh()
+static void WindowOwnProfileCategory_Refresh()
 {
     const std::int32_t mode = gProfileCategory1085DA0;
     std::int32_t image;
@@ -29,7 +116,7 @@ void WindowOwnProfileCategory_Refresh()
 
 // 原函数：0x004C94B0。
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
-std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
+static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 {
     if (value == -1) {
         gProfileScrollCA0444 = 0;
@@ -41,21 +128,15 @@ std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
     return 1;
 }
 
-static constexpr wchar_t kProfileCategoryHint5884F4[] = L"設定販賣的目錄"; // 原常量参考：0x005884F4。
-
-static constexpr wchar_t kProfileCategoryHint588504[] = L"設定購買的目錄"; // 原常量参考：0x00588504。
-
-static constexpr wchar_t kProfileCategoryHint588514[] = L"設定描述的目錄"; // 原常量参考：0x00588514。
-
 // 原函数：0x004C94F0。
-std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         switch (gProfileCategory1085DA0) {
-        case 0: gHoverTextD68AE8 = kProfileCategoryHint5884F4; break;
-        case 1: gHoverTextD68AE8 = kProfileCategoryHint588504; break;
-        case 2: gHoverTextD68AE8 = kProfileCategoryHint588514; break;
+        case 0: gHoverTextD68AE8 = L"設定販賣的目錄" /* 原常量参考：0x005884F4。 */; break;
+        case 1: gHoverTextD68AE8 = L"設定購買的目錄" /* 原常量参考：0x00588504。 */; break;
+        case 2: gHoverTextD68AE8 = L"設定描述的目錄" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;
@@ -95,7 +176,7 @@ std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, c
 }
 
 // 原函数：0x004C96F0。
-std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
@@ -234,7 +315,7 @@ std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t ind
 
 // WSP01：旧X片段1992；恰1且mode0..2才按原分类count-10更新。
 // 原函数：0x004C9B80。
-std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
@@ -251,7 +332,7 @@ std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const
 }
 
 // 原函数：0x004C9BE0。
-std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int32_t state)
 {
     if ((state & 0x21) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
@@ -271,75 +352,3 @@ std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int3
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic577170 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577170。
-
-WindowGraphicData gWindowGraphic577188 {0x3BB00, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577188。
-
-WindowGraphicData gWindowGraphic5771A0 {0x3BB01, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x005771A0。
-
-WindowGraphicData gWindowGraphic5771B8 {0x3BB03, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005771B8。
-
-WindowGraphicData gWindowGraphic5771E8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005771E8。
-
-WindowGraphicData gWindowGraphic577200 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577200。
-
-WindowGraphicData gWindowGraphic577218 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577218。
-
-WindowGraphicData gWindowGraphic577248 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577248。
-
-WindowGraphicData gWindowGraphic577260 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577260。
-
-WindowGraphicData gWindowGraphic577278 {0x3C386, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00577278。
-
-WindowTextPrototype gWindowText577290 { // 原全局：0x00577290。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"物品", // 原常量参考：0x00585D78。
-};
-
-std::uint32_t gWindowMouseFlagsD67930 = 0; // 原全局：0x00D67930。
-
-} // namespace
-
-// 原型：窗口59；原全局：0x0054ED60。
-WindowPrototype gWindowPrototypeOwnProfileCategory {0, 4, 38, 95, 225, 220, 0x80010101u, 32, gWindowElements577298, &WindowOwnProfileCategory_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 59: 54ED60
-
-WindowElementPrototype gWindowElements577298[32] { // 原全局：0x00577298。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &WindowOwnProfileCategory_DragScroll},
-    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic577218}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 89, 7, 0, 0, 1, {.graphic = &gWindowGraphic577278}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic577248}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic577260}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowOwnProfileCategory_Scroll},
-    {WindowElementType_Text, 20, 30, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 46, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 62, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 78, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 94, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 110, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 126, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 142, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 158, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 174, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577188}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5771A0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
-};
-
-} // namespace cg::ui::detail

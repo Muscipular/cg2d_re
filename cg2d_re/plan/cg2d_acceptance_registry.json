@@ -191042,5 +191042,25 @@
     "resolved_warning_count": 74,
     "remaining_warning_scope": "首轮已见55条原未初始化路径诊断保留，不补默认值或关闭告警；增量构建不据此核销未重编文件。",
     "runtime": "未运行、测试或部署"
+  },
+  "ui_private_layout_20261015": {
+    "spec": "doc/cg2d_ui_window_split_spec.md",
+    "scope": "单窗口定义私有化、组件先于实现、同文件命名空间合并和只读字符串内联；原身份及验收状态保持。",
+    "private_symbol_count": 1118,
+    "migrated_header_units": 1079,
+    "removed_private_extern_count": 274,
+    "ordered_source_count": 70,
+    "checked_function_body_count": 1146,
+    "checked_data_definition_count": 1726,
+    "inlined_string_count": 251,
+    "inlined_use_count": 278,
+    "inlined_source_count": 27,
+    "prototype_binding": "删除中间指针表及WindowPrototypeIndex，71槽直接引用70个对象，36/37共享Dialog。",
+    "static_validation": "原地址、字符/转义、函数正文（限定静态链接和字面量替换）、数据初值、动态初始化次序、组件先后及namespace唯一性核对通过。",
+    "build": "build.bat Debug",
+    "build_exit_code": 0,
+    "remaining_warning_scope": "既有C4701/C4703未初始化路径警告保留，本轮不补默认值或抑制。",
+    "runtime": "未运行、测试或部署",
+    "ledger_validation": "-Check仅报两份既有外部键盘历史附件缺失，未写派生文件；不计全量台账通过。"
   }
 }

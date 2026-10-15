@@ -3,35 +3,84 @@
 namespace cg::ui {
 namespace detail {
 
+// 回调与内部函数前置声明。
+
+// 原函数：0x004CC340。
+static void WindowAdventureLog_Refresh(); // 窗口66原字节分行/十四行刷新，固定651000B局部缓冲。
+
+// 原函数：0x004CC540。
+static void WindowAdventureLog_Load(); // 日志文件重开/计数，保留原双关闭槽语义，见window_66.md。
+
+// 原函数：0x004CBDB0。
+static std::int32_t WindowAdventureLog_HandleNavigation(std::int32_t index, std::int32_t state); // 上下翻与原非标准日期前后切换。
+
+// 原函数：0x004CBD90。
+static std::int32_t WindowAdventureLog_Update(std::int32_t value);
+
+// 控件载荷、窗口状态、组件表与原型。
+
 std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。
-namespace {
 
-constexpr wchar_t kLogViewerUpHint5885EC[] = // 原常量参考：0x005885EC。
-    L"往上查看內容。";
+static WindowGraphicData gWindowGraphic57ADD8 {243001, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADD8。
 
-constexpr wchar_t kLogViewerDownHint5885DC[] = // 原常量参考：0x005885DC。
-    L"往下查看內容。";
+static WindowGraphicData gWindowGraphic57ADF0 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADF0。
 
-constexpr wchar_t kLogViewerNextHint5885C8[] = // 原常量参考：0x005885C8。
-    L"查看後一天的內容。";
+static WindowGraphicData gWindowGraphic57AE08 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE08。
 
-constexpr wchar_t kLogViewerPreviousHint5885B4[] = // 原常量参考：0x005885B4。
-    L"查看前一天的內容。";
+static WindowGraphicData gWindowGraphic57AE20 {36814, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE20。
 
-constexpr wchar_t kLogViewerFailure55358C[] = // 原常量参考：0x0055358C。
-    L"無法開啟冒險者日誌";
+static WindowGraphicData gWindowGraphic57AE38 {36804, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE38。
 
-constexpr char kLogViewerFileFormat55351C[] = "chat_%02d%02d%02d.txt"; // 原常量参考：0x0055351C。
+static WindowGraphicData gWindowGraphic57AE50 {36805, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x0057AE50。
 
-constexpr char kLogViewerDirectory554658[] = "Log"; // 原常量参考：0x00554658。
+static WindowGraphicData gWindowGraphic57AE68 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE68。
 
-constexpr char kLogViewerPathFormat553514[] = "%s\\%s"; // 原常量参考：0x00553514。
+static WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE80。
 
-constexpr char kLogViewerReadMode553510[] = "rt"; // 原常量参考：0x00553510。
+static WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE98。
 
-constexpr char kLogViewerAppendMode55350C[] = "a+t"; // 原常量参考：0x0055350C。
-} // namespace
+static WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648),
+};
 
+static WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+static std::uint32_t gWindowMouseFlagsD679C8 = 0; // 原全局：0x00D679C8。
+
+static WindowElementPrototype gWindowElements57AEC0[25] { // 原全局：0x0057AEC0。
+    {WindowElementType_Graphic, 419, 54, 0, 14, 1, {.graphic = &gWindowGraphic57AE68}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 419, 54, 11, 221, 1, {.mouseFlags = &gWindowMouseFlagsD679C8}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &WindowAdventureLog_HandleNavigation},
+    {WindowElementType_Graphic, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &WindowAdventureLog_HandleNavigation},
+    {WindowElementType_Text, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &WindowAdventureLog_HandleNavigation},
+    {WindowElementType_Graphic, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &WindowAdventureLog_HandleNavigation},
+    {WindowElementType_Graphic, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57AE38}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57AE50}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 45, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 61, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 77, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 93, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 109, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 125, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 141, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 157, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 173, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 189, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 205, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 221, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 25, 253, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+};
+
+// 原型：窗口66；原全局：0x0054EEB0。
+WindowPrototype gWindowPrototypeAdventureLog {0, 4, 15, 97, 465, 321, 0x80000080u, 25, gWindowElements57AEC0, &WindowAdventureLog_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 66: 54EEB0
+
+// 窗口函数实现。
 
 // 原函数：0x004CBD30。
 void WindowAdventureLog_InitializeDate()
@@ -58,7 +107,7 @@ void WindowAdventureLog_InitializeDate()
 }
 
 // 原函数：0x004CC540。
-void WindowAdventureLog_Load()
+static void WindowAdventureLog_Load()
 {
     platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
     if (previous != nullptr) {
@@ -68,12 +117,12 @@ void WindowAdventureLog_Load()
     platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
     const std::int32_t month = calendar->month0based;
     const std::int32_t year = calendar->yearMinus1900;
-    std::sprintf(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
+    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt" /* 原常量参考：0x0055351C。 */,
         year % 100, month + 1, day);
     char path[256];
-    std::sprintf(path, kLogViewerPathFormat553514,
-        kLogViewerDirectory554658, world::detail::gLogFileName554648);
-    platform::LegacyFile* current = std::fopen(path, kLogViewerReadMode553510);
+    std::sprintf(path, "%s\\%s" /* 原常量参考：0x00553514。 */,
+        "Log" /* 原常量参考：0x00554658。 */, world::detail::gLogFileName554648);
+    platform::LegacyFile* current = std::fopen(path, "rt" /* 原常量参考：0x00553510。 */);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
@@ -81,7 +130,7 @@ void WindowAdventureLog_Load()
     }
     gLoginWindowRuntime.logViewerErrorD67BBC = 0;
     static_cast<void>(std::fclose(current));
-    current = std::fopen(path, kLogViewerAppendMode55350C);
+    current = std::fopen(path, "a+t" /* 原常量参考：0x0055350C。 */);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
@@ -101,7 +150,7 @@ void WindowAdventureLog_Load()
 }
 
 // 原函数：0x004CC340。
-void WindowAdventureLog_Refresh()
+static void WindowAdventureLog_Refresh()
 {
     char buffer[3000] {};
     std::vector<std::wstring> rows;
@@ -128,7 +177,7 @@ void WindowAdventureLog_Refresh()
         return;
     }
     auto* const first = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
-    first->text = kLogViewerFailure55358C;
+    first->text = L"無法開啟冒險者日誌" /* 原常量参考：0x0055358C。 */;
     for (std::int32_t line = 12; line < 25; ++line) {
         WindowInstance* const current = gCurrentWindow;
         const char* const text = input::LegacyText593850();
@@ -138,7 +187,7 @@ void WindowAdventureLog_Refresh()
 }
 
 // 原函数：0x004CBD90。
-std::int32_t WindowAdventureLog_Update(const std::int32_t value)
+static std::int32_t WindowAdventureLog_Update(const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueD67BB0 = 0;
@@ -148,7 +197,7 @@ std::int32_t WindowAdventureLog_Update(const std::int32_t value)
 }
 
 // 原函数：0x004CBDB0。
-std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
     switch (index) {
@@ -156,7 +205,7 @@ std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const
     case 3: {
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = index == 2 ? kLogViewerUpHint5885EC : kLogViewerDownHint5885DC;
+            gHoverTextD68AE8 = index == 2 ? L"往上查看內容。" /* 原常量参考：0x005885EC。 */ : L"往下查看內容。" /* 原常量参考：0x005885DC。 */;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -185,7 +234,7 @@ std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const
     case 7: {
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
-            gHoverTextD68AE8 = index == 6 ? kLogViewerNextHint5885C8 : kLogViewerPreviousHint5885B4;
+            gHoverTextD68AE8 = index == 6 ? L"查看後一天的內容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的內容。" /* 原常量参考：0x005885B4。 */;
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
             consumed = 1;
         } else {
@@ -265,70 +314,3 @@ std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const
 } // namespace detail
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic57ADD8 {243001, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADD8。
-
-WindowGraphicData gWindowGraphic57ADF0 {243033, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADF0。
-
-WindowGraphicData gWindowGraphic57AE08 {243030, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE08。
-
-WindowGraphicData gWindowGraphic57AE20 {36814, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE20。
-
-WindowGraphicData gWindowGraphic57AE38 {36804, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE38。
-
-WindowGraphicData gWindowGraphic57AE50 {36805, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x0057AE50。
-
-WindowGraphicData gWindowGraphic57AE68 {243096, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE68。
-
-WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE80。
-
-WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE98。
-
-WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromLegacyDisplayWide(world::detail::gLogFileName554648),
-};
-
-WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
-};
-
-std::uint32_t gWindowMouseFlagsD679C8 = 0; // 原全局：0x00D679C8。
-
-} // namespace
-
-// 原型：窗口66；原全局：0x0054EEB0。
-WindowPrototype gWindowPrototypeAdventureLog {0, 4, 15, 97, 465, 321, 0x80000080u, 25, gWindowElements57AEC0, &WindowAdventureLog_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 66: 54EEB0
-
-WindowElementPrototype gWindowElements57AEC0[25] { // 原全局：0x0057AEC0。
-    {WindowElementType_Graphic, 419, 54, 0, 14, 1, {.graphic = &gWindowGraphic57AE68}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 419, 54, 11, 221, 1, {.mouseFlags = &gWindowMouseFlagsD679C8}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Text, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57AE38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57AE50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 45, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 61, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 77, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 93, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 109, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 125, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 141, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 157, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 173, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 189, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 205, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 221, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 253, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-};
-
-} // namespace cg::ui::detail

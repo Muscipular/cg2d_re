@@ -2,16 +2,15 @@
 
 namespace cg::input {
 
+// 控件载荷、窗口状态、组件表与原型。
+
 InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
+
 } // namespace cg::input
 
 namespace cg::ui {
 namespace detail {
 
-WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
-    {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
-    0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
-};
 namespace {
 
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
@@ -49,22 +48,6 @@ struct MessageDialogImageRecord {
     std::byte byte0B; // 原成员偏移：+0x0B。
 };
 
-static_assert(sizeof(MessageDialogImageRecord) == 12);
-
-static_assert(offsetof(MessageDialogImageRecord, direction) == 4);
-
-static_assert(offsetof(MessageDialogImageRecord, x) == 6);
-
-static_assert(offsetof(MessageDialogImageRecord, y) == 8);
-
-static_assert(offsetof(MessageDialogImageRecord, used) == 10);
-
-MessageDialogRuntimeSlots gMessageDialog {};
-
-std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {}; // 原全局：0x00CC4B70。
-
-std::uint8_t gMessageDialogImageCountD67B30 = 0; // 原全局：0x00D67B30。
-
 // 原CB1388..CB1394；49DF30/49E400共同生产，49DA30回复逐次读取。
 struct DialogReplyRuntimeSlots {
     std::int32_t type;
@@ -72,12 +55,6 @@ struct DialogReplyRuntimeSlots {
     std::int32_t target;
     std::int32_t firstLine;
 };
-
-DialogReplyRuntimeSlots gDialogReply {};
-
-std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {}; // 原全局：0x00CB1398。
-
-std::array<std::int16_t, 2> gDialogInputYD67B34 {}; // 原全局：0x00D67B34。
 
 // 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
 struct HealingDialogRecord {
@@ -88,17 +65,144 @@ struct HealingDialogRecord {
     std::array<std::byte, 3> reserved1D; // 原成员偏移：+0x1D。
 };
 
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x0049CE70。
+static std::int32_t WindowDialog_HandleButtons(std::int32_t index, std::int32_t state); // 六按钮与原位图号恢复。
+
+// 原函数：0x0049CF70。
+static std::int32_t WindowDialog_HandleTextSelection(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
+
+// 原函数：0x0049DA30。
+static std::int32_t WindowDialog_Reply(
+    std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
+
+// 原函数：0x0049D2E0。
+static void WindowDialog_Route(
+    std::int32_t type, std::int32_t value, std::int32_t request,
+    std::int32_t target, char* text); // SRD01：完整同类续接/重入新建及原五参数分派，原位text与副作用保持，非全机器返回等价。
+
+// 原函数：0x0050E130。
+static void WindowDialog_RouteReply(
+    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+    std::int32_t request, std::int32_t target, char* text); // 50E110门禁后原共享尾入口。
+
+// 原函数：0x0049DDB0。
+static void WindowDialog_ParseGraphicTag(const char* text, std::int16_t x, std::int16_t y); // 内嵌g,标记原字节解析。
+
+// 原函数：0x0049DF30。
+static login::YobiAction* WindowDialog_OpenText(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t imageNo, std::int32_t buttons, std::int32_t request,
+    std::int32_t target, char* text); // 原位文本处理，借用共享行表创建常规对话。
+
+// 原函数：0x0049E1D0。
+static std::int32_t WindowDialog_DrawHealing(
+    WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t unusedEvents);
+
+// 原函数：0x0049E400。
+static login::YobiAction* WindowDialog_OpenHealing(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t imageNo, std::int32_t unusedButtons, std::int32_t request,
+    std::int32_t target, const char* text); // 六治疗记录及第七合计项，共借CB1398行表。
+
+// 原函数：0x0049C710。
+static std::int32_t WindowDialog_Update(std::int32_t value);
+
+// 原函数：0x0049CAD0。
+static std::int32_t WindowDialog_Draw(std::int32_t value);
+
+// 原函数：0x0049CDF0。
+static void WindowDialog_Release();
+
+// 控件载荷、窗口状态、组件表与原型。
+
+// 原全局：0x0057E478。 同源可写输入原型，57E698为容量成员。
+static WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
+    {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
+    0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
+};
+
+static_assert(sizeof(MessageDialogImageRecord) == 12);
+
+static_assert(offsetof(MessageDialogImageRecord, direction) == 4);
+
+static_assert(offsetof(MessageDialogImageRecord, x) == 6);
+
+static_assert(offsetof(MessageDialogImageRecord, y) == 8);
+
+static_assert(offsetof(MessageDialogImageRecord, used) == 10);
+
+static MessageDialogRuntimeSlots gMessageDialog {};
+
+static std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {}; // 原全局：0x00CC4B70。
+
+static std::uint8_t gMessageDialogImageCountD67B30 = 0; // 原全局：0x00D67B30。
+
+static DialogReplyRuntimeSlots gDialogReply {};
+
+static std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {}; // 原全局：0x00CB1398。
+
+static std::array<std::int16_t, 2> gDialogInputYD67B34 {}; // 原全局：0x00D67B34。
+
 static_assert(sizeof(HealingDialogRecord) == 32);
 
 static_assert(offsetof(HealingDialogRecord, cost) == 8);
 
 static_assert(offsetof(HealingDialogRecord, name) == 12);
 
-std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {}; // 原全局：0x00D672F0。
+static std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {}; // 原全局：0x00D672F0。
 
-std::int32_t gHealingDialogHealthD2DC00 = 0; // 原全局：0x00D2DC00。
-} // namespace
+static std::int32_t gHealingDialogHealthD2DC00 = 0; // 原全局：0x00D2DC00。
 
+static_assert(std::is_same_v<decltype(&WindowDialog_Reply), WindowDialogReplyCallback>);
+
+static_assert(std::is_same_v<decltype(&WindowDialog_DrawHealing), WindowDialogFrameCallback>);
+
+static WindowGraphicData gWindowGraphic56C9F8 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C9F8。
+
+static WindowGraphicData gWindowGraphic56CA10 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA10。
+
+static WindowGraphicData gWindowGraphic56CA28 {0x3BE4B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA28。
+
+static WindowGraphicData gWindowGraphic56CA40 {0x3BE4E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA40。
+
+static WindowGraphicData gWindowGraphic56CA58 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA58。
+
+static WindowGraphicData gWindowGraphic56CA70 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA70。
+
+static std::int32_t gWindowAnimationImageD6780C = 0; // 原全局：0x00D6780C。
+
+static WindowElementPrototype gWindowElements56CA88[19] { // 原全局：0x0056CA88。
+    {WindowElementType_Graphic, 0, 0, 66, 17, 1, {.graphic = &gWindowGraphic56C9F8}, &WindowDialog_HandleButtons},
+    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA10}, &WindowDialog_HandleButtons},
+    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA28}, &WindowDialog_HandleButtons},
+    {WindowElementType_Graphic, 60, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA40}, &WindowDialog_HandleButtons},
+    {WindowElementType_Graphic, 60, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA58}, &WindowDialog_HandleButtons},
+    {WindowElementType_Graphic, 120, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA70}, &WindowDialog_HandleButtons},
+    {WindowElementType_EventArea, 120, 0, 28, 8, 1, {.unusedValue = 0}, &WindowDialog_HandleTextSelection},
+    {WindowElementType_Input, 80, 42, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    // 原运行第19项与下一文本/元素源字节重叠；值1不是函数，visible0阻止正常调用。
+    {WindowElementType_EventArea, 0x593850, 3, 0, 44, 0, {.unusedValue = 0},
+        reinterpret_cast<WindowElementCallback>(std::uintptr_t{1})},
+};
+
+// 原型：窗口36；原全局：0x0054E870。
+WindowPrototype gWindowPrototypeDialog {2, 3, 0, 0, 0, 30, 0x80010101u, 19, gWindowElements56CA88, &WindowDialog_Update, &WindowDialog_Draw, &WindowDialog_Release}; // 36: 54E870
+
+// 窗口函数实现。
 
 const WindowDialogTextLine* WindowDialog_BorrowNpcLines() noexcept
 {
@@ -204,7 +308,7 @@ login::YobiAction* WindowDialog_Open(
 }
 
 // 原函数：0x0049C710。
-std::int32_t WindowDialog_Update(const std::int32_t value)
+static std::int32_t WindowDialog_Update(const std::int32_t value)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
@@ -299,7 +403,7 @@ std::int32_t WindowDialog_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049CAD0。
-std::int32_t WindowDialog_Draw(const std::int32_t)
+static std::int32_t WindowDialog_Draw(const std::int32_t)
 {
     WindowInstance* window = gCurrentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (window->state & 0x8000u) != 0) {
@@ -425,7 +529,7 @@ std::int32_t WindowDialog_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049CDF0。
-void WindowDialog_Release()
+static void WindowDialog_Release()
 {
     if (gMessageDialog.closeCallbackPending != 0) {
         const WindowDialogReplyCallback reply = gMessageDialog.reply;
@@ -441,7 +545,7 @@ void WindowDialog_Release()
 }
 
 // 原函数：0x0049CE70。
-std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     static constexpr std::int32_t images[6][3] {
         {243048, 243049, 243050},
@@ -486,7 +590,7 @@ std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int
 }
 
 // 原函数：0x0049CF70。
-std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int32_t state)
 {
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
     gMessageDialog.events = state;
@@ -601,7 +705,7 @@ std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int
 }
 
 // 原函数：0x0049DA30。
-std::int32_t WindowDialog_Reply(
+static std::int32_t WindowDialog_Reply(
     const std::int32_t button, const std::int32_t row,
     const std::wstring* const texts, const std::uint8_t inputCount)
 {
@@ -658,10 +762,8 @@ std::int32_t WindowDialog_Reply(
     return 1;
 }
 
-static_assert(std::is_same_v<decltype(&WindowDialog_Reply), WindowDialogReplyCallback>);
-
 // 原函数：0x0049DDB0。
-void WindowDialog_ParseGraphicTag(const char* const text, std::int16_t x, std::int16_t y)
+static void WindowDialog_ParseGraphicTag(const char* const text, std::int16_t x, std::int16_t y)
 {
     if (text[0] != 'g' || text[1] != ',') {
         return;
@@ -724,7 +826,7 @@ void WindowDialog_ParseGraphicTag(const char* const text, std::int16_t x, std::i
 
 // SRD01：原49D2E0完整515条；三阶段分派/原六处存放解析合并条件、fresh窗口与Y-X RNG/状态发布保持。
 // 原函数：0x0049D2E0。
-void WindowDialog_Route(
+static void WindowDialog_Route(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
@@ -935,7 +1037,7 @@ void WindowDialog_Route(
 }
 
 // 原函数：0x0050E130。
-void WindowDialog_RouteReply(
+static void WindowDialog_RouteReply(
     const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
@@ -957,7 +1059,7 @@ void WindowDialog_RouteReply(
 }
 
 // 原函数：0x0049DF30。
-login::YobiAction* WindowDialog_OpenText(
+static login::YobiAction* WindowDialog_OpenText(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::int32_t imageNo, const std::int32_t buttons,
@@ -1036,7 +1138,7 @@ login::YobiAction* WindowDialog_OpenText(
 }
 
 // 原函数：0x0049E1D0。
-std::int32_t WindowDialog_DrawHealing(
+static std::int32_t WindowDialog_DrawHealing(
     WindowInstance* const window, const std::int32_t button,
     std::int32_t row, const std::int32_t)
 {
@@ -1091,10 +1193,8 @@ std::int32_t WindowDialog_DrawHealing(
     return 0;
 }
 
-static_assert(std::is_same_v<decltype(&WindowDialog_DrawHealing), WindowDialogFrameCallback>);
-
 // 原函数：0x0049E400。
-login::YobiAction* WindowDialog_OpenHealing(
+static login::YobiAction* WindowDialog_OpenHealing(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::int32_t imageNo, const std::int32_t,
@@ -1156,8 +1256,10 @@ login::YobiAction* WindowDialog_OpenHealing(
         x, y, width, height, imageNo, 2, gDialogLinesCB1398.data(), first + 9,
         16, first, 0, nullptr, columns, 2, 0, &WindowDialog_Reply, &WindowDialog_DrawHealing, 1, 0);
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050E110。
 void WindowDialog_ReceiveReply(
@@ -1177,52 +1279,3 @@ void WindowDialog_ReceiveReply(
 }
 
 } // namespace cg::ui
-
-namespace cg::ui::detail {
-
-namespace {
-
-WindowGraphicData gWindowGraphic56C9F8 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C9F8。
-
-WindowGraphicData gWindowGraphic56CA10 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA10。
-
-WindowGraphicData gWindowGraphic56CA28 {0x3BE4B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA28。
-
-WindowGraphicData gWindowGraphic56CA40 {0x3BE4E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA40。
-
-WindowGraphicData gWindowGraphic56CA58 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA58。
-
-WindowGraphicData gWindowGraphic56CA70 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056CA70。
-
-std::int32_t gWindowAnimationImageD6780C = 0; // 原全局：0x00D6780C。
-
-} // namespace
-
-// 原型：窗口36；原全局：0x0054E870。
-WindowPrototype gWindowPrototypeDialog {2, 3, 0, 0, 0, 30, 0x80010101u, 19, gWindowElements56CA88, &WindowDialog_Update, &WindowDialog_Draw, &WindowDialog_Release}; // 36: 54E870
-
-WindowElementPrototype gWindowElements56CA88[19] { // 原全局：0x0056CA88。
-    {WindowElementType_Graphic, 0, 0, 66, 17, 1, {.graphic = &gWindowGraphic56C9F8}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA10}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA28}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 60, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA40}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 60, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA58}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 120, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA70}, &WindowDialog_HandleButtons},
-    {WindowElementType_EventArea, 120, 0, 28, 8, 1, {.unusedValue = 0}, &WindowDialog_HandleTextSelection},
-    {WindowElementType_Input, 80, 42, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    // 原运行第19项与下一文本/元素源字节重叠；值1不是函数，visible0阻止正常调用。
-    {WindowElementType_EventArea, 0x593850, 3, 0, 44, 0, {.unusedValue = 0},
-        reinterpret_cast<WindowElementCallback>(std::uintptr_t{1})},
-};
-
-} // namespace cg::ui::detail

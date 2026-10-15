@@ -2,6 +2,7 @@
 
 namespace cg::ui {
 namespace detail {
+
 namespace {
 
 // 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
@@ -11,32 +12,56 @@ struct ItemUseTargetRecord {
     std::byte byte13; // 原成员偏移：+0x13。
 };
 
+} // namespace
+
+// 回调与内部函数前置声明。
+
+// 原函数：0x0048AEA0。
+static std::int32_t WindowItemUse_SelectTextTarget(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
+
+// 原函数：0x0048AF00。
+static login::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
+
+// 原函数：0x004E4860。
+static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* text); // LY完整目标名单生产，保留原Yobi返回。
+
+// 原函数：0x0048B010。
+static std::int32_t WindowItemUse_SelectAttributeTarget(std::int32_t index, const char* unusedText); // 用物品/请求回退/释放通知。
+
+// 原函数：0x0048B0A0。
+static login::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展示源及46创建成功后的引用计数。
+
+// 原函数：0x004E4020。
+static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
+
+// 控件载荷、窗口状态、组件表与原型。
+
 static_assert(offsetof(ItemUseTargetRecord, name) == 2);
 
 static_assert(sizeof(ItemUseTargetRecord) == 20);
 
-std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {}; // 原全局：0x00CB0EA8。
+static std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {}; // 原全局：0x00CB0EA8。
 
-std::int32_t gItemUseTargetCountCC40CC = 0; // 原全局：0x00CC40CC。
+static std::int32_t gItemUseTargetCountCC40CC = 0; // 原全局：0x00CC40CC。
 
-std::int32_t gItemUsePageCC46DC = 0; // 原全局：0x00CC46DC。
+static std::int32_t gItemUsePageCC46DC = 0; // 原全局：0x00CC46DC。
 
-std::int32_t gItemUsePageCountCC3E70 = 0; // 原全局：0x00CC3E70。
+static std::int32_t gItemUsePageCountCC3E70 = 0; // 原全局：0x00CC3E70。
 
-std::int32_t gItemUseTargetCB0A48 = 0; // 原全局：0x00CB0A48。
+static std::int32_t gItemUseTargetCB0A48 = 0; // 原全局：0x00CB0A48。
 
-std::array<const char*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
+static std::array<const char*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
 
-std::array<std::uint8_t, 10> gItemUseColorsD2E91C {}; // 原全局：0x00D2E91C。
+static std::array<std::uint8_t, 10> gItemUseColorsD2E91C {}; // 原全局：0x00D2E91C。
 
 // 仅映射已证最多六行，不冻结相邻未消费容量；旧78借用同源记录。
-std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {}; // 原全局：0x00CB10D8。
+static std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {}; // 原全局：0x00CB10D8。
 
-std::int32_t gItemUseStatusCountCC4D44 = 0; // 原全局：0x00CC4D44。
+static std::int32_t gItemUseStatusCountCC4D44 = 0; // 原全局：0x00CC4D44。
 
-std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 原全局：0x00CB1278。
-} // namespace
+static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 原全局：0x00CB1278。
 
+// 窗口函数实现。
 
 LegacyItemUseTargetView WindowItemUse_BorrowTargetView() noexcept
 {
@@ -55,7 +80,7 @@ std::int32_t WindowItemUse_ReadStatusCount() noexcept
 }
 
 // 原函数：0x0048AEA0。
-std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char*)
+static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char*)
 {
     if (index >= 0) {
         static_cast<void>(network::Sub_511D10(platform::gConnectionSocket, index));
@@ -76,7 +101,7 @@ std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char
 }
 
 // 原函数：0x0048AF00。
-login::YobiAction* WindowItemUse_OpenTextTargets()
+static login::YobiAction* WindowItemUse_OpenTextTargets()
 {
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -111,7 +136,7 @@ login::YobiAction* WindowItemUse_OpenTextTargets()
 }
 
 // 原函数：0x004E4860。
-login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
+static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 {
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
@@ -161,7 +186,7 @@ login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const text)
 }
 
 // 原函数：0x0048B010。
-std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const char*)
+static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const char*)
 {
     if (index == -3) {
         static_cast<void>(network::Sub_511CD0(platform::gConnectionSocket));
@@ -188,7 +213,7 @@ std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const
 }
 
 // 原函数：0x0048B0A0。
-login::YobiAction* WindowItemUse_OpenAttributeTargets()
+static login::YobiAction* WindowItemUse_OpenAttributeTargets()
 {
     const std::int32_t count = gItemUseStatusCountCC4D44;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
@@ -226,7 +251,7 @@ login::YobiAction* WindowItemUse_OpenAttributeTargets()
 }
 
 // 原函数：0x004E4020。
-login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
+static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
 {
     const std::int32_t y = world::detail::BorrowPlayerYStorage()->value();
     const std::int32_t x = world::detail::BorrowPlayerXStorage()->value();
@@ -315,8 +340,10 @@ login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* const text)
     }
     return WindowItemUse_OpenAttributeTargets();
 }
+
 } // namespace detail
 
+// 窗口函数实现。
 
 // 原函数：0x0050E380。
 void WindowItemUse_ReceiveTextTargetReply(const std::uintptr_t, const char* const text)

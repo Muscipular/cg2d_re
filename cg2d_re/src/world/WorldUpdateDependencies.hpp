@@ -1454,7 +1454,7 @@ void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
-const char* GetTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
+const char* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
 const char* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。

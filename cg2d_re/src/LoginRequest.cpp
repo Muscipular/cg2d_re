@@ -11,20 +11,12 @@
 #include "platform/LegacyFormat.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
-constexpr std::size_t kRequestField18Offset = 0x18;
-constexpr std::size_t kRequestField4COffset = 0x4C;
-constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 constexpr char kSuccessfulResult[] = "successful";
-
-static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(kRequestField4COffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(kRequestField50Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 
 } // namespace
 
@@ -48,7 +40,7 @@ std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    gCharacterRecords[selectedIndex].fill(std::byte{0});
+    gCharacterRecords[selectedIndex] = {};
     return 0;
 }
 
@@ -58,15 +50,15 @@ std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    return gCharacterRecords[selectedIndex][0] != std::byte{0} ? 1 : 0;
+    return gCharacterRecords[selectedIndex].name[0] != '\0' ? 1 : 0;
 }
 
 // 原函数：0x0051B140。
 std::int32_t CharacterNameExists_51B140(const char* const name)
 {
-    for (const CharacterRecordBytes& record : gCharacterRecords) {
+    for (const CharacterRecord& record : gCharacterRecords) {
         const auto* const storedName =
-            reinterpret_cast<const unsigned char*>(record.data());
+            reinterpret_cast<const unsigned char*>(record.name.data());
         std::size_t index = 0;
         for (;;) {
             const auto inputByte = static_cast<unsigned char>(name[index]);
@@ -95,13 +87,10 @@ std::uint32_t StartLoginRequest()
     const std::int16_t selected = gSelectedCharacterIndex;
     gRequestReplyCode = 0;
 
-    const CharacterRecordBytes* const record = gCharacterRecords.data() + selected;
-    std::int32_t field18;
-    std::int32_t field50;
-    std::int32_t field4C;
-    std::memcpy(&field18, record->data() + kRequestField18Offset, sizeof(field18));
-    std::memcpy(&field50, record->data() + kRequestField50Offset, sizeof(field50));
-    std::memcpy(&field4C, record->data() + kRequestField4COffset, sizeof(field4C));
+    const CharacterRecord* const record = gCharacterRecords.data() + selected;
+    const std::int32_t field18 = record->graphicNo;
+    const std::int32_t field50 = record->previewState;
+    const std::int32_t field4C = record->registNumber;
 
     network::Sub_512B00(
         platform::gConnectionSocket,

@@ -1258,18 +1258,7 @@ static_assert(sizeof(gDeleteCharacterName) == 132);
 namespace cg::character_select {
 namespace {
 
-constexpr std::size_t kNameOffset = 0x00;
-constexpr std::size_t kGraphicNoOffset = 0x18;
-constexpr std::size_t kDeleteFlagOffset = 0x20;
-constexpr std::size_t kGraphicClassOffset = 0x24;
-constexpr std::size_t kPreviewToggleOffset = 0x50;
 constexpr std::size_t kLegacyNameCapacity = 20;
-
-static_assert(kNameOffset == 0);
-static_assert(kGraphicNoOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kDeleteFlagOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kGraphicClassOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kPreviewToggleOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
 
 detail::CharacterSelectUiRecord gReturnUi {
     {534, 438, 64, 16}, 245045, 245047, 245046,
@@ -1287,33 +1276,11 @@ std::uint32_t UnsignedBits(std::int32_t value)
     return std::bit_cast<std::uint32_t>(value);
 }
 
-std::int32_t ReadRecordInt32(
-    const login::CharacterRecordBytes& record,
-    std::size_t offset)
-{
-    std::int32_t value;
-    std::memcpy(&value, record.data() + offset, sizeof(value));
-    return value;
-}
-
-void WriteRecordInt32(
-    login::CharacterRecordBytes& record,
-    std::size_t offset,
-    std::int32_t value)
-{
-    std::memcpy(record.data() + offset, &value, sizeof(value));
-}
-
-const char* ReadRecordName(const login::CharacterRecordBytes& record)
-{
-    // 与原 strcpy 相同，调用前提是 +0x00 处存在适合 20 字节临时区的 NUL 文本。
-    return reinterpret_cast<const char*>(record.data() + kNameOffset);
-}
-
-void CopyRecordName(char* destination, const login::CharacterRecordBytes& record)
+void CopyRecordName(char* destination, const login::CharacterRecord& record)
 {
     char name[kLegacyNameCapacity];
-    std::strcpy(name, ReadRecordName(record));
+    // 与原strcpy相同，调用前提是姓名适合20字节临时区且有NUL终止。
+    std::strcpy(name, record.name.data());
     cg::NullSub_509080();
     std::strcpy(destination, name);
 }
@@ -1329,75 +1296,57 @@ void ClearPreviewActions()
 }
 
 void UpdateCharacterGraphic(
-    login::CharacterRecordBytes& record,
+    login::CharacterRecord& record,
     std::int32_t action)
 {
     const std::uint8_t pukVersion = state::gPukVersion;
     if (pukVersion >= 7u) {
-        const std::int32_t imageNo = ReadRecordInt32(record, kGraphicNoOffset);
+        const std::int32_t imageNo = record.graphicNo;
         if (imageNo == 33100 || imageNo == 33101) {
             return;
         }
 
         if (imageNo >= 30000 && imageNo < 98000) {
-            WriteRecordInt32(record, kGraphicClassOffset, 0);
+            record.graphicClass = 0;
         } else if (imageNo >= 202800 && imageNo < 204200) {
-            WriteRecordInt32(record, kGraphicClassOffset, 1);
+            record.graphicClass = 1;
         } else if (imageNo >= 200000 && imageNo < 202700) {
-            WriteRecordInt32(record, kGraphicClassOffset, 1);
+            record.graphicClass = 1;
         } else if ((imageNo >= 240000 && imageNo <= 242800)
             || (imageNo >= 205000 && imageNo <= 205600)
             || (imageNo >= 270000 && imageNo <= 270200)) {
-            WriteRecordInt32(record, kGraphicClassOffset, 2);
+            record.graphicClass = 2;
         }
 
         const std::int32_t graphicClass =
-            ReadRecordInt32(record, kGraphicClassOffset);
+            record.graphicClass;
         const std::int32_t selector = graphicClass + 2 * action - 7;
 
         if (graphicClass == 0) {
             if (selector == 1) {
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    detail::Sub_51BB80(ReadRecordInt32(record, kGraphicNoOffset)));
+                record.graphicNo = detail::Sub_51BB80(record.graphicNo);
             } else {
                 const std::int32_t first = detail::Sub_51BB80(
-                    ReadRecordInt32(record, kGraphicNoOffset));
-                WriteRecordInt32(record, kGraphicNoOffset, first);
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    detail::Sub_51BFF0(first));
+                    record.graphicNo);
+                record.graphicNo = first;
+                record.graphicNo = detail::Sub_51BFF0(first);
             }
         } else if (graphicClass == 1) {
             if (selector == 2) {
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    detail::Sub_51BFF0(ReadRecordInt32(record, kGraphicNoOffset)));
+                record.graphicNo = detail::Sub_51BFF0(record.graphicNo);
             } else if (selector == 0) {
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    imageNo >= 200000 && imageNo < 202700
-                        ? detail::Sub_51BFF0(ReadRecordInt32(record, kGraphicNoOffset))
-                        : detail::Sub_51BAC0(ReadRecordInt32(record, kGraphicNoOffset)));
+                record.graphicNo = imageNo >= 200000 && imageNo < 202700
+                    ? detail::Sub_51BFF0(record.graphicNo)
+                    : detail::Sub_51BAC0(record.graphicNo);
             }
         } else if (graphicClass == 2) {
             if (selector == 3 && imageNo >= 240000 && imageNo < 241400) {
                 const std::int32_t first = detail::Sub_51BF00(
-                    ReadRecordInt32(record, kGraphicNoOffset));
-                WriteRecordInt32(record, kGraphicNoOffset, first);
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    detail::Sub_51BAC0(first));
+                    record.graphicNo);
+                record.graphicNo = first;
+                record.graphicNo = detail::Sub_51BAC0(first);
             } else {
-                WriteRecordInt32(
-                    record,
-                    kGraphicNoOffset,
-                    detail::Sub_51BF00(ReadRecordInt32(record, kGraphicNoOffset)));
+                record.graphicNo = detail::Sub_51BF00(record.graphicNo);
             }
         }
         return;
@@ -1407,28 +1356,22 @@ void UpdateCharacterGraphic(
         return;
     }
 
-    const std::int32_t imageNo = ReadRecordInt32(record, kGraphicNoOffset);
+    const std::int32_t imageNo = record.graphicNo;
     if (imageNo == 33100 || imageNo == 33101) {
         return;
     }
 
     if (imageNo >= 30000 && imageNo < 98000) {
-        WriteRecordInt32(record, kGraphicClassOffset, 0);
+        record.graphicClass = 0;
     } else if (imageNo >= 202800 && imageNo < 204200) {
-        WriteRecordInt32(record, kGraphicClassOffset, 1);
+        record.graphicClass = 1;
     }
 
-    const std::int32_t graphicClass = ReadRecordInt32(record, kGraphicClassOffset);
+    const std::int32_t graphicClass = record.graphicClass;
     if (graphicClass == 0) {
-        WriteRecordInt32(
-            record,
-            kGraphicNoOffset,
-            detail::Sub_51BB80(ReadRecordInt32(record, kGraphicNoOffset)));
+        record.graphicNo = detail::Sub_51BB80(record.graphicNo);
     } else if (graphicClass == 1) {
-        WriteRecordInt32(
-            record,
-            kGraphicNoOffset,
-            detail::Sub_51BAC0(ReadRecordInt32(record, kGraphicNoOffset)));
+        record.graphicNo = detail::Sub_51BAC0(record.graphicNo);
     }
 }
 
@@ -1651,7 +1594,7 @@ std::int32_t ProcessScene_460FF0()
     }
 
     for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
-        login::CharacterRecordBytes& record =
+        login::CharacterRecord& record =
             login::gCharacterRecords[static_cast<std::size_t>(slot)];
         const std::int32_t action =
             ProcessCharacterSlot_461B30(slot, interactive);
@@ -1677,9 +1620,9 @@ std::int32_t ProcessScene_460FF0()
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
             CopyRecordName(state::gSelectedCharacterName, record);
             const std::int16_t selected = login::gSelectedCharacterIndex;
-            const login::CharacterRecordBytes* const selectedRecord =
+            const login::CharacterRecord* const selectedRecord =
                 login::gCharacterRecords.data() + selected;
-            state::gSelectedGraphicNo = ReadRecordInt32(*selectedRecord, kGraphicNoOffset);
+            state::gSelectedGraphicNo = selectedRecord->graphicNo;
             world::SetCurrentSceneType(5);
             login::detail::PlaySe(59, 320, 240);
             state::gCharacterEntryState = 0;
@@ -1690,9 +1633,9 @@ std::int32_t ProcessScene_460FF0()
         }
         case 2: {
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            if (ReadRecordInt32(record, kDeleteFlagOffset) != 0) {
+            if (record.deleteFlag != 0) {
                 char name[kLegacyNameCapacity];
-                std::strcpy(name, ReadRecordName(record));
+                std::strcpy(name, record.name.data());
                 cg::NullSub_509080();
                 world::gCurrentSceneState = 12;
                 std::strcpy(state::gDeleteCharacterName, name);
@@ -1709,14 +1652,14 @@ std::int32_t ProcessScene_460FF0()
             break;
         case 5:
         case 6: {
-            const std::int32_t value = ReadRecordInt32(record, kPreviewToggleOffset);
+            const std::int32_t value = record.previewState;
             if (value == 0) {
-                WriteRecordInt32(record, kPreviewToggleOffset, 1);
+                record.previewState = 1;
             } else if (value == 1) {
-                WriteRecordInt32(record, kPreviewToggleOffset, 0);
+                record.previewState = 0;
             }
             state::gPreviewToggleState =
-                ReadRecordInt32(record, kPreviewToggleOffset);
+                record.previewState;
             ProcessCharacterPreview_460D00(slot);
             login::detail::PlaySe(51, 320, 240);
             break;

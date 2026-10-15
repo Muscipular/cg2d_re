@@ -7,14 +7,11 @@
 #include "platform/LegacyFormat.hpp"
 
 #include <cstddef>
-#include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
-constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 
 } // namespace
 
@@ -29,12 +26,8 @@ std::uint32_t StartCharacterDeletionRequest()
     gCharacterDeletionReplyCode = 0;
 
     const std::uintptr_t socket = platform::gConnectionSocket;
-    const CharacterRecordBytes* const record = gCharacterRecords.data() + selected;
-    std::int32_t registNumber;
-    std::memcpy(
-        &registNumber,
-        record->data() + kRegistNumberOffset,
-        sizeof(registNumber));
+    const CharacterRecord* const record = gCharacterRecords.data() + selected;
+    const std::int32_t registNumber = record->registNumber;
 
     network::Sub_512AB0(socket, registNumber);
     gRequestStatus = 1;

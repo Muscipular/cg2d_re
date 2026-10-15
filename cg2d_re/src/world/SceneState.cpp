@@ -7961,9 +7961,9 @@ void CopyPlayerBarValues(
 
 const char* GetTitleText(const std::int32_t index) noexcept
 {
-    // 原FF0510-1Ch=FF04F4，未装备称号借用第二条角色记录+80h的原字节。
-    if (index == -1) {
-        return reinterpret_cast<const char*>(login::gCharacterRecords[1].data() + 0x80);
+    // 未装备或无效索引返回空文本；修正原FF0510+index*1Ch越界读。
+    if (index < 0 || index >= static_cast<std::int32_t>(gTitlesFF0508.size())) {
+        return "";
     }
     return gTitlesFF0508[index].text.data();
 }

@@ -8,17 +8,11 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
 
 namespace cg::character_select {
 namespace {
 
-constexpr std::size_t kGraphicNoOffset = 0x18;
-constexpr std::size_t kPreviewStateOffset = 0x50;
 constexpr std::size_t kPreviewGraphicCount = 14;
-
-static_assert(kGraphicNoOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kPreviewStateOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
 
 constexpr std::array<std::int32_t, kPreviewGraphicCount> kState0Graphics {{
     100002, 100027, 100052, 100077, 100102, 100127, 100152,
@@ -39,23 +33,6 @@ constexpr std::array<std::int32_t, kPreviewGraphicCount> kState3Graphics {{
     105502, 105527, 104402, 104432, 104462, 104492, 120102,
     100900, 100900, 100900, 120126, 100900, 100900, 100900,
 }};
-
-std::int32_t ReadRecordInt32(
-    const login::CharacterRecordBytes& record,
-    std::size_t offset)
-{
-    std::int32_t value;
-    std::memcpy(&value, record.data() + offset, sizeof(value));
-    return value;
-}
-
-void WriteRecordInt32(
-    login::CharacterRecordBytes& record,
-    std::size_t offset,
-    std::int32_t value)
-{
-    std::memcpy(record.data() + offset, &value, sizeof(value));
-}
 
 const std::array<std::int32_t, kPreviewGraphicCount>& SelectGraphicTable(
     std::int32_t previewState)
@@ -496,33 +473,30 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         return;
     }
 
-    login::CharacterRecordBytes& record = login::gCharacterRecords[slotIndex];
-    if (ReadRecordInt32(record, kGraphicNoOffset) < 30000) {
-        WriteRecordInt32(record, kGraphicNoOffset, 33100);
+    login::CharacterRecord& record = login::gCharacterRecords[slotIndex];
+    if (record.graphicNo < 30000) {
+        record.graphicNo = 33100;
     }
 
     const std::int32_t converted = detail::Sub_51BFF0(
-        detail::Sub_51BB80(ReadRecordInt32(record, kGraphicNoOffset)));
+        detail::Sub_51BB80(record.graphicNo));
 
     const std::int32_t oldPreviewState =
-        ReadRecordInt32(record, kPreviewStateOffset);
+        record.previewState;
     if (oldPreviewState < 0) {
-        WriteRecordInt32(
-            record,
-            kPreviewStateOffset,
-            converted >= 240000 && converted < 241400 ? 1 : 2);
+        record.previewState = converted >= 240000 && converted < 241400 ? 1 : 2;
     } else {
         if (converted >= 241400) {
-            WriteRecordInt32(record, kPreviewStateOffset, 2);
+            record.previewState = 2;
         }
         if ((converted >= 205000 && converted <= 205600)
             || (converted >= 270000 && converted <= 270200)) {
-            WriteRecordInt32(record, kPreviewStateOffset, 3);
+            record.previewState = 3;
         }
     }
 
     const std::int32_t previewState =
-        ReadRecordInt32(record, kPreviewStateOffset);
+        record.previewState;
     const std::array<std::int32_t, kPreviewGraphicCount>& graphics =
         SelectGraphicTable(previewState);
 
@@ -536,7 +510,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
 
     const std::int32_t graphicIndex = SelectGraphicIndex(converted);
     const std::int32_t normalizedGraphic =
-        ReadRecordInt32(record, kGraphicNoOffset);
+        record.graphicNo;
     if (normalizedGraphic == 33100) {
         login::detail::SetYobiActionField2A8(action, 100900);
     } else if (normalizedGraphic == 33101) {

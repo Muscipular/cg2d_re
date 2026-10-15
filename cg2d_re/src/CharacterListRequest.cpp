@@ -7,6 +7,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "platform/LegacyFormat.hpp"
 
+#include <bit>
 #include <cstddef>
 #include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
@@ -16,12 +17,6 @@ namespace {
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 constexpr char kInvalidCharacterName[] = "???";
 constexpr std::size_t kOuterTokenCapacity = 1024;
-constexpr std::size_t kJobTokenCapacity = 64;
-
-static_assert(cg::login::CharacterRecordCount == 2);
-static_assert(sizeof(cg::login::CharacterRecordBytes) == 0x94);
-static_assert(sizeof(cg::login::CharacterRecordArray) == 2 * 0x94);
-static_assert(0x54 + kJobTokenCapacity == cg::login::CharacterRecordSize);
 
 std::int32_t CompareUnsignedBytes(const char* left, const char* right)
 {
@@ -39,14 +34,6 @@ std::int32_t CompareUnsignedBytes(const char* left, const char* right)
     }
 }
 
-void WriteRecordInt32(
-    cg::login::CharacterRecordBytes& record,
-    const std::size_t offset,
-    const std::int32_t value)
-{
-    std::memcpy(record.data() + offset, &value, sizeof(value));
-}
-
 // 原 sub_51B1B0@[0x51B1B0,0x51B3A2)；唯一调用者为 sub_5089B0。
 std::int32_t WriteCharacterRecord_51B1B0(
     const char* legacyName,
@@ -60,78 +47,63 @@ std::int32_t WriteCharacterRecord_51B1B0(
         return -1;
     }
 
-    cg::login::CharacterRecordBytes& record = cg::login::gCharacterRecords[
+    cg::login::CharacterRecord& record = cg::login::gCharacterRecords[
         static_cast<std::size_t>(slot)];
-    record.fill(std::byte{0});
+    record = {};
 
     const std::size_t nameLength = std::strlen(legacyName);
     if (nameLength <= 16) {
-        std::memcpy(record.data(), legacyName, nameLength + 1);
+        std::memcpy(record.name.data(), legacyName, nameLength + 1);
     } else {
-        std::memcpy(record.data(), kInvalidCharacterName, sizeof(kInvalidCharacterName));
+        std::memcpy(record.name.data(), kInvalidCharacterName, sizeof(kInvalidCharacterName));
     }
 
-    WriteRecordInt32(
-        record, 0x18,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 2));
+    record.graphicNo =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 2);
 
     const std::int32_t token3 =
         cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 3);
     const std::uint16_t token3Low = static_cast<std::uint16_t>(
         static_cast<std::uint32_t>(token3));
-    std::memcpy(record.data() + 0x12, &token3Low, sizeof(token3Low));
+    record.value12 = std::bit_cast<std::int16_t>(token3Low);
 
-    WriteRecordInt32(
-        record, 0x28,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 4));
-    WriteRecordInt32(
-        record, 0x2C,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 5));
-    WriteRecordInt32(
-        record, 0x30,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 6));
-    WriteRecordInt32(
-        record, 0x34,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 7));
-    WriteRecordInt32(
-        record, 0x38,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 8));
+    record.value28 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 4);
+    record.value2C =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 5);
+    record.value30 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 6);
+    record.value34 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 7);
+    record.value38 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 8);
 
-    WriteRecordInt32(
-        record, 0x3C,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 9) / 10);
-    WriteRecordInt32(
-        record, 0x40,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 10) / 10);
-    WriteRecordInt32(
-        record, 0x44,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 11) / 10);
-    WriteRecordInt32(
-        record, 0x48,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 12) / 10);
+    record.value3C =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 9) / 10;
+    record.value40 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 10) / 10;
+    record.value44 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 11) / 10;
+    record.value48 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 12) / 10;
 
-    WriteRecordInt32(
-        record, 0x14,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 13));
-    WriteRecordInt32(
-        record, 0x4C,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 15));
-    WriteRecordInt32(
-        record, 0x50,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 17));
-    WriteRecordInt32(
-        record, 0x1C,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 18));
-    WriteRecordInt32(
-        record, 0x20,
-        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 19));
+    record.value14 =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 13);
+    record.registNumber =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 15);
+    record.previewState =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 17);
+    record.value1C =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 18);
+    record.deleteFlag =
+        cg::network::ParseDelimitedInteger_52CFA0(mutableLegacyDetail, '|', 19);
 
     static_cast<void>(cg::network::ExtractDelimitedField_52CED0(
         mutableLegacyDetail,
         '|',
         16,
-        static_cast<std::int32_t>(kJobTokenCapacity - 1),
-        reinterpret_cast<char*>(record.data() + 0x54)));
+        static_cast<std::int32_t>(record.jobText.size() - 1),
+        record.jobText.data()));
     return 0;
 }
 

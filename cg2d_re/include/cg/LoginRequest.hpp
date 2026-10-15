@@ -4,6 +4,7 @@
 #include "cg/text/Encoding.hpp"
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 namespace cg::login {
 
@@ -11,10 +12,55 @@ inline constexpr std::size_t CharacterRecordSize = 0x94;
 inline constexpr std::size_t CharacterRecordCount = 2;
 inline constexpr std::size_t RequestMessageCapacity = 1024;
 
-using CharacterRecordBytes = std::array<std::byte, CharacterRecordSize>;
-using CharacterRecordArray = std::array<CharacterRecordBytes, CharacterRecordCount>;
+// 原FF03E0起的角色列表记录；生产者51B1B0，登录／选择场景共用。
+struct CharacterRecord {
+    std::array<char, 17> name; // +00；旧编码姓名，最多16字节及NUL。
+    std::byte reserved11; // +11；随整条记录清零的保留字节。
+    std::int16_t value12; // +12；列表t3低W16，槽位按S16显示。
+    std::int32_t value14; // +14；列表t13，槽位显示数值。
+    std::int32_t graphicNo; // +18；列表t2，登录／选择／预览图号。
+    std::int32_t value1C; // +1C；列表t18。
+    std::int32_t deleteFlag; // +20；列表t19，选择页删除条件。
+    std::int32_t graphicClass; // +24；选择页图号切换分类。
+    std::int32_t value28; // +28；列表t4。
+    std::int32_t value2C; // +2C；列表t5。
+    std::int32_t value30; // +30；列表t6。
+    std::int32_t value34; // +34；列表t7。
+    std::int32_t value38; // +38；列表t8。
+    std::int32_t value3C; // +3C；列表t9经signed除10。
+    std::int32_t value40; // +40；列表t10经signed除10。
+    std::int32_t value44; // +44；列表t11经signed除10。
+    std::int32_t value48; // +48；列表t12经signed除10。
+    std::int32_t registNumber; // +4C；列表t15／创建回复，登录／删除使用。
+    std::int32_t previewState; // +50；列表t17／创建回复，预览切换值。
+    std::array<char, 64> jobText; // +54；列表t16，最多63个旧编码字节及NUL。
+};
 
-static_assert(sizeof(CharacterRecordBytes) == 0x94);
+using CharacterRecordArray = std::array<CharacterRecord, CharacterRecordCount>;
+
+static_assert(std::is_standard_layout_v<CharacterRecord>);
+static_assert(std::is_trivially_copyable_v<CharacterRecord>);
+static_assert(offsetof(CharacterRecord, name) == 0x00);
+static_assert(offsetof(CharacterRecord, reserved11) == 0x11);
+static_assert(offsetof(CharacterRecord, value12) == 0x12);
+static_assert(offsetof(CharacterRecord, value14) == 0x14);
+static_assert(offsetof(CharacterRecord, graphicNo) == 0x18);
+static_assert(offsetof(CharacterRecord, value1C) == 0x1C);
+static_assert(offsetof(CharacterRecord, deleteFlag) == 0x20);
+static_assert(offsetof(CharacterRecord, graphicClass) == 0x24);
+static_assert(offsetof(CharacterRecord, value28) == 0x28);
+static_assert(offsetof(CharacterRecord, value2C) == 0x2C);
+static_assert(offsetof(CharacterRecord, value30) == 0x30);
+static_assert(offsetof(CharacterRecord, value34) == 0x34);
+static_assert(offsetof(CharacterRecord, value38) == 0x38);
+static_assert(offsetof(CharacterRecord, value3C) == 0x3C);
+static_assert(offsetof(CharacterRecord, value40) == 0x40);
+static_assert(offsetof(CharacterRecord, value44) == 0x44);
+static_assert(offsetof(CharacterRecord, value48) == 0x48);
+static_assert(offsetof(CharacterRecord, registNumber) == 0x4C);
+static_assert(offsetof(CharacterRecord, previewState) == 0x50);
+static_assert(offsetof(CharacterRecord, jobText) == 0x54);
+static_assert(sizeof(CharacterRecord) == CharacterRecordSize);
 static_assert(sizeof(CharacterRecordArray) == 0x128);
 
 // 原 [0xFF03E0,0xFF0508) 与 0xFF0C08；均有跨场景引用，映像初值为 0。

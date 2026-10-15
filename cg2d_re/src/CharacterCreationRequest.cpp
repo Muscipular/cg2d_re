@@ -9,16 +9,11 @@
 #include "platform/LegacyFormat.hpp"
 
 #include <cstddef>
-#include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace {
 
-constexpr std::size_t kRegistNumberOffset = 0x4C;
-constexpr std::size_t kPreviewToggleOffset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(kPreviewToggleOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 
 } // namespace
 
@@ -102,15 +97,9 @@ void HandleCharacterCreationResponse_508EE0(
     gCharacterCreationReplyCode = 1;
     const std::int32_t previewToggle =
         character_select::state::gPreviewToggleState;
-    CharacterRecordBytes* const record = gCharacterRecords.data() + selected;
-    std::memcpy(
-        record->data() + kRegistNumberOffset,
-        &registNumber,
-        sizeof(registNumber));
-    std::memcpy(
-        record->data() + kPreviewToggleOffset,
-        &previewToggle,
-        sizeof(previewToggle));
+    CharacterRecord* const record = gCharacterRecords.data() + selected;
+    record->registNumber = registNumber;
+    record->previewState = previewToggle;
 }
 
 } // namespace cg::login

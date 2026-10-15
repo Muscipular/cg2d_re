@@ -11,30 +11,15 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 
 namespace cg::character_select {
 namespace {
 
-constexpr std::size_t kNameOffset = 0x00;
-constexpr std::size_t kValue12Offset = 0x12;
-constexpr std::size_t kValue14Offset = 0x14;
-constexpr std::size_t kGraphicNoOffset = 0x18;
-constexpr std::size_t kToggleOffset = 0x50;
-constexpr std::size_t kText54Offset = 0x54;
-
 constexpr std::size_t kUiCount = 7;
 constexpr std::int32_t kSlotWidth = 315;
 constexpr std::int32_t kSlotLeft = 10;
 constexpr std::int32_t kSlotTop = 51;
-
-static_assert(kValue12Offset + sizeof(std::int16_t) <= login::CharacterRecordSize);
-static_assert(kValue14Offset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kGraphicNoOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kToggleOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
-static_assert(kNameOffset < login::CharacterRecordSize);
-static_assert(kText54Offset < login::CharacterRecordSize);
 
 struct SlotCoordinate {
     std::int32_t x;
@@ -61,24 +46,6 @@ constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
     {53, 27},
 }};
 
-std::int16_t ReadRecordInt16(
-    const login::CharacterRecordBytes& record,
-    std::size_t offset)
-{
-    std::int16_t value;
-    std::memcpy(&value, record.data() + offset, sizeof(value));
-    return value;
-}
-
-std::int32_t ReadRecordInt32(
-    const login::CharacterRecordBytes& record,
-    std::size_t offset)
-{
-    std::int32_t value;
-    std::memcpy(&value, record.data() + offset, sizeof(value));
-    return value;
-}
-
 } // namespace
 
 // 原函数：0x00461B30。
@@ -103,7 +70,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
     std::int32_t result = -1;
     std::int32_t style;
-    const login::CharacterRecordBytes& record =
+    const login::CharacterRecord& record =
         login::gCharacterRecords[static_cast<std::size_t>(slot)];
 
     if (detail::Sub_51B110(slot) != 0) {
@@ -131,12 +98,11 @@ std::int32_t ProcessCharacterSlot_461B30(
             coordinates[4].x,
             coordinates[4].y,
             10,
-            ReadRecordInt32(record, kGraphicNoOffset),
+            record.graphicNo,
             0,
             -1);
 
-        const char* const name =
-            reinterpret_cast<const char*>(record.data() + kNameOffset);
+        const char* const name = record.name.data();
         login::detail::DrawText(
             static_cast<std::int16_t>(coordinates[0].x),
             static_cast<std::int16_t>(coordinates[0].y),
@@ -148,7 +114,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             0);
 
         std::wstring buffer;
-        cg::text::FormatTo(buffer, L"{:4}", ReadRecordInt16(record, kValue12Offset));
+        cg::text::FormatTo(buffer, L"{:4}", record.value12);
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
@@ -158,7 +124,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             buffer,
             0);
 
-        std::int32_t value14 = ReadRecordInt32(record, kValue14Offset);
+        std::int32_t value14 = record.value14;
         if (value14 >= 10000) {
             value14 = 9999;
         }
@@ -172,8 +138,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             buffer,
             0);
 
-        const char* const text54 =
-            reinterpret_cast<const char*>(record.data() + kText54Offset);
+        const char* const text54 = record.jobText.data();
         cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text54).c_str());
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
@@ -205,7 +170,7 @@ std::int32_t ProcessCharacterSlot_461B30(
     if (state::gPukVersion >= 5u && detail::Sub_51B110(slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {
             const std::uint32_t toggle = static_cast<std::uint32_t>(
-                ReadRecordInt32(record, kToggleOffset));
+                record.previewState);
             const bool enabled = item < 5
                 ? toggle < 2u
                     || (state::gPukVersion >= 7u && toggle != 3u)

@@ -4580,6 +4580,8 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 <a id="title-none-alias-20261009"></a>
 ## CAC03 未装备称号的原字节别名（2026-10-09）
 
+**2026-10-15更新**：用户要求修正该越界，按[CRS01](cg2d_login_request.md#character-record-struct-crs01)取消-1对角色尾部的别名。当前`GetTitleText`对负索引或超出称号表范围返回空字符串，合法索引沿原表读取；下述CAC03裁决及用户复验仅保留历史，不代当前改动的运行验收。
+
 用户实际断言栈经重编前的CAC01诊断版EXE/PDB离线解析：主模块返回RVA 12E0FA为std::array<TitleRecord,64>::operator[]，24D822为BorrowPlayerDisplayText（SceneState.cpp:8886），1D7185为Sub_442F70（YobiRuntime.cpp:6140）；随后Sub_4417E0 → YobiUpdateAll → DrawNormalScene → World::Update。解析使用返回地址-1定位调用源码行，未运行或附加客户端。这是普通场景头顶称号读取故障；栈未记录数值，不能声称已直接取得本次具体下标。日志ASCII事件只证明ClientLogin成功，不代完整角色入场验收。
 
 本机服务现源char/char_data.c:126将EquipTitle初始化为-1，char/title.c:314移除称号时也写-1，char/char_send.c:1118按CHAR_CP_TITLE原样发送该整数。它是正常的未装备状态。原4435EE..44360E不钳制下标，实际地址为FF0510 + title * 1Ch；title=-1时是FF04F4，恰为第二条角色记录FF0474+80h，属于已有角色资料尾部。原两页面4754FF..47551C、478094..4780B1同样计算该地址。

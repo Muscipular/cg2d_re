@@ -95,7 +95,31 @@ add_library(cg2d_re_startup STATIC
     src/scene/login/LoginCapability4Scene.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
-    src/YobiRuntime.cpp
+    src/Yobi/base.cpp
+    src/Yobi/animation.cpp
+    src/Yobi/window.cpp
+    src/Yobi/preview.cpp
+    src/Yobi/map_actor.cpp
+    src/Yobi/map_observation.cpp
+    src/Yobi/map_transition.cpp
+    src/Yobi/map_render.cpp
+    src/Yobi/environment.cpp
+    src/Yobi/battle_base.cpp
+    src/Yobi/battle_scene.cpp
+    src/Yobi/battle_message.cpp
+    src/Yobi/battle_skill.cpp
+    src/Yobi/battle_skill_attack.cpp
+    src/Yobi/battle_skill_status.cpp
+    src/Yobi/battle_skill_special.cpp
+    src/Yobi/battle_actor.cpp
+    src/Yobi/battle_attack.cpp
+    src/Yobi/battle_cast.cpp
+    src/Yobi/battle_status.cpp
+    src/Yobi/battle_ride.cpp
+    src/Yobi/battle_effect.cpp
+    src/Yobi/battle_impact.cpp
+    src/Yobi/battle_attachment.cpp
+    src/Yobi/battle_display.cpp
     src/ui/WindowRuntime.cpp
     src/ui/windows/WindowAdventureLog.cpp
     src/ui/windows/WindowAlbumDetail.cpp

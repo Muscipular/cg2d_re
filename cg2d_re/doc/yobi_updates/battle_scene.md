@@ -9,7 +9,7 @@
 | `427470` / `UpdateBattleEvent_427470` | `NewBattleEvent_43B610` 分配场景载荷并绑定；原绑定43B63D | `BattleScenePayload` 按已消费字段承接，M解析/角色与效果发布已有 | 完整回调与创建父已接；RID及C父调用已有 | 424620、完整载荷归属/清理及运行仍待 |
 | `43B360` / `DispatchBattleEvents_43B360` | `NewBattleScene_4383B0` 创建并绑定；`InitializeBattleScene_4383F0` 发布 | 同类型场景载荷，事件/组计数和调度 | 43CBB0→4383F0→4383B0→43B360→43B610→427470已有真实链 | 跨回合、退出、附属清理和完整战斗未验收 |
 
-[原绑定与载荷证据](../ui_windows/shared_battle.md#battle-action-14)已记原指令位置，当前源码59个已绑定原目标中包含本类2个目标/2个绑定。源码静态定位见 `YobiRuntime.cpp` 的上述符号，场景父见 `world/SceneState.cpp`；本次纠正文档漏记，不表示原端全部场景回调已枚举或运行通过。
+[原绑定与载荷证据](../ui_windows/shared_battle.md#battle-action-14)已记原指令位置，当前源码59个已绑定原目标中包含本类2个目标/2个绑定。当前实现见 [场景组](../../src/Yobi/battle_scene.cpp) 与 [消息组](../../src/Yobi/battle_message.cpp) 的上述符号，场景父见 `world/SceneState.cpp`；本次纠正文档漏记，不表示原端全部场景回调已枚举或运行通过。
 
 ## 生命周期任务
 

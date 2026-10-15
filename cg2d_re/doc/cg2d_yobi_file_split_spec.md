@@ -1,6 +1,6 @@
 # Yobi 按动画与功能组拆分 SPEC（YWS01）
 
-日期：2026-10-15。状态：待用户确认，尚未改动源码。
+日期：2026-10-15。状态：拆分完成，已通过本轮静态核对；未编译、链接或运行。
 
 ## 目标与现状
 
@@ -69,6 +69,42 @@
 5. 按用户最新要求，不生成或更新 JSON 台账，不执行台账汇总器或刷新派生定位。本 SPEC 的职责表和必要 Markdown 入口承担本次文件归属说明；历史证据不批量改写，不提升验收状态。
 6. 依本次用户提供的进度要求同步根 `plans/progess.md`，并在子项目既有进度中记录实施结论；每个可验证小步精确暂存并提交到当前 `cg2d_re` 分支，排除已有 Python 缓存和其他无关修改。本线程完成全部工作，不委派。
 
-## 待确认
+## 实施授权
 
-请确认上述目录、功能分组及保留公共接口的边界。确认后开始实际拆分；本轮提交仅包含本 SPEC 与进度记录。
+2026-10-15 用户回复“你执行一下”，确认按本 SPEC 实施；原方案提交保留，后续提交承接实际拆分和静态检查结果。
+
+## 实施结果
+
+已删除原大文件并接入25个独立CPP及25个同名内部头。706个完整函数的文字、字面量和局部静态对象逐项与迁移前一致；23个类型、98个变量/常量、1个别名、110条断言及5项原前置声明均保留。原943个源码单元全部落位，没有新增业务函数或改动公共YobiRuntime.hpp。
+
+8个跨组类型（含原完整YobiAction）迁入所属内部头；新增36个必需的跨组函数声明、18个共享可变状态extern声明，另将原442F70前置声明移入所属头。6个跨组constexpr常量改为所属头的inline constexpr，保持单一实体及初值；专属类型/变量/辅助函数继续留在实现内。构造函数、两个静态预览首次构造点和全部回调/动作分派正文保持。
+
+CMake只将原单项源路径替换为25项，其它正文与源条目顺序保持。50个落盘文件与迁移稿逐字一致，已核跨组声明和项目包含路径、头文件无环、标准头依赖、唯一定义及UTF-8无BOM/LF。当前Yobi文档入口已指向新目录/基础实现，历史正文和行号不批量重写；不生成或更新JSON台账及派生定位。
+
+| 分组 | CPP行数 | HPP行数 |
+| --- | ---: | ---: |
+| [base](../src/Yobi/base.cpp) | 511 | 154 |
+| [animation](../src/Yobi/animation.cpp) | 410 | 5 |
+| [window](../src/Yobi/window.cpp) | 1005 | 44 |
+| [preview](../src/Yobi/preview.cpp) | 146 | 5 |
+| [map_actor](../src/Yobi/map_actor.cpp) | 2653 | 85 |
+| [map_observation](../src/Yobi/map_observation.cpp) | 1223 | 5 |
+| [map_transition](../src/Yobi/map_transition.cpp) | 943 | 15 |
+| [map_render](../src/Yobi/map_render.cpp) | 1655 | 23 |
+| [environment](../src/Yobi/environment.cpp) | 882 | 5 |
+| [battle_base](../src/Yobi/battle_base.cpp) | 866 | 145 |
+| [battle_scene](../src/Yobi/battle_scene.cpp) | 618 | 16 |
+| [battle_message](../src/Yobi/battle_message.cpp) | 3676 | 67 |
+| [battle_skill](../src/Yobi/battle_skill.cpp) | 492 | 23 |
+| [battle_skill_attack](../src/Yobi/battle_skill_attack.cpp) | 1803 | 33 |
+| [battle_skill_status](../src/Yobi/battle_skill_status.cpp) | 1052 | 29 |
+| [battle_skill_special](../src/Yobi/battle_skill_special.cpp) | 3525 | 110 |
+| [battle_actor](../src/Yobi/battle_actor.cpp) | 1236 | 5 |
+| [battle_attack](../src/Yobi/battle_attack.cpp) | 3258 | 5 |
+| [battle_cast](../src/Yobi/battle_cast.cpp) | 3758 | 5 |
+| [battle_status](../src/Yobi/battle_status.cpp) | 1093 | 19 |
+| [battle_ride](../src/Yobi/battle_ride.cpp) | 901 | 5 |
+| [battle_effect](../src/Yobi/battle_effect.cpp) | 2886 | 17 |
+| [battle_impact](../src/Yobi/battle_impact.cpp) | 1554 | 16 |
+| [battle_attachment](../src/Yobi/battle_attachment.cpp) | 598 | 5 |
+| [battle_display](../src/Yobi/battle_display.cpp) | 547 | 23 |

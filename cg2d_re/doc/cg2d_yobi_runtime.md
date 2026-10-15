@@ -1,5 +1,7 @@
 # Yobi action/runtime、modal 与九宫格还原证据
 
+> 2026-10-15：按已确认的 [YWS01](cg2d_yobi_file_split_spec.md) 拆为 src/Yobi/ 下25组实现与内部头；公共生命周期在 base.cpp/.hpp，完整函数正文与对象状态保持。下文旧文件名和行号保留为历史定位，当前归属见拆分 SPEC。
+
 按回调原地址登记创建、载荷、子分派和清理责任，见[Yobi Update分类覆盖与依赖计划](cg2d_yobi_update_coverage.md)；此处继续保存原端详细证据，不复制第二份执行进度。
 
 ## 范围与证据源
@@ -456,7 +458,7 @@ cdecl，只有一个函数指针参数，返回 `YobiAction*` 或空；`0x44839B
 `Yobi::MarkDeath`、清槽；`0x4462CC` 也从该槽返回指针。
 这些生产与消费证实槽内对象与既有
 [`cg::login::YobiAction`](../include/cg/YobiRuntime.hpp) 同源，
-所有权仍归现有 [runtime/list](../src/YobiRuntime.cpp)。
+所有权仍归现有 [runtime/list](../src/Yobi/base.cpp)。
 邻近的 `0x4464D0` 会先标死 action 再清槽，`0x446470` 只清槽，
 不标死、不释放，两者不能互换。
 
@@ -1300,7 +1302,7 @@ X/Y 构造临时 `CryptInt`，将载荷分别写入 action
 `441E08–441E64` 还分别初始化另一组
 `+200/+210` 坐标，不能合并两组。原
 `445030/445160` 的 `CryptInt::eq` 对存活 action
-原位读取；现有 [`YobiRuntime.cpp`](../src/YobiRuntime.cpp)
+原位读取；现有 [Yobi分组实现](../src/Yobi/)
 的原生 `YobiAction` 只有 `readiness` 加密字段，
 尚无这两组坐标或 `441DB0` 生产者。另见
 [`LegacyCryptInt.hpp`](../include/cg/platform/LegacyCryptInt.hpp)

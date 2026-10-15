@@ -417,15 +417,6 @@ void SortTextures_520790()
         CompareGraphicCache3_5222A0);
 }
 
-} // namespace cg::render
-
-namespace cg::platform {
-
-char (&gTextFF4E30)[0x88] = render::gLegacyPendingStorage.prefix; // 原全局：0x00FF4E30。
-
-} // namespace cg::platform
-
-namespace cg::render {
 
 void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::int32_t index,

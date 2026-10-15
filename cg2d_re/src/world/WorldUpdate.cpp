@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -253,7 +254,7 @@ std::int32_t Sub_455C90()
     hovered = cg::ui::HitTestMouseRect_5049A0(
         left, top, right, bottom, -1) != 0;
     if (hovered
-        && (static_cast<std::uint8_t>(login::detail::gValueD68D9C) & 1U) != 0) {
+        && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons) & 1U) != 0) {
         cg::yobi::detail::MarkDeath(gDisconnectAction62B5B4);
         gDisconnectAction62B5B4 = nullptr;
         clicked = 1;

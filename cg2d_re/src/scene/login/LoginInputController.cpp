@@ -151,7 +151,7 @@ std::int32_t ProcessCapability4Input_464E30()
             && (static_cast<std::int32_t>(gInputContext9A5678Y)
                 < platform::gLegacyMouseState.mouseY)
             && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5678Y) + 26)
-            && (static_cast<std::uint8_t>(detail::gValueD68D9C)
+            && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));
@@ -163,7 +163,7 @@ std::int32_t ProcessCapability4Input_464E30()
             && (static_cast<std::int32_t>(gInputContext9A5960Y)
                 < platform::gLegacyMouseState.mouseY)
             && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(gInputContext9A5960Y) + 26)
-            && (static_cast<std::uint8_t>(detail::gValueD68D9C)
+            && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons)
                     & 1U)
                 != 0) {
             static_cast<void>(detail::PlaySe(51, 320, 240));

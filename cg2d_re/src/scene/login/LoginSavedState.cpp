@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "../character_select/CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
@@ -234,7 +235,6 @@ std::int32_t DecodeLegacyBytes_52D460(
 }
 
 } // namespace cg::login::detail
-
 namespace {
 
 // 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
@@ -793,7 +793,7 @@ std::int32_t ReturnOne_4A4210() noexcept
 
 } // namespace
 
-namespace cg::platform {
+namespace cg::login::detail {
 
 // 原函数：0x005201B0。
 std::int32_t RestoreCurrentSavedState_5201B0()
@@ -836,9 +836,6 @@ std::int32_t InitializeSavedState_533300()
     return 1;
 }
 
-} // namespace cg::platform
-
-namespace cg::login::detail {
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
 std::int32_t Sub_520510(const std::int32_t selected)
@@ -1290,12 +1287,3 @@ void Sub_533730()
 
 } // namespace cg::login::detail
 
-namespace cg::character_select::detail {
-
-// 原函数：0x00520200。
-std::int32_t Sub_520200()
-{
-    return PersistCurrentSavedRecord_520200();
-}
-
-} // namespace cg::character_select::detail

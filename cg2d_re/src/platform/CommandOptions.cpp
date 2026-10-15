@@ -1,3 +1,4 @@
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
@@ -72,7 +73,7 @@ int ParseCommandOptions()
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
-    std::sprintf(gTextFF4E30, "data\\0\\%s", "save.dat");
+    std::sprintf(cg::render::gLegacyPendingStorage.prefix, "data\\0\\%s", "save.dat");
 
     const char* const graphicKeys[9] = {
         "graphicbin:", "graphicbinex:", "graphicbinv2:",

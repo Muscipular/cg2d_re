@@ -48,6 +48,19 @@
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304、0x0053BC0F；直接沿MSVC CRT。
 
 namespace cg::network {
+namespace detail {
+
+
+// 原50E680只取socket后的type/repeats；第三已解析字段不被原本体读取。
+void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::int32_t)
+{
+    if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(type, repeats)); }
+    else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
+}
+
+
+} // namespace detail
+
 namespace {
 
 constexpr std::size_t kWorkspaceSlotCount = 18;

@@ -69,7 +69,7 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         != 0) {
         hovered = true;
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(login::detail::gValueD68D9C);
+            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((mouseClickState & 1U) != 0) {
             result = 1;
             login::detail::PlaySe(51, 320, 240);

@@ -528,21 +528,3 @@ std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
 }
 
 } // namespace cg::platform
-
-namespace cg::login::detail {
-
-std::uint32_t& gValueD68D98 = platform::gLegacyMouseState.heldButtons; // 原全局：0x00D68D98。
-std::uint32_t& gValueD68D9C = platform::gLegacyMouseState.edgeButtons; // 原全局：0x00D68D9C。
-std::uint32_t& gValueD68DA0 = platform::gLegacyMouseState.pulseButtons; // 原全局：0x00D68DA0。
-
-std::int32_t ReadLegacyMouseX()
-{
-    return platform::gLegacyMouseState.mouseX.value();
-}
-
-std::int32_t ReadLegacyMouseY()
-{
-    return platform::gLegacyMouseState.mouseY.value();
-}
-
-} // namespace cg::login::detail

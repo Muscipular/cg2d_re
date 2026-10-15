@@ -70,12 +70,8 @@ void WriteLegacyDebugString(std::wstring_view message);
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 // 原函数：0x00466D50。
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
-// 原函数：0x005201B0。
-int RestoreCurrentSavedState_5201B0();    // 原 0x5201B0；按固定顺序恢复当前保存记录。
 
 // 原入口所用初始化与主循环接口已有本体；完整客户端仍受其他待决依赖及链接验收限制。
-// 原函数：0x00533300。
-int InitializeSavedState_533300();        // 原 0x533300，正常返回 1；入口忽略结果。
 // 原函数：0x00465F00。
 int ParseCommandOptions();                // 原 0x465F00；返回末次 0x507C80 的 0/sscanf 结果，入口忽略。
 // 原函数：0x00457020。

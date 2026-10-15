@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"
@@ -147,7 +148,7 @@ std::int32_t ProcessCapability3CommonDispatch(
 {
     if (std::bit_cast<std::uint32_t>(sampledState) < 4U) {
         const std::uint8_t clickState =
-            static_cast<std::uint8_t>(cg::login::detail::gValueD68D9C);
+            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((clickState & 1U) != 0U) {
             cg::world::gCurrentSceneState = 5;
             cg::input::SetContext_44B330(nullptr);
@@ -329,7 +330,7 @@ std::int32_t Sub_45F190()
         gAlpha9A5E70 = 0;
         world::gCurrentSceneState = 4;
         gPhaseValue9A5550 = 16;
-        static_cast<void>(login::detail::LoadAndPlayBGM(33));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(33));
         return DispatchCapability3FromCurrentState();
     }
 
@@ -383,7 +384,7 @@ std::int32_t Sub_45F190()
         gLeftAction9A50C0 = nullptr;
         login::InitializeCapabilityInput_45F970();
         world::gCurrentSceneState = 6;
-        static_cast<void>(login::detail::LoadAndPlayBGM(33));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(33));
         return DispatchCapability3FromCurrentState();
     }
 

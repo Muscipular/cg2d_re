@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include <string>
 #include "cg/text/Encoding.hpp"

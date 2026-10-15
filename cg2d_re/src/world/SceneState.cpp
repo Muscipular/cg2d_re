@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../platform/StartupNative.hpp"
@@ -5706,12 +5707,12 @@ void DrawNormalScene_51C7D0()
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
             static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
             static_cast<void>(login::detail::Sub_520200());
-            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gValueFF0D68 = audio::gBgmTarget1050818;
             gValueFF0D58 = 0;
             audio::gBgmRequest1050810 = 1;
         } else {
-            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
         }
         const std::uint32_t tick = platform::ReadTickCount32();
         platform::gValue73ECC0 = 2;
@@ -5824,7 +5825,7 @@ void DrawNormalScene_51C7D0()
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
                 static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
                 static_cast<void>(login::detail::Sub_520200());
-                static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                 gValueFF0D68 = audio::gBgmTarget1050818;
                 gValueFF0D58 = 0;
                 audio::gBgmRequest1050810 = 1;
@@ -5854,7 +5855,7 @@ void DrawNormalScene_51C7D0()
         Sub_51D6F0();
         const std::int32_t bgm = cg::yobi::detail::Sub_440FE0();
         audio::gBgmTarget1050818 = bgm;
-        static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+        static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
         gValueFF0D68 = audio::gBgmTarget1050818;
         gCurrentSceneState = 251;
         [[fallthrough]];
@@ -5913,7 +5914,7 @@ void DrawNormalScene_51C7D0()
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
             static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
             static_cast<void>(login::detail::Sub_520200());
-            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gValueFF0D68 = audio::gBgmTarget1050818;
             gValueFF0D58 = 0;
             audio::gBgmRequest1050810 = 1;
@@ -5956,14 +5957,14 @@ void DrawNormalScene_51C7D0()
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
                     static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
                     static_cast<void>(login::detail::Sub_520200());
-                    static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                     gValueFF0D68 = audio::gBgmTarget1050818;
                     gValueFF0D58 = 0;
                     gValueFF0D5C = 0xFFFFFFFFu;
                 } else {
                     const std::int32_t bgm = gValueFF0D68;
                     audio::gBgmTarget1050818 = bgm;
-                    static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+                    static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
                 }
                 audio::gBgmRequest1050810 = 1;
             }
@@ -6294,17 +6295,17 @@ void DrawBattleScene_43CBB0()
             switch (gBattleType5ABFC8) {
             case 1:
             case 4:
-                static_cast<void>(LoadAndPlayBGM(specialBackground ? 34 : 25));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(specialBackground ? 34 : 25));
                 break;
             case 2:
             case 3:
-                static_cast<void>(LoadAndPlayBGM(16));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(16));
                 break;
             case 5:
-                static_cast<void>(LoadAndPlayBGM(specialBackground ? 35 : 26));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(specialBackground ? 35 : 26));
                 break;
             case 6:
-                static_cast<void>(LoadAndPlayBGM(26));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(26));
                 break;
             default:
                 break;
@@ -6313,17 +6314,17 @@ void DrawBattleScene_43CBB0()
             switch (gBattleType5ABFC8) {
             case 1:
             case 4:
-                static_cast<void>(LoadAndPlayBGM(13));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(13));
                 break;
             case 2:
             case 3:
-                static_cast<void>(LoadAndPlayBGM(16));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(16));
                 break;
             case 5:
-                static_cast<void>(LoadAndPlayBGM(14));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(14));
                 break;
             case 6:
-                static_cast<void>(LoadAndPlayBGM(15));
+                static_cast<void>(cg::audio::LoadAndPlayBGM(15));
                 break;
             default:
                 break;
@@ -6331,7 +6332,7 @@ void DrawBattleScene_43CBB0()
         }
         const std::int32_t floor = gMapFloor;
         if (floor >= 1457 && floor <= 1480) {
-            static_cast<void>(LoadAndPlayBGM(16));
+            static_cast<void>(cg::audio::LoadAndPlayBGM(16));
         }
         const std::uint32_t tick = platform::ReadTickCount32();
         platform::gValue73ECC0 = 2;

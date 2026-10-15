@@ -2935,3 +2935,5 @@ NS01第一步：公会24个公开符号归入 cg::world::detail，资源名字�
 NS01第二步：Yobi 类型及运行时统一归 cg::yobi / cg::yobi::detail，103份源／头同步声明、定义、前置类型和限定调用；移除世界依赖头重复的Yobi函数声明，直接包含所属头。全文件旧 login::Yobi、Yobi目录旧login namespace及旧归属声明检查通过，构造函数和嵌套RawPayload仍保原类型。编译验收待后续编辑结束。
 
 NS03完成：24个窗口输入上下文归 cg::ui::detail，声明移到 WindowRuntimeState.hpp；22个窗口文件消除 input/ui 实现混杂并合并同域块，输入类型继续由 input 持有。对象仍在原翻译单元、原相对定义顺序，30份依赖文件同步；窗口目录跨模块 input namespace 零残留、差异检查通过。
+
+NS02完成：普通／固定音乐入口归 audio，网络音乐回调归回 NetworkRuntime，设备探测归回平台；存档初始化／恢复归 login，并以 LoginSavedState.hpp 收拢唯一接口，移除角色选择重复持久化转发。删除鼠标3个引用别名／2个读取转发及绘制队列前缀别名，调用直接借用原唯一状态，每处仍按原次数读取。音频源码已仅有 audio 模块实现；旧别名与旧音频归属零残留，静态差异检查通过，最终构建待完成拆分后执行。

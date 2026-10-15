@@ -26,7 +26,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
     }
 
     const std::uint8_t clickState =
-        static_cast<std::uint8_t>(login::detail::gValueD68D9C);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
     std::uint32_t result = 0x40U;
     if ((clickState & 0x01U) != 0) {
         result |= 0x01U;
@@ -36,7 +36,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
     }
 
     const std::uint8_t buttonState2 =
-        static_cast<std::uint8_t>(login::detail::gValueD68D98);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.heldButtons);
     if ((buttonState2 & 0x01U) != 0) {
         result |= 0x02U;
     }
@@ -45,7 +45,7 @@ std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
     }
 
     const std::uint8_t buttonState =
-        static_cast<std::uint8_t>(login::detail::gValueD68DA0);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.pulseButtons);
     if ((buttonState & 0x01U) != 0) {
         result |= 0x10U;
     }

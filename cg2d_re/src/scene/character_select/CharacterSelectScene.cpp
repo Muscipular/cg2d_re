@@ -1,3 +1,4 @@
+#include "../login/LoginSavedState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -326,7 +327,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
                 const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::NullSub_509080();
-                Sub_520200();
+                cg::login::detail::Sub_520200();
                 input::SetContext_44B330(nullptr);
                 sceneState = world::gCurrentSceneState;
             } else if (gate == 2) {
@@ -1523,7 +1524,7 @@ std::int32_t ProcessScene_460FF0()
                 const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::NullSub_509080();
-                detail::Sub_520200();
+                cg::login::detail::Sub_520200();
                 if (state::gPendingCharacterCount > 0) {
                     --state::gPendingCharacterCount;
                 }

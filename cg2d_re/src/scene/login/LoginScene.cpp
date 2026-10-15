@@ -359,7 +359,7 @@ std::int32_t ProcessScene_45FEA0()
         world::gValue58B6D0 = 1;
         gSelectedServerGroup = 0;
         static_cast<void>(render::SelectPalette(27, 0));
-        detail::LoadAndPlayBGM(17);
+        cg::audio::LoadAndPlayBGM(17);
     }
 
     if (world::gCurrentSceneState == 1) {

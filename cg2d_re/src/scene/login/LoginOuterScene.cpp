@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include <string>
@@ -100,7 +101,7 @@ void ProcessOuterScene_45C2D0()
             std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
         if (sampledState < 6u) {
             const std::uint8_t mouseClickState =
-                static_cast<std::uint8_t>(detail::gValueD68D9C);
+                static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
             if ((mouseClickState & 1u) != 0) {
                 world::gCurrentSceneState = 6;
                 processLoginInput = true;

@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
 #include "cg/text/Encoding.hpp"
 #include "WorldUpdateDependencies.hpp"

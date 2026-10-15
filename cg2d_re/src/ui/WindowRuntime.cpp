@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "WindowRuntimeInternal.hpp"

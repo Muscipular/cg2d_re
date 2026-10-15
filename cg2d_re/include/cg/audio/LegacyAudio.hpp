@@ -6,6 +6,14 @@ namespace cg::audio {
 
 struct SpatialAudioRecord;
 
+// 原52BE60：普通BGM加载与播放；音频模块持有实际播放状态。
+std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
+// 原454C30、454EE0：固定音乐初始化与关闭，由平台生命周期调用。
+std::int32_t InitializeMusic_454C30(std::uintptr_t window);
+std::int32_t Sub_454EE0();
+// 原52CCA0：更新音频播放状态。
+void Sub_52CCA0();
+
 extern std::uint32_t gValue103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
 extern std::uint32_t gValue10507D4; // 原 0x10507D4；5241A0 写入，音效/BGM/更新入口共读。
 extern std::int32_t gBgmTarget1050818; // 原 0x1050818；BGM 请求与当前存档共用的目标 W32。

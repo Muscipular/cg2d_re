@@ -24,8 +24,6 @@
 namespace cg::platform {
 namespace shutdown_detail {
 
-// 原0x454EE0的SDL音乐清理，实现在LegacyAudio.cpp；保留本父无实参调用。
-int Sub_454EE0();
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
 std::int32_t Sub_4705F0()
@@ -45,7 +43,7 @@ int ShutdownClient_457A40()
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();
-    shutdown_detail::Sub_454EE0();
+    cg::audio::Sub_454EE0();
     audio::Sub_52B630();
     audio::Sub_52CCE0();
     cg::resource::animation::AnimeUnload_45BEF0();

@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "StartupNative.hpp"
 #include "cg/text/Encoding.hpp"
 #include "LegacyFormat.hpp"
@@ -339,7 +340,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     ReadSetupIni();
     ParseClientVersion();
     CreateSaveDirectories();
-    InitializeSavedState_533300();
+    cg::login::detail::InitializeSavedState_533300();
     ParseCommandOptions();
     cg::resource::BuildResourcePaths();
     InitializeWindow();

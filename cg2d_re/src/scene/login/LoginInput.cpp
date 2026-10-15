@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/text/Encoding.hpp"
@@ -206,7 +207,7 @@ std::int32_t QueryLoginControlState_5036F0(
     }
 
     const std::uint8_t edge =
-        static_cast<std::uint8_t>(detail::gValueD68D9C);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
     std::uint32_t result = 0x40U;
     if ((edge & 0x01U) != 0) {
         result |= 0x01U;
@@ -216,7 +217,7 @@ std::int32_t QueryLoginControlState_5036F0(
     }
 
     const std::uint8_t held =
-        static_cast<std::uint8_t>(detail::gValueD68D98);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.heldButtons);
     if ((held & 0x01U) != 0) {
         result |= 0x02U;
     }
@@ -225,7 +226,7 @@ std::int32_t QueryLoginControlState_5036F0(
     }
 
     const std::uint8_t pulse =
-        static_cast<std::uint8_t>(detail::gValueD68DA0);
+        static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.pulseButtons);
     if ((pulse & 0x01U) != 0) {
         result |= 0x10U;
     }
@@ -569,7 +570,7 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
             && (geometry.y < platform::gLegacyMouseState.mouseY)
             && (platform::gLegacyMouseState.mouseY < geometry.y + geometry.height)) {
             const std::uint8_t click =
-                static_cast<std::uint8_t>(detail::gValueD68D9C);
+                static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
             hoveredSlot = slotIndex;
             if ((click & 0x01U) != 0) {
                 detail::PlaySe(51, 320, 240);

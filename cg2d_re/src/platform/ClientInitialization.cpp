@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "MainLoopDependencies.hpp"
 #include "ImeLifecycle.hpp"
 #include "ClientShutdown.hpp"
@@ -38,8 +39,6 @@ namespace initialization_detail {
 // 原函数：0x00457B10。
 std::int32_t InitLoading_457B10();
 // 原直接目标的SDL音乐提供者，实现在LegacyAudio.cpp；保留本父调用顺序。
-// 原函数：0x00454C30。
-std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 
 } // namespace initialization_detail
 
@@ -228,7 +227,7 @@ int InitializeClient_4576B0()
     static_cast<void>(cg::yobi::detail::Sub_404A40());
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
-    if (RestoreCurrentSavedState_5201B0() == 0) {
+    if (cg::login::detail::RestoreCurrentSavedState_5201B0() == 0) {
         const std::wstring message = std::format(L"讀入存檔失敗。(code = {})", static_cast<int>(gValueFF4E28));
         ShowWideMessage(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
@@ -262,7 +261,7 @@ int InitializeClient_4576B0()
         resource::gCoordinatePaths, resource::gCoordinateInfoPaths);
     login::detail::Sub_44B5C0("t_music_init Start");
     static_cast<void>(audio::InitializeAudio_5241A0());
-    static_cast<void>(initialization_detail::InitializeMusic_454C30(gLegacyWindow));
+    static_cast<void>(cg::audio::InitializeMusic_454C30(gLegacyWindow));
     login::detail::Sub_44B5C0("initAlbumStartUp Start");
     static_cast<void>(world::InitializeAlbum_518C20());
 

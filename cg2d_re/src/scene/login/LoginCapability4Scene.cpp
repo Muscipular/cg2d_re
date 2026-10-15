@@ -1,3 +1,4 @@
+#include "LoginSavedState.hpp"
 #include "../../platform/StartupNative.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 #include <string>
@@ -65,7 +66,7 @@ std::int32_t Sub_464840()
         gValue9A4D00 = 0;
         gValue9A4B7C = 0;
         world::gCurrentSceneState = 1;
-        return login::detail::LoadAndPlayBGM(42);
+        return cg::audio::LoadAndPlayBGM(42);
 
     case 1: {
         const std::int32_t frameCounter = gValue9A4F2C;
@@ -135,7 +136,7 @@ std::int32_t Sub_464840()
         }
 
         const std::uint8_t edgeButtons =
-            static_cast<std::uint8_t>(login::detail::gValueD68D9C);
+            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((edgeButtons & 1U) != 0U) {
             world::gCurrentSceneState = 2;
         }
@@ -145,7 +146,7 @@ std::int32_t Sub_464840()
     case 2:
         gValue9A4F2C = 0;
         gValue9A509C = 0;
-        static_cast<void>(platform::InitializeSavedState_533300());
+        static_cast<void>(cg::login::detail::InitializeSavedState_533300());
         login::InitializeCapability4Input_465320();
         world::gCurrentSceneState = 3;
         return DrawCapability4Base();

@@ -1,3 +1,4 @@
+#include "../scene/login/LoginSavedState.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 
 #include "../scene/login/LoginStateDependencies.hpp"
@@ -29,17 +30,6 @@
 #define NOMINMAX
 #include <Windows.h>
 #include <mmsystem.h>
-
-namespace cg::login::detail {
-
-// 原函数：0x00520750。
-std::int32_t Sub_520750(std::int32_t selected);
-// 原函数：0x00520200。
-std::int32_t Sub_520200();
-// 原函数：0x0052BE60。
-std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
-
-} // namespace cg::login::detail
 
 namespace {
 
@@ -600,7 +590,7 @@ std::int32_t UpdateBgmRequest_52C910()
     }
     case 3: {
         const std::int32_t target = gBgmTarget1050818;
-        const std::int32_t result = login::detail::LoadAndPlayBGM(
+        const std::int32_t result = LoadAndPlayBGM(
             std::bit_cast<std::uint32_t>(target));
         gBgmStage1050814 = 0;
         return result;
@@ -1037,9 +1027,6 @@ std::uint32_t Sub_52B990() noexcept
     return productBits >> 31;
 }
 
-} // namespace cg::audio
-
-namespace cg::login::detail {
 
 // 原 World::LoadAndPlayBGM@[52BE60,52C15C)；仅原生缓冲与播放机制映射 SDL3。
 std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
@@ -1122,9 +1109,6 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
     return 1;
 }
 
-} // namespace cg::login::detail
-
-namespace cg::audio {
 
 // 原52C3D0：先失败标志/当前号/enable，再原0..15钳制；实际缓冲不存在透传level。
 std::int32_t Sub_52C3D0()
@@ -1204,37 +1188,6 @@ std::int32_t PlayFixedMusic_455280(const std::int32_t type, const std::uint32_t 
     return 1;
 }
 
-} // namespace cg::audio
-
-namespace cg::network::detail {
-
-// 原50E680只取socket后的type/repeats；第三已解析字段不被原本体读取。
-void Sub_50E680(std::uintptr_t, std::int32_t type, std::int32_t repeats, std::int32_t)
-{
-    if (type < 1000) { static_cast<void>(audio::PlaySe_52C450(type, repeats)); }
-    else { static_cast<void>(audio::PlayFixedMusic_455280(type - 1000, std::bit_cast<std::uint32_t>(repeats))); }
-}
-
-} // namespace cg::network::detail
-
-namespace cg::platform {
-
-// 原458AE0的DX设备检查改为真实SDL音频设备；独立DINPUT入口观察保留。
-std::int32_t Sub_458AE0()
-{
-    SdlAudioBackend probe;
-    if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {
-        ::OutputDebugStringA("SDL audio device is unavailable\n"); return 0;
-    }
-    HMODULE input = ::LoadLibraryA("DINPUT.DLL");
-    if (input == nullptr) { ::OutputDebugStringA("Couldn't LoadLibrary DInput\r\n"); return 0x200; }
-    const bool available = ::GetProcAddress(input, "DirectInputCreateA") != nullptr;
-    ::FreeLibrary(input);
-    if (!available) { ::OutputDebugStringA("Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
-    return 0x600;
-}
-
-namespace shutdown_detail {
 // 原函数：0x00454EE0。
 std::int32_t Sub_454EE0()
 {
@@ -1244,15 +1197,13 @@ std::int32_t Sub_454EE0()
     if (audio::gValue10507D4 != 0) { audio::gSdlAudioBackend.Close(); }
     return 0;
 }
-} // namespace shutdown_detail
 
-namespace initialization_detail {
 
 // 原函数：0x00454C30。
 std::int32_t InitializeMusic_454C30(std::uintptr_t)
 {
-    if (CheckLegacyDxCapability_458DC0() != 0) { return 1; }
-    static_cast<void>(shutdown_detail::Sub_454EE0());
+    if (platform::CheckLegacyDxCapability_458DC0() != 0) { return 1; }
+    static_cast<void>(Sub_454EE0());
     if (!audio::gSdlAudioBackend.IsOpen() && !audio::gSdlAudioBackend.Open()) { return 1; }
     // 用户要求预转换为WAV；从本客户端内置资源载入，不再访问系统音色或解析MIDI。
     const HMODULE module = ::GetModuleHandleW(nullptr);
@@ -1262,10 +1213,9 @@ std::int32_t InitializeMusic_454C30(std::uintptr_t)
     const DWORD size = resource != nullptr ? ::SizeofResource(module, resource) : 0;
     if (wav == nullptr || size == 0 || !audio::gSdlAudioBackend.InitializeFixedMusic(
             {static_cast<const std::uint8_t*>(wav), static_cast<std::size_t>(size)})) { return 2; }
-    Cg2dInitializeFixedMusicVolumeX87(gFixedMusicVolume62B0C8.data());
+    platform::Cg2dInitializeFixedMusicVolumeX87(gFixedMusicVolume62B0C8.data());
     audio::SetFixedMusicReverb_455030(25, 6);
     return 0;
 }
 
-} // namespace initialization_detail
-} // namespace cg::platform
+} // namespace cg::audio

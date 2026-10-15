@@ -5,6 +5,7 @@
 #include "LegacyFormat.hpp"
 
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -22,14 +23,23 @@
 #include <random>
 #include <tlhelp32.h>
 
-namespace cg::audio {
-
-// 原函数：0x0052CCA0。
-void Sub_52CCA0(); // 原 0x52CCA0；实现在 LegacyAudio.cpp。
-
-} // namespace cg::audio
-
 namespace cg::platform {
+
+// 原458AE0的DX设备检查改为真实SDL音频设备；独立DINPUT入口观察保留。
+std::int32_t Sub_458AE0()
+{
+    SdlAudioBackend probe;
+    if (!audio::gSdlAudioBackend.IsOpen() && !probe.Open()) {
+        ::OutputDebugStringA("SDL audio device is unavailable\n"); return 0;
+    }
+    HMODULE input = ::LoadLibraryA("DINPUT.DLL");
+    if (input == nullptr) { ::OutputDebugStringA("Couldn't LoadLibrary DInput\r\n"); return 0x200; }
+    const bool available = ::GetProcAddress(input, "DirectInputCreateA") != nullptr;
+    ::FreeLibrary(input);
+    if (!available) { ::OutputDebugStringA("Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
+    return 0x600;
+}
+
 namespace {
 
 using LegacyRandomEngine =

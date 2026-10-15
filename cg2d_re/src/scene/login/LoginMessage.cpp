@@ -261,7 +261,7 @@ std::int32_t UpdateLoginMessage(const std::wstring_view text)
     const bool hovered = cg::ui::HitTestMouseRect_5049A0(left, top, left + 66, top + 17, -1) != 0;
     if (hovered) {
         const std::uint8_t mouseClickState =
-            static_cast<std::uint8_t>(detail::gValueD68D9C);
+            static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons);
         if ((mouseClickState & 1U) != 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {

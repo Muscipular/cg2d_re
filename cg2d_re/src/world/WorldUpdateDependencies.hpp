@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../scene/login/LoginSavedState.hpp"
+
 #include <string_view>
 
 #include "cg/platform/LegacyStdio.hpp"
@@ -51,28 +53,6 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 
 namespace cg::login::detail {
 
-// 原函数：0x00520470。
-std::int32_t Sub_520470(); // 原 [0x520470,0x5204BF)，保存当前音频设置。
-// 原函数：0x00520510。
-std::int32_t Sub_520510(std::int32_t selected); // 原 [0x520510,0x520545)，保存所选角色四项显示状态。
-// 原函数：0x00520550。
-std::int32_t Sub_520550(std::int32_t selected); // 按同一保存记录恢复四项显示状态。
-// 原函数：0x00520590。
-std::uint8_t Sub_520590(); // 原 [0x520590,0x5205D5)，保存六项标量并返回 AL。
-// 原函数：0x00520640。
-std::uint32_t Sub_520640(); // 原 [0x520640,0x520681)，复制 24 项文本。
-// 原函数：0x005206F0。
-std::uint8_t Sub_5206F0(); // 原 [0x5206F0,0x5206FB)，保存 +0x313 并返回 AL。
-// 原函数：0x00520720。
-std::uint8_t Sub_520720(); // 原 [0x520720,0x52072B)，保存 +0x315 并返回 AL。
-// 原函数：0x00520160。
-std::int32_t Sub_520160(); // 原 [0x520160,0x5201A8)，顺序保存并透传 520200 返回。
-// 原函数：0x00520750。
-std::int32_t Sub_520750(std::int32_t selected); // 普通场景保存BGM目标低W16，沿既有持久化owner。
-// 原函数：0x00520770。
-std::int32_t Sub_520770(std::int32_t selected); // 恢复同一BGM目标，不触发播放。
-// 原函数：0x0052BE60。
-std::int32_t LoadAndPlayBGM(std::uint32_t bgmId); // 原52BE60，复用既有SDL音频适配。
 
 } // namespace cg::login::detail
 

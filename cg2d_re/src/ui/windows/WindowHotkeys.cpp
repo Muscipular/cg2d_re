@@ -1,3 +1,4 @@
+#include "../../scene/login/LoginSavedState.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {

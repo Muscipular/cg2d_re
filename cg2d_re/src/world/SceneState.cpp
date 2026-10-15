@@ -840,16 +840,6 @@ void Sub_50E5D0(
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
 }
 
-// 原 [C82258,C8A728) 的 500 项记录；未知载荷保留原字节，
-// 链接在 x64 使用独立原生指针，不推定整记录最终布局。
-struct MapEffectRecord {
-    std::array<std::uint8_t, 0x44> legacyBytes;
-    MapEffectRecord* prev;
-    MapEffectRecord* next;
-};
-
-static_assert(sizeof(MapEffectRecord::legacyBytes) == 0x44);
-
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
 
 namespace {
@@ -865,43 +855,6 @@ std::uint32_t gMapEffectTickC8A734 = 0; // 原全局：0x00C8A734。
 std::int32_t gProjectedX55DEA4 = -1; // 原全局：0x0055DEA4。
 std::int32_t gProjectedY55DEA8 = -1; // 原全局：0x0055DEA8。
 
-} // namespace
-
-std::uint32_t ReadMapEffectWord(
-    const MapEffectRecord& record, const std::size_t offset)
-{
-    std::uint32_t value;
-    std::memcpy(&value, record.legacyBytes.data() + offset, sizeof(value));
-    return value;
-}
-
-std::uint16_t ReadMapEffectHalf(
-    const MapEffectRecord& record, const std::size_t offset)
-{
-    std::uint16_t value;
-    std::memcpy(&value, record.legacyBytes.data() + offset, sizeof(value));
-    return value;
-}
-
-const MapEffectRecord* GetNextMapEffect(const MapEffectRecord* const record) noexcept
-{
-    return record->next;
-}
-
-namespace {
-
-void WriteMapEffectWord(
-    MapEffectRecord& record, const std::size_t offset, const std::uint32_t value)
-{
-    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
-}
-
-void WriteMapEffectHalf(
-    MapEffectRecord& record, const std::size_t offset, const std::uint16_t value)
-{
-    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
-}
-
 void ClearMapEffectAction(login::YobiAction* const action)
 {
     if (action == nullptr) {
@@ -911,8 +864,8 @@ void ClearMapEffectAction(login::YobiAction* const action)
     MapEffectRecord* record = gActiveMapEffectHead;
     gMapCharaSceneSlots.actionC8A764 = nullptr;
     while (record != nullptr) {
-        if (ReadMapEffectHalf(*record, 0x3C) == 8) {
-            WriteMapEffectHalf(*record, 0x3C, 6);
+        if (record->kind == 8) {
+            record->kind = 6;
             return;
         }
         record = record->next;
@@ -1000,7 +953,7 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
     record->prev = nullptr;
     record->next = freeHead;
     gFreeMapEffectHead = record;
-    WriteMapEffectHalf(*record, 0x3C, 0);
+    record->kind = 0;
     return record;
 }
 
@@ -1047,44 +1000,37 @@ namespace {
 
 void ApplyMapEffectDirection(MapEffectRecord& record)
 {
-    // 原46E3E0单读方向；原字节视图按触达轴读/算/写，见CAC09。
+    // 原46E3E0单读方向；按触达轴读/算/写，见CAC09。
     const std::int16_t direction =
         std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
-    const auto moveCoordinate = [&record](
-        const std::size_t offset, const std::int32_t delta) {
-        const std::int32_t value =
-            std::bit_cast<std::int32_t>(ReadMapEffectWord(record, offset));
-        const std::int32_t moved = value + delta;
-        WriteMapEffectWord(record, offset, std::bit_cast<std::uint32_t>(moved));
-    };
     switch (direction) {
     case 0:
-        moveCoordinate(0, 1);
-        moveCoordinate(4, 1);
+        record.x += 1;
+        record.y += 1;
         break;
     case 1:
-        moveCoordinate(4, 2);
+        record.y += 2;
         break;
     case 2:
-        moveCoordinate(0, -1);
-        moveCoordinate(4, 1);
+        record.x -= 1;
+        record.y += 1;
         break;
     case 3:
-        moveCoordinate(0, -2);
+        record.x -= 2;
         break;
     case 4:
-        moveCoordinate(0, -1);
-        moveCoordinate(4, -1);
+        record.x -= 1;
+        record.y -= 1;
         break;
     case 5:
-        moveCoordinate(4, -2);
+        record.y -= 2;
         break;
     case 6:
-        moveCoordinate(0, 1);
-        moveCoordinate(4, -1);
+        record.x += 1;
+        record.y -= 1;
         break;
     case 7:
-        moveCoordinate(0, 2);
+        record.x += 2;
         break;
     default:
         break;
@@ -1097,15 +1043,13 @@ MapEffectRecord* CreateMapEffectKind1AtZero()
     if (record == nullptr) {
         return nullptr;
     }
-    WriteMapEffectHalf(*record, 0x3C, 1);
+    record->kind = 1;
     const std::int32_t randomX = platform::Rand16();
-    WriteMapEffectWord(*record, 4, 0);
-    WriteMapEffectWord(
-        *record, 0, static_cast<std::uint32_t>(randomX % 840 - 200));
+    record->y = 0;
+    record->x = randomX % 840 - 200;
     const std::int32_t randomSpeed = platform::Rand16();
-    WriteMapEffectWord(*record, 0x0C, 9);
-    WriteMapEffectWord(
-        *record, 8, static_cast<std::uint32_t>(randomSpeed % 2 + 2));
+    record->value0C = 9;
+    record->value08 = randomSpeed % 2 + 2;
     return record;
 }
 
@@ -1118,8 +1062,7 @@ void CreateMapEffectKind1()
     const std::uint32_t tick = platform::ReadTickCount32();
     ++gMapCharaSceneSlots.valueC8A742;
     gMapEffectTickC8A734 = tick;
-    WriteMapEffectWord(
-        *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
+    record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 // 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
@@ -1129,27 +1072,18 @@ MapEffectRecord* CreateMapEffectKind2AtZero()
     if (record == nullptr) {
         return nullptr;
     }
-    WriteMapEffectHalf(*record, 0x3C, 2);
+    record->kind = 2;
     const std::int32_t randomX = platform::Rand16();
-    WriteMapEffectWord(*record, 4, 0);
-    WriteMapEffectWord(
-        *record, 0, static_cast<std::uint32_t>(randomX % 940 - 200));
-    WriteMapEffectHalf(
-        *record, 0x40,
-        static_cast<std::uint16_t>(platform::Rand16() % 2));
+    record->y = 0;
+    record->x = randomX % 940 - 200;
+    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 2);
     const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0) {
-        WriteMapEffectWord(
-            *record, 8,
-            static_cast<std::uint32_t>(platform::Rand16() % 2));
-        WriteMapEffectWord(
-            *record, 0x0C,
-            static_cast<std::uint32_t>(platform::Rand16() % 2 + 3));
+        record->value08 = platform::Rand16() % 2;
+        record->value0C = platform::Rand16() % 2 + 3;
     } else if (direction == 1) {
-        WriteMapEffectWord(*record, 8, 1);
-        WriteMapEffectWord(
-            *record, 0x0C,
-            static_cast<std::uint32_t>(platform::Rand16() % 2 + 4));
+        record->value08 = 1;
+        record->value0C = platform::Rand16() % 2 + 4;
     }
     return record;
 }
@@ -1163,8 +1097,7 @@ void CreateMapEffectKind2()
     const std::uint32_t tick = platform::ReadTickCount32();
     ++gMapCharaSceneSlots.valueC8A748;
     gMapEffectTickC82250 = tick;
-    WriteMapEffectWord(
-        *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
+    record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 void CreateMapEffectKind4()
@@ -1173,25 +1106,21 @@ void CreateMapEffectKind4()
     if (record == nullptr) {
         return;
     }
-    WriteMapEffectHalf(*record, 0x3C, 4);
+    record->kind = 4;
     const std::int32_t randomX = platform::Rand16();
-    WriteMapEffectWord(*record, 4, 0);
-    WriteMapEffectWord(
-        *record, 0, static_cast<std::uint32_t>(randomX % 1240 - 100));
-    WriteMapEffectHalf(
-        *record, 0x40,
-        static_cast<std::uint16_t>(platform::Rand16() % 4));
-    WriteMapEffectWord(*record, 0x30, 4);
+    record->y = 0;
+    record->x = randomX % 1240 - 100;
+    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 4);
+    record->remaining = 4;
     const std::int32_t direction = platform::Rand16() % 2;
     if (direction == 0 || direction == 1) {
-        WriteMapEffectWord(*record, 8, 0xFFFFFFFFu);
-        WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(direction + 2));
+        record->value08 = static_cast<std::int32_t>(0xFFFFFFFFu);
+        record->value0C = direction + 2;
     }
     const std::uint32_t tick = platform::ReadTickCount32();
     ++gMapCharaSceneSlots.valueC8A750;
     gMapEffectTickC8A730 = tick;
-    WriteMapEffectWord(
-        *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
+    record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
 } // namespace
@@ -1240,25 +1169,19 @@ void Sub_46E4E0()
 
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
-        if (ReadMapEffectHalf(*record, 0x3C) == 1) {
-            const std::int32_t velocityX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 8));
-            const std::int32_t oldX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
-            const std::int32_t velocityY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
-            const std::int32_t oldY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 4));
+        if (record->kind == 1) {
+            const std::int32_t velocityX = record->value08;
+            const std::int32_t oldX = record->x;
+            const std::int32_t velocityY = record->value0C;
+            const std::int32_t oldY = record->y;
             const std::int32_t x = oldX + velocityX;
             const std::int32_t y = oldY + velocityY;
-            WriteMapEffectWord(*record, 0, std::bit_cast<std::uint32_t>(x));
-            WriteMapEffectWord(*record, 4, std::bit_cast<std::uint32_t>(y));
+            record->x = x;
+            record->y = y;
             ApplyMapEffectDirection(*record);
-            const std::int32_t finalX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
+            const std::int32_t finalX = record->x;
             if (finalX >= 640
-                || std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 4)) >= 480) {
+                || record->y >= 480) {
                 MapEffectRecord* const next = record->next;
                 Sub_46E390(record);
                 --gMapCharaSceneSlots.valueC8A742;
@@ -1306,23 +1229,17 @@ void Sub_46E6C0()
 
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
-        if (ReadMapEffectHalf(*record, 0x3C) == 2) {
-            const std::int32_t velocityX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 8));
-            const std::int32_t oldX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
-            const std::int32_t oldY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 4));
-            WriteMapEffectWord(*record, 0, std::bit_cast<std::uint32_t>(oldX + velocityX));
-            const std::int32_t velocityY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
-            WriteMapEffectWord(*record, 4, std::bit_cast<std::uint32_t>(oldY + velocityY));
+        if (record->kind == 2) {
+            const std::int32_t velocityX = record->value08;
+            const std::int32_t oldX = record->x;
+            const std::int32_t oldY = record->y;
+            record->x = oldX + velocityX;
+            const std::int32_t velocityY = record->value0C;
+            record->y = oldY + velocityY;
             ApplyMapEffectDirection(*record);
-            const std::int32_t finalX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
+            const std::int32_t finalX = record->x;
             if (finalX >= 740
-                || std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 4)) >= 480) {
+                || record->y >= 480) {
                 MapEffectRecord* const next = record->next;
                 Sub_46E390(record);
                 --gMapCharaSceneSlots.valueC8A748;
@@ -1372,23 +1289,17 @@ std::int32_t __cdecl Sub_46E940(std::int32_t cycles)
 
         MapEffectRecord* record = gActiveMapEffectHead;
         while (record != nullptr) {
-            if (ReadMapEffectHalf(*record, 0x3C) == 2) {
-                const std::int32_t velocityX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 8));
-                const std::int32_t oldX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
-                const std::int32_t velocityY =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
-                const std::int32_t oldY =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 4));
-                WriteMapEffectWord(*record, 0, std::bit_cast<std::uint32_t>(oldX + velocityX));
-                WriteMapEffectWord(*record, 4, std::bit_cast<std::uint32_t>(oldY + velocityY));
+            if (record->kind == 2) {
+                const std::int32_t velocityX = record->value08;
+                const std::int32_t oldX = record->x;
+                const std::int32_t velocityY = record->value0C;
+                const std::int32_t oldY = record->y;
+                record->x = oldX + velocityX;
+                record->y = oldY + velocityY;
                 ApplyMapEffectDirection(*record);
-                const std::int32_t finalX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
+                const std::int32_t finalX = record->x;
                 if (finalX >= 740
-                    || std::bit_cast<std::int32_t>(
-                        ReadMapEffectWord(*record, 4)) >= 480) {
+                    || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
                     Sub_46E390(record);
                     --gMapCharaSceneSlots.valueC8A748;
@@ -1438,23 +1349,17 @@ std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles)
 
         MapEffectRecord* record = gActiveMapEffectHead;
         while (record != nullptr) {
-            if (ReadMapEffectHalf(*record, 0x3C) == 1) {
-                const std::int32_t velocityX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 8));
-                const std::int32_t oldX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
-                const std::int32_t velocityY =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
-                const std::int32_t oldY =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 4));
-                WriteMapEffectWord(*record, 0, std::bit_cast<std::uint32_t>(oldX + velocityX));
-                WriteMapEffectWord(*record, 4, std::bit_cast<std::uint32_t>(oldY + velocityY));
+            if (record->kind == 1) {
+                const std::int32_t velocityX = record->value08;
+                const std::int32_t oldX = record->x;
+                const std::int32_t velocityY = record->value0C;
+                const std::int32_t oldY = record->y;
+                record->x = oldX + velocityX;
+                record->y = oldY + velocityY;
                 ApplyMapEffectDirection(*record);
-                const std::int32_t finalX =
-                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
+                const std::int32_t finalX = record->x;
                 if (finalX >= 640
-                    || std::bit_cast<std::int32_t>(
-                        ReadMapEffectWord(*record, 4)) >= 480) {
+                    || record->y >= 480) {
                     MapEffectRecord* const next = record->next;
                     Sub_46E390(record);
                     --gMapCharaSceneSlots.valueC8A742;
@@ -1511,42 +1416,29 @@ void Sub_46ED50()
 
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
-        if (ReadMapEffectHalf(*record, 0x3C) == 4) {
+        if (record->kind == 4) {
             const std::int32_t randomX = platform::Rand16() % 3;
-            const std::int32_t oldX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
-            const std::int32_t velocityX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 8));
-            WriteMapEffectWord(
-                *record, 0,
-                std::bit_cast<std::uint32_t>(oldX + velocityX + (randomX - 1)));
+            const std::int32_t oldX = record->x;
+            const std::int32_t velocityX = record->value08;
+            record->x = oldX + velocityX + (randomX - 1);
 
             const std::int32_t randomY = platform::Rand16() % 3;
-            const std::int32_t velocityY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C));
-            const std::int32_t oldY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 4));
-            const std::uint32_t remaining = ReadMapEffectWord(*record, 0x30);
-            WriteMapEffectWord(
-                *record, 4,
-                std::bit_cast<std::uint32_t>(oldY + velocityY + (randomY - 1)));
+            const std::int32_t velocityY = record->value0C;
+            const std::int32_t oldY = record->y;
+            const std::uint32_t remaining = record->remaining;
+            record->y = oldY + velocityY + (randomY - 1);
             if (std::bit_cast<std::int32_t>(remaining) <= 0) {
-                WriteMapEffectHalf(
-                    *record, 0x3E,
-                    static_cast<std::uint16_t>(platform::Rand16() % 3));
-                WriteMapEffectWord(
-                    *record, 0x28,
-                    static_cast<std::uint32_t>(platform::Rand16() % 8 + 1));
+                record->phase = static_cast<std::uint16_t>(platform::Rand16() % 3);
+                record->value28 = platform::Rand16() % 8 + 1;
                 const std::uint32_t nextVelocityY =
                     static_cast<std::uint32_t>(platform::Rand16() % 8 + 1);
-                WriteMapEffectWord(*record, 0x30, 4);
-                WriteMapEffectWord(*record, 0x2C, nextVelocityY);
+                record->remaining = 4;
+                record->value2C = static_cast<std::int32_t>(nextVelocityY);
             } else {
-                WriteMapEffectWord(*record, 0x30, remaining - 1u);
+                record->remaining = remaining - 1u;
             }
             ApplyMapEffectDirection(*record);
-            if (std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 4)) >= 480) {
+            if (record->y >= 480) {
                 MapEffectRecord* const next = record->next;
                 Sub_46E390(record);
                 --gMapCharaSceneSlots.valueC8A750;
@@ -1618,7 +1510,7 @@ void Sub_46F160()
 {
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
-        const std::uint16_t kind = ReadMapEffectHalf(*record, 0x3C);
+        const std::uint16_t kind = record->kind;
         if (kind != 6 && kind != 7 && kind != 8) {
             record = record->next;
             continue;
@@ -1645,40 +1537,38 @@ MapEffectRecord* Sub_46F090(
         return record;
     }
 
-    WriteMapEffectHalf(*record, 0x3C, static_cast<std::uint16_t>(kind));
+    record->kind = static_cast<std::uint16_t>(kind);
     const std::int32_t offset = verticalSign != 0
         ? phase % (horizontalSign != 0 ? 1920 : 1040)
         : phase % 880 + 1040;
 
     std::int32_t x = -400;
     std::int32_t y = -400;
-    WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
-    WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+    record->x = x;
+    record->y = y;
     if (offset >= 1040) {
         y = offset - 1440;
-        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+        record->y = y;
     } else {
         x = offset - 400;
-        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+        record->x = x;
     }
     if (horizontalSign < 0) {
-        x = 240 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));
-        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+        x = 240 - record->x;
+        record->x = x;
     }
     if (verticalSign < 0) {
-        y = 80 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));
-        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+        y = 80 - record->y;
+        record->y = y;
     }
-    const std::int32_t currentX =
-        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));
-    const std::int32_t currentY =
-        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));
+    const std::int32_t currentX = record->x;
+    const std::int32_t currentY = record->y;
     const std::int32_t fixedX = currentX * 65536;
     const std::int32_t fixedY = currentY * 65536;
-    WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
-    WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
-    WriteMapEffectWord(*record, 0x10, static_cast<std::uint32_t>(speed));
-    WriteMapEffectWord(*record, 0x14, static_cast<std::uint32_t>(graphicIndex));
+    record->value08 = fixedX;
+    record->value0C = fixedY;
+    record->speed = speed;
+    record->graphicIndex = graphicIndex;
     ++gMapCharaSceneSlots.valueC8A756;
     return record;
 }
@@ -1786,30 +1676,30 @@ void Sub_46F1D0()
 
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
-        const std::uint16_t kind = ReadMapEffectHalf(*record, 0x3C);
+        const std::uint16_t kind = record->kind;
         if (kind == 6 || kind == 7 || kind == 8) {
             std::int64_t delta[2];
             platform::detail::Cg2dMapEffectStep(
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x10)),
+                record->speed,
                 direction, delta);
             std::int32_t fixedX =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x08))
+                record->value08
                 + static_cast<std::int32_t>(delta[0]);
-            WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
+            record->value08 = fixedX;
             std::int32_t fixedY =
-                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C))
+                record->value0C
                 + static_cast<std::int32_t>(delta[1]);
-            WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
+            record->value0C = fixedY;
             fixedX += cameraX * 65536;
-            WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
+            record->value08 = fixedX;
             fixedY += cameraY * 65536;
-            WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
+            record->value0C = fixedY;
             const std::int32_t x = fixedX >> 16;
             const std::int32_t y = fixedY >> 16;
-            WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
-            WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+            record->x = x;
+            record->y = y;
             if (x < -400 || x > 640 || y < -400 || y > 480) {
-                if (ReadMapEffectHalf(*record, 0x3C) == 8) {
+                if (record->kind == 8) {
                     login::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
                     gMapCharaSceneSlots.actionC8A764 = nullptr;
                 }
@@ -1820,12 +1710,11 @@ void Sub_46F1D0()
                 continue;
             }
 
-            const std::uint16_t drawKind = ReadMapEffectHalf(*record, 0x3C);
+            const std::uint16_t drawKind = record->kind;
             if (drawKind == 8 && gMapCharaSceneSlots.actionC8A764 != nullptr) {
                 login::detail::SetYobiActionField30(
                     gMapCharaSceneSlots.actionC8A764, x + 150);
-                const auto actionY = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x04));
+                const auto actionY = record->y;
                 login::detail::SetYobiActionField34(
                     gMapCharaSceneSlots.actionC8A764, actionY + 150);
                 login::detail::Sub_517880(
@@ -1837,20 +1726,15 @@ void Sub_46F1D0()
                 login::detail::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
             }
             if (drawKind == 7) {
-                const auto index = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x14));
+                const auto index = record->graphicIndex;
                 render::DrawGraphic3_520970(
                     x, y, 1, 14648, 0, 1, 0,
                     gEffectDrawModes55DEB0.data() + 3 + index);
             } else if (drawKind == 6 || drawKind == 8) {
-                const auto index = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x14));
-                const auto speed = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x10));
-                const auto drawX = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x00));
-                const auto drawY = std::bit_cast<std::int32_t>(
-                    ReadMapEffectWord(*record, 0x04));
+                const auto index = record->graphicIndex;
+                const auto speed = record->speed;
+                const auto drawX = record->x;
+                const auto drawY = record->y;
                 render::DrawGraphic3_520970(
                     drawX, drawY, static_cast<std::uint8_t>(speed / 200 + 15),
                     14648, 0, 1, 0, gEffectDrawModes55DEB0.data() + index);

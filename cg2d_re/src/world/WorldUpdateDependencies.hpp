@@ -1341,12 +1341,53 @@ void Sub_455B90(); // 原455B90：仅FF0D40不等于10时写W32[62B338]=1，不�
 void Sub_455BB0(); // 原455BB0：仅FF0D40不等于10时写W32[62B36C]=1，不定义返回。
 // 原函数：0x00455BD0。
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
-struct MapEffectRecord;
+// 原[C82258,C8A728)共500项，44H载荷及两链接；只拓宽链接，生产和渲染共享同一记录。
+struct MapEffectRecord {
+    std::int32_t x; // +00：当前位置。
+    std::int32_t y; // +04：当前位置。
+    std::int32_t value08; // +08：类别1/2/4的X速度，类别6/7/8的定点X。
+    std::int32_t value0C; // +0C：类别1/2/4的Y速度，类别6/7/8的定点Y。
+    std::int32_t speed; // +10：类别6/7/8的运动速度。
+    std::int32_t graphicIndex; // +14：类别6/7/8的图形参数。
+    std::array<std::byte, 8> reserved18; // +18：尚无字段依据。
+    std::int32_t value20; // +20：类别4绘制局部X。
+    std::int32_t value24; // +24：类别4绘制局部Y。
+    std::int32_t value28; // +28：类别4绘制宽度。
+    std::int32_t value2C; // +2C：类别4更新写入值，渲染作为高度消费。
+    std::uint32_t remaining; // +30：类别4更新倒计数。
+    std::array<std::byte, 8> reserved34; // +34：尚无字段依据。
+    std::uint16_t kind; // +3C：效果类别。
+    std::uint16_t phase; // +3E：类别4的颜色阶段。
+    std::uint16_t variant; // +40：图案／颜色分支。
+    std::array<std::byte, 2> reserved42; // +42：保留原字节。
+    MapEffectRecord* prev; // 原+44，x64 +48：活动／空闲链前项。
+    MapEffectRecord* next; // 原+48，x64 +50：活动／空闲链后项。
+};
+static_assert(std::is_standard_layout_v<MapEffectRecord>);
+static_assert(std::is_trivially_copyable_v<MapEffectRecord>);
+static_assert(offsetof(MapEffectRecord, x) == 0x0);
+static_assert(offsetof(MapEffectRecord, y) == 0x4);
+static_assert(offsetof(MapEffectRecord, value08) == 0x8);
+static_assert(offsetof(MapEffectRecord, value0C) == 0xC);
+static_assert(offsetof(MapEffectRecord, speed) == 0x10);
+static_assert(offsetof(MapEffectRecord, graphicIndex) == 0x14);
+static_assert(offsetof(MapEffectRecord, reserved18) == 0x18);
+static_assert(offsetof(MapEffectRecord, value20) == 0x20);
+static_assert(offsetof(MapEffectRecord, value24) == 0x24);
+static_assert(offsetof(MapEffectRecord, value28) == 0x28);
+static_assert(offsetof(MapEffectRecord, value2C) == 0x2C);
+static_assert(offsetof(MapEffectRecord, remaining) == 0x30);
+static_assert(offsetof(MapEffectRecord, reserved34) == 0x34);
+static_assert(offsetof(MapEffectRecord, kind) == 0x3C);
+static_assert(offsetof(MapEffectRecord, phase) == 0x3E);
+static_assert(offsetof(MapEffectRecord, variant) == 0x40);
+static_assert(offsetof(MapEffectRecord, reserved42) == 0x42);
+static_assert(offsetof(MapEffectRecord, prev) == 0x48);
+static_assert(offsetof(MapEffectRecord, next) == 0x50);
+static_assert(sizeof(MapEffectRecord) == 0x58);
+static_assert(alignof(MapEffectRecord) == 8);
 extern MapEffectRecord* gActiveMapEffectHead; // 原0x00C8A72C；唯一活动链首。
 // render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
-const MapEffectRecord* GetNextMapEffect(const MapEffectRecord* record) noexcept;
-std::uint32_t ReadMapEffectWord(const MapEffectRecord& record, std::size_t offset);
-std::uint16_t ReadMapEffectHalf(const MapEffectRecord& record, std::size_t offset);
 // 原函数：0x0046E2A0。
 MapEffectRecord* Sub_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
 // 原函数：0x0046E340。

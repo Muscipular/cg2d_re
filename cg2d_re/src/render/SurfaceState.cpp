@@ -231,15 +231,12 @@ std::int32_t DrawMapEffects32_452840()
     auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
     const world::detail::MapEffectRecord* record = world::detail::gActiveMapEffectHead;
     while (record != nullptr) {
-        const auto readInt = [record](const std::size_t offset) {
-            return std::bit_cast<std::int32_t>(world::detail::ReadMapEffectWord(*record, offset));
-        };
-        const std::int32_t x = readInt(0);
+        const std::int32_t x = record->x;
         if (x >= 0 && x < 636) {
-            const std::int32_t y = readInt(4);
+            const std::int32_t y = record->y;
             if (y >= 0 && y < 468) {
                 std::uint32_t* const point = pixels + y * pitch + x;
-                const std::uint16_t kind = world::detail::ReadMapEffectHalf(*record, 0x3C);
+                const std::uint16_t kind = record->kind;
                 switch (kind) {
                 case 1:
                     point[0] = gPaletteAutoMap[143];
@@ -248,7 +245,7 @@ std::int32_t DrawMapEffects32_452840()
                     point[3 * pitch + 1] = gPaletteAutoMap[143];
                     break;
                 case 2: {
-                    const std::uint16_t variant = world::detail::ReadMapEffectHalf(*record, 0x40);
+                    const std::uint16_t variant = record->variant;
                     if (variant == 0) {
                         point[0] = gPaletteAutoMap[161];
                         point[1] = gPaletteAutoMap[159];
@@ -280,7 +277,7 @@ std::int32_t DrawMapEffects32_452840()
                     break;
                 }
                 case 3:
-                    switch (world::detail::ReadMapEffectHalf(*record, 0x40)) {
+                    switch (record->variant) {
                     case 0:
                         point[-pitch - 1] = gPaletteAutoMap[8];
                         point[-pitch] = gPaletteAutoMap[255];
@@ -332,8 +329,8 @@ std::int32_t DrawMapEffects32_452840()
                     }
                     break;
                 case 4: {
-                    const std::uint16_t variant = world::detail::ReadMapEffectHalf(*record, 0x40);
-                    const std::uint16_t phase = world::detail::ReadMapEffectHalf(*record, 0x3E);
+                    const std::uint16_t variant = record->variant;
+                    const std::uint16_t phase = record->phase;
                     std::uint32_t color;
                     if (variant == 0) {
                         color = gPaletteAutoMap[phase == 0 ? 223 : phase == 1 ? 217 : 159];
@@ -349,27 +346,27 @@ std::int32_t DrawMapEffects32_452840()
                             color = gPaletteAutoMap[159];
                         }
                     }
-                    std::int32_t height = readInt(0x2C);
+                    std::int32_t height = record->value2C;
                     std::int32_t row = 0;
                     if (height > 0) {
                         do {
-                            std::int32_t width = readInt(0x28);
+                            std::int32_t width = record->value28;
                             std::int32_t column = 0;
                             if (width > 0) {
                                 do {
-                                    const std::int32_t localX = readInt(0x20) + column;
+                                    const std::int32_t localX = record->value20 + column;
                                     if (localX >= 0 && localX < kCpuSurfaceWidth) {
-                                        const std::int32_t localY = readInt(0x24) + row;
+                                        const std::int32_t localY = record->value24 + row;
                                         if (localY >= 0 && localY < kCpuSurfaceHeight) {
                                             // 原目标基址已带记录原点；门禁只检查局部坐标。
                                             point[localY * pitch + localX] = color;
                                         }
                                     }
-                                    width = readInt(0x28);
+                                    width = record->value28;
                                     ++column;
                                 } while (column < width);
                             }
-                            height = readInt(0x2C);
+                            height = record->value2C;
                             ++row;
                         } while (row < height);
                     }
@@ -378,7 +375,7 @@ std::int32_t DrawMapEffects32_452840()
                 }
             }
         }
-        record = world::detail::GetNextMapEffect(record);
+        record = record->next;
     }
     SDL_UnlockSurface(back);
     return 0;

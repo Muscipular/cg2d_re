@@ -515,12 +515,20 @@ std::int32_t LoadBgmConfig_524060()
             continue;
         }
 
-        static_cast<void>(std::sscanf(
+        // 用有类型的目标承接%d，再按原次序写回重叠的两个4B槽。
+        int scanned44;
+        int scanned48;
+        std::memcpy(&scanned44, values44And48.data(), sizeof(scanned44));
+        std::memcpy(&scanned48, values44And48.data() + 1, sizeof(scanned48));
+        const int scannedCount = std::sscanf(
             line, "%d %d %s %d %d %d",
-            static_cast<void*>(&recordIndex), static_cast<void*>(&mappingIndex),
-            static_cast<void*>(path), static_cast<void*>(&value40),
-            static_cast<void*>(values44And48.data()),
-            static_cast<void*>(values44And48.data() + 1)));
+            &recordIndex, &mappingIndex, path, &value40, &scanned44, &scanned48);
+        if (scannedCount >= 5) {
+            std::memcpy(values44And48.data(), &scanned44, sizeof(scanned44));
+        }
+        if (scannedCount >= 6) {
+            std::memcpy(values44And48.data() + 1, &scanned48, sizeof(scanned48));
+        }
 
         const std::int32_t selectedRecordIndex = recordIndex;
         BgmConfigRecord& record =

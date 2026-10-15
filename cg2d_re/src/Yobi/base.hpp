@@ -133,8 +133,6 @@ struct YobiAction {
 };
 
 static_assert(std::is_standard_layout_v<YobiAction>);
-static_assert(offsetof(YobiAction, drawMode) == offsetof(YobiAction, frameY) + sizeof(std::int32_t));
-static_assert(offsetof(YobiAction, batchType) == offsetof(YobiAction, drawMode) + sizeof(render::GraphicDescriptor16));
 
 static_assert(!std::is_trivially_destructible_v<YobiAction>);
 

@@ -1,5 +1,6 @@
 #include "battle_display.hpp"
 #include "base.hpp"
+#include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"

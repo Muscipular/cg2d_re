@@ -134,15 +134,15 @@ std::int32_t Sub_4C5650(
     std::int32_t ones);
 using cg::audio::Sub_52B990;
 
-// 原函数：0x0045F100。
-std::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);
-// 原函数：0x0045EFD0。
-void Sub_45EFD0(
-    const CharacterSelectUiRecord* uiRecord,
-    std::uint8_t layer,
-    std::int32_t overlayMode,
-    std::int32_t overlayImageNo,
-    std::int32_t style);
+// 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
+std::int32_t QueryUiControlInputState_45F100(const CharacterSelectUiRecord* controlRecord);
+// 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
+void DrawUiControl_45EFD0(
+    const CharacterSelectUiRecord* controlRecord,
+    std::uint8_t renderLayer,
+    std::int32_t hoverFrameMode,
+    std::int32_t hoverFrameImageNo,
+    std::int32_t imageStateMode);
 using cg::render::Sub_45F090;
 using cg::network::Sub_512D30;
 

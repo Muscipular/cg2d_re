@@ -9002,20 +9002,20 @@
       "definitions": [
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "DrawLegacyUiRecord_45EFD0",
-          "definition_line": 78,
+          "symbol": "DrawUiControlWithCallbacks_45EFD0",
+          "definition_line": 85,
           "namespace": "(匿名)"
         },
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "Sub_45EFD0",
-          "definition_line": 170,
+          "symbol": "DrawUiControl_45EFD0",
+          "definition_line": 177,
           "namespace": "cg::login::detail"
         },
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "Sub_45EFD0",
-          "definition_line": 199,
+          "symbol": "DrawUiControl_45EFD0",
+          "definition_line": 206,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9038,20 +9038,20 @@
       "definitions": [
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "QueryLegacyUiRecordState_45F100",
-          "definition_line": 40,
+          "symbol": "QueryUiControlInputStateFromRecord_45F100",
+          "definition_line": 44,
           "namespace": "(匿名)"
         },
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "Sub_45F100",
-          "definition_line": 164,
+          "symbol": "QueryUiControlInputState_45F100",
+          "definition_line": 171,
           "namespace": "cg::login::detail"
         },
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "Sub_45F100",
-          "definition_line": 192,
+          "symbol": "QueryUiControlInputState_45F100",
+          "definition_line": 199,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -32271,6 +32271,20 @@
     "source": "src/ui/LegacyUiRecord.cpp",
     "function_bodies_preserved": 10,
     "current_direct_locations_updated": 6,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
+  },
+  "legacy_ui_control_naming_uin02": {
+    "spec": "doc/cg2d_ui_naming_enum_spec.md#legacy-ui-control-naming-uin02",
+    "evidence": "doc/cg2d_legacy_ui_control_naming_evidence.json",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "renamed_function_definitions": 10,
+    "public_symbol_names": 2,
+    "external_calls_updated": 35,
     "source_only": true,
     "compiled": false,
     "tested": false,

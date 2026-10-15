@@ -102,7 +102,7 @@ std::int32_t ProcessCapability4Input_464E30()
     Capability4InputButton32 exitButton = kCapability4ExitButton;
     std::int32_t result = 0;
 
-    if ((detail::Sub_45F100(&loginButton) & 1) != 0) {
+    if ((detail::QueryUiControlInputState_45F100(&loginButton) & 1) != 0) {
         loginButton.normalImageNo = loginButton.clickedImageNo;
         if (gInputContext9A5678.length() != 0
             && gInputContext9A5960.length() != 0) {
@@ -121,7 +121,7 @@ std::int32_t ProcessCapability4Input_464E30()
         } else {
             result = -2;
         }
-    } else if ((detail::Sub_45F100(&exitButton) & 1) != 0) {
+    } else if ((detail::QueryUiControlInputState_45F100(&exitButton) & 1) != 0) {
         exitButton.normalImageNo = exitButton.clickedImageNo;
         result = 2;
     }
@@ -245,8 +245,8 @@ std::int32_t ProcessCapability4Input_464E30()
             206));
     }
 
-    detail::Sub_45EFD0(&loginButton, 207, 0, 0, 0);
-    detail::Sub_45EFD0(&exitButton, 207, 0, 0, 0);
+    detail::DrawUiControl_45EFD0(&loginButton, 207, 0, 0, 0);
+    detail::DrawUiControl_45EFD0(&exitButton, 207, 0, 0, 0);
     static_cast<void>(render::DrawText3_456560(
         460,
         462,

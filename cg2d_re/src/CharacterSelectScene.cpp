@@ -1762,24 +1762,24 @@ std::int32_t ProcessScene_460FF0()
     if (gUpdateAvailable != 0) {
         if (uiStyle == 0
             && world::gCurrentSceneState == 11
-            && (detail::Sub_45F100(&gUpdateUi) & 1) != 0) {
+            && (detail::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
             world::SetCurrentSceneType(13);
             uiStyle = 1;
         }
-        detail::Sub_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
+        detail::DrawUiControl_45EFD0(&gUpdateUi, 5, 0, 0, uiStyle);
         detail::Sub_45F090(252, 392, 4, 245078, 0, -1);
     }
 
     if (uiStyle == 0
         && world::gCurrentSceneState == 11
-        && (detail::Sub_45F100(&gReturnUi) & 1) != 0) {
+        && (detail::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
         login::detail::YobiClearUp_404D30();
         ClearPreviewActions();
         cg::network::ShutdownNetworkRuntime_5081A0();
         world::SetCurrentSceneType(2);
         login::detail::PlaySe(54, 320, 240);
     }
-    detail::Sub_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
+    detail::DrawUiControl_45EFD0(&gReturnUi, 5, 0, 0, uiStyle);
     detail::Sub_45F090(0, 0, 3, 245060, 0, -1);
 
     std::int32_t result = gUpdateAvailable;

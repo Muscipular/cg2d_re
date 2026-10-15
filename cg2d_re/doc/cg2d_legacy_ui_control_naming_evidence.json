@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "task": "UIN02",
+  "spec": "doc/cg2d_ui_naming_enum_spec.md#legacy-ui-control-naming-uin02",
+  "source_files": [
+    "src/ui/LegacyUiRecord.cpp",
+    "src/CharacterSelectSceneDependencies.hpp",
+    "src/LoginSceneDependencies.hpp",
+    "src/CharacterSelectSlot.cpp",
+    "src/CharacterSelectScene.cpp",
+    "src/LoginCapability3InputController.cpp",
+    "src/LoginInputController.cpp",
+    "src/LoginScene.cpp"
+  ],
+  "ida_read_only_evidence": [
+    {
+      "entry": "0x0045EFD0",
+      "end_exclusive": "0x0045F08C",
+      "observed": "非空记录；普通／激活图号选择；图像模式0取0x40命中位；底图绘制后按命中与模式绘制外扩2的悬停边框。"
+    },
+    {
+      "entry": "0x0045F100",
+      "end_exclusive": "0x0045F18D",
+      "observed": "非空记录；矩形命中；0x40基础位及鼠标点击／持续／脉冲位打包，未命中返回0。"
+    }
+  ],
+  "database_modified": false,
+  "function_names": {
+    "Sub_45F100": "QueryUiControlInputState_45F100",
+    "Sub_45EFD0": "DrawUiControl_45EFD0",
+    "ReadRecordW32": "ReadUiControlInt32",
+    "QueryLegacyUiRecordState_45F100": "QueryUiControlInputStateFromRecord_45F100",
+    "AddW32": "AddUiCoordinate",
+    "Low16": "UiCoordinateLow16",
+    "QueryCharacterSelectState": "QueryCharacterSelectControlInputState",
+    "DrawLegacyUiRecord_45EFD0": "DrawUiControlWithCallbacks_45EFD0"
+  },
+  "other_identifiers": {
+    "QueryStateFunction": "QueryUiControlInputStateFunction",
+    "DrawBaseFunction": "DrawUiControlGraphicFunction",
+    "kXOffset": "kLeftOffset",
+    "kYOffset": "kTopOffset",
+    "kNormalImageOffset": "kNormalImageNoOffset",
+    "kActiveImageOffset": "kActiveImageNoOffset",
+    "uiRecord": "controlRecord",
+    "layer": "renderLayer",
+    "overlayMode": "hoverFrameMode",
+    "overlayImageNo": "hoverFrameImageNo",
+    "style": "imageStateMode",
+    "queryState": "queryInputState",
+    "drawBase": "drawBaseGraphic",
+    "offset": "fieldOffset",
+    "value": "fieldValue",
+    "bytes": "recordBytes",
+    "control": "hitBounds",
+    "input": "inputState",
+    "baseX": "drawX",
+    "baseY": "drawY",
+    "hitX": "hitLeft",
+    "hitY": "hitTop",
+    "hoverX": "controlLeft",
+    "hoverY": "controlTop",
+    "hoverHeight": "controlHeight",
+    "hoverWidth": "controlWidth",
+    "hoverLeft": "frameLeft",
+    "hoverTop": "frameTop",
+    "hoverRight": "frameRight",
+    "hoverBottom": "frameBottom",
+    "value4": "graphicValue4",
+    "value5": "color"
+  },
+  "scoped_identifiers": {
+    "Low16.value": "UiCoordinateLow16.coordinate",
+    "DrawLegacyUiRecord_45EFD0.imageNo": "DrawUiControlWithCallbacks_45EFD0.selectedImageNo",
+    "AddW32.left": "AddUiCoordinate.leftCoordinate",
+    "AddW32.right": "AddUiCoordinate.rightCoordinate"
+  },
+  "definitions": [
+    {
+      "symbol": "ReadUiControlInt32",
+      "namespace": "(匿名)",
+      "line": 33
+    },
+    {
+      "symbol": "QueryUiControlInputStateFromRecord_45F100",
+      "namespace": "(匿名)",
+      "line": 44
+    },
+    {
+      "symbol": "AddUiCoordinate",
+      "namespace": "(匿名)",
+      "line": 60
+    },
+    {
+      "symbol": "UiCoordinateLow16",
+      "namespace": "(匿名)",
+      "line": 68
+    },
+    {
+      "symbol": "QueryCharacterSelectControlInputState",
+      "namespace": "(匿名)",
+      "line": 75
+    },
+    {
+      "symbol": "DrawUiControlWithCallbacks_45EFD0",
+      "namespace": "(匿名)",
+      "line": 85
+    },
+    {
+      "symbol": "QueryUiControlInputState_45F100",
+      "namespace": "cg::login::detail",
+      "line": 171
+    },
+    {
+      "symbol": "DrawUiControl_45EFD0",
+      "namespace": "cg::login::detail",
+      "line": 177
+    },
+    {
+      "symbol": "QueryUiControlInputState_45F100",
+      "namespace": "cg::character_select::detail",
+      "line": 199
+    },
+    {
+      "symbol": "DrawUiControl_45EFD0",
+      "namespace": "cg::character_select::detail",
+      "line": 206
+    }
+  ],
+  "validation": {
+    "file_lexical_comparisons": 8,
+    "function_definitions_preserved": 10,
+    "external_calls_preserved": 35,
+    "declarations_preserved": 4,
+    "direct_locations_updated": 6,
+    "table_providers_updated": 2,
+    "ui_symbol_map_records_added": 2,
+    "original_inventory_rows_identity_name_status_preserved": 3680,
+    "shared_registry_fields_preserved": true,
+    "types_field_widths_control_flow_literals_and_address_comments_preserved": true,
+    "unproven_graphic_parameter": "第五参沿用中性graphicValue4，不猜测业务语义。",
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "ledger_check": {
+      "exit_code": 1,
+      "existing_missing_historical_attachments": [
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "src/platform/LegacyExternalKeyboardObject.cpp"
+      ],
+      "new_errors": 0,
+      "derived_files_written": false,
+      "full_ledger_passed": false
+    }
+  }
+}

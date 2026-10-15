@@ -10,118 +10,125 @@
 
 namespace {
 
-using QueryStateFunction = std::int32_t (*)(const void* uiRecord);
-using DrawBaseFunction = std::int32_t (*)(
+// 查询控件鼠标输入位图的场景回调。
+using QueryUiControlInputStateFunction = std::int32_t (*)(const void* controlRecord);
+// 绘制控件底图；graphicValue4沿用底层未证语义参数，color为颜色参数。
+using DrawUiControlGraphicFunction = std::int32_t (*)(
     std::int32_t x,
     std::int32_t y,
-    std::uint8_t layer,
+    std::uint8_t renderLayer,
     std::int32_t imageNo,
-    std::int32_t value4,
-    std::int32_t value5);
+    std::int32_t graphicValue4,
+    std::int32_t color);
 
-constexpr std::size_t kXOffset = 0x00;
-constexpr std::size_t kYOffset = 0x04;
+// 共用控件记录前24字节：矩形、普通图号和激活图号。
+constexpr std::size_t kLeftOffset = 0x00;
+constexpr std::size_t kTopOffset = 0x04;
 constexpr std::size_t kWidthOffset = 0x08;
 constexpr std::size_t kHeightOffset = 0x0C;
-constexpr std::size_t kNormalImageOffset = 0x10;
-constexpr std::size_t kActiveImageOffset = 0x14;
+constexpr std::size_t kNormalImageNoOffset = 0x10;
+constexpr std::size_t kActiveImageNoOffset = 0x14;
 
-std::int32_t ReadRecordW32(
-    const void* const uiRecord,
-    const std::size_t offset)
+// 按已证字段偏移读取有符号32位值，保留逐次memcpy取样。
+std::int32_t ReadUiControlInt32(
+    const void* const controlRecord,
+    const std::size_t fieldOffset)
 {
-    std::int32_t value;
-    const auto* const bytes = static_cast<const std::byte*>(uiRecord);
-    std::memcpy(&value, bytes + offset, sizeof(value));
-    return value;
+    std::int32_t fieldValue;
+    const auto* const recordBytes = static_cast<const std::byte*>(controlRecord);
+    std::memcpy(&fieldValue, recordBytes + fieldOffset, sizeof(fieldValue));
+    return fieldValue;
 }
 
-// 原函数：0x0045F100。
-std::int32_t QueryLegacyUiRecordState_45F100(
-    const void* const uiRecord)
+// 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
+std::int32_t QueryUiControlInputStateFromRecord_45F100(
+    const void* const controlRecord)
 {
-    if (uiRecord == nullptr) {
+    if (controlRecord == nullptr) {
         return 0;
     }
 
-    cg::login::LoginSceneControl32 control {};
-    control.top = ReadRecordW32(uiRecord, kYOffset);
-    control.left = ReadRecordW32(uiRecord, kXOffset);
-    control.height = ReadRecordW32(uiRecord, kHeightOffset);
-    control.width = ReadRecordW32(uiRecord, kWidthOffset);
-    return cg::login::QueryLoginControlState_5036F0(&control);
+    cg::login::LoginSceneControl32 hitBounds {};
+    hitBounds.top = ReadUiControlInt32(controlRecord, kTopOffset);
+    hitBounds.left = ReadUiControlInt32(controlRecord, kLeftOffset);
+    hitBounds.height = ReadUiControlInt32(controlRecord, kHeightOffset);
+    hitBounds.width = ReadUiControlInt32(controlRecord, kWidthOffset);
+    return cg::login::QueryLoginControlState_5036F0(&hitBounds);
 }
 
-std::int32_t AddW32(
-    const std::int32_t left,
-    const std::int32_t right)
+// 保留原有有符号32位坐标加法。
+std::int32_t AddUiCoordinate(
+    const std::int32_t leftCoordinate,
+    const std::int32_t rightCoordinate)
 {
-    return left + right;
+    return leftCoordinate + rightCoordinate;
 }
 
-std::uint16_t Low16(const std::int32_t value)
+// 将边框坐标的低16位交给既有绘制接口。
+std::uint16_t UiCoordinateLow16(const std::int32_t coordinate)
 {
     return static_cast<std::uint16_t>(
-        std::bit_cast<std::uint32_t>(value));
+        std::bit_cast<std::uint32_t>(coordinate));
 }
 
-std::int32_t QueryCharacterSelectState(const void* const uiRecord)
+// 将角色选择的具名记录适配为共享输入查询回调。
+std::int32_t QueryCharacterSelectControlInputState(const void* const controlRecord)
 {
-    return cg::character_select::detail::Sub_45F100(
+    return cg::character_select::detail::QueryUiControlInputState_45F100(
         static_cast<
             const cg::character_select::detail::CharacterSelectUiRecord*>(
-                uiRecord));
+                controlRecord));
 }
 
 
-// 原函数：0x0045EFD0。
-void DrawLegacyUiRecord_45EFD0(
-    const void* const uiRecord,
-    const std::uint8_t layer,
-    const std::int32_t overlayMode,
-    const std::int32_t overlayImageNo,
-    const std::int32_t style,
-    const QueryStateFunction queryState,
-    const DrawBaseFunction drawBase)
+// 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
+void DrawUiControlWithCallbacks_45EFD0(
+    const void* const controlRecord,
+    const std::uint8_t renderLayer,
+    const std::int32_t hoverFrameMode,
+    const std::int32_t hoverFrameImageNo,
+    const std::int32_t imageStateMode,
+    const QueryUiControlInputStateFunction queryInputState,
+    const DrawUiControlGraphicFunction drawBaseGraphic)
 {
-    if (uiRecord == nullptr) {
+    if (controlRecord == nullptr) {
         return;
     }
 
-    std::int32_t imageNo = ReadRecordW32(uiRecord, kNormalImageOffset);
-    if (style == 0) {
-        const std::uint8_t input =
-            static_cast<std::uint8_t>(queryState(uiRecord));
-        if ((input & 0x40U) != 0) {
-            imageNo = ReadRecordW32(uiRecord, kActiveImageOffset);
+    std::int32_t selectedImageNo = ReadUiControlInt32(controlRecord, kNormalImageNoOffset);
+    if (imageStateMode == 0) {
+        const std::uint8_t inputState =
+            static_cast<std::uint8_t>(queryInputState(controlRecord));
+        if ((inputState & 0x40U) != 0) {
+            selectedImageNo = ReadUiControlInt32(controlRecord, kActiveImageNoOffset);
         }
-    } else if (style == 2) {
-        imageNo = ReadRecordW32(uiRecord, kActiveImageOffset);
+    } else if (imageStateMode == 2) {
+        selectedImageNo = ReadUiControlInt32(controlRecord, kActiveImageNoOffset);
     }
 
-    const std::int32_t baseY = ReadRecordW32(uiRecord, kYOffset);
-    const std::int32_t baseX = ReadRecordW32(uiRecord, kXOffset);
-    static_cast<void>(drawBase(
-        baseX,
-        baseY,
-        layer,
-        imageNo,
+    const std::int32_t drawY = ReadUiControlInt32(controlRecord, kTopOffset);
+    const std::int32_t drawX = ReadUiControlInt32(controlRecord, kLeftOffset);
+    static_cast<void>(drawBaseGraphic(
+        drawX,
+        drawY,
+        renderLayer,
+        selectedImageNo,
         1,
         -1));
 
-    if (overlayMode == 0) {
+    if (hoverFrameMode == 0) {
         return;
     }
 
-    const std::int32_t hitY = ReadRecordW32(uiRecord, kYOffset);
-    const std::int32_t hitHeight = ReadRecordW32(uiRecord, kHeightOffset);
-    const std::int32_t hitX = ReadRecordW32(uiRecord, kXOffset);
-    const std::int32_t hitBottom = AddW32(hitHeight, hitY);
-    const std::int32_t hitWidth = ReadRecordW32(uiRecord, kWidthOffset);
-    const std::int32_t hitRight = AddW32(hitWidth, hitX);
+    const std::int32_t hitTop = ReadUiControlInt32(controlRecord, kTopOffset);
+    const std::int32_t hitHeight = ReadUiControlInt32(controlRecord, kHeightOffset);
+    const std::int32_t hitLeft = ReadUiControlInt32(controlRecord, kLeftOffset);
+    const std::int32_t hitBottom = AddUiCoordinate(hitHeight, hitTop);
+    const std::int32_t hitWidth = ReadUiControlInt32(controlRecord, kWidthOffset);
+    const std::int32_t hitRight = AddUiCoordinate(hitWidth, hitLeft);
     if (cg::login::detail::Sub_5049A0(
-            hitX,
-            hitY,
+            hitLeft,
+            hitTop,
             hitRight,
             hitBottom,
             -1)
@@ -129,58 +136,58 @@ void DrawLegacyUiRecord_45EFD0(
         return;
     }
 
-    if (style != 0) {
+    if (imageStateMode != 0) {
         return;
     }
 
-    const std::int32_t hoverY = ReadRecordW32(uiRecord, kYOffset);
-    const std::int32_t hoverX = ReadRecordW32(uiRecord, kXOffset);
-    const std::int32_t hoverHeight =
-        ReadRecordW32(uiRecord, kHeightOffset);
-    const std::int32_t hoverBottom = AddW32(
-        AddW32(hoverHeight, hoverY),
+    const std::int32_t controlTop = ReadUiControlInt32(controlRecord, kTopOffset);
+    const std::int32_t controlLeft = ReadUiControlInt32(controlRecord, kLeftOffset);
+    const std::int32_t controlHeight =
+        ReadUiControlInt32(controlRecord, kHeightOffset);
+    const std::int32_t frameBottom = AddUiCoordinate(
+        AddUiCoordinate(controlHeight, controlTop),
         2);
-    const std::int32_t hoverTop = AddW32(hoverY, -2);
-    const std::int32_t hoverWidth = ReadRecordW32(uiRecord, kWidthOffset);
-    const std::int32_t hoverRight = AddW32(
-        AddW32(hoverWidth, hoverX),
+    const std::int32_t frameTop = AddUiCoordinate(controlTop, -2);
+    const std::int32_t controlWidth = ReadUiControlInt32(controlRecord, kWidthOffset);
+    const std::int32_t frameRight = AddUiCoordinate(
+        AddUiCoordinate(controlWidth, controlLeft),
         2);
-    const std::int32_t hoverLeft = AddW32(hoverX, -2);
+    const std::int32_t frameLeft = AddUiCoordinate(controlLeft, -2);
     cg::login::detail::DrawGraphicHover(
-        Low16(hoverLeft),
-        Low16(hoverTop),
-        Low16(hoverRight),
-        Low16(hoverBottom),
-        layer,
-        std::bit_cast<std::uint32_t>(overlayImageNo),
-        overlayMode == 2 ? 1 : 0);
+        UiCoordinateLow16(frameLeft),
+        UiCoordinateLow16(frameTop),
+        UiCoordinateLow16(frameRight),
+        UiCoordinateLow16(frameBottom),
+        renderLayer,
+        std::bit_cast<std::uint32_t>(hoverFrameImageNo),
+        hoverFrameMode == 2 ? 1 : 0);
 }
 
 } // namespace
 
 namespace cg::login::detail {
 
-// 原函数：0x0045F100。
-std::int32_t Sub_45F100(const void* const uiRecord)
+// 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
+std::int32_t QueryUiControlInputState_45F100(const void* const controlRecord)
 {
-    return QueryLegacyUiRecordState_45F100(uiRecord);
+    return QueryUiControlInputStateFromRecord_45F100(controlRecord);
 }
 
-// 原函数：0x0045EFD0。
-void Sub_45EFD0(
-    const void* const uiRecord,
-    const std::uint8_t layer,
-    const std::int32_t overlayMode,
-    const std::int32_t overlayImageNo,
-    const std::int32_t style)
+// 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
+void DrawUiControl_45EFD0(
+    const void* const controlRecord,
+    const std::uint8_t renderLayer,
+    const std::int32_t hoverFrameMode,
+    const std::int32_t hoverFrameImageNo,
+    const std::int32_t imageStateMode)
 {
-    DrawLegacyUiRecord_45EFD0(
-        uiRecord,
-        layer,
-        overlayMode,
-        overlayImageNo,
-        style,
-        Sub_45F100,
+    DrawUiControlWithCallbacks_45EFD0(
+        controlRecord,
+        renderLayer,
+        hoverFrameMode,
+        hoverFrameImageNo,
+        imageStateMode,
+        QueryUiControlInputState_45F100,
         Sub_45F090);
 }
 
@@ -188,28 +195,28 @@ void Sub_45EFD0(
 
 namespace cg::character_select::detail {
 
-// 原函数：0x0045F100。
-std::int32_t Sub_45F100(
-    const CharacterSelectUiRecord* const uiRecord)
+// 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
+std::int32_t QueryUiControlInputState_45F100(
+    const CharacterSelectUiRecord* const controlRecord)
 {
-    return QueryLegacyUiRecordState_45F100(uiRecord);
+    return QueryUiControlInputStateFromRecord_45F100(controlRecord);
 }
 
-// 原函数：0x0045EFD0。
-void Sub_45EFD0(
-    const CharacterSelectUiRecord* const uiRecord,
-    const std::uint8_t layer,
-    const std::int32_t overlayMode,
-    const std::int32_t overlayImageNo,
-    const std::int32_t style)
+// 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
+void DrawUiControl_45EFD0(
+    const CharacterSelectUiRecord* const controlRecord,
+    const std::uint8_t renderLayer,
+    const std::int32_t hoverFrameMode,
+    const std::int32_t hoverFrameImageNo,
+    const std::int32_t imageStateMode)
 {
-    DrawLegacyUiRecord_45EFD0(
-        uiRecord,
-        layer,
-        overlayMode,
-        overlayImageNo,
-        style,
-        QueryCharacterSelectState,
+    DrawUiControlWithCallbacks_45EFD0(
+        controlRecord,
+        renderLayer,
+        hoverFrameMode,
+        hoverFrameImageNo,
+        imageStateMode,
+        QueryCharacterSelectControlInputState,
         Sub_45F090);
 }
 

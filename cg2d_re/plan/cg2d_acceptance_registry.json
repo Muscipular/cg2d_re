@@ -194007,5 +194007,19 @@
     "runtime_verified": false,
     "inventory_states_changed": false,
     "shared_gates_changed": false
+  },
+  "legacy_ui_control_naming_uin02": {
+    "spec": "doc/cg2d_ui_naming_enum_spec.md#legacy-ui-control-naming-uin02",
+    "evidence": "doc/cg2d_legacy_ui_control_naming_evidence.json",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "renamed_function_definitions": 10,
+    "public_symbol_names": 2,
+    "external_calls_updated": 35,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

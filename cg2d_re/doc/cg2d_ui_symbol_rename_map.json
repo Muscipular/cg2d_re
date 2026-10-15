@@ -11460,9 +11460,31 @@
       "current_definition_lines": [
         4609
       ]
+    },
+    {
+      "old_symbol": "Sub_45F100",
+      "new_symbol": "QueryUiControlInputState_45F100",
+      "original_entry": "0x0045F100",
+      "source": "src/ui/LegacyUiRecord.cpp",
+      "basis": "UIN02：当前IDA只读核原矩形鼠标位图／普通与激活图号及悬停边框；登录与角色选择namespace保持，保留原地址后缀。",
+      "current_definition_lines": [
+        171,
+        199
+      ]
+    },
+    {
+      "old_symbol": "Sub_45EFD0",
+      "new_symbol": "DrawUiControl_45EFD0",
+      "original_entry": "0x0045EFD0",
+      "source": "src/ui/LegacyUiRecord.cpp",
+      "basis": "UIN02：当前IDA只读核原矩形鼠标位图／普通与激活图号及悬停边框；登录与角色选择namespace保持，保留原地址后缀。",
+      "current_definition_lines": [
+        177,
+        206
+      ]
     }
   ],
-  "renamed_symbol_count": 1138,
+  "renamed_symbol_count": 1140,
   "ui_definition_ownership_20261015": {
     "spec": "doc/cg2d_ui_window_split_spec.md#ui-definition-ownership-20261015",
     "evidence": "doc/cg2d_ui_definition_ownership_evidence.json",
@@ -11484,5 +11506,19 @@
     "spec": "doc/cg2d_ui_window_split_spec.md#ui-window-ownership-followup-20261015",
     "evidence": "doc/cg2d_ui_window_ownership_followup_evidence.json",
     "updated_symbol_records": 425
+  },
+  "legacy_ui_control_naming_uin02": {
+    "spec": "doc/cg2d_ui_naming_enum_spec.md#legacy-ui-control-naming-uin02",
+    "evidence": "doc/cg2d_legacy_ui_control_naming_evidence.json",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "renamed_function_definitions": 10,
+    "public_symbol_names": 2,
+    "external_calls_updated": 35,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

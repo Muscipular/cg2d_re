@@ -381,10 +381,10 @@ void DrawCategoryControls()
     for (std::int32_t index = 0; index < 60; ++index) {
         if (cg::login::gValueD9F2D4[static_cast<std::size_t>(index)] > 0) {
             if (cg::login::gValue55A054 == index) {
-                cg::login::detail::Sub_45EFD0(
+                cg::login::detail::DrawUiControl_45EFD0(
                     SelectedCategoryControl(), 10, 0, 0, 0);
             } else if (cg::login::gValue55A054 < 0) {
-                cg::login::detail::Sub_45EFD0(
+                cg::login::detail::DrawUiControl_45EFD0(
                     CategoryScanRecord(index), 10, 0, 0, 0);
             }
         }
@@ -459,23 +459,23 @@ std::int32_t ProcessScene_45FEA0()
 
     if (world::gCurrentSceneState == 1) {
         interactiveTail = 1;
-        if ((detail::Sub_45F100(&gCloseUi) & 1) != 0) {
+        if ((detail::QueryUiControlInputState_45F100(&gCloseUi) & 1) != 0) {
             detail::PlaySe(54, 320, 240);
             platform::PostLegacyWindowMessage(
                 platform::gLegacyWindow, 0x10, 0, 0);
-        } else if ((detail::Sub_45F100(&gSwitchSceneUi) & 1) != 0) {
+        } else if ((detail::QueryUiControlInputState_45F100(&gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(1);
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
             detail::Sub_52B990();
-        } else if ((detail::Sub_45F100(SelectedCategoryControl()) & 1) != 0) {
+        } else if ((detail::QueryUiControlInputState_45F100(SelectedCategoryControl()) & 1) != 0) {
             gValue55A054 = -1;
             gServerPage = 0;
             detail::PlaySe(54, 320, 240);
         } else {
             std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
-                const std::int32_t input = detail::Sub_45F100(CategoryScanRecord(index));
+                const std::int32_t input = detail::QueryUiControlInputState_45F100(CategoryScanRecord(index));
                 category = gValue55A054;
                 if ((input & 1) != 0
                     && gValueD9F2D4[static_cast<std::size_t>(index)] > 0
@@ -501,7 +501,7 @@ std::int32_t ProcessScene_45FEA0()
             for (std::int32_t slot = 0; slot < 10; ++slot) {
                 if (category >= 0) {
                     const std::uint8_t input = static_cast<std::uint8_t>(
-                        detail::Sub_45F100(&gServerUi[static_cast<std::size_t>(slot)]));
+                        detail::QueryUiControlInputState_45F100(&gServerUi[static_cast<std::size_t>(slot)]));
                     if ((input & 0x40u) != 0) {
                         gSelectedServerGroup = slot;
                     }
@@ -704,21 +704,21 @@ std::int32_t ProcessScene_45FEA0()
         SetBaseWindowTitle(title);
     }
 
-    detail::Sub_45EFD0(&gCloseUi, 10, 0, 0, 0);
-    detail::Sub_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
+    detail::DrawUiControl_45EFD0(&gCloseUi, 10, 0, 0, 0);
+    detail::DrawUiControl_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
     if (interactiveTail != 0) {
         DrawCategoryControls();
         if (gValue55A054 >= 0
             && gValueD9F2D4[static_cast<std::size_t>(gValue55A054)] > 10) {
-            detail::Sub_45EFD0(&gNextPageUi, 10, 0, 0, 0);
-            detail::Sub_45EFD0(&gPreviousPageUi, 10, 0, 0, 0);
-            if ((detail::Sub_45F100(&gNextPageUi) & 1) != 0) {
+            detail::DrawUiControl_45EFD0(&gNextPageUi, 10, 0, 0, 0);
+            detail::DrawUiControl_45EFD0(&gPreviousPageUi, 10, 0, 0, 0);
+            if ((detail::QueryUiControlInputState_45F100(&gNextPageUi) & 1) != 0) {
                 if (gServerPage < 1) {
                     ++gServerPage;
                 }
                 detail::PlaySe(51, 320, 240);
             }
-            if ((detail::Sub_45F100(&gPreviousPageUi) & 1) != 0) {
+            if ((detail::QueryUiControlInputState_45F100(&gPreviousPageUi) & 1) != 0) {
                 if (gServerPage > 0) {
                     --gServerPage;
                 }
@@ -731,10 +731,10 @@ std::int32_t ProcessScene_45FEA0()
                 ReadServerAvailability(gValue55A054, gServerPage, slot);
             if (available && gValue55A054 >= 0) {
                 if (gServerPage == 0) {
-                    detail::Sub_45EFD0(
+                    detail::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
                 } else if (gServerPage == 1) {
-                    detail::Sub_45EFD0(
+                    detail::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, 0);
                 }
             }
@@ -745,10 +745,10 @@ std::int32_t ProcessScene_45FEA0()
             if (ReadServerAvailability(gValue55A054, gServerPage, slot)) {
                 const std::int32_t style = slot == gSelectedServerGroup ? 2 : 1;
                 if (gServerPage == 0) {
-                    detail::Sub_45EFD0(
+                    detail::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, style);
                 } else if (gServerPage == 1) {
-                    detail::Sub_45EFD0(
+                    detail::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, style);
                 }
             }

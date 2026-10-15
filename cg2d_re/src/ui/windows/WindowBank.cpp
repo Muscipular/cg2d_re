@@ -150,7 +150,7 @@ static WindowGraphicData gWindowGraphic571108 {243093, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gWindowGraphic571120 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571120。
 
 static WindowTextPrototype gWindowText571148 { // 原全局：0x00571148。
-    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static WindowNumberData gWindowNumber571150 {&gStorageAmountTextsCB1DF8[0], 0, 3, 1, 0}; // 原全局：0x00571150。
@@ -242,7 +242,7 @@ void WindowBank_DrawOwnPetTooltip(
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
     static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
     static_cast<void>(render::DrawText_456780(
-        0, 0, textLayer, 13, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, textLayer, 13, 0, L"", 0, 0));
     const char* const name =
         std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
     static_cast<void>(render::DrawText_456780(
@@ -291,7 +291,7 @@ void WindowBank_DrawStoredPetTooltip(
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
     static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
     static_cast<void>(render::DrawText_456780(
-        0, 0, textLayer, 13, color, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, textLayer, 13, color, L"", 0, 0));
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
@@ -801,7 +801,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -995,7 +995,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {

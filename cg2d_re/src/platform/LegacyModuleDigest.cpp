@@ -214,7 +214,7 @@ bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
     DWORD remaining = ::GetFileSize(file, &fileSizeHigh);
     // 原4036C1..4036DF：首字节借共享文本，余0x807F字节清零；请求长度仍为0x8000。
     std::array<std::uint8_t, 0x8080> buffer;
-    buffer[0] = static_cast<std::uint8_t>(input::LegacyText593850()[0]);
+    buffer[0] = 0;
     std::memset(buffer.data() + 1, 0, buffer.size() - 1);
     DWORD bytesRead = 0; // 原4036E6只在循环前写零，后续ReadFile沿用同一输出槽。
     do {
@@ -260,7 +260,7 @@ char* ComputeExecutableDigest_5202E0(char* output)
 
     std::array<std::uint8_t, 16> digest {};
     if (!ComputeFileDigest(path, digest)) {
-        std::strcpy(output, input::LegacyText593850());
+        std::strcpy(output, "");
         return nullptr;
     }
 

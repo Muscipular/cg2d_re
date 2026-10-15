@@ -167,7 +167,7 @@ std::uint8_t ContainsBlacklistRecord_4013D0(const std::wstring_view name)
         if (EqualPairedBytes(
                 inputBytes,
                 reinterpret_cast<const volatile std::uint8_t*>(
-                    input::LegacyText593850()))) {
+                    ""))) {
             continue;
         }
         if (EqualPairedBytes(record.data(), inputBytes)) {

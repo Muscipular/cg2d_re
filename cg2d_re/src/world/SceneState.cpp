@@ -2615,7 +2615,7 @@ void Sub_50CAE0(
             drawColor = 0;
             drawFont = 1;
         }
-        const char* const sharedText = input::LegacyText593850();
+        const char* const sharedText = "";
         bool sameAsSharedText = false;
         std::size_t comparisonIndex = 0;
         for (;;) {

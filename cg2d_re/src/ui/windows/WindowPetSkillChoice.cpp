@@ -860,9 +860,9 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     window->elements[24].visible = 0;
     static_cast<WindowTextData*>(window->elements[25].data)->text = L"請選擇";
     static_cast<WindowTextData*>(window->elements[26].data)->text = L"想遺忘的技能";
-    static_cast<WindowTextData*>(window->elements[27].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[27].data)->text = L"";
     static_cast<WindowTextData*>(window->elements[28].data)->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
-    static_cast<WindowTextData*>(window->elements[29].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[29].data)->text = L"";
     static_cast<WindowTextData*>(window->elements[30].data)->text = L"　一旦遺忘技能後";
     static_cast<WindowTextData*>(window->elements[31].data)->text = L"　就不能再恢復原狀了。";
     static_cast<WindowTextData*>(window->elements[32].data)->text = L"　請特別注意。";
@@ -892,7 +892,7 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[5].data)->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
     }
@@ -946,7 +946,7 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
     window->elements[2].visible = 0;
     window->elements[5].visible = 1;
-    static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[5].data)->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
     }
@@ -1421,7 +1421,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         case 13: {
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
-            const std::wstring text = cg::text::FromGbkWide(input::LegacyText593850());
+            const std::wstring text = L"";
             const std::int32_t y =
                 world::detail::gPlayerY.value();
             const std::int32_t x =

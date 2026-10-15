@@ -381,9 +381,9 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
         std::strcpy(copiedText, fieldText);
         const auto length = static_cast<std::int32_t>(std::strlen(fieldText));
         if (std::strlen(fieldText) > 140) {
-            std::strcpy(record.texts08[1].data(), input::LegacyText593850());
-            std::strcpy(record.texts08[2].data(), input::LegacyText593850());
-            std::strcpy(record.texts08[3].data(), input::LegacyText593850());
+            std::strcpy(record.texts08[1].data(), "");
+            std::strcpy(record.texts08[2].data(), "");
+            std::strcpy(record.texts08[3].data(), "");
         } else {
             std::int32_t position = 0;
             for (std::int32_t line = 1; line < 4; ++line) {

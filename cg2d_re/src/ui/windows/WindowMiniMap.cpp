@@ -26,15 +26,15 @@ static WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic56AF20 {0x3B97B, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056AF20。
 
 static WindowTextPrototype gWindowText56AF38 { // 原全局：0x0056AF38。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static WindowTextPrototype gWindowText56AF40 { // 原全局：0x0056AF40。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static WindowTextPrototype gWindowText56AF48 { // 原全局：0x0056AF48。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static WindowElementPrototype gWindowElements56AF50[7] { // 原全局：0x0056AF50。

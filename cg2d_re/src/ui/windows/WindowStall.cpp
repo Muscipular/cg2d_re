@@ -957,8 +957,6 @@ static std::int32_t WindowStall_SubmitListings()
     cg::text::StoreGbk(description, sizeof(description), L"老闆沒什麼可介紹的");
     std::wstring offers;
     char escaped[276];
-    const auto initial = static_cast<unsigned char>(input::LegacyText593850()[0]);
-    offers.assign(initial == 0 ? 0 : 1, initial);
     std::int32_t count = gStallItemCountD67BCC;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         std::int32_t index = 0;
@@ -1093,7 +1091,7 @@ static std::int32_t WindowStall_DrawPetSkills(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, 5, 1, 0, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
             5, 12, 0, cg::text::FromGbkWide(text).c_str(), 0, 0));
@@ -1122,7 +1120,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     const char* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -2463,7 +2461,7 @@ static void WindowStall_OpenBrowse(
         const std::int32_t techniqueCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         std::memset(pet.techniquesD8.data(), 0, sizeof(pet.techniquesD8));
         for (std::int32_t technique = 0; technique < techniqueCount; ++technique) {
-            techniqueDescription[0] = input::LegacyText593850()[0];
+            techniqueDescription[0] = '\0';
             std::memset(techniqueDescription + 1, 0, sizeof(techniqueDescription) - 1);
             const std::int32_t slot = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
             network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, techniqueName);

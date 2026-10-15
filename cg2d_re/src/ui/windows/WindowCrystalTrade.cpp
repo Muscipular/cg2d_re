@@ -22,7 +22,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
         const std::int32_t x =
             world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
+            platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;

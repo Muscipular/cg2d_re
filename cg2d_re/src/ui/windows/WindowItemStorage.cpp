@@ -225,7 +225,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::wstring buffer;
@@ -402,7 +402,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {

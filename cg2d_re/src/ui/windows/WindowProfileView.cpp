@@ -190,7 +190,7 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
             const auto& profile = world::detail::gViewedProfile105ECE0;
             gMiniMailCompose105F508.target = profile.value00;
             std::strcpy(gMiniMailCompose105F508.name.data(), profile.text08.data());
-            std::strcpy(gMiniMailCompose105F508.text104.data(), input::LegacyText593850());
+            std::strcpy(gMiniMailCompose105F508.text104.data(), "");
             static_cast<void>(WindowRuntime_Open(WindowId_MiniMail));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {

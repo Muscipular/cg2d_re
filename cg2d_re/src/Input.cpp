@@ -42,24 +42,22 @@ void NullSub_509080() noexcept
 
 namespace cg::input {
 
-InputContext::InputContext(LegacyInputStorage* const legacy) noexcept
-    : legacy_(legacy), x(fields().x),
-      y(fields().y),
-      caretByteOffset(fields().caretByteOffset),
-      totalByteLength(fields().totalByteLength),
-      field130(fields().field130),
-      field134(fields().field134),
-      field138(fields().field138),
-      field13C(fields().field13C),
-      field140(fields().field140),
-      maxLine(fields().maxLine),
-      maxCharPerLine(fields().maxCharPerLine),
-      field14C(fields().field14C),
-      encrypt(fields().encrypt),
-      field154(fields().field154),
-      field158(fields().field158) {}
-InputContext::InputContext() noexcept : InputContext(nullptr) {}
-InputContext::InputContext(LegacyInputStorage& legacy) noexcept : InputContext(&legacy) {}
+InputContext::InputContext() noexcept
+    : x(ownFields_.x),
+      y(ownFields_.y),
+      caretByteOffset(ownFields_.caretByteOffset),
+      totalByteLength(ownFields_.totalByteLength),
+      field130(ownFields_.field130),
+      field134(ownFields_.field134),
+      field138(ownFields_.field138),
+      field13C(ownFields_.field13C),
+      field140(ownFields_.field140),
+      maxLine(ownFields_.maxLine),
+      maxCharPerLine(ownFields_.maxCharPerLine),
+      field14C(ownFields_.field14C),
+      encrypt(ownFields_.encrypt),
+      field154(ownFields_.field154),
+      field158(ownFields_.field158) {}
 InputContext::InputContext(const InputContext& other) : InputContext() { *this = other; }
 InputContext& InputContext::operator=(const InputContext& other)
 {
@@ -69,8 +67,8 @@ InputContext& InputContext::operator=(const InputContext& other)
     x = other.x;
     y = other.y;
     const std::size_t caret = ContextUtf16Offset(other, other.caretByteOffset);
-    caretByteOffset = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(std::wstring_view(contents).substr(0, caret)).size() : caret);
-    totalByteLength = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(contents).size() : contents.size());
+    caretByteOffset = static_cast<std::int32_t>(caret);
+    totalByteLength = static_cast<std::int32_t>(contents.size());
     field130 = other.field130;
     field134 = other.field134;
     field13C = other.field13C;
@@ -81,29 +79,27 @@ InputContext& InputContext::operator=(const InputContext& other)
     encrypt = other.encrypt;
     field154 = other.field154;
     const std::size_t visible = ContextUtf16Offset(other, other.field158);
-    field158 = static_cast<std::int32_t>(legacy_ != nullptr ? cg::text::ToGbk(std::wstring_view(contents).substr(0, visible)).size() : visible);
+    field158 = static_cast<std::int32_t>(visible);
     std::memcpy(field138, other.field138, sizeof(field138));
     return *this;
 }
 bool InputContext::empty() const noexcept
 {
-    return legacy_ != nullptr ? legacy_->text[0] == '\0' : text.empty();
+    return text.empty();
 }
-std::size_t InputContext::length() const { return ContextText(*this).size(); }
+std::size_t InputContext::length() const { return text.size(); }
 void InputContext::clearText() noexcept
 {
-    if (legacy_ != nullptr) { legacy_->text[0] = '\0'; }
     text.clear();
 }
 void InputContext::reset() noexcept
 {
     clearText();
-    fields() = {};
+    ownFields_ = {};
 }
 void InputContext::setText(const std::wstring_view value)
 {
-    if (legacy_ != nullptr) { cg::text::StoreGbk(legacy_->text, sizeof(legacy_->text), value); }
-    else { text.assign(value); }
+    text.assign(value);
 }
 
 InputContext gInputContextCC46E0 {}; // 原全局：0x00CC46E0。
@@ -124,15 +120,6 @@ std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
 
 namespace {
 
-struct LegacyInput593850 {
-    char prefix[8];
-    LegacyInputStorage context;
-};
-
-LegacyInput593850 gLegacyInput593850 {}; // 原全局：0x00593850。
-static_assert(offsetof(LegacyInput593850, context) == 8);
-static_assert(sizeof(LegacyInput593850) == 0x164);
-
 constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考：0x0058E944。
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
@@ -140,18 +127,6 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{ // 原常量参考�
 std::int8_t SignedByte(const char value)
 {
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
-}
-
-// UTL02：旧预设视图借用同一聊天GBK字节owner；原生上下文使用动态UTF-16。
-bool HasLegacyTextStorage(const InputContext& context) noexcept
-{
-    return context.legacyStorage() != nullptr;
-}
-
-std::size_t StoredOffset(const InputContext& context, const std::wstring_view utf16, const std::size_t offset)
-{
-    const std::size_t prefix = text::Prefix(utf16, offset);
-    return HasLegacyTextStorage(context) ? text::ToGbk(utf16.substr(0, prefix)).size() : prefix;
 }
 
 class EditText final {
@@ -163,9 +138,9 @@ public:
     bool commit()
     {
         context.setText(contents);
-        context.totalByteLength = static_cast<std::int32_t>(HasLegacyTextStorage(context) ? text::ToGbk(contents).size() : contents.size());
-        context.caretByteOffset = static_cast<std::int32_t>(StoredOffset(context, contents, caret));
-        context.field158 = static_cast<std::int32_t>(StoredOffset(context, contents, visible));
+        context.totalByteLength = static_cast<std::int32_t>(contents.size());
+        context.caretByteOffset = static_cast<std::int32_t>(text::Prefix(contents, caret));
+        context.field158 = static_cast<std::int32_t>(text::Prefix(contents, visible));
         return true;
     }
     InputContext& context;
@@ -178,23 +153,19 @@ public:
 
 std::wstring ContextText(const InputContext& context)
 {
-    return HasLegacyTextStorage(context) ? text::FromGbkWide(context.legacyStorage()->text) : context.text;
+    return context.text;
 }
 
-std::size_t ContextUtf16Offset(const InputContext& context, const std::int32_t storedByteOffset)
+std::size_t ContextUtf16Offset(const InputContext& context, const std::int32_t unitOffset)
 {
-    const std::size_t offset = static_cast<std::size_t>(storedByteOffset);
-    if (HasLegacyTextStorage(context)) {
-        const std::string_view stored(context.legacyStorage()->text);
-        return text::FromGbkWide(stored.substr(0, (std::min)(offset, stored.size()))).size();
-    }
+    const std::size_t offset = static_cast<std::size_t>(unitOffset);
     return text::Prefix(context.text, offset);
 }
 
 void SetVisibleUtf16Offset(InputContext& context, const std::size_t utf16Offset)
 {
     const std::wstring utf16 = ContextText(context);
-    context.field158 = static_cast<std::int32_t>(StoredOffset(context, utf16, utf16Offset));
+    context.field158 = static_cast<std::int32_t>(text::Prefix(utf16, utf16Offset));
 }
 
 std::vector<TextLine> SplitLines(const InputContext& context)
@@ -301,12 +272,6 @@ void AppendText(const std::wstring_view utf16)
         }
         gValue626C0C = 20;
     }
-}
-
-const char* LegacyText593850() noexcept
-{
-    // 原端文本读取可从前缀延续到紧邻的上下文。
-    return reinterpret_cast<const char*>(&gLegacyInput593850);
 }
 
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。

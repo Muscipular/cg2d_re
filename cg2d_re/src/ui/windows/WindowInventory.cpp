@@ -174,7 +174,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
@@ -435,7 +435,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
             (platform::gLegacyMouseState.mouseX < 320);
         const std::int32_t x = (platform::gLegacyMouseState.mouseX + static_cast<std::int32_t>(left ? 60 : -257));
         static_cast<void>(WindowItem_DrawDescriptionLines(
-            x, y, cg::text::FromGbkWide(input::LegacyText593850()).c_str(), 0, text, 31, 4, nullptr, 0));
+            x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
         character_select::detail::Sub_51B740(world::detail::gPlayerRuntimeSlots.imageNo);
@@ -699,7 +699,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
@@ -1076,7 +1076,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
             223, login::detail::gValueD69768, 0);
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
     const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
     if (mode != 1 && mode != 2) {
         return consumed;

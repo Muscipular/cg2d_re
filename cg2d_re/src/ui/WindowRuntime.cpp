@@ -1054,7 +1054,7 @@ static std::int32_t WindowPet_DrawTooltip(
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, textLayer, 12, 0, L"", 0, 0));
         const auto drawText = [&](const std::wstring_view text, const std::int32_t dx,
                                   const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
@@ -1524,7 +1524,7 @@ static std::int32_t WindowItem_DrawTooltipLines(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),

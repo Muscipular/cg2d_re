@@ -223,7 +223,7 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
     }
     gWindow12ModeCC3E80 = 0;
     for (std::int32_t index = 4; index <= 7; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     for (std::int32_t index = 4; index <= 10; ++index) {
         window->elements[index].visible = 0;
@@ -257,7 +257,7 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
         gSkillPetImageCB0A18 = imageNo;
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
         window->elements[index].visible = 0;
@@ -320,7 +320,7 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
         static_cast<WindowTextData*>(window->elements[4].data)->text = L"什麼都沒發現。" /* 原常量参考：0x005869C4。 */;
-        static_cast<WindowTextData*>(window->elements[5].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[5].data)->text = L"";
         static_cast<void>(audio::PlaySe_52C450(58, 320));
         gWindow12ValueCF3FF0 = -1;
     }
@@ -555,7 +555,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             }
             static_cast<void>(network::Sub_511EF0(
-                platform::gConnectionSocket, skill, level, -1, cg::text::FromGbkWide(input::LegacyText593850())));
+                platform::gConnectionSocket, skill, level, -1, L""));
             gWindow12PetImageCB10CC = WindowSkill_ReadBattlePetImage();
             gWindow12CrystalLevelCC3E90 = WindowSkill_ReadCrystalLevel();
             gWindow12ModeCC3E80 = 2;

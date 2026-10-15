@@ -108,7 +108,7 @@ static void WindowOwnProfileCategory_Refresh()
         const std::int32_t page = gProfileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
         const char* const source =
-            record.used != 0 ? record.text0C.data() : input::LegacyText593850();
+            record.used != 0 ? record.text0C.data() : "";
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
         data->text = cg::text::FromGbkWide(source);
     }

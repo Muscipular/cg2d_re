@@ -184,7 +184,7 @@ static void* WindowAlbumList_Refresh()
             result = flagWindow;
         } else {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[48 + row].data);
-            const char* const source = input::LegacyText593850();
+            const char* const source = "";
             text->text = cg::text::FromGbkWide(source);
             WindowElement* const elements = gCurrentWindow->elements;
             elements[38 + row].visible = 0;

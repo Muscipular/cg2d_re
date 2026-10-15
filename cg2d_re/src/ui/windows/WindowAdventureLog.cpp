@@ -44,7 +44,7 @@ static WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
 };
 
 static WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static std::uint32_t gWindowMouseFlagsD679C8 = 0; // 原全局：0x00D679C8。
@@ -180,7 +180,7 @@ static void WindowAdventureLog_Refresh()
     first->text = L"無法開啟冒險者日誌" /* 原常量参考：0x0055358C。 */;
     for (std::int32_t line = 12; line < 25; ++line) {
         WindowInstance* const current = gCurrentWindow;
-        const char* const text = input::LegacyText593850();
+        const char* const text = "";
         auto* const data = static_cast<WindowTextData*>(current->elements[line].data);
         data->text = cg::text::FromGbkWide(text);
     }

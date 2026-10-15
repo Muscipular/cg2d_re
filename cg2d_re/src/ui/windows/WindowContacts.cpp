@@ -393,7 +393,7 @@ static std::int32_t WindowContacts_Refresh()
                 gCurrentWindow->elements[27 + row * 8].visible = 0;
                 for (std::int32_t index = textIndex; index < textIndex + 5; ++index) {
                     auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-                    data->text = cg::text::FromGbkWide(input::LegacyText593850());
+                    data->text = L"";
                 }
                 continue;
             }
@@ -425,7 +425,7 @@ static std::int32_t WindowContacts_Refresh()
                 privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 const std::int32_t rank = member->value00;
                 const char* const text = rank == -1
-                    ? input::LegacyText593850() : login::detail::GetGuildRankText(rank);
+                    ? "" : login::detail::GetGuildRankText(rank);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
                 data->text = cg::text::FromGbkWide(text);
                 break;
@@ -512,7 +512,7 @@ static std::int32_t WindowContacts_Refresh()
             gCurrentWindow->elements[54 + row * 5].visible = 0;
             for (std::int32_t index = textIndex; index < textIndex + 2; ++index) {
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-                data->text = cg::text::FromGbkWide(input::LegacyText593850());
+                data->text = L"";
             }
             continue;
         }

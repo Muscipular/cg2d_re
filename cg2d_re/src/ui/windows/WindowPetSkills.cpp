@@ -212,7 +212,7 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
-    static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, L"", 0, 0));
     const auto namePet = std::bit_cast<std::int16_t>(
         world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const std::int32_t nameTechnique = gLoginWindowRuntime.petTechniqueD2D66C;

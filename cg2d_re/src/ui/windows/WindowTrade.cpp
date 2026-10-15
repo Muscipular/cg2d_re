@@ -421,7 +421,7 @@ static WindowGraphicData gWindowGraphic5729A0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic572AD8 {0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00572AD8。
 
 static WindowTextPrototype gWindowText572AF0 { // 原全局：0x00572AF0。
-    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static std::uint32_t gWindowMouseFlagsD678B8 = 0; // 原全局：0x00D678B8。
@@ -955,7 +955,7 @@ static std::int32_t WindowTrade_DrawPetRow(
         constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 8, color, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, textLayer, 8, color, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
@@ -1279,7 +1279,7 @@ static void WindowTrade_HandleOwnInventory(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     dimmed = *descriptor;
     dimmed.bytes[11] >>= 1;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -1744,7 +1744,7 @@ static void WindowTrade_HandleSelectedItem(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = WindowTrade_ReadSelectedItem(position);
         if (slot < 0) {
@@ -2062,7 +2062,7 @@ static void WindowTrade_HandleRemoteItem(
         }
         static_cast<void>(render::ClearTextQueueTail_456D50(3));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, 3, 1, 0, L"", 0, 0));
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const auto* const record = &gTradeItemsD460D0[slot];
             std::uint16_t used;
@@ -2186,7 +2186,7 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, 5, 1, 0, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
@@ -2218,7 +2218,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     const char* const title = record->speciesName.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -2309,7 +2309,7 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, 5, 1, 0, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
@@ -2345,7 +2345,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     const char* const title = record->speciesName.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
@@ -2426,7 +2426,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
         static_cast<void>(render::DrawText_456780(
-            0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, 5, 1, 0, L"", 0, 0));
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
@@ -2456,7 +2456,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     descriptor.bytes[13] = 4;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 5, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 5, 1, 0, L"", 0, 0));
     const char* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(

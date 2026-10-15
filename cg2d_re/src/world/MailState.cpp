@@ -720,9 +720,9 @@ void Sub_534480(const std::int32_t index)
         + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
     for (std::ptrdiff_t message = 0; message < 20; ++message) {
         std::byte* const entry = first + message * kMailMessageBytes;
-        const char* text = input::LegacyText593850();
+        const char* text = "";
         std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
-        text = input::LegacyText593850();
+        text = "";
         std::memcpy(entry + 2, text, std::strlen(text) + 1);
         entry[0] = std::byte{0};
         entry[1] = std::byte{0};
@@ -776,9 +776,9 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
         + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
     for (std::ptrdiff_t message = 0; message < 20; ++message) {
         std::byte* const entry = first + message * kMailMessageBytes;
-        const char* text = input::LegacyText593850();
+        const char* text = "";
         std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
-        text = input::LegacyText593850();
+        text = "";
         std::memcpy(entry + 2, text, std::strlen(text) + 1);
         entry[0] = std::byte{0};
         entry[1] = std::byte{0};
@@ -843,14 +843,14 @@ void Sub_533910()
 void Sub_533950()
 {
     ProfileRuntimeRecord& first = gProfiles1074938[0];
-    std::strcpy(first.text08.data(), input::LegacyText593850());
-    const char* const source = input::LegacyText593850();
+    std::strcpy(first.text08.data(), "");
+    const char* const source = "";
     const std::size_t bytes = std::strlen(source) + 1;
     first.value108 = -1;
     first.value04 = 0;
     std::memcpy(first.text110.data(), source, bytes);
-    std::strcpy(first.text210.data(), input::LegacyText593850());
-    std::strcpy(first.text310.data(), input::LegacyText593850());
+    std::strcpy(first.text210.data(), "");
+    std::strcpy(first.text310.data(), "");
     for (ProfileEntry& entry : first.entries410) {
         entry.value00 = 0;
         entry.value04 = 0x3C0F0;
@@ -902,12 +902,12 @@ std::int32_t Sub_533C80(const std::int32_t mode)
     }
     if (mode == 0) {
         for (ProfileEntry& entry : gCurrentProfile10738E8.entries410) {
-            if (std::strcmp(entry.text08.data(), input::LegacyText593850()) == 0) {
+            if (std::strcmp(entry.text08.data(), "") == 0) {
                 cg::text::StoreGbk(entry.text08.data(), entry.text08.size(), kProfileDefault58F614);
             }
         }
         if (std::strcmp(
-                gCurrentProfile10738E8.text728.data(), input::LegacyText593850()) == 0) {
+                gCurrentProfile10738E8.text728.data(), "") == 0) {
             cg::text::StoreGbk(gCurrentProfile10738E8.text728.data(), gCurrentProfile10738E8.text728.size(), kProfileDefault58F614);
         }
     }
@@ -1283,14 +1283,14 @@ std::int32_t Sub_534910()
 std::int32_t Sub_5345A0(const std::int32_t index)
 {
     ProfileRuntimeRecord& record = gProfiles1074938[index];
-    std::strcpy(record.text08.data(), input::LegacyText593850());
-    const char* const source = input::LegacyText593850();
+    std::strcpy(record.text08.data(), "");
+    const char* const source = "";
     const std::size_t bytes = std::strlen(source) + 1;
     record.value108 = -1;
     record.value04 = 0;
     std::memcpy(record.text110.data(), source, bytes);
-    std::strcpy(record.text210.data(), input::LegacyText593850());
-    std::strcpy(record.text310.data(), input::LegacyText593850());
+    std::strcpy(record.text210.data(), "");
+    std::strcpy(record.text310.data(), "");
     for (ProfileEntry& entry : record.entries410) {
         entry.value00 = 0;
         entry.value04 = 246000;

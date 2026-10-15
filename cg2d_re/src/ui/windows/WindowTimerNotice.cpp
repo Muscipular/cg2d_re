@@ -10,8 +10,8 @@ static std::int32_t WindowTimerNotice_Update(std::int32_t value); // 窗口39文
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
-static WindowTextPrototype gWindowText56CCC8 {{}, cg::text::FromGbkWide(input::LegacyText593850())}; // 原全局：0x0056CCC8。
+// 原56CCC8的四字节元数据和空文本；界面直接使用宽字面量。
+static WindowTextPrototype gWindowText56CCC8 {{}, L""}; // 原全局：0x0056CCC8。
 
 static WindowElementPrototype gWindowElements56CCD0[1] { // 原全局：0x0056CCD0。
     {WindowElementType_Text, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &WindowElement_NoOp},

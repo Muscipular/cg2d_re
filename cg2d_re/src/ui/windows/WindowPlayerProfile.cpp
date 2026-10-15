@@ -349,10 +349,10 @@ static void WindowPlayerProfile_Refresh()
         const char* const rank = login::detail::GetGuildRankText(rankIndex);
         rankData->text = cg::text::FromGbkWide(rank);
     } else {
-        const char* const guild = input::LegacyText593850();
+        const char* const guild = "";
         guildData->text = cg::text::FromGbkWide(guild);
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
-        const char* const rank = input::LegacyText593850();
+        const char* const rank = "";
         rankData->text = cg::text::FromGbkWide(rank);
     }
 

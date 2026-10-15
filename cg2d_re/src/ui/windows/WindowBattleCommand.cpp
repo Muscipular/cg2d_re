@@ -317,7 +317,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
     if (mode == 3 || mode == 4) {
         const char* name;
         if (world::detail::gValue553F84 < 0) {
-            name = input::LegacyText593850();
+            name = "";
         } else {
             const std::int32_t pet = world::detail::Sub_43C4B0();
             const std::int32_t technique = world::detail::gValue553F84;

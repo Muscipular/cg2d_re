@@ -201,7 +201,7 @@ static wchar_t* WindowConfirmation_RefreshText()
 {
     for (std::int32_t index = 0; index < 11; ++index) {
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
-        data->text = cg::text::FromGbkWide(input::LegacyText593850());
+        data->text = L"";
     }
     std::wstring text = gWindow47Runtime.textCC426C;
     std::wstring line;
@@ -241,7 +241,7 @@ static std::int32_t WindowConfirmation_PadText(std::wstring& destination, const 
     }
     const std::int32_t widthUnits = gWindow47Runtime.widthUnitsCC4244;
     std::int32_t spaces = ((widthUnits * 74 - length * 12 - 20) / 2) / 12;
-    destination = cg::text::FromGbkWide(input::LegacyText593850());
+    destination = L"";
     while (spaces > 0) {
         destination += L" " /* 原常量参考：0x0055C9BC。 */;
         --spaces;

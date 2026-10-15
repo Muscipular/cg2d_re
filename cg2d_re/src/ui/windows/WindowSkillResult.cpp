@@ -187,7 +187,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治療失敗了" /* 原常量参考：0x00586A34。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
                 const std::int32_t value = gWindow13ValueD2DBF0;
                 static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　傷勢惡化而掉魂了。" /* 原常量参考：0x00586A1C。 */
-                    : value == 2 ? L"　傷勢惡化了。" /* 原常量参考：0x00586A0C。 */ : cg::text::FromGbkWide(input::LegacyText593850());
+                    : value == 2 ? L"　傷勢惡化了。" /* 原常量参考：0x00586A0C。 */ : L"";
             }
             break;
         default:

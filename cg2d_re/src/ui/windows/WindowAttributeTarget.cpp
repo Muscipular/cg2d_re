@@ -166,9 +166,9 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
     }
     for (; row < 6; ++row) {
         gCurrentWindow->elements[row + 4].visible = 0;
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text = L"";
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text = L"";
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text = L"";
     }
 }
 

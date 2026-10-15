@@ -97,7 +97,7 @@ static void WindowBattlePets_Refresh(
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
-            0, 0, textLayer, 8, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+            0, 0, textLayer, 8, 0, L"", 0, 0));
         const auto drawText = [&](const std::wstring_view text, const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),

@@ -1044,7 +1044,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t slot = 0; slot < 20; ++slot) {
         const world::detail::PlayerItemRecord& item = items[slot + 8];
         if (item.used == 0) {

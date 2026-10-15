@@ -540,7 +540,7 @@ std::uint8_t ReadNetworkRuntimeActive() noexcept;
 // 原 0xD9F2CC：507DF0 写、455C90 条件读取的唯一错误码槽。
 std::int32_t ReadNetworkErrorD9F2CC() noexcept;
 
-// 原 0x593850 首字节；从输入模块唯一连续存储逐次读取。
+// 原0x593850首字节；旧存储无写者且恒为NUL，当前返回0。
 std::uint8_t ReadProtocolByte593850() noexcept;
 
 // 原 0xD9F2D0/0xDA3B22 的字段级访问；不公开网络运行期完整状态。

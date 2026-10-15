@@ -1241,7 +1241,7 @@ static login::YobiAction* WindowDialog_OpenHealing(
     gDialogLinesCB1398[8].text = buffer;
     buffer = L""; // 原String1@D68A7C虚拟零空格式，不借用593850。
     gDialogLinesCB1398[9].text = buffer;
-    gDialogLinesCB1398[10].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gDialogLinesCB1398[10].text = L"";
     gDialogReply.firstLine = 2;
     const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
     const std::int32_t first = gDialogReply.firstLine;

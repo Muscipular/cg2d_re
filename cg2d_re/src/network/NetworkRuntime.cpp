@@ -1311,7 +1311,7 @@ void Sub_517040(
     CopyProtocolBytes_517080(
         destination,
         reinterpret_cast<const std::uint8_t*>(
-            source != nullptr ? source : input::LegacyText593850()),
+            source != nullptr ? source : ""),
         capacity);
 }
 
@@ -1686,7 +1686,7 @@ std::uint8_t* Sub_5171B0(const char* const text)
     std::uint8_t* const destination = gNetworkRuntimeState.buffer58B5F8;
     CopyProtocolBytes_517080(
         destination,
-        reinterpret_cast<const std::uint8_t*>(input::LegacyText593850()),
+        reinterpret_cast<const std::uint8_t*>(""),
         capacity);
     return gNetworkRuntimeState.buffer58B5F8;
 }
@@ -1773,7 +1773,7 @@ std::int32_t Sub_512B90(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1789,7 +1789,7 @@ std::int32_t Sub_512BD0(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1805,7 +1805,7 @@ std::int32_t Sub_512C60(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1821,7 +1821,7 @@ std::int32_t Sub_511CD0(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1837,7 +1837,7 @@ std::int32_t Sub_511FB0(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1853,7 +1853,7 @@ std::int32_t Sub_512230(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1869,7 +1869,7 @@ std::int32_t Sub_512570(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -1885,7 +1885,7 @@ std::int32_t Sub_512CF0(const std::uintptr_t socket)
         gNetworkRuntimeState.bufferLength);
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
-        input::LegacyText593850(),
+        "",
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -4778,7 +4778,7 @@ std::int32_t ReadNetworkErrorD9F2CC() noexcept
 
 std::uint8_t ReadProtocolByte593850() noexcept
 {
-    return static_cast<std::uint8_t>(input::LegacyText593850()[0]);
+    return 0;
 }
 
 void WriteValueD9F2D0(const std::uint32_t value) noexcept

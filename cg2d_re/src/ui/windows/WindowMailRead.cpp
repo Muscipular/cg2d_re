@@ -289,10 +289,10 @@ static std::uint32_t WindowMailRead_Refresh()
     };
     if (category == 1 && mailSlot == -1) {
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
-        time->text = cg::text::FromGbkWide(input::LegacyText593850());
+        time->text = L"";
         for (std::int32_t row = 0; row < 10; ++row) {
             auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
-            line->text = cg::text::FromGbkWide(input::LegacyText593850());
+            line->text = L"";
         }
     } else {
         const MailMessageView message = readCurrentMessage();
@@ -300,7 +300,7 @@ static std::uint32_t WindowMailRead_Refresh()
         cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(message.text02).c_str());
         const std::size_t slash = buffer.find(L'/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
-        time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : cg::text::FromGbkWide(input::LegacyText593850());
+        time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *readCurrentMessage().kind01;
             auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);

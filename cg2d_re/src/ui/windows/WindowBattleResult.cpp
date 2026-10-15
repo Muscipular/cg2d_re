@@ -265,10 +265,10 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
         }
         for (; row < 14; ++row) {
             WindowInstance* window = gCurrentWindow;
-            const char* text = input::LegacyText593850();
+            const char* text = "";
             static_cast<WindowTextData*>(window->elements[row + 31].data)->text = cg::text::FromGbkWide(text);
             window = gCurrentWindow;
-            text = input::LegacyText593850();
+            text = "";
             static_cast<WindowTextData*>(window->elements[row + 45].data)->text = cg::text::FromGbkWide(text);
             gCurrentWindow->elements[row + 17].visible = 0;
         }

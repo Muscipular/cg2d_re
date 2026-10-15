@@ -199,7 +199,7 @@ static void WindowBlacklist_Refresh()
             destination = static_cast<WindowTextData*>(gCurrentWindow->elements[49 + row].data);
         } else {
             WindowInstance* const window = gCurrentWindow;
-            text = input::LegacyText593850();
+            text = "";
             destination = static_cast<WindowTextData*>(window->elements[49 + row].data);
         }
         destination->text = cg::text::FromGbkWide(text);
@@ -243,7 +243,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
         const std::int32_t recordIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
         const char* const record = reinterpret_cast<const char*>(blacklist::gRecords[recordIndex].data());
-        if (std::strcmp(record, input::LegacyText593850()) != 0) {
+        if (std::strcmp(record, "") != 0) {
             std::wstring message;
             char name[17] {};
             std::strcpy(name, record);

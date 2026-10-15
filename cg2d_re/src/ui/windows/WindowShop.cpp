@@ -89,7 +89,7 @@ static void WindowShop_RefreshExchangeAmount(); // 模式2合计写CF4A28，不�
 static void WindowShop_CountExchangeItems(); // 模式2全部使用商品累计所选数。
 
 // 原函数：0x004B9110。
-static void WindowShop_RefreshDetailName(); // 模式3首行详情名与数值，短名称的次行借593850。
+static void WindowShop_RefreshDetailName(); // 模式3首行详情名与数值，短名称的次行为空文本。
 
 // 原函数：0x004B9270。
 static void WindowShop_RefreshDetailAmount(); // 模式3三次读取D046C4，先两个显示值后乘详情单价。
@@ -661,9 +661,9 @@ login::YobiAction* WindowShop_OpenSell(const char* const text)
     }
     gNpcDialogLinesCC24D4[5].text = L"　無法再持有";
     gNpcDialogLinesCC24D4[6].text = L"　更高的金額了";
-    gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[7].text = L"";
     gShopReplyItemCountCF4B58 = 0;
-    gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[8].text = L"";
     gShopItemsCF4FE0.fill({});
     std::int32_t field = 4;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -864,13 +864,13 @@ static login::YobiAction* WindowShop_CreateService(
     gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
     gNpcDialogLinesCC24D4[1].text = L"歡迎光臨。";
     gNpcDialogLinesCC24D4[2].text = prompt;
-    gNpcDialogLinesCC24D4[3].text = cg::text::FromGbkWide(input::LegacyText593850());
-    gNpcDialogLinesCC24D4[4].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[3].text = L"";
+    gNpcDialogLinesCC24D4[4].text = L"";
     gNpcDialogLinesCC24D4[5].text = L"你身上的錢不夠！";
-    gNpcDialogLinesCC24D4[6].text = cg::text::FromGbkWide(input::LegacyText593850());
-    gNpcDialogLinesCC24D4[7].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[6].text = L"";
+    gNpcDialogLinesCC24D4[7].text = L"";
     gShopReplyItemCountCF4B58 = 0;
-    gNpcDialogLinesCC24D4[8].text = cg::text::FromGbkWide(input::LegacyText593850());
+    gNpcDialogLinesCC24D4[8].text = L"";
     gShopItemsCF4FE0.fill({});
     std::int32_t field = 3;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -1894,7 +1894,7 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
         const std::int32_t x =
             world::detail::gPlayerX.value();
         static_cast<void>(network::Sub_512620(
-            platform::gConnectionSocket, x, y, request, target, 2, cg::text::FromGbkWide(input::LegacyText593850())));
+            platform::gConnectionSocket, x, y, request, target, 2, L""));
         gCurrentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
@@ -1943,7 +1943,7 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
             case 0:
             case 2:
             case 3:
-                gHoverTextD68AE8 = cg::text::FromGbkWide(input::LegacyText593850());
+                gHoverTextD68AE8 = L"";
                 break;
             case 1:
                 gHoverTextD68AE8 = L"登錄所有可賣的物品";
@@ -3314,7 +3314,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
-        0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, 3, 1, 0, L"", 0, 0));
     switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
     case 0:
     case 2:

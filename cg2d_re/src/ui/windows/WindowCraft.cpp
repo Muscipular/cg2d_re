@@ -585,7 +585,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -639,7 +639,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
         static_cast<WindowTextData*>(window->elements[9].data)->text = hint;
     }
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -679,7 +679,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -715,7 +715,7 @@ static void WindowCraft_WaitDecoration(WindowInstance* const window)
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　裝飾中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -750,7 +750,7 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
     gValueD67B00 = gSkillSendModeC8A970;
     static_cast<WindowTextData*>(window->elements[9].data)->text = L"　　　…　精煉中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
@@ -922,7 +922,7 @@ static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const 
     static_cast<WindowTextData*>(window->elements[10].data)->text = L"                   料理/藥水" /* 原常量参考：0x005867FC。 */;
     static_cast<WindowTextData*>(window->elements[11].data)->text = L"                        木材" /* 原常量参考：0x005867DC。 */;
     static_cast<WindowTextData*>(window->elements[12].data)->text = L"                        布料" /* 原常量参考：0x005867BC。 */;
-    static_cast<WindowTextData*>(window->elements[13].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = L"";
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -1567,7 +1567,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         const std::int32_t selected = gSelectedItemD460C0;
         if (selected < 0) {
             element->visible = 0;
-            static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text = L"";
             return 0;
         }
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
@@ -1829,8 +1829,8 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"                     魔力 10" /* 原常量参考：0x005868A8。 */;
         }
         if (gSelectionModeD2D650 == 5) {
-            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
-            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"";
+            static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text = L"";
         }
     } else {
         static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text = L"目前無法對此物品" /* 原常量参考：0x00586894。 */;
@@ -2238,7 +2238,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -2587,7 +2587,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3A;
     static_cast<WindowTextData*>(window->elements[10].data)->text = L"　請選擇。";
     for (std::int32_t index = 11; index <= 13; ++index) {
-        static_cast<WindowTextData*>(window->elements[index].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(window->elements[index].data)->text = L"";
     }
     static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
     for (std::int32_t index = 15; index <= 20; ++index) {
@@ -2919,8 +2919,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
-            const char initial = input::LegacyText593850()[0];
-            buffer.assign(initial == 0 ? 0 : 1, static_cast<unsigned char>(initial));
+            buffer.clear();
             temporary = buffer;
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
@@ -3182,7 +3181,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     if (gCraftIntelligenceCB0F84 != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gCraftIntelligenceCB0F84));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gCraftInjuryD2EA78 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : L"";
     const std::int32_t imageResult = gCraftResultCC46D8;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
@@ -3405,7 +3404,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     if (gCraftIntelligenceCB0F84 != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gItemWorkIntelligenceD30418));
     }
-    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : cg::text::FromGbkWide(input::LegacyText593850());
+    static_cast<WindowTextData*>(window->elements[13].data)->text = gItemWorkInjuryD2E2A8 != 0 ? L"受傷了！" /* 原常量参考：0x005865DC。 */ : L"";
     const std::int32_t imageResult = gItemWorkResultCB05FC;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {

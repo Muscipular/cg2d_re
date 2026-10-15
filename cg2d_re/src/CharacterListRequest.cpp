@@ -177,9 +177,9 @@ std::int32_t HandleCharacterListResponse_5089B0(
 
     char legacyName[kOuterTokenCapacity];
     char mutableLegacyDetail[kOuterTokenCapacity];
-    // 原每轮先分别复制593850现场前缀，不固定为空串或清缓冲后缀。
-    std::strcpy(legacyName, input::LegacyText593850());
-    std::strcpy(mutableLegacyDetail, input::LegacyText593850());
+    // 原每轮分别复制593850；当前无写者且恒空，保留两次复制及缓冲后缀。
+    std::strcpy(legacyName, "");
+    std::strcpy(mutableLegacyDetail, "");
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         data, '|', 1, static_cast<std::int32_t>(kOuterTokenCapacity - 1),
         legacyName));
@@ -190,9 +190,9 @@ std::int32_t HandleCharacterListResponse_5089B0(
         legacyName,
         mutableLegacyDetail);
 
-    // 原每轮先分别复制593850现场前缀，不固定为空串或清缓冲后缀。
-    std::strcpy(legacyName, input::LegacyText593850());
-    std::strcpy(mutableLegacyDetail, input::LegacyText593850());
+    // 原每轮分别复制593850；当前无写者且恒空，保留两次复制及缓冲后缀。
+    std::strcpy(legacyName, "");
+    std::strcpy(mutableLegacyDetail, "");
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         data, '|', 3, static_cast<std::int32_t>(kOuterTokenCapacity - 1),
         legacyName));

@@ -690,7 +690,7 @@ static void WindowSkill_DrawSkillRow(
     const auto* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const std::int8_t nameColor = enabled != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
@@ -875,7 +875,7 @@ static void WindowSkill_HandleTechniqueRow(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const char* const name =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
     static_cast<void>(render::DrawText_456780(
@@ -917,7 +917,7 @@ static void WindowSkill_HandleRecipeRow(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const auto* const row = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe];
     const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
     static_cast<void>(render::DrawText_456780(
@@ -1280,7 +1280,7 @@ static void WindowSkill_DrawPetSkillRow(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
         world::detail::gBattleCurrentPosition5ABCA4);
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
@@ -1318,7 +1318,7 @@ static void WindowSkill_DrawRidingSkillRow(
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
     static_cast<void>(render::DrawText_456780(
-        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, L"", 0, 0));
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     const std::int32_t cost = record->fp;
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
@@ -2353,7 +2353,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
                     const std::uintptr_t socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_511EF0(
-                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, cg::text::FromGbkWide(input::LegacyText593850())));
+                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, L""));
                     return;
                 }
                 default:

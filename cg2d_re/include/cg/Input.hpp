@@ -15,9 +15,7 @@ void NullSub_509080() noexcept; // UTE01：原单RET/参数未读，真实空操
 
 namespace cg::input {
 
-inline constexpr std::size_t InputTextCapacity = 0x120;
-
-// 原0x15C值布局只用于明确GBK叠加存储，原成员偏移保留。
+// 输入数值字段；保留原成员身份，文字位置／长度统一使用UTF-16码元。
 struct InputFields {
     std::int32_t x; // 原成员偏移：+0x120。
     std::int32_t y; // 原成员偏移：+0x124。
@@ -35,39 +33,25 @@ struct InputFields {
     std::int32_t field154; // 原成员偏移：+0x154。
     std::int32_t field158; // 原成员偏移：+0x158。
 };
-struct LegacyInputStorage {
-    char text[InputTextCapacity]; // 原+0x00，GBK，容量含NUL。
-    InputFields fields;
-};
-static_assert(offsetof(LegacyInputStorage, fields) == 0x120);
-static_assert(sizeof(LegacyInputStorage) == 0x15C);
-static_assert(offsetof(InputFields, caretByteOffset) + 0x120 == 0x128);
-static_assert(offsetof(InputFields, field158) + 0x120 == 0x158);
-
-// UTL02：普通输入持有动态UTF-16；旧叠加视图直接关联真实字段，不复制权威状态。
+// 现场输入只持有动态UTF-16；GBK转换留在协议／存档提交边界。
 class InputContext {
 private:
     InputFields ownFields_ {};
-    LegacyInputStorage* legacy_ = nullptr;
-    InputFields& fields() noexcept { return legacy_ != nullptr ? legacy_->fields : ownFields_; }
-    explicit InputContext(LegacyInputStorage* legacy) noexcept;
 public:
     InputContext() noexcept;
-    explicit InputContext(LegacyInputStorage& legacy) noexcept;
     InputContext(const InputContext& other);
     InputContext& operator=(const InputContext& other);
     ~InputContext() = default;
-    [[nodiscard]] LegacyInputStorage* legacyStorage() const noexcept { return legacy_; }
     [[nodiscard]] bool empty() const noexcept;
     [[nodiscard]] std::size_t length() const;
     void clearText() noexcept;
     void reset() noexcept;
     void setText(std::wstring_view value);
 
-    std::wstring text; // 原+0x00；仅普通现场输入持有正文，不限制旧字节容量。
+    std::wstring text; // 原+0x00；现场输入正文，不限制旧字节容量。
     std::int32_t& x; // 原成员偏移：+0x120。
     std::int32_t& y; // 原成员偏移：+0x124。
-    std::int32_t& caretByteOffset; // 原+0x128；原生输入为UTF-16码元，旧存储视图为GBK字节。
+    std::int32_t& caretByteOffset; // 原+0x128；当前为UTF-16码元偏移。
     std::int32_t& totalByteLength; // 原+0x12C；长度单位与当前输入存储一致。
     std::int32_t& field130; // 原成员偏移：+0x130。
     std::int32_t& field134; // 原成员偏移：+0x134。
@@ -79,7 +63,7 @@ public:
     std::int32_t& field14C; // 原成员偏移：+0x14C。
     std::int32_t& encrypt; // 原成员偏移：+0x150。
     std::int32_t& field154; // 原成员偏移：+0x154。
-    std::int32_t& field158; // 原+0x158；可见起点，原生UTF-16／旧存储GBK偏移。
+    std::int32_t& field158; // 原+0x158；可见起点，UTF-16码元偏移。
 };
 
 // UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。
@@ -91,7 +75,7 @@ struct TextLine {
 [[nodiscard]] std::vector<TextLine> SplitLines(const InputContext& context);
 void AppendText(std::wstring_view utf16);
 [[nodiscard]] std::wstring ContextText(const InputContext& context);
-[[nodiscard]] std::size_t ContextUtf16Offset(const InputContext& context, std::int32_t storedByteOffset);
+[[nodiscard]] std::size_t ContextUtf16Offset(const InputContext& context, std::int32_t unitOffset);
 void SetVisibleUtf16Offset(InputContext& context, std::size_t utf16Offset);
 
 // 原函数：0x0044A160。
@@ -158,8 +142,6 @@ extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 
-// 原 [593850,5939B4) 的前缀文本；紧邻独立 InputContext@593858。
-const char* LegacyText593850() noexcept;
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
 extern std::int32_t gValue626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。

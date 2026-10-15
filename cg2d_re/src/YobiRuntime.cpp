@@ -10215,7 +10215,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const std::int32_t x, const std::int32_t y, const std::int32_t seconds)
 {
     const std::int32_t magnitude = seconds < 0 ? -seconds : seconds;
-    const char* const prefix = seconds < 0 ? "-" : input::LegacyText593850();
+    const char* const prefix = seconds < 0 ? "-" : "";
     char buffer[256];
     std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
     const std::int32_t halfWidth = MeasureDefaultText_44B260(cg::text::FromGbkWide(buffer)) / 2;

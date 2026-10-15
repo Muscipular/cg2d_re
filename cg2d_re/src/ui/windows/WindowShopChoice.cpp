@@ -140,7 +140,7 @@ static_assert(std::is_same_v<decltype(&WindowShopChoice_SendExchangeChoice), Win
 static_assert(std::is_same_v<decltype(&WindowShopChoice_SendGiveReceiveChoice), WindowChoiceCallback>);
 
 static WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"",
 };
 
 static std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。

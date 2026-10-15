@@ -12,7 +12,7 @@ static void WindowTextTarget_Release();
 static std::int32_t WindowTextTarget_Update(std::int32_t value);
 
 // 原函数：0x0049F0A0。
-static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未用行复制593850但保留颜色。
+static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未用行清空正文但保留颜色。
 
 // 原函数：0x0049F1A0。
 static std::int32_t WindowTextTarget_Draw(std::int32_t value);
@@ -153,7 +153,7 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
         }
     }
     for (; row < 5; ++row) {
-        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::FromGbkWide(input::LegacyText593850());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = L"";
     }
 }
 

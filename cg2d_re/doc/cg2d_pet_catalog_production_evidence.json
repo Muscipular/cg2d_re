@@ -408,5 +408,194 @@
     "diff_format": "pass",
     "measurement": "文本生成及独立Check通过",
     "runtime": "未执行"
+  },
+  "static_followup_20261015": {
+    "scope": "仅当前已打开 cg2d.exe 的只读静态补查；不更改 IDA 定义，不运行或调试原端。",
+    "nearby_material_reset": {
+      "address": "0x00CA0458",
+      "count": 6,
+      "element_size": 4,
+      "fill": "0xFFFFFFFF",
+      "range": "[0x00CA0458,0x00CA0470)",
+      "rep_stosd_sites": [
+        "0x0047DFC0",
+        "0x0047EC69",
+        "0x0047FB64",
+        "0x0047FD84",
+        "0x0047FFA2",
+        "0x00480A82",
+        "0x004810F0"
+      ],
+      "conclusion": "六个材料索引置为 -1；范围不覆盖 CA0478。"
+    },
+    "bounded_copy_arguments": {
+      "callee": "0x0053BEC0",
+      "scope": "22 个业务父函数的 36 处已建直接 strncpy CALL；不包括 CRT 内部三处调用。",
+      "actual_call_sites": {
+        "stack": [
+          "0x43b70d",
+          "0x44ae01",
+          "0x44ae16",
+          "0x44b1ec",
+          "0x456914",
+          "0x456955",
+          "0x4b0b89",
+          "0x4b0c46",
+          "0x4d009d",
+          "0x4d00fb",
+          "0x4d0156",
+          "0x4e638f",
+          "0x4e646b",
+          "0x50cbe1",
+          "0x50ce83",
+          "0x50cec5"
+        ],
+        "fixed_other_global": [
+          "0x4046e3",
+          "0x404720",
+          "0x404777",
+          "0x4047fb",
+          "0x45fce7",
+          "0x465094",
+          "0x4b79c2",
+          "0x4cd73a",
+          "0x4cd840",
+          "0x4cedbd",
+          "0x4cedfa",
+          "0x4cee0e",
+          "0x4f257b",
+          "0x4f30e5",
+          "0x508882"
+        ],
+        "parameter_with_known_stack_callers": [
+          "0x4239af",
+          "0x4390c3",
+          "0x439753"
+        ],
+        "new_heap": [
+          "0x4fba72"
+        ],
+        "current_input_context": [
+          "0x44aff7"
+        ]
+      },
+      "direct_xref_exact_cover": true,
+      "known_stack_caller_sites": {
+        "0x00423960": [
+          "0x004239F5",
+          "0x004275FE"
+        ],
+        "0x00439070": [
+          "0x0043B4D2",
+          "0x0043BAB6"
+        ],
+        "0x00439700": [
+          "0x0043978B",
+          "0x0043B2A5"
+        ]
+      },
+      "heap_copy": {
+        "allocation": "0x004FBA5D",
+        "copy": "0x004FBA72",
+        "release": "0x004FBAB5"
+      },
+      "remaining_input_alias": {
+        "copy": "0x0044AFF7",
+        "context_pointer": "0x00626C04",
+        "known_direct_pointer_store": "0x0044B334",
+        "status": "目标为当前 InputContext.text；本轮未完整追踪 SetContext 的全部形参、间接引用或其他别名，不能登记为全程序排除。"
+      },
+      "caveat": "4B79B6、4F256C 是反编译分支展开所得的表达式位置，不是新增 strncpy CALL；计数以原指令与直接 xref 为准。固定其他全局目标及栈／新堆目标未形成 CA0478 生产证据，不由此判断任意越界写、间接调用或运行别名不存在。",
+      "other_memcpy_destinations": [
+        {
+          "call": "0x00508269",
+          "destination": "0x00D9B2BC"
+        },
+        {
+          "call": "0x005082B9",
+          "destination": "0x00D8F2B8"
+        }
+      ]
+    },
+    "business_tail_address_scan": {
+      "range": "[0x00530000,0x0053B1D0)",
+      "target_ranges": [
+        "[0x00CA0478,0x00CA04D8)",
+        "[0x00C8AF84,0x00C8AF88)",
+        "[0x00CC3E64,0x00CC3E68)"
+      ],
+      "method": "四批串行枚举已识别函数内指令；对显式内存操作数读取位移、GP 寄存器常量与比例索引，区分写操作，另查 push 地址及 rep 的 EDI/ECX 前向区间。使用 IDA 内置 ida_regfinder，不主动修改缓存配置。",
+      "batches": [
+        {
+          "range": "[0x530000,0x532500)",
+          "counts": {
+            "heads": 2336,
+            "function_instructions": 2333,
+            "memory_operands": 1040,
+            "write_operands": 514,
+            "unknown_addresses": 738,
+            "rep_writes": 39,
+            "known_rep_intervals": 0
+          },
+          "matches": []
+        },
+        {
+          "range": "[0x532500,0x535540)",
+          "counts": {
+            "heads": 3719,
+            "function_instructions": 3658,
+            "memory_operands": 1279,
+            "write_operands": 467,
+            "unknown_addresses": 653,
+            "rep_writes": 129,
+            "known_rep_intervals": 13
+          },
+          "matches": []
+        },
+        {
+          "range": "[0x535540,0x537fe0)",
+          "counts": {
+            "heads": 3467,
+            "function_instructions": 3407,
+            "memory_operands": 1332,
+            "write_operands": 414,
+            "unknown_addresses": 1200,
+            "rep_writes": 12,
+            "known_rep_intervals": 0
+          },
+          "matches": []
+        },
+        {
+          "range": "[0x537fe0,0x53b1d0)",
+          "counts": {
+            "heads": 4307,
+            "function_instructions": 4227,
+            "memory_operands": 2171,
+            "write_operands": 786,
+            "unknown_addresses": 1919,
+            "rep_writes": 8,
+            "known_rep_intervals": 0
+          },
+          "matches": []
+        }
+      ],
+      "totals": {
+        "heads": 13829,
+        "function_instructions": 13625,
+        "memory_operands": 5822,
+        "write_operands": 2181,
+        "unknown_addresses": 4510,
+        "rep_writes": 188,
+        "known_rep_intervals": 13
+      },
+      "limitation": "目录目标仅为已证首条 96B，不是总容量。4510 个显式内存操作数的地址含未知寄存器，175 处 rep 未形成常量目标／计数的前向区间；DF、形参、间接调用、未识别指令及其他范围仍不完整。无命中不证明无写者或旧页面不可达。"
+    },
+    "result": {
+      "actual_writer": null,
+      "catalog_capacity": null,
+      "task_closed": false,
+      "gate_promoted": false,
+      "conclusion": "补查收窄候选，但尚无可用于定义真实数组容量或实现生产链的新事实；保留原消费者及真实 handler，U01 继续未闭。"
+    }
   }
 }

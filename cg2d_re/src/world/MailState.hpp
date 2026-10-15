@@ -112,7 +112,7 @@ struct MiniMailContactRecord {
 };
 
 const MiniMailContactRecord& ReadMiniMailContact1075A90(std::int32_t index); // 窗口21借用，存储仍归MailState。
-// 窗口40借用原140H消息字节；不复制状态，也不在原字节区构造结构体对象。
+// 窗口40借用同源140H消息成员；仅未读位可写，其余保持只读。
 struct MailMessageView {
     std::byte* unread00; // 所指原成员偏移：+0x00。
     const std::byte* kind01; // 所指原成员偏移：+0x01。

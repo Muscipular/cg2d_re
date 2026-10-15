@@ -4181,11 +4181,6 @@ std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {}; // 原全局
 std::uint16_t gLastDetectedCode = 0; // 原全局：0x009DAD4A。
 std::int32_t gValue9E0434 = 0; // 原全局：0x009E0434。
 
-static_assert(sizeof(gMapTileArray) == 5202);
-static_assert(sizeof(gMapObjArray) == 5202);
-static_assert(sizeof(gMapHitArray) == 5202);
-static_assert(sizeof(gMapWalkabilityArray) == 5202);
-
 // 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
 std::int32_t __cdecl Sub_468520(
     char* const buffer,

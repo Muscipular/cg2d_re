@@ -6,26 +6,18 @@
 
 #include <bit>
 #include <cstdint>
-#include <cstring>
 
 namespace cg::render {
 namespace {
 
-// 原两入口的四W32读写及空参默认值，保正常源目标别名。
-void CopyGraphicDescriptorWords(
-    std::array<std::uint8_t, 16>& output, const GraphicDescriptor16* const descriptor)
+// 两入口共用完整描述符复制及空参默认值，同对象赋值有效。
+void CopyGraphicDescriptor(
+    GraphicDescriptor16& output, const GraphicDescriptor16* const descriptor)
 {
     if (descriptor != nullptr) {
-        for (std::int32_t word = 0; word < 4; ++word) {
-            std::uint32_t value;
-            std::memcpy(&value, descriptor->bytes.data() + word * 4, sizeof(value));
-            std::memcpy(output.data() + word * 4, &value, sizeof(value));
-        }
+        output = *descriptor;
     } else {
-        std::memset(output.data(), 0, 8);
-        const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(output.data() + 8, &color, sizeof(color));
-        std::memset(output.data() + 12, 0, 4);
+        output = {0, 0, 0, 0, 0xFFFFFFFFu, 0, GraphicMixFlag_None, 0};
     }
 }
 
@@ -93,18 +85,18 @@ std::int32_t DrawGraphic3_520970(
     const bool hasDescriptor = descriptor != nullptr;
     item->value4 = itemValue4;
     item->reference.action = nullptr;
-    CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptor : nullptr);
+    CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptor : nullptr);
 
     std::int16_t sourceX;
-    std::memcpy(&sourceX, item->descriptor.data(), sizeof(sourceX));
+    sourceX = item->descriptor.sourceX;
     sourceX = SubtractSigned16Wrapping(sourceX, offsetX);
-    std::memcpy(item->descriptor.data(), &sourceX, sizeof(sourceX));
+    item->descriptor.sourceX = sourceX;
     std::int16_t sourceY;
-    std::memcpy(&sourceY, item->descriptor.data() + 2, sizeof(sourceY));
+    sourceY = item->descriptor.sourceY;
     sourceY = SubtractSigned16Wrapping(sourceY, offsetY);
-    std::memcpy(item->descriptor.data() + 2, &sourceY, sizeof(sourceY));
+    item->descriptor.sourceY = sourceY;
 
-    const std::uint8_t clip = item->descriptor[12];
+    const std::uint8_t clip = item->descriptor.clipMode;
     item->batchType = batchType;
     if (clip == 1) {
         item->batchType = 1;
@@ -135,11 +127,11 @@ std::int32_t Sub_45F090(
     const std::uint8_t itemLayer = layer;
 
     const std::int32_t itemValue4 = value4;
-    std::memcpy(descriptor.bytes.data() + 8, &itemColor, sizeof(itemColor));
+    descriptor.color = itemColor;
     const std::int32_t itemImageNo = imageNo;
     const std::int32_t itemY = y;
     const std::int32_t itemX = x;
-    descriptor.bytes[13] = 4;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     return DrawGraphic3_520970(
         itemX, itemY, itemLayer, itemImageNo, itemValue4, 1, 0, descriptorAddress);
 }
@@ -179,9 +171,9 @@ std::int32_t Sub_521C80(
     item->imageNo = graphicIndex;
     item->value4 = itemValue4;
     item->reference.action = nullptr;
-    CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptor : nullptr);
+    CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptor : nullptr);
 
-    const std::uint8_t clip = item->descriptor[12];
+    const std::uint8_t clip = item->descriptor.clipMode;
     item->batchType = 0;
     if (clip == 1) {
         item->batchType = 1;
@@ -234,10 +226,10 @@ std::int32_t DrawGraphic2_521DD0(
     item->imageNo = graphicIndex;
     item->value4 = itemValue4;
     item->reference.action = nullptr;
-    CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptorAddress : nullptr);
+    CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptorAddress : nullptr);
 
     item->batchType = batchType;
-    if (item->descriptor[12] == 1) {
+    if (item->descriptor.clipMode == 1) {
         item->batchType = 1;
     }
     if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
@@ -296,9 +288,9 @@ std::int32_t DrawGraphic(
     item->imageNo = finalImageNo;
     item->value4 = itemValue4;
     item->reference.action = nullptr;
-    render::CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptor : nullptr);
+    render::CopyGraphicDescriptor(item->descriptor, hasDescriptor ? descriptor : nullptr);
 
-    const std::uint8_t clip = item->descriptor[12];
+    const std::uint8_t clip = item->descriptor.clipMode;
     item->batchType = 0;
     if (clip == 1) {
         item->batchType = 1;

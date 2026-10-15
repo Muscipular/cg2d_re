@@ -214,12 +214,9 @@ std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
 // 原函数：0x00455C90。
 std::int32_t Sub_455C90()
 {
-    login::detail::GraphicDescriptor16 descriptor {{
-        0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00,
-        0xFF, 0xFF, 0xFF, 0xFF,
-        0x00, 0x04, 0x00, 0x00,
-    }};
+    login::detail::GraphicDescriptor16 descriptor {
+        0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
+    };
     std::int32_t clicked = 0;
     bool hovered = false;
     login::YobiAction* action = gDisconnectAction62B5B4;

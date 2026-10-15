@@ -142,9 +142,7 @@ YobiAction* NewYobiAction_404AE0(
     action->scaleY = 1.0F;
     // 原404BB2–404BE0：显式初始化描述符，颜色为全白，其余清零。
     const std::uint32_t descriptorColor = 0xFFFFFFFFu;
-    std::memset(action->drawMode.bytes.data(), 0, 8);
-    std::memcpy(action->drawMode.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));
-    std::memset(action->drawMode.bytes.data() + 12, 0, 4);
+    action->drawMode = {0, 0, 0, 0, descriptorColor, 0, render::GraphicMixFlag_None, 0};
     action->batchType = 0;
     action->color2 = -1;
     action->rebirthValue1 = 0;
@@ -353,7 +351,7 @@ std::int32_t GetYobiActionField20(YobiAction* const action)
 
 void AddYobiActionDrawFlags(YobiAction* const action, const std::uint8_t flags) noexcept
 {
-    action->drawMode.bytes[13] |= flags;
+    action->drawMode.mixFlags |= flags;
 }
 
 std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept

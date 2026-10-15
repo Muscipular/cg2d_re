@@ -259,24 +259,9 @@ void DrawLoginControl_503780(
     const std::uint32_t overlayImageNo,
     const std::int32_t renderMode)
 {
-    const render::GraphicDescriptor16 descriptor {{
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0xFF,
-        0xFF,
-        0xFF,
-        0xFF,
-        0,
-        0,
-        0,
-        0,
-    }};
+    const render::GraphicDescriptor16 descriptor {
+        0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_None, 0,
+    };
     if (control == nullptr) {
         return;
     }

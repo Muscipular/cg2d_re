@@ -932,8 +932,8 @@ static std::int32_t WindowCrystalShop_HandleItemIcon(const std::int32_t index, c
     const std::int32_t selected = gWindow69ScrollD2D604 + index - 56;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     const WindowCrystalItem* const item = &gWindow69ItemsCB2230[selected];
     if (item->used == 0) {
@@ -978,8 +978,8 @@ static std::int32_t WindowCrystalShop_HandleInventory(const std::int32_t index, 
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     std::int32_t hovered = -1;
@@ -1089,8 +1089,8 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(const std::int32_t inde
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const bool acceptHover = login::detail::Sub_5049A0(100, 381, 166, 398, -1) != 0;
     const bool cancelHover = login::detail::Sub_5049A0(510, 381, 576, 398, -1) != 0;
     std::int32_t acceptImage = 245323;

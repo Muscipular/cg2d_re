@@ -2662,7 +2662,7 @@ namespace {
         AppendBattleCast_4392A0(scene, member, 37);
         AppendBattleCast_4392A0(scene, *memberSlot, 167);
         YobiAction* const colored = *memberSlot;
-        std::memcpy(&colored->color2, colored->drawMode.bytes.data() + 8, sizeof(colored->color2));
+        colored->color2 = std::bit_cast<std::int32_t>(colored->drawMode.color);
         YobiAction* const flagActor = *memberSlot;
         const bool linkedMember = index == linkedPosition;
         SetYobiActionField30F(flagActor, 255);

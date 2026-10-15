@@ -29,21 +29,21 @@ void DrawCutTile(
     }
     const CutRecord9FB954& cut = gCutData9FB948.records[tile - 1000];
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[12] = 1;
-    descriptor.bytes[13] = 0;
+    descriptor.color = color;
+    descriptor.clipMode = 1;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_None;
     const std::int16_t cutX = cut.value06;
     const auto drawX = static_cast<std::int16_t>(screenX - cut.value0E);
     const auto clipX = static_cast<std::int16_t>(cutX - 320);
     const std::uint16_t palette = 0;
-    std::memcpy(descriptor.bytes.data() + 14, &palette, sizeof(palette));
-    std::memcpy(descriptor.bytes.data(), &clipX, sizeof(clipX));
+    descriptor.paletteIndex = palette;
+    descriptor.sourceX = clipX;
     const auto clipY = static_cast<std::int16_t>(cut.value08 - 240);
-    std::memcpy(descriptor.bytes.data() + 2, &clipY, sizeof(clipY));
+    descriptor.sourceY = clipY;
     const std::int16_t width = cut.value0A;
-    std::memcpy(descriptor.bytes.data() + 4, &width, sizeof(width));
+    descriptor.sourceWidth = width;
     const std::int16_t height = cut.value0C;
-    std::memcpy(descriptor.bytes.data() + 6, &height, sizeof(height));
+    descriptor.sourceHeight = height;
     const std::int32_t imageNo = cut.value00;
     const auto drawY = static_cast<std::int16_t>(screenY - cut.value10);
     static_cast<void>(render::DrawGraphic3_520970(
@@ -97,24 +97,24 @@ void DrawCutObject(
     const std::int16_t width = cut.value0A;
     const std::int16_t cutY = cut.value08;
     const auto clipX = static_cast<std::int16_t>(cutX - 320);
-    std::memcpy(descriptor.bytes.data() + 4, &width, sizeof(width));
+    descriptor.sourceWidth = width;
     const auto drawY = static_cast<std::int16_t>(screenY - cut.value10);
-    std::memcpy(descriptor.bytes.data(), &clipX, sizeof(clipX));
+    descriptor.sourceX = clipX;
     const std::int16_t height = cut.value0C;
     const auto clipY = static_cast<std::int16_t>(cutY - 240);
-    std::memcpy(descriptor.bytes.data() + 6, &height, sizeof(height));
-    std::memcpy(descriptor.bytes.data() + 2, &clipY, sizeof(clipY));
+    descriptor.sourceHeight = height;
+    descriptor.sourceY = clipY;
     const auto drawX = static_cast<std::int16_t>(screenX - cut.value0E);
     const std::int32_t mapY = gMapYStart + row;
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     const double scaledY = static_cast<double>(mapY) * 64.0f;
     const std::int32_t mapX = gMapXStart + column;
-    descriptor.bytes[12] = 1;
-    descriptor.bytes[13] = 0;
+    descriptor.clipMode = 1;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_None;
     const auto worldY = static_cast<float>(scaledY);
     const std::uint16_t palette = 0;
-    std::memcpy(descriptor.bytes.data() + 14, &palette, sizeof(palette));
+    descriptor.paletteIndex = palette;
     const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
     Sub_46BE50(
         imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),

@@ -2065,8 +2065,8 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const bool acceptHover = login::detail::Sub_5049A0(240, 310, 306, 327, -1) != 0;
     const bool cancelHover = login::detail::Sub_5049A0(334, 310, 400, 327, -1) != 0;
     std::int32_t acceptImage = 245323;

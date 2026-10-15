@@ -1279,9 +1279,9 @@ void Sub_4417E0(YobiAction* const action)
     }
     const std::int32_t imageNo = action->imageNo;
     if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        action->drawMode.bytes[0x0D] |= 4u;
+        action->drawMode.mixFlags |= cg::render::GraphicMixFlag_OriginalPalette;
     } else {
-        action->drawMode.bytes[0x0D] &= 0xFBu;
+        action->drawMode.mixFlags &= ~cg::render::GraphicMixFlag_OriginalPalette;
     }
     YobiAction* const ride = payload->action44;
     if (ride != nullptr) {

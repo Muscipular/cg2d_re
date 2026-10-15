@@ -190,11 +190,7 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
     destination->refresh2EC = source->refresh2EC;
     destination->frameX = source->frameX;
     destination->frameY = source->frameY;
-    for (std::size_t offset = 0; offset < 16; offset += sizeof(std::uint32_t)) {
-        std::uint32_t word;
-        std::memcpy(&word, source->drawMode.bytes.data() + offset, sizeof(word));
-        std::memcpy(destination->drawMode.bytes.data() + offset, &word, sizeof(word));
-    }
+    destination->drawMode = source->drawMode;
     destination->batchType = source->batchType;
     destination->rebirthValue1 = source->rebirthValue1;
     destination->color2 = source->color2;
@@ -2027,14 +2023,14 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
     const std::int8_t sourceType = sourcePayload->rebirthEffectType1080;
     if (sourceType != 0) {
         YobiAction* const effect = NewBattleRandomEffect_419FC0(target, images[sourceType - 1], 0);
-        effect->drawMode.bytes[11] = 0x96;
+        reinterpret_cast<unsigned char*>(&effect->drawMode.color)[3] = 0x96;
         effect->rebirthValue1 = 4;
         effect->rebirthValue2 = 4;
     }
     const std::int8_t targetType = targetPayload->rebirthEffectType1080;
     if (targetType != 0) {
         YobiAction* const effect = NewBattleRandomEffect_419FC0(target, images[targetType + 3], 0);
-        effect->drawMode.bytes[11] = 0x96;
+        reinterpret_cast<unsigned char*>(&effect->drawMode.color)[3] = 0x96;
         effect->rebirthValue1 = 4;
         effect->rebirthValue2 = 4;
     }

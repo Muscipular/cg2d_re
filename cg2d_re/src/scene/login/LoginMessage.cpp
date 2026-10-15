@@ -49,12 +49,9 @@ std::int32_t gMessageResult = -2;
 MessageLayout gMessageLayout {};
 YobiAction* gMessageAction = nullptr;
 
-constexpr detail::GraphicDescriptor16 kGraphicDescriptor {{
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0xFF, 0xFF, 0xFF, 0xFF,
-    0x00, 0x04, 0x00, 0x00,
-}};
+constexpr detail::GraphicDescriptor16 kGraphicDescriptor {
+    0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
+};
 
 std::int32_t RoundMessageWidth(std::int32_t textWidth)
 {

@@ -1043,8 +1043,8 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
     }
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const std::int32_t width = login::detail::TextMeasure(gStallMessageC8A978, 0);
     WindowInstance* window = gCurrentWindow;
     const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
@@ -1085,8 +1085,8 @@ static std::int32_t WindowStall_DrawPetSkills(
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const char* const text = pet.techniquesD8[skillIndex].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
@@ -1116,8 +1116,8 @@ static std::int32_t WindowStall_DrawPetDetails(
         return shortIndex;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
@@ -1241,8 +1241,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         render::GraphicDescriptor16 descriptor {};
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
         const std::uint32_t color = 0x80808080u;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const std::int32_t y = window->y + element.y;
@@ -1334,8 +1334,8 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
     const std::int32_t segments = world::detail::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     // 原5817BC与57E434静态图号同值，不合并原数据地址身份。
     if (segments == 1) {
         return render::DrawGraphic3_520970(
@@ -1531,8 +1531,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         WindowInstance* const window = gCurrentWindow;
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0x80808080u;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         const WindowElement& element = window->elements[index];
         const std::int32_t y = window->y + element.y;
         const std::int32_t x = window->x + element.x;
@@ -1610,8 +1610,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     WindowInstance* const window = gCurrentWindow;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const WindowElement& element = window->elements[index];
     const std::int32_t imageNo = item->imageNo;
     const std::int32_t y = element.y + window->y + 24;
@@ -1639,8 +1639,8 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
         const std::int32_t y = window->y + element.y + 50 * (slot / 5);
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         if (gStallOwn58111C != 0 && gStallItemUsedCC31AC[slot] != 0) {
             login::detail::DrawGraphicHover(
                 static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
@@ -1739,8 +1739,8 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     }};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t y = window->y + 115;
     const std::int32_t x = window->x + 206;
@@ -1833,8 +1833,8 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     const bool petLayout = gStallModeD67BDC != 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t buttonY;
     std::int32_t acceptX;
     std::int32_t cancelX;

@@ -1073,7 +1073,7 @@ static std::int32_t WindowTrade_HandlePanel(
     std::uint8_t numericResult = 0;
     if (numericElement >= 0 && *tab == 2) {
         std::uint32_t color;
-        std::memcpy(&color, descriptor->bytes.data() + 8, sizeof(color));
+        color = descriptor->color;
         const std::uint8_t flags =
             input::gCurrentInputData == &input::gInputContextCC21E8 ? 3 : 1;
         numericResult = WindowInput_HandleNumber(
@@ -1148,8 +1148,8 @@ static void WindowTrade_HandleOwnInventory(
 {
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(dimmed.bytes.data() + 8, &color, sizeof(color));
-    dimmed.bytes[13] = 4;
+    dimmed.color = color;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -1281,7 +1281,7 @@ static void WindowTrade_HandleOwnInventory(
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
     dimmed = *descriptor;
-    dimmed.bytes[11] >>= 1;
+    reinterpret_cast<unsigned char*>(&dimmed.color)[3] >>= 1;
     for (std::int32_t position = 0; position < 20; ++position) {
         const std::int32_t slot = position + 8;
         const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
@@ -1456,8 +1456,8 @@ static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const s
     WindowInstance* const window = gCurrentWindow;
     const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
     const std::uint32_t color = graphic->color;
-    descriptor.bytes[13] = 4;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    descriptor.color = color;
     static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
     const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
@@ -1511,8 +1511,8 @@ static void WindowTrade_HandleOwnItemDrag(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
             static_cast<void>(WindowTrade_RemoveItem(sourceIndex));
@@ -1550,8 +1550,8 @@ static void WindowTrade_HandleOwnPetDrag(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
             static_cast<void>(WindowTrade_RemovePet(sourceIndex));
@@ -1917,10 +1917,10 @@ static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, co
     WindowInstance* const window = gCurrentWindow;
     const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
     const std::uint32_t color = graphic->color;
-    descriptor.bytes[13] = 4;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    descriptor.color = color;
     if (gTradeValueD2E2B0 == 2) {
-        descriptor.bytes[11] >>= 1;
+        reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F53C {244367, 244371, 244369};
     const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
@@ -1968,10 +1968,10 @@ static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, 
     WindowInstance* const window = gCurrentWindow;
     const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
     const std::uint32_t color = graphic->color;
-    descriptor.bytes[13] = 4;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    descriptor.color = color;
     if (gTradeValueCC4224 == 2) {
-        descriptor.bytes[11] >>= 1;
+        reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F548 {244368, 244372, 244370};
     const std::int32_t amount = world::detail::gPlayerRuntimeSlots.valueFC;
@@ -2180,8 +2180,8 @@ static std::int32_t WindowTrade_DrawRemotePetSkillRow(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const char* const text = gPetStorageD64E18[index].techniques[skill].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
@@ -2214,8 +2214,8 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
         return 0;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
@@ -2302,8 +2302,8 @@ static std::int32_t WindowTrade_DrawSelectedPetSkillRow(
     const std::int32_t shortSide =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side));
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const char* const text =
         gTradePetsC9C108[index + shortSide * 5].techniques[skill].name.data();
     if (*text != '\0') {
@@ -2341,8 +2341,8 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
         return slot;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
@@ -2420,8 +2420,8 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const char* const text = pet.techniquesD8[skillIndex].name.data();
     if (*text != '\0') {
         static_cast<void>(render::ClearTextQueueTail_456D50(5));
@@ -2452,8 +2452,8 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
         return 0;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));

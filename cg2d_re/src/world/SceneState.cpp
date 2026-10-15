@@ -293,18 +293,12 @@ MapCharaSceneSlots gMapCharaSceneSlots {};
 
 // 原 .data [55DEB0,55DF10)：前/后三项分别供 46F1D0 的 kind 6/7 绘图。
 std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全局：0x0055DEB0。
-    {{0x00, 0x00, 0x10, 0xFF, 0x40, 0x01, 0x22, 0x01,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
-    {{0xC0, 0xFE, 0x40, 0x00, 0x40, 0x01, 0x0E, 0x01,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
-    {{0x00, 0x00, 0x40, 0x00, 0x40, 0x01, 0x72, 0x01,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
-    {{0xC0, 0xFE, 0x20, 0xFE, 0x40, 0x01, 0x22, 0x01,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
-    {{0x00, 0x00, 0x20, 0xFE, 0x40, 0x01, 0xF0, 0x00,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
-    {{0xC0, 0xFE, 0x4B, 0xFF, 0x40, 0x01, 0xF0, 0x00,
-      0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00}},
+    {0, -240, 320, 290, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
+    {-320, 64, 320, 270, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
+    {0, 64, 320, 370, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
+    {-320, -480, 320, 290, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
+    {0, -480, 320, 240, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
+    {-320, -181, 320, 240, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0},
 }};
 
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
@@ -1875,10 +1869,9 @@ std::int32_t Sub_440FF0()
     const std::int32_t direction = login::detail::ReadMapObservationDirection();
     constexpr std::array<std::int32_t, 8> angles {315, 270, 225, 180, 135, 90, 45, 0};
     const auto angle = static_cast<std::int16_t>(angles[direction]);
-    const render::GraphicDescriptor16 descriptor {{
-        0xC0, 0xFE, 0x54, 0x01, 0x40, 0x00, 0x30, 0x00,
-        0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00,
-    }};
+    const render::GraphicDescriptor16 descriptor {
+        -320, 340, 64, 48, 0xFFFFFFFFu, 1, cg::render::GraphicMixFlag_None, 0,
+    };
     gMapCharaSceneSlots.valueC8A752 = 2;
     gMapCharaSceneSlots.valueC8A754 = 2;
     gMapCharaSceneSlots.value55DE9C = 6.0F;
@@ -8190,8 +8183,8 @@ std::uint8_t Sub_46F680()
         && gValueC8A79C == 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         const std::int32_t drawY = static_cast<std::int32_t>(
             static_cast<std::int64_t>(static_cast<double>(projectedY) + 0.5));
         const std::int32_t drawX = static_cast<std::int32_t>(

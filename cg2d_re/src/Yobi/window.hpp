@@ -17,7 +17,7 @@ struct NineGridDescriptorFields {
     std::int16_t height;
     std::int32_t color;
     std::uint8_t clip;
-    std::uint8_t mixMode;
+    std::uint8_t mixFlags; // render::GraphicMixFlag 位组合。
     std::uint16_t paletteCacheIndex;
 };
 
@@ -31,7 +31,7 @@ static_assert(offsetof(NineGridDescriptorFields, color) == 0x08);
 
 static_assert(offsetof(NineGridDescriptorFields, clip) == 0x0C);
 
-static_assert(offsetof(NineGridDescriptorFields, mixMode) == 0x0D);
+static_assert(offsetof(NineGridDescriptorFields, mixFlags) == 0x0D);
 
 static_assert(offsetof(NineGridDescriptorFields, paletteCacheIndex) == 0x0E);
 

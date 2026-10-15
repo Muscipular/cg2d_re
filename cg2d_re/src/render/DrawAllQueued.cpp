@@ -17,7 +17,6 @@
 
 #include <bit>
 #include <cmath>
-#include <cstring>
 
 namespace cg::render {
 
@@ -26,8 +25,6 @@ std::int32_t gLastUnrefreshedPaletteFrameVersion = -1;
 namespace {
 
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
-constexpr std::uint8_t kFlipX = 1;
-constexpr std::uint8_t kFlipY = 2;
 
 // 原三条纹理路径相同的 left/right/top/bottom 读写顺序；不冻结节点偏移或共享尺寸。
 TextureRectangle MakeNodeRectangle(
@@ -82,9 +79,9 @@ void DrawIntegerNodes(
         }
         const TextureRectangle rectangle = MakeNodeRectangle(node, x, y, width, height);
         const std::int32_t originX = graphic->x;
-        const std::uint8_t mixMode = graphic->descriptor[0x0D];
+        const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
         std::int32_t offsetX;
-        if ((mixMode & kFlipX) != 0) {
+        if ((mixFlags & GraphicMixFlag_FlipX) != 0) {
             const std::int32_t fullWidth = ReadGraphicDxWidth(imageNo);
             offsetX = fullWidth - node->blockX - rectangle[2] + x;
         } else {
@@ -93,7 +90,7 @@ void DrawIntegerNodes(
         const std::int32_t destinationX = originX + offsetX;
         const std::int32_t originY = graphic->y;
         std::int32_t offsetY;
-        if ((mixMode & kFlipY) != 0) {
+        if ((mixFlags & GraphicMixFlag_FlipY) != 0) {
             const std::int32_t fullHeight = ReadGraphicDxHeight(imageNo);
             offsetY = fullHeight - node->blockY - rectangle[3] + y;
         } else {
@@ -101,13 +98,13 @@ void DrawIntegerNodes(
         }
         const std::int32_t destinationY = originY + offsetY;
         std::uint32_t color;
-        std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));
+        color = graphic->descriptor.color;
         const std::int16_t paletteIndex = node->paletteIndex;
         const std::int32_t nodeImageNo = node->imageNo;
         TextureSurface* const surface = node->surface;
         if (RenderTextureToSurface_44D520(
                 destinationX, destinationY,
-                rectangle, surface, nodeImageNo, paletteIndex, mixMode, color) == kSurfaceBusy) {
+                rectangle, surface, nodeImageNo, paletteIndex, mixFlags, color) == kSurfaceBusy) {
             gGraphicDirty = 1;
         }
     }
@@ -135,12 +132,12 @@ void DrawScaledNodes(
             continue;
         }
         const TextureRectangle rectangle = MakeNodeRectangle(node, x, y, width, height);
-        const std::uint8_t mixMode = graphic->descriptor[0x0D];
+        const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
         const std::int32_t originX = graphic->x;
         const login::YobiAction* const action = useActionScale ? graphic->reference.action : nullptr;
         float scaleX = fixedScale;
         std::int32_t offsetX;
-        if ((mixMode & kFlipX) != 0) {
+        if ((mixFlags & GraphicMixFlag_FlipX) != 0) {
             if (useActionScale) {
                 scaleX = login::detail::GetYobiActionScaleX(action);
             }
@@ -158,7 +155,7 @@ void DrawScaledNodes(
         const std::int32_t originY = graphic->y;
         float scaleY = fixedScale;
         std::int32_t offsetY;
-        if ((mixMode & kFlipY) != 0) {
+        if ((mixFlags & GraphicMixFlag_FlipY) != 0) {
             if (useActionScale) {
                 scaleY = login::detail::GetYobiActionScaleY(action);
             }
@@ -173,7 +170,7 @@ void DrawScaledNodes(
         }
         const auto scaledY = static_cast<std::int64_t>(static_cast<double>(offsetY) * scaleY);
         std::uint32_t color;
-        std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));
+        color = graphic->descriptor.color;
         const std::int32_t nodeImageNo = node->imageNo;
         const std::int32_t destinationY = originY + static_cast<std::int32_t>(scaledY);
         // 两条原分支在 paletteIndex/surface 的读取次序不同。
@@ -188,7 +185,7 @@ void DrawScaledNodes(
         }
         if (RenderTexture_44DA90(
                 static_cast<std::int16_t>(destinationX), static_cast<std::int16_t>(destinationY),
-                &rectangle, scaleX, scaleY, surface, nodeImageNo, paletteIndex, mixMode, color)
+                &rectangle, scaleX, scaleY, surface, nodeImageNo, paletteIndex, mixFlags, color)
             == kSurfaceBusy) {
             gGraphicDirty = 1;
         }
@@ -207,20 +204,21 @@ void DrawSprite(GraphicCacheItem32* const graphic)
         return;
     }
     if (graphic->batchType == 0) {
-        std::memset(graphic->descriptor.data(), 0, 4);
+        graphic->descriptor.sourceX = 0;
+        graphic->descriptor.sourceY = 0;
         const std::int16_t fullWidth = ReadGraphicDxWidth(imageNo);
-        std::memcpy(graphic->descriptor.data() + 4, &fullWidth, sizeof(fullWidth));
+        graphic->descriptor.sourceWidth = fullWidth;
         const std::int16_t fullHeight = ReadGraphicDxHeight(imageNo);
-        std::memcpy(graphic->descriptor.data() + 6, &fullHeight, sizeof(fullHeight));
+        graphic->descriptor.sourceHeight = fullHeight;
     }
     std::int16_t sourceWidth;
     std::int16_t sourceX;
     std::int16_t sourceY;
     std::int16_t sourceHeight;
-    std::memcpy(&sourceWidth, graphic->descriptor.data() + 4, sizeof(sourceWidth));
-    std::memcpy(&sourceX, graphic->descriptor.data(), sizeof(sourceX));
-    std::memcpy(&sourceY, graphic->descriptor.data() + 2, sizeof(sourceY));
-    std::memcpy(&sourceHeight, graphic->descriptor.data() + 6, sizeof(sourceHeight));
+    sourceWidth = graphic->descriptor.sourceWidth;
+    sourceX = graphic->descriptor.sourceX;
+    sourceY = graphic->descriptor.sourceY;
+    sourceHeight = graphic->descriptor.sourceHeight;
     std::int32_t width = sourceWidth;
     std::int32_t x = sourceX;
     std::int32_t y = sourceY;
@@ -303,13 +301,14 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
     if (LoadGraphic_522570(imageNo) == 0) {
         return;
     }
-    std::memset(graphic->descriptor.data(), 0, 4);
+    graphic->descriptor.sourceX = 0;
+    graphic->descriptor.sourceY = 0;
     const std::int16_t fullWidth = ReadGraphicDxWidth(imageNo);
-    std::memcpy(graphic->descriptor.data() + 4, &fullWidth, sizeof(fullWidth));
+    graphic->descriptor.sourceWidth = fullWidth;
     std::int32_t width = fullWidth;
     const std::int16_t fullHeight = ReadGraphicDxHeight(imageNo);
     const std::int32_t height = fullHeight;
-    std::memcpy(graphic->descriptor.data() + 6, &fullHeight, sizeof(fullHeight));
+    graphic->descriptor.sourceHeight = fullHeight;
     if (width < 0 || height < 0) {
         return;
     }

@@ -431,7 +431,7 @@ std::int32_t Sub_462930()
     std::uint8_t selected = state::gValue9A4CFC;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x3FFFFFFF;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     std::int32_t result = 0;
     std::int8_t confirmState = 0;
     std::int8_t cancelState = 0;

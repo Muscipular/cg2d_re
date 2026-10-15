@@ -665,10 +665,10 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.color = dimmedColor;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
@@ -802,7 +802,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
@@ -843,8 +843,8 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && (WindowDrag_ReadKind() != 2 || WindowDrag_ReadSourceIndex() < 8)) {
@@ -996,7 +996,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto* const record = &gItemDetailStorageCC4D58[0].items[position];

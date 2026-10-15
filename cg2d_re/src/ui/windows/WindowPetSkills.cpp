@@ -209,8 +209,8 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
     const std::int32_t y = (platform::gLegacyMouseState.mouseY - 8);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(0, 0, 5, 12, 0, L"", 0, 0));
     const auto namePet = std::bit_cast<std::int16_t>(

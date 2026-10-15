@@ -180,8 +180,8 @@ static void WindowBlacklist_Refresh()
         if (recordAddress != nullptr) {
             const std::int32_t page = gLoginWindowRuntime.valueD2E444;
             const std::uint32_t color = 0xFFFFFFFFu;
-            std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-            descriptor.bytes[13] = 4;
+            descriptor.color = color;
+            descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             const std::int32_t number = page + row + 1;
             for (std::int32_t column = 0; column < 3; ++column) {
                 WindowInstance* const window = gCurrentWindow;

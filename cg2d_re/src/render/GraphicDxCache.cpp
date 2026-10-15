@@ -478,10 +478,10 @@ std::int32_t LoadGraphicTexture_520B10(
     std::int32_t paletteChoice = gActivePalette;
     std::int32_t paletteVersion = gPaletteFrameVersion;
     const std::int32_t initialImageNo = graphic->imageNo;
-    const std::uint8_t initialMixMode = graphic->descriptor[0x0D];
+    const std::uint8_t initialMixFlags = graphic->descriptor.mixFlags;
     DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
     DxGraphicEntry& entry = dxBase[initialImageNo];
-    if ((initialMixMode & 4u) != 0) {
+    if ((initialMixFlags & GraphicMixFlag_OriginalPalette) != 0) {
         paletteChoice = 0;
         paletteVersion = 0;
     }
@@ -491,7 +491,7 @@ std::int32_t LoadGraphicTexture_520B10(
         && texture->paletteVersion == paletteVersion) {
         const std::int16_t oldPaletteIndex = texture->paletteIndex;
         std::int16_t paletteIndex;
-        std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));
+        paletteIndex = graphic->descriptor.paletteIndex;
         if (oldPaletteIndex == paletteIndex) {
             return 1;
         }
@@ -509,7 +509,7 @@ std::int32_t LoadGraphicTexture_520B10(
         && texture->paletteVersion == paletteVersion) {
         const std::int16_t oldPaletteIndex = texture->paletteIndex;
         std::int16_t paletteIndex;
-        std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));
+        paletteIndex = graphic->descriptor.paletteIndex;
         if (oldPaletteIndex == paletteIndex) {
             return 1;
         }
@@ -551,15 +551,15 @@ std::int32_t LoadGraphicTexture_520B10(
     }
 
     std::int16_t paletteIndex;
-    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));
+    paletteIndex = graphic->descriptor.paletteIndex;
     if (paletteIndex != 0) {
         const std::uint32_t* originalColors;
         const std::uint32_t* tonedColors;
         resource::GetIndependentPaletteColors32(paletteIndex, originalColors, tonedColors);
         if (originalColors != nullptr) {
-            const std::uint8_t mixMode = graphic->descriptor[0x0D];
+            const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
             const std::uint32_t* const colors =
-                (mixMode & 4u) == 0 ? tonedColors : originalColors;
+                (mixFlags & GraphicMixFlag_OriginalPalette) == 0 ? tonedColors : originalColors;
             const std::int32_t sourceHeight = std::bit_cast<std::int16_t>(entry.height);
             const std::int32_t sourceBlockY = texture->blockY;
             const std::int32_t sourceBlockX = texture->blockX;
@@ -581,17 +581,17 @@ std::int32_t LoadGraphicTexture_520B10(
         if (entry.palette == nullptr) {
             if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {
                 const std::uint32_t sourceWidth = resource::gCurrentGraphicWidth;
-                const std::uint8_t mixMode = graphic->descriptor[0x0D];
+                const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
                 const std::uint32_t sourceHeight = resource::gCurrentGraphicHeight;
                 const std::uint8_t* const source = resource::gGraphicDataPtr;
                 const std::uint8_t* const paletteTriples =
                     source + sourceWidth * sourceHeight;
                 const std::int32_t imageNo = graphic->imageNo;
                 entry.palette = LoadGraphicPalette32_44E290(
-                    imageNo, 2, (mixMode & 4u) == 0 ? 1 : 0, paletteTriples, nullptr);
+                    imageNo, 2, (mixFlags & GraphicMixFlag_OriginalPalette) == 0 ? 1 : 0, paletteTriples, nullptr);
             } else {
-                const std::uint8_t mixMode = graphic->descriptor[0x0D];
-                if ((mixMode & 4u) != 0) {
+                const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
+                if ((mixFlags & GraphicMixFlag_OriginalPalette) != 0) {
                     const std::int32_t imageNo = graphic->imageNo;
                     entry.palette = LoadGraphicPalette32_44E290(
                         imageNo, 0, 0, nullptr, nullptr);
@@ -616,8 +616,7 @@ std::int32_t LoadGraphicTexture_520B10(
     }
     texture->paletteChoice = static_cast<std::int16_t>(paletteChoice);
     texture->paletteVersion = static_cast<std::int16_t>(paletteVersion);
-    std::memcpy(&texture->paletteIndex, graphic->descriptor.data() + 0x0E,
-        sizeof(texture->paletteIndex));
+    texture->paletteIndex = graphic->descriptor.paletteIndex;
     return 1;
 }
 

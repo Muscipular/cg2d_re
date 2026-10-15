@@ -29,12 +29,9 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
 {
     std::int32_t result = 0;
     bool hovered = false;
-    const login::detail::GraphicDescriptor16 graphicDescriptor {{
-        0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00,
-        0xFF, 0xFF, 0xFF, 0xFF,
-        0x00, 0x04, 0x00, 0x00,
-    }};
+    const login::detail::GraphicDescriptor16 graphicDescriptor {
+        0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
+    };
 
     if (gAuthenticationFailureStage == 0) {
         gAuthenticationFailureStage = 1;

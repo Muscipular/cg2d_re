@@ -90,19 +90,19 @@ std::int32_t BlitTextureToBack(
 // 原 44C9A0：两次接口检查、S16 裁剪及空纹理四顶点；透传完整返回位型。
 std::uint32_t FillRect_44C9A0(
     std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
-    std::uint32_t color, std::uint8_t mixMode);
+    std::uint32_t color, std::uint8_t mixFlags);
 
 // 原 44D520：完整 S32 坐标实参，交集/位移取低 S16，负值门禁保原宽度；矩形为值副本。
 std::int32_t RenderTextureToSurface_44D520(
     std::int32_t x, std::int32_t y, TextureRectangle rectangle,
     TextureSurface* surface, std::int32_t imageNo, std::int16_t paletteIndex,
-    std::uint8_t mixMode, std::uint32_t color);
+    std::uint8_t mixFlags, std::uint32_t color);
 
 // 原 44DA90：F32 局部/F64 中间计算及 S64 截断；不回写输入矩形。
 std::int32_t RenderTexture_44DA90(
     std::int16_t x, std::int16_t y, const TextureRectangle* rectangle,
     float scaleX, float scaleY, TextureSurface* surface,
     std::int32_t imageNo, std::int16_t paletteIndex,
-    std::uint8_t mixMode, std::uint32_t color);
+    std::uint8_t mixFlags, std::uint32_t color);
 
 } // namespace cg::render

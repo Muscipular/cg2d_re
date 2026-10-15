@@ -57,22 +57,15 @@ std::array<MapDrawRecord, kSourceCapacity> gMapDrawSpecialC28008 {}; // 原全�
 std::array<MapDrawRecord, kMergedCapacity> gMapDrawMerged9A86E8 {}; // 原全局：0x009A86E8。
 std::int32_t gMapDrawMergedCount9EE914 = 0; // 原全局：0x009EE914。
 
-// 各生产者共同的描述符默认值/逐 W32 复制，不清记录的其他字段。
+// 各生产者共用完整描述符及空参默认值，不清记录的其他字段。
 void WriteMapDrawDescriptor(
     render::GraphicDescriptor16& destination, const render::GraphicDescriptor16* const source)
 {
     if (source != nullptr) {
-        for (std::size_t offset = 0; offset < 16; offset += 4) {
-            std::uint32_t value;
-            std::memcpy(&value, source->bytes.data() + offset, sizeof(value));
-            std::memcpy(destination.bytes.data() + offset, &value, sizeof(value));
-        }
+        destination = *source;
         return;
     }
-    std::memset(destination.bytes.data(), 0, 8);
-    const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(destination.bytes.data() + 8, &color, sizeof(color));
-    std::memset(destination.bytes.data() + 12, 0, 4);
+    destination = {0, 0, 0, 0, 0xFFFFFFFFu, 0, render::GraphicMixFlag_None, 0};
 }
 
 // 原46C4D0六段复制：前44B逐W32读写，再按原序复制两条非拥有链接。
@@ -323,7 +316,7 @@ void MergeMapDrawCache_46C4D0()
 void QueueMapDrawRecord(
     const MapDrawRecord* const record, const MapDrawRecord* const primary, const bool attachment)
 {
-    const bool clipped = primary->descriptor.bytes[12] == 1;
+    const bool clipped = primary->descriptor.clipMode == 1;
     const std::uint8_t batch = attachment ? record->batchType : 0;
     const std::int32_t imageNo = record->imageNo;
     const std::int32_t y = record->y;
@@ -416,15 +409,18 @@ void Sub_46DFF0(
     record.sourceIndex = count;
     record.batchType = 0;
     if (descriptor != nullptr) {
-        for (std::size_t offset = 0; offset < 12; offset += 4) {
-            std::uint32_t value;
-            std::memcpy(&value, descriptor->bytes.data() + offset, sizeof(value));
-            std::memcpy(record.descriptor.bytes.data() + offset, &value, sizeof(value));
-        }
-        std::uint32_t tail;
-        std::memcpy(&tail, descriptor->bytes.data() + 12, sizeof(tail));
+        record.descriptor.sourceX = descriptor->sourceX;
+        record.descriptor.sourceY = descriptor->sourceY;
+        record.descriptor.sourceWidth = descriptor->sourceWidth;
+        record.descriptor.sourceHeight = descriptor->sourceHeight;
+        record.descriptor.color = descriptor->color;
+        const std::uint8_t clipMode = descriptor->clipMode;
+        const std::uint8_t mixFlags = descriptor->mixFlags;
+        const std::int16_t paletteIndex = descriptor->paletteIndex;
         gValue9FB928 = static_cast<std::uint32_t>(count + 1);
-        std::memcpy(record.descriptor.bytes.data() + 12, &tail, sizeof(tail));
+        record.descriptor.clipMode = clipMode;
+        record.descriptor.mixFlags = mixFlags;
+        record.descriptor.paletteIndex = paletteIndex;
     } else {
         WriteMapDrawDescriptor(record.descriptor, nullptr);
         gValue9FB928 = static_cast<std::uint32_t>(count + 1);

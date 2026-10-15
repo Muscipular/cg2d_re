@@ -737,15 +737,15 @@ void Sub_448290()
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     action->flags = 2;
     action->value54 = 0.0F;
-    action->drawMode.bytes[0x0C] = 1;
+    action->drawMode.clipMode = 1;
     const std::int16_t sourceX = -320;
     const std::int16_t sourceY = 340;
     const std::int16_t width = 64;
     const std::int16_t height = 48;
-    std::memcpy(action->drawMode.bytes.data(), &sourceX, sizeof(sourceX));
-    std::memcpy(action->drawMode.bytes.data() + 2, &sourceY, sizeof(sourceY));
-    std::memcpy(action->drawMode.bytes.data() + 4, &width, sizeof(width));
-    std::memcpy(action->drawMode.bytes.data() + 6, &height, sizeof(height));
+    action->drawMode.sourceX = sourceX;
+    action->drawMode.sourceY = sourceY;
+    action->drawMode.sourceWidth = width;
+    action->drawMode.sourceHeight = height;
 }
 
 // 原[449670,4496B7)：先归一化角度，两次查表后各自重读幅值。

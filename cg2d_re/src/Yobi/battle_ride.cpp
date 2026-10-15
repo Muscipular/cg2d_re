@@ -613,11 +613,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         animationTarget = gBattleAllEntries59E980[second];
         animationTarget->frameY = action->frameY;
         YobiAction* const descriptorTarget = gBattleAllEntries59E980[second];
-        for (std::size_t offset = 0; offset < 16; offset += sizeof(std::uint32_t)) {
-            std::uint32_t word;
-            std::memcpy(&word, action->drawMode.bytes.data() + offset, sizeof(word));
-            std::memcpy(descriptorTarget->drawMode.bytes.data() + offset, &word, sizeof(word));
-        }
+        descriptorTarget->drawMode = action->drawMode;
         animationTarget = gBattleAllEntries59E980[second];
         animationTarget->batchType = action->batchType;
         animationTarget = gBattleAllEntries59E980[second];

@@ -1,6 +1,7 @@
 #include "LegacyTextureDrawing.hpp"
 
 #include "GraphicDxCacheState.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
@@ -28,9 +29,6 @@ struct LegacyTextureDevice {
 
 namespace {
 
-constexpr std::uint8_t kFlipX = 1;
-constexpr std::uint8_t kFlipY = 2;
-constexpr std::uint8_t kAdditive = 8;
 constexpr float kTextureBias = std::bit_cast<float>(0x3D4CCCCDu);
 constexpr auto kNativeFailure = std::bit_cast<std::int32_t>(0x80004005u);
 constexpr auto kSurfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
@@ -138,7 +136,7 @@ std::int32_t TruncateTextureCoordinate(const double value)
 std::int32_t SubmitTexturedRectangle(
     TextureSurface* surface, const TextureRectangle& destination,
     const float u0, const float v0, const float u1, const float v1,
-    const std::uint8_t mixMode, const std::uint32_t color)
+    const std::uint8_t mixFlags, const std::uint32_t color)
 {
     const auto left = static_cast<float>(destination[0]);
     const auto top = static_cast<float>(destination[1]);
@@ -152,7 +150,7 @@ std::int32_t SubmitTexturedRectangle(
     }};
     LegacyTextureBlend sourceBlend = LegacyTextureBlend::One;
     LegacyTextureBlend destinationBlend = LegacyTextureBlend::One;
-    if ((mixMode & kAdditive) == 0) {
+    if ((mixFlags & GraphicMixFlag_Additive) == 0) {
         if ((color & 0xFF000000u) == 0xFF000000u) {
             destinationBlend = LegacyTextureBlend::Zero;
         } else {
@@ -272,7 +270,7 @@ std::int32_t SubmitLegacyTextureFan(
 // 原函数：0x0044C9A0。
 std::uint32_t FillRect_44C9A0(
     std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
-    const std::uint32_t color, const std::uint8_t mixMode)
+    const std::uint32_t color, const std::uint8_t mixFlags)
 {
     if (HasLegacy3DDevice_44B610() == 0) {
         return 0;
@@ -300,14 +298,14 @@ std::uint32_t FillRect_44C9A0(
     }
     const TextureRectangle destination {left, top, right, bottom};
     return std::bit_cast<std::uint32_t>(SubmitTexturedRectangle(
-        nullptr, destination, 0.0f, 0.0f, 0.0f, 0.0f, mixMode, color));
+        nullptr, destination, 0.0f, 0.0f, 0.0f, 0.0f, mixFlags, color));
 }
 
 // 原函数：0x0044D520。
 std::int32_t RenderTextureToSurface_44D520(
     const std::int32_t x, const std::int32_t y, TextureRectangle rectangle,
     TextureSurface* surface, const std::int32_t imageNo, const std::int16_t paletteIndex,
-    const std::uint8_t mixMode, const std::uint32_t color)
+    const std::uint8_t mixFlags, const std::uint32_t color)
 {
     auto& left = rectangle[0];
     auto& top = rectangle[1];
@@ -322,7 +320,7 @@ std::int32_t RenderTextureToSurface_44D520(
     }
 
     std::int32_t destinationX = lowX;
-    const bool flipX = (mixMode & kFlipX) != 0;
+    const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
     if (flipX) {
         if (lowX < 0) {
             right += lowX;
@@ -344,7 +342,7 @@ std::int32_t RenderTextureToSurface_44D520(
     }
 
     std::int32_t destinationY = lowY;
-    const bool flipY = (mixMode & kFlipY) != 0;
+    const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
     if (flipY) {
         if (y < 0) {
             bottom += lowY;
@@ -380,9 +378,9 @@ std::int32_t RenderTextureToSurface_44D520(
         };
         return SubmitTexturedRectangle(surface, destination,
             static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),
-            mixMode, color);
+            mixFlags, color);
     }
-    if ((mixMode & kAdditive) != 0) {
+    if ((mixFlags & GraphicMixFlag_Additive) != 0) {
         return 0;
     }
     const TextureRectangle destination {
@@ -404,7 +402,7 @@ std::int32_t RenderTexture_44DA90(
     const std::int16_t x, const std::int16_t y, const TextureRectangle* rectangle,
     const float scaleX, const float scaleY, TextureSurface* surface,
     const std::int32_t imageNo, const std::int16_t paletteIndex,
-    const std::uint8_t mixMode, const std::uint32_t color)
+    const std::uint8_t mixFlags, const std::uint32_t color)
 {
     float top = static_cast<float>(static_cast<double>((*rectangle)[1]) * scaleY);
     float left = static_cast<float>(static_cast<double>((*rectangle)[0]) * scaleX);
@@ -427,7 +425,7 @@ std::int32_t RenderTexture_44DA90(
         return 0;
     }
 
-    const bool flipX = (mixMode & kFlipX) != 0;
+    const bool flipX = (mixFlags & GraphicMixFlag_FlipX) != 0;
     if (flipX) {
         if (destinationX < 0.0f) {
             right = static_cast<float>(static_cast<double>(destinationX) + right);
@@ -447,7 +445,7 @@ std::int32_t RenderTexture_44DA90(
             right = static_cast<float>(right - (extent - width));
         }
     }
-    const bool flipY = (mixMode & kFlipY) != 0;
+    const bool flipY = (mixFlags & GraphicMixFlag_FlipY) != 0;
     if (flipY) {
         if (destinationY < 0.0f) {
             bottom = static_cast<float>(static_cast<double>(destinationY) + bottom);
@@ -503,9 +501,9 @@ std::int32_t RenderTexture_44DA90(
         const double v1 = static_cast<double>(flipY ? sourceTop : sourceBottom) / textureHeight;
         return SubmitTexturedRectangle(surface, destination,
             static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),
-            mixMode, color);
+            mixFlags, color);
     }
-    if ((mixMode & kAdditive) != 0) {
+    if ((mixFlags & GraphicMixFlag_Additive) != 0) {
         return 0;
     }
     if (flipX || flipY) {

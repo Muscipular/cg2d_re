@@ -107,9 +107,11 @@ static_assert(offsetof(YobiUIData, trailingZero1) == 0x23);
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
 {
-    render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data(), &fields, sizeof(fields));
-    return descriptor;
+    return render::GraphicDescriptor16 {
+        fields.sourceX, fields.sourceY, fields.width, fields.height,
+        static_cast<std::uint32_t>(fields.color), fields.clip, fields.mixFlags,
+        std::bit_cast<std::int16_t>(fields.paletteCacheIndex),
+    };
 }
 
 namespace {
@@ -148,7 +150,7 @@ NineGridDescriptorFields MakeNineGridDescriptor(
         static_cast<std::int16_t>(height),
         color,
         std::uint8_t{1},
-        std::uint8_t{4},
+        render::GraphicMixFlag_OriginalPalette,
         std::uint16_t{0},
     };
 }

@@ -346,8 +346,8 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t imageNo = 243048;
     if (login::detail::Sub_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
@@ -609,8 +609,8 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         static_cast<std::uint16_t>(window->elements[index].y + window->y));
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());

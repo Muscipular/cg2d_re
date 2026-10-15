@@ -955,8 +955,8 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const std::int32_t destination = index - 15;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
@@ -1490,8 +1490,8 @@ static void WindowCraft_HandleMaterialDrag(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 3 || message == 4) {
             static_cast<void>(WindowCraft_ReleaseMaterials(sourceIndex));
@@ -1916,10 +1916,10 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    descriptor.bytes[13] = 4;
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    dimmed.color = dimmedColor;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
@@ -2239,7 +2239,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto* const item = &world::detail::gPlayerRuntimeSlots.items[position + 8];
@@ -2278,8 +2278,8 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
     }
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
     const std::int32_t y = element->y + window->y + 24;
@@ -2342,8 +2342,8 @@ static std::int32_t WindowCraft_DrawInputNotice(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t imageNo = 0x3B568;
     if (login::detail::Sub_5049A0(287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
@@ -2389,8 +2389,8 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -3099,8 +3099,8 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto events = static_cast<std::uint8_t>(state);
     const std::int32_t slot = index - 15;
     std::int32_t consumed = 0;
@@ -3309,8 +3309,8 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x21) != 0) {

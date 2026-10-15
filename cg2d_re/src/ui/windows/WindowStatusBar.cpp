@@ -196,8 +196,8 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
         firstWindow = gCurrentWindow;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor->bytes.data() + 8, &color, sizeof(color));
-    descriptor->bytes[13] = 4;
+    descriptor->color = color;
+    descriptor->mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (firstElement != 8) {
         firstWindow = gCurrentWindow;
     }

@@ -106,11 +106,8 @@ void UpdatePulse(
 login::detail::GraphicDescriptor16 MakeCursorDescriptor()
 {
     login::detail::GraphicDescriptor16 descriptor {};
-    descriptor.bytes[8] = 0xFF;
-    descriptor.bytes[9] = 0xFF;
-    descriptor.bytes[10] = 0xFF;
-    descriptor.bytes[11] = 0xFF;
-    descriptor.bytes[13] = 4;
+    descriptor.color = 0xFFFFFFFFu;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     return descriptor;
 }
 

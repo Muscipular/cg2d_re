@@ -681,8 +681,8 @@ static void WindowSkill_DrawSkillRow(
     const std::int32_t textLayer, const std::int32_t graphicLayer, const std::uint32_t color)
 {
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (world::detail::gSkillPairsF63370[pairIndex].used == 0) {
         return;
     }
@@ -852,8 +852,8 @@ static void WindowSkill_HandleTechniqueRow(
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const bool battle = technique >= 100;
     if (battle) {
         technique -= 100;
@@ -910,8 +910,8 @@ static void WindowSkill_HandleRecipeRow(
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe].itemId < 0) {
         return;
     }
@@ -1272,8 +1272,8 @@ static void WindowSkill_DrawPetSkillRow(
     const auto technique = std::bit_cast<std::int16_t>(
         world::detail::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
@@ -1308,10 +1308,10 @@ static void WindowSkill_DrawRidingSkillRow(
 {
     const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
     render::GraphicDescriptor16 descriptor {};
-    descriptor.bytes[13] = 4;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto technique = std::bit_cast<std::int16_t>(
         world::detail::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     const auto* const record = &world::detail::gPetRuntimeRecords[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;

@@ -169,8 +169,8 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
             + static_cast<std::uint16_t>(element->y)));
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t selected = -1;
     std::int32_t visible = -1;
     for (const auto& pair : world::detail::gPetPairsDE0B08) {

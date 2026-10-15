@@ -23,15 +23,15 @@ void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraph
     if (render::LoadGraphic_522570(loadGraphicIndex) == 0) {
         return;
     }
-    const std::uint8_t mode = action->drawMode.bytes[0x0D];
-    if ((mode & 1u) != 0) {
+    const std::uint8_t mode = action->drawMode.mixFlags;
+    if ((mode & render::GraphicMixFlag_FlipX) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const auto* const entries = render::gGraphicDxCache103CFA4;
         const std::int32_t offsetX = action->graphicOffsetX;
         const std::int16_t width = render::ReadGraphicDxWidthFromEntries(entries, graphicIndex);
         action->graphicOffsetX = -(offsetX + width);
     }
-    if ((mode & 2u) != 0) {
+    if ((mode & render::GraphicMixFlag_FlipY) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const auto* const entries = render::gGraphicDxCache103CFA4;
         const std::int16_t height = render::ReadGraphicDxHeightFromEntries(entries, graphicIndex);
@@ -56,7 +56,7 @@ void ApplyYobiAnimeFrame(
         }
     }
     const auto* const graphicFrame = &frames[action->frameIndex];
-    action->drawMode.bytes[0x0D] &= 0xFCu;
+    action->drawMode.mixFlags &= ~cg::render::GraphicMixFlag_FlipMask;
     action->graphicIndex = static_cast<std::int32_t>(graphicFrame->graphicIndex);
     std::int16_t offsetX;
     std::int16_t offsetY;
@@ -68,14 +68,13 @@ void ApplyYobiAnimeFrame(
     const std::int32_t frameOffsetY = offsetFrame->y;
     const std::int32_t graphicOffsetY = offsetY;
     action->graphicOffsetY = frameOffsetY + graphicOffsetY;
-    std::memcpy(action->drawMode.bytes.data() + 0x0E,
-        &selected->paletteIndex, sizeof(selected->paletteIndex));
+    action->drawMode.paletteIndex = selected->paletteIndex;
     std::uint8_t revert;
     std::memcpy(&revert, &selected->revert, sizeof(revert));
-    action->drawMode.bytes[0x0D] = revert;
+    action->drawMode.mixFlags = revert;
     const std::uint32_t color = selected->value14;
-    const bool flipGraphic = (revert & 3u) != 0;
-    std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
+    const bool flipGraphic = (revert & render::GraphicMixFlag_FlipMask) != 0;
+    action->drawMode.color = color;
     if (flipGraphic) {
         ApplyYobiGraphicFlip(action, action->graphicIndex);
     }
@@ -107,11 +106,11 @@ void ApplyYobiAnimeFrame(
         const std::int32_t coordinateY = coordinates[coordinateIndex].y;
         action->frameY = frameY + coordinateY;
     }
-    const std::uint8_t mode = action->drawMode.bytes[0x0D];
-    if ((mode & 1u) != 0) {
+    const std::uint8_t mode = action->drawMode.mixFlags;
+    if ((mode & render::GraphicMixFlag_FlipX) != 0) {
         action->frameX = -action->frameX;
     }
-    if ((mode & 2u) != 0) {
+    if ((mode & render::GraphicMixFlag_FlipY) != 0) {
         action->frameY = -action->frameY;
     }
     const std::int32_t remaining = action->frameRemain - 1;
@@ -217,17 +216,17 @@ std::int32_t Sub_517880(
         action->graphicOffsetX = staticOffsetX;
         action->frameRemain = 0x7FFFFFFF;
         const std::int16_t paletteIndex = 0;
-        std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
-        action->drawMode.bytes[0x0D] = 0;
+        action->drawMode.paletteIndex = paletteIndex;
+        action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
         const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
+        action->drawMode.color = color;
         if (flipStaticByte != 0) {
             const std::int32_t direction = action->direction;
-            action->drawMode.bytes[0x0D] = 0;
+            action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
             if (direction >= 2 && direction < 5) {
-                action->drawMode.bytes[0x0D] = 1;
+                action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
             }
-            if ((action->drawMode.bytes[0x0D] & 3u) != 0) {
+            if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {
                 ApplyYobiGraphicFlip(action, staticGraphicIndex);
             }
         }
@@ -329,14 +328,14 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
         action->graphicOffsetY = staticOffsetY;
         action->frameRemain = 0x7FFFFFFF;
         const std::int16_t paletteIndex = 0;
-        std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
+        action->drawMode.paletteIndex = paletteIndex;
         const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
-        action->drawMode.bytes[0x0D] = 0;
+        action->drawMode.color = color;
+        action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
         if (direction >= 2 && direction < 5) {
-            action->drawMode.bytes[0x0D] = 1;
+            action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
         }
-        if ((action->drawMode.bytes[0x0D] & 3u) != 0) {
+        if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {
             ApplyYobiGraphicFlip(action, staticGraphicIndex);
         }
         action->frameX = 0;

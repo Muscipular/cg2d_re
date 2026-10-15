@@ -286,11 +286,8 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 {
     render::GraphicDescriptor16 descriptor {};
-    descriptor.bytes[8] = 0xFF;
-    descriptor.bytes[9] = 0xFF;
-    descriptor.bytes[10] = 0xFF;
-    descriptor.bytes[11] = 0xFF;
-    descriptor.bytes[13] = 4;
+    descriptor.color = 0xFFFFFFFFu;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto& graphics = world::detail::gBattleResultGraphicsFF0D0C;
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t image = graphics[row];

@@ -459,7 +459,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                     SetYobiActionField310(action, 4);
                     SetYobiActionField308(action, 0);
                     SetYobiActionField30F(action, 255);
-                    action->drawMode.bytes[11] = 255;
+                    reinterpret_cast<unsigned char*>(&action->drawMode.color)[3] = 255;
                     payload->flagsFDC |= 0x10000000u;
                     static_cast<void>(PlayFrame_517DA0(action, 0));
                 } else {

@@ -186,10 +186,10 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const graphic)
 {
     std::int16_t index;
-    std::memcpy(&index, graphic->descriptor.data() + 0x0E, sizeof(index));
+    index = graphic->descriptor.paletteIndex;
     const std::uint8_t result = resource::RefreshIndependentPalette32_523140(index);
     if (result == 2) {
-        std::memcpy(graphic->descriptor.data() + 0x0E, &index, sizeof(index));
+        graphic->descriptor.paletteIndex = index;
     }
     return result;
 }
@@ -285,9 +285,9 @@ void Sub_522210(
 // 原函数：0x00520AD0。
 void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 {
-    const std::uint8_t mixMode = graphic->descriptor[0x0D];
+    const std::uint8_t mixFlags = graphic->descriptor.mixFlags;
     std::uint32_t color;
-    std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));
+    color = graphic->descriptor.color;
 
     // 原520ADB/520AE0/520AE5/520AEA：同一记录的四次W16读取，不能合并成W32。
     std::int16_t bottom;
@@ -305,7 +305,7 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
     std::int16_t left;
     std::memcpy(&left, &graphic->x, sizeof(left));
 
-    if (FillRect_44C9A0(left, right, top, bottom, color, mixMode)
+    if (FillRect_44C9A0(left, right, top, bottom, color, mixFlags)
         == 0x887601AEu) {
         gGraphicDirty = 1;
     }

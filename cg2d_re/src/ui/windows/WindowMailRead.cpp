@@ -375,8 +375,8 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     }
     const std::byte kind = *message.kind01;
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const WindowInstance* const firstWindow = gCurrentWindow;
     const std::int32_t firstY = firstWindow->y;
     const std::int32_t firstX = firstWindow->x;

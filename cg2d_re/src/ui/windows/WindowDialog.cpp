@@ -407,12 +407,12 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     const std::int16_t offsetY = -8;
     const std::int16_t height = 16;
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data(), &offsetX, sizeof(offsetX));
-    std::memcpy(descriptor.bytes.data() + 2, &offsetY, sizeof(offsetY));
-    std::memcpy(descriptor.bytes.data() + 6, &height, sizeof(height));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[12] = 1;
-    descriptor.bytes[13] = 4;
+    descriptor.sourceX = offsetX;
+    descriptor.sourceY = offsetY;
+    descriptor.sourceHeight = height;
+    descriptor.color = color;
+    descriptor.clipMode = 1;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if ((gMessageDialog.options & 4u) == 0) {
         const std::int32_t distance = std::bit_cast<std::int8_t>(gMessageDialog.distance);
         const std::int32_t close = WindowProfile_CheckDistance(distance, distance);
@@ -489,7 +489,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
                 if (width > 300) {
                     width = 300;
                 }
-                std::memcpy(descriptor.bytes.data() + 4, &width, sizeof(width));
+                descriptor.sourceWidth = width;
                 std::int32_t input = 0;
                 if (inputCount > 0) {
                     do {
@@ -503,7 +503,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
                             window = gCurrentWindow;
                         }
                     } while (input < inputCount);
-                    std::memcpy(&width, descriptor.bytes.data() + 4, sizeof(width));
+                    width = descriptor.sourceWidth;
                     window = gCurrentWindow;
                 }
                 left += width;

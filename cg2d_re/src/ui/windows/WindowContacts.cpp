@@ -398,8 +398,8 @@ static std::int32_t WindowContacts_Refresh()
                 continue;
             }
             const std::uint32_t color = 0xFFFFFFFFu;
-            std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-            descriptor.bytes[13] = 4;
+            descriptor.color = color;
+            descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             const std::int32_t image = character_select::detail::Sub_51BC50(*record.imageNo);
             const std::int32_t anchorY = kMailImageAnchors56F790[row][1];
             WindowInstance* const window = gCurrentWindow;
@@ -1063,8 +1063,8 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
     if (recordImage != nullptr) {
         WindowInstance* const firstWindow = gCurrentWindow;
         const std::uint32_t color = 0xFFFFFFFFu;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         WindowElement* const firstElements = firstWindow->elements;
         const std::int32_t firstWindowY = firstWindow->y;
         const std::int32_t firstElementY = firstElements[index].y;

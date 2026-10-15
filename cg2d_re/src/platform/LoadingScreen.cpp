@@ -32,7 +32,8 @@ std::int32_t InitLoading_457B10()
     render::gPaletteCapability = resource::ProbePaletteCapability_45C970();
     std::uint32_t phaseTick = ReadTickCount32();
     gLastRenderDt = static_cast<double>(phaseTick);
-    auto& descriptor = gLoadingDescriptor.bytes;
+    auto& descriptor = gLoadingDescriptor;
+    auto* const colorBytes = reinterpret_cast<unsigned char*>(&descriptor.color);
     for (;;) {
         if (PumpWindowMessages() == 0) {
             static_cast<void>(ShutdownClient_457A40());
@@ -53,8 +54,8 @@ std::int32_t InitLoading_457B10()
         switch (phase) {
         case 0: {
             static_cast<void>(render::ClearSurface_4512C0());
-            descriptor.fill(0);
-            descriptor[11] = 0xFF;
+            descriptor = {};
+            colorBytes[3] = 0xFF;
             static_cast<void>(render::SelectPalette(19, 1));
             phase = 1;
             login::detail::YobiClearUp_404D30();
@@ -219,9 +220,9 @@ std::int32_t InitLoading_457B10()
             image = 238564;
             if (render::HasLegacy3DDevice_44B610() != 0) {
                 static_cast<void>(render::SelectPalette(0, 0));
-                descriptor[8] = 0;
-                descriptor[9] = 0;
-                descriptor[10] = 0;
+                colorBytes[0] = 0;
+                colorBytes[1] = 0;
+                colorBytes[2] = 0;
             } else {
                 static_cast<void>(render::SelectPalette(0, 30));
             }
@@ -229,17 +230,17 @@ std::int32_t InitLoading_457B10()
             break;
         case 27:
             if (render::HasLegacy3DDevice_44B610() != 0) {
-                if (static_cast<int>(descriptor[10]) + 4 <= 255) {
-                    const std::uint8_t red = descriptor[10];
-                    const std::uint8_t green = descriptor[9];
-                    const std::uint8_t blue = descriptor[8];
-                    descriptor[10] = static_cast<std::uint8_t>(red + 4);
-                    descriptor[9] = static_cast<std::uint8_t>(green + 4);
-                    descriptor[8] = static_cast<std::uint8_t>(blue + 4);
+                if (static_cast<int>(colorBytes[2]) + 4 <= 255) {
+                    const std::uint8_t red = colorBytes[2];
+                    const std::uint8_t green = colorBytes[1];
+                    const std::uint8_t blue = colorBytes[0];
+                    colorBytes[2] = static_cast<std::uint8_t>(red + 4);
+                    colorBytes[1] = static_cast<std::uint8_t>(green + 4);
+                    colorBytes[0] = static_cast<std::uint8_t>(blue + 4);
                 } else {
-                    descriptor[10] = 0xFF;
-                    descriptor[9] = 0xFF;
-                    descriptor[8] = 0xFF;
+                    colorBytes[2] = 0xFF;
+                    colorBytes[1] = 0xFF;
+                    colorBytes[0] = 0xFF;
                     phaseTick = ReadTickCount32();
                     phase = 28;
                 }
@@ -260,18 +261,18 @@ std::int32_t InitLoading_457B10()
         }
         case 29:
             if (render::HasLegacy3DDevice_44B610() != 0) {
-                const std::uint8_t red = descriptor[10];
+                const std::uint8_t red = colorBytes[2];
                 if (red != 0) {
                     if (red >= 4) {
-                        const std::uint8_t green = descriptor[9];
-                        descriptor[10] = static_cast<std::uint8_t>(red - 4);
-                        const std::uint8_t blue = descriptor[8];
-                        descriptor[9] = static_cast<std::uint8_t>(green - 4);
-                        descriptor[8] = static_cast<std::uint8_t>(blue - 4);
+                        const std::uint8_t green = colorBytes[1];
+                        colorBytes[2] = static_cast<std::uint8_t>(red - 4);
+                        const std::uint8_t blue = colorBytes[0];
+                        colorBytes[1] = static_cast<std::uint8_t>(green - 4);
+                        colorBytes[0] = static_cast<std::uint8_t>(blue - 4);
                     } else {
-                        descriptor[8] = 0;
-                        descriptor[9] = 0;
-                        descriptor[10] = 0;
+                        colorBytes[0] = 0;
+                        colorBytes[1] = 0;
+                        colorBytes[2] = 0;
                     }
                 } else {
                     if (render::HasLegacy3DDevice_44B610() != 0) {

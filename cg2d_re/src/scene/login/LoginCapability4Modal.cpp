@@ -28,12 +28,9 @@ std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
 // 原 dword_9A6EBC@0x9A6EBC；原生指针宽度观察者，不放入 W32。
 cg::login::YobiAction* gCapability4ModalAction = nullptr;
 
-constexpr cg::login::detail::GraphicDescriptor16 kGraphicDescriptor {{
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0xFF, 0xFF, 0xFF, 0xFF,
-    0x00, 0x04, 0x00, 0x00,
-}};
+constexpr cg::login::detail::GraphicDescriptor16 kGraphicDescriptor {
+    0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
+};
 
 std::int32_t AddW32(
     const std::int32_t left,

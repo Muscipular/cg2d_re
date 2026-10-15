@@ -35,28 +35,29 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
         std::uint8_t replacement;
         if (replacementBeforePrevious) {
             replacement = action->rebirthValue2;
-            previous = action->drawMode.bytes[13];
+            previous = action->drawMode.mixFlags;
         } else {
-            previous = action->drawMode.bytes[13];
+            previous = action->drawMode.mixFlags;
             replacement = action->rebirthValue2;
         }
-        action->drawMode.bytes[13] = static_cast<std::uint8_t>(
+        action->drawMode.mixFlags = static_cast<std::uint8_t>(
             (previous & ~mask) | (replacement & mask));
     }
     const std::uint8_t flags = action->batchType;
     const auto* const colorBytes = reinterpret_cast<const unsigned char*>(&action->color2);
     if (flags != 0) {
+        auto* const drawColorBytes = reinterpret_cast<unsigned char*>(&action->drawMode.color);
         if ((flags & 1u) != 0) {
-            action->drawMode.bytes[10] = colorBytes[2];
+            drawColorBytes[2] = colorBytes[2];
         }
         if ((flags & 2u) != 0) {
-            action->drawMode.bytes[9] = colorBytes[1];
+            drawColorBytes[1] = colorBytes[1];
         }
         if ((flags & 4u) != 0) {
-            action->drawMode.bytes[8] = colorBytes[0];
+            drawColorBytes[0] = colorBytes[0];
         }
         if ((flags & 8u) != 0) {
-            action->drawMode.bytes[11] = colorBytes[3];
+            drawColorBytes[3] = colorBytes[3];
         }
     }
     return &action->drawMode;

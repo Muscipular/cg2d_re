@@ -13,12 +13,40 @@ struct YobiAction;
 
 namespace cg::render {
 
-// 原 KRECT/GraphicMode 的 16 字节逐字节描述；字段解释由具体绘制入口负责。
+// GraphicDescriptor16::mixFlags 的位值；组合以 U8 保存，保留动画原字节中的未知位。
+enum GraphicMixFlag : std::uint8_t {
+    GraphicMixFlag_None = 0,
+    GraphicMixFlag_FlipX = 0x01, // 横向翻转。
+    GraphicMixFlag_FlipY = 0x02, // 纵向翻转。
+    GraphicMixFlag_OriginalPalette = 0x04, // 使用原始调色板，跳过色调处理。
+    GraphicMixFlag_Additive = 0x08, // 加法混合。
+    GraphicMixFlag_FlipMask = GraphicMixFlag_FlipX | GraphicMixFlag_FlipY,
+};
+
+// 原 KRECT/GraphicMode 的 16 字节描述，队列、Yobi 与地图共用。
 struct GraphicDescriptor16 {
-    std::array<std::uint8_t, 16> bytes; // 原成员偏移：+0x00。
+    std::int16_t sourceX; // 原成员偏移：+0x00。 源图横坐标。
+    std::int16_t sourceY; // 原成员偏移：+0x02。 源图纵坐标。
+    std::int16_t sourceWidth; // 原成员偏移：+0x04。 源图宽度。
+    std::int16_t sourceHeight; // 原成员偏移：+0x06。 源图高度。
+    std::uint32_t color; // 原成员偏移：+0x08。 原32位颜色，通道写入借本成员的字节视图。
+    std::uint8_t clipMode; // 原成员偏移：+0x0C。 裁剪控制，原值1启用。
+    std::uint8_t mixFlags; // 原成员偏移：+0x0D。 GraphicMixFlag 位组合。
+    std::int16_t paletteIndex; // 原成员偏移：+0x0E。 独立调色板索引。
 };
 
 static_assert(sizeof(GraphicDescriptor16) == 0x10);
+static_assert(alignof(GraphicDescriptor16) == 0x04);
+static_assert(std::is_standard_layout_v<GraphicDescriptor16>);
+static_assert(std::is_trivially_copyable_v<GraphicDescriptor16>);
+static_assert(offsetof(GraphicDescriptor16, sourceX) == 0x00);
+static_assert(offsetof(GraphicDescriptor16, sourceY) == 0x02);
+static_assert(offsetof(GraphicDescriptor16, sourceWidth) == 0x04);
+static_assert(offsetof(GraphicDescriptor16, sourceHeight) == 0x06);
+static_assert(offsetof(GraphicDescriptor16, color) == 0x08);
+static_assert(offsetof(GraphicDescriptor16, clipMode) == 0x0C);
+static_assert(offsetof(GraphicDescriptor16, mixFlags) == 0x0D);
+static_assert(offsetof(GraphicDescriptor16, paletteIndex) == 0x0E);
 
 // 原 +0C 混用字段；按生产/消费合同访问，action 为非拥有引用，文本仍用 W32 token。
 union GraphicQueueReference {
@@ -39,7 +67,7 @@ struct GraphicCacheItem32 {
     std::int32_t imageNo; // 原成员偏移：+0x08。
     GraphicQueueReference reference; // 原成员偏移：+0x0C。
     std::int32_t value4; // 原成员偏移：+0x10。
-    std::array<std::uint8_t, 16> descriptor; // 原成员偏移：+0x14。
+    GraphicDescriptor16 descriptor; // 原成员偏移：+0x14。 与提交参数共用描述符类型。
     std::uint8_t batchType; // 原成员偏移：+0x24。
     std::array<std::uint8_t, 3> unwrittenTail; // 原成员偏移：+0x25。
 };

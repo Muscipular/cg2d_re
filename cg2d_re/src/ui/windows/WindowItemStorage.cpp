@@ -118,10 +118,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.color = dimmedColor;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -226,7 +226,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
@@ -271,8 +271,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & 0x60u) != 0
@@ -403,7 +403,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
         0, 0, 3, 1, 0, L"", 0, 0));
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
         const auto* const record = &gItemDetailStorageCC4D58[0].items[position];

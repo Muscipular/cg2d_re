@@ -3454,7 +3454,7 @@ void UpdateBattleAction218_413550(YobiAction* const action)
     action->characterAction = 0;
     SetYobiActionField308(action, 0);
     SetYobiActionField30F(action, 255);
-    action->drawMode.bytes[11] = 255;
+    reinterpret_cast<unsigned char*>(&action->drawMode.color)[3] = 255;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     if (render::HasLegacy3DDevice_44B610() == 0) {
         action->flags &= ~0x8000u;
@@ -3511,7 +3511,7 @@ bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const 
     action->characterAction = 10;
     SetYobiActionField308(action, 0);
     SetYobiActionField30F(action, 255);
-    action->drawMode.bytes[11] = 255;
+    reinterpret_cast<unsigned char*>(&action->drawMode.color)[3] = 255;
     if (imageNo > 999 && PlayFrame_517DA0(action, 1) != 1) {
         while (PlayFrame_517DA0(action, 1) != 1) {
         }

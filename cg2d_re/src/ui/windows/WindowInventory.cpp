@@ -170,8 +170,8 @@ static std::int32_t WindowItem_DrawDescriptionLines(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
@@ -215,10 +215,10 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    descriptor.bytes[13] = 4;
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    dimmed.color = dimmedColor;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::detail::PlayerItemRecord* items;
     std::int32_t count;
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
@@ -541,10 +541,10 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    descriptor.bytes[13] = 4;
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    dimmed.color = dimmedColor;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
@@ -756,10 +756,10 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    descriptor.bytes[13] = 4;
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    dimmed.color = dimmedColor;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::detail::PlayerItemRecord* items;
     std::int32_t count;
     if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
@@ -968,10 +968,10 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
     const std::uint32_t dimmedColor = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
-    descriptor.bytes[13] = 4;
-    dimmed.bytes[13] = 4;
+    descriptor.color = color;
+    dimmed.color = dimmedColor;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+    dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t hovered = -1;
     std::int32_t consumed = 0;

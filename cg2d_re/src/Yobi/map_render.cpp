@@ -546,7 +546,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     };
     const auto drawStatus = [&](YobiAction*& slot) {
         Sub_517880(slot, 100, 0, 0);
-        slot->drawMode.bytes[13] |= 4u;
+        slot->drawMode.mixFlags |= cg::render::GraphicMixFlag_OriginalPalette;
         YobiAction* const child = slot;
         const std::int32_t y = child->y;
         const render::GraphicDescriptor16* const descriptor = &child->drawMode;
@@ -720,7 +720,7 @@ std::int32_t ShowHpBar_43DB60(
     std::int16_t graphicY;
     resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
     fields.color = color;
-    fields.mixMode = 4;
+    fields.mixFlags = render::GraphicMixFlag_OriginalPalette;
     fields.clip = 1;
     fields.sourceX = -16;
     fields.sourceY = -1;
@@ -1555,22 +1555,14 @@ void RenderChara_521F20()
         const std::int32_t scaledOffsetY =
             static_cast<std::int32_t>(static_cast<std::int64_t>(scaledY));
         const std::int32_t y = action->y;
-        std::uint8_t* const descriptor = record->descriptor.data();
+        render::GraphicDescriptor16& descriptor = record->descriptor;
         record->y = scaledOffsetY + y;
         const std::int32_t imageNo = action->graphicIndex;
-        const std::uint8_t* const sourceDescriptor = action->drawMode.bytes.data();
+        const render::GraphicDescriptor16& sourceDescriptor = action->drawMode;
         record->imageNo = imageNo;
 
-        // 原四个W32逐对读取/发布；不以整个数组复制代替。
-        std::uint32_t descriptorWord;
-        std::memcpy(&descriptorWord, sourceDescriptor, sizeof(descriptorWord));
-        std::memcpy(descriptor, &descriptorWord, sizeof(descriptorWord));
-        std::memcpy(&descriptorWord, sourceDescriptor + 4, sizeof(descriptorWord));
-        std::memcpy(descriptor + 4, &descriptorWord, sizeof(descriptorWord));
-        std::memcpy(&descriptorWord, sourceDescriptor + 8, sizeof(descriptorWord));
-        std::memcpy(descriptor + 8, &descriptorWord, sizeof(descriptorWord));
-        std::memcpy(&descriptorWord, sourceDescriptor + 12, sizeof(descriptorWord));
-        std::memcpy(descriptor + 12, &descriptorWord, sizeof(descriptorWord));
+        descriptor = sourceDescriptor;
+        auto* const descriptorColorBytes = reinterpret_cast<unsigned char*>(&descriptor.color);
 
         const std::uint8_t initialColorMask = action->batchType;
         if (initialColorMask != 0) {
@@ -1579,7 +1571,7 @@ void RenderChara_521F20()
                 std::memcpy(
                     &red, reinterpret_cast<const std::uint8_t*>(&action->color2) + 2,
                     sizeof(red));
-                descriptor[10] = red;
+                descriptorColorBytes[2] = red;
             }
             const std::uint8_t greenMask = action->batchType;
             if ((greenMask & 2u) != 0) {
@@ -1587,13 +1579,13 @@ void RenderChara_521F20()
                 std::memcpy(
                     &green, reinterpret_cast<const std::uint8_t*>(&action->color2) + 1,
                     sizeof(green));
-                descriptor[9] = green;
+                descriptorColorBytes[1] = green;
             }
             const std::uint8_t blueMask = action->batchType;
             if ((blueMask & 4u) != 0) {
                 std::uint8_t blue;
                 std::memcpy(&blue, &action->color2, sizeof(blue));
-                descriptor[8] = blue;
+                descriptorColorBytes[0] = blue;
             }
             const std::uint8_t alphaMask = action->batchType;
             if ((alphaMask & 8u) != 0) {
@@ -1601,22 +1593,22 @@ void RenderChara_521F20()
                 std::memcpy(
                     &alpha, reinterpret_cast<const std::uint8_t*>(&action->color2) + 3,
                     sizeof(alpha));
-                descriptor[11] = alpha;
+                descriptorColorBytes[3] = alpha;
             }
         }
 
         const std::uint8_t firstMixMask = action->rebirthValue1;
         if (firstMixMask != 0) {
-            const std::uint8_t previousMix = descriptor[13];
+            const std::uint8_t previousMix = descriptor.mixFlags;
             const std::uint8_t clearedMix =
                 previousMix & static_cast<std::uint8_t>(~firstMixMask);
-            descriptor[13] = clearedMix;
+            descriptor.mixFlags = clearedMix;
             const std::uint8_t freshMixMask = action->rebirthValue1;
             const std::uint8_t replacementMix = action->rebirthValue2;
-            descriptor[13] = clearedMix | (replacementMix & freshMixMask);
+            descriptor.mixFlags = clearedMix | (replacementMix & freshMixMask);
         }
         if ((action->flags & 0x100000u) != 0) {
-            descriptor[11] = 0x80;
+            descriptorColorBytes[3] = 0x80;
         }
 
         record->reference.action = action;
@@ -1631,7 +1623,7 @@ void RenderChara_521F20()
         const std::int16_t actionCacheIndex =
             std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
         action->cacheIndex = static_cast<std::int32_t>(actionCacheIndex);
-        const std::uint8_t clipMode = descriptor[12];
+        const std::uint8_t clipMode = descriptor.clipMode;
         record->batchType = 0;
         if (clipMode == 1) {
             record->batchType = 1;

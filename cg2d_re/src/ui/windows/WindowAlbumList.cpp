@@ -146,8 +146,8 @@ static void* WindowAlbumList_Refresh()
         if (used) {
             const std::int32_t number = scroll + row + 1;
             const std::uint32_t color = 0xFFFFFFFFu;
-            std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-            descriptor.bytes[13] = 4;
+            descriptor.color = color;
+            descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             for (std::int32_t digit = 0; digit < 2; ++digit) {
                 WindowInstance* const window = gCurrentWindow;
                 WindowElement* const elements = window->elements;

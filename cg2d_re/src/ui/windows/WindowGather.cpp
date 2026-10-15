@@ -734,8 +734,8 @@ static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const
     const std::int32_t resultImage = gWindow12ValueCF3FF0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (resultImage >= 0) {
         WindowInstance* const window = gCurrentWindow;
         const WindowElement* const element = &window->elements[index];

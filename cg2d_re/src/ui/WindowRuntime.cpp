@@ -1046,8 +1046,8 @@ static std::int32_t WindowPet_DrawTooltip(
     const std::uint8_t textLayer, const std::uint8_t graphicLayer, const std::uint32_t color)
 {
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
     world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeRecords[index];
@@ -1124,8 +1124,8 @@ static void WindowPetDrag_Handle(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         return;
     }
@@ -1213,8 +1213,8 @@ static void WindowItemDrag_Handle(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 && gItemDragModeCC4C9C != 0
             && (world::detail::ReadPlayerActionFlagsByte() & 0x80u) == 0
@@ -1319,8 +1319,8 @@ std::uint8_t WindowInput_HandleNumber(
     const std::int32_t x = windowX + elementX;
     const std::int32_t y = windowY + elementY;
     render::GraphicDescriptor16 descriptor {};
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
     const auto hit = [](const std::int32_t left, const std::int32_t top,
                        const std::int32_t right, const std::int32_t bottom) {
@@ -1520,8 +1520,8 @@ static std::int32_t WindowItem_DrawTooltipLines(
 {
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
-    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-    descriptor.bytes[13] = 4;
+    descriptor.color = color;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
@@ -1606,10 +1606,10 @@ WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorS
     state->value3FC = 0;
     for (std::size_t index = 0; index < state->descriptors3B8.size(); ++index) {
         auto& descriptor = state->descriptors3B8[index];
-        descriptor.bytes.fill(0);
+        descriptor = {};
         const std::uint32_t color = index == 0 ? 0xFFFFFFFFu : 0x80FFFFFFu;
-        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
-        descriptor.bytes[13] = 4;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     }
     return state;
 }
@@ -2052,7 +2052,7 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
             static_cast<void>(login::detail::DrawGraphic(
                 left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[1]));
         } else {
-            state->descriptors3B8[2].bytes[11] = 5 * state->hoverCount3A8 >= 256
+            reinterpret_cast<unsigned char*>(&state->descriptors3B8[2].color)[3] = 5 * state->hoverCount3A8 >= 256
                 ? 0xFF : static_cast<std::uint8_t>(
                     5 * (*reinterpret_cast<const unsigned char*>(&state->hoverCount3A8)));
             if ((*reinterpret_cast<const unsigned char*>(&item->flags) & 0x80u) == 0) {
@@ -3469,11 +3469,8 @@ void WindowNumber_Draw(
     const std::uint8_t flags, const std::uint8_t layer)
 {
     render::GraphicDescriptor16 descriptor {};
-    descriptor.bytes[8] = 0xFFu;
-    descriptor.bytes[9] = 0xFFu;
-    descriptor.bytes[10] = 0xFFu;
-    descriptor.bytes[11] = 0xFFu;
-    descriptor.bytes[13] = 4;
+    descriptor.color = 0xFFFFFFFFu;
+    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
 
     std::int32_t drawX;
     std::int32_t drawY;
@@ -4883,12 +4880,14 @@ void WindowRuntime_DrawCurrent()
                     rectangle[3] = cropHeight;
                     cropped = 1;
                 }
-                std::memcpy(descriptor.bytes.data(), rectangle.data(), sizeof(rectangle));
-                std::memcpy(descriptor.bytes.data() + 8, &data->color, sizeof(data->color));
-                descriptor.bytes[12] = cropped;
-                descriptor.bytes[13] = 4;
-                descriptor.bytes[14] = 0;
-                descriptor.bytes[15] = 0;
+                descriptor.sourceX = std::bit_cast<std::int16_t>(rectangle[0]);
+                descriptor.sourceY = std::bit_cast<std::int16_t>(rectangle[1]);
+                descriptor.sourceWidth = std::bit_cast<std::int16_t>(rectangle[2]);
+                descriptor.sourceHeight = std::bit_cast<std::int16_t>(rectangle[3]);
+                descriptor.color = data->color;
+                descriptor.clipMode = cropped;
+                descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+                descriptor.paletteIndex = 0;
                 std::int32_t imageNo;
                 std::int32_t drawY;
                 std::int32_t drawX;

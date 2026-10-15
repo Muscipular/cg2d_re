@@ -91,8 +91,7 @@ inline constexpr wchar_t kCraftIntelligence5865E8[] = L"　智力 +{}"; // 原�
 
 inline constexpr wchar_t kCraftExperience589820[] = L"技能經驗值 {:+}"; // 原常量参考：0x00589820。
 
-inline constexpr wchar_t kCraftLevelUp589814[] = LR"(等級上升！
-)"; // 原常量参考：0x00589814。
+inline constexpr wchar_t kCraftLevelUp589814[] = L"等級上升！\n"; // 原常量参考：0x00589814。
 
 inline constexpr wchar_t kCraftEndurance589808[] = L"耐力 {:+}"; // 原常量参考：0x00589808。
 

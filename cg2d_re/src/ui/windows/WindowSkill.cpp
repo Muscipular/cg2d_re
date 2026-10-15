@@ -2226,7 +2226,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
         gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等級的技能。" /* 原常量参考：0x00586518。 */ : L"無法使用此一等級的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-            if (world::detail::IsPlayerFpLessThan(cost)) {
+            if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
                 gHoverTextD68AE8 = kWindow12NoFp5864F0;
             }
         }
@@ -2248,7 +2248,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     const auto* const current = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
                     const std::int32_t cost =
                         current->techniques3C[technique].value7C * current->fpReduce / 100;
-                    return world::detail::IsPlayerFpLessThan(cost);
+                    return (world::detail::gPlayerRuntimeSlots.fp < cost);
                 };
                 const auto fail = [] {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));

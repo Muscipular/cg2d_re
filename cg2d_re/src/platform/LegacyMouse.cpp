@@ -373,9 +373,9 @@ std::int32_t ResetLegacyMouseState_506870()
 // 原函数：0x00506890。
 void ResetLegacyMousePosition_506890(const std::int32_t x, const std::int32_t y)
 {
-    gLegacyMouseState.mouseX = static_cast<std::int32_t>(x);
+    gLegacyMouseState.mouseX = x;
 
-    gLegacyMouseState.mouseY = static_cast<std::int32_t>(y);
+    gLegacyMouseState.mouseY = y;
 }
 
 // 原函数：0x00506900。

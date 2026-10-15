@@ -390,7 +390,7 @@ static void WindowPlayerProfile_Refresh()
     fpData->text = buffer;
 
     std::wstring_view nextExperience;
-    if (world::detail::IsPlayerNextExperienceEqual(-1)) {
+    if ((world::detail::gPlayerRuntimeSlots.value68 == -1)) {
         nextExperience = L"        -";
     } else {
         cg::text::FormatTo(buffer, L"{:9}", world::detail::gPlayerRuntimeSlots.value68.value());

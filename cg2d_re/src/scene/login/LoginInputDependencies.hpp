@@ -25,10 +25,12 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(std::int32_t index);
 const char* ReadSelectedSavedDirectory();
 
 // 相册与保存记录共用原52D310/52D460，不复制编解码状态或算法。
-void EncodeSavedBytes(
+// 原函数：0x0052D310。
+void EncodeLegacyBytes_52D310(
     std::uint8_t* source, std::int32_t sourceBytes, std::int32_t mode,
     std::uint8_t* destination, std::int32_t* encodedBytes, std::int32_t capacity);
-std::int32_t DecodeSavedBytes(
+// 原函数：0x0052D460。
+std::int32_t DecodeLegacyBytes_52D460(
     const std::uint8_t* source, std::int32_t sourceBytes, std::int32_t mode,
     std::uint8_t* destination, std::int32_t* decodedBytes);
 

@@ -278,7 +278,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
     const std::int32_t skill = gUsingSkillIndexD2F32C;
     const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
         * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    if (world::detail::IsPlayerFpLessThan(cost)) {
+    if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
         graphic->imageNo = 0x3BA32;
         if ((state & 2) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));

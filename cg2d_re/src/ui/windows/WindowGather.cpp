@@ -569,7 +569,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
             const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
                 * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-            if (world::detail::IsPlayerFpLessThan(cost)) {
+            if ((world::detail::gPlayerRuntimeSlots.fp < cost)) {
                 world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
@@ -668,7 +668,7 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
     const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
     const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
         * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    const bool enoughFp = !world::detail::IsPlayerFpLessThan(cost);
+    const bool enoughFp = !(world::detail::gPlayerRuntimeSlots.fp < cost);
     if (!enoughFp && (state & 1) != 0) {
         gHoverTextD68AE8 = kWindow12NoFp5864F0;
     }

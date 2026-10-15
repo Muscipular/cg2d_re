@@ -1562,7 +1562,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 return 0;
             }
         }
-        enabled = !world::detail::IsPlayerFpLessThan(recipeCost());
+        enabled = !(world::detail::gPlayerRuntimeSlots.fp < recipeCost());
         break;
     case 3: {
         const std::int32_t selected = gSelectedItemD460C0;
@@ -1572,9 +1572,9 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             return 0;
         }
         if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-            enabled = !world::detail::IsPlayerFpLessThan(10);
+            enabled = !(world::detail::gPlayerRuntimeSlots.fp < 10);
         } else {
-            enabled = !world::detail::IsPlayerFpLessThan(
+            enabled = !(world::detail::gPlayerRuntimeSlots.fp <
                 world::detail::gPlayerRuntimeSlots.items[selected].level * 10);
             const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
             cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
@@ -1638,7 +1638,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             element->visible = 0;
             return 0;
         }
-        enabled = !world::detail::IsPlayerFpLessThan(100);
+        enabled = !(world::detail::gPlayerRuntimeSlots.fp < 100);
         break;
     case 9:
         if (gMaterialOccupancyCC4894.materialValues[0] == 0) {
@@ -1671,19 +1671,19 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         bool insufficient = false;
         switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
         case 0:
-            insufficient = world::detail::IsPlayerFpLessThan(recipeCost());
+            insufficient = (world::detail::gPlayerRuntimeSlots.fp < recipeCost());
             break;
         case 3:
             if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-                insufficient = world::detail::IsPlayerFpLessThan(10);
+                insufficient = (world::detail::gPlayerRuntimeSlots.fp < 10);
             } else {
-                insufficient = world::detail::IsPlayerFpLessThan(
-                    world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
+                insufficient = (world::detail::gPlayerRuntimeSlots.fp <
+                world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
             }
             break;
         case 6:
         case 15:
-            insufficient = world::detail::IsPlayerFpLessThan(100);
+            insufficient = (world::detail::gPlayerRuntimeSlots.fp < 100);
             break;
         default:
             break;

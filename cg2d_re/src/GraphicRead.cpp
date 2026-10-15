@@ -204,7 +204,7 @@ void LoadIndependentPaletteIndex_522900()
     }
     static_cast<std::uint32_t>(std::fread(
         &gPaletteDbfState->header, 1,
-        static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(PaletteDbfHeader))), file));
+        static_cast<std::uint32_t>(sizeof(PaletteDbfHeader)), file));
     const std::uint32_t magic = gPaletteDbfState->header.magic;
     const std::uint32_t expectedMagic = gPaletteDbfMagic58D360;
     if (magic != expectedMagic) {

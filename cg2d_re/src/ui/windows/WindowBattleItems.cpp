@@ -429,7 +429,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         world::detail::gBattleBombLevelD67B2C = level;
                         const std::int32_t cost = readBombCost(level);
                         if (usableLevel >= level && items[2].used == 0 && items[3].used == 0
-                            && !world::detail::IsPlayerFpLessThan(cost)
+                            && !(world::detail::gPlayerRuntimeSlots.fp < cost)
                             && world::detail::gBattleModeFlag5ABFCC != 1) {
                             hint = canUse;
                         }
@@ -456,7 +456,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0 && item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
-                    || world::detail::IsPlayerFpLessThan(cost)
+                    || (world::detail::gPlayerRuntimeSlots.fp < cost)
                     || world::detail::gBattleModeFlag5ABFCC == 1) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -532,7 +532,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 canDrag = usableLevel >= item.level && items[2].used == 0 && items[3].used == 0
-                    && !world::detail::IsPlayerFpLessThan(cost)
+                    && !(world::detail::gPlayerRuntimeSlots.fp < cost)
                     && world::detail::gBattleModeFlag5ABFCC != 1;
             } else {
                 canDrag = item.used != 0;
@@ -636,7 +636,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             const std::int32_t level = item.level;
             const std::int32_t cost = readBombCost(level);
             if (usableLevel < level || items[2].used != 0 || items[3].used != 0
-                || world::detail::IsPlayerFpLessThan(cost)
+                || (world::detail::gPlayerRuntimeSlots.fp < cost)
                 || world::detail::gBattleModeFlag5ABFCC == 1) {
                 static_cast<void>(login::detail::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));

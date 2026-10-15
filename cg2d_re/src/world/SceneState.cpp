@@ -315,13 +315,6 @@ std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{ // 原全�
 
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
-// 46AA00的无参调用适配；原4B0F10不读参数，共用UI回调的真实零返回实现。
-// 原函数：0x004B0F10。
-std::int32_t WindowElement_NoOp()
-{
-    return ui::detail::WindowElement_NoOp(0, 0);
-}
-
 constexpr char kCutReadMode554920[] = "rb"; // 原常量参考：0x00554920。
 
 constexpr wchar_t kCutCaption5536B8[] = L"確認"; // 原常量参考：0x005536B8。
@@ -668,7 +661,7 @@ void Sub_5186A0()
     std::array<std::uint8_t, 0x3C00C> snapshot;
     std::memcpy(snapshot.data(), &gAlbumStorage, snapshot.size());
     std::int32_t encodedBytes;
-    login::detail::EncodeSavedBytes(
+    login::detail::EncodeLegacyBytes_52D310(
         snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
     const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
     const std::uint32_t written =
@@ -709,7 +702,7 @@ void Sub_518780()
         }
         static_cast<void>(std::fclose(stream));
         std::int32_t decodedBytes;
-        static_cast<void>(login::detail::DecodeSavedBytes(
+        static_cast<void>(login::detail::DecodeLegacyBytes_52D460(
             encoded, static_cast<std::int32_t>(count), 0, decoded, &decodedBytes));
         if (decodedBytes == 0x3C00C) {
             std::memcpy(&gAlbumStorage, decoded, sizeof(gAlbumStorage));
@@ -2295,10 +2288,10 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     input::UnescapeLegacyTextAndNotify_52D2F0(source);
     if (std::strncmp(source, "@FIND_LV1", static_cast<std::uint32_t>(9)) == 0) {
         std::int32_t sound = 0;
-        std::strncpy(command, source, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(command))));
+        std::strncpy(command, source, static_cast<std::uint32_t>(sizeof(command)));
         std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
         const char* const message = const_cast<char*>(std::strstr(command, "@MSG:"));
-        std::strncpy(source, message + 5, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(source))));
+        std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     Sub_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
@@ -2477,10 +2470,10 @@ void Sub_50CAE0(
             std::memset(name, 0, sizeof(name));
             std::strcpy(name, stripped);
         };
-        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[MIC]")))) == 0) {
+        if (std::strncmp(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
             gChatGateDA3B54 = 1;
             stripPrefix(5);
-        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(static_cast<std::uint32_t>(std::strlen("[GP]")))) == 0) {
+        } else if (std::strncmp(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
             stripPrefix(4);
         }
         if (blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
@@ -4488,7 +4481,7 @@ std::int32_t __cdecl Sub_468C40(
                     destinationStart + row * destinationWidth;
                 static_cast<std::uint32_t>(std::fread(
                     planes[plane] + destinationRow,
-                    static_cast<std::uint32_t>(static_cast<std::uint32_t>(2 * copyWidth)), 1, file));
+                    static_cast<std::uint32_t>(2 * copyWidth), 1, file));
             }
         }
     }
@@ -4600,7 +4593,7 @@ std::int32_t Sub_46C840(
             for (std::int32_t row = 0; row < copyHeight; ++row) {
                 std::fseek(file, static_cast<std::int32_t>(planeOffset + 2 * sourceCell), 0);
                 static_cast<std::uint32_t>(std::fread(target,
-                    static_cast<std::uint32_t>(static_cast<std::uint32_t>(2 * copyWidth)), 1, file));
+                    static_cast<std::uint32_t>(2 * copyWidth), 1, file));
                 sourceCell += fileWidth;
                 target += windowWidth;
             }
@@ -7006,7 +6999,8 @@ std::int32_t __cdecl Sub_46AA00()
             gValueC82236 = 1;
             break;
         }
-        if (WindowElement_NoOp() != 0) {
+        // 原4B0F10不读参数；直接使用UI同一零返回入口。
+        if (ui::detail::WindowElement_NoOp(0, 0) != 0) {
             result = 1;
             const std::int32_t nextStep = step + 1;
             gValueC82230 = 1;
@@ -7778,16 +7772,6 @@ std::int32_t Sub_504B60()
 std::int16_t ReadPlayerTribe() noexcept
 {
     return std::bit_cast<std::int16_t>(detail::gPlayerRuntimeSlots.value00);
-}
-
-bool IsPlayerNextExperienceEqual(const std::int32_t expected)
-{
-    return (detail::gPlayerRuntimeSlots.value68 == static_cast<std::int32_t>(expected));
-}
-
-bool IsPlayerFpLessThan(const std::int32_t cost)
-{
-    return (detail::gPlayerRuntimeSlots.fp < static_cast<std::int32_t>(cost));
 }
 
 std::uint8_t ReadPlayerActionFlagsByte() noexcept

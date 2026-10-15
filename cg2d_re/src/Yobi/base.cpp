@@ -387,37 +387,37 @@ bool IsYobiActionReady(
     YobiAction* const action,
     const std::int32_t threshold)
 {
-    return (action->readiness >= static_cast<std::int32_t>(threshold));
+    return (action->readiness >= threshold);
 }
 
 bool IsYobiActionStateEqual(
     YobiAction* const action,
     const std::int32_t expected)
 {
-    return (action->readiness == static_cast<std::int32_t>(expected));
+    return (action->readiness == expected);
 }
 
 bool IsYobiActionStateLessOrEqual(
     YobiAction* const action,
     const std::int32_t maximum)
 {
-    return (action->readiness <= static_cast<std::int32_t>(maximum));
+    return (action->readiness <= maximum);
 }
 
 bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
 {
-    return (action->barValue1B0 < static_cast<std::int32_t>(cost));
+    return (action->barValue1B0 < cost);
 }
 
 // 原401F80：cost在左、action FP为右值；右对象只读一次，保留计数/RNG消费。
 bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const action)
 {
-    return (static_cast<std::int32_t>(cost) > action->barValue1B0);
+    return (cost > action->barValue1B0);
 }
 
 bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
 {
-    return (action->barValue1B0 >= static_cast<std::int32_t>(cost));
+    return (action->barValue1B0 >= cost);
 }
 
 std::int32_t ReadYobiActionFpOnce(YobiAction* const action)

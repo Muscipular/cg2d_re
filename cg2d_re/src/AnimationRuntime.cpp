@@ -252,7 +252,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     }
     platform::LegacyFile*& file = detail::gAnimateFiles9A3A20[fileIndex];
     std::fseek(file,
-        static_cast<std::int32_t>(static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset)), 0);
+        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset), 0);
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
     if (gAnimateRecords9A4A58[index].count == 0) {
         return 0;
@@ -359,7 +359,7 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     }
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
     std::fseek(file,
-        static_cast<std::int32_t>(static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset)), 0);
+        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset), 0);
     gAnimateRecords9A4A58[index].coordinates = static_cast<detail::CoordinateEntry*>(
         std::malloc(sizeof(detail::CoordinateEntry) * gAnimateRecords9A4A58[index].coordinateCount));
     if (gAnimateRecords9A4A58[index].coordinates == nullptr) {

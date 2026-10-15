@@ -1537,8 +1537,6 @@ std::int32_t Sub_504B10(); // SHP01：玩家正加点返5；五S16配对首个�
 // 原函数：0x00504B60。
 std::int32_t Sub_504B60(); // SHP01：五S16配对首个受伤宠物原编号，无则-1，不检查used。
 std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
-bool IsPlayerNextExperienceEqual(std::int32_t expected); // 原FDA768，独立401D00比较。
-bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。

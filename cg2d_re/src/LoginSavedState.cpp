@@ -85,8 +85,12 @@ SavedStateStorage gSavedState {}; // 原全局：0x01058698。
 // 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
 SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 
+} // namespace
+
+namespace cg::login::detail {
+
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
-[[maybe_unused]] void EncodeLegacyBytes_52D310(
+void EncodeLegacyBytes_52D310(
     std::uint8_t* const source,
     const std::int32_t sourceBytes,
     const std::int32_t mode,
@@ -168,7 +172,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 }
 
 // 原 sub_52D460@[0x52D460,0x52D569)：解码旧保存数据字节流。
-[[maybe_unused]] std::int32_t DecodeLegacyBytes_52D460(
+std::int32_t DecodeLegacyBytes_52D460(
     const std::uint8_t* const source,
     const std::int32_t sourceBytes,
     const std::int32_t mode,
@@ -229,6 +233,10 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
     return lastDecodedBytes;
 }
 
+} // namespace cg::login::detail
+
+namespace {
+
 // 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
 [[maybe_unused]] std::int32_t LoadSavedPhysicalRecord_532ED0(
     const std::int32_t physicalSlot)
@@ -259,7 +267,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
     }
 
     std::fclose(file);
-    (void)DecodeLegacyBytes_52D460(
+    (void)cg::login::detail::DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
         0,
@@ -361,7 +369,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
 
     std::uint8_t encoded[0xA20];
     std::int32_t encodedBytes;
-    EncodeLegacyBytes_52D310(
+    cg::login::detail::EncodeLegacyBytes_52D310(
         rawBytes,
         0x510,
         0,
@@ -378,7 +386,7 @@ SavedPhysicalRecord gCurrentSavedRecord {}; // 原全局：0x00FF4918。
     const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
         encoded,
         1,
-        static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+        static_cast<std::uint32_t>(encodedBytes),
         file));
     if (bytesWritten < static_cast<std::uint32_t>(encodedBytes)) {
         return 0;
@@ -634,7 +642,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
     auto* const localBytes =
         reinterpret_cast<std::uint8_t*>(&localRecord);
     std::memset(localBytes + 0x37, 0, 0x33);
-    EncodeLegacyBytes_52D310(
+    cg::login::detail::EncodeLegacyBytes_52D310(
         localBytes,
         0x510,
         0,
@@ -657,7 +665,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
     const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
         encoded,
         1,
-        static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+        static_cast<std::uint32_t>(encodedBytes),
         file));
     const std::uint32_t expectedBytes =
         static_cast<std::uint32_t>(encodedBytes);
@@ -1026,22 +1034,6 @@ std::int32_t Sub_520200()
     return PersistCurrentSavedRecord_520200();
 }
 
-void EncodeSavedBytes(
-    std::uint8_t* const source, const std::int32_t sourceBytes,
-    const std::int32_t mode, std::uint8_t* const destination,
-    std::int32_t* const encodedBytes, const std::int32_t capacity)
-{
-    EncodeLegacyBytes_52D310(source, sourceBytes, mode, destination, encodedBytes, capacity);
-}
-
-std::int32_t DecodeSavedBytes(
-    const std::uint8_t* const source, const std::int32_t sourceBytes,
-    const std::int32_t mode, std::uint8_t* const destination,
-    std::int32_t* const decodedBytes)
-{
-    return DecodeLegacyBytes_52D460(source, sourceBytes, mode, destination, decodedBytes);
-}
-
 std::int32_t ReadNewSavedPhysicalSlot105C368()
 {
     return gSavedState.newPhysical;
@@ -1262,7 +1254,7 @@ void Sub_533730()
         std::memset(localBytes + 0x37, 0, 0x33);
         localBytes[0x37] = 0;
 
-        EncodeLegacyBytes_52D310(
+        cg::login::detail::EncodeLegacyBytes_52D310(
             localBytes,
             0x510,
             0,
@@ -1284,7 +1276,7 @@ void Sub_533730()
         const std::uint32_t bytesWritten = static_cast<std::uint32_t>(std::fwrite(
             encoded,
             1,
-            static_cast<std::uint32_t>(static_cast<std::uint32_t>(encodedBytes)),
+            static_cast<std::uint32_t>(encodedBytes),
             file));
         const std::uint32_t expectedBytes =
             static_cast<std::uint32_t>(encodedBytes);

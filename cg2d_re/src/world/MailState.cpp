@@ -1268,7 +1268,7 @@ std::int32_t Sub_5348A0()
         return 0;
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        &gCategory105FA10, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gCategory105FA10))), 1, stream)));
+        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream)));
     static_cast<void>(std::fclose(stream));
     return 1;
 }
@@ -1285,7 +1285,7 @@ std::int32_t Sub_534910()
         return 0;
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        &gCategory105FA10, static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gCategory105FA10))), 1, stream)));
+        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream)));
     static_cast<void>(std::fclose(stream));
     return 1;
 }
@@ -1332,7 +1332,7 @@ std::int32_t Sub_534770()
         return 0;
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gProfiles1074938))), 1, stream)));
+        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream)));
     static_cast<void>(std::fclose(stream));
     return 1;
 }
@@ -1349,7 +1349,7 @@ std::int32_t Sub_5347F0()
         return 0;
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fread(
-        gProfiles1074938.data(), static_cast<std::uint32_t>(static_cast<std::uint32_t>(sizeof(gProfiles1074938))), 1, stream)));
+        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream)));
     static_cast<void>(std::fclose(stream));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     std::memcpy(

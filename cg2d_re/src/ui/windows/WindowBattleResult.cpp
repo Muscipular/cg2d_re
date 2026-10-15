@@ -206,7 +206,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             }
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
-                ? world::detail::IsPlayerNextExperienceEqual(-1)
+                ? (world::detail::gPlayerRuntimeSlots.value68 == -1)
                 : (world::detail::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 static_cast<WindowTextData*>(gCurrentWindow->elements[row + 13].data)->text = L"  ---  ";

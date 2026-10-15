@@ -38,3 +38,23 @@ std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowTextPrototype gWindowText56C9A8 {{}, L"偷襲"}; // 原全局：0x0056C9A8。 // 原常量参考：0x00585F70。
+
+WindowTextPrototype gWindowText56C9B0 {{}, L"被偷襲"}; // 原全局：0x0056C9B0。 // 原常量参考：0x00585F68。
+
+} // namespace
+
+// 原型：窗口32；原全局：0x0054E840。
+WindowPrototype gWindowPrototypeBattleStateNotice {2, 3, 224, 162, 192, 96, 0x80010101u, 2, gWindowElements56C9B8, &WindowBattleStateNotice_Update, &WindowRuntime_DrawCompactFrame, &WindowRuntime_ReleaseDefault}; // 32: 54E840
+
+WindowElementPrototype gWindowElements56C9B8[2] { // 原全局：0x0056C9B8。
+    {WindowElementType_Text, 78, 40, 0, 0, 1, {.text = &gWindowText56C9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 68, 40, 0, 0, 1, {.text = &gWindowText56C9B0}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

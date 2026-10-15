@@ -951,3 +951,65 @@ FirstItemSelectorStartup::~FirstItemSelectorStartup()
 }
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic562B98 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562B98。
+
+WindowGraphicData gWindowGraphic562BB0 {244290, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BB0。
+
+WindowGraphicData gWindowGraphic562BC8 {244291, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BC8。
+
+WindowGraphicData gWindowGraphic562BE0 {244294, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BE0。
+
+WindowGraphicData gWindowGraphic562BF8 {98131, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BF8。
+
+WindowGraphicData gWindowGraphic562C10 {98140, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C10。
+
+WindowGraphicData gWindowGraphic562C28 {98143, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C28。
+
+WindowGraphicData gWindowGraphic562C40 {98146, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C40。
+
+WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562C58。
+
+std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
+
+WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
+
+WindowNumberData gWindowNumber562CB8 {&gInventoryValueTextCC3ECC, 10, 3, 1, 0}; // 原全局：0x00562CB8。
+
+} // namespace
+
+// 原型：窗口14；原全局：0x0054E4E0。
+WindowPrototype gWindowPrototypeInventory {0, 4, 340, 120, 278, 259, 0x80010101u, 24, gWindowElements562CD8, &WindowInventory_Update, &WindowInventory_Draw, &WindowInventory_Release}; // 14: 54E4E0
+
+WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562CD8。
+    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic562B98}, &WindowInventory_ButtonClose},
+    {WindowElementType_Graphic, 221, 28, 49, 17, 1, {.graphic = &gWindowGraphic562BC8}, &WindowInventory_HandleMoney},
+    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber562CB0}, &WindowInventory_RefreshMoney},
+    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber562CB8}, &WindowInventory_RefreshExtraValue},
+    {WindowElementType_Graphic, 8, 0, 278, 259, 1, {.graphic = &gWindowGraphic562BB0}, &WindowInventory_HandleItems},
+    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage562C80}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
+    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_TogglePreview},
+    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowInventory_CycleEquipment},
+    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowInventory_RotatePreview},
+    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic562C58}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, -16, 17, 293, 222, 0, {.graphic = &gWindowGraphic562C40}, &WindowInventory_HandleEquipment},
+    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic562BE0}, &WindowInventory_TabEquipment},
+    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic562BF8}, &WindowInventory_TabPet},
+    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic562C10}, &WindowInventory_TabPet},
+    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic562C28}, &WindowInventory_TabPet},
+    {WindowElementType_EventArea, -197, 17, 293, 222, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_EventArea, 282, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+} // namespace cg::ui::detail

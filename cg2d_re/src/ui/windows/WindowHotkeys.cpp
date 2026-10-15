@@ -668,3 +668,66 @@ std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const std::i
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic568E70 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568E70。
+
+WindowGraphicData gWindowGraphic568E88 {0x3B902, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568E88。
+
+WindowGraphicData gWindowGraphic568EA0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568EA0。
+
+WindowGraphicData gWindowGraphic568EB8 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568EB8。
+
+WindowGraphicData gWindowGraphic568ED0 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568ED0。
+
+WindowGraphicData gWindowGraphic568EE8 {0x3B903, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568EE8。
+
+WindowGraphicData gWindowGraphic568F00 {0x3B906, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568F00。
+
+WindowGraphicData gWindowGraphic568F18 {0x3B909, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568F18。
+
+WindowGraphicData gWindowGraphic568F30 {0x3B59C, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568F30。
+
+WindowGraphicData gWindowGraphic568F48 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568F48。
+
+WindowGraphicData gWindowGraphic568F60 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00568F60。
+
+std::uint32_t gWindowMouseFlagsD677F0 = 0; // 原全局：0x00D677F0。
+
+} // namespace
+
+// 原型：窗口25；原全局：0x0054E690。
+WindowPrototype gWindowPrototypeHotkeys {0, 4, 15, 117, 286, 233, 0x80010101u, 25, gWindowElements568F78, &WindowHotkeys_Update, &WindowHotkeys_Draw, &WindowRuntime_ReleaseDefault}; // 25: 54E690
+
+WindowElementPrototype gWindowElements568F78[25] { // 原全局：0x00568F78。
+    {WindowElementType_Input, 80, 41, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 265, 9, 11, 11, 1, {.graphic = &gWindowGraphic568E70}, &WindowHotkeys_ButtonClose},
+    {WindowElementType_Graphic, 253, 68, 0, 14, 1, {.graphic = &gWindowGraphic568EA0}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 254, 68, 11, 137, 1, {.mouseFlags = &gWindowMouseFlagsD677F0}, &WindowElement_HandleVerticalScroll},
+    {WindowElementType_Graphic, 253, 58, 11, 11, 1, {.graphic = &gWindowGraphic568EB8}, &WindowHotkeys_ButtonPreviousRow},
+    {WindowElementType_Graphic, 253, 204, 11, 11, 1, {.graphic = &gWindowGraphic568ED0}, &WindowHotkeys_ButtonNextRow},
+    {WindowElementType_Graphic, 227, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F48}, &WindowHotkeys_ButtonPreviousPage},
+    {WindowElementType_Graphic, 245, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F60}, &WindowHotkeys_ButtonNextPage},
+    {WindowElementType_EventArea, 0, 0, 286, 233, 1, {.unusedValue = 0}, &WindowHotkeys_Scroll},
+    {WindowElementType_Graphic, 25, 56, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 72, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 88, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 104, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 120, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 136, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 152, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 168, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 184, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 200, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 36, 49, 17, 1, {.graphic = &gWindowGraphic568EE8}, &WindowHotkeys_TabFirstCategory},
+    {WindowElementType_Graphic, 75, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F00}, &WindowHotkeys_TabSecondCategory},
+    {WindowElementType_Graphic, 125, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabThirdCategory},
+    {WindowElementType_Graphic, 175, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabPresetText},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic568E88}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 288, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+} // namespace cg::ui::detail

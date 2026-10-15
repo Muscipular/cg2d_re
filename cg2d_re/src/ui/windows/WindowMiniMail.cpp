@@ -146,3 +146,49 @@ std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t st
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic5799D0 {0x3BA0B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799D0。
+
+WindowGraphicData gWindowGraphic5799E8 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005799E8。
+
+WindowGraphicData gWindowGraphic579A00 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00579A00。
+
+WindowGraphicData gWindowGraphic579A78 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579A78。
+
+WindowGraphicData gWindowGraphic579AA8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579AA8。
+
+WindowGraphicData gWindowGraphic579B08 {0x3C123, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00579B08。
+
+WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"收件人", // 原常量参考：0x00585CF4。
+};
+
+} // namespace
+
+// 原型：窗口63；原全局：0x0054EE20。
+WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 16, gWindowElements579B28, &WindowMiniMail_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 63: 54EE20
+
+WindowElementPrototype gWindowElements579B28[16] { // 原全局：0x00579B28。
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput},
+    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 72, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 64, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 56, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 48, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 40, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 32, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 24, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Graphic, 20, 28, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
+    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText579B20}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

@@ -27,3 +27,21 @@ std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+// 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
+WindowTextPrototype gWindowText56CCC8 {{}, cg::text::FromGbkWide(input::LegacyText593850())}; // 原全局：0x0056CCC8。
+
+} // namespace
+
+// 原型：窗口39；原全局：0x0054E8A0。
+WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101u, 1, gWindowElements56CCD0, &WindowTimerNotice_Update, &WindowRuntime_DrawCompactFrame, &WindowRuntime_ReleaseDefault}; // 39: 54E8A0
+
+WindowElementPrototype gWindowElements56CCD0[1] { // 原全局：0x0056CCD0。
+    {WindowElementType_Text, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

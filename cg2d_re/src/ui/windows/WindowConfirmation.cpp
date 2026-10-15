@@ -146,3 +146,83 @@ std::int32_t WindowConfirmation_PadText(std::wstring& destination, const std::ws
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic570560 {0x3BE34, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x00570560。
+
+WindowGraphicData gWindowGraphic570578 {0x3BE35, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x00570578。
+
+WindowGraphicData gWindowGraphic570590 {0x3BE36, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x00570590。
+
+WindowGraphicData gWindowGraphic5705A8 {0x3BE37, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x005705A8。
+
+WindowGraphicData gWindowGraphic5705C0 {0x3BE38, 0, 0, 74, 54, 0x80FFFFFFu}; // 原全局：0x005705C0。
+
+WindowGraphicData gWindowGraphic5705D8 {0x3BE39, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x005705D8。
+
+WindowGraphicData gWindowGraphic5705F0 {0x3BE3A, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x005705F0。
+
+WindowGraphicData gWindowGraphic570608 {0x3BE3B, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x00570608。
+
+WindowGraphicData gWindowGraphic570620 {0x3BE3C, 0, 0, 74, 54, 0xFFFFFFFFu}; // 原全局：0x00570620。
+
+WindowGraphicData gWindowGraphic570638 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570638。
+
+WindowGraphicData gWindowGraphic570650 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570650。
+
+WindowGraphicData gWindowGraphic570668 {0x3BE4B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570668。
+
+WindowGraphicData gWindowGraphic570680 {0x3BE4E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570680。
+
+WindowGraphicData gWindowGraphic570698 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570698。
+
+WindowGraphicData gWindowGraphic5706B0 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005706B0。
+
+WindowTextPrototype gWindowText5706C8 {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"content"}; // 原全局：0x005706C8。 // 原常量参考：0x00585E9C。
+
+} // namespace
+
+// 原型：窗口47；原全局：0x0054EA80。
+WindowPrototype gWindowPrototypeConfirmation {0, 4, 209, 159, 222, 162, 0x80010101u, 34, gWindowElements5706D0, &WindowConfirmation_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 47: 54EA80
+
+WindowElementPrototype gWindowElements5706D0[34] { // 原全局：0x005706D0。
+    {WindowElementType_Text, 30, 10, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 23, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 36, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 49, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 62, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 75, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 88, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 101, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 114, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 127, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 140, 0, 0, 0, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 45, 130, 66, 17, 1, {.graphic = &gWindowGraphic570638}, &WindowConfirmation_ButtonOk},
+    {WindowElementType_Graphic, 111, 130, 66, 17, 1, {.graphic = &gWindowGraphic570650}, &WindowConfirmation_ButtonCancel},
+    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570668}, &WindowConfirmation_ButtonActionTwo},
+    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic570680}, &WindowConfirmation_ButtonActionThree},
+    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570698}, &WindowConfirmation_ButtonActionFour},
+    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic5706B0}, &WindowConfirmation_ButtonActionFive},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570560}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic570578}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic570590}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705A8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 215, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705D8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 74, 156, 0, 0, 1, {.graphic = &gWindowGraphic570608}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic570620}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 74, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 148, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 74, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

@@ -191024,6 +191024,13 @@
       "gInputContextCC49C0": "src/ui/windows/WindowTextList.cpp",
       "gInputContextCA02E0": "src/ui/windows/WindowDialog.cpp",
       "gInputContextD2E130": "src/ui/windows/WindowGuildDetails.cpp"
+    },
+    "prototype_followup": {
+      "prototype_count": 70,
+      "element_table_count": 69,
+      "shared_payload_count": 18,
+      "central_source": "src/ui/WindowPrototypes.cpp",
+      "verification": "逐原型初值、71槽映射、3处引用别名、控件表与载荷、原地址及唯一定义静态核对；原验收状态保持，未编译、测试或运行。"
     }
   }
 }

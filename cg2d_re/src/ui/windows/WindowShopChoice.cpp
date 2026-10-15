@@ -479,3 +479,26 @@ login::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const text
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, cg::text::FromGbkWide(input::LegacyText593850()),
+};
+
+std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。
+
+} // namespace
+
+// 原型：窗口52；原全局：0x0054E960。
+WindowPrototype gWindowPrototypeShopChoice {2, 4, 209, 117, 222, 216, 0x80010101u, 3, gWindowElements56D838, &WindowShopChoice_Update, &WindowShopChoice_Draw, &WindowShopChoice_Release}; // 52: 54E960
+
+WindowElementPrototype gWindowElements56D838[3] { // 原全局：0x0056D838。
+    {WindowElementType_Text, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &WindowElement_NoOp},
+    {WindowElementType_Animation, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 99, 142, 108, 0, 1, {.unusedValue = 0}, &WindowShopChoice_SelectRow},
+};
+
+} // namespace cg::ui::detail

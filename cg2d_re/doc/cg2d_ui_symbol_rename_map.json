@@ -1247,10 +1247,10 @@
       "old_symbol": "ReleaseWindow_4A4210",
       "new_symbol": "WindowRuntime_ReleaseDefault",
       "original_entry": "0x004A4210",
-      "source": "src/ui/WindowPrototypes.cpp",
+      "source": "src/ui/WindowRuntime.cpp",
       "basis": "当前源码正文、声明职责注释及原型／元素绑定；原入口身份和状态保持。",
       "current_definition_lines": [
-        1347
+        5072
       ]
     },
     {

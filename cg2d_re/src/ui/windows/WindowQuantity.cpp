@@ -181,3 +181,35 @@ std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, const std::
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563080。
+
+WindowGraphicData gWindowGraphic563098 {244309, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00563098。
+
+WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005630B0。
+
+WindowGraphicData gWindowGraphic5630C8 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005630C8。
+
+WindowNumberData gWindowNumber5630E8 {&gNumberWindowTextCC4D1C, 10, 3, 1, 0}; // 原全局：0x005630E8。
+
+} // namespace
+
+// 原型：窗口42；原全局：0x0054E510。
+WindowPrototype gWindowPrototypeQuantity {0, 4, 100, 100, 126, 136, 0x80010101u, 8, gWindowElements5630F0, &WindowQuantity_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 42: 54E510
+
+WindowElementPrototype gWindowElements5630F0[8] { // 原全局：0x005630F0。
+    {WindowElementType_Input, 0, 0, 126, 136, 1, {.unusedValue = 0}, &WindowQuantity_HandleInput},
+    {WindowElementType_Graphic, 106, 8, 11, 11, 1, {.graphic = &gWindowGraphic563080}, &WindowRuntime_ButtonClose},
+    {WindowElementType_EventArea, 18, 46, 106, 85, 1, {.unusedValue = 0}, &WindowQuantity_ButtonOk},
+    {WindowElementType_Graphic, 92, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630B0}, &WindowQuantity_ButtonIncrease},
+    {WindowElementType_Graphic, 105, 29, 11, 11, 1, {.graphic = &gWindowGraphic5630C8}, &WindowQuantity_ButtonDecrease},
+    {WindowElementType_Number, 85, 30, 0, 0, 1, {.number = &gWindowNumber5630E8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 126, 136, 1, {.graphic = &gWindowGraphic563098}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 128, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+} // namespace cg::ui::detail

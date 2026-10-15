@@ -35,3 +35,21 @@ std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const std::int3
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowTextPrototype gWindowText56B8D0 {{}, L"觀戰結束"}; // 原全局：0x0056B8D0。 // 原常量参考：0x00554184。
+
+} // namespace
+
+// 原型：窗口29；原全局：0x0054E750。
+WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 2, gWindowElements56B8D8, &WindowRuntime_ReturnOne, &WindowRuntime_DrawCompactFrame, &WindowRuntime_ReleaseDefault}; // 29: 54E750
+
+WindowElementPrototype gWindowElements56B8D8[2] { // 原全局：0x0056B8D8。
+    {WindowElementType_Text, 32, 46, 0, 0, 1, {.text = &gWindowText56B8D0}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 32, 46, 83, 16, 1, {.unusedValue = 0}, &WindowSpectator_ButtonEnd},
+};
+
+} // namespace cg::ui::detail

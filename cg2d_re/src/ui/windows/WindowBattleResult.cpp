@@ -185,3 +185,129 @@ std::int32_t WindowDpResult_Update(const std::int32_t value)
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic56B918 {0x3BA7E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B918。
+
+WindowGraphicData gWindowGraphic56B930 {0x3BA7F, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x0056B930。
+
+WindowGraphicData gWindowGraphic56B960 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B960。
+
+WindowGraphicData gWindowGraphic56B978 {0x3BA80, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B978。
+
+WindowTextPrototype gWindowText56B990 { // 原全局：0x0056B990。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？", // 原常量参考：0x00585FA0。
+};
+
+WindowTextPrototype gWindowText56B998 { // 原全局：0x0056B998。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"+000000", // 原常量参考：0x00585F98。
+};
+
+WindowTextPrototype gWindowText56B9A0 {{}, L"？？？？？？？？"}; // 原全局：0x0056B9A0。 // 原常量参考：0x00585FA0。
+
+WindowTextPrototype gWindowText56B9A8 { // 原全局：0x0056B9A8。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"？？？？？？？？", // 原常量参考：0x00585FA0。
+};
+
+WindowTextPrototype gWindowText56B9B0 { // 原全局：0x0056B9B0。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"+000", // 原常量参考：0x00585F90。
+};
+
+WindowGraphicData gWindowGraphic56C2A0 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C2A0。
+
+WindowTextPrototype gWindowText56C2B8 { // 原全局：0x0056C2B8。
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"結果", // 原常量参考：0x00585F88。
+};
+
+WindowTextPrototype gWindowText56C2C0 { // 原全局：0x0056C2C0。
+    {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"?????  +000000", // 原常量参考：0x00585F78。
+};
+
+} // namespace
+
+// 原型：窗口30；原全局：0x0054E780。
+WindowPrototype gWindowPrototypeBattleResult {1, 3, 40, 40, 490, 301, 0x80010101u, 66, gWindowElements56B9B8, &WindowBattleResult_Update, &WindowBattleResult_Draw, &WindowRuntime_ReleaseDefault}; // 30: 54E780
+
+// 原型：窗口31；原全局：0x0054E7B0。
+WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u, 4, gWindowElements56C2C8, &WindowDpResult_Update, &WindowRuntime_DrawLargeFrame, &WindowRuntime_ReleaseDefault}; // 31: 54E7B0
+
+WindowElementPrototype gWindowElements56B9B8[66] { // 原全局：0x0056B9B8。
+    {WindowElementType_EventArea, 0, 27, 490, 274, 1, {.unusedValue = 0}, &WindowBattleResult_ButtonClose},
+    {WindowElementType_Graphic, 268, 40, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 268, 59, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 268, 78, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 268, 97, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 72, 47, 0, 0, 1, {.graphic = &gWindowGraphic56B960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 72, 66, 0, 0, 1, {.graphic = &gWindowGraphic56B960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 72, 85, 0, 0, 1, {.graphic = &gWindowGraphic56B960}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 72, 104, 0, 0, 1, {.graphic = &gWindowGraphic56B960}, &WindowElement_NoOp},
+    {WindowElementType_Text, 86, 46, 0, 0, 1, {.text = &gWindowText56B990}, &WindowElement_NoOp},
+    {WindowElementType_Text, 86, 65, 0, 0, 1, {.text = &gWindowText56B990}, &WindowElement_NoOp},
+    {WindowElementType_Text, 86, 84, 0, 0, 1, {.text = &gWindowText56B990}, &WindowElement_NoOp},
+    {WindowElementType_Text, 86, 103, 0, 0, 1, {.text = &gWindowText56B990}, &WindowElement_NoOp},
+    {WindowElementType_Text, 226, 46, 0, 0, 1, {.text = &gWindowText56B998}, &WindowElement_NoOp},
+    {WindowElementType_Text, 226, 65, 0, 0, 1, {.text = &gWindowText56B998}, &WindowElement_NoOp},
+    {WindowElementType_Text, 226, 84, 0, 0, 1, {.text = &gWindowText56B998}, &WindowElement_NoOp},
+    {WindowElementType_Text, 226, 103, 0, 0, 1, {.text = &gWindowText56B998}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 44, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 60, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 76, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 92, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 108, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 124, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 140, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 156, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 172, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 188, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 204, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 220, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 236, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 468, 252, 0, 0, 1, {.graphic = &gWindowGraphic56B978}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 50, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 66, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 82, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 98, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 114, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 130, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 146, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 162, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 178, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 194, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 210, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 226, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 242, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 283, 258, 0, 0, 1, {.text = &gWindowText56B9A8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 50, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 66, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 82, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 98, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 114, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 130, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 146, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 162, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 178, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 194, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 210, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 226, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 242, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 448, 258, 0, 0, 1, {.text = &gWindowText56B9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 72, 171, 0, 0, 1, {.text = &gWindowText56B9A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 72, 220, 0, 0, 1, {.text = &gWindowText56B9A0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 72, 269, 0, 0, 1, {.text = &gWindowText56B9A0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B918}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 27, 0, 0, 1, {.graphic = &gWindowGraphic56B930}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 9, 0, 481, 27, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_EventArea, 493, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+WindowElementPrototype gWindowElements56C2C8[4] { // 原全局：0x0056C2C8。
+    {WindowElementType_Graphic, 42, 106, 66, 17, 1, {.graphic = &gWindowGraphic56C2A0}, &WindowRuntime_ButtonCloseResult},
+    {WindowElementType_Text, 20, 10, 0, 0, 1, {.text = &gWindowText56C2B8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 40, 0, 0, 1, {.text = &gWindowText56C2C0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 20, 65, 0, 0, 1, {.text = &gWindowText56C2C0}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

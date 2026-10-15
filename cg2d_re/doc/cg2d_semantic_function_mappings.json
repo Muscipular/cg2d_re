@@ -249544,7 +249544,7 @@
           "relationship": "既有真实按钮body，仅恢复原取样序/hover持有，命令发送/字段发布/返回及门槛保持"
         },
         {
-          "path": "src/ui/WindowPrototypes.cpp",
+          "path": "src/ui/windows/WindowBattleCommand.cpp",
           "symbols": [
             "gWindowElements56B710"
           ],
@@ -249636,7 +249636,7 @@
           "relationship": "既有真实按钮body，仅恢复原取样序/hover持有，命令发送/字段发布/返回及门槛保持"
         },
         {
-          "path": "src/ui/WindowPrototypes.cpp",
+          "path": "src/ui/windows/WindowSkill.cpp",
           "symbols": [
             "gWindowElements561B78"
           ],
@@ -284962,6 +284962,7 @@
     "spec": "doc/cg2d_ui_window_split_spec.md",
     "scope": "窗口文件拆分与24处输入上下文定义归位；当前路径同步，原身份和验收状态保持。",
     "window_source_count": 68,
-    "verification": "逐单元正文与原地址、跨文件声明、唯一定义和CMake接线静态核对；未编译、测试或运行。"
+    "verification": "逐单元正文与原地址、跨文件声明、唯一定义和CMake接线静态核对；未编译、测试或运行。",
+    "prototype_followup": "70个原型及69张控件表归位；18项共享载荷和编译期索引留中央文件，71槽与36/37共享关系保持，仅静态核对。"
   }
 }

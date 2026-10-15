@@ -237,3 +237,107 @@ std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const std::int
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic5613F0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005613F0。
+
+WindowGraphicData gWindowGraphic561408 {0x3BAB5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561408。
+
+WindowGraphicData gWindowGraphic561420 {0x3B583, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561420。
+
+WindowGraphicData gWindowGraphic561438 {0x3BAB8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561438。
+
+WindowGraphicData gWindowGraphic561450 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561450。
+
+WindowGraphicData gWindowGraphic561468 {0x3C10F, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561468。
+
+WindowGraphicData gWindowGraphic561480 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00561480。
+
+WindowGraphicData gWindowGraphic561498 {0x3BAB1, 0, 0, 0, 0, 0x80808080u}; // 原全局：0x00561498。
+
+WindowGraphicData gWindowGraphic5614B0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614B0。
+
+WindowGraphicData gWindowGraphic5614C8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614C8。
+
+WindowGraphicData gWindowGraphic5614E0 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614E0。
+
+WindowGraphicData gWindowGraphic5614F8 {0x3C113, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005614F8。
+
+WindowTextPrototype gWindowText561510 { // 原全局：0x00561510。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"名稱", // 原常量参考：0x00586230。
+};
+
+WindowTextPrototype gWindowText561518 { // 原全局：0x00561518。
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, L"等級", // 原常量参考：0x00586228。
+};
+
+WindowTextPrototype gWindowText561520 { // 原全局：0x00561520。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"稱號", // 原常量参考：0x005860D0。
+};
+
+WindowTextPrototype gWindowText561528 { // 原全局：0x00561528。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"職業", // 原常量参考：0x0058621C。
+};
+
+WindowTextPrototype gWindowText561530 { // 原全局：0x00561530。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"公會", // 原常量参考：0x005860C8。
+};
+
+WindowTextPrototype gWindowText561540 { // 原全局：0x00561540。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"SELL", // 原常量参考：0x005860B8。
+};
+
+WindowTextPrototype gWindowText561548 { // 原全局：0x00561548。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"BUY", // 原常量参考：0x005860B4。
+};
+
+WindowTextPrototype gWindowText561550 { // 原全局：0x00561550。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"ABOUT", // 原常量参考：0x005860AC。
+};
+
+} // namespace
+
+// 原型：窗口58；原全局：0x0054E3F0。
+WindowPrototype gWindowPrototypeOwnProfile {0, 4, 15, 97, 315, 261, 0x80000080u, 34, gWindowElements561558, &WindowOwnProfile_Update, &WindowRuntime_DrawDefault, &WindowOwnProfile_Release}; // 58: 54E3F0
+
+WindowElementPrototype gWindowElements561558[34] { // 原全局：0x00561558。
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText561510}, &WindowElement_NoOp},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText561518}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText561520}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText561528}, &WindowElement_NoOp},
+    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText561530}, &WindowElement_NoOp},
+    {WindowElementType_Input, 90, 105, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
+    {WindowElementType_Input, 90, 129, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
+    {WindowElementType_Input, 90, 153, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
+    {WindowElementType_Input, 90, 177, 168, 54, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
+    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText561540}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText561548}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
+    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5613F0}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 15, 29, 64, 72, 1, {.graphic = &gWindowGraphic5614F8}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5613F0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic561408}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic561420}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic561438}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic561450}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 266, 105, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 266, 128, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 266, 151, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 257, 32, 40, 30, 1, {.graphic = &gWindowGraphic5614C8}, &WindowProfile_HandleButtons},
+    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic561468}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561480}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561498}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+} // namespace cg::ui::detail

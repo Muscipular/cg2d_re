@@ -17317,10 +17317,10 @@
           "namespace": "(匿名)"
         },
         {
-          "path": "src/ui/WindowPrototypes.cpp",
+          "path": "src/ui/WindowRuntime.cpp",
           "symbol": "WindowRuntime_ReleaseDefault",
-          "definition_line": 1347,
-          "namespace": "cg::ui::detail::(匿名)"
+          "definition_line": 5072,
+          "namespace": "cg::ui::detail"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",

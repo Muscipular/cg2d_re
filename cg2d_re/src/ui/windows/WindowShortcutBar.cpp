@@ -157,3 +157,63 @@ std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+
+WindowGraphicData gWindowGraphic55EC58 {0x18229, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC58。
+
+WindowGraphicData gWindowGraphic55EC70 {0x3B90E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC70。
+
+WindowGraphicData gWindowGraphic55EC88 {0x3B911, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055EC88。
+
+WindowGraphicData gWindowGraphic55ECA0 {0x3B914, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECA0。
+
+WindowGraphicData gWindowGraphic55ECB8 {0x3B917, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECB8。
+
+WindowGraphicData gWindowGraphic55ECD0 {0x3B91A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECD0。
+
+WindowGraphicData gWindowGraphic55ECE8 {0x3B91D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ECE8。
+
+WindowGraphicData gWindowGraphic55ED00 {0x3B920, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED00。
+
+WindowGraphicData gWindowGraphic55ED18 {0x3B923, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED18。
+
+WindowGraphicData gWindowGraphic55ED30 {0x18223, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED30。
+
+WindowGraphicData gWindowGraphic55ED48 {0x3B90D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0055ED48。
+
+std::uint32_t gWindowMouseFlagsD67620 = 0; // 原全局：0x00D67620。
+
+} // namespace
+
+// 原型：窗口4；原全局：0x0054E240。
+WindowPrototype gWindowPrototypeShortcutBar {0, 5, 437, 0, 210, 28, 0x80000080u, 11, gWindowElements55ED60, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 4: 54E240
+
+// 原型：窗口5；原全局：0x0054E270。
+WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80000080u, 2, gWindowElements55EEC0, &WindowShortcutBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 5: 54E270
+
+WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeShortcutBar; // 原全局：0x0054E240。
+
+WindowElementPrototype gWindowElements55ED60[11] { // 原全局：0x0055ED60。
+    {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &WindowShortcutBar_HandleButtons},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonCollapse},
+};
+
+WindowElementPrototype gWindowElements55EEC0[2] { // 原全局：0x0055EEC0。
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonExpand},
+};
+
+} // namespace cg::ui::detail

@@ -101,3 +101,77 @@ std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std::int32_
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic56B0D8 {0x3B985, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B0D8。
+
+WindowGraphicData gWindowGraphic56B0F0 {0x3B988, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B0F0。
+
+WindowGraphicData gWindowGraphic56B108 {0x3B98B, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B108。
+
+WindowGraphicData gWindowGraphic56B120 {0x3B98E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B120。
+
+WindowGraphicData gWindowGraphic56B138 {0x3B991, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B138。
+
+WindowGraphicData gWindowGraphic56B150 {0x3B994, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B150。
+
+WindowGraphicData gWindowGraphic56B168 {0x3B997, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B168。
+
+WindowGraphicData gWindowGraphic56B180 {0x3B99A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B180。
+
+WindowGraphicData gWindowGraphic56B198 {0x3B99D, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B198。
+
+WindowGraphicData gWindowGraphic56B1B0 {0x3B9A0, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B1B0。
+
+WindowGraphicData gWindowGraphic56B1C8 {0x3B9A3, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B1C8。
+
+WindowGraphicData gWindowGraphic56B1E0 {0x3B9A6, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B1E0。
+
+WindowGraphicData gWindowGraphic56B1F8 {0x3B9A9, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B1F8。
+
+WindowGraphicData gWindowGraphic56B210 {0x3B9AC, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B210。
+
+WindowGraphicData gWindowGraphic56B228 {0x3B9AF, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B228。
+
+WindowGraphicData gWindowGraphic56B240 {0x3B9B2, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B240。
+
+WindowGraphicData gWindowGraphic56B258 {0x3B9B5, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B258。
+
+WindowGraphicData gWindowGraphic56B270 {0x3B9B8, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B270。
+
+WindowGraphicData gWindowGraphic56B288 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B288。
+
+WindowGraphicData gWindowGraphic56B2A0 {0x3B984, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B2A0。
+
+} // namespace
+
+// 原型：窗口34；原全局：0x0054E6F0。
+WindowPrototype gWindowPrototypeEmote {0, 4, 575, 97, 61, 260, 0x80010101u, 20, gWindowElements56B2B8, &WindowEmote_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 34: 54E6F0
+
+WindowElementPrototype gWindowElements56B2B8[20] { // 原全局：0x0056B2B8。
+    {WindowElementType_Graphic, 5, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B0D8}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B0F0}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B108}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B120}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B138}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B150}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B168}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B180}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 5, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B198}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B1B0}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B1C8}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B1E0}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B1F8}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B210}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B228}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B240}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B258}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 29, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B270}, &WindowEmote_ButtonEmote},
+    {WindowElementType_Graphic, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &WindowElement_NoOp},
+};
+
+} // namespace cg::ui::detail

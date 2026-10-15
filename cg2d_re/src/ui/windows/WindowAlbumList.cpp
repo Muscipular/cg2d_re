@@ -206,3 +206,116 @@ std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_t state
 } // namespace detail
 
 } // namespace cg::ui
+
+namespace cg::ui::detail {
+
+namespace {
+
+WindowGraphicData gWindowGraphic566F18 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566F18。
+
+WindowGraphicData gWindowGraphic566F30 {0x3BB00, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566F30。
+
+WindowGraphicData gWindowGraphic566F48 {0x3BB01, 0, 0, 0, 0, 0x80FFFFFFu}; // 原全局：0x00566F48。
+
+WindowGraphicData gWindowGraphic566F60 {0x3BB03, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566F60。
+
+WindowGraphicData gWindowGraphic566F78 {0x3B6B4, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566F78。
+
+WindowGraphicData gWindowGraphic566F90 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566F90。
+
+WindowGraphicData gWindowGraphic566FA8 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FA8。
+
+WindowGraphicData gWindowGraphic566FC0 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FC0。
+
+WindowGraphicData gWindowGraphic566FD8 {0x3BB05, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FD8。
+
+WindowGraphicData gWindowGraphic566FF0 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00566FF0。
+
+WindowGraphicData gWindowGraphic567008 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00567008。
+
+WindowTextPrototype gWindowText567020 { // 原全局：0x00567020。
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"寵物名稱", // 原常量参考：0x00586048。
+};
+
+std::uint32_t gWindowMouseFlagsD677C0 = 0; // 原全局：0x00D677C0。
+
+} // namespace
+
+// 原型：窗口19；原全局：0x0054E600。
+WindowPrototype gWindowPrototypeAlbumList {0, 4, 38, 95, 225, 220, 0x80010101u, 71, gWindowElements567028, &WindowAlbumList_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 19: 54E600
+
+WindowElementPrototype gWindowElements567028[71] { // 原全局：0x00567028。
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic566F18}, &WindowRuntime_ButtonClose},
+    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic566F90}, &WindowElement_NoOp},
+    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD677C0}, &WindowAlbumList_DragScroll},
+    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic566FA8}, &WindowAlbumList_HandleScrollButtons},
+    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic566FC0}, &WindowAlbumList_HandleScrollButtons},
+    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic566FF0}, &WindowAlbumList_HandleScrollButtons},
+    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic567008}, &WindowAlbumList_HandleScrollButtons},
+    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowAlbumList_Scroll},
+    {WindowElementType_Graphic, 19, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 19, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 25, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 31, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 31, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 47, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 63, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 79, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 95, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 111, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 127, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 143, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 159, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 47, 175, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 29, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 45, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 61, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 77, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 93, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 109, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 125, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 141, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 157, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Text, 75, 173, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic566F30}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic566F48}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+};
+
+} // namespace cg::ui::detail

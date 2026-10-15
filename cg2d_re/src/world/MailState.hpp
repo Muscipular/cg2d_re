@@ -29,7 +29,7 @@ struct ProfileRuntimeRecord {
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
 const ProfileRuntimeRecord& ReadReceivedProfile1074110(); // 窗口64借用DpSY独立回复区。
-ProfileRuntimeRecord& BorrowCurrentProfile10738E8(); // 窗口58编辑借用，仍归MailState持有。
+ProfileRuntimeRecord& EditCurrentProfile10738E8(); // 窗口58编辑借用，仍归MailState持有。
 const ProfileRuntimeRecord& ReadSelectedProfile1074938(); // 每次按当前S16角色借用持久资料。
 // 原函数：0x00533B00。
 std::int32_t Sub_533B00(); // 固定一次角色，三数值/三文本/正文按原顺序短路比较。
@@ -119,9 +119,9 @@ struct MailMessageView {
     const char* text14; // 所指原成员偏移：+0x14。
 };
 
-MailMessageView BorrowMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
-MailMessageView BorrowGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
-MailMessageView BorrowMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
+MailMessageView GetMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
+MailMessageView GetGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
+MailMessageView GetMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
 extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 原全局：0x00FDA608。 数值索引，不是地址。
 extern std::uint16_t gValue62B354; // 原全局：0x0062B354。 518DA0写未读类别0/1/2/3。
 extern std::uint32_t gValueCB1384; // 原全局：0x00CB1384。 同源邮件页号，518C80清零。

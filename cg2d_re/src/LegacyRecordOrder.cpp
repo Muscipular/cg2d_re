@@ -113,22 +113,22 @@ std::int32_t ReadGuildOwnKey10514B8() noexcept
     return gGuildHeader10514A8.value10;
 }
 
-const char* BorrowGuildName10514BC() noexcept
+const char* GetGuildName() noexcept
 {
     return gGuildHeader10514A8.texts14[0].data();
 }
 
-const char* BorrowGuildSecondText10514E5() noexcept
+const char* GetGuildSecondText() noexcept
 {
     return gGuildHeader10514A8.texts14[1].data();
 }
 
-const char* BorrowGuildAuxText1057BF4(const std::int32_t index) noexcept
+const char* GetGuildAuxText(const std::int32_t index) noexcept
 {
     return gGuildTexts1057BF4[index].data();
 }
 
-const char* BorrowGuildRankText1051518(const std::int32_t index) noexcept
+const char* GetGuildRankText(const std::int32_t index) noexcept
 {
     return gGuildTextRecords1051514[index].text04.data();
 }

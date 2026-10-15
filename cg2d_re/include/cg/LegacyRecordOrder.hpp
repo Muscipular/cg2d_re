@@ -45,10 +45,10 @@ std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21
 std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗口21三行按钮只读权限首字节。
 std::int32_t ReadGuildStatus10514AC() noexcept; // 窗口21公会状态，借header.value04。
 std::int32_t ReadGuildOwnKey10514B8() noexcept; // 窗口21成员本人判断，借header.value10。
-const char* BorrowGuildName10514BC() noexcept; // 同源texts14[0]，原字节借用。
-const char* BorrowGuildSecondText10514E5() noexcept; // 窗口48借用同一公会头的第二文本。
-const char* BorrowGuildAuxText1057BF4(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
-const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
+const char* GetGuildName() noexcept; // 同源texts14[0]，原字节借用。
+const char* GetGuildSecondText() noexcept; // 窗口48借用同一公会头的第二文本。
+const char* GetGuildAuxText(std::int32_t index) noexcept; // 窗口48三条附加文本，步长29H。
+const char* GetGuildRankText(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
 
 // GMR01：原50EF50，200条/+8 W16恰1/S32 count0..200，正文正确保持。
 std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;

@@ -39,7 +39,7 @@ static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
 namespace {
 
-// 文件、网络回复与窗口40共用这些原字节区；UI经BorrowMailMessageF7CA08/BorrowGuildMailMessageDE0B30借用，存储归本模块持有。
+// 文件、网络回复与窗口40共用这些原字节区；UI经GetMailMessageF7CA08/GetGuildMailMessageDE0B30借用，存储归本模块持有。
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {}; // 原全局：0x00F7CA08。
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {}; // 原全局：0x00DE0B30。
 
@@ -153,7 +153,7 @@ constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
 static_assert(sizeof(gMailStorageF7CA08) == 2 * 60 * 10 * 0x140);
 static_assert(sizeof(gGuildMailStorageDE0B30) == 2 * 200 * 0xC88);
 
-MailMessageView BorrowMailMessageBytes(std::byte* const message)
+MailMessageView MakeMailMessageView(std::byte* const message)
 {
     return {message, message + 1,
         reinterpret_cast<const char*>(message + 2),
@@ -197,28 +197,28 @@ const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index
     return gMiniMailRuntime.contacts[index];
 }
 
-MailMessageView BorrowMailMessageF7CA08(
+MailMessageView GetMailMessageF7CA08(
     const std::int16_t selected, const std::int32_t contact, const std::int32_t page)
 {
-    return BorrowMailMessageBytes(gMailStorageF7CA08.data()
+    return MakeMailMessageView(gMailStorageF7CA08.data()
         + selected * kMailGroupBytes
         + static_cast<std::ptrdiff_t>(contact) * kMailNumberBytes
         + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
 }
 
-MailMessageView BorrowGuildMailMessageDE0B30(
+MailMessageView GetGuildMailMessageDE0B30(
     const std::int16_t selected, const std::int32_t slot, const std::int32_t page)
 {
-    return BorrowMailMessageBytes(gGuildMailStorageDE0B30.data()
+    return MakeMailMessageView(gGuildMailStorageDE0B30.data()
         + selected * kGuildMailGroupBytes
         + static_cast<std::ptrdiff_t>(slot) * kGuildMailEntryBytes + 8
         + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
 }
 
-MailMessageView BorrowMiniMailMessage10763A0(
+MailMessageView GetMiniMailMessage10763A0(
     const std::int32_t contact, const std::int32_t page)
 {
-    return BorrowMailMessageBytes(gMiniMailRuntime.messages.data()
+    return MakeMailMessageView(gMiniMailRuntime.messages.data()
         + static_cast<std::ptrdiff_t>(contact) * kMailNumberBytes
         + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
 }
@@ -233,7 +233,7 @@ const ProfileRuntimeRecord& ReadReceivedProfile1074110()
     return gReceivedProfile1074110;
 }
 
-ProfileRuntimeRecord& BorrowCurrentProfile10738E8()
+ProfileRuntimeRecord& EditCurrentProfile10738E8()
 {
     return gCurrentProfile10738E8;
 }

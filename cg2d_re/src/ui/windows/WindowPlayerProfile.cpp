@@ -324,7 +324,7 @@ static void WindowPlayerProfile_Refresh()
     WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const char* const name = world::detail::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
@@ -333,7 +333,7 @@ static void WindowPlayerProfile_Refresh()
     levelData->text = buffer;
 
     WindowElement* const jobElements = gCurrentWindow->elements;
-    const char* const job = world::detail::BorrowPlayerJobName();
+    const char* const job = world::detail::GetPlayerJobName();
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
     jobData->text = cg::text::FromGbkWide(job);
 
@@ -341,11 +341,11 @@ static void WindowPlayerProfile_Refresh()
     const std::int32_t guildIndex = login::detail::ReadGuildTextIndex10514B0();
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     if (guildIndex != -1) {
-        const char* const guild = login::detail::BorrowGuildName10514BC();
+        const char* const guild = login::detail::GetGuildName();
         guildData->text = cg::text::FromGbkWide(guild);
         const std::int32_t rankIndex = login::detail::ReadGuildTextIndex10514B0();
         auto* const rankData = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
-        const char* const rank = login::detail::BorrowGuildRankText1051518(rankIndex);
+        const char* const rank = login::detail::GetGuildRankText(rankIndex);
         rankData->text = cg::text::FromGbkWide(rank);
     } else {
         const char* const guild = input::LegacyText593850();
@@ -357,11 +357,11 @@ static void WindowPlayerProfile_Refresh()
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const title = world::detail::BorrowTitleText(titleIndex);
+    const char* const title = world::detail::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);
 
     WindowElement* const ownTitleElements = gCurrentWindow->elements;
-    const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
+    const char* const ownTitle = world::detail::GetPlayerDisplayText(2);
     auto* const ownTitleData = static_cast<WindowTextData*>(ownTitleElements[7].data);
     ownTitleData->text = cg::text::FromGbkWide(ownTitle);
 

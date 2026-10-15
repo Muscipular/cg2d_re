@@ -361,7 +361,7 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
         gCurrentWindow->elements[11].visible = 1;
     }
 
-    const std::wstring_view description = platform::BorrowWindowImeDescription_4734F0();
+    const std::wstring_view description = platform::QueryWindowImeDescription_4734F0();
     WindowElement* const elements = gCurrentWindow->elements;
     auto* const text = static_cast<WindowTextData*>(elements[9].data);
     text->text = description;

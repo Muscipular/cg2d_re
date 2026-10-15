@@ -14,9 +14,9 @@ namespace cg::resource {
 // 原553104/553108：独立队列与DBF分别构造后即时登记真实退出。
 // 当前仅模块适配调用；接全应用序时同小步移除适配，不重复构析。
 // 原函数：0x00522620。
-std::int32_t InitializeIndependentPaletteQueue_522620();
+void InitializeIndependentPaletteQueue_522620();
 // 原函数：0x00522690。
-std::int32_t InitializePaletteDbfState_522690();
+void InitializePaletteDbfState_522690();
 
 // 原 0x927EF4 的九个 Graphic 文件槽，统一由资源初始化/关闭链接原FILE核心。
 extern platform::LegacyFile* gGraphicFiles[9];
@@ -58,7 +58,7 @@ std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index);
 // 原 520C81..520CA1：一次借同一记录的原色/色调 W32 表地址；记录空则两者为空。
 // 不检查索引范围；调用者取得地址后才读取绘制混合位，选择同一记录的色表。
 // 调用者已由 523140 处理绘制索引；池释放后这两个非拥有引用失效。
-void BorrowIndependentPaletteColors32(
+void GetIndependentPaletteColors32(
     std::int16_t index,
     const std::uint32_t*& originalColors,
     const std::uint32_t*& tonedColors);

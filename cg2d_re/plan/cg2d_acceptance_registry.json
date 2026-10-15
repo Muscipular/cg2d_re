@@ -328,7 +328,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1372,7 +1373,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "blockers": [
         "已知原成员登记并不构成全部CRT/混合边界/未知间接调用闭包；member_inventory_closed仍false，全部原事实及证据保历史。",
@@ -4182,7 +4184,8 @@
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
         "doc/cg2d_startup_flow.md#window-resource-module-decision-20261009",
-        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision"
+        "doc/cg2d_animation_cleanup_chain_spec.md#animation-cleanup-decision",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -4576,7 +4579,8 @@
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-decision-20261010",
         "doc/cg2d_crt_host_migration_spec.md#msvc-crt-sort-consistent-source-state-20261010",
         "doc/cg2d_msvc_crt_sort_consistent_evidence.json",
-        "doc/cg2d_sdl_presenter.md#present-driver-fps-fix-20261013"
+        "doc/cg2d_sdl_presenter.md#present-driver-fps-fix-20261013",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -4803,7 +4807,8 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
-        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009"
+        "doc/ui_windows/shared_profile.md#profile-page-coordinate-decision-20261009",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -74898,7 +74903,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -74979,7 +74985,8 @@
         "doc/cg2d_cryptint_class_spec.md#cryptint-player-snapshot-direct",
         "doc/cg2d_cryptint_class_spec.md#cryptint-other-direct-globals",
         "doc/cg2d_cryptint_direct_globals_evidence.json",
-        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals"
+        "doc/cg2d_cryptint_class_spec.md#cryptint-composite-direct-globals",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79573,7 +79580,8 @@
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79582,7 +79590,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79591,7 +79600,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79601,7 +79611,8 @@
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79610,7 +79621,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79619,7 +79631,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79647,7 +79660,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79656,7 +79670,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79665,7 +79680,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79675,7 +79691,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79684,7 +79701,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79693,7 +79711,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79703,7 +79722,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79712,7 +79732,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79721,7 +79742,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79731,7 +79753,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -79740,7 +79763,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -80215,7 +80239,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -80224,7 +80249,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -80233,7 +80259,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_class_spec.md#cryptint-startup-source-state",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ]
     },
     {
@@ -102335,7 +102362,8 @@
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
-        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011"
+        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。"
     },
@@ -102348,7 +102376,8 @@
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-decision",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-acceptance",
         "doc/cg2d_selector_construction_exit_spec.md#selector-construction-source-state",
-        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011"
+        "doc/cg2d_selector_construction_exit_spec.md#evidence-archive-20261011",
+        "doc/cg2d_borrow_cleanup_spec.md"
       ],
       "boundary": "SIC01五原根/七chunk完整FuncItems220条1049B/八页，20实际E8两目标、24跳两RET；构造139条661B两chunk含29条136B EH，退出488420为75条358B两chunk含29条136B EH。其主chunk另有48842A..30六B间隙（90*6）被前缀JMP跨过，区间跨度与实际指令字节分开，不造F/X或验收。488430是488420内共享尾，499920尾入，不新增原F。两构造wrapper固定CF3B10/D2F338并tailJMP61B0；现绑定唯一静态预览0/1，正常typed this返回保。61B0入口持同非拥有preview地址，十Cry按170/180/190/1A0/1B0/1C0/1E0/1F0/200/210构造并尾取flags|2；initialized0/value64=0/step21/previous=-1/selected=-1、两BYTE开关1/两图索引0→同preview flags/callback及固定F5E988技能源S32图号/layerDF/direction5→hover两索引-1/两原4B区清0/count0/末BYTE0→三16B descriptor正常初值保持：首FFFFFFFF/另两80FFFFFF、BYTE13=4，余依现零模板。原54ED50初始16B全零有据，Xrefs为空不证明全alias不可改，不新增模板冻结、补零或整体清对象，动态来源/alias完整闭包待。唯一一组一处持址贯穿Construct/Finish；两整CPP/两头其余全文、四wrapper与四helper正确body及类型/储宽保持，五定义/五真实声明十注释，匿名wrapper无公头不造声明。退出借固定静态0/1不重读可改state.preview，十Cry按210..170逆序，不free/清选择/合并owner，不进入通用Yobi链；两现构造后独立std::atexit及First→Second旧初始化body保持，Crypto叶/十RNG消费顺序不改。四旧114/116/5/117全历史追加、一新F五adapted/四限定S零I/十任务open；旧MSVC CRT/SDL/WAV-only/明文网络和48有界代码/完整枚举gates/六closure/总SPEC§10保持。完整原EH/SEH/机器ABI仅捕获边界、不记异常等价或再造私有CRT处理器；全部正常字段/模板/skill/preview生产消费、间接alias和跨模块/快速退出/SDK与生成字段访问、全应用顺序/实际生命周期及运行未闭，无新API/helper/结构/字段/owner/保护/默认值/新钳制/回滚/异常模型。"
     },
@@ -194497,6 +194526,49 @@
     },
     "build_verified": false,
     "runtime_verified": false,
+    "all_full_acceptance_gates_unchanged": true
+  },
+  "borrow_cleanup_bcl01": {
+    "decision_ref": "doc/cg2d_borrow_cleanup_spec.md",
+    "original_function_ids": [
+      "F:0004CC20",
+      "F:0004CC30",
+      "F:0004CC60",
+      "F:0004CD30",
+      "F:0004CD40",
+      "F:0004CD70",
+      "F:000597E0",
+      "F:000597F0",
+      "F:00059820",
+      "F:00059850",
+      "F:00059860",
+      "F:00059890",
+      "F:000883F0",
+      "F:00088420",
+      "F:000998F0",
+      "F:00099920",
+      "F:000CD240",
+      "F:00122620",
+      "F:00122630",
+      "F:00122660",
+      "F:00122690",
+      "F:001226A0"
+    ],
+    "semantic_records_updated": 238,
+    "static_source_results": {
+      "source_files": 60,
+      "projected_functions": 190,
+      "unchanged_functions": 1842,
+      "removed_borrow_definitions": 14,
+      "renamed_definitions": 33,
+      "total_removed_functions_including_destructors": 33,
+      "native_private_objects": 9,
+      "rng_calls_in_preview_and_stall": 50,
+      "central_initializers_unchanged": true,
+      "active_source_borrow_matches": 0,
+      "only_static": true
+    },
+    "execution_policy_unchanged": true,
     "all_full_acceptance_gates_unchanged": true
   }
 }

@@ -327,7 +327,7 @@ static void WindowGroupSelect_Refresh()
             WindowInstance* const window = gCurrentWindow;
             const char* const name = mode == 0 ? world::detail::gContactsF19FB0[source].name10.data()
                 : mode == 1 ? login::detail::gOrderedRecords1051B14[source].text18
-                : login::detail::BorrowGuildRankText1051518(position);
+                : login::detail::GetGuildRankText(position);
             auto* const text = static_cast<WindowTextData*>(window->elements[12 + row].data);
             text->text = cg::text::FromGbkWide(name);
         }

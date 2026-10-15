@@ -169,7 +169,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到飼料箱。";
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gStorageOwnHover57EE04 != hovered) {
@@ -178,16 +178,16 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     gStorageOwnHover57EE04 = hovered;
     if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
-                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
+                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
                 gWindowStates[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -219,7 +219,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
@@ -230,7 +230,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -298,9 +298,9 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             }
             if (source != position + 100
                 && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) == 0)) {
+                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
                 // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
-                const std::int32_t itemType = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
+                const std::int32_t itemType = world::detail::gPlayerRuntimeSlots.items[source].itemType;
                 if (itemType != 38 && itemType != 52) {
                     WindowItem_RequestTransfer(38, index, source, position + 100);
                 }
@@ -329,7 +329,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) != 0) {
+                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }

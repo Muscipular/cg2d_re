@@ -324,11 +324,11 @@ void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData*
 
 void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callback);
 
-MailContactView WindowMail_BorrowContactView(const world::detail::ContactRuntimeRecord& record);
+MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRecord& record);
 
-MailContactView WindowMail_BorrowContactView(const login::detail::OrderedRecord1051B14& record);
+MailContactView WindowMail_MakeContactView(const login::detail::OrderedRecord1051B14& record);
 
-MailContactView WindowMail_BorrowContactView(const world::detail::MiniMailContactRecord& record);
+MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactRecord& record);
 
 void WindowMail_WriteGuildStatus(WindowTextData* const data, const std::int32_t status);
 

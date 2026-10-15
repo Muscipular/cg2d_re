@@ -69,7 +69,6 @@ void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
 // 原CF3B88/D2F3B0的两个静态内嵌预览；不分配、不进入通用Yobi链。
 YobiAction* ConstructWindowSelectorPreview(std::int32_t index, std::uint32_t& flags); // 固定预览原位置原生构造，返回真实对象及flags|2快照。
 void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags); // SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
-void DestroyWindowSelectorPreview(std::int32_t index); // 同一固定预览原生逆序析构，不清UI槽。
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
 YobiAction* Sub_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
@@ -1107,9 +1106,9 @@ std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flag
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
 void FlushBattleEntries_43C060();
 // 原战斗载荷+106C非拥有对象引用槽；空载荷返空，497C80仅在入口检查，点击后重取槽值。
-YobiAction* const* BorrowBattleRebirthSlot106C(const YobiAction* action) noexcept;
+YobiAction* const* FindBattleRebirthSlot(const YobiAction* action) noexcept;
 // 原战斗载荷+13C8的非拥有Yobi引用槽；载荷空返空，调用方保留各自原门禁。
-YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* action) noexcept;
+YobiAction* const* FindBattleRiderSlot(const YobiAction* action) noexcept;
 
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();
@@ -1182,13 +1181,13 @@ std::int32_t GetYobiActionField20(YobiAction* action);
 const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
     YobiAction* action, bool replacementBeforePrevious = false); // PSP01：预览显式先替换后旧字节；其余调用沿原先旧后替换，两分支取样后同式发布，无新增字段默认值。
 // 原宠物预览直接借用+2F8，不执行窗口动画的描述符改写。
-const render::GraphicDescriptor16* BorrowYobiActionDrawMode(const YobiAction* action) noexcept;
+const render::GraphicDescriptor16* GetYobiActionDrawMode(const YobiAction* action) noexcept;
 void AddYobiActionDrawFlags(YobiAction* action, std::uint8_t flags) noexcept; // 原+305低U8置位，不清其他位。
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2DC(const YobiAction* action) noexcept; // 窗口12按S32位型比较同源播放圈数。
-const char* BorrowYobiNameC4(const YobiAction* action) noexcept; // 原+C4名称，只读借用同一对象。
-const char* BorrowYobiTitleE1(const YobiAction* action) noexcept; // 原+E1标题，空串回退由调用方决定。
+const char* GetYobiName(const YobiAction* action) noexcept; // 原+C4名称，只读借用同一对象。
+const char* GetYobiTitle(const YobiAction* action) noexcept; // 原+E1标题，空串回退由调用方决定。
 std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* action) noexcept; // 原+24低U8，窗口26判bit3。
 std::int32_t GetYobiActionCacheIndex(const YobiAction* action) noexcept; // 原+18数值索引，不是地址。
 std::int32_t GetYobiActionField2A8(YobiAction* action);

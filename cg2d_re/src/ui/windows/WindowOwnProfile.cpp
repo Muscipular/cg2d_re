@@ -154,7 +154,7 @@ static void WindowOwnProfile_RefreshEntry(
     const std::int32_t index, input::InputContext* const context,
     WindowInputPrototype* const prototype)
 {
-    auto& current = world::detail::BorrowCurrentProfile10738E8().entries410[index];
+    auto& current = world::detail::EditCurrentProfile10738E8().entries410[index];
     const std::int32_t element = index + 9;
     const bool editing = input::gCurrentInputData == context;
     WindowElement* const elements = gCurrentWindow->elements;
@@ -195,7 +195,7 @@ static void WindowOwnProfile_RefreshEntry(
 // 原函数：0x00478A10。
 static void WindowOwnProfile_Refresh()
 {
-    auto& current = world::detail::BorrowCurrentProfile10738E8();
+    auto& current = world::detail::EditCurrentProfile10738E8();
     WindowElement* const portraitElements = gCurrentWindow->elements;
     const std::int32_t portrait = world::detail::ReadPlayerValue17C();
     static_cast<WindowGraphicData*>(portraitElements[18].data)->imageNo = portrait;
@@ -204,7 +204,7 @@ static void WindowOwnProfile_Refresh()
         publicFlag != 0 ? 0 : 0x3C113;
 
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
-    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const char* const name = world::detail::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::detail::ReadPlayerLevel());
@@ -212,11 +212,11 @@ static void WindowOwnProfile_Refresh()
     levelData->text = number;
 
     WindowElement* const titleElements = gCurrentWindow->elements;
-    const char* const title = world::detail::BorrowPlayerDisplayText(2);
+    const char* const title = world::detail::GetPlayerDisplayText(2);
     auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
     titleData->text = cg::text::FromGbkWide(title);
     WindowElement* const jobElements = gCurrentWindow->elements;
-    const char* const job = world::detail::BorrowPlayerJobName();
+    const char* const job = world::detail::GetPlayerJobName();
     auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
     jobData->text = cg::text::FromGbkWide(job);
 
@@ -224,7 +224,7 @@ static void WindowOwnProfile_Refresh()
     const std::int32_t guildIndex = login::detail::ReadGuildTextIndex10514B0();
     auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
     const char* const guild = guildIndex == -1
-        ? input::LegacyText593850() : login::detail::BorrowGuildName10514BC();
+        ? input::LegacyText593850() : login::detail::GetGuildName();
     guildData->text = cg::text::FromGbkWide(guild);
 
     for (std::int32_t index = 0; index < 3; ++index) {
@@ -324,7 +324,7 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     }
     WindowInstance* const window = gCurrentWindow;
     if (gFocusedElementDataD45F94 != window->elements[index].data) {
-        const auto& current = world::detail::BorrowCurrentProfile10738E8();
+        const auto& current = world::detail::EditCurrentProfile10738E8();
         const char* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
         prototype->text = cg::text::FromGbkWide(source);

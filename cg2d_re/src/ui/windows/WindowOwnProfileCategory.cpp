@@ -149,7 +149,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
     if (selectedMode >= 0 && selectedMode <= 2) {
         const std::int32_t page = gProfileScrollCA0444;
         const std::int32_t selected =
-            world::detail::BorrowCurrentProfile10738E8().entries410[selectedMode].value00;
+            world::detail::EditCurrentProfile10738E8().entries410[selectedMode].value00;
         if (selected == page + index - 19) {
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB03;
         }
@@ -167,7 +167,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         }
         const std::int32_t value = record.value04;
         const std::int32_t image = record.value08;
-        auto& entry = world::detail::BorrowCurrentProfile10738E8().entries410[mode];
+        auto& entry = world::detail::EditCurrentProfile10738E8().entries410[mode];
         entry.value00 = value;
         entry.value04 = image;
     }

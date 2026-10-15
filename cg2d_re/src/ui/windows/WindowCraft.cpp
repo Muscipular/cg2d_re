@@ -409,15 +409,15 @@ void WindowCraft_ResetSelection(const std::int32_t first, const std::int32_t sec
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected == first) {
         gSelectedItemD460C0 = second;
-        const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[second].imageNo;
+        const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[second].imageNo;
         // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
-        const std::int32_t itemId = world::detail::BorrowPlayerItemsFDA8A4()[second + 8].itemId;
+        const std::int32_t itemId = world::detail::gPlayerRuntimeSlots.items[second + 8].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
     } else if (selected == second) {
         gSelectedItemD460C0 = first;
-        const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[first].imageNo;
-        const std::int32_t itemId = world::detail::BorrowPlayerItemsFDA8A4()[first].itemId;
+        const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[first].imageNo;
+        const std::int32_t itemId = world::detail::gPlayerRuntimeSlots.items[first].itemId;
         gSelectedImageCC3ED8 = imageNo;
         gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
     }
@@ -499,9 +499,9 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
-        return WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+        return WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     }
-    return WindowCraft_BorrowSecondPreview(window, 3, 5, 0, 10, 5);
+    return WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
 }
 
 // 仅新补的制造/单选/装饰创建入口共用；材料模式12另有无条件状态写。
@@ -660,7 +660,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
+    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
     gSelectionModeD2D650 = 4;
@@ -697,7 +697,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
-    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[selected].level;
+    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
     gSelectionModeD2D650 = 13;
@@ -891,7 +891,7 @@ static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* con
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+    WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     gSelectionModeD2D650 = 6;
     return result;
 }
@@ -908,7 +908,7 @@ static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* 
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+    WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     gSelectionModeD2D650 = 15;
     return result;
 }
@@ -925,7 +925,7 @@ static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const 
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+    WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     gSelectionModeD2D650 = 12;
     return result;
 }
@@ -943,8 +943,8 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = gSkillSendModeC8A970 != 0
-        ? WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5)
-        : WindowCraft_BorrowSecondPreview(window, 3, 5, 0, 10, 5);
+        ? WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5)
+        : WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     gSelectionModeD2D650 = 9;
     return result;
 }
@@ -973,7 +973,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     if (source < 8 || source >= 100) {
                         return;
                     }
-                    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
+                    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
                     if (item->hasDescription == 0) {
                         return;
                     }
@@ -991,7 +991,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                                     const std::int32_t currentId =
                                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                     const std::int32_t type =
-                                        world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
+                                        world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                     if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                         return;
                                     }
@@ -1057,7 +1057,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     if (gSelectedSlotsCA0A90[destination] >= 0) {
                         static_cast<void>(WindowCraft_ReleaseMaterials(destination));
                     }
-                    const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
+                    const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[source].itemType;
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
@@ -1083,7 +1083,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                     }
                     gMaterialOccupancyCC4894.materialValues[0] = 1;
                     gSelectedSlotsCA0A90[destination] = source - 8;
-                    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
+                    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
                     const std::int32_t itemId = item->itemId;
                     gSelectionImagesCF3FF4[destination] = item->imageNo;
                     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
@@ -1130,7 +1130,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
             if (slot < 0) {
                 continue;
             }
-            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
+            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
             std::int32_t count = item->count;
             if (count == 0) {
                 count = 1;
@@ -1169,7 +1169,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 continue;
             }
             const std::int32_t selected = gSelectedSlotsCA0A90[position];
-            const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
+            const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
             const bool special = mode == 6
                 ? type == 38 || type == 25 || type == 39 : type == 80;
             if (special) {
@@ -1316,7 +1316,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
     gCraftDisplayImageCB2204 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+    WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     gSelectionModeD2D650 = 0;
     return result;
 }
@@ -1336,7 +1336,7 @@ static void WindowCraft_ReleaseMaterialSlot(
 {
     static_cast<void>(WindowCraft_ReleaseMaterials(destination));
     gSelectedSlotsCA0A90[destination] = source - 8;
-    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
+    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
     const std::int32_t itemId = item->itemId;
     gSelectionImagesCF3FF4[destination] = item->imageNo;
     gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
@@ -1386,7 +1386,7 @@ static std::int32_t WindowCraft_ReadFirstMaterialId()
         const std::int32_t material = gMaterialIndicesCA0458[index];
         if (material == 0 || material == 1 || material == 2) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
-            return world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemId;
+            return world::detail::gPlayerRuntimeSlots.items[slot + 8].itemId;
         }
     }
     return -1;
@@ -1398,7 +1398,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
     std::int32_t flags = 0;
     std::int32_t material = 5;
     const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel();
-    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
+    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
     if (item->hasDescription == 0) {
         return;
     }
@@ -1465,7 +1465,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
         if ((flags & 4) != 0) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             const std::int32_t sourceLevel = item->level;
-            if (world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].level != sourceLevel) {
+            if (world::detail::gPlayerRuntimeSlots.items[slot + 8].level != sourceLevel) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(index));
             }
         }
@@ -1573,14 +1573,14 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             enabled = !world::detail::IsPlayerFpLessThan(10);
         } else {
             enabled = !world::detail::IsPlayerFpLessThan(
-                world::detail::BorrowPlayerItemsFDA8A4()[selected].level * 10);
-            const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level;
+                world::detail::gPlayerRuntimeSlots.items[selected].level * 10);
+            const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
             cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
         if (skillId == 220) {
-            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
+            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
@@ -1588,7 +1588,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 enabled = false;
             }
         } else if (skillId == 219 || skillId == 2033) {
-            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
+            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             if (item->hasDescription != 0) {
                 enabled = false;
             } else {
@@ -1599,7 +1599,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0];
+            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
             if (item->hasDescription == 0) {
                 enabled = false;
             } else if (WindowCraft_ClassifyWork(item->itemType) == 2) {
@@ -1609,21 +1609,21 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 1) {
+                           world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
                 const std::int32_t currentId =
                     world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 0) {
+                           world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                 const std::uint8_t crystal = gValue5F9754;
                 const std::int32_t level = world::detail::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = gSelectedItemD460C0;
-                if (world::detail::BorrowPlayerItemsFDA8A4()[slot].level > level + (crystal != 0 ? 1 : 0)) {
+                if (world::detail::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
                 }
             }
@@ -1676,7 +1676,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 insufficient = world::detail::IsPlayerFpLessThan(10);
             } else {
                 insufficient = world::detail::IsPlayerFpLessThan(
-                    world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].level * 10);
+                    world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
             }
             break;
         case 6:
@@ -1721,7 +1721,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             };
             bool send = false;
             std::int32_t notice = -1;
-            const auto flags = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].flags;
+            const auto flags = world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
                 if (input::Sub_45E770(input::ContextText(input::gInputContextD2DE70)) == 1) {
                     notice = 0;
@@ -1968,21 +1968,21 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         gHoverTextD68AE8 = L"以滑鼠拖放＆點選方式，來選擇物品。";
     }
     if ((events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gCraftBackpackHover57DA24 != hovered) {
         gMaterialHintPageCF4FD8 = 0;
     }
     gCraftBackpackHover57DA24 = hovered;
-    if (hovered >= 0 && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
+    if (hovered >= 0 && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 11 || WindowDrag_ReadFocusWindowId() == 0) {
             const std::uint8_t mode = gSelectionModeD2D650;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
                 static_cast<void>(WindowDrag_ResetMouse());
                 const auto selectItem = [&] {
-                    auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
+                    auto* const item = &world::detail::gPlayerRuntimeSlots.items[hovered + 8];
                     const auto fail = [] {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     };
@@ -2035,7 +2035,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                                         const std::int32_t currentId =
                                             world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                                         const std::int32_t type =
-                                            world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].itemType;
+                                            world::detail::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                         if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                             fail();
                                             return;
@@ -2193,16 +2193,16 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
-                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
+                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 gMaterialHintPageCF4FD8 = page;
                 if (page >= pages) {
                     gMaterialHintPageCF4FD8 = 0;
@@ -2232,7 +2232,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         login::detail::DrawGraphicHover(
             static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
-        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gMaterialHoveredItemD67424 = hovered + 8;
         }
     }
@@ -2241,7 +2241,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+        const auto* const item = &world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item->used == 0) {
             continue;
         }
@@ -2403,7 +2403,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 static_cast<void>(WindowCraft_ReleaseMaterials(6));
             }
             gSelectedItemD460C0 = source;
-            const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[source];
+            const auto* const item = &world::detail::gPlayerRuntimeSlots.items[source];
             const std::int32_t itemId = item->itemId;
             gSelectedImageCC3ED8 = item->imageNo;
             gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
@@ -2427,7 +2427,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     if (selected >= 0) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
-        const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[selected];
+        const auto* const item = &world::detail::gPlayerRuntimeSlots.items[selected];
         if (skillId == 220) {
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -2456,19 +2456,19 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (WindowCraft_ClassifyWork(
-                               world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 1) {
+                               world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
                     const std::int32_t currentId =
                         world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (WindowCraft_ClassifyWork(
-                               world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemD460C0].itemType) == 0) {
+                               world::detail::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = gCraftSkillIndexCC2368;
                     const std::uint8_t crystal = gValue5F9754;
                     const std::int32_t skillLevel = world::detail::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = gSelectedItemD460C0;
-                    rejected = world::detail::BorrowPlayerItemsFDA8A4()[slot].level
+                    rejected = world::detail::gPlayerRuntimeSlots.items[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
                 }
             }
@@ -2609,7 +2609,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     gCraftDisplayImageCB2204 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, 0, 5);
+    WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     gSelectionModeD2D650 = 3;
     return result;
 }
@@ -2631,7 +2631,7 @@ static std::int32_t WindowCraft_HasSelectedCrystalLevel()
     }
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     const std::int32_t slot = gSelectedItemD460C0;
-    return world::detail::BorrowPlayerItemsFDA8A4()[slot].level == crystalLevel ? 1 : 0;
+    return world::detail::gPlayerRuntimeSlots.items[slot].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D530。
@@ -2642,11 +2642,11 @@ static std::int32_t WindowCraft_HasMaterialCrystalLevel()
         if (slot < 0) {
             continue;
         }
-        const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemType;
+        const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[slot + 8].itemType;
         if (type == 38 || type == 25 || type == 39 || type == 80) {
             const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
             const std::int32_t selected = gSelectedSlotsCA0A90[index];
-            return world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].level == crystalLevel ? 1 : 0;
+            return world::detail::gPlayerRuntimeSlots.items[selected + 8].level == crystalLevel ? 1 : 0;
         }
     }
     return 0;
@@ -2659,7 +2659,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
     if (slot < 0) {
         return 0;
     }
-    const std::int32_t level = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].level;
+    const std::int32_t level = world::detail::gPlayerRuntimeSlots.items[slot + 8].level;
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
     return level == crystalLevel ? 1 : 0;
 }
@@ -2730,9 +2730,9 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         petAvailable = true;
         const auto configureCrystal = [] {
             if (WindowSkill_CheckPetFp() != 0) {
-                static_cast<void>(WindowCraft_BorrowSecondPreview(gCurrentWindow, 3, 5, 1, 0, 5));
+                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, 3, 5, 1, 0, 5));
             } else {
-                static_cast<void>(WindowCraft_BorrowSecondPreview(gCurrentWindow, 3, 5, 0, 10, 5));
+                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, 3, 5, 0, 10, 5));
             }
         };
         if (gSelectionModeD2D650 == 0 && WindowCraft_HasRecipeCrystalLevel() != 0) {
@@ -2882,7 +2882,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 if (slot < 0) {
                     continue;
                 }
-                const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].itemType;
+                const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[slot + 8].itemType;
                 if (type == 38 || type == 25 || type == 39 || type == 80) {
                     specialSlot = slot + 8;
                 } else {
@@ -2892,7 +2892,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             cg::text::FormatTo(buffer, L"{}|{}", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
-            const std::wstring& name = world::detail::BorrowPlayerItemsFDA8A4()[ordinarySlot].name;
+            const std::wstring& name = world::detail::gPlayerRuntimeSlots.items[ordinarySlot].name;
             const std::uint8_t currentMode = gSelectionModeD2D650;
             gCraftNameCF46D4 = name;
             if (currentMode == 7) {
@@ -2915,7 +2915,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
-            gCraftNameCF46D4 = world::detail::BorrowPlayerItemsFDA8A4()[selected].name;
+            gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
             const char initial = input::LegacyText593850()[0];
@@ -2928,7 +2928,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                     buffer += temporary;
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];
-                        gCraftNameCF46D4 = world::detail::BorrowPlayerItemsFDA8A4()[selected + 8].name;
+                        gCraftNameCF46D4 = world::detail::gPlayerRuntimeSlots.items[selected + 8].name;
                     }
                 }
             }
@@ -3076,7 +3076,7 @@ std::int32_t WindowCraft_SetPreviewPositions(
 }
 
 // 原函数：0x0047D220。
-WindowAnimationData* WindowCraft_BorrowSecondPreview(
+WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     WindowInstance* const window, const std::int32_t first, const std::int32_t second,
     const std::int32_t flag, const std::int32_t actionId, const std::int32_t direction)
 {
@@ -3225,9 +3225,9 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
     if (gSkillSendModeC8A970 != 0) {
-        last = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, gCraftResultCC46D8 != 0 ? 6 : 8, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, gCraftResultCC46D8 != 0 ? 6 : 8, 5);
     } else {
-        last = WindowCraft_BorrowSecondPreview(window, 3, 5, 0, 10, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     }
     gSelectionModeD2D650 = 2;
     return last;
@@ -3360,7 +3360,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     if (entryResult != 0 && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
         static_cast<void>(WindowCraft_ReleaseMaterials(6));
     }
-    const auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[selected];
+    const auto* const item = &world::detail::gPlayerRuntimeSlots.items[selected];
     static_cast<WindowTextData*>(window->elements[9].data)->text = item->name;
     const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const wchar_t* message = nullptr;
@@ -3452,9 +3452,9 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
     if (gSkillSendModeC8A970 != 0) {
-        last = WindowCraft_BorrowSecondPreview(window, 3, 5, 1, gItemWorkResultCB05FC != 0 ? 6 : 8, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, gItemWorkResultCB05FC != 0 ? 6 : 8, 5);
     } else {
-        last = WindowCraft_BorrowSecondPreview(window, 3, 5, 0, 10, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     }
     gSelectionModeD2D650 = 5;
     return last;
@@ -3542,7 +3542,7 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
             const std::int32_t y = (to[1] - from[1]) * remainder / interval + from[1];
             const std::int32_t x = (to[0] - from[0]) * remainder / interval + from[0];
             static_cast<void>(WindowCraft_SetPreviewPositions(gCurrentWindow, anchor, first, second, x, y));
-            return WindowCraft_BorrowSecondPreview(gCurrentWindow, first, second, 1, 1, to[2]);
+            return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 1, to[2]);
         }
         std::int32_t index = phase / 2 + 1;
         if (index > 7) {
@@ -3550,11 +3550,11 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
         }
         const auto& point = kSkillPreviewPoints57D7D0[index];
         static_cast<void>(WindowCraft_SetPreviewPositions(gCurrentWindow, anchor, first, second, point[0], point[1]));
-        return WindowCraft_BorrowSecondPreview(gCurrentWindow, first, second, 1, 0, 5);
+        return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 0, 5);
     }
     static_cast<void>(WindowCraft_SetPreviewPositions(
         gCurrentWindow, anchor, first, second, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    return WindowCraft_BorrowSecondPreview(gCurrentWindow, first, second, 1, 0, 5);
+    return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 0, 5);
 }
 
 // 原函数：0x0047D280。

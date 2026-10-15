@@ -409,7 +409,7 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 static void WindowPlayerTitles_Refresh()
 {
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
-    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const char* const name = world::detail::GetPlayerDisplayText(1);
     nameData->text = cg::text::FromGbkWide(name);
 
     std::wstring buffer;
@@ -419,14 +419,14 @@ static void WindowPlayerTitles_Refresh()
 
     const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
     auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-    const char* const title = world::detail::BorrowTitleText(titleIndex);
+    const char* const title = world::detail::GetTitleText(titleIndex);
     titleData->text = cg::text::FromGbkWide(title);
 
     if (input::gCurrentInputData != &input::gInputContextD2DC10) {
         gCurrentWindow->elements[8].visible = 1;
         auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         draftData->text = gTitleDraftD45FC0;
-        const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2))) == 0;
+        const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(2))) == 0;
         auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
         colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
@@ -438,7 +438,7 @@ static void WindowPlayerTitles_Refresh()
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 1));
     }
 
-    const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(2))) == 0;
+    const bool unchanged = gTitleDraftD45FC0.compare(cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(2))) == 0;
     gCurrentWindow->elements[21].visible = unchanged ? 0 : 1;
 
     const world::detail::TitleRecord* record =
@@ -457,12 +457,12 @@ static void WindowPlayerTitles_Refresh()
 static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
+        const char* const ownTitle = world::detail::GetPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;
         gTitleDraftD45FC0 = cg::text::FromGbkWide(ownTitle);
 
         WindowElement* const elements = gCurrentWindow->elements;
-        const char* const displayTitle = world::detail::BorrowPlayerDisplayText(2);
+        const char* const displayTitle = world::detail::GetPlayerDisplayText(2);
         auto* const data = static_cast<WindowTextData*>(elements[8].data);
         data->text = cg::text::FromGbkWide(displayTitle);
     }

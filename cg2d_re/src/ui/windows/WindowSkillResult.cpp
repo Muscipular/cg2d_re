@@ -215,7 +215,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
         gWindow13ResultD66E2C != 0 ? 5 : 10);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    return WindowCraft_BorrowSecondPreview(window, 1, 3, 1, gWindow13ResultD66E2C != 0 ? 6 : 8, 5);
+    return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gWindow13ResultD66E2C != 0 ? 6 : 8, 5);
 }
 
 // 原函数：0x00487AE0。

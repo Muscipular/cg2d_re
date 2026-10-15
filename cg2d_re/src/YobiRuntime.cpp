@@ -199,14 +199,6 @@ YobiAction::YobiAction(RawFields)
 
 namespace detail {
 
-// 原选择对象内嵌+78，静态生命周期；UI只持有对应非拥有T*。
-std::array<std::optional<YobiAction>, 2>& BorrowWindowSelectorPreviewStorage()
-{
-    // 容器先登记，两个中央拥有者稍后登记；退出由各拥有者按原组序reset。
-    static std::array<std::optional<YobiAction>, 2> storage;
-    return storage;
-}
-
 std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
 std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
@@ -1479,14 +1471,14 @@ void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t loadGraph
     const std::uint8_t mode = action->drawMode.bytes[0x0D];
     if ((mode & 1u) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
-        const auto* const entries = render::BorrowGraphicDxCacheEntries();
+        const auto* const entries = render::GetGraphicDxCacheEntries();
         const std::int32_t offsetX = action->graphicOffsetX;
         const std::int16_t width = render::ReadGraphicDxWidthFromEntries(entries, graphicIndex);
         action->graphicOffsetX = -(offsetX + width);
     }
     if ((mode & 2u) != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
-        const auto* const entries = render::BorrowGraphicDxCacheEntries();
+        const auto* const entries = render::GetGraphicDxCacheEntries();
         const std::int16_t height = render::ReadGraphicDxHeightFromEntries(entries, graphicIndex);
         const std::int32_t offsetY = action->graphicOffsetY;
         action->graphicOffsetY = -(offsetY + height);
@@ -6088,7 +6080,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         if (action == world::detail::ReadPlayerAction()) {
             if (nameMode <= 6) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
-                text = world::detail::BorrowPlayerDisplayText(nameMode);
+                text = world::detail::GetPlayerDisplayText(nameMode);
                 color = colors[nameMode - 1];
             }
         } else {
@@ -9469,7 +9461,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     static_cast<void>(render::LoadGraphic_522570(gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = static_cast<BattleActorPayload*>(parent->payload)->battlePosition18;
     const std::int32_t targetPosition = effect->position;
-    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const graphics = render::GetGraphicDxCacheEntries();
     YobiAction* const target = gBattleAllEntries59E980[targetPosition];
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
@@ -9628,7 +9620,7 @@ YobiAction* NewBattleRangeHit_419390(
     const std::int32_t projectileImage = action->imageNo;
     YobiAction* const target = gBattleAllEntries59E980[targetPosition];
     const std::int32_t projectionImage = projectileImage - 16;
-    const render::DxGraphicEntry* const graphics = render::BorrowGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const graphics = render::GetGraphicDxCacheEntries();
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;
@@ -11821,7 +11813,7 @@ void SetBattleAuxGear_422C90(
 // 原[423800,4238EA)：固定角色记录，名称及四项属性均短路匹配。
 std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
 {
-    const std::byte* record = world::detail::BorrowSelectedAlbumRecords();
+    const std::byte* record = world::detail::GetSelectedAlbumRecords();
     for (std::int32_t index = 0; index < 960; ++index, record += 0x80) {
         if (record[0] == std::byte{0}) {
             continue;
@@ -22738,7 +22730,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
         return;
     }
     const std::int32_t graphic = action->graphicIndex;
-    const render::DxGraphicEntry* const entries = render::BorrowGraphicDxCacheEntries();
+    const render::DxGraphicEntry* const entries = render::GetGraphicDxCacheEntries();
     const std::uint32_t hoverImage = gValueD69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
@@ -33671,13 +33663,13 @@ void FlushBattleEntries_43C060()
     }
 }
 
-YobiAction* const* BorrowBattleRebirthSlot106C(const YobiAction* const action) noexcept
+YobiAction* const* FindBattleRebirthSlot(const YobiAction* const action) noexcept
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
     return payload != nullptr ? &payload->rebirthEffect106C : nullptr;
 }
 
-YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* const action) noexcept
+YobiAction* const* FindBattleRiderSlot(const YobiAction* const action) noexcept
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
     return payload != nullptr ? &payload->rider13C8 : nullptr;
@@ -35117,9 +35109,15 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
 
 // SIC01：只借两个既有静态预览的同一地址，原owner索引0/1由具名构造/退出入口固定。
 // SIC01：同静态预览十CryptInt按原170..210次序构造/RNG，尾取flags|2快照，不构造通用Yobi对象。
+// 原退出0x00488420／0x00488430／0x00499920：固定预览由各实际静态对象自动析构。
 YobiAction* ConstructWindowSelectorPreview(const std::int32_t index, std::uint32_t& flags)
 {
-    YobiAction& action = BorrowWindowSelectorPreviewStorage()[index].emplace();
+    // 两个lambda各拥有一个静态预览，分别在原索引0／1调用位置构造和登记退出。
+    static constexpr std::array<YobiAction* (*)(), 2> initialize {
+        +[]() -> YobiAction* { static YobiAction preview{}; return &preview; },
+        +[]() -> YobiAction* { static YobiAction preview{}; return &preview; },
+    };
+    YobiAction& action = *initialize[index]();
     flags = action.flags | 2u;
     return &action;
 }
@@ -35140,13 +35138,7 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
     action->direction = 5;
 }
 
-// SIC01：固定退出对象仅十CryptInt逆序析构；不释放静态owner、不清UI槽，完整EH/运行待。
-void DestroyWindowSelectorPreview(const std::int32_t index)
-{
-    BorrowWindowSelectorPreviewStorage()[index].reset();
-}
-
-const render::GraphicDescriptor16* BorrowYobiActionDrawMode(
+const render::GraphicDescriptor16* GetYobiActionDrawMode(
     const YobiAction* const action) noexcept
 {
     return &action->drawMode;
@@ -35205,12 +35197,12 @@ std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
     return action->field2E4;
 }
 
-const char* BorrowYobiNameC4(const YobiAction* const action) noexcept
+const char* GetYobiName(const YobiAction* const action) noexcept
 {
     return action->nameC4.data();
 }
 
-const char* BorrowYobiTitleE1(const YobiAction* const action) noexcept
+const char* GetYobiTitle(const YobiAction* const action) noexcept
 {
     return action->titleE1.data();
 }

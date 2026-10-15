@@ -313,7 +313,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         gCurrentWindow->elements[22].visible = 1;
     }
     if (gSelectedItem57EE0C >= 0
-        && world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItem57EE0C].itemType == 53) {
+        && world::detail::gPlayerRuntimeSlots.items[gSelectedItem57EE0C].itemType == 53) {
         gCurrentWindow->elements[22].visible = 1;
     }
     return 1;
@@ -622,7 +622,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0
-                || world::detail::BorrowPlayerItemsFDA8A4()[source].itemType == 53) {
+                || world::detail::gPlayerRuntimeSlots.items[source].itemType == 53) {
                 const unsigned char previous = occupancy[gSelectedItem57EE0C];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {
                     occupancy[gSelectedItem57EE0C] = static_cast<unsigned char>(previous - 1);
@@ -665,7 +665,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         selected = gSelectedItem57EE0C;
     }
     if (selected >= 0) {
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[selected];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[selected];
         if (item.used != 0) {
             static_cast<void>(login::detail::DrawGraphic(
                 x + 24, y + 24, 223, item.imageNo, 0, &descriptor));

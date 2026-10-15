@@ -1001,7 +1001,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         gWindow70TooltipPageD67BA0 = 0;
         gWindow70InventoryHover58086C = hovered;
     }
-    const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    const auto& items = world::detail::gPlayerRuntimeSlots.items;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & 1u) != 0 && hovered >= 0 && (events & 4u) != 0) {

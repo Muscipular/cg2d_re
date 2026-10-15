@@ -141,7 +141,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     }
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source >= 8 && (static_cast<std::uint8_t>(world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 1u) != 0) {
+        if (source >= 8 && (static_cast<std::uint8_t>(world::detail::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
             const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
             if (previous != -1) {
@@ -359,13 +359,13 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     gCurrentWindow->elements[4].visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t image = world::detail::BorrowPlayerItemsFDA8A4()[imageSlot].imageNo;
+        const std::int32_t image = world::detail::gPlayerRuntimeSlots.items[imageSlot].imageNo;
         const WindowInstance* const graphicWindow = gCurrentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(login::detail::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t count = world::detail::BorrowPlayerItemsFDA8A4()[countSlot].count;
+        const std::int32_t count = world::detail::gPlayerRuntimeSlots.items[countSlot].count;
         if (count > 0) {
             std::wstring buffer;
             cg::text::FormatTo(buffer, L"{:3}", count);

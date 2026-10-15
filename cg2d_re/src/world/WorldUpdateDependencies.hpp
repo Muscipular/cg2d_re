@@ -80,9 +80,9 @@ std::int32_t LoadAndPlayBGM(std::uint32_t bgmId); // 原52BE60，复用既有SDL
 namespace cg::world::detail {
 
 // 423800借用当前角色960条80h相册记录；只读同源字节，入口固定一次角色S16。
-const std::byte* BorrowSelectedAlbumRecords();
+const std::byte* GetSelectedAlbumRecords();
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
-const char* ClearAlbumNewFlagAndBorrowName(std::int16_t selected, std::int32_t index);
+const char* ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t index);
 
 // 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
 extern std::uint32_t gValue9FB934; // 原全局：0x009FB934。
@@ -434,7 +434,7 @@ std::int32_t Sub_509650(std::uintptr_t socket, const char* payload); // MPR01：
 void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
 void Sub_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
-const char* BorrowPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
+const char* GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
 
 // 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
 struct SkillTechniqueRecord {
@@ -651,7 +651,6 @@ static_assert(offsetof(PlayerRuntimeSlots, flags18C)
 
 extern PlayerRuntimeSlots gPlayerRuntimeSlots; // 原全局：0x00FDA700；中央有序构造。
 
-std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4(); // 原全局：0x00FDA8A4。 别名唯一PlayerRuntimeSlots成员。
 // 原函数：0x0050BFD0。
 void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
 // 原函数：0x0050C260。
@@ -1158,10 +1157,10 @@ static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
 static_assert(sizeof(BattleSkillResultRecord) == 8);
 
 // 窗口30只读借用50D500唯一结果存储，各字段仍按原指令时机读取。
-const std::array<BattleResultRecord, 4>& BorrowBattleResults() noexcept;
-const std::array<BattleSkillResultRecord, 15>& BorrowBattleSkillResults() noexcept;
-const std::array<std::array<char, 29>, 3>& BorrowBattleResultNames() noexcept;
-const std::array<std::int32_t, 3>& BorrowBattleResultGraphics() noexcept;
+extern std::array<BattleResultRecord, 4> gBattleResultsFF0C14; // 原全局：0x00FF0C14。
+extern std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C; // 原全局：0x00FF0C8C。
+extern std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34; // 原全局：0x00FF0C34。
+extern std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C; // 原全局：0x00FF0D0C。
 // 原函数：0x0050D500。
 void Sub_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
 extern std::int32_t gValueFF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
@@ -1311,8 +1310,8 @@ void Sub_455BB0(); // 原455BB0：仅FF0D40不等于10时写W32[62B36C]=1，不�
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 struct MapEffectRecord;
 // render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
-const MapEffectRecord* BorrowActiveMapEffectHead() noexcept;
-const MapEffectRecord* BorrowNextMapEffect(const MapEffectRecord* record) noexcept;
+const MapEffectRecord* GetActiveMapEffectHead() noexcept;
+const MapEffectRecord* GetNextMapEffect(const MapEffectRecord* record) noexcept;
 std::uint32_t ReadMapEffectWord(const MapEffectRecord& record, std::size_t offset);
 std::uint16_t ReadMapEffectHalf(const MapEffectRecord& record, std::size_t offset);
 // 原函数：0x0046E2A0。
@@ -1453,12 +1452,11 @@ std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16
 std::int32_t ReadPlayerActionValue190() noexcept;
 void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
 void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，保留其他字节。
-char* BorrowPlayerStallName() noexcept; // 原FF02B8的text15BB8，可写借用，不复制owner。
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
-const char* BorrowTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
-const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
+const char* GetTitleText(std::int32_t index) noexcept; // 原FF0510+index*1Ch；-1借用FF04F4角色尾部。
+const char* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
 extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。

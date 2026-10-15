@@ -52,6 +52,6 @@ int BuildResourcePaths();
 std::int32_t LoadAutoMapColor_45A130(char* const* graphicInfoPaths);
 
 // 原 oldMapRes@927F48；唯一 500000B 表的进程期只读借用，供地图窗生产查询。
-const std::uint8_t* BorrowAutoMapColors() noexcept;
+const std::uint8_t* GetAutoMapColors() noexcept;
 
 } // namespace cg::resource

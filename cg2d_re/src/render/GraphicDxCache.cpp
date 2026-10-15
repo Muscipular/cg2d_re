@@ -165,65 +165,29 @@ struct SurfaceTransformKeyLess {
 using SurfaceTransformCache =
     std::map<SurfaceTransformKey, TextureSurface*, SurfaceTransformKeyLess>;
 
-// 被动存储不自动构析；唯一活动路径是下方两个原相邻槽的宿主登记。
+// 唯一活动路径是下方两个原相邻槽；实际静态对象自动构析，指针只供访问。
 // std::map 只拥有私有节点，surface 键和值均沿原业务清理借用。
-alignas(SurfaceTransformCache)
-std::byte gSurfaceTransforms629300[sizeof(SurfaceTransformCache)] {}; // 原全局：0x00629300。
-alignas(SurfaceTransformCache)
-std::byte gSurfaceTransforms62A630[sizeof(SurfaceTransformCache)] {}; // 原全局：0x0062A630。
-
-SurfaceTransformCache& BorrowSurfaceTransformCache629300() noexcept
-{
-    return *std::launder(
-        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms629300));
-}
-
-SurfaceTransformCache& BorrowSurfaceTransformCache62A630() noexcept
-{
-    return *std::launder(
-        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms62A630));
-}
-
-// 原 44CC30/44CD40：固定 this 构造并返回同一对象；节点/空节点由宿主 STL 承接。
-SurfaceTransformCache* ConstructSurfaceTransformCache629300_44CC30()
-{
-    return std::construct_at(
-        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms629300));
-}
-
-// 原函数：0x0044CD40。
-SurfaceTransformCache* ConstructSurfaceTransformCache62A630_44CD40()
-{
-    return std::construct_at(
-        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms62A630));
-}
-
-// 原 44CC60/44CD70 共用 44CC70：只销毁节点，不调用面释放或场景业务清理。
-void DestroySurfaceTransformCache629300_44CC60()
-{
-    std::destroy_at(&BorrowSurfaceTransformCache629300());
-}
-
-// 原函数：0x0044CD70。
-void DestroySurfaceTransformCache62A630_44CD70()
-{
-    std::destroy_at(&BorrowSurfaceTransformCache62A630());
-}
+SurfaceTransformCache* gSurfaceTransforms629300 = nullptr; // 原全局：0x629300；仅指向原入口的唯一静态对象。
+SurfaceTransformCache* gSurfaceTransforms62A630 = nullptr; // 原全局：0x62A630；仅指向原入口的唯一静态对象。
 
 } // namespace
 
 // 原函数：0x0044CC20。
-std::int32_t InitializeSurfaceTransformCache629300_44CC20()
+void InitializeSurfaceTransformCache629300_44CC20()
 {
-    static_cast<void>(ConstructSurfaceTransformCache629300_44CC30());
-    return std::atexit(DestroySurfaceTransformCache629300_44CC60);
+    // 原0x0044CC30／0x0044CC60：同一类型按原入口创建，退出由MSVC原生析构承接。
+    // 原0x0044CC70共用析构：仅销毁map节点，不释放借用的surface。
+    static SurfaceTransformCache storage{};
+    gSurfaceTransforms629300 = &storage;
 }
 
 // 原函数：0x0044CD30。
-std::int32_t InitializeSurfaceTransformCache62A630_44CD30()
+void InitializeSurfaceTransformCache62A630_44CD30()
 {
-    static_cast<void>(ConstructSurfaceTransformCache62A630_44CD40());
-    return std::atexit(DestroySurfaceTransformCache62A630_44CD70);
+    // 原0x0044CD40／0x0044CD70：同一类型按原入口创建，退出由MSVC原生析构承接。
+    // 原0x0044CC70共用析构：仅销毁map节点，不释放借用的surface。
+    static SurfaceTransformCache storage{};
+    gSurfaceTransforms62A630 = &storage;
 }
 
 DxGraphicEntry* gGraphicDxCache103CFA4 = nullptr; // 原全局：0x0103CFA4。
@@ -405,7 +369,7 @@ std::int16_t ReadGraphicDxHeight(const std::int32_t imageNo) noexcept
     return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].height);
 }
 
-const DxGraphicEntry* BorrowGraphicDxCacheEntries() noexcept
+const DxGraphicEntry* GetGraphicDxCacheEntries() noexcept
 {
     return gGraphicDxCache103CFA4;
 }
@@ -608,7 +572,7 @@ std::int32_t LoadGraphicTexture_520B10(
     if (paletteIndex != 0) {
         const std::uint32_t* originalColors;
         const std::uint32_t* tonedColors;
-        resource::BorrowIndependentPaletteColors32(paletteIndex, originalColors, tonedColors);
+        resource::GetIndependentPaletteColors32(paletteIndex, originalColors, tonedColors);
         if (originalColors != nullptr) {
             const std::uint8_t mixMode = graphic->descriptor[0x0D];
             const std::uint32_t* const colors =
@@ -830,7 +794,7 @@ TextureSurface* TransformTextureSurface_44CD80(
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
     auto& cache = world::gCurrentSceneType == 10
-        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
+        ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     const auto found = cache.find(key);
     if (found != cache.end()) {
         if (found->second != nullptr) {
@@ -872,7 +836,7 @@ TextureSurface* TransformTextureSurface_44CD80(
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
     auto& publishedCache = world::gCurrentSceneType == 10
-        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
+        ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     publishedCache[publishedKey] = transformed;
     return publishedCache[publishedKey];
 }
@@ -881,7 +845,7 @@ TextureSurface* TransformTextureSurface_44CD80(
 void ClearSurfaceTransformCache_44D490()
 {
     auto& cache = world::gCurrentSceneType == 10
-        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
+        ? (*gSurfaceTransforms62A630) : (*gSurfaceTransforms629300);
     auto current = cache.begin();
     while (current != cache.end()) {
         gTextureSurfaceOwner.Release(current->second);

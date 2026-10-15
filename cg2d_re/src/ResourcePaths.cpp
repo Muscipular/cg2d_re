@@ -146,7 +146,7 @@ void Sub_45A190()
 
 namespace cg::resource {
 
-const std::uint8_t* BorrowAutoMapColors() noexcept
+const std::uint8_t* GetAutoMapColors() noexcept
 {
     return gAutoMapColors927F48;
 }

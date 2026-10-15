@@ -179,7 +179,7 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
 static void WindowAlbumDetail_Refresh()
 {
     const auto selectedRecord = []() {
-        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        const std::byte* const records = world::detail::GetSelectedAlbumRecords();
         const std::int32_t index = gLoginWindowRuntime.valueCB2200;
         return records + index * 0x80;
     };
@@ -218,7 +218,7 @@ static void WindowAlbumDetail_Refresh()
         }
         const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
         const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
-        const char* const name = world::detail::ClearAlbumNewFlagAndBorrowName(nameCharacter, nameIndex);
+        const char* const name = world::detail::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
         copyBeforeScan(2, cg::text::FromGbkWide(name));
 
         const std::int32_t image = readValue(selectedRecord(), 8);
@@ -255,7 +255,7 @@ static void WindowAlbumDetail_Refresh()
         secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
-        const std::byte* const firstRatingRecords = world::detail::BorrowSelectedAlbumRecords();
+        const std::byte* const firstRatingRecords = world::detail::GetSelectedAlbumRecords();
         WindowAlbumDetail_DrawRating(readValue(firstRatingRecords + firstRatingIndex * 0x80, 0x0C), 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
             WindowAlbumDetail_DrawRating(readValue(selectedRecord(), 0x0C + rating * 4), 53 + rating * 5);

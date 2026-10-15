@@ -714,16 +714,16 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         }
     }
     if ((events & 1u) != 0 && hovered >= 0
-        && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
-        if ((world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
+        && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if ((world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
             gHoverTextD68AE8 = L"此物品無法存放。";
         } else {
             gHoverTextD68AE8 = L"用滑鼠拖放來存放物品。";
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0
-        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
+        && world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0
+        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (gBankOwnHover57EDCC != hovered) {
@@ -741,7 +741,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
                     break;
                 }
             }
-            if (target >= 20 || world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used == 0) {
+            if (target >= 20 || world::detail::gPlayerRuntimeSlots.items[hovered + 8].used == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 WindowItem_RequestTransfer(41, index, hovered + 8, target + 100);
@@ -750,16 +750,16 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value20);
-                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
+                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
                 gWindowStates[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -791,7 +791,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind() == 2 && WindowDrag_ReadSourceIndex() >= 100) {
                 ++gStorageValueCC4218;
@@ -804,7 +804,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
     std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -867,7 +867,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
             }
             if (source != position + 100
                 && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) == 0)) {
+                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
                 WindowItem_RequestTransfer(41, index, source, position + 100);
             }
             break;
@@ -894,7 +894,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::detail::BorrowPlayerItemsFDA8A4()[source].flags) & 0x60u) != 0) {
+                    &world::detail::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -913,7 +913,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
         if (WindowDrag_ReadFocusWindowId() == 41 || WindowDrag_ReadFocusWindowId() == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             std::int32_t target = 0;
-            while (target < 20 && world::detail::BorrowPlayerItemsFDA8A4()[target + 8].used != 0) {
+            while (target < 20 && world::detail::gPlayerRuntimeSlots.items[target + 8].used != 0) {
                 ++target;
             }
             if (target >= 20) {
@@ -1483,7 +1483,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
     std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
-        if (world::detail::BorrowPlayerItemsFDA8A4()[index].used != 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[index].used != 0) {
             ++count;
         }
     }

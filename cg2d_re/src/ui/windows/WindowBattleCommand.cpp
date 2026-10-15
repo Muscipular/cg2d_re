@@ -182,9 +182,9 @@ static void WindowBattleCommand_Open(
         const std::int32_t namePosition = world::detail::GetBattlePetPosition_405B40(
             world::detail::gBattleCurrentPosition5ABCA4);
         const login::YobiAction* const action = world::detail::gBattleEntries59E980[namePosition];
-        const char* name = login::detail::BorrowYobiTitleE1(action);
+        const char* name = login::detail::GetYobiTitle(action);
         if (name[0] == '\0') {
-            name = login::detail::BorrowYobiNameC4(action);
+            name = login::detail::GetYobiName(action);
         }
         static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
         const std::int32_t maximumPosition = world::detail::GetBattlePetPosition_405B40(
@@ -210,7 +210,7 @@ static void WindowBattleCommand_Open(
         gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
         gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
         const std::int32_t namePosition = world::detail::gBattleCurrentPosition5ABCA4;
-        const char* const name = login::detail::BorrowYobiNameC4(
+        const char* const name = login::detail::GetYobiName(
             world::detail::gBattleEntries59E980[namePosition]);
         static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
         const std::int32_t maximumPosition = world::detail::gBattleCurrentPosition5ABCA4;
@@ -351,9 +351,9 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
             std::wstring name = L"請選擇對象";
             if (selected >= 0) {
                 const login::YobiAction* const action = world::detail::gBattleEntries59E980[selected];
-                const char* title = login::detail::BorrowYobiTitleE1(action);
+                const char* title = login::detail::GetYobiTitle(action);
                 if (title[0] == '\0') {
-                    title = login::detail::BorrowYobiNameC4(action);
+                    title = login::detail::GetYobiName(action);
                 }
                 name = cg::text::FromGbkWide(title);
             }
@@ -732,7 +732,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, 
     if (action == nullptr) {
         return 0;
     }
-    login::YobiAction* const* const rebirth = login::detail::BorrowBattleRebirthSlot106C(action);
+    login::YobiAction* const* const rebirth = login::detail::FindBattleRebirthSlot(action);
     if (rebirth == nullptr) {
         return 0;
     }
@@ -749,7 +749,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, 
         const login::YobiAction* const current =
             world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4];
         const char* const command =
-            *login::detail::BorrowBattleRebirthSlot106C(current) != nullptr ? "R|0" : "R|1";
+            *login::detail::FindBattleRebirthSlot(current) != nullptr ? "R|0" : "R|1";
         static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(command)));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;
@@ -1193,7 +1193,7 @@ void WindowBattleCommand_Dispatch()
         std::int32_t position = gBattleCurrentPosition5ABCA4;
         if (position < 20) {
             login::YobiAction* const player = gBattleEntries59E980[position];
-            if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
+            if (*login::detail::FindBattleRiderSlot(player) != nullptr) {
                 if ((reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0] & 8u) != 0) {
                     static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
                     const std::int32_t petCount = gBattlePetActionCount5ABBBC;
@@ -1595,7 +1595,7 @@ void WindowBattleCommand_Dispatch()
     case 5:
         if (gWindowStates[WindowId_BattleCommand].userState.value == 3) {
             login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
-            if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr && gBattlePetActionCount5ABBBC < 2) {
+            if (*login::detail::FindBattleRiderSlot(player) != nullptr && gBattlePetActionCount5ABBBC < 2) {
                 gBattlePlayerActionState5ABC74 = 0;
                 gBattleCommandState5ABC3C = 0;
             } else {
@@ -1628,7 +1628,7 @@ static void WindowBattleCommand_DrawTimer()
         WindowBattleCommand_Close();
         login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
         bool finish = false;
-        if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
+        if (*login::detail::FindBattleRiderSlot(player) != nullptr) {
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
             finish = true;
         } else {
@@ -1718,7 +1718,7 @@ void WindowBattleCommand_SyncActorVitals()
     if (player == nullptr) {
         return;
     }
-    login::YobiAction* const* const rider = login::detail::BorrowBattleRiderSlot13C8(player);
+    login::YobiAction* const* const rider = login::detail::FindBattleRiderSlot(player);
     if (rider == nullptr || *rider != nullptr) {
         return;
     }

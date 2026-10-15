@@ -101,7 +101,7 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 <a id="cryptint-startup-source-state"></a>
 ## 当前启动生命周期实现
 
-原24个相关CRT包装中，18组共22个标量按LCI07／LCI16／LCI17直接定义，鼠标／玩家／主宠物三组按LCI18直接定义，另3组预览／浏览对象沿不可拷贝启动拥有者；世界千项表同样按LCI18中央直接定义。
+原24个相关CRT包装中，18组共22个标量按LCI07／LCI16／LCI17直接定义，鼠标／玩家／主宠物三组按LCI18直接定义，另3组预览／浏览对象按BCL01在各原启动入口内直接静态定义，启动类型只负责原位置调用；世界千项表同样按LCI18中央直接定义。
 22个标量直接默认构造、退出逆序析构；复合对象仍在原位置构造／销毁，16B值布局保持。
 直接定义与其余拥有者实例均位于LegacyMouse.cpp同一有序初始化位置；组内、组间及相邻非CryptInt初始化序保持。
 退出登记、登记失败和C++异常机制沿已确认方案交由MSVC，未宣称旧登记结果或异常域等价。
@@ -127,9 +127,9 @@ LCI11继续将82个直接字段／CopyPayload单目标段接入整数赋值，�
 | 0x00467E70 | `cg::world::detail::gValueAF0FE8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467E80／467EA0由全局寿命承接 |
 | 0x00467EB0 | `cg::world::detail::gValueC821D8`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467EC0／467EE0由全局寿命承接 |
 | 0x00467EF0 | `cg::world::detail::gRippleGate`直接全局定义 | `LegacyCryptInt()` / `~LegacyCryptInt()`；原467F00／467F20由全局寿命承接 |
-| 0x004883F0 | `cg::ui::FirstItemSelectorStartup` | `ConstructLegacyFirstItemSelector_488400` / `ReleaseLegacyFirstItemSelectorAtExit_488420` |
-| 0x004998F0 | `cg::ui::SecondItemSelectorStartup` | `ConstructLegacySecondItemSelector_499900` / `ReleaseLegacySecondItemSelectorAtExit_499920` |
-| 0x004CD240 | `cg::ui::StallBrowsePetValuesStartup` | `ConstructStallBrowsePetValues` / `DestroyStallBrowsePetValues` |
+| 0x004883F0 | `cg::ui::FirstItemSelectorStartup` | WindowInventory_ConstructSelector→ConstructWindowSelectorPreview(0)；实际预览自动逆序析构 |
+| 0x004998F0 | `cg::ui::SecondItemSelectorStartup` | WindowBattleItems_ConstructSelector→ConstructWindowSelectorPreview(1)；实际预览自动逆序析构 |
+| 0x004CD240 | `cg::ui::StallBrowsePetValuesStartup` | WindowStall_ConstructBrowsePetValues；私有浏览对象自动逆序析构 |
 | 0x00506340 | `cg::platform::gLegacyMouseState`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
 | 0x005183D0 | `cg::world::detail::gPlayerRuntimeSlots`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
 | 0x00518520 | `cg::world::detail::gPetRuntimeRecords`直接全局定义 | 真实复合类型默认构造／逆序析构；原入口由原生寿命承接 |
@@ -514,3 +514,7 @@ UTF-8无BOM／LF、JSON、源码／原地址与Git差异核对通过。台账-Ch
 3680行原身份／原名称保持，六行由正文改为原生承接，十个本组入口与四个数组helper指向真实全局对象；355项直接定位行号、646行函数表位置／本组承接说明同步，直接定义数量不变。25条相关语义记录更新当前提供者／访问表达式；26个旧生命周期字段明确归历史，六个业务格式字段只投影存储名称，增加五条adapted处置，其余验收门禁保持。
 
 UTF-8无BOM／LF、JSON、无旧代码引用和差异核对通过。台账-Check仍仅两份既有旧键盘历史附件缺失，未写派生文件，不计全量台账通过；未编译、测试、运行或修改IDA数据库。精确提交本步。
+
+## BCL01后续当前存储说明（2026-10-15）
+
+[全Borrow清理](cg2d_borrow_cleanup_spec.md)将剩余两预览／浏览optional访问函数移除。两个固定索引各在原构造调用中创建独立实际静态YobiAction，仍保持十成员→字段发布→下一个十成员的原序；浏览实际StallBrowseData留在WindowStall.cpp原初始化入口。三个启动类型只负责中央原调用，原纯退出包装退休，由实际静态对象在相同组序自动析构。两预览20次、浏览30次的原构造RNG及业务读写／发布序保持，不改变其它全局或局部CryptInt；只静态，完整异常与运行未验。

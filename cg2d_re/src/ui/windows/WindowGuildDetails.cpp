@@ -260,18 +260,18 @@ static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
         gGuildEditing57F03C = -1;
         static_cast<void>(WindowGuildDetails_RefreshDraft());
         WindowGuildDetails_RefreshReadOnly();
-        std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
+        std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::GetGuildName());
         std::strcpy(gGuildDraftCF4018.secondText634.data(),
-            login::detail::BorrowGuildSecondText10514E5());
+            login::detail::GetGuildSecondText());
         for (std::int32_t index = 0; index < 32; ++index) {
-            const char* const source = login::detail::BorrowGuildRankText1051518(index);
+            const char* const source = login::detail::GetGuildRankText(index);
             char* const destination = gGuildDraftCF4018.ranks[index].text.data();
             std::strcpy(destination, source);
         }
         auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
-        name->text = cg::text::FromGbkWide(login::detail::BorrowGuildName10514BC());
+        name->text = cg::text::FromGbkWide(login::detail::GetGuildName());
         auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
-        second->text = cg::text::FromGbkWide(login::detail::BorrowGuildSecondText10514E5());
+        second->text = cg::text::FromGbkWide(login::detail::GetGuildSecondText());
     }
     if (WindowGuildDetails_CommitFocusedInput() == 0) {
         gGuildEditing57F03C = -1;
@@ -340,12 +340,12 @@ static void WindowGuildDetails_RefreshEditor()
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
         text->text = cg::text::FromGbkWide(gGuildDraftCF4018.name604.data());
         const bool changed = std::strcmp(gGuildDraftCF4018.name604.data(),
-            login::detail::BorrowGuildName10514BC()) != 0;
+            login::detail::GetGuildName()) != 0;
         static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool nameChanged = std::strcmp(gGuildDraftCF4018.name604.data(),
-        login::detail::BorrowGuildName10514BC()) != 0;
+        login::detail::GetGuildName()) != 0;
     gCurrentWindow->elements[64].visible = nameChanged ? 1 : 0;
 
     window = gCurrentWindow;
@@ -363,12 +363,12 @@ static void WindowGuildDetails_RefreshEditor()
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
         text->text = cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data());
         const bool changed = std::strcmp(gGuildDraftCF4018.secondText634.data(),
-            login::detail::BorrowGuildSecondText10514E5()) != 0;
+            login::detail::GetGuildSecondText()) != 0;
         static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool secondChanged = std::strcmp(gGuildDraftCF4018.secondText634.data(),
-        login::detail::BorrowGuildSecondText10514E5()) != 0;
+        login::detail::GetGuildSecondText()) != 0;
     gCurrentWindow->elements[65].visible = secondChanged ? 1 : 0;
 
     for (std::int32_t row = 0; row < 7; ++row) {
@@ -400,20 +400,20 @@ static std::int32_t WindowGuildDetails_RefreshRanks()
     gCurrentWindow->elements[53].visible = 0;
     auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     name->text = cg::text::FromGbkWide(editable != 0 ? gGuildDraftCF4018.name604.data()
-        : login::detail::BorrowGuildName10514BC());
+        : login::detail::GetGuildName());
     auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
     second->text = cg::text::FromGbkWide(editable != 0 ? gGuildDraftCF4018.secondText634.data()
-        : login::detail::BorrowGuildSecondText10514E5());
+        : login::detail::GetGuildSecondText());
     for (std::int32_t index = 0; index < 3; ++index) {
         WindowInstance* const window = gCurrentWindow;
-        const char* const source = login::detail::BorrowGuildAuxText1057BF4(index);
+        const char* const source = login::detail::GetGuildAuxText(index);
         static_cast<WindowTextData*>(window->elements[index + 54].data)->text = cg::text::FromGbkWide(source);
     }
     std::int32_t y = 164;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         const char* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
-            : login::detail::BorrowGuildRankText1051518(rank);
+            : login::detail::GetGuildRankText(rank);
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 11].data);
         text->text = cg::text::FromGbkWide(source);
         for (std::int32_t column = 0; column < 5; ++column) {
@@ -667,12 +667,12 @@ static std::uint32_t WindowGuildDetails_RefreshDraft()
     }
     for (std::int32_t index = 0; index < 32; ++index) {
         const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
-        const char* const text = login::detail::BorrowGuildRankText1051518(index);
+        const char* const text = login::detail::GetGuildRankText(index);
         gGuildDraftCF4018.ranks[index].flags = flags;
         std::strcpy(gGuildDraftCF4018.ranks[index].text.data(), text);
     }
-    std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
-    const char* const text = login::detail::BorrowGuildSecondText10514E5();
+    std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::GetGuildName());
+    const char* const text = login::detail::GetGuildSecondText();
     const auto length = static_cast<std::uint32_t>(std::strlen(text) + 1);
     std::memcpy(gGuildDraftCF4018.secondText634.data(), text, length);
     return length;
@@ -683,7 +683,7 @@ static std::int32_t WindowGuildDetails_HasChangedRank(const std::int32_t index)
 {
     std::int32_t changes = std::strcmp(
         gGuildDraftCF4018.ranks[index].text.data(),
-        login::detail::BorrowGuildRankText1051518(index)) != 0 ? 1 : 0;
+        login::detail::GetGuildRankText(index)) != 0 ? 1 : 0;
     const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
     if ((flags & 0x80) == 0 && gGuildDraftCF4018.ranks[index].flags != flags) {
         ++changes;
@@ -707,7 +707,7 @@ static std::int32_t WindowGuildDetails_HasChangedRanks()
 static std::int32_t WindowGuildDetails_SubmitName()
 {
     std::int32_t result = std::strcmp(
-        gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
+        gGuildDraftCF4018.name604.data(), login::detail::GetGuildName());
     if (result == 0) {
         return result;
     }
@@ -730,7 +730,7 @@ static std::int32_t WindowGuildDetails_SubmitName()
 static std::int32_t WindowGuildDetails_SubmitDescription()
 {
     std::int32_t result = std::strcmp(
-        gGuildDraftCF4018.secondText634.data(), login::detail::BorrowGuildSecondText10514E5());
+        gGuildDraftCF4018.secondText634.data(), login::detail::GetGuildSecondText());
     if (result == 0) {
         return result;
     }
@@ -767,7 +767,7 @@ static std::int32_t WindowGuildDetails_SubmitRanks()
     }
     for (std::int32_t index = 0; index < 32; ++index) {
         const char* const draft = gGuildDraftCF4018.ranks[index].text.data();
-        if (std::strcmp(login::detail::BorrowGuildRankText1051518(index), draft) != 0
+        if (std::strcmp(login::detail::GetGuildRankText(index), draft) != 0
             || login::detail::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
             const std::wstring escapedText = input::EscapeTextAndNotify(cg::text::FromGbkWide(draft), 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;

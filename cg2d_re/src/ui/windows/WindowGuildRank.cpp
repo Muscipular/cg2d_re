@@ -226,7 +226,7 @@ static std::uint32_t WindowGuildRank_Refresh()
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
-        const char* const rank = login::detail::BorrowGuildRankText1051518(scroll + row + 1);
+        const char* const rank = login::detail::GetGuildRankText(scroll + row + 1);
         data->text = cg::text::FromGbkWide(rank);
     }
     const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;

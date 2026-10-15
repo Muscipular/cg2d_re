@@ -179,16 +179,8 @@ login::YobiAction* gWindow39Action62B5B8 = nullptr;
 
 using detail::BattleResultRecord;
 using detail::BattleSkillResultRecord;
-std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
-std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
 
 // 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
-std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
-std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
-static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
-static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
-static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
-static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
 
 constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     59000,
@@ -652,6 +644,15 @@ std::uint32_t InitializeAlbum_518C20()
 
 namespace detail {
 
+std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
+std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
+std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
+std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
+static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
+static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
+static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
+static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
+
 void PlayerRuntimeSlots::ClearRaw() noexcept
 {
     auto* const bytes = reinterpret_cast<std::byte*>(this);
@@ -679,13 +680,13 @@ std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C; // 原�
 std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768; // 原全局：0x00C8A768。
 std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // 原全局：0x00C8A76C。
 
-const std::byte* BorrowSelectedAlbumRecords()
+const std::byte* GetSelectedAlbumRecords()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
     return AlbumRecordAt(0, selected);
 }
 
-const char* ClearAlbumNewFlagAndBorrowName(const std::int16_t selected, const std::int32_t index)
+const char* ClearAlbumNewFlagAndGetName(const std::int16_t selected, const std::int32_t index)
 {
     std::byte* const record = AlbumRecordAt(index, selected);
     record[0x7F] = std::byte{0};
@@ -937,12 +938,12 @@ std::uint16_t ReadMapEffectHalf(
     return value;
 }
 
-const MapEffectRecord* BorrowActiveMapEffectHead() noexcept
+const MapEffectRecord* GetActiveMapEffectHead() noexcept
 {
     return gActiveMapEffectHead;
 }
 
-const MapEffectRecord* BorrowNextMapEffect(const MapEffectRecord* const record) noexcept
+const MapEffectRecord* GetNextMapEffect(const MapEffectRecord* const record) noexcept
 {
     return record->next;
 }
@@ -2952,7 +2953,7 @@ std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
 // 原函数：0x00505040。
 std::int32_t Sub_505040(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -2969,7 +2970,7 @@ std::int32_t Sub_505040(const std::int32_t slot)
 // 原函数：0x005050B0。
 std::int32_t Sub_5050B0(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -2985,7 +2986,7 @@ std::int32_t Sub_5050B0(const std::int32_t slot)
 // 原函数：0x00505110。
 std::int32_t Sub_505110(const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &BorrowPlayerItemsFDA8A4()[slot];
+    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -3200,10 +3201,7 @@ void Sub_518600(
         });
 }
 
-std::array<PlayerItemRecord, 28>& BorrowPlayerItemsFDA8A4()
-{
-    return detail::gPlayerRuntimeSlots.items;
-} // 原全局：0x00FDA8A4。
+ // 原全局：0x00FDA8A4。
 
 namespace {
 
@@ -3213,7 +3211,7 @@ void ApplyPlayerItemFields(
     const char* const payload, const char* const name,
     char* const memo, char* const description)
 {
-    PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
+    PlayerItemRecord& record = gPlayerRuntimeSlots.items[index];
     record.used = 1;
     if (std::strlen(name) <= 28) {
         record.name = cg::text::FromGbkWide(name);
@@ -3276,7 +3274,7 @@ void Sub_50BF20(const std::uintptr_t, const char* const payload)
 // 原函数：0x005196B0。
 void Sub_5196B0(const std::int32_t index, const char* const text)
 {
-    PlayerItemRecord& record = BorrowPlayerItemsFDA8A4()[index];
+    PlayerItemRecord& record = gPlayerRuntimeSlots.items[index];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
@@ -3316,8 +3314,8 @@ void Sub_50BFD0(const std::uintptr_t, const char* const payload)
         network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            BorrowPlayerItemsFDA8A4()[index].used = 0;
-            BorrowPlayerItemsFDA8A4()[index].name.clear();
+            gPlayerRuntimeSlots.items[index].used = 0;
+            gPlayerRuntimeSlots.items[index].name.clear();
         } else {
             ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
         }
@@ -3344,7 +3342,7 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
     while (status != 1) {
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            BorrowPlayerItemsFDA8A4()[index].used = 0;
+            gPlayerRuntimeSlots.items[index].used = 0;
         } else {
             ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
         }
@@ -3365,8 +3363,8 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     if (first < 0 || second < 0) {
         return;
     }
-    PlayerItemRecord* const left = &BorrowPlayerItemsFDA8A4()[first];
-    PlayerItemRecord* const right = &BorrowPlayerItemsFDA8A4()[second];
+    PlayerItemRecord* const left = &gPlayerRuntimeSlots.items[first];
+    PlayerItemRecord* const right = &gPlayerRuntimeSlots.items[second];
     const PlayerItemRecord temporary = *left;
     *left = *right;
     *right = temporary;
@@ -3386,8 +3384,8 @@ std::int32_t Sub_51B5F0(const std::int32_t itemId)
     if (itemId <= 0) {
         return count;
     }
-    for (const PlayerItemRecord* item = BorrowPlayerItemsFDA8A4().data() + 8;
-         item != BorrowPlayerItemsFDA8A4().data() + BorrowPlayerItemsFDA8A4().size(); ++item) {
+    for (const PlayerItemRecord* item = gPlayerRuntimeSlots.items.data() + 8;
+         item != gPlayerRuntimeSlots.items.data() + gPlayerRuntimeSlots.items.size(); ++item) {
         if (item != nullptr && item->used != 0 && item->itemId == itemId) {
             count += item->count;
         }
@@ -3423,7 +3421,7 @@ void Sub_51B630(
         if (firstIndex >= 28) {
             return;
         }
-        firstBase = BorrowPlayerItemsFDA8A4().data();
+        firstBase = gPlayerRuntimeSlots.items.data();
     } else if (firstGroup >= 1 && firstGroup <= 5) {
         if (firstIndex >= 6) {
             return;
@@ -3434,7 +3432,7 @@ void Sub_51B630(
         if (secondIndex >= 28) {
             return;
         }
-        secondBase = BorrowPlayerItemsFDA8A4().data();
+        secondBase = gPlayerRuntimeSlots.items.data();
     } else if (secondGroup >= 1 && secondGroup <= 5) {
         if (secondIndex >= 6) {
             return;
@@ -4821,7 +4819,7 @@ std::int32_t Sub_46C840(
         return 1;
     }
 
-    const std::uint8_t* const colors = resource::BorrowAutoMapColors();
+    const std::uint8_t* const colors = resource::GetAutoMapColors();
     std::int16_t nextIndex = gAutoMapWindowIndex55DA90;
     std::int32_t currentIndex = nextIndex;
     const std::int32_t tileHeight = gAutoMapWindowSizes55DA94[currentIndex].height;
@@ -5499,26 +5497,6 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
             gBattleMWriteIndex5A3A1C = 0;
         }
     }
-}
-
-const std::array<BattleResultRecord, 4>& BorrowBattleResults() noexcept
-{
-    return gBattleResultsFF0C14;
-}
-
-const std::array<BattleSkillResultRecord, 15>& BorrowBattleSkillResults() noexcept
-{
-    return gBattleSkillResultsFF0C8C;
-}
-
-const std::array<std::array<char, 29>, 3>& BorrowBattleResultNames() noexcept
-{
-    return gBattleResultNamesFF0C34;
-}
-
-const std::array<std::int32_t, 3>& BorrowBattleResultGraphics() noexcept
-{
-    return gBattleResultGraphicsFF0D0C;
 }
 
 // 原函数：0x0050D500。
@@ -7952,7 +7930,7 @@ std::int32_t Sub_518C60()
 {
     std::int32_t count = 0;
     for (std::int32_t slot = 8; slot < 28; ++slot) {
-        if (BorrowPlayerItemsFDA8A4()[slot].used == 0) {
+        if (gPlayerRuntimeSlots.items[slot].used == 0) {
             ++count;
         }
     }
@@ -7974,7 +7952,7 @@ std::int32_t ReadPlayerValue08() noexcept
     return detail::gPlayerRuntimeSlots.value08;
 }
 
-const char* BorrowPlayerJobName() noexcept
+const char* GetPlayerJobName() noexcept
 {
     return gSkillRuntimeSlots.jobName.data();
 }
@@ -8153,11 +8131,6 @@ void SetPlayerActionFlags(const std::uint16_t mask) noexcept
     detail::gPlayerRuntimeSlots.flags18C |= static_cast<std::uint32_t>(mask) << 16;
 }
 
-char* BorrowPlayerStallName() noexcept
-{
-    return detail::gPlayerRuntimeSlots.text15BB8.data();
-}
-
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
@@ -8168,7 +8141,7 @@ void CopyPlayerBarValues(
     *maxFp = detail::gPlayerRuntimeSlots.maxFp;
 }
 
-const char* BorrowTitleText(const std::int32_t index) noexcept
+const char* GetTitleText(const std::int32_t index) noexcept
 {
     // 原FF0510-1Ch=FF04F4，未装备称号借用第二条角色记录+80h的原字节。
     if (index == -1) {
@@ -8177,12 +8150,12 @@ const char* BorrowTitleText(const std::int32_t index) noexcept
     return gTitlesFF0508[index].text.data();
 }
 
-const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
+const char* GetPlayerDisplayText(const std::int16_t mode) noexcept
 {
     switch (mode) {
     case 1: return detail::gPlayerRuntimeSlots.name.data();
     case 2: return detail::gPlayerRuntimeSlots.ownTitle.data();
-    case 3: return BorrowTitleText(detail::gPlayerRuntimeSlots.titleIndex100);
+    case 3: return GetTitleText(detail::gPlayerRuntimeSlots.titleIndex100);
     case 4: return detail::gPlayerRuntimeSlots.text12A.data();
     case 5: return detail::gPlayerRuntimeSlots.text14B.data();
     case 6: return detail::gPlayerRuntimeSlots.text15BB8.data();
@@ -10133,7 +10106,7 @@ std::int32_t Sub_51D790(
     switch (mode) {
     case 4:
         for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             rectangle[1] = row;
             rectangle[3] = row + 1;
             rectangle[0] = 0;
@@ -10150,7 +10123,7 @@ std::int32_t Sub_51D790(
             rectangle[3] = row + 1;
             rectangle[0] = 0;
             rectangle[2] = 640;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -10159,7 +10132,7 @@ std::int32_t Sub_51D790(
         break;
     case 6:
         for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const double position = static_cast<double>(offsetsX[row]);
             rectangle[1] = row;
             rectangle[3] = row + 1;
@@ -10173,7 +10146,7 @@ std::int32_t Sub_51D790(
     case 7:
     case 8:
         for (std::int32_t row = 479; row > 0; --row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const double position = static_cast<double>(offsetsY[row]);
             rectangle[1] = row;
             rectangle[3] = row + 1;
@@ -10185,7 +10158,7 @@ std::int32_t Sub_51D790(
         }
         break;
     default: {
-        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        render::TextureSurface* const source = render::GetCpuTempSurface();
         const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);
         const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);
         static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -10579,7 +10552,7 @@ std::int32_t Sub_51E0D0(
     switch (mode) {
     case 4:
         for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             rectangle[1] = row;
             rectangle[3] = row + 1;
             rectangle[0] = 0;
@@ -10596,7 +10569,7 @@ std::int32_t Sub_51E0D0(
             rectangle[3] = row + 1;
             rectangle[0] = 0;
             rectangle[2] = 640;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -10605,7 +10578,7 @@ std::int32_t Sub_51E0D0(
         break;
     case 6:
         for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const double position = static_cast<double>(offsetsX[row]);
             rectangle[1] = row;
             rectangle[3] = row + 1;
@@ -10619,7 +10592,7 @@ std::int32_t Sub_51E0D0(
     case 7:
     case 8:
         for (std::int32_t row = 0; row < 480; ++row) {
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             rectangle[1] = row;
             const double position = static_cast<double>(offsetsY[row]);
             rectangle[3] = row + 1;
@@ -10631,7 +10604,7 @@ std::int32_t Sub_51E0D0(
         }
         break;
     default: {
-        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        render::TextureSurface* const source = render::GetCpuTempSurface();
         const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);
         const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);
         static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -10791,7 +10764,7 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
 
     static_cast<void>(render::ClearSurface_4512C0());
     for (std::size_t index = 0; index < 4; ++index) {
-        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        render::TextureSurface* const source = render::GetCpuTempSurface();
         const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
         const auto x = static_cast<std::int16_t>(gQuadrantTransitionXFF275C[index]);
         static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangles[index], source));
@@ -10952,7 +10925,7 @@ std::int32_t Sub_51EF80(
             rectangle[0] = sourceX;
             rectangle[1] = sourceY;
             rectangle[2] = sourceX + 80;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             rectangle[3] = sourceY + 60;
             const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangle, source));
@@ -10965,7 +10938,7 @@ std::int32_t Sub_51EF80(
             rectangle[1] = sourceY;
             rectangle[0] = sourceX;
             rectangle[3] = sourceY + 60;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             rectangle[2] = sourceX + 80;
             const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
             const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
@@ -11023,7 +10996,7 @@ std::int32_t Sub_51F610(const std::int32_t value)
             const std::int32_t yProduct = gGridTransitionOffsetsFF28C0[index].y * scale;
             rectangle[0] = sourceX;
             rectangle[2] = sourceX + 20;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const std::int32_t y = yProduct / 64 + 232;
             const std::int32_t xProduct = gGridTransitionOffsetsFF28C0[index].x * scale;
             const std::int32_t x = xProduct / 64 + 310;
@@ -11085,7 +11058,7 @@ std::int32_t ProcessScanlineTransition(
             const std::int32_t sampledRow = numerator / scale;
             rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
             rectangle[3] = rectangle[1] + 1;
-            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            render::TextureSurface* const source = render::GetCpuTempSurface();
             const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
             static_cast<void>(render::BlitSurfaceRectangleToBack(0, destinationY, rectangle, source));
             scale = gImageTransitionScaleFF0D78;
@@ -11176,13 +11149,13 @@ std::int32_t Sub_51FC90(const std::int32_t mode, const std::int32_t value)
             const std::int32_t upperSample = numerator / scale;
             upperRectangle[1] = 240 - upperSample;
             upperRectangle[3] = upperRectangle[1] + 1;
-            render::TextureSurface* const upperSource = render::BorrowCpuTempSurface();
+            render::TextureSurface* const upperSource = render::GetCpuTempSurface();
             const std::int32_t upperY = 240 - row;
             static_cast<void>(render::BlitSurfaceRectangleToBack(
                 0, upperY, upperRectangle, upperSource));
 
             const std::int32_t lowerSample = numerator / gHalfTransitionScaleFF0F7C;
-            render::TextureSurface* const lowerSource = render::BorrowCpuTempSurface();
+            render::TextureSurface* const lowerSource = render::GetCpuTempSurface();
             const std::int32_t lowerY = row + 240;
             lowerRectangle[1] = lowerSample + 240;
             lowerRectangle[3] = lowerRectangle[1] + 1;

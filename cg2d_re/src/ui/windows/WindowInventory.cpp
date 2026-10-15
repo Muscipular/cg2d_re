@@ -220,7 +220,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, cons
     dimmed.bytes[13] = 4;
     world::detail::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_BorrowSelectedItem(&gItemSelectorCF3B10, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
     }
     if ((*reinterpret_cast<const unsigned char*>(&state) & 2u) != 0) {
@@ -372,7 +372,7 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         selected = gSelectedItemCB0A44;
     }
     if (gItemSelectionModeCC40D4 == 1) {
-        if (world::detail::BorrowPlayerItemsFDA8A4()[selected].imageNo == 26569) {
+        if (world::detail::gPlayerRuntimeSlots.items[selected].imageNo == 26569) {
             goto updateSelector;
         }
         WindowInstance* const window = gCurrentWindow;
@@ -595,7 +595,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
-        && (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].flags & 0x60u) != 0) {
+        && (world::detail::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if ((events & 2u) != 0) {
@@ -608,7 +608,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
-            const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
+            const auto& item = world::detail::gPlayerRuntimeSlots.items[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
                 if (item.imageNo == 26569) {
                     WindowInstance* const window = gCurrentWindow;
@@ -645,16 +645,16 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
         consumed = 1;
     } else if ((events & 1u) != 0 && hovered >= 0) {
         if ((events & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Inventory].value14);
-                const std::int32_t pages = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].pages;
+                const std::int32_t pages = world::detail::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
                 gWindowStates[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -687,7 +687,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, login::detail::gValueD69768, 0);
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[hovered + 8];
         if (item.used != 0) {
             gWindowStates[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
@@ -700,7 +700,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, cg::text::FromGbkWide(input::LegacyText593850()), 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -761,7 +761,7 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
     dimmed.bytes[13] = 4;
     world::detail::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_BorrowSelectedItem(&gItemSelectorCF3B10, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
         return 0;
     }
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
@@ -993,7 +993,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
         if (mode == 1 || mode == 2) {
             for (std::int32_t position = 0; position < 20; ++position) {
-                const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+                const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
                 if (item.used == 0 || occupancy[position + 8] != 0) {
                     continue;
                 }
@@ -1033,7 +1033,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     std::wstring buffer;
     std::wstring escaped;
     if (hovered >= 0 && (events & 2u) != 0) {
-        if (world::detail::BorrowPlayerItemsFDA8A4()[hovered + 8].used != 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
@@ -1058,7 +1058,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         leaveSelection();
     }
-    const std::int32_t imageNo = world::detail::BorrowPlayerItemsFDA8A4()[gSelectedItemCB0A44].imageNo;
+    const std::int32_t imageNo = world::detail::gPlayerRuntimeSlots.items[gSelectedItemCB0A44].imageNo;
     const std::int32_t mouseY =
         platform::gLegacyMouseState.mouseY.value();
     const std::int32_t mouseX =
@@ -1081,7 +1081,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
         return consumed;
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[position + 8];
+        const auto& item = world::detail::gPlayerRuntimeSlots.items[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -1124,23 +1124,10 @@ static detail::WindowItemSelectorState* WindowInventory_ConstructSelector()
     return detail::WindowItemSelector_ConstructPreview(&detail::gItemSelectorCF3B10, 0);
 }
 
-// 原488420尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
-// 原函数：0x00488420。
-static void WindowInventory_ReleaseSelectorAtExit()
-{
-    login::detail::DestroyWindowSelectorPreview(0);
-}
-
 // 原函数：0x004883F0；LCI01启动拥有者替代CRT构造／退出登记。
 FirstItemSelectorStartup::FirstItemSelectorStartup()
 {
     WindowInventory_ConstructSelector();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-FirstItemSelectorStartup::~FirstItemSelectorStartup()
-{
-    WindowInventory_ReleaseSelectorAtExit();
 }
 
 } // namespace cg::ui

@@ -57,7 +57,7 @@ HFONT CreateLegacyFont(
         DEFAULT_QUALITY, 0x11, face);
 }
 
-const TextPendingRecord* BorrowTextRecord(const std::uint32_t token)
+const TextPendingRecord* FindTextPendingRecord(const std::uint32_t token)
 {
     return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
 }
@@ -170,7 +170,7 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
 {
     const HDC dc = AcquireCpuBackTextDc();
     static_cast<void>(::SetBkMode(dc, TRANSPARENT));
-    const TextPendingRecord* const head = BorrowTextRecord(headToken);
+    const TextPendingRecord* const head = FindTextPendingRecord(headToken);
     if (head->renderMode == 0) {
         const TextPendingRecord* record = head;
         while (record != nullptr) {
@@ -189,7 +189,7 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
                 static_cast<void>(::SetTextColor(dc, first | (second << 8) | (third << 16)));
                 TextOutRecord(dc, *record, 0);
             }
-            record = BorrowTextRecord(record->nextToken);
+            record = FindTextPendingRecord(record->nextToken);
         }
     } else {
         static_cast<void>(::SetTextColor(dc, 0));
@@ -199,7 +199,7 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
                 static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
                 TextOutRecord(dc, *record, 1);
             }
-            record = BorrowTextRecord(record->nextToken);
+            record = FindTextPendingRecord(record->nextToken);
         }
         for (std::int32_t index = 0; index < 13; ++index) {
             bool selectedColor = false;
@@ -216,7 +216,7 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
                     static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
                     TextOutRecord(dc, *record, 0);
                 }
-                record = BorrowTextRecord(record->nextToken);
+                record = FindTextPendingRecord(record->nextToken);
             }
         }
     }

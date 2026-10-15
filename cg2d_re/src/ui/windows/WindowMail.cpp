@@ -139,7 +139,7 @@ void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callbac
     gWindow47Runtime.actionsCC4254[1] = &WindowMail_CancelDelete;
 }
 
-MailContactView WindowMail_BorrowContactView(const world::detail::ContactRuntimeRecord& record)
+MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRecord& record)
 {
     return {
         &record.used, reinterpret_cast<const std::byte*>(&record.value02),
@@ -148,7 +148,7 @@ MailContactView WindowMail_BorrowContactView(const world::detail::ContactRuntime
     };
 }
 
-MailContactView WindowMail_BorrowContactView(const login::detail::OrderedRecord1051B14& record)
+MailContactView WindowMail_MakeContactView(const login::detail::OrderedRecord1051B14& record)
 {
     return {
         &record.value08, reinterpret_cast<const std::byte*>(&record.value0A),
@@ -157,7 +157,7 @@ MailContactView WindowMail_BorrowContactView(const login::detail::OrderedRecord1
     };
 }
 
-MailContactView WindowMail_BorrowContactView(const world::detail::MiniMailContactRecord& record)
+MailContactView WindowMail_MakeContactView(const world::detail::MiniMailContactRecord& record)
 {
     return {
         &record.used, reinterpret_cast<const std::byte*>(&record.sequence02),

@@ -367,7 +367,7 @@ static std::int32_t WindowSkill_FindSpecialSkill()
 // 原函数：0x00479860。
 std::int32_t WindowSkill_ReadCrystalLevel()
 {
-    const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[7];
+    const auto& item = world::detail::gPlayerRuntimeSlots.items[7];
     if (item.used == 0) {
         return 0;
     }
@@ -384,7 +384,7 @@ std::int32_t WindowSkill_ReadCrystalLevel()
 // 原函数：0x00479920。
 static std::int32_t WindowSkill_ReadCrystalElement()
 {
-    const auto& item = world::detail::BorrowPlayerItemsFDA8A4()[7];
+    const auto& item = world::detail::gPlayerRuntimeSlots.items[7];
     if (item.used == 0) {
         return 0;
     }
@@ -572,7 +572,7 @@ static login::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* const 
     if (kind == 0) {
         std::int32_t count = 0;
         if (gSkillTargetKindCF4A10 != 1) {
-            const char* const name = world::detail::BorrowPlayerDisplayText(1);
+            const char* const name = world::detail::GetPlayerDisplayText(1);
             const std::size_t size = std::strlen(name) + 1;
             gSkillStatusLevelsCC31C0[0] = world::detail::ReadPlayerLevel();
             std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
@@ -1529,7 +1529,7 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     const WindowElement* const elements = window->elements;
     login::YobiAction* const displayAction = world::detail::gBattleEntries59E980[position];
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
-    const char* const name = login::detail::BorrowYobiNameC4(displayAction);
+    const char* const name = login::detail::GetYobiName(displayAction);
     textData->text = cg::text::FromGbkWide(name);
     const auto* const pet = &world::detail::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
@@ -1865,7 +1865,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
                 gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
             }
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::detail::BorrowPlayerJobName());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text = cg::text::FromGbkWide(world::detail::GetPlayerJobName());
         std::int32_t usedSlots = 0;
         for (std::int32_t index = 0; index < 15; ++index) {
             if (world::detail::gSkillPairsF63370[index].used != 0) {
@@ -2489,7 +2489,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     }
     std::int32_t count = 0;
     if (kind != 0) {
-        const char* const name = world::detail::BorrowPlayerDisplayText(1);
+        const char* const name = world::detail::GetPlayerDisplayText(1);
         const std::size_t size = std::strlen(name) + 1;
         count = 1;
         gSkillTargetKindsD2F75C[0] = 0;
@@ -2506,7 +2506,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         }
         login::YobiAction* const action = world::detail::ReadPetMapAction(slot);
         if (action != nullptr) {
-            std::strcpy(gSkillTargetNamesCB0550[count].data(), login::detail::BorrowYobiNameC4(action));
+            std::strcpy(gSkillTargetNamesCB0550[count].data(), login::detail::GetYobiName(action));
         }
         gSkillTargetKindsD2F75C[count] = 1;
         gSkillTargetCountCA0004 = ++count;

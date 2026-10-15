@@ -208,7 +208,7 @@ std::int32_t WindowCraft_SetPreviewPositions(
     WindowInstance* window, std::int32_t anchor, std::int32_t first, std::int32_t second,
     std::int32_t dx, std::int32_t dy); // 双预览定位/显隐，返回原36B元素数值偏移。
 // 原函数：0x0047D220。
-WindowAnimationData* WindowCraft_BorrowSecondPreview(
+WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     WindowInstance* window, std::int32_t first, std::int32_t second,
     std::int32_t flag, std::int32_t actionId, std::int32_t direction); // 返回第二个借用载荷。
 // 原函数：0x0047D5F0。
@@ -341,7 +341,7 @@ std::int32_t WindowItemSelector_ReadScreenY(
     std::int32_t offset); // Y；与X分开采样模式和当前窗口。
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
-bool WindowItemSelector_BorrowSelectedItem(
+bool WindowItemSelector_GetItemList_4C72C0(
     const WindowItemSelectorState* state, world::detail::PlayerItemRecord** items,
     std::int32_t* count); // 借用同源物品表；失败不写输出。
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。

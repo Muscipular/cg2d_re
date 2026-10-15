@@ -915,7 +915,7 @@ static login::YobiAction* WindowShop_CreateService(
                 }
             }
         }
-        const std::uint16_t used = world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].used;
+        const std::uint16_t used = world::detail::gPlayerRuntimeSlots.items[slot + 8].used;
         gShopInventoryMapD2DAB8[slot] = -1;
         if (used != 0) {
             gShopInventoryMapD2DAB8[slot] = 20;
@@ -1352,7 +1352,7 @@ static void WindowShop_CountDetailItems()
     std::int32_t itemId;
     std::memcpy(&itemId, &gShopDetailCC3210.itemId, sizeof(itemId));
     std::int32_t total = 0;
-    for (const world::detail::PlayerItemRecord& record : world::detail::BorrowPlayerItemsFDA8A4()) {
+    for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerRuntimeSlots.items) {
         if (record.used != 0 && record.itemId == itemId) {
             total += record.count;
         }
@@ -1517,7 +1517,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         const std::int32_t itemId = gValueD2D608;
         gShopAvailableCF4A24 = 0;
         std::int32_t total = 0;
-        for (const world::detail::PlayerItemRecord& record : world::detail::BorrowPlayerItemsFDA8A4()) {
+        for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerRuntimeSlots.items) {
             if (record.used != 0 && record.itemId == itemId) {
                 total += record.count;
             }
@@ -2371,7 +2371,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             remaining -= price;
             std::int32_t released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2408,7 +2408,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
             remaining -= cost;
             released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2631,7 +2631,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             std::int32_t released = 0;
             std::int32_t slot = 8;
             for (; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2665,7 +2665,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
             std::int32_t accumulated = 0;
             std::int32_t deficit = -available;
             for (; slot < 28; ++slot) {
-                const world::detail::PlayerItemRecord& item = world::detail::BorrowPlayerItemsFDA8A4()[slot];
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerRuntimeSlots.items[slot];
                 if (item.used != 0 && item.itemId == gValueD2D608) {
                     const std::int32_t count = item.count;
                     std::memcpy(&price, &record->price, sizeof(price));
@@ -3193,7 +3193,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
         gShopTooltipPageD67B8C = 0;
     }
     gShopInventoryHover58084C = hovered;
-    const auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    const auto& items = world::detail::gPlayerRuntimeSlots.items;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
             if (WindowDrag_ReadFocusWindowId() == 53 || WindowDrag_ReadFocusWindowId() == 0) {

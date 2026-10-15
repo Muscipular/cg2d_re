@@ -36,63 +36,25 @@ std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10
 using GraphicMapNumbers = std::vector<std::int32_t>;
 using GraphicFirstRecords = std::map<std::int32_t, GraphicInfo*>;
 
-alignas(GraphicMapNumbers)
-std::byte gGraphicMapNumbersStorage[sizeof(GraphicMapNumbers)] {};
-alignas(GraphicFirstRecords)
-std::byte gGraphicFirstRecordsStorage[sizeof(GraphicFirstRecords)] {};
-
-GraphicMapNumbers& BorrowGraphicMapNumbers() noexcept
-{
-    return *std::launder(
-        reinterpret_cast<GraphicMapNumbers*>(gGraphicMapNumbersStorage));
-}
-
-GraphicFirstRecords& BorrowGraphicFirstRecords() noexcept
-{
-    return *std::launder(
-        reinterpret_cast<GraphicFirstRecords*>(gGraphicFirstRecordsStorage));
-}
-
-// 原4597F0的返回未消费；固定构造同一实际vector，不报告旧指针残值。
-void ConstructGraphicMapNumbers_4597F0()
-{
-    static_cast<void>(std::construct_at(
-        reinterpret_cast<GraphicMapNumbers*>(gGraphicMapNumbersStorage)));
-}
-
-// 原函数：0x00459820。
-void DestroyGraphicMapNumbers_459820()
-{
-    std::destroy_at(&BorrowGraphicMapNumbers());
-}
-
-// 原函数：0x00459860。
-GraphicFirstRecords* ConstructGraphicFirstRecords_459860()
-{
-    return std::construct_at(
-        reinterpret_cast<GraphicFirstRecords*>(gGraphicFirstRecordsStorage));
-}
-
-// 原459890：节点/表头归宿主，GraphicInfo*仍借用，不释放主表。
-void DestroyGraphicFirstRecords_459890()
-{
-    std::destroy_at(&BorrowGraphicFirstRecords());
-}
+GraphicMapNumbers* gGraphicMapNumbers = nullptr; // 原全局：0x9A2960；仅指向原入口的唯一静态对象。
+GraphicFirstRecords* gGraphicFirstRecords = nullptr; // 原全局：0x73F128；仅指向原入口的唯一静态对象。
 
 } // namespace
 
 // 原函数：0x004597E0。
-std::int32_t InitializeGraphicMapNumbers_4597E0()
+void InitializeGraphicMapNumbers_4597E0()
 {
-    ConstructGraphicMapNumbers_4597F0();
-    return std::atexit(DestroyGraphicMapNumbers_459820);
+    // 原0x004597F0／0x00459820：同一类型按原入口创建，退出由MSVC原生析构承接。
+    static GraphicMapNumbers storage{};
+    gGraphicMapNumbers = &storage;
 }
 
 // 原函数：0x00459850。
-std::int32_t InitializeGraphicFirstRecords_459850()
+void InitializeGraphicFirstRecords_459850()
 {
-    static_cast<void>(ConstructGraphicFirstRecords_459860());
-    return std::atexit(DestroyGraphicFirstRecords_459890);
+    // 原0x00459860／0x00459890：同一类型按原入口创建，退出由MSVC原生析构承接。
+    static GraphicFirstRecords storage{};
+    gGraphicFirstRecords = &storage;
 }
 
 // 原函数：0x00459960。
@@ -166,8 +128,8 @@ std::int32_t GraphicInit_459960(
     std::memset(
         gGraphicMapNoIndex, 0,
         sizeof(std::int32_t) * static_cast<std::size_t>(gMaxGraphicCount));
-    BorrowGraphicMapNumbers().clear();
-    BorrowGraphicFirstRecords().clear();
+    gGraphicMapNumbers->clear();
+    gGraphicFirstRecords->clear();
 
     GraphicInfoRecord record; // 原 40B 栈槽不预清零；跨次 fread 保留未覆盖字节。
     std::int32_t processed = 0;
@@ -227,17 +189,17 @@ std::int32_t GraphicInit_459960(
                 gGraphicMapNoIndex[lookupMapNo] = static_cast<std::int32_t>(index);
                 lookupMapNo = record.mapNo;
             }
-            auto& mapNumbers = BorrowGraphicMapNumbers();
+            auto& mapNumbers = (*gGraphicMapNumbers);
             const auto end = mapNumbers.end();
             const auto begin = mapNumbers.begin();
             if (std::find(begin, end, lookupMapNo) == end) {
                 mapNumbers.push_back(lookupMapNo);
                 GraphicInfo* const firstRecord = &gGraphicInfo[index];
                 const std::int32_t firstMapNo = record.mapNo;
-                BorrowGraphicFirstRecords().emplace(firstMapNo, firstRecord);
+                gGraphicFirstRecords->emplace(firstMapNo, firstRecord);
             }
         }
-        std::sort(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end());
+        std::sort(gGraphicMapNumbers->begin(), gGraphicMapNumbers->end());
         std::fclose(gGraphicInfoFile);
         base = processed;
     }

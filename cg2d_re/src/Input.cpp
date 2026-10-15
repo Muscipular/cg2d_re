@@ -1456,7 +1456,7 @@ void Sub_44AB60()
     if (context == &gInputContextC8B1B8) {
         std::wstring message;
         const std::wstring text = ContextText(gInputContextC8B1B8);
-        const std::wstring playerName = cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1));
+        const std::wstring playerName = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         const bool targetsSelf = text == playerName;
         if (targetsSelf) {
             message = kBlacklistSelfText554938;

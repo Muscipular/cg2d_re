@@ -848,8 +848,8 @@ void WindowItemDrag_RemapHover(const std::int32_t first, const std::int32_t seco
     } else if (selected == second) {
         gSelectedItemCB1DF4 = first;
     }
-    if (world::detail::BorrowPlayerItemsFDA8A4()[first].imageNo == 0x67C9
-        || world::detail::BorrowPlayerItemsFDA8A4()[second].imageNo == 0x67C9) {
+    if (world::detail::gPlayerRuntimeSlots.items[first].imageNo == 0x67C9
+        || world::detail::gPlayerRuntimeSlots.items[second].imageNo == 0x67C9) {
         const std::int32_t previous = gSelectedItemCB0A44;
         if (previous == first) {
             gSelectedItemCB0A44 = second;
@@ -980,14 +980,14 @@ void WindowItem_RequestTransfer(
     }
     std::int32_t count;
     if (source < 100) {
-        count = world::detail::BorrowPlayerItemsFDA8A4()[source].count;
+        count = world::detail::gPlayerRuntimeSlots.items[source].count;
     } else {
         std::memcpy(
             &count, &gItemDetailStorageCC4D58[0].items[source - 100].count, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
-        used = std::bit_cast<std::int16_t>(world::detail::BorrowPlayerItemsFDA8A4()[target].used);
+        used = std::bit_cast<std::int16_t>(world::detail::gPlayerRuntimeSlots.items[target].used);
     } else {
         std::memcpy(
             &used, &gItemDetailStorageCC4D58[0].items[target - 100], sizeof(used));
@@ -1237,13 +1237,13 @@ static void WindowItemDrag_Handle(
             item = &world::detail::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
-            item = &world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex];
+            item = &world::detail::gPlayerRuntimeSlots.items[sourceIndex];
         }
         if (item->used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 2) {
-        if (world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].used == 0) {
+        if (world::detail::gPlayerRuntimeSlots.items[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse());
         }
     } else if (kind == 3) {
@@ -1276,11 +1276,11 @@ static void WindowItemDrag_Handle(
             imageNo = world::detail::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
         } else {
-            imageNo = world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].imageNo;
+            imageNo = world::detail::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
         }
     } else if (drawKind == 2) {
         drawDescriptor = &descriptor;
-        imageNo = world::detail::BorrowPlayerItemsFDA8A4()[sourceIndex].imageNo;
+        imageNo = world::detail::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
@@ -2027,7 +2027,7 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
     world::detail::PlayerItemRecord* item;
     if (mode == 0) {
         slot = state->hoverIndex3F8;
-        item = &world::detail::BorrowPlayerItemsFDA8A4()[slot];
+        item = &world::detail::gPlayerRuntimeSlots.items[slot];
     } else {
         if (mode < 0 || state->selectedPet70 < 0) {
             return;
@@ -2348,13 +2348,13 @@ std::int32_t WindowItemSelector_ReadScreenY(
 
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
-bool WindowItemSelector_BorrowSelectedItem(
+bool WindowItemSelector_GetItemList_4C72C0(
     const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,
     std::int32_t* const count)
 {
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     if (mode == 0) {
-        *items = world::detail::BorrowPlayerItemsFDA8A4().data();
+        *items = world::detail::gPlayerRuntimeSlots.items.data();
         *count = 8;
         return true;
     }
@@ -2535,7 +2535,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
         const std::int32_t itemIndex = gTooltipSourceD303FC;
         record = &world::detail::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {
-        record = &world::detail::BorrowPlayerItemsFDA8A4()[index];
+        record = &world::detail::gPlayerRuntimeSlots.items[index];
     }
     const std::uint16_t flags = record->flags;
     const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;

@@ -374,7 +374,7 @@ std::int32_t Sub_521870()
         sourceRectangle[1] = sourceTop;
         const std::int32_t sourceBottom = sourceTop + 8;
         sourceRectangle[3] = sourceBottom;
-        TextureSurface* const temp = BorrowCpuTempSurface();
+        TextureSurface* const temp = GetCpuTempSurface();
         static_cast<void>(BlitSurfaceRectangleToBack(
             0, destinationY, sourceRectangle, temp));
         destinationY += 8;

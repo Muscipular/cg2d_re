@@ -1,6 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
 
-#include <optional>
 
 namespace cg::input {
 
@@ -36,6 +35,9 @@ struct StallBrowseData {
     std::array<std::int32_t, 5> petValuesD2D464; // 原全局：0x00D2D464。
     std::array<std::int32_t, 5> petValuesD2D478; // 原全局：0x00D2D478。
 };
+
+// 指向原启动入口创建的唯一私有对象；不持有或复制宠物数据。
+StallBrowseData* gStallBrowseData = nullptr;
 
 // 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
 struct StallOffer {
@@ -431,12 +433,7 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
 
 // 窗口函数实现。
 
-// 空存储首次用于中央拥有者构造时登记；退出先由拥有者reset，后销毁空容器。
-static std::optional<StallBrowseData>& WindowStall_BorrowBrowseStorage()
-{
-    static std::optional<StallBrowseData> storage;
-    return storage;
-} // 原全局：0x00D046D8。
+ // 原全局：0x00D046D8。
 
 // 原函数：0x004CDE40。
 static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
@@ -1086,7 +1083,7 @@ static std::int32_t WindowStall_DrawPetSkills(
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = WindowStall_BorrowBrowseStorage()->pets[petIndex];
+    const auto& pet = gStallBrowseData->pets[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1116,7 +1113,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     if (shortIndex < 0 || shortIndex > 5) {
         return byteIndex;
     }
-    const auto& pet = WindowStall_BorrowBrowseStorage()->pets[shortIndex];
+    const auto& pet = gStallBrowseData->pets[shortIndex];
     if (pet.used == 0) {
         return shortIndex;
     }
@@ -1149,7 +1146,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     login::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX = static_cast<std::int16_t>(x);
     const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
-    const render::GraphicDescriptor16* const mode = login::detail::BorrowYobiActionDrawMode(action);
+    const render::GraphicDescriptor16* const mode = login::detail::GetYobiActionDrawMode(action);
     static_cast<void>(render::DrawGraphic2_521DD0(
         shortX + 70, shortY + 120, 230, graphicIndex, 0, 0, mode));
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -1192,7 +1189,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
     }
     world::detail::PetRuntimeRecord* const pet = own
         ? &world::detail::gPetRuntimeRecords[gStallPetOffersCC3E98[position].slot]
-        : &WindowStall_BorrowBrowseStorage()->pets[position];
+        : &gStallBrowseData->pets[position];
     if (pet->used == 0) {
         return 0;
     }
@@ -1295,8 +1292,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         cg::text::FormatTo(buffer, L"{}", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
         price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
     } else {
-        cg::text::FormatTo(buffer, L"{}", WindowStall_BorrowBrowseStorage()->petValuesD2D464[gStallPetPageD67BD0 + row]);
-        price = WindowStall_BorrowBrowseStorage()->petValuesD2D464[gStallPetPageD67BD0 + row];
+        cg::text::FormatTo(buffer, L"{}", gStallBrowseData->petValuesD2D464[gStallPetPageD67BD0 + row]);
+        price = gStallBrowseData->petValuesD2D464[gStallPetPageD67BD0 + row];
     }
     std::int8_t priceColor = 0;
     if (price >= 10000) {
@@ -1498,7 +1495,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     world::detail::PlayerItemRecord* item;
     if (own) {
         const std::int32_t slot = gStallItemOffersD671D8[position].slot;
-        item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
+        item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
         if (item->used == 0) {
             return 0;
         }
@@ -1506,7 +1503,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
             gStallHover581120 = slot + 8;
         }
     } else {
-        item = &WindowStall_BorrowBrowseStorage()->items[position];
+        item = &gStallBrowseData->items[position];
         if (item->used == 0) {
             return 0;
         }
@@ -1582,7 +1579,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     if (gStallOwn58111C != 0) {
         price = gStallItemOffersD671D8[gStallItemPageD67BC8 + row].value;
     } else {
-        price = WindowStall_BorrowBrowseStorage()->itemValuesD13E74[gStallItemPageD67BC8 + row];
+        price = gStallBrowseData->itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
     cg::text::FormatTo(buffer, L"{}", price);
     std::int8_t priceColor = 0;
@@ -1634,7 +1631,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
     std::int32_t hovered = -1;
     std::wstring buffer;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
-        auto* const item = &world::detail::BorrowPlayerItemsFDA8A4()[slot + 8];
+        auto* const item = &world::detail::gPlayerRuntimeSlots.items[slot + 8];
         if (item->used == 0) {
             continue;
         }
@@ -1890,7 +1887,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     std::wstring buffer;
     std::wstring details;
     if (gStallModeD67BDC == 0) {
-        auto* const item = WindowStall_BorrowBrowseStorage()->items.data() + (gStallItemSelection581124 - 20);
+        auto* const item = gStallBrowseData->items.data() + (gStallItemSelection581124 - 20);
         if (login::detail::Sub_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
             if ((state & 1) != 0) {
                 gStallHover581120 = gStallItemSelection581124 + 180;
@@ -1923,7 +1920,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, nameLine, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        cg::text::FormatTo(buffer, L"{}", WindowStall_BorrowBrowseStorage()->itemValuesD13E74[gStallItemSelection581124 - 20]);
+        cg::text::FormatTo(buffer, L"{}", gStallBrowseData->itemValuesD13E74[gStallItemSelection581124 - 20]);
         WindowNumber_Draw(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
@@ -1945,7 +1942,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
             static_cast<void>(render::DrawGraphic3_520970(
                 x + 257, y + 9, 227, 243000, 0, 1, 0, &descriptor));
         }
-        auto* const pet = WindowStall_BorrowBrowseStorage()->pets.data() + (gStallPetSelection581128 - 5);
+        auto* const pet = gStallBrowseData->pets.data() + (gStallPetSelection581128 - 5);
         const auto drawPetText = [&](const std::int32_t dx, const std::int32_t dy) {
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
@@ -1982,7 +1979,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         drawPetText(232, 114);
         cg::text::FormatTo(details, L"{:3}", pet->lvFlag6C);
         drawPetText(89, 132);
-        cg::text::FormatTo(details, L"{}", WindowStall_BorrowBrowseStorage()->petValuesD2D464[gStallPetSelection581128 - 5]);
+        cg::text::FormatTo(details, L"{}", gStallBrowseData->petValuesD2D464[gStallPetSelection581128 - 5]);
         WindowNumber_Draw(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
@@ -2044,7 +2041,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 42, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::detail::BorrowPlayerDisplayText(1));
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(world::detail::GetPlayerDisplayText(1));
         gCurrentWindow->elements[7].visible = 0;
         if (input::gCurrentInputData == &input::gInputContextCC2378
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
@@ -2119,10 +2116,10 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 37, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(WindowStall_BorrowBrowseStorage()->sellerName00.data());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(WindowStall_BorrowBrowseStorage()->stallName11.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(gStallBrowseData->sellerName00.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(gStallBrowseData->stallName11.data());
         for (std::int32_t line = 0; line < 3; ++line) {
-            static_cast<void>(input::ExtractGbkTextLine(lineText, WindowStall_BorrowBrowseStorage()->description22.data(), line, 28));
+            static_cast<void>(input::ExtractGbkTextLine(lineText, gStallBrowseData->description22.data(), line, 28));
             WindowInstance* const window = gCurrentWindow;
             WindowElement* const current = window->elements;
             const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -2226,7 +2223,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         for (std::int32_t index = itemCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallItemOffersD671D8.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::detail::BorrowPlayerItemsFDA8A4()[slot + 8].used == 0) {
+            if (world::detail::gPlayerRuntimeSlots.items[slot + 8].used == 0) {
                 --itemCount;
                 gStallItemUsedCC31AC[slot] = 0;
                 gStallItemCountD67BCC = itemCount;
@@ -2263,17 +2260,17 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
     } else {
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = WindowStall_BorrowBrowseStorage()->imageNo60;
+            const std::int32_t value = gStallBrowseData->imageNo60;
             login::detail::SetYobiActionField2A8(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = WindowStall_BorrowBrowseStorage()->action64;
+            const std::int32_t value = gStallBrowseData->action64;
             login::detail::SetYobiActionField2B0(data->action, value);
         }
         {
             auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
-            const std::int32_t value = WindowStall_BorrowBrowseStorage()->direction68;
+            const std::int32_t value = gStallBrowseData->direction68;
             login::detail::SetYobiActionField2B8(data->action, value);
         }
         if (gStallModeD67BDC != 1) {
@@ -2281,7 +2278,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
             if (hover >= 0 && hover < 200) {
                 static_cast<void>(WindowItem_DrawEquipmentTooltip(hover, gStallDescriptionPageD67C3C));
             } else if (hover >= 200) {
-                const auto& item = WindowStall_BorrowBrowseStorage()->items[hover - 200];
+                const auto& item = gStallBrowseData->items[hover - 200];
                 const std::uint16_t flags = item.flags;
                 const std::wstring title = item.name;
                 const std::int8_t color = (flags & 0x100u) != 0
@@ -2329,7 +2326,7 @@ static void WindowStall_OpenBrowse(
         return;
     }
 
-    auto& browse = *WindowStall_BorrowBrowseStorage();
+    auto& browse = *gStallBrowseData;
     auto* const bytes = reinterpret_cast<std::byte*>(&browse);
     std::memset(bytes, 0, offsetof(StallBrowseData, items));
     for (auto& item : browse.items) { item = {}; }
@@ -2340,13 +2337,13 @@ static void WindowStall_OpenBrowse(
     }
     constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
     std::memset(bytes + tail, 0, sizeof(browse) - tail);
-    std::strncpy(WindowStall_BorrowBrowseStorage()->sellerName00.data(), login::detail::BorrowYobiNameC4(action), static_cast<std::uint32_t>(16));
-    WindowStall_BorrowBrowseStorage()->target5C = target;
-    WindowStall_BorrowBrowseStorage()->imageNo60 = login::detail::GetYobiActionField2A8(action);
-    WindowStall_BorrowBrowseStorage()->action64 = login::detail::GetYobiActionField2B0(action);
-    WindowStall_BorrowBrowseStorage()->direction68 = login::detail::GetYobiActionField2B8(action);
-    std::strncpy(WindowStall_BorrowBrowseStorage()->stallName11.data(), stallName, static_cast<std::uint32_t>(16));
-    std::strncpy(WindowStall_BorrowBrowseStorage()->description22.data(), description, static_cast<std::uint32_t>(56));
+    std::strncpy(gStallBrowseData->sellerName00.data(), login::detail::GetYobiName(action), static_cast<std::uint32_t>(16));
+    gStallBrowseData->target5C = target;
+    gStallBrowseData->imageNo60 = login::detail::GetYobiActionField2A8(action);
+    gStallBrowseData->action64 = login::detail::GetYobiActionField2B0(action);
+    gStallBrowseData->direction68 = login::detail::GetYobiActionField2B8(action);
+    std::strncpy(gStallBrowseData->stallName11.data(), stallName, static_cast<std::uint32_t>(16));
+    std::strncpy(gStallBrowseData->description22.data(), description, static_cast<std::uint32_t>(56));
 
     char itemName[256];
     char itemDescription[768];
@@ -2354,12 +2351,12 @@ static void WindowStall_OpenBrowse(
     const std::int32_t itemCount = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', 1);
     std::int32_t itemField = 4;
     for (std::int32_t index = 0; index < itemCount; ++index, itemField += 15) {
-        auto& item = WindowStall_BorrowBrowseStorage()->items[gStallItemCountD67BCC];
+        auto& item = gStallBrowseData->items[gStallItemCountD67BCC];
         ++gStallItemCountD67BCC;
         item = {};
-        WindowStall_BorrowBrowseStorage()->itemValuesD13E74[index] =
+        gStallBrowseData->itemValuesD13E74[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 2);
-        WindowStall_BorrowBrowseStorage()->itemValuesD13EC4[index] =
+        gStallBrowseData->itemValuesD13EC4[index] =
             network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 1);
         network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField, 255, itemName);
         input::UnescapeLegacyTextAndNotify_52D2F0(itemName);
@@ -2402,11 +2399,11 @@ static void WindowStall_OpenBrowse(
     const std::int32_t petCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', 1);
     std::int32_t field = 2;
     for (std::int32_t index = 0; index < petCount; ++index) {
-        auto& pet = WindowStall_BorrowBrowseStorage()->pets[gStallPetCountD67BD4];
+        auto& pet = gStallBrowseData->pets[gStallPetCountD67BD4];
         ++gStallPetCountD67BD4;
-        WindowStall_BorrowBrowseStorage()->petValuesD2D464[index] =
+        gStallBrowseData->petValuesD2D464[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
-        WindowStall_BorrowBrowseStorage()->petValuesD2D478[index] =
+        gStallBrowseData->petValuesD2D478[index] =
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
         ++field; // 原每条相对字段4不解析。
         pet.used = 1;
@@ -2521,9 +2518,9 @@ static std::int32_t WindowStall_RequestPurchase()
     const std::int32_t mode = gStallModeD67BDC;
     std::int32_t value;
     if (mode == 0) {
-        value = WindowStall_BorrowBrowseStorage()->itemValuesD13E74[gStallItemSelection581124];
+        value = gStallBrowseData->itemValuesD13E74[gStallItemSelection581124];
     } else if (mode == 1) {
-        value = WindowStall_BorrowBrowseStorage()->petValuesD2D464[gStallPetSelection581128];
+        value = gStallBrowseData->petValuesD2D464[gStallPetSelection581128];
     } else {
         return mode - 1;
     }
@@ -2615,7 +2612,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         std::sprintf(name, "%s", gStallNameD67BE4.data());
     }
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-    std::strcpy(world::detail::BorrowPlayerStallName(), name);
+    std::strcpy(world::detail::gPlayerRuntimeSlots.text15BB8.data(), name);
     if (window != nullptr) {
         window->elements[0].visible = 0;
     }
@@ -2654,13 +2651,13 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
             gStallPetCountD67BD4 = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                auto* const pets = WindowStall_BorrowBrowseStorage()->pets.data();
+                auto* const pets = gStallBrowseData->pets.data();
                 std::move(pets + index + 1, pets + index + 1 + remaining, pets + index);
-                std::memmove(WindowStall_BorrowBrowseStorage()->petValuesD2D464.data() + index,
-                    WindowStall_BorrowBrowseStorage()->petValuesD2D464.data() + index + 1,
+                std::memmove(gStallBrowseData->petValuesD2D464.data() + index,
+                    gStallBrowseData->petValuesD2D464.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(WindowStall_BorrowBrowseStorage()->petValuesD2D478.data() + index,
-                    WindowStall_BorrowBrowseStorage()->petValuesD2D478.data() + index + 1,
+                std::memmove(gStallBrowseData->petValuesD2D478.data() + index,
+                    gStallBrowseData->petValuesD2D478.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
             const std::int32_t page = gStallPetPageD67BD0;
@@ -2674,15 +2671,15 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
             gStallItemCountD67BCC = count;
             if (count > 0 && index < count) {
                 const auto remaining = static_cast<std::size_t>(count - index);
-                auto* const items = WindowStall_BorrowBrowseStorage()->items.data();
+                auto* const items = gStallBrowseData->items.data();
                 for (std::size_t position = 0; position < remaining; ++position) {
                     items[index + position] = items[index + position + 1];
                 }
-                std::memmove(WindowStall_BorrowBrowseStorage()->itemValuesD13E74.data() + index,
-                    WindowStall_BorrowBrowseStorage()->itemValuesD13E74.data() + index + 1,
+                std::memmove(gStallBrowseData->itemValuesD13E74.data() + index,
+                    gStallBrowseData->itemValuesD13E74.data() + index + 1,
                     remaining * sizeof(std::int32_t));
-                std::memmove(WindowStall_BorrowBrowseStorage()->itemValuesD13EC4.data() + index,
-                    WindowStall_BorrowBrowseStorage()->itemValuesD13EC4.data() + index + 1,
+                std::memmove(gStallBrowseData->itemValuesD13EC4.data() + index,
+                    gStallBrowseData->itemValuesD13EC4.data() + index + 1,
                     remaining * sizeof(std::int32_t));
             }
             const std::int32_t page = gStallItemPageD67BC8;
@@ -2761,22 +2758,11 @@ StallBrowsePetValuesStartup::StallBrowsePetValuesStartup()
     WindowStall_ConstructBrowsePetValues();
 }
 
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-StallBrowsePetValuesStartup::~StallBrowsePetValuesStartup()
-{
-    WindowStall_DestroyBrowsePetValues();
-}
-
 void WindowStall_ConstructBrowsePetValues()
 {
-    // 原0x004CD360：独立浏览区的五项、每项六成员依次构造。
-    detail::WindowStall_BorrowBrowseStorage().emplace();
-}
-
-void WindowStall_DestroyBrowsePetValues()
-{
-    // 原0x004CD2D0：同一浏览区原生逆序析构，不借用玩家宠物。
-    detail::WindowStall_BorrowBrowseStorage().reset();
+    // 原0x004CD360／0x004CD2D0：独立浏览区五项各六成员构造，退出自动逆序析构。
+    static detail::StallBrowseData storage{};
+    detail::gStallBrowseData = &storage;
 }
 
 // 原函数：0x004CD3E0。

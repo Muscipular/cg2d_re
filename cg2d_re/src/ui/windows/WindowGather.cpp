@@ -235,7 +235,7 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
     gWindow12ValueCF3FF0 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const data = WindowCraft_BorrowSecondPreview(window, 1, 3, 1, 0, 5);
+    WindowAnimationData* const data = WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, 0, 5);
     gSkillSendModeC8A970 = 0;
     gWindow12ValueD66E28 = 0;
     return data;
@@ -290,9 +290,9 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
-        return WindowCraft_BorrowSecondPreview(window, 1, 3, 1, 0, 5);
+        return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, 0, 5);
     }
-    return WindowCraft_BorrowSecondPreview(window, 1, 3, 0, 10, 5);
+    return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 0, 10, 5);
 }
 
 // 原函数：0x00485AF0。
@@ -365,9 +365,9 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
-        return WindowCraft_BorrowSecondPreview(window, 1, 3, 1, gWindow12ResultD2D820 != 0 ? 6 : 8, 5);
+        return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gWindow12ResultD2D820 != 0 ? 6 : 8, 5);
     }
-    return WindowCraft_BorrowSecondPreview(window, 1, 3, 0, 10, 5);
+    return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 0, 10, 5);
 }
 
 // 原函数：0x00486020。

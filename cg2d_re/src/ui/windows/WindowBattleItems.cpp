@@ -301,7 +301,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
     descriptor.bytes[13] = 4;
     dimmed.bytes[13] = 4;
-    auto& items = world::detail::BorrowPlayerItemsFDA8A4();
+    auto& items = world::detail::gPlayerRuntimeSlots.items;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
@@ -697,7 +697,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     dimmed.bytes[13] = 4;
     world::detail::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_BorrowSelectedItem(&gItemSelectorD2F338, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorD2F338, &items, &count)) {
         return 0;
     }
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
@@ -750,19 +750,19 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     std::array<char, 768> buffer;
     if ((events & 0x40u) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        if (source >= count && world::detail::BorrowPlayerItemsFDA8A4()[source].used == 1) {
-            const std::int32_t type = world::detail::BorrowPlayerItemsFDA8A4()[source].itemType;
+        if (source >= count && world::detail::gPlayerRuntimeSlots.items[source].used == 1) {
+            const std::int32_t type = world::detail::gPlayerRuntimeSlots.items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
-                std::int32_t occupiedHands = world::detail::BorrowPlayerItemsFDA8A4()[2].used == 1;
-                if (world::detail::BorrowPlayerItemsFDA8A4()[3].used == 1) {
+                std::int32_t occupiedHands = world::detail::gPlayerRuntimeSlots.items[2].used == 1;
+                if (world::detail::gPlayerRuntimeSlots.items[3].used == 1) {
                     ++occupiedHands;
                 }
                 if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
                     && (*reinterpret_cast<const unsigned char*>(
-                        &world::detail::BorrowPlayerItemsFDA8A4()[source].battleUseFlag) & 8u) != 0) {
+                        &world::detail::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
                     world::detail::Sub_44B050(noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
-                } else if (world::detail::BorrowPlayerItemsFDA8A4()[source].hasDescription == 0) {
+                } else if (world::detail::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
                     world::detail::Sub_44B050(unidentified, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -952,23 +952,10 @@ static detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector()
     return detail::WindowItemSelector_ConstructPreview(&detail::gItemSelectorD2F338, 1);
 }
 
-// 原499920尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
-// 原函数：0x00499920。
-static void WindowBattleItems_ReleaseSelectorAtExit()
-{
-    login::detail::DestroyWindowSelectorPreview(1);
-}
-
 // 原函数：0x004998F0；LCI01启动拥有者替代CRT构造／退出登记。
 SecondItemSelectorStartup::SecondItemSelectorStartup()
 {
     WindowBattleItems_ConstructSelector();
-}
-
-// 对应同一启动组的原逆序清理；登记与异常规则由MSVC承接。
-SecondItemSelectorStartup::~SecondItemSelectorStartup()
-{
-    WindowBattleItems_ReleaseSelectorAtExit();
 }
 
 } // namespace cg::ui

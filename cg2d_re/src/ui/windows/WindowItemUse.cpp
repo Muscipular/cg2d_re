@@ -145,7 +145,7 @@ static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const tex
     const std::int32_t x = world::detail::gPlayerX.value();
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
-    const char* const ownName = world::detail::BorrowPlayerDisplayText(1);
+    const char* const ownName = world::detail::GetPlayerDisplayText(1);
     const std::size_t ownNameSize = std::strlen(ownName) + 1;
     const std::uint32_t ownIndex = world::ReadPlayerObjectIndex_FDA880();
     std::memcpy(gItemUseTargetsCB0EA8[0].name.data(), ownName, ownNameSize);
@@ -157,7 +157,7 @@ static login::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const tex
             && world::detail::ReadPetMapObjectIndex(slot) != ownIndex) {
             login::YobiAction* const action = world::detail::ReadPetMapAction(slot);
             if (action != nullptr) {
-                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), login::detail::BorrowYobiNameC4(action));
+                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), login::detail::GetYobiName(action));
             }
             const std::int32_t index = count++;
             gItemUseTargetCountCC40CC = count;
@@ -262,7 +262,7 @@ static login::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* cons
     const std::int32_t selected = gItemUseTargetCB0A48;
     gItemUseStatusCountCC4D44 = 0;
     if (gItemUseTargetsCB0EA8[selected].kind == 0) {
-        const char* const name = world::detail::BorrowPlayerDisplayText(1);
+        const char* const name = world::detail::GetPlayerDisplayText(1);
         const std::size_t nameSize = std::strlen(name) + 1;
         const std::int32_t level = world::detail::ReadPlayerLevel();
         std::memcpy(gItemUseStatusRecordsCB10D8[0].name.data(), name, nameSize);

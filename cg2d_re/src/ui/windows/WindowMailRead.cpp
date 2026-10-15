@@ -210,7 +210,7 @@ static void WindowMailRead_FindUnread()
         const std::int16_t selected = login::gSelectedCharacterIndex;
         const std::int32_t contact = gValueCF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*BorrowMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
+            if (*GetMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
                 gValueD046D4 = page;
                 break;
             }
@@ -230,7 +230,7 @@ static void WindowMailRead_FindUnread()
         }
         const std::int16_t selected = login::gSelectedCharacterIndex;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*BorrowGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
+            if (*GetGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
                 gValueD046D4 = page;
                 break;
             }
@@ -240,7 +240,7 @@ static void WindowMailRead_FindUnread()
     case 2: {
         const std::int32_t contact = gValueCF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
-            if (*BorrowMiniMailMessage10763A0(contact, page).unread00 != std::byte{0}) {
+            if (*GetMiniMailMessage10763A0(contact, page).unread00 != std::byte{0}) {
                 gValueD046D4 = page;
                 break;
             }
@@ -270,21 +270,21 @@ static std::uint32_t WindowMailRead_Refresh()
         mailSlot = Sub_5195F0(mailKey);
     }
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
-    const auto borrowCurrent = [category, mailSlot]() -> MailMessageView {
+    const auto readCurrentMessage = [category, mailSlot]() -> MailMessageView {
         if (category == 0) {
             const std::int16_t selected = login::gSelectedCharacterIndex;
             const std::int32_t contact = gValueCF4FC0;
             const std::int32_t page = gValueD046D4;
-            return BorrowMailMessageF7CA08(selected, contact, page);
+            return GetMailMessageF7CA08(selected, contact, page);
         }
         if (category == 1) {
             const std::int16_t selected = login::gSelectedCharacterIndex;
             const std::int32_t page = gValueD046D4;
-            return BorrowGuildMailMessageDE0B30(selected, mailSlot, page);
+            return GetGuildMailMessageDE0B30(selected, mailSlot, page);
         }
         const std::int32_t contact = gValueCF4FC0;
         const std::int32_t page = gValueD046D4;
-        return BorrowMiniMailMessage10763A0(contact, page);
+        return GetMiniMailMessage10763A0(contact, page);
     };
     if (category == 1 && mailSlot == -1) {
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
@@ -294,17 +294,17 @@ static std::uint32_t WindowMailRead_Refresh()
             line->text = cg::text::FromGbkWide(input::LegacyText593850());
         }
     } else {
-        const MailMessageView message = borrowCurrent();
+        const MailMessageView message = readCurrentMessage();
         *message.unread00 = std::byte{0};
         cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(message.text02).c_str());
         const std::size_t slash = buffer.find(L'/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : cg::text::FromGbkWide(input::LegacyText593850());
         for (std::int32_t row = 0; row < 10; ++row) {
-            const std::byte kind = *borrowCurrent().kind01;
+            const std::byte kind = *readCurrentMessage().kind01;
             auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
             color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
-            const char* const text = borrowCurrent().text14;
+            const char* const text = readCurrentMessage().text14;
             static_cast<void>(input::ExtractGbkTextLine(buffer, text, row, 28));
             auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
             line->text = buffer;
@@ -345,7 +345,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         const std::int16_t selected = login::gSelectedCharacterIndex;
         identity = gValueCF4FC0;
         const std::int32_t page = gValueD046D4;
-        message = BorrowMailMessageF7CA08(selected, identity, page);
+        message = GetMailMessageF7CA08(selected, identity, page);
         break;
     }
     case 1: {
@@ -357,13 +357,13 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
         const std::int32_t slot = Sub_5195F0(mailKey);
         const std::int16_t selected = login::gSelectedCharacterIndex;
         const std::int32_t page = gValueD046D4;
-        message = BorrowGuildMailMessageDE0B30(selected, slot, page);
+        message = GetGuildMailMessageDE0B30(selected, slot, page);
         break;
     }
     case 2: {
         identity = gValueCF4FC0;
         const std::int32_t page = gValueD046D4;
-        message = BorrowMiniMailMessage10763A0(identity, page);
+        message = GetMiniMailMessage10763A0(identity, page);
         break;
     }
     default:

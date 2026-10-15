@@ -374,15 +374,15 @@ static std::int32_t WindowContacts_Refresh()
             gCurrentWindow->elements[27 + row * 8].visible = 1;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
-                record = WindowMail_BorrowContactView(world::detail::gContactsF19FB0[recordIndex]);
+                record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E0;
                 break;
             case 1:
-                record = WindowMail_BorrowContactView(login::detail::gOrderedRecords1051B14[recordIndex]);
+                record = WindowMail_MakeContactView(login::detail::gOrderedRecords1051B14[recordIndex]);
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E8;
                 break;
             case 2:
-                record = WindowMail_BorrowContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
+                record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
                 static_cast<WindowGraphicData*>(gCurrentWindow->elements[51 + row].data)->imageNo = 0x3B9E0;
                 break;
             }
@@ -425,7 +425,7 @@ static std::int32_t WindowContacts_Refresh()
                 privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 const std::int32_t rank = member->value00;
                 const char* const text = rank == -1
-                    ? input::LegacyText593850() : login::detail::BorrowGuildRankText1051518(rank);
+                    ? input::LegacyText593850() : login::detail::GetGuildRankText(rank);
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 2].data);
                 data->text = cg::text::FromGbkWide(text);
                 break;
@@ -485,12 +485,12 @@ static std::int32_t WindowContacts_Refresh()
         gCurrentWindow->elements[54 + row * 5].visible = 1;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            record = WindowMail_BorrowContactView(world::detail::gContactsF19FB0[recordIndex]);
+            record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
             gCurrentWindow->elements[56 + row * 5].visible = 1;
             break;
         case 1: {
             const auto* const member = &login::detail::gOrderedRecords1051B14[recordIndex];
-            record = WindowMail_BorrowContactView(*member);
+            record = WindowMail_MakeContactView(*member);
             if (WindowGuildDetails_CanEdit(2) != 0) {
                 const std::int32_t privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
                 gCurrentWindow->elements[56 + row * 5].visible = privileged == 0 ? 1 : 0;
@@ -502,7 +502,7 @@ static std::int32_t WindowContacts_Refresh()
             break;
         }
         case 2:
-            record = WindowMail_BorrowContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
+            record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
             break;
         }
         const std::int32_t textIndex = 57 + row * 5;

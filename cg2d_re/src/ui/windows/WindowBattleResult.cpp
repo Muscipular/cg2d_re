@@ -168,7 +168,7 @@ static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, co
 static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 {
     if (value == -1) {
-        const auto& results = world::detail::BorrowBattleResults();
+        const auto& results = world::detail::gBattleResultsFF0C14;
         for (std::int32_t row = 0; row < 4; ++row) {
             const world::detail::BattleResultRecord* const result = &results[row];
             gCurrentWindow->elements[row + 5].visible = 0;
@@ -186,7 +186,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             if (target == 0xFFFEu) {
                 const std::int32_t health = WindowItem_HealthImageLevel(world::detail::ReadPlayerInjury());
                 WindowInstance* const window = gCurrentWindow;
-                name = world::detail::BorrowPlayerDisplayText(1);
+                name = world::detail::GetPlayerDisplayText(1);
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
@@ -215,14 +215,14 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, L"{:+7}", experience);
             }
         }
-        const auto& names = world::detail::BorrowBattleResultNames();
+        const auto& names = world::detail::gBattleResultNamesFF0C34;
         for (std::int32_t row = 0; row < 3; ++row) {
             WindowInstance* const window = gCurrentWindow;
             const char* const name = names[row].data();
             static_cast<WindowTextData*>(window->elements[row + 59].data)->text = cg::text::FromGbkWide(name);
         }
 
-        const auto& skillResults = world::detail::BorrowBattleSkillResults();
+        const auto& skillResults = world::detail::gBattleSkillResultsFF0C8C;
         std::int32_t row = 0;
         for (const auto& pair : world::detail::gSkillPairsF63370) {
             const std::uint16_t used = pair.used;
@@ -290,7 +290,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
     descriptor.bytes[10] = 0xFF;
     descriptor.bytes[11] = 0xFF;
     descriptor.bytes[13] = 4;
-    const auto& graphics = world::detail::BorrowBattleResultGraphics();
+    const auto& graphics = world::detail::gBattleResultGraphicsFF0D0C;
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t image = graphics[row];
         if (image >= 0) {

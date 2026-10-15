@@ -228,7 +228,7 @@ std::int32_t DrawMapEffects32_452840()
 
     const std::int32_t pitch = back->pitch >> 2;
     auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
-    const world::detail::MapEffectRecord* record = world::detail::BorrowActiveMapEffectHead();
+    const world::detail::MapEffectRecord* record = world::detail::GetActiveMapEffectHead();
     while (record != nullptr) {
         const auto readInt = [record](const std::size_t offset) {
             return std::bit_cast<std::int32_t>(world::detail::ReadMapEffectWord(*record, offset));
@@ -377,7 +377,7 @@ std::int32_t DrawMapEffects32_452840()
                 }
             }
         }
-        record = world::detail::BorrowNextMapEffect(record);
+        record = world::detail::GetNextMapEffect(record);
     }
     SDL_UnlockSurface(back);
     return 0;
@@ -649,7 +649,7 @@ bool CopyBackToTemp() noexcept
     return BlitWithoutSourceColorKey(source, rectangle, destination, rectangle);
 }
 
-TextureSurface* BorrowCpuTempSurface() noexcept
+TextureSurface* GetCpuTempSurface() noexcept
 {
     return gCpuTempSurface;
 }

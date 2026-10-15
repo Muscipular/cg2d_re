@@ -13,8 +13,8 @@
     "inventory_functions": 3680,
     "source_files": 264,
     "direct_inventory_entries": 2448,
-    "direct_definitions": 2465,
-    "multiple_definition_entries": 13,
+    "direct_definitions": 2461,
+    "multiple_definition_entries": 11,
     "shared_tag_definitions": 1,
     "non_inventory_definitions": 38,
     "without_direct_definition": 1232
@@ -8703,7 +8703,7 @@
         {
           "path": "src/LoginInputController.cpp",
           "symbol": "ProcessLoginInput_45CA20",
-          "definition_line": 259,
+          "definition_line": 244,
           "namespace": "cg::login"
         }
       ]
@@ -8907,7 +8907,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_45E7B0",
-          "definition_line": 205,
+          "definition_line": 211,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -8919,7 +8919,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_45E7D0",
-          "definition_line": 213,
+          "definition_line": 220,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9002,21 +9002,9 @@
       "definitions": [
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "DrawUiControlWithCallbacks_45EFD0",
-          "definition_line": 70,
-          "namespace": "(匿名)"
-        },
-        {
-          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "DrawUiControl_45EFD0",
-          "definition_line": 162,
-          "namespace": "cg::login::detail"
-        },
-        {
-          "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "DrawUiControl_45EFD0",
-          "definition_line": 191,
-          "namespace": "cg::character_select::detail"
+          "definition_line": 30,
+          "namespace": "cg::ui"
         }
       ]
     },
@@ -9038,21 +9026,9 @@
       "definitions": [
         {
           "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "QueryUiControlInputStateFromRecord_45F100",
-          "definition_line": 44,
-          "namespace": "(匿名)"
-        },
-        {
-          "path": "src/ui/LegacyUiRecord.cpp",
           "symbol": "QueryUiControlInputState_45F100",
-          "definition_line": 156,
-          "namespace": "cg::login::detail"
-        },
-        {
-          "path": "src/ui/LegacyUiRecord.cpp",
-          "symbol": "QueryUiControlInputState_45F100",
-          "definition_line": 184,
-          "namespace": "cg::character_select::detail"
+          "definition_line": 14,
+          "namespace": "cg::ui"
         }
       ]
     },
@@ -9087,7 +9063,7 @@
         {
           "path": "src/LoginCapability3InputController.cpp",
           "symbol": "ProcessCapability3Input_45FA70",
-          "definition_line": 81,
+          "definition_line": 62,
           "namespace": "cg::login"
         }
       ]
@@ -9099,7 +9075,7 @@
         {
           "path": "src/LoginScene.cpp",
           "symbol": "ProcessScene_45FEA0",
-          "definition_line": 453,
+          "definition_line": 455,
           "namespace": "cg::login"
         }
       ]
@@ -9123,7 +9099,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "ProcessScene_460FF0",
-          "definition_line": 1447,
+          "definition_line": 1470,
           "namespace": "cg::character_select"
         }
       ]
@@ -9135,7 +9111,7 @@
         {
           "path": "src/CharacterSelectSlot.cpp",
           "symbol": "ProcessCharacterSlot_461B30",
-          "definition_line": 90,
+          "definition_line": 85,
           "namespace": "cg::character_select"
         }
       ]
@@ -9171,7 +9147,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "ProcessCreationScene_4626A0",
-          "definition_line": 264,
+          "definition_line": 275,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9183,7 +9159,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_462870",
-          "definition_line": 383,
+          "definition_line": 395,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9195,7 +9171,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_462880",
-          "definition_line": 390,
+          "definition_line": 402,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9207,7 +9183,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_462930",
-          "definition_line": 414,
+          "definition_line": 435,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9219,7 +9195,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_463100",
-          "definition_line": 648,
+          "definition_line": 670,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9231,7 +9207,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_4631D0",
-          "definition_line": 682,
+          "definition_line": 705,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9243,7 +9219,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_464290",
-          "definition_line": 1170,
+          "definition_line": 1202,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9255,7 +9231,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_4642C0",
-          "definition_line": 1096,
+          "definition_line": 1130,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9267,7 +9243,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_464380",
-          "definition_line": 1132,
+          "definition_line": 1165,
           "namespace": "cg::character_select::detail"
         }
       ]
@@ -9315,7 +9291,7 @@
         {
           "path": "src/LoginInputController.cpp",
           "symbol": "ProcessCapability4Input_464E30",
-          "definition_line": 100,
+          "definition_line": 82,
           "namespace": "cg::login"
         }
       ]
@@ -23595,7 +23571,7 @@
         {
           "path": "src/LoginScene.cpp",
           "symbol": "GetServerAddressInfo_507D90",
-          "definition_line": 434,
+          "definition_line": 435,
           "namespace": "cg::login::detail"
         }
       ]
@@ -24693,7 +24669,7 @@
         {
           "path": "src/CharacterSelectScene.cpp",
           "symbol": "Sub_50E770",
-          "definition_line": 199,
+          "definition_line": 203,
           "namespace": "cg::character_select::detail"
         }
       ]

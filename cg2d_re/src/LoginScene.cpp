@@ -196,44 +196,49 @@ constexpr std::array<const wchar_t*, 20> kServerLabels {
     L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20",
 };
 
-struct LoginUiRecord {
-    std::array<std::int32_t, 7> values; // 原成员偏移：+0x00。
+// 与角色选择及登录输入按钮共用同一七W32布局。
+using LoginUiRecord = cg::ui::UiControlRecord;
+
+LoginUiRecord gSwitchSceneUi {
+    {540, 360, 64, 16}, 245045, 245047, 245046,
+};
+LoginUiRecord gCloseUi {
+    {540, 392, 64, 16}, 245153, 245155, 245154,
+};
+LoginUiRecord gPreviousPageUi {
+    {130, 310, 16, 16}, 243030, 243032, 243031,
+};
+LoginUiRecord gNextPageUi {
+    {254, 310, 16, 16}, 243033, 243035, 243034,
 };
 
-static_assert(sizeof(LoginUiRecord) == 0x1C);
-
-LoginUiRecord gSwitchSceneUi {{540, 360, 64, 16, 245045, 245047, 245046}};
-LoginUiRecord gCloseUi {{540, 392, 64, 16, 245153, 245155, 245154}};
-LoginUiRecord gPreviousPageUi {{130, 310, 16, 16, 243030, 243032, 243031}};
-LoginUiRecord gNextPageUi {{254, 310, 16, 16, 243033, 243035, 243034}};
-
 std::array<LoginUiRecord, 20> gServerUi {{
-    {{{109, 108, 98, 34, 30151, 30161, 30161}}},
-    {{{109, 140, 98, 34, 30152, 30162, 30162}}},
-    {{{109, 172, 98, 34, 30153, 30163, 30163}}},
-    {{{109, 204, 98, 34, 30154, 30164, 30164}}},
-    {{{109, 236, 98, 34, 30155, 30165, 30165}}},
-    {{{209, 108, 98, 34, 30156, 30166, 30166}}},
-    {{{209, 140, 98, 34, 30157, 30167, 30167}}},
-    {{{209, 172, 98, 34, 30158, 30168, 30168}}},
-    {{{209, 204, 98, 34, 30159, 30169, 30169}}},
-    {{{209, 236, 98, 34, 30160, 30170, 30170}}},
-    {{{109, 108, 98, 34, 30151, 30161, 30161}}},
-    {{{109, 140, 98, 34, 30152, 30162, 30162}}},
-    {{{109, 172, 98, 34, 30153, 30163, 30163}}},
-    {{{109, 204, 98, 34, 30154, 30164, 30164}}},
-    {{{109, 236, 98, 34, 30155, 30165, 30165}}},
-    {{{209, 108, 98, 34, 30156, 30166, 30166}}},
-    {{{209, 140, 98, 34, 30157, 30167, 30167}}},
-    {{{209, 172, 98, 34, 30158, 30168, 30168}}},
-    {{{209, 204, 98, 34, 30159, 30169, 30169}}},
-    {{{209, 236, 98, 34, 30160, 30170, 30170}}},
+    {{109, 108, 98, 34}, 30151, 30161, 30161},
+    {{109, 140, 98, 34}, 30152, 30162, 30162},
+    {{109, 172, 98, 34}, 30153, 30163, 30163},
+    {{109, 204, 98, 34}, 30154, 30164, 30164},
+    {{109, 236, 98, 34}, 30155, 30165, 30165},
+    {{209, 108, 98, 34}, 30156, 30166, 30166},
+    {{209, 140, 98, 34}, 30157, 30167, 30167},
+    {{209, 172, 98, 34}, 30158, 30168, 30168},
+    {{209, 204, 98, 34}, 30159, 30169, 30169},
+    {{209, 236, 98, 34}, 30160, 30170, 30170},
+    {{109, 108, 98, 34}, 30151, 30161, 30161},
+    {{109, 140, 98, 34}, 30152, 30162, 30162},
+    {{109, 172, 98, 34}, 30153, 30163, 30163},
+    {{109, 204, 98, 34}, 30154, 30164, 30164},
+    {{109, 236, 98, 34}, 30155, 30165, 30165},
+    {{209, 108, 98, 34}, 30156, 30166, 30166},
+    {{209, 140, 98, 34}, 30157, 30167, 30167},
+    {{209, 172, 98, 34}, 30158, 30168, 30168},
+    {{209, 204, 98, 34}, 30159, 30169, 30169},
+    {{209, 236, 98, 34}, 30160, 30170, 30170},
 }};
 
 // 原 [0x55C038,0x55C6C8) 是一次 60 * 0x1C 的扫描视图，不是同质记录数组。
 // 前 25 项后，扫描会穿过 4 字节填充、0x55C2F8 控件及相邻表/旧编码文本。
-// 因而保留整段单一原始映像，并只通过地址偏移传给原 UI 依赖。
-std::array<std::uint32_t, 420> gCategoryScanImage {
+// 因而保留整段单一只读原始映像，仅在扫描边界按原偏移转为值记录。
+const std::array<std::uint32_t, 420> gCategoryScanImage {
     0x000000D1u, 0x0000006Cu, 0x00000062u, 0x00000022u, 0x00018206u, 0x00018207u, 0x00018207u,
     0x000000D1u, 0x000000ECu, 0x00000062u, 0x00000022u, 0x000075C7u, 0x000075C8u, 0x000075C8u,
     0x000000D1u, 0x000000ACu, 0x00000062u, 0x00000022u, 0x000075F9u, 0x000075FAu, 0x000075FAu,
@@ -300,20 +305,23 @@ std::wstring gLoginSceneMessage {};       // 原 0x9A60F0，映像零填充。
 std::int32_t gOpenUrlAfterMessage = 0; // 原 0x9A6EA8，映像零填充。
 
 
-void* CategoryScanRecord(std::int32_t index)
+// 该映像只读且不全是控件；转换不外借异型指针或引入持久副本。
+cg::ui::UiControlRecord CategoryScanRecord(std::int32_t index)
 {
-    return gCategoryScanImage.data() + static_cast<std::size_t>(index) * 7;
+    cg::ui::UiControlRecord controlRecord;
+    std::memcpy(&controlRecord,
+        gCategoryScanImage.data() + static_cast<std::size_t>(index) * 7,
+        sizeof(controlRecord));
+    return controlRecord;
 }
 
-void* SelectedCategoryControl()
+cg::ui::UiControlRecord SelectedCategoryControl()
 {
-    return gCategoryScanImage.data() + 0x2C0 / sizeof(std::uint32_t);
-}
-
-std::int32_t CategoryField(std::int32_t index, std::size_t field)
-{
-    return std::bit_cast<std::int32_t>(
-        gCategoryScanImage[static_cast<std::size_t>(index) * 7 + field]);
+    cg::ui::UiControlRecord controlRecord;
+    std::memcpy(&controlRecord,
+        gCategoryScanImage.data() + 0x2C0 / sizeof(std::uint32_t),
+        sizeof(controlRecord));
+    return controlRecord;
 }
 
 void CopyText(std::wstring& destination, std::wstring_view source)
@@ -381,11 +389,13 @@ void DrawCategoryControls()
     for (std::int32_t index = 0; index < 60; ++index) {
         if (cg::login::gValueD9F2D4[static_cast<std::size_t>(index)] > 0) {
             if (cg::login::gValue55A054 == index) {
+                const auto controlRecord = SelectedCategoryControl();
                 cg::login::detail::DrawUiControl_45EFD0(
-                    SelectedCategoryControl(), 10, 0, 0, 0);
+                    &controlRecord, 10, 0, 0, 0);
             } else if (cg::login::gValue55A054 < 0) {
+                const auto controlRecord = CategoryScanRecord(index);
                 cg::login::detail::DrawUiControl_45EFD0(
-                    CategoryScanRecord(index), 10, 0, 0, 0);
+                    &controlRecord, 10, 0, 0, 0);
             }
         }
     }
@@ -468,14 +478,16 @@ std::int32_t ProcessScene_45FEA0()
             static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
             detail::Sub_52B990();
-        } else if ((detail::QueryUiControlInputState_45F100(SelectedCategoryControl()) & 1) != 0) {
+        } else if (const auto selectedControl = SelectedCategoryControl();
+            (detail::QueryUiControlInputState_45F100(&selectedControl) & 1) != 0) {
             gValue55A054 = -1;
             gServerPage = 0;
             detail::PlaySe(54, 320, 240);
         } else {
             std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
-                const std::int32_t input = detail::QueryUiControlInputState_45F100(CategoryScanRecord(index));
+                const auto categoryControl = CategoryScanRecord(index);
+                const std::int32_t input = detail::QueryUiControlInputState_45F100(&categoryControl);
                 category = gValue55A054;
                 if ((input & 1) != 0
                     && gValueD9F2D4[static_cast<std::size_t>(index)] > 0
@@ -483,14 +495,14 @@ std::int32_t ProcessScene_45FEA0()
                     gValue55A054 = index;
                     detail::PlaySe(51, 320, 240);
 
-                    const std::int32_t sourceA = CategoryField(index, 5);
-                    const std::int32_t sourceB = CategoryField(index, 4);
+                    const std::int32_t sourceA = categoryControl.activeImageNo;
+                    const std::int32_t sourceB = categoryControl.normalImageNo;
                     const std::int32_t imageDelta = sourceB - sourceA;
                     std::int32_t imageNo = sourceA + 2;
                     for (std::int32_t server = 0; server < 20; ++server) {
-                        gServerUi[static_cast<std::size_t>(server)].values[4] =
+                        gServerUi[static_cast<std::size_t>(server)].normalImageNo =
                             imageDelta + imageNo;
-                        gServerUi[static_cast<std::size_t>(server)].values[5] =
+                        gServerUi[static_cast<std::size_t>(server)].activeImageNo =
                             imageNo;
                         imageNo += 2;
                     }

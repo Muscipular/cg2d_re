@@ -22,30 +22,13 @@ namespace cg::login {
 namespace {
 
 // 原 sub_45FA70 栈上按钮记录，固定 7×W32。
-struct Capability3InputButton32 final {
-    std::int32_t x; // 原成员偏移：+0x00。
-    std::int32_t y; // 原成员偏移：+0x04。
-    std::int32_t width; // 原成员偏移：+0x08。
-    std::int32_t height; // 原成员偏移：+0x0C。
-    std::int32_t normalImageNo; // 原成员偏移：+0x10。
-    std::int32_t hoverImageNo; // 原成员偏移：+0x14。
-    std::int32_t clickedImageNo; // 原成员偏移：+0x18。
-};
-
-static_assert(offsetof(Capability3InputButton32, x) == 0x00);
-static_assert(offsetof(Capability3InputButton32, y) == 0x04);
-static_assert(offsetof(Capability3InputButton32, width) == 0x08);
-static_assert(offsetof(Capability3InputButton32, height) == 0x0C);
-static_assert(offsetof(Capability3InputButton32, normalImageNo) == 0x10);
-static_assert(offsetof(Capability3InputButton32, hoverImageNo) == 0x14);
-static_assert(offsetof(Capability3InputButton32, clickedImageNo) == 0x18);
-static_assert(sizeof(Capability3InputButton32) == 0x1C);
+using Capability3InputButton32 = cg::ui::UiControlRecord;
 
 constexpr Capability3InputButton32 kPrimaryButton {
-    240, 438, 64, 16, 243048, 243050, 243049,
+    {240, 438, 64, 16}, 243048, 243050, 243049,
 };
 constexpr Capability3InputButton32 kSecondaryButton {
-    332, 438, 64, 16, 245153, 245155, 245154,
+    {332, 438, 64, 16}, 245153, 245155, 245154,
 };
 constexpr wchar_t kVersion[] = L"7.1.00";
 

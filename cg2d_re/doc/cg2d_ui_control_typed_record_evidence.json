@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "task": "UCT01",
+  "spec": "doc/cg2d_ui_window_split_spec.md#ui-control-typed-record-uct01",
+  "sources": [
+    "src/ui/LegacyUiRecord.cpp",
+    "src/CharacterSelectScene.cpp",
+    "src/CharacterSelectSlot.cpp",
+    "src/LoginScene.cpp",
+    "src/LoginInputController.cpp",
+    "src/LoginCapability3InputController.cpp",
+    "src/ui/UiControlRecord.hpp",
+    "src/CharacterSelectSceneDependencies.hpp",
+    "src/LoginSceneDependencies.hpp"
+  ],
+  "layout": {
+    "UiControlBounds": {
+      "left": 0,
+      "top": 4,
+      "width": 8,
+      "height": 12,
+      "size": 16
+    },
+    "UiControlRecord": {
+      "bounds": 0,
+      "normalImageNo": 16,
+      "activeImageNo": 20,
+      "clickedImageNo": 24,
+      "size": 28
+    },
+    "aliases": [
+      "CharacterSelectUiRecord",
+      "LoginUiRecord",
+      "Capability3InputButton32",
+      "Capability4InputButton32"
+    ],
+    "assertions_added_not_compiled": true
+  },
+  "changes": {
+    "shared_original_entries": [
+      "0x0045EFD0",
+      "0x0045F100"
+    ],
+    "single_provider_namespace": "cg::ui",
+    "removed_host_functions": [
+      "ReadUiControlInt32",
+      "QueryCharacterSelectControlInputState",
+      "QueryUiControlInputStateFromRecord_45F100",
+      "DrawUiControlWithCallbacks_45EFD0",
+      "CategoryField"
+    ],
+    "ordinary_field_reads": "直接访问原对象具名成员，保留17处逐次读取。",
+    "raw_category_boundary": "唯一420W32原始映像显式const；原60×7扫描及0x2C0偏移只在边界memcpy为短生命值，不伪装为结构数组。",
+    "negative_state_boundary": "原constexpr创建记录五处bit_cast为七W32值视图，保持4+state及-1读取height。"
+  },
+  "current_locations": {
+    "direct_inventory_definition_locations": 21,
+    "collapsed_duplicate_host_definitions": 4,
+    "auxiliary_locations": 0,
+    "table_providers": 23,
+    "ui_symbol_records": 2,
+    "definitions_by_source": {
+      "src/ui/LegacyUiRecord.cpp": {
+        "QueryUiControlInputState_45F100": 14,
+        "DrawUiControl_45EFD0": 30
+      },
+      "src/CharacterSelectScene.cpp": {
+        "CreationSignedByte": 133,
+        "CreationMouseByte": 138,
+        "MapCreationGraphic": 144,
+        "ReadCreationSnapshotByte": 195,
+        "Sub_50E770": 203,
+        "Sub_45E7B0": 211,
+        "Sub_45E7D0": 220,
+        "ProcessCreationScene_4626A0": 275,
+        "Sub_462870": 395,
+        "Sub_462880": 402,
+        "Sub_462930": 435,
+        "Sub_463100": 670,
+        "Sub_4631D0": 705,
+        "Sub_4642C0": 1130,
+        "Sub_464380": 1165,
+        "Sub_464290": 1202,
+        "UnsignedBits": 1317,
+        "ReadRecordInt32": 1322,
+        "WriteRecordInt32": 1331,
+        "ReadRecordName": 1339,
+        "CopyRecordName": 1345,
+        "ClearPreviewActions": 1353,
+        "UpdateCharacterGraphic": 1363,
+        "ProcessScene_460FF0": 1470
+      },
+      "src/CharacterSelectSlot.cpp": {
+        "ReadRecordInt16": 64,
+        "ReadRecordInt32": 73,
+        "ProcessCharacterSlot_461B30": 85
+      },
+      "src/LoginScene.cpp": {
+        "CategoryScanRecord": 309,
+        "SelectedCategoryControl": 318,
+        "CopyText": 327,
+        "IncrementSceneState": 333,
+        "SetBaseWindowTitle": 338,
+        "CategoryTitle": 344,
+        "SetServerWindowTitle": 354,
+        "CopyAccountHelpLines": 379,
+        "DrawCategoryControls": 387,
+        "ReadServerAvailability": 404,
+        "GetServerAddressInfo_507D90": 435,
+        "ProcessScene_45FEA0": 455
+      },
+      "src/LoginInputController.cpp": {
+        "AddW32": 55,
+        "SubtractW32": 62,
+        "LowW16": 69,
+        "ProcessCapability4Input_464E30": 82,
+        "ProcessLoginInput_45CA20": 244
+      },
+      "src/LoginCapability3InputController.cpp": {
+        "AddW32": 35,
+        "SubtractW32": 42,
+        "LowW16": 49,
+        "ProcessCapability3Input_45FA70": 62
+      }
+    }
+  },
+  "validation": {
+    "record_initializers_preserved": 53,
+    "rectangle_initializers_preserved": 4,
+    "raw_category_words_preserved": 420,
+    "typed_rectangle_calls": 13,
+    "negative_state_views_preserved": 5,
+    "original_inventory_rows_identity_name_status_preserved": 3680,
+    "shared_registry_fields_preserved": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "ledger_check": {
+      "exit_code": 1,
+      "existing_missing_historical_attachments": [
+        "src/platform/LegacyExternalKeyboard.cpp",
+        "src/platform/LegacyExternalKeyboardObject.cpp"
+      ],
+      "new_errors": 0,
+      "derived_files_written": false,
+      "full_ledger_passed": false
+    },
+    "unchanged_function_bodies": 40,
+    "function_bodies_equal_after_member_and_alias_projection": 8,
+    "immutable_raw_boundary_conversions": 2,
+    "ordinary_member_read_occurrences_preserved": 17,
+    "static_layout_and_type_assertions_added_not_compiled": 16,
+    "utf8_without_bom_lf_and_json": true,
+    "diff_check": true
+  }
+}

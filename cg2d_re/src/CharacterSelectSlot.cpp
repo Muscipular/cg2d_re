@@ -24,8 +24,6 @@ constexpr std::size_t kGraphicNoOffset = 0x18;
 constexpr std::size_t kToggleOffset = 0x50;
 constexpr std::size_t kText54Offset = 0x54;
 
-constexpr std::size_t kUiXIndex = 0;
-constexpr std::size_t kUiYIndex = 1;
 constexpr std::size_t kUiCount = 7;
 constexpr std::int32_t kSlotWidth = 315;
 constexpr std::int32_t kSlotLeft = 10;
@@ -44,13 +42,13 @@ struct SlotCoordinate {
 };
 
 constexpr std::array<detail::CharacterSelectUiRecord, kUiCount> kUiTemplates {{
-    {{119, 270, 64, 16, 245069, 245071, 245070}},
-    {{82, 270, 64, 16, 245075, 245077, 245076}},
-    {{156, 270, 64, 16, 245072, 245074, 245073}},
-    {{161, 90, 12, 16, 245066, 245068, 245067}},
-    {{238, 90, 12, 16, 245063, 245065, 245064}},
-    {{55, 154, 12, 16, 245066, 245068, 245067}},
-    {{240, 154, 12, 16, 245063, 245065, 245064}},
+    {{119, 270, 64, 16}, 245069, 245071, 245070},
+    {{82, 270, 64, 16}, 245075, 245077, 245076},
+    {{156, 270, 64, 16}, 245072, 245074, 245073},
+    {{161, 90, 12, 16}, 245066, 245068, 245067},
+    {{238, 90, 12, 16}, 245063, 245065, 245064},
+    {{55, 154, 12, 16}, 245066, 245068, 245067},
+    {{240, 154, 12, 16}, 245063, 245065, 245064},
 }};
 
 constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
@@ -95,8 +93,8 @@ std::int32_t ProcessCharacterSlot_461B30(
     const std::int32_t baseX =
         kSlotWidth * static_cast<std::int32_t>(slot) + kSlotLeft;
     for (detail::CharacterSelectUiRecord& uiRecord : uiRecords) {
-        uiRecord.values[kUiXIndex] += baseX;
-        uiRecord.values[kUiYIndex] += kSlotTop;
+        uiRecord.bounds.left += baseX;
+        uiRecord.bounds.top += kSlotTop;
     }
     for (SlotCoordinate& coordinate : coordinates) {
         coordinate.x += baseX;

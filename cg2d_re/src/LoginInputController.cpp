@@ -43,30 +43,13 @@ constexpr std::array<std::int32_t, 4> kBackgroundImages {
 constexpr wchar_t kVersion[] = L"7.1.00";
 
 // 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
-struct Capability4InputButton32 final {
-    std::int32_t x; // 原成员偏移：+0x00。
-    std::int32_t y; // 原成员偏移：+0x04。
-    std::int32_t width; // 原成员偏移：+0x08。
-    std::int32_t height; // 原成员偏移：+0x0C。
-    std::int32_t normalImageNo; // 原成员偏移：+0x10。
-    std::int32_t activeImageNo; // 原成员偏移：+0x14。
-    std::int32_t clickedImageNo; // 原成员偏移：+0x18。
-};
-
-static_assert(offsetof(Capability4InputButton32, x) == 0x00);
-static_assert(offsetof(Capability4InputButton32, y) == 0x04);
-static_assert(offsetof(Capability4InputButton32, width) == 0x08);
-static_assert(offsetof(Capability4InputButton32, height) == 0x0C);
-static_assert(offsetof(Capability4InputButton32, normalImageNo) == 0x10);
-static_assert(offsetof(Capability4InputButton32, activeImageNo) == 0x14);
-static_assert(offsetof(Capability4InputButton32, clickedImageNo) == 0x18);
-static_assert(sizeof(Capability4InputButton32) == 0x1C);
+using Capability4InputButton32 = cg::ui::UiControlRecord;
 
 constexpr Capability4InputButton32 kCapability4LoginButton {
-    240, 421, 64, 16, 243048, 243050, 243049,
+    {240, 421, 64, 16}, 243048, 243050, 243049,
 };
 constexpr Capability4InputButton32 kCapability4ExitButton {
-    332, 421, 64, 16, 245153, 245155, 245154,
+    {332, 421, 64, 16}, 245153, 245155, 245154,
 };
 
 std::int32_t AddW32(

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoginMessageDependencies.hpp"
+#include "ui/UiControlRecord.hpp"
 #include "world/MailState.hpp"
 
 #include "cg/LegacyAudio.hpp"
@@ -16,12 +17,8 @@
 
 namespace cg::character_select::detail {
 
-// 原 UI 记录严格由 7 个 32 位整数组成；接口保留强类型原生指针。
-struct CharacterSelectUiRecord {
-    std::array<std::int32_t, 7> values; // 原成员偏移：+0x00。
-};
-
-static_assert(sizeof(CharacterSelectUiRecord) == 0x1C);
+// 与登录按钮共用七W32强类型记录，不复制结构定义或实例。
+using CharacterSelectUiRecord = cg::ui::UiControlRecord;
 
 // sub_462090 的六个定宽坐标字段和一个原生文本指针。
 struct CharacterModalUiRecord {
@@ -70,7 +67,7 @@ std::int32_t Sub_45E7D0(); // 创建请求消息父入口；0等待、1成功、
 void ProcessCreationScene_4626A0(std::int32_t entryGate);
 
 // 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
-std::int32_t Sub_464290(const std::int32_t* rectangle);
+std::int32_t Sub_464290(const cg::ui::UiControlBounds* rectangle);
 
 // 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。
 void Sub_462870();
@@ -134,15 +131,10 @@ std::int32_t Sub_4C5650(
     std::int32_t ones);
 using cg::audio::Sub_52B990;
 
-// 原函数：0x0045F100。 查询控件矩形命中的鼠标输入位图。
-std::int32_t QueryUiControlInputState_45F100(const CharacterSelectUiRecord* controlRecord);
-// 原函数：0x0045EFD0。 按图像状态模式绘制底图及可选悬停边框。
-void DrawUiControl_45EFD0(
-    const CharacterSelectUiRecord* controlRecord,
-    std::uint8_t renderLayer,
-    std::int32_t hoverFrameMode,
-    std::int32_t hoverFrameImageNo,
-    std::int32_t imageStateMode);
+// 原函数：0x0045F100。 共用控件输入位图。
+using cg::ui::QueryUiControlInputState_45F100;
+// 原函数：0x0045EFD0。 共用控件底图及悬停边框。
+using cg::ui::DrawUiControl_45EFD0;
 using cg::render::Sub_45F090;
 using cg::network::Sub_512D30;
 

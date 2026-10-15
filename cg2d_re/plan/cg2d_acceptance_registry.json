@@ -194037,5 +194037,22 @@
     "runtime_verified": false,
     "inventory_states_changed": false,
     "shared_gates_changed": false
+  },
+  "ui_control_typed_record_uct01": {
+    "spec": "doc/cg2d_ui_window_split_spec.md#ui-control-typed-record-uct01",
+    "evidence": "doc/cg2d_ui_control_typed_record_evidence.json",
+    "source": "src/ui/LegacyUiRecord.cpp",
+    "type_header": "src/ui/UiControlRecord.hpp",
+    "record_size": 28,
+    "bounds_size": 16,
+    "record_initializers_preserved": 53,
+    "raw_category_words_preserved": 420,
+    "negative_state_image_views_preserved": 5,
+    "source_only": true,
+    "compiled": false,
+    "tested": false,
+    "runtime_verified": false,
+    "inventory_states_changed": false,
+    "shared_gates_changed": false
   }
 }

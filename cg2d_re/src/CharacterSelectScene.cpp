@@ -36,18 +36,18 @@ namespace {
 
 // 54E0BC起十二条创建页矩形/图号；状态-1仍可读取前一项height。
 constexpr std::array<CharacterSelectUiRecord, 12> kCreationUi54E0BC {{
-    {{407, 130, 9, 13, 245066, 245067, 245068}},
-    {{438, 130, 9, 13, 245063, 245064, 245065}},
-    {{407, 148, 9, 13, 245066, 245067, 245068}},
-    {{438, 148, 9, 13, 245063, 245064, 245065}},
-    {{457, 150, 9, 13, 245066, 245067, 245068}},
-    {{533, 150, 9, 13, 245063, 245064, 245065}},
-    {{504, 199, 11, 11, 243006, 243007, 243008}},
-    {{518, 199, 11, 11, 243003, 243004, 243005}},
-    {{504, 307, 11, 11, 243006, 243007, 243008}},
-    {{518, 307, 11, 11, 243003, 243004, 243005}},
-    {{450, 372, 65, 17, 243048, 243049, 243050}},
-    {{371, 372, 66, 17, 245045, 245046, 245047}},
+    {{407, 130, 9, 13}, 245066, 245067, 245068},
+    {{438, 130, 9, 13}, 245063, 245064, 245065},
+    {{407, 148, 9, 13}, 245066, 245067, 245068},
+    {{438, 148, 9, 13}, 245063, 245064, 245065},
+    {{457, 150, 9, 13}, 245066, 245067, 245068},
+    {{533, 150, 9, 13}, 245063, 245064, 245065},
+    {{504, 199, 11, 11}, 243006, 243007, 243008},
+    {{518, 199, 11, 11}, 243003, 243004, 243005},
+    {{504, 307, 11, 11}, 243006, 243007, 243008},
+    {{518, 307, 11, 11}, 243003, 243004, 243005},
+    {{450, 372, 65, 17}, 243048, 243049, 243050},
+    {{371, 372, 66, 17}, 245045, 245046, 245047},
 }};
 
 // 54DDE8为同表第14项，不另建状态或重复表。
@@ -87,12 +87,12 @@ constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {
 }};
 constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}}; // 原常量参考：0x0054DFE0。
 constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{ // 原常量参考：0x0054DFE8。
-    {{256, 400, 65, 17, 243048, 243049, 243050}},
-    {{105, 400, 66, 17, 245045, 245046, 245047}},
+    {{256, 400, 65, 17}, 243048, 243049, 243050},
+    {{105, 400, 66, 17}, 245045, 245046, 245047},
 }};
 // 原54E020起是两个矩形、两组三图号及三版本标签，不是七元UI记录。
-constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationVersionHit54E020 {{
-    {{222, 420, 18, 18}}, {{186, 420, 18, 18}},
+constexpr std::array<cg::ui::UiControlBounds, 2> kCreationVersionHit54E020 {{
+    {222, 420, 18, 18}, {186, 420, 18, 18},
 }};
 constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{ // 原常量参考：0x0054E040。
     {{243033, 243034, 243035}}, {{243030, 243031, 243032}},
@@ -100,12 +100,12 @@ constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E04
 constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{ // 原常量参考：0x0054E058。
     245481, 245482, 245483,
 }};
-constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationPreviewHit54E064 {{ // 原常量参考：0x0054E064。
-    {{455, 138, 125, 125}}, {{455, 291, 125, 125}},
+constexpr std::array<cg::ui::UiControlBounds, 2> kCreationPreviewHit54E064 {{ // 原常量参考：0x0054E064。
+    {455, 138, 125, 125}, {455, 291, 125, 125},
 }};
 constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{ // 原常量参考：0x0054E084。
-    {{458, 268, 18, 18, 243030, 243031, 243032}},
-    {{559, 268, 18, 18, 243033, 243034, 243035}},
+    {{458, 268, 18, 18}, 243030, 243031, 243032},
+    {{559, 268, 18, 18}, 243033, 243034, 243035},
 }};
 constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{ // 原常量参考：0x0055C3FC。
     202800, 202900, 203000, 203100, 203200, 203300, 203400,
@@ -472,14 +472,14 @@ std::int32_t Sub_462930()
         }
         selected = state::gValue9A4CFC;
     }
-    if (Sub_464290(kCreationSelectButtons54DFE8[0].values.data()) != 0) {
+    if (Sub_464290(&kCreationSelectButtons54DFE8[0].bounds) != 0) {
         confirmState = hover();
         if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(53, 320);
             result = 1;
         }
     }
-    if (Sub_464290(kCreationSelectButtons54DFE8[1].values.data()) != 0) {
+    if (Sub_464290(&kCreationSelectButtons54DFE8[1].bounds) != 0) {
         cancelState = hover();
         if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             audio::PlaySe_52C450(54, 320);
@@ -487,7 +487,7 @@ std::int32_t Sub_462930()
         }
     }
     if (state::gPukVersion >= 5) {
-        if (Sub_464290(kCreationVersionHit54E020[0].data()) != 0) {
+        if (Sub_464290(&kCreationVersionHit54E020[0]) != 0) {
             versionPlus = hover();
             if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 const std::uint8_t puk = state::gPukVersion;
@@ -500,7 +500,7 @@ std::int32_t Sub_462930()
                 }
             }
         }
-        if (Sub_464290(kCreationVersionHit54E020[1].data()) != 0) {
+        if (Sub_464290(&kCreationVersionHit54E020[1]) != 0) {
             versionMinus = hover();
             if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 if (CreationSignedByte(state::gValue9A57E0) > 0) {
@@ -511,7 +511,7 @@ std::int32_t Sub_462930()
             }
         }
     }
-    if (Sub_464290(kCreationVariantButtons54E084[0].values.data()) != 0) {
+    if (Sub_464290(&kCreationVariantButtons54E084[0].bounds) != 0) {
         variantMinus = hover();
         if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 - 1);
@@ -521,7 +521,7 @@ std::int32_t Sub_462930()
             }
         }
     }
-    if (Sub_464290(kCreationVariantButtons54E084[1].values.data()) != 0) {
+    if (Sub_464290(&kCreationVariantButtons54E084[1].bounds) != 0) {
         variantPlus = hover();
         if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
             const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 + 1);
@@ -532,8 +532,8 @@ std::int32_t Sub_462930()
         }
     }
 
-    if (Sub_464290(kCreationPreviewHit54E064[0].data()) != 0
-        || Sub_464290(kCreationPreviewHit54E064[1].data()) != 0) {
+    if (Sub_464290(&kCreationPreviewHit54E064[0]) != 0
+        || Sub_464290(&kCreationPreviewHit54E064[1]) != 0) {
         login::YobiAction* first;
         login::YobiAction* second;
         if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
@@ -590,9 +590,9 @@ std::int32_t Sub_462930()
         login::detail::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
     }
     login::detail::DrawGraphic(
-        138, 409, 10, kCreationSelectButtons54DFE8[1].values[4 + cancelState], 0, nullptr);
+        138, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[1])[4 + cancelState], 0, nullptr);
     login::detail::DrawGraphic(
-        289, 409, 10, kCreationSelectButtons54DFE8[0].values[4 + confirmState], 0, nullptr);
+        289, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[0])[4 + confirmState], 0, nullptr);
     if (state::gPukVersion >= 5) {
         login::detail::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
         login::detail::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
@@ -614,9 +614,9 @@ std::int32_t Sub_462930()
     }
     login::detail::DrawGraphic(214, 254, 10, 245041, 0, nullptr);
     login::detail::DrawGraphic(
-        467, 277, 10, kCreationVariantButtons54E084[0].values[4 + variantMinus], 0, nullptr);
+        467, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[0])[4 + variantMinus], 0, nullptr);
     login::detail::DrawGraphic(
-        568, 277, 10, kCreationVariantButtons54E084[1].values[4 + variantPlus], 0, nullptr);
+        568, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[1])[4 + variantPlus], 0, nullptr);
 
     login::YobiAction* const second = state::gCreateActions[1];
     if (second != nullptr) {
@@ -735,14 +735,14 @@ std::int32_t Sub_4631D0()
         return (CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->heldButtons) & 1) != 0 ? 1 : 2;
     };
     const auto hitRow = [](const std::size_t record, const std::int32_t top) {
-        const auto& values = kCreationUi54E0BC[record].values;
+        const auto& bounds = kCreationUi54E0BC[record].bounds;
         return login::detail::Sub_5049A0(
-            values[0], top, values[0] + values[2], top + values[3], -1);
+            bounds.left, top, bounds.left + bounds.width, top + bounds.height, -1);
     };
 
     if (state::gValue9A5AFC == 1) {
         for (std::size_t index = 0; index < 4; ++index) {
-            if (Sub_464290(kCreationUi54E0BC[index].values.data()) != 0) {
+            if (Sub_464290(&kCreationUi54E0BC[index].bounds) != 0) {
                 arrows[index] = hover();
                 if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     auto& value = index < 2 ? state::gValue9A5668 : state::gValue9A4B80;
@@ -764,7 +764,7 @@ std::int32_t Sub_4631D0()
             }
         }
         if (showVersionControls) {
-            if (Sub_464290(kCreationUi54E0BC[4].values.data()) != 0) {
+            if (Sub_464290(&kCreationUi54E0BC[4].bounds) != 0) {
                 arrows[4] = hover();
                 if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = state::gValue9A4B88;
@@ -777,7 +777,7 @@ std::int32_t Sub_4631D0()
                     audio::PlaySe_52C450(51, 320);
                 }
             }
-            if (Sub_464290(kCreationUi54E0BC[5].values.data()) != 0) {
+            if (Sub_464290(&kCreationUi54E0BC[5].bounds) != 0) {
                 arrows[5] = hover();
                 if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->pulseButtons) & 1) != 0) {
                     const std::uint8_t value = state::gValue9A4B88;
@@ -803,7 +803,7 @@ std::int32_t Sub_4631D0()
             }
         }
         for (std::size_t row = 0; row < attributes.size(); ++row) {
-            const std::int32_t top = kCreationUi54E0BC[6].values[1]
+            const std::int32_t top = kCreationUi54E0BC[6].bounds.top
                 + 14 * static_cast<std::int32_t>(row);
             if (CreationSignedByte(*attributes[row]) > 0 && hitRow(6, top) != 0) {
                 attributeMinus[row] = hover();
@@ -850,7 +850,7 @@ std::int32_t Sub_4631D0()
             }
         }
         for (std::size_t row = 0; row < 4; ++row) {
-            const std::int32_t top = kCreationUi54E0BC[8].values[1]
+            const std::int32_t top = kCreationUi54E0BC[8].bounds.top
                 + 14 * static_cast<std::int32_t>(row);
             if (CreationSignedByte(elements[row]) > 0 && hitRow(8, top) != 0) {
                 elementMinus[row] = hover();
@@ -898,7 +898,7 @@ std::int32_t Sub_4631D0()
             }
         }
 
-        if (Sub_464290(kCreationUi54E0BC[10].values.data()) != 0) {
+        if (Sub_464290(&kCreationUi54E0BC[10].bounds) != 0) {
             confirmState = hover();
             if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 const std::int32_t cursor = state::gCreationInput9A51E8.caretByteOffset;
@@ -937,7 +937,7 @@ std::int32_t Sub_4631D0()
                 }
             }
         }
-        if (Sub_464290(kCreationUi54E0BC[11].values.data()) != 0) {
+        if (Sub_464290(&kCreationUi54E0BC[11].bounds) != 0) {
             cancelState = hover();
             if ((CreationMouseByte(platform::BorrowLegacyMouseStateStorage()->edgeButtons) & 1) != 0) {
                 audio::PlaySe_52C450(54, 320);
@@ -1027,7 +1027,7 @@ std::int32_t Sub_4631D0()
     const auto drawButton = [](const std::int32_t x, const std::int32_t y,
                                const std::size_t record, const std::int8_t buttonState) {
         login::detail::DrawGraphic(
-            x, y, 10, kCreationUi54E0BC[record].values[4 + buttonState], 0, nullptr);
+            x, y, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationUi54E0BC[record])[4 + buttonState], 0, nullptr);
     };
     drawButton(411, 137, 0, arrows[0]);
     drawButton(442, 137, 1, arrows[1]);
@@ -1199,12 +1199,12 @@ std::uint8_t Sub_464380()
 }
 
 // 原函数：0x00464290。
-std::int32_t Sub_464290(const std::int32_t* const rectangle)
+std::int32_t Sub_464290(const cg::ui::UiControlBounds* const rectangle)
 {
-    const std::int32_t top = rectangle[1];
-    const std::int32_t left = rectangle[0];
-    const std::int32_t height = rectangle[3];
-    const std::int32_t width = rectangle[2];
+    const std::int32_t top = rectangle->top;
+    const std::int32_t left = rectangle->left;
+    const std::int32_t height = rectangle->height;
+    const std::int32_t width = rectangle->width;
     return login::detail::Sub_5049A0(
         left, top, left + width, top + height, -1);
 }
@@ -1304,10 +1304,10 @@ static_assert(kGraphicClassOffset + sizeof(std::int32_t) <= login::CharacterReco
 static_assert(kPreviewToggleOffset + sizeof(std::int32_t) <= login::CharacterRecordSize);
 
 detail::CharacterSelectUiRecord gReturnUi {
-    {534, 438, 64, 16, 245045, 245047, 245046},
+    {534, 438, 64, 16}, 245045, 245047, 245046,
 };
 detail::CharacterSelectUiRecord gUpdateUi {
-    {296, 433, 49, 17, 244542, 244544, 244543},
+    {296, 433, 49, 17}, 244542, 244544, 244543,
 };
 
 // 原 0x9A6EAC 与 0x9A6EB0 只被本控制器直接持有。
